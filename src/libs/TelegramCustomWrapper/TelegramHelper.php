@@ -7,6 +7,7 @@ namespace TelegramCustomWrapper;
 class TelegramHelper
 {
 	const API_URL = 'https://api.telegram.org';
+	const MESSAGE_PREFIX = \Icons::LOCATION . ' @' . TELEGRAM_BOT_NAME . ':' . PHP_EOL;
 
 	public static function getDisplayName($tgfrom) {
 		if ($tgfrom->username) {
