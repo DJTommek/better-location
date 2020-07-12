@@ -1,0 +1,8 @@
+{
+	"require": {
+		"tracy/tracy": "v2.7.3",
+		"unreal4u/telegram-api": "~3.4",
+		"ext-json": "*",
+		"ext-curl": "*"
+	}
+}
