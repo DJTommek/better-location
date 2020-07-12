@@ -25,16 +25,16 @@ Tracy\Debugger::$logSeverity = E_NOTICE | E_WARNING;
  * @param $className
  * @throws Exception
  */
-function my_autoloader($className) {
+function dummyAutoloader($className) {
 	$path = str_replace('\\', '/', $className);
-	$file = __DIR__ . '/libs/' . $path . '.php';
+	$file = str_replace('\\', '/', __DIR__) . '/libs/' . $path . '.php';
 	if (file_exists($file)) {
-		require $file;
+		require_once $file;
 	} else {
-		throw new Exception('file does not exists');
+		throw new \Exception(sprintf('Class "%s" cannot be loaded, file "%s" does not exists.', $path, $file));
 	}
 }
 
-spl_autoload_register('my_autoloader');
+spl_autoload_register('dummyAutoloader');
 
 Debugger::log('Request: ' . ($_SERVER['REMOTE_ADDR'] ? $_SERVER['REMOTE_ADDR'] . ' - ' : '') . $_SERVER['REQUEST_URI'], Debugger::DEBUG);
