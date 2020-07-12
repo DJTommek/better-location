@@ -4,6 +4,8 @@ namespace TelegramCustomWrapper\Events\Command;
 
 use BetterLocation\BetterLocation;
 use \Icons;
+use Tracy\Debugger;
+use Tracy\ILogger;
 
 class LocationCommand extends Command
 {
@@ -27,7 +29,8 @@ class LocationCommand extends Command
 			);
 		} catch (\Exception $exception) {
 			$this->reply(sprintf('%s Unexpected error occured while processing location for Better location. Contact Admin for more info.', Icons::ERROR));
-			throw $exception;
+			Debugger::log($exception, ILogger::EXCEPTION);
+			return;
 		}
 		if ($result) {
 			$this->reply(

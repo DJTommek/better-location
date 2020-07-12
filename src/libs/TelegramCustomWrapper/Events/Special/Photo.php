@@ -4,6 +4,8 @@ namespace TelegramCustomWrapper\Events\Special;
 
 use \Icons;
 use BetterLocation\BetterLocation;
+use Tracy\Debugger;
+use Tracy\ILogger;
 
 class Photo extends \TelegramCustomWrapper\Events\Special\Special
 {
@@ -26,7 +28,8 @@ class Photo extends \TelegramCustomWrapper\Events\Special\Special
 				$result = $betterLocation->processMessage();
 			} catch (\Exception $exception) {
 				$this->reply(sprintf('%s Unexpected error occured while processing photo caption for Better location. Contact Admin for more info.', Icons::ERROR));
-				throw $exception;
+				Debugger::log($exception, ILogger::EXCEPTION);
+				return;
 			}
 			if ($result) {
 				$this->reply(

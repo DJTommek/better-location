@@ -19,7 +19,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 Tracy\Debugger::enable(DEVELOPMENT_IPS, __DIR__ . '/../data/log/');
 Tracy\Debugger::$strictMode = true;
-Tracy\Debugger::$logSeverity = E_NOTICE | E_WARNING;
+Tracy\Debugger::$logSeverity = E_ALL;
 
 /**
  * @param $className

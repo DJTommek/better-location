@@ -3,6 +3,8 @@
 namespace TelegramCustomWrapper\Events\Special;
 
 use \BetterLocation\BetterLocation;
+use Tracy\Debugger;
+use Tracy\ILogger;
 use \Utils\Coordinates;
 use \Icons;
 use unreal4u\TelegramAPI\Telegram\Methods\GetFile;
@@ -53,7 +55,8 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 							sprintf('%s Unexpected error occured while processing EXIF data from image for Better location. Contact Admin for more info.', Icons::ERROR),
 							['disable_web_page_preview' => true],
 						);
-						throw $exception;
+						Debugger::log($exception, ILogger::EXCEPTION);
+						return;
 					}
 				}
 			}
