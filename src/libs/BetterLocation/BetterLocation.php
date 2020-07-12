@@ -238,21 +238,21 @@ class BetterLocation
 		// chladná.naopak.vložit
 		// flicks.gazed.tapes
 		// https://developer.what3words.com/tutorial/detecting-if-text-is-in-the-format-of-a-3-word-address/
-		$what3wordsRegex = '/\/*((?:\p{L}\p{M}*){1,}[・.。](?:\p{L}\p{M}*){1,}[・.。](?:\p{L}\p{M}*){1,})/u';
-		if (preg_match_all($what3wordsRegex, $this->text, $matches)) {
-			$w3wApiKey = 'Z6OBR7ZI';
-			foreach ($matches[1] as $words) {
-				$apiLink = sprintf('https://api.what3words.com/v3/convert-to-coordinates?key=%s&words=%s&format=json', $w3wApiKey, urlencode($words));
-				$data = json_decode(General::fileGetContents($apiLink));
-				if (isset($data->error)) {
-					// @TODO temporary disabled because it has false-positive matches, eg www.viribusunitis.cz
-//					$result .= sprintf('%s Detected What3Words "%s" but unable to get coordinates.', Icons::ERROR, urlencode($words)) . PHP_EOL . PHP_EOL;
-				} else {
-					$result .= sprintf('<a href="%s">#%d (W3W:%s</a>): ', $data->map, ++$index, $data->words);
-					$result .= $this->generateBetterLocation($data->coordinates->lat, $data->coordinates->lng);
-				}
-			}
-		}
+//		$what3wordsRegex = '/\/*((?:\p{L}\p{M}*){1,}[・.。](?:\p{L}\p{M}*){1,}[・.。](?:\p{L}\p{M}*){1,})/u';
+//		if (preg_match_all($what3wordsRegex, $this->text, $matches)) {
+//			$w3wApiKey = 'Z6OBR7ZI';
+//			foreach ($matches[1] as $words) {
+//				$apiLink = sprintf('https://api.what3words.com/v3/convert-to-coordinates?key=%s&words=%s&format=json', $w3wApiKey, urlencode($words));
+//				$data = json_decode(General::fileGetContents($apiLink));
+//				if (isset($data->error)) {
+//					// @TODO temporary disabled because it has false-positive matches, eg www.viribusunitis.cz
+//					// $result .= sprintf('%s Detected What3Words "%s" but unable to get coordinates.', Icons::ERROR, urlencode($words)) . PHP_EOL . PHP_EOL;
+//				} else {
+//					$result .= sprintf('<a href="%s">#%d (W3W:%s</a>): ', $data->map, ++$index, $data->words);
+//					$result .= $this->generateBetterLocation($data->coordinates->lat, $data->coordinates->lng);
+//				}
+//			}
+//		}
 
 		return $result;
 	}
