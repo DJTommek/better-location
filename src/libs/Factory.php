@@ -11,9 +11,9 @@ class Factory
 		return self::$objects['database'];
 	}
 
-	static function Telegram(): TelegramCustomWrapper {
+	static function Telegram(): \TelegramCustomWrapper\TelegramCustomWrapper {
 		if (!isset(self::$objects['telegram'])) {
-			self::$objects['telegram'] = new TelegramCustomWrapper(TELEGRAM_BOT_TOKEN);
+			self::$objects['telegram'] = new \TelegramCustomWrapper\TelegramCustomWrapper(TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_NAME);
 		}
 		return self::$objects['telegram'];
 	}

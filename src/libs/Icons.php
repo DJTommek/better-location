@@ -9,4 +9,6 @@ class Icons
 	const INFO = "\u{2139}"; // https://emojipedia.org/information/
 	const BACK = "\u{1F519}"; // https://emojipedia.org/back-arrow/
 	const REFRESH = "\u{267B}"; // https://emojipedia.org/recycling-symbol/
+
+	const LOCATION = "\u{1F4CD}"; // https://emojipedia.org/round-pushpin/
 }
