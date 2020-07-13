@@ -9,6 +9,18 @@ class TelegramHelper
 	const API_URL = 'https://api.telegram.org';
 	const MESSAGE_PREFIX = \Icons::LOCATION . ' @' . TELEGRAM_BOT_NAME . ':' . PHP_EOL;
 
+	// @TODO Move CHAT_ACTION_* to some ENUM
+	const CHAT_ACTION_TYPING = 'typing';
+	const CHAT_ACTION_UPLOAD_PHOTO = 'upload_photo';
+	const CHAT_ACTION_RECORD_VIDEO = 'record_video';
+	const CHAT_ACTION_UPLOAD_VIDEO = 'upload_video';
+	const CHAT_ACTION_RECORD_AUDIO = 'record_audio';
+	const CHAT_ACTION_UPLOAD_AUDIO = 'upload_audio';
+	const CHAT_ACTION_UPLOAD_DOCUMENT = 'upload_document';
+	const CHAT_ACTION_FIND_LOCATION = 'find_location';
+	const CHAT_ACTION_RECORD_VIDEO_NOTE = 'record_video_note';
+	const CHAT_ACTION_UPLOAD_VIDEO_NOTE = 'upload_video_note';
+
 	public static function getDisplayName($tgfrom) {
 		if ($tgfrom->username) {
 			$displayName = '@' . $tgfrom->username;

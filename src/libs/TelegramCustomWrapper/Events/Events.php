@@ -52,8 +52,9 @@ abstract class Events
 	 * @param string $action
 	 * @throws \Exception
 	 * @noinspection PhpUnused
+	 * @TODO Check if action string is valid
 	 */
-	public function sendAction(string $action = 'typing') {
+	public function sendAction(string $action = TelegramHelper::CHAT_ACTION_TYPING) {
 		$chatAction = new SendChatAction();
 		$chatAction->chat_id = $this->getChatId();
 		$chatAction->action = $action;
