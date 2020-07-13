@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BetterLocation\Service;
 
+use BetterLocation\BetterLocation;
 use \Utils\General;
 use \Icons;
 
@@ -33,7 +34,11 @@ final class GoogleMapsService extends AbstractService
 			$newLocation = $this->getLocationFromHeaders($this->url);
 			$coords = $this->parseUrl($newLocation);
 			if ($coords) {
-				return $this->generateBetterLocation($coords[0], $coords[1]);
+				return new BetterLocation(
+					$coords[0],
+					$coords[1],
+					sprintf('<a href="%s">Goo.gl</a>', $this->url),
+				);
 			} else {
 				return sprintf('%s Unable to get coords for Goo.gl link.', Icons::ERROR) . PHP_EOL . PHP_EOL;
 			}
@@ -47,7 +52,8 @@ final class GoogleMapsService extends AbstractService
 			// https://maps.google.com/maps?ll=49.367523,14.514022&q=49.367523,14.514022
 			$coords = $this->parseUrl($this->url);
 			if ($coords) {
-				return $this->generateBetterLocation($coords[0], $coords[1]);
+				return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Google</a>', $this->url),
+				);
 			} else {
 				return sprintf('%s Unable to get coords for Google maps normal link.', Icons::ERROR) . PHP_EOL . PHP_EOL;
 			}
@@ -131,5 +137,13 @@ final class GoogleMapsService extends AbstractService
 			}
 		}
 		return null;
+	}
+
+	public function getLink($drive) {
+		// TODO: Implement getLink() method.
+	}
+
+	public static function isValid() {
+		// TODO: Implement isValid() method.
 	}
 }

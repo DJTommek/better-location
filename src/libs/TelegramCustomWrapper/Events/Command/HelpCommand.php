@@ -12,8 +12,8 @@ class HelpCommand extends Command
 
 		$lat = 50.0877258;
 		$lon = 14.4211267;
-		$betterLocation = new BetterLocation('', []);
-		$result = $betterLocation->generateBetterLocation($lat, $lon);
+		$betterLocation = new BetterLocation($lat, $lon, 'Coords');
+		$result = $betterLocation->generateBetterLocationV2();
 
 		$text = sprintf('%s Welcome to @%s!', Icons::LOCATION, TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('I\'m simple but smart bot to catch all possible location formats and generate links to most used location services as Google maps, Waze, OpenStreetMaps etc.') . PHP_EOL;

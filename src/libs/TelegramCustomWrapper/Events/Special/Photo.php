@@ -21,27 +21,29 @@ class Photo extends \TelegramCustomWrapper\Events\Special\Special
 		parent::__construct($update, $tgLog, $loop);
 
 		// PM or whitelisted group
-		if ($this->isPm() || in_array($this->getChatId(), BetterLocation::TELEGRAM_GROUP_WHITELIST)) {
-			$result = null;
-			try {
-				$betterLocation = new BetterLocation($this->update->message->caption, $this->update->message->caption_entities);
-				$result = $betterLocation->processMessage();
-			} catch (\Exception $exception) {
-				$this->reply(sprintf('%s Unexpected error occured while processing photo caption for Better location. Contact Admin for more info.', Icons::ERROR));
-				Debugger::log($exception, ILogger::EXCEPTION);
-				return;
+		$result = '';
+		try {
+			$betterLocations = BetterLocation::generateFromMessage(
+				$this->update->message->caption,
+				$this->update->message->caption_entities,
+			);
+			foreach ($betterLocations as $betterLocation) {
+				$result .= $betterLocation->generateBetterLocationV2();
 			}
-			if ($result) {
-				$this->reply(
-					sprintf('%s <b>Better location</b>', Icons::LOCATION) . PHP_EOL . $result,
-					['disable_web_page_preview' => true],
-				);
-				return;
-			}
+			dump($betterLocations);
+		} catch (\Exception $exception) {
+			$this->reply(sprintf('%s Unexpected error occured while processing photo caption for Better location. Contact Admin for more info.', Icons::ERROR));
+			Debugger::log($exception, ILogger::EXCEPTION);
+			return;
 		}
-
-		if ($this->isPm()) {
-			$this->reply('Thanks for the photo in PM! But I\'m not sure, what to do...');
+		if ($result) {
+			$this->reply(
+				sprintf('%s <b>Better location</b>', Icons::LOCATION) . PHP_EOL . $result,
+				['disable_web_page_preview' => true],
+			);
+			return;
+		} else if ($this->isPm()) {
+			$this->reply('Thanks for the photo in PM! But I\'m not sure, what to do... If you want to process location from EXIF, you have to send uncompressed photo.');
 		}
 	}
 }

@@ -9,6 +9,9 @@ use Icons;
 
 abstract class AbstractService
 {
+	abstract public function getLink($drive);
+	abstract public static function isValid();
+
 	/**
 	 * @param $url
 	 * @return mixed|null

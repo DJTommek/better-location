@@ -8,9 +8,9 @@ use \TelegramCustomWrapper\Events\Command\DebugCommand;
 use \TelegramCustomWrapper\Events\Command\HelpCommand;
 use \TelegramCustomWrapper\Events\Command\LocationCommand;
 use \TelegramCustomWrapper\Events\Command\MessageCommand;
-use \TelegramCustomWrapper\Events\Command\PhotoCommand;
 use \TelegramCustomWrapper\Events\Command\UnknownCommand;
 use TelegramCustomWrapper\Events\Special\File;
+use TelegramCustomWrapper\Events\Special\Photo;
 use unreal4u\TelegramAPI\Telegram;
 use \unreal4u\TelegramAPI\TgLog;
 use \unreal4u\TelegramAPI\HttpClientRequestHandler;
@@ -33,7 +33,7 @@ class TelegramCustomWrapper
 
 	/**
 	 * @param $updateData
-	 * @return DebugCommand|File|HelpCommand|LocationCommand|MessageCommand|PhotoCommand|UnknownCommand|string|void
+	 * @return DebugCommand|File|HelpCommand|LocationCommand|MessageCommand|UnknownCommand|string|void
 	 * @throws \Exception
 	 */
 	public function handleUpdate($updateData) {
@@ -65,7 +65,7 @@ class TelegramCustomWrapper
 		} elseif (TelegramHelper::hasDocument($update)) {
 			return new File($update, $this->tgLog, $this->loop);
 		} elseif (TelegramHelper::hasPhoto($update)) {
-			return new PhotoCommand($update, $this->tgLog, $this->loop);
+			return new Photo($update, $this->tgLog, $this->loop);
 		} else {
 			$update->message->from->username = $update->message->from->username === '' ? null : $update->message->from->username;
 			/** @noinspection PhpUndefinedFieldInspection */

@@ -22,11 +22,12 @@ class LocationCommand extends Command
 
 		$result = null;
 		try {
-			$betterLocation = new BetterLocation($this->getText(), $this->update->message->entities);
-			$result = $betterLocation->generateBetterLocation(
+			$betterLocation = new BetterLocation(
 				$this->update->message->location->latitude,
 				$this->update->message->location->longitude,
+				'Location'
 			);
+			$result = $betterLocation->generateBetterLocationV2();
 		} catch (\Exception $exception) {
 			$this->reply(sprintf('%s Unexpected error occured while processing location for Better location. Contact Admin for more info.', Icons::ERROR));
 			Debugger::log($exception, ILogger::EXCEPTION);

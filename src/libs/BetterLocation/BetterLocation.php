@@ -12,30 +12,33 @@ use \OpenLocationCode\OpenLocationCode;
 
 class BetterLocation
 {
-	private $text;
-	private $entities;
+	private $lat;
+	private $lon;
+	private $prefixMessage;
 
-	const TELEGRAM_GROUP_WHITELIST = [
-		-1001493272809, // redilap test group
-		-1001404725560, // iQuest 2020 chat
-	];
-
-	public function __construct(string $text, array $entities) {
-		$this->text = $text;
-		$this->entities = $entities;
+	public function __construct(float $lat, float $lon, string $prefixMessage) {
+		$this->lat = $lat;
+		$this->lon = $lon;
+		$this->prefixMessage = $prefixMessage;
 	}
 
 	/**
-	 * @return string
+	 * @param string $text
+	 * @param array $entities
+	 * @return BetterLocation[]
 	 * @throws \Exception
 	 */
-	public function processMessage() {
+	public static function generateFromMessage(string $text, array $entities): array {
+		$betterLocationsObjects = [];
+		// @TODO remove this ugly dummy...
+		$dummyBetterLocation = new BetterLocation(49.0, 15.0, '');
+
 		$index = 0;
 		$result = '';
-		foreach ($this->entities as $entity) {
+		foreach ($entities as $entity) {
 			if (in_array($entity->type, ['url', 'text_link'])) {
 				if ($entity->type === 'url') {
-					$url = mb_substr($this->text, $entity->offset, $entity->length);
+					$url = mb_substr($text, $entity->offset, $entity->length);
 				} else if ($entity->type === 'text_link') {
 					$url = $entity->url;
 				} else {
@@ -45,8 +48,7 @@ class BetterLocation
 				$googleMapsService = new GoogleMapsService($url);
 				$googleMapsServiceResult = $googleMapsService->run();
 				if ($googleMapsServiceResult) {
-					$result .= sprintf('<a href="%s">#%d (Google)</a>: ', $url, ++$index);
-					$result .= $googleMapsServiceResult;
+					$betterLocationsObjects[] = $googleMapsServiceResult;
 				}
 
 				// Mapy.cz short link:
@@ -54,12 +56,11 @@ class BetterLocation
 				// https://en.mapy.cz/s/porumejene
 				// https://en.mapy.cz/s/3ql7u
 				if (preg_match('/https:\/\/([a-z]{1,3}\.)?mapy\.cz\/s\/[a-z0-9A-Z]+/', $url)) {
-					$result .= sprintf('<a href="%s">#%d (Mapy.cz)</a>: ', $url, ++$index);
-					$newLocation = $this->getLocationFromHeaders($url);
+					$newLocation = $dummyBetterLocation->getLocationFromHeaders($url);
 					if ($newLocation) {
-						$coords = $this->getCoordsFromMapyCz($newLocation);
+						$coords = $dummyBetterLocation->getCoordsFromMapyCz($newLocation);
 						if ($coords) {
-							$result .= $this->generateBetterLocation($coords[0], $coords[1]);
+							$betterLocationsObjects[] = new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">#%d (Mapy.cz)</a>: ', $url, ++$index));
 						} else {
 							$result .= sprintf('%s Unable to get coords for Mapy.cz short link.', Icons::ERROR) . PHP_EOL . PHP_EOL;
 						}
@@ -74,10 +75,9 @@ class BetterLocation
 				// Mapy.cz panorama:
 				// https://en.mapy.cz/zakladni?x=14.3139613&y=49.1487367&z=15&pano=1&pid=30158941&yaw=1.813&fov=1.257&pitch=-0.026
 				if (preg_match('/https:\/\/([a-z]{1,3}\.)?mapy\.cz\/([a-z0-9-]{2,})?\?/', $url)) { // at least two characters, otherwise it is probably /s/hort-version of link
-					$result .= sprintf('<a href="%s">#%d (Mapy.cz)</a>: ', $url, ++$index);
-					$coords = $this->getCoordsFromMapyCz($url);
+					$coords = $dummyBetterLocation->getCoordsFromMapyCz($url);
 					if ($coords) {
-						$result .= $this->generateBetterLocation($coords[0], $coords[1]);
+						$betterLocationsObjects[] = new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">#%d (Mapy.cz)</a>: ', $url, ++$index));
 					} else {
 						$result .= sprintf('%s Unable to get coords from Mapy.cz normal link.', Icons::ERROR) . PHP_EOL . PHP_EOL;
 					}
@@ -91,10 +91,9 @@ class BetterLocation
 				// https://www.openstreetmap.org/?mlat=50.05328&mlon=14.45640#map=18/50.05328/14.45640
 				$openStreetMapUrl = 'https://www.openstreetmap.org/';
 				if (substr($url, 0, mb_strlen($openStreetMapUrl)) === $openStreetMapUrl) {
-					$result .= sprintf('<a href="%s">#%d (OSM)</a>: ', $url, ++$index);
-					$coords = $this->getCoordsFromOpenStreetMap($url);
+					$coords = $dummyBetterLocation->getCoordsFromOpenStreetMap($url);
 					if ($coords) {
-						$result .= $this->generateBetterLocation($coords[0], $coords[1]);
+						$betterLocationsObjects[] = new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">#%d (OSM)</a>: ', $url, ++$index));
 					} else {
 						$result .= sprintf('%s Unable to get coords from OSM basic link.', Icons::ERROR) . PHP_EOL . PHP_EOL;
 					}
@@ -119,8 +118,11 @@ class BetterLocation
 					$plusCode = str_replace($plusCodesLink, '', $url);
 					if (OpenLocationCode::isValid($plusCode)) {
 						$coords = OpenLocationCode::decode($plusCode);
-						$result .= sprintf('<a href="%s">#%d (OLC:%s</a>): ', $plusCodesLink, ++$index, $plusCode);
-						$result .= $this->generateBetterLocation($coords['latitudeCenter'], $coords['longitudeCenter']);
+						$betterLocationsObjects[] = new BetterLocation(
+							$coords['latitudeCenter'],
+							$coords['longitudeCenter'],
+							sprintf('<a href="%s">#%d (OLC:%s</a>): ', $plusCodesLink, ++$index, $plusCode)
+						);
 					} else {
 						$result .= sprintf('%s Detected plus code URL but word is not valid.', Icons::ERROR) . PHP_EOL . PHP_EOL;
 					}
@@ -154,15 +156,14 @@ class BetterLocation
 				// Waze short link:
 				// https://waze.com/ul/hu2fk8zezt
 				if (preg_match('/https:\/\/waze\.com\/ul\/[a-z0-9A-Z]+$/', $url)) {
-					$result .= sprintf('<a href="%s">#%d (Waze)</a>: ', $url, ++$index);
 					// first letter "h" is removed
 					$wazeUpdatedUrl = str_replace('waze.com/ul/h', 'www.waze.com/livemap?h=', $url);
-					$newLocation = $this->getLocationFromHeaders($wazeUpdatedUrl);
+					$newLocation = $dummyBetterLocation->getLocationFromHeaders($wazeUpdatedUrl);
 					if ($newLocation) {
 						$newLocation = $wazeLink . $newLocation;
-						$coords = $this->getCoordsFromWaze($newLocation);
+						$coords = $dummyBetterLocation->getCoordsFromWaze($newLocation);
 						if ($coords) {
-							$result .= $this->generateBetterLocation($coords[0], $coords[1]);
+							$betterLocationsObjects[] = new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">#%d (Waze)</a>: ', $url, ++$index));
 						} else {
 							$result .= sprintf('%s Unable to get coords for Waze short link.', Icons::ERROR) . PHP_EOL . PHP_EOL;
 						}
@@ -181,10 +182,9 @@ class BetterLocation
 					// https://www.waze.com/cs/livemap/directions?to=ll.50.07734439%2C14.43475842
 					// https://www.waze.com/cs/livemap/directions?to=ll.49.8770796%2C18.430363
 				} else if (substr($url, 0, mb_strlen($wazeLink)) === $wazeLink) {
-					$result .= sprintf('<a href="%s">#%d (Waze)</a>: ', $url, ++$index);
-					$coords = $this->getCoordsFromWaze($url);
+					$coords = $dummyBetterLocation->getCoordsFromWaze($url);
 					if ($coords) {
-						$result .= $this->generateBetterLocation($coords[0], $coords[1]);
+						$betterLocationsObjects[] = new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">#%d (Waze)</a>: ', $url, ++$index));
 					} else {
 						$result .= sprintf('%s Unable to get coords for Waze link.', Icons::ERROR) . PHP_EOL . PHP_EOL;
 					}
@@ -193,42 +193,44 @@ class BetterLocation
 		}
 
 		// Coordinates
-		if (preg_match_all(Coordinates::RE_WGS84_DEGREES, $this->getTextWithoutUrls(), $matches)) {
+		if (preg_match_all(Coordinates::RE_WGS84_DEGREES, $dummyBetterLocation->getTextWithoutUrls($text, $entities), $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
-				$result .= sprintf('#%d (Coords): ', ++$index);
-				$result .= $this->generateBetterLocation(floatval($matches[1][$i]), floatval($matches[2][$i]));
-			}
-		}
-
-		// Coordinates
-		if (preg_match_all(Coordinates::RE_WGS84_DEGREES_MINUTES, $this->getTextWithoutUrls(), $matches)) {
-			for ($i = 0; $i < count($matches[0]); $i++) {
-				$result .= sprintf('#%d (Coords): ', ++$index);
-				$result .= $this->generateBetterLocation(
-					Coordinates::wgs84DegreesMinutesToDecimal(floatval($matches[3][$i]), floatval($matches[4][$i]), $matches[2][$i]),
-					Coordinates::wgs84DegreesMinutesToDecimal(floatval($matches[7][$i]), floatval($matches[8][$i]), $matches[6][$i]),
+				$betterLocationsObjects[] = new BetterLocation(
+					floatval($matches[1][$i]),
+					floatval($matches[2][$i]),
+					sprintf('#%d (Coords): ', ++$index),
 				);
 			}
 		}
 
 		// Coordinates
-		if (preg_match_all(Coordinates::RE_WGS84_DEGREES_MINUTES_SECONDS, $this->getTextWithoutUrls(), $matches)) {
+		if (preg_match_all(Coordinates::RE_WGS84_DEGREES_MINUTES, $dummyBetterLocation->getTextWithoutUrls($text, $entities), $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
-				$result .= sprintf('#%d (Coords): ', ++$index);
-				$result .= $this->generateBetterLocation(
+				$betterLocationsObjects[] = new BetterLocation(
+					Coordinates::wgs84DegreesMinutesToDecimal(floatval($matches[3][$i]), floatval($matches[4][$i]), $matches[2][$i]),
+					Coordinates::wgs84DegreesMinutesToDecimal(floatval($matches[7][$i]), floatval($matches[8][$i]), $matches[6][$i]),
+					sprintf('#%d (Coords): ', ++$index),
+				);
+			}
+		}
+
+		// Coordinates
+		if (preg_match_all(Coordinates::RE_WGS84_DEGREES_MINUTES_SECONDS, $dummyBetterLocation->getTextWithoutUrls($text, $entities), $matches)) {
+			for ($i = 0; $i < count($matches[0]); $i++) {
+				$betterLocationsObjects[] = new BetterLocation(
 					Coordinates::wgs84DegreesMinutesSecondsToDecimal(floatval($matches[2][$i]), floatval($matches[3][$i]), floatval($matches[4][$i]), $matches[5][$i]),
 					Coordinates::wgs84DegreesMinutesSecondsToDecimal(floatval($matches[7][$i]), floatval($matches[8][$i]), floatval($matches[9][$i]), $matches[10][$i]),
+					sprintf('#%d (Coords): ', ++$index),
 				);
 			}
 		}
 
 		// OLC (Open Location Codes, Plus Codes)
-		foreach (preg_split('/[^a-zA-Z0-9+]+/', $this->getTextWithoutUrls()) as $word) {
+		foreach (preg_split('/[^a-zA-Z0-9+]+/', $dummyBetterLocation->getTextWithoutUrls($text, $entities)) as $word) {
 			if (OpenLocationCode::isValid($word)) {
 				$coords = OpenLocationCode::decode($word);
 				$plusCodesLink = sprintf('https://plus.codes/%s', $word);
-				$result .= sprintf('<a href="%s">#%d (OLC:%s</a>): ', $plusCodesLink, ++$index, $word);
-				$result .= $this->generateBetterLocation($coords['latitudeCenter'], $coords['longitudeCenter']);
+				$betterLocationsObjects[] = new BetterLocation($coords['latitudeCenter'], $coords['longitudeCenter'], sprintf('<a href="%s">#%d (OLC:%s</a>): ', $plusCodesLink, ++$index, $word));
 			}
 		}
 
@@ -254,38 +256,37 @@ class BetterLocation
 //			}
 //		}
 
-		return $result;
+		return $betterLocationsObjects;
 	}
 
-	private function getTextWithoutUrls() {
-		$textWithoutUrls = $this->text;
-		foreach (array_reverse($this->entities) as $entity) {
+	private function getTextWithoutUrls(string $text, array $entities) {
+		foreach (array_reverse($entities) as $entity) {
 			if ($entity->type === 'url') {
-				$textWithoutUrls = General::substrReplace($textWithoutUrls, '<a>', $entity->offset, $entity->length);
+				$text = General::substrReplace($text, '<a>', $entity->offset, $entity->length);
 			}
 		}
-		return $textWithoutUrls;
+		return $text;
 	}
 
-	public function generateBetterLocation(float $lat, float $lon) {
+	public function generateBetterLocationV2() {
 		$links = [];
 		// Google maps
-		$googleLink = sprintf('https://www.google.cz/maps/place/%1$f,%2$f?q=%1$f,%2$f', $lat, $lon);
+		$googleLink = sprintf('https://www.google.cz/maps/place/%1$f,%2$f?q=%1$f,%2$f', $this->lat, $this->lon);
 		$links[] = sprintf('<a href="%s">Google</a>', $googleLink);
 		// Mapy.cz
-		$mapyCzLink = sprintf('https://en.mapy.cz/zakladni?y=%1$f&x=%2$f&source=coor&id=%2$f%%2C%1$f', $lat, $lon);
+		$mapyCzLink = sprintf('https://en.mapy.cz/zakladni?y=%1$f&x=%2$f&source=coor&id=%2$f%%2C%1$f', $this->lat, $this->lon);
 		$links[] = sprintf('<a href="%s">Mapy.cz</a>', $mapyCzLink);
 		// Waze
-		$wazeLink = sprintf('https://www.waze.com/ul?ll=%1$f,%2$f&navigate=yes', $lat, $lon);
+		$wazeLink = sprintf('https://www.waze.com/ul?ll=%1$f,%2$f&navigate=yes', $this->lat, $this->lon);
 		$links[] = sprintf('<a href="%s">Waze</a>', $wazeLink);
 		// OpenStreetMap
-		$openStreetMapLink = sprintf('https://www.openstreetmap.org/search?whereami=1&query=%1$f,%2$f&mlat=%1$f&mlon=%2$f#map=17/%1$f/%2$f', $lat, $lon);
+		$openStreetMapLink = sprintf('https://www.openstreetmap.org/search?whereami=1&query=%1$f,%2$f&mlat=%1$f&mlon=%2$f#map=17/%1$f/%2$f', $this->lat, $this->lon);
 		$links[] = sprintf('<a href="%s">OSM</a>', $openStreetMapLink);
 		// Intel
-		$intelLink = sprintf('https://intel.ingress.com/intel?ll=%1$f,%2$f&pll=%1$f,%2$f', $lat, $lon);
+		$intelLink = sprintf('https://intel.ingress.com/intel?ll=%1$f,%2$f&pll=%1$f,%2$f', $this->lat, $this->lon);
 		$links[] = sprintf('<a href="%s">Intel</a>', $intelLink);
 
-		return sprintf('%s <code>%f,%f</code>:%s%s', Icons::SUCCESS, $lat, $lon, PHP_EOL, join(' | ', $links)) . PHP_EOL . PHP_EOL;
+		return sprintf('%s %s <code>%f,%f</code>:%s%s', $this->prefixMessage, Icons::SUCCESS, $this->lat, $this->lon, PHP_EOL, join(' | ', $links)) . PHP_EOL . PHP_EOL;
 	}
 
 	private function getLocationFromHeaders($url) {
