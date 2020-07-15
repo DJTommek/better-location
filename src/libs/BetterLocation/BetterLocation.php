@@ -6,11 +6,11 @@ namespace BetterLocation;
 
 use \BetterLocation\Service\GoogleMapsService;
 use \BetterLocation\Service\MapyCzService;
-use BetterLocation\Service\OpenStreetMapService;
+use \BetterLocation\Service\OpenStreetMapService;
+use \BetterLocation\Service\OpenLocationCodeService;
 use \Utils\Coordinates;
 use \Utils\General;
 use \Icons;
-use \OpenLocationCode\OpenLocationCode;
 
 class BetterLocation
 {
@@ -53,23 +53,8 @@ class BetterLocation
 					$betterLocationsObjects[] = MapyCzService::parseCoords($url);
 				} else if (OpenStreetMapService::isValid($url)) {
 					$betterLocationsObjects[] = OpenStreetMapService::parseCoords($url);
-				}
-
-				// OLC (Open Location Codes, Plus Codes)
-				// https://plus.codes/8FXP74WG+XHW
-				$plusCodesLink = 'https://plus.codes/';
-				if (substr($url, 0, mb_strlen($plusCodesLink)) === $plusCodesLink) {
-					$plusCode = str_replace($plusCodesLink, '', $url);
-					if (OpenLocationCode::isValid($plusCode)) {
-						$coords = OpenLocationCode::decode($plusCode);
-						$betterLocationsObjects[] = new BetterLocation(
-							$coords['latitudeCenter'],
-							$coords['longitudeCenter'],
-							sprintf('<a href="%s">#%d (OLC:%s</a>): ', $plusCodesLink, ++$index, $plusCode)
-						);
-					} else {
-						$result .= sprintf('%s Detected plus code URL but word is not valid.', Icons::ERROR) . PHP_EOL . PHP_EOL;
-					}
+				} else if (OpenLocationCodeService::isValid($url)) {
+					$betterLocationsObjects[] = OpenLocationCodeService::parseCoords($url);
 				}
 
 				// @TODO possibly remove, this is being detected by string, no need to match URLs
@@ -171,10 +156,8 @@ class BetterLocation
 
 		// OLC (Open Location Codes, Plus Codes)
 		foreach (preg_split('/[^a-zA-Z0-9+]+/', $dummyBetterLocation->getTextWithoutUrls($text, $entities)) as $word) {
-			if (OpenLocationCode::isValid($word)) {
-				$coords = OpenLocationCode::decode($word);
-				$plusCodesLink = sprintf('https://plus.codes/%s', $word);
-				$betterLocationsObjects[] = new BetterLocation($coords['latitudeCenter'], $coords['longitudeCenter'], sprintf('<a href="%s">#%d (OLC:%s</a>): ', $plusCodesLink, ++$index, $word));
+			if (OpenLocationCodeService::isValid($word)) {
+				$betterLocationsObjects[] = OpenLocationCodeService::parseCoords($word);
 			}
 		}
 
