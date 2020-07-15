@@ -6,6 +6,7 @@ namespace BetterLocation;
 
 use \BetterLocation\Service\GoogleMapsService;
 use \BetterLocation\Service\MapyCzService;
+use BetterLocation\Service\OpenStreetMapService;
 use \Utils\Coordinates;
 use \Utils\General;
 use \Icons;
@@ -50,34 +51,8 @@ class BetterLocation
 					$betterLocationsObjects[] = GoogleMapsService::parseCoords($url);
 				} else if (MapyCzService::isValid($url)) {
 					$betterLocationsObjects[] = MapyCzService::parseCoords($url);
-				}
-
-				// OpenStreetMap:
-				// https://www.openstreetmap.org/#map=17/49.355164/14.272819
-				// https://www.openstreetmap.org/#map=17/49.32085/14.16402&layers=N
-				// https://www.openstreetmap.org/#map=18/50.05215/14.45283
-				// https://www.openstreetmap.org/?mlat=50.05215&mlon=14.45283#map=18/50.05215/14.45283
-				// https://www.openstreetmap.org/?mlat=50.05328&mlon=14.45640#map=18/50.05328/14.45640
-				$openStreetMapUrl = 'https://www.openstreetmap.org/';
-				if (substr($url, 0, mb_strlen($openStreetMapUrl)) === $openStreetMapUrl) {
-					$coords = $dummyBetterLocation->getCoordsFromOpenStreetMap($url);
-					if ($coords) {
-						$betterLocationsObjects[] = new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">#%d (OSM)</a>: ', $url, ++$index));
-					} else {
-						$result .= sprintf('%s Unable to get coords from OSM basic link.', Icons::ERROR) . PHP_EOL . PHP_EOL;
-					}
-				}
-
-				// OpenStreetMap short link:
-				// https://osm.org/go/0J0kf83sQ--?m=
-				// https://osm.org/go/0EEQjE==
-				// https://osm.org/go/0EEQjEEb
-				// https://osm.org/go/0J0kf3lAU--
-				// https://osm.org/go/0J0kf3lAU--?m=
-				$openStreetMapShortUrl = 'https://osm.org/go/';
-				if (substr($url, 0, mb_strlen($openStreetMapShortUrl)) === $openStreetMapShortUrl) {
-					$result .= sprintf('<a href="%s">#%d (OSM)</a>: ', $url, ++$index);
-					$result .= sprintf('%s Short URL of OSM maps is not yet implemented.', Icons::ERROR) . PHP_EOL . PHP_EOL;
+				} else if (OpenStreetMapService::isValid($url)) {
+					$betterLocationsObjects[] = OpenStreetMapService::parseCoords($url);
 				}
 
 				// OLC (Open Location Codes, Plus Codes)
@@ -247,8 +222,7 @@ class BetterLocation
 		$wazeLink = sprintf('https://www.waze.com/ul?ll=%1$f,%2$f&navigate=yes', $this->lat, $this->lon);
 		$links[] = sprintf('<a href="%s">Waze</a>', $wazeLink);
 		// OpenStreetMap
-		$openStreetMapLink = sprintf('https://www.openstreetmap.org/search?whereami=1&query=%1$f,%2$f&mlat=%1$f&mlon=%2$f#map=17/%1$f/%2$f', $this->lat, $this->lon);
-		$links[] = sprintf('<a href="%s">OSM</a>', $openStreetMapLink);
+		$links[] = sprintf('<a href="%s">OSM</a>', OpenStreetMapService::getLink($this->lat, $this->lon));
 		// Intel
 		$intelLink = sprintf('https://intel.ingress.com/intel?ll=%1$f,%2$f&pll=%1$f,%2$f', $this->lat, $this->lon);
 		$links[] = sprintf('<a href="%s">Intel</a>', $intelLink);
@@ -278,79 +252,5 @@ class BetterLocation
 			floatval($coords[0]),
 			floatval($coords[1]),
 		];
-	}
-
-	private function getCoordsFromOpenStreetMap(string $url) {
-		$paramsHashString = explode('#map=', $url);
-		// url is in format some-url/blahblah#map=lat/lon
-		if (count($paramsHashString) === 2) {
-			$urlCoords = explode('/', $paramsHashString[1]);
-			$resultCoords = [
-				floatval($urlCoords[1]),
-			];
-			$coordLon = explode('&', $urlCoords[1]);
-			$resultCoords[] = floatval($coordLon[0]);
-			return $resultCoords;
-		} else {
-			$paramsQueryString = explode('?', $url);
-			if (count($paramsQueryString) === 2) {
-				parse_str($paramsQueryString[1], $params);
-				return [
-					floatval($params['mlat']),
-					floatval($params['mlon']),
-				];
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * @param string $url
-	 * @return array|null
-	 * @throws \Exception
-	 */
-	private function getCoordsFromGoogleMaps(string $url) {
-		$paramsString = explode('?', $url);
-		if (count($paramsString) === 2) {
-			parse_str($paramsString[1], $params);
-		}
-		// https://www.google.com/maps/place/50%C2%B006'04.6%22N+14%C2%B031'44.0%22E/@50.101271,14.5281082,18z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d50.1012711!4d14.5288824?shorturl=1
-		// Regex is matching "!3d50.1012711!4d14.5288824"
-		if (preg_match('/!3d(-?[0-9]{1,3}\.[0-9]+)!4d(-?[0-9]{1,3}\.[0-9]+)/', $url, $matches)) {
-			return [
-				floatval($matches[1]),
-				floatval($matches[2]),
-			];
-		} else if (isset($params['ll'])) {
-			$coords = explode(',', $params['ll']);
-			return [
-				floatval($coords[0]),
-				floatval($coords[1]),
-			];
-		} else if (isset($params['q'])) { // @TODO in this parameter probably might be also non-coordinates locations (eg. address)
-			$coords = explode(',', $params['q']);
-			return [
-				floatval($coords[0]),
-				floatval($coords[1]),
-			];
-			// Warning: coordinates in URL in format "@50.00,15.00" is position of the map, not selected/shared point.
-		} else if (preg_match('/@([0-9]{1,3}\.[0-9]+),([0-9]{1,3}\.[0-9]+)/', $url, $matches)) {
-			return [
-				floatval($matches[1]),
-				floatval($matches[2]),
-			];
-		} else {
-			// URL don't have any coordinates or place-id to translate so load content and there are some coordinates hidden in page in some of brutal multi-array
-			$content = General::fileGetContents($url);
-			// Regex is searching for something like this: ',"",null,[null,null,50.0641584,14.468139599999999]';
-			// Warning: Not exact position
-			if (preg_match('/","",null,\[null,null,(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)]\n/', $content, $matches)) {
-				return [
-					floatval($matches[1]),
-					floatval($matches[2]),
-				];
-			}
-		}
-		return null;
 	}
 }

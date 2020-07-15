@@ -18,12 +18,12 @@ final class MapyCzService extends AbstractService
 	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
 		if ($drive) {
-			return sprintf(self::LINK, $lat, $lon);
-		} else {
 			// No official API for backend so it might be probably generated only via simulating frontend
 			// @see https://napoveda.seznam.cz/forum/threads/120687/1
 			// @see https://napoveda.seznam.cz/forum/file/13641/Schema-otevirani-aplikaci-z-url-a-externe.pdf
 			throw new \InvalidArgumentException('Drive link is not implemented.');
+		} else {
+			return sprintf(self::LINK, $lat, $lon);
 		}
 	}
 
@@ -37,8 +37,6 @@ final class MapyCzService extends AbstractService
 	 * @throws \Exception
 	 */
 	public static function parseCoords(string $url) {
-		dump($url);
-		dump(self::isShortUrl($url));
 		if (self::isShortUrl($url)) {
 			$newLocation = self::getRedirectUrl($url);
 			if ($newLocation) {
