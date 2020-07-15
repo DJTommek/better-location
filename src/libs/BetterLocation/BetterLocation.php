@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BetterLocation;
 
 use \BetterLocation\Service\GoogleMapsService;
+use \BetterLocation\Service\MapyCzService;
 use \Utils\Coordinates;
 use \Utils\General;
 use \Icons;
@@ -47,38 +48,8 @@ class BetterLocation
 
 				if (GoogleMapsService::isValid($url)) {
 					$betterLocationsObjects[] = GoogleMapsService::parseCoords($url);
-				}
-
-				// Mapy.cz short link:
-				// https://mapy.cz/s/porumejene
-				// https://en.mapy.cz/s/porumejene
-				// https://en.mapy.cz/s/3ql7u
-				if (preg_match('/https:\/\/([a-z]{1,3}\.)?mapy\.cz\/s\/[a-z0-9A-Z]+/', $url)) {
-					$newLocation = $dummyBetterLocation->getLocationFromHeaders($url);
-					if ($newLocation) {
-						$coords = $dummyBetterLocation->getCoordsFromMapyCz($newLocation);
-						if ($coords) {
-							$betterLocationsObjects[] = new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">#%d (Mapy.cz)</a>: ', $url, ++$index));
-						} else {
-							$result .= sprintf('%s Unable to get coords for Mapy.cz short link.', Icons::ERROR) . PHP_EOL . PHP_EOL;
-						}
-					} else {
-						$result .= sprintf('%s Unable to get real url for Mapy.cz short link.', Icons::ERROR) . PHP_EOL . PHP_EOL;
-					}
-				}
-
-				// Mapy.cz normal link:
-				// https://en.mapy.cz/zakladni?x=14.2991869&y=49.0999235&z=16&pano=1&source=firm&id=350556
-				// https://mapy.cz/?x=15.278244&y=49.691235&z=15&ma_x=15.278244&ma_y=49.691235&ma_t=Jsem+tady%2C+otev%C5%99i+odkaz&source=coor&id=15.278244%2C49.691235
-				// Mapy.cz panorama:
-				// https://en.mapy.cz/zakladni?x=14.3139613&y=49.1487367&z=15&pano=1&pid=30158941&yaw=1.813&fov=1.257&pitch=-0.026
-				if (preg_match('/https:\/\/([a-z]{1,3}\.)?mapy\.cz\/([a-z0-9-]{2,})?\?/', $url)) { // at least two characters, otherwise it is probably /s/hort-version of link
-					$coords = $dummyBetterLocation->getCoordsFromMapyCz($url);
-					if ($coords) {
-						$betterLocationsObjects[] = new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">#%d (Mapy.cz)</a>: ', $url, ++$index));
-					} else {
-						$result .= sprintf('%s Unable to get coords from Mapy.cz normal link.', Icons::ERROR) . PHP_EOL . PHP_EOL;
-					}
+				} else if (MapyCzService::isValid($url)) {
+					$betterLocationsObjects[] = MapyCzService::parseCoords($url);
 				}
 
 				// OpenStreetMap:
@@ -269,10 +240,9 @@ class BetterLocation
 	public function generateBetterLocation() {
 		$links = [];
 		// Google maps
-		$links[] = sprintf('<a href="%s">Google</a>', GoogleMapsService::getLink($this->lat, $this->lon, true));
+		$links[] = sprintf('<a href="%s">Google</a>', GoogleMapsService::getLink($this->lat, $this->lon));
 		// Mapy.cz
-		$mapyCzLink = sprintf('https://en.mapy.cz/zakladni?y=%1$f&x=%2$f&source=coor&id=%2$f%%2C%1$f', $this->lat, $this->lon);
-		$links[] = sprintf('<a href="%s">Mapy.cz</a>', $mapyCzLink);
+		$links[] = sprintf('<a href="%s">Mapy.cz</a>', MapyCzService::getLink($this->lat, $this->lon));
 		// Waze
 		$wazeLink = sprintf('https://www.waze.com/ul?ll=%1$f,%2$f&navigate=yes', $this->lat, $this->lon);
 		$links[] = sprintf('<a href="%s">Waze</a>', $wazeLink);
@@ -289,15 +259,6 @@ class BetterLocation
 	private function getLocationFromHeaders($url) {
 		$headers = General::getHeaders($url);
 		return $headers['Location'] ?? null;
-	}
-
-	private function getCoordsFromMapyCz(string $url) {
-		$paramsString = explode('?', $url);
-		parse_str($paramsString[1], $params);
-		return [
-			floatval($params['y']),
-			floatval($params['x']),
-		];
 	}
 
 	private function getCoordsFromWaze(string $url) {
