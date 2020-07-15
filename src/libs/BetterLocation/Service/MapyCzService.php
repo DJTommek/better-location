@@ -8,7 +8,7 @@ use BetterLocation\BetterLocation;
 
 final class MapyCzService extends AbstractService
 {
-	const LINK = 'https://en.mapy.cz/zakladni?y=%1$f&x=%2$f&source=coor&id=%2$f%%2C%1$f';
+	const LINK = 'https://mapy.cz/zakladni?y=%1$f&x=%2$f&source=coor&id=%2$f%%2C%1$f';
 
 	/**
 	 * @param float $lat
