@@ -7,6 +7,10 @@ $input = file_get_contents('php://input');
 $updateData = json_decode($input, true);
 \Tracy\Debugger::log('TG Input: ' . $input, \Tracy\ILogger::DEBUG);
 
-$telegramCustomWrapper = new \TelegramCustomWrapper\TelegramCustomWrapper(TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_NAME);
-$telegramCustomWrapper->handleUpdate($updateData);
+try {
+	$telegramCustomWrapper = new \TelegramCustomWrapper\TelegramCustomWrapper(TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_NAME);
+	$telegramCustomWrapper->handleUpdate($updateData);
+} catch (\Exception $exception) {
+
+}
 echo 'ok';

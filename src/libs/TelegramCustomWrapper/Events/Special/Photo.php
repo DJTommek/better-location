@@ -28,7 +28,7 @@ class Photo extends \TelegramCustomWrapper\Events\Special\Special
 				$this->update->message->caption_entities,
 			);
 			foreach ($betterLocations as $betterLocation) {
-				$result .= $betterLocation->generateBetterLocationV2();
+				$result .= $betterLocation->generateBetterLocation();
 			}
 			dump($betterLocations);
 		} catch (\Exception $exception) {

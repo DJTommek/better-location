@@ -26,7 +26,7 @@ class MessageCommand extends Command
 			$betterLocations = BetterLocation::generateFromMessage($this->getText(), $this->update->message->entities);
 			$result = '';
 			foreach ($betterLocations as $betterLocation) {
-				$result .= $betterLocation->generateBetterLocationV2();
+				$result .= $betterLocation->generateBetterLocation();
 			}
 			dump($betterLocations);
 		} catch (\Exception $exception) {

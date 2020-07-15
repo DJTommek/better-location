@@ -268,7 +268,7 @@ class BetterLocation
 		return $text;
 	}
 
-	public function generateBetterLocationV2() {
+	public function generateBetterLocation() {
 		$links = [];
 		// Google maps
 		$googleLink = sprintf('https://www.google.cz/maps/place/%1$f,%2$f?q=%1$f,%2$f', $this->lat, $this->lon);

@@ -48,7 +48,7 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 						Coordinates::exifToDecimal($exif['GPSLongitude'], $exif['GPSLongitudeRef']),
 						'EXIF',
 					);
-					$replyMessage .= $betterLocationExif->generateBetterLocationV2();
+					$replyMessage .= $betterLocationExif->generateBetterLocation();
 				} catch (\Exception $exception) {
 					$this->reply(
 						sprintf('%s Unexpected error occured while processing EXIF data from image for Better location. Contact Admin for more info.', Icons::ERROR),
@@ -65,7 +65,7 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 		);
 
 		foreach ($betterLocationsMessage as $betterLocation) {
-			$replyMessage .= $betterLocation->generateBetterLocationV2();
+			$replyMessage .= $betterLocation->generateBetterLocation();
 		}
 		dump($betterLocationsMessage);
 
