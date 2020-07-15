@@ -23,7 +23,7 @@ final class MapyCzService extends AbstractService
 			// No official API for backend so it might be probably generated only via simulating frontend
 			// @see https://napoveda.seznam.cz/forum/threads/120687/1
 			// @see https://napoveda.seznam.cz/forum/file/13641/Schema-otevirani-aplikaci-z-url-a-externe.pdf
-			throw new \InvalidArgumentException('Drive link is implemented.');
+			throw new \InvalidArgumentException('Drive link is not implemented.');
 		}
 	}
 
