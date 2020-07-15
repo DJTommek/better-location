@@ -45,10 +45,8 @@ class BetterLocation
 					throw new \Exception('Unhandled entity type');
 				}
 
-				$googleMapsService = new GoogleMapsService($url);
-				$googleMapsServiceResult = $googleMapsService->run();
-				if ($googleMapsServiceResult) {
-					$betterLocationsObjects[] = $googleMapsServiceResult;
+				if (GoogleMapsService::isValid($url)) {
+					$betterLocationsObjects[] = GoogleMapsService::parseCoords($url);
 				}
 
 				// Mapy.cz short link:
@@ -271,8 +269,7 @@ class BetterLocation
 	public function generateBetterLocation() {
 		$links = [];
 		// Google maps
-		$googleLink = sprintf('https://www.google.cz/maps/place/%1$f,%2$f?q=%1$f,%2$f', $this->lat, $this->lon);
-		$links[] = sprintf('<a href="%s">Google</a>', $googleLink);
+		$links[] = sprintf('<a href="%s">Google</a>', GoogleMapsService::getLink($this->lat, $this->lon, true));
 		// Mapy.cz
 		$mapyCzLink = sprintf('https://en.mapy.cz/zakladni?y=%1$f&x=%2$f&source=coor&id=%2$f%%2C%1$f', $this->lat, $this->lon);
 		$links[] = sprintf('<a href="%s">Mapy.cz</a>', $mapyCzLink);

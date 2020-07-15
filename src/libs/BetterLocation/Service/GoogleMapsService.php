@@ -10,39 +10,41 @@ use \Icons;
 
 final class GoogleMapsService extends AbstractService
 {
-	private $url;
-
 	const LINK = 'https://www.google.cz/maps/place/%1$f,%2$f?q=%1$f,%2$f';
+	const LINK_DRIVE = 'https://maps.google.cz/?daddr=%1$f,%2$f&travelmode=driving';
 
-	public function __construct(string $url) {
-		$this->url = $url;
+	public static function getLink(float $lat, float $lon, bool $drive = false): string {
+		return sprintf($drive ? self::LINK_DRIVE : self::LINK, $lat, $lon);
+	}
+
+	public static function isValid(string $url): bool {
+		return self::isShortUrl($url) || self::isNormalUrl($url);
 	}
 
 	/**
-	 *
+	 * @param string $url
+	 * @return BetterLocation|null
 	 * @throws \Exception
 	 */
-	public function run() {
-		if ($this->checkShort()) {
-			// Google maps short link: https://goo.gl/maps/rgZZt125tpvf2rnCA
+	public static function parseCoords(string $url) {
+		if (self::isShortUrl($url)) {
+			// Google maps short link:
+			// https://goo.gl/maps/rgZZt125tpvf2rnCA
 			// https://goo.gl/maps/eUYMwABdpv9NNSDX7
 			// https://goo.gl/maps/hEbUKxSuMjA2
 			// https://goo.gl/maps/pPZ91TfW2edvejbb6
 			//
 			// https://maps.app.goo.gl/W5wPRJ5FMJxgaisf9
 			// https://maps.app.goo.gl/nJqTbFow1HtofApTA
-			$newLocation = $this->getLocationFromHeaders($this->url);
-			$coords = $this->parseUrl($newLocation);
+
+			$newLocation = self::getRedirectUrl($url);
+			$coords = self::parseUrl($newLocation);
 			if ($coords) {
-				return new BetterLocation(
-					$coords[0],
-					$coords[1],
-					sprintf('<a href="%s">Goo.gl</a>', $this->url),
-				);
+				return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Goo.gl</a>', $url));
 			} else {
-				return sprintf('%s Unable to get coords for Goo.gl link.', Icons::ERROR) . PHP_EOL . PHP_EOL;
+				throw new \Exception(sprintf('%s Unable to get coords for Goo.gl link.', Icons::ERROR));
 			}
-		} else if ($this->checkNormal()) {
+		} else if (self::isNormalUrl($url)) {
 			// Google maps normal links:
 			// https://www.google.com/maps/place/Velk%C3%BD+Meheln%C3%ADk,+397+01+Pisek/@49.2941662,14.2258333,14z/data=!4m2!3m1!1s0x470b5087ca84a6e9:0xfeb1428d8c8334da
 			// https://www.google.com/maps/place/Zelend%C3%A1rky/@49.2069545,14.2495123,15z/data=!4m5!3m4!1s0x0:0x3ad3965c4ecb9e51!8m2!3d49.2113282!4d14.2553488
@@ -50,19 +52,18 @@ final class GoogleMapsService extends AbstractService
 			// https://www.google.cz/maps/place/49%C2%B020'00.6%22N+14%C2%B017'46.2%22E/@49.3339819,14.2956352,18.4z/data=!4m5!3m4!1s0x0:0x0!8m2!3d49.333511!4d14.296174
 			// https://www.google.cz/maps/place/Hrad+P%C3%ADsek/@49.3088543,14.1454615,391m/data=!3m1!1e3!4m12!1m6!3m5!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!2sHrad+P%C3%ADsek!8m2!3d49.3088525!4d14.1465894!3m4!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!8m2!3d49.3088525!4d14.1465894
 			// https://maps.google.com/maps?ll=49.367523,14.514022&q=49.367523,14.514022
-			$coords = $this->parseUrl($this->url);
+			$coords = self::parseUrl($url);
 			if ($coords) {
-				return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Google</a>', $this->url),
-				);
+				return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Google</a>', $url));
 			} else {
-				return sprintf('%s Unable to get coords for Google maps normal link.', Icons::ERROR) . PHP_EOL . PHP_EOL;
+				throw new \Exception(sprintf('%s Unable to get coords for Google maps normal link.', Icons::ERROR));
 			}
 		} else {
-			return null;
+			throw new \Exception('Unable to get coords for Google maps link.');
 		}
 	}
 
-	private function checkShort() {
+	public static function isShortUrl(string $url): bool {
 		// Google maps short link: https://goo.gl/maps/rgZZt125tpvf2rnCA
 		// https://goo.gl/maps/eUYMwABdpv9NNSDX7
 		// https://goo.gl/maps/hEbUKxSuMjA2
@@ -73,12 +74,12 @@ final class GoogleMapsService extends AbstractService
 		$googleMapsShortUrlV1 = 'https://goo.gl/maps/';
 		$googleMapsShortUrlV2 = 'https://maps.app.goo.gl/';
 		return (
-			substr($this->url, 0, mb_strlen($googleMapsShortUrlV1)) === $googleMapsShortUrlV1 ||
-			substr($this->url, 0, mb_strlen($googleMapsShortUrlV2)) === $googleMapsShortUrlV2
+			substr($url, 0, mb_strlen($googleMapsShortUrlV1)) === $googleMapsShortUrlV1 ||
+			substr($url, 0, mb_strlen($googleMapsShortUrlV2)) === $googleMapsShortUrlV2
 		);
 	}
 
-	private function checkNormal(): bool {
+	public static function isNormalUrl(string $url): bool {
 		// Google maps normal links:
 		// https://www.google.com/maps/place/Velk%C3%BD+Meheln%C3%ADk,+397+01+Pisek/@49.2941662,14.2258333,14z/data=!4m2!3m1!1s0x470b5087ca84a6e9:0xfeb1428d8c8334da
 		// https://www.google.com/maps/place/Zelend%C3%A1rky/@49.2069545,14.2495123,15z/data=!4m5!3m4!1s0x0:0x3ad3965c4ecb9e51!8m2!3d49.2113282!4d14.2553488
@@ -86,7 +87,7 @@ final class GoogleMapsService extends AbstractService
 		// https://www.google.cz/maps/place/49%C2%B020'00.6%22N+14%C2%B017'46.2%22E/@49.3339819,14.2956352,18.4z/data=!4m5!3m4!1s0x0:0x0!8m2!3d49.333511!4d14.296174
 		// https://www.google.cz/maps/place/Hrad+P%C3%ADsek/@49.3088543,14.1454615,391m/data=!3m1!1e3!4m12!1m6!3m5!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!2sHrad+P%C3%ADsek!8m2!3d49.3088525!4d14.1465894!3m4!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!8m2!3d49.3088525!4d14.1465894
 		// https://maps.google.com/maps?ll=49.367523,14.514022&q=49.367523,14.514022
-		return !!(preg_match('/https:\/\/(?:(?:www|maps)\.)google\.[a-z]{1,5}\//', $this->url));
+		return !!(preg_match('/https:\/\/(?:(?:www|maps)\.)google\.[a-z]{1,5}\//', $url));
 	}
 
 	/**
@@ -94,7 +95,7 @@ final class GoogleMapsService extends AbstractService
 	 * @return array|null
 	 * @throws \Exception
 	 */
-	public function parseUrl(string $url): ?array {
+	public static function parseUrl(string $url): ?array {
 		$paramsString = explode('?', $url);
 		if (count($paramsString) === 2) {
 			parse_str($paramsString[1], $params);
@@ -137,13 +138,5 @@ final class GoogleMapsService extends AbstractService
 			}
 		}
 		return null;
-	}
-
-	public function getLink($drive) {
-		// TODO: Implement getLink() method.
-	}
-
-	public static function isValid() {
-		// TODO: Implement isValid() method.
 	}
 }
