@@ -23,7 +23,7 @@ final class GoogleMapsService extends AbstractService
 
 	/**
 	 * @param string $url
-	 * @return BetterLocation|null
+	 * @return BetterLocation
 	 * @throws \Exception
 	 */
 	public static function parseCoords(string $url) {
