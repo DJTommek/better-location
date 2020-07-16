@@ -6,6 +6,7 @@ namespace BetterLocation;
 
 use \BetterLocation\Service\Exceptions\BadWordsException;
 use \BetterLocation\Service\GoogleMapsService;
+use \BetterLocation\Service\IngressIntelService;
 use \BetterLocation\Service\MapyCzService;
 use \BetterLocation\Service\OpenStreetMapService;
 use \BetterLocation\Service\OpenLocationCodeService;
@@ -61,6 +62,8 @@ class BetterLocation
 					$betterLocationsObjects[] = WazeService::parseCoords($url);
 				} else if (WhatThreeWordService::isValid($url)) {
 					$betterLocationsObjects[] = WhatThreeWordService::parseCoords($url);
+				} else if (IngressIntelService::isValid($url)) {
+					$betterLocationsObjects[] = IngressIntelService::parseCoords($url);
 				}
 			}
 		}
@@ -146,8 +149,7 @@ class BetterLocation
 		// OpenStreetMap
 		$links[] = sprintf('<a href="%s">OSM</a>', OpenStreetMapService::getLink($this->lat, $this->lon));
 		// Intel
-		$intelLink = sprintf('https://intel.ingress.com/intel?ll=%1$f,%2$f&pll=%1$f,%2$f', $this->lat, $this->lon);
-		$links[] = sprintf('<a href="%s">Intel</a>', $intelLink);
+		$links[] = sprintf('<a href="%s">Intel</a>', IngressIntelService::getLink($this->lat, $this->lon));
 
 		return sprintf('%s %s <code>%f,%f</code>:%s%s', $this->prefixMessage, Icons::SUCCESS, $this->lat, $this->lon, PHP_EOL, join(' | ', $links)) . PHP_EOL . PHP_EOL;
 	}
