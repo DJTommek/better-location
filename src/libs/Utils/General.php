@@ -96,7 +96,7 @@ class General
 		];
 		foreach ($headers as $header) {
 			list($headerName, $headerValue) = explode(': ', $header, 2);
-			$result[$headerName] = $headerValue;
+			$result[mb_strtolower($headerName)] = $headerValue;
 		}
 		return $result;
 	}

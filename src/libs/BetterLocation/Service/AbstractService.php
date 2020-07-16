@@ -21,6 +21,6 @@ abstract class AbstractService
 	 */
 	protected static function getRedirectUrl($url) {
 		$headers = General::getHeaders($url);
-		return $headers['Location'] ?? null;
+		return $headers['location'] ?? null;
 	}
 }
