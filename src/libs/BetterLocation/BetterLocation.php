@@ -36,8 +36,6 @@ class BetterLocation
 	 */
 	public static function generateFromTelegramMessage(string $text, array $entities): array {
 		$betterLocationsObjects = [];
-		// @TODO remove this ugly dummy...
-		$dummyBetterLocation = new BetterLocation(49.0, 15.0, '');
 
 		$index = 0;
 		foreach ($entities as $entity) {
@@ -69,7 +67,7 @@ class BetterLocation
 		}
 
 		// Coordinates
-		if (preg_match_all(Coordinates::RE_WGS84_DEGREES, $dummyBetterLocation->getTextWithoutUrls($text, $entities), $matches)) {
+		if (preg_match_all(Coordinates::RE_WGS84_DEGREES, self::getMessageWithoutUrls($text, $entities), $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				$betterLocationsObjects[] = new BetterLocation(
 					floatval($matches[1][$i]),
@@ -80,7 +78,7 @@ class BetterLocation
 		}
 
 		// Coordinates
-		if (preg_match_all(Coordinates::RE_WGS84_DEGREES_MINUTES, $dummyBetterLocation->getTextWithoutUrls($text, $entities), $matches)) {
+		if (preg_match_all(Coordinates::RE_WGS84_DEGREES_MINUTES, self::getMessageWithoutUrls($text, $entities), $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				$betterLocationsObjects[] = new BetterLocation(
 					Coordinates::wgs84DegreesMinutesToDecimal(floatval($matches[3][$i]), floatval($matches[4][$i]), $matches[2][$i]),
@@ -91,7 +89,7 @@ class BetterLocation
 		}
 
 		// Coordinates
-		if (preg_match_all(Coordinates::RE_WGS84_DEGREES_MINUTES_SECONDS, $dummyBetterLocation->getTextWithoutUrls($text, $entities), $matches)) {
+		if (preg_match_all(Coordinates::RE_WGS84_DEGREES_MINUTES_SECONDS, self::getMessageWithoutUrls($text, $entities), $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				$betterLocationsObjects[] = new BetterLocation(
 					Coordinates::wgs84DegreesMinutesSecondsToDecimal(floatval($matches[2][$i]), floatval($matches[3][$i]), floatval($matches[4][$i]), $matches[5][$i]),
@@ -101,13 +99,15 @@ class BetterLocation
 			}
 		}
 
-		foreach (preg_split('/[^\p{L}+]+/u', $dummyBetterLocation->getTextWithoutUrls($text, $entities)) as $word) {
+		// OpenLocationCode (Plus codes)
+		foreach (preg_split('/[^\p{L}+]+/u', self::getMessageWithoutUrls($text, $entities)) as $word) {
 			if (OpenLocationCodeService::isValid($word)) {
 				$betterLocationsObjects[] = OpenLocationCodeService::parseCoords($word);
 			}
 		}
 
-		if (preg_match_all(WhatThreeWordService::RE_IN_STRING, $dummyBetterLocation->getTextWithoutUrls($text, $entities), $matches)) {
+		// What Three Word
+		if (preg_match_all(WhatThreeWordService::RE_IN_STRING, self::getMessageWithoutUrls($text, $entities), $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				$words = $matches[0][$i];
 				if (WhatThreeWordService::isWords($words)) {
@@ -123,13 +123,12 @@ class BetterLocation
 					}
 				}
 			}
-
 		}
 
 		return $betterLocationsObjects;
 	}
 
-	private function getTextWithoutUrls(string $text, array $entities) {
+	private static function getMessageWithoutUrls(string $text, array $entities) {
 		foreach (array_reverse($entities) as $entity) {
 			if ($entity->type === 'url') {
 				$text = General::substrReplace($text, '<a>', $entity->offset, $entity->length);
@@ -139,17 +138,13 @@ class BetterLocation
 	}
 
 	public function generateBetterLocation() {
-		$links = [];
-		// Google maps
-		$links[] = sprintf('<a href="%s">Google</a>', GoogleMapsService::getLink($this->lat, $this->lon));
-		// Mapy.cz
-		$links[] = sprintf('<a href="%s">Mapy.cz</a>', MapyCzService::getLink($this->lat, $this->lon));
-		// Waze
-		$links[] = sprintf('<a href="%s">Waze</a>', WazeService::getLink($this->lat, $this->lon, true));
-		// OpenStreetMap
-		$links[] = sprintf('<a href="%s">OSM</a>', OpenStreetMapService::getLink($this->lat, $this->lon));
-		// Intel
-		$links[] = sprintf('<a href="%s">Intel</a>', IngressIntelService::getLink($this->lat, $this->lon));
+		$links = [
+			sprintf('<a href="%s">Google</a>', GoogleMapsService::getLink($this->lat, $this->lon)),
+			sprintf('<a href="%s">Mapy.cz</a>', MapyCzService::getLink($this->lat, $this->lon)),
+			sprintf('<a href="%s">Waze</a>', WazeService::getLink($this->lat, $this->lon, true)),
+			sprintf('<a href="%s">OSM</a>', OpenStreetMapService::getLink($this->lat, $this->lon)),
+			sprintf('<a href="%s">Intel</a>', IngressIntelService::getLink($this->lat, $this->lon)),
+		];
 
 		return sprintf('%s %s <code>%f,%f</code>:%s%s', $this->prefixMessage, Icons::SUCCESS, $this->lat, $this->lon, PHP_EOL, join(' | ', $links)) . PHP_EOL . PHP_EOL;
 	}
