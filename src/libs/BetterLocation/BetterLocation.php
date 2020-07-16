@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace BetterLocation;
 
+use \BetterLocation\Service\Exceptions\BadWordsException;
 use \BetterLocation\Service\GoogleMapsService;
 use \BetterLocation\Service\MapyCzService;
 use \BetterLocation\Service\OpenStreetMapService;
 use \BetterLocation\Service\OpenLocationCodeService;
 use \BetterLocation\Service\WazeService;
+use \BetterLocation\Service\WhatThreeWordService;
 use \Utils\Coordinates;
 use \Utils\General;
 use \Icons;
@@ -57,31 +59,9 @@ class BetterLocation
 					$betterLocationsObjects[] = OpenLocationCodeService::parseCoords($url);
 				} else if (WazeService::isValid($url)) {
 					$betterLocationsObjects[] = WazeService::parseCoords($url);
+				} else if (WhatThreeWordService::isValid($url)) {
+					$betterLocationsObjects[] = WhatThreeWordService::parseCoords($url);
 				}
-
-				// @TODO possibly remove, this is being detected by string, no need to match URLs
-				// W3W (What Three Words)
-				// https://w3w.co/chladná.naopak.vložit
-				// https://what3words.com/define.readings.cucumber
-				// chladná.naopak.vložit
-				// flicks.gazed.tapes
-				// https://developer.what3words.com/tutorial/detecting-if-text-is-in-the-format-of-a-3-word-address/
-//				$what3wordsLink = 'https://w3w.co/';
-//				$what3wordsLinkShort = 'https://what3words.com/';
-//				if (
-//					substr($url, 0, mb_strlen($what3wordsLink)) === $what3wordsLink ||
-//					substr($url, 0, mb_strlen($what3wordsLinkShort)) === $what3wordsLinkShort
-//				) {
-//					$words = str_replace($what3wordsLink, '', $url);
-//					$words = str_replace($what3wordsLinkShort, '', $words);
-//					$w3wApiKey = 'Z6OBR7ZI';
-//					$apiLink = sprintf('https://api.what3words.com/v3/convert-to-coordinates?key=%s&words=%s&format=json', $w3wApiKey, urlencode($words));
-//					$data = \GuzzleHttp\json_decode(General::fileGetContents($apiLink));
-//					if (true) {
-//						$result .= sprintf('<a href="%s">#%d (W3W:%s</a>): ', $data->map, ++$index, $data->words);
-//						$result .= $this->generateBetterLocation($data->coordinates->lat, $data->coordinates->lng);
-//					}
-//				}
 			}
 		}
 
@@ -118,34 +98,30 @@ class BetterLocation
 			}
 		}
 
-		// OLC (Open Location Codes, Plus Codes)
-		foreach (preg_split('/[^a-zA-Z0-9+]+/', $dummyBetterLocation->getTextWithoutUrls($text, $entities)) as $word) {
+		foreach (preg_split('/[^\p{L}+]+/u', $dummyBetterLocation->getTextWithoutUrls($text, $entities)) as $word) {
 			if (OpenLocationCodeService::isValid($word)) {
 				$betterLocationsObjects[] = OpenLocationCodeService::parseCoords($word);
 			}
 		}
 
-		// W3W (What Three Words)
-		// https://w3w.co/chladná.naopak.vložit
-		// https://what3words.com/define.readings.cucumber
-		// chladná.naopak.vložit
-		// flicks.gazed.tapes
-		// https://developer.what3words.com/tutorial/detecting-if-text-is-in-the-format-of-a-3-word-address/
-//		$what3wordsRegex = '/\/*((?:\p{L}\p{M}*){1,}[・.。](?:\p{L}\p{M}*){1,}[・.。](?:\p{L}\p{M}*){1,})/u';
-//		if (preg_match_all($what3wordsRegex, $this->text, $matches)) {
-//			$w3wApiKey = 'Z6OBR7ZI';
-//			foreach ($matches[1] as $words) {
-//				$apiLink = sprintf('https://api.what3words.com/v3/convert-to-coordinates?key=%s&words=%s&format=json', $w3wApiKey, urlencode($words));
-//				$data = json_decode(General::fileGetContents($apiLink));
-//				if (isset($data->error)) {
-//					// @TODO temporary disabled because it has false-positive matches, eg www.viribusunitis.cz
-//					// $result .= sprintf('%s Detected What3Words "%s" but unable to get coordinates.', Icons::ERROR, urlencode($words)) . PHP_EOL . PHP_EOL;
-//				} else {
-//					$result .= sprintf('<a href="%s">#%d (W3W:%s</a>): ', $data->map, ++$index, $data->words);
-//					$result .= $this->generateBetterLocation($data->coordinates->lat, $data->coordinates->lng);
-//				}
-//			}
-//		}
+		if (preg_match_all(WhatThreeWordService::RE_IN_STRING, $dummyBetterLocation->getTextWithoutUrls($text, $entities), $matches)) {
+			for ($i = 0; $i < count($matches[0]); $i++) {
+				$words = $matches[0][$i];
+				if (WhatThreeWordService::isWords($words)) {
+					try {
+						$betterLocationsObjects[] = WhatThreeWordService::parseCoords($words);
+					} catch (\Exception $exception) {
+						/** @noinspection PhpStatementHasEmptyBodyInspection */
+						if ($exception instanceof BadWordsException) {
+							// pass
+						} else {
+							throw $exception;
+						}
+					}
+				}
+			}
+
+		}
 
 		return $betterLocationsObjects;
 	}
