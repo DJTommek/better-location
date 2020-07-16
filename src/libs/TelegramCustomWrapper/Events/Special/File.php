@@ -59,7 +59,7 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 				}
 			}
 		}
-		$betterLocationsMessage = BetterLocation::generateFromMessage(
+		$betterLocationsMessage = BetterLocation::generateFromTelegramMessage(
 			$this->update->message->caption,
 			$this->update->message->caption_entities
 		);

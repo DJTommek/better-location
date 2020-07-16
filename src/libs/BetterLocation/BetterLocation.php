@@ -31,7 +31,7 @@ class BetterLocation
 	 * @return BetterLocation[]
 	 * @throws \Exception
 	 */
-	public static function generateFromMessage(string $text, array $entities): array {
+	public static function generateFromTelegramMessage(string $text, array $entities): array {
 		$betterLocationsObjects = [];
 		// @TODO remove this ugly dummy...
 		$dummyBetterLocation = new BetterLocation(49.0, 15.0, '');
@@ -39,9 +39,9 @@ class BetterLocation
 		$index = 0;
 		foreach ($entities as $entity) {
 			if (in_array($entity->type, ['url', 'text_link'])) {
-				if ($entity->type === 'url') {
+				if ($entity->type === 'url') { // raw url
 					$url = mb_substr($text, $entity->offset, $entity->length);
-				} else if ($entity->type === 'text_link') {
+				} else if ($entity->type === 'text_link') { // url hidden in text
 					$url = $entity->url;
 				} else {
 					throw new \Exception('Unhandled entity type');

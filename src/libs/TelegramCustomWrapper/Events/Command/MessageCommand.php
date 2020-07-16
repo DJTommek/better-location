@@ -23,7 +23,7 @@ class MessageCommand extends Command
 		// PM or whitelisted group
 		$result = null;
 		try {
-			$betterLocations = BetterLocation::generateFromMessage($this->getText(), $this->update->message->entities);
+			$betterLocations = BetterLocation::generateFromTelegramMessage($this->getText(), $this->update->message->entities);
 			$result = '';
 			foreach ($betterLocations as $betterLocation) {
 				$result .= $betterLocation->generateBetterLocation();

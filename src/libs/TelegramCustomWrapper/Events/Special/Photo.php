@@ -23,7 +23,7 @@ class Photo extends \TelegramCustomWrapper\Events\Special\Special
 		// PM or whitelisted group
 		$result = '';
 		try {
-			$betterLocations = BetterLocation::generateFromMessage(
+			$betterLocations = BetterLocation::generateFromTelegramMessage(
 				$this->update->message->caption,
 				$this->update->message->caption_entities,
 			);
