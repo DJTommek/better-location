@@ -31,12 +31,11 @@ require_once __DIR__ . '/src/config.php';
 <h2>Webhook status</h2>
 <?php
 
+use BetterLocation\BetterLocation;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\TgLog;
-
-require_once __DIR__ . '/src/config.php';
 
 if (defined('TELEGRAM_WEBHOOK_URL')) {
 	$loop = \React\EventLoop\Factory::create();
@@ -85,6 +84,52 @@ if (defined('TELEGRAM_WEBHOOK_URL')) {
 	printf('<p>Constant "TELEGRAM_WEBHOOK_URL" is not defined. Set "TELEGRAM_WEBHOOK_URL" constant in your local config and try again.</p>');
 }
 ?>
+<h2>Tester</h2>
+<div id="tester">
+	<?php
+	$input = (isset($_POST['input']) ? trim($_POST['input']) : null);
+	?>
+	<form method="POST">
+		<label>
+			<textarea name="input"><?= $input ?? 'Type something...' ?></textarea>
+		</label>
+		<button type="submit">Send</button>
+	</form>
+	<h3>Result</h3>
+	<div>
+		<?php
+		if ($input) {
+			$urls = \Utils\General::getUrls($input);
+
+			// Simulate Telegram message by creating URL entities
+			$entities = [];
+			foreach ($urls as $url) {
+				$entity = new stdClass();
+				$entity->type = 'url';
+				$entity->offset = mb_strpos($input, $url);
+				$entity->length = $entity->offset + mb_strlen($url);
+				$entities[] = $entity;
+			}
+			try {
+				$betterLocations = BetterLocation::generateFromTelegramMessage($input, $entities);
+				if (count($betterLocations)) {
+					$result = '';
+					foreach ($betterLocations as $betterLocation) {
+						$result .= $betterLocation->generateBetterLocation();
+					}
+					printf('<pre>%s</pre>', $result);
+				} else {
+					printf('No location(s) was detected in text.');
+				}
+			} catch (\Exception $exception) {
+				printf('%s Error occured while processing input: %s', Icons::ERROR, $exception->getMessage());
+			}
+		} else {
+			print('Fill and send some data.');
+		}
+		?>
+	</div>
+</div>
 <style>
 	table {
 		border-collapse: collapse;
@@ -99,4 +144,10 @@ if (defined('TELEGRAM_WEBHOOK_URL')) {
 		text-align: right;
 		font-weight: bold;
 	}
+
+	#tester textarea {
+		height: 10em;
+		width: 100%;
+	}
+
 </style>
