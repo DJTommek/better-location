@@ -8,6 +8,7 @@ use \BetterLocation\Service\GoogleMapsService;
 use \BetterLocation\Service\MapyCzService;
 use \BetterLocation\Service\OpenStreetMapService;
 use \BetterLocation\Service\OpenLocationCodeService;
+use \BetterLocation\Service\WazeService;
 use \Utils\Coordinates;
 use \Utils\General;
 use \Icons;
@@ -36,7 +37,6 @@ class BetterLocation
 		$dummyBetterLocation = new BetterLocation(49.0, 15.0, '');
 
 		$index = 0;
-		$result = '';
 		foreach ($entities as $entity) {
 			if (in_array($entity->type, ['url', 'text_link'])) {
 				if ($entity->type === 'url') {
@@ -55,6 +55,8 @@ class BetterLocation
 					$betterLocationsObjects[] = OpenStreetMapService::parseCoords($url);
 				} else if (OpenLocationCodeService::isValid($url)) {
 					$betterLocationsObjects[] = OpenLocationCodeService::parseCoords($url);
+				} else if (WazeService::isValid($url)) {
+					$betterLocationsObjects[] = WazeService::parseCoords($url);
 				}
 
 				// @TODO possibly remove, this is being detected by string, no need to match URLs
@@ -80,44 +82,6 @@ class BetterLocation
 //						$result .= $this->generateBetterLocation($data->coordinates->lat, $data->coordinates->lng);
 //					}
 //				}
-
-				$wazeLink = 'https://www.waze.com';
-				// Waze short link:
-				// https://waze.com/ul/hu2fk8zezt
-				if (preg_match('/https:\/\/waze\.com\/ul\/[a-z0-9A-Z]+$/', $url)) {
-					// first letter "h" is removed
-					$wazeUpdatedUrl = str_replace('waze.com/ul/h', 'www.waze.com/livemap?h=', $url);
-					$newLocation = $dummyBetterLocation->getLocationFromHeaders($wazeUpdatedUrl);
-					if ($newLocation) {
-						$newLocation = $wazeLink . $newLocation;
-						$coords = $dummyBetterLocation->getCoordsFromWaze($newLocation);
-						if ($coords) {
-							$betterLocationsObjects[] = new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">#%d (Waze)</a>: ', $url, ++$index));
-						} else {
-							$result .= sprintf('%s Unable to get coords for Waze short link.', Icons::ERROR) . PHP_EOL . PHP_EOL;
-						}
-					} else {
-						$result .= sprintf('%s Unable to get real url for Waze short link.', Icons::ERROR) . PHP_EOL . PHP_EOL;
-					}
-					// Waze other links:
-					// https://www.waze.com/ul?ll=50.06300713%2C14.43964005&navigate=yes&zoom=15
-					// https://www.waze.com/ul?ll=49.87707960%2C18.43036300&navigate=yes
-					// https://www.waze.com/ul?ll=50.06300713%2C14.43964005
-					//
-					// https://www.waze.com/cs/livemap/directions?latlng=50.063007132127616%2C14.439640045166016&utm_campaign=waze_website&utm_expid=.K6QI8s_pTz6FfRdYRPpI3A.0&utm_referrer=https%3A%2F%2Fwww.waze.com%2Fcs%2Faccount&utm_source=waze_website
-					// https://www.waze.com/cs/livemap/directions?latlng=50.063007132127616%2C14.439640045166016
-					//
-					// https://www.waze.com/cs/livemap/directions?utm_expid=.K6QI8s_pTz6FfRdYRPpI3A.0&utm_referrer=&to=ll.50.07734439%2C14.43475842
-					// https://www.waze.com/cs/livemap/directions?to=ll.50.07734439%2C14.43475842
-					// https://www.waze.com/cs/livemap/directions?to=ll.49.8770796%2C18.430363
-				} else if (substr($url, 0, mb_strlen($wazeLink)) === $wazeLink) {
-					$coords = $dummyBetterLocation->getCoordsFromWaze($url);
-					if ($coords) {
-						$betterLocationsObjects[] = new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">#%d (Waze)</a>: ', $url, ++$index));
-					} else {
-						$result .= sprintf('%s Unable to get coords for Waze link.', Icons::ERROR) . PHP_EOL . PHP_EOL;
-					}
-				}
 			}
 		}
 
@@ -202,8 +166,7 @@ class BetterLocation
 		// Mapy.cz
 		$links[] = sprintf('<a href="%s">Mapy.cz</a>', MapyCzService::getLink($this->lat, $this->lon));
 		// Waze
-		$wazeLink = sprintf('https://www.waze.com/ul?ll=%1$f,%2$f&navigate=yes', $this->lat, $this->lon);
-		$links[] = sprintf('<a href="%s">Waze</a>', $wazeLink);
+		$links[] = sprintf('<a href="%s">Waze</a>', WazeService::getLink($this->lat, $this->lon, true));
 		// OpenStreetMap
 		$links[] = sprintf('<a href="%s">OSM</a>', OpenStreetMapService::getLink($this->lat, $this->lon));
 		// Intel
@@ -211,29 +174,5 @@ class BetterLocation
 		$links[] = sprintf('<a href="%s">Intel</a>', $intelLink);
 
 		return sprintf('%s %s <code>%f,%f</code>:%s%s', $this->prefixMessage, Icons::SUCCESS, $this->lat, $this->lon, PHP_EOL, join(' | ', $links)) . PHP_EOL . PHP_EOL;
-	}
-
-	private function getLocationFromHeaders($url) {
-		$headers = General::getHeaders($url);
-		return $headers['Location'] ?? null;
-	}
-
-	private function getCoordsFromWaze(string $url) {
-		$paramsString = explode('?', $url);
-		parse_str($paramsString[1], $params);
-		if (isset($params['latlng'])) {
-			$coords = explode(',', $params['latlng']);
-		} else if (isset($params['ll'])) {
-			$coords = explode(',', $params['ll']);
-		} else if (isset($params['to'])) {
-			$coords = explode(',', $params['to']);
-			$coords[0] = str_replace('ll.', '', $coords[0]);
-		} else {
-			return null;
-		}
-		return [
-			floatval($coords[0]),
-			floatval($coords[1]),
-		];
 	}
 }
