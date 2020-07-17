@@ -9,6 +9,13 @@ class TelegramHelper
 	const API_URL = 'https://api.telegram.org';
 	const MESSAGE_PREFIX = \Icons::LOCATION . ' @' . TELEGRAM_BOT_NAME . ':' . PHP_EOL;
 
+	/**
+	 * Command is valid if
+	 * - command doesn't contain "@BotName"
+	 * - command does contain "@BotName" but its same as in config
+	 */
+	const COMMAND_REGEX = '/^(\/[a-zA-Z0-9_]+)(?:@' . TELEGRAM_BOT_NAME . ')?$/';
+
 	// @TODO Move CHAT_ACTION_* to some ENUM
 	const CHAT_ACTION_TYPING = 'typing';
 	const CHAT_ACTION_UPLOAD_PHOTO = 'upload_photo';
@@ -63,15 +70,21 @@ class TelegramHelper
 	}
 
 	public static function getCommand($update): ?string {
+		$command = null;
 		if (self::isButtonClick($update)) {
 			$fullCommand = $update->callback_query->data;
-			return explode(' ', $fullCommand)[0];
+			$command = explode(' ', $fullCommand)[0];
 		} else {
 			foreach ($update->message->entities as $entity) {
 				if ($entity->offset === 0 && $entity->type === 'bot_command') {
-					return mb_strcut($update->message->text, $entity->offset, $entity->length);
+					$command = mb_strcut($update->message->text, $entity->offset, $entity->length);
+					break;
 				}
 			}
+		}
+		if ($command && preg_match(self::COMMAND_REGEX, $command, $matches)) {
+			return $matches[1];
+		} else {
 			return null;
 		}
 	}
