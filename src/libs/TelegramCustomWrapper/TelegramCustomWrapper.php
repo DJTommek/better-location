@@ -8,6 +8,7 @@ use \TelegramCustomWrapper\Events\Command\DebugCommand;
 use \TelegramCustomWrapper\Events\Command\HelpCommand;
 use \TelegramCustomWrapper\Events\Command\LocationCommand;
 use \TelegramCustomWrapper\Events\Command\MessageCommand;
+use TelegramCustomWrapper\Events\Command\SettingsCommand;
 use \TelegramCustomWrapper\Events\Command\UnknownCommand;
 use TelegramCustomWrapper\Events\Special\File;
 use TelegramCustomWrapper\Events\Special\Photo;
@@ -78,6 +79,9 @@ class TelegramCustomWrapper
 					break;
 				case '/debug':
 					return new DebugCommand($update, $this->tgLog, $this->loop);
+					break;
+				case '/settings':
+					return new SettingsCommand($update, $this->tgLog, $this->loop);
 					break;
 				case null: // message without command
 					return new MessageCommand($update, $this->tgLog, $this->loop);
