@@ -49,8 +49,11 @@ class HelpCommand extends Command
 		$text .= sprintf('/settings - adjust behaviour in this chat') . PHP_EOL;
 		$text .= sprintf('/feedback - contact authors') . PHP_EOL;
 		$text .= PHP_EOL;
+		$text .= sprintf('Official Github: <a href="%1$s%2$s">%2$s</a>', 'https://github.com/', 'DJTommek/better-location') . PHP_EOL;
+		$text .= sprintf('Author: <a href="%1$s%2$s">@%2$s</a>', 'https://t.me/', 'DJTommek') . PHP_EOL;
+		$text .= PHP_EOL;
 
-		$text .= sprintf(Icons::INFO . ' Note: Bot is currently in active development so there is no guarantee that it will work at all times. Check source code on Github <a href="%1$s%2$s">%2$s</a> for more info.', 'https://github.com/', 'DJTommek/better-location') . PHP_EOL;
+		$text .= sprintf(Icons::WARNING . ' <b>Warning</b>: Bot is currently in active development so there is no guarantee that it will work at all times. Check Github for more info.') . PHP_EOL;
 		$this->reply($text, ['disable_web_page_preview' => true]);
 	}
 }
