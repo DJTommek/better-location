@@ -47,6 +47,7 @@ class HelpCommand extends Command
 		$text .= sprintf('/help - this text') . PHP_EOL;
 		$text .= sprintf('/debug - get your and chat ID') . PHP_EOL;
 		$text .= sprintf('/settings - adjust behaviour in this chat') . PHP_EOL;
+		$text .= sprintf('/feedback - contact authors') . PHP_EOL;
 		$text .= PHP_EOL;
 
 		$text .= sprintf(Icons::INFO . ' Note: Bot is currently in active development so there is no guarantee that it will work at all times. Check source code on Github <a href="%1$s%2$s">%2$s</a> for more info.', 'https://github.com/', 'DJTommek/better-location') . PHP_EOL;

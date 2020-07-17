@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace TelegramCustomWrapper;
 
 use \TelegramCustomWrapper\Events\Command\DebugCommand;
+use \TelegramCustomWrapper\Events\Command\FeedbackCommand;
 use \TelegramCustomWrapper\Events\Command\HelpCommand;
 use \TelegramCustomWrapper\Events\Command\LocationCommand;
 use \TelegramCustomWrapper\Events\Command\MessageCommand;
-use TelegramCustomWrapper\Events\Command\SettingsCommand;
+use \TelegramCustomWrapper\Events\Command\SettingsCommand;
 use \TelegramCustomWrapper\Events\Command\UnknownCommand;
-use TelegramCustomWrapper\Events\Special\File;
-use TelegramCustomWrapper\Events\Special\Photo;
+use \TelegramCustomWrapper\Events\Special\File;
+use \TelegramCustomWrapper\Events\Special\Photo;
 use unreal4u\TelegramAPI\Telegram;
 use \unreal4u\TelegramAPI\TgLog;
 use \unreal4u\TelegramAPI\HttpClientRequestHandler;
@@ -82,6 +83,9 @@ class TelegramCustomWrapper
 					break;
 				case '/settings':
 					return new SettingsCommand($update, $this->tgLog, $this->loop);
+					break;
+				case '/feedback':
+					return new FeedbackCommand($update, $this->tgLog, $this->loop);
 					break;
 				case null: // message without command
 					return new MessageCommand($update, $this->tgLog, $this->loop);
