@@ -166,7 +166,7 @@ class General
 	 * @return array list of URLs
 	 */
 	public static function getUrls(string $string): array {
-		preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|(?:[^,[:punct:]\s]|/))#', $string, $matches);
+		preg_match_all('#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|(?:[^,[:punct:]\s]|/))#', $string, $matches);
 		return $matches[0];
 	}
 }
