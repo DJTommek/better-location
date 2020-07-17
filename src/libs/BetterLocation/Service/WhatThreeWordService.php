@@ -7,6 +7,7 @@ namespace BetterLocation\Service;
 use \BetterLocation\BetterLocation;
 use \BetterLocation\Service\Exceptions\BadWordsException;
 use \BetterLocation\Service\Exceptions\InvalidApiKeyException;
+use BetterLocation\Service\Exceptions\InvalidLocationException;
 use \Utils\General;
 
 final class WhatThreeWordService extends AbstractService
@@ -50,22 +51,21 @@ final class WhatThreeWordService extends AbstractService
 			$apiLink = sprintf('https://api.what3words.com/v3/convert-to-coordinates?key=%s&words=%s&format=json', W3W_API_KEY, urlencode($words));
 			$data = json_decode(General::fileGetContents($apiLink), false, 512, JSON_THROW_ON_ERROR);
 			if (isset($data->error)) {
-				dump($data->error);
 				if ($data->error->code === 'BadWords') {
-					throw new BadWordsException(sprintf('What3Words "%s" are not valid words: "%s"', urlencode($words), $data->error->message));
+					throw new InvalidLocationException(sprintf('What3Words "%s" are not valid words: "%s"', $words, $data->error->message));
 				} else if ($data->error->code === 'InvalidKey') {
 					throw new InvalidApiKeyException($data->error->message);
 				} else {
-					throw new \Exception(sprintf('Detected What3Words "%s" but unable to get coordinates, invalid response from API: "%s"', urlencode($words), $data->error->message));
+					throw new \Exception(sprintf('Detected What3Words "%s" but unable to get coordinates, invalid response from API: "%s"', $words, $data->error->message));
 				}
 			}
 			return new BetterLocation(
 				$data->coordinates->lat,
 				$data->coordinates->lng,
-				sprintf('(<a href="%s">W3W</a>: <code>%s</code>)', $data->map, $data->words),
+				sprintf('<a href="%s">W3W</a>: <code>%s</code>', $data->map, $data->words),
 			);
 		} else {
-			throw new \Exception('Unable to get coords from What3Words.');
+			throw new InvalidLocationException(sprintf('Unable to get coords from What3Words "%s".', $input));
 		}
 	}
 

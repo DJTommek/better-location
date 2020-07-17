@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\Service\Exceptions\InvalidLocationException;
 
 final class IngressIntelService extends AbstractService
 {
@@ -31,14 +32,14 @@ final class IngressIntelService extends AbstractService
 	/**
 	 * @param string $url
 	 * @return BetterLocation
-	 * @throws \Exception
+	 * @throws InvalidLocationException
 	 */
 	public static function parseCoords(string $url) {
 		$coords = self::parseUrl($url);
 		if ($coords) {
-			return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Intel</a>: ', $url));
+			return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Intel</a>', $url));
 		} else {
-			throw new \Exception('Unable to get coords from Ingress Intel link.');
+			throw new InvalidLocationException(sprintf('Unable to get coords from Ingress Intel link "%s".', $url));
 		}
 	}
 

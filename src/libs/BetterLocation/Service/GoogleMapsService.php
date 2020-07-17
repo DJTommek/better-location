@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\Service\Exceptions\InvalidLocationException;
 use \Utils\General;
-use \Icons;
 
 final class GoogleMapsService extends AbstractService
 {
@@ -24,7 +24,7 @@ final class GoogleMapsService extends AbstractService
 	/**
 	 * @param string $url
 	 * @return BetterLocation
-	 * @throws \Exception
+	 * @throws InvalidLocationException
 	 */
 	public static function parseCoords(string $url) {
 		if (self::isShortUrl($url)) {
@@ -42,7 +42,7 @@ final class GoogleMapsService extends AbstractService
 			if ($coords) {
 				return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Goo.gl</a>', $url));
 			} else {
-				throw new \Exception(sprintf('%s Unable to get coords for Goo.gl link.', Icons::ERROR));
+				throw new InvalidLocationException(sprintf('Unable to get coords for Goo.gl link "%s".', $url));
 			}
 		} else if (self::isNormalUrl($url)) {
 			// Google maps normal links:
@@ -56,10 +56,10 @@ final class GoogleMapsService extends AbstractService
 			if ($coords) {
 				return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Google</a>', $url));
 			} else {
-				throw new \Exception(sprintf('%s Unable to get coords for Google maps normal link.', Icons::ERROR));
+				throw new InvalidLocationException(sprintf('Unable to get coords for Google maps normal link "%s".', $url));
 			}
 		} else {
-			throw new \Exception('Unable to get coords for Google maps link.');
+			throw new InvalidLocationException(sprintf('Unable to get coords for Google maps link "%s".', $url));
 		}
 	}
 
@@ -93,7 +93,7 @@ final class GoogleMapsService extends AbstractService
 	/**
 	 * @param string $url
 	 * @return array|null
-	 * @throws \Exception
+	 * @throws InvalidLocationException
 	 */
 	public static function parseUrl(string $url): ?array {
 		$paramsString = explode('?', $url);
@@ -115,6 +115,9 @@ final class GoogleMapsService extends AbstractService
 			];
 		} else if (isset($params['q'])) { // @TODO in this parameter probably might be also non-coordinates locations (eg. address)
 			$coords = explode(',', $params['q']);
+			if (count($coords) !== 2) {
+				throw new InvalidLocationException(sprintf('Invalid "q" parameter in Google link "%s".', $url));
+			}
 			return [
 				floatval($coords[0]),
 				floatval($coords[1]),

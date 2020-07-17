@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\Service\Exceptions\InvalidLocationException;
 use OpenLocationCode\OpenLocationCode;
 
 final class OpenLocationCodeService extends AbstractService
@@ -36,7 +37,7 @@ final class OpenLocationCodeService extends AbstractService
 	/**
 	 * @param string $plusCodeInput
 	 * @return BetterLocation
-	 * @throws \Exception
+	 * @throws InvalidLocationException
 	 */
 	public static function parseCoords(string $plusCodeInput) {
 		if (self::isUrl($plusCodeInput)) {
@@ -44,7 +45,7 @@ final class OpenLocationCodeService extends AbstractService
 			return new BetterLocation(
 				$coords[0],
 				$coords[1],
-				sprintf('<a href="%s">(OLC)</a>: ', $plusCodeInput) // @TODO would be nice to return detected OLC code
+				sprintf('<a href="%s">OLC</a>', $plusCodeInput) // @TODO would be nice to return detected OLC code
 			);
 		} else if (self::isCode($plusCodeInput)) {  // at least two characters, otherwise it is probably /s/hort-version of link
 			$coords = OpenLocationCode::decode($plusCodeInput);
@@ -54,7 +55,7 @@ final class OpenLocationCodeService extends AbstractService
 				sprintf('<a href="%s">(OLC)</a> <code>%s</code>: ', self::getLink($coords['latitudeCenter'], $coords['longitudeCenter']), $plusCodeInput),
 			);
 		} else {
-			throw new \Exception('Unable to get coords from OpenLocationCode.');
+			throw new InvalidLocationException(sprintf('Unable to get coords from OpenLocationCode "%s".', $plusCodeInput));
 		}
 	}
 

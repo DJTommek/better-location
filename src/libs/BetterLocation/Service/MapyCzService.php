@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\Service\Exceptions\InvalidLocationException;
 
 final class MapyCzService extends AbstractService
 {
@@ -34,7 +35,7 @@ final class MapyCzService extends AbstractService
 	/**
 	 * @param string $url
 	 * @return BetterLocation
-	 * @throws \Exception
+	 * @throws InvalidLocationException
 	 */
 	public static function parseCoords(string $url) {
 		if (self::isShortUrl($url)) {
@@ -42,22 +43,22 @@ final class MapyCzService extends AbstractService
 			if ($newLocation) {
 				$coords = self::parseUrl($newLocation);
 				if ($coords) {
-					return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">(Mapy.cz)</a>: ', $url));
+					return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Mapy.cz</a>', $url));
 				} else {
-					throw new \Exception('Unable to get coords for Mapy.cz short link.');
+					throw new InvalidLocationException(sprintf('Unable to get coords for Mapy.cz short link "%s".', $url));
 				}
 			} else {
-				throw new \Exception('Unable to get real url for Mapy.cz short link.');
+				throw new InvalidLocationException(sprintf('Unable to get real url for Mapy.cz short link "%s".', $url));
 			}
 		} else if (self::isNormalUrl($url)) {  // at least two characters, otherwise it is probably /s/hort-version of link
 			$coords = self::parseUrl($url);
 			if ($coords) {
-				return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">(Mapy.cz)</a>: ', $url));
+				return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Mapy.cz</a>', $url));
 			} else {
-				throw new \Exception('Unable to get coords from Mapy.cz normal link.');
+				throw new InvalidLocationException(sprintf('Unable to get coords from Mapy.cz normal link "%s".', $url));
 			}
 		} else {
-			throw new \Exception('Unable to get coords for Mapy.cz link.');
+			throw new InvalidLocationException(sprintf('Unable to get coords for Mapy.cz link "%s".', $url));
 		}
 	}
 

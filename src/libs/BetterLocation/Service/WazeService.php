@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\Service\Exceptions\InvalidLocationException;
 
 final class WazeService extends AbstractService
 {
@@ -42,22 +43,22 @@ final class WazeService extends AbstractService
 				$newLocation = self::LINK . $newLocation;
 				$coords = self::parseUrl($newLocation);
 				if ($coords) {
-					return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">(Waze)</a>: ', $url));
+					return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Waze</a>', $url));
 				} else {
-					throw new \Exception('Unable to get coords for Waze short link.');
+					throw new InvalidLocationException(sprintf('Unable to get coords for Waze short link "%s".', $url));
 				}
 			} else {
-				throw new \Exception('%s Unable to get real url for Waze short link.');
+				throw new InvalidLocationException(sprintf('Unable to get real url for Waze short link "%s".', $url));
 			}
 		} else if (self::isNormalUrl($url)) {
 			$coords = self::parseUrl($url);
 			if ($coords) {
-				return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">(Waze)</a>: ', $url));
+				return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Waze</a>', $url));
 			} else {
-				throw new \Exception('Unable to get coords for Waze normal link.');
+				throw new InvalidLocationException(sprintf('Unable to get coords for Waze normal link "%s".', $url));
 			}
 		} else {
-			throw new \Exception('Unable to get coords for Waze link.');
+			throw new InvalidLocationException(sprintf('Unable to get coords for Waze link "%".', $url));
 		}
 	}
 

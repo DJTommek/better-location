@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\Service\Exceptions\InvalidLocationException;
 
 final class OpenStreetMapService extends AbstractService
 {
@@ -35,16 +36,16 @@ final class OpenStreetMapService extends AbstractService
 	 */
 	public static function parseCoords(string $url) {
 		if (self::isShortUrl($url)) {
-			throw new \Exception('Short URL processing is not yet implemented.');
+			throw new InvalidLocationException('Short URL processing is not yet implemented.');
 		} else if (self::isNormalUrl($url)) {  // at least two characters, otherwise it is probably /s/hort-version of link
 			$coords = self::parseUrl($url);
 			if ($coords) {
 				return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">(OSM)</a>: ', $url));
 			} else {
-				throw new \Exception('Unable to get coords from OSM basic link.');
+				throw new InvalidLocationException(sprintf('Unable to get coords from OSM basic link "%s".', $url));
 			}
 		} else {
-			throw new \Exception('Unable to get coords from OSM link.');
+			throw new InvalidLocationException(sprintf('Unable to get coords from OSM link "%s".', $url));
 		}
 	}
 
@@ -83,7 +84,6 @@ final class OpenStreetMapService extends AbstractService
 	 */
 	public static function parseUrl(string $url): ?array {
 		$paramsHashString = explode('#map=', $url);
-		dump($paramsHashString);
 		// url is in format some-url/blahblah#map=lat/lon
 		if (count($paramsHashString) === 2) {
 			$urlCoords = explode('/', $paramsHashString[1]);
