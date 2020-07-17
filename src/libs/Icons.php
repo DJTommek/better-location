@@ -16,5 +16,9 @@ class Icons
 	const FEATURES = "\u{1F4A1}"; // https://emojipedia.org/light-bulb/
 	const COMMAND = "\u{1F4AC}"; // https://emojipedia.org/speech-balloon/
 
+	const CAR = "\u{1F697}"; // https://emojipedia.org/automobile/
+
+	const ARROW_RIGHT = "\u{27A1}"; // https://emojipedia.org/right-arrow/
+
 	const LOCATION = "\u{1F4CD}"; // https://emojipedia.org/round-pushpin/
 }
