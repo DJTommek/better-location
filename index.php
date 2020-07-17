@@ -107,7 +107,7 @@ if (defined('TELEGRAM_WEBHOOK_URL')) {
 				$entity = new stdClass();
 				$entity->type = 'url';
 				$entity->offset = mb_strpos($input, $url);
-				$entity->length = $entity->offset + mb_strlen($url);
+				$entity->length = mb_strlen($url);
 				$entities[] = $entity;
 			}
 			try {
@@ -115,7 +115,13 @@ if (defined('TELEGRAM_WEBHOOK_URL')) {
 				if (count($betterLocations)) {
 					$result = '';
 					foreach ($betterLocations as $betterLocation) {
-						$result .= $betterLocation->generateBetterLocation();
+						if ($betterLocation instanceof BetterLocation) {
+							$result .= $betterLocation->generateBetterLocation();
+						} else if ($betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException) {
+							$result .= htmlentities($betterLocation->getMessage()) . PHP_EOL . PHP_EOL;
+						} else {
+							Debugger::log($betterLocation, Debugger::EXCEPTION);
+						}
 					}
 					printf('<pre>%s</pre>', $result);
 				} else {
