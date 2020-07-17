@@ -29,12 +29,13 @@ class MessageCommand extends Command
 		try {
 			$betterLocations = BetterLocation::generateFromTelegramMessage($this->getText(), $this->update->message->entities);
 			$result = '';
-			$firstValidLocation = null;
+			$buttonLimit = 1; // @TODO move to config (chat settings)
+			$buttons = [];
 			foreach ($betterLocations as $betterLocation) {
 				if ($betterLocation instanceof BetterLocation) {
 					$result .= $betterLocation->generateBetterLocation();
-					if (is_null($firstValidLocation)) {
-						$firstValidLocation = $betterLocation;
+					if (count($buttons) < $buttonLimit) {
+						$buttons[] = $this->getDriveButtons($betterLocation);
 					}
 				} else if ($betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException) {
 					$result .= $betterLocation->getMessage() . PHP_EOL . PHP_EOL;
@@ -48,24 +49,8 @@ class MessageCommand extends Command
 			return;
 		}
 		if ($result) {
-			$markup = null;
-			if (is_null($firstValidLocation) === false) {
-				$googleMapsDriveButton = new Button();
-				$googleMapsDriveButton->text = 'Google ' . Icons::CAR;
-				$googleMapsDriveButton->url = $betterLocations[0]->getLink(new GoogleMapsService, true);
-
-				$wazeDriveButton = new Button();
-				$wazeDriveButton->text = 'Waze ' . Icons::CAR;
-				$wazeDriveButton->url = $betterLocations[0]->getLink(new WazeService, true);
-
-				$markup = new Markup();
-				$markup->inline_keyboard = [
-					[
-						$googleMapsDriveButton,
-						$wazeDriveButton,
-					]
-				];
-			}
+			$markup = (new Markup());
+			$markup->inline_keyboard = $buttons;
 			$this->reply(
 				sprintf('%s <b>Better location</b>', Icons::LOCATION) . PHP_EOL . $result,
 				[
@@ -73,10 +58,21 @@ class MessageCommand extends Command
 					'reply_markup' => $markup,
 				],
 			);
-			return;
 		} else if ($this->isPm()) {
 			$this->reply('Hi there in PM!');
 		}
+	}
+
+	private function getDriveButtons(BetterLocation $betterLocation) {
+		$googleButton = new Button();
+		$googleButton->text = 'Google ' . Icons::CAR;
+		$googleButton->url = $betterLocation->getLink(new GoogleMapsService, true);
+
+		$wazeButton = new Button();
+		$wazeButton->text = 'Waze ' . Icons::CAR;
+		$wazeButton->url = $betterLocation->getLink(new WazeService(), true);
+
+		return [$googleButton, $wazeButton];
 	}
 }
 
