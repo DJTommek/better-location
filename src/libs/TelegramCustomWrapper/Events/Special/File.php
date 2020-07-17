@@ -67,7 +67,6 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 		foreach ($betterLocationsMessage as $betterLocation) {
 			$replyMessage .= $betterLocation->generateBetterLocation();
 		}
-		dump($betterLocationsMessage);
 
 		if ($replyMessage) {
 			$this->reply(sprintf('%s <b>Better location</b>', Icons::LOCATION) . PHP_EOL . $replyMessage);
