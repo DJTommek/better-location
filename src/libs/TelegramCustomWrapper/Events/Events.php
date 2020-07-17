@@ -70,7 +70,7 @@ abstract class Events
 	 * @throws \Exception
 	 */
 	public function reply(string $text, array $options = []) {
-		$msg = new SendMessage($this->getChatId(), $text);
+		$msg = new SendMessage($this->getChatId(), $text, $this->update->message->message_id);
 		if (isset($options['reply_markup'])) {
 			$msg->setReplyMarkup($options['reply_markup']);
 		}
