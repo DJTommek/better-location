@@ -48,9 +48,30 @@ class MessageCommand extends Command
 			return;
 		}
 		if ($result) {
+			$markup = null;
+			if (is_null($firstValidLocation) === false) {
+				$googleMapsDriveButton = new Button();
+				$googleMapsDriveButton->text = 'Google ' . Icons::CAR;
+				$googleMapsDriveButton->url = $betterLocations[0]->getLink(new GoogleMapsService, true);
+
+				$wazeDriveButton = new Button();
+				$wazeDriveButton->text = 'Waze ' . Icons::CAR;
+				$wazeDriveButton->url = $betterLocations[0]->getLink(new WazeService, true);
+
+				$markup = new Markup();
+				$markup->inline_keyboard = [
+					[
+						$googleMapsDriveButton,
+						$wazeDriveButton,
+					]
+				];
+			}
 			$this->reply(
 				sprintf('%s <b>Better location</b>', Icons::LOCATION) . PHP_EOL . $result,
-				['disable_web_page_preview' => true],
+				[
+					'disable_web_page_preview' => true,
+					'reply_markup' => $markup,
+				],
 			);
 			return;
 		} else if ($this->isPm()) {

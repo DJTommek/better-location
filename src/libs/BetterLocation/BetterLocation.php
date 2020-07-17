@@ -163,6 +163,13 @@ class BetterLocation
 			sprintf('<a href="%s">Intel</a>', IngressIntelService::getLink($this->lat, $this->lon)),
 		];
 
-		return sprintf('%s %s <code>%f,%f</code>:%s%s', $this->prefixMessage, Icons::SUCCESS, $this->lat, $this->lon, PHP_EOL, join(' | ', $links)) . PHP_EOL . PHP_EOL;
+		return sprintf('%s %s <code>%f,%f</code>:%s%s', $this->prefixMessage, Icons::ARROW_RIGHT, $this->lat, $this->lon, PHP_EOL, join(' | ', $links)) . PHP_EOL . PHP_EOL;
+	}
+
+	public function getLink($class, bool $drive = false) {
+		if ($class instanceof AbstractService === false) {
+			throw new \InvalidArgumentException('Class must be instance of AbstractService');
+		}
+		return $class::getLink($this->lat, $this->lon, $drive);
 	}
 }
