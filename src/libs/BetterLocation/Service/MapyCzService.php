@@ -88,13 +88,11 @@ final class MapyCzService extends AbstractService
 		$parsedUrl = parse_url(urldecode($url));
 		if (isset($parsedUrl['query']) && strpos($parsedUrl['host'], 'mapy.cz') !== false) {
 			parse_str($parsedUrl['query'], $urlParams);
-			if (
+			return (
 				isset($urlParams['x']) && isset($urlParams['y']) ||
 				isset($urlParams['ma_x']) && isset($urlParams['ma_y']) ||
 				isset($urlParams['id'])
-			) {
-				return true;
-			}
+			);
 		}
 		return false;
 	}
