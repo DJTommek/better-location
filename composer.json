@@ -6,6 +6,7 @@
 		"ext-exif": "*",
 		"tracy/tracy": "v2.7.3",
 		"unreal4u/telegram-api": "~3.4",
-		"bogdaan/open-location-code": "dev-master"
+		"bogdaan/open-location-code": "dev-master",
+		"what3words/w3w-php-wrapper": "^3.3"
 	}
 }

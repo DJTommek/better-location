@@ -37,9 +37,13 @@ class MessageCommand extends Command
 					if (count($buttons) < $buttonLimit) {
 						$buttons[] = $this->getDriveButtons($betterLocation);
 					}
-				} else if ($betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException) {
-					$result .= $betterLocation->getMessage() . PHP_EOL . PHP_EOL;
+				} else if (
+					$betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException ||
+					$betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidApiKeyException
+				) {
+					$result .= Icons::ERROR . $betterLocation->getMessage() . PHP_EOL . PHP_EOL;
 				} else {
+					$result .= Icons::ERROR . 'Unexpected error occured while proceessing message for locations.' . PHP_EOL . PHP_EOL;
 					Debugger::log($betterLocation, Debugger::EXCEPTION);
 				}
 			}

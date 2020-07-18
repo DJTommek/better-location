@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace BetterLocation\Service;
 
 use \BetterLocation\BetterLocation;
-use \BetterLocation\Service\Exceptions\BadWordsException;
 use \BetterLocation\Service\Exceptions\InvalidApiKeyException;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
-use \Utils\General;
+use What3words\Geocoder\Geocoder;
 
 final class WhatThreeWordService extends AbstractService
 {
@@ -24,9 +23,25 @@ final class WhatThreeWordService extends AbstractService
 	 * @param float $lon
 	 * @param bool $drive
 	 * @return string
+	 * @throws InvalidLocationException
+	 * @throws \Exception
 	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
-		throw new \InvalidArgumentException('Link is not implemented.');
+		if ($drive) {
+			throw new \InvalidArgumentException('Drive link is not supported.');
+		} else {
+			$w3wApi = new Geocoder(W3W_API_KEY);
+			// @TODO dirty hack to get stdclass instead of associated array
+			$response = $w3wApi->convertTo3wa($lat, $lon);
+			$error = $w3wApi->getError();
+			if ($error) {
+				// @TODO dirty hack to get stdclass instead of associated array
+				$error = json_decode(json_encode($error));
+				throw new \Exception(sprintf('Unable to get W3W from coordinates: %s', $error->message));
+			}
+			$data = json_decode(json_encode($response));
+			return $data->map;
+		}
 	}
 
 	public static function isValid(string $input): bool {
@@ -48,8 +63,30 @@ final class WhatThreeWordService extends AbstractService
 			$words = $input;
 		}
 		if ($words) {
-			$apiLink = sprintf('https://api.what3words.com/v3/convert-to-coordinates?key=%s&words=%s&format=json', W3W_API_KEY, urlencode($words));
-			$data = json_decode(General::fileGetContents($apiLink), false, 512, JSON_THROW_ON_ERROR);
+			$w3wApi = new Geocoder('W3W_API_KEY');
+			$response = $w3wApi->convertToCoordinates($words);
+			$error = $w3wApi->getError();
+			if ($error) {
+				// @TODO dirty hack to get stdclass instead of associated array
+				$error = json_decode(json_encode($error));
+				if ($error->code === 'BadWords') {
+					throw new InvalidLocationException(sprintf('What3Words "%s" are not valid words: "%s"', $words, $error->message));
+				} else if ($error->code === 'InvalidKey') {
+					throw new InvalidApiKeyException(sprintf('What3Words API responded with error: "%s"', $error->message));
+				} else {
+					throw new InvalidLocationException(sprintf('Detected What3Words "%s" but unable to get coordinates, invalid response from API: "%s"', $words, $error->message));
+				}
+			} else {
+				// @TODO dirty hack to get stdclass instead of associated array
+				$data = json_decode(json_encode($response));
+				return new BetterLocation(
+					$data->coordinates->lat,
+					$data->coordinates->lng,
+					sprintf('<a href="%s">W3W</a>: <code>%s</code>', $data->map, $data->words),
+				);
+			}
+
+			dump($data);
 			if (isset($data->error)) {
 				if ($data->error->code === 'BadWords') {
 					throw new InvalidLocationException(sprintf('What3Words "%s" are not valid words: "%s"', $words, $data->error->message));
@@ -59,11 +96,6 @@ final class WhatThreeWordService extends AbstractService
 					throw new \Exception(sprintf('Detected What3Words "%s" but unable to get coordinates, invalid response from API: "%s"', $words, $data->error->message));
 				}
 			}
-			return new BetterLocation(
-				$data->coordinates->lat,
-				$data->coordinates->lng,
-				sprintf('<a href="%s">W3W</a>: <code>%s</code>', $data->map, $data->words),
-			);
 		} else {
 			throw new InvalidLocationException(sprintf('Unable to get coords from What3Words "%s".', $input));
 		}
