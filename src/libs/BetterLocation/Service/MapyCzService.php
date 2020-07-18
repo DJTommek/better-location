@@ -6,6 +6,7 @@ namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
+use Utils\Coordinates;
 
 final class MapyCzService extends AbstractService
 {
@@ -36,6 +37,7 @@ final class MapyCzService extends AbstractService
 	 * @param string $url
 	 * @return BetterLocation
 	 * @throws InvalidLocationException
+	 * @throws \Exception
 	 */
 	public static function parseCoords(string $url) {
 		if (self::isShortUrl($url)) {
@@ -67,7 +69,15 @@ final class MapyCzService extends AbstractService
 		// https://mapy.cz/s/porumejene
 		// https://en.mapy.cz/s/porumejene
 		// https://en.mapy.cz/s/3ql7u
-		return !!(preg_match('/https:\/\/([a-z]{1,3}\.)?mapy\.cz\/s\/[a-z0-9A-Z]+/', $url));
+		// https://en.mapy.cz/s/faretabotu
+		$parsedUrl = parse_url($url);
+		return (
+			$parsedUrl &&
+			isset($parsedUrl['host']) &&
+			strpos($parsedUrl['host'], 'mapy.cz') !== false &&
+			isset($parsedUrl['path']) &&
+			preg_match('/^\/s\/[a-zA-Z0-9]+$/', $parsedUrl['path'])
+		);
 	}
 
 	public static function isNormalUrl(string $url): bool {
@@ -75,19 +85,52 @@ final class MapyCzService extends AbstractService
 		// https://mapy.cz/?x=15.278244&y=49.691235&z=15&ma_x=15.278244&ma_y=49.691235&ma_t=Jsem+tady%2C+otev%C5%99i+odkaz&source=coor&id=15.278244%2C49.691235
 		// Mapy.cz panorama:
 		// https://en.mapy.cz/zakladni?x=14.3139613&y=49.1487367&z=15&pano=1&pid=30158941&yaw=1.813&fov=1.257&pitch=-0.026
-		return !!(preg_match('/https:\/\/([a-z]{1,3}\.)?mapy\.cz\/([a-z0-9-]{2,})?\?/', $url));
+		$parsedUrl = parse_url(urldecode($url));
+		if (isset($parsedUrl['query']) && strpos($parsedUrl['host'], 'mapy.cz') !== false) {
+			parse_str($parsedUrl['query'], $urlParams);
+			if (
+				isset($urlParams['x']) && isset($urlParams['y']) ||
+				isset($urlParams['ma_x']) && isset($urlParams['ma_y']) ||
+				isset($urlParams['id'])
+			) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
 	 * @param string $url
 	 * @return array|null
+	 * @throws InvalidLocationException
 	 */
 	public static function parseUrl(string $url): ?array {
-		$paramsString = explode('?', $url);
-		parse_str($paramsString[1], $params);
-		return [
-			floatval($params['y']),
-			floatval($params['x']),
-		];
+		$parsedUrl = parse_url(urldecode($url));
+		if (!isset($parsedUrl['query'])) {
+			throw new InvalidLocationException(sprintf('Unable to get query for Mapy.cz link "%s".', $url));
+		}
+		parse_str($parsedUrl['query'], $urlParams);
+		if ($urlParams) {
+			if (isset($urlParams['id']) && preg_match(Coordinates::RE_WGS84_DEGREES, $urlParams['id'], $matches)) {
+				// @TODO if ID is set but not coordinates, try to get coordinates from other parameters but show warning that it might not be accurate
+				return [
+					floatval($matches[2]),
+					floatval($matches[1]),
+				];
+			}
+			if (isset($urlParams['ma_x']) && isset($urlParams['ma_y'])) {
+				return [
+					floatval($urlParams['ma_y']),
+					floatval($urlParams['ma_x']),
+				];
+			}
+			if (isset($urlParams['x']) && isset($urlParams['y'])) {
+				return [
+					floatval($urlParams['y']),
+					floatval($urlParams['x']),
+				];
+			}
+		}
+		return null;
 	}
 }
