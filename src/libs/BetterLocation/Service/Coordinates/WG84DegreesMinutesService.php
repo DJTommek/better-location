@@ -27,7 +27,7 @@ final class WG84DegreesMinutesService extends AbstractService
 	}
 
 	public static function getRegex(): string {
-		return self::RE_HEMISPHERE . self::RE_COORD . self::RE_HEMISPHERE . self::RE_SPACE . self::RE_HEMISPHERE . self::RE_COORD . self::RE_HEMISPHERE;
+		return self::RE_HEMISPHERE . self::RE_OPTIONAL_SPACE . self::RE_COORD . self::RE_OPTIONAL_SPACE . self::RE_HEMISPHERE . self::RE_SPACE_BETWEEN_COORDS . self::RE_HEMISPHERE . self::RE_OPTIONAL_SPACE . self::RE_COORD . self::RE_OPTIONAL_SPACE . self::RE_HEMISPHERE;
 	}
 
 	/**
@@ -37,7 +37,6 @@ final class WG84DegreesMinutesService extends AbstractService
 	public static function findInText($text): array {
 		$results = [];
 		if (preg_match_all('/' . self::getRegex() . '/', $text, $matches)) {
-			dump($matches);
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				if ($matches[1][$i] && $matches[3][$i]) {
 					$results[] = new InvalidLocationException(sprintf('Invalid format of coordinates "<code>%s</code>" - hemisphere is defined twice for first coordinate', $matches[0][$i]));
