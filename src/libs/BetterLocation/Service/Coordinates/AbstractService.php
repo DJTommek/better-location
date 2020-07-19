@@ -8,7 +8,7 @@ use Utils\General;
 
 abstract class AbstractService extends \BetterLocation\Service\AbstractService
 {
-	const RE_HEMISPHERE = '([-+NSWE])?';
+	const RE_HEMISPHERE = ' ?([-+NSWE])? ?';
 	const RE_SPACE = '[., ]{1,4}';
 
 	abstract public static function getLink(float $lat, float $lon, bool $drive = false);
