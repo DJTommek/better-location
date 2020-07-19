@@ -30,8 +30,8 @@ final class WG84DegreesServiceTest extends TestCase
 		$text .= '19.2222W 59.1111N' . PHP_EOL;     // +/-
 		$text .= PHP_EOL;
 		$text .= 'Invalid:';
-		$text .= '20.2222S 60.1111S' . PHP_EOL;     // "Both coordinates are north-south hemisphere
-		$text .= '21.2222W 61.1111E' . PHP_EOL;     // "Both coordinates are east-west hemisphere
+		$text .= '20.2222S 60.1111S' . PHP_EOL;     // Both coordinates are north-south hemisphere
+		$text .= '21.2222W 61.1111E' . PHP_EOL;     // Both coordinates are east-west hemisphere
 
 		$betterLocations = WG84DegreesService::findInText($text);
 		$this->assertEquals([50.1111, 10.2222], $betterLocations[0]->getLatLon());
