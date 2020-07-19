@@ -134,4 +134,20 @@ class BetterLocation
 		}
 		return $class::getLink($this->lat, $this->lon, $drive);
 	}
+
+	public function getLat(): float {
+		return $this->lat;
+	}
+
+	public function getLon(): float {
+		return $this->lon;
+	}
+
+	public function getLatLon(): array {
+		return [$this->lat, $this->lon];
+	}
+
+	public function __toString() {
+		return sprintf('%f, %f', $this->lat, $this->lon);
+	}
 }
