@@ -27,7 +27,7 @@ final class WG84DegreesService extends AbstractService
 	}
 
 	public static function getRegex(): string {
-		return self::RE_HEMISPHERE . self::RE_OPTIONAL_SPACE . self::RE_COORD . self::RE_OPTIONAL_SPACE . self::RE_HEMISPHERE . self::RE_SPACE_BETWEEN_COORDS . self::RE_HEMISPHERE . self::RE_OPTIONAL_SPACE . self::RE_COORD . self::RE_OPTIONAL_SPACE . self::RE_HEMISPHERE;
+		return self::RE_HEMISPHERE . self::RE_OPTIONAL_SPACE . self::RE_COORD . self::RE_HEMISPHERE . self::RE_SPACE_BETWEEN_COORDS . self::RE_HEMISPHERE . self::RE_OPTIONAL_SPACE . self::RE_COORD . self::RE_HEMISPHERE;
 	}
 
 	/**
