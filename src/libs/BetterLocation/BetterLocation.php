@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BetterLocation;
 
 use BetterLocation\Service\AbstractService;
+use BetterLocation\Service\Coordinates\WG84DegreesMinutesSecondsService;
 use BetterLocation\Service\Coordinates\WG84DegreesMinutesService;
 use BetterLocation\Service\Coordinates\WG84DegreesService;
 use \BetterLocation\Service\GoogleMapsService;
@@ -76,22 +77,7 @@ class BetterLocation
 
 		$betterLocationsObjects = array_merge($betterLocationsObjects, WG84DegreesService::findInText($messageWithoutUrls));
 		$betterLocationsObjects = array_merge($betterLocationsObjects, WG84DegreesMinutesService::findInText($messageWithoutUrls));
-
-
-		// Coordinates
-		if (preg_match_all(Coordinates::RE_WGS84_DEGREES_MINUTES_SECONDS, $messageWithoutUrls, $matches)) {
-			for ($i = 0; $i < count($matches[0]); $i++) {
-				try {
-					$betterLocationsObjects[] = new BetterLocation(
-						Coordinates::wgs84DegreesMinutesSecondsToDecimal(floatval($matches[2][$i]), floatval($matches[3][$i]), floatval($matches[4][$i]), $matches[5][$i]),
-						Coordinates::wgs84DegreesMinutesSecondsToDecimal(floatval($matches[7][$i]), floatval($matches[8][$i]), floatval($matches[9][$i]), $matches[10][$i]),
-						sprintf('#%d (Coords): ', ++$index),
-					);
-				} catch (\Exception $exception) {
-					$betterLocationsObjects[] = $exception;
-				}
-			}
-		}
+		$betterLocationsObjects = array_merge($betterLocationsObjects, WG84DegreesMinutesSecondsService::findInText($messageWithoutUrls));
 
 		// OpenLocationCode (Plus codes)
 		foreach (preg_split('/[^\p{L}+]+/u', $messageWithoutUrls) as $word) {
