@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace BetterLocation;
 
 use BetterLocation\Service\AbstractService;
-use BetterLocation\Service\CoordinatesWG84DegreesService;
+use BetterLocation\Service\Coordinates\WG84DegreesService;
 use \BetterLocation\Service\GoogleMapsService;
 use \BetterLocation\Service\IngressIntelService;
 use \BetterLocation\Service\MapyCzService;
@@ -73,7 +73,7 @@ class BetterLocation
 
 		$messageWithoutUrls = self::getMessageWithoutUrls($message, $entities);
 
-		$betterLocationsObjects = array_merge($betterLocationsObjects, CoordinatesWG84DegreesService::findInText($messageWithoutUrls));
+		$betterLocationsObjects = array_merge($betterLocationsObjects, WG84DegreesService::findInText($messageWithoutUrls));
 
 		// Coordinates
 		if (preg_match_all(Coordinates::RE_WGS84_DEGREES_MINUTES, $messageWithoutUrls, $matches)) {

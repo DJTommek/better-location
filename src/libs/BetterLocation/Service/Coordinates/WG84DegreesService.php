@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BetterLocation\Service;
+namespace BetterLocation\Service\Coordinates;
 
 use BetterLocation\BetterLocation;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
@@ -10,11 +10,10 @@ use BetterLocation\Service\Exceptions\NotImplementedException;
 use BetterLocation\Service\Exceptions\NotSupportedException;
 use Utils\Coordinates;
 
-final class CoordinatesWG84DegreesService extends AbstractService
+final class WG84DegreesService extends AbstractService
 {
-	const RE_HEMISPHERE = '([-+NSWE])?';
 	const RE_COORD = '([0-9]{1,3}\.[0-9]{1,20})';
-	const RE_SPACE = '[., ]{1,4}';
+	const NAME = 'WG84';
 
 	/**
 	 * @param float $lat
@@ -121,7 +120,7 @@ final class CoordinatesWG84DegreesService extends AbstractService
 				$results[] = new BetterLocation(
 					Coordinates::flip($latHemisphere) * $latCoords,
 					Coordinates::flip($lonHemisphere) * $lonCoords,
-					sprintf('WG84'),
+					sprintf(self::NAME),
 				);
 			}
 		}
