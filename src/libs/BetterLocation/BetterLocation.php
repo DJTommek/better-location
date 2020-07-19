@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BetterLocation;
 
 use BetterLocation\Service\AbstractService;
+use BetterLocation\Service\Coordinates\WG84DegreesMinutesService;
 use BetterLocation\Service\Coordinates\WG84DegreesService;
 use \BetterLocation\Service\GoogleMapsService;
 use \BetterLocation\Service\IngressIntelService;
@@ -74,21 +75,8 @@ class BetterLocation
 		$messageWithoutUrls = self::getMessageWithoutUrls($message, $entities);
 
 		$betterLocationsObjects = array_merge($betterLocationsObjects, WG84DegreesService::findInText($messageWithoutUrls));
+		$betterLocationsObjects = array_merge($betterLocationsObjects, WG84DegreesMinutesService::findInText($messageWithoutUrls));
 
-		// Coordinates
-		if (preg_match_all(Coordinates::RE_WGS84_DEGREES_MINUTES, $messageWithoutUrls, $matches)) {
-			for ($i = 0; $i < count($matches[0]); $i++) {
-				try {
-					$betterLocationsObjects[] = new BetterLocation(
-						Coordinates::wgs84DegreesMinutesToDecimal(floatval($matches[3][$i]), floatval($matches[4][$i]), $matches[2][$i]),
-						Coordinates::wgs84DegreesMinutesToDecimal(floatval($matches[7][$i]), floatval($matches[8][$i]), $matches[6][$i]),
-						sprintf('#%d (Coords): ', ++$index),
-					);
-				} catch (\Exception $exception) {
-					$betterLocationsObjects[] = $exception;
-				}
-			}
-		}
 
 		// Coordinates
 		if (preg_match_all(Coordinates::RE_WGS84_DEGREES_MINUTES_SECONDS, $messageWithoutUrls, $matches)) {
