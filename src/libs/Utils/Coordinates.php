@@ -24,7 +24,7 @@ class Coordinates
 	// +49.9767533, -14.5672972
 	// +49.9767533,-14.5672972
 	// @TODO All coordinates are handled as North and East (N/E, +/+). So S/W and - are ignored
-	const RE_WGS84_DEGREES = '/[-+ NS]?([0-9]{1,3}\.[0-9]{1,20})[-+ NS]?[., ]{1,4}[-+ EW]?([0-9]{1,3}\.[0-9]{1,20})[-+ EW]?/';
+	const RE_WGS84_DEGREES = '/([-+ NSWE])?([0-9]{1,3}\.[0-9]{1,20})([-+ NSWE])?[., ]{1,4}([-+ NSWE])?([0-9]{1,3}\.[0-9]{1,20})([-+ NSWE])?/';
 
 	// @see https://regexr.com/5838t
 	// N 49°59.72333', E 14°31.36987'
@@ -104,11 +104,11 @@ class Coordinates
 	 * @param string $hemisphere
 	 * @return int
 	 */
-	private static function flip(string $hemisphere) {
+	public static function flip(string $hemisphere) {
 		$hemisphere = mb_strtoupper($hemisphere);
-		if (in_array($hemisphere, [self::NORTH, self::EAST], true)) {
+		if (in_array($hemisphere, [self::NORTH, self::EAST, '', '+'], true)) {
 			return 1;
-		} else if (in_array($hemisphere, [self::WEST, self::SOUTH], true)) {
+		} else if (in_array($hemisphere, [self::WEST, self::SOUTH, '-'], true)) {
 			return -1;
 		} else {
 			throw new \InvalidArgumentException('Invalid hemisphere');
