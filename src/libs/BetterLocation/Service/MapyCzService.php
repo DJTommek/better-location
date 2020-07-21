@@ -112,8 +112,8 @@ final class MapyCzService extends AbstractService
 			if (isset($urlParams['id']) && preg_match(Coordinates::RE_WGS84_DEGREES, $urlParams['id'], $matches)) {
 				// @TODO if ID is set but not coordinates, try to get coordinates from other parameters but show warning that it might not be accurate
 				return [
+					floatval($matches[5]),
 					floatval($matches[2]),
-					floatval($matches[1]),
 				];
 			}
 			if (isset($urlParams['ma_x']) && isset($urlParams['ma_y'])) {
