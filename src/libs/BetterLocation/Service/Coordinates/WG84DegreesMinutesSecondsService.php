@@ -12,7 +12,7 @@ use Utils\Coordinates;
 
 final class WG84DegreesMinutesSecondsService extends AbstractService
 {
-	const RE_COORD = '([0-9]{1,2}°[0-9]{1,2}\'[0-9]{1,2}(?:\.[0-9]{1,10})?)"';
+	const RE_COORD = '([0-9]{1,3}°[0-9]{1,2}\'[0-9]{1,2}(?:\.[0-9]{1,10})?)"';
 	const NAME = 'WG84 DMS';
 
 	/**
