@@ -8,6 +8,7 @@ require_once __DIR__ . '/../src/config.php';
 
 final class WG84DegreesServiceTest extends TestCase
 {
+	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testValidCoordinatesWithoutHemisphere(): void {
 		// optional space and comma
 		$this->assertEquals('50.123456, 10.123456', WG84DegreesService::parseCoords('50.123456 10.123456')->__toString());
