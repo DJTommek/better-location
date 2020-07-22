@@ -8,11 +8,95 @@ require_once __DIR__ . '/../src/config.php';
 
 final class WG84DegreesServiceTest extends TestCase
 {
+	public function testValidCoordinatesWithoutHemisphere(): void {
+		// optional space and comma
+		$this->assertEquals('50.123456, 10.123456', WG84DegreesService::parseCoords('50.123456 10.123456')->__toString());
+		$this->assertEquals('50.123456, 10.123456', WG84DegreesService::parseCoords('50.123456, 10.123456')->__toString());
+		$this->assertEquals('50.123456, 10.123456', WG84DegreesService::parseCoords('50.123456,10.123456')->__toString());
+		// optional space and comma negative lat
+		$this->assertEquals('-50.123456, 10.123456', WG84DegreesService::parseCoords('-50.123456 10.123456')->__toString());
+		$this->assertEquals('-50.123456, 10.123456', WG84DegreesService::parseCoords('-50.123456, 10.123456')->__toString());
+		$this->assertEquals('-50.123456, 10.123456', WG84DegreesService::parseCoords('-50.123456,10.123456')->__toString());
+		// optional space and comma negative lon
+		$this->assertEquals('50.123456, -10.123456', WG84DegreesService::parseCoords('50.123456 -10.123456')->__toString());
+		$this->assertEquals('50.123456, -10.123456', WG84DegreesService::parseCoords('50.123456, -10.123456')->__toString());
+		$this->assertEquals('50.123456, -10.123456', WG84DegreesService::parseCoords('50.123456,-10.123456')->__toString());
+		// optional space and comma negative both lat and lon
+		$this->assertEquals('-50.123456, -10.123456', WG84DegreesService::parseCoords('-50.123456 -10.123456')->__toString());
+		$this->assertEquals('-50.123456, -10.123456', WG84DegreesService::parseCoords('-50.123456, -10.123456')->__toString());
+		$this->assertEquals('-50.123456, -10.123456', WG84DegreesService::parseCoords('-50.123456,-10.123456')->__toString());
+		// missing numbers after decimal point
+		$this->assertEquals('56.123400, 16.123456', WG84DegreesService::parseCoords('56.1234 16.123456')->__toString());
+		$this->assertEquals('56.123456, 16.123400', WG84DegreesService::parseCoords('56.123456 16.1234')->__toString());
+		$this->assertEquals('56.123400, 16.123400', WG84DegreesService::parseCoords('56.1234 16.1234')->__toString());
+		// various degree number size (all four combinations +/+, +/-, -/+, -/-)
+		$this->assertEquals('0.123400, 0.123400', WG84DegreesService::parseCoords('0.1234 0.1234')->__toString());
+		$this->assertEquals('0.123400, -0.123400', WG84DegreesService::parseCoords('0.1234 -0.1234')->__toString());
+		$this->assertEquals('-0.123400, 0.123400', WG84DegreesService::parseCoords('-0.1234 0.1234')->__toString());
+		$this->assertEquals('-0.123400, -0.123400', WG84DegreesService::parseCoords('-0.1234 -0.1234')->__toString());
+
+		$this->assertEquals('1.123400, 0.123400', WG84DegreesService::parseCoords('1.1234 0.1234')->__toString());
+		$this->assertEquals('1.123400, -0.123400', WG84DegreesService::parseCoords('1.1234 -0.1234')->__toString());
+		$this->assertEquals('-1.123400, 0.123400', WG84DegreesService::parseCoords('-1.1234 0.1234')->__toString());
+		$this->assertEquals('-1.123400, -0.123400', WG84DegreesService::parseCoords('-1.1234 -0.1234')->__toString());
+
+		$this->assertEquals('0.123400, 2.123400', WG84DegreesService::parseCoords('0.1234 2.1234')->__toString());
+		$this->assertEquals('0.123400, -2.123400', WG84DegreesService::parseCoords('0.1234 -2.1234')->__toString());
+		$this->assertEquals('-0.123400, 2.123400', WG84DegreesService::parseCoords('-0.1234 2.1234')->__toString());
+		$this->assertEquals('-0.123400, -2.123400', WG84DegreesService::parseCoords('-0.1234 -2.1234')->__toString());
+
+		$this->assertEquals('10.123400, 0.123400', WG84DegreesService::parseCoords('10.1234 0.1234')->__toString());
+		$this->assertEquals('10.123400, -0.123400', WG84DegreesService::parseCoords('10.1234 -0.1234')->__toString());
+		$this->assertEquals('-10.123400, 0.123400', WG84DegreesService::parseCoords('-10.1234 0.1234')->__toString());
+		$this->assertEquals('-10.123400, -0.123400', WG84DegreesService::parseCoords('-10.1234 -0.1234')->__toString());
+
+		$this->assertEquals('0.123400, 10.123400', WG84DegreesService::parseCoords('0.1234 10.1234')->__toString());
+		$this->assertEquals('0.123400, -10.123400', WG84DegreesService::parseCoords('0.1234 -10.1234')->__toString());
+		$this->assertEquals('-0.123400, 10.123400', WG84DegreesService::parseCoords('-0.1234 10.1234')->__toString());
+		$this->assertEquals('-0.123400, -10.123400', WG84DegreesService::parseCoords('-0.1234 -10.1234')->__toString());
+
+		$this->assertEquals('10.123400, 10.123400', WG84DegreesService::parseCoords('10.1234 10.1234')->__toString());
+		$this->assertEquals('10.123400, -10.123400', WG84DegreesService::parseCoords('10.1234 -10.1234')->__toString());
+		$this->assertEquals('-10.123400, 10.123400', WG84DegreesService::parseCoords('-10.1234 10.1234')->__toString());
+		$this->assertEquals('-10.123400, -10.123400', WG84DegreesService::parseCoords('-10.1234 -10.1234')->__toString());
+
+		$this->assertEquals('89.999999, 99.123400', WG84DegreesService::parseCoords('89.999999 99.1234')->__toString());
+		$this->assertEquals('89.999999, -99.123400', WG84DegreesService::parseCoords('89.999999 -99.1234')->__toString());
+		$this->assertEquals('-89.999999, 99.123400', WG84DegreesService::parseCoords('-89.999999 99.1234')->__toString());
+		$this->assertEquals('-89.999999, -99.123400', WG84DegreesService::parseCoords('-89.999999 -99.1234')->__toString());
+
+		$this->assertEquals('90.000000, 99.123400', WG84DegreesService::parseCoords('90.000000 99.1234')->__toString());
+		$this->assertEquals('90.000000, -99.123400', WG84DegreesService::parseCoords('90.000000 -99.1234')->__toString());
+		$this->assertEquals('-90.000000, 99.123400', WG84DegreesService::parseCoords('-90.000000 99.1234')->__toString());
+		$this->assertEquals('-90.000000, -99.123400', WG84DegreesService::parseCoords('-90.000000 -99.1234')->__toString());
+
+		$this->assertEquals('89.999999, 100.123400', WG84DegreesService::parseCoords('89.999999 100.1234')->__toString());
+		$this->assertEquals('89.999999, -100.123400', WG84DegreesService::parseCoords('89.999999 -100.1234')->__toString());
+		$this->assertEquals('-89.999999, 100.123400', WG84DegreesService::parseCoords('-89.999999 100.1234')->__toString());
+		$this->assertEquals('-89.999999, -100.123400', WG84DegreesService::parseCoords('-89.999999 -100.1234')->__toString());
+
+		$this->assertEquals('89.999999, 179.999999', WG84DegreesService::parseCoords('89.999999 179.999999')->__toString());
+		$this->assertEquals('89.999999, -179.999999', WG84DegreesService::parseCoords('89.999999 -179.999999')->__toString());
+		$this->assertEquals('-89.999999, 179.999999', WG84DegreesService::parseCoords('-89.999999 179.999999')->__toString());
+		$this->assertEquals('-89.999999, -179.999999', WG84DegreesService::parseCoords('-89.999999 -179.999999')->__toString());
+
+		$this->assertEquals('89.999999, 180.000000', WG84DegreesService::parseCoords('89.999999 180.0')->__toString());
+		$this->assertEquals('89.999999, -180.000000', WG84DegreesService::parseCoords('89.999999 -180.0')->__toString());
+		$this->assertEquals('-89.999999, 180.000000', WG84DegreesService::parseCoords('-89.999999 180.0')->__toString());
+		$this->assertEquals('-89.999999, -180.000000', WG84DegreesService::parseCoords('-89.999999 -180.0')->__toString());
+		
+		$this->assertEquals('90.000000, 180.000000', WG84DegreesService::parseCoords('90.0 180.0')->__toString());
+		$this->assertEquals('90.000000, -180.000000', WG84DegreesService::parseCoords('90.0 -180.0')->__toString());
+		$this->assertEquals('-90.000000, 180.000000', WG84DegreesService::parseCoords('-90.0 180.0')->__toString());
+		$this->assertEquals('-90.000000, -180.000000', WG84DegreesService::parseCoords('-90.0 -180.0')->__toString());
+	}
+
+
 	public function testNothingInText(): void {
 		$this->assertEquals([], WG84DegreesService::findInText('Nothing valid'));
 	}
 
-	public function testCoordinates(): void {
+	public function testCoordinatesInText(): void {
 		$text = PHP_EOL;
 		$text .= '50.1111 10.2222' . PHP_EOL;       // +/+
 		$text .= '-51.1111 -11.2222' . PHP_EOL;     // -/-
