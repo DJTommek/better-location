@@ -169,4 +169,16 @@ class General
 		preg_match_all('#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|(?:[^,[:punct:]\s]|/))#', $string, $matches);
 		return $matches[0];
 	}
+
+	/**
+	 * Swap content of two variables with each other
+	 *
+	 * @param $var1
+	 * @param $var2
+	 */
+	public static function swap(&$var1, &$var2) {
+		$tmp = $var1;
+		$var1 = $var2;
+		$var2 = $tmp;
+	}
 }
