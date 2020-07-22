@@ -8,6 +8,7 @@ use BetterLocation\Service\AbstractService;
 use BetterLocation\Service\Coordinates\WG84DegreesMinutesSecondsService;
 use BetterLocation\Service\Coordinates\WG84DegreesMinutesService;
 use BetterLocation\Service\Coordinates\WG84DegreesService;
+use BetterLocation\Service\Exceptions\InvalidLocationException;
 use \BetterLocation\Service\GoogleMapsService;
 use \BetterLocation\Service\IngressIntelService;
 use \BetterLocation\Service\MapyCzService;
@@ -15,7 +16,6 @@ use \BetterLocation\Service\OpenStreetMapService;
 use \BetterLocation\Service\OpenLocationCodeService;
 use \BetterLocation\Service\WazeService;
 use \BetterLocation\Service\WhatThreeWordService;
-use \Utils\Coordinates;
 use \Utils\General;
 use \Icons;
 
@@ -25,7 +25,21 @@ class BetterLocation
 	private $lon;
 	private $prefixMessage;
 
+	/**
+	 * BetterLocation constructor.
+	 *
+	 * @param float $lat
+	 * @param float $lon
+	 * @param string $prefixMessage
+	 * @throws InvalidLocationException
+	 */
 	public function __construct(float $lat, float $lon, string $prefixMessage) {
+		if ($lat > 90 || $lat < -90) {
+			throw new InvalidLocationException('Latitude coordinate must be between or equal from -90 to 90 degrees.');
+		}
+		if ($lon > 180 || $lon < -180) {
+			throw new InvalidLocationException('Longitude coordinate must be between or equal from -90 to 90 degrees.');
+		}
 		$this->lat = $lat;
 		$this->lon = $lon;
 		$this->prefixMessage = $prefixMessage;
@@ -40,7 +54,6 @@ class BetterLocation
 	public static function generateFromTelegramMessage(string $message, array $entities): array {
 		$betterLocationsObjects = [];
 
-		$index = 0;
 		foreach ($entities as $entity) {
 			if (in_array($entity->type, ['url', 'text_link'])) {
 				if ($entity->type === 'url') { // raw url
