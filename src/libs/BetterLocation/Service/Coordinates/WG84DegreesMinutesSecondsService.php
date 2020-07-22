@@ -6,13 +6,11 @@ namespace BetterLocation\Service\Coordinates;
 
 use BetterLocation\BetterLocation;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotImplementedException;
 use BetterLocation\Service\Exceptions\NotSupportedException;
-use Utils\Coordinates;
 
 final class WG84DegreesMinutesSecondsService extends AbstractService
 {
-	const RE_COORD = '([0-9]{1,3}°[0-9]{1,2}\'[0-9]{1,2}(?:\.[0-9]{1,10})?)"';
+	const RE_COORD = '([0-9]{1,3})°([0-9]{1,2})\'([0-9]{1,2}(?:\.[0-9]{1,10})?)"';
 	const NAME = 'WG84 DMS';
 
 	/**
@@ -38,97 +36,11 @@ final class WG84DegreesMinutesSecondsService extends AbstractService
 		$results = [];
 		if (preg_match_all('/' . self::getRegex() . '/', $text, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
-				if ($matches[1][$i] && $matches[3][$i]) {
-					$results[] = new InvalidLocationException(sprintf('Invalid format of coordinates "<code>%s</code>" - hemisphere is defined twice for first coordinate', $matches[0][$i]));
-					continue;
+				try {
+					$results[] = self::parseCoords($matches[0][$i]);
+				} catch (InvalidLocationException $exception) {
+					$results[] = $exception;
 				}
-				if ($matches[4][$i] && $matches[6][$i]) {
-					$results[] = new InvalidLocationException(sprintf('Invalid format of coordinates "<code>%s</code>" - hemisphere is defined twice for second coordinate', $matches[0][$i]));
-					continue;
-				}
-
-				// Get hemisphere for first coordinate
-				$latHemisphere = null;
-				if ($matches[1][$i] && !$matches[3][$i]) {
-					// hemisphere is in prefix
-					$latHemisphere = mb_strtoupper($matches[1][$i]);
-				} else {
-					// hemisphere is in suffix
-					$latHemisphere = mb_strtoupper($matches[3][$i]);
-				}
-
-				// Convert hemisphere format for first coordinates to ENUM
-				$switch = false;
-				if (in_array($latHemisphere, ['', '+', 'N'])) {
-					$latHemisphere = Coordinates::NORTH;
-				} else if (in_array($latHemisphere, ['-', 'S'])) {
-					$latHemisphere = Coordinates::SOUTH;
-				} else if (in_array($latHemisphere, ['E'])) {
-					$switch = true;
-					$latHemisphere = Coordinates::EAST;
-				} else if (in_array($latHemisphere, ['W'])) {
-					$switch = true;
-					$latHemisphere = Coordinates::WEST;
-				}
-
-				// Get hemisphere for second coordinate
-				$lonHemisphere = null;
-				if ($matches[4][$i] && !$matches[6][$i]) {
-					// hemisphere is in prefix
-					$lonHemisphere = mb_strtoupper($matches[4][$i]);
-				} else {
-					// hemisphere is in suffix
-					$lonHemisphere = mb_strtoupper($matches[6][$i]);
-				}
-
-				// Convert hemisphere format for second coordinates to ENUM
-				if (in_array($lonHemisphere, ['', '+', 'E'])) {
-					$lonHemisphere = Coordinates::EAST;
-				} else if (in_array($lonHemisphere, ['-', 'W'])) {
-					$lonHemisphere = Coordinates::WEST;
-				} else if (in_array($lonHemisphere, ['N'])) {
-					$switch = true;
-					$lonHemisphere = Coordinates::NORTH;
-				} else if (in_array($lonHemisphere, ['S'])) {
-					$switch = true;
-					$lonHemisphere = Coordinates::SOUTH;
-				}
-
-				// Switch lat-lon coordinates if hemisphere is coordinates are set in different order
-				// Exx°xx.x Nyy°yy.y -> Nyy°yy.y Exx°xx.x
-				if ($switch) {
-					list($latDegrees, $latTemp) = explode('°', $matches[5][$i]);
-					list($latMinutes, $latSeconds) = explode('\'', $latTemp);
-
-					list($lonDegrees, $lonTemp) = explode('°', $matches[2][$i]);
-					list($lonMinutes, $lonSeconds) = explode('\'', $lonTemp);
-
-					$temp = $latHemisphere;
-					$latHemisphere = $lonHemisphere;
-					$lonHemisphere = $temp;
-				} else {
-					list($latDegrees, $latTemp) = explode('°', $matches[2][$i]);
-					list($latMinutes, $latSeconds) = explode('\'', $latTemp);
-
-					list($lonDegrees, $lonTemp) = explode('°', $matches[5][$i]);
-					list($lonMinutes, $lonSeconds) = explode('\'', $lonTemp);
-				}
-
-				// Check if final format of hemispheres and coordinates is valid
-				if (in_array($latHemisphere, [Coordinates::EAST, Coordinates::WEST])) {
-					$results[] = new InvalidLocationException(sprintf('Both coordinates "<code>%s</code>" are east-west hemisphere', $matches[0][$i]));
-					continue;
-				}
-				if (in_array($lonHemisphere, [Coordinates::NORTH, Coordinates::SOUTH])) {
-					$results[] = new InvalidLocationException(sprintf('Both coordinates "<code>%s</code>" are north-south hemisphere', $matches[0][$i]));
-					continue;
-				}
-
-				$results[] = new BetterLocation(
-					Coordinates::wgs84DegreesMinutesSecondsToDecimal(floatval($latDegrees), floatval($latMinutes), floatval($latSeconds), $latHemisphere),
-					Coordinates::wgs84DegreesMinutesSecondsToDecimal(floatval($lonDegrees), floatval($lonMinutes), floatval($lonSeconds), $lonHemisphere),
-					sprintf(self::NAME),
-				);
 			}
 		}
 		return $results;
@@ -141,9 +53,14 @@ final class WG84DegreesMinutesSecondsService extends AbstractService
 	/**
 	 * @param string $input
 	 * @return BetterLocation
-	 * @throws NotImplementedException
+	 * @throws InvalidLocationException
 	 */
 	public static function parseCoords(string $input): BetterLocation {
-		throw new NotImplementedException('Parsing coordinates is not implemented');
+		if (!preg_match('/^' . self::getRegex() . '$/', $input, $matches)) {
+			throw new InvalidLocationException(sprintf('Input is not valid %s coordinates.', self::NAME));
+		}
+		// preg_match truncating empty values from the end in $matches array: https://stackoverflow.com/questions/43912763/php-can-preg-match-include-unmatched-groups#comment74860670_43912763
+		$matches = array_pad($matches, 11, '');
+		return self::processWG84(self::class, $matches);
 	}
 }
