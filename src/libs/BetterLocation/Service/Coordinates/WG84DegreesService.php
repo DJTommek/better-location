@@ -9,6 +9,7 @@ use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
 use BetterLocation\Service\Exceptions\NotSupportedException;
 use Utils\Coordinates;
+use Utils\General;
 
 final class WG84DegreesService extends AbstractService
 {
@@ -32,96 +33,17 @@ final class WG84DegreesService extends AbstractService
 
 	/**
 	 * @param $text
-	 * @return array<BetterLocation|\Exception>
+	 * @return array<BetterLocation|InvalidLocationException>
 	 */
 	public static function findInText($text): array {
 		$results = [];
 		if (preg_match_all('/' . self::getRegex() . '/', $text, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
-				if ($matches[1][$i] && $matches[3][$i]) {
-					$results[] = new InvalidLocationException(sprintf('Invalid format of coordinates "<code>%s</code>" - hemisphere is defined twice for first coordinate', $matches[0][$i]));
-					continue;
+				try {
+					$results[] = self::parseCoords($matches[0][$i]);
+				} catch (InvalidLocationException $exception) {
+					$results[] = $exception;
 				}
-				if ($matches[4][$i] && $matches[6][$i]) {
-					$results[] = new InvalidLocationException(sprintf('Invalid format of coordinates "<code>%s</code>" - hemisphere is defined twice for second coordinate', $matches[0][$i]));
-					continue;
-				}
-
-				// Get hemisphere for first coordinate
-				$latHemisphere = null;
-				if ($matches[1][$i] && !$matches[3][$i]) {
-					// hemisphere is in prefix
-					$latHemisphere = mb_strtoupper($matches[1][$i]);
-				} else {
-					// hemisphere is in suffix
-					$latHemisphere = mb_strtoupper($matches[3][$i]);
-				}
-
-				// Convert hemisphere format for first coordinates to ENUM
-				$switch = false;
-				if (in_array($latHemisphere, ['', '+', 'N'])) {
-					$latHemisphere = Coordinates::NORTH;
-				} else if (in_array($latHemisphere, ['-', 'S'])) {
-					$latHemisphere = Coordinates::SOUTH;
-				} else if (in_array($latHemisphere, ['E'])) {
-					$switch = true;
-					$latHemisphere = Coordinates::EAST;
-				} else if (in_array($latHemisphere, ['W'])) {
-					$switch = true;
-					$latHemisphere = Coordinates::WEST;
-				}
-
-				// Get hemisphere for second coordinate
-				$lonHemisphere = null;
-				if ($matches[4][$i] && !$matches[6][$i]) {
-					// hemisphere is in prefix
-					$lonHemisphere = mb_strtoupper($matches[4][$i]);
-				} else {
-					// hemisphere is in suffix
-					$lonHemisphere = mb_strtoupper($matches[6][$i]);
-				}
-
-				// Convert hemisphere format for second coordinates to ENUM
-				if (in_array($lonHemisphere, ['', '+', 'E'])) {
-					$lonHemisphere = Coordinates::EAST;
-				} else if (in_array($lonHemisphere, ['-', 'W'])) {
-					$lonHemisphere = Coordinates::WEST;
-				} else if (in_array($lonHemisphere, ['N'])) {
-					$switch = true;
-					$lonHemisphere = Coordinates::NORTH;
-				} else if (in_array($lonHemisphere, ['S'])) {
-					$switch = true;
-					$lonHemisphere = Coordinates::SOUTH;
-				}
-
-				// Switch lat-lon coordinates if hemisphere is coordinates are set in different order
-				// Exx.x Nyy.y -> Nyy.y Exx.x
-				if ($switch) {
-					$latCoords = floatval($matches[5][$i]);
-					$lonCoords = floatval($matches[2][$i]);
-					$temp = $latHemisphere;
-					$latHemisphere = $lonHemisphere;
-					$lonHemisphere = $temp;
-				} else {
-					$latCoords = floatval($matches[2][$i]);
-					$lonCoords = floatval($matches[5][$i]);
-				}
-
-				// Check if final format of hemispheres and coordinates is valid
-				if (in_array($latHemisphere, [Coordinates::EAST, Coordinates::WEST])) {
-					$results[] = new InvalidLocationException(sprintf('Both coordinates "<code>%s</code>" are east-west hemisphere', $matches[0][$i]));
-					continue;
-				}
-				if (in_array($lonHemisphere, [Coordinates::NORTH, Coordinates::SOUTH])) {
-					$results[] = new InvalidLocationException(sprintf('Both coordinates "<code>%s</code>" are north-south hemisphere', $matches[0][$i]));
-					continue;
-				}
-
-				$results[] = new BetterLocation(
-					Coordinates::flip($latHemisphere) * $latCoords,
-					Coordinates::flip($lonHemisphere) * $lonCoords,
-					sprintf(self::NAME),
-				);
 			}
 		}
 		return $results;
@@ -134,9 +56,91 @@ final class WG84DegreesService extends AbstractService
 	/**
 	 * @param string $input
 	 * @return BetterLocation
-	 * @throws NotImplementedException
+	 * @throws InvalidLocationException
 	 */
-	public static function parseCoords(string $input) {
-		throw new NotImplementedException('Parsing coordinates is not implemented');
+	public static function parseCoords(string $input): BetterLocation {
+		if (!preg_match('/^' . self::getRegex() . '$/', $input, $matches)) {
+			throw new InvalidLocationException(sprintf('Input is not valid %s coordinates.', self::NAME));
+		}
+		list($input, $latHemisphere1, $latCoord, $latHemisphere2, $lonHemisphere1, $lonCoord, $lonHemisphere2) = $matches;
+		$latCoord = floatval($latCoord);
+		$lonCoord = floatval($lonCoord);
+		dump($matches);
+
+		if ($latHemisphere1 && $latHemisphere2) {
+			throw new InvalidLocationException(sprintf('Invalid format of coordinates "<code>%s</code>" - hemisphere is defined twice for first coordinate', $input));
+		}
+		if ($lonHemisphere1 && $lonHemisphere2) {
+			throw new InvalidLocationException(sprintf('Invalid format of coordinates "<code>%s</code>" - hemisphere is defined twice for second coordinate', $input));
+		}
+
+		// Get hemisphere for first coordinate
+		$latHemisphere = null;
+		if ($latHemisphere1 && !$latHemisphere2) {
+			// hemisphere is in prefix
+			$latHemisphere = mb_strtoupper($latHemisphere1);
+		} else {
+			// hemisphere is in suffix
+			$latHemisphere = mb_strtoupper($latHemisphere2);
+		}
+
+		// Convert hemisphere format for first coordinates to ENUM
+		$swap = false;
+		if (in_array($latHemisphere, ['', '+', 'N'])) {
+			$latHemisphere = Coordinates::NORTH;
+		} else if (in_array($latHemisphere, ['-', 'S'])) {
+			$latHemisphere = Coordinates::SOUTH;
+		} else if (in_array($latHemisphere, ['E'])) {
+			$swap = true;
+			$latHemisphere = Coordinates::EAST;
+		} else if (in_array($latHemisphere, ['W'])) {
+			$swap = true;
+			$latHemisphere = Coordinates::WEST;
+		}
+
+		// Get hemisphere for second coordinate
+		$lonHemisphere = null;
+		if ($lonHemisphere1 && !$lonHemisphere2) {
+			// hemisphere is in prefix
+			$lonHemisphere = mb_strtoupper($lonHemisphere1);
+		} else {
+			// hemisphere is in suffix
+			$lonHemisphere = mb_strtoupper($lonHemisphere2);
+		}
+
+		// Convert hemisphere format for second coordinates to ENUM
+		if (in_array($lonHemisphere, ['', '+', 'E'])) {
+			$lonHemisphere = Coordinates::EAST;
+		} else if (in_array($lonHemisphere, ['-', 'W'])) {
+			$lonHemisphere = Coordinates::WEST;
+		} else if (in_array($lonHemisphere, ['N'])) {
+			$swap = true;
+			$lonHemisphere = Coordinates::NORTH;
+		} else if (in_array($lonHemisphere, ['S'])) {
+			$swap = true;
+			$lonHemisphere = Coordinates::SOUTH;
+		}
+
+
+		// Switch lat-lon coordinates if hemisphere is coordinates are set in different order
+		// Exx.x Nyy.y -> Nyy.y Exx.x
+		if ($swap) {
+			General::swap($latHemisphere, $lonHemisphere);
+			General::swap($latCoord, $lonCoord);
+		}
+
+		// Check if final format of hemispheres and coordinates is valid
+		if (in_array($latHemisphere, [Coordinates::EAST, Coordinates::WEST])) {
+			throw new InvalidLocationException(sprintf('Both coordinates "<code>%s</code>" are east-west hemisphere', $matches[0]));
+		}
+		if (in_array($lonHemisphere, [Coordinates::NORTH, Coordinates::SOUTH])) {
+			throw new InvalidLocationException(sprintf('Both coordinates "<code>%s</code>" are north-south hemisphere', $matches[0]));
+		}
+
+		return new BetterLocation(
+			Coordinates::flip($latHemisphere) * $latCoord,
+			Coordinates::flip($lonHemisphere) * $lonCoord,
+			sprintf(self::NAME),
+		);
 	}
 }
