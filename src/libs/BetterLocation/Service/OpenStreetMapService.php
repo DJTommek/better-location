@@ -34,7 +34,7 @@ final class OpenStreetMapService extends AbstractService
 	 * @return BetterLocation
 	 * @throws \Exception
 	 */
-	public static function parseCoords(string $url) {
+	public static function parseCoords(string $url): BetterLocation {
 		if (self::isShortUrl($url)) {
 			throw new InvalidLocationException('Short URL processing is not yet implemented.');
 		} else if (self::isNormalUrl($url)) {  // at least two characters, otherwise it is probably /s/hort-version of link

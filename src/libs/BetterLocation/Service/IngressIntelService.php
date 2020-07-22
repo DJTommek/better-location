@@ -34,7 +34,7 @@ final class IngressIntelService extends AbstractService
 	 * @return BetterLocation
 	 * @throws InvalidLocationException
 	 */
-	public static function parseCoords(string $url) {
+	public static function parseCoords(string $url): BetterLocation {
 		$coords = self::parseUrl($url);
 		if ($coords) {
 			return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Intel</a>', $url));

@@ -143,7 +143,7 @@ final class WG84DegreesMinutesSecondsService extends AbstractService
 	 * @return BetterLocation
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoords(string $input) {
+	public static function parseCoords(string $input): BetterLocation {
 		throw new NotImplementedException('Parsing coordinates is not implemented');
 	}
 }

@@ -34,7 +34,7 @@ final class WazeService extends AbstractService
 	 * @return BetterLocation
 	 * @throws \Exception
 	 */
-	public static function parseCoords(string $url) {
+	public static function parseCoords(string $url): BetterLocation {
 		if (self::isShortUrl($url)) {
 			$wazeUpdatedUrl = str_replace('waze.com/ul/h', 'www.waze.com/livemap?h=', $url);
 			$newLocation = self::getRedirectUrl($wazeUpdatedUrl);

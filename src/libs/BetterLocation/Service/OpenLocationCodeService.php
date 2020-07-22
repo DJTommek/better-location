@@ -39,7 +39,7 @@ final class OpenLocationCodeService extends AbstractService
 	 * @return BetterLocation
 	 * @throws InvalidLocationException
 	 */
-	public static function parseCoords(string $plusCodeInput) {
+	public static function parseCoords(string $plusCodeInput): BetterLocation {
 		if (self::isUrl($plusCodeInput)) {
 			$coords = self::parseUrl($plusCodeInput);
 			return new BetterLocation(

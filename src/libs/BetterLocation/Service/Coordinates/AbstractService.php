@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BetterLocation\Service\Coordinates;
 
+use BetterLocation\BetterLocation;
 use Utils\General;
 
 abstract class AbstractService extends \BetterLocation\Service\AbstractService
@@ -27,7 +28,7 @@ abstract class AbstractService extends \BetterLocation\Service\AbstractService
 
 	abstract public static function isValid(string $input);
 
-	abstract public static function parseCoords(string $input);
+	abstract public static function parseCoords(string $input): BetterLocation;
 
 	abstract public static function findInText(string $text): array;
 

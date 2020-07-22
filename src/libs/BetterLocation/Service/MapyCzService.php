@@ -39,7 +39,7 @@ final class MapyCzService extends AbstractService
 	 * @throws InvalidLocationException
 	 * @throws \Exception
 	 */
-	public static function parseCoords(string $url) {
+	public static function parseCoords(string $url): BetterLocation {
 		if (self::isShortUrl($url)) {
 			$newLocation = self::getRedirectUrl($url);
 			if ($newLocation) {

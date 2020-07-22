@@ -26,7 +26,7 @@ final class GoogleMapsService extends AbstractService
 	 * @return BetterLocation
 	 * @throws InvalidLocationException
 	 */
-	public static function parseCoords(string $url) {
+	public static function parseCoords(string $url): BetterLocation {
 		if (self::isShortUrl($url)) {
 			// Google maps short link:
 			// https://goo.gl/maps/rgZZt125tpvf2rnCA

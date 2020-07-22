@@ -53,7 +53,7 @@ final class WhatThreeWordService extends AbstractService
 	 * @return BetterLocation
 	 * @throws \Exception
 	 */
-	public static function parseCoords(string $input) {
+	public static function parseCoords(string $input): BetterLocation {
 		$words = null;
 		if (self::isNormalUrl($input)) {
 			$words = str_replace(self::LINK, '', $input);

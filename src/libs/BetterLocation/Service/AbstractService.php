@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BetterLocation\Service;
 
+use BetterLocation\BetterLocation;
 use Utils\General;
 
 abstract class AbstractService
@@ -12,7 +13,7 @@ abstract class AbstractService
 
 	abstract public static function isValid(string $input);
 
-	abstract public static function parseCoords(string $input);
+	abstract public static function parseCoords(string $input): BetterLocation;
 
 	/**
 	 * @param $url
