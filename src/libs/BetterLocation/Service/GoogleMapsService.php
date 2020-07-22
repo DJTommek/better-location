@@ -94,6 +94,7 @@ final class GoogleMapsService extends AbstractService
 	 * @param string $url
 	 * @return array|null
 	 * @throws InvalidLocationException
+	 * @throws \Exception
 	 */
 	public static function parseUrl(string $url): ?array {
 		$paramsString = explode('?', $url);
@@ -102,10 +103,17 @@ final class GoogleMapsService extends AbstractService
 		}
 		// https://www.google.com/maps/place/50%C2%B006'04.6%22N+14%C2%B031'44.0%22E/@50.101271,14.5281082,18z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d50.1012711!4d14.5288824?shorturl=1
 		// Regex is matching "!3d50.1012711!4d14.5288824"
-		if (preg_match('/!3d(-?[0-9]{1,3}\.[0-9]+)!4d(-?[0-9]{1,3}\.[0-9]+)/', $url, $matches)) {
+		if (preg_match_all('/!3d(-?[0-9]{1,3}\.[0-9]+)!4d(-?[0-9]{1,3}\.[0-9]+)/', $url, $matches)) {
+			/**
+			 * There might be more than just one parameter to match, example:
+			 * https://www.google.com/maps/place/49%C2%B050'19.5%22N+18%C2%B023'29.9%22E/@49.8387187,18.3912988,88m/data=!3m1!1e3!4m14!1m7!3m6!1s0x4713fdb643f28f71:0xcbeec5757ed37704!2zT2Rib3LFrywgNzM1IDQxIFBldMWZdmFsZA!3b1!8m2!3d49.8386455!4d18.39618!3m5!1s0x0:0x0!7e2!8m2!3d49.8387596!4d18.3916417
+			 * In this case correct is the last one. If used "share button", it will generate this link https://goo.gl/maps/aTQGPSpepT2EDCrT8 which leads to:
+			 * https://www.google.com/maps/place/49%C2%B050'19.5%22N+18%C2%B023'29.9%22E/@49.8387187,18.3912988,88m/data=!3m1!1e3!4m6!3m5!1s0x0:0x0!7e2!8m2!3d49.8387596!4d18.3916417?shorturl=1
+			 * In this URL is only one parameter to match. Strange...
+			 */
 			return [
-				floatval($matches[1]),
-				floatval($matches[2]),
+				floatval(end($matches[1])),
+				floatval(end($matches[2])),
 			];
 		} else if (isset($params['ll'])) {
 			$coords = explode(',', $params['ll']);
