@@ -8,6 +8,8 @@ use unreal4u\TelegramAPI\TgLog;
 
 require_once __DIR__ . '/src/config.php';
 
+printf('<p>Go back to <a href="./index.php">index.php</a></p>');
+
 if (defined('TELEGRAM_WEBHOOK_URL')) {
 
 	$loop = \React\EventLoop\Factory::create();
@@ -29,6 +31,6 @@ if (defined('TELEGRAM_WEBHOOK_URL')) {
 	);
 	$loop->run();
 } else {
-	throw new Exception('Updating Telegram webhook URL is not allowed. Set "TELEGRAM_WEBHOOK_URL" to some URL and try again.');
+	printf('Updating Telegram webhook URL is not allowed. Set "TELEGRAM_WEBHOOK_URL" to some URL and try again.');
 }
 
