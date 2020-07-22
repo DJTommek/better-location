@@ -25,9 +25,6 @@ require_once __DIR__ . '/src/config.php';
 <p>
 	If you successfully setup webhook, you can send message to your bot from Telegram and you should get reply.
 </p>
-<p>
-	Note: If you are not able to use webhook, there is possible to setup polling. Currently not implemented in this app and is in @TODO with low priority.
-</p>
 <h2>Webhook status</h2>
 <?php
 
@@ -52,20 +49,28 @@ $promise->then(
 		foreach (get_object_vars($response) as $key => $value) {
 			if ($key === 'url') {
 				$stringValue = sprintf('<a href="%1$s" target="_blank">%1$s</a>', $value);
+			} else if ($key === 'pending_update_count') {
+				$stringValue = ($value === 0) ? Icons::SUCCESS . ' None' : Icons::WARNING . ' ' . $value;
+			} else if ($key === 'last_error_message' && $value === '') {
+				$stringValue = Icons::SUCCESS . ' None';
 			} else if ($key === 'last_error_date') {
-				$lastErrorDate = new DateTimeImmutable('@' . $value);
-				$now = new DateTimeImmutable();
-				$diff = $now->getTimestamp() - $lastErrorDate->getTimestamp();
+				if ($value === 0) {
+					$stringValue = Icons::SUCCESS . ' Never';
+				} else {
+					$lastErrorDate = new DateTimeImmutable('@' . $value);
+					$now = new DateTimeImmutable();
+					$diff = $now->getTimestamp() - $lastErrorDate->getTimestamp();
 
-				$stringValue = sprintf('%d<br>%s<br>%s ago',
-					$lastErrorDate->getTimestamp(),
-					$lastErrorDate->format(DATE_ISO8601),
-					\Utils\General::sToHuman($diff),
-				);
+					$stringValue = sprintf('%d<br>%s<br>%s ago',
+						$lastErrorDate->getTimestamp(),
+						$lastErrorDate->format(DATE_ISO8601),
+						\Utils\General::sToHuman($diff),
+					);
+				}
 			} else if (is_bool($value)) {
 				$stringValue = $value ? 'true' : 'false';
 			} else if (is_array($value)) {
-				$stringValue = sprintf('Array of %d values: %s', count($value), print_r($value, true));
+				$stringValue = sprintf('Array of <b>%d</b> values: %s', count($value), print_r($value, true));
 			} else {
 				$stringValue = $value;
 			}
