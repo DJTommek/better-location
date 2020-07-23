@@ -7,6 +7,7 @@ namespace BetterLocation\Service;
 use BetterLocation\BetterLocation;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use Utils\Coordinates;
+use Utils\General;
 
 final class MapyCzService extends AbstractService
 {
@@ -100,7 +101,7 @@ final class MapyCzService extends AbstractService
 	/**
 	 * @param string $url
 	 * @return array|null
-	 * @throws InvalidLocationException
+	 * @throws InvalidLocationException|\JsonException
 	 */
 	public static function parseUrl(string $url): ?array {
 		$parsedUrl = parse_url(urldecode($url));
@@ -109,12 +110,31 @@ final class MapyCzService extends AbstractService
 		}
 		parse_str($parsedUrl['query'], $urlParams);
 		if ($urlParams) {
-			if (isset($urlParams['id']) && preg_match(Coordinates::RE_WGS84_DEGREES, $urlParams['id'], $matches)) {
-				// @TODO if ID is set but not coordinates, try to get coordinates from other parameters but show warning that it might not be accurate
-				return [
-					floatval($matches[5]),
-					floatval($matches[2]),
-				];
+			if (isset($urlParams['id'])) {
+				if (MAPY_CZ_DUMMY_SERVER && is_numeric($urlParams['id']) && $urlParams['id'] > 0 && isset($urlParams['source'])){
+					$dummyMapyCzApiUrl = MAPY_CZ_DUMMY_SERVER . '?' . http_build_query([
+						'point' => $urlParams['id'],
+						'source' => $urlParams['source'],
+					]);
+					$response = General::fileGetContents($dummyMapyCzApiUrl);
+					$jsonResponse = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
+					if (isset($jsonResponse->result->poi->mark->lat) && isset($jsonResponse->result->poi->mark->lon)) {
+						return [
+							$jsonResponse->result->poi->mark->lat,
+							$jsonResponse->result->poi->mark->lon,
+						];
+					} else {
+						throw new InvalidLocationException('Unable to get valid coordinates from point ID.');
+					}
+				} else if (preg_match(Coordinates::RE_WGS84_DEGREES, $urlParams['id'], $matches)) {
+					return [
+						floatval($matches[5]),
+						floatval($matches[2]),
+					];
+				} /** @noinspection PhpStatementHasEmptyBodyInspection */ else {
+					// throw new InvalidLocationException(sprintf('Unable to get query for Mapy.cz link "%s", invalid id parameter.', $url));
+					// @TODO if numeric ID (not coordinates) is set and dummy NodeJS is disabled, fallback to coordinates and show warning, that result might be inaccurate
+				}
 			}
 			if (isset($urlParams['ma_x']) && isset($urlParams['ma_y'])) {
 				return [

@@ -14,3 +14,7 @@ DEFINE('TELEGRAM_WEBHOOK_URL', 'https://your-domain.com/better-location/webhook.
 
 // API key to What3Word service https://developer.what3words.com/public-api
 DEFINE('W3W_API_KEY', 'SOME_API_KEY');
+
+// URL to NodeJS dummy server to handle generating payload and requests for MapyCZ place IDs. For more info see src/nodejs/README.md
+//DEFINE('MAPY_CZ_DUMMY_SERVER', 'http://localhost:2335'); // URL of your webserver
+DEFINE('MAPY_CZ_DUMMY_SERVER', null); // null to disable this feature and fallback to using inaccurate x and y coordinates from URL
