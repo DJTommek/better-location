@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="asset/js/jak.js"></script>
+	<script src="asset/js/base64.js"></script>
+	<script src="asset/js/frpc.js"></script>
+</head>
+<body>
+<h1>FastRPC</h1>
+<p>
+	Generating request payload in FastRPC format.
+</p>
+<p>
+	Input URL:<br>
+	<textarea type="text" id="input">https://en.mapy.cz/zakladni?x=14.5264837&y=50.1061459&z=15&source=pubt&id=15306198</textarea>
+</p>
+<button onClick="parseUrl();">Parse URL</button>
+<script>
+	function parseUrl() {
+		try {
+			const url = new URL(document.getElementById('input').textContent);
+			const mapyCzPointId = parseInt(url.searchParams.get('id'))
+
+			const frpcCall = JAK.FRPC.serializeCall('detail', [url.searchParams.get('source'), mapyCzPointId]);
+			const base64Request = JAK.Base64.btoa(frpcCall);
+			alert('To do request use this "magic" Base64 as payload to mapy.cz api request: ' + base64Request);
+			// @TODO do AJAX request
+		} catch (error) {
+			alert('Error while processing url: ' + error);
+		}
+	}
+</script>
+</body>
+</html>
+<style>
+	#input {
+		width: 50em;
+	}
+	button {
+		padding: 1em;
+	}
+</style>

@@ -22,6 +22,7 @@
 if (typeof(window.JAK) != 'object'){
 	window.JAK = {NAME: "JAK"};
 };
+JAK = {}
 
 /**
  * generátor unikatních ID
@@ -1352,13 +1353,13 @@ JAK.Browser.isOld = function() {
  * Implicitní konkstruktor, je volán při načtení skriptu 
  */   
 JAK.Browser.getBrowser = function(){
-	this._agent = this.agent = navigator.userAgent;
-	this._platform = navigator.platform;
-	this._vendor = navigator.vendor;
-	this.platform = this._getPlatform();
-	this.client = this._getClient();
-	this.version = this._getVersion();
-	this.mouse = this._getMouse();
+	// this._agent = this.agent = navigator.userAgent;
+	// this._platform = navigator.platform;
+	// this._vendor = navigator.vendor;
+	// this.platform = this._getPlatform();
+	// this.client = this._getClient();
+	// this.version = this._getVersion();
+	// this.mouse = this._getMouse();
 };
 JAK.Browser.getBrowser();
 /*
