@@ -28,9 +28,16 @@ are position of map, not selected point.
 
 ## More info
 
-- Issues to this topic: [#1](https://github.com/DJTommek/better-location/issues/1) 
+- Issues to this topic: [#1](https://github.com/DJTommek/better-location/issues/1)
 - Mapy.cz API can change any time so I recommend to test it in browser before creating NodeJS server instance 
 by simply opening [FastRPC.html](../../fastrpc.html) and inserting some your own mapy.cz link.
+- MapyCZ API is probably accepting XML too: for empty payload with `Content-Type: text/xml` response was:<br> 
+    ```
+    HTTP 200 OK
+    {"failure": -503, "failureMessage": "Parser error: < XML_ERR_DOCUMENT_END >"}
+    ```
+    Tried generate some XML payloads but without luck, it keeps responding error above or HTTP 400 Bad Request.
+        
 - As writing this text on 2020-07-23 I'm hoping, that these libraries will be rewritten to PHP *soon* and this
 dummy NodeJS server doesn't deserve it's own repository.
 - I know that this is overkill but for me it's much easier and quicker to write simple NodeJS than understanding JAK 
