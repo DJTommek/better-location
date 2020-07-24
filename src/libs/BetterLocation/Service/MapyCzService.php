@@ -102,8 +102,7 @@ final class MapyCzService extends AbstractService
 	/**
 	 * @param string $url
 	 * @return array|null
-	 * @throws InvalidLocationException|\JsonException
-	 * @throws \Exception
+	 * @throws InvalidLocationException
 	 */
 	public static function parseUrl(string $url): ?array {
 		$parsedUrl = parse_url(urldecode($url));
