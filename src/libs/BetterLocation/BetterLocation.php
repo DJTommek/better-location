@@ -38,7 +38,7 @@ class BetterLocation
 			throw new InvalidLocationException('Latitude coordinate must be between or equal from -90 to 90 degrees.');
 		}
 		if ($lon > 180 || $lon < -180) {
-			throw new InvalidLocationException('Longitude coordinate must be between or equal from -90 to 90 degrees.');
+			throw new InvalidLocationException('Longitude coordinate must be between or equal from -180 to 180 degrees.');
 		}
 		$this->lat = $lat;
 		$this->lon = $lon;
