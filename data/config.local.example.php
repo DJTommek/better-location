@@ -16,5 +16,7 @@ DEFINE('TELEGRAM_WEBHOOK_URL', 'https://your-domain.com/better-location/webhook.
 DEFINE('W3W_API_KEY', 'SOME_API_KEY');
 
 // URL to NodeJS dummy server to handle generating payload and requests for MapyCZ place IDs. For more info see src/nodejs/README.md
-//DEFINE('MAPY_CZ_DUMMY_SERVER', 'http://localhost:2335'); // URL of your webserver
-DEFINE('MAPY_CZ_DUMMY_SERVER', null); // null to disable this feature and fallback to using inaccurate x and y coordinates from URL
+//DEFINE('MAPY_CZ_DUMMY_SERVER_URL', 'http://localhost:2335'); // URL of your webserver
+DEFINE('MAPY_CZ_DUMMY_SERVER_URL', null); // null to disable this feature and fallback to using inaccurate x and y coordinates from URL
+// Request timeout
+DEFINE('MAPY_CZ_DUMMY_SERVER_TIMEOUT', 5); // default 5

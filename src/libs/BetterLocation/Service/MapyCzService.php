@@ -111,12 +111,15 @@ final class MapyCzService extends AbstractService
 		parse_str($parsedUrl['query'], $urlParams);
 		if ($urlParams) {
 			if (isset($urlParams['id'])) {
-				if (MAPY_CZ_DUMMY_SERVER && is_numeric($urlParams['id']) && $urlParams['id'] > 0 && isset($urlParams['source'])){
-					$dummyMapyCzApiUrl = MAPY_CZ_DUMMY_SERVER . '?' . http_build_query([
-						'point' => $urlParams['id'],
-						'source' => $urlParams['source'],
+				if (MAPY_CZ_DUMMY_SERVER_URL && is_numeric($urlParams['id']) && $urlParams['id'] > 0 && isset($urlParams['source'])) {
+					$dummyMapyCzApiUrl = MAPY_CZ_DUMMY_SERVER_URL . '?' . http_build_query([
+							'point' => $urlParams['id'],
+							'source' => $urlParams['source'],
+						]);
+					$response = General::fileGetContents($dummyMapyCzApiUrl, [
+						CURLOPT_CONNECTTIMEOUT => MAPY_CZ_DUMMY_SERVER_TIMEOUT,
+						CURLOPT_TIMEOUT => MAPY_CZ_DUMMY_SERVER_TIMEOUT,
 					]);
-					$response = General::fileGetContents($dummyMapyCzApiUrl);
 					$jsonResponse = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
 					if (isset($jsonResponse->result->poi->mark->lat) && isset($jsonResponse->result->poi->mark->lon)) {
 						return [
