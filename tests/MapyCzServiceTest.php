@@ -97,18 +97,6 @@ final class MapyCzServiceTest extends TestCase
 		}
 	}
 
-	/**
-	 * Translate MapyCZ place ID to coordinates
-	 *
-	 * @noinspection PhpUnhandledExceptionInspection
-	 */
-	public function testInvalidNonNumericMapyCzId(): void {
-		if (!is_null(MAPY_CZ_DUMMY_SERVER_URL)) {
-//			$this->expectExceptionMessage('Unable to get valid coordinates from point ID "1234".');
-			MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=aaa1');
-		}
-	}
-
 	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testMapyCzIdFallback(): void {
 		// Method is using constant from local config, which can't be changed, so "fake" place ID and put some non-numeric char there which is invalid and it will run fallback to X/Y
