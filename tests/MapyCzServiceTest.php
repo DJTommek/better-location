@@ -15,7 +15,38 @@ final class MapyCzServiceTest extends TestCase
 	}
 
 	/**
+	 * ID parameter is in coordinates format
+	 *
+	 * @noinspection PhpUnhandledExceptionInspection
+	 */
+	public function testValidCoordinatesMapyCzId(): void {
+		$this->assertEquals('50.077886, 14.371990', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586')->__toString());
+		$this->assertEquals('7.731071, -80.551001', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=-80.5308310&y=7.7192491&z=15&source=coor&id=-80.55100118168951%2C7.731071318967728')->__toString());
+		$this->assertEquals('65.608884, -168.088871', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=-168.0916515&y=65.6066015&z=15&source=coor&id=-168.08887063564356%2C65.60888429109842')->__toString());
+		$this->assertEquals('-1.138011, 9.034823', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=8.9726814&y=-1.2094073&z=11&source=coor&id=9.034822831066833%2C-1.1380111329277875')->__toString());
+	}
+
+	/**
+	 * ID parameter is in INVALID latitude coordinates format
+	 */
+	public function testInvalidLatCoordinatesMapyCzId(): void {
+		$this->expectException(InvalidLocationException::class);
+		$this->expectExceptionMessage('Latitude coordinate must be between or equal from -90 to 90 degrees.');
+		$this->assertEquals('50.077886, 14.371990', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C150.07788610486586')->__toString());
+	}
+
+	/**
+	 * ID parameter is in INVALID longitude coordinates format
+	 */
+	public function testInvalidLonCoordinatesMapyCzId(): void {
+		$this->expectException(InvalidLocationException::class);
+		$this->expectExceptionMessage('Longitude coordinate must be between or equal from -180 to 180 degrees.');
+		MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=190.371989590930184%2C50.07788610486586');
+	}
+
+	/**
 	 * Translate MapyCZ place ID to coordinates
+	 *
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
 	public function testValidMapyCzId(): void {
@@ -51,6 +82,30 @@ final class MapyCzServiceTest extends TestCase
 			$this->assertEquals('54.766918, -101.873729', MapyCzService::parseCoords('https://en.mapy.cz/s/dasorekeja')->__toString());
 			$this->assertEquals('-18.917167, 47.535756', MapyCzService::parseCoords('https://en.mapy.cz/s/maposedeso')->__toString());
 			$this->assertEquals('-45.870330, -67.507560', MapyCzService::parseCoords('https://en.mapy.cz/s/robelevuja')->__toString());
+		}
+	}
+
+	/**
+	 * Translate MapyCZ place ID to coordinates
+	 *
+	 * @noinspection PhpUnhandledExceptionInspection
+	 */
+	public function testInvalidMapyCzId(): void {
+		if (!is_null(MAPY_CZ_DUMMY_SERVER_URL)) {
+			$this->expectExceptionMessage('Unable to get valid coordinates from point ID "1234".');
+			MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=1234');
+		}
+	}
+
+	/**
+	 * Translate MapyCZ place ID to coordinates
+	 *
+	 * @noinspection PhpUnhandledExceptionInspection
+	 */
+	public function testInvalidNonNumericMapyCzId(): void {
+		if (!is_null(MAPY_CZ_DUMMY_SERVER_URL)) {
+//			$this->expectExceptionMessage('Unable to get valid coordinates from point ID "1234".');
+			MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=aaa1');
 		}
 	}
 
