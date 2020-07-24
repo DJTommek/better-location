@@ -6,6 +6,7 @@ namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
+use Tracy\Debugger;
 use Utils\Coordinates;
 use Utils\General;
 
@@ -102,6 +103,7 @@ final class MapyCzService extends AbstractService
 	 * @param string $url
 	 * @return array|null
 	 * @throws InvalidLocationException|\JsonException
+	 * @throws \Exception
 	 */
 	public static function parseUrl(string $url): ?array {
 		$parsedUrl = parse_url(urldecode($url));
@@ -116,18 +118,23 @@ final class MapyCzService extends AbstractService
 							'point' => $urlParams['id'],
 							'source' => $urlParams['source'],
 						]);
-					$response = General::fileGetContents($dummyMapyCzApiUrl, [
-						CURLOPT_CONNECTTIMEOUT => MAPY_CZ_DUMMY_SERVER_TIMEOUT,
-						CURLOPT_TIMEOUT => MAPY_CZ_DUMMY_SERVER_TIMEOUT,
-					]);
-					$jsonResponse = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
+					try {
+						$response = General::fileGetContents($dummyMapyCzApiUrl, [
+							CURLOPT_CONNECTTIMEOUT => MAPY_CZ_DUMMY_SERVER_TIMEOUT,
+							CURLOPT_TIMEOUT => MAPY_CZ_DUMMY_SERVER_TIMEOUT,
+						]);
+						$jsonResponse = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
+					} catch (\Exception $exception) {
+						Debugger::log(sprintf('MapyCZ dummy server request: "%s", error: "%s"', $dummyMapyCzApiUrl, $exception->getMessage()), Debugger::ERROR);
+						throw new InvalidLocationException('Unable to get coordinates from MapyCZ place ID, contact Admin for more info.');
+					}
 					if (isset($jsonResponse->result->poi->mark->lat) && isset($jsonResponse->result->poi->mark->lon)) {
 						return [
 							$jsonResponse->result->poi->mark->lat,
 							$jsonResponse->result->poi->mark->lon,
 						];
 					} else {
-						throw new InvalidLocationException('Unable to get valid coordinates from point ID.');
+						throw new InvalidLocationException(sprintf('Unable to get valid coordinates from point ID "%s".', $urlParams['id']));
 					}
 				} else if (preg_match(Coordinates::RE_WGS84_DEGREES, $urlParams['id'], $matches)) {
 					return [
