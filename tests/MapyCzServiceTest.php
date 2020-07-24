@@ -66,7 +66,6 @@ final class MapyCzServiceTest extends TestCase
 	 */
 	public function testValidMapyCzId(): void {
 		if (!is_null(MAPY_CZ_DUMMY_SERVER_URL)) {
-			$this->assertEquals('50.073784, 14.422105', MapyCzService::parseCoords('https://mapy.cz/s/cekahebefu')->__toString());
 			$this->assertEquals('50.073784, 14.422105', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=2111676')->__toString());
 			$this->assertEquals('50.084007, 14.440339', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4527551&y=50.0750056&z=15&source=pubt&id=15308193')->__toString());
 			$this->assertEquals('50.084747, 14.454012', MapyCzService::parseCoords('https://mapy.cz/zakladni?x=14.4651576&y=50.0796325&z=15&source=firm&id=468797')->__toString());
