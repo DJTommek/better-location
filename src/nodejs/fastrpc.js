@@ -11,7 +11,7 @@ const URL = require('url');
 
 const HTTPS = require('https');
 const HTTP = require('http');
-const HTTP_PORT = 2335;
+const HTTP_PORT = 3055;
 
 const server = HTTP.createServer((req, res) => {
 	res.result = {
