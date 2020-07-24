@@ -6,7 +6,8 @@ namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
-use Utils\Coordinates;
+use Tracy\Debugger;
+use Utils\General;
 
 final class MapyCzService extends AbstractService
 {
@@ -99,7 +100,7 @@ final class MapyCzService extends AbstractService
 
 	/**
 	 * @param string $url
-	 * @return array|null
+	 * @return array<float>|null
 	 * @throws InvalidLocationException
 	 */
 	public static function parseUrl(string $url): ?array {
@@ -109,11 +110,16 @@ final class MapyCzService extends AbstractService
 		}
 		parse_str($parsedUrl['query'], $urlParams);
 		if ($urlParams) {
-			if (isset($urlParams['id']) && preg_match(Coordinates::RE_WGS84_DEGREES, $urlParams['id'], $matches)) {
-				// @TODO if ID is set but not coordinates, try to get coordinates from other parameters but show warning that it might not be accurate
+			// Dummy server is enabled and MapyCZ URL has necessary parameters
+			if (MAPY_CZ_DUMMY_SERVER_URL && isset($urlParams['id']) && is_numeric($urlParams['id']) && $urlParams['id'] > 0 && isset($urlParams['source'])) {
+				return self::getCoordsFromPlaceId($urlParams['source'], intval($urlParams['id']));
+			}
+			// @TODO if numeric ID (not coordinates) is set and dummy NodeJS is disabled, fallback to coordinates and show warning, that result might be inaccurate
+			// MapyCZ URL has ID in format of coordinates
+			if (isset($urlParams['id']) && preg_match('/^(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)$/', $urlParams['id'], $matches)) {
 				return [
-					floatval($matches[5]),
 					floatval($matches[2]),
+					floatval($matches[1]),
 				];
 			}
 			if (isset($urlParams['ma_x']) && isset($urlParams['ma_y'])) {
@@ -130,5 +136,36 @@ final class MapyCzService extends AbstractService
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * @param string $source
+	 * @param int $placeId
+	 * @return array<float>
+	 * @throws InvalidLocationException
+	 */
+	private static function getCoordsFromPlaceId(string $source, int $placeId): array {
+		$dummyMapyCzApiUrl = MAPY_CZ_DUMMY_SERVER_URL . '?' . http_build_query([
+				'source' => $source,
+				'point' => $placeId,
+			]);
+		try {
+			$response = General::fileGetContents($dummyMapyCzApiUrl, [
+				CURLOPT_CONNECTTIMEOUT => MAPY_CZ_DUMMY_SERVER_TIMEOUT,
+				CURLOPT_TIMEOUT => MAPY_CZ_DUMMY_SERVER_TIMEOUT,
+			]);
+			$jsonResponse = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
+		} catch (\Exception $exception) {
+			Debugger::log(sprintf('MapyCZ dummy server request: "%s", error: "%s"', $dummyMapyCzApiUrl, $exception->getMessage()), Debugger::ERROR);
+			throw new InvalidLocationException('Unable to get coordinates from MapyCZ place ID, contact Admin for more info.');
+		}
+		if (isset($jsonResponse->result->poi->mark->lat) && isset($jsonResponse->result->poi->mark->lon)) {
+			return [
+				$jsonResponse->result->poi->mark->lat,
+				$jsonResponse->result->poi->mark->lon,
+			];
+		} else {
+			throw new InvalidLocationException(sprintf('Unable to get valid coordinates from point ID "%d".', $placeId));
+		}
 	}
 }
