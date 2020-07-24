@@ -7,7 +7,6 @@ namespace BetterLocation\Service;
 use BetterLocation\BetterLocation;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use Tracy\Debugger;
-use Utils\Coordinates;
 use Utils\General;
 
 final class MapyCzService extends AbstractService
@@ -117,10 +116,10 @@ final class MapyCzService extends AbstractService
 			}
 			// @TODO if numeric ID (not coordinates) is set and dummy NodeJS is disabled, fallback to coordinates and show warning, that result might be inaccurate
 			// MapyCZ URL has ID in format of coordinates
-			if (isset($urlParams['id']) && preg_match(Coordinates::RE_WGS84_DEGREES, $urlParams['id'], $matches)) {
+			if (isset($urlParams['id']) && preg_match('/^(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)$/', $urlParams['id'], $matches)) {
 				return [
-					floatval($matches[5]),
 					floatval($matches[2]),
+					floatval($matches[1]),
 				];
 			}
 			if (isset($urlParams['ma_x']) && isset($urlParams['ma_y'])) {
