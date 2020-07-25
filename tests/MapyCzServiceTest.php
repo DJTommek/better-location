@@ -70,6 +70,7 @@ final class MapyCzServiceTest extends TestCase
 			$this->assertEquals('50.084007, 14.440339', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4527551&y=50.0750056&z=15&source=pubt&id=15308193')->__toString());
 			$this->assertEquals('50.084747, 14.454012', MapyCzService::parseCoords('https://mapy.cz/zakladni?x=14.4651576&y=50.0796325&z=15&source=firm&id=468797')->__toString());
 			$this->assertEquals('50.093312, 14.455159', MapyCzService::parseCoords('https://mapy.cz/zakladni?x=14.4367048&y=50.0943640&z=15&source=traf&id=15659817')->__toString());
+			$this->assertEquals('49.993611, 14.205278', MapyCzService::parseCoords('https://en.mapy.cz/fotografie?x=14.2029782&y=49.9929235&z=17&source=foto&id=1080344')->__toString());
 			$this->assertEquals('50.106624, 14.366203', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.3596717&y=50.0997874&z=15&source=base&id=1833337')->__toString()); // area
 			// some other places than Czechia (source OSM)
 			$this->assertEquals('49.444980, 11.109055', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=11.0924687&y=49.4448356&z=15&source=osm&id=112448327')->__toString());
