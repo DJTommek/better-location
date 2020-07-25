@@ -1,2 +1,3 @@
 /data/config.local.php
 /vendor/
+.phpunit.result.cache
