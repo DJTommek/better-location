@@ -72,6 +72,18 @@ final class MapyCzServiceTest extends TestCase
 	}
 
 	/**
+	 * Translate MapyCZ INVALID place ID to coordinates
+	 *
+	 * @noinspection PhpUnhandledExceptionInspection
+	 */
+	public function testInvalidMapyCzPanoramaId(): void {
+		if (!is_null(MAPY_CZ_DUMMY_SERVER_URL)) {
+			$this->expectExceptionMessage('Unable to get valid coordinates from panorama ID "99999999999".');
+			MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0162139&y=50.0820182&z=16&pano=1&pid=99999999999&yaw=5.522&fov=1.257&pitch=0.101');
+		}
+	}
+
+	/**
 	 * Translate MapyCZ place ID to coordinates
 	 *
 	 * @noinspection PhpUnhandledExceptionInspection
@@ -114,7 +126,7 @@ final class MapyCzServiceTest extends TestCase
 	}
 
 	/**
-	 * Translate MapyCZ place ID to coordinates
+	 * Translate MapyCZ INVALID place ID to coordinates
 	 *
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
