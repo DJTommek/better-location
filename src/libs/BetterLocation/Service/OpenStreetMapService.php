@@ -107,10 +107,10 @@ final class OpenStreetMapService extends AbstractService
 
 	/**
 	 * @param string $input
-	 * @return BetterLocation
+	 * @return BetterLocation[]
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoordsMultiple(string $input): BetterLocation {
+	public static function parseCoordsMultiple(string $input): array {
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }
