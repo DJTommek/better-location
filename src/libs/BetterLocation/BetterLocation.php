@@ -23,6 +23,7 @@ class BetterLocation
 {
 	private $lat;
 	private $lon;
+	private $description;
 	private $prefixMessage;
 
 	/**
@@ -138,7 +139,11 @@ class BetterLocation
 			sprintf('<a href="%s">Intel</a>', IngressIntelService::getLink($this->lat, $this->lon)),
 		];
 
-		return sprintf('%s %s <code>%f,%f</code>:%s%s', $this->prefixMessage, Icons::ARROW_RIGHT, $this->lat, $this->lon, PHP_EOL, join(' | ', $links)) . PHP_EOL . PHP_EOL;
+		$text = sprintf('%s %s <code>%f,%f</code>:%s%s', $this->prefixMessage, Icons::ARROW_RIGHT, $this->lat, $this->lon, PHP_EOL, join(' | ', $links));
+		if ($this->description) {
+			$text .= PHP_EOL . $this->description;
+		}
+		return $text . PHP_EOL . PHP_EOL;
 	}
 
 	/**
@@ -169,5 +174,12 @@ class BetterLocation
 
 	public function __toString() {
 		return sprintf('%f, %f', $this->lat, $this->lon);
+	}
+
+	/**
+	 * @param string $description
+	 */
+	public function setDescription(string $description): void {
+		$this->description = $description;
 	}
 }
