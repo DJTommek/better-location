@@ -7,7 +7,7 @@ namespace TelegramCustomWrapper;
 class TelegramHelper
 {
 	const API_URL = 'https://api.telegram.org';
-	const MESSAGE_PREFIX = \Icons::LOCATION . ' @' . TELEGRAM_BOT_NAME . ':' . PHP_EOL;
+	const MESSAGE_PREFIX = \Icons::LOCATION . ' <b>Better location</b> by @' . TELEGRAM_BOT_NAME . ':' . PHP_EOL;
 
 	/**
 	 * Command is valid if

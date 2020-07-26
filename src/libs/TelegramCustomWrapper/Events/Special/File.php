@@ -3,6 +3,7 @@
 namespace TelegramCustomWrapper\Events\Special;
 
 use \BetterLocation\BetterLocation;
+use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use \Utils\Coordinates;
@@ -69,7 +70,7 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 		}
 
 		if ($replyMessage) {
-			$this->reply(sprintf('%s <b>Better location</b>', Icons::LOCATION) . PHP_EOL . $replyMessage);
+			$this->reply(TelegramHelper::MESSAGE_PREFIX . $replyMessage);
 		} else if ($this->isPm()) {
 			$this->reply('Thanks for the file in PM! But I\'m not sure, what to do... No location in EXIF was found.');
 		}

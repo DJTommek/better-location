@@ -4,6 +4,7 @@ namespace TelegramCustomWrapper\Events\Command;
 
 use BetterLocation\BetterLocation;
 use \Icons;
+use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
@@ -35,7 +36,7 @@ class LocationCommand extends Command
 		}
 		if ($result) {
 			$this->reply(
-				sprintf('%s <b>Better location</b>', Icons::LOCATION) . PHP_EOL . $result,
+				TelegramHelper::MESSAGE_PREFIX . $result,
 				['disable_web_page_preview' => true],
 			);
 			return;

@@ -6,6 +6,7 @@ use \BetterLocation\BetterLocation;
 use BetterLocation\Service\GoogleMapsService;
 use BetterLocation\Service\WazeService;
 use \Icons;
+use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
@@ -56,7 +57,7 @@ class MessageCommand extends Command
 			$markup = (new Markup());
 			$markup->inline_keyboard = $buttons;
 			$this->reply(
-				sprintf('%s <b>Better location</b>', Icons::LOCATION) . PHP_EOL . $result,
+				TelegramHelper::MESSAGE_PREFIX . $result,
 				[
 					'disable_web_page_preview' => true,
 					'reply_markup' => $markup,

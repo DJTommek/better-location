@@ -4,6 +4,7 @@ namespace TelegramCustomWrapper\Events\Special;
 
 use \Icons;
 use BetterLocation\BetterLocation;
+use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
@@ -20,7 +21,6 @@ class Photo extends \TelegramCustomWrapper\Events\Special\Special
 	public function __construct($update, $tgLog, $loop) {
 		parent::__construct($update, $tgLog, $loop);
 
-		// PM or whitelisted group
 		$result = '';
 		try {
 			$betterLocations = BetterLocation::generateFromTelegramMessage(
@@ -37,12 +37,12 @@ class Photo extends \TelegramCustomWrapper\Events\Special\Special
 		}
 		if ($result) {
 			$this->reply(
-				sprintf('%s <b>Better location</b>', Icons::LOCATION) . PHP_EOL . $result,
+				TelegramHelper::MESSAGE_PREFIX . $result,
 				['disable_web_page_preview' => true],
 			);
 			return;
 		} else if ($this->isPm()) {
-			$this->reply('Thanks for the photo in PM! But I\'m not sure, what to do... If you want to process location from EXIF, you have to send uncompressed photo.');
+			$this->reply('Thanks for the photo in PM! But I\'m not sure, what to do... If you want to process location from EXIF, you have to send <b>uncompressed</b> photo.');
 		}
 	}
 }
