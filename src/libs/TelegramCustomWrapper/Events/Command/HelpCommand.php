@@ -3,6 +3,7 @@
 namespace TelegramCustomWrapper\Events\Command;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\Service\Coordinates\WG84DegreesService;
 use BetterLocation\Service\WazeService;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use \Icons;
@@ -25,12 +26,11 @@ class HelpCommand extends Command
 		$lon = 14.4211267;
 		$wazeLink = WazeService::getLink($lat, $lon);
 		$betterLocationWaze = WazeService::parseCoords($wazeLink);
-		$betterLocationCoords = new BetterLocation($lat, $lon, 'Coords');
+		$betterLocationCoords = new BetterLocation($lat, $lon, WG84DegreesService::NAME);
 
 		$text = sprintf('%s Welcome to @%s!', Icons::LOCATION, TELEGRAM_BOT_NAME) . PHP_EOL;
-		$text .= sprintf('I\'m simple but smart bot to catch all possible location formats and generate links to most used location services as Google maps, Waze, OpenStreetMaps etc.') . PHP_EOL;
-		$text .= sprintf('I can work in group too! Just add me and thats all.') . PHP_EOL;
-		$text .= sprintf('Example if you send coordinates "<code>%1$f,%2$f</code>" or link "https://www.waze.com/ul?ll=%1$f,%2$f" I will respond with this:', $lat, $lon) . PHP_EOL;
+		$text .= sprintf('I\'m simple but smart bot to catch all possible location formats in any chats you invite me in and generate links to your favourite location services as Google maps, Waze, OpenStreetMaps etc.') . PHP_EOL;
+		$text .= sprintf('Example, if you send coordinates "<code>%1$f,%2$f</code>" or link "https://www.waze.com/ul?ll=%1$f,%2$f" I will respond with this:', $lat, $lon) . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= $betterLocationCoords->generateBetterLocation();
 		$text .= $betterLocationWaze->generateBetterLocation();
@@ -57,7 +57,7 @@ class HelpCommand extends Command
 		$text .= sprintf('/help - this text') . PHP_EOL;
 //		$text .= sprintf('/debug - get your and chat ID') . PHP_EOL;
 //		$text .= sprintf('/settings - adjust behaviour in this chat') . PHP_EOL;
-		$text .= sprintf('/feedback - report invalid location, ask for adding new or just contact author') . PHP_EOL;
+		$text .= sprintf('/feedback - report invalid location or just contact author') . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= sprintf('Official Github: <a href="%1$s%2$s">%2$s</a>', 'https://github.com/', 'DJTommek/better-location') . PHP_EOL;
 		$text .= sprintf('Author: <a href="%1$s%2$s">@%2$s</a>', 'https://t.me/', 'DJTommek') . PHP_EOL;
