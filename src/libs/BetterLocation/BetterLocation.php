@@ -42,7 +42,7 @@ class BetterLocation
 		}
 		$this->lat = $lat;
 		$this->lon = $lon;
-		$this->prefixMessage = $prefixMessage;
+		$this->setPrefixMessage($prefixMessage);
 	}
 
 	/**
@@ -139,6 +139,13 @@ class BetterLocation
 		];
 
 		return sprintf('%s %s <code>%f,%f</code>:%s%s', $this->prefixMessage, Icons::ARROW_RIGHT, $this->lat, $this->lon, PHP_EOL, join(' | ', $links)) . PHP_EOL . PHP_EOL;
+	}
+
+	/**
+	 * @param string $prefixMessage
+	 */
+	public function setPrefixMessage(string $prefixMessage): void {
+		$this->prefixMessage = $prefixMessage;
 	}
 
 	public function getLink($class, bool $drive = false) {
