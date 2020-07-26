@@ -54,10 +54,10 @@ class HelpCommand extends Command
 //		$text .= sprintf('Currently not supported. Don\'t hesitate to ping author if you are interested in this feature.') . PHP_EOL;
 //		$text .= PHP_EOL;
 		$text .= sprintf('%s <b>Commands:</b>', Icons::COMMAND) . PHP_EOL;
-		$text .= sprintf('/help - this text') . PHP_EOL;
+		$text .= sprintf('/help - Find way to gain more knowledge (this text).') . PHP_EOL;
 //		$text .= sprintf('/debug - get your and chat ID') . PHP_EOL;
 //		$text .= sprintf('/settings - adjust behaviour in this chat') . PHP_EOL;
-		$text .= sprintf('/feedback - report invalid location or just contact author') . PHP_EOL;
+		$text .= sprintf('/feedback - Report invalid location or just contact author.') . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= sprintf('Official Github: <a href="%1$s%2$s">%2$s</a>', 'https://github.com/', 'DJTommek/better-location') . PHP_EOL;
 		$text .= sprintf('Author: <a href="%1$s%2$s">@%2$s</a>', 'https://t.me/', 'DJTommek') . PHP_EOL;
