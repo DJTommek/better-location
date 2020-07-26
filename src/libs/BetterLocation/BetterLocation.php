@@ -98,7 +98,7 @@ class BetterLocation
 										// Remove locations that are too close to main location
 										unset($mapyCzBetterLocations[$key]);
 									} else {
-										$mapyCzBetterLocation->setDescription(sprintf('%s Location is %d meters away from %s.', Icons::WARNING, $distance, $mainLocationKey));
+										$mapyCzBetterLocation->setDescription(sprintf('%s Location is %d meters away from %s %s.', Icons::WARNING, $distance, $mainLocationKey, Icons::ARROW_UP));
 									}
 								}
 							}

@@ -19,6 +19,7 @@ class Icons
 	const CAR = "\u{1F697}"; // https://emojipedia.org/automobile/
 
 	const ARROW_RIGHT = "\u{27A1}"; // https://emojipedia.org/right-arrow/
+	const ARROW_UP = "\u{2B06}"; // https://emojipedia.org/up-arrow/
 
 	const LOCATION = "\u{1F4CD}"; // https://emojipedia.org/round-pushpin/
 }

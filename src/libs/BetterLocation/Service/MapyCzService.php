@@ -15,7 +15,7 @@ final class MapyCzService extends AbstractService
 	const LINK = 'https://mapy.cz/zakladni?y=%1$f&x=%2$f&source=coor&id=%2$f%%2C%1$f';
 
 	const TYPE_UNKNOWN = 'unknown';
-	const TYPE_MAP = 'Map coords';
+	const TYPE_MAP = 'Map center';
 	const TYPE_PLACE_ID = 'Place';
 	const TYPE_PLACE_COORDS = 'Place coords';
 	const TYPE_PANORAMA = 'Panorama';
