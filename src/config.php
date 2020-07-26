@@ -11,6 +11,7 @@ DEFINE('FOLDER_DATA', __DIR__ . '/../data');
 DEFINE('DATE_FORMAT', 'Y-m-d');
 DEFINE('TIME_FORMAT', 'H:i:s');
 DEFINE('DATETIME_FORMAT', DATE_FORMAT . ' ' . TIME_FORMAT);
+DEFINE('LOG_ID', rand(10000, 99999));
 
 // @TODO in case of error, show some info about renaming config.local.example.php to config.local.php
 require_once FOLDER_DATA . '/config.local.php';
