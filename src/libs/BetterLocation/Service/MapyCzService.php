@@ -45,22 +45,12 @@ final class MapyCzService extends AbstractService
 		if (self::isShortUrl($url)) {
 			$newLocation = self::getRedirectUrl($url);
 			if ($newLocation) {
-				$coords = self::parseUrl($newLocation);
-				if ($coords) {
-					return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Mapy.cz</a>', $url));
-				} else {
-					throw new InvalidLocationException(sprintf('Unable to get coords for Mapy.cz short link "%s".', $url));
-				}
+				return self::parseUrl($newLocation);
 			} else {
 				throw new InvalidLocationException(sprintf('Unable to get real url for Mapy.cz short link "%s".', $url));
 			}
 		} else if (self::isNormalUrl($url)) {  // at least two characters, otherwise it is probably /s/hort-version of link
-			$coords = self::parseUrl($url);
-			if ($coords) {
-				return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Mapy.cz</a>', $url));
-			} else {
-				throw new InvalidLocationException(sprintf('Unable to get coords from Mapy.cz normal link "%s".', $url));
-			}
+			return self::parseUrl($url);
 		} else {
 			throw new InvalidLocationException(sprintf('Unable to get coords for Mapy.cz link "%s".', $url));
 		}
@@ -101,10 +91,10 @@ final class MapyCzService extends AbstractService
 
 	/**
 	 * @param string $url
-	 * @return array<float>|null
+	 * @return BetterLocation
 	 * @throws InvalidLocationException
 	 */
-	public static function parseUrl(string $url): ?array {
+	public static function parseUrl(string $url): BetterLocation {
 		$parsedUrl = parse_url(urldecode($url));
 		if (!isset($parsedUrl['query'])) {
 			throw new InvalidLocationException(sprintf('Unable to get query for Mapy.cz link "%s".', $url));
@@ -113,42 +103,58 @@ final class MapyCzService extends AbstractService
 		if ($urlParams) {
 			// Dummy server is enabled and MapyCZ URL has necessary parameters
 			if (MAPY_CZ_DUMMY_SERVER_URL && isset($urlParams['pid']) && is_numeric($urlParams['pid']) && $urlParams['pid'] > 0) {
-				return self::getCoordsFromPanoramaId(intval($urlParams['pid']));
+				$result = self::getCoordsFromPanoramaId(intval($urlParams['pid']));
+				$result->setPrefixMessage(sprintf('<a href="%s">Mapy.cz Panorama</a>', $url));
+				return $result;
 			}
 			if (MAPY_CZ_DUMMY_SERVER_URL && isset($urlParams['id']) && is_numeric($urlParams['id']) && $urlParams['id'] > 0 && isset($urlParams['source'])) {
-				return self::getCoordsFromPlaceId($urlParams['source'], intval($urlParams['id']));
+				$result =  self::getCoordsFromPlaceId($urlParams['source'], intval($urlParams['id']));
+				$result->setPrefixMessage(sprintf('<a href="%s">Mapy.cz Place</a>', $url));
+				return $result;
 			}
 			// @TODO if numeric ID (not coordinates) is set and dummy NodeJS is disabled, fallback to coordinates and show warning, that result might be inaccurate
 			// MapyCZ URL has ID in format of coordinates
 			if (isset($urlParams['id']) && preg_match('/^(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)$/', $urlParams['id'], $matches)) {
-				return [
+				return new BetterLocation(
 					floatval($matches[2]),
 					floatval($matches[1]),
-				];
+					sprintf('<a href="%s">Mapy.cz</a>', $url),
+				);
 			}
 			if (isset($urlParams['ma_x']) && isset($urlParams['ma_y'])) {
-				return [
+				return new BetterLocation(
 					floatval($urlParams['ma_y']),
 					floatval($urlParams['ma_x']),
-				];
+					sprintf('<a href="%s">Mapy.cz</a>', $url),
+				);
 			}
 			if (isset($urlParams['x']) && isset($urlParams['y'])) {
-				return [
+				return new BetterLocation(
 					floatval($urlParams['y']),
 					floatval($urlParams['x']),
-				];
+					sprintf('<a href="%s">Mapy.cz</a>', $url),
+				);
 			}
 		}
-		return null;
+		throw new InvalidLocationException('Unable to get valid location from Mapy.cz link');
+	}
+
+	/**
+	 * @param string $input
+	 * @return BetterLocation[]
+	 * @throws NotImplementedException
+	 */
+	public static function parseCoordsMultiple(string $input): array {
+		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 
 	/**
 	 * @param string $source
 	 * @param int $placeId
-	 * @return array<float>
+	 * @return BetterLocation
 	 * @throws InvalidLocationException
 	 */
-	private static function getCoordsFromPlaceId(string $source, int $placeId): array {
+	private static function getCoordsFromPlaceId(string $source, int $placeId): BetterLocation {
 		$dummyMapyCzApiUrl = MAPY_CZ_DUMMY_SERVER_URL . '/poiagg?' . http_build_query([
 				'source' => $source,
 				'point' => $placeId,
@@ -164,10 +170,11 @@ final class MapyCzService extends AbstractService
 			throw new InvalidLocationException('Unable to get coordinates from MapyCZ place ID, contact Admin for more info.');
 		}
 		if (isset($jsonResponse->result->poi->mark->lat) && isset($jsonResponse->result->poi->mark->lon)) {
-			return [
+			return new BetterLocation(
 				$jsonResponse->result->poi->mark->lat,
 				$jsonResponse->result->poi->mark->lon,
-			];
+				'MapyCZ Place ID',
+			);
 		} else {
 			throw new InvalidLocationException(sprintf('Unable to get valid coordinates from place ID "%d".', $placeId));
 		}
@@ -175,10 +182,10 @@ final class MapyCzService extends AbstractService
 
 	/**
 	 * @param int $panoramaId
-	 * @return array<float>
+	 * @return BetterLocation
 	 * @throws InvalidLocationException
 	 */
-	private static function getCoordsFromPanoramaId(int $panoramaId): array {
+	private static function getCoordsFromPanoramaId(int $panoramaId): BetterLocation {
 		$dummyMapyCzApiUrl = MAPY_CZ_DUMMY_SERVER_URL . '/panorpc?' . http_build_query([
 				'point' => $panoramaId,
 			]);
@@ -193,21 +200,13 @@ final class MapyCzService extends AbstractService
 			throw new InvalidLocationException('Unable to get coordinates from MapyCZ panorama ID, contact Admin for more info.');
 		}
 		if (isset($jsonResponse->result->near->mark->lat) && isset($jsonResponse->result->near->mark->lon)) {
-			return [
+			return new BetterLocation(
 				$jsonResponse->result->near->mark->lat,
 				$jsonResponse->result->near->mark->lon,
-			];
+				'MapyCZ Panorama'
+			);
 		} else {
 			throw new InvalidLocationException(sprintf('Unable to get valid coordinates from panorama ID "%d".', $panoramaId));
 		}
-	}
-
-	/**
-	 * @param string $input
-	 * @return BetterLocation[]
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoordsMultiple(string $input): array {
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }
