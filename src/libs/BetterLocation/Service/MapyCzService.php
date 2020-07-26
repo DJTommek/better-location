@@ -112,6 +112,9 @@ final class MapyCzService extends AbstractService
 		parse_str($parsedUrl['query'], $urlParams);
 		if ($urlParams) {
 			// Dummy server is enabled and MapyCZ URL has necessary parameters
+			if (MAPY_CZ_DUMMY_SERVER_URL && isset($urlParams['pid']) && is_numeric($urlParams['pid']) && $urlParams['pid'] > 0) {
+				return self::getCoordsFromPanoramaId(intval($urlParams['pid']));
+			}
 			if (MAPY_CZ_DUMMY_SERVER_URL && isset($urlParams['id']) && is_numeric($urlParams['id']) && $urlParams['id'] > 0 && isset($urlParams['source'])) {
 				return self::getCoordsFromPlaceId($urlParams['source'], intval($urlParams['id']));
 			}
@@ -146,7 +149,7 @@ final class MapyCzService extends AbstractService
 	 * @throws InvalidLocationException
 	 */
 	private static function getCoordsFromPlaceId(string $source, int $placeId): array {
-		$dummyMapyCzApiUrl = MAPY_CZ_DUMMY_SERVER_URL . '?' . http_build_query([
+		$dummyMapyCzApiUrl = MAPY_CZ_DUMMY_SERVER_URL . '/poiagg?' . http_build_query([
 				'source' => $source,
 				'point' => $placeId,
 			]);
@@ -166,7 +169,36 @@ final class MapyCzService extends AbstractService
 				$jsonResponse->result->poi->mark->lon,
 			];
 		} else {
-			throw new InvalidLocationException(sprintf('Unable to get valid coordinates from point ID "%d".', $placeId));
+			throw new InvalidLocationException(sprintf('Unable to get valid coordinates from place ID "%d".', $placeId));
+		}
+	}
+
+	/**
+	 * @param int $panoramaId
+	 * @return array<float>
+	 * @throws InvalidLocationException
+	 */
+	private static function getCoordsFromPanoramaId(int $panoramaId): array {
+		$dummyMapyCzApiUrl = MAPY_CZ_DUMMY_SERVER_URL . '/panorpc?' . http_build_query([
+				'point' => $panoramaId,
+			]);
+		try {
+			$response = General::fileGetContents($dummyMapyCzApiUrl, [
+				CURLOPT_CONNECTTIMEOUT => MAPY_CZ_DUMMY_SERVER_TIMEOUT,
+				CURLOPT_TIMEOUT => MAPY_CZ_DUMMY_SERVER_TIMEOUT,
+			]);
+			$jsonResponse = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
+		} catch (\Exception $exception) {
+			Debugger::log(sprintf('MapyCZ dummy server request: "%s", error: "%s"', $dummyMapyCzApiUrl, $exception->getMessage()), Debugger::ERROR);
+			throw new InvalidLocationException('Unable to get coordinates from MapyCZ panorama ID, contact Admin for more info.');
+		}
+		if (isset($jsonResponse->result->near->mark->lat) && isset($jsonResponse->result->near->mark->lon)) {
+			return [
+				$jsonResponse->result->near->mark->lat,
+				$jsonResponse->result->near->mark->lon,
+			];
+		} else {
+			throw new InvalidLocationException(sprintf('Unable to get valid coordinates from panorama ID "%d".', $panoramaId));
 		}
 	}
 

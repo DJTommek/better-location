@@ -60,6 +60,18 @@ final class MapyCzServiceTest extends TestCase
 	}
 
 	/**
+	 * Translate MapyCZ panorama ID to coordinates
+	 *
+	 * @noinspection PhpUnhandledExceptionInspection
+	 */
+	public function testValidMapyCzPanoramaId(): void {
+		if (!is_null(MAPY_CZ_DUMMY_SERVER_URL)) {
+			$this->assertEquals('50.075959, 15.016772', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0162139&y=50.0820182&z=16&pano=1&pid=68059377&yaw=5.522&fov=1.257&pitch=0.101')->__toString());
+			$this->assertEquals('50.123351, 16.284569', MapyCzService::parseCoords('https://en.mapy.cz/turisticka?x=16.2845693&y=50.1233926&z=17&pano=1&source=base&id=2107710&pid=66437731&yaw=6.051&fov=1.257&pitch=0.157')->__toString()); // Viribus Unitis 2019
+		}
+	}
+
+	/**
 	 * Translate MapyCZ place ID to coordinates
 	 *
 	 * @noinspection PhpUnhandledExceptionInspection
