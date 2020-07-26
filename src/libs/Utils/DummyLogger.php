@@ -8,6 +8,7 @@ namespace Utils;
 class DummyLogger
 {
 
+	const NAME_ALL_REQUESTS = 'request';
 	const NAME_FEEDBACK = 'feedback';
 	const NAME_TELEGRAM_INPUT = 'telegram_input';
 	const NAME_TELEGRAM_OUTPUT = 'telegram_output';
