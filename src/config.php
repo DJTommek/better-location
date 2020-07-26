@@ -3,7 +3,7 @@
  * Convert all errors to exceptions
  */
 
-use Tracy\Debugger;
+use \Utils\DummyLogger;
 
 error_reporting(E_ALL);
 
@@ -35,7 +35,7 @@ function dummyAutoloader($className) {
 		throw new \Exception(sprintf('Class "%s" cannot be loaded, file "%s" does not exists.', $path, $file));
 	}
 }
-
 spl_autoload_register('dummyAutoloader');
 
-Debugger::log('Request: ' . ($_SERVER['REMOTE_ADDR'] ? $_SERVER['REMOTE_ADDR'] . ' - ' : '') . $_SERVER['REQUEST_URI'], Debugger::DEBUG);
+// @TODO this is a lot of data to log but it's ok for alpha/beta phase. Probably should be removed in stable.
+DummyLogger::log(DummyLogger::NAME_ALL_REQUESTS, $_SERVER);
