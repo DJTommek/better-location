@@ -22,6 +22,7 @@ final class MapyCzServiceTest extends TestCase
 	public function testValidCoordinatesMapyCzId(): void {
 		$this->assertEquals('48.873288, 14.578971', MapyCzService::parseCoords('https://en.mapy.cz/zemepisna?x=14.5702160&y=48.8734857&z=16&source=coor&id=14.57897074520588%2C48.87328807384455')->__toString());
 		$this->assertEquals('50.077886, 14.371990', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586')->__toString());
+		$this->assertEquals('49.205899, 14.257356', MapyCzService::parseCoords('https://en.mapy.cz/textova?x=14.2573931&y=49.2063073&z=18&source=coor&id=14.257355545997598%2C49.205899024478754')->__toString()); // iQuest textova
 		$this->assertEquals('7.731071, -80.551001', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=-80.5308310&y=7.7192491&z=15&source=coor&id=-80.55100118168951%2C7.731071318967728')->__toString());
 		$this->assertEquals('65.608884, -168.088871', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=-168.0916515&y=65.6066015&z=15&source=coor&id=-168.08887063564356%2C65.60888429109842')->__toString());
 		$this->assertEquals('-1.138011, 9.034823', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=8.9726814&y=-1.2094073&z=11&source=coor&id=9.034822831066833%2C-1.1380111329277875')->__toString());
