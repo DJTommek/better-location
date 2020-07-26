@@ -8,10 +8,18 @@ use unreal4u\TelegramAPI\Telegram\Types\Update;
 
 class FeedbackCommand extends Command
 {
+	/**
+	 * FeedbackCommand constructor.
+	 *
+	 * @param Update $update
+	 * @param $tgLog
+	 * @param $loop
+	 * @throws \Exception
+	 */
 	public function __construct(Update $update, $tgLog, $loop) {
 		parent::__construct($update, $tgLog, $loop);
 
-		$messagePrefix = sprintf('%s <b>Feedback</b> for @%s!', Icons::COMMAND, TELEGRAM_BOT_NAME) . PHP_EOL;
+		$messagePrefix = sprintf('%s <b>Feedback</b> for @%s.', Icons::COMMAND, TELEGRAM_BOT_NAME) . PHP_EOL;
 		$params = TelegramHelper::getParams($update);
 
 		// Using reply
@@ -34,8 +42,8 @@ class FeedbackCommand extends Command
 			$this->reply(
 				$messagePrefix .
 				'Literally <b>Any</b> feedback will be appreciated, especially bad ones!' . PHP_EOL .
- 				'- <code>/feedback Thanks for the bot!</code> to increase morale of authors.' . PHP_EOL .
- 				'- <code>/feedback I hate this bot, it can\'t do the dishes!</code> to add more features.' . PHP_EOL .
+ 				'- "<code>/feedback Thanks for the bot!</code>" to increase morale of authors.' . PHP_EOL .
+ 				'- "<code>/feedback I hate this bot, it can\'t do the dishes!</code>" to request more features.' . PHP_EOL .
 				''. PHP_EOL .
 				sprintf('%s Tip: Use reply to any message if you want to authors that specific message why it should (not) be location.', Icons::INFO)
 			);
