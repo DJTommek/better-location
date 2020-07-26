@@ -123,6 +123,7 @@ $loop->run();
 							$result .= htmlentities($betterLocation->getMessage()) . PHP_EOL . PHP_EOL;
 						} else {
 							Debugger::log($betterLocation, Debugger::EXCEPTION);
+							throw $betterLocation;
 						}
 					}
 					printf('<pre>%s</pre>', $result);
