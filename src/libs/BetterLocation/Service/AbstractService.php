@@ -15,6 +15,8 @@ abstract class AbstractService
 
 	abstract public static function parseCoords(string $input): BetterLocation;
 
+	abstract public static function parseCoordsMultiple(string $input): BetterLocation;
+
 	/**
 	 * @param $url
 	 * @return mixed|null

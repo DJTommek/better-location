@@ -6,6 +6,7 @@ namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
+use BetterLocation\Service\Exceptions\NotImplementedException;
 
 final class WazeService extends AbstractService
 {
@@ -103,5 +104,14 @@ final class WazeService extends AbstractService
 			floatval($coords[0]),
 			floatval($coords[1]),
 		];
+	}
+
+	/**
+	 * @param string $input
+	 * @return BetterLocation
+	 * @throws NotImplementedException
+	 */
+	public static function parseCoordsMultiple(string $input): BetterLocation {
+		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }

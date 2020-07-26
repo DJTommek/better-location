@@ -7,6 +7,7 @@ namespace BetterLocation\Service;
 use \BetterLocation\BetterLocation;
 use \BetterLocation\Service\Exceptions\InvalidApiKeyException;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
+use BetterLocation\Service\Exceptions\NotImplementedException;
 use What3words\Geocoder\Geocoder;
 
 final class WhatThreeWordService extends AbstractService
@@ -115,5 +116,14 @@ final class WhatThreeWordService extends AbstractService
 	public static function isNormalUrl(string $url): bool {
 		// https://what3words.com/define.readings.cucumber
 		return (substr($url, 0, mb_strlen(self::LINK)) === self::LINK);
+	}
+
+	/**
+	 * @param string $input
+	 * @return BetterLocation
+	 * @throws NotImplementedException
+	 */
+	public static function parseCoordsMultiple(string $input): BetterLocation {
+		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }

@@ -6,6 +6,7 @@ namespace BetterLocation\Service\Coordinates;
 
 use BetterLocation\BetterLocation;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
+use BetterLocation\Service\Exceptions\NotImplementedException;
 use Utils\Coordinates;
 use Utils\General;
 
@@ -157,5 +158,14 @@ abstract class AbstractService extends \BetterLocation\Service\AbstractService
 			sprintf($serviceClass::NAME),
 		);
 
+	}
+
+	/**
+	 * @param string $input
+	 * @return BetterLocation
+	 * @throws NotImplementedException
+	 */
+	public static function parseCoordsMultiple(string $input): BetterLocation {
+		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }

@@ -6,6 +6,7 @@ namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
+use BetterLocation\Service\Exceptions\NotImplementedException;
 
 final class OpenStreetMapService extends AbstractService
 {
@@ -102,5 +103,14 @@ final class OpenStreetMapService extends AbstractService
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * @param string $input
+	 * @return BetterLocation
+	 * @throws NotImplementedException
+	 */
+	public static function parseCoordsMultiple(string $input): BetterLocation {
+		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }
