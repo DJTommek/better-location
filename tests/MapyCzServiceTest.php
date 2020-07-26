@@ -120,7 +120,7 @@ final class MapyCzServiceTest extends TestCase
 	 */
 	public function testInvalidMapyCzId(): void {
 		if (!is_null(MAPY_CZ_DUMMY_SERVER_URL)) {
-			$this->expectExceptionMessage('Unable to get valid coordinates from point ID "1234".');
+			$this->expectExceptionMessage('Unable to get valid coordinates from place ID "1234".');
 			MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=1234');
 		}
 	}
