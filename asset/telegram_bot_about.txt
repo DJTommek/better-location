@@ -1,0 +1,1 @@
+Location parser and auto-formatter into your favourite location services as Google maps, Waze etc.
