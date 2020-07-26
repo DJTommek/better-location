@@ -14,6 +14,12 @@ final class MapyCzService extends AbstractService
 {
 	const LINK = 'https://mapy.cz/zakladni?y=%1$f&x=%2$f&source=coor&id=%2$f%%2C%1$f';
 
+	const TYPE_UNKNOWN = 'unknown';
+	const TYPE_MAP = 'Map coords';
+	const TYPE_PLACE_ID = 'Place';
+	const TYPE_PLACE_COORDS = 'Place coords';
+	const TYPE_PANORAMA = 'Panorama';
+
 	/**
 	 * @param float $lat
 	 * @param float $lon
@@ -42,15 +48,36 @@ final class MapyCzService extends AbstractService
 	 * @throws \Exception
 	 */
 	public static function parseCoords(string $url): BetterLocation {
+		return self::parseCoordsHelper($url, false);
+	}
+
+	/**
+	 * @param string $url
+	 * @return BetterLocation[]
+	 * @throws InvalidLocationException
+	 * @throws \Exception
+	 */
+	public static function parseCoordsMultiple(string $url): array {
+		return self::parseCoordsHelper($url, true);
+	}
+
+	/**
+	 * @param string $url
+	 * @param bool $returnArray
+	 * @return BetterLocation|BetterLocation[]
+	 * @throws InvalidLocationException
+	 * @throws \Exception
+	 */
+	public static function parseCoordsHelper(string $url, bool $returnArray) {
 		if (self::isShortUrl($url)) {
 			$newLocation = self::getRedirectUrl($url);
 			if ($newLocation) {
-				return self::parseUrl($newLocation);
+				return self::parseUrl($newLocation, $returnArray);
 			} else {
 				throw new InvalidLocationException(sprintf('Unable to get real url for Mapy.cz short link "%s".', $url));
 			}
 		} else if (self::isNormalUrl($url)) {  // at least two characters, otherwise it is probably /s/hort-version of link
-			return self::parseUrl($url);
+			return self::parseUrl($url, $returnArray);
 		} else {
 			throw new InvalidLocationException(sprintf('Unable to get coords for Mapy.cz link "%s".', $url));
 		}
@@ -92,10 +119,12 @@ final class MapyCzService extends AbstractService
 
 	/**
 	 * @param string $url
-	 * @return BetterLocation
+	 * @param bool $returnArray
+	 * @return BetterLocation|BetterLocation[]
 	 * @throws InvalidLocationException
 	 */
-	public static function parseUrl(string $url): BetterLocation {
+	public static function parseUrl(string $url, bool $returnArray = false) {
+		$betterLocations = [];
 		$parsedUrl = parse_url(urldecode($url));
 		if (!isset($parsedUrl['query'])) {
 			throw new InvalidLocationException(sprintf('Unable to get query for Mapy.cz link "%s".', $url));
@@ -105,48 +134,65 @@ final class MapyCzService extends AbstractService
 			// Dummy server is enabled and MapyCZ URL has necessary parameters
 			if (MAPY_CZ_DUMMY_SERVER_URL && isset($urlParams['pid']) && is_numeric($urlParams['pid']) && $urlParams['pid'] > 0) {
 				$result = self::getCoordsFromPanoramaId(intval($urlParams['pid']));
-				$result->setPrefixMessage(sprintf('<a href="%s">Mapy.cz Panorama</a>', $url));
-				return $result;
+				$result->setPrefixMessage(sprintf('<a href="%s">Mapy.cz %s</a>', $url, self::TYPE_PANORAMA));
+				if ($returnArray) {
+					$betterLocations[self::TYPE_PANORAMA] = $result;
+				} else {
+					return $result;
+				}
 			}
 			if (MAPY_CZ_DUMMY_SERVER_URL && isset($urlParams['id']) && is_numeric($urlParams['id']) && $urlParams['id'] > 0 && isset($urlParams['source'])) {
-				$result =  self::getCoordsFromPlaceId($urlParams['source'], intval($urlParams['id']));
-				$result->setPrefixMessage(sprintf('<a href="%s">Mapy.cz Place</a>', $url));
-				return $result;
+				$result = self::getCoordsFromPlaceId($urlParams['source'], intval($urlParams['id']));
+				$result->setPrefixMessage(sprintf('<a href="%s">Mapy.cz %s</a>', $url, self::TYPE_PLACE_ID));
+				if ($returnArray) {
+					$betterLocations[self::TYPE_PLACE_ID] = $result;
+				} else {
+					return $result;
+				}
 			}
 			// @TODO if numeric ID (not coordinates) is set and dummy NodeJS is disabled, fallback to coordinates and show warning, that result might be inaccurate
 			// MapyCZ URL has ID in format of coordinates
 			if (isset($urlParams['id']) && preg_match('/^(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)$/', $urlParams['id'], $matches)) {
-				return new BetterLocation(
+				$betterLocation = new BetterLocation(
 					floatval($matches[2]),
 					floatval($matches[1]),
-					sprintf('<a href="%s">Mapy.cz</a>', $url),
+					sprintf('<a href="%s">Mapy.cz %s</a>', $url, self::TYPE_PLACE_COORDS),
 				);
+				if ($returnArray) {
+					$betterLocations[self::TYPE_PLACE_COORDS] = $betterLocation;
+				} else {
+					return $betterLocation;
+				}
 			}
 			if (isset($urlParams['ma_x']) && isset($urlParams['ma_y'])) {
-				return new BetterLocation(
+				$betterLocation = new BetterLocation(
 					floatval($urlParams['ma_y']),
 					floatval($urlParams['ma_x']),
 					sprintf('<a href="%s">Mapy.cz</a>', $url),
 				);
+				if ($returnArray) {
+					$betterLocations[self::TYPE_UNKNOWN] = $betterLocation;
+				} else {
+					return $betterLocation;
+				}
 			}
 			if (isset($urlParams['x']) && isset($urlParams['y'])) {
-				return new BetterLocation(
+				$betterLocation = new BetterLocation(
 					floatval($urlParams['y']),
 					floatval($urlParams['x']),
-					sprintf('<a href="%s">Mapy.cz</a>', $url),
+					sprintf('<a href="%s">Mapy.cz %s</a>', $url, self::TYPE_MAP),
 				);
+				if ($returnArray) {
+					$betterLocations[self::TYPE_MAP] = $betterLocation;
+				} else {
+					return $betterLocation;
+				}
 			}
 		}
-		throw new InvalidLocationException('Unable to get valid location from Mapy.cz link');
-	}
-
-	/**
-	 * @param string $input
-	 * @return BetterLocation[]
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoordsMultiple(string $input): array {
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
+		if ($returnArray && count($betterLocations) > 0) {
+			return $betterLocations;
+		}
+		throw new InvalidLocationException('Unable to get any valid location from Mapy.cz link');
 	}
 
 	/**

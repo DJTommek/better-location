@@ -20,3 +20,7 @@ DEFINE('W3W_API_KEY', 'SOME_API_KEY');
 DEFINE('MAPY_CZ_DUMMY_SERVER_URL', null); // null to disable this feature and fallback to using inaccurate x and y coordinates from URL
 // Request timeout
 DEFINE('MAPY_CZ_DUMMY_SERVER_TIMEOUT', 5); // default 5
+
+// If some input (URL) has multiple different locations, how far it has to be from main coordinate to add special line
+// to notify, that these locations are too far away. Anything lower than this number will be removed from list
+DEFINE('DISTANCE_IGNORE', 10); // distance in meters (int or float)

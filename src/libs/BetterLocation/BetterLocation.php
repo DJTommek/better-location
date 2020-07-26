@@ -16,6 +16,7 @@ use \BetterLocation\Service\OpenStreetMapService;
 use \BetterLocation\Service\OpenLocationCodeService;
 use \BetterLocation\Service\WazeService;
 use \BetterLocation\Service\WhatThreeWordService;
+use Utils\Coordinates;
 use \Utils\General;
 use \Icons;
 
@@ -69,7 +70,40 @@ class BetterLocation
 					if (GoogleMapsService::isValid($url)) {
 						$betterLocationsObjects[$entity->offset] = GoogleMapsService::parseCoords($url);
 					} else if (MapyCzService::isValid($url)) {
-						$betterLocationsObjects[$entity->offset] = MapyCzService::parseCoords($url);
+						$mapyCzBetterLocations = MapyCzService::parseCoordsMultiple($url);
+						if ($mapyCzBetterLocations > 1) {
+							if (isset($mapyCzBetterLocations[MapyCzService::TYPE_PANORAMA])) {
+								$mainLocationKey = MapyCzService::TYPE_PANORAMA;
+							} else if (isset($mapyCzBetterLocations[MapyCzService::TYPE_PLACE_ID])) {
+								$mainLocationKey = MapyCzService::TYPE_PLACE_ID;
+							} else if (isset($mapyCzBetterLocations[MapyCzService::TYPE_PLACE_COORDS])) {
+								$mainLocationKey = MapyCzService::TYPE_PLACE_COORDS;
+							} else if (isset($mapyCzBetterLocations[MapyCzService::TYPE_MAP])) {
+								$mainLocationKey = MapyCzService::TYPE_MAP;
+							} else {
+								throw new \Exception('Error while selecting main location: Probably added new MapyCz type?');
+							}
+							$mainLocation = $mapyCzBetterLocations[$mainLocationKey];
+							foreach ($mapyCzBetterLocations as $key => $mapyCzBetterLocation) {
+								if ($key === $mainLocationKey) {
+									continue;
+								} else {
+									$distance = Coordinates::distance(
+										$mainLocation->getLat(),
+										$mainLocation->getLon(),
+										$mapyCzBetterLocation->getLat(),
+										$mapyCzBetterLocation->getLon(),
+									);
+									if ($distance < DISTANCE_IGNORE) {
+										// Remove locations that are too close to main location
+										unset($mapyCzBetterLocations[$key]);
+									} else {
+										$mapyCzBetterLocation->setDescription(sprintf('%s Location is %d meters away from %s.', Icons::WARNING, $distance, $mainLocationKey));
+									}
+								}
+							}
+						}
+						$betterLocationsObjects = array_merge($betterLocationsObjects, $mapyCzBetterLocations);
 					} else if (OpenStreetMapService::isValid($url)) {
 						$betterLocationsObjects[$entity->offset] = OpenStreetMapService::parseCoords($url);
 					} else if (OpenLocationCodeService::isValid($url)) {
