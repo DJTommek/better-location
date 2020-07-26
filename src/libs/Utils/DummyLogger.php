@@ -9,9 +9,12 @@ class DummyLogger
 {
 
 	const NAME_FEEDBACK = 'feedback';
+	const NAME_TELEGRAM_INPUT = 'telegram_input';
+	const NAME_TELEGRAM_OUTPUT = 'telegram_output';
+	const NAME_TELEGRAM_OUTPUT_RESPONSE = 'telegram_output_response';
 
 	public static function log(string $name, $content): void {
-		if (!preg_match('/^[a-zA-Z0-9_]{1,20}$/', $name)) {
+		if (!preg_match('/^[a-zA-Z0-9_]{1,30}$/', $name)) {
 			throw new \InvalidArgumentException('Invalid log name.');
 		}
 		$name = mb_strtolower($name);
@@ -24,11 +27,11 @@ class DummyLogger
 		$writeLogObject = new \stdClass();
 		$now = new \DateTimeImmutable();
 		$writeLogObject->datetime = $now->format(DATE_ISO8601);
+		if (defined('LOG_ID')) {
+			$writeLogObject->log_id = LOG_ID;
+		}
 		$writeLogObject->name = $name;
 		$writeLogObject->content = $content;
-		if (defined('LOG_ID')) {
-			$writeLogObject->runId = LOG_ID;
-		}
 		file_put_contents(
 			sprintf('%s/%s_%s.log', $path, $name, $now->format(DATE_FORMAT)),
 			json_encode($writeLogObject) . "\n",

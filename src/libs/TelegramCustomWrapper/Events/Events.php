@@ -12,6 +12,7 @@ use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram\Methods\SendChatAction;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 use unreal4u\TelegramAPI\TgLog;
+use Utils\DummyLogger;
 
 abstract class Events
 {
@@ -89,13 +90,13 @@ abstract class Events
 
 		$promise = $this->tgLog->performApiRequest($objectToSend);
 		$this->loop->run();
+		DummyLogger::log(DummyLogger::NAME_TELEGRAM_OUTPUT, $objectToSend);
 		$resultResponse = null;
 		$resultException = null;
 		$promise->then(
 			function ($response) use (&$resultResponse) {
 				$resultResponse = $response;
-				Debugger::log($response);
-				Debugger::log('TG API Command request successfull. Response: ' . $response);
+				DummyLogger::log(DummyLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $resultResponse);
 			},
 			function (\Exception $exception) use (&$resultException) {
 				$resultException = $exception;
@@ -103,6 +104,7 @@ abstract class Events
 				Debugger::log($exception, ILogger::EXCEPTION);
 			}
 		);
+
 		if ($resultException) {
 			throw $resultException;
 		} else {
