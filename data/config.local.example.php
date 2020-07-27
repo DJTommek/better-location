@@ -1,4 +1,9 @@
 <?php
+// Set database connection settings
+DEFINE('DB_SERVER', 'localhost');
+DEFINE('DB_USER', 'root');
+DEFINE('DB_PASS', 'password');
+DEFINE('DB_NAME', 'better_location');
 
 // List of your IP address for development
 DEFINE('DEVELOPMENT_IPS', [
