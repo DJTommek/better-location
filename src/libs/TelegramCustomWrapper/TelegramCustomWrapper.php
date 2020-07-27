@@ -63,11 +63,11 @@ class TelegramCustomWrapper
 					break;
 			}
 		} elseif (TelegramHelper::isLocation($update)) {
-			return new LocationCommand($update, $this->tgLog, $this->loop);
+			return new LocationCommand($update);
 		} elseif (TelegramHelper::hasDocument($update)) {
-			return new File($update, $this->tgLog, $this->loop);
+			return new File($update);
 		} elseif (TelegramHelper::hasPhoto($update)) {
-			return new Photo($update, $this->tgLog, $this->loop);
+			return new Photo($update);
 		} else {
 			$update->message->from->username = $update->message->from->username === '' ? null : $update->message->from->username;
 			/** @noinspection PhpUndefinedFieldInspection */
@@ -76,22 +76,22 @@ class TelegramCustomWrapper
 			switch ($command ? mb_strtolower($command) : null) {
 				case '/start':
 				case '/help':
-					return new HelpCommand($update, $this->tgLog, $this->loop);
+					return new HelpCommand($update);
 					break;
 				case '/debug':
-					return new DebugCommand($update, $this->tgLog, $this->loop);
+					return new DebugCommand($update);
 					break;
 				case '/settings':
-					return new SettingsCommand($update, $this->tgLog, $this->loop);
+					return new SettingsCommand($update);
 					break;
 				case '/feedback':
-					return new FeedbackCommand($update, $this->tgLog, $this->loop);
+					return new FeedbackCommand($update);
 					break;
 				case null: // message without command
-					return new MessageCommand($update, $this->tgLog, $this->loop);
+					return new MessageCommand($update);
 					break;
 				default: // unknown command
-					return new UnknownCommand($update, $this->tgLog, $this->loop);
+					return new UnknownCommand($update);
 					break;
 			}
 		}
