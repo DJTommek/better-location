@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TelegramCustomWrapper\Events;
 
+use React\EventLoop\Factory;
 use TelegramCustomWrapper\SendMessage;
 use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
@@ -20,6 +21,7 @@ abstract class Events
 	protected $tgLog;
 	protected $loop;
 	protected $user;
+	protected $chat;
 
 	protected $command = null;
 	protected $params = [];
@@ -27,13 +29,25 @@ abstract class Events
 	public function __construct(Update $update) {
 		$this->update = $update;
 
-		$this->loop = \React\EventLoop\Factory::create();
+		$this->loop = Factory::create();
 		$this->tgLog = new TgLog(TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($this->loop));
 
 		if (TelegramHelper::isButtonClick($update)) {
 			$this->user = new \User($update->callback_query->from->id, $update->callback_query->from->username);
+			/** @noinspection PhpUndefinedFieldInspection */
+			$this->chat = new \Chat(
+				$update->callback_query->message->chat->id,
+				$update->callback_query->message->chat->type,
+				empty($update->callback_query->message->chat->title) ? $update->callback_query->from->displayname : $update->callback_query->message->chat->title,
+			);
 		} else {
 			$this->user = new \User($update->message->from->id, $update->message->from->username);
+			/** @noinspection PhpUndefinedFieldInspection */
+			$this->chat = new \Chat(
+				$update->message->chat->id,
+				$update->message->chat->type,
+				empty($update->message->chat->title) ? $update->message->from->displayname : $update->message->chat->title
+			);
 		}
 
 		$this->command = TelegramHelper::getCommand($update);
