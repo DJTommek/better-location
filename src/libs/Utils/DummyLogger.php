@@ -20,7 +20,6 @@ class DummyLogger
 		}
 		$name = mb_strtolower($name);
 		$path = sprintf('%s/log/%s', FOLDER_DATA, $name);
-		dump($path);
 		if (!file_exists($path)) {
 			mkdir($path, 0750, true);
 		}
