@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace TelegramCustomWrapper\Events;
 
-use React\EventLoop\StreamSelectLoop;
 use TelegramCustomWrapper\SendMessage;
 use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
+use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram\Methods\SendChatAction;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 use unreal4u\TelegramAPI\TgLog;
@@ -24,10 +24,11 @@ abstract class Events
 	protected $command = null;
 	protected $params = [];
 
-	public function __construct(Update $update, TgLog $tgLog, StreamSelectLoop $loop) {
+	public function __construct(Update $update) {
 		$this->update = $update;
-		$this->tgLog = $tgLog;
-		$this->loop = $loop;
+
+		$this->loop = \React\EventLoop\Factory::create();
+		$this->tgLog = new TgLog(TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($this->loop));
 
 		$this->command = TelegramHelper::getCommand($update);
 		$this->params = TelegramHelper::getParams($update);

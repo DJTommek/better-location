@@ -13,12 +13,10 @@ class FeedbackCommand extends Command
 	 * FeedbackCommand constructor.
 	 *
 	 * @param Update $update
-	 * @param $tgLog
-	 * @param $loop
 	 * @throws \Exception
 	 */
-	public function __construct(Update $update, $tgLog, $loop) {
-		parent::__construct($update, $tgLog, $loop);
+	public function __construct(Update $update) {
+		parent::__construct($update);
 
 		$messagePrefix = sprintf('%s <b>Feedback</b> for @%s.', Icons::COMMAND, TELEGRAM_BOT_NAME) . PHP_EOL;
 		$params = TelegramHelper::getParams($update);

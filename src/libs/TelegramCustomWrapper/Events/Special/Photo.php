@@ -14,12 +14,10 @@ class Photo extends \TelegramCustomWrapper\Events\Special\Special
 	 * PhotoCommand constructor.
 	 *
 	 * @param $update
-	 * @param $tgLog
-	 * @param $loop
 	 * @throws \Exception
 	 */
-	public function __construct($update, $tgLog, $loop) {
-		parent::__construct($update, $tgLog, $loop);
+	public function __construct($update) {
+		parent::__construct($update);
 
 		$result = '';
 		try {

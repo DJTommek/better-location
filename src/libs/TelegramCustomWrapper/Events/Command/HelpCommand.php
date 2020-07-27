@@ -14,13 +14,11 @@ class HelpCommand extends Command
 	 * HelpCommand constructor.
 	 *
 	 * @param $update
-	 * @param $tgLog
-	 * @param $loop
 	 * @throws InvalidLocationException
 	 * @throws \Exception
 	 */
-	public function __construct($update, $tgLog, $loop) {
-		parent::__construct($update, $tgLog, $loop);
+	public function __construct($update) {
+		parent::__construct($update);
 
 		$lat = 50.0877258;
 		$lon = 14.4211267;

@@ -18,12 +18,10 @@ class MessageCommand extends Command
 	 * MessageCommand constructor.
 	 *
 	 * @param $update
-	 * @param $tgLog
-	 * @param $loop
 	 * @throws \Exception
 	 */
-	public function __construct($update, $tgLog, $loop) {
-		parent::__construct($update, $tgLog, $loop);
+	public function __construct($update) {
+		parent::__construct($update);
 
 		// PM or whitelisted group
 		$result = null;
