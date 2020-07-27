@@ -40,8 +40,8 @@ class TelegramCustomWrapper
 	 */
 	public function handleUpdate($updateData) {
 		$update = new Telegram\Types\Update($updateData);
-		if ($update->update_id === 0) {
-			throw new \Exception('Telegram webhook API data are missing! This page should be requested only from Telegram servers via webhook.');
+		if ($update->update_id === 0) { // default value
+			throw new \Exception('Telegram webhook API data are missing!');
 		}
 		if ($update->edited_channel_post || $update->edited_message) {
 			return 'Edit\'s are ignored';
