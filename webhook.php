@@ -19,5 +19,11 @@ try {
 	$telegramCustomWrapper->handleUpdate($updateData);
 	printf('OK.');
 } catch (\Exception $exception) {
-	printf('Error: "%s".', $exception->getMessage());
+	if (isset($_GET['exception']) && $_GET['exception'] === '0') {
+		printf('Error: "%s".', $exception->getMessage());
+	} else {
+		/** @noinspection PhpUnhandledExceptionInspection */
+		throw $exception;
+	}
 }
+printf('End.');
