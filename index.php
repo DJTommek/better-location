@@ -7,6 +7,17 @@ require_once __DIR__ . '/src/config.php';
 <p>
 	Hello world! <?= Icons::CHECKED; ?>
 </p>
+<h2>Database</h2>
+<p>
+	<?php
+	try {
+		Factory::Database();
+		printf('%s Connected to database "%s".', Icons::SUCCESS, DB_NAME);
+	} catch (\Exception $exception) {
+		printf('%s Error while connecting to database "%s". Error: "%s"', Icons::ERROR, DB_NAME, $exception->getMessage());
+	}
+	?>
+</p>
 <h2>Webhook setup</h2>
 <ol>
 	<li>
