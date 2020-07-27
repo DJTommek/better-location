@@ -30,6 +30,12 @@ abstract class Events
 		$this->loop = \React\EventLoop\Factory::create();
 		$this->tgLog = new TgLog(TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($this->loop));
 
+		if (TelegramHelper::isButtonClick($update)) {
+			$this->user = new \User($update->callback_query->from->id, $update->callback_query->from->username);
+		} else {
+			$this->user = new \User($update->message->from->id, $update->message->from->username);
+		}
+
 		$this->command = TelegramHelper::getCommand($update);
 		$this->params = TelegramHelper::getParams($update);
 	}
