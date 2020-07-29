@@ -180,8 +180,7 @@ abstract class Events
 //		$text .= sprintf('/settings - adjust behaviour in this chat') . PHP_EOL;
 		$text .= sprintf('/feedback - Report invalid location or just contact author.') . PHP_EOL;
 		$text .= PHP_EOL;
-		$text .= sprintf('Official Github: <a href="%1$s%2$s">%2$s</a>', 'https://github.com/', 'DJTommek/better-location') . PHP_EOL;
-		$text .= sprintf('Author: <a href="%1$s%2$s">@%2$s</a>', 'https://t.me/', 'DJTommek') . PHP_EOL;
+		$text .= sprintf('%s For more info check out channel <a href="%s">@BetterLocationInfo</a>.', \Icons::INFO, 'https://t.me/BetterLocationInfo/3') . PHP_EOL;
 		$text .= PHP_EOL;
 
 //		$text .= sprintf(Icons::WARNING . ' <b>Warning</b>: Bot is currently in active development so there is no guarantee that it will work at all times. Check Github for more info.') . PHP_EOL;
