@@ -4,20 +4,38 @@
 namespace TelegramCustomWrapper\Events\Inline;
 
 use \TelegramCustomWrapper\SendMessage;
+use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Methods\AnswerCallbackQuery;
 
 abstract class Inline extends \TelegramCustomWrapper\Events\Events
 {
+	protected function getChatId() {
+		return $this->update->callback_query->message->chat->id;
+	}
+	protected function getMessageId() {
+		return $this->update->callback_query->message->message_id;
+	}
 
-	/**
-	 * @param string $text
-	 * @param null $replyMarkup
-	 * @param bool $editMessage
-	 * @throws \Exception
-	 */
-	public function replyButton(string $text, $replyMarkup = null, $editMessage = true) {
-		$msg = new SendMessage($this->getChatId(), $text, null, $replyMarkup, $editMessage ? $this->update->callback_query->message->message_id : null);
-		$this->run($msg->msg);
+	public function replyButton(string $text, array $options = []) {
+		// if not set, set default to true
+		if (!isset($options['edit_message'])) {
+			$options['edit_message'] = true;
+		}
+
+		$msg = new SendMessage(
+			$this->getChatId(),
+			$text,
+			null,
+			null,
+			$options['edit_message'] ? $this->getMessageId() : null,
+		);
+		if (isset($options['reply_markup'])) {
+			$msg->setReplyMarkup($options['reply_markup']);
+		}
+		if (isset($options['disable_web_page_preview'])) {
+			$msg->disableWebPagePreview($options['disable_web_page_preview']);
+		}
+		return $this->run($msg->msg);
 	}
 
 	/**
