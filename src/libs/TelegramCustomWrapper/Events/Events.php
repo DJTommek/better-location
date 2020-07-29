@@ -143,8 +143,8 @@ abstract class Events
 	 */
 	protected function processHelp(bool $inline = false) {
 
-		$lat = 50.0877258;
-		$lon = 14.4211267;
+		$lat = 50.087451;
+		$lon = 14.420671;
 		$wazeLink = WazeService::getLink($lat, $lon);
 		$betterLocationWaze = WazeService::parseCoords($wazeLink);
 		$betterLocationCoords = new BetterLocation($lat, $lon, WG84DegreesService::NAME);
