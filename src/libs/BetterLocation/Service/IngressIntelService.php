@@ -10,7 +10,7 @@ use BetterLocation\Service\Exceptions\NotImplementedException;
 
 final class IngressIntelService extends AbstractService
 {
-	const LINK = 'https://intel.ingress.com/intel';
+	const LINK = 'https://intel.ingress.com';
 
 	/**
 	 * @param float $lat
@@ -22,7 +22,7 @@ final class IngressIntelService extends AbstractService
 		if ($drive) {
 			throw new \InvalidArgumentException('Drive link is not implemented.');
 		} else {
-			return sprintf(self::LINK . '%s?ll=%1$f,%2$f&pll=%1$f,%2$f', $lat, $lon);
+			return self::LINK . sprintf('?ll=%1$f,%2$f&pll=%1$f,%2$f', $lat, $lon);
 		}
 	}
 
