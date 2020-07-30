@@ -11,7 +11,7 @@ use \TelegramCustomWrapper\Events\Command\LocationCommand;
 use \TelegramCustomWrapper\Events\Command\MessageCommand;
 use \TelegramCustomWrapper\Events\Command\SettingsCommand;
 use \TelegramCustomWrapper\Events\Command\UnknownCommand;
-use \TelegramCustomWrapper\Events\Inline\HelpInline;
+use \TelegramCustomWrapper\Events\Button\HelpButton;
 use \TelegramCustomWrapper\Events\Special\File;
 use \TelegramCustomWrapper\Events\Special\Photo;
 use unreal4u\TelegramAPI\Telegram;
@@ -59,7 +59,7 @@ class TelegramCustomWrapper
 
 			switch ($command ? mb_strtolower($command) : null) {
 				case '/help':
-					return new HelpInline($update);
+					return new HelpButton($update);
 					break;
 					// @TODO log error, this should not happen. Edit: can happen if some command is no longer used (for example /stats was changed to /donor)
 				default: // unknown

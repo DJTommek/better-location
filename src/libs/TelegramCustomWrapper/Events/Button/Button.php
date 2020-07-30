@@ -1,13 +1,12 @@
 <?php
 
 
-namespace TelegramCustomWrapper\Events\Inline;
+namespace TelegramCustomWrapper\Events\Button;
 
 use \TelegramCustomWrapper\SendMessage;
-use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Methods\AnswerCallbackQuery;
 
-abstract class Inline extends \TelegramCustomWrapper\Events\Events
+abstract class Button extends \TelegramCustomWrapper\Events\Events
 {
 	protected function getChatId() {
 		return $this->update->callback_query->message->chat->id;

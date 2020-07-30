@@ -1,10 +1,10 @@
 <?php
 
-namespace TelegramCustomWrapper\Events\Inline;
+namespace TelegramCustomWrapper\Events\Button;
 
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
-class SettingsInline extends Inline
+class SettingsButton extends Button
 {
 	public function __construct($update) {
 		parent::__construct($update);

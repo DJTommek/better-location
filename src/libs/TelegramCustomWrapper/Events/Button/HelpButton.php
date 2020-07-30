@@ -1,8 +1,8 @@
 <?php
 
-namespace TelegramCustomWrapper\Events\Inline;
+namespace TelegramCustomWrapper\Events\Button;
 
-class HelpInline extends Inline
+class HelpButton extends Button
 {
 	public function __construct($update) {
 		parent::__construct($update);
