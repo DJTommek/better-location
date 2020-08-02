@@ -1,11 +1,17 @@
 {
+	"repositories": [
+		{
+			"url": "https://github.com/DJTommek/telegram-api.git",
+			"type": "git"
+		}
+	],
 	"require": {
 		"ext-json": "*",
 		"ext-curl": "*",
 		"ext-mbstring": "*",
 		"ext-exif": "*",
 		"tracy/tracy": "v2.7.3",
-		"unreal4u/telegram-api": "~3.4",
+		"djtommek/telegram-api": "master",
 		"bogdaan/open-location-code": "dev-master",
 		"what3words/w3w-php-wrapper": "^3.3"
 	},
