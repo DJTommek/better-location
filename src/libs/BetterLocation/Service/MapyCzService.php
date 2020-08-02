@@ -37,6 +37,13 @@ final class MapyCzService extends AbstractService
 		}
 	}
 
+	public static function getScreenshotLink(float $lat, float $lon): string {
+		// @TODO load to image editor and:
+		// - crop to show only map (at least remove right panel, probably top icons should be removed too)
+		// - manually add marker to center of the map
+		return 'https://en.mapy.cz/screenshoter?url=' . urlencode(self::getLink($lat, $lon));
+	}
+
 	public static function isValid(string $url): bool {
 		return self::isShortUrl($url) || self::isNormalUrl($url);
 	}

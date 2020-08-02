@@ -68,7 +68,10 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 		}
 
 		if ($replyMessage) {
-			$this->reply(TelegramHelper::MESSAGE_PREFIX . $replyMessage);
+			$this->reply(
+				TelegramHelper::MESSAGE_PREFIX . $replyMessage,
+				['disable_web_page_preview' => true],
+			);
 		} else if ($this->isPm()) {
 			$this->reply('Thanks for the file in PM! But I\'m not sure, what to do... No location in EXIF was found.');
 		}

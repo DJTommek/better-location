@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace TelegramCustomWrapper;
 
+use unreal4u\TelegramAPI\Telegram\Types\Update;
+
 class TelegramHelper
 {
 	const API_URL = 'https://api.telegram.org';
@@ -44,6 +46,14 @@ class TelegramHelper
 		return (!empty($update->callback_query));
 	}
 
+	public static function isInlineQuery(Update $update): bool {
+		return (!empty($update->inline_query));
+	}
+
+	public static function isChosenInlineQuery(Update $update): bool {
+		return (!empty($update->chosen_inline_result));
+	}
+
 	public static function isLocation($update): bool {
 		return (!empty($update->message->location));
 	}
@@ -54,6 +64,19 @@ class TelegramHelper
 
 	public static function hasPhoto($update): bool {
 		return (!empty($update->message->photo));
+	}
+
+	public static function isViaBot(Update $update, $botUsername = null): bool {
+		if (empty($update->message->via_bot) === false) {
+			if (is_null($botUsername)) {
+				return true;
+			} else if (mb_strtolower($update->message->via_bot->username) === mb_strtolower($botUsername)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
 	}
 
 	public static function getFileUrl(string $token, string $path): string {

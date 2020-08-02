@@ -34,7 +34,7 @@ class MessageCommand extends Command
 				if ($betterLocation instanceof BetterLocation) {
 					$result .= $betterLocation->generateBetterLocation();
 					if (count($buttons) < $buttonLimit) {
-						$buttons[] = $this->getDriveButtons($betterLocation);
+						$buttons[] = $betterLocation->generateDriveButtons();
 					}
 				} else if (
 					$betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException ||
@@ -64,18 +64,6 @@ class MessageCommand extends Command
 		} else if ($this->isPm()) {
 			$this->reply('Hi there in PM!');
 		}
-	}
-
-	private function getDriveButtons(BetterLocation $betterLocation) {
-		$googleButton = new Button();
-		$googleButton->text = 'Google ' . Icons::CAR;
-		$googleButton->url = $betterLocation->getLink(new GoogleMapsService, true);
-
-		$wazeButton = new Button();
-		$wazeButton->text = 'Waze ' . Icons::CAR;
-		$wazeButton->url = $betterLocation->getLink(new WazeService(), true);
-
-		return [$googleButton, $wazeButton];
 	}
 }
 

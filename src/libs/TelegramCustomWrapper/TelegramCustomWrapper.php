@@ -13,6 +13,7 @@ use \TelegramCustomWrapper\Events\Command\SettingsCommand;
 use \TelegramCustomWrapper\Events\Command\UnknownCommand;
 use \TelegramCustomWrapper\Events\Button\HelpButton;
 use \TelegramCustomWrapper\Events\Special\File;
+use TelegramCustomWrapper\Events\Special\InlineQuery;
 use \TelegramCustomWrapper\Events\Special\Photo;
 use unreal4u\TelegramAPI\Telegram;
 use \unreal4u\TelegramAPI\TgLog;
@@ -46,6 +47,16 @@ class TelegramCustomWrapper
 		}
 		if ($update->edited_channel_post || $update->edited_message) {
 			return 'Edit\'s are ignored';
+		}
+		if (TelegramHelper::isViaBot($update, TELEGRAM_BOT_NAME)) {
+			return 'I will ignore my own via_bot (from inline) messages.';
+		}
+		if (TelegramHelper::isChosenInlineQuery($update)) {
+			// @TODO implement ChosenInlineQuery handler
+			return 'ChosenInlineQuery handler is not implemented';
+		}
+		if (TelegramHelper::isInlineQuery($update)) {
+			return new InlineQuery($update);
 		}
 
 		$command = TelegramHelper::getCommand($update);

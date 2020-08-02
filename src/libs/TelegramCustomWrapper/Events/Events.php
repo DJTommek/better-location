@@ -36,7 +36,9 @@ abstract class Events
 		$this->loop = Factory::create();
 		$this->tgLog = new TgLog(TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($this->loop));
 
-		if (TelegramHelper::isButtonClick($update)) {
+		if (TelegramHelper::isInlineQuery($update)) {
+			$this->user = new \User($update->inline_query->from->id, $update->inline_query->from->username);
+		} else if (TelegramHelper::isButtonClick($update)) {
 			$this->user = new \User($update->callback_query->from->id, $update->callback_query->from->username);
 			/** @noinspection PhpUndefinedFieldInspection */
 			$this->chat = new \Chat(
@@ -54,8 +56,10 @@ abstract class Events
 			);
 		}
 
-		$this->command = TelegramHelper::getCommand($update);
-		$this->params = TelegramHelper::getParams($update);
+		if (TelegramHelper::isInlineQuery($update) === false) {
+			$this->command = TelegramHelper::getCommand($update);
+			$this->params = TelegramHelper::getParams($update);
+		}
 	}
 
 	abstract protected function getChatId();

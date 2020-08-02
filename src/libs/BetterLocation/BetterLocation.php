@@ -16,6 +16,7 @@ use \BetterLocation\Service\OpenStreetMapService;
 use \BetterLocation\Service\OpenLocationCodeService;
 use \BetterLocation\Service\WazeService;
 use \BetterLocation\Service\WhatThreeWordService;
+use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 use Utils\Coordinates;
 use \Utils\General;
 use \Icons;
@@ -180,11 +181,31 @@ class BetterLocation
 		return $text . PHP_EOL . PHP_EOL;
 	}
 
+	public function generateDriveButtons() {
+		$googleButton = new Button();
+		$googleButton->text = 'Google ' . Icons::CAR;
+		$googleButton->url = $this->getLink(new GoogleMapsService, true);
+
+		$wazeButton = new Button();
+		$wazeButton->text = 'Waze ' . Icons::CAR;
+		$wazeButton->url = $this->getLink(new WazeService(), true);
+
+		return [$googleButton, $wazeButton];
+	}
+
+
 	/**
 	 * @param string $prefixMessage
 	 */
 	public function setPrefixMessage(string $prefixMessage): void {
 		$this->prefixMessage = $prefixMessage;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getPrefixMessage() {
+		return $this->prefixMessage;
 	}
 
 	public function getLink($class, bool $drive = false) {
