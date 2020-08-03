@@ -156,6 +156,14 @@ class BetterLocation
 		return $betterLocationsObjects;
 	}
 
+	public function export(): array {
+		return [
+			'lat' => $this->getLat(),
+			'lon' => $this->getLon(),
+			'service' => strip_tags($this->getPrefixMessage()),
+		];
+	}
+
 	private static function getMessageWithoutUrls(string $text, array $entities) {
 		foreach (array_reverse($entities) as $entity) {
 			if ($entity->type === 'url') {
