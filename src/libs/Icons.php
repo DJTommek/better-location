@@ -24,4 +24,7 @@ class Icons
 	const LOCATION = "\u{1F4CD}"; // https://emojipedia.org/round-pushpin/
 
 	const CURRENT_LOCATION = "\u{1F3AF}"; // https://emojipedia.org/direct-hit/
+
+	const FAVOURITE = "\u{2764}"; // https://emojipedia.org/red-heart/
+	const FAVOURITE_REMOVE = "\u{1F494}"; // https://emojipedia.org/broken-heart/
 }
