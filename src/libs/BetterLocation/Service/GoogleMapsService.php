@@ -6,13 +6,19 @@ namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotImplementedException;
 use \Utils\General;
 
 final class GoogleMapsService extends AbstractService
 {
 	const LINK = 'https://www.google.cz/maps/place/%1$f,%2$f?q=%1$f,%2$f';
 	const LINK_DRIVE = 'https://maps.google.cz/?daddr=%1$f,%2$f&travelmode=driving';
+
+	const TYPE_UNKNOWN = 'unknown';
+	const TYPE_MAP = 'Map center';
+	const TYPE_PLACE = 'Place';
+	const TYPE_STREET_VIEW = 'Street view';
+	const TYPE_SEARCH = 'search';
+	const TYPE_HIDDEN = 'hidden';
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
 		return sprintf($drive ? self::LINK_DRIVE : self::LINK, $lat, $lon);
@@ -43,57 +49,47 @@ final class GoogleMapsService extends AbstractService
 		return 'https://maps.googleapis.com/maps/api/staticmap?' . http_build_query($params);
 	}
 
-
 	/**
 	 * @param string $url
 	 * @return BetterLocation
 	 * @throws InvalidLocationException
 	 */
 	public static function parseCoords(string $url): BetterLocation {
-		if (self::isShortUrl($url)) {
-			// Google maps short link:
-			// https://goo.gl/maps/rgZZt125tpvf2rnCA
-			// https://goo.gl/maps/eUYMwABdpv9NNSDX7
-			// https://goo.gl/maps/hEbUKxSuMjA2
-			// https://goo.gl/maps/pPZ91TfW2edvejbb6
-			//
-			// https://maps.app.goo.gl/W5wPRJ5FMJxgaisf9
-			// https://maps.app.goo.gl/nJqTbFow1HtofApTA
+		return self::parseCoordsHelper($url, false);
+	}
 
+	/**
+	 * @param string $url
+	 * @return array|BetterLocation[]
+	 * @throws InvalidLocationException
+	 */
+	public static function parseCoordsMultiple(string $url): array {
+		return self::parseCoordsHelper($url, true);
+	}
+
+	/**
+	 * @param string $url
+	 * @param bool $returnArray
+	 * @return BetterLocation|BetterLocation[]
+	 * @throws InvalidLocationException
+	 * @throws \Exception
+	 */
+	public static function parseCoordsHelper(string $url, bool $returnArray) {
+		if (self::isShortUrl($url)) {
 			$newLocation = self::getRedirectUrl($url);
-			$coords = self::parseUrl($newLocation);
-			if ($coords) {
-				return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Goo.gl</a>', $url));
+			if ($newLocation) {
+				return self::parseUrl($newLocation, $returnArray);
 			} else {
-				throw new InvalidLocationException(sprintf('Unable to get coords for Goo.gl link "%s".', $url));
+				throw new InvalidLocationException(sprintf('Unable to get real url for Goo.gl short link "%s".', $url));
 			}
 		} else if (self::isNormalUrl($url)) {
-			// Google maps normal links:
-			// https://www.google.com/maps/place/Velk%C3%BD+Meheln%C3%ADk,+397+01+Pisek/@49.2941662,14.2258333,14z/data=!4m2!3m1!1s0x470b5087ca84a6e9:0xfeb1428d8c8334da
-			// https://www.google.com/maps/place/Zelend%C3%A1rky/@49.2069545,14.2495123,15z/data=!4m5!3m4!1s0x0:0x3ad3965c4ecb9e51!8m2!3d49.2113282!4d14.2553488
-			// https://www.google.cz/maps/@36.8264601,22.5287146,9.33z
-			// https://www.google.cz/maps/place/49%C2%B020'00.6%22N+14%C2%B017'46.2%22E/@49.3339819,14.2956352,18.4z/data=!4m5!3m4!1s0x0:0x0!8m2!3d49.333511!4d14.296174
-			// https://www.google.cz/maps/place/Hrad+P%C3%ADsek/@49.3088543,14.1454615,391m/data=!3m1!1e3!4m12!1m6!3m5!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!2sHrad+P%C3%ADsek!8m2!3d49.3088525!4d14.1465894!3m4!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!8m2!3d49.3088525!4d14.1465894
-			// https://maps.google.com/maps?ll=49.367523,14.514022&q=49.367523,14.514022
-			$coords = self::parseUrl($url);
-			if ($coords) {
-				return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Google</a>', $url));
-			} else {
-				throw new InvalidLocationException(sprintf('Unable to get coords for Google maps normal link "%s".', $url));
-			}
+			return self::parseUrl($url, $returnArray);
 		} else {
 			throw new InvalidLocationException(sprintf('Unable to get coords for Google maps link "%s".', $url));
 		}
 	}
 
 	public static function isShortUrl(string $url): bool {
-		// Google maps short link: https://goo.gl/maps/rgZZt125tpvf2rnCA
-		// https://goo.gl/maps/eUYMwABdpv9NNSDX7
-		// https://goo.gl/maps/hEbUKxSuMjA2
-		// https://goo.gl/maps/pPZ91TfW2edvejbb6
-		//
-		// https://maps.app.goo.gl/W5wPRJ5FMJxgaisf9 @TODO not working, maybe needs to be added request header "Host"?
-		// https://maps.app.goo.gl/nJqTbFow1HtofApTA @TODO not working, maybe needs to be added request header "Host"?
 		$googleMapsShortUrlV1 = 'https://goo.gl/maps/';
 		$googleMapsShortUrlV2 = 'https://maps.app.goo.gl/';
 		return (
@@ -103,23 +99,19 @@ final class GoogleMapsService extends AbstractService
 	}
 
 	public static function isNormalUrl(string $url): bool {
-		// Google maps normal links:
-		// https://www.google.com/maps/place/Velk%C3%BD+Meheln%C3%ADk,+397+01+Pisek/@49.2941662,14.2258333,14z/data=!4m2!3m1!1s0x470b5087ca84a6e9:0xfeb1428d8c8334da
-		// https://www.google.com/maps/place/Zelend%C3%A1rky/@49.2069545,14.2495123,15z/data=!4m5!3m4!1s0x0:0x3ad3965c4ecb9e51!8m2!3d49.2113282!4d14.2553488
-		// https://www.google.cz/maps/@36.8264601,22.5287146,9.33z
-		// https://www.google.cz/maps/place/49%C2%B020'00.6%22N+14%C2%B017'46.2%22E/@49.3339819,14.2956352,18.4z/data=!4m5!3m4!1s0x0:0x0!8m2!3d49.333511!4d14.296174
-		// https://www.google.cz/maps/place/Hrad+P%C3%ADsek/@49.3088543,14.1454615,391m/data=!3m1!1e3!4m12!1m6!3m5!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!2sHrad+P%C3%ADsek!8m2!3d49.3088525!4d14.1465894!3m4!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!8m2!3d49.3088525!4d14.1465894
-		// https://maps.google.com/maps?ll=49.367523,14.514022&q=49.367523,14.514022
 		return !!(preg_match('/https:\/\/(?:(?:www|maps)\.)google\.[a-z]{1,5}\//', $url));
 	}
 
 	/**
 	 * @param string $url
-	 * @return array|null
+	 * @param bool $returnArray
+	 * @return BetterLocation|BetterLocation[]
 	 * @throws InvalidLocationException
 	 * @throws \Exception
 	 */
-	public static function parseUrl(string $url): ?array {
+	public static function parseUrl(string $url, bool $returnArray = false) {
+		dump($url);
+		$betterLocations = [];
 		$paramsString = explode('?', $url);
 		if (count($paramsString) === 2) {
 			parse_str($paramsString[1], $params);
@@ -134,52 +126,95 @@ final class GoogleMapsService extends AbstractService
 			 * https://www.google.com/maps/place/49%C2%B050'19.5%22N+18%C2%B023'29.9%22E/@49.8387187,18.3912988,88m/data=!3m1!1e3!4m6!3m5!1s0x0:0x0!7e2!8m2!3d49.8387596!4d18.3916417?shorturl=1
 			 * In this URL is only one parameter to match. Strange...
 			 */
-			return [
+			$result = new BetterLocation(
 				floatval(end($matches[1])),
 				floatval(end($matches[2])),
-			];
-		} else if (isset($params['ll'])) {
+				sprintf('<a href="%s">Google %s</a>', $url, self::TYPE_PLACE),
+			);
+			if ($returnArray) {
+				$betterLocations[self::TYPE_PLACE] = $result;
+			} else {
+				return $result;
+			}
+
+		}
+		if (isset($params['ll'])) {
 			$coords = explode(',', $params['ll']);
-			return [
+			$result = new BetterLocation(
 				floatval($coords[0]),
 				floatval($coords[1]),
-			];
-		} else if (isset($params['q'])) { // @TODO in this parameter probably might be also non-coordinates locations (eg. address)
+				sprintf('<a href="%s">Google %s</a>', $url, self::TYPE_UNKNOWN),
+			);
+			if ($returnArray) {
+				$betterLocations[self::TYPE_UNKNOWN] = $result;
+			} else {
+				return $result;
+			}
+		}
+		if (isset($params['q'])) { // @TODO in this parameter probably might be also non-coordinates locations (eg. address)
 			$coords = explode(',', $params['q']);
 			if (count($coords) !== 2) {
 				throw new InvalidLocationException(sprintf('Invalid "q" parameter in Google link "%s".', $url));
 			}
-			return [
+			$result = new BetterLocation(
 				floatval($coords[0]),
 				floatval($coords[1]),
-			];
+				sprintf('<a href="%s">Google %s</a>', $url, self::TYPE_SEARCH),
+			);
+			if ($returnArray) {
+				$betterLocations[self::TYPE_SEARCH] = $result;
+			} else {
+				return $result;
+			}
 			// Warning: coordinates in URL in format "@50.00,15.00" is position of the map, not selected/shared point.
-		} else if (preg_match('/@([0-9]{1,3}\.[0-9]+),([0-9]{1,3}\.[0-9]+)/', $url, $matches)) {
-			return [
+		}
+		if (preg_match('/@([0-9]{1,3}\.[0-9]+),([0-9]{1,3}\.[0-9]+)/', $url, $matches)) {
+			if (
+				preg_match('/,[0-9.]+a/', $url) &&
+				preg_match('/,[0-9.]+y/', $url) &&
+				preg_match('/,[0-9.]+h/', $url) &&
+				preg_match('/,[0-9.]+t/', $url)
+			) {
+				$type = self::TYPE_STREET_VIEW;
+			} else {
+				$type = self::TYPE_MAP;
+			}
+			$result = new BetterLocation(
 				floatval($matches[1]),
 				floatval($matches[2]),
-			];
-		} else {
+				sprintf('<a href="%s">Google %s</a>', $url, $type),
+			);
+			if ($returnArray) {
+				$betterLocations[$type] = $result;
+			} else {
+				return $result;
+			}
+		}
+		// To prevent doing unnecessary request, this is done only if there is no other location detected
+		// Google is disabling access with RECAPTCHA
+		// @TODO probably there will be always at least map center so this code never occure? Needs testing
+		if ($returnArray === false || count($betterLocations) <= 0) {
 			// URL don't have any coordinates or place-id to translate so load content and there are some coordinates hidden in page in some of brutal multi-array
 			$content = General::fileGetContents($url);
+			dump($content);
 			// Regex is searching for something like this: ',"",null,[null,null,50.0641584,14.468139599999999]';
 			// Warning: Not exact position
 			if (preg_match('/","",null,\[null,null,(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)]\n/', $content, $matches)) {
-				return [
+				$result = new BetterLocation(
 					floatval($matches[1]),
 					floatval($matches[2]),
-				];
+					sprintf('<a href="%s">Google %s</a>', $url, self::TYPE_HIDDEN),
+				);
+				if ($returnArray) {
+					$betterLocations[self::TYPE_HIDDEN] = $result;
+				} else {
+					return $result;
+				}
 			}
 		}
-		return null;
-	}
-
-	/**
-	 * @param string $input
-	 * @return BetterLocation[]
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoordsMultiple(string $input): array {
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
+		if ($returnArray && count($betterLocations) > 0) {
+			return $betterLocations;
+		}
+		throw new InvalidLocationException('Unable to get any valid location from Google link');
 	}
 }

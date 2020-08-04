@@ -69,7 +69,45 @@ class BetterLocation
 
 				try {
 					if (GoogleMapsService::isValid($url)) {
-						$betterLocationsObjects[$entity->offset] = GoogleMapsService::parseCoords($url);
+						$googleMapsBetterLocations = GoogleMapsService::parseCoordsMultiple($url);
+						if ($googleMapsBetterLocations > 1) {
+							if (isset($googleMapsBetterLocations[GoogleMapsService::TYPE_STREET_VIEW])) {
+								$mainLocationKey = GoogleMapsService::TYPE_STREET_VIEW;
+							} else if (isset($googleMapsBetterLocations[GoogleMapsService::TYPE_PLACE])) {
+								$mainLocationKey = GoogleMapsService::TYPE_PLACE;
+							} else if (isset($googleMapsBetterLocations[GoogleMapsService::TYPE_HIDDEN])) {
+								$mainLocationKey = GoogleMapsService::TYPE_HIDDEN;
+							} else if (isset($googleMapsBetterLocations[GoogleMapsService::TYPE_SEARCH])) {
+								$mainLocationKey = GoogleMapsService::TYPE_SEARCH;
+							} else if (isset($googleMapsBetterLocations[GoogleMapsService::TYPE_UNKNOWN])) {
+								$mainLocationKey = GoogleMapsService::TYPE_UNKNOWN;
+							} else if (isset($googleMapsBetterLocations[GoogleMapsService::TYPE_MAP])) {
+								$mainLocationKey = GoogleMapsService::TYPE_MAP;
+							} else {
+								throw new \Exception('Error while selecting main location: Probably added new GoogleMaps type?');
+							}
+							$mainLocation = $googleMapsBetterLocations[$mainLocationKey];
+							foreach ($googleMapsBetterLocations as $key => $googleMapsBetterLocation) {
+								if ($key === $mainLocationKey) {
+									continue;
+								} else {
+									$distance = Coordinates::distance(
+										$mainLocation->getLat(),
+										$mainLocation->getLon(),
+										$googleMapsBetterLocation->getLat(),
+										$googleMapsBetterLocation->getLon(),
+									);
+									if ($distance < DISTANCE_IGNORE) {
+										// Remove locations that are too close to main location
+										unset($googleMapsBetterLocations[$key]);
+									} else {
+										$googleMapsBetterLocation->setDescription(sprintf('%s Location is %d meters away from %s %s.', Icons::WARNING, $distance, $mainLocationKey, Icons::ARROW_UP));
+									}
+								}
+							}
+						}
+						// Keys needs to be reset, otherwise it would override themselves
+						$betterLocationsObjects = array_merge($betterLocationsObjects, array_values($googleMapsBetterLocations));
 					} else if (MapyCzService::isValid($url)) {
 						$mapyCzBetterLocations = MapyCzService::parseCoordsMultiple($url);
 						if ($mapyCzBetterLocations > 1) {
