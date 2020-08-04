@@ -104,7 +104,8 @@ class BetterLocation
 								}
 							}
 						}
-						$betterLocationsObjects = array_merge($betterLocationsObjects, $mapyCzBetterLocations);
+						// Keys needs to be reset, otherwise it would override themselves
+						$betterLocationsObjects = array_merge($betterLocationsObjects, array_values($mapyCzBetterLocations));
 					} else if (OpenStreetMapService::isValid($url)) {
 						$betterLocationsObjects[$entity->offset] = OpenStreetMapService::parseCoords($url);
 					} else if (OpenLocationCodeService::isValid($url)) {
