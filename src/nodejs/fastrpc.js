@@ -74,23 +74,23 @@ const server = HTTP.createServer((req, res) => {
 			break;
 		case '/panorpc':
 			const panoramaBase64Request = panoramaIdToPayload(mapyCzPlaceId);
-			requestMapyCz('/panorpc', panoramaBase64Request, function (error, response) {
+			requestMapyCz('/panorpc', panoramaBase64Request, function (error, firstResponse) {
 				try {
 					if (error) {
 						throw new Error(error);
 					}
-					if (response.result.neighbours.length === 0) {
+					if (firstResponse.result.neighbours.length === 0) {
 						throw new Error('No neighbour is available.');
 					}
-					requestMapyCz('/panorpc', panoramaIdToPayload(response.result.neighbours[0].near.pid), function (error, response) {
+					requestMapyCz('/panorpc', panoramaIdToPayload(firstResponse.result.neighbours[0].near.pid), function (error, secondResponse) {
 						try {
 							if (error) {
 								throw new Error(error);
 							}
-							if (response.result.neighbours.length === 0) {
+							if (secondResponse.result.neighbours.length === 0) {
 								throw new Error('Neighbour\'s neighbour has no neighbour.. huh?');
 							}
-							for (const neighbour of response.result.neighbours) {
+							for (const neighbour of secondResponse.result.neighbours) {
 								if (neighbour.near.pid === mapyCzPlaceId) {
 									res.result.message = null;
 									res.result.error = false;
@@ -99,16 +99,18 @@ const server = HTTP.createServer((req, res) => {
 								}
 							}
 							if (res.result.error) {
-								throw new Error('Can\'t find neighbour with original requested panorama ID.');
+								res.result.error = false;
+								res.result.result = firstResponse.result.neighbours[0];
+								res.result.message = 'Can\'t find neighbour with PID as have original requested panorama ID. Using it\'s neighbour PID "' + firstResponse.result.neighbours[0].near.pid + '" .';
 							}
 						} catch (error) {
-							res.result.message = error;
+							res.result.message = error.message;
 						} finally {
 							res.result.end();
 						}
 					});
 				} catch (error) {
-					res.result.message = error;
+					res.result.message = error.message;
 					res.result.end();
 				}
 			});

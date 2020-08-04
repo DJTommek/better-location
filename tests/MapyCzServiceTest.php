@@ -70,6 +70,7 @@ final class MapyCzServiceTest extends TestCase
 			$this->assertEquals('50.075959, 15.016772', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0162139&y=50.0820182&z=16&pano=1&pid=68059377&yaw=5.522&fov=1.257&pitch=0.101')->__toString());
 			$this->assertEquals('50.123351, 16.284569', MapyCzService::parseCoords('https://en.mapy.cz/turisticka?x=16.2845693&y=50.1233926&z=17&pano=1&source=base&id=2107710&pid=66437731&yaw=6.051&fov=1.257&pitch=0.157')->__toString()); // Viribus Unitis 2019
 			$this->assertEquals('50.094953, 15.023081', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0483153&y=50.1142203&z=15&pano=1&source=firm&id=216358&pid=68007689&yaw=3.985&fov=1.257&pitch=0.033')->__toString()); // Three different locations: map, place and panorama
+			$this->assertEquals('50.078499, 14.488475', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4883693&y=50.0784958&z=15&pano=1&pid=70254688&yaw=0.424&fov=1.257&pitch=0.088')->__toString()); // First neighbour of this panorama ID don't have original neighbour, so coordinates are little off
 		}
 	}
 
