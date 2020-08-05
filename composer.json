@@ -13,7 +13,8 @@
 		"tracy/tracy": "v2.7.3",
 		"djtommek/telegram-api": "master",
 		"bogdaan/open-location-code": "dev-master",
-		"what3words/w3w-php-wrapper": "^3.3"
+		"what3words/w3w-php-wrapper": "^3.3",
+		"ext-pdo": "*"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^9"
