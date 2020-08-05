@@ -86,17 +86,6 @@ final class WhatThreeWordService extends AbstractService
 					sprintf('<a href="%s">W3W</a>: <code>%s</code>', $data->map, $data->words),
 				);
 			}
-
-			dump($data);
-			if (isset($data->error)) {
-				if ($data->error->code === 'BadWords') {
-					throw new InvalidLocationException(sprintf('What3Words "%s" are not valid words: "%s"', $words, $data->error->message));
-				} else if ($data->error->code === 'InvalidKey') {
-					throw new InvalidApiKeyException($data->error->message);
-				} else {
-					throw new \Exception(sprintf('Detected What3Words "%s" but unable to get coordinates, invalid response from API: "%s"', $words, $data->error->message));
-				}
-			}
 		} else {
 			throw new InvalidLocationException(sprintf('Unable to get coords from What3Words "%s".', $input));
 		}
