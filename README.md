@@ -9,7 +9,7 @@ Available publicly on [@BetterLocationBot](https://t.me/BetterLocationBot).
 - Domain with SSL certificate (might be self-signed). Full detailed requirements are described [here](https://core.telegram.org/bots/webhooks).
 
 ## ⚠ Important note
-MapyCZ link with ID currently is **NOT** working properly without running additional NodeJS server, read [this page](src/nodejs/README.md) for more info.  
+MapyCZ link with Place ID or Panorama ID currently is **NOT** working properly without running additional NodeJS server, read [this page](src/nodejs/README.md) for more info.  
 
 
 # Installation
