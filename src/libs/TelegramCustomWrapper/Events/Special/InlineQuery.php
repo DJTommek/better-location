@@ -28,7 +28,7 @@ class InlineQuery extends Special
 		$answerInlineQuery->inline_query_id = $update->inline_query->id;
 		$answerInlineQuery->cache_time = TELEGRAM_INLINE_CACHE;
 
-		$queryInput = $update->inline_query->query;
+		$queryInput = trim($update->inline_query->query);
 
 		$urls = \Utils\General::getUrls($queryInput);
 
