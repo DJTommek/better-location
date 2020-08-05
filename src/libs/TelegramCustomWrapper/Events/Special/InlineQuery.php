@@ -26,6 +26,7 @@ class InlineQuery extends Special
 
 		$answerInlineQuery = new AnswerInlineQuery();
 		$answerInlineQuery->inline_query_id = $update->inline_query->id;
+		$answerInlineQuery->cache_time = TELEGRAM_INLINE_CACHE;
 
 		$queryInput = $update->inline_query->query;
 

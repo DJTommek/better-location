@@ -16,6 +16,8 @@ DEFINE('TELEGRAM_BOT_TOKEN', '123456789:afsddfsggfergfgsadfdiswefqjdfbjfddt');
 DEFINE('TELEGRAM_BOT_NAME', 'BetterLocationBot');
 // Telegram webhook URL, which will automatically receive all events from bot (in this application it should lead to webhook.php)
 DEFINE('TELEGRAM_WEBHOOK_URL', 'https://your-domain.com/better-location/webhook.php');
+// Telegram webhook URL, which will automatically receive all events from bot (in this application it should lead to webhook.php)
+DEFINE('TELEGRAM_INLINE_CACHE', 300); // https://core.telegram.org/bots/api#answerinlinequery cache_time attribute (default 300)
 
 // API key to What3Word service https://developer.what3words.com/public-api
 DEFINE('W3W_API_KEY', 'SOME_API_KEY');
