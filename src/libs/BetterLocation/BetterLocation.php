@@ -168,13 +168,16 @@ class BetterLocation
 		$betterLocationsObjects = array_merge($betterLocationsObjects, WG84DegreesMinutesSecondsService::findInText($messageWithoutUrls));
 
 		// OpenLocationCode (Plus codes)
-		foreach (preg_split('/[^\p{L}+]+/u', $messageWithoutUrls) as $word) {
-			try {
-				if (OpenLocationCodeService::isValid($word)) {
-					$betterLocationsObjects[] = OpenLocationCodeService::parseCoords($word);
+		$openLocationCodes = preg_match_all(OpenLocationCodeService::RE_IN_STRING, $messageWithoutUrls, $matches);
+		if ($openLocationCodes) {
+			foreach ($matches[2] as $plusCode) {
+				try {
+					if (OpenLocationCodeService::isValid($plusCode)) {
+						$betterLocationsObjects[] = OpenLocationCodeService::parseCoords($plusCode);
+					}
+				} catch (\Exception $exception) {
+					$betterLocationsObjects[] = $exception;
 				}
-			} catch (\Exception $exception) {
-				$betterLocationsObjects[] = $exception;
 			}
 		}
 

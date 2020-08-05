@@ -15,6 +15,9 @@ final class OpenLocationCodeService extends AbstractService
 
 	const DEFAULT_CODE_LENGTH = 12;
 
+	const RE = '/^([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,3})$/i';
+	const RE_IN_STRING = '/(^|\s)([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,3})(\s|$)/i';
+
 	/**
 	 * @param float $lat
 	 * @param float $lon
@@ -53,7 +56,7 @@ final class OpenLocationCodeService extends AbstractService
 			return new BetterLocation(
 				$coords['latitudeCenter'],
 				$coords['longitudeCenter'],
-				sprintf('<a href="%s">(OLC)</a> <code>%s</code>: ', self::getLink($coords['latitudeCenter'], $coords['longitudeCenter']), $plusCodeInput),
+				sprintf('<a href="%s">OLC</a> <code>%s</code>: ', self::getLink($coords['latitudeCenter'], $coords['longitudeCenter']), $plusCodeInput),
 			);
 		} else {
 			throw new InvalidLocationException(sprintf('Unable to get coords from OpenLocationCode "%s".', $plusCodeInput));
