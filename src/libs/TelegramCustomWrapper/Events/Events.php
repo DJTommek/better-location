@@ -157,13 +157,11 @@ abstract class Events
 		$lon = 14.420671;
 		$wazeLink = WazeService::getLink($lat, $lon);
 		$betterLocationWaze = WazeService::parseCoords($wazeLink);
-		$betterLocationCoords = new BetterLocation($lat, $lon, WG84DegreesService::NAME);
 
 		$text = sprintf('%s Welcome to @%s!', \Icons::LOCATION, TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('I\'m simple but smart bot to catch all possible location formats in any chats you invite me in and generate links to your favourite location services as Google maps, Waze, OpenStreetMaps etc.') . PHP_EOL;
 		$text .= sprintf('Example, if you send coordinates "<code>%1$f,%2$f</code>" or link "https://www.waze.com/ul?ll=%1$f,%2$f" I will respond with this:', $lat, $lon) . PHP_EOL;
 		$text .= PHP_EOL;
-		$text .= $betterLocationCoords->generateBetterLocation();
 		$text .= $betterLocationWaze->generateBetterLocation();
 		// @TODO newline is filled in $result (yeah, it shouldn't be like that..)
 		$text .= sprintf('%s <b>Features:</b>', \Icons::FEATURES) . PHP_EOL;
@@ -173,6 +171,11 @@ abstract class Events
 		$text .= sprintf('- short URL links: goo.gl, mapy.cz, <a href="%s">Waze</a> etc.', 'https://www.waze.com/') . PHP_EOL;
 		$text .= sprintf('- Telegram location') . PHP_EOL;
 		$text .= sprintf('- EXIF from <b>uncompressed</b> images') . PHP_EOL;
+		$text .= PHP_EOL;
+		$text .= sprintf('%s <b>Inline:</b>', \Icons::INLINE) . PHP_EOL;
+		$text .= sprintf('Send my Better locations in any chat, even if I\'m not there including private messages, just type <code>@%s</code>', TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text .= sprintf('- add any link, text, special code etc and choose one of the output') . PHP_EOL;
+		$text .= sprintf('- send your current position (on mobile devices only)') . PHP_EOL;
 		$text .= PHP_EOL;
 //		$text .= sprintf('%s <b>Private chat:</b>', Icons::USER) . PHP_EOL;
 //		$text .= sprintf('Just send me some link to or coordinate and I will generate message <b>just</b> for you.') . PHP_EOL;

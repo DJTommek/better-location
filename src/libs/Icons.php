@@ -22,6 +22,7 @@ class Icons
 	const ARROW_UP = "\u{2B06}"; // https://emojipedia.org/up-arrow/
 
 	const LOCATION = "\u{1F4CD}"; // https://emojipedia.org/round-pushpin/
+	const INLINE = "\u{1F50D}"; // https://emojipedia.org/magnifying-glass-tilted-left/
 
 	const CURRENT_LOCATION = "\u{1F3AF}"; // https://emojipedia.org/direct-hit/
 
