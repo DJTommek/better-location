@@ -127,9 +127,15 @@ abstract class Events
 				DummyLogger::log(DummyLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $resultResponse);
 			},
 			function (\Exception $exception) use (&$resultException) {
-				$resultException = $exception;
-				Debugger::log(sprintf('TG API Command request error: "%s"', $exception->getMessage()), ILogger::EXCEPTION);
-				Debugger::log($exception, ILogger::EXCEPTION);
+				DummyLogger::log(DummyLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $exception->getMessage());
+				$ignoreErorrs = [
+					TelegramHelper::NOT_CHANGED,
+				];
+				if (in_array($exception->getMessage(), $ignoreErorrs) === false) {
+					$resultException = $exception;
+					Debugger::log(sprintf('TG API Command request error: "%s"', $exception->getMessage()), ILogger::EXCEPTION);
+					Debugger::log($exception, ILogger::EXCEPTION);
+				}
 			}
 		);
 

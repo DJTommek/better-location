@@ -30,6 +30,8 @@ class TelegramHelper
 	const CHAT_ACTION_RECORD_VIDEO_NOTE = 'record_video_note';
 	const CHAT_ACTION_UPLOAD_VIDEO_NOTE = 'upload_video_note';
 
+	const NOT_CHANGED = 'Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message';
+
 	public static function getDisplayName($tgfrom) {
 		if ($tgfrom->username) {
 			$displayName = '@' . $tgfrom->username;
