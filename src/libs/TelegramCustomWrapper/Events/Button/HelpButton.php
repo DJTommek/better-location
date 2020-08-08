@@ -4,9 +4,15 @@ namespace TelegramCustomWrapper\Events\Button;
 
 class HelpButton extends Button
 {
+	/**
+	 * HelpButton constructor.
+	 *
+	 * @param $update
+	 * @throws \BetterLocation\Service\Exceptions\InvalidLocationException
+	 * @throws \Exception
+	 */
 	public function __construct($update) {
 		parent::__construct($update);
-		$this->flash(sprintf('This button actually doesn\'t doing anything right now...%sBut it will be!', PHP_EOL), true);
-//		$this->processHelp(true);
+		$this->processHelp(true);
 	}
 }

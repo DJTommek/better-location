@@ -6,6 +6,7 @@ use \BetterLocation\BetterLocation;
 use BetterLocation\Service\GoogleMapsService;
 use BetterLocation\Service\WazeService;
 use \Icons;
+use TelegramCustomWrapper\Events\Button\FavouriteButton;
 use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -34,7 +35,12 @@ class MessageCommand extends Command
 				if ($betterLocation instanceof BetterLocation) {
 					$result .= $betterLocation->generateBetterLocation();
 					if (count($buttons) < $buttonLimit) {
-						$buttons[] = $betterLocation->generateDriveButtons();
+						$driveButtons = $betterLocation->generateDriveButtons();
+						$favouriteButton = new Button();
+						$favouriteButton->text = Icons::FAVOURITE;
+						$favouriteButton->callback_data = sprintf('/favourite %s %f %f', FavouriteButton::ACTION_ADD, $betterLocation->getLat(), $betterLocation->getLon());
+						$driveButtons[] = $favouriteButton;
+						$buttons[] = $driveButtons;
 					}
 				} else if (
 					$betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException ||
