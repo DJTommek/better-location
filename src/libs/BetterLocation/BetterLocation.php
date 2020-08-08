@@ -27,6 +27,7 @@ class BetterLocation
 	private $lon;
 	private $description;
 	private $prefixMessage;
+	private $address;
 
 	/**
 	 * BetterLocation constructor.
@@ -206,6 +207,27 @@ class BetterLocation
 		];
 	}
 
+	/**
+	 * @return string
+	 * @throws \Exception
+	 */
+	public function getAddress() {
+		if (is_null($this->address)) {
+			try {
+				$w3wApi = new \What3words\Geocoder\Geocoder(W3W_API_KEY);
+				$result = $w3wApi->convertTo3wa($this->getLat(), $this->getLon());
+			} catch (\Exception $exception) {
+				throw new \Exception('Unable to get address from W3W API');
+			}
+			if ($result) {
+				$this->address = sprintf('Nearby: %s, %s', $result['nearestPlace'], $result['country']);
+			} else {
+				throw new \Exception('Unable to get address from W3W API');
+			}
+		}
+		return $this->address;
+	}
+
 	private static function getMessageWithoutUrls(string $text, array $entities) {
 		foreach (array_reverse($entities) as $entity) {
 			if ($entity->type === 'url') {
@@ -215,7 +237,12 @@ class BetterLocation
 		return $text;
 	}
 
-	public function generateBetterLocation() {
+	/**
+	 * @param bool $withAddress
+	 * @return string
+	 * @throws \Exception
+	 */
+	public function generateBetterLocation($withAddress = true) {
 		$links = [
 			sprintf('<a href="%s">Google</a>', GoogleMapsService::getLink($this->lat, $this->lon)),
 			sprintf('<a href="%s">Mapy.cz</a>', MapyCzService::getLink($this->lat, $this->lon)),
@@ -223,12 +250,17 @@ class BetterLocation
 			sprintf('<a href="%s">OSM</a>', OpenStreetMapService::getLink($this->lat, $this->lon)),
 			sprintf('<a href="%s">Intel</a>', IngressIntelService::getLink($this->lat, $this->lon)),
 		];
-
-		$text = sprintf('%s %s <code>%f,%f</code>:%s%s', $this->prefixMessage, Icons::ARROW_RIGHT, $this->lat, $this->lon, PHP_EOL, join(' | ', $links));
-		if ($this->description) {
-			$text .= PHP_EOL . $this->description;
+		$text = '';
+		$text .= sprintf('%s %s <code>%f,%f</code>', $this->prefixMessage, Icons::ARROW_RIGHT, $this->lat, $this->lon) . PHP_EOL;
+		$text .= join(' | ', $links) . PHP_EOL;
+		if ($withAddress) {
+			$text .= $this->getAddress() . PHP_EOL;
 		}
-		return $text . PHP_EOL . PHP_EOL;
+		// @TODO currently disabled
+//		if ($this->description) {
+//			$text .= $this->description . PHP_EOL;
+//		}
+		return $text . PHP_EOL;
 	}
 
 	public function generateDriveButtons() {
