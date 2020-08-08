@@ -176,6 +176,7 @@ abstract class Events
 		$text .= sprintf('Send my Better locations in any chat, even if I\'m not there including private messages, just type <code>@%s</code>', TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('- add any link, text, special code etc and choose one of the output') . PHP_EOL;
 		$text .= sprintf('- send your current position (on mobile devices only)') . PHP_EOL;
+		$text .= sprintf('%s <a href="%s">See video here</a>', \Icons::VIDEO, 'https://t.me/BetterLocationInfo/8') . PHP_EOL;
 		$text .= PHP_EOL;
 //		$text .= sprintf('%s <b>Private chat:</b>', Icons::USER) . PHP_EOL;
 //		$text .= sprintf('Just send me some link to or coordinate and I will generate message <b>just</b> for you.') . PHP_EOL;
@@ -188,10 +189,9 @@ abstract class Events
 //		$text .= sprintf('Currently not supported. Don\'t hesitate to ping author if you are interested in this feature.') . PHP_EOL;
 //		$text .= PHP_EOL;
 		$text .= sprintf('%s <b>Commands:</b>', \Icons::COMMAND) . PHP_EOL;
-		$text .= sprintf('/help - Find way to gain more knowledge (this text).') . PHP_EOL;
-//		$text .= sprintf('/debug - get your and chat ID') . PHP_EOL;
-//		$text .= sprintf('/settings - adjust behaviour in this chat') . PHP_EOL;
-		$text .= sprintf('/feedback - Report invalid location or just contact author.') . PHP_EOL;
+		$text .= sprintf('/help - %s Find way to gain more knowledge about me (this text)', \Icons::INFO) . PHP_EOL;
+		$text .= sprintf('/feedback - %s Report invalid location or just contact author', \Icons::FEEDBACK) . PHP_EOL;
+		// $text .= sprintf('/favourite %s - Manage your saved favourite locations (only in PM)', \Icons::FAVOURITE) . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= sprintf('%s For more info check out channel <a href="%s">@BetterLocationInfo</a>.', \Icons::INFO, 'https://t.me/BetterLocationInfo/3') . PHP_EOL;
 		$text .= PHP_EOL;

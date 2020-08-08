@@ -15,6 +15,8 @@ class Icons
 	const CHANNEL = "\u{1F4E2}"; // https://emojipedia.org/loudspeaker/
 	const FEATURES = "\u{1F4A1}"; // https://emojipedia.org/light-bulb/
 	const COMMAND = "\u{1F4AC}"; // https://emojipedia.org/speech-balloon/
+	const VIDEO = "\u{1F3A6}"; // https://emojipedia.org/cinema/
+	const FEEDBACK = "\u{1F5E3}"; // https://emojipedia.org/speaking-head/
 
 	const CAR = "\u{1F697}"; // https://emojipedia.org/automobile/
 

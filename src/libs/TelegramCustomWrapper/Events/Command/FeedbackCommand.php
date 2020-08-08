@@ -18,7 +18,7 @@ class FeedbackCommand extends Command
 	public function __construct(Update $update) {
 		parent::__construct($update);
 
-		$messagePrefix = sprintf('%s <b>Feedback</b> for @%s.', Icons::COMMAND, TELEGRAM_BOT_NAME) . PHP_EOL;
+		$messagePrefix = sprintf('%s <b>Feedback</b> for @%s.', Icons::FEEDBACK, TELEGRAM_BOT_NAME) . PHP_EOL;
 		$params = TelegramHelper::getParams($update);
 
 		// Using reply
