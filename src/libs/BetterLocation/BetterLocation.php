@@ -37,10 +37,10 @@ class BetterLocation
 	 * @throws InvalidLocationException
 	 */
 	public function __construct(float $lat, float $lon, string $prefixMessage) {
-		if ($lat > 90 || $lat < -90) {
+		if (self::isLatValid($lat) === false) {
 			throw new InvalidLocationException('Latitude coordinate must be between or equal from -90 to 90 degrees.');
 		}
-		if ($lon > 180 || $lon < -180) {
+		if (self::isLonValid($lon) === false) {
 			throw new InvalidLocationException('Longitude coordinate must be between or equal from -180 to 180 degrees.');
 		}
 		$this->lat = $lat;
@@ -286,5 +286,12 @@ class BetterLocation
 	 */
 	public function setDescription(string $description): void {
 		$this->description = $description;
+	}
+
+	public static function isLatValid(float $lat): bool {
+		return ($lat < 90 && $lat > -90);
+	}
+	public static function isLonValid(float $lon):bool {
+		return ($lon < 180 && $lon > -180);
 	}
 }
