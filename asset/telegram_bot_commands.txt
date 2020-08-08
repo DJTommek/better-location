@@ -1,2 +1,3 @@
 help - ℹ Find way to gain more knowledge about @BetterLocationBot
 feedback - 🗣 Report invalid location, ask for adding new or just contact author @DJTommek
+favourite - ❤ Manage your saved favourite locations

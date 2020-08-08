@@ -16,6 +16,12 @@ use unreal4u\TelegramAPI\Telegram\Types\Update;
 class InlineQuery extends Special
 {
 	/**
+	 * How many favourite locations will be shown?
+	 * @TODO info to user, if he has more saved location than is now shown
+	 */
+	const MAX_FAVOURITES = 10;
+
+	/**
 	 * InlineQuery constructor.
 	 *
 	 * @param Update $update
@@ -30,29 +36,8 @@ class InlineQuery extends Special
 
 		$queryInput = trim($update->inline_query->query);
 
-		$urls = \Utils\General::getUrls($queryInput);
 
-		// Simulate Telegram message by creating URL entities
-		$entities = [];
-		foreach ($urls as $url) {
-			$entity = new \stdClass();
-			$entity->type = 'url';
-			$entity->offset = mb_strpos($queryInput, $url);
-			$entity->length = mb_strlen($url);
-			$entities[] = $entity;
-		}
-		try {
-			$betterLocations = BetterLocation::generateFromTelegramMessage($queryInput, $entities);
-			foreach ($betterLocations as $betterLocation) {
-				if ($betterLocation instanceof BetterLocation) {
-					$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
-				} else if ($betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException) {
-					continue; // Ignore this error in inline query
-				} else {
-					Debugger::log($betterLocation, Debugger::EXCEPTION);
-				}
-			}
-
+		if (empty($queryInput)) {
 			// If user agrees to share location, this is filled
 			if (empty($update->inline_query->location) === false) {
 				$answerInlineQuery->addResult($this->getInlineQueryResult(new BetterLocation(
@@ -62,20 +47,52 @@ class InlineQuery extends Special
 				)));
 			}
 
-			if (count($answerInlineQuery->getResults()) === 0) {
-				$answerInlineQuery->switch_pm_text = 'No valid location found...';
-				$answerInlineQuery->switch_pm_parameter = 'inline-notfound';
-			} /** @noinspection PhpStatementHasEmptyBodyInspection */ else {
-				// @TODO set some user-defined location (eg home, work, ...) if no query is defined or at least one location was found
+			// Show list of favourites
+			$favourites = $this->user->loadFavourites();
+			$index = 0;
+			foreach ($favourites as $favourite) {
+				if ($index++ < self::MAX_FAVOURITES) {
+					$answerInlineQuery->addResult($this->getInlineQueryResult($favourite));
+				}
+			}
+		} else {
+			$urls = \Utils\General::getUrls($queryInput);
+
+			// Simulate Telegram message by creating URL entities
+			$entities = [];
+			foreach ($urls as $url) {
+				$entity = new \stdClass();
+				$entity->type = 'url';
+				$entity->offset = mb_strpos($queryInput, $url);
+				$entity->length = mb_strlen($url);
+				$entities[] = $entity;
+			}
+			try {
+				$betterLocations = BetterLocation::generateFromTelegramMessage($queryInput, $entities);
+				foreach ($betterLocations as $betterLocation) {
+					if ($betterLocation instanceof BetterLocation) {
+						$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
+					} else if ($betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException) {
+						continue; // Ignore this error in inline query
+					} else {
+						Debugger::log($betterLocation, Debugger::EXCEPTION);
+					}
+				}
+
+				if (count($answerInlineQuery->getResults()) === 0) {
+					$answerInlineQuery->switch_pm_text = 'No valid location found...';
+					$answerInlineQuery->switch_pm_parameter = 'inline-notfound';
+				} /** @noinspection PhpStatementHasEmptyBodyInspection */ else {
+					// @TODO set some user-defined location (eg home, work, ...) if no query is defined or at least one location was found
 //				$betterLocation = new BetterLocation(50.087451, 14.420671, 'TEST');
 //				$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
+				}
+			} catch (\Exception $exception) {
+				$answerInlineQuery->switch_pm_text = 'Error occured while processing. Try again later.';
+				$answerInlineQuery->switch_pm_parameter = 'inline-exception';
+				Debugger::log($exception, ILogger::EXCEPTION);
 			}
-		} catch (\Exception $exception) {
-			$answerInlineQuery->switch_pm_text = 'Error occured while processing. Try again later.';
-			$answerInlineQuery->switch_pm_parameter = 'inline-exception';
-			Debugger::log($exception, ILogger::EXCEPTION);
 		}
-
 		$this->run($answerInlineQuery);
 	}
 

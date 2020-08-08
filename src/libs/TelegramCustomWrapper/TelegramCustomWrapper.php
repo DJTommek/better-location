@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TelegramCustomWrapper;
 
 use \TelegramCustomWrapper\Events\Command\DebugCommand;
+use \TelegramCustomWrapper\Events\Command\FavouriteCommand;
 use \TelegramCustomWrapper\Events\Command\FeedbackCommand;
 use \TelegramCustomWrapper\Events\Command\HelpCommand;
 use \TelegramCustomWrapper\Events\Command\LocationCommand;
@@ -12,10 +13,11 @@ use \TelegramCustomWrapper\Events\Command\MessageCommand;
 use \TelegramCustomWrapper\Events\Command\SettingsCommand;
 use \TelegramCustomWrapper\Events\Command\UnknownCommand;
 use \TelegramCustomWrapper\Events\Button\HelpButton;
+use \TelegramCustomWrapper\Events\Button\FavouriteButton;
 use \TelegramCustomWrapper\Events\Special\File;
 use TelegramCustomWrapper\Events\Special\InlineQuery;
 use \TelegramCustomWrapper\Events\Special\Photo;
-use unreal4u\TelegramAPI\Telegram;
+use \unreal4u\TelegramAPI\Telegram;
 use \unreal4u\TelegramAPI\TgLog;
 use \unreal4u\TelegramAPI\HttpClientRequestHandler;
 
@@ -72,6 +74,9 @@ class TelegramCustomWrapper
 				case '/help':
 					return new HelpButton($update);
 					break;
+				case '/favourite':
+					return new FavouriteButton($update);
+					break;
 					// @TODO log error, this should not happen. Edit: can happen if some command is no longer used (for example /stats was changed to /donor)
 				default: // unknown
 					return;
@@ -98,6 +103,9 @@ class TelegramCustomWrapper
 					break;
 				case '/settings':
 					return new SettingsCommand($update);
+					break;
+				case '/favourite':
+					return new FavouriteCommand($update);
 					break;
 				case '/feedback':
 					return new FeedbackCommand($update);

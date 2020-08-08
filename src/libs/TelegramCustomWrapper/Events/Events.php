@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace TelegramCustomWrapper\Events;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\Service\Coordinates\WG84DegreesService;
 use BetterLocation\Service\WazeService;
 use React\EventLoop\Factory;
+use TelegramCustomWrapper\Events\Button\FavouriteButton;
 use TelegramCustomWrapper\SendMessage;
 use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram\Methods\SendChatAction;
+use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 use unreal4u\TelegramAPI\TgLog;
@@ -148,7 +148,6 @@ abstract class Events
 
 	/**
 	 * @param bool $inline
-	 * @throws \BetterLocation\Service\Exceptions\InvalidLocationException
 	 * @throws \Exception
 	 */
 	protected function processHelp(bool $inline = false) {
@@ -198,15 +197,86 @@ abstract class Events
 
 //		$text .= sprintf(Icons::WARNING . ' <b>Warning</b>: Bot is currently in active development so there is no guarantee that it will work at all times. Check Github for more info.') . PHP_EOL;
 
+		$messageSettings = [
+			'disable_web_page_preview' => true,
+			'reply_markup' => $this->getHelpButtons(),
+		];
+
+		if ($inline) {
+			$this->replyButton($text, $messageSettings);
+			$this->flash(sprintf('%s Help was refreshed.', \Icons::REFRESH));
+		} else {
+			$this->reply($text, $messageSettings);
+		}
+	}
+
+	private function getHelpButtons(): Markup {
+		$replyMarkup = new Markup();
+		$replyMarkup->inline_keyboard = [];
+
+		$replyMarkupRow = [];
+
+		$button = new Button();
+		$button->text = sprintf('%s Help', \Icons::REFRESH);
+		$button->callback_data = sprintf('/help');
+		$replyMarkupRow[] = $button;
+
+		if ($this->isPm()) {
+			$button = new Button();
+			$button->text = sprintf('%s Favourites', \Icons::FAVOURITE);
+			$button->callback_data = sprintf('/favourite refresh');
+			$replyMarkupRow[] = $button;
+		}
+		$replyMarkup->inline_keyboard[] = $replyMarkupRow;
+		return $replyMarkup;
+	}
+
+	protected function processFavouriteList(bool $inline = false) {
 		$replyMarkup = new Markup();
 		$replyMarkup->inline_keyboard = [
 			[ // row of buttons
 				[ // button
-					'text' => sprintf('Help'),
+					'text' => sprintf('%s Help', \Icons::BACK),
 					'callback_data' => sprintf('/help'),
+				],
+				[ // button
+					'text' => sprintf('%s Refresh list', \Icons::REFRESH),
+					'callback_data' => sprintf('/favourite %s', FavouriteButton::ACTION_REFRESH),
 				],
 			],
 		];
+
+		$text = sprintf('%s <b>Favourites</b> for @%s.', \Icons::FAVOURITE, TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text .= sprintf('Here you can manage your favourite locations which will appear as soon as you type @%s in any chat.', TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text .= sprintf('Great feature is, that I don\'t have to be in that chat!') . PHP_EOL;
+		$text .= PHP_EOL;
+		if (count($this->user->getFavourites()) === 0) {
+			$text .= sprintf('%s Sadly, you don\'t have any saved favourite locations.', \Icons::INFO) . PHP_EOL;
+		} else {
+			$text .= sprintf('%s You have saved %d favourite location(s):', \Icons::INFO, count($this->user->getFavourites())) . PHP_EOL;
+			foreach ($this->user->getFavourites() as $favourite) {
+				$text .= $favourite->generateBetterLocation();
+
+				// @TODO remove this dirty hack
+				// Replace Favourite icon by removing first char from string
+				$prefixMessage = mb_substr($favourite->getPrefixMessage(), 1);
+
+				$buttonRow = [];
+
+				$removeFromFavouritesButton = new Button();
+				$removeFromFavouritesButton->text = sprintf('%s %s', \Icons::FAVOURITE_REMOVE, $prefixMessage);
+				$removeFromFavouritesButton->callback_data = sprintf('/favourite %s %f %f', FavouriteButton::ACTION_REMOVE, $favourite->getLat(), $favourite->getLon());
+				$buttonRow[] = $removeFromFavouritesButton;
+
+//				$renameFavouriteButton = new Button();
+//				$renameFavouriteButton->text = sprintf('%s %s', \Icons::FAVOURITE_REMOVE, $prefixMessage);
+//				$renameFavouriteButton->switch_inline_query_current_chat = 'favourite rename 1 New name';
+//				$buttonRow[] = $renameFavouriteButton;
+
+				$replyMarkup->inline_keyboard[] = $buttonRow;
+			}
+		}
+		$text .= sprintf('%s To save some location to your favourites, just send any link, coordinates etc. here (private message) and click on %s button under that location.', \Icons::INFO, \Icons::FAVOURITE) . PHP_EOL;
 
 		$messageSettings = [
 			'disable_web_page_preview' => true,
@@ -215,8 +285,11 @@ abstract class Events
 
 		if ($inline) {
 			$this->replyButton($text, $messageSettings);
+			$this->flash(sprintf('%s List of favourite locations was refreshed.', \Icons::REFRESH));
 		} else {
 			$this->reply($text, $messageSettings);
 		}
+
+
 	}
 }
