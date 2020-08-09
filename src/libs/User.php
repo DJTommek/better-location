@@ -81,7 +81,7 @@ class User
 		}
 	}
 
-	public function removeFavourite(\BetterLocation\BetterLocation $betterLocation) {
+	public function deleteFavourite(\BetterLocation\BetterLocation $betterLocation) {
 		try {
 			$key = sprintf('%f,%f', $betterLocation->getLat(), $betterLocation->getLon());
 			unset($this->favourites[$key]);

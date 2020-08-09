@@ -68,15 +68,15 @@ class InlineQuery extends Special
 					sprintf('%s %s %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_ERROR, StartCommand::FAVOURITE_ERROR_TOO_LONG)
 				);
 			} else {
-				$answerInlineQuery->switch_pm_text = sprintf('Rename to "%s"', $newName);
+				$answerInlineQuery->switch_pm_text = sprintf('%s Rename to "%s"', \Icons::CHANGE, $newName);
 				$answerInlineQuery->switch_pm_parameter = $newNameCommandDecoded;
 			}
-		} else if (preg_match(sprintf('/^%s %s (-?[0-9]{1,2}\.[0-9]{1,6}) (-?[0-9]{1,3}\.[0-9]{1,6})$/', StartCommand::FAVOURITE, StartCommand::FAVOURITE_DELETE), $queryInput, $matches)) {
-			list(, $lat, $lon) = $matches;
-			$lat = floatval($lat);
-			$lon = floatval($lon);
-			$answerInlineQuery->switch_pm_text = sprintf('Delete %s,%s', $lat, $lon);
-			$answerInlineQuery->switch_pm_parameter = TelegramHelper::InlineTextEncode(sprintf('%s %s %f %f', StartCommand::FAVOURITE, StartCommand::FAVOURITE_DELETE, $lat, $lon));
+//		} else if (preg_match(sprintf('/^%s %s (-?[0-9]{1,2}\.[0-9]{1,6}) (-?[0-9]{1,3}\.[0-9]{1,6})$/', StartCommand::FAVOURITE, StartCommand::FAVOURITE_DELETE), $queryInput, $matches)) {
+//			list(, $lat, $lon) = $matches;
+//			$lat = floatval($lat);
+//			$lon = floatval($lon);
+//			$answerInlineQuery->switch_pm_text = sprintf('%s Delete %s,%s', \Icons::DELETE, $lat, $lon);
+//			$answerInlineQuery->switch_pm_parameter = TelegramHelper::InlineTextEncode(sprintf('%s %s %f %f', StartCommand::FAVOURITE, StartCommand::FAVOURITE_DELETE, $lat, $lon));
 		} else {
 			$urls = \Utils\General::getUrls($queryInput);
 
