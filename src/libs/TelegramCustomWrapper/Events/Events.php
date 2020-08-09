@@ -65,6 +65,7 @@ abstract class Events
 	}
 
 	abstract protected function getChatId();
+
 	abstract protected function getMessageId();
 
 	public function getFromId() {
@@ -193,7 +194,7 @@ abstract class Events
 		$text .= sprintf('%s <b>Commands:</b>', \Icons::COMMAND) . PHP_EOL;
 		$text .= sprintf('/help - %s Find way to gain more knowledge about me (this text)', \Icons::INFO) . PHP_EOL;
 		$text .= sprintf('/feedback - %s Report invalid location or just contact author', \Icons::FEEDBACK) . PHP_EOL;
-		 $text .= sprintf('%s %s - Manage your saved favourite locations (only in PM)', FavouritesCommand::CMD, \Icons::FAVOURITE) . PHP_EOL;
+		$text .= sprintf('%s %s - Manage your saved favourite locations (only in PM)', FavouritesCommand::CMD, \Icons::FAVOURITE) . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= sprintf('%s For more info check out channel <a href="%s">@BetterLocationInfo</a>.', \Icons::INFO, 'https://t.me/BetterLocationInfo/3') . PHP_EOL;
 		$text .= PHP_EOL;
