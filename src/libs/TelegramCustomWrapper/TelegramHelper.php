@@ -90,13 +90,12 @@ class TelegramHelper
 		return sprintf('%s/file/bot%s/%s', self::API_URL, $token, $path);
 	}
 
-	public static function isPM($update): bool {
+	public static function isPM(Update $update): bool {
 		if (self::isButtonClick($update)) {
-			$message = $update->callback_query->message;
+			return $update->callback_query->from->id === $update->callback_query->message->chat->id;
 		} else {
-			$message = $update->message;
+			return ($update->message->from->id === $update->message->chat->id);
 		}
-		return ($message->from->id === $message->chat->id);
 	}
 
 	public static function getCommand($update): ?string {
