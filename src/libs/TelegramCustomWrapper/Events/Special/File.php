@@ -6,6 +6,7 @@ use \BetterLocation\BetterLocation;
 use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
+use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 use \Utils\Coordinates;
 use \Icons;
 use unreal4u\TelegramAPI\Telegram\Methods\GetFile;
@@ -23,6 +24,8 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 	public function __construct($update) {
 		parent::__construct($update);
 
+		$buttonsRows = [];
+
 		$replyMessage = '';
 		// PM or whitelisted group
 		$document = $this->update->message->document;
@@ -33,7 +36,7 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 
 			$response = $this->run($getFile);
 
-			$fileLink = \TelegramCustomWrapper\TelegramHelper::getFileUrl(TELEGRAM_BOT_TOKEN, $response->file_path);
+			$fileLink = TelegramHelper::getFileUrl(TELEGRAM_BOT_TOKEN, $response->file_path);
 			// Bug on older versions of PHP "Warning: exif_read_data(): Process tag(x010D=DocumentNam): Illegal components(0)" Tested with:
 			// WEDOS Linux 7.3.1 (NOT OK)
 			// WAMP Windows 7.3.5 (NOT OK)
@@ -48,6 +51,9 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 						'EXIF',
 					);
 					$replyMessage .= $betterLocationExif->generateBetterLocation();
+					$exifButtons = $betterLocationExif->generateDriveButtons();
+					$exifButtons[] = $betterLocationExif->generateAddToFavouriteButtton();
+					$buttonsRows[] = $exifButtons;
 				} catch (\Exception $exception) {
 					$this->reply(
 						sprintf('%s Unexpected error occured while processing EXIF data from image for Better location. Contact Admin for more info.', Icons::ERROR),
@@ -65,12 +71,22 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 
 		foreach ($betterLocationsMessage as $betterLocation) {
 			$replyMessage .= $betterLocation->generateBetterLocation();
+			if (count($buttonsRows) === 0) { // show only one row of buttons
+				$exifButtons = $betterLocation->generateDriveButtons();
+				$exifButtons[] = $betterLocation->generateAddToFavouriteButtton();
+				$buttonsRows[] = $exifButtons;
+			}
 		}
 
 		if ($replyMessage) {
+			$markup = (new Markup());
+			$markup->inline_keyboard = $buttonsRows;
 			$this->reply(
 				TelegramHelper::MESSAGE_PREFIX . $replyMessage,
-				['disable_web_page_preview' => true],
+				[
+					'disable_web_page_preview' => true,
+					'reply_markup' => $markup,
+				],
 			);
 		} else if ($this->isPm()) {
 			$this->reply('Thanks for the file in PM! But I\'m not sure, what to do... No location in EXIF was found.');
