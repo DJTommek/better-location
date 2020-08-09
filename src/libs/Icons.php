@@ -10,6 +10,9 @@ class Icons
 	const BACK = "\u{1F519}"; // https://emojipedia.org/back-arrow/
 	const REFRESH = "\u{267B}"; // https://emojipedia.org/recycling-symbol/
 
+	const CHANGE = "\u{270F}"; // https://emojipedia.org/pencil/
+	const DELETE = "\u{1F5D1}"; // https://emojipedia.org/wastebasket/
+
 	const USER = "\u{1F44D}"; // https://emojipedia.org/thumbs-up/
 	const GROUP = "\u{1F590}"; // https://emojipedia.org/hand-with-fingers-splayed/
 	const CHANNEL = "\u{1F4E2}"; // https://emojipedia.org/loudspeaker/
