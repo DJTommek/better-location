@@ -3,7 +3,9 @@
 namespace TelegramCustomWrapper\Events\Command;
 
 use \Icons;
+use TelegramCustomWrapper\Events\Button\FavouriteButton;
 use TelegramCustomWrapper\TelegramHelper;
+use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class StartCommand extends Command
 {
@@ -52,7 +54,24 @@ class StartCommand extends Command
 				$favourite = $this->user->getFavourite($lat, $lon);
 				if ($favourite) {
 					if ($this->user->renameFavourite($favourite, $newName) === true) {
-						$this->reply(sprintf('%s Location %f,%f was successfully renamed to %s %s.', Icons::SUCCESS, $lat, $lon, Icons::FAVOURITE, $newName));
+
+						$replyMarkup = new Markup();
+						$replyMarkup->inline_keyboard = [];
+
+						$refreshFavouriteButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
+						$refreshFavouriteButton->text = sprintf('%s Show list', \Icons::REFRESH);
+						$refreshFavouriteButton->callback_data = sprintf('%s %s', FavouriteCommand::CMD, FavouriteButton::ACTION_REFRESH);
+						$buttonRow[] = $refreshFavouriteButton;
+
+						$replyMarkup->inline_keyboard[] = $buttonRow;
+						$messageSettings = [
+							'disable_web_page_preview' => true,
+							'reply_markup' => $replyMarkup,
+						];
+
+						$this->reply(sprintf('%s Location %f,%f was successfully renamed from <b>%s</b> to <b>%s %s</b>.',
+							Icons::SUCCESS, $lat, $lon, $favourite->getPrefixMessage(), Icons::FAVOURITE, $newName
+						), $messageSettings);
 					} else {
 						$this->reply(sprintf('%s Unexpected error while renaming location <code>%f,%f</code>.%sIf you believe that this is error, please contact admin.', Icons::ERROR, $lat, $lon, PHP_EOL));
 					}
