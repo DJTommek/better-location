@@ -7,6 +7,7 @@ namespace TelegramCustomWrapper\Events;
 use BetterLocation\Service\WazeService;
 use React\EventLoop\Factory;
 use TelegramCustomWrapper\Events\Button\FavouriteButton;
+use TelegramCustomWrapper\Events\Command\StartCommand;
 use TelegramCustomWrapper\SendMessage;
 use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
@@ -191,7 +192,7 @@ abstract class Events
 		$text .= sprintf('%s <b>Commands:</b>', \Icons::COMMAND) . PHP_EOL;
 		$text .= sprintf('/help - %s Find way to gain more knowledge about me (this text)', \Icons::INFO) . PHP_EOL;
 		$text .= sprintf('/feedback - %s Report invalid location or just contact author', \Icons::FEEDBACK) . PHP_EOL;
-		// $text .= sprintf('/favourite %s - Manage your saved favourite locations (only in PM)', \Icons::FAVOURITE) . PHP_EOL;
+		 $text .= sprintf('/favourite %s - Manage your saved favourite locations (only in PM)', \Icons::FAVOURITE) . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= sprintf('%s For more info check out channel <a href="%s">@BetterLocationInfo</a>.', \Icons::INFO, 'https://t.me/BetterLocationInfo/3') . PHP_EOL;
 		$text .= PHP_EOL;
@@ -258,21 +259,22 @@ abstract class Events
 			foreach ($this->user->getFavourites() as $favourite) {
 				$text .= $favourite->generateBetterLocation();
 
-				// @TODO remove this dirty hack
-				// Replace Favourite icon by removing first char from string
-				$prefixMessage = mb_substr($favourite->getPrefixMessage(), 1);
+				$shareFavouriteButton = new Button();
+				$shareFavouriteButton->text = $favourite->getPrefixMessage();
+				$shareFavouriteButton->switch_inline_query_current_chat = sprintf('%f,%f', $favourite->getLat(), $favourite->getLon());
 
+				$replyMarkup->inline_keyboard[] = [$shareFavouriteButton];
 				$buttonRow = [];
 
-				$removeFromFavouritesButton = new Button();
-				$removeFromFavouritesButton->text = sprintf('%s %s', \Icons::FAVOURITE_REMOVE, $prefixMessage);
-				$removeFromFavouritesButton->callback_data = sprintf('/favourite %s %f %f', FavouriteButton::ACTION_REMOVE, $favourite->getLat(), $favourite->getLon());
-				$buttonRow[] = $removeFromFavouritesButton;
+				$renameFavouriteButton = new Button();
+				$renameFavouriteButton->text = sprintf('%s Rename', \Icons::CHANGE);
+				$renameFavouriteButton->switch_inline_query_current_chat = sprintf('%s %s %f %f New name', StartCommand::FAVOURITE, StartCommand::FAVOURITE_RENAME, $favourite->getLat(), $favourite->getLon());
+				$buttonRow[] = $renameFavouriteButton;
 
-//				$renameFavouriteButton = new Button();
-//				$renameFavouriteButton->text = sprintf('%s %s', \Icons::FAVOURITE_REMOVE, $prefixMessage);
-//				$renameFavouriteButton->switch_inline_query_current_chat = 'favourite rename 1 New name';
-//				$buttonRow[] = $renameFavouriteButton;
+				$deleteFavouriteButton = new Button();
+				$deleteFavouriteButton->text = sprintf('%s Delete', \Icons::DELETE);
+				$deleteFavouriteButton->switch_inline_query_current_chat = sprintf('%s %s %f %f', StartCommand::FAVOURITE, StartCommand::FAVOURITE_DELETE, $favourite->getLat(), $favourite->getLon());
+				$buttonRow[] = $deleteFavouriteButton;
 
 				$replyMarkup->inline_keyboard[] = $buttonRow;
 			}

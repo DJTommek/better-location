@@ -11,6 +11,7 @@ use \TelegramCustomWrapper\Events\Command\HelpCommand;
 use \TelegramCustomWrapper\Events\Command\LocationCommand;
 use \TelegramCustomWrapper\Events\Command\MessageCommand;
 use \TelegramCustomWrapper\Events\Command\SettingsCommand;
+use TelegramCustomWrapper\Events\Command\StartCommand;
 use \TelegramCustomWrapper\Events\Command\UnknownCommand;
 use \TelegramCustomWrapper\Events\Button\HelpButton;
 use \TelegramCustomWrapper\Events\Button\FavouriteButton;
@@ -95,6 +96,8 @@ class TelegramCustomWrapper
 
 			switch ($command ? mb_strtolower($command) : null) {
 				case '/start':
+					return new StartCommand($update);
+					break;
 				case '/help':
 					return new HelpCommand($update);
 					break;
