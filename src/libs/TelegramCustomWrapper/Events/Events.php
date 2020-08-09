@@ -6,8 +6,8 @@ namespace TelegramCustomWrapper\Events;
 
 use BetterLocation\Service\WazeService;
 use React\EventLoop\Factory;
-use TelegramCustomWrapper\Events\Button\FavouriteButton;
-use TelegramCustomWrapper\Events\Command\FavouriteCommand;
+use TelegramCustomWrapper\Events\Button\FavouritesButton;
+use TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use TelegramCustomWrapper\Events\Command\StartCommand;
 use TelegramCustomWrapper\SendMessage;
 use TelegramCustomWrapper\TelegramHelper;
@@ -193,7 +193,7 @@ abstract class Events
 		$text .= sprintf('%s <b>Commands:</b>', \Icons::COMMAND) . PHP_EOL;
 		$text .= sprintf('/help - %s Find way to gain more knowledge about me (this text)', \Icons::INFO) . PHP_EOL;
 		$text .= sprintf('/feedback - %s Report invalid location or just contact author', \Icons::FEEDBACK) . PHP_EOL;
-		 $text .= sprintf('%s %s - Manage your saved favourite locations (only in PM)', FavouriteCommand::CMD, \Icons::FAVOURITE) . PHP_EOL;
+		 $text .= sprintf('%s %s - Manage your saved favourite locations (only in PM)', FavouritesCommand::CMD, \Icons::FAVOURITE) . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= sprintf('%s For more info check out channel <a href="%s">@BetterLocationInfo</a>.', \Icons::INFO, 'https://t.me/BetterLocationInfo/3') . PHP_EOL;
 		$text .= PHP_EOL;
@@ -227,14 +227,14 @@ abstract class Events
 		if ($this->isPm()) {
 			$button = new Button();
 			$button->text = sprintf('%s Favourites', \Icons::FAVOURITE);
-			$button->callback_data = sprintf('%s %s', FavouriteCommand::CMD, FavouriteButton::ACTION_REFRESH);
+			$button->callback_data = sprintf('%s %s', FavouritesCommand::CMD, FavouritesButton::ACTION_REFRESH);
 			$replyMarkupRow[] = $button;
 		}
 		$replyMarkup->inline_keyboard[] = $replyMarkupRow;
 		return $replyMarkup;
 	}
 
-	protected function processFavouriteList(bool $inline = false) {
+	protected function processFavouritesList(bool $inline = false) {
 		$replyMarkup = new Markup();
 		$replyMarkup->inline_keyboard = [
 			[ // row of buttons
@@ -244,7 +244,7 @@ abstract class Events
 				],
 				[ // button
 					'text' => sprintf('%s Refresh list', \Icons::REFRESH),
-					'callback_data' => sprintf('%s %s', FavouriteCommand::CMD, FavouriteButton::ACTION_REFRESH),
+					'callback_data' => sprintf('%s %s', FavouritesCommand::CMD, FavouritesButton::ACTION_REFRESH),
 				],
 			],
 		];
@@ -274,7 +274,7 @@ abstract class Events
 
 				$deleteFavouriteButton = new Button();
 				$deleteFavouriteButton->text = sprintf('%s Delete', \Icons::DELETE);
-				$deleteFavouriteButton->callback_data = sprintf('%s %s %f %f', FavouriteCommand::CMD, FavouriteButton::ACTION_DELETE, $favourite->getLat(), $favourite->getLon());
+				$deleteFavouriteButton->callback_data = sprintf('%s %s %f %f', FavouritesCommand::CMD, FavouritesButton::ACTION_DELETE, $favourite->getLat(), $favourite->getLon());
 				$buttonRow[] = $deleteFavouriteButton;
 
 				$replyMarkup->inline_keyboard[] = $buttonRow;

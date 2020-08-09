@@ -4,11 +4,11 @@ namespace TelegramCustomWrapper\Events\Button;
 
 use BetterLocation\BetterLocation;
 use OpenLocationCode\OpenLocationCode;
-use TelegramCustomWrapper\Events\Command\FavouriteCommand;
+use TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use TelegramCustomWrapper\TelegramHelper;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
-class FavouriteButton extends Button
+class FavouritesButton extends Button
 {
 	const ACTION_ADD = 'add';
 	const ACTION_DELETE = 'delete';
@@ -36,10 +36,10 @@ class FavouriteButton extends Button
 				$lat = floatval($params[0]);
 				$lon = floatval($params[1]);
 				$this->deleteFavourite($lat, $lon);
-				$this->processFavouriteList(true);
+				$this->processFavouritesList(true);
 				break;
 			case self::ACTION_REFRESH:
-				$this->processFavouriteList(true);
+				$this->processFavouritesList(true);
 				break;
 			default:
 				$this->flash(sprintf('%s This button (favourite) is invalid.%sIf you believe that this is error, please contact admin', \Icons::ERROR, PHP_EOL), true);
@@ -93,12 +93,12 @@ class FavouriteButton extends Button
 
 			$refreshFavouriteButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
 			$refreshFavouriteButton->text = sprintf('%s Show list', \Icons::REFRESH);
-			$refreshFavouriteButton->callback_data = sprintf('%s %s', FavouriteCommand::CMD, FavouriteButton::ACTION_REFRESH);
+			$refreshFavouriteButton->callback_data = sprintf('%s %s', FavouritesCommand::CMD, FavouritesButton::ACTION_REFRESH);
 			$buttonRow[] = $refreshFavouriteButton;
 
 			$deleteFavouriteButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
 			$deleteFavouriteButton->text = sprintf('%s Add back', \Icons::FAVOURITE);
-			$deleteFavouriteButton->callback_data = sprintf('%s %s %f %f', FavouriteCommand::CMD, FavouriteButton::ACTION_ADD, $lat, $lon);
+			$deleteFavouriteButton->callback_data = sprintf('%s %s %f %f', FavouritesCommand::CMD, FavouritesButton::ACTION_ADD, $lat, $lon);
 			$buttonRow[] = $deleteFavouriteButton;
 
 			$replyMarkup->inline_keyboard[] = $buttonRow;

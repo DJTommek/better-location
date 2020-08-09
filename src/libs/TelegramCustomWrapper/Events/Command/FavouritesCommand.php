@@ -2,7 +2,7 @@
 
 namespace TelegramCustomWrapper\Events\Command;
 
-class FavouriteCommand extends Command
+class FavouritesCommand extends Command
 {
 	const CMD = '/favourites';
 
@@ -15,7 +15,7 @@ class FavouriteCommand extends Command
 	public function __construct($update) {
 		parent::__construct($update);
 		if ($this->isPm()) {
-			$this->processFavouriteList(false);
+			$this->processFavouritesList(false);
 		} else {
 			$this->reply(sprintf('%s Command <code>%s</code> is available only in private message, open @%s.', \Icons::ERROR, self::CMD, TELEGRAM_BOT_NAME));
 		}

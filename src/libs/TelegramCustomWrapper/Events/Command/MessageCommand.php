@@ -6,7 +6,7 @@ use \BetterLocation\BetterLocation;
 use BetterLocation\Service\GoogleMapsService;
 use BetterLocation\Service\WazeService;
 use \Icons;
-use TelegramCustomWrapper\Events\Button\FavouriteButton;
+use TelegramCustomWrapper\Events\Button\FavouritesButton;
 use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;

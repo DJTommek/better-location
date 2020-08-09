@@ -16,8 +16,8 @@ use \BetterLocation\Service\OpenStreetMapService;
 use \BetterLocation\Service\OpenLocationCodeService;
 use \BetterLocation\Service\WazeService;
 use \BetterLocation\Service\WhatThreeWordService;
-use TelegramCustomWrapper\Events\Button\FavouriteButton;
-use TelegramCustomWrapper\Events\Command\FavouriteCommand;
+use TelegramCustomWrapper\Events\Button\FavouritesButton;
+use TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 use Utils\Coordinates;
 use \Utils\General;
@@ -248,7 +248,7 @@ class BetterLocation
 	public function generateAddToFavouriteButtton(): Button {
 		$button = new Button();
 		$button->text = Icons::FAVOURITE;
-		$button->callback_data = sprintf('%s %s %f %f', FavouriteCommand::CMD, FavouriteButton::ACTION_ADD, $this->getLat(), $this->getLon());
+		$button->callback_data = sprintf('%s %s %f %f', FavouritesCommand::CMD, FavouritesButton::ACTION_ADD, $this->getLat(), $this->getLon());
 		return $button;
 	}
 
