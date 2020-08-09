@@ -263,7 +263,7 @@ abstract class Events
 
 				$shareFavouriteButton = new Button();
 				$shareFavouriteButton->text = $favourite->getPrefixMessage();
-				$shareFavouriteButton->switch_inline_query_current_chat = sprintf('%f,%f', $favourite->getLat(), $favourite->getLon());
+				$shareFavouriteButton->switch_inline_query = sprintf('%f,%f', $favourite->getLat(), $favourite->getLon());
 
 				$replyMarkup->inline_keyboard[] = [$shareFavouriteButton];
 				$buttonRow = [];
@@ -281,7 +281,7 @@ abstract class Events
 				$replyMarkup->inline_keyboard[] = $buttonRow;
 			}
 		}
-		$text .= sprintf('%s To save some location to your favourites, just send any link, coordinates etc. here (private message) and click on %s button under that location.', \Icons::INFO, \Icons::FAVOURITE) . PHP_EOL;
+		$text .= sprintf('%s To save some location to your favourites, just send any link, coordinates etc. and click on %s button under that location.', \Icons::INFO, \Icons::FAVOURITE) . PHP_EOL;
 
 		$messageSettings = [
 			'disable_web_page_preview' => true,
