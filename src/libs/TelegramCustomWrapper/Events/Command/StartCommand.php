@@ -12,6 +12,7 @@ class StartCommand extends Command
 	const FAVOURITE = 'f';
 	const FAVOURITE_RENAME = 'r';
 	const FAVOURITE_DELETE = 'd';
+	const FAVOURITE_LIST = 'l';
 	const FAVOURITE_ERROR = 'e';
 	const FAVOURITE_ERROR_TOO_LONG = 'too-long';
 
@@ -47,6 +48,9 @@ class StartCommand extends Command
 	private function processFavourites(array $params) {
 		$action = array_shift($params);
 		switch ($action) {
+			case self::FAVOURITE_LIST:
+				$this->processFavouritesList(false);
+				break;
 			case self::FAVOURITE_RENAME:
 				$lat = floatval($params[0]);
 				$lon = floatval($params[1]);
