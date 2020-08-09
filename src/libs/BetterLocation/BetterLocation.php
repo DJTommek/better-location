@@ -16,6 +16,8 @@ use \BetterLocation\Service\OpenStreetMapService;
 use \BetterLocation\Service\OpenLocationCodeService;
 use \BetterLocation\Service\WazeService;
 use \BetterLocation\Service\WhatThreeWordService;
+use TelegramCustomWrapper\Events\Button\FavouriteButton;
+use TelegramCustomWrapper\Events\Command\FavouriteCommand;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 use Utils\Coordinates;
 use \Utils\General;
@@ -241,6 +243,13 @@ class BetterLocation
 		$wazeButton->url = $this->getLink(new WazeService(), true);
 
 		return [$googleButton, $wazeButton];
+	}
+
+	public function generateAddToFavouriteButtton(): Button {
+		$button = new Button();
+		$button->text = Icons::FAVOURITE;
+		$button->callback_data = sprintf('%s %s %f %f', FavouriteCommand::CMD, FavouriteButton::ACTION_ADD, $this->getLat(), $this->getLon());
+		return $button;
 	}
 
 

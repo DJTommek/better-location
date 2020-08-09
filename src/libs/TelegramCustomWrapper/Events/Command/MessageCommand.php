@@ -36,10 +36,7 @@ class MessageCommand extends Command
 					$result .= $betterLocation->generateBetterLocation();
 					if (count($buttons) < $buttonLimit) {
 						$driveButtons = $betterLocation->generateDriveButtons();
-						$favouriteButton = new Button();
-						$favouriteButton->text = Icons::FAVOURITE;
-						$favouriteButton->callback_data = sprintf('/favourite %s %f %f', FavouriteButton::ACTION_ADD, $betterLocation->getLat(), $betterLocation->getLon());
-						$driveButtons[] = $favouriteButton;
+						$driveButtons[] = $betterLocation->generateAddToFavouriteButtton();
 						$buttons[] = $driveButtons;
 					}
 				} else if (
