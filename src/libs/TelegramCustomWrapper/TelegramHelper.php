@@ -128,4 +128,21 @@ class TelegramHelper
 		array_shift($params);
 		return $params;
 	}
+
+	public static function InlineTextEncode(string $input): string {
+		$input = trim($input);
+		$input = base64_encode($input);
+		$input = str_replace('=', '_', $input);
+		$input = str_replace('+', '-', $input);
+		$input = trim($input);
+		return $input;
+	}
+	public static function InlineTextDecode(string $input): string {
+		$input = trim($input);
+		$input = str_replace('_', '=', $input);
+		$input = str_replace('-', '+', $input);
+		$input = base64_decode($input);
+		$input = trim($input);
+		return $input;
+	}
 }
