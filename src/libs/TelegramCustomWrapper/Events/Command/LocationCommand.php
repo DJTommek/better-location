@@ -7,6 +7,7 @@ use \Icons;
 use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
+use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class LocationCommand extends Command
 {
@@ -27,15 +28,24 @@ class LocationCommand extends Command
 				'Location'
 			);
 			$result = $betterLocation->generateBetterLocation();
+			$buttons = $betterLocation->generateDriveButtons();
+			$buttons[] = $betterLocation->generateAddToFavouriteButtton();
+			$rowButtons[] = $buttons;
+
 		} catch (\Exception $exception) {
 			$this->reply(sprintf('%s Unexpected error occured while processing location for Better location. Contact Admin for more info.', Icons::ERROR));
 			Debugger::log($exception, ILogger::EXCEPTION);
 			return;
 		}
 		if ($result) {
+			$markup = (new Markup());
+			$markup->inline_keyboard = $rowButtons;
 			$this->reply(
 				TelegramHelper::MESSAGE_PREFIX . $result,
-				['disable_web_page_preview' => true],
+				[
+					'disable_web_page_preview' => true,
+					'reply_markup' => $markup,
+				],
 			);
 			return;
 		}
