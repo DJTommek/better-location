@@ -28,6 +28,7 @@ class Database
 	 */
 	public function query(string $query, ...$params) {
 		$sql = $this->db->prepare($query);
+		$sql->setFetchMode(PDO::FETCH_ASSOC);
 		$sql->execute($params);
 		return $sql;
 	}
@@ -41,6 +42,7 @@ class Database
 	 */
 	public function queryArray(string $query, array $params) {
 		$sql = $this->db->prepare($query);
+		$sql->setFetchMode(PDO::FETCH_ASSOC);
 		$sql->execute($params);
 		return $sql;
 	}
