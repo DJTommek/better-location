@@ -3,7 +3,7 @@
 namespace TelegramCustomWrapper\Events\Command;
 
 use \Icons;
-use TelegramCustomWrapper\Events\Button\FavouriteButton;
+use TelegramCustomWrapper\Events\Button\FavouritesButton;
 use TelegramCustomWrapper\TelegramHelper;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
@@ -31,7 +31,7 @@ class StartCommand extends Command
 			$action = array_shift($params);
 			switch ($action) {
 				case self::FAVOURITE;
-					$this->processFavourite($params);
+					$this->processFavourites($params);
 					break;
 				default:
 					$this->reply(sprintf('%s Hidden start parameter is unknown.', Icons::ERROR));
@@ -44,7 +44,7 @@ class StartCommand extends Command
 	 * @param array $params
 	 * @throws \Exception
 	 */
-	private function processFavourite(array $params) {
+	private function processFavourites(array $params) {
 		$action = array_shift($params);
 		switch ($action) {
 			case self::FAVOURITE_RENAME:
@@ -60,7 +60,7 @@ class StartCommand extends Command
 
 						$refreshFavouriteButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
 						$refreshFavouriteButton->text = sprintf('%s Show list', \Icons::REFRESH);
-						$refreshFavouriteButton->callback_data = sprintf('%s %s', FavouriteCommand::CMD, FavouriteButton::ACTION_REFRESH);
+						$refreshFavouriteButton->callback_data = sprintf('%s %s', FavouritesCommand::CMD, FavouritesButton::ACTION_REFRESH);
 						$buttonRow[] = $refreshFavouriteButton;
 
 						$replyMarkup->inline_keyboard[] = $buttonRow;
