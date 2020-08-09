@@ -30,8 +30,6 @@ class LocationCommand extends Command
 			$result = $betterLocation->generateBetterLocation();
 			$buttons = $betterLocation->generateDriveButtons();
 			$buttons[] = $betterLocation->generateAddToFavouriteButtton();
-			$rowButtons[] = $buttons;
-
 		} catch (\Exception $exception) {
 			$this->reply(sprintf('%s Unexpected error occured while processing location for Better location. Contact Admin for more info.', Icons::ERROR));
 			Debugger::log($exception, ILogger::EXCEPTION);
@@ -39,7 +37,9 @@ class LocationCommand extends Command
 		}
 		if ($result) {
 			$markup = (new Markup());
-			$markup->inline_keyboard = $rowButtons;
+			if (isset($buttons)) {
+				$markup->inline_keyboard = [$buttons];
+			}
 			$this->reply(
 				TelegramHelper::MESSAGE_PREFIX . $result,
 				[
