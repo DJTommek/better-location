@@ -130,6 +130,7 @@ abstract class Events
 				DummyLogger::log(DummyLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $exception->getMessage());
 				$ignoreErorrs = [
 					TelegramHelper::NOT_CHANGED,
+					TelegramHelper::TOO_OLD,
 				];
 				if (in_array($exception->getMessage(), $ignoreErorrs) === false) {
 					$resultException = $exception;
