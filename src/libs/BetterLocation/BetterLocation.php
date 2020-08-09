@@ -253,13 +253,13 @@ class BetterLocation
 		$text = '';
 		$text .= sprintf('%s %s <code>%f,%f</code>', $this->prefixMessage, Icons::ARROW_RIGHT, $this->lat, $this->lon) . PHP_EOL;
 		$text .= join(' | ', $links) . PHP_EOL;
-		if ($withAddress) {
-			$text .= $this->getAddress() . PHP_EOL;
-		}
 		// @TODO currently disabled
-//		if ($this->description) {
-//			$text .= $this->description . PHP_EOL;
+//		if ($withAddress) {
+//			$text .= $this->getAddress() . PHP_EOL;
 //		}
+		if ($this->description) {
+			$text .= $this->description . PHP_EOL;
+		}
 		return $text . PHP_EOL;
 	}
 
