@@ -66,7 +66,7 @@ class FavouriteButton extends Button
 				$generatedLocationName = $this->generateFavouriteName($lat, $lon);
 				$betterLocation = new BetterLocation($lat, $lon, $generatedLocationName);
 				if ($this->user->addFavourites($betterLocation, $generatedLocationName)) {
-					$this->flash(sprintf('%s Location %f,%f was saved as %s %s.%sYou can now use it inline in any chat or PM by typing @%s.',
+					$this->flash(sprintf('%s Location %f,%f was saved as %s %s.%sYou can now use it inline in any chat by typing @%s.',
 						\Icons::SUCCESS, $betterLocation->getLat(), $betterLocation->getLon(), \Icons::FAVOURITE, $betterLocation->getPrefixMessage(),
 						PHP_EOL,
 						TELEGRAM_BOT_NAME
