@@ -126,7 +126,11 @@ class InlineQuery extends Special
 		$inlineQueryResult->title = strip_tags($betterLocation->getPrefixMessage());
 		$inlineQueryResult->thumb_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
 		$inlineQueryResult->reply_markup = new Markup();
-		$inlineQueryResult->reply_markup->inline_keyboard = [$betterLocation->generateDriveButtons()];
+
+		$buttons = $betterLocation->generateDriveButtons();
+		$buttons[] = $betterLocation->generateAddToFavouriteButtton();
+
+		$inlineQueryResult->reply_markup->inline_keyboard = [$buttons];
 		$inlineQueryResult->input_message_content = new Text();
 		$inlineQueryResult->input_message_content->message_text = TelegramHelper::MESSAGE_PREFIX . $betterLocation->generateBetterLocation();
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
