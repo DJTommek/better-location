@@ -162,12 +162,12 @@ abstract class Events
 		$betterLocationWaze = WazeService::parseCoords($wazeLink);
 
 		$text = sprintf('%s Welcome to @%s!', \Icons::LOCATION, TELEGRAM_BOT_NAME) . PHP_EOL;
-		$text .= sprintf('I\'m simple but smart bot to catch all possible location formats in any chats you invite me in and generate links to your favourite location services as Google maps, Waze, OpenStreetMaps etc.') . PHP_EOL;
-		$text .= sprintf('Example, if you send coordinates "<code>%1$f,%2$f</code>" or link "https://www.waze.com/ul?ll=%1$f,%2$f" I will respond with this:', $lat, $lon) . PHP_EOL;
+		$text .= sprintf('I\'m a simple but smart bot to catch all possible location formats in any chats you invite me to, and generate links to your favourite location services such as Google maps, Waze, OpenStreetMaps etc.') . PHP_EOL;
+		$text .= sprintf('For example, if you send a message containing the coordinates "<code>%1$f,%2$f</code>" or the link "https://www.waze.com/ul?ll=%1$f,%2$f" I will respond with this:', $lat, $lon) . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= $betterLocationWaze->generateBetterLocation();
 		// @TODO newline is filled in $result (yeah, it shouldn't be like that..)
-		$text .= sprintf('%s <b>Features:</b>', \Icons::FEATURES) . PHP_EOL;
+		$text .= sprintf('%s <b>Formats I can read:</b>', \Icons::FEATURES) . PHP_EOL;
 		$text .= sprintf('- coordinates: WGS84 (decimal, degrees and even seconds) etc.') . PHP_EOL;
 		$text .= sprintf('- special codes: <a href="%s">What3Words</a>, <a href="%s">Open Location Codes</a> etc.', 'https://what3words.com/', 'https://plus.codes/') . PHP_EOL;
 		$text .= sprintf('- URL links: google.com, mapy.cz, intel.ingress.com etc.') . PHP_EOL;
@@ -176,7 +176,7 @@ abstract class Events
 		$text .= sprintf('- EXIF from <b>uncompressed</b> images') . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= sprintf('%s <b>Inline:</b>', \Icons::INLINE) . PHP_EOL;
-		$text .= sprintf('Send my Better locations in any chat, even if I\'m not there including private messages, just type <code>@%s</code>', TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text .= sprintf('To send my Better locations to a group I am not in, or to a private message, just type <code>@%s</code>', TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('- add any link, text, special code etc and choose one of the output') . PHP_EOL;
 		$text .= sprintf('- send your current position (on mobile devices only)') . PHP_EOL;
 		$text .= sprintf('%s <a href="%s">See video here</a>', \Icons::VIDEO, 'https://t.me/BetterLocationInfo/8') . PHP_EOL;
@@ -192,11 +192,11 @@ abstract class Events
 //		$text .= sprintf('Currently not supported. Don\'t hesitate to ping author if you are interested in this feature.') . PHP_EOL;
 //		$text .= PHP_EOL;
 		$text .= sprintf('%s <b>Commands:</b>', \Icons::COMMAND) . PHP_EOL;
-		$text .= sprintf('/help - %s Find way to gain more knowledge about me (this text)', \Icons::INFO) . PHP_EOL;
-		$text .= sprintf('/feedback - %s Report invalid location or just contact author', \Icons::FEEDBACK) . PHP_EOL;
-		$text .= sprintf('%s %s - Manage your saved favourite locations (only in PM)', FavouritesCommand::CMD, \Icons::FAVOURITE) . PHP_EOL;
+		$text .= sprintf('/help - %s Learn more about me (this text)', \Icons::INFO) . PHP_EOL;
+		$text .= sprintf('/feedback - %s Report invalid location or just contact the author', \Icons::FEEDBACK) . PHP_EOL;
+		$text .= sprintf('%s %s - Manage your saved favourite locations (works only in PM)', FavouritesCommand::CMD, \Icons::FAVOURITE) . PHP_EOL;
 		$text .= PHP_EOL;
-		$text .= sprintf('%s For more info check out channel <a href="%s">@BetterLocationInfo</a>.', \Icons::INFO, 'https://t.me/BetterLocationInfo/3') . PHP_EOL;
+		$text .= sprintf('%s For more info check out the <a href="%s">@BetterLocationInfo</a> channel.', \Icons::INFO, 'https://t.me/BetterLocationInfo/3') . PHP_EOL;
 		$text .= PHP_EOL;
 
 //		$text .= sprintf(Icons::WARNING . ' <b>Warning</b>: Bot is currently in active development so there is no guarantee that it will work at all times. Check Github for more info.') . PHP_EOL;
@@ -250,14 +250,14 @@ abstract class Events
 			],
 		];
 
-		$text = sprintf('%s <b>Favourites</b> for @%s.', \Icons::FAVOURITE, TELEGRAM_BOT_NAME) . PHP_EOL;
-		$text .= sprintf('Here you can manage your favourite locations which will appear as soon as you type @%s in any chat.', TELEGRAM_BOT_NAME) . PHP_EOL;
-		$text .= sprintf('Great feature is, that I don\'t have to be in that chat!') . PHP_EOL;
+		$text = sprintf('%s A list of <b>favourite</b> locations saved by @%s.', \Icons::FAVOURITE, TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text .= sprintf('Here you can manage your favourite locations, which will appear as soon as you type @%s in any chat.', TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text .= sprintf('I don\'t have to be in that chat in order for it to work!') . PHP_EOL;
 		$text .= PHP_EOL;
 		if (count($this->user->getFavourites()) === 0) {
-			$text .= sprintf('%s Sadly, you don\'t have any saved favourite locations.', \Icons::INFO) . PHP_EOL;
+			$text .= sprintf('%s Sadly, you don\'t have any favourite locations saved yet.', \Icons::INFO) . PHP_EOL;
 		} else {
-			$text .= sprintf('%s You have saved %d favourite location(s):', \Icons::INFO, count($this->user->getFavourites())) . PHP_EOL;
+			$text .= sprintf('%s You have %d favourite location(s):', \Icons::INFO, count($this->user->getFavourites())) . PHP_EOL;
 			foreach ($this->user->getFavourites() as $favourite) {
 				$text .= $favourite->generateBetterLocation();
 
@@ -281,7 +281,7 @@ abstract class Events
 				$replyMarkup->inline_keyboard[] = $buttonRow;
 			}
 		}
-		$text .= sprintf('%s To save some location to your favourites, just send any link, coordinates etc. and click on %s button under that location.', \Icons::INFO, \Icons::FAVOURITE) . PHP_EOL;
+		$text .= sprintf('%s To add a location to your favourites, just send any link, coordinates etc. to me via PM and click on the %s button in my response.', \Icons::INFO, \Icons::FAVOURITE) . PHP_EOL;
 
 		$messageSettings = [
 			'disable_web_page_preview' => true,
