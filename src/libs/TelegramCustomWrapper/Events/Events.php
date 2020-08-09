@@ -262,7 +262,7 @@ abstract class Events
 				$text .= $favourite->generateBetterLocation();
 
 				$shareFavouriteButton = new Button();
-				$shareFavouriteButton->text = $favourite->getPrefixMessage();
+				$shareFavouriteButton->text = sprintf('Share %s', $favourite->getPrefixMessage());
 				$shareFavouriteButton->switch_inline_query = sprintf('%f,%f', $favourite->getLat(), $favourite->getLon());
 
 				$replyMarkup->inline_keyboard[] = [$shareFavouriteButton];
