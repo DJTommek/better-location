@@ -193,7 +193,7 @@ abstract class Events
 		$text .= sprintf('%s <b>Commands:</b>', \Icons::COMMAND) . PHP_EOL;
 		$text .= sprintf('/help - %s Find way to gain more knowledge about me (this text)', \Icons::INFO) . PHP_EOL;
 		$text .= sprintf('/feedback - %s Report invalid location or just contact author', \Icons::FEEDBACK) . PHP_EOL;
-		 $text .= sprintf('/favourite %s - Manage your saved favourite locations (only in PM)', \Icons::FAVOURITE) . PHP_EOL;
+		 $text .= sprintf('%s %s - Manage your saved favourite locations (only in PM)', FavouriteCommand::CMD, \Icons::FAVOURITE) . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= sprintf('%s For more info check out channel <a href="%s">@BetterLocationInfo</a>.', \Icons::INFO, 'https://t.me/BetterLocationInfo/3') . PHP_EOL;
 		$text .= PHP_EOL;
@@ -227,7 +227,7 @@ abstract class Events
 		if ($this->isPm()) {
 			$button = new Button();
 			$button->text = sprintf('%s Favourites', \Icons::FAVOURITE);
-			$button->callback_data = sprintf('/favourite refresh');
+			$button->callback_data = sprintf('%s %s', FavouriteCommand::CMD, FavouriteButton::ACTION_REFRESH);
 			$replyMarkupRow[] = $button;
 		}
 		$replyMarkup->inline_keyboard[] = $replyMarkupRow;
@@ -244,7 +244,7 @@ abstract class Events
 				],
 				[ // button
 					'text' => sprintf('%s Refresh list', \Icons::REFRESH),
-					'callback_data' => sprintf('/favourite %s', FavouriteButton::ACTION_REFRESH),
+					'callback_data' => sprintf('%s %s', FavouriteCommand::CMD, FavouriteButton::ACTION_REFRESH),
 				],
 			],
 		];
