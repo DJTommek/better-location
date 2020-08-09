@@ -71,20 +71,20 @@ class StartCommand extends Command
 						break;
 				}
 				break;
-			case self::FAVOURITE_DELETE:
-				$lat = floatval($params[0]);
-				$lon = floatval($params[1]);
-				$favourite = $this->user->getFavourite($lat, $lon);
-				if ($favourite) {
-					if ($this->user->removeFavourite($favourite) === true) {
-						$this->reply(sprintf('%s Location %s (<code>%f,%f</code>) was deleted.', Icons::SUCCESS, $favourite->getPrefixMessage(), $lat, $lon));
-					} else {
-						$this->reply(sprintf('%s Unexpected error while deleting location %s (<code>%f,%f</code>) was deleted.%sIf you believe that this is error, please contact admin.', Icons::ERROR, $favourite->getPrefixMessage(), $lat, $lon, PHP_EOL));
-					}
-				} else {
-					$this->reply(sprintf('%s Location %f,%f was already deleted from your favourite locations.', Icons::INFO, $lat, $lon));
-				}
-				break;
+//			case self::FAVOURITE_DELETE:
+//				$lat = floatval($params[0]);
+//				$lon = floatval($params[1]);
+//				$favourite = $this->user->getFavourite($lat, $lon);
+//				if ($favourite) {
+//					if ($this->user->removeFavourite($favourite) === true) {
+//						$this->reply(sprintf('%s Location %s (<code>%f,%f</code>) was deleted.', Icons::SUCCESS, $favourite->getPrefixMessage(), $lat, $lon));
+//					} else {
+//						$this->reply(sprintf('%s Unexpected error while deleting location %s (<code>%f,%f</code>) was deleted.%sIf you believe that this is error, please contact admin.', Icons::ERROR, $favourite->getPrefixMessage(), $lat, $lon, PHP_EOL));
+//					}
+//				} else {
+//					$this->reply(sprintf('%s Location <code>%f,%f</code> was already deleted from your favourite locations.', Icons::INFO, $lat, $lon));
+//				}
+//				break;
 			default:
 				$this->reply(sprintf('%s Hidden start parameter for favourite is unknown.%sIf you believe that this is error, please contact admin.', Icons::ERROR, PHP_EOL));
 				break;

@@ -7,6 +7,7 @@ namespace TelegramCustomWrapper\Events;
 use BetterLocation\Service\WazeService;
 use React\EventLoop\Factory;
 use TelegramCustomWrapper\Events\Button\FavouriteButton;
+use TelegramCustomWrapper\Events\Command\FavouriteCommand;
 use TelegramCustomWrapper\Events\Command\StartCommand;
 use TelegramCustomWrapper\SendMessage;
 use TelegramCustomWrapper\TelegramHelper;
@@ -273,7 +274,7 @@ abstract class Events
 
 				$deleteFavouriteButton = new Button();
 				$deleteFavouriteButton->text = sprintf('%s Delete', \Icons::DELETE);
-				$deleteFavouriteButton->switch_inline_query_current_chat = sprintf('%s %s %f %f', StartCommand::FAVOURITE, StartCommand::FAVOURITE_DELETE, $favourite->getLat(), $favourite->getLon());
+				$deleteFavouriteButton->callback_data = sprintf('%s %s %f %f', FavouriteCommand::CMD, FavouriteButton::ACTION_DELETE, $favourite->getLat(), $favourite->getLon());
 				$buttonRow[] = $deleteFavouriteButton;
 
 				$replyMarkup->inline_keyboard[] = $buttonRow;
