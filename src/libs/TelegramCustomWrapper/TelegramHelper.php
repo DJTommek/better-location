@@ -129,6 +129,10 @@ class TelegramHelper
 		return $params;
 	}
 
+	public static function generateStart(string $params) {
+		return sprintf('https://t.me/%s?start=', TELEGRAM_BOT_NAME) . TelegramHelper::InlineTextEncode($params);
+	}
+
 	public static function InlineTextEncode(string $input): string {
 		$input = trim($input);
 		$input = base64_encode($input);
