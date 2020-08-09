@@ -90,7 +90,21 @@ class User
 			);
 			return true;
 		} catch (\Exception $exception) {
-			\Tracy\Debugger::log(sprintf('Error while removing favourite location: %s', \Tracy\ILogger::ERROR));
+			\Tracy\Debugger::log(sprintf('Error while deleting favourite location: %s', $exception->getMessage()), \Tracy\ILogger::ERROR);
+			return false;
+		}
+	}
+
+	public function renameFavourite(\BetterLocation\BetterLocation $betterLocation, string $title): bool {
+		try {
+			$this->db->query('UPDATE better_location_favourites SET title = ? WHERE user_id = ? AND lat = ? AND lon = ?',
+				htmlspecialchars($title),
+				$this->id, $betterLocation->getLat(), $betterLocation->getLon()
+			);
+			$this->loadFavourites();
+			return true;
+		} catch (\Exception $exception) {
+			\Tracy\Debugger::log(sprintf('Error while renaming favourite location: %s', $exception->getMessage()), \Tracy\ILogger::ERROR);
 			return false;
 		}
 	}
