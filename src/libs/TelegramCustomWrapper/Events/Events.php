@@ -113,7 +113,7 @@ abstract class Events
 
 	/**
 	 * @param $objectToSend
-	 * @return null
+	 * @return mixed
 	 * @throws \Exception
 	 */
 	public function run($objectToSend) {
