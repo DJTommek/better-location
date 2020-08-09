@@ -5,7 +5,6 @@ namespace TelegramCustomWrapper\Events\Button;
 use BetterLocation\BetterLocation;
 use OpenLocationCode\OpenLocationCode;
 use TelegramCustomWrapper\Events\Command\FavouriteCommand;
-use TelegramCustomWrapper\Events\Command\StartCommand;
 use TelegramCustomWrapper\TelegramHelper;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
@@ -37,7 +36,7 @@ class FavouriteButton extends Button
 				$lat = floatval($params[0]);
 				$lon = floatval($params[1]);
 				$this->deleteFavourite($lat, $lon);
-//				$this->processFavouriteList(true);
+				$this->processFavouriteList(true);
 				break;
 			case self::ACTION_REFRESH:
 				$this->processFavouriteList(true);
@@ -111,13 +110,11 @@ class FavouriteButton extends Button
 			$favourite = $this->user->getFavourite($lat, $lon);
 			if (is_null($favourite)) {
 				$this->reply(sprintf('%s Location <code>%f,%f</code> was already removed from favourites.', \Icons::INFO, $lat, $lon), $messageSettings);
-				$this->processFavouriteList(true);
 				return;
 			} else if ($this->user->deleteFavourite($favourite)) {
 				$this->reply(sprintf('%s Location %s <code>%f,%f</code> was removed from favourites.',
 					\Icons::SUCCESS, $favourite->getPrefixMessage(), $favourite->getLat(), $favourite->getLon()
 				), $messageSettings);
-				$this->processFavouriteList(true);
 			} else {
 				$this->flash(sprintf('%s Unexpected error while removing location %s (%f,%f) from favourites.%sIf you believe that this is error, please contact admin.',
 					\Icons::ERROR, $favourite->getPrefixMessage(), $favourite->getLat(), $favourite->getLon(), PHP_EOL

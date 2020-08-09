@@ -75,7 +75,7 @@ class TelegramCustomWrapper
 				case '/help':
 					return new HelpButton($update);
 					break;
-				case '/favourite':
+				case FavouriteCommand::CMD:
 					return new FavouriteButton($update);
 					break;
 					// @TODO log error, this should not happen. Edit: can happen if some command is no longer used (for example /stats was changed to /donor)
@@ -107,7 +107,7 @@ class TelegramCustomWrapper
 				case '/settings':
 					return new SettingsCommand($update);
 					break;
-				case '/favourite':
+				case FavouriteCommand::CMD:
 					return new FavouriteCommand($update);
 					break;
 				case '/feedback':
