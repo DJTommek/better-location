@@ -4,7 +4,7 @@ namespace TelegramCustomWrapper\Events\Command;
 
 class FavouriteCommand extends Command
 {
-	const CMD = '/favourite';
+	const CMD = '/favourites';
 
 	/**
 	 * FavouriteCommand constructor.
