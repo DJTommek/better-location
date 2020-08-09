@@ -48,6 +48,10 @@ class TelegramHelper
 		return (!empty($update->callback_query));
 	}
 
+	public static function isForward(Update $update): bool {
+		return (!empty($update->message->forward_from));
+	}
+
 	public static function isInlineQuery(Update $update): bool {
 		return (!empty($update->inline_query));
 	}
