@@ -29,7 +29,7 @@ class User
 	}
 
 	public function register(int $telegramId, ?string $telegramUsername = null) {
-		$this->db->query('INSERT INTO better_location_user (user_telegram_id, user_telegram_name, user_last_update) VALUES (?, ?, UTC_TIMESTAMP()) 
+		$this->db->query('INSERT INTO better_location_user (user_telegram_id, user_telegram_name, user_last_update, user_registered) VALUES (?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP()) 
 			ON DUPLICATE KEY UPDATE user_telegram_name = ?, user_last_update = UTC_TIMESTAMP()',
 			$telegramId, $telegramUsername, $telegramUsername
 		);

@@ -33,7 +33,7 @@ class Chat
 	}
 
 	private function register() {
-		$this->db->query('INSERT INTO better_location_chat (chat_telegram_id, chat_telegram_type, chat_telegram_name, chat_last_update) VALUES (?, ?, ?, UTC_TIMESTAMP()) 
+		$this->db->query('INSERT INTO better_location_chat (chat_telegram_id, chat_telegram_type, chat_telegram_name, chat_last_update, chat_registered) VALUES (?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP()) 
 			ON DUPLICATE KEY UPDATE chat_telegram_type = ?, chat_telegram_name = ?, chat_last_update = UTC_TIMESTAMP()',
 			$this->telegramChatId, $this->telegramChatType, $this->telegramChatName,
 			$this->telegramChatType, $this->telegramChatName,
