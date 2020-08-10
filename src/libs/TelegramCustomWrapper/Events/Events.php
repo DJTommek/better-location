@@ -42,12 +42,14 @@ abstract class Events
 			$this->user = new \User($update->inline_query->from->id, $update->inline_query->from->username);
 		} else if (TelegramHelper::isButtonClick($update)) {
 			$this->user = new \User($update->callback_query->from->id, $update->callback_query->from->username);
-			/** @noinspection PhpUndefinedFieldInspection */
-			$this->chat = new \Chat(
-				$update->callback_query->message->chat->id,
-				$update->callback_query->message->chat->type,
-				empty($update->callback_query->message->chat->title) ? $update->callback_query->from->displayname : $update->callback_query->message->chat->title,
-			);
+			if ($update->callback_query->message) { // if clicked on button in message shared from inline (in "via @BotName"), there is no message
+				/** @noinspection PhpUndefinedFieldInspection */
+				$this->chat = new \Chat(
+					$update->callback_query->message->chat->id,
+					$update->callback_query->message->chat->type,
+					empty($update->callback_query->message->chat->title) ? $update->callback_query->from->displayname : $update->callback_query->message->chat->title,
+				);
+			}
 		} else {
 			$this->user = new \User($update->message->from->id, $update->message->from->username);
 			/** @noinspection PhpUndefinedFieldInspection */
