@@ -21,3 +21,15 @@ CREATE TABLE `better_location_chat` (
   PRIMARY KEY (`chat_id`),
   UNIQUE KEY `chat_telegram_id` (`chat_telegram_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+CREATE TABLE IF NOT EXISTS `better_location_favourites` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `lat` double(10,6) NOT NULL,
+  `lon` decimal(10,6) NOT NULL,
+  `title` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique` (`user_id`,`lat`,`lon`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+ALTER TABLE `better_location_favourites` ADD CONSTRAINT `favourites.user_id` FOREIGN KEY (`user_id`) REFERENCES `better_location_user` (`user_id`);
