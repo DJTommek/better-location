@@ -57,6 +57,10 @@ class InlineQuery extends Special
 					$answerInlineQuery->addResult($this->getInlineQueryResult($favourite));
 				}
 			}
+			if (count($answerInlineQuery->getResults()) === 0) {
+				$answerInlineQuery->switch_pm_text = 'Search location (coordinates, link, etc)';
+				$answerInlineQuery->switch_pm_parameter = 'inline-empty';
+			}
 		} else if (preg_match(sprintf('/^%s %s (-?[0-9]{1,2}\.[0-9]{1,6}) (-?[0-9]{1,3}\.[0-9]{1,6}) (.+)$/', StartCommand::FAVOURITE, StartCommand::FAVOURITE_RENAME), $queryInput, $matches)) {
 			$newName = strip_tags($matches[3]);
 			$newNameCommandDecoded = TelegramHelper::InlineTextEncode(
