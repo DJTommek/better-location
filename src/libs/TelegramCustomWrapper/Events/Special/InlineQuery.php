@@ -105,6 +105,21 @@ class InlineQuery extends Special
 					}
 				}
 
+				// only if there is no match from previous processing
+				if (count($answerInlineQuery->getResults()) === 0 && is_null(GOOGLE_PLACE_API_KEY) === false) {
+					$placeApi = new \BetterLocation\GooglePlaceApi();
+					$betterLocations = $placeApi->runSearch($queryInput);
+					foreach ($betterLocations as $betterLocation) {
+						if ($betterLocation instanceof BetterLocation) {
+							$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
+						} else if ($betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException) {
+							continue; // Ignore this error in inline query
+						} else {
+							Debugger::log($betterLocation, Debugger::EXCEPTION);
+						}
+					}
+				}
+
 				if (count($answerInlineQuery->getResults()) === 0) {
 					$answerInlineQuery->switch_pm_text = 'No valid location found...';
 					$answerInlineQuery->switch_pm_parameter = 'inline-notfound';
