@@ -27,8 +27,8 @@ require_once __DIR__ . '/src/config.php';
 		printf('<li><b>%d</b> detected users (wrote at least one message or command)</li>', $usersCount['count']);
 		$lastChangedUser = $db->query('SELECT * FROM better_location_user ORDER BY user_registered DESC LIMIT 1')->fetch();
 		if ($lastChangedUser) {
-			$lastChangedUser['user_registered'] = new DateTimeImmutable($lastChangedUser['user_registered']);
-			$lastChangedUser['user_last_update'] = new DateTimeImmutable($lastChangedUser['user_last_update']);
+			$lastChangedUser['user_registered'] = new DateTimeImmutable($lastChangedUser['user_registered'], new DateTimeZone('UTC'));
+			$lastChangedUser['user_last_update'] = new DateTimeImmutable($lastChangedUser['user_last_update'], new DateTimeZone('UTC'));
 
 			printf('<li>Newest registered user:<br>ID = <b>%d</b><br>TG ID = <b>%d</b><br>TG Name = <b>%s</b><br>Registered = <b>%s</b> (%s ago)<br>Last update = <b>%s</b> (%s ago)</li>',
 				$lastChangedUser['user_id'],
@@ -43,8 +43,8 @@ require_once __DIR__ . '/src/config.php';
 
 		$newestUser = $db->query('SELECT * FROM better_location_user ORDER BY user_last_update DESC LIMIT 1')->fetch();
 		if ($newestUser) {
-			$newestUser['user_registered'] = new DateTimeImmutable($newestUser['user_registered']);
-			$newestUser['user_last_update'] = new DateTimeImmutable($newestUser['user_last_update']);
+			$newestUser['user_registered'] = new DateTimeImmutable($newestUser['user_registered'], new DateTimeZone('UTC'));
+			$newestUser['user_last_update'] = new DateTimeImmutable($newestUser['user_last_update'], new DateTimeZone('UTC'));
 			printf('<li>Most recent active user:<br>ID = <b>%d</b><br>TG ID = <b>%d</b><br>TG Name = <b>%s</b><br>Registered = <b>%s</b> (%s ago)<br>Last update = <b>%s</b> (%s ago)</li>',
 				$newestUser['user_id'],
 				$newestUser['user_telegram_id'],
