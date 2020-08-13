@@ -23,6 +23,8 @@ class InlineQuery extends Special
 	 */
 	const MAX_FAVOURITES = 10;
 
+	const GOOGLE_SEARCH_MIN_LENGTH = 3;
+
 	/**
 	 * InlineQuery constructor.
 	 *
@@ -106,7 +108,7 @@ class InlineQuery extends Special
 				}
 
 				// only if there is no match from previous processing
-				if (count($answerInlineQuery->getResults()) === 0 && is_null(GOOGLE_PLACE_API_KEY) === false) {
+				if (mb_strlen($queryInput) >= self::GOOGLE_SEARCH_MIN_LENGTH && count($answerInlineQuery->getResults()) === 0 && is_null(GOOGLE_PLACE_API_KEY) === false) {
 					$placeApi = new \BetterLocation\GooglePlaceApi();
 					$betterLocations = $placeApi->runSearch($queryInput);
 					foreach ($betterLocations as $betterLocation) {
