@@ -209,11 +209,20 @@ class BetterLocation
 		];
 	}
 
+
+	public function setAddress(string $address) {
+		$this->address = $address;
+	}
+
+	public function getAddress(): string {
+		return $this->address;
+	}
+
 	/**
 	 * @return string
 	 * @throws \Exception
 	 */
-	public function getAddress() {
+	public function generateAddress() {
 		if (is_null($this->address)) {
 			try {
 				$w3wApi = new \What3words\Geocoder\Geocoder(W3W_API_KEY);
@@ -255,10 +264,9 @@ class BetterLocation
 		$text = '';
 		$text .= sprintf('%s %s <code>%f,%f</code>', $this->prefixMessage, Icons::ARROW_RIGHT, $this->lat, $this->lon) . PHP_EOL;
 		$text .= join(' | ', $links) . PHP_EOL;
-		// @TODO currently disabled
-//		if ($withAddress) {
-//			$text .= $this->getAddress() . PHP_EOL;
-//		}
+		if ($withAddress && is_null($this->address) === false) {
+			$text .= $this->getAddress() . PHP_EOL;
+		}
 		if ($this->description) {
 			$text .= $this->description . PHP_EOL;
 		}
@@ -332,7 +340,8 @@ class BetterLocation
 	public static function isLatValid(float $lat): bool {
 		return ($lat < 90 && $lat > -90);
 	}
-	public static function isLonValid(float $lon):bool {
+
+	public static function isLonValid(float $lon): bool {
 		return ($lon < 180 && $lon > -180);
 	}
 }
