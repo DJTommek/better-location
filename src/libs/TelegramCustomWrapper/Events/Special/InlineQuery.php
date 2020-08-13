@@ -128,6 +128,9 @@ class InlineQuery extends Special
 		$inlineQueryResult->latitude = $betterLocation->getLat();
 		$inlineQueryResult->longitude = $betterLocation->getLon();
 		$inlineQueryResult->title = strip_tags($betterLocation->getPrefixMessage());
+		if ($betterLocation->getAddress()) {
+			$inlineQueryResult->title .= sprintf(' (%s)', $betterLocation->getAddress());
+		}
 		$inlineQueryResult->thumb_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
 		$inlineQueryResult->reply_markup = new Markup();
 
