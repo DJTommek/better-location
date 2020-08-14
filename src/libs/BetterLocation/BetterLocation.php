@@ -10,6 +10,7 @@ use BetterLocation\Service\Coordinates\WG84DegreesMinutesService;
 use BetterLocation\Service\Coordinates\WG84DegreesService;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use \BetterLocation\Service\GoogleMapsService;
+use \BetterLocation\Service\HereWeGoService;
 use \BetterLocation\Service\IngressIntelService;
 use \BetterLocation\Service\MapyCzService;
 use \BetterLocation\Service\OpenStreetMapService;
@@ -149,6 +150,8 @@ class BetterLocation
 						$betterLocationsObjects = array_merge($betterLocationsObjects, array_values($mapyCzBetterLocations));
 					} else if (OpenStreetMapService::isValid($url)) {
 						$betterLocationsObjects[$entity->offset] = OpenStreetMapService::parseCoords($url);
+					} else if (HereWeGoService::isValid($url)) {
+						$betterLocationsObjects[$entity->offset] = HereWeGoService::parseCoords($url);
 					} else if (OpenLocationCodeService::isValid($url)) {
 						$betterLocationsObjects[$entity->offset] = OpenLocationCodeService::parseCoords($url);
 					} else if (WazeService::isValid($url)) {
@@ -258,6 +261,7 @@ class BetterLocation
 			sprintf('<a href="%s">Google</a>', GoogleMapsService::getLink($this->lat, $this->lon)),
 			sprintf('<a href="%s">Mapy.cz</a>', MapyCzService::getLink($this->lat, $this->lon)),
 			sprintf('<a href="%s">Waze</a>', WazeService::getLink($this->lat, $this->lon, true)),
+			sprintf('<a href="%s">HERE</a>', HereWeGoService::getLink($this->lat, $this->lon)),
 			sprintf('<a href="%s">OSM</a>', OpenStreetMapService::getLink($this->lat, $this->lon)),
 			sprintf('<a href="%s">Intel</a>', IngressIntelService::getLink($this->lat, $this->lon)),
 		];
@@ -282,7 +286,11 @@ class BetterLocation
 		$wazeButton->text = 'Waze ' . Icons::CAR;
 		$wazeButton->url = $this->getLink(new WazeService(), true);
 
-		return [$googleButton, $wazeButton];
+		$hereButton = new Button();
+		$hereButton->text = 'HERE ' . Icons::CAR;
+		$hereButton->url = $this->getLink(new HereWeGoService(), true);
+
+		return [$googleButton, $wazeButton, $hereButton];
 	}
 
 	public function generateAddToFavouriteButtton(): Button {
