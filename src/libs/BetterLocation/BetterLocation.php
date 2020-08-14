@@ -214,7 +214,7 @@ class BetterLocation
 		$this->address = $address;
 	}
 
-	public function getAddress(): string {
+	public function getAddress(): ?string {
 		return $this->address;
 	}
 
