@@ -346,10 +346,10 @@ class BetterLocation
 	}
 
 	public static function isLatValid(float $lat): bool {
-		return ($lat < 90 && $lat > -90);
+		return ($lat <= 90 && $lat >= -90);
 	}
 
 	public static function isLonValid(float $lon): bool {
-		return ($lon < 180 && $lon > -180);
+		return ($lon <= 180 && $lon >= -180);
 	}
 }
