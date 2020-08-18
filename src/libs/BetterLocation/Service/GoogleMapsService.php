@@ -19,6 +19,7 @@ final class GoogleMapsService extends AbstractService
 	const TYPE_STREET_VIEW = 'Street view';
 	const TYPE_SEARCH = 'search';
 	const TYPE_HIDDEN = 'hidden';
+	const TYPE_DRIVE = 'drive';
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
 		return sprintf($drive ? self::LINK_DRIVE : self::LINK, $lat, $lon);
@@ -90,16 +91,20 @@ final class GoogleMapsService extends AbstractService
 	}
 
 	public static function isShortUrl(string $url): bool {
-		$googleMapsShortUrlV1 = 'https://goo.gl/maps/';
-		$googleMapsShortUrlV2 = 'https://maps.app.goo.gl/';
+		$googleMapsShortUrlV1Https = 'https://goo.gl/maps/';
+		$googleMapsShortUrlV1Http = 'http://goo.gl/maps/';
+		$googleMapsShortUrlV2Https = 'https://maps.app.goo.gl/';
+		$googleMapsShortUrlV2Http = 'http://maps.app.goo.gl/';
 		return (
-			substr($url, 0, mb_strlen($googleMapsShortUrlV1)) === $googleMapsShortUrlV1 ||
-			substr($url, 0, mb_strlen($googleMapsShortUrlV2)) === $googleMapsShortUrlV2
+			substr($url, 0, mb_strlen($googleMapsShortUrlV1Https)) === $googleMapsShortUrlV1Https ||
+			substr($url, 0, mb_strlen($googleMapsShortUrlV1Http)) === $googleMapsShortUrlV1Http ||
+			substr($url, 0, mb_strlen($googleMapsShortUrlV2Https)) === $googleMapsShortUrlV2Https ||
+			substr($url, 0, mb_strlen($googleMapsShortUrlV2Http)) === $googleMapsShortUrlV2Http
 		);
 	}
 
 	public static function isNormalUrl(string $url): bool {
-		return !!(preg_match('/https:\/\/(?:(?:www|maps)\.)google\.[a-z]{1,5}\//', $url));
+		return !!(preg_match('/https?:\/\/(?:(?:www|maps)\.)google\.[a-z]{1,5}\//', $url));
 	}
 
 	/**
@@ -110,7 +115,6 @@ final class GoogleMapsService extends AbstractService
 	 * @throws \Exception
 	 */
 	public static function parseUrl(string $url, bool $returnArray = false) {
-		dump($url);
 		$betterLocations = [];
 		$paramsString = explode('?', $url);
 		if (count($paramsString) === 2) {
@@ -136,10 +140,13 @@ final class GoogleMapsService extends AbstractService
 			} else {
 				return $result;
 			}
-
 		}
+
 		if (isset($params['ll'])) {
 			$coords = explode(',', $params['ll']);
+			if (count($coords) !== 2) {
+				throw new InvalidLocationException(sprintf('Invalid "ll" parameter in Google link "%s".', $url));
+			}
 			$result = new BetterLocation(
 				floatval($coords[0]),
 				floatval($coords[1]),
@@ -151,6 +158,24 @@ final class GoogleMapsService extends AbstractService
 				return $result;
 			}
 		}
+
+		if (isset($params['daddr'])) {
+			$coords = explode(',', $params['daddr']);
+			if (count($coords) !== 2) {
+				throw new InvalidLocationException(sprintf('Invalid "daddr" parameter in Google link "%s".', $url));
+			}
+			$result = new BetterLocation(
+				floatval($coords[0]),
+				floatval($coords[1]),
+				sprintf('<a href="%s">Google %s</a>', $url, self::TYPE_DRIVE),
+			);
+			if ($returnArray) {
+				$betterLocations[self::TYPE_DRIVE] = $result;
+			} else {
+				return $result;
+			}
+		}
+
 		if (isset($params['q'])) { // @TODO in this parameter probably might be also non-coordinates locations (eg. address)
 			$coords = explode(',', $params['q']);
 			if (count($coords) !== 2) {
@@ -168,6 +193,7 @@ final class GoogleMapsService extends AbstractService
 			}
 			// Warning: coordinates in URL in format "@50.00,15.00" is position of the map, not selected/shared point.
 		}
+
 		if (preg_match('/@([0-9]{1,3}\.[0-9]+),([0-9]{1,3}\.[0-9]+)/', $url, $matches)) {
 			if (
 				preg_match('/,[0-9.]+a/', $url) &&
@@ -190,13 +216,13 @@ final class GoogleMapsService extends AbstractService
 				return $result;
 			}
 		}
+
 		// To prevent doing unnecessary request, this is done only if there is no other location detected
 		// Google is disabling access with RECAPTCHA
 		// @TODO probably there will be always at least map center so this code never occure? Needs testing
 		if ($returnArray === false || count($betterLocations) <= 0) {
 			// URL don't have any coordinates or place-id to translate so load content and there are some coordinates hidden in page in some of brutal multi-array
 			$content = General::fileGetContents($url);
-			dump($content);
 			// Regex is searching for something like this: ',"",null,[null,null,50.0641584,14.468139599999999]';
 			// Warning: Not exact position
 			if (preg_match('/","",null,\[null,null,(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)]\n/', $content, $matches)) {

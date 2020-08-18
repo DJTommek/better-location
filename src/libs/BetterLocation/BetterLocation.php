@@ -83,6 +83,8 @@ class BetterLocation
 								$mainLocationKey = GoogleMapsService::TYPE_HIDDEN;
 							} else if (isset($googleMapsBetterLocations[GoogleMapsService::TYPE_SEARCH])) {
 								$mainLocationKey = GoogleMapsService::TYPE_SEARCH;
+							} else if (isset($googleMapsBetterLocations[GoogleMapsService::TYPE_DRIVE])) {
+								$mainLocationKey = GoogleMapsService::TYPE_DRIVE;
 							} else if (isset($googleMapsBetterLocations[GoogleMapsService::TYPE_UNKNOWN])) {
 								$mainLocationKey = GoogleMapsService::TYPE_UNKNOWN;
 							} else if (isset($googleMapsBetterLocations[GoogleMapsService::TYPE_MAP])) {

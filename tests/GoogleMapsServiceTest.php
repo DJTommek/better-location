@@ -29,6 +29,10 @@ final class GoogleMapsServiceTest extends TestCase
 		$this->assertEquals('49.333511, 14.296174', GoogleMapsService::parseCoords('https://www.google.cz/maps/place/49%C2%B020\'00.6%22N+14%C2%B017\'46.2%22E/@49.3339819,14.2956352,18.4z/data=!4m5!3m4!1s0x0:0x0!8m2!3d49.333511!4d14.296174')->__toString());
 		$this->assertEquals('49.308853, 14.146589', GoogleMapsService::parseCoords('https://www.google.cz/maps/place/Hrad+P%C3%ADsek/@49.3088543,14.1454615,391m/data=!3m1!1e3!4m12!1m6!3m5!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!2sHrad+P%C3%ADsek!8m2!3d49.3088525!4d14.1465894!3m4!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!8m2!3d49.3088525!4d14.1465894')->__toString());
 		$this->assertEquals('49.367523, 14.514022', GoogleMapsService::parseCoords('https://maps.google.com/maps?ll=49.367523,14.514022&q=49.367523,14.514022')->__toString());
+		$this->assertEquals('49.417361, 14.652640', GoogleMapsService::parseCoords('http://maps.google.com/?q=49.417361,14.652640')->__toString()); // http link from @ingressportalbot
+		$this->assertEquals('49.417361, 14.652640', GoogleMapsService::parseCoords('https://maps.google.com/?q=49.417361,14.652640')->__toString()); // same as above, just https
+		$this->assertEquals('50.052098, 14.451968', GoogleMapsService::parseCoords('http://maps.google.com/?daddr=50.052098,14.451968')->__toString()); // http drive link from @ingressportalbot
+		$this->assertEquals('50.052098, 14.451968', GoogleMapsService::parseCoords('https://maps.google.com/?daddr=50.052098,14.451968')->__toString()); // same as above, just https
 	}
 
 }
