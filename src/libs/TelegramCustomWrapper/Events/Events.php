@@ -272,7 +272,13 @@ abstract class Events
 
 				$renameFavouriteButton = new Button();
 				$renameFavouriteButton->text = sprintf('%s Rename', \Icons::CHANGE);
-				$renameFavouriteButton->switch_inline_query_current_chat = sprintf('%s %s %f %f New name', StartCommand::FAVOURITE, StartCommand::FAVOURITE_RENAME, $favourite->getLat(), $favourite->getLon());
+				$renameFavouriteButton->switch_inline_query_current_chat = sprintf('%s %s %f %f %s',
+					StartCommand::FAVOURITE,
+					StartCommand::FAVOURITE_RENAME,
+					$favourite->getLat(),
+					$favourite->getLon(),
+					mb_substr($favourite->getPrefixMessage(), 2), // Remove favourites icon and space (@TODO should not use getPrefixMessage())
+				);
 				$buttonRow[] = $renameFavouriteButton;
 
 				$deleteFavouriteButton = new Button();
