@@ -2,9 +2,13 @@
 
 namespace TelegramCustomWrapper\Events\Command;
 
+use BetterLocation\BetterLocation;
+use BetterLocation\Service\Coordinates\WG84DegreesService;
 use \Icons;
 use TelegramCustomWrapper\Events\Button\FavouritesButton;
 use TelegramCustomWrapper\TelegramHelper;
+use Tracy\Debugger;
+use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class StartCommand extends Command
@@ -27,6 +31,8 @@ class StartCommand extends Command
 		$encodedParams = TelegramHelper::getParams($update);
 		if (count($encodedParams) === 0) {
 			$this->processHelp();
+		} else if (count($encodedParams) === 1 && preg_match('/^(-?[0-9]{1,8})_(-?[0-9]{1,9})$/', $encodedParams[0], $matches)) {
+			$this->processStartCoordinates($matches);
 		} else {
 			$params = explode(' ', TelegramHelper::InlineTextDecode($encodedParams[0]));
 			$action = array_shift($params);
@@ -37,6 +43,35 @@ class StartCommand extends Command
 				default:
 					$this->reply(sprintf('%s Hidden start parameter is unknown.', Icons::ERROR));
 					break;
+			}
+		}
+	}
+
+	private function processStartCoordinates(array $matches) {
+		$lat = intval($matches[1]) / 1000000;
+		$lon = intval($matches[2]) / 1000000;
+		if (BetterLocation::isLatValid($lat) === false || BetterLocation::isLonValid($lon) === false) {
+			$this->reply(sprintf('%s Coordinates <code>%f,%f</code> are not valid.', Icons::ERROR, $lat, $lon));
+		} else {
+			try {
+				$betterLocation = new BetterLocation($lat, $lon, WG84DegreesService::NAME);
+				$result = $betterLocation->generateBetterLocation();
+				$buttons = $betterLocation->generateDriveButtons();
+				$buttons[] = $betterLocation->generateAddToFavouriteButtton();
+				$markup = (new Markup());
+				if (isset($buttons)) {
+					$markup->inline_keyboard = [$buttons];
+				}
+				$this->reply(
+					TelegramHelper::MESSAGE_PREFIX . $result,
+					[
+						'disable_web_page_preview' => true,
+						'reply_markup' => $markup,
+					],
+				);
+			} catch (\Exception $exception) {
+				$this->reply(sprintf('%s Unexpected error occured while processing start command for Better location. Contact Admin for more info.', Icons::ERROR));
+				Debugger::log($exception, ILogger::EXCEPTION);
 			}
 		}
 	}
