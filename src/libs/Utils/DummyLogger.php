@@ -14,6 +14,9 @@ class DummyLogger
 	const NAME_TELEGRAM_OUTPUT = 'telegram_output';
 	const NAME_TELEGRAM_OUTPUT_RESPONSE = 'telegram_output_response';
 
+	const FILE_EXTENSION = 'jsonl';
+	const LINE_SEPARATOR = "\n"; // not PHP_EOL because it is \r\n on Windows
+
 	public static function log(string $name, $content): void {
 		if (!preg_match('/^[a-zA-Z0-9_]{1,30}$/', $name)) {
 			throw new \InvalidArgumentException('Invalid log name.');
@@ -33,8 +36,8 @@ class DummyLogger
 		$writeLogObject->name = $name;
 		$writeLogObject->content = $content;
 		file_put_contents(
-			sprintf('%s/%s_%s.log', $path, $name, $now->format(DATE_FORMAT)),
-			json_encode($writeLogObject) . "\n",
+			sprintf('%s/%s_%s.%s', $path, $name, $now->format(DATE_FORMAT), self::FILE_EXTENSION),
+			json_encode($writeLogObject) . self::LINE_SEPARATOR,
 			FILE_APPEND,
 		);
 	}
