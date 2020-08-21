@@ -38,10 +38,12 @@ final class MapyCzService extends AbstractService
 	}
 
 	public static function getScreenshotLink(float $lat, float $lon): string {
-		// @TODO load to image editor and:
-		// - crop to show only map (at least remove right panel, probably top icons should be removed too)
-		// - manually add marker to center of the map
-		return 'https://en.mapy.cz/screenshoter?url=' . urlencode(self::getLink($lat, $lon));
+		// URL Parameters to screenshoter (Mapy.cz website is using it with p=3 and l=0):
+		// l=0 hide right panel (can be opened via arrow icon)
+		// p=1 disable right panel (can't be opened) and disable bottom left panorama view screenshot
+		// p=2 show right panel and (can't be hidden) and disable bottom left panorama view screenshot
+		// p=3 disable right panel (can't be opened) and enable bottom left panorama view screenshot
+		return 'https://en.mapy.cz/screenshoter?url=' . urlencode(self::getLink($lat, $lon) . '&p=3&l=0');
 	}
 
 	public static function isValid(string $url): bool {
