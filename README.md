@@ -1,8 +1,9 @@
 # BetterLocation
 
-Simple but very smart Telegram bot for processing various types of location format and converting them to user-defined formats.
-
+Simple but very smart Telegram bot for processing various types of location format and converting them to user-defined formats.<br>
 Available publicly on [@BetterLocationBot](https://t.me/BetterLocationBot).
+
+![@BetterLocationBot example](asset/better-location-bot-example.png "@BetterLocationBot example")
 
 # Requirements
 - PHP webserver (written and tested with PHP 7.3)
