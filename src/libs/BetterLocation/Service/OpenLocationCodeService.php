@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
 use OpenLocationCode\OpenLocationCode;
 
 final class OpenLocationCodeService extends AbstractService
 {
+	const NAME = 'OLC';
+
 	const LINK = 'https://plus.codes/';
 
 	const DEFAULT_CODE_LENGTH = 12;
@@ -42,22 +45,21 @@ final class OpenLocationCodeService extends AbstractService
 	 * @param string $plusCodeInput
 	 * @return BetterLocation
 	 * @throws InvalidLocationException
+	 * @throws \Exception
 	 */
 	public static function parseCoords(string $plusCodeInput): BetterLocation {
 		if (self::isUrl($plusCodeInput)) {
 			$coords = self::parseUrl($plusCodeInput);
-			return new BetterLocation(
-				$coords[0],
-				$coords[1],
-				sprintf('<a href="%s">OLC</a>', $plusCodeInput) // @TODO would be nice to return detected OLC code
-			);
+			return new BetterLocation($plusCodeInput, $coords[0], $coords[1], self::class); // @TODO would be nice to return detected OLC code
 		} else if (self::isCode($plusCodeInput)) {  // at least two characters, otherwise it is probably /s/hort-version of link
 			$coords = OpenLocationCode::decode($plusCodeInput);
-			return new BetterLocation(
-				$coords['latitudeCenter'],
-				$coords['longitudeCenter'],
-				sprintf('<a href="%s">OLC</a> <code>%s</code>: ', self::getLink($coords['latitudeCenter'], $coords['longitudeCenter']), $plusCodeInput),
-			);
+			$betterLocation = new BetterLocation($plusCodeInput, $coords['latitudeCenter'], $coords['longitudeCenter'], self::class);
+			$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a> <code>%s</code>: ',
+				self::getLink($coords['latitudeCenter'], $coords['longitudeCenter']),
+				self::NAME,
+				$plusCodeInput
+			));
+			return $betterLocation;
 		} else {
 			throw new InvalidLocationException(sprintf('Unable to get coords from OpenLocationCode "%s".', $plusCodeInput));
 		}
@@ -103,10 +105,10 @@ final class OpenLocationCodeService extends AbstractService
 
 	/**
 	 * @param string $input
-	 * @return BetterLocation[]
+	 * @return BetterLocationCollection
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoordsMultiple(string $input): array {
+	public static function parseCoordsMultiple(string $input): BetterLocationCollection {
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }

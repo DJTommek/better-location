@@ -3,6 +3,7 @@
 namespace TelegramCustomWrapper\Events\Special;
 
 use \BetterLocation\BetterLocation;
+use BetterLocation\Service\Coordinates\WG84DegreesService;
 use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -46,10 +47,12 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 			if ($this->isExifLocation($exif)) {
 				try {
 					$betterLocationExif = new BetterLocation(
+						json_encode([$exif['GPSLatitude'], $exif['GPSLatitudeRef'], $exif['GPSLongitude'], $exif['GPSLongitudeRef']]),
 						Coordinates::exifToDecimal($exif['GPSLatitude'], $exif['GPSLatitudeRef']),
 						Coordinates::exifToDecimal($exif['GPSLongitude'], $exif['GPSLongitudeRef']),
-						'EXIF',
+						WG84DegreesService::class,
 					);
+					$betterLocationExif->setPrefixMessage('EXIF');
 					$replyMessage .= $betterLocationExif->generateBetterLocation();
 					$exifButtons = $betterLocationExif->generateDriveButtons();
 					$exifButtons[] = $betterLocationExif->generateAddToFavouriteButtton();
@@ -69,7 +72,7 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 			$this->update->message->caption_entities
 		);
 
-		foreach ($betterLocationsMessage as $betterLocation) {
+		foreach ($betterLocationsMessage->getAll() as $betterLocation) {
 			$replyMessage .= $betterLocation->generateBetterLocation();
 			if (count($buttonsRows) === 0) { // show only one row of buttons
 				$exifButtons = $betterLocation->generateDriveButtons();

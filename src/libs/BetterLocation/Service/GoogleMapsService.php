@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use \Utils\General;
 
 final class GoogleMapsService extends AbstractService
 {
+	const NAME = 'Google';
+
 	const LINK = 'https://www.google.cz/maps/place/%1$f,%2$f?q=%1$f,%2$f';
 	const LINK_DRIVE = 'https://maps.google.cz/?daddr=%1$f,%2$f&travelmode=driving';
 
@@ -20,6 +23,18 @@ final class GoogleMapsService extends AbstractService
 	const TYPE_SEARCH = 'search';
 	const TYPE_HIDDEN = 'hidden';
 	const TYPE_DRIVE = 'drive';
+
+	public static function getConstants(): array {
+		return [
+			self::TYPE_STREET_VIEW,
+			self::TYPE_PLACE,
+			self::TYPE_HIDDEN,
+			self::TYPE_SEARCH,
+			self::TYPE_DRIVE,
+			self::TYPE_UNKNOWN,
+			self::TYPE_MAP,
+		];
+	}
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
 		return sprintf($drive ? self::LINK_DRIVE : self::LINK, $lat, $lon);
@@ -61,30 +76,30 @@ final class GoogleMapsService extends AbstractService
 
 	/**
 	 * @param string $url
-	 * @return array|BetterLocation[]
+	 * @return BetterLocationCollection
 	 * @throws InvalidLocationException
 	 */
-	public static function parseCoordsMultiple(string $url): array {
+	public static function parseCoordsMultiple(string $url): BetterLocationCollection {
 		return self::parseCoordsHelper($url, true);
 	}
 
 	/**
 	 * @param string $url
-	 * @param bool $returnArray
-	 * @return BetterLocation|BetterLocation[]
+	 * @param bool $returnCollection
+	 * @return BetterLocation|BetterLocationCollection
 	 * @throws InvalidLocationException
 	 * @throws \Exception
 	 */
-	public static function parseCoordsHelper(string $url, bool $returnArray) {
+	public static function parseCoordsHelper(string $url, bool $returnCollection) {
 		if (self::isShortUrl($url)) {
 			$newLocation = self::getRedirectUrl($url);
 			if ($newLocation) {
-				return self::parseUrl($newLocation, $returnArray);
+				return self::parseUrl($newLocation, $returnCollection);
 			} else {
 				throw new InvalidLocationException(sprintf('Unable to get real url for Goo.gl short link "%s".', $url));
 			}
 		} else if (self::isNormalUrl($url)) {
-			return self::parseUrl($url, $returnArray);
+			return self::parseUrl($url, $returnCollection);
 		} else {
 			throw new InvalidLocationException(sprintf('Unable to get coords for Google maps link "%s".', $url));
 		}
@@ -109,13 +124,13 @@ final class GoogleMapsService extends AbstractService
 
 	/**
 	 * @param string $url
-	 * @param bool $returnArray
-	 * @return BetterLocation|BetterLocation[]
+	 * @param bool $returnCollection
+	 * @return BetterLocation|BetterLocationCollection
 	 * @throws InvalidLocationException
 	 * @throws \Exception
 	 */
-	public static function parseUrl(string $url, bool $returnArray = false) {
-		$betterLocations = [];
+	public static function parseUrl(string $url, bool $returnCollection = false) {
+		$betterLocationCollection = new BetterLocationCollection();
 		$paramsString = explode('?', $url);
 		if (count($paramsString) === 2) {
 			parse_str($paramsString[1], $params);
@@ -130,13 +145,9 @@ final class GoogleMapsService extends AbstractService
 			 * https://www.google.com/maps/place/49%C2%B050'19.5%22N+18%C2%B023'29.9%22E/@49.8387187,18.3912988,88m/data=!3m1!1e3!4m6!3m5!1s0x0:0x0!7e2!8m2!3d49.8387596!4d18.3916417?shorturl=1
 			 * In this URL is only one parameter to match. Strange...
 			 */
-			$result = new BetterLocation(
-				floatval(end($matches[1])),
-				floatval(end($matches[2])),
-				sprintf('<a href="%s">Google %s</a>', $url, self::TYPE_PLACE),
-			);
-			if ($returnArray) {
-				$betterLocations[self::TYPE_PLACE] = $result;
+			$result = new BetterLocation($url, floatval(end($matches[1])), floatval(end($matches[2])), self::class, self::TYPE_PLACE);
+			if ($returnCollection) {
+				$betterLocationCollection[] = $result;
 			} else {
 				return $result;
 			}
@@ -147,13 +158,9 @@ final class GoogleMapsService extends AbstractService
 			if (count($coords) !== 2) {
 				throw new InvalidLocationException(sprintf('Invalid "ll" parameter in Google link "%s".', $url));
 			}
-			$result = new BetterLocation(
-				floatval($coords[0]),
-				floatval($coords[1]),
-				sprintf('<a href="%s">Google %s</a>', $url, self::TYPE_UNKNOWN),
-			);
-			if ($returnArray) {
-				$betterLocations[self::TYPE_UNKNOWN] = $result;
+			$result = new BetterLocation($url, floatval($coords[0]), floatval($coords[1]), self::class, self::TYPE_UNKNOWN);
+			if ($returnCollection) {
+				$betterLocationCollection[] = $result;
 			} else {
 				return $result;
 			}
@@ -164,13 +171,9 @@ final class GoogleMapsService extends AbstractService
 			if (count($coords) !== 2) {
 				throw new InvalidLocationException(sprintf('Invalid "daddr" parameter in Google link "%s".', $url));
 			}
-			$result = new BetterLocation(
-				floatval($coords[0]),
-				floatval($coords[1]),
-				sprintf('<a href="%s">Google %s</a>', $url, self::TYPE_DRIVE),
-			);
-			if ($returnArray) {
-				$betterLocations[self::TYPE_DRIVE] = $result;
+			$result = new BetterLocation($url, floatval($coords[0]), floatval($coords[1]), self::class, self::TYPE_DRIVE);
+			if ($returnCollection) {
+				$betterLocationCollection[] = $result;
 			} else {
 				return $result;
 			}
@@ -181,13 +184,9 @@ final class GoogleMapsService extends AbstractService
 			if (count($coords) !== 2) {
 				throw new InvalidLocationException(sprintf('Invalid "q" parameter in Google link "%s".', $url));
 			}
-			$result = new BetterLocation(
-				floatval($coords[0]),
-				floatval($coords[1]),
-				sprintf('<a href="%s">Google %s</a>', $url, self::TYPE_SEARCH),
-			);
-			if ($returnArray) {
-				$betterLocations[self::TYPE_SEARCH] = $result;
+			$result = new BetterLocation($url, floatval($coords[0]), floatval($coords[1]), self::class, self::TYPE_SEARCH);
+			if ($returnCollection) {
+				$betterLocationCollection[] = $result;
 			} else {
 				return $result;
 			}
@@ -205,13 +204,9 @@ final class GoogleMapsService extends AbstractService
 			} else {
 				$type = self::TYPE_MAP;
 			}
-			$result = new BetterLocation(
-				floatval($matches[1]),
-				floatval($matches[2]),
-				sprintf('<a href="%s">Google %s</a>', $url, $type),
-			);
-			if ($returnArray) {
-				$betterLocations[$type] = $result;
+			$result = new BetterLocation($url, floatval($matches[1]), floatval($matches[2]), self::class, $type);
+			if ($returnCollection) {
+				$betterLocationCollection[] = $result;
 			} else {
 				return $result;
 			}
@@ -220,26 +215,22 @@ final class GoogleMapsService extends AbstractService
 		// To prevent doing unnecessary request, this is done only if there is no other location detected
 		// Google is disabling access with RECAPTCHA
 		// @TODO probably there will be always at least map center so this code never occure? Needs testing
-		if ($returnArray === false || count($betterLocations) <= 0) {
+		if ($returnCollection === false || count($betterLocationCollection) <= 0) {
 			// URL don't have any coordinates or place-id to translate so load content and there are some coordinates hidden in page in some of brutal multi-array
 			$content = General::fileGetContents($url);
 			// Regex is searching for something like this: ',"",null,[null,null,50.0641584,14.468139599999999]';
 			// Warning: Not exact position
 			if (preg_match('/","",null,\[null,null,(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)]\n/', $content, $matches)) {
-				$result = new BetterLocation(
-					floatval($matches[1]),
-					floatval($matches[2]),
-					sprintf('<a href="%s">Google %s</a>', $url, self::TYPE_HIDDEN),
-				);
-				if ($returnArray) {
-					$betterLocations[self::TYPE_HIDDEN] = $result;
+				$result = new BetterLocation($url, floatval($matches[1]), floatval($matches[2]), self::class, self::TYPE_HIDDEN);
+				if ($returnCollection) {
+					$betterLocationCollection[] = $result;
 				} else {
 					return $result;
 				}
 			}
 		}
-		if ($returnArray && count($betterLocations) > 0) {
-			return $betterLocations;
+		if ($returnCollection && count($betterLocationCollection) > 0) {
+			return $betterLocationCollection;
 		}
 		throw new InvalidLocationException('Unable to get any valid location from Google link');
 	}

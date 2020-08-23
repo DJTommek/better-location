@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BetterLocation\Service\Coordinates;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
 use Utils\Coordinates;
@@ -33,7 +34,7 @@ abstract class AbstractService extends \BetterLocation\Service\AbstractService
 
 	abstract public static function parseCoords(string $input): BetterLocation;
 
-	abstract public static function findInText(string $text): array;
+	abstract public static function findInText(string $text): BetterLocationCollection;
 
 	/**
 	 * Handle matches from all WG84* service regexes
@@ -136,7 +137,6 @@ abstract class AbstractService extends \BetterLocation\Service\AbstractService
 			$lonHemisphere = Coordinates::SOUTH;
 		}
 
-
 		// Switch lat-lon coordinates if hemisphere is coordinates are set in different order
 		// Exx.x Nyy.y -> Nyy.y Exx.x
 		if ($swap) {
@@ -153,19 +153,19 @@ abstract class AbstractService extends \BetterLocation\Service\AbstractService
 		}
 
 		return new BetterLocation(
+			$input,
 			Coordinates::flip($latHemisphere) * $latCoord,
 			Coordinates::flip($lonHemisphere) * $lonCoord,
-			sprintf($serviceClass::NAME),
+			get_called_class(),
 		);
-
 	}
 
 	/**
 	 * @param string $input
-	 * @return BetterLocation[]
+	 * @return BetterLocationCollection
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoordsMultiple(string $input): array {
+	public static function parseCoordsMultiple(string $input): BetterLocationCollection {
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }

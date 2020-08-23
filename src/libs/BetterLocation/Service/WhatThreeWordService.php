@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BetterLocation\Service;
 
 use \BetterLocation\BetterLocation;
+use BetterLocation\BetterLocationCollection;
 use \BetterLocation\Service\Exceptions\InvalidApiKeyException;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
@@ -12,6 +13,8 @@ use What3words\Geocoder\Geocoder;
 
 final class WhatThreeWordService extends AbstractService
 {
+	const NAME = 'W3W';
+
 	const LINK = 'https://what3words.com/';
 	const LINK_SHORT = 'https://w3w.co/';
 
@@ -24,7 +27,6 @@ final class WhatThreeWordService extends AbstractService
 	 * @param float $lon
 	 * @param bool $drive
 	 * @return string
-	 * @throws InvalidLocationException
 	 * @throws \Exception
 	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
@@ -80,11 +82,9 @@ final class WhatThreeWordService extends AbstractService
 			} else {
 				// @TODO dirty hack to get stdclass instead of associated array
 				$data = json_decode(json_encode($response));
-				return new BetterLocation(
-					$data->coordinates->lat,
-					$data->coordinates->lng,
-					sprintf('<a href="%s">W3W</a>: <code>%s</code>', $data->map, $data->words),
-				);
+				$betterLocation = new BetterLocation($input, $data->coordinates->lat, $data->coordinates->lng, self::class);
+				$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a>: <code>%s</code>', $data->map, self::NAME, $data->words));
+				return $betterLocation;
 			}
 		} else {
 			throw new InvalidLocationException(sprintf('Unable to get coords from What3Words "%s".', $input));
@@ -109,10 +109,10 @@ final class WhatThreeWordService extends AbstractService
 
 	/**
 	 * @param string $input
-	 * @return BetterLocation[]
+	 * @return BetterLocationCollection
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoordsMultiple(string $input): array {
+	public static function parseCoordsMultiple(string $input): BetterLocationCollection {
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }

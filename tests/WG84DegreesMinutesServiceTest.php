@@ -9,7 +9,7 @@ require_once __DIR__ . '/../src/config.php';
 final class WG84DegreesMinutesServiceTest extends TestCase
 {
 	public function testNothingInText(): void {
-		$this->assertEquals([], WG84DegreesMinutesService::findInText('Nothing valid'));
+		$this->assertEquals([], WG84DegreesMinutesService::findInText('Nothing valid')->getAll());
 	}
 
 	public function testCoordinates(): void {
@@ -35,9 +35,11 @@ final class WG84DegreesMinutesServiceTest extends TestCase
 		$this->assertEquals([-53.62774, -13.222133833333332], $betterLocations[3]->getLatLon());
 		$this->assertEquals([54.99538883333334, 14.522831166666666], $betterLocations[4]->getLatLon());
 		$this->assertEquals([55.072450333333336, 15.772062], $betterLocations[5]->getLatLon());
-		$this->assertInstanceOf(InvalidLocationException::class, $betterLocations[6]);
-		$this->assertInstanceOf(InvalidLocationException::class, $betterLocations[7]);
-		$this->assertInstanceOf(InvalidLocationException::class, $betterLocations[8]);
-		$this->assertInstanceOf(InvalidLocationException::class, $betterLocations[9]);
+
+		$errors = $betterLocations->getErrors();
+		$this->assertInstanceOf(InvalidLocationException::class, $errors[0]);
+		$this->assertInstanceOf(InvalidLocationException::class, $errors[1]);
+		$this->assertInstanceOf(InvalidLocationException::class, $errors[2]);
+		$this->assertInstanceOf(InvalidLocationException::class, $errors[3]);
 	}
 }

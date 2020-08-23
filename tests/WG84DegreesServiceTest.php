@@ -94,7 +94,7 @@ final class WG84DegreesServiceTest extends TestCase
 
 
 	public function testNothingInText(): void {
-		$this->assertEquals([], WG84DegreesService::findInText('Nothing valid'));
+		$this->assertEquals([], WG84DegreesService::findInText('Nothing valid')->getAll());
 	}
 
 	public function testCoordinatesInText(): void {
@@ -129,7 +129,9 @@ final class WG84DegreesServiceTest extends TestCase
 		$this->assertEquals([-57.1111, -17.2222], $betterLocations[7]->getLatLon());
 		$this->assertEquals([-58.1111, 18.2222], $betterLocations[8]->getLatLon());
 		$this->assertEquals([59.1111, -19.2222], $betterLocations[9]->getLatLon());
-		$this->assertInstanceOf(InvalidLocationException::class, $betterLocations[10]);
-		$this->assertInstanceOf(InvalidLocationException::class, $betterLocations[11]);
+
+		$errors = $betterLocations->getErrors();
+		$this->assertInstanceOf(InvalidLocationException::class, $errors[0]);
+		$this->assertInstanceOf(InvalidLocationException::class, $errors[1]);
 	}
 }

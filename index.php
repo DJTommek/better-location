@@ -92,6 +92,7 @@ require_once __DIR__ . '/src/config.php';
 <?php
 
 use BetterLocation\BetterLocation;
+use BetterLocation\Service\Exceptions\InvalidLocationException;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
@@ -179,11 +180,11 @@ $loop->run();
 				$betterLocations = BetterLocation::generateFromTelegramMessage($input, $entities);
 				if (count($betterLocations)) {
 					$result = '';
-					foreach ($betterLocations as $betterLocation) {
+					foreach ($betterLocations->getAll() as $betterLocation) {
 						if ($betterLocation instanceof BetterLocation) {
 							$result .= $betterLocation->generateBetterLocation();
-						} else if ($betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException) {
-							$result .= htmlentities($betterLocation->getMessage()) . PHP_EOL . PHP_EOL;
+						} else if ($betterLocation instanceof InvalidLocationException) {
+							$result .= sprintf('%s %s', Icons::ERROR, htmlentities($betterLocation->getMessage())) . PHP_EOL . PHP_EOL;
 						} else {
 							Debugger::log($betterLocation, Debugger::EXCEPTION);
 							throw $betterLocation;

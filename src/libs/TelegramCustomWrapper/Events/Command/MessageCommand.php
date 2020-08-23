@@ -31,7 +31,7 @@ class MessageCommand extends Command
 			$result = '';
 			$buttonLimit = 1; // @TODO move to config (chat settings)
 			$buttons = [];
-			foreach ($betterLocations as $betterLocation) {
+			foreach ($betterLocations->getAll() as $betterLocation) {
 				if ($betterLocation instanceof BetterLocation) {
 					$result .= $betterLocation->generateBetterLocation();
 					if (count($buttons) < $buttonLimit) {

@@ -29,7 +29,7 @@ try {
 		$betterLocations = BetterLocation::generateFromTelegramMessage($input, $entities);
 		if (count($betterLocations)) {
 			$response->error = false;
-			foreach ($betterLocations as $betterLocation) {
+			foreach ($betterLocations->getAll() as $betterLocation) {
 				if ($betterLocation instanceof BetterLocation) {
 					$response->result[] = $betterLocation->export();
 				} else if ($betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException) {

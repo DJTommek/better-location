@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\BetterLocationCollection;
 use Utils\General;
 
 abstract class AbstractService
@@ -17,9 +18,9 @@ abstract class AbstractService
 
 	/**
 	 * @param string $input
-	 * @return BetterLocation[]
+	 * @return BetterLocationCollection
 	 */
-	abstract public static function parseCoordsMultiple(string $input): array;
+	abstract public static function parseCoordsMultiple(string $input): BetterLocationCollection;
 
 	/**
 	 * @param $url
@@ -29,5 +30,9 @@ abstract class AbstractService
 	protected static function getRedirectUrl($url) {
 		$headers = General::getHeaders($url);
 		return $headers['location'] ?? null;
+	}
+
+	public static function getConstants() {
+		return [];
 	}
 }

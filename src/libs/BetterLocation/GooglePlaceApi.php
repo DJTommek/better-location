@@ -4,6 +4,7 @@
 namespace BetterLocation;
 
 
+use BetterLocation\Service\GoogleMapsService;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use Utils\General;
@@ -38,30 +39,32 @@ class GooglePlaceApi
 
 	/**
 	 * @param string $input
-	 * @return BetterLocation[]
+	 * @return BetterLocationCollection
 	 * @throws Service\Exceptions\InvalidLocationException|\Exception
 	 */
-	public function runSearch(string $input): array {
+	public function runSearch(string $input): BetterLocationCollection {
+		$collection = new BetterLocationCollection();
 		$url = $this->getUrl($input);
 		$response = General::fileGetContents($url);
 		$content = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
 		if ($content->status === self::RESPONSE_ZERO_RESULTS) {
-			return [];
+			return $collection;
 		}
 		if ($content->status !== self::RESPONSE_OK) {
 			Debugger::log($response, ILogger::DEBUG);
 			throw new \Exception(sprintf('Invalid status (%s) from Google Place API. Error: "%s"', $content->status, $content->error_message ?? 'Not provided'));
 		}
-		$betterLocations = [];
 		foreach ($content->candidates as $candidate) {
 			$betterLocation = new BetterLocation(
+				$input,
 				$candidate->geometry->location->lat,
 				$candidate->geometry->location->lng,
-				$candidate->name,
+				GoogleMapsService::class,
 			);
+			$betterLocation->setPrefixMessage($candidate->name);
 			$betterLocation->setAddress($candidate->formatted_address);
-			$betterLocations[] = $betterLocation;
+			$collection[] = $betterLocation;
 		}
-		return $betterLocations;
+		return $collection;
 	}
 }

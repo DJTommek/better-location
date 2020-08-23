@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\NotImplementedException;
 
 final class HereWeGoService extends AbstractService
 {
+	const NAME = 'HERE';
+
 	const LINK = 'https://wego.here.com';
 	const LINK_SHARE = 'https://share.here.com';
 
@@ -56,10 +59,10 @@ final class HereWeGoService extends AbstractService
 
 	/**
 	 * @param string $input
-	 * @return BetterLocation[]
+	 * @return BetterLocationCollection
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoordsMultiple(string $input): array {
+	public static function parseCoordsMultiple(string $input): BetterLocationCollection {
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }

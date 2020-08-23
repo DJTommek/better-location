@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
 
 final class IngressIntelService extends AbstractService
 {
+	const NAME = 'Ingress';
+
 	const LINK = 'https://intel.ingress.com';
 
 	/**
@@ -38,7 +41,7 @@ final class IngressIntelService extends AbstractService
 	public static function parseCoords(string $url): BetterLocation {
 		$coords = self::parseUrl($url);
 		if ($coords) {
-			return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Intel</a>', $url));
+			return new BetterLocation($url, $coords[0], $coords[1], self::class);
 		} else {
 			throw new InvalidLocationException(sprintf('Unable to get coords from Ingress Intel link "%s".', $url));
 		}
@@ -74,10 +77,10 @@ final class IngressIntelService extends AbstractService
 
 	/**
 	 * @param string $input
-	 * @return BetterLocation[]
+	 * @return BetterLocationCollection
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoordsMultiple(string $input): array {
+	public static function parseCoordsMultiple(string $input): BetterLocationCollection {
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }

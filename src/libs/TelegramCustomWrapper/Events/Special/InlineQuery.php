@@ -3,6 +3,7 @@
 namespace TelegramCustomWrapper\Events\Special;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\Service\Coordinates\WG84DegreesService;
 use BetterLocation\Service\MapyCzService;
 use TelegramCustomWrapper\Events\Command\StartCommand;
 use TelegramCustomWrapper\TelegramHelper;
@@ -44,11 +45,14 @@ class InlineQuery extends Special
 		if (empty($queryInput)) {
 			// If user agrees to share location, this is filled
 			if (empty($update->inline_query->location) === false) {
-				$answerInlineQuery->addResult($this->getInlineQueryResult(new BetterLocation(
+				$betterLocation = new BetterLocation(
+					$queryInput,
 					$update->inline_query->location->latitude,
 					$update->inline_query->location->longitude,
-					sprintf('%s Current location', \Icons::CURRENT_LOCATION),
-				)));
+					WG84DegreesService::class,
+				);
+				$betterLocation->setPrefixMessage(sprintf('%s Current location', \Icons::CURRENT_LOCATION));
+				$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 			}
 
 			// Show list of favourites
@@ -97,7 +101,7 @@ class InlineQuery extends Special
 			}
 			try {
 				$betterLocations = BetterLocation::generateFromTelegramMessage($queryInput, $entities);
-				foreach ($betterLocations as $betterLocation) {
+				foreach ($betterLocations->getAll() as $betterLocation) {
 					if ($betterLocation instanceof BetterLocation) {
 						$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 					} else if ($betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException) {
@@ -111,7 +115,7 @@ class InlineQuery extends Special
 				if (mb_strlen($queryInput) >= self::GOOGLE_SEARCH_MIN_LENGTH && count($answerInlineQuery->getResults()) === 0 && is_null(GOOGLE_PLACE_API_KEY) === false) {
 					$placeApi = new \BetterLocation\GooglePlaceApi();
 					$betterLocations = $placeApi->runSearch($queryInput);
-					foreach ($betterLocations as $betterLocation) {
+					foreach ($betterLocations->getAll() as $betterLocation) {
 						if ($betterLocation instanceof BetterLocation) {
 							$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 						} else if ($betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException) {
@@ -125,10 +129,6 @@ class InlineQuery extends Special
 				if (count($answerInlineQuery->getResults()) === 0) {
 					$answerInlineQuery->switch_pm_text = 'No valid location found...';
 					$answerInlineQuery->switch_pm_parameter = 'inline-notfound';
-				} /** @noinspection PhpStatementHasEmptyBodyInspection */ else {
-					// @TODO set some user-defined location (eg home, work, ...) if no query is defined or at least one location was found
-//				$betterLocation = new BetterLocation(50.087451, 14.420671, 'TEST');
-//				$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 				}
 			} catch (\Exception $exception) {
 				$answerInlineQuery->switch_pm_text = 'Error occured while processing. Try again later.';

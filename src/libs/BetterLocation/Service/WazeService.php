@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
 
 final class WazeService extends AbstractService
 {
+	const NAME = 'Waze';
+
 	const LINK = 'https://www.waze.com';
 
 	/**
@@ -44,7 +47,7 @@ final class WazeService extends AbstractService
 				$newLocation = self::LINK . $newLocation;
 				$coords = self::parseUrl($newLocation);
 				if ($coords) {
-					return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Waze</a>', $url));
+					return new BetterLocation($url, $coords[0], $coords[1], self::class);
 				} else {
 					throw new InvalidLocationException(sprintf('Unable to get coords for Waze short link "%s".', $url));
 				}
@@ -54,7 +57,7 @@ final class WazeService extends AbstractService
 		} else if (self::isNormalUrl($url)) {
 			$coords = self::parseUrl($url);
 			if ($coords) {
-				return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">Waze</a>', $url));
+				return new BetterLocation($url, $coords[0], $coords[1], self::class);
 			} else {
 				throw new InvalidLocationException(sprintf('Unable to get coords for Waze normal link "%s".', $url));
 			}
@@ -101,7 +104,7 @@ final class WazeService extends AbstractService
 	 * @return BetterLocation[]
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoordsMultiple(string $input): array {
+	public static function parseCoordsMultiple(string $input): BetterLocationCollection {
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }

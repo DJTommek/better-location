@@ -54,7 +54,7 @@ class StartCommand extends Command
 			$this->reply(sprintf('%s Coordinates <code>%f,%f</code> are not valid.', Icons::ERROR, $lat, $lon));
 		} else {
 			try {
-				$betterLocation = new BetterLocation($lat, $lon, WG84DegreesService::NAME);
+				$betterLocation = new BetterLocation($matches[0], $lat, $lon, WG84DegreesService::NAME);
 				$result = $betterLocation->generateBetterLocation();
 				$buttons = $betterLocation->generateDriveButtons();
 				$buttons[] = $betterLocation->generateAddToFavouriteButtton();

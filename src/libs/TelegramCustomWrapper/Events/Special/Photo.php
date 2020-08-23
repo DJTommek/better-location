@@ -28,7 +28,7 @@ class Photo extends \TelegramCustomWrapper\Events\Special\Special
 				$this->update->message->caption,
 				$this->update->message->caption_entities,
 			);
-			foreach ($betterLocations as $betterLocation) {
+			foreach ($betterLocations->getAll() as $betterLocation) {
 				if (count($buttonsRows) === 0) { // show only one row of buttons
 					$buttons = $betterLocation->generateDriveButtons();
 					$buttons[] = $betterLocation->generateAddToFavouriteButtton();

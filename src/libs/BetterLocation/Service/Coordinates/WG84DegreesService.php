@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BetterLocation\Service\Coordinates;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotSupportedException;
 
@@ -30,20 +31,20 @@ final class WG84DegreesService extends AbstractService
 
 	/**
 	 * @param $text
-	 * @return array<BetterLocation|InvalidLocationException>
+	 * @return BetterLocationCollection
 	 */
-	public static function findInText($text): array {
-		$results = [];
+	public static function findInText($text): BetterLocationCollection {
+		$collection = new BetterLocationCollection();
 		if (preg_match_all('/' . self::getRegex() . '/', $text, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				try {
-					$results[] = self::parseCoords($matches[0][$i]);
+					$collection[] = self::parseCoords($matches[0][$i]);
 				} catch (InvalidLocationException $exception) {
-					$results[] = $exception;
+					$collection[] = $exception;
 				}
 			}
 		}
-		return $results;
+		return $collection;
 	}
 
 	public static function isValid(string $input): bool {

@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace BetterLocation\Service;
 
 use BetterLocation\BetterLocation;
+use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
 
 final class OpenStreetMapService extends AbstractService
 {
+	const NAME = 'OSM';
+
 	const LINK = 'https://www.openstreetmap.org/search?whereami=1&query=%1$f,%2$f&mlat=%1$f&mlon=%2$f#map=17/%1$f/%2$f';
 
 	/**
@@ -41,7 +44,7 @@ final class OpenStreetMapService extends AbstractService
 		} else if (self::isNormalUrl($url)) {  // at least two characters, otherwise it is probably /s/hort-version of link
 			$coords = self::parseUrl($url);
 			if ($coords) {
-				return new BetterLocation($coords[0], $coords[1], sprintf('<a href="%s">(OSM)</a>: ', $url));
+				return new BetterLocation($url, $coords[0], $coords[1], self::class);
 			} else {
 				throw new InvalidLocationException(sprintf('Unable to get coords from OSM basic link "%s".', $url));
 			}
@@ -107,10 +110,10 @@ final class OpenStreetMapService extends AbstractService
 
 	/**
 	 * @param string $input
-	 * @return BetterLocation[]
+	 * @return BetterLocationCollection
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoordsMultiple(string $input): array {
+	public static function parseCoordsMultiple(string $input): BetterLocationCollection {
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }
