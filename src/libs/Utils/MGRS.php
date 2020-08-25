@@ -45,14 +45,18 @@ class MGRS
 
 	protected $zoneNumber;
 
-	private $E1;
-
 	/**
-	 * Constructor
+	 * Workaround to define constant-like function.
+	 * As of PHP 7.4 (written 2020-08-25) is not possible to define class constant if value is using some functions: sqrt() in this case
+	 *
+	 * @return float
 	 */
-	public function __construct() {
-		// UTMtoLL Requirement
-		$this->E1 = (1 - sqrt(1 - self::ECC_SQUARED)) / (1 + sqrt(1 - self::ECC_SQUARED));
+	private static function getE1(): float {
+		static $E1;
+		if ($E1 === null) {
+			$E1 = (1 - sqrt(1 - self::ECC_SQUARED)) / (1 + sqrt(1 - self::ECC_SQUARED));
+		}
+		return $E1;
 	}
 
 	// Number of digits to display for x,y coords
@@ -257,9 +261,9 @@ class MGRS
 
 		// phi1 is the "footprint latitude" or the latitude at the central meridian which
 		// has the same y coordinate as that of the point (phi (lat), lambda (lon) ).
-		$phi1Rad = $mu + (3 * $this->E1 / 2 - 27 * $this->E1 * $this->E1 * $this->E1 / 32) * sin(2 * $mu)
-			+ (21 * $this->E1 * $this->E1 / 16 - 55 * $this->E1 * $this->E1 * $this->E1 * $this->E1 / 32) * sin(4 * $mu)
-			+ (151 * $this->E1 * $this->E1 * $this->E1 / 96) * sin(6 * $mu);
+		$phi1Rad = $mu + (3 * self::getE1() / 2 - 27 * self::getE1() * self::getE1() * self::getE1() / 32) * sin(2 * $mu)
+			+ (21 * self::getE1() * self::getE1() / 16 - 55 * self::getE1() * self::getE1() * self::getE1() * self::getE1() / 32) * sin(4 * $mu)
+			+ (151 * self::getE1() * self::getE1() * self::getE1() / 96) * sin(6 * $mu);
 		$phi1 = $phi1Rad * self::RAD_TO_DEG;
 
 		// Terms used in the conversion equations
