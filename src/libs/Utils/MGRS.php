@@ -330,8 +330,7 @@ class MGRS
 
 		// southern hemisphere case
 		if ($usngp['let'] < 'N') $coords['N'] -= self::NORTHING_OFFSET;
-
-		self::UTMtoLL($coords['N'], $coords['E'], $usngp['zone'], $coords);
+		self::UTMLtoLL($coords['N'], $coords['E'], $usngp['zone'], $coords);
 		$latlon[0] = $coords['lat'];
 		$latlon[1] = $coords['lon'];
 	}
@@ -533,9 +532,15 @@ class MGRS
 		return $l1{$col} . $l2{$row};
 	}
 
+	/**
+	 * Parse USNG string into it's parts
+	 *
+	 * It's safe to not use mb_* because it always contains only ASCII characters
+	 *
+	 * @param string $usngStr
+	 * @param string[] $parts
+	 */
 	private function parseUSNG($usngStr, &$parts) {
-		$j = 0;
-		$k = 0;
 
 		// Construct String
 		$usngStr = str_ireplace(['%20', ' '], ['', ''], strtoupper($usngStr));
@@ -543,27 +548,22 @@ class MGRS
 		// Minimum Range Requirement
 		if (strlen($usngStr) < 7) {
 			throw new \UnexpectedValueException("This application requires minimum USNG precision of 10,000 meters");
-			return 0;
 		}
 
-		// break usng string into its component pieces
-		$parts['zone'] = $usngStr{++$j} * 10 + $usngStr{++$j} * 1;
-		$parts['let'] = $usngStr{++$j};
-		$parts['sq1'] = $usngStr{++$j};
-		$parts['sq2'] = $usngStr{++$j};
+		$parts['zone'] = substr($usngStr, 0, 2);
+		$parts['let'] = substr($usngStr, 2, 1);
 
-		$parts['precision'] = (strlen($usngStr) - $j) / 2;
-		$parts['east'] = '';
-		$parts['north'] = '';
+		$parts['sq1'] = substr($usngStr, 3, 1);
+		$parts['sq2'] = substr($usngStr, 4, 1);
 
-		for ($k = 0; $k < $parts['precision']; ++$k) {
-			$parts['east'] .= $usngStr{++$j};
+		$eastingNorthingString = substr($usngStr, 5);
+		$precision = strlen($eastingNorthingString);
+		if ($precision % 2 === 1) {
+			throw new \UnexpectedValueException(sprintf('Last part (Easting and Northing) must have even length but has "%d" (%s)', $precision, $eastingNorthingString));
 		}
+		list($easting, $northing) = str_split($eastingNorthingString, $precision / 2);
 
-		if ($usngStr[$j] === ' ') ++$j;
-
-		for ($k = 0; $k < $parts['precision']; ++$k) {
-			$parts['north'] .= $usngStr{++$j};
-		}
+		$parts['east'] = $easting;
+		$parts['north'] = $northing;
 	}
 }
