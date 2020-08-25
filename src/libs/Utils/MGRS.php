@@ -300,7 +300,7 @@ class MGRS
 
 		// convert northing to UTM
 		$letNorth = strpos("CDEFGHJKLMNPQRSTUVWX", $let);
-		$nSqrs = ($zone % 2) ? strpos("ABCDEFGHJKLMNPQRSTUV", $sq2) : strpos("FGHJKLMNPQRSTUVABCDE", $sq2);
+		$nSqrs = ($zone % 2) ? strpos(self::USNGSqLetOdd, $sq2) : strpos(self::USNGSqLetEven, $sq2);
 
 		$zoneStart = $zoneBase[$letNorth];
 		$appxNorth = $segBase[$letNorth] + $nSqrs / 10;
@@ -515,19 +515,19 @@ class MGRS
 			case 1:
 			case 4:
 				$l1 = 'ABCDEFGH';
-				$l2 = ($even) ? 'FGHJKLMNPQRSTUVABCDE' : 'ABCDEFGHJKLMNPQRSTUV';
+				$l2 = ($even) ? self::USNGSqLetEven : self::USNGSqLetOdd;
 				break;
 
 			case 2:
 			case 5:
 				$l1 = 'JKLMNPQR';
-				$l2 = ($even) ? 'FGHJKLMNPQRSTUVABCDE' : 'ABCDEFGHJKLMNPQRSTUV';
+				$l2 = ($even) ? self::USNGSqLetEven : self::USNGSqLetOdd;
 				break;
 
 			case 3:
 			case 6:
 				$l1 = 'STUVWXYZ';
-				$l2 = ($even) ? 'FGHJKLMNPQRSTUVABCDE' : 'ABCDEFGHJKLMNPQRSTUV';
+				$l2 = ($even) ? self::USNGSqLetEven : self::USNGSqLetOdd;
 				break;
 		}
 
