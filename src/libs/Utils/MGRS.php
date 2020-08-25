@@ -39,7 +39,7 @@ class MGRS
 	const USNGSqEast = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
 	const USNGSqLetOdd = 'ABCDEFGHJKLMNPQRSTUV';
 	const USNGSqLetEven = 'FGHJKLMNPQRSTUVABCDE';
-	
+
 	const DEG_TO_RAD = M_PI / 180;
 	const RAD_TO_DEG = 180 / M_PI;
 
@@ -75,14 +75,18 @@ class MGRS
 		$lon = floatval($lon);
 
 		// Sanity Check
-		if ($lon > 360 || $lon < -180 || $lat > 90 || $lat < -90) throw new \UnexpectedValueException('Invalid coordinates received');
+		if ($lon > 360 || $lon < -180 || $lat > 90 || $lat < -90) {
+			throw new \UnexpectedValueException('Invalid coordinates received');
+		}
 
 		// Convert 0-360 to [-180 to 180] range
 		$lonTemp = ($lon + 180) - intval(($lon + 180) / 360) * 360 - 180;
 		$zoneNumber = intval(($lonTemp + 180) / 6) + 1;
 
 		// Handle special case of west coast of Norway
-		if ($lat >= 56 && $lat < 64 && $lonTemp >= 3 && $lonTemp < 12) $zoneNumber = 32;
+		if ($lat >= 56 && $lat < 64 && $lonTemp >= 3 && $lonTemp < 12) {
+			$zoneNumber = 32;
+		}
 
 		// Special zones for Svalbard
 		if ($lat >= 72 && $lat < 84) {
@@ -122,10 +126,14 @@ class MGRS
 		$lon = floatval($lon);
 
 		// Constrain reporting USNG coords to the $latitude range [80S .. 84N]
-		if ($lat > 84 || $lat < -80) return null;
+		if ($lat > 84 || $lat < -80) {
+			return null;
+		}
 
 		// Sanity check
-		if ($lon > 360 || $lon < -180 || $lat > 90 || $lat < -90) throw new \UnexpectedValueException('Invalid coordinates');
+		if ($lon > 360 || $lon < -180 || $lat > 90 || $lat < -90) {
+			throw new \UnexpectedValueException('Invalid coordinates');
+		}
 
 		// Make sure the $longitude is between -180.00 .. 179.99..
 		// Convert values on 0-360 range to this range.
@@ -197,7 +205,9 @@ class MGRS
 
 		// ...then convert UTM to USNG
 		// southern hemispher case
-		if ($lat < 0) $UTMNorthing += self::NORTHING_OFFSET;
+		if ($lat < 0) {
+			$UTMNorthing += self::NORTHING_OFFSET;
+		}
 
 		$USNGLetters = self::findGridLetters($this->zoneNumber, $UTMNorthing, $UTMEasting);
 		$USNGNorthing = round($UTMNorthing) % self::BLOCK_SIZE;
@@ -305,7 +315,9 @@ class MGRS
 		$zoneStart = $zoneBase[$letNorth];
 		$appxNorth = $segBase[$letNorth] + $nSqrs / 10;
 
-		if ($appxNorth < $zoneStart) $appxNorth += 2;
+		if ($appxNorth < $zoneStart) {
+			$appxNorth += 2;
+		}
 
 		$ret['N'] = $appxNorth * 1000000 + intval($north) * pow(10, 5 - strlen($north));
 		$ret['E'] = $appxEast * 100000 + intval($east) * pow(10, 5 - strlen($east));
@@ -331,7 +343,9 @@ class MGRS
 		self::USNGtoUTM($usngp['zone'], $usngp['let'], $usngp['sq1'], $usngp['sq2'], $usngp['east'], $usngp['north'], $coords);
 
 		// southern hemisphere case
-		if ($usngp['let'] < 'N') $coords['N'] -= self::NORTHING_OFFSET;
+		if ($usngp['let'] < 'N') {
+			$coords['N'] -= self::NORTHING_OFFSET;
+		}
 		self::UTMLtoLL($coords['N'], $coords['E'], $usngp['zone'], $coords);
 		$latlon[0] = $coords['lat'];
 		$latlon[1] = $coords['lon'];
@@ -347,9 +361,6 @@ class MGRS
 
 	// Valid USNG String?
 	public static function isUSNG($usngStr) {
-		$j = 0;
-		$k = 0;
-
 		// Construct String
 		$usngStr = str_ireplace(['%20', ' '], ['', ''], strtoupper($usngStr));
 		$precision = '^[0-9]{2}[CDEFGHJKLMNPQRSTUVWX]$';
@@ -358,7 +369,9 @@ class MGRS
 		// Invalid States || usngStr
 		if (preg_match($precision, $usngStr) || preg_match($generic, $usngStr) || strlen($usngStr) > 15) {
 			return false;
-		} else return $usngStr;
+		} else {
+			return $usngStr;
+		}
 	}
 
 
@@ -503,12 +516,16 @@ class MGRS
 		// handle case of last row
 		if ($row == 0) {
 			$row = self::GRIDSQUARE_SET_ROW_SIZE - 1;
-		} else --$row;
+		} else {
+			$row--;
+		}
 
 		// handle case of last column
 		if ($col == 0) {
 			$col = self::GRIDSQUARE_SET_COL_SIZE - 1;
-		} else --$col;
+		} else {
+			$col--;
+		}
 
 		$even = ($set % 2 === 0);
 		switch ($set) {
