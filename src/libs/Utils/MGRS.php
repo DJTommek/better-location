@@ -19,27 +19,33 @@ namespace Utils;
  *
  * Math & partial boilerplate from: Google's USNGCoder C# Project (http://geochat.googlecode.com/svn/trunk/Source/Geo/USNGCoder.cs)
  *
- * @author https://gist.github.com/j42/2aae5a360624ae2a43d7
+ * @author Julian Aceves (https://gist.github.com/j42/2aae5a360624ae2a43d7)
  */
 class MGRS
 {
 
 	# Properties
 	const BLOCK_SIZE = 100000;
-	const EQUATORIAL_RADIUS = 6378137.0;            // GRS80 ellipsoid (meters)
+	const EQUATORIAL_RADIUS = 6378137.0; // GRS80 ellipsoid (meters)
 	const ECC_SQUARED = 0.006694380023;
-	const EASTING_OFFSET = 500000.0;        // (meters)
+	const ECC_PRIME_SQUARED = self::ECC_SQUARED / (1 - self::ECC_SQUARED);
+
+	const EASTING_OFFSET = 500000.0; // (meters)
 	const NORTHING_OFFSET = 10000000.0;
-	const GRIDSQUARE_SET_COL_SIZE = 8;                // column width of grid square set
+	const GRIDSQUARE_SET_COL_SIZE = 8; // column width of grid square set
 	const GRIDSQUARE_SET_ROW_SIZE = 20;
 	const k0 = 0.9996;
 	const UTMGzdLetters = 'NPQRSTUVWX';
 	const USNGSqEast = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
 	const USNGSqLetOdd = 'ABCDEFGHJKLMNPQRSTUV';
 	const USNGSqLetEven = 'FGHJKLMNPQRSTUVABCDE';
+	
+	const DEG_TO_RAD = M_PI / 180;
+	const RAD_TO_DEG = 180 / M_PI;
 
 	protected $zoneNumber;
 
+	private $E1;
 
 	/**
 	 * Constructor
@@ -47,11 +53,7 @@ class MGRS
 	public function __construct() {
 		// UTMtoLL Requirement
 		$this->E1 = (1 - sqrt(1 - self::ECC_SQUARED)) / (1 + sqrt(1 - self::ECC_SQUARED));
-		$this->ECC_PRIME_SQUARED = self::ECC_SQUARED / (1 - self::ECC_SQUARED);
-		$this->DEG_TO_RAD = M_PI / 180;
-		$this->RAD_TO_DEG = 180 / M_PI;
 	}
-
 
 	// Number of digits to display for x,y coords
 	//  One digit:    10 km precision      eg. "18S UJ 2 1"
@@ -128,21 +130,21 @@ class MGRS
 		// Make sure the $longitude is between -180.00 .. 179.99..
 		// Convert values on 0-360 range to this range.
 		$lonTemp = ($lon + 180) - intval(($lon + 180) / 360) * 360 - 180;
-		$latRad = $lat * $this->DEG_TO_RAD;
-		$lonRad = $lonTemp * $this->DEG_TO_RAD;
+		$latRad = $lat * self::DEG_TO_RAD;
+		$lonRad = $lonTemp * self::DEG_TO_RAD;
 
 		// user-supplied zone number will force coordinates to be computed in a particular zone
 		$this->zoneNumber = (!$zone) ? self::getZoneNumber($lat, $lon) : $zone;
 
 		$lonOrigin = ($this->zoneNumber - 1) * 6 - 180 + 3;  // +3 puts origin in middle of zone
-		$lonOriginRad = $lonOrigin * $this->DEG_TO_RAD;
+		$lonOriginRad = $lonOrigin * self::DEG_TO_RAD;
 
 		// compute the UTM Zone from the $latitude and $longitude
 		$UTMZone = $this->zoneNumber . '' . self::UTMLetterDesignator($lat) . ' ';
 
 		$N = self::EQUATORIAL_RADIUS / sqrt(1 - self::ECC_SQUARED * sin($latRad) * sin($latRad));
 		$T = tan($latRad) * tan($latRad);
-		$C = $this->ECC_PRIME_SQUARED * cos($latRad) * cos($latRad);
+		$C = self::ECC_PRIME_SQUARED * cos($latRad) * cos($latRad);
 		$A = cos($latRad) * ($lonRad - $lonOriginRad);
 
 		// Note that the term Mo drops out of the "M" equation, because phi
@@ -158,13 +160,13 @@ class MGRS
 				- (35 * self::ECC_SQUARED * self::ECC_SQUARED * self::ECC_SQUARED / 3072) * sin(6 * $latRad));
 
 		$UTMEasting = (self::k0 * $N * ($A + (1 - $T + $C) * ($A * $A * $A) / 6
-				+ (5 - 18 * $T + $T * $T + 72 * $C - 58 * $this->ECC_PRIME_SQUARED)
+				+ (5 - 18 * $T + $T * $T + 72 * $C - 58 * self::ECC_PRIME_SQUARED)
 				* ($A * $A * $A * $A * $A) / 120)
 			+ self::EASTING_OFFSET);
 
 		$UTMNorthing = (self::k0 * ($M + $N * tan($latRad) * (($A * $A) / 2 + (5 - $T + 9
 						* $C + 4 * $C * $C) * ($A * $A * $A * $A) / 24
-					+ (61 - 58 * $T + $T * $T + 600 * $C - 330 * $this->ECC_PRIME_SQUARED)
+					+ (61 - 58 * $T + $T * $T + 600 * $C - 330 * self::ECC_PRIME_SQUARED)
 					* ($A * $A * $A * $A * $A * $A) / 720)));
 
 		$utmcoords[0] = $UTMEasting;
@@ -248,28 +250,28 @@ class MGRS
 		$phi1Rad = $mu + (3 * $this->E1 / 2 - 27 * $this->E1 * $this->E1 * $this->E1 / 32) * sin(2 * $mu)
 			+ (21 * $this->E1 * $this->E1 / 16 - 55 * $this->E1 * $this->E1 * $this->E1 * $this->E1 / 32) * sin(4 * $mu)
 			+ (151 * $this->E1 * $this->E1 * $this->E1 / 96) * sin(6 * $mu);
-		$phi1 = $phi1Rad * $this->RAD_TO_DEG;
+		$phi1 = $phi1Rad * self::RAD_TO_DEG;
 
 		// Terms used in the conversion equations
 		$N1 = self::EQUATORIAL_RADIUS / sqrt(1 - self::ECC_SQUARED * sin($phi1Rad) * sin($phi1Rad));
 		$T1 = tan($phi1Rad) * tan($phi1Rad);
-		$C1 = $this->ECC_PRIME_SQUARED * cos($phi1Rad) * cos($phi1Rad);
+		$C1 = self::ECC_PRIME_SQUARED * cos($phi1Rad) * cos($phi1Rad);
 		$R1 = self::EQUATORIAL_RADIUS * (1 - self::ECC_SQUARED) / pow(1 - self::ECC_SQUARED * sin($phi1Rad) * sin($phi1Rad), 1.5);
 		$D = $xUTM / ($N1 * self::k0);
 
 		// Calculate latitude, in decimal degrees
 		$lat = $phi1Rad - ($N1 * tan($phi1Rad) / $R1) * ($D * $D / 2 - (5 + 3 * $T1 + 10
-					* $C1 - 4 * $C1 * $C1 - 9 * $this->ECC_PRIME_SQUARED) * $D * $D * $D * $D / 24 + (61 + 90 *
-					$T1 + 298 * $C1 + 45 * $T1 * $T1 - 252 * $this->ECC_PRIME_SQUARED - 3 * $C1 * $C1) * $D * $D *
+					* $C1 - 4 * $C1 * $C1 - 9 * self::ECC_PRIME_SQUARED) * $D * $D * $D * $D / 24 + (61 + 90 *
+					$T1 + 298 * $C1 + 45 * $T1 * $T1 - 252 * self::ECC_PRIME_SQUARED - 3 * $C1 * $C1) * $D * $D *
 				$D * $D * $D * $D / 720);
-		$lat *= $this->RAD_TO_DEG;
+		$lat *= self::RAD_TO_DEG;
 
 		// Calculate longitude, in decimal degrees
 		$lon = ($D - (1 + 2 * $T1 + $C1) * $D * $D * $D / 6 + (5 - 2 * $C1 + 28 * $T1 - 3 *
-					$C1 * $C1 + 8 * $this->ECC_PRIME_SQUARED + 24 * $T1 * $T1) * $D * $D * $D * $D * $D / 120) /
+					$C1 * $C1 + 8 * self::ECC_PRIME_SQUARED + 24 * $T1 * $T1) * $D * $D * $D * $D * $D / 120) /
 			cos($phi1Rad);
 
-		$lon = $lonOrigin + $lon * $this->RAD_TO_DEG;
+		$lon = $lonOrigin + $lon * self::RAD_TO_DEG;
 		$ret['lat'] = $lat;
 		$ret['lon'] = $lon;
 		return $ret;
