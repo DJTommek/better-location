@@ -24,6 +24,8 @@ namespace Utils;
 class MGRS
 {
 
+	const REGEX = '/^([0-6]?[0-9])([C-X])([A-Z])([A-Z])([0-9]+)$/';
+
 	# Properties
 	const BLOCK_SIZE = 100000;
 	const EQUATORIAL_RADIUS = 6378137.0; // GRS80 ellipsoid (meters)
@@ -564,22 +566,22 @@ class MGRS
 	 * @param string[] $parts
 	 */
 	private function parseUSNG($usngStr, &$parts) {
-
-		// Construct String
-		$usngStr = str_ireplace(['%20', ' '], ['', ''], strtoupper($usngStr));
-
 		// Minimum Range Requirement
 		if (strlen($usngStr) < 7) {
 			throw new \UnexpectedValueException("This application requires minimum USNG precision of 10,000 meters");
 		}
 
-		$parts['zone'] = substr($usngStr, 0, 2);
-		$parts['let'] = substr($usngStr, 2, 1);
+		if (preg_match(self::REGEX, $usngStr, $matches) === false) {
+			throw new \UnexpectedValueException("Invalid format");
+		}
+		list($input, $zone, $let, $sqr1, $sqr2, $eastingNorthingString) = $matches;
 
-		$parts['sq1'] = substr($usngStr, 3, 1);
-		$parts['sq2'] = substr($usngStr, 4, 1);
+		$parts['zone'] = $zone;
+		$parts['let'] = $let;
 
-		$eastingNorthingString = substr($usngStr, 5);
+		$parts['sq1'] = $sqr1;
+		$parts['sq2'] = $sqr2;
+
 		$precision = strlen($eastingNorthingString);
 		if ($precision % 2 === 1) {
 			throw new \UnexpectedValueException(sprintf('Last part (Easting and Northing) must have even length but has "%d" (%s)', $precision, $eastingNorthingString));
