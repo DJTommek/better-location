@@ -23,21 +23,20 @@ namespace Utils;
  */
 class MGRS
 {
-
 	const REGEX = '/^([0-6]?[0-9])([C-X])([A-Z])([A-Z])([0-9]+)$/';
 
-	# Properties
 	const BLOCK_SIZE = 100000;
 	const EQUATORIAL_RADIUS = 6378137.0; // GRS80 ellipsoid (meters)
 	const ECC_SQUARED = 0.006694380023;
 	const ECC_PRIME_SQUARED = self::ECC_SQUARED / (1 - self::ECC_SQUARED);
 
-	const EASTING_OFFSET = 500000.0; // (meters)
-	const NORTHING_OFFSET = 10000000.0;
+	const EASTING_OFFSET = 500000.0; // meters
+	const NORTHING_OFFSET = 10000000.0; // meters
 	const GRIDSQUARE_SET_COL_SIZE = 8; // column width of grid square set
-	const GRIDSQUARE_SET_ROW_SIZE = 20;
+	const GRIDSQUARE_SET_ROW_SIZE = 20; // column height of grid square set
 	const k0 = 0.9996;
-	const UTMGzdLetters = 'NPQRSTUVWX';
+	const MGRS_ZONE_LETTERS = 'CDEFGHJKLMNPQRSTUVWX';
+	const UTMGzdLetters = 'NPQRSTUVWX'; // @TODO what is this?
 	const USNGSqEast = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
 	const USNGSqLetOdd = 'ABCDEFGHJKLMNPQRSTUV';
 	const USNGSqLetEven = 'FGHJKLMNPQRSTUVABCDE';
@@ -245,8 +244,10 @@ class MGRS
 	 *       southern hemisphere NEGATIVE from equator ('real' value - 10,000,000)
 	 *     UTMEasting    : easting-m  (numeric), eg. 4000000.0
 	 *     UTMZoneNumber : 6-deg longitudinal zone (numeric), eg. 18
+	 *
+	 * @return \stdClass lat, lon
 	 */
-	public function UTMLtoLL($UTMNorthing, $UTMEasting, $UTMZoneNumber, &$ret) {
+	public function UTMLtoLL($UTMZoneNumber, $UTMNorthing, $UTMEasting): \stdClass {
 		// remove 500,000 meter offset for longitude
 		$xUTM = floatval($UTMEasting) - self::EASTING_OFFSET;
 		$yUTM = floatval($UTMNorthing);
@@ -288,9 +289,11 @@ class MGRS
 			cos($phi1Rad);
 
 		$lon = $lonOrigin + $lon * self::RAD_TO_DEG;
-		$ret['lat'] = $lat;
-		$ret['lon'] = $lon;
-		return $ret;
+
+		$coords = new \stdClass();
+		$coords->lat = $lat;
+		$coords->lon = $lon;
+		return $coords;
 	}
 
 	/**
@@ -303,8 +306,16 @@ class MGRS
 	 *     east:  Easting digit string, eg 4000
 	 *     north:  Northing digit string eg 4000
 	 *     ret:  saves zone,let,Easting and Northing as properties ret
+	 *
+	 * @param string $zone
+	 * @param string $letter
+	 * @param string $sq1
+	 * @param string $sq2
+	 * @param string $east int but has to be string to keep precision
+	 * @param string $north int but has to be string to keep precision
+	 * @return \stdClass N, E, zone, letter
 	 */
-	public function USNGtoUTM($zone, $let, $sq1, $sq2, $east, $north, &$ret) {
+	public function USNGtoUTM(string $zone, string $letter, string $sq1, string $sq2, string $east, string $north): \stdClass {
 
 		//Starts (southern edge) of N-S zones in millons of meters
 		$zoneBase = [1.1, 2.0, 2.9, 3.8, 4.7, 5.6, 6.5, 7.3, 8.2, 9.1, 0, 0.8, 1.7, 2.6, 3.5, 4.4, 5.3, 6.2, 7.0, 7.9];
@@ -315,7 +326,7 @@ class MGRS
 		$appxEast = 1 + $eSqrs % 8;
 
 		// convert northing to UTM
-		$letNorth = strpos("CDEFGHJKLMNPQRSTUVWX", $let);
+		$letNorth = strpos(self::MGRS_ZONE_LETTERS, $letter);
 		$nSqrs = ($zone % 2) ? strpos(self::USNGSqLetOdd, $sq2) : strpos(self::USNGSqLetEven, $sq2);
 
 		$zoneStart = $zoneBase[$letNorth];
@@ -325,36 +336,32 @@ class MGRS
 			$appxNorth += 2;
 		}
 
-		$ret['N'] = $appxNorth * 1000000 + intval($north) * pow(10, 5 - strlen($north));
-		$ret['E'] = $appxEast * 100000 + intval($east) * pow(10, 5 - strlen($east));
-		$ret['zone'] = $zone;
-		$ret['letter'] = $let;
-
-		return $ret;
+		$UTM = new \stdClass();
+		$UTM->N = $appxNorth * 1000000 + $north * pow(10, 5 - strlen($north));
+		$UTM->E = $appxEast * 100000 + $east * pow(10, 5 - strlen($east));
+		$UTM->zone = $zone;
+		$UTM->letter = $letter;
+		return $UTM;
 	}
 
 
 	/**
 	 * USNG --> LatLng
+	 *
+	 * @param string $usngStr
+	 * @return \stdClass
 	 */
-	public function USNGtoLL($usngStr, &$latlon) {
-		// latlon is a 2-element array declared by calling routine
-
-		$usngp = [];
-		$coords = [];
-
-		self::parseUSNG($usngStr, $usngp);
+	public function USNGtoLL($usngStr): \stdClass {
+		$USNG = self::parseUSNG($usngStr);
 
 		// convert USNG coords to UTM; this routine counts digits and sets precision
-		self::USNGtoUTM($usngp['zone'], $usngp['let'], $usngp['sq1'], $usngp['sq2'], $usngp['east'], $usngp['north'], $coords);
+		$UTM = self::USNGtoUTM($USNG->zone, $USNG->letter, $USNG->sq1, $USNG->sq2, $USNG->east, $USNG->north);
 
 		// southern hemisphere case
-		if ($usngp['let'] < 'N') {
-			$coords['N'] -= self::NORTHING_OFFSET;
+		if ($USNG->letter < 'N') {
+			$UTM->N -= self::NORTHING_OFFSET;
 		}
-		self::UTMLtoLL($coords['N'], $coords['E'], $usngp['zone'], $coords);
-		$latlon[0] = $coords['lat'];
-		$latlon[1] = $coords['lon'];
+		return self::UTMLtoLL($USNG->zone, $UTM->N, $UTM->E);
 	}
 
 	/**
@@ -369,8 +376,8 @@ class MGRS
 	public static function isUSNG($usngStr) {
 		// Construct String
 		$usngStr = str_ireplace(['%20', ' '], ['', ''], strtoupper($usngStr));
-		$precision = '^[0-9]{2}[CDEFGHJKLMNPQRSTUVWX]$';
-		$generic = '^[0-9]{2}[CDEFGHJKLMNPQRSTUVWX][ABCDEFGHJKLMNPQRSTUVWXYZ][ABCDEFGHJKLMNPQRSTUV]([0-9][0-9]){0,5}';
+		$precision = '^[0-9]{2}[' . self::MGRS_ZONE_LETTERS . ']$';
+		$generic = '^[0-9]{2}[' . self::MGRS_ZONE_LETTERS . '][ABCDEFGHJKLMNPQRSTUVWXYZ][ABCDEFGHJKLMNPQRSTUV]([0-9][0-9]){0,5}';
 
 		// Invalid States || usngStr
 		if (preg_match($precision, $usngStr) || preg_match($generic, $usngStr) || strlen($usngStr) > 15) {
@@ -563,24 +570,23 @@ class MGRS
 	 * It's safe to not use mb_* because it always contains only ASCII characters
 	 *
 	 * @param string $usngStr
-	 * @param string[] $parts
 	 */
-	private function parseUSNG($usngStr, &$parts) {
+	private function parseUSNG($usngStr): \stdClass {
 		// Minimum Range Requirement
 		if (strlen($usngStr) < 7) {
-			throw new \UnexpectedValueException("This application requires minimum USNG precision of 10,000 meters");
+			throw new \UnexpectedValueException('This application requires minimum USNG precision of 10,000 meters');
 		}
 
 		if (preg_match(self::REGEX, $usngStr, $matches) === false) {
-			throw new \UnexpectedValueException("Invalid format");
+			throw new \UnexpectedValueException('Invalid format of USNG string');
 		}
-		list($input, $zone, $let, $sqr1, $sqr2, $eastingNorthingString) = $matches;
+		list($input, $zone, $letter, $sqr1, $sqr2, $eastingNorthingString) = $matches;
 
-		$parts['zone'] = $zone;
-		$parts['let'] = $let;
-
-		$parts['sq1'] = $sqr1;
-		$parts['sq2'] = $sqr2;
+		$USNG = new \stdClass();
+		$USNG->zone = $zone;
+		$USNG->letter = $letter;
+		$USNG->sq1 = $sqr1;
+		$USNG->sq2 = $sqr2;
 
 		$precision = strlen($eastingNorthingString);
 		if ($precision % 2 === 1) {
@@ -588,7 +594,9 @@ class MGRS
 		}
 		list($easting, $northing) = str_split($eastingNorthingString, $precision / 2);
 
-		$parts['east'] = $easting;
-		$parts['north'] = $northing;
+		$USNG->east = $easting;
+		$USNG->north = $northing;
+
+		return $USNG;
 	}
 }
