@@ -23,8 +23,6 @@ namespace Utils;
  */
 class MGRS
 {
-	const REGEX = '/^([0-6]?[0-9])([C-X])([A-Z])([A-Z])([0-9]+)$/';
-
 	const BLOCK_SIZE = 100000;
 	const EQUATORIAL_RADIUS = 6378137.0; // GRS80 ellipsoid (meters)
 	const ECC_SQUARED = 0.006694380023;
@@ -36,7 +34,7 @@ class MGRS
 	const GRIDSQUARE_SET_ROW_SIZE = 20; // column height of grid square set
 	const k0 = 0.9996;
 	const MGRS_ZONE_LETTERS = 'CDEFGHJKLMNPQRSTUVWX';
-	const UTMGzdLetters = 'NPQRSTUVWX'; // @TODO what is this?
+//	const UTMGzdLetters = 'NPQRSTUVWX'; // @TODO what is this?
 	const USNGSqEast = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
 	const USNGSqLetOdd = 'ABCDEFGHJKLMNPQRSTUV';
 	const USNGSqLetEven = 'FGHJKLMNPQRSTUVABCDE';
@@ -45,6 +43,23 @@ class MGRS
 	const RAD_TO_DEG = 180 / M_PI;
 
 	protected $zoneNumber;
+
+	/**
+	 * @param int $minimumPrecision
+	 *  0 = 100 km precision  eg. "18S UJ 2"
+	 *  1 = 10 km precision   eg. "18S UJ 2 1"
+	 *  2 = 1 km precision    eg. "18S UJ 23 06"
+	 *  3 = 100 m precision   eg. "18S UJ 234 064"
+	 *  4 = 10 m precision    eg. "18S UJ 2348 0647"
+	 *  5 = 1 m precision     eg. "18S UJ 23480 06470"
+	 * @return string
+	 */
+	public static function getMgrsRegex(int $minimumPrecision = 3): string {
+		if ($minimumPrecision > 5 || $minimumPrecision < 0) {
+			throw new \InvalidArgumentException(sprintf('Precision settings must be in range 0 (10 000 meters) - 5 (1 meter) but provided %d', $minimumPrecision));
+		}
+		return '/^([0-6]?[0-9])([' . self::MGRS_ZONE_LETTERS . '])([A-Z])([A-Z])((?:[0-9][0-9]){' . $minimumPrecision . ',5})$/';
+	}
 
 	/**
 	 * Workaround to define constant-like function.
@@ -60,20 +75,18 @@ class MGRS
 		return $E1;
 	}
 
-	// Number of digits to display for x,y coords
-	//  One digit:    10 km precision      eg. "18S UJ 2 1"
-	//  Two digits:   1 km precision       eg. "18S UJ 23 06"
-	//  Three digits: 100 meters precision eg. "18S UJ 234 064"
-	//  Four digits:  10 meters precision  eg. "18S UJ 2348 0647"
-	//  Five digits:  1 meter precision    eg. "18S UJ 23480 06470"
 
 	/************* retrieve zone number from latitude, longitude *************
 	 *
 	 * Zone number ranges from 1 - 60 over the range [-180 to +180]. Each
 	 * range is 6 degrees wide. Special cases for points outside normal
 	 * [-80 to +84] latitude zone.
-	 *************************************************************************/
-
+	 ************************************************************************
+	 *
+	 * @param $lat
+	 * @param $lon
+	 * @return int
+	 */
 	public function getZoneNumber($lat, $lon) {
 
 		$lat = floatval($lat);
@@ -123,6 +136,12 @@ class MGRS
 	 *      utmcoords[0] = easting
 	 *      utmcoords[1] = northing (NEGATIVE value in southern hemisphere)
 	 *      utmcoords[2] = zone
+	 *
+	 * @param $lat
+	 * @param $lon
+	 * @param $utmcoords
+	 * @param bool $zone
+	 * @return null|void
 	 */
 	public function LLtoUTM($lat, $lon, &$utmcoords, $zone = false) {
 
@@ -153,7 +172,7 @@ class MGRS
 		$lonOriginRad = $lonOrigin * self::DEG_TO_RAD;
 
 		// compute the UTM Zone from the $latitude and $longitude
-		$UTMZone = $this->zoneNumber . '' . self::UTMLetterDesignator($lat) . ' ';
+//		$UTMZone = $this->zoneNumber . '' . self::UTMLetterDesignator($lat) . ' ';
 
 		$N = self::EQUATORIAL_RADIUS / sqrt(1 - self::ECC_SQUARED * sin($latRad) * sin($latRad));
 		$T = tan($latRad) * tan($latRad);
@@ -196,6 +215,11 @@ class MGRS
 	 *   Returns string of the format: DDL LL DDDD DDDD (4-digit precision), eg:
 	 *     "18S UJ 2286 0705" locates Washington Monument in Washington, D.C.
 	 *     to a 10-meter precision.
+	 *
+	 * @param $lat
+	 * @param $lon
+	 * @param $precision
+	 * @return string
 	 */
 	public function LLtoUSNG($lat, $lon, $precision) {
 
@@ -245,6 +269,9 @@ class MGRS
 	 *     UTMEasting    : easting-m  (numeric), eg. 4000000.0
 	 *     UTMZoneNumber : 6-deg longitudinal zone (numeric), eg. 18
 	 *
+	 * @param $UTMZoneNumber
+	 * @param $UTMNorthing
+	 * @param $UTMEasting
 	 * @return \stdClass lat, lon
 	 */
 	public function UTMLtoLL($UTMZoneNumber, $UTMNorthing, $UTMEasting): \stdClass {
@@ -267,7 +294,6 @@ class MGRS
 		$phi1Rad = $mu + (3 * self::getE1() / 2 - 27 * self::getE1() * self::getE1() * self::getE1() / 32) * sin(2 * $mu)
 			+ (21 * self::getE1() * self::getE1() / 16 - 55 * self::getE1() * self::getE1() * self::getE1() * self::getE1() / 32) * sin(4 * $mu)
 			+ (151 * self::getE1() * self::getE1() * self::getE1() / 96) * sin(6 * $mu);
-		$phi1 = $phi1Rad * self::RAD_TO_DEG;
 
 		// Terms used in the conversion equations
 		$N1 = self::EQUATORIAL_RADIUS / sqrt(1 - self::ECC_SQUARED * sin($phi1Rad) * sin($phi1Rad));
@@ -366,6 +392,12 @@ class MGRS
 
 	/**
 	 * LatLng --> MGRS
+	 *
+	 * @param $lat
+	 * @param $lon
+	 * @param $precision
+	 * @return string|string[]|null
+	 * @noinspection PhpUnused
 	 */
 	public function LLtoMGRS($lat, $lon, $precision) {
 		return preg_replace('/\s/', '', self::LLtoUSNG($lat, $lon, $precision));
@@ -374,8 +406,6 @@ class MGRS
 
 	// Valid USNG String?
 	public static function isUSNG($usngStr) {
-		// Construct String
-		$usngStr = str_ireplace(['%20', ' '], ['', ''], strtoupper($usngStr));
 		$precision = '^[0-9]{2}[' . self::MGRS_ZONE_LETTERS . ']$';
 		$generic = '^[0-9]{2}[' . self::MGRS_ZONE_LETTERS . '][ABCDEFGHJKLMNPQRSTUVWXYZ][ABCDEFGHJKLMNPQRSTUV]([0-9][0-9]){0,5}';
 
@@ -387,6 +417,13 @@ class MGRS
 		}
 	}
 
+	/**
+	 * @param string $mgrsInput
+	 * @return false|string
+	 */
+	public static function isMGRS(string $mgrsInput): bool {
+		return !!preg_match(self::getMgrsRegex(), $mgrsInput);
+	}
 
 	/**
 	 * This routine determines the correct UTM letter designator for the given
@@ -395,6 +432,9 @@ class MGRS
 	 * Returns letter designator for a given latitude.
 	 * Letters range from C (-80 lat) to X (+84 lat), with each zone spanning
 	 * 8 degrees of latitude.
+	 *
+	 * @param $lat
+	 * @return string
 	 */
 	private function UTMLetterDesignator($lat) {
 		$lat = floatval($lat);
@@ -447,40 +487,30 @@ class MGRS
 
 	private function findSet($zoneNum) {
 		switch (intval($zoneNum) % 6) {
-
 			case 0:
 				return 6;
-				break;
-
 			case 1:
 				return 1;
-				break;
-
 			case 2:
 				return 2;
-				break;
-
 			case 3:
 				return 3;
-				break;
-
 			case 4:
 				return 4;
-				break;
-
 			case 5:
 				return 5;
-				break;
-
 			default:
 				return -1;
-				break;
-
 		}
 	}
 
 	/**
 	 * Retrieve the square identification for a given coordinate pair & zone
+	 *
+	 * @param $zoneNum
+	 * @param $northing
+	 * @param $easting
+	 * @return string
 	 */
 	private function findGridLetters($zoneNum, $northing, $easting) {
 
@@ -523,6 +553,11 @@ class MGRS
 	 *   given row, column and set identifier (set refers to the zone set:
 	 *   zones 1-6 have a unique set of square identifiers; these identifiers are
 	 *   repeated for zones 7-12, etc.)
+	 *
+	 * @param $set
+	 * @param $row
+	 * @param $col
+	 * @return string
 	 */
 	private function lettersHelper($set, $row, $col) {
 
@@ -561,6 +596,7 @@ class MGRS
 				break;
 		}
 
+		/** @noinspection PhpUndefinedVariableInspection */
 		return $l1{$col} . $l2{$row};
 	}
 
@@ -569,30 +605,28 @@ class MGRS
 	 *
 	 * It's safe to not use mb_* because it always contains only ASCII characters
 	 *
-	 * @param string $usngStr
+	 * @param string $usngString
+	 * @return \stdClass
+	 * @throws \Exception
 	 */
-	private function parseUSNG($usngStr): \stdClass {
-		// Minimum Range Requirement
-		if (strlen($usngStr) < 7) {
-			throw new \UnexpectedValueException('This application requires minimum USNG precision of 10,000 meters');
+	private function parseUSNG($usngString): \stdClass {
+		if (self::isMGRS($usngString) === false) {
+			throw new \UnexpectedValueException(sprintf('Input string "%s" is not valid MGRS coordinate.', $usngString));
+		}
+		if (preg_match(self::getMgrsRegex(), $usngString, $matches) === false) { // duplicated regex from isMGRS to get $matches by it's parts
+			throw new \LogicException('Invalid format of USNG string which should be catched by self::isMGRS().');
 		}
 
-		if (preg_match(self::REGEX, $usngStr, $matches) === false) {
-			throw new \UnexpectedValueException('Invalid format of USNG string');
-		}
-		list($input, $zone, $letter, $sqr1, $sqr2, $eastingNorthingString) = $matches;
+		list(, $zone, $letter, $sqr1, $sqr2, $eastingNorthingString) = $matches;
 
 		$USNG = new \stdClass();
 		$USNG->zone = $zone;
 		$USNG->letter = $letter;
 		$USNG->sq1 = $sqr1;
 		$USNG->sq2 = $sqr2;
+		$USNG->precision = strlen($eastingNorthingString) / 2;
 
-		$precision = strlen($eastingNorthingString);
-		if ($precision % 2 === 1) {
-			throw new \UnexpectedValueException(sprintf('Last part (Easting and Northing) must have even length but has "%d" (%s)', $precision, $eastingNorthingString));
-		}
-		list($easting, $northing) = str_split($eastingNorthingString, $precision / 2);
+		list($easting, $northing) = str_split($eastingNorthingString, $USNG->precision);
 
 		$USNG->east = $easting;
 		$USNG->north = $northing;
