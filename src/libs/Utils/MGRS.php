@@ -35,14 +35,95 @@ class MGRS
 	const k0 = 0.9996;
 	const MGRS_ZONE_LETTERS = 'CDEFGHJKLMNPQRSTUVWX';
 //	const UTMGzdLetters = 'NPQRSTUVWX'; // @TODO what is this?
-	const USNGSqEast = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
-	const USNGSqLetOdd = 'ABCDEFGHJKLMNPQRSTUV';
-	const USNGSqLetEven = 'FGHJKLMNPQRSTUVABCDE';
+	const MGRSSqEast = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+	const MGRSSqLetOdd = 'ABCDEFGHJKLMNPQRSTUV';
+	const MGRSSqLetEven = 'FGHJKLMNPQRSTUVABCDE';
 
 	const DEG_TO_RAD = M_PI / 180;
 	const RAD_TO_DEG = 180 / M_PI;
 
-	protected $zoneNumber;
+	private $zoneNumber;
+	private $zoneBand;
+	private $gridSquareId1;
+	private $gridSquareId2;
+	private $easting;
+	private $northing;
+	private $precision;
+
+	private $lat;
+	private $lon;
+
+	public function getZoneNumber(): string {
+		return $this->zoneNumber;
+	}
+
+	public function getZoneBand(): string {
+		return $this->zoneBand;
+	}
+
+	public function setGridZone(string $zoneNumber, string $zoneBand): void {
+		if (preg_match('/^' . self::REGEX_GRID_ZONE . '$/', $zoneNumber) && preg_match('/^[' . self::MGRS_ZONE_LETTERS . ']$/', $zoneBand)) {
+			$this->zoneNumber = $zoneNumber;
+			$this->zoneBand = $zoneBand;
+		} else {
+			throw new \InvalidArgumentException('Grid zone or zone band is not valid.');
+		}
+	}
+
+	public function getGridSquareId1(): string {
+		return $this->gridSquareId1;
+	}
+
+	public function getGridSquareId2(): string {
+		return $this->gridSquareId2;
+	}
+
+	public function getGridSquareId(): string {
+		return $this->gridSquareId1 . $this->gridSquareId2;
+	}
+
+	public function getLat(): float {
+		return $this->lat;
+	}
+
+	public function getLon(): float {
+		return $this->lon;
+	}
+
+	public function getPrecision(): int {
+		return $this->precision;
+	}
+
+	public function setGridSquareId(string $gridSquareId1, string $gridSquareId2): void {
+		if (preg_match('/^[A-Z]$/', $gridSquareId1) && preg_match('/^[A-Z]$/', $gridSquareId2)) {
+			$this->gridSquareId1 = $gridSquareId1;
+			$this->gridSquareId2 = $gridSquareId2;
+		} else {
+			throw new \InvalidArgumentException('Grid squares are not valid.');
+		}
+	}
+
+	public function setNumericalIng(string $easting, string $northing): void {
+		if (ctype_digit($easting) === false || ctype_digit($northing) === false) {
+			throw new \InvalidArgumentException('Easting or Northing are not valid numbers');
+		}
+		if (strlen($northing) !== strlen($easting)) {
+			throw new \InvalidArgumentException('Easting or Northing has to be same precision length');
+		}
+		$this->northing = $northing;
+		$this->easting = $easting;
+		$this->precision = strlen($easting);
+	}
+
+	public function getEasting(): string {
+		return $this->easting;
+	}
+
+	public function getNorthing(): string {
+		return $this->northing;
+	}
+
+	const REGEX_GRID_ZONE = '[0-6]?[0-9]';
 
 	/**
 	 * @param int $minimumPrecision
@@ -52,13 +133,27 @@ class MGRS
 	 *  3 = 100 m precision   eg. "18S UJ 234 064"
 	 *  4 = 10 m precision    eg. "18S UJ 2348 0647"
 	 *  5 = 1 m precision     eg. "18S UJ 23480 06470"
+	 * @param bool $start
+	 * @param bool $end
 	 * @return string
 	 */
-	public static function getMgrsRegex(int $minimumPrecision = 3): string {
+	public static function getMgrsRegex(int $minimumPrecision = 3, bool $start = true, bool $end = true): string {
 		if ($minimumPrecision > 5 || $minimumPrecision < 0) {
 			throw new \InvalidArgumentException(sprintf('Precision settings must be in range 0 (10 000 meters) - 5 (1 meter) but provided %d', $minimumPrecision));
 		}
-		return '/^([0-6]?[0-9])([' . self::MGRS_ZONE_LETTERS . '])([A-Z])([A-Z])((?:[0-9][0-9]){' . $minimumPrecision . ',5})$/';
+		$regex = '';
+		if ($start) {
+			$regex = '/^';
+		}
+		$regex .= '(' . self::REGEX_GRID_ZONE . ')';
+		$regex .= '([' . self::MGRS_ZONE_LETTERS . '])';
+		$regex .= '([A-Z])';
+		$regex .= '([A-Z])';
+		$regex .= '((?:[0-9][0-9]){' . $minimumPrecision . ',5})';
+		if ($end) {
+			$regex .= '$/';
+		}
+		return $regex;
 	}
 
 	/**
@@ -87,7 +182,7 @@ class MGRS
 	 * @param $lon
 	 * @return int
 	 */
-	public function getZoneNumber($lat, $lon) {
+	public function generateZoneNumber($lat, $lon) {
 
 		$lat = floatval($lat);
 		$lon = floatval($lon);
@@ -149,7 +244,7 @@ class MGRS
 		$lat = floatval($lat);
 		$lon = floatval($lon);
 
-		// Constrain reporting USNG coords to the $latitude range [80S .. 84N]
+		// Constrain reporting MGRS coords to the $latitude range [80S .. 84N]
 		if ($lat > 84 || $lat < -80) {
 			return null;
 		}
@@ -166,7 +261,7 @@ class MGRS
 		$lonRad = $lonTemp * self::DEG_TO_RAD;
 
 		// user-supplied zone number will force coordinates to be computed in a particular zone
-		$this->zoneNumber = (!$zone) ? self::getZoneNumber($lat, $lon) : $zone;
+		$this->zoneNumber = (!$zone) ? self::generateZoneNumber($lat, $lon) : $zone;
 
 		$lonOrigin = ($this->zoneNumber - 1) * 6 - 180 + 3;  // +3 puts origin in middle of zone
 		$lonOriginRad = $lonOrigin * self::DEG_TO_RAD;
@@ -207,10 +302,10 @@ class MGRS
 	}
 
 	/**
-	 * LatLng --> USNG
+	 * LatLng --> MGRS
 	 *
-	 * Converts lat/lng to USNG coordinates.  Calls LLtoUTM first, then
-	 * converts UTM coordinates to a USNG string.
+	 * Converts lat/lng to MGRS coordinates.  Calls LLtoUTM first, then
+	 * converts UTM coordinates to a MGRS string.
 	 *
 	 *   Returns string of the format: DDL LL DDDD DDDD (4-digit precision), eg:
 	 *     "18S UJ 2286 0705" locates Washington Monument in Washington, D.C.
@@ -245,7 +340,7 @@ class MGRS
 		// added... truncate digits to achieve specified precision
 		$USNGNorthing = floor($USNGNorthing / pow(10, (5 - $precision)));
 		$USNGEasting = floor($USNGEasting / pow(10, (5 - $precision)));
-		$USNG = self::getZoneNumber($lat, $lon) . self::UTMLetterDesignator($lat) . ' ' . $USNGLetters . ' ';
+		$USNG = self::generateZoneNumber($lat, $lon) . self::UTMLetterDesignator($lat) . ' ' . $USNGLetters . ' ';
 
 		// REVISIT: Modify to incorporate dynamic precision ?
 		for ($i = strlen(strval($USNGEasting)); $i < $precision; ++$i) $USNG .= '0';
@@ -274,7 +369,7 @@ class MGRS
 	 * @param $UTMEasting
 	 * @return \stdClass lat, lon
 	 */
-	public function UTMLtoLL($UTMZoneNumber, $UTMNorthing, $UTMEasting): \stdClass {
+	public function UTMLtoLL($UTMZoneNumber, $UTMNorthing, $UTMEasting): void {
 		// remove 500,000 meter offset for longitude
 		$xUTM = floatval($UTMEasting) - self::EASTING_OFFSET;
 		$yUTM = floatval($UTMNorthing);
@@ -316,10 +411,8 @@ class MGRS
 
 		$lon = $lonOrigin + $lon * self::RAD_TO_DEG;
 
-		$coords = new \stdClass();
-		$coords->lat = $lat;
-		$coords->lon = $lon;
-		return $coords;
+		$this->lat = $lat;
+		$this->lon = $lon;
 	}
 
 	/**
@@ -341,19 +434,19 @@ class MGRS
 	 * @param string $north int but has to be string to keep precision
 	 * @return \stdClass N, E, zone, letter
 	 */
-	public function USNGtoUTM(string $zone, string $letter, string $sq1, string $sq2, string $east, string $north): \stdClass {
+	public function MGRStoUTM(string $zone, string $letter, string $sq1, string $sq2, string $east, string $north): \stdClass {
 
 		//Starts (southern edge) of N-S zones in millons of meters
 		$zoneBase = [1.1, 2.0, 2.9, 3.8, 4.7, 5.6, 6.5, 7.3, 8.2, 9.1, 0, 0.8, 1.7, 2.6, 3.5, 4.4, 5.3, 6.2, 7.0, 7.9];
 		$segBase = [0, 2, 2, 2, 4, 4, 6, 6, 8, 8, 0, 0, 0, 2, 2, 4, 4, 6, 6, 6];  //Starts of 2 million meter segments, indexed by zone
 
 		// convert easting to UTM
-		$eSqrs = strpos(self::USNGSqEast, $sq1);
+		$eSqrs = strpos(self::MGRSSqEast, $sq1);
 		$appxEast = 1 + $eSqrs % 8;
 
 		// convert northing to UTM
 		$letNorth = strpos(self::MGRS_ZONE_LETTERS, $letter);
-		$nSqrs = ($zone % 2) ? strpos(self::USNGSqLetOdd, $sq2) : strpos(self::USNGSqLetEven, $sq2);
+		$nSqrs = ($zone % 2) ? strpos(self::MGRSSqLetOdd, $sq2) : strpos(self::MGRSSqLetEven, $sq2);
 
 		$zoneStart = $zoneBase[$letNorth];
 		$appxNorth = $segBase[$letNorth] + $nSqrs / 10;
@@ -371,6 +464,31 @@ class MGRS
 	}
 
 
+	public static function fromMGRS($mgrsString): self {
+		if (self::isMGRS($mgrsString) === false) {
+			throw new \UnexpectedValueException(sprintf('Input string "%s" is not valid MGRS coordinate.', $mgrsString));
+		}
+		if (preg_match(self::getMgrsRegex(), $mgrsString, $matches) === false) { // duplicated regex from isMGRS to get $matches by it's parts
+			throw new \LogicException('Invalid format of MGRS string which should be catched by self::isMGRS().');
+		}
+
+		list(, $zone, $letter, $sqr1, $sqr2, $eastingNorthingString) = $matches;
+
+		$self = new self();
+		$self->setGridZone($zone, $letter);
+		$self->setGridSquareId($sqr1, $sqr2);
+		list($easting, $northing) = str_split($eastingNorthingString, strlen($eastingNorthingString) / 2);
+		$self->setNumericalIng($easting, $northing);
+
+		$UTM = $self->MGRStoUTM($self->getZoneNumber(), $self->getZoneBand(), $self->getGridSquareId1(), $self->getGridSquareId2(), $self->getEasting(), $self->getNorthing());
+		// southern hemisphere case
+		if ($UTM->letter < 'N') {
+			$UTM->N -= self::NORTHING_OFFSET;
+		}
+		$self->UTMLtoLL($self->getZoneNumber(), $UTM->N, $UTM->E);
+		return $self;
+	}
+
 	/**
 	 * USNG --> LatLng
 	 *
@@ -378,10 +496,10 @@ class MGRS
 	 * @return \stdClass
 	 */
 	public function USNGtoLL($usngStr): \stdClass {
-		$USNG = self::parseUSNG($usngStr);
+		$USNG = self::parseMGRS($usngStr);
 
 		// convert USNG coords to UTM; this routine counts digits and sets precision
-		$UTM = self::USNGtoUTM($USNG->zone, $USNG->letter, $USNG->sq1, $USNG->sq2, $USNG->east, $USNG->north);
+		$UTM = self::MGRStoUTM($USNG->zone, $USNG->letter, $USNG->sq1, $USNG->sq2, $USNG->east, $USNG->north);
 
 		// southern hemisphere case
 		if ($USNG->letter < 'N') {
@@ -580,19 +698,19 @@ class MGRS
 			case 1:
 			case 4:
 				$l1 = 'ABCDEFGH';
-				$l2 = ($even) ? self::USNGSqLetEven : self::USNGSqLetOdd;
+				$l2 = ($even) ? self::MGRSSqLetEven : self::MGRSSqLetOdd;
 				break;
 
 			case 2:
 			case 5:
 				$l1 = 'JKLMNPQR';
-				$l2 = ($even) ? self::USNGSqLetEven : self::USNGSqLetOdd;
+				$l2 = ($even) ? self::MGRSSqLetEven : self::MGRSSqLetOdd;
 				break;
 
 			case 3:
 			case 6:
 				$l1 = 'STUVWXYZ';
-				$l2 = ($even) ? self::USNGSqLetEven : self::USNGSqLetOdd;
+				$l2 = ($even) ? self::MGRSSqLetEven : self::MGRSSqLetOdd;
 				break;
 		}
 
@@ -601,36 +719,38 @@ class MGRS
 	}
 
 	/**
-	 * Parse USNG string into it's parts
+	 * Parse MGRS string into it's parts
 	 *
 	 * It's safe to not use mb_* because it always contains only ASCII characters
 	 *
-	 * @param string $usngString
+	 * @param string $mgrsString
 	 * @return \stdClass
 	 * @throws \Exception
 	 */
-	private function parseUSNG($usngString): \stdClass {
-		if (self::isMGRS($usngString) === false) {
-			throw new \UnexpectedValueException(sprintf('Input string "%s" is not valid MGRS coordinate.', $usngString));
+	private function parseMGRS($mgrsString): \stdClass {
+		if (self::isMGRS($mgrsString) === false) {
+			throw new \UnexpectedValueException(sprintf('Input string "%s" is not valid MGRS coordinate.', $mgrsString));
 		}
-		if (preg_match(self::getMgrsRegex(), $usngString, $matches) === false) { // duplicated regex from isMGRS to get $matches by it's parts
-			throw new \LogicException('Invalid format of USNG string which should be catched by self::isMGRS().');
+		if (preg_match(self::getMgrsRegex(), $mgrsString, $matches) === false) { // duplicated regex from isMGRS to get $matches by it's parts
+			throw new \LogicException('Invalid format of MGRS string which should be catched by self::isMGRS().');
 		}
 
 		list(, $zone, $letter, $sqr1, $sqr2, $eastingNorthingString) = $matches;
 
-		$USNG = new \stdClass();
-		$USNG->zone = $zone;
-		$USNG->letter = $letter;
-		$USNG->sq1 = $sqr1;
-		$USNG->sq2 = $sqr2;
-		$USNG->precision = strlen($eastingNorthingString) / 2;
+		$MGRS = new \stdClass();
+		$MGRS->zone = $zone;
+		$MGRS->letter = $letter;
+		$MGRS->sq1 = $sqr1;
+		$MGRS->sq2 = $sqr2;
+		$MGRS->precision = strlen($eastingNorthingString) / 2;
 
-		list($easting, $northing) = str_split($eastingNorthingString, $USNG->precision);
+		list($easting, $northing) = str_split($eastingNorthingString, $MGRS->precision);
 
-		$USNG->east = $easting;
-		$USNG->north = $northing;
+		$MGRS->east = $easting;
+		$MGRS->north = $northing;
 
-		return $USNG;
+		return $MGRS;
 	}
+
+
 }
