@@ -181,6 +181,20 @@ class BetterLocation
 		];
 	}
 
+	public function generateScreenshotLink(string $serviceClass) {
+		if (class_exists($serviceClass) === false) {
+			throw new \InvalidArgumentException(sprintf('Invalid location service: "%s".', $serviceClass));
+		}
+		if (is_subclass_of($serviceClass, \BetterLocation\Service\AbstractService::class) === false) {
+			throw new \InvalidArgumentException(sprintf('Source service has to be subclass of "%s".', \BetterLocation\Service\AbstractService::class));
+		}
+		if (method_exists($serviceClass, 'getScreenshotLink') === false) {
+			throw new \InvalidArgumentException(sprintf('Source service "%s" does not supports screenshot links.', $serviceClass));
+		}
+		/** @var $services \BetterLocation\Service\AbstractService[] */
+		return $serviceClass::getScreenshotLink($this->getLat(), $this->getLon());
+	}
+
 
 	public function setAddress(string $address) {
 		$this->address = $address;
@@ -236,11 +250,17 @@ class BetterLocation
 			IngressIntelService::class,
 		];
 		$links = [];
-		foreach($services as $service) {
+		foreach ($services as $service) {
 			$links[] = sprintf('<a href="%s">%s</a>', $service::getLink($this->lat, $this->lon), $service::NAME);
 		}
 		$text = '';
-		$text .= sprintf('%s %s <code>%f,%f</code>', $this->prefixMessage, \Icons::ARROW_RIGHT, $this->lat, $this->lon) . PHP_EOL;
+		$text .= sprintf('%s <a href="%s">%s</a> <code>%f,%f</code>',
+				$this->prefixMessage,
+				$this->generateScreenshotLink(MapyCzService::class),
+				\Icons::PICTURE,
+				$this->lat,
+				$this->lon
+			) . PHP_EOL;
 		$text .= join(' | ', $links) . PHP_EOL;
 		if ($withAddress && is_null($this->address) === false) {
 			$text .= $this->getAddress() . PHP_EOL;
@@ -259,7 +279,7 @@ class BetterLocation
 			HereWeGoService::class,
 		];
 		$buttons = [];
-		foreach($services as $service) {
+		foreach ($services as $service) {
 			$button = new Button();
 			$button->text = sprintf('%s %s', $service::NAME, \Icons::CAR);
 			$button->url = $service::getLink($this->lat, $this->lon, true);

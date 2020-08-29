@@ -22,6 +22,7 @@ class Icons
 	const FEEDBACK = "\u{1F5E3}"; // https://emojipedia.org/speaking-head/
 
 	const CAR = "\u{1F697}"; // https://emojipedia.org/automobile/
+	const PICTURE = "\u{1F5BC}"; // https://emojipedia.org/framed-picture/
 
 	const ARROW_RIGHT = "\u{27A1}"; // https://emojipedia.org/right-arrow/
 	const ARROW_UP = "\u{2B06}"; // https://emojipedia.org/up-arrow/
