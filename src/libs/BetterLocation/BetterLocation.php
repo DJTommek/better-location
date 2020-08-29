@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BetterLocation;
 
+use BetterLocation\Service\Coordinates\MGRSService;
+use BetterLocation\Service\Coordinates\USNGService;
 use BetterLocation\Service\Coordinates\WG84DegreesMinutesSecondsService;
 use BetterLocation\Service\Coordinates\WG84DegreesMinutesService;
 use BetterLocation\Service\Coordinates\WG84DegreesService;
@@ -137,6 +139,8 @@ class BetterLocation
 		$betterLocationsCollection->mergeCollection(WG84DegreesService::findInText($messageWithoutUrls));
 		$betterLocationsCollection->mergeCollection(WG84DegreesMinutesService::findInText($messageWithoutUrls));
 		$betterLocationsCollection->mergeCollection(WG84DegreesMinutesSecondsService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->mergeCollection(MGRSService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->mergeCollection(USNGService::findInText($messageWithoutUrls));
 
 		// OpenLocationCode (Plus codes)
 		$openLocationCodes = preg_match_all(OpenLocationCodeService::RE_IN_STRING, $messageWithoutUrls, $matches);
