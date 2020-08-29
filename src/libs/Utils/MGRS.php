@@ -146,10 +146,40 @@ class MGRS
 			$regex = '/^';
 		}
 		$regex .= '(' . self::REGEX_GRID_ZONE . ')';
+		$regex .= ' ?';
 		$regex .= '([' . self::MGRS_ZONE_LETTERS . '])';
+		$regex .= ' ?';
 		$regex .= '([A-Z])';
 		$regex .= '([A-Z])';
+		$regex .= ' ?';
 		$regex .= '((?:[0-9][0-9]){' . $minimumPrecision . ',5})';
+		if ($end) {
+			$regex .= '$/';
+		}
+		return $regex;
+	}
+
+	/**
+	 * @param int $minimumPrecision
+	 * @param bool $start
+	 * @param bool $end
+	 * @return string
+	 */
+	public static function getUSNGRegex(int $minimumPrecision = 3, bool $start = true, bool $end = true): string {
+		if ($minimumPrecision > 7 || $minimumPrecision < 0) {
+			throw new \InvalidArgumentException(sprintf('Precision settings must be in range 0 (10 000 meters) - 7 (1 meter) but provided %d', $minimumPrecision));
+		}
+		$regex = '';
+		if ($start) {
+			$regex = '/^';
+		}
+		$regex .= '(' . self::REGEX_GRID_ZONE . ')';
+		$regex .= ' ?';
+		$regex .= '([NS])';
+		$regex .= ' ?';
+		$regex .= '([0-9]{' . $minimumPrecision . ',7})';
+		$regex .= ' ?';
+		$regex .= '([0-9]{' . $minimumPrecision . ',7})';
 		if ($end) {
 			$regex .= '$/';
 		}
@@ -367,16 +397,16 @@ class MGRS
 	 * @param $UTMZoneNumber
 	 * @param $UTMNorthing
 	 * @param $UTMEasting
-	 * @return \stdClass lat, lon
+	 * @return void lat, lon
 	 */
 	public function UTMLtoLL($UTMZoneNumber, $UTMNorthing, $UTMEasting): void {
+		$UTMZoneNumber = intval($UTMZoneNumber); // @TODO just for backward compatibility, should be strictly converted to int
 		// remove 500,000 meter offset for longitude
 		$xUTM = floatval($UTMEasting) - self::EASTING_OFFSET;
 		$yUTM = floatval($UTMNorthing);
-		$this->zoneNumber = intval($UTMZoneNumber);
 
 		// origin longitude for the zone (+3 puts origin in zone center)
-		$lonOrigin = ($this->zoneNumber - 1) * 6 - 180 + 3;
+		$lonOrigin = ($UTMZoneNumber - 1) * 6 - 180 + 3;
 
 		// M is the "true distance along the central meridian from the Equator to phi
 		// (latitude)
@@ -489,23 +519,28 @@ class MGRS
 		return $self;
 	}
 
-	/**
-	 * USNG --> LatLng
-	 *
-	 * @param string $usngStr
-	 * @return \stdClass
-	 */
-	public function USNGtoLL($usngStr): \stdClass {
-		$USNG = self::parseMGRS($usngStr);
+	public static function fromUSNG($usngString): self {
+		if (self::isUSNG($usngString) === false) {
+			throw new \UnexpectedValueException(sprintf('Input string "%s" is not valid UTM/USNG coordinate.', $usngString));
+		}
+		if (preg_match(self::getUSNGRegex(), $usngString, $matches) === false) { // duplicated regex from isUSNG to get $matches by it's parts
+			throw new \LogicException('Invalid format of MGRS string which should be catched by self::isUTM().');
+		}
+		dump($matches);
 
-		// convert USNG coords to UTM; this routine counts digits and sets precision
-		$UTM = self::MGRStoUTM($USNG->zone, $USNG->letter, $USNG->sq1, $USNG->sq2, $USNG->east, $USNG->north);
+		list(, $zone, $hemisphere, $easting, $northing) = $matches;
 
 		// southern hemisphere case
-		if ($USNG->letter < 'N') {
-			$UTM->N -= self::NORTHING_OFFSET;
+		if ($hemisphere === 'S') {
+			$northing -= self::NORTHING_OFFSET;
 		}
-		return self::UTMLtoLL($USNG->zone, $UTM->N, $UTM->E);
+		$self = new self();
+		$self->UTMLtoLL($zone, $northing, $easting);
+		return $self;
+
+		// 33U VR 57699 48399
+		$self->UTMLtoLL($self->getZoneNumber(), $UTM->N, $UTM->E);
+		return $self;
 	}
 
 	/**
@@ -521,26 +556,20 @@ class MGRS
 		return preg_replace('/\s/', '', self::LLtoUSNG($lat, $lon, $precision));
 	}
 
-
-	// Valid USNG String?
-	public static function isUSNG($usngStr) {
-		$precision = '^[0-9]{2}[' . self::MGRS_ZONE_LETTERS . ']$';
-		$generic = '^[0-9]{2}[' . self::MGRS_ZONE_LETTERS . '][ABCDEFGHJKLMNPQRSTUVWXYZ][ABCDEFGHJKLMNPQRSTUV]([0-9][0-9]){0,5}';
-
-		// Invalid States || usngStr
-		if (preg_match($precision, $usngStr) || preg_match($generic, $usngStr) || strlen($usngStr) > 15) {
-			return false;
-		} else {
-			return $usngStr;
-		}
-	}
-
 	/**
 	 * @param string $mgrsInput
 	 * @return false|string
 	 */
 	public static function isMGRS(string $mgrsInput): bool {
 		return !!preg_match(self::getMgrsRegex(), $mgrsInput);
+	}
+
+	/**
+	 * @param string $mgrsInput
+	 * @return false|string
+	 */
+	public static function isUSNG(string $mgrsInput): bool {
+		return !!preg_match(self::getUSNGRegex(), $mgrsInput);
 	}
 
 	/**
