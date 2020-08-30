@@ -537,10 +537,6 @@ class MGRS
 		$self = new self();
 		$self->UTMLtoLL($zone, $northing, $easting);
 		return $self;
-
-		// 33U VR 57699 48399
-		$self->UTMLtoLL($self->getZoneNumber(), $UTM->N, $UTM->E);
-		return $self;
 	}
 
 	/**
