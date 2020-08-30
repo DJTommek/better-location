@@ -76,11 +76,14 @@ class BetterLocation
 		}
 		$this->sourceType = $sourceType;
 
+		$generatedPrefix = $sourceService::NAME;
 		if ($this->sourceType) {
-			$this->setPrefixMessage(sprintf('<a href="%s">%s %s</a>', $this->originalInput, $sourceService::NAME, $this->sourceType));
-		} else {
-			$this->setPrefixMessage(sprintf('<a href="%s">%s</a>', $this->originalInput, $sourceService::NAME));
+			$generatedPrefix .= ' ' . $this->sourceType;
 		}
+		if (preg_match('/^https?:\/\//', $this->originalInput)) {
+			$generatedPrefix = sprintf('<a href="%s">%s</a>', $this->originalInput, $generatedPrefix);
+		}
+		$this->setPrefixMessage($generatedPrefix);
 	}
 
 	public function getName() {
@@ -294,7 +297,6 @@ class BetterLocation
 		$button->callback_data = sprintf('%s %s %f %f', FavouritesCommand::CMD, FavouritesButton::ACTION_ADD, $this->getLat(), $this->getLon());
 		return $button;
 	}
-
 
 	/**
 	 * @param string $prefixMessage
