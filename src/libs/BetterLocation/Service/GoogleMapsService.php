@@ -21,11 +21,13 @@ final class GoogleMapsService extends AbstractService
 	const TYPE_PLACE = 'Place';
 	const TYPE_STREET_VIEW = 'Street view';
 	const TYPE_SEARCH = 'search';
+	const TYPE_INLINE_SEARCH = 'inline search';
 	const TYPE_HIDDEN = 'hidden';
 	const TYPE_DRIVE = 'drive';
 
 	public static function getConstants(): array {
 		return [
+			self::TYPE_INLINE_SEARCH,
 			self::TYPE_STREET_VIEW,
 			self::TYPE_PLACE,
 			self::TYPE_HIDDEN,

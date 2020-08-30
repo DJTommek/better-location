@@ -60,6 +60,7 @@ class GooglePlaceApi
 				$candidate->geometry->location->lat,
 				$candidate->geometry->location->lng,
 				GoogleMapsService::class,
+				GoogleMapsService::TYPE_INLINE_SEARCH,
 			);
 			$betterLocation->setPrefixMessage($candidate->name);
 			$betterLocation->setAddress($candidate->formatted_address);

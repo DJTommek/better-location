@@ -71,7 +71,7 @@ class BetterLocation
 			if ($sourceType === null) {
 				throw new InvalidLocationException(sprintf('Missing source type for service "%s"', $sourceService));
 			}
-			if (in_array($sourceType, $sourceService::getConstants()) === false) {
+			if (in_array($sourceType, $sourceTypes) === false) {
 				throw new InvalidLocationException(sprintf('Invalid source type "%s" for service "%s".', $sourceType, $sourceService));
 			}
 		}
