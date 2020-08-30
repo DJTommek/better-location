@@ -22,6 +22,7 @@ use TelegramCustomWrapper\Events\Button\FavouritesButton;
 use TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 use \Utils\General;
+use Utils\StringUtils;
 
 class BetterLocation
 {
@@ -138,6 +139,7 @@ class BetterLocation
 		}
 
 		$messageWithoutUrls = self::getMessageWithoutUrls($message, $entities);
+		$messageWithoutUrls = StringUtils::translit($messageWithoutUrls);
 
 		$betterLocationsCollection->mergeCollection(WG84DegreesService::findInText($messageWithoutUrls));
 		$betterLocationsCollection->mergeCollection(WG84DegreesMinutesService::findInText($messageWithoutUrls));
