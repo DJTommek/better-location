@@ -74,51 +74,41 @@ class TelegramCustomWrapper
 			switch ($command ? mb_strtolower($command) : null) {
 				case '/help':
 					return new HelpButton($update);
-					break;
 				case FavouritesCommand::CMD:
 					return new FavouritesButton($update);
-					break;
-					// @TODO log error, this should not happen. Edit: can happen if some command is no longer used (for example /stats was changed to /donor)
+				// @TODO log error, this should not happen. Edit: can happen if some command is no longer used (for example /stats was changed to /donor)
 				default: // unknown
 					return;
-					break;
 			}
-		} elseif (TelegramHelper::isLocation($update)) {
-			return new LocationCommand($update);
-		} elseif (TelegramHelper::hasDocument($update)) {
-			return new File($update);
-		} elseif (TelegramHelper::hasPhoto($update)) {
-			return new Photo($update);
 		} else {
 			$update->message->from->username = $update->message->from->username === '' ? null : $update->message->from->username;
 			/** @noinspection PhpUndefinedFieldInspection */
 			$update->message->from->displayname = TelegramHelper::getDisplayName($update->message->from);
-
-			switch ($command ? mb_strtolower($command) : null) {
-				case '/start':
-					return new StartCommand($update);
-					break;
-				case '/help':
-					return new HelpCommand($update);
-					break;
-				case '/debug':
-					return new DebugCommand($update);
-					break;
-				case '/settings':
-					return new SettingsCommand($update);
-					break;
-				case FavouritesCommand::CMD:
-					return new FavouritesCommand($update);
-					break;
-				case '/feedback':
-					return new FeedbackCommand($update);
-					break;
-				case null: // message without command
-					return new MessageCommand($update);
-					break;
-				default: // unknown command
-					return new UnknownCommand($update);
-					break;
+			if (TelegramHelper::isLocation($update)) {
+				return new LocationCommand($update);
+			} elseif (TelegramHelper::hasDocument($update)) {
+				return new File($update);
+			} elseif (TelegramHelper::hasPhoto($update)) {
+				return new Photo($update);
+			} else {
+				switch ($command ? mb_strtolower($command) : null) {
+					case '/start':
+						return new StartCommand($update);
+					case '/help':
+						return new HelpCommand($update);
+					case '/debug':
+						return new DebugCommand($update);
+					case '/settings':
+						return new SettingsCommand($update);
+					case FavouritesCommand::CMD:
+						return new FavouritesCommand($update);
+					case '/feedback':
+						return new FeedbackCommand($update);
+					case null: // message without command
+						return new MessageCommand($update);
+					default: // unknown command
+						return new UnknownCommand($update);
+				}
 			}
 		}
 	}
