@@ -8,7 +8,9 @@ use Utils\Coordinates;
 
 class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 {
+	/** @var BetterLocation[] */
 	private $locations = [];
+	/** @var \Exception[] */
 	private $errors = [];
 	private $position = 0;
 
@@ -42,25 +44,30 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 
 	public function filterTooClose(int $ignoreDistance = 0): void {
 		$mostImportantLocation = $this->getFirst();
-		foreach ($this->locations as $key => $googleMapsBetterLocation) {
-			if ($mostImportantLocation === $googleMapsBetterLocation) {
+		foreach ($this->locations as $key => $location) {
+			if ($mostImportantLocation === $location) {
 				continue;
 			} else {
 				// @TODO possible optimalization to skip calculating distance: if 0, check if coordinates are same
 				$distance = Coordinates::distance(
 					$mostImportantLocation->getLat(),
 					$mostImportantLocation->getLon(),
-					$googleMapsBetterLocation->getLat(),
-					$googleMapsBetterLocation->getLon(),
+					$location->getLat(),
+					$location->getLon(),
 				);
 				if ($distance < $ignoreDistance) {
 					// Remove locations that are too close to main location
 					unset($this->locations[$key]);
 				} else {
-					$googleMapsBetterLocation->setDescription(sprintf('%s Location is %d meters away from %s %s.', \Icons::WARNING, $distance, $mostImportantLocation->getName(), \Icons::ARROW_UP));
+					$location->setDescription(sprintf('%s Location is %d meters away from %s %s.', \Icons::WARNING, $distance, $mostImportantLocation->getName(), \Icons::ARROW_UP));
 				}
 			}
 		}
+	}
+
+	public function deduplicate(): void {
+		// array unique is using __toString()
+		$this->locations = array_unique($this->getLocations());
 	}
 
 	public function offsetExists($offset) {

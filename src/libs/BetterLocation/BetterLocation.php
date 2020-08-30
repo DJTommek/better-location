@@ -175,6 +175,8 @@ class BetterLocation
 			}
 		}
 
+		$betterLocationsCollection->deduplicate();
+
 		return $betterLocationsCollection;
 	}
 
