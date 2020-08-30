@@ -22,6 +22,10 @@ Tracy\Debugger::enable(DEVELOPMENT_IPS, FOLDER_DATA . '/tracy-log/');
 Tracy\Debugger::$strictMode = true;
 Tracy\Debugger::$logSeverity = E_ALL;
 
+if (defined('TRACY_DEBUGGER_EMAIL') && is_null(TRACY_DEBUGGER_EMAIL) === false) {
+	\Tracy\Debugger::$email = TRACY_DEBUGGER_EMAIL;
+}
+
 /**
  * @param $className
  * @throws Exception
