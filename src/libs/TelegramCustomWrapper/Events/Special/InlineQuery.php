@@ -115,7 +115,11 @@ class InlineQuery extends Special
 				// only if there is no match from previous processing
 				if (mb_strlen($queryInput) >= self::GOOGLE_SEARCH_MIN_LENGTH && count($answerInlineQuery->getResults()) === 0 && is_null(GOOGLE_PLACE_API_KEY) === false) {
 					$placeApi = new \BetterLocation\GooglePlaceApi();
-					$placeCandidates = $placeApi->runSearch($queryInput, ['formatted_address', 'name', 'geometry', 'place_id']);
+					$placeCandidates = $placeApi->runSearch(
+						$queryInput,
+						['formatted_address', 'name', 'geometry', 'place_id'],
+						$this->update->inline_query->from->language_code ?? 'en',
+					);
 					foreach ($placeCandidates as $placeCandidate) {
 						$betterLocation = new BetterLocation(
 							$queryInput,

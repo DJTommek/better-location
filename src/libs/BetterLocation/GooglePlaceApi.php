@@ -24,13 +24,15 @@ class GooglePlaceApi
 	/**
 	 * @param string $input
 	 * @param string[] $outputFields see https://developers.google.com/places/web-service/search#Fields
+	 * @param string $language see https://developers.google.com/maps/faq#languagesupport
 	 * @return string
 	 */
-	private function gePlaceSearchUrl(string $input, array $outputFields): string {
+	private function gePlaceSearchUrl(string $input, array $outputFields, $language): string {
 		return self::PLACE_SEARCH_URL . '?' . http_build_query([
 				'input' => $input,
 				'inputtype' => 'textquery', // @TODO add support for phonenumber?
 				'fields' => join(',', $outputFields),
+				'language' => $language,
 				'key' => $this->apiKey,
 			]);
 	}
@@ -51,11 +53,12 @@ class GooglePlaceApi
 	/**
 	 * @param string $input
 	 * @param string[] $outputFields see https://developers.google.com/places/web-service/search#Fields
+	 * @param string $language see https://developers.google.com/maps/faq#languagesupport
 	 * @return \stdClass[]
 	 * @throws \JsonException|\Exception
 	 */
-	public function runSearch(string $input, array $outputFields): array {
-		$url = $this->gePlaceSearchUrl($input, $outputFields);
+	public function runSearch(string $input, array $outputFields, $language): array {
+		$url = $this->gePlaceSearchUrl($input, $outputFields, $language);
 		$response = General::fileGetContents($url);
 		$content = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
 		if ($content->status === self::RESPONSE_ZERO_RESULTS) {
