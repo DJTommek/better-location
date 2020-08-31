@@ -4,6 +4,7 @@ namespace TelegramCustomWrapper\Events\Special;
 
 use BetterLocation\BetterLocation;
 use BetterLocation\Service\Coordinates\WG84DegreesService;
+use BetterLocation\Service\GoogleMapsService;
 use BetterLocation\Service\MapyCzService;
 use TelegramCustomWrapper\Events\Command\StartCommand;
 use TelegramCustomWrapper\TelegramHelper;
@@ -114,15 +115,24 @@ class InlineQuery extends Special
 				// only if there is no match from previous processing
 				if (mb_strlen($queryInput) >= self::GOOGLE_SEARCH_MIN_LENGTH && count($answerInlineQuery->getResults()) === 0 && is_null(GOOGLE_PLACE_API_KEY) === false) {
 					$placeApi = new \BetterLocation\GooglePlaceApi();
-					$betterLocations = $placeApi->runSearch($queryInput);
-					foreach ($betterLocations->getAll() as $betterLocation) {
-						if ($betterLocation instanceof BetterLocation) {
-							$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
-						} else if ($betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException) {
-							continue; // Ignore this error in inline query
-						} else {
-							Debugger::log($betterLocation, Debugger::EXCEPTION);
+					$placeCandidates = $placeApi->runSearch($queryInput, ['formatted_address', 'name', 'geometry', 'place_id']);
+					foreach ($placeCandidates as $placeCandidate) {
+						$betterLocation = new BetterLocation(
+							$queryInput,
+							$placeCandidate->geometry->location->lat,
+							$placeCandidate->geometry->location->lng,
+							GoogleMapsService::class,
+							GoogleMapsService::TYPE_INLINE_SEARCH,
+						);
+						try {
+							$placeDetails = $placeApi->getPlaceDetails($placeCandidate->place_id, ['url', 'website']);
+							$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a>', ($placeDetails->website ?? $placeDetails->url), $placeCandidate->name));
+						} catch (\Exception $exception) {
+							$betterLocation->setPrefixMessage($placeCandidate->name);
+							Debugger::log($exception, ILogger::EXCEPTION);
 						}
+						$betterLocation->setAddress($placeCandidate->formatted_address);
+						$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 					}
 				}
 

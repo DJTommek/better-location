@@ -1,20 +1,15 @@
 <?php
 
-
 namespace BetterLocation;
 
-
-use BetterLocation\Service\GoogleMapsService;
-use Tracy\Debugger;
-use Tracy\ILogger;
 use Utils\General;
 
 class GooglePlaceApi
 {
 	private $apiKey;
-	private $outputFields;
 
-	const BASE_URL = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json';
+	const PLACE_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json';
+	const PLACE_DETAILS_URL = 'https://maps.googleapis.com/maps/api/place/details/json';
 
 	/**
 	 * More responses on https://developers.google.com/places/web-service/search#PlaceSearchStatusCodes
@@ -22,50 +17,69 @@ class GooglePlaceApi
 	const RESPONSE_ZERO_RESULTS = 'ZERO_RESULTS';
 	const RESPONSE_OK = 'OK';
 
-	public function __construct(array $outputFields = ['formatted_address', 'name', 'geometry']) {
+	public function __construct() {
 		$this->apiKey = GOOGLE_PLACE_API_KEY;
-		$this->outputFields = $outputFields;
-	}
-
-	private function getUrl(string $input) {
-		$params = [
-			'input' => $input,
-			'inputtype' => 'textquery', // @TODO add support for phonenumber?
-			'fields' => join(',', $this->outputFields),
-			'key' => $this->apiKey,
-		];
-		return self::BASE_URL . '?' . http_build_query($params);
 	}
 
 	/**
 	 * @param string $input
-	 * @return BetterLocationCollection
-	 * @throws Service\Exceptions\InvalidLocationException|\Exception
+	 * @param string[] $outputFields see https://developers.google.com/places/web-service/search#Fields
+	 * @return string
 	 */
-	public function runSearch(string $input): BetterLocationCollection {
-		$collection = new BetterLocationCollection();
-		$url = $this->getUrl($input);
+	private function gePlaceSearchUrl(string $input, array $outputFields): string {
+		return self::PLACE_SEARCH_URL . '?' . http_build_query([
+				'input' => $input,
+				'inputtype' => 'textquery', // @TODO add support for phonenumber?
+				'fields' => join(',', $outputFields),
+				'key' => $this->apiKey,
+			]);
+	}
+
+	/**
+	 * @param string $placeId
+	 * @param string[] $outputFields see https://developers.google.com/places/web-service/details#fields
+	 * @return string
+	 */
+	private function gePlaceDetailsUrl(string $placeId, array $outputFields): string {
+		return self::PLACE_DETAILS_URL . '?' . http_build_query([
+				'place_id' => $placeId,
+				'fields' => join(',', $outputFields),
+				'key' => $this->apiKey,
+			]);
+	}
+
+	/**
+	 * @param string $input
+	 * @param string[] $outputFields see https://developers.google.com/places/web-service/search#Fields
+	 * @return \stdClass[]
+	 * @throws \JsonException|\Exception
+	 */
+	public function runSearch(string $input, array $outputFields): array {
+		$url = $this->gePlaceSearchUrl($input, $outputFields);
 		$response = General::fileGetContents($url);
 		$content = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
 		if ($content->status === self::RESPONSE_ZERO_RESULTS) {
-			return $collection;
+			return [];
 		}
 		if ($content->status !== self::RESPONSE_OK) {
-			Debugger::log($response, ILogger::DEBUG);
-			throw new \Exception(sprintf('Invalid status (%s) from Google Place API. Error: "%s"', $content->status, $content->error_message ?? 'Not provided'));
+			throw new \Exception(sprintf('Invalid status (%s) from Google Place Search API. Error: "%s"', $content->status, $content->error_message ?? 'Not provided'));
 		}
-		foreach ($content->candidates as $candidate) {
-			$betterLocation = new BetterLocation(
-				$input,
-				$candidate->geometry->location->lat,
-				$candidate->geometry->location->lng,
-				GoogleMapsService::class,
-				GoogleMapsService::TYPE_INLINE_SEARCH,
-			);
-			$betterLocation->setPrefixMessage($candidate->name);
-			$betterLocation->setAddress($candidate->formatted_address);
-			$collection[] = $betterLocation;
+		return $content->candidates;
+	}
+
+	/**
+	 * @param string $placeId
+	 * @param string[] $outputFields see https://developers.google.com/places/web-service/details#fields
+	 * @return \stdClass
+	 * @throws \JsonException|\Exception
+	 */
+	public function getPlaceDetails(string $placeId, array $outputFields): \stdClass {
+		$url = $this->gePlaceDetailsUrl($placeId, $outputFields);
+		$response = General::fileGetContents($url);
+		$content = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
+		if ($content->status !== self::RESPONSE_OK) {
+			throw new \Exception(sprintf('Invalid status (%s) from Google Place Details API. Error: "%s"', $content->status, $content->error_message ?? 'Not provided'));
 		}
-		return $collection;
+		return $content->result;
 	}
 }
