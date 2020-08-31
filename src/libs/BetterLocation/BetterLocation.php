@@ -30,6 +30,7 @@ class BetterLocation
 	private $lon;
 	private $description;
 	private $prefixMessage;
+	private $coordinateSuffixMessage;
 	private $address;
 	private $originalInput;
 	private $sourceService;
@@ -175,7 +176,7 @@ class BetterLocation
 			}
 		}
 
-		$betterLocationsCollection->deduplicate();
+		$betterLocationsCollection = $betterLocationsCollection->getDeduplicated();
 
 		return $betterLocationsCollection;
 	}
@@ -242,11 +243,13 @@ class BetterLocation
 	}
 
 	/**
+	 * Generate BetterLocation Telegram message
+	 *
 	 * @param bool $withAddress
 	 * @return string
 	 * @throws \Exception
 	 */
-	public function generateBetterLocation($withAddress = true) {
+	public function generateBetterLocation($withAddress = true): string {
 		/** @var $services \BetterLocation\Service\AbstractService[] */
 		$services = [
 			GoogleMapsService::class,
@@ -256,10 +259,6 @@ class BetterLocation
 			OpenStreetMapService::class,
 			IngressIntelService::class,
 		];
-		$links = [];
-		foreach ($services as $service) {
-			$links[] = sprintf('<a href="%s">%s</a>', $service::getLink($this->lat, $this->lon), $service::NAME);
-		}
 		$text = '';
 		$text .= sprintf('%s <a href="%s">%s</a> <code>%f,%f</code>',
 				$this->prefixMessage,
@@ -267,14 +266,25 @@ class BetterLocation
 				\Icons::PICTURE,
 				$this->lat,
 				$this->lon
-			) . PHP_EOL;
-		$text .= join(' | ', $links) . PHP_EOL;
+			);
+		if ($this->getCoordinateSuffixMessage()) {
+			$text .= ' ' . $this->getCoordinateSuffixMessage();
+		}
+		$text .= PHP_EOL;
+
+		// Generate links
+        $text .= join(' | ', \array_map(function ($service) {
+            return sprintf('<a href="%s">%s</a>', $service::getLink($this->lat, $this->lon), $service::NAME);
+        }, $services)) . PHP_EOL;
+
 		if ($withAddress && is_null($this->address) === false) {
 			$text .= $this->getAddress() . PHP_EOL;
 		}
+
 		if ($this->description) {
 			$text .= $this->description . PHP_EOL;
 		}
+
 		return $text . PHP_EOL;
 	}
 
@@ -312,8 +322,19 @@ class BetterLocation
 	/**
 	 * @return mixed
 	 */
-	public function getPrefixMessage() {
+	public function getPrefixMessage(): ?string {
 		return $this->prefixMessage;
+	}
+
+	/**
+	 * @param string $coordinateSuffixMessage
+	 */
+	public function setCoordinateSuffixMessage(string $coordinateSuffixMessage): void {
+		$this->coordinateSuffixMessage = $coordinateSuffixMessage;
+	}
+
+	public function getCoordinateSuffixMessage(): ?string {
+		return $this->coordinateSuffixMessage;
 	}
 
 	public function getLink($class, bool $drive = false) {

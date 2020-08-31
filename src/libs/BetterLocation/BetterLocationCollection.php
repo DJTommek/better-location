@@ -26,7 +26,10 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return array_merge($this->locations, $this->errors);
 	}
 
-	public function getLocations() {
+	/**
+	 * @return BetterLocation[]
+	 */
+	public function getLocations(): array {
 		return $this->locations;
 	}
 
@@ -65,9 +68,29 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		}
 	}
 
-	public function deduplicate(): void {
+	/**
+	 * @return BetterLocationCollection
+	 * @TODO rather remove duplicated locations from this collection instead of creating new deduplicated
+	 */
+	public function getDeduplicated(): BetterLocationCollection {
 		// array unique is using __toString()
-		$this->locations = array_unique($this->getLocations());
+		$deduplicatedLocations = new BetterLocationCollection();
+		foreach (array_unique($this->getLocations()) as $location) {
+			$deduplicatedLocations->add($location);
+		}
+
+		foreach ($deduplicatedLocations as $deduplicatedLocation) {
+			$count = 0;
+			foreach ($this->getLocations() as $location) {
+				if ($location->__toString() === $deduplicatedLocation->__toString()) {
+					$count++;
+				}
+			}
+			if ($count > 1) {
+				$deduplicatedLocation->setCoordinateSuffixMessage(sprintf('(%dx)', $count));
+			}
+		}
+		return $deduplicatedLocations;
 	}
 
 	public function offsetExists($offset) {
