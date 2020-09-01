@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `better_location_favourites` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `lat` double(10,6) NOT NULL,
-  `lon` decimal(10,6) NOT NULL,
+  `lon` double(10,6) NOT NULL,
   `title` varchar(50) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique` (`user_id`,`lat`,`lon`),
