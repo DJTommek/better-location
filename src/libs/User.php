@@ -217,12 +217,12 @@ class User
 		return $this->favourites;
 	}
 
-	public function getLastKnownLocation(): BetterLocation {
+	public function getLastKnownLocation(): ?BetterLocation {
 
 		return $this->lastKnownLocation;
 	}
 
-	public function getLastKnownLocationDatetime(): \DateTimeImmutable {
+	public function getLastKnownLocationDatetime(): ?\DateTimeImmutable {
 
 		return $this->lastKnownLocationDatetime;
 	}
