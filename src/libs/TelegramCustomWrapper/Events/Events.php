@@ -40,6 +40,16 @@ abstract class Events
 
 		if (TelegramHelper::isInlineQuery($update)) {
 			$this->user = new \User($update->inline_query->from->id, $update->inline_query->from->username);
+			if (empty($this->update->inline_query->location) === false) {
+				try {
+					$this->user->setLastKnownLocation(
+						$this->update->inline_query->location->latitude,
+						$this->update->inline_query->location->longitude,
+					);
+				} catch (\Exception $exception) {
+					Debugger::log($exception, ILogger::EXCEPTION);
+				}
+			}
 		} else if (TelegramHelper::isButtonClick($update)) {
 			$this->user = new \User($update->callback_query->from->id, $update->callback_query->from->username);
 			if ($update->callback_query->message) { // if clicked on button in message shared from inline (in "via @BotName"), there is no message

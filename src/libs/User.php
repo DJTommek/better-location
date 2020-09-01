@@ -1,7 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 use BetterLocation\BetterLocation;
 use BetterLocation\Service\Coordinates\WG84DegreesService;
+use BetterLocation\Service\Exceptions\InvalidLocationException;
 
 class User
 {
@@ -10,6 +11,8 @@ class User
 	private $id;
 	private $telegramId;
 	private $telegramUsername;
+	private $lastKnownLocation;
+	private $lastKnownLocationDatetime;
 
 	/**
 	 * @TODO convert to \BetterLocation\BetterLocationCollection
@@ -22,6 +25,7 @@ class User
 	 *
 	 * @param int $telegramId
 	 * @param string|null $telegramUsername
+	 * @throws InvalidLocationException
 	 */
 	public function __construct(int $telegramId, ?string $telegramUsername = null) {
 		$this->telegramId = $telegramId;
@@ -32,10 +36,31 @@ class User
 		$this->loadFavourites();
 	}
 
+	/**
+	 * @param $newUserData
+	 * @throws InvalidLocationException
+	 * @throws Exception
+	 */
 	private function updateCachedData($newUserData) {
 		$this->id = $newUserData['user_id'];
 		$this->telegramId = $newUserData['user_telegram_id'];
 		$this->telegramUsername = $newUserData['user_telegram_name'];
+		if (isset($newUserData['user_location_lat']) and isset($newUserData['user_location_lon']) and isset($newUserData['user_location_last_update'])) {
+			if (is_null($newUserData['user_location_lat']) || is_null($newUserData['user_location_lon']) || is_null($newUserData['user_location_last_update'])) {
+				$this->lastKnownLocation = null;
+				$this->lastKnownLocationDatetime = null;
+			} else {
+				$this->lastKnownLocation = new BetterLocation(
+					sprintf('%f,%f', $newUserData['user_location_lat'], $newUserData['user_location_lon']),
+					$newUserData['user_location_lat'],
+					$newUserData['user_location_lon'],
+					WG84DegreesService::class,
+				);
+				$this->lastKnownLocationDatetime = new \DateTimeImmutable($newUserData['user_location_last_update'], new \DateTimeZone('UTC'));
+				$this->lastKnownLocation->setPrefixMessage(sprintf('%s Last location', Icons::CURRENT_LOCATION));
+				$this->lastKnownLocation->setDescription(sprintf('Last update %s', $this->lastKnownLocationDatetime->format(DATETIME_FORMAT_ZONE)));
+			}
+		}
 	}
 
 	public function register(int $telegramId, ?string $telegramUsername = null) {
@@ -46,13 +71,22 @@ class User
 		return $this->load();
 	}
 
-	public function load() {
+	/**
+	 * @param float $lat
+	 * @param float $lon
+	 * @throws InvalidLocationException
+	 */
+	public function setLastKnownLocation(float $lat, float $lon) {
+		$this->update(null, $lat, $lon);
+	}
+
+	private function load() {
 		return $this->db->query('SELECT * FROM better_location_user WHERE user_telegram_id = ?', $this->telegramId)->fetchAll()[0];
 	}
 
 	/**
 	 * @return BetterLocation[]
-	 * @throws \BetterLocation\Service\Exceptions\InvalidLocationException
+	 * @throws InvalidLocationException
 	 */
 	public function loadFavourites() {
 		$favourites = $this->db->query('SELECT * FROM better_location_favourites WHERE user_id = ?', $this->id)->fetchAll(\PDO::FETCH_OBJ);
@@ -116,12 +150,29 @@ class User
 		}
 	}
 
-	public function update(?string $telegramUsername = null) {
+	/**
+	 * @param string|null $telegramUsername
+	 * @param float|null $locationLat
+	 * @param float|null $locationLon
+	 * @return $this
+	 * @throws InvalidLocationException
+	 */
+	public function update(?string $telegramUsername = null, ?float $locationLat = null, ?float $locationLon = null) {
 		$queries = [];
 		$params = [];
 		if (is_string($telegramUsername)) {
 			$queries[] = 'user_telegram_name = ?';
 			$params[] = $telegramUsername;
+		}
+		if ($locationLat && $locationLon) {
+			if (BetterLocation::isLatValid($locationLat) === false || BetterLocation::isLonValid($locationLon) === false) {
+				throw new InvalidLocationException('Invalid coordinates');
+			}
+			$queries[] = 'user_location_lat = ?';
+			$params[] = $locationLat;
+			$queries[] = 'user_location_lon = ?';
+			$params[] = $locationLon;
+			$queries[] = 'user_location_last_update = UTC_TIMESTAMP()';
 		}
 		if (count($params) > 0) {
 			$query = sprintf('UPDATE better_location_user SET %s WHERE user_telegram_id = ?', join($queries, ', '));
@@ -162,7 +213,17 @@ class User
 	/**
 	 * @return BetterLocation[]
 	 */
-	public function getFavourites() {
+	public function getFavourites(): array {
 		return $this->favourites;
+	}
+
+	public function getLastKnownLocation(): BetterLocation {
+
+		return $this->lastKnownLocation;
+	}
+
+	public function getLastKnownLocationDatetime(): \DateTimeImmutable {
+
+		return $this->lastKnownLocationDatetime;
 	}
 }

@@ -42,9 +42,8 @@ class InlineQuery extends Special
 
 		$queryInput = trim($update->inline_query->query);
 
-
 		if (empty($queryInput)) {
-			// If user agrees to share location, this is filled
+			// If user agrees to share location, and is using device, where is possible to get location (typically mobile devices)
 			if (empty($update->inline_query->location) === false) {
 				$betterLocation = new BetterLocation(
 					$queryInput,
@@ -54,6 +53,16 @@ class InlineQuery extends Special
 				);
 				$betterLocation->setPrefixMessage(sprintf('%s Current location', \Icons::CURRENT_LOCATION));
 				$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
+			} else if ($this->user->getLastKnownLocation() instanceof BetterLocation) {
+				$lastKnownLocation = clone $this->user->getLastKnownLocation();
+				$now = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+				$diff = $now->getTimestamp() - $this->user->getLastKnownLocationDatetime()->getTimestamp();
+				if ($diff <= 600) { // if last update was just few minutes ago, behave just like current location @TODO time border move to config
+					$lastKnownLocation->setPrefixMessage(sprintf('%s Current location', \Icons::CURRENT_LOCATION));
+					$lastKnownLocation->setDescription(null);
+				}
+				$inlineText = sprintf('%s (%s ago)', $lastKnownLocation->getPrefixMessage(), \Utils\General::sToHuman($diff));
+				$answerInlineQuery->addResult($this->getInlineQueryResult($lastKnownLocation, $inlineText));
 			}
 
 			// Show list of favourites
@@ -153,12 +162,12 @@ class InlineQuery extends Special
 		$this->run($answerInlineQuery);
 	}
 
-	private function getInlineQueryResult(BetterLocation $betterLocation): Inline\Query\Result\Location {
+	private function getInlineQueryResult(BetterLocation $betterLocation, string $inlineTitle = null): Inline\Query\Result\Location {
 		$inlineQueryResult = new Inline\Query\Result\Location();
 		$inlineQueryResult->id = rand(100000, 999999);
 		$inlineQueryResult->latitude = $betterLocation->getLat();
 		$inlineQueryResult->longitude = $betterLocation->getLon();
-		$inlineQueryResult->title = strip_tags($betterLocation->getPrefixMessage());
+		$inlineQueryResult->title = $inlineTitle ?? strip_tags($betterLocation->getPrefixMessage());
 		if ($betterLocation->getAddress()) {
 			$inlineQueryResult->title .= sprintf(' (%s)', $betterLocation->getAddress());
 		}

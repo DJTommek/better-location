@@ -7,6 +7,9 @@ CREATE TABLE `better_location_user` (
   `user_telegram_name` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
   `user_registered` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_last_update` datetime NOT NULL,
+  `user_location_lat` DOUBLE(10,6) NULL,
+  `user_location_lon` DOUBLE(10,6) NULL,
+  `user_location_last_update` DATETIME NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_telegram_id` (`user_telegram_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
