@@ -191,6 +191,7 @@ abstract class Events
 		$text .= sprintf('To send my Better locations to a group I am not in, or to a private message, just type <code>@%s</code>', TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('- add any link, text, special code etc and choose one of the output') . PHP_EOL;
 		$text .= sprintf('- send your current position (on mobile devices only)') . PHP_EOL;
+		$text .= sprintf('- search literally anything via Google search API') . PHP_EOL;
 		$text .= sprintf('%s <a href="%s">See video here</a>', \Icons::VIDEO, 'https://t.me/BetterLocationInfo/8') . PHP_EOL;
 		$text .= PHP_EOL;
 //		$text .= sprintf('%s <b>Private chat:</b>', Icons::USER) . PHP_EOL;
