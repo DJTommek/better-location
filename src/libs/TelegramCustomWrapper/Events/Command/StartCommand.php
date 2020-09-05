@@ -54,7 +54,7 @@ class StartCommand extends Command
 			$this->reply(sprintf('%s Coordinates <code>%f,%f</code> are not valid.', Icons::ERROR, $lat, $lon));
 		} else {
 			try {
-				$betterLocation = new BetterLocation($matches[0], $lat, $lon, WG84DegreesService::NAME);
+				$betterLocation = new BetterLocation($matches[0], $lat, $lon, WG84DegreesService::class);
 				$result = $betterLocation->generateBetterLocation();
 				$buttons = $betterLocation->generateDriveButtons();
 				$buttons[] = $betterLocation->generateAddToFavouriteButtton();
@@ -70,7 +70,7 @@ class StartCommand extends Command
 					],
 				);
 			} catch (\Exception $exception) {
-				$this->reply(sprintf('%s Unexpected error occured while processing start command for Better location. Contact Admin for more info.', Icons::ERROR));
+				$this->reply(sprintf('%s Unexpected error occured while processing coordinates in start command for Better location. Contact Admin for more info.', Icons::ERROR));
 				Debugger::log($exception, ILogger::EXCEPTION);
 			}
 		}
