@@ -13,6 +13,8 @@ class Database
 		$this->db->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, false);
 		$this->db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 		$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		// Fix if database server don't have enabled STRICT_ALL_TABLES. See https://stackoverflow.com/questions/27880035/what-causes-mysql-not-to-enforce-not-null-constraint
+		$this->db->query('SET SESSION SQL_MODE=STRICT_ALL_TABLES');
 	}
 
 	public function getLink(): PDO {
