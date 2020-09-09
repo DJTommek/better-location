@@ -123,7 +123,9 @@ class BetterLocation
 					} else if (OpenStreetMapService::isValid($url)) {
 						$betterLocationsCollection[] = OpenStreetMapService::parseCoords($url);
 					} else if (HereWeGoService::isValid($url)) {
-						$betterLocationsCollection[] = HereWeGoService::parseCoords($url);
+						$hereBetterLocationCollection = HereWeGoService::parseCoordsMultiple($url);
+						$hereBetterLocationCollection->filterTooClose(DISTANCE_IGNORE);
+						$betterLocationsCollection->mergeCollection($hereBetterLocationCollection);
 					} else if (OpenLocationCodeService::isValid($url)) {
 						$betterLocationsCollection[] = OpenLocationCodeService::parseCoords($url);
 					} else if (WazeService::isValid($url)) {
