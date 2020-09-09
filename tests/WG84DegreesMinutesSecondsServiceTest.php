@@ -5,7 +5,7 @@ use \BetterLocation\Service\Coordinates\WG84DegreesMinutesSecondsService;
 
 require_once __DIR__ . '/../src/config.php';
 
-final class WG84DegreesMinutesServiceSecondsTest extends TestCase
+final class WG84DegreesMinutesSecondsServiceTest extends TestCase
 {
 	public function testNothingInText(): void {
 		$this->assertEquals([], WG84DegreesMinutesSecondsService::findInText('Nothing valid')->getAll());
