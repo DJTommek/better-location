@@ -178,21 +178,17 @@ $loop->run();
 			}
 			try {
 				$betterLocations = BetterLocation::generateFromTelegramMessage($input, $entities);
-				if (count($betterLocations)) {
+				if (count($betterLocations->getLocations())) {
 					$result = '';
-					foreach ($betterLocations->getAll() as $betterLocation) {
-						if ($betterLocation instanceof BetterLocation) {
-							$result .= $betterLocation->generateBetterLocation();
-						} else if ($betterLocation instanceof InvalidLocationException) {
-							$result .= sprintf('%s %s', Icons::ERROR, htmlentities($betterLocation->getMessage())) . PHP_EOL . PHP_EOL;
-						} else {
-							Debugger::log($betterLocation, Debugger::EXCEPTION);
-							throw $betterLocation;
-						}
+					foreach ($betterLocations->getLocations() as $betterLocation) {
+						$result .= $betterLocation->generateBetterLocation();
 					}
 					printf('<pre>%s</pre>', $result);
 				} else {
 					printf('No location(s) was detected in text.');
+				}
+				foreach ($betterLocations->getErrors() as $betterLocationError) {
+					printf('<p>%s Error: <b>%s</b></p>', \Icons::ERROR, htmlentities($betterLocationError->getMessage()));
 				}
 			} catch (\Exception $exception) {
 				printf('%s Error occured while processing input: %s', Icons::ERROR, $exception->getMessage());
