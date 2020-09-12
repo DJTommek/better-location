@@ -92,6 +92,10 @@ abstract class Events
 		return TelegramHelper::isPM($this->update);
 	}
 
+	public function isForward() {
+		return TelegramHelper::isForward($this->update);
+	}
+
 	/**
 	 * @param string $action
 	 * @throws \Exception
