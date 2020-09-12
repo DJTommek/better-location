@@ -128,6 +128,7 @@ class InlineQuery extends Special
 						$queryInput,
 						['formatted_address', 'name', 'geometry', 'place_id'],
 						$this->update->inline_query->from->language_code ?? 'en',
+						$this->user->getLastKnownLocation(),
 					);
 					foreach ($placeCandidates as $placeCandidate) {
 						$betterLocation = new BetterLocation(
