@@ -33,7 +33,7 @@ class GooglePlaceApi
 				'input' => $input,
 				'inputtype' => 'textquery', // @TODO add support for phonenumber?
 				'fields' => join(',', $outputFields),
-				'locationbias' => $locationBias,
+				'locationbias' => $locationBias, // if null, value will not present in result string (https://www.php.net/manual/en/function.http-build-query.php#60523)
 				'language' => $language,
 				'key' => $this->apiKey,
 			]);
