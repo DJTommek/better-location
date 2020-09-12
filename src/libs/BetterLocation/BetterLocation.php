@@ -18,6 +18,7 @@ use \BetterLocation\Service\OpenStreetMapService;
 use \BetterLocation\Service\OpenLocationCodeService;
 use \BetterLocation\Service\WazeService;
 use \BetterLocation\Service\WhatThreeWordService;
+use BetterLocation\Service\WikipediaService;
 use TelegramCustomWrapper\Events\Button\FavouritesButton;
 use TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
@@ -126,6 +127,8 @@ class BetterLocation
 						$hereBetterLocationCollection = HereWeGoService::parseCoordsMultiple($url);
 						$hereBetterLocationCollection->filterTooClose(DISTANCE_IGNORE);
 						$betterLocationsCollection->mergeCollection($hereBetterLocationCollection);
+					} else if (WikipediaService::isValid($url)) {
+						$betterLocationsCollection[] = WikipediaService::parseCoords($url);
 					} else if (OpenLocationCodeService::isValid($url)) {
 						$betterLocationsCollection[] = OpenLocationCodeService::parseCoords($url);
 					} else if (WazeService::isValid($url)) {
