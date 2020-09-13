@@ -128,7 +128,11 @@ class BetterLocation
 						$hereBetterLocationCollection->filterTooClose(DISTANCE_IGNORE);
 						$betterLocationsCollection->mergeCollection($hereBetterLocationCollection);
 					} else if (WikipediaService::isValid($url)) {
-						$betterLocationsCollection[] = WikipediaService::parseCoords($url);
+						try {
+							$betterLocationsCollection[] = WikipediaService::parseCoords($url);
+						} catch (InvalidLocationException $exception) {
+							// @HACK workaround to not show error in chat, if processing Wikipedia link without location
+						}
 					} else if (OpenLocationCodeService::isValid($url)) {
 						$betterLocationsCollection[] = OpenLocationCodeService::parseCoords($url);
 					} else if (WazeService::isValid($url)) {
