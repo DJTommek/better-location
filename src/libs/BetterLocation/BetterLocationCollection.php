@@ -108,7 +108,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 			} else {
 				$this->locations[$offset] = $value;
 			}
-		} else if ($value instanceof \Exception) {
+		} else if ($value instanceof \Throwable) {
 			if (is_null($offset)) {
 				$this->errors[] = $value;
 			} else {
