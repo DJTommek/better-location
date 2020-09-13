@@ -7,23 +7,11 @@ namespace BetterLocation\Service\Coordinates;
 use BetterLocation\BetterLocation;
 use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotSupportedException;
 use Utils\MGRS;
 
 final class MGRSService extends AbstractService
 {
 	const NAME = 'MGRS';
-
-	/**
-	 * @param float $lat
-	 * @param float $lon
-	 * @param bool $drive
-	 * @return string
-	 * @throws NotSupportedException
-	 */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string {
-		throw new NotSupportedException('Link for raw coordinates is not supported.');
-	}
 
 	/**
 	 * @param $text

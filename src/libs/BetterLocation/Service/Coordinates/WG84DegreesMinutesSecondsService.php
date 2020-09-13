@@ -7,23 +7,11 @@ namespace BetterLocation\Service\Coordinates;
 use BetterLocation\BetterLocation;
 use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotSupportedException;
 
 final class WG84DegreesMinutesSecondsService extends AbstractService
 {
 	const RE_COORD = '([0-9]{1,3})°([0-9]{1,2})\'([0-9]{1,2}(?:\.[0-9]{1,10})?)"';
 	const NAME = 'WG84 DMS';
-
-	/**
-	 * @param float $lat
-	 * @param float $lon
-	 * @param bool $drive
-	 * @return string
-	 * @throws NotSupportedException
-	 */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string {
-		throw new NotSupportedException('Link for raw coordinates is not supported.');
-	}
 
 	public static function getRegex(): string {
 		return self::RE_HEMISPHERE . self::RE_OPTIONAL_SPACE . self::RE_COORD . self::RE_HEMISPHERE . self::RE_SPACE_BETWEEN_COORDS . self::RE_HEMISPHERE . self::RE_OPTIONAL_SPACE . self::RE_COORD . self::RE_HEMISPHERE;

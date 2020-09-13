@@ -8,6 +8,7 @@ use BetterLocation\BetterLocation;
 use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
+use BetterLocation\Service\Exceptions\NotSupportedException;
 use Utils\Coordinates;
 use Utils\General;
 
@@ -28,7 +29,25 @@ abstract class AbstractService extends \BetterLocation\Service\AbstractService
 
 	const RE_OPTIONAL_SPACE = ' ?';
 
-	abstract public static function getLink(float $lat, float $lon, bool $drive = false);
+	/**
+	 * @param float $lat
+	 * @param float $lon
+	 * @param bool $drive
+	 * @return string
+	 * @throws NotSupportedException
+	 */
+	public static function getLink(float $lat, float $lon, bool $drive = false): string {
+		throw new NotSupportedException('Link for raw coordinates is not supported.');
+	}
+
+	/**
+	 * @param string $input
+	 * @return BetterLocationCollection
+	 * @throws NotImplementedException
+	 */
+	public static function parseCoordsMultiple(string $input): BetterLocationCollection {
+		throw new NotImplementedException('Parsing multiple coordinates is not available.');
+	}
 
 	abstract public static function isValid(string $input);
 
@@ -84,10 +103,10 @@ abstract class AbstractService extends \BetterLocation\Service\AbstractService
 		}
 
 		if ($latHemisphere1 && $latHemisphere2) {
-			throw new InvalidLocationException(sprintf('Invalid format of coordinates "<code>%s</code>" - hemisphere is defined twice for first coordinate', $input));
+			throw new InvalidLocationException(sprintf('Invalid format of coordinates "%s" - hemisphere is defined twice for first coordinate', $input));
 		}
 		if ($lonHemisphere1 && $lonHemisphere2) {
-			throw new InvalidLocationException(sprintf('Invalid format of coordinates "<code>%s</code>" - hemisphere is defined twice for second coordinate', $input));
+			throw new InvalidLocationException(sprintf('Invalid format of coordinates "%s" - hemisphere is defined twice for second coordinate', $input));
 		}
 
 		// Get hemisphere for first coordinate
@@ -146,10 +165,10 @@ abstract class AbstractService extends \BetterLocation\Service\AbstractService
 
 		// Check if final format of hemispheres and coordinates is valid
 		if (in_array($latHemisphere, [Coordinates::EAST, Coordinates::WEST])) {
-			throw new InvalidLocationException(sprintf('Both coordinates "<code>%s</code>" are east-west hemisphere', $matches[0]));
+			throw new InvalidLocationException(sprintf('Both coordinates "%s" are east-west hemisphere', $matches[0]));
 		}
 		if (in_array($lonHemisphere, [Coordinates::NORTH, Coordinates::SOUTH])) {
-			throw new InvalidLocationException(sprintf('Both coordinates "<code>%s</code>" are north-south hemisphere', $matches[0]));
+			throw new InvalidLocationException(sprintf('Both coordinates "%s" are north-south hemisphere', $matches[0]));
 		}
 
 		return new BetterLocation(
@@ -158,14 +177,5 @@ abstract class AbstractService extends \BetterLocation\Service\AbstractService
 			Coordinates::flip($lonHemisphere) * $lonCoord,
 			get_called_class(),
 		);
-	}
-
-	/**
-	 * @param string $input
-	 * @return BetterLocationCollection
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection {
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }
