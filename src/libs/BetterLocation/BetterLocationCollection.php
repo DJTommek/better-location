@@ -42,7 +42,13 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	}
 
 	public function mergeCollection(BetterLocationCollection $betterLocationCollection): void {
-		$this->locations = array_merge($this->locations, $betterLocationCollection->getAll());
+		foreach ($betterLocationCollection->getAll() as $betterLocation) {
+			if ($betterLocation instanceof BetterLocation) {
+				$this->locations[] = $betterLocation;
+			} else {
+				$this->errors[] = $betterLocation;
+			}
+		}
 	}
 
 	public function filterTooClose(int $ignoreDistance = 0): void {
@@ -69,28 +75,30 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	}
 
 	/**
-	 * @return BetterLocationCollection
-	 * @TODO rather remove duplicated locations from this collection instead of creating new deduplicated
+	 * Remove locations with exact same coordinates and keep only one
 	 */
-	public function getDeduplicated(): BetterLocationCollection {
-		// array unique is using __toString()
-		$deduplicatedLocations = new BetterLocationCollection();
-		foreach (array_unique($this->getLocations()) as $location) {
-			$deduplicatedLocations->add($location);
+	public function deduplicate(): void {
+		$originalCoordinates = [];
+		foreach ($this->locations as $location) {
+			$key = $location->__toString();
+			if (isset($originalCoordinates[$key])) {
+				$originalCoordinates[$key]++;
+			} else {
+				$originalCoordinates[$key] = 1;
+			}
 		}
 
-		foreach ($deduplicatedLocations as $deduplicatedLocation) {
-			$count = 0;
-			foreach ($this->getLocations() as $location) {
-				if ($location->__toString() === $deduplicatedLocation->__toString()) {
-					$count++;
-				}
-			}
-			if ($count > 1) {
-				$deduplicatedLocation->setCoordinateSuffixMessage(sprintf('(%dx)', $count));
+		$coordinates = $originalCoordinates; // copy array
+		// array_reverse to remove all other duplicated locations but first
+		foreach (array_reverse($this->locations, true) as $collectionKey => $location) {
+			$key = $location->__toString();
+			if ($coordinates[$key] > 1) {
+				unset($this->locations[$collectionKey]);
+				$coordinates[$key]--;
+			} else if ($coordinates[$key] === 1 && $originalCoordinates[$key] > 1) { // add info that coordinates was deduplicated
+				$this->locations[$collectionKey]->setCoordinateSuffixMessage(sprintf('(%dx)', $originalCoordinates[$key]));
 			}
 		}
-		return $deduplicatedLocations;
 	}
 
 	public function offsetExists($offset) {

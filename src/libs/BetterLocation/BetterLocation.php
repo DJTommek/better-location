@@ -181,7 +181,7 @@ class BetterLocation
 			}
 		}
 
-		$betterLocationsCollection = $betterLocationsCollection->getDeduplicated();
+		$betterLocationsCollection->deduplicate();
 
 		return $betterLocationsCollection;
 	}
