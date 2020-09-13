@@ -57,12 +57,9 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 					$exifButtons = $betterLocationExif->generateDriveButtons();
 					$exifButtons[] = $betterLocationExif->generateAddToFavouriteButtton();
 					$buttonsRows[] = $exifButtons;
-				} catch (\Exception $exception) {
-					$this->reply(
-						sprintf('%s Unexpected error occured while processing EXIF data from image for Better location. Contact Admin for more info.', Icons::ERROR),
-						['disable_web_page_preview' => true],
-					);
+				} catch (\Throwable $exception) {
 					Debugger::log($exception, ILogger::EXCEPTION);
+					$this->reply(sprintf('%s Unexpected error occured while processing EXIF data from image for Better location. Contact Admin for more info.', Icons::ERROR));
 					return;
 				}
 			}

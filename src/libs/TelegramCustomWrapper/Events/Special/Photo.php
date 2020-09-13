@@ -37,8 +37,8 @@ class Photo extends \TelegramCustomWrapper\Events\Special\Special
 				$result .= $betterLocation->generateBetterLocation();
 			}
 		} catch (\Exception $exception) {
-			$this->reply(sprintf('%s Unexpected error occured while processing photo caption for Better location. Contact Admin for more info.', Icons::ERROR));
 			Debugger::log($exception, ILogger::EXCEPTION);
+			$this->reply(sprintf('%s Unexpected error occured while processing photo caption for Better location. Contact Admin for more info.', Icons::ERROR));
 			return;
 		}
 		if ($result) {

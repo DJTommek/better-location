@@ -69,9 +69,9 @@ class StartCommand extends Command
 						'reply_markup' => $markup,
 					],
 				);
-			} catch (\Exception $exception) {
-				$this->reply(sprintf('%s Unexpected error occured while processing coordinates in start command for Better location. Contact Admin for more info.', Icons::ERROR));
+			} catch (\Throwable $exception) {
 				Debugger::log($exception, ILogger::EXCEPTION);
+				$this->reply(sprintf('%s Unexpected error occured while processing coordinates in start command for Better location. Contact Admin for more info.', Icons::ERROR));
 			}
 		}
 	}

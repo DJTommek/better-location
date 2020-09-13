@@ -141,9 +141,9 @@ class InlineQuery extends Special
 						try {
 							$placeDetails = $placeApi->getPlaceDetails($placeCandidate->place_id, ['url', 'website']);
 							$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a>', ($placeDetails->website ?? $placeDetails->url), $placeCandidate->name));
-						} catch (\Exception $exception) {
-							$betterLocation->setPrefixMessage($placeCandidate->name);
+						} catch (\Throwable $exception) {
 							Debugger::log($exception, ILogger::EXCEPTION);
+							$betterLocation->setPrefixMessage($placeCandidate->name);
 						}
 						$betterLocation->setAddress($placeCandidate->formatted_address);
 						$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
@@ -154,10 +154,10 @@ class InlineQuery extends Special
 					$answerInlineQuery->switch_pm_text = 'No valid location found...';
 					$answerInlineQuery->switch_pm_parameter = 'inline-notfound';
 				}
-			} catch (\Exception $exception) {
+			} catch (\Throwable $exception) {
+				Debugger::log($exception, ILogger::EXCEPTION);
 				$answerInlineQuery->switch_pm_text = 'Error occured while processing. Try again later.';
 				$answerInlineQuery->switch_pm_parameter = 'inline-exception';
-				Debugger::log($exception, ILogger::EXCEPTION);
 			}
 		}
 		$this->run($answerInlineQuery);

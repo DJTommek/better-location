@@ -190,7 +190,8 @@ $loop->run();
 				foreach ($betterLocations->getErrors() as $betterLocationError) {
 					printf('<p>%s Error: <b>%s</b></p>', \Icons::ERROR, htmlentities($betterLocationError->getMessage()));
 				}
-			} catch (\Exception $exception) {
+			} catch (\Throwable $exception) {
+				Debugger::log($exception, ILogger::EXCEPTION);
 				printf('%s Error occured while processing input: %s', Icons::ERROR, $exception->getMessage());
 			}
 		} else {

@@ -46,9 +46,9 @@ class MessageCommand extends Command
 					Debugger::log($betterLocation, Debugger::EXCEPTION);
 				}
 			}
-		} catch (\Exception $exception) {
-			$this->reply(sprintf('%s Unexpected error occured while processing message for Better location. Contact Admin for more info.\n%s', \Icons::ERROR, $exception->getMessage()));
+		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
+			$this->reply(sprintf('%s Unexpected error occured while processing message for Better location. Contact Admin for more info.', \Icons::ERROR));
 			return;
 		}
 		if ($result) {

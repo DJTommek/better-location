@@ -33,9 +33,9 @@ class LocationCommand extends Command
 			$result = $betterLocation->generateBetterLocation();
 			$buttons = $betterLocation->generateDriveButtons();
 			$buttons[] = $betterLocation->generateAddToFavouriteButtton();
-		} catch (\Exception $exception) {
-			$this->reply(sprintf('%s Unexpected error occured while processing location for Better location. Contact Admin for more info.', Icons::ERROR));
+		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
+			$this->reply(sprintf('%s Unexpected error occured while processing location for Better location. Contact Admin for more info.', Icons::ERROR));
 			return;
 		}
 		if ($result) {
