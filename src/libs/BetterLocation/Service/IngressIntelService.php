@@ -8,6 +8,7 @@ use BetterLocation\BetterLocation;
 use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
+use BetterLocation\Service\Exceptions\NotSupportedException;
 
 final class IngressIntelService extends AbstractService
 {
@@ -20,12 +21,13 @@ final class IngressIntelService extends AbstractService
 	 * @param float $lon
 	 * @param bool $drive
 	 * @return string
+	 * @throws NotSupportedException
 	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
 		if ($drive) {
-			throw new \InvalidArgumentException('Drive link is not implemented.');
+			throw new NotSupportedException('Drive link is not implemented.');
 		} else {
-			return self::LINK . sprintf('?ll=%1$f,%2$f&pll=%1$f,%2$f', $lat, $lon);
+			return self::LINK . sprintf('/?ll=%1$f,%2$f&pll=%1$f,%2$f', $lat, $lon);
 		}
 	}
 

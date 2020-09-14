@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;
 use \BetterLocation\Service\Coordinates\WG84DegreesService;
 use \BetterLocation\Service\Exceptions\InvalidLocationException;
@@ -8,6 +9,18 @@ require_once __DIR__ . '/../src/config.php';
 
 final class WG84DegreesServiceTest extends TestCase
 {
+	public function testGenerateShareLink(): void {
+		$this->expectException(NotSupportedException::class);
+		$this->expectExceptionMessage('Share link for raw coordinates is not supported.');
+		WG84DegreesService::getLink(50.087451, 14.420671);
+	}
+
+	public function testGenerateDriveLink(): void {
+		$this->expectException(NotSupportedException::class);
+		$this->expectExceptionMessage('Drive link for raw coordinates is not supported.');
+		WG84DegreesService::getLink(50.087451, 14.420671, true);
+	}
+
 	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testValidCoordinatesWithoutHemisphere(): void {
 		// optional space and comma
@@ -85,7 +98,7 @@ final class WG84DegreesServiceTest extends TestCase
 		$this->assertEquals('89.999999, -180.000000', WG84DegreesService::parseCoords('89.999999 -180.0')->__toString());
 		$this->assertEquals('-89.999999, 180.000000', WG84DegreesService::parseCoords('-89.999999 180.0')->__toString());
 		$this->assertEquals('-89.999999, -180.000000', WG84DegreesService::parseCoords('-89.999999 -180.0')->__toString());
-		
+
 		$this->assertEquals('90.000000, 180.000000', WG84DegreesService::parseCoords('90.0 180.0')->__toString());
 		$this->assertEquals('90.000000, -180.000000', WG84DegreesService::parseCoords('90.0 -180.0')->__toString());
 		$this->assertEquals('-90.000000, 180.000000', WG84DegreesService::parseCoords('-90.0 180.0')->__toString());

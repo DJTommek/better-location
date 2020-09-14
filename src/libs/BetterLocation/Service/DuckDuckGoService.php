@@ -19,10 +19,11 @@ final class DuckDuckGoService extends AbstractService
 	 * @param float $lon
 	 * @param bool $drive
 	 * @return string
+	 * @throws NotImplementedException
 	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
 		if ($drive) {
-			throw new \NotImplementedException('Drive link is not implemented.');
+			throw new NotImplementedException('Drive link is not implemented.');
 		} else {
 			return self::LINK . sprintf('/?q=%1$f,%2$f&iaxm=maps', $lat, $lon);
 		}

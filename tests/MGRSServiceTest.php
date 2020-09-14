@@ -1,12 +1,25 @@
 <?php declare(strict_types=1);
 
 use BetterLocation\Service\Coordinates\MGRSService;
+use BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../src/config.php';
 
 final class MGRSServiceTest extends TestCase
 {
+	public function testGenerateShareLink(): void {
+		$this->expectException(NotSupportedException::class);
+		$this->expectExceptionMessage('Share link for raw coordinates is not supported.');
+		MGRSService::getLink(50.087451, 14.420671);
+	}
+
+	public function testGenerateDriveLink(): void {
+		$this->expectException(NotSupportedException::class);
+		$this->expectExceptionMessage('Drive link for raw coordinates is not supported.');
+		MGRSService::getLink(50.087451, 14.420671, true);
+	}
+
 	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testValidLocation(): void {
 		$this->assertEquals('50.086359, 14.408709', MGRSService::parseCoords('33UVR577484')->__toString()); // Prague
@@ -22,7 +35,6 @@ final class MGRSServiceTest extends TestCase
 //		$this->assertEquals(',', MGRSService::parseCoords('18SUJ70821529')->__toString());
 //		$this->assertEquals(',', MGRSService::parseCoords('18SUJ708152')->__toString());
 	}
-
 
 	public function testNothingInText(): void {
 		$this->assertEquals([], MGRSService::findInText('Nothing valid')->getAll());

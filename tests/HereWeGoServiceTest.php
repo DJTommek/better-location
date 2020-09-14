@@ -8,6 +8,22 @@ require_once __DIR__ . '/../src/config.php';
 
 final class HereWeGoServiceTest extends TestCase
 {
+	public function testGenerateShareLink(): void {
+		$this->assertEquals('https://share.here.com/l/50.087451,14.420671?p=yes', HereWeGoService::getLink(50.087451, 14.420671));
+		$this->assertEquals('https://share.here.com/l/50.100000,14.500000?p=yes', HereWeGoService::getLink(50.1, 14.5));
+		$this->assertEquals('https://share.here.com/l/-50.200000,14.600000?p=yes', HereWeGoService::getLink(-50.2, 14.6000001)); // round down
+		$this->assertEquals('https://share.here.com/l/50.300000,-14.700001?p=yes', HereWeGoService::getLink(50.3, -14.7000009)); // round up
+		$this->assertEquals('https://share.here.com/l/-50.400000,-14.800008?p=yes', HereWeGoService::getLink(-50.4, -14.800008));
+	}
+
+	public function testGenerateDriveLink(): void {
+		$this->assertEquals('https://share.here.com/r/50.087451,14.420671', HereWeGoService::getLink(50.087451, 14.420671, true));
+		$this->assertEquals('https://share.here.com/r/50.100000,14.500000', HereWeGoService::getLink(50.1, 14.5, true));
+		$this->assertEquals('https://share.here.com/r/-50.200000,14.600000', HereWeGoService::getLink(-50.2, 14.6000001, true)); // round down
+		$this->assertEquals('https://share.here.com/r/50.300000,-14.700001', HereWeGoService::getLink(50.3, -14.7000009, true)); // round up
+		$this->assertEquals('https://share.here.com/r/-50.400000,-14.800008', HereWeGoService::getLink(-50.4, -14.800008, true));
+	}
+
 	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testNormalUrl(): void {
 		$this->assertEquals('50.075130, 14.454530', HereWeGoService::parseCoordsMultiple('https://wego.here.com/?map=50.07513,14.45453,15,normal')[0]->__toString()); // browser

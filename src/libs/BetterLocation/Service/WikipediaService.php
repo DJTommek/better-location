@@ -8,6 +8,7 @@ use BetterLocation\BetterLocation;
 use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
+use BetterLocation\Service\Exceptions\NotSupportedException;
 use Utils\General;
 
 final class WikipediaService extends AbstractService
@@ -21,13 +22,13 @@ final class WikipediaService extends AbstractService
 	 * @param float $lon
 	 * @param bool $drive
 	 * @return string
-	 * @see https://developer.here.com/documentation/deeplink-web/dev_guide/topics/key-concepts.html
+	 * @throws NotSupportedException
 	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
 		if ($drive) {
-			throw new \InvalidArgumentException('Drive link is not supported.');
+			throw new NotSupportedException('Drive link is not supported.');
 		} else {
-			throw new \InvalidArgumentException('Share link is not supported.');
+			throw new NotSupportedException('Share link is not supported.');
 		}
 	}
 

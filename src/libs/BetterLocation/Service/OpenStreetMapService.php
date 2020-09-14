@@ -20,10 +20,11 @@ final class OpenStreetMapService extends AbstractService
 	 * @param float $lon
 	 * @param bool $drive
 	 * @return string
+	 * @throws NotImplementedException
 	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
 		if ($drive) {
-			throw new \InvalidArgumentException('Drive link is not implemented.');
+			throw new NotImplementedException('Drive link is not implemented.');
 		} else {
 			return sprintf(self::LINK, $lat, $lon);
 		}

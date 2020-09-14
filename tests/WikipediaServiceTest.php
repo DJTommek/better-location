@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use BetterLocation\Service\Exceptions\InvalidLocationException;
+use BetterLocation\Service\Exceptions\NotSupportedException;
 use BetterLocation\Service\WikipediaService;
 use PHPUnit\Framework\TestCase;
 
@@ -9,6 +10,18 @@ require_once __DIR__ . '/../src/config.php';
 
 final class WikipediaServiceTest extends TestCase
 {
+	public function testGenerateShareLink(): void {
+		$this->expectException(NotSupportedException::class);
+		$this->expectExceptionMessage('Share link is not supported.');
+		WikipediaService::getLink(50.087451, 14.420671);
+	}
+
+	public function testGenerateDriveLink(): void {
+		$this->expectException(NotSupportedException::class);
+		$this->expectExceptionMessage('Drive link is not supported.');
+		WikipediaService::getLink(50.087451, 14.420671, true);
+	}
+
 	public function testIsValid(): void {
 		$this->assertTrue(WikipediaService::isValid('https://en.wikipedia.org/wiki/Conneaut_High_School'));
 		$this->assertTrue(WikipediaService::isValid('https://cs.wikipedia.org/wiki/City_Tower'));

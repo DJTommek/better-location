@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use BetterLocation\Service\Exceptions\NotImplementedException;
 use PHPUnit\Framework\TestCase;
 use \BetterLocation\Service\MapyCzService;
 use \BetterLocation\Service\Exceptions\InvalidLocationException;
@@ -8,6 +9,21 @@ require_once __DIR__ . '/../src/config.php';
 
 final class MapyCzServiceTest extends TestCase
 {
+	/** @noinspection PhpUnhandledExceptionInspection */
+	public function testGenerateShareLink(): void {
+		$this->assertEquals('https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451', MapyCzService::getLink(50.087451, 14.420671));
+		$this->assertEquals('https://mapy.cz/zakladni?y=50.100000&x=14.500000&source=coor&id=14.500000%2C50.100000', MapyCzService::getLink(50.1, 14.5));
+		$this->assertEquals('https://mapy.cz/zakladni?y=-50.200000&x=14.600000&source=coor&id=14.600000%2C-50.200000', MapyCzService::getLink(-50.2, 14.6000001)); // round down
+		$this->assertEquals('https://mapy.cz/zakladni?y=50.300000&x=-14.700001&source=coor&id=-14.700001%2C50.300000', MapyCzService::getLink(50.3, -14.7000009)); // round up
+		$this->assertEquals('https://mapy.cz/zakladni?y=-50.400000&x=-14.800008&source=coor&id=-14.800008%2C-50.400000', MapyCzService::getLink(-50.4, -14.800008));
+	}
+
+	public function testGenerateDriveLink(): void {
+		$this->expectException(NotImplementedException::class);
+		$this->expectExceptionMessage('Drive link is not implemented.');
+		MapyCzService::getLink(50.087451, 14.420671, true);
+	}
+
 	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testMapyCzXY(): void {
 		$this->assertEquals('50.069524, 14.450824', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15')->__toString());

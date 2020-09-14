@@ -7,6 +7,22 @@ require_once __DIR__ . '/../src/config.php';
 
 final class WazeServiceTest extends TestCase
 {
+	public function testGenerateShareLink(): void {
+		$this->assertEquals('https://www.waze.com/ul?ll=50.087451,14.420671', WazeService::getLink(50.087451, 14.420671));
+		$this->assertEquals('https://www.waze.com/ul?ll=50.100000,14.500000', WazeService::getLink(50.1, 14.5));
+		$this->assertEquals('https://www.waze.com/ul?ll=-50.200000,14.600000', WazeService::getLink(-50.2, 14.6000001)); // round down
+		$this->assertEquals('https://www.waze.com/ul?ll=50.300000,-14.700001', WazeService::getLink(50.3, -14.7000009)); // round up
+		$this->assertEquals('https://www.waze.com/ul?ll=-50.400000,-14.800008', WazeService::getLink(-50.4, -14.800008));
+	}
+
+	public function testGenerateDriveLink(): void {
+		$this->assertEquals('https://www.waze.com/ul?ll=50.087451,14.420671&navigate=yes', WazeService::getLink(50.087451, 14.420671, true));
+		$this->assertEquals('https://www.waze.com/ul?ll=50.100000,14.500000&navigate=yes', WazeService::getLink(50.1, 14.5, true));
+		$this->assertEquals('https://www.waze.com/ul?ll=-50.200000,14.600000&navigate=yes', WazeService::getLink(-50.2, 14.6000001, true)); // round down
+		$this->assertEquals('https://www.waze.com/ul?ll=50.300000,-14.700001&navigate=yes', WazeService::getLink(50.3, -14.7000009, true)); // round up
+		$this->assertEquals('https://www.waze.com/ul?ll=-50.400000,-14.800008&navigate=yes', WazeService::getLink(-50.4, -14.800008, true));
+	}
+
 	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testShortUrl(): void {
 		$this->assertEquals('50.052273, 14.452407', WazeService::parseCoords('https://waze.com/ul/hu2fk8zezt')->__toString());

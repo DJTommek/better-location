@@ -9,6 +9,7 @@ use BetterLocation\BetterLocationCollection;
 use \BetterLocation\Service\Exceptions\InvalidApiKeyException;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
+use BetterLocation\Service\Exceptions\NotSupportedException;
 use What3words\Geocoder\Geocoder;
 
 final class WhatThreeWordService extends AbstractService
@@ -31,7 +32,7 @@ final class WhatThreeWordService extends AbstractService
 	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
 		if ($drive) {
-			throw new \InvalidArgumentException('Drive link is not supported.');
+			throw new NotSupportedException('Drive link is not supported.');
 		} else {
 			$w3wApi = new Geocoder(W3W_API_KEY);
 			// @TODO dirty hack to get stdclass instead of associated array

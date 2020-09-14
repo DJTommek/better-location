@@ -37,7 +37,11 @@ abstract class AbstractService extends \BetterLocation\Service\AbstractService
 	 * @throws NotSupportedException
 	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
-		throw new NotSupportedException('Link for raw coordinates is not supported.');
+		if ($drive) {
+			throw new NotSupportedException('Drive link for raw coordinates is not supported.');
+		} else {
+			throw new NotSupportedException('Share link for raw coordinates is not supported.');
+		}
 	}
 
 	/**

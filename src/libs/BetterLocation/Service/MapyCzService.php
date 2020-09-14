@@ -7,6 +7,7 @@ namespace BetterLocation\Service;
 use BetterLocation\BetterLocation;
 use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
+use BetterLocation\Service\Exceptions\NotImplementedException;
 use Tracy\Debugger;
 use Utils\General;
 
@@ -36,13 +37,14 @@ final class MapyCzService extends AbstractService
 	 * @param float $lon
 	 * @param bool $drive
 	 * @return string
+	 * @throws NotImplementedException
 	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
 		if ($drive) {
 			// No official API for backend so it might be probably generated only via simulating frontend
 			// @see https://napoveda.seznam.cz/forum/threads/120687/1
 			// @see https://napoveda.seznam.cz/forum/file/13641/Schema-otevirani-aplikaci-z-url-a-externe.pdf
-			throw new \InvalidArgumentException('Drive link is not implemented.');
+			throw new NotImplementedException('Drive link is not implemented.');
 		} else {
 			return sprintf(self::LINK, $lat, $lon);
 		}

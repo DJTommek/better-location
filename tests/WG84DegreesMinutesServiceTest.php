@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;
 use \BetterLocation\Service\Coordinates\WG84DegreesMinutesService;
 use \BetterLocation\Service\Exceptions\InvalidLocationException;
@@ -8,6 +9,18 @@ require_once __DIR__ . '/../src/config.php';
 
 final class WG84DegreesMinutesServiceTest extends TestCase
 {
+	public function testGenerateShareLink(): void {
+		$this->expectException(NotSupportedException::class);
+		$this->expectExceptionMessage('Share link for raw coordinates is not supported.');
+		WG84DegreesMinutesService::getLink(50.087451, 14.420671);
+	}
+
+	public function testGenerateDriveLink(): void {
+		$this->expectException(NotSupportedException::class);
+		$this->expectExceptionMessage('Drive link for raw coordinates is not supported.');
+		WG84DegreesMinutesService::getLink(50.087451, 14.420671, true);
+	}
+
 	public function testNothingInText(): void {
 		$this->assertEquals([], WG84DegreesMinutesService::findInText('Nothing valid')->getAll());
 	}
