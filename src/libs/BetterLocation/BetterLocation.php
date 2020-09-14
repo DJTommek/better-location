@@ -37,6 +37,7 @@ class BetterLocation
 	private $originalInput;
 	private $sourceService;
 	private $sourceType;
+	private $pregeneratedLinks = [];
 
 	/**
 	 * BetterLocation constructor.
@@ -88,6 +89,15 @@ class BetterLocation
 			$generatedPrefix = sprintf('<a href="%s">%s</a>', $this->originalInput, $generatedPrefix);
 		}
 		$this->setPrefixMessage($generatedPrefix);
+
+		// pregenerate link for MapyCz if contains source and ID (@see https://github.com/DJTommek/better-location/issues/17)
+		if ($sourceService === MapyCzService::class && $sourceType === MapyCzService::TYPE_PLACE_ID) {
+			$parsedUrl = General::parseUrl($originalInput);
+			$generatedUrl = MapyCzService::getLink($this->lat, $this->lon);
+			$generatedUrl = str_replace(sprintf('%f%%2C%f', $this->lon, $this->lat), $parsedUrl['query']['id'], $generatedUrl);
+			$generatedUrl = str_replace('source=coor', 'source=' . $parsedUrl['query']['source'], $generatedUrl);
+			$this->pregeneratedLinks[MapyCzService::class] = $generatedUrl;
+		}
 	}
 
 	public function getName() {
@@ -274,21 +284,24 @@ class BetterLocation
 		];
 		$text = '';
 		$text .= sprintf('%s <a href="%s">%s</a> <code>%f,%f</code>',
-				$this->prefixMessage,
-				$this->generateScreenshotLink(MapyCzService::class),
-				\Icons::PICTURE,
-				$this->lat,
-				$this->lon
-			);
+			$this->prefixMessage,
+			$this->generateScreenshotLink(MapyCzService::class),
+			\Icons::PICTURE,
+			$this->lat,
+			$this->lon
+		);
 		if ($this->getCoordinateSuffixMessage()) {
 			$text .= ' ' . $this->getCoordinateSuffixMessage();
 		}
 		$text .= PHP_EOL;
 
 		// Generate links
-        $text .= join(' | ', \array_map(function ($service) {
-            return sprintf('<a href="%s">%s</a>', $service::getLink($this->lat, $this->lon), $service::NAME);
-        }, $services)) . PHP_EOL;
+		$text .= join(' | ', \array_map(function (string $service) {
+				return sprintf('<a href="%s">%s</a>',
+					$this->pregeneratedLinks[$service] ?? $service::getLink($this->lat, $this->lon),
+					$service::NAME,
+				);
+			}, $services)) . PHP_EOL;
 
 		if ($withAddress && is_null($this->address) === false) {
 			$text .= $this->getAddress() . PHP_EOL;
