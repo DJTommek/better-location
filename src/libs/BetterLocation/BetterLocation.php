@@ -9,6 +9,7 @@ use BetterLocation\Service\Coordinates\USNGService;
 use BetterLocation\Service\Coordinates\WG84DegreesMinutesSecondsService;
 use BetterLocation\Service\Coordinates\WG84DegreesMinutesService;
 use BetterLocation\Service\Coordinates\WG84DegreesService;
+use BetterLocation\Service\DuckDuckGoService;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use \BetterLocation\Service\GoogleMapsService;
 use \BetterLocation\Service\HereWeGoService;
@@ -141,6 +142,8 @@ class BetterLocation
 						$betterLocationsCollection[] = WhatThreeWordService::parseCoords($url);
 					} else if (IngressIntelService::isValid($url)) {
 						$betterLocationsCollection[] = IngressIntelService::parseCoords($url);
+					} else if (DuckDuckGoService::isValid($url)) {
+						$betterLocationsCollection[] = DuckDuckGoService::parseCoords($url);
 					}
 				} catch (\Exception $exception) {
 					$betterLocationsCollection[] = $exception;
@@ -263,6 +266,7 @@ class BetterLocation
 		$services = [
 			GoogleMapsService::class,
 			MapyCzService::class,
+			DuckDuckGoService::class,
 			WazeService::class,
 			HereWeGoService::class,
 			OpenStreetMapService::class,
