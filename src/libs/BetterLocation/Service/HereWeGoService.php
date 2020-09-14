@@ -91,10 +91,7 @@ final class HereWeGoService extends AbstractService
 	 */
 	public static function parseUrl(string $url): BetterLocationCollection {
 		$betterLocationCollection = new BetterLocationCollection();
-		$parsedUrl = parse_url($url);
-		if (isset($parsedUrl['query'])) {
-			parse_str($parsedUrl['query'], $parsedUrl['query']);
-		}
+		$parsedUrl = General::parseUrl($url);
 		$messageInUrl = isset($parsedUrl['query']['msg']) ? htmlspecialchars($parsedUrl['query']['msg']) : null;
 
 		if (preg_match('/--loc-[a-zA-Z0-9]+/', $url)) {

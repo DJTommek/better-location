@@ -181,4 +181,18 @@ class General
 		$var1 = $var2;
 		$var2 = $tmp;
 	}
+
+	/**
+	 * Smarter parse_url()
+	 *
+	 * @param string $url
+	 * @return array
+	 */
+	public static function parseUrl(string $url): array {
+		$parsedUrl = parse_url($url);
+		if (isset($parsedUrl['query'])) {
+			parse_str($parsedUrl['query'], $parsedUrl['query']);
+		}
+		return $parsedUrl;
+	}
 }
