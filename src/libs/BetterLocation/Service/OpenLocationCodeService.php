@@ -31,7 +31,7 @@ final class OpenLocationCodeService extends AbstractService
 	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
 		if ($drive) {
-			throw new NotSupportedException('Drive link is not implemented.');
+			throw new NotSupportedException('Drive link is not supported.');
 		} else {
 			$plusCode = OpenLocationCode::encode($lat, $lon, self::DEFAULT_CODE_LENGTH);
 			return self::LINK . $plusCode;
