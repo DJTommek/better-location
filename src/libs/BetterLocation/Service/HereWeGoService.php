@@ -65,6 +65,9 @@ final class HereWeGoService extends AbstractService
 
 	public static function isShortUrl(string $url): bool {
 		$parsedUrl = parse_url($url);
+		if (isset($parsedUrl['host']) === false) {
+			return false;
+		}
 		$allowedHosts = [
 			'her.is',
 		];
@@ -73,6 +76,9 @@ final class HereWeGoService extends AbstractService
 
 	public static function isNormalUrl(string $url): bool {
 		$parsedUrl = parse_url($url);
+		if (isset($parsedUrl['host']) === false) {
+			return false;
+		}
 		$allowedHosts = [
 			'share.here.com',
 			'wego.here.com',

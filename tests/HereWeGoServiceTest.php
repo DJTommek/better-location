@@ -90,4 +90,7 @@ final class HereWeGoServiceTest extends TestCase
 		$this->assertEquals('50.096670, 14.445130', $location[0]->__toString());
 	}
 
+	public function testIsInvalidUrl(): void {
+		$this->assertFalse(HereWeGoService::isValid('Novinky.cz'));
+	}
 }
