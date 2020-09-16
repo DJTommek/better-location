@@ -13,20 +13,19 @@ final class OpenStreetMapService extends AbstractService
 {
 	const NAME = 'OSM';
 
-	const LINK = 'https://www.openstreetmap.org/search?whereami=1&query=%1$f,%2$f&mlat=%1$f&mlon=%2$f#map=17/%1$f/%2$f';
+	const LINK = 'https://www.openstreetmap.org';
 
 	/**
 	 * @param float $lat
 	 * @param float $lon
 	 * @param bool $drive
 	 * @return string
-	 * @throws NotImplementedException
 	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
 		if ($drive) {
-			throw new NotImplementedException('Drive link is not implemented.');
+			return self::LINK . sprintf('/directions?from=&to=%1$f,%2$f', $lat, $lon);
 		} else {
-			return sprintf(self::LINK, $lat, $lon);
+			return self::LINK . sprintf('/search?whereami=1&query=%1$f,%2$f&mlat=%1$f&mlon=%2$f#map=17/%1$f/%2$f', $lat, $lon);
 		}
 	}
 
