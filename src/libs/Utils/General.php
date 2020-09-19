@@ -101,6 +101,23 @@ class General
 		return $result;
 	}
 
+	/**
+	 * See tests for this method for detail info.
+	 *
+	 * @param string $headerValue
+	 * @param array $haystack
+	 * @return bool
+	 */
+	public static function checkIfValueInHeaderMatchArray(string $headerValue, array $haystack): bool {
+		$values = explode(';', mb_strtolower($headerValue));
+		foreach ($values as $value) {
+			if (in_array($value, $haystack)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static function permute($InArray, $InProcessedArray = []) {
 		$ReturnArray = array();
 		foreach ($InArray as $Key => $value) {

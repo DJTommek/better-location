@@ -23,11 +23,24 @@ use BetterLocation\Service\WikipediaService;
 use TelegramCustomWrapper\Events\Button\FavouritesButton;
 use TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
+use Utils\Coordinates;
 use \Utils\General;
 use Utils\StringUtils;
 
 class BetterLocation
 {
+	/**
+	 * List of content types for images supporting EXIF
+	 * @see https://www.iana.org/assignments/media-types/media-types.xhtml#image
+	 */
+	const CONTENT_TYPE_IMAGE_EXIF = [
+		'image/jpeg',
+		'image/png',
+		'image/tiff',
+		'image/tiff-x',
+		'image/webp',
+	];
+
 	private $lat;
 	private $lon;
 	private $description;
@@ -47,7 +60,7 @@ class BetterLocation
 	 * @param float $lon
 	 * @param string $sourceService has to be name of class extending \BetterLocation\Service\AbstractService
 	 * @param string|null $sourceType
-	 * @throws InvalidLocationException
+	 * @throws InvalidLocationException|Service\Exceptions\NotImplementedException
 	 */
 	public function __construct(string $originalInput, float $lat, float $lon, string $sourceService, ?string $sourceType = null) {
 		$this->originalInput = $originalInput;
@@ -154,6 +167,15 @@ class BetterLocation
 						$betterLocationsCollection[] = IngressIntelService::parseCoords($url);
 					} else if (DuckDuckGoService::isValid($url)) {
 						$betterLocationsCollection[] = DuckDuckGoService::parseCoords($url);
+					} else {
+						$headers = General::getHeaders($url);
+						if (isset($headers['content-type']) && General::checkIfValueInHeaderMatchArray($headers['content-type'], self::CONTENT_TYPE_IMAGE_EXIF)) {
+							$betterLocationExif = BetterLocation::fromExif($url);
+							if ($betterLocationExif instanceof BetterLocation) {
+								$betterLocationExif->setPrefixMessage(sprintf('<a href="%s">EXIF</a>', $url));
+								$betterLocationsCollection[] = $betterLocationExif;
+							}
+						}
 					}
 				} catch (\Exception $exception) {
 					$betterLocationsCollection[] = $exception;
@@ -262,6 +284,41 @@ class BetterLocation
 			}
 		}
 		return $text;
+	}
+
+	/**
+	 * @param string|resource $input Path or URL link to file or resource (see https://php.net/manual/en/function.exif-read-data.php)
+	 * @return BetterLocation|null
+	 * @throws InvalidLocationException|Service\Exceptions\NotImplementedException
+	 */
+	public static function fromExif($input): ?BetterLocation {
+		if (is_string($input) === false && is_resource($input) === false) {
+			throw new \InvalidArgumentException('Input must be string or resource.');
+		}
+		// Bug on older versions of PHP "Warning: exif_read_data(): Process tag(x010D=DocumentNam): Illegal components(0)" Tested with:
+		// WEDOS Linux 7.3.1 (NOT OK)
+		// WAMP Windows 7.3.5 (NOT OK)
+		// WAMP Windows 7.4.7 (OK)
+		// https://bugs.php.net/bug.php?id=77142
+		$exif = @exif_read_data($input);
+		if (
+			$exif &&
+			isset($exif['GPSLatitude']) &&
+			isset($exif['GPSLongitude']) &&
+			isset($exif['GPSLatitudeRef']) &&
+			isset($exif['GPSLongitudeRef'])
+		) {
+			$betterLocationExif = new BetterLocation(
+				json_encode([$exif['GPSLatitude'], $exif['GPSLatitudeRef'], $exif['GPSLongitude'], $exif['GPSLongitudeRef']]),
+				Coordinates::exifToDecimal($exif['GPSLatitude'], $exif['GPSLatitudeRef']),
+				Coordinates::exifToDecimal($exif['GPSLongitude'], $exif['GPSLongitudeRef']),
+				WG84DegreesService::class,
+			);
+			$betterLocationExif->setPrefixMessage('EXIF');
+			return $betterLocationExif;
+		} else {
+			return null;
+		}
 	}
 
 	/**
