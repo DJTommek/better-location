@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 use \Utils\DummyLogger;
 
@@ -14,6 +13,8 @@ try {
 	}
 	$updateData = json_decode($input, true, 512, JSON_THROW_ON_ERROR);
 	DummyLogger::log(DummyLogger::NAME_TELEGRAM_INPUT, $updateData);
+
+	Factory::Database(); // Just check if database connection is valid, otherwise throw Exception and end script now.
 
 	$telegramCustomWrapper = new \TelegramCustomWrapper\TelegramCustomWrapper(TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_NAME);
 	$telegramCustomWrapper->handleUpdate($updateData);
