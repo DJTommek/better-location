@@ -14,6 +14,8 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 {
 	const MIME_TYPE_IMAGE_JPEG = 'image/jpeg';
 
+	const MAX_FILE_SIZE_DOWNLOAD = 20 * 1024 * 1024; // in bytes
+
 	/**
 	 * FileCommand constructor.
 	 *
@@ -29,14 +31,23 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 		// PM or whitelisted group
 		$document = $this->update->message->document;
 		if ($document->mime_type === self::MIME_TYPE_IMAGE_JPEG) {
+			if ($document->file_size > self::MAX_FILE_SIZE_DOWNLOAD) {
+				$this->reply(sprintf('%s I can\'t check for location in image\'s EXIF, because file is too big (> 20 MB, Telegram bot API limit).', Icons::ERROR));
+				return;
+			}
 			$this->sendAction();
-			$getFile = new GetFile();
-			$getFile->file_id = $document->file_id;
-
-			$response = $this->run($getFile);
-
-			$fileLink = TelegramHelper::getFileUrl(TELEGRAM_BOT_TOKEN, $response->file_path);
 			try {
+				$getFile = new GetFile();
+				$getFile->file_id = $document->file_id;
+
+				$response = $this->run($getFile);
+			} catch (\Throwable $exception) {
+				Debugger::log($exception, ILogger::EXCEPTION);
+				$this->reply(sprintf('%s Unexpected error occured while downloading image. Contact Admin for more info.', Icons::ERROR));
+				return;
+			}
+			try {
+				$fileLink = TelegramHelper::getFileUrl(TELEGRAM_BOT_TOKEN, $response->file_path);
 				$betterLocationExif = BetterLocation::fromExif($fileLink);
 				if ($betterLocationExif instanceof BetterLocation) {
 					$replyMessage .= $betterLocationExif->generateBetterLocation();
