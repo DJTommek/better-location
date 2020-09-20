@@ -2,11 +2,36 @@
 declare(strict_types=1);
 require_once __DIR__ . '/src/config.php';
 
+$tracyEmailSentFile = FOLDER_DATA . '/tracy-log/email-sent';
+if (isset($_GET['delete-tracy-email-sent'])) {
+	if (@unlink($tracyEmailSentFile)) {
+		printf('<p>%s Tracy\'s "email-sent" file was deleted.</p>', Icons::SUCCESS);
+	} else {
+		$lastPhpError = error_get_last();
+		printf('<p>%s Error while deleting Tracy\'s "email-sent" file: <b>%s</b></p>', Icons::ERROR, $lastPhpError ? $lastPhpError['message'] : 'unknown error');
+	}
+	die('<p>Go back to <a href="./index.php">index.php</a></p>');
+}
+
 ?>
 <h1>BetterLocationBot</h1>
 <p>
 	Hello world! <?= Icons::CHECKED; ?>
 </p>
+<h2>Errors</h2>
+<?php
+if (is_null(TRACY_DEBUGGER_EMAIL) === false) {
+	printf('<h3>Email reporting</h3>');
+	$emailHtml = sprintf('<a href="mailto:%1$s">%1$s</a>', TRACY_DEBUGGER_EMAIL);
+	$tracyEmailHelpPrefix = 'Tracy\'s "email-sent" (<a href="https://tracy.nette.org/guide" target="_blank" title="Getting started with Tracy">help</a>) file';
+	if (file_exists($tracyEmailSentFile) === true) {
+		printf('%s %s detected - no futher emails to %s will be sent unless this file is removed. <a href="?delete-tracy-email-sent" onclick="return confirm(\'Are you sure, you want to delete Tracy\\\'s \\\'email-sent\\\' file?\')">Delete</a>', Icons::WARNING, $tracyEmailHelpPrefix, $emailHtml);
+	} else {
+		printf('%s %s not detected. In case of error, email will be sent to %s.', Icons::SUCCESS, $tracyEmailHelpPrefix, $emailHtml);
+	}
+}
+?>
+
 <h2>Database</h2>
 <p>
 	<?php
