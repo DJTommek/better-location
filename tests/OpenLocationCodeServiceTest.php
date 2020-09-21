@@ -18,6 +18,7 @@ final class OpenLocationCodeServiceTest extends TestCase
 		$this->assertEquals('https://plus.codes/3CX7J52X+2X54', OpenLocationCodeService::getLink(-50.4, -14.800008));
 	}
 
+	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testGenerateDriveLink(): void {
 		$this->expectException(NotSupportedException::class);
 		$this->expectExceptionMessage('Drive link is not supported.');

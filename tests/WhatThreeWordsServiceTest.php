@@ -18,6 +18,7 @@ final class WhatThreeWordsServiceTest extends TestCase
 		$this->assertEquals('https://w3w.co/stampedes.foresees.prow', WhatThreeWordService::getLink(-50.4, -14.800008));
 	}
 
+	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testGenerateDriveLink(): void {
 		$this->expectException(NotSupportedException::class);
 		$this->expectExceptionMessage('Drive link is not supported.');
