@@ -440,7 +440,7 @@ class BetterLocation
 	}
 
 	public function __toString() {
-		return sprintf('%f,%f', $this->lat, $this->lon);
+		return sprintf('%F,%F', $this->lat, $this->lon);
 	}
 
 	/**
