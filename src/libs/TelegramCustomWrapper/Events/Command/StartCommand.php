@@ -51,7 +51,7 @@ class StartCommand extends Command
 		$lat = intval($matches[1]) / 1000000;
 		$lon = intval($matches[2]) / 1000000;
 		if (BetterLocation::isLatValid($lat) === false || BetterLocation::isLonValid($lon) === false) {
-			$this->reply(sprintf('%s Coordinates <code>%f,%f</code> are not valid.', Icons::ERROR, $lat, $lon));
+			$this->reply(sprintf('%s Coordinates <code>%F,%F</code> are not valid.', Icons::ERROR, $lat, $lon));
 		} else {
 			try {
 				$betterLocation = new BetterLocation($matches[0], $lat, $lon, WG84DegreesService::class);
@@ -108,14 +108,14 @@ class StartCommand extends Command
 							'reply_markup' => $replyMarkup,
 						];
 
-						$this->reply(sprintf('%s Location %f,%f was successfully renamed from <b>%s</b> to <b>%s %s</b>.',
-							Icons::SUCCESS, $lat, $lon, $favourite->getPrefixMessage(), Icons::FAVOURITE, $newName
+						$this->reply(sprintf('%s Location %s was successfully renamed from <b>%s</b> to <b>%s %s</b>.',
+							Icons::SUCCESS, $favourite->__toString(), $favourite->getPrefixMessage(), Icons::FAVOURITE, $newName
 						), $messageSettings);
 					} else {
-						$this->reply(sprintf('%s Unexpected error while renaming location <code>%f,%f</code>.%sIf you believe that this is error, please contact admin.', Icons::ERROR, $lat, $lon, PHP_EOL));
+						$this->reply(sprintf('%s Unexpected error while renaming location <code>%s</code>.%sIf you believe that this is error, please contact admin.', Icons::ERROR, $favourite->__toString(), PHP_EOL));
 					}
 				} else {
-					$this->reply(sprintf('%s Can\'t rename location %f,%f: not saved in your favourite locations.', Icons::ERROR, $lat, $lon));
+					$this->reply(sprintf('%s Can\'t rename location %F,%F: not saved in your favourite locations.', Icons::ERROR, $lat, $lon));
 					// @TODO offer to add to favourites now
 				}
 				break;
@@ -135,12 +135,12 @@ class StartCommand extends Command
 //				$favourite = $this->user->getFavourite($lat, $lon);
 //				if ($favourite) {
 //					if ($this->user->removeFavourite($favourite) === true) {
-//						$this->reply(sprintf('%s Location %s (<code>%f,%f</code>) was deleted.', Icons::SUCCESS, $favourite->getPrefixMessage(), $lat, $lon));
+//						$this->reply(sprintf('%s Location %s (<code>%s</code>) was deleted.', Icons::SUCCESS, $favourite->getPrefixMessage(), $favourite->__toString()));
 //					} else {
-//						$this->reply(sprintf('%s Unexpected error while deleting location %s (<code>%f,%f</code>) was deleted.%sIf you believe that this is error, please contact admin.', Icons::ERROR, $favourite->getPrefixMessage(), $lat, $lon, PHP_EOL));
+//						$this->reply(sprintf('%s Unexpected error while deleting location %s (<code>%s</code>) was deleted.%sIf you believe that this is error, please contact admin.', Icons::ERROR, $favourite->getPrefixMessage(), $favourite->__toString(), PHP_EOL));
 //					}
 //				} else {
-//					$this->reply(sprintf('%s Location <code>%f,%f</code> was already deleted from your favourite locations.', Icons::INFO, $lat, $lon));
+//					$this->reply(sprintf('%s Location <code>%F,%F</code> was already deleted from your favourite locations.', Icons::INFO, $lat, $lon));
 //				}
 //				break;
 			default:

@@ -280,14 +280,14 @@ abstract class Events
 
 				$shareFavouriteButton = new Button();
 				$shareFavouriteButton->text = sprintf('Share %s', $favourite->getPrefixMessage());
-				$shareFavouriteButton->switch_inline_query = sprintf('%f,%f', $favourite->getLat(), $favourite->getLon());
+				$shareFavouriteButton->switch_inline_query = $favourite->__toString();
 
 				$replyMarkup->inline_keyboard[] = [$shareFavouriteButton];
 				$buttonRow = [];
 
 				$renameFavouriteButton = new Button();
 				$renameFavouriteButton->text = sprintf('%s Rename', \Icons::CHANGE);
-				$renameFavouriteButton->switch_inline_query_current_chat = sprintf('%s %s %f %f %s',
+				$renameFavouriteButton->switch_inline_query_current_chat = sprintf('%s %s %F %F %s',
 					StartCommand::FAVOURITE,
 					StartCommand::FAVOURITE_RENAME,
 					$favourite->getLat(),
@@ -298,7 +298,7 @@ abstract class Events
 
 				$deleteFavouriteButton = new Button();
 				$deleteFavouriteButton->text = sprintf('%s Delete', \Icons::DELETE);
-				$deleteFavouriteButton->callback_data = sprintf('%s %s %f %f', FavouritesCommand::CMD, FavouritesButton::ACTION_DELETE, $favourite->getLat(), $favourite->getLon());
+				$deleteFavouriteButton->callback_data = sprintf('%s %s %F %F', FavouritesCommand::CMD, FavouritesButton::ACTION_DELETE, $favourite->getLat(), $favourite->getLon());
 				$buttonRow[] = $deleteFavouriteButton;
 
 				$replyMarkup->inline_keyboard[] = $buttonRow;

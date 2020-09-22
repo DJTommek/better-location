@@ -51,7 +51,7 @@ class User
 				$this->lastKnownLocationDatetime = null;
 			} else {
 				$this->lastKnownLocation = new BetterLocation(
-					sprintf('%f,%f', $newUserData['user_location_lat'], $newUserData['user_location_lon']),
+					sprintf('%F,%F', $newUserData['user_location_lat'], $newUserData['user_location_lon']),
 					$newUserData['user_location_lat'],
 					$newUserData['user_location_lon'],
 					WG84DegreesService::class,
@@ -86,22 +86,20 @@ class User
 
 	/**
 	 * @return BetterLocation[]
-	 * @throws InvalidLocationException
 	 */
-	public function loadFavourites() {
+	public function loadFavourites(): array {
 		$favourites = $this->db->query('SELECT * FROM better_location_favourites WHERE user_id = ?', $this->id)->fetchAll(\PDO::FETCH_OBJ);
 		$this->favourites = [];
 		foreach ($favourites as $favourite) {
-			$key = sprintf('%f,%f', $favourite->lat, $favourite->lon);
+			$key = sprintf('%F,%F', $favourite->lat, $favourite->lon);
 			$this->favourites[$key] = new BetterLocation($key, $favourite->lat, $favourite->lon, WG84DegreesService::class);
 			$this->favourites[$key]->setPrefixMessage(sprintf('%s %s', Icons::FAVOURITE, $favourite->title));
-
 		}
 		return $this->getFavourites();
 	}
 
 	public function getFavourite(float $lat, float $lon): ?BetterLocation {
-		$key = sprintf('%f,%f', $lat, $lon);
+		$key = sprintf('%F,%F', $lat, $lon);
 		if (isset($this->favourites[$key])) {
 			return $this->favourites[$key];
 		} else {
@@ -109,7 +107,7 @@ class User
 		}
 	}
 
-	public function addFavourites(BetterLocation $betterLocation, ?string $title = null) {
+	public function addFavourites(BetterLocation $betterLocation, ?string $title = null): bool {
 		// @TODO check if new location is not already saved in $this->favourites
 		try {
 			$this->db->query('INSERT INTO better_location_favourites (user_id, lat, lon, title) VALUES (?, ?, ?, ?)',
@@ -122,10 +120,9 @@ class User
 		}
 	}
 
-	public function deleteFavourite(BetterLocation $betterLocation) {
+	public function deleteFavourite(BetterLocation $betterLocation): bool {
 		try {
-			$key = sprintf('%f,%f', $betterLocation->getLat(), $betterLocation->getLon());
-			unset($this->favourites[$key]);
+			unset($this->favourites[$betterLocation->__toString()]);
 			$this->db->query('DELETE FROM better_location_favourites WHERE user_id = ? AND lat = ? AND lon = ?',
 				$this->id, $betterLocation->getLat(), $betterLocation->getLon()
 			);

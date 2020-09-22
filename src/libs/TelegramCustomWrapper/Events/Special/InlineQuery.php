@@ -80,7 +80,7 @@ class InlineQuery extends Special
 		} else if (preg_match(sprintf('/^%s %s (-?[0-9]{1,2}\.[0-9]{1,6}) (-?[0-9]{1,3}\.[0-9]{1,6}) (.+)$/', StartCommand::FAVOURITE, StartCommand::FAVOURITE_RENAME), $queryInput, $matches)) {
 			$newName = strip_tags($matches[3]);
 			$newNameCommandDecoded = TelegramHelper::InlineTextEncode(
-				sprintf('%s %s %f %f %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_RENAME, $matches[1], $matches[2], $newName)
+				sprintf('%s %s %F %F %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_RENAME, $matches[1], $matches[2], $newName)
 			);
 			if (mb_strlen($newNameCommandDecoded) > 64) {
 				$answerInlineQuery->switch_pm_text = sprintf('New name is too long.');
@@ -96,7 +96,7 @@ class InlineQuery extends Special
 //			$lat = floatval($lat);
 //			$lon = floatval($lon);
 //			$answerInlineQuery->switch_pm_text = sprintf('%s Delete %s,%s', \Icons::DELETE, $lat, $lon);
-//			$answerInlineQuery->switch_pm_parameter = TelegramHelper::InlineTextEncode(sprintf('%s %s %f %f', StartCommand::FAVOURITE, StartCommand::FAVOURITE_DELETE, $lat, $lon));
+//			$answerInlineQuery->switch_pm_parameter = TelegramHelper::InlineTextEncode(sprintf('%s %s %F %F', StartCommand::FAVOURITE, StartCommand::FAVOURITE_DELETE, $lat, $lon));
 		} else {
 			$urls = \Utils\General::getUrls($queryInput);
 

@@ -107,7 +107,7 @@ class BetterLocation
 		if ($sourceService === MapyCzService::class && $sourceType === MapyCzService::TYPE_PLACE_ID) {
 			$parsedUrl = General::parseUrl($originalInput);
 			$generatedUrl = MapyCzService::getLink($this->lat, $this->lon);
-			$generatedUrl = str_replace(sprintf('%f%%2C%f', $this->lon, $this->lat), $parsedUrl['query']['id'], $generatedUrl);
+			$generatedUrl = str_replace(sprintf('%F%%2C%F', $this->lon, $this->lat), $parsedUrl['query']['id'], $generatedUrl);
 			$generatedUrl = str_replace('source=coor', 'source=' . $parsedUrl['query']['source'], $generatedUrl);
 			$this->pregeneratedLinks[MapyCzService::class] = $generatedUrl;
 		}
@@ -340,12 +340,11 @@ class BetterLocation
 			IngressIntelService::class,
 		];
 		$text = '';
-		$text .= sprintf('%s <a href="%s">%s</a> <code>%f,%f</code>',
+		$text .= sprintf('%s <a href="%s">%s</a> <code>%s</code>',
 			$this->prefixMessage,
 			$this->generateScreenshotLink(MapyCzService::class),
 			\Icons::PICTURE,
-			$this->lat,
-			$this->lon
+			$this->__toString()
 		);
 		if ($this->getCoordinateSuffixMessage()) {
 			$text .= ' ' . $this->getCoordinateSuffixMessage();
@@ -391,7 +390,7 @@ class BetterLocation
 	public function generateAddToFavouriteButtton(): Button {
 		$button = new Button();
 		$button->text = \Icons::FAVOURITE;
-		$button->callback_data = sprintf('%s %s %f %f', FavouritesCommand::CMD, FavouritesButton::ACTION_ADD, $this->getLat(), $this->getLon());
+		$button->callback_data = sprintf('%s %s %F %F', FavouritesCommand::CMD, FavouritesButton::ACTION_ADD, $this->getLat(), $this->getLon());
 		return $button;
 	}
 

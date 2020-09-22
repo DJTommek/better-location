@@ -38,11 +38,6 @@ class TelegramCustomWrapper
 		$this->tgLog = new TgLog($botToken, new HttpClientRequestHandler($this->loop));
 	}
 
-	/**
-	 * @param $updateData
-	 * @return DebugCommand|File|HelpCommand|LocationCommand|MessageCommand|UnknownCommand|string|void
-	 * @throws \Exception
-	 */
 	public function handleUpdate($updateData) {
 		$update = new Telegram\Types\Update($updateData);
 		if ($update->update_id === 0) { // default value
@@ -81,6 +76,7 @@ class TelegramCustomWrapper
 					return;
 			}
 		} else {
+
 			$update->message->from->username = $update->message->from->username === '' ? null : $update->message->from->username;
 			/** @noinspection PhpUndefinedFieldInspection */
 			$update->message->from->displayname = TelegramHelper::getDisplayName($update->message->from);

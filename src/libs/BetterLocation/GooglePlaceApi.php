@@ -90,6 +90,6 @@ class GooglePlaceApi
 	}
 
 	private function generateLocationBias(BetterLocation $betterLocation) {
-		return sprintf('point:%f,%f', $betterLocation->getLat(), $betterLocation->getLon());
+		return 'point:' . $betterLocation->__toString();
 	}
 }

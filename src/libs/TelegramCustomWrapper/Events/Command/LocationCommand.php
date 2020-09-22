@@ -24,7 +24,7 @@ class LocationCommand extends Command
 		$result = null;
 		try {
 			$betterLocation = new BetterLocation(
-				sprintf('%f,%f', $this->update->message->location->latitude, $this->update->message->location->longitude),
+				sprintf('%F,%F', $this->update->message->location->latitude, $this->update->message->location->longitude),
 				$this->update->message->location->latitude,
 				$this->update->message->location->longitude,
 				WG84DegreesService::class,

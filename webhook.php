@@ -19,7 +19,7 @@ try {
 	$telegramCustomWrapper = new \TelegramCustomWrapper\TelegramCustomWrapper(TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_NAME);
 	$telegramCustomWrapper->handleUpdate($updateData);
 	printf('OK.');
-} catch (\Exception $exception) {
+} catch (\Throwable $exception) {
 	if (isset($_GET['exception']) && $_GET['exception'] === '0') {
 		printf('Error: "%s".', $exception->getMessage());
 	} else {
