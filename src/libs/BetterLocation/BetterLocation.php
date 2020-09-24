@@ -22,6 +22,7 @@ use \BetterLocation\Service\WhatThreeWordService;
 use BetterLocation\Service\WikipediaService;
 use TelegramCustomWrapper\Events\Button\FavouritesButton;
 use TelegramCustomWrapper\Events\Command\FavouritesCommand;
+use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 use Utils\Coordinates;
 use \Utils\General;
@@ -31,6 +32,7 @@ class BetterLocation
 {
 	/**
 	 * List of content types for images supporting EXIF
+	 *
 	 * @see https://www.iana.org/assignments/media-types/media-types.xhtml#image
 	 */
 	const CONTENT_TYPE_IMAGE_EXIF = [
@@ -168,8 +170,16 @@ class BetterLocation
 					} else if (DuckDuckGoService::isValid($url)) {
 						$betterLocationsCollection[] = DuckDuckGoService::parseCoords($url);
 					} else {
-						$headers = General::getHeaders($url);
-						if (isset($headers['content-type']) && General::checkIfValueInHeaderMatchArray($headers['content-type'], self::CONTENT_TYPE_IMAGE_EXIF)) {
+						$headers = null;
+						try {
+							$headers = General::getHeaders($url, [
+								CURLOPT_CONNECTTIMEOUT => 5,
+								CURLOPT_TIMEOUT => 5,
+							]);
+						} catch (\Throwable$exception) {
+							Debugger::log(sprintf('Error while loading headers for URL "%s": %s', $url, $exception->getMessage()));
+						}
+						if ($headers && isset($headers['content-type']) && General::checkIfValueInHeaderMatchArray($headers['content-type'], self::CONTENT_TYPE_IMAGE_EXIF)) {
 							$betterLocationExif = BetterLocation::fromExif($url);
 							if ($betterLocationExif instanceof BetterLocation) {
 								$betterLocationExif->setPrefixMessage(sprintf('<a href="%s">EXIF</a>', $url));
