@@ -34,7 +34,7 @@ final class WhatThreeWordService extends AbstractService
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
 		} else {
-			$w3wApi = new Geocoder(W3W_API_KEY);
+			$w3wApi = new Geocoder(\Config::W3W_API_KEY);
 			// @TODO dirty hack to get stdclass instead of associated array
 			$response = $w3wApi->convertTo3wa($lat, $lon);
 			$error = $w3wApi->getError();
@@ -67,7 +67,7 @@ final class WhatThreeWordService extends AbstractService
 			$words = $input;
 		}
 		if ($words) {
-			$w3wApi = new Geocoder(W3W_API_KEY);
+			$w3wApi = new Geocoder(\Config::W3W_API_KEY);
 			$response = $w3wApi->convertToCoordinates($words);
 			$error = $w3wApi->getError();
 			if ($error) {

@@ -18,12 +18,12 @@ class FeedbackCommand extends Command
 	public function __construct(Update $update) {
 		parent::__construct($update);
 
-		$messagePrefix = sprintf('%s <b>Feedback</b> for @%s.', Icons::FEEDBACK, TELEGRAM_BOT_NAME) . PHP_EOL;
+		$messagePrefix = sprintf('%s <b>Feedback</b> for @%s.', Icons::FEEDBACK, \Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$params = TelegramHelper::getParams($update);
 
 		// Using reply
 		if ($update->message->reply_to_message) {
-			if ($update->message->reply_to_message->from->username === TELEGRAM_BOT_NAME) {
+			if ($update->message->reply_to_message->from->username === \Config::TELEGRAM_BOT_NAME) {
 				$this->logFeedback();
 				// @TODO adjust condition to match only real BetterLocation message, not just any message from bot
 				$this->reply($messagePrefix . 'Thanks for reporting, my BetterLocation message will be reviewed.');

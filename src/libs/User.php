@@ -58,7 +58,7 @@ class User
 				);
 				$this->lastKnownLocationDatetime = new \DateTimeImmutable($newUserData['user_location_last_update'], new \DateTimeZone('UTC'));
 				$this->lastKnownLocation->setPrefixMessage(sprintf('%s Last location', Icons::CURRENT_LOCATION));
-				$this->lastKnownLocation->setDescription(sprintf('Last update %s', $this->lastKnownLocationDatetime->format(DATETIME_FORMAT_ZONE)));
+				$this->lastKnownLocation->setDescription(sprintf('Last update %s', $this->lastKnownLocationDatetime->format(\Config::DATETIME_FORMAT_ZONE)));
 			}
 		}
 	}

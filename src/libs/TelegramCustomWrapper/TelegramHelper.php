@@ -9,14 +9,14 @@ use unreal4u\TelegramAPI\Telegram\Types\Update;
 class TelegramHelper
 {
 	const API_URL = 'https://api.telegram.org';
-	const MESSAGE_PREFIX = \Icons::LOCATION . ' <b>Better location</b> by @' . TELEGRAM_BOT_NAME . ':' . PHP_EOL;
+	const MESSAGE_PREFIX = \Icons::LOCATION . ' <b>Better location</b> by @' . \Config::TELEGRAM_BOT_NAME . ':' . PHP_EOL;
 
 	/**
 	 * Command is valid if
 	 * - command doesn't contain "@BotName"
 	 * - command does contain "@BotName" but its same as in config
 	 */
-	const COMMAND_REGEX = '/^(\/[a-zA-Z0-9_]+)(?:@' . TELEGRAM_BOT_NAME . ')?$/';
+	const COMMAND_REGEX = '/^(\/[a-zA-Z0-9_]+)(?:@' . \Config::TELEGRAM_BOT_NAME . ')?$/';
 
 	// @TODO Move CHAT_ACTION_* to some ENUM
 	const CHAT_ACTION_TYPING = 'typing';
@@ -130,7 +130,7 @@ class TelegramHelper
 	}
 
 	public static function generateStart(string $params) {
-		return sprintf('https://t.me/%s?start=', TELEGRAM_BOT_NAME) . TelegramHelper::InlineTextEncode($params);
+		return sprintf('https://t.me/%s?start=', \Config::TELEGRAM_BOT_NAME) . TelegramHelper::InlineTextEncode($params);
 	}
 
 	public static function InlineTextEncode(string $input): string {

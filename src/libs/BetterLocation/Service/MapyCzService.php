@@ -153,7 +153,7 @@ final class MapyCzService extends AbstractService
 		parse_str($parsedUrl['query'], $urlParams);
 		if ($urlParams) {
 			// Dummy server is enabled and MapyCZ URL has necessary parameters
-			if (MAPY_CZ_DUMMY_SERVER_URL && isset($urlParams['pid']) && is_numeric($urlParams['pid']) && $urlParams['pid'] > 0) {
+			if (\Config::MAPY_CZ_DUMMY_SERVER_URL && isset($urlParams['pid']) && is_numeric($urlParams['pid']) && $urlParams['pid'] > 0) {
 				list($lat, $lon) = self::getCoordsFromPanoramaId(intval($urlParams['pid']));
 				$betterLocation = new BetterLocation($url, $lat, $lon, self::class, self::TYPE_PANORAMA);
 				if ($returnCollection) {
@@ -162,7 +162,7 @@ final class MapyCzService extends AbstractService
 					return $betterLocation;
 				}
 			}
-			if (MAPY_CZ_DUMMY_SERVER_URL && isset($urlParams['id']) && is_numeric($urlParams['id']) && $urlParams['id'] > 0 && isset($urlParams['source'])) {
+			if (\Config::MAPY_CZ_DUMMY_SERVER_URL && isset($urlParams['id']) && is_numeric($urlParams['id']) && $urlParams['id'] > 0 && isset($urlParams['source'])) {
 				list($lat, $lon) = self::getCoordsFromPlaceId($urlParams['source'], intval($urlParams['id']));
 				$betterLocation = new BetterLocation($url, $lat, $lon, self::class, self::TYPE_PLACE_ID);
 				if ($returnCollection) {
@@ -211,14 +211,14 @@ final class MapyCzService extends AbstractService
 	 * @throws InvalidLocationException
 	 */
 	private static function getCoordsFromPlaceId(string $source, int $placeId): array {
-		$dummyMapyCzApiUrl = MAPY_CZ_DUMMY_SERVER_URL . '/poiagg?' . http_build_query([
+		$dummyMapyCzApiUrl = \Config::MAPY_CZ_DUMMY_SERVER_URL . '/poiagg?' . http_build_query([
 				'source' => $source,
 				'point' => $placeId,
 			]);
 		try {
 			$response = General::fileGetContents($dummyMapyCzApiUrl, [
-				CURLOPT_CONNECTTIMEOUT => MAPY_CZ_DUMMY_SERVER_TIMEOUT,
-				CURLOPT_TIMEOUT => MAPY_CZ_DUMMY_SERVER_TIMEOUT,
+				CURLOPT_CONNECTTIMEOUT => \Config::MAPY_CZ_DUMMY_SERVER_TIMEOUT,
+				CURLOPT_TIMEOUT => \Config::MAPY_CZ_DUMMY_SERVER_TIMEOUT,
 			]);
 			$jsonResponse = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
 		} catch (\Exception $exception) {
@@ -238,13 +238,13 @@ final class MapyCzService extends AbstractService
 	 * @throws InvalidLocationException
 	 */
 	private static function getCoordsFromPanoramaId(int $panoramaId): array {
-		$dummyMapyCzApiUrl = MAPY_CZ_DUMMY_SERVER_URL . '/panorpc?' . http_build_query([
+		$dummyMapyCzApiUrl = \Config::MAPY_CZ_DUMMY_SERVER_URL . '/panorpc?' . http_build_query([
 				'point' => $panoramaId,
 			]);
 		try {
 			$response = General::fileGetContents($dummyMapyCzApiUrl, [
-				CURLOPT_CONNECTTIMEOUT => MAPY_CZ_DUMMY_SERVER_TIMEOUT,
-				CURLOPT_TIMEOUT => MAPY_CZ_DUMMY_SERVER_TIMEOUT,
+				CURLOPT_CONNECTTIMEOUT => \Config::MAPY_CZ_DUMMY_SERVER_TIMEOUT,
+				CURLOPT_TIMEOUT => \Config::MAPY_CZ_DUMMY_SERVER_TIMEOUT,
 			]);
 			$jsonResponse = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
 		} catch (\Exception $exception) {

@@ -38,7 +38,7 @@ class InlineQuery extends Special
 
 		$answerInlineQuery = new AnswerInlineQuery();
 		$answerInlineQuery->inline_query_id = $update->inline_query->id;
-		$answerInlineQuery->cache_time = TELEGRAM_INLINE_CACHE;
+		$answerInlineQuery->cache_time = \Config::TELEGRAM_INLINE_CACHE;
 
 		$queryInput = trim($update->inline_query->query);
 
@@ -122,7 +122,7 @@ class InlineQuery extends Special
 				}
 
 				// only if there is no match from previous processing
-				if (mb_strlen($queryInput) >= self::GOOGLE_SEARCH_MIN_LENGTH && count($answerInlineQuery->getResults()) === 0 && is_null(GOOGLE_PLACE_API_KEY) === false) {
+				if (mb_strlen($queryInput) >= self::GOOGLE_SEARCH_MIN_LENGTH && count($answerInlineQuery->getResults()) === 0 && is_null(\Config::GOOGLE_PLACE_API_KEY) === false) {
 					$placeApi = new \BetterLocation\GooglePlaceApi();
 					$placeCandidates = $placeApi->runSearch(
 						$queryInput,

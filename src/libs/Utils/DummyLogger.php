@@ -22,7 +22,7 @@ class DummyLogger
 			throw new \InvalidArgumentException('Invalid log name.');
 		}
 		$name = mb_strtolower($name);
-		$path = sprintf('%s/log/%s', FOLDER_DATA, $name);
+		$path = sprintf('%s/log/%s', \Config::FOLDER_DATA, $name);
 		if (!file_exists($path)) {
 			mkdir($path, 0750, true);
 		}
@@ -36,7 +36,7 @@ class DummyLogger
 		$writeLogObject->name = $name;
 		$writeLogObject->content = $content;
 		file_put_contents(
-			sprintf('%s/%s_%s.%s', $path, $name, $now->format(DATE_FORMAT), self::FILE_EXTENSION),
+			sprintf('%s/%s_%s.%s', $path, $name, $now->format(\Config::DATE_FORMAT), self::FILE_EXTENSION),
 			json_encode($writeLogObject) . self::LINE_SEPARATOR,
 			FILE_APPEND,
 		);

@@ -16,7 +16,7 @@ try {
 
 	Factory::Database(); // Just check if database connection is valid, otherwise throw Exception and end script now.
 
-	$telegramCustomWrapper = new \TelegramCustomWrapper\TelegramCustomWrapper(TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_NAME);
+	$telegramCustomWrapper = new \TelegramCustomWrapper\TelegramCustomWrapper(\Config::TELEGRAM_BOT_TOKEN, \Config::TELEGRAM_BOT_NAME);
 	$telegramCustomWrapper->handleUpdate($updateData);
 	printf('OK.');
 } catch (\Throwable $exception) {

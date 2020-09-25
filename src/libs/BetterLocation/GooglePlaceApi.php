@@ -18,7 +18,7 @@ class GooglePlaceApi
 	const RESPONSE_OK = 'OK';
 
 	public function __construct() {
-		$this->apiKey = GOOGLE_PLACE_API_KEY;
+		$this->apiKey = \Config::GOOGLE_PLACE_API_KEY;
 	}
 
 	/**

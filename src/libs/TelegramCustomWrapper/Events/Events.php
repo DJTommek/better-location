@@ -36,7 +36,7 @@ abstract class Events
 		$this->update = $update;
 
 		$this->loop = Factory::create();
-		$this->tgLog = new TgLog(TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($this->loop));
+		$this->tgLog = new TgLog(\Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($this->loop));
 
 		if (TelegramHelper::isInlineQuery($update)) {
 			$this->user = new \User($update->inline_query->from->id, $update->inline_query->from->username);
@@ -177,7 +177,7 @@ abstract class Events
 		$wazeLink = WazeService::getLink($lat, $lon);
 		$betterLocationWaze = WazeService::parseCoords($wazeLink);
 
-		$text = sprintf('%s Welcome to @%s!', \Icons::LOCATION, TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text = sprintf('%s Welcome to @%s!', \Icons::LOCATION, \Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('I\'m a simple but smart bot to catch all possible location formats in any chats you invite me to, and generate links to your favourite location services such as Google maps, Waze, OpenStreetMaps etc.') . PHP_EOL;
 		$text .= sprintf('For example, if you send a message containing the coordinates "<code>%1$f,%2$f</code>" or the link "https://www.waze.com/ul?ll=%1$f,%2$f" I will respond with this:', $lat, $lon) . PHP_EOL;
 		$text .= PHP_EOL;
@@ -192,7 +192,7 @@ abstract class Events
 		$text .= sprintf('- EXIF from <b>uncompressed</b> images') . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= sprintf('%s <b>Inline:</b>', \Icons::INLINE) . PHP_EOL;
-		$text .= sprintf('To send my Better locations to a group I am not in, or to a private message, just type <code>@%s</code>', TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text .= sprintf('To send my Better locations to a group I am not in, or to a private message, just type <code>@%s</code>', \Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('- add any link, text, special code etc and choose one of the output') . PHP_EOL;
 		$text .= sprintf('- send your current position (on mobile devices only)') . PHP_EOL;
 		$text .= sprintf('- search literally anything via Google search API') . PHP_EOL;
@@ -267,8 +267,8 @@ abstract class Events
 			],
 		];
 
-		$text = sprintf('%s A list of <b>favourite</b> locations saved by @%s.', \Icons::FAVOURITE, TELEGRAM_BOT_NAME) . PHP_EOL;
-		$text .= sprintf('Here you can manage your favourite locations, which will appear as soon as you type @%s in any chat.', TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text = sprintf('%s A list of <b>favourite</b> locations saved by @%s.', \Icons::FAVOURITE, \Config::TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text .= sprintf('Here you can manage your favourite locations, which will appear as soon as you type @%s in any chat.', \Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('I don\'t have to be in that chat in order for it to work!') . PHP_EOL;
 		$text .= PHP_EOL;
 		if (count($this->user->getFavourites()) === 0) {

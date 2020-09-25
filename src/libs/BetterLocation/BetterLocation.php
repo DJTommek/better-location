@@ -141,17 +141,17 @@ class BetterLocation
 				try {
 					if (GoogleMapsService::isValid($url)) {
 						$googleMapsBetterLocationCollection = GoogleMapsService::parseCoordsMultiple($url);
-						$googleMapsBetterLocationCollection->filterTooClose(DISTANCE_IGNORE);
+						$googleMapsBetterLocationCollection->filterTooClose(\Config::DISTANCE_IGNORE);
 						$betterLocationsCollection->mergeCollection($googleMapsBetterLocationCollection);
 					} else if (MapyCzService::isValid($url)) {
 						$mapyCzBetterLocationCollection = MapyCzService::parseCoordsMultiple($url);
-						$mapyCzBetterLocationCollection->filterTooClose(DISTANCE_IGNORE);
+						$mapyCzBetterLocationCollection->filterTooClose(\Config::DISTANCE_IGNORE);
 						$betterLocationsCollection->mergeCollection($mapyCzBetterLocationCollection);
 					} else if (OpenStreetMapService::isValid($url)) {
 						$betterLocationsCollection[] = OpenStreetMapService::parseCoords($url);
 					} else if (HereWeGoService::isValid($url)) {
 						$hereBetterLocationCollection = HereWeGoService::parseCoordsMultiple($url);
-						$hereBetterLocationCollection->filterTooClose(DISTANCE_IGNORE);
+						$hereBetterLocationCollection->filterTooClose(\Config::DISTANCE_IGNORE);
 						$betterLocationsCollection->mergeCollection($hereBetterLocationCollection);
 					} else if (WikipediaService::isValid($url)) {
 						try {
@@ -273,7 +273,7 @@ class BetterLocation
 	public function generateAddress() {
 		if (is_null($this->address)) {
 			try {
-				$w3wApi = new \What3words\Geocoder\Geocoder(W3W_API_KEY);
+				$w3wApi = new \What3words\Geocoder\Geocoder(\Config::W3W_API_KEY);
 				$result = $w3wApi->convertTo3wa($this->getLat(), $this->getLon());
 			} catch (\Exception $exception) {
 				throw new \Exception('Unable to get address from W3W API');

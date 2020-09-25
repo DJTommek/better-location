@@ -70,7 +70,7 @@ class FavouritesButton extends Button
 					$this->flash(sprintf('%s Location %s was saved as %s %s.%sYou can now use it inline in any chat by typing @%s.',
 						\Icons::SUCCESS, $betterLocation->__toString(), \Icons::FAVOURITE, $betterLocation->getPrefixMessage(),
 						PHP_EOL,
-						TELEGRAM_BOT_NAME
+						\Config::TELEGRAM_BOT_NAME
 					), true);
 				} else {
 					$this->flash(sprintf('%s Unable to save location %s.%sIf you believe that this is error, please contact admin.',
@@ -139,7 +139,7 @@ class FavouritesButton extends Button
 	 */
 	private function generateFavouriteName(float $lat, float $lon): string {
 		try {
-			$w3wApi = new \What3words\Geocoder\Geocoder(W3W_API_KEY);
+			$w3wApi = new \What3words\Geocoder\Geocoder(\Config::W3W_API_KEY);
 			$result = $w3wApi->convertTo3wa($lat, $lon);
 			if ($result) {
 				return sprintf('///%s', $result['words']);

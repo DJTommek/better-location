@@ -46,7 +46,7 @@ class TelegramCustomWrapper
 		if ($update->edited_channel_post || $update->edited_message) {
 			return 'Edit\'s are ignored';
 		}
-		if (TelegramHelper::isViaBot($update, TELEGRAM_BOT_NAME)) {
+		if (TelegramHelper::isViaBot($update, \Config::TELEGRAM_BOT_NAME)) {
 			return 'I will ignore my own via_bot (from inline) messages.';
 		}
 		if (TelegramHelper::isChosenInlineQuery($update)) {

@@ -47,7 +47,7 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 				return;
 			}
 			try {
-				$fileLink = TelegramHelper::getFileUrl(TELEGRAM_BOT_TOKEN, $response->file_path);
+				$fileLink = TelegramHelper::getFileUrl(\Config::TELEGRAM_BOT_TOKEN, $response->file_path);
 				$betterLocationExif = BetterLocation::fromExif($fileLink);
 				if ($betterLocationExif instanceof BetterLocation) {
 					$replyMessage .= $betterLocationExif->generateBetterLocation();

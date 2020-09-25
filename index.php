@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/src/bootstrap.php';
 
-$tracyEmailSentFile = FOLDER_DATA . '/tracy-log/email-sent';
+$tracyEmailSentFile = \Config::FOLDER_DATA . '/tracy-log/email-sent';
 if (isset($_GET['delete-tracy-email-sent'])) {
 	if (@unlink($tracyEmailSentFile)) {
 		printf('<p>%s Tracy\'s "email-sent" file was deleted.</p>', Icons::SUCCESS);
@@ -20,9 +20,9 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 </p>
 <h2>Errors</h2>
 <?php
-if (is_null(TRACY_DEBUGGER_EMAIL) === false) {
+if (is_null(\Config::TRACY_DEBUGGER_EMAIL) === false) {
 	printf('<h3>Email reporting</h3>');
-	$emailHtml = sprintf('<a href="mailto:%1$s">%1$s</a>', TRACY_DEBUGGER_EMAIL);
+	$emailHtml = sprintf('<a href="mailto:%1$s">%1$s</a>', \Config::TRACY_DEBUGGER_EMAIL);
 	$tracyEmailHelpPrefix = 'Tracy\'s "email-sent" (<a href="https://tracy.nette.org/guide" target="_blank" title="Getting started with Tracy">help</a>) file';
 	if (file_exists($tracyEmailSentFile) === true) {
 		printf('%s %s detected - no futher emails to %s will be sent unless this file is removed. <a href="?delete-tracy-email-sent" onclick="return confirm(\'Are you sure, you want to delete Tracy\\\'s \\\'email-sent\\\' file?\')">Delete</a>', Icons::WARNING, $tracyEmailHelpPrefix, $emailHtml);
@@ -38,9 +38,9 @@ if (is_null(TRACY_DEBUGGER_EMAIL) === false) {
 	$db = null;
 	try {
 		$db = Factory::Database();
-		printf('%s Connected to database "%s".', Icons::SUCCESS, DB_NAME);
+		printf('%s Connected to database "%s".', Icons::SUCCESS, \Config::DB_NAME);
 	} catch (\Exception $exception) {
-		printf('%s Error while connecting to database "%s". Error: "%s"', Icons::ERROR, DB_NAME, $exception->getMessage());
+		printf('%s Error while connecting to database "%s". Error: "%s"', Icons::ERROR, \Config::DB_NAME, $exception->getMessage());
 	}
 	if ($db) {
 		printf('<h3>Stats</h3>');
@@ -100,8 +100,8 @@ if (is_null(TRACY_DEBUGGER_EMAIL) === false) {
 	<li>
 		Update "<b><?= __DIR__ ?>/data/config.local.php:TELEGRAM_WEBHOOK_URL"</b> to your desired URL.<br>
 		<?php
-		if (defined('TELEGRAM_WEBHOOK_URL')) {
-			printf('%s Currently set to <a href="%2$s" target="_blank">%2$s</a>', Icons::SUCCESS, TELEGRAM_WEBHOOK_URL);
+		if (\Config::TELEGRAM_WEBHOOK_URL !== \DefaultConfig::TELEGRAM_WEBHOOK_URL) {
+			printf('%s Currently set to <a href="%2$s" target="_blank">%2$s</a>', Icons::SUCCESS, \Config::TELEGRAM_WEBHOOK_URL);
 		} else {
 			printf('%s Currently is not set.', Icons::WARNING);
 		}
@@ -117,14 +117,13 @@ if (is_null(TRACY_DEBUGGER_EMAIL) === false) {
 <?php
 
 use BetterLocation\BetterLocation;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\TgLog;
 
 $loop = \React\EventLoop\Factory::create();
-$tgLog = new TgLog(TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($loop));
+$tgLog = new TgLog(\Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($loop));
 
 $setWebhook = new \unreal4u\TelegramAPI\Telegram\Methods\GetWebhookInfo();
 
