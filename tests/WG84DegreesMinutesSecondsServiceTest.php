@@ -4,7 +4,7 @@ use BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;
 use \BetterLocation\Service\Coordinates\WG84DegreesMinutesSecondsService;
 
-require_once __DIR__ . '/../src/config.php';
+require_once __DIR__ . '/../src/bootstrap.php';
 
 final class WG84DegreesMinutesSecondsServiceTest extends TestCase
 {

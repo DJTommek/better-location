@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use \BetterLocation\Service\WazeService;
 
-require_once __DIR__ . '/../src/config.php';
+require_once __DIR__ . '/../src/bootstrap.php';
 
 final class WazeServiceTest extends TestCase
 {

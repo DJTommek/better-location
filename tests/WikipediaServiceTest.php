@@ -5,7 +5,7 @@ use BetterLocation\Service\Exceptions\NotSupportedException;
 use BetterLocation\Service\WikipediaService;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../src/config.php';
+require_once __DIR__ . '/../src/bootstrap.php';
 
 
 final class WikipediaServiceTest extends TestCase

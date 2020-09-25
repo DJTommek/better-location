@@ -1,12 +1,11 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\TgLog;
 
-require_once __DIR__ . '/src/config.php';
+require_once __DIR__ . '/src/bootstrap.php';
 
 printf('<p>Go back to <a href="./index.php">index.php</a></p>');
 

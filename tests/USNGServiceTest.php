@@ -4,7 +4,7 @@ use BetterLocation\Service\Coordinates\USNGService;
 use BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../src/config.php';
+require_once __DIR__ . '/../src/bootstrap.php';
 
 final class USNGServiceTest extends TestCase
 {

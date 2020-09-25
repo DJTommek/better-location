@@ -1,10 +1,9 @@
 <?php declare(strict_types=1);
 
-use BetterLocation\Service\Exceptions\NotImplementedException;
 use BetterLocation\Service\OpenStreetMapService;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../src/config.php';
+require_once __DIR__ . '/../src/bootstrap.php';
 
 
 final class OpenStreetMapServiceTest extends TestCase

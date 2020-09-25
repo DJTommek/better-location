@@ -1,6 +1,6 @@
-<?php
-declare(strict_types=1);
-require_once __DIR__ . '/src/config.php';
+<?php declare(strict_types=1);
+
+require_once __DIR__ . '/src/bootstrap.php';
 
 $tracyEmailSentFile = FOLDER_DATA . '/tracy-log/email-sent';
 if (isset($_GET['delete-tracy-email-sent'])) {

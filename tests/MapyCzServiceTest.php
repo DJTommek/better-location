@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 use \BetterLocation\Service\MapyCzService;
 use \BetterLocation\Service\Exceptions\InvalidLocationException;
 
-require_once __DIR__ . '/../src/config.php';
+require_once __DIR__ . '/../src/bootstrap.php';
 
 final class MapyCzServiceTest extends TestCase
 {

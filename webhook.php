@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-use \Utils\DummyLogger;
+require_once __DIR__ . '/src/bootstrap.php';
 
-require_once __DIR__ . '/src/config.php';
+use \Utils\DummyLogger;
 
 printf('<p>Go back to <a href="./index.php">index.php</a></p>');
 

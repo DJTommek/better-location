@@ -4,7 +4,7 @@ declare(strict_types=1);
 use BetterLocation\BetterLocation;
 use Tracy\Debugger;
 
-require_once __DIR__ . '/src/config.php';
+require_once __DIR__ . '/src/bootstrap.php';
 Debugger::$showBar = false;
 
 $response = new \stdClass();

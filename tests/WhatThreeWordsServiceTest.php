@@ -4,7 +4,7 @@ use BetterLocation\Service\Exceptions\NotSupportedException;
 use BetterLocation\Service\WhatThreeWordService;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../src/config.php';
+require_once __DIR__ . '/../src/bootstrap.php';
 
 
 final class WhatThreeWordsServiceTest extends TestCase
