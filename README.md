@@ -15,11 +15,10 @@ MapyCZ link with a Place ID or Panorama ID is currently **NOT** working properly
 
 
 # Installation
-1. Download/clone [BetterLocation repository](https://github.com/DJTommek/better-location). 
-1. Rename `config.local.example.php` to `config.local.php` and update necessary details.<br>
-Note: If you don't have a token for your bot, you need to get one first, see https://core.telegram.org/bots.
-1. Create database using [structure.sql](asset/sql/structure.sql) script.
+1. Download/clone [BetterLocation repository](https://github.com/DJTommek/better-location).
 1. Run `composer install`.
+1. Update all `DB_*` and `TELEGRAM_*` constants in `data/config.local.php`.
+1. Create database using [structure.sql](asset/sql/structure.sql) script.
 1. **Optional**: In case you are not doing this installation directly on your (web)hosting, copy all files there now.
 1. Register [bot webhook](https://core.telegram.org/bots/api#setwebhook) to your webserver by opening [set-webhook.php](./set-webhook.php) in a browser. For detailed info, open [index.php](./index.php).
 1. **Optional but recommended**: Disable public access to all files except webhook.php, which has to be accessed from Telegram servers.
