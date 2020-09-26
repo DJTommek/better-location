@@ -82,7 +82,9 @@ final class MapyCzServiceTest extends TestCase
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
 	public function testValidMapyCzPanoramaId(): void {
-		if (!is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
+		if (is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
+            $this->markTestSkipped('MapyCZ dummy server url is not set.');
+        } else {
 			$this->assertEquals('50.075959,15.016772', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0162139&y=50.0820182&z=16&pano=1&pid=68059377&yaw=5.522&fov=1.257&pitch=0.101')->__toString());
 			$this->assertEquals('50.123351,16.284569', MapyCzService::parseCoords('https://en.mapy.cz/turisticka?x=16.2845693&y=50.1233926&z=17&pano=1&source=base&id=2107710&pid=66437731&yaw=6.051&fov=1.257&pitch=0.157')->__toString()); // Viribus Unitis 2019
 			$this->assertEquals('50.094953,15.023081', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0483153&y=50.1142203&z=15&pano=1&source=firm&id=216358&pid=68007689&yaw=3.985&fov=1.257&pitch=0.033')->__toString()); // Three different locations: map, place and panorama
@@ -96,7 +98,9 @@ final class MapyCzServiceTest extends TestCase
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
 	public function testInvalidMapyCzPanoramaId(): void {
-		if (!is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
+		if (is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
+            $this->markTestSkipped('MapyCZ dummy server url is not set.');
+        } else {
 			$this->expectExceptionMessage('Unable to get valid coordinates from panorama ID "99999999999".');
 			MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0162139&y=50.0820182&z=16&pano=1&pid=99999999999&yaw=5.522&fov=1.257&pitch=0.101');
 		}
@@ -108,7 +112,9 @@ final class MapyCzServiceTest extends TestCase
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
 	public function testValidMapyCzId(): void {
-		if (!is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
+		if (is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
+            $this->markTestSkipped('MapyCZ dummy server url is not set.');
+        } else {
 			$this->assertEquals('50.073784,14.422105', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=2111676')->__toString());
 			$this->assertEquals('50.084007,14.440339', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4527551&y=50.0750056&z=15&source=pubt&id=15308193')->__toString());
 			$this->assertEquals('50.084747,14.454012', MapyCzService::parseCoords('https://mapy.cz/zakladni?x=14.4651576&y=50.0796325&z=15&source=firm&id=468797')->__toString());
@@ -129,7 +135,9 @@ final class MapyCzServiceTest extends TestCase
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
 	public function testValidMapyCzIdShortUrl(): void {
-		if (!is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
+		if (is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
+            $this->markTestSkipped('MapyCZ dummy server url is not set.');
+        } else {
 			$this->assertEquals('50.533111,16.155906', MapyCzService::parseCoords('https://en.mapy.cz/s/devevemoje')->__toString());
 			$this->assertEquals('50.084007,14.440339', MapyCzService::parseCoords('https://en.mapy.cz/s/degogalazo')->__toString());
 			$this->assertEquals('50.084747,14.454012', MapyCzService::parseCoords('https://en.mapy.cz/s/cavukepuba')->__toString());
@@ -150,7 +158,9 @@ final class MapyCzServiceTest extends TestCase
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
 	public function testInvalidMapyCzId(): void {
-		if (!is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
+		if (is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
+            $this->markTestSkipped('MapyCZ dummy server url is not set.');
+        } else {
 			$this->expectExceptionMessage('Unable to get valid coordinates from place ID "1234".');
 			MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=1234');
 		}
