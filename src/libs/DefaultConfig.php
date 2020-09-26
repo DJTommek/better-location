@@ -34,11 +34,8 @@ class DefaultConfig
 	const GOOGLE_PLACE_API_KEY = null;
 	//const GOOGLE_PLACE_API_KEY = 'someRandomGeneratedApiKeyFromGoogleCloudPlatform';
 
-	/**
-	 * @var string API key to What3Word service https://developer.what3words.com/public-api
-	 * @TODO make it optional
-	 */
-	const W3W_API_KEY = 'SOME_API_KEY';
+	/** @var ?string API key to What3Word service https://developer.what3words.com/public-api or null to disable */
+	const W3W_API_KEY = null;
 
 	/**
 	 * URL to NodeJS dummy server to handle generating payload and requests for MapyCZ place IDs. For more info see src/nodejs/README.md

@@ -163,7 +163,7 @@ class BetterLocation
 						$betterLocationsCollection[] = OpenLocationCodeService::parseCoords($url);
 					} else if (WazeService::isValid($url)) {
 						$betterLocationsCollection[] = WazeService::parseCoords($url);
-					} else if (WhatThreeWordService::isValid($url)) {
+					} else if (is_null(\Config::W3W_API_KEY) === false && WhatThreeWordService::isValid($url)) {
 						$betterLocationsCollection[] = WhatThreeWordService::parseCoords($url);
 					} else if (IngressIntelService::isValid($url)) {
 						$betterLocationsCollection[] = IngressIntelService::parseCoords($url);
@@ -217,7 +217,7 @@ class BetterLocation
 		}
 
 		// What Three Word
-		if (preg_match_all(WhatThreeWordService::RE_IN_STRING, $messageWithoutUrls, $matches)) {
+		if (is_null(\Config::W3W_API_KEY) === false && preg_match_all(WhatThreeWordService::RE_IN_STRING, $messageWithoutUrls, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				$words = $matches[0][$i];
 				try {
