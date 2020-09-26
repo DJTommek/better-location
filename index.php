@@ -115,6 +115,7 @@ if (is_null(\Config::TRACY_DEBUGGER_EMAIL) === false) {
 </p>
 <h2>Webhook status</h2>
 <?php
+	printf('<p>Response from URL <a href="https://api.telegram.org/bot%s/getWebhookInfo" target="_blank">getWebhookInfo</a>:</p>', \Config::TELEGRAM_BOT_TOKEN);
 
 use BetterLocation\BetterLocation;
 use Tracy\Debugger;
