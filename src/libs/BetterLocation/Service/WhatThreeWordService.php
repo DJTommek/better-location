@@ -67,6 +67,7 @@ final class WhatThreeWordService extends AbstractService
 			$words = $input;
 		}
 		if ($words) {
+			$words = urldecode($words);
 			$w3wApi = new Geocoder(\Config::W3W_API_KEY);
 			$response = $w3wApi->convertToCoordinates($words);
 			$error = $w3wApi->getError();

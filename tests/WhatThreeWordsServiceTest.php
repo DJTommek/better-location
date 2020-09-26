@@ -25,4 +25,27 @@ final class WhatThreeWordsServiceTest extends TestCase
 		WhatThreeWordService::getLink(50.087451, 14.420671, true);
 	}
 
+	/** @noinspection PhpUnhandledExceptionInspection */
+	public function testWords(): void {
+		$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('///define.readings.cucumber')->__toString());
+		$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('///chladná.naopak.vložit')->__toString());
+		$this->assertEquals('-25.066260,-130.100342', WhatThreeWordService::parseCoords('///dispersant.cuts.authentication')->__toString());
+	}
+
+	/** @noinspection PhpUnhandledExceptionInspection */
+	public function testShortUrls(): void {
+		$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('https://w3w.co/define.readings.cucumber')->__toString());
+		$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('https://w3w.co/chladná.naopak.vložit')->__toString());
+		$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('https://w3w.co/chladn%C3%A1.naopak.vlo%C5%BEit')->__toString());
+		$this->assertEquals('-25.066260,-130.100342', WhatThreeWordService::parseCoords('https://w3w.co/dispersant.cuts.authentication')->__toString());
+	}
+
+	/** @noinspection PhpUnhandledExceptionInspection */
+	public function testNormalUrls(): void {
+		$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('https://what3words.com/define.readings.cucumber')->__toString());
+		$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('https://what3words.com/chladná.naopak.vložit')->__toString());
+		$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('https://what3words.com/chladn%C3%A1.naopak.vlo%C5%BEit')->__toString());
+		$this->assertEquals('-25.066260,-130.100342', WhatThreeWordService::parseCoords('https://what3words.com/dispersant.cuts.authentication')->__toString());
+	}
+
 }
