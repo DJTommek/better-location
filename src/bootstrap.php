@@ -34,7 +34,7 @@ if (file_exists($localConfigFilePath)) {
 	throw new \Exception(sprintf('Missing local config in "%s".', $localConfigFilePath));
 }
 
-Tracy\Debugger::enable(Config::DEVELOPMENT_IPS, Config::FOLDER_DATA . '/tracy-log/');
+Tracy\Debugger::enable(Config::TRACY_DEVELOPMENT_IPS, Config::FOLDER_DATA . '/tracy-log/');
 Tracy\Debugger::$strictMode = true;
 Tracy\Debugger::$logSeverity = E_NOTICE | E_WARNING;
 

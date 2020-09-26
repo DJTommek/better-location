@@ -14,7 +14,7 @@ class DefaultConfig
 	const DB_PASS = 'dbpass';
 	const DB_NAME = 'dbschema';
 
-	const DEVELOPMENT_IPS = [
+	const TRACY_DEVELOPMENT_IPS = [
 		'12.34.56.78',
 	];
 	/** @var ?string Put your email if you want to receive emails about errors and exceptions. See https://tracy.nette.org/guide for more info. null to disable */
