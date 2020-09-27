@@ -137,7 +137,17 @@ $promise->then(
 		printf('<tr>');
 		foreach (get_object_vars($response) as $key => $value) {
 			if ($key === 'url') {
-				$stringValue = sprintf('<a href="%1$s" target="_blank">%1$s</a>', $value);
+				if (empty($value)) {
+					$stringValue = sprintf('%s Webhook URL is not set according to webhook response.', Icons::ERROR);
+				} else {
+					if ($value === Config::TELEGRAM_WEBHOOK_URL) {
+						$stringValue = sprintf('%s <a href="%2$s" target="_blank">%2$s</a>', Icons::SUCCESS, $value);
+					} else {
+						$stringValue = sprintf('%s Webhook URL is set according to webhook response but it\'s different than in config:<br>', Icons::WARNING);
+						$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Webhook response)<br>', $value);
+						$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Config)', Config::TELEGRAM_WEBHOOK_URL);
+					}
+				}
 			} else if ($key === 'pending_update_count') {
 				$stringValue = ($value === 0) ? Icons::SUCCESS . ' None' : Icons::WARNING . ' ' . $value;
 			} else if ($key === 'last_error_message' && $value === '') {
