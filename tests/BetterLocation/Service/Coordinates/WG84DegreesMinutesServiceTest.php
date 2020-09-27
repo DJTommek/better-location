@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 use \BetterLocation\Service\Coordinates\WG84DegreesMinutesService;
 use \BetterLocation\Service\Exceptions\InvalidLocationException;
 
-require_once __DIR__ . '/../src/bootstrap.php';
+require_once __DIR__ . '/../../../../src/bootstrap.php';
 
 final class WG84DegreesMinutesServiceTest extends TestCase
 {

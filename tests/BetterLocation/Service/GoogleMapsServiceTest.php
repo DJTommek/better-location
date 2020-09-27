@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use \BetterLocation\Service\GoogleMapsService;
 
-require_once __DIR__ . '/../src/bootstrap.php';
+require_once __DIR__ . '/../../../src/bootstrap.php';
 
 final class GoogleMapsServiceTest extends TestCase
 {

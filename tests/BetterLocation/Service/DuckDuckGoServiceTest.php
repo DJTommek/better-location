@@ -4,7 +4,7 @@ use BetterLocation\Service\DuckDuckGoService;
 use BetterLocation\Service\Exceptions\NotImplementedException;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../src/bootstrap.php';
+require_once __DIR__ . '/../../../src/bootstrap.php';
 
 
 final class DuckDuckGoServiceTest extends TestCase

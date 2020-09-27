@@ -3,7 +3,7 @@
 use BetterLocation\Service\OpenStreetMapService;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../src/bootstrap.php';
+require_once __DIR__ . '/../../../src/bootstrap.php';
 
 
 final class OpenStreetMapServiceTest extends TestCase

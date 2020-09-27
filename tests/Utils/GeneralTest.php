@@ -2,10 +2,10 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../src/bootstrap.php';
+require_once __DIR__ . '/../../src/bootstrap.php';
 
 
-final class UtilsGeneralTest extends TestCase
+final class GeneralTest extends TestCase
 {
 	public function testCheckIfValueInHeaderMatchArray(): void {
 		$this->assertTrue(\Utils\General::checkIfValueInHeaderMatchArray('image/webp;charset=utf-8', ['image/jpeg', 'image/webp']));

@@ -5,7 +5,7 @@ use BetterLocation\Service\IngressIntelService;
 use BetterLocation\Service\WikipediaService;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../src/bootstrap.php';
+require_once __DIR__ . '/../../../src/bootstrap.php';
 
 
 final class IngressIntelServiceTest extends TestCase
