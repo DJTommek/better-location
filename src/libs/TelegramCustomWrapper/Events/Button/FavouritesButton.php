@@ -139,8 +139,7 @@ class FavouritesButton extends Button
 	 */
 	private function generateFavouriteName(float $lat, float $lon): string {
 		try {
-			$w3wApi = \Factory::WhatThreeWords();
-			$result = $w3wApi->convertTo3wa($lat, $lon);
+			$result = \Factory::WhatThreeWords()->convertTo3wa($lat, $lon);
 			if ($result) {
 				return sprintf('///%s', $result['words']);
 			} else {

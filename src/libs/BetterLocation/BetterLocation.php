@@ -273,8 +273,7 @@ class BetterLocation
 	public function generateAddress() {
 		if (is_null($this->address)) {
 			try {
-				$w3wApi = \Factory::WhatThreeWords();
-				$result = $w3wApi->convertTo3wa($this->getLat(), $this->getLon());
+				$result = \Factory::WhatThreeWords()->convertTo3wa($this->getLat(), $this->getLon());
 			} catch (\Exception $exception) {
 				throw new \Exception('Unable to get address from W3W API');
 			}
