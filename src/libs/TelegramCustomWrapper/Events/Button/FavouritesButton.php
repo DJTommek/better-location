@@ -139,7 +139,7 @@ class FavouritesButton extends Button
 	 */
 	private function generateFavouriteName(float $lat, float $lon): string {
 		try {
-			$w3wApi = new \What3words\Geocoder\Geocoder(\Config::W3W_API_KEY);
+			$w3wApi = \Factory::WhatThreeWords();
 			$result = $w3wApi->convertTo3wa($lat, $lon);
 			if ($result) {
 				return sprintf('///%s', $result['words']);

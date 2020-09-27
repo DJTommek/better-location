@@ -17,4 +17,11 @@ class Factory
 		}
 		return self::$objects['telegram'];
 	}
+
+	static function WhatThreeWords():\What3words\Geocoder\Geocoder {
+		if (!isset(self::$objects['w3w'])) {
+			self::$objects['w3w'] = new \What3words\Geocoder\Geocoder(\Config::W3W_API_KEY);
+		}
+		return self::$objects['w3w'];
+	}
 }
