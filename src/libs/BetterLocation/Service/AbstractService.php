@@ -22,16 +22,6 @@ abstract class AbstractService
 	 */
 	abstract public static function parseCoordsMultiple(string $input): BetterLocationCollection;
 
-	/**
-	 * @param $url
-	 * @return mixed|null
-	 * @throws \Exception
-	 */
-	protected static function getRedirectUrl($url) {
-		$headers = General::getHeaders($url);
-		return $headers['location'] ?? null;
-	}
-
 	public static function getConstants() {
 		return [];
 	}

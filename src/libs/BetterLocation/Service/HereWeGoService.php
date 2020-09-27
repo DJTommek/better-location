@@ -8,6 +8,7 @@ use BetterLocation\BetterLocation;
 use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
+use BetterLocation\Url;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use Utils\General;
@@ -140,7 +141,7 @@ final class HereWeGoService extends AbstractService
 	 */
 	public static function parseCoordsMultiple(string $url): BetterLocationCollection {
 		if (self::isShortUrl($url)) {
-			$redirectUrl = self::getRedirectUrl($url);
+			$redirectUrl = Url::getRedirectUrl($url);
 			try {
 				return self::processShortShareUrl($url, $redirectUrl);
 			} catch (\Exception $exception) {
@@ -185,7 +186,7 @@ final class HereWeGoService extends AbstractService
 		if ($parsedNewLocation['host'] !== 'share.here.com') {
 			throw new \Exception(sprintf('Unexpected redirect URL "%s".', $parsedNewLocation['host']));
 		}
-		$redirectUrl2 = self::getRedirectUrl($redirectUrl);
+		$redirectUrl2 = Url::getRedirectUrl($redirectUrl);
 		if ($redirectUrl2 === null) {
 			throw new \Exception('Missing second redirect URL.');
 		}

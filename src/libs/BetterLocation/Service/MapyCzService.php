@@ -8,6 +8,7 @@ use BetterLocation\BetterLocation;
 use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
+use BetterLocation\Url;
 use Tracy\Debugger;
 use Utils\General;
 
@@ -91,7 +92,7 @@ final class MapyCzService extends AbstractService
 	 */
 	public static function parseCoordsHelper(string $url, bool $returnCollection) {
 		if (self::isShortUrl($url)) {
-			$newLocation = self::getRedirectUrl($url);
+			$newLocation = Url::getRedirectUrl($url);
 			if ($newLocation) {
 				return self::parseUrl($newLocation, $returnCollection);
 			} else {

@@ -8,6 +8,7 @@ use BetterLocation\BetterLocation;
 use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
+use BetterLocation\Url;
 
 final class WazeService extends AbstractService
 {
@@ -41,7 +42,7 @@ final class WazeService extends AbstractService
 	public static function parseCoords(string $url): BetterLocation {
 		if (self::isShortUrl($url)) {
 			$wazeUpdatedUrl = str_replace('waze.com/ul/h', 'www.waze.com/livemap?h=', $url);
-			$newLocation = self::getRedirectUrl($wazeUpdatedUrl);
+			$newLocation = Url::getRedirectUrl($wazeUpdatedUrl);
 			if ($newLocation) {
 				// location is returned without domain
 				$newLocation = self::LINK . $newLocation;
