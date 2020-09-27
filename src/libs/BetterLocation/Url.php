@@ -7,9 +7,10 @@ use Utils\General;
 class Url
 {
 	const SHORT_URL_DOMAINS = [
-		'bit.ly',
-		'tinyurl.com',
-		't.co',
+		'bit.ly', // https://bitly.com/
+		'tinyurl.com', // https://tinyurl.com/
+		't.co', // https://help.twitter.com/en/using-twitter/url-shortener
+		'rb.gy', // https://rebrandly.com/
 	];
 
 	public static function isShortUrl($url) {
