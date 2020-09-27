@@ -11,6 +11,7 @@ class Url
 		'tinyurl.com', // https://tinyurl.com/
 		't.co', // https://help.twitter.com/en/using-twitter/url-shortener
 		'rb.gy', // https://rebrandly.com/
+		'tiny.cc', // https://tiny.cc/
 	];
 
 	public static function isShortUrl($url) {

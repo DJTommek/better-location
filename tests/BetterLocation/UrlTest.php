@@ -20,6 +20,12 @@ final class UrlTest extends TestCase
 
 		$this->assertTrue(\BetterLocation\Url::isShortUrl('https://rb.gy/yjoqrj'));
 		$this->assertTrue(\BetterLocation\Url::isShortUrl('http://rb.gy/yjoqrj'));
+
+		$this->assertTrue(\BetterLocation\Url::isShortUrl('https://tiny.cc/ji2ysz'));
+		$this->assertTrue(\BetterLocation\Url::isShortUrl('http://tiny.cc/ji2ysz'));
+		$this->assertTrue(\BetterLocation\Url::isShortUrl('https://tiny.cc/BetterLocationTest')); // custom URL
+		$this->assertTrue(\BetterLocation\Url::isShortUrl('http://tiny.cc/BetterLocationTest')); // custom URL
+
 	}
 
 	public function testIsShortUrlFalse(): void {
@@ -42,6 +48,11 @@ final class UrlTest extends TestCase
 
 		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \BetterLocation\Url::getRedirectUrl('https://rb.gy/yjoqrj'));
 		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \BetterLocation\Url::getRedirectUrl('http://rb.gy/yjoqrj'));
+
+		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \BetterLocation\Url::getRedirectUrl('https://tiny.cc/ji2ysz'));
+		$this->assertEquals('https://tiny.cc/ji2ysz', \BetterLocation\Url::getRedirectUrl('http://tiny.cc/ji2ysz'));
+		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \BetterLocation\Url::getRedirectUrl('https://tiny.cc/BetterLocationTest')); // custom URL
+		$this->assertEquals('https://tiny.cc/BetterLocationTest', \BetterLocation\Url::getRedirectUrl('http://tiny.cc/BetterLocationTest')); // custom URL
 	}
 
 }
