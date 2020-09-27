@@ -119,6 +119,22 @@ class BetterLocation
 		return $this->sourceType;
 	}
 
+	private static function handleShortUrl(string $url): string {
+		$originalUrl = $url;
+		$tries = 0;
+		while (is_null($url) === false && Url::isShortUrl($url)) {
+			if ($tries >= 5) {
+				Debugger::log(sprintf('Too many tries (%d) for translating original URL "%s"', $tries, $originalUrl));
+			}
+			$url = Url::getRedirectUrl($url);
+			$tries++;
+		}
+		if (is_null($url)) { // in case of some error, revert to original URL
+			$url = $originalUrl;
+		}
+		return $url;
+	}
+
 	/**
 	 * @param string $message
 	 * @param array $entities
@@ -137,6 +153,8 @@ class BetterLocation
 				} else {
 					throw new \InvalidArgumentException('Unhandled Telegram entity type');
 				}
+
+				$url = self::handleShortUrl($url);
 
 				try {
 					if (GoogleMapsService::isValid($url)) {
