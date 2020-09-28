@@ -5,7 +5,7 @@ Available publicly on [@BetterLocationBot](https://t.me/BetterLocationBot).
 
 ![@BetterLocationBot example](asset/better-location-bot-example.png "@BetterLocationBot example")
 
-# Requirements
+## Requirements
 - PHP webserver (written and tested with PHP 7.3)
 - Database server (written and tested with MySQL 8 and MariaDB 10)
 - Domain with SSL certificate (might be self-signed). Detailed requirements are described [here](https://core.telegram.org/bots/webhooks).
@@ -14,7 +14,7 @@ Available publicly on [@BetterLocationBot](https://t.me/BetterLocationBot).
 MapyCZ link with a Place ID or Panorama ID is currently **NOT** working properly without an additional NodeJS server. Read [this page](src/nodejs/README.md) for more info.  
 
 
-# Installation
+## Installation
 1. Download/clone [BetterLocation repository](https://github.com/DJTommek/better-location).
 1. Run `composer install`.
 1. Update all `DB_*` and `TELEGRAM_*` constants in `data/config.local.php`.
