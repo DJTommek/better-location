@@ -23,5 +23,10 @@ MapyCZ link with a Place ID or Panorama ID is currently **NOT** working properly
 1. Register [bot webhook](https://core.telegram.org/bots/api#setwebhook) to your webserver via [set-webhook.php](./set-webhook.php). For detailed info, open [index.php](./index.php).
 1. **Optional but recommended**: Disable public access to all files except webhook.php, which has to be accessed from Telegram servers.
 
+## Testing
+1. Run `composer test` (or directly `./vendor/bin/phpunit tests`).
+
+Note: Some tests may be skipped if missing configuration (eg. What3Words or MapyCZ Place ID and Panorama ID)
+
 ---
 *Based on the simple [DJTommek/php-template](https://github.com/DJTommek/php-template).*

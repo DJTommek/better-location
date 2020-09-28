@@ -21,6 +21,7 @@
 	},
 	"scripts": {
 		"pre-install-cmd": "@php ./src/tools/CopyLocalConfig.php",
-		"pre-update-cmd": "@php ./src/tools/CopyLocalConfig.php"
+		"pre-update-cmd": "@php ./src/tools/CopyLocalConfig.php",
+        "test": "phpunit tests"
 	}
 }
