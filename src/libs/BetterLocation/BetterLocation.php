@@ -17,6 +17,7 @@ use \BetterLocation\Service\IngressIntelService;
 use \BetterLocation\Service\MapyCzService;
 use \BetterLocation\Service\OpenStreetMapService;
 use \BetterLocation\Service\OpenLocationCodeService;
+use \BetterLocation\Service\RopikyNetService;
 use \BetterLocation\Service\WazeService;
 use \BetterLocation\Service\WhatThreeWordService;
 use BetterLocation\Service\WikipediaService;
@@ -187,6 +188,8 @@ class BetterLocation
 						$betterLocationsCollection[] = IngressIntelService::parseCoords($url);
 					} else if (DuckDuckGoService::isValid($url)) {
 						$betterLocationsCollection[] = DuckDuckGoService::parseCoords($url);
+					} else if (RopikyNetService::isValid($url)) {
+						$betterLocationsCollection[] = RopikyNetService::parseCoords($url);
 					} else {
 						$headers = null;
 						try {
