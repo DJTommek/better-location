@@ -7,6 +7,8 @@ use BetterLocation\Service\Coordinates\WG84DegreesService;
 use OpenLocationCode\OpenLocationCode;
 use TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use TelegramCustomWrapper\TelegramHelper;
+use Tracy\Debugger;
+use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class FavouritesButton extends Button
@@ -53,32 +55,22 @@ class FavouritesButton extends Button
 	 * @param float $lon
 	 * @throws \Exception
 	 */
-	private function addFavourite(float $lat, float $lon) {
+	private function addFavourite(float $lat, float $lon): void {
 		try {
-			if (BetterLocation::isLatValid($lat) === false || BetterLocation::isLonValid($lon) === false) {
-				$this->flash(sprintf('%s Coordinates are invalid.%sIf you believe that this is error, please contact admin.', \Icons::ERROR, PHP_EOL), true);
-			} else if ($favourite = $this->user->getFavourite($lat, $lon)) {
-				$this->flash(sprintf('%s This location (%s) is already saved in favourite list as %s.',
-					\Icons::INFO, $favourite->__toString(), $favourite->getPrefixMessage()
-				), true);
-				return;
+			$favourite = $this->user->getFavourite($lat, $lon);
+			if ($favourite) {
+				$this->flash(sprintf('%s This location (%s) is already saved in favourite list as %s.', \Icons::INFO, $favourite->__toString(), $favourite->getPrefixMessage()), true);
 			} else {
 				$generatedLocationName = $this->generateFavouriteName($lat, $lon);
 				$betterLocation = new BetterLocation(sprintf('%F,%F', $lat, $lon), $lat, $lon, WG84DegreesService::class);
 				$betterLocation->setPrefixMessage($generatedLocationName);
-				if ($this->user->addFavourites($betterLocation, $generatedLocationName)) {
-					$this->flash(sprintf('%s Location %s was saved as %s %s.%sYou can now use it inline in any chat by typing @%s.',
-						\Icons::SUCCESS, $betterLocation->__toString(), \Icons::FAVOURITE, $betterLocation->getPrefixMessage(),
-						PHP_EOL,
-						\Config::TELEGRAM_BOT_NAME
-					), true);
-				} else {
-					$this->flash(sprintf('%s Unable to save location %s.%sIf you believe that this is error, please contact admin.',
-						\Icons::ERROR, $betterLocation->__toString(), PHP_EOL,
-					), true);
-				}
+				$betterLocation = $this->user->addFavourite($betterLocation, $generatedLocationName);
+				$this->flash(sprintf('%s Location %s was saved as %s.%sYou can now use it inline in any chat by typing @%s.',
+					\Icons::SUCCESS, $betterLocation->__toString(), $betterLocation->getPrefixMessage(), PHP_EOL, \Config::TELEGRAM_BOT_NAME
+				), true);
 			}
 		} catch (\Exception $exception) {
+			Debugger::log($exception, ILogger::EXCEPTION);
 			$this->flash(sprintf('%s Can\'t save this location to favourites.%sIf you believe that this is error, please contact admin.', \Icons::ERROR, PHP_EOL), true);
 		}
 	}
@@ -86,7 +78,6 @@ class FavouritesButton extends Button
 	/**
 	 * @param float $lat
 	 * @param float $lon
-	 * @throws \Exception
 	 */
 	private function deleteFavourite(float $lat, float $lon) {
 		try {
@@ -112,20 +103,13 @@ class FavouritesButton extends Button
 			$favourite = $this->user->getFavourite($lat, $lon);
 			if (is_null($favourite)) {
 				$this->reply(sprintf('%s Location <code>%F,%F</code> was already removed from favourites.', \Icons::INFO, $lat, $lon), $messageSettings);
-				return;
-			} else if ($this->user->deleteFavourite($favourite)) {
-				$this->reply(sprintf('%s Location %s <code>%s</code> was removed from favourites.',
-					\Icons::SUCCESS, $favourite->getPrefixMessage(), $favourite->__toString()
-				), $messageSettings);
 			} else {
-				$this->flash(sprintf('%s Unexpected error while removing location %s (%s) from favourites.%sIf you believe that this is error, please contact admin.',
-					\Icons::ERROR, $favourite->getPrefixMessage(), $favourite->__toString(), PHP_EOL
-				), true);
+				$this->user->deleteFavourite($favourite);
+				$this->reply(sprintf('%s Location %s <code>%s</code> was removed from favourites.', \Icons::SUCCESS, $favourite->getPrefixMessage(), $favourite->__toString()), $messageSettings);
 			}
 		} catch (\Exception $exception) {
-			$this->flash(sprintf('%s Unexpected error while removing location (%F,%F) from favourites.%sIf you believe that this is error, please contact admin.',
-				\Icons::ERROR, $lat, $lon, PHP_EOL
-			), true);
+			Debugger::log($exception, ILogger::EXCEPTION);
+			$this->flash(sprintf('%s Unexpected error while removing location (%F,%F) from favourites.%sIf you believe that this is error, please contact admin.', \Icons::ERROR, $lat, $lon, PHP_EOL), true);
 		}
 	}
 

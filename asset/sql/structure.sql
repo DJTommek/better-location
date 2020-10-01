@@ -28,6 +28,7 @@ CREATE TABLE `better_location_chat` (
 CREATE TABLE IF NOT EXISTS `better_location_favourites` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
+  `status` tinyint NOT NULL,
   `lat` double(10,6) NOT NULL,
   `lon` double(10,6) NOT NULL,
   `title` varchar(50) COLLATE utf8mb4_bin NOT NULL,

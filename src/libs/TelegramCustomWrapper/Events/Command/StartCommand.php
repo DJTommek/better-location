@@ -92,8 +92,10 @@ class StartCommand extends Command
 				$newName = join(' ', array_slice($params, 2));
 				$favourite = $this->user->getFavourite($lat, $lon);
 				if ($favourite) {
-					if ($this->user->renameFavourite($favourite, $newName) === true) {
-
+					try {
+						$oldName = $favourite->getPrefixMessage();
+						$favourite = $this->user->renameFavourite($favourite, $newName);
+						$newName = $favourite->getPrefixMessage();
 						$replyMarkup = new Markup();
 						$replyMarkup->inline_keyboard = [];
 
@@ -108,11 +110,12 @@ class StartCommand extends Command
 							'reply_markup' => $replyMarkup,
 						];
 
-						$this->reply(sprintf('%s Location %s was successfully renamed from <b>%s</b> to <b>%s %s</b>.',
-							Icons::SUCCESS, $favourite->__toString(), $favourite->getPrefixMessage(), Icons::FAVOURITE, $newName
+						$this->reply(sprintf('%s Location %s was successfully renamed from <b>%s</b> to <b>%s</b>.',
+							Icons::SUCCESS, $favourite->__toString(), $oldName, $newName
 						), $messageSettings);
-					} else {
-						$this->reply(sprintf('%s Unexpected error while renaming location <code>%s</code>.%sIf you believe that this is error, please contact admin.', Icons::ERROR, $favourite->__toString(), PHP_EOL));
+					} catch (\Throwable $exception) {
+						Debugger::log($exception, ILogger::EXCEPTION);
+						$this->reply(sprintf('%s Unexpected error occured while renaming favourite. Contact Admin for more info.', Icons::ERROR));
 					}
 				} else {
 					$this->reply(sprintf('%s Can\'t rename location %F,%F: not saved in your favourite locations.', Icons::ERROR, $lat, $lon));

@@ -14,11 +14,20 @@ class User
 	private $lastKnownLocation;
 	private $lastKnownLocationDatetime;
 
+	const FAVOURITES_STATUS_ENABLED = 1;
+	const FAVOURITES_STATUS_DELETED = 2;
+
 	/**
 	 * @TODO convert to \BetterLocation\BetterLocationCollection
 	 * @var BetterLocation[]
 	 */
 	private $favourites = [];
+
+	/**
+	 * @TODO convert to \BetterLocation\BetterLocationCollection
+	 * @var BetterLocation[]
+	 */
+	private $favouritesDeleted = [];
 
 	/**
 	 * User constructor.
@@ -90,10 +99,18 @@ class User
 	public function loadFavourites(): array {
 		$favourites = $this->db->query('SELECT * FROM better_location_favourites WHERE user_id = ?', $this->id)->fetchAll(\PDO::FETCH_OBJ);
 		$this->favourites = [];
-		foreach ($favourites as $favourite) {
-			$key = sprintf('%F,%F', $favourite->lat, $favourite->lon);
-			$this->favourites[$key] = new BetterLocation($key, $favourite->lat, $favourite->lon, WG84DegreesService::class);
-			$this->favourites[$key]->setPrefixMessage(sprintf('%s %s', Icons::FAVOURITE, $favourite->title));
+		$this->favouritesDeleted = [];
+		foreach ($favourites as $favouriteDb) {
+			$key = sprintf('%F,%F', $favouriteDb->lat, $favouriteDb->lon);
+			$location = new BetterLocation($key, $favouriteDb->lat, $favouriteDb->lon, WG84DegreesService::class);
+			$location->setPrefixMessage(sprintf('%s %s', Icons::FAVOURITE, $favouriteDb->title));
+			if ($favouriteDb->status === self::FAVOURITES_STATUS_ENABLED) {
+				$this->favourites[$key] = $location;
+			} else if ($favouriteDb->status === self::FAVOURITES_STATUS_DELETED) {
+				$this->favouritesDeleted[$key] = $location;
+			} else {
+				throw new Exception(sprintf('Unexpected type of favourites type: "%d"', $favouriteDb->status));
+			}
 		}
 		return $this->getFavourites();
 	}
@@ -107,44 +124,56 @@ class User
 		}
 	}
 
-	public function addFavourites(BetterLocation $betterLocation, ?string $title = null): bool {
-		// @TODO check if new location is not already saved in $this->favourites
-		try {
-			$this->db->query('INSERT INTO better_location_favourites (user_id, lat, lon, title) VALUES (?, ?, ?, ?)',
-				$this->id, $betterLocation->getLat(), $betterLocation->getLon(), $title
+	/**
+	 * @param BetterLocation $betterLocation
+	 * @param string|null $title used only if it never existed before
+	 * @return BetterLocation
+	 * @throws Exception
+	 */
+	public function addFavourite(BetterLocation $betterLocation, ?string $title = null): BetterLocation {
+		$key = $betterLocation->__toString();
+		if (in_array($key, $this->favourites)) {
+			// already saved
+		} else if (in_array($key, $this->favouritesDeleted)) { // already saved but deleted
+			$this->db->query('UPDATE better_location_favourites SET status = ? WHERE user_id = ? AND lat = ? AND lon = ?',
+				self::FAVOURITES_STATUS_ENABLED, $this->id, $betterLocation->getLat(), $betterLocation->getLon()
 			);
-			return true;
-		} catch (\Exception $exception) {
-			\Tracy\Debugger::log(sprintf('Error while adding favourite location: %s', \Tracy\ILogger::ERROR));
-			return false;
-		}
-	}
-
-	public function deleteFavourite(BetterLocation $betterLocation): bool {
-		try {
-			unset($this->favourites[$betterLocation->__toString()]);
-			$this->db->query('DELETE FROM better_location_favourites WHERE user_id = ? AND lat = ? AND lon = ?',
-				$this->id, $betterLocation->getLat(), $betterLocation->getLon()
-			);
-			return true;
-		} catch (\Exception $exception) {
-			\Tracy\Debugger::log(sprintf('Error while deleting favourite location: %s', $exception->getMessage()), \Tracy\ILogger::ERROR);
-			return false;
-		}
-	}
-
-	public function renameFavourite(BetterLocation $betterLocation, string $title): bool {
-		try {
-			$this->db->query('UPDATE better_location_favourites SET title = ? WHERE user_id = ? AND lat = ? AND lon = ?',
-				htmlspecialchars($title),
-				$this->id, $betterLocation->getLat(), $betterLocation->getLon()
+			$this->favourites[$key] = $this->favouritesDeleted[$key];
+			unset($this->favouritesDeleted[$key]);
+		} else { // not in database at all
+			$this->db->query('INSERT INTO better_location_favourites (user_id, status, lat, lon, title) VALUES (?, ?, ?, ?, ?)',
+				$this->id, self::FAVOURITES_STATUS_ENABLED, $betterLocation->getLat(), $betterLocation->getLon(), $title
 			);
 			$this->loadFavourites();
-			return true;
-		} catch (\Exception $exception) {
-			\Tracy\Debugger::log(sprintf('Error while renaming favourite location: %s', $exception->getMessage()), \Tracy\ILogger::ERROR);
-			return false;
 		}
+		return $this->favourites[$key];
+	}
+
+	/**
+	 * @param BetterLocation $betterLocation
+	 * @throws Exception
+	 */
+	public function deleteFavourite(BetterLocation $betterLocation): void {
+		$this->db->query('UPDATE better_location_favourites SET status = ? WHERE user_id = ? AND lat = ? AND lon = ?',
+			self::FAVOURITES_STATUS_DELETED, $this->id, $betterLocation->getLat(), $betterLocation->getLon()
+		);
+		$key = $betterLocation->__toString();
+		$this->favouritesDeleted[$key] = $this->favourites[$key];
+		unset($this->favourites[$key]);
+	}
+
+	/**
+	 * @param BetterLocation $betterLocation
+	 * @param string $title
+	 * @throws Exception
+	 */
+	public function renameFavourite(BetterLocation $betterLocation, string $title): BetterLocation {
+		$this->db->query('UPDATE better_location_favourites SET title = ? WHERE user_id = ? AND lat = ? AND lon = ?',
+			htmlspecialchars($title),
+			$this->id, $betterLocation->getLat(), $betterLocation->getLon()
+		);
+		$this->loadFavourites();
+		return $this->getFavourite($betterLocation->getLat(), $betterLocation->getLon());
 	}
 
 	/**
