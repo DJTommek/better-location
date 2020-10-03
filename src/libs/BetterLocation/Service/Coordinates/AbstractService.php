@@ -77,7 +77,6 @@ abstract class AbstractService extends \BetterLocation\Service\AbstractService
 		switch ($serviceClass) {
 			case WG84DegreesService::class:
 				list($input, $latHemisphere1, $latCoordDegrees, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonHemisphere2) = $matches;
-//				dumpe($matches);
 				$latCoord = floatval($latCoordDegrees);
 				$lonCoord = floatval($lonCoordDegrees);
 				break;
