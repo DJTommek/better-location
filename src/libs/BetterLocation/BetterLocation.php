@@ -9,6 +9,7 @@ use BetterLocation\Service\Coordinates\USNGService;
 use BetterLocation\Service\Coordinates\WG84DegreesMinutesSecondsService;
 use BetterLocation\Service\Coordinates\WG84DegreesMinutesService;
 use BetterLocation\Service\Coordinates\WG84DegreesService;
+use BetterLocation\Service\DrobnePamatkyCzService;
 use BetterLocation\Service\DuckDuckGoService;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use \BetterLocation\Service\GoogleMapsService;
@@ -190,6 +191,8 @@ class BetterLocation
 						$betterLocationsCollection[] = DuckDuckGoService::parseCoords($url);
 					} else if (RopikyNetService::isValid($url)) {
 						$betterLocationsCollection[] = RopikyNetService::parseCoords($url);
+					} else if (DrobnePamatkyCzService::isValid($url)) {
+						$betterLocationsCollection[] = DrobnePamatkyCzService::parseCoords($url);
 					} else {
 						$headers = null;
 						try {
@@ -368,6 +371,7 @@ class BetterLocation
 			HereWeGoService::class,
 			OpenStreetMapService::class,
 			IngressIntelService::class,
+			DrobnePamatkyCzService::class,
 		];
 		$text = '';
 		$text .= sprintf('%s <a href="%s">%s</a> <code>%s</code>',
