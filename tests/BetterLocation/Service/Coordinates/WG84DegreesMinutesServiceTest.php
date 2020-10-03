@@ -25,6 +25,14 @@ final class WG84DegreesMinutesServiceTest extends TestCase
 		$this->assertEquals([], WG84DegreesMinutesService::findInText('Nothing valid')->getAll());
 	}
 
+	public function testCoordinatesFromGeocaching(): void {
+		$this->assertEquals('50.079733,14.477500', WG84DegreesMinutesService::parseCoords('N 50° 04.784 E 014° 28.650')->__toString()); // https://www.geocaching.com/geocache/GC19HCD_kafkuv-hrob-kafkas-grave
+		$this->assertEquals('49.871733,18.423450', WG84DegreesMinutesService::parseCoords('N 49° 52.304 E 018° 25.407')->__toString()); // https://www.geocaching.com/geocache/GCY3MG_orlova-jinak-orlovacity-otherwise
+		$this->assertEquals('-51.692183,-57.856267', WG84DegreesMinutesService::parseCoords('S 51° 41.531 W 057° 51.376')->__toString()); // https://www.geocaching.com/geocache/GC5HVVP_public-jetty
+		$this->assertEquals('-45.873917,170.511983', WG84DegreesMinutesService::parseCoords('S 45° 52.435 E 170° 30.719')->__toString()); // https://www.geocaching.com/geocache/GC8MFZX_otd-9-january-otago
+		$this->assertEquals('41.882600,-87.623000', WG84DegreesMinutesService::parseCoords('N 41° 52.956 W 087° 37.380')->__toString()); // https://www.geocaching.com/geocache/GCJZDR_cloud-gate-aka-the-bean
+	}
+
 	public function testCoordinates(): void {
 		$text = '';
 		$text .= 'N50°59.72333\', E10°31.36987\'' . PHP_EOL;    // +/+

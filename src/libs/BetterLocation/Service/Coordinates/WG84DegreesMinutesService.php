@@ -10,7 +10,7 @@ use BetterLocation\Service\Exceptions\InvalidLocationException;
 
 final class WG84DegreesMinutesService extends AbstractService
 {
-	const RE_COORD = '([0-9]{1,3})°([0-9]{1,3}(?:\.[0-9]{1,20})?)\'';
+	const RE_COORD = '([0-9]{1,3}) ?° ?([0-9]{1,3}(?:\.[0-9]{1,20})?)\'?';
 	const NAME = 'WG84 DM';
 
 	public static function getRegex(): string {
