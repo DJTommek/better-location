@@ -371,7 +371,6 @@ class BetterLocation
 			HereWeGoService::class,
 			OpenStreetMapService::class,
 			IngressIntelService::class,
-			DrobnePamatkyCzService::class,
 		];
 		$text = '';
 		$text .= sprintf('%s <a href="%s">%s</a> <code>%s</code>',
