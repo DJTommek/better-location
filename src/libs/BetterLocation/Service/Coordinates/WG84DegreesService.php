@@ -14,7 +14,33 @@ final class WG84DegreesService extends AbstractService
 	const NAME = 'WG84';
 
 	public static function getRegex(): string {
-		return self::RE_HEMISPHERE . self::RE_OPTIONAL_SPACE . self::RE_COORD . self::RE_HEMISPHERE . self::RE_SPACE_BETWEEN_COORDS . self::RE_HEMISPHERE . self::RE_OPTIONAL_SPACE . self::RE_COORD . self::RE_HEMISPHERE;
+		return
+			self::RE_HEMISPHERE .
+			self::RE_OPTIONAL_SPACE . self::RE_OPTIONAL_DEGREE_SIGN . self::RE_OPTIONAL_SPACE .
+			self::RE_COORD .
+			self::RE_OPTIONAL_SPACE . self::RE_OPTIONAL_DEGREE_SIGN . self::RE_OPTIONAL_SPACE .
+			self::RE_HEMISPHERE .
+
+			self::RE_SPACE_BETWEEN_COORDS .
+
+			self::RE_HEMISPHERE .
+			self::RE_OPTIONAL_SPACE . self::RE_OPTIONAL_DEGREE_SIGN . self::RE_OPTIONAL_SPACE .
+			self::RE_COORD .
+			self::RE_OPTIONAL_SPACE . self::RE_OPTIONAL_DEGREE_SIGN . self::RE_OPTIONAL_SPACE .
+			self::RE_HEMISPHERE;
+	}
+
+	public static function getFullRegex(bool $start = false, bool $end = false): string {
+		$result = '/';
+		if ($start) {
+			$result .= '^';
+		}
+		$result .= self::getRegex();
+		if ($end) {
+			$result .= '$';
+		}
+		$result .= '/u';
+		return $result;
 	}
 
 	/**
@@ -23,7 +49,7 @@ final class WG84DegreesService extends AbstractService
 	 */
 	public static function findInText($text): BetterLocationCollection {
 		$collection = new BetterLocationCollection();
-		if (preg_match_all('/' . self::getRegex() . '/', $text, $matches)) {
+		if (preg_match_all(self::getFullRegex(), $text, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				try {
 					$collection[] = self::parseCoords($matches[0][$i]);
@@ -36,7 +62,7 @@ final class WG84DegreesService extends AbstractService
 	}
 
 	public static function isValid(string $input): bool {
-		return !!preg_match('/^' . self::getRegex() . '$/', $input);
+		return !!preg_match(self::getFullRegex(true, true), $input);
 	}
 
 	/**
@@ -45,7 +71,7 @@ final class WG84DegreesService extends AbstractService
 	 * @throws InvalidLocationException
 	 */
 	public static function parseCoords(string $input): BetterLocation {
-		if (!preg_match('/^' . self::getRegex() . '$/', $input, $matches)) {
+		if (!preg_match(self::getFullRegex(true, true), $input, $matches)) {
 			throw new InvalidLocationException(sprintf('Input is not valid %s coordinates.', self::NAME));
 		}
 		// preg_match truncating empty values from the end in $matches array: https://stackoverflow.com/questions/43912763/php-can-preg-match-include-unmatched-groups#comment74860670_43912763

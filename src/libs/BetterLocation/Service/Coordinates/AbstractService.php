@@ -22,6 +22,12 @@ abstract class AbstractService extends \BetterLocation\Service\AbstractService
 	const RE_SPACE_BETWEEN_COORDS = '[., ]{1,4}';
 
 	/**
+	 * Must be used Unicode version instead of ° and regex has to contain modifier "u", eg: /someRegex/u
+	 * @see https://stackoverflow.com/questions/7211541/having-trouble-with-a-preg-match-all-and-a-degree-symbol/20429497
+	 */
+	const RE_OPTIONAL_DEGREE_SIGN = '(?:\x{00B0})?';
+
+	/**
 	 * Strict less-buggy version
 	 * N52.1111 E12.2222 S53.1111 W13.2222
 	 */
@@ -71,6 +77,7 @@ abstract class AbstractService extends \BetterLocation\Service\AbstractService
 		switch ($serviceClass) {
 			case WG84DegreesService::class:
 				list($input, $latHemisphere1, $latCoordDegrees, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonHemisphere2) = $matches;
+//				dumpe($matches);
 				$latCoord = floatval($latCoordDegrees);
 				$lonCoord = floatval($lonCoordDegrees);
 				break;

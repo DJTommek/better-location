@@ -22,6 +22,182 @@ final class WG84DegreesServiceTest extends TestCase
 	}
 
 	/** @noinspection PhpUnhandledExceptionInspection */
+	public function testValidCoordinatesWithHemisphereAndDegreeSign1(): void {
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('50.636144°N, 14.337469°E')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('50.636144 °N, 14.337469 °E')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('50.636144° N, 14.337469° E')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('50.636144 ° N, 14.337469 ° E')->__toString());
+
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('N°50.636144, E°14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('N° 50.636144, E °14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('N °50.636144, E °14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('N ° 50.636144, E ° 14.337469')->__toString());
+
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('N50.636144°, E°14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('N50.636144 °, E °14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('N50.636144° , E °14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('N50.636144 ° , E °14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('N 50.636144°, E °14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('N 50.636144 °, E ° 14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('N 50.636144° , E ° 14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('N 50.636144 ° , E ° 14.337469')->__toString());
+	}
+
+	/** @noinspection PhpUnhandledExceptionInspection */
+	public function testValidCoordinatesWithHemisphereAndDegreeSign2(): void {
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('50.636144°S, 14.337469°E')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('50.636144 °S, 14.337469 °E')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('50.636144° S, 14.337469° E')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('50.636144 ° S, 14.337469 ° E')->__toString());
+
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('S°50.636144, E°14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('S° 50.636144, E °14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('S °50.636144, E °14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('S ° 50.636144, E ° 14.337469')->__toString());
+
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('S50.636144°, E°14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('S50.636144 °, E °14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('S50.636144° , E °14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('S50.636144 ° , E °14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('S 50.636144°, E °14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('S 50.636144 °, E ° 14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('S 50.636144° , E ° 14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('S 50.636144 ° , E ° 14.337469')->__toString());
+	}
+
+	/** @noinspection PhpUnhandledExceptionInspection */
+	public function testValidCoordinatesWithHemisphereAndDegreeSign3(): void {
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144°N, 14.337469°W')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144 °N, 14.337469 °W')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144° N, 14.337469° W')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144 ° N, 14.337469 ° W')->__toString());
+
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('N°50.636144, W°14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('N° 50.636144, W °14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('N °50.636144, W °14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('N ° 50.636144, W ° 14.337469')->__toString());
+
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('N50.636144°, W°14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('N50.636144 °, W °14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('N50.636144° , W °14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('N50.636144 ° , W °14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('N 50.636144°, W °14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('N 50.636144 °, W ° 14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('N 50.636144° , W ° 14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('N 50.636144 ° , W ° 14.337469')->__toString());
+	}
+
+	/** @noinspection PhpUnhandledExceptionInspection */
+	public function testValidCoordinatesWithHemisphereAndDegreeSign4(): void {
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144°S, 14.337469°W')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144 °S, 14.337469 °W')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144° S, 14.337469° W')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144 ° S, 14.337469 ° W')->__toString());
+
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('S°50.636144, W°14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('S° 50.636144, W °14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('S °50.636144, W °14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('S ° 50.636144, W ° 14.337469')->__toString());
+
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('S50.636144°, W°14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('S50.636144 °, W °14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('S50.636144° , W °14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('S50.636144 ° , W °14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('S 50.636144°, W °14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('S 50.636144 °, W ° 14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('S 50.636144° , W ° 14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('S 50.636144 ° , W ° 14.337469')->__toString());
+	}
+
+	/** @noinspection PhpUnhandledExceptionInspection */
+	public function testValidCoordinatesWithoutHemisphereAndDegreeSign1(): void {
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('50.636144°, 14.337469°')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('50.636144 °, 14.337469 °')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('50.636144° , 14.337469° ')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('50.636144 ° , 14.337469 ° ')->__toString());
+
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('°50.636144, °14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('° 50.636144,  °14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords(' °50.636144,  °14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords(' ° 50.636144,  ° 14.337469')->__toString());
+
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('50.636144°, °14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('50.636144 °,  °14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('50.636144° ,  °14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords('50.636144 ° ,  °14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords(' 50.636144°,  °14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords(' 50.636144 °,  ° 14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords(' 50.636144° ,  ° 14.337469')->__toString());
+		$this->assertEquals('50.636144,14.337469', WG84DegreesService::parseCoords(' 50.636144 ° ,  ° 14.337469')->__toString());
+	}
+
+	/** @noinspection PhpUnhandledExceptionInspection */
+	public function testValidCoordinatesWithoutHemisphereAndDegreeSign2(): void {
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('-50.636144°, 14.337469°')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('-50.636144 °, 14.337469 °')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('-50.636144° , 14.337469° ')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('-50.636144 ° , 14.337469 ° ')->__toString());
+
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('-°50.636144, °14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('-° 50.636144,  °14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('- °50.636144,  °14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('- ° 50.636144,  ° 14.337469')->__toString());
+
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('-50.636144°, °14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('-50.636144 °,  °14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('-50.636144° ,  °14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('-50.636144 ° ,  °14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('- 50.636144°,  °14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('- 50.636144 °,  ° 14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('- 50.636144° ,  ° 14.337469')->__toString());
+		$this->assertEquals('-50.636144,14.337469', WG84DegreesService::parseCoords('- 50.636144 ° ,  ° 14.337469')->__toString());
+	}
+
+	/** @noinspection PhpUnhandledExceptionInspection */
+	public function testValidCoordinatesWithoutHemisphereAndDegreeSign3(): void {
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144°, 14.337469°-')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144 °, 14.337469 °-')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144° , 14.337469° -')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144 ° , 14.337469 ° -')->__toString());
+
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('°50.636144, -°14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('° 50.636144, - °14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords(' °50.636144, - °14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords(' ° 50.636144, - ° 14.337469')->__toString());
+
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144°, -°14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144 °, - °14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144° , - °14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144 ° , - °14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords(' 50.636144°, - °14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords(' 50.636144 °, - ° 14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords(' 50.636144° , - ° 14.337469')->__toString());
+		$this->assertEquals('50.636144,-14.337469', WG84DegreesService::parseCoords(' 50.636144 ° , - ° 14.337469')->__toString());
+	}
+
+	/** @noinspection PhpUnhandledExceptionInspection */
+	public function testValidCoordinatesWithoutHemisphereAndDegreeSign4(): void {
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144°-, 14.337469°-')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144 °-, 14.337469 °-')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144° -, 14.337469° -')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('50.636144 ° -, 14.337469 ° -')->__toString());
+
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('-°50.636144, -°14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('-° 50.636144, - °14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('- °50.636144, - °14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('- ° 50.636144, - ° 14.337469')->__toString());
+
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('-50.636144°, -°14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('-50.636144 °, - °14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('-50.636144° , - °14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('-50.636144 ° , - °14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('- 50.636144°, - °14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('- 50.636144 °, - ° 14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('- 50.636144° , - ° 14.337469')->__toString());
+		$this->assertEquals('-50.636144,-14.337469', WG84DegreesService::parseCoords('- 50.636144 ° , - ° 14.337469')->__toString());
+	}
+
+	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testValidCoordinatesWithoutHemisphere(): void {
 		// optional space and comma
 		$this->assertEquals('50.123456,10.123456', WG84DegreesService::parseCoords('50.123456 10.123456')->__toString());
