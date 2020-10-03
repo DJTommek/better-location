@@ -156,6 +156,12 @@ class BetterLocation
 					throw new \InvalidArgumentException('Unhandled Telegram entity type');
 				}
 
+				// Skip URLs without defined scheme, eg "tomas.palider.cz" but allow "https://tomas.palider.cz/"
+				$parsedUrl = General::parseUrl($url);
+				if (isset($parsedUrl['scheme']) === false) {
+					continue;
+				}
+
 				$url = self::handleShortUrl($url);
 
 				try {
