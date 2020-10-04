@@ -14,9 +14,9 @@ class TelegramHelper
 	/**
 	 * Get regex for command entity
 	 *
-	 * @param bool $strict Enforce containing bot's username (set in \Config class). Valid commands:
-	 * - true:  /command@BetterLocationBot
-	 * - false: /command@BetterLocationBot, /command
+	 * @param bool $strict Enforce containing bot's case in-sensitive username (set in \Config class). Valid commands:
+	 * - true:  /command@BetterLocationBot, /command@BETTERlocationBOT
+	 * - false: /command@BetterLocationBot, /command@betterLOCATIONbot, /command
 	 * @return string command without bot's username if it contains
 	 */
 	public static function getCommandRegex(bool $strict) {
@@ -26,7 +26,7 @@ class TelegramHelper
 		if ($strict === false) {
 			$regex .= '?'; // make last part of regex optional
 		}
-		$regex .= '$/';
+		$regex .= '$/i';
 		return $regex;
 	}
 
