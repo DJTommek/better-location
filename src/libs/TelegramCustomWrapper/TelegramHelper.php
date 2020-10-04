@@ -105,7 +105,7 @@ class TelegramHelper
 	public static function addedToChat(Update $update, ?string $username = null): bool {
 		if (self::chatCreated($update)) {
 			return true; // User added while creating group
-		} else if (count($update->message->new_chat_members) > 0) {
+		} else if (count($update->message->new_chat_members ?? []) > 0) {
 			if (is_null($username)) {
 				return true; // Any user was added to already group
 			} else {
