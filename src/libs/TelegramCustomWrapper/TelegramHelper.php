@@ -99,7 +99,7 @@ class TelegramHelper
 	}
 
 	public static function chatCreated(Update $update): bool {
-		return $update->message->group_chat_created;
+		return ($update->message && $update->message->group_chat_created);
 	}
 
 	public static function addedToChat(Update $update, ?string $username = null): bool {
