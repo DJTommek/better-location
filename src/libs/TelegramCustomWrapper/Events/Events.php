@@ -181,15 +181,20 @@ abstract class Events
 
 		$text = sprintf('%s Welcome to @%s!', \Icons::LOCATION, \Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('I\'m a simple but smart bot to catch all possible location formats in any chats you invite me to, and generate links to your favourite location services such as Google maps, Waze, OpenStreetMaps etc.') . PHP_EOL;
-		$text .= sprintf('For example, if you send a message containing the coordinates "<code>%1$f,%2$f</code>" or the link "https://www.waze.com/ul?ll=%1$f,%2$f" I will respond with this:', $lat, $lon) . PHP_EOL;
+		$text .= sprintf('For example, if you send a message containing the coordinates "<code>%f,%f</code>" or the link "%s" I will respond with this:', $lat, $lon, $wazeLink) . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= $betterLocationWaze->generateBetterLocation();
 		// @TODO newline is filled in $result (yeah, it shouldn't be like that..)
 		$text .= sprintf('%s <b>Formats I can read:</b>', \Icons::FEATURES) . PHP_EOL;
-		$text .= sprintf('- coordinates: WGS84 (decimal, degrees and even seconds) etc.') . PHP_EOL;
-		$text .= sprintf('- special codes: <a href="%s">What3Words</a>, <a href="%s">Open Location Codes</a> etc.', 'https://what3words.com/', 'https://plus.codes/') . PHP_EOL;
-		$text .= sprintf('- URL links: google.com, mapy.cz, intel.ingress.com etc.') . PHP_EOL;
-		$text .= sprintf('- short URL links: goo.gl, mapy.cz, <a href="%s">Waze</a> etc.', 'https://www.waze.com/') . PHP_EOL;
+		$text .= sprintf('- coordinates: <a href="%s">WGS84</a>, <a href="%s">USNG</a>, <a href="%s">MGRS</a>, <a href="%s">UTM</a>, ...',
+				'https://en.wikipedia.org/wiki/World_Geodetic_System',
+				'https://en.wikipedia.org/wiki/United_States_National_Grid',
+				'https://en.wikipedia.org/wiki/Military_Grid_Reference_System',
+				'https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system',
+			) . PHP_EOL;
+		$text .= sprintf('- special codes: <a href="%s">What3Words</a>, <a href="%s">Open Location Codes</a>, ...', 'https://what3words.com/', 'https://plus.codes/') . PHP_EOL;
+		$text .= sprintf('- URL links: google.com, mapy.cz, intel.ingress.com, ...') . PHP_EOL;
+		$text .= sprintf('- short URL links: goo.gl, bit.ly, tinyurl.com, t.co, tiny.cc, ...') . PHP_EOL;
 		$text .= sprintf('- Telegram location') . PHP_EOL;
 		$text .= sprintf('- EXIF from <b>uncompressed</b> images') . PHP_EOL;
 		$text .= PHP_EOL;
