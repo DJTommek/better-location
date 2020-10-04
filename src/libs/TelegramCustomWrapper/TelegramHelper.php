@@ -144,6 +144,9 @@ class TelegramHelper
 				}
 			}
 		}
+		if (self::isPM($update)) {
+			$strict = false; // there is no need to write bot username since there is one to one
+		}
 		if ($command && preg_match(self::getCommandRegex($strict), $command, $matches)) {
 			return $matches[1];
 		} else {
