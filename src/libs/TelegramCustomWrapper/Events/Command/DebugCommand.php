@@ -4,6 +4,8 @@ namespace TelegramCustomWrapper\Events\Command;
 
 class DebugCommand extends Command
 {
+	const CMD = '/debug';
+
 	/**
 	 * DebugCommand constructor.
 	 *

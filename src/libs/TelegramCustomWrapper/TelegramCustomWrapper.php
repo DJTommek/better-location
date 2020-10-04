@@ -71,7 +71,7 @@ class TelegramCustomWrapper
 			$update->callback_query->from->displayname = TelegramHelper::getDisplayName($update->callback_query->from);
 
 			switch ($command ? mb_strtolower($command) : null) {
-				case '/help':
+				case HelpCommand::CMD:
 					return new HelpButton($update);
 				case FavouritesCommand::CMD:
 					return new FavouritesButton($update);
@@ -92,17 +92,17 @@ class TelegramCustomWrapper
 				return new Photo($update);
 			} else {
 				switch ($command ? mb_strtolower($command) : null) {
-					case '/start':
+					case StartCommand::CMD:
 						return new StartCommand($update);
-					case '/help':
+					case HelpCommand::CMD:
 						return new HelpCommand($update);
-					case '/debug':
+					case DebugCommand::CMD:
 						return new DebugCommand($update);
-					case '/settings':
+					case SettingsCommand::CMD:
 						return new SettingsCommand($update);
 					case FavouritesCommand::CMD:
 						return new FavouritesCommand($update);
-					case '/feedback':
+					case FeedbackCommand::CMD:
 						return new FeedbackCommand($update);
 					case null: // message without command
 						return new MessageCommand($update);

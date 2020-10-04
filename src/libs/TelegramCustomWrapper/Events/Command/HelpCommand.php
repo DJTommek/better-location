@@ -4,6 +4,8 @@ namespace TelegramCustomWrapper\Events\Command;
 
 class HelpCommand extends Command
 {
+	const CMD = '/help';
+
 	/**
 	 * HelpCommand constructor.
 	 *

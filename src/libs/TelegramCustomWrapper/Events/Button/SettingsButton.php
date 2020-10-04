@@ -2,6 +2,7 @@
 
 namespace TelegramCustomWrapper\Events\Button;
 
+use TelegramCustomWrapper\Events\Command\SettingsCommand;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class SettingsButton extends Button
@@ -16,8 +17,8 @@ class SettingsButton extends Button
 		$replyMarkup->inline_keyboard = [
 			[ // row of buttons
 				[ // button
-					'text' => sprintf('Settings:'),
-					'callback_data' => sprintf('/settings'),
+					'text' => 'Settings:',
+					'callback_data' => SettingsCommand::CMD,
 				],
 			],
 		];

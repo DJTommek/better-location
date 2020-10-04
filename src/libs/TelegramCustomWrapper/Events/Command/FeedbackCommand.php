@@ -9,6 +9,8 @@ use Utils\DummyLogger;
 
 class FeedbackCommand extends Command
 {
+	const CMD = '/feedback';
+
 	/**
 	 * FeedbackCommand constructor.
 	 *
@@ -38,14 +40,13 @@ class FeedbackCommand extends Command
 			$this->logFeedback();
 			$this->reply($messagePrefix . 'Thanks for your feedback! You will be contacted in case it is necessary.');
 		} else {
-			$this->reply(
-				$messagePrefix .
-				'Literally <b>Any</b> feedback will be appreciated, especially bad ones!' . PHP_EOL .
- 				'- "<code>/feedback Thanks for the bot!</code>" to increase morale of authors.' . PHP_EOL .
- 				'- "<code>/feedback I hate this bot, it can\'t do the dishes!</code>" to request more features.' . PHP_EOL .
-				''. PHP_EOL .
-				sprintf('%s Tip: Use reply to any message if you want to authors that specific message why it should (not) be location.', Icons::INFO)
-			);
+			$text = $messagePrefix;
+			$text .= sprintf('Literally <b>Any</b> feedback will be appreciated, especially bad ones!') . PHP_EOL;
+			$text .= sprintf('- "<code>%s@%s Thanks for the bot!</code>" to increase morale of authors.', FeedbackCommand::CMD, \Config::TELEGRAM_BOT_NAME) . PHP_EOL;
+			$text .= sprintf('- "<code>%s@%s I hate this bot, it can\'t do the dishes!</code>" to request more features.', FeedbackCommand::CMD, \Config::TELEGRAM_BOT_NAME) . PHP_EOL;
+			$text .= PHP_EOL;
+			$text .= sprintf('%s Tip: Use reply to any message if you want to authors that specific message why it should (not) be location.', \Icons::INFO);
+			$this->reply($text);
 		}
 	}
 

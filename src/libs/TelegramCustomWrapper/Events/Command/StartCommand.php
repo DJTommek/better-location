@@ -13,6 +13,8 @@ use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class StartCommand extends Command
 {
+	const CMD = '/start';
+
 	const FAVOURITE = 'f';
 	const FAVOURITE_RENAME = 'r';
 	const FAVOURITE_DELETE = 'd';

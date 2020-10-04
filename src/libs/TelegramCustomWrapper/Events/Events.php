@@ -8,6 +8,8 @@ use BetterLocation\Service\WazeService;
 use React\EventLoop\Factory;
 use TelegramCustomWrapper\Events\Button\FavouritesButton;
 use TelegramCustomWrapper\Events\Command\FavouritesCommand;
+use TelegramCustomWrapper\Events\Command\FeedbackCommand;
+use TelegramCustomWrapper\Events\Command\HelpCommand;
 use TelegramCustomWrapper\Events\Command\StartCommand;
 use TelegramCustomWrapper\SendMessage;
 use TelegramCustomWrapper\TelegramHelper;
@@ -209,9 +211,9 @@ abstract class Events
 //		$text .= sprintf('Currently not supported. Don\'t hesitate to ping author if you are interested in this feature.') . PHP_EOL;
 //		$text .= PHP_EOL;
 		$text .= sprintf('%s <b>Commands:</b>', \Icons::COMMAND) . PHP_EOL;
-		$text .= sprintf('/help - %s Learn more about me (this text)', \Icons::INFO) . PHP_EOL;
-		$text .= sprintf('/feedback - %s Report invalid location or just contact the author', \Icons::FEEDBACK) . PHP_EOL;
-		$text .= sprintf('%s %s - Manage your saved favourite locations (works only in PM)', FavouritesCommand::CMD, \Icons::FAVOURITE) . PHP_EOL;
+		$text .= sprintf('%s@%s - %s Learn more about me (this text)', HelpCommand::CMD, \Config::TELEGRAM_BOT_NAME, \Icons::INFO) . PHP_EOL;
+		$text .= sprintf('%s@%s - %s Report invalid location or just contact the author', FeedbackCommand::CMD, \Config::TELEGRAM_BOT_NAME, \Icons::FEEDBACK) . PHP_EOL;
+		$text .= sprintf('%s@%s %s - Manage your saved favourite locations (works only in PM)', FavouritesCommand::CMD, \Config::TELEGRAM_BOT_NAME, \Icons::FAVOURITE) . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= sprintf('%s For more info check out the <a href="%s">@BetterLocationInfo</a> channel.', \Icons::INFO, 'https://t.me/BetterLocationInfo/3') . PHP_EOL;
 		$text .= PHP_EOL;
@@ -239,7 +241,7 @@ abstract class Events
 
 		$button = new Button();
 		$button->text = sprintf('%s Help', \Icons::REFRESH);
-		$button->callback_data = sprintf('/help');
+		$button->callback_data = HelpCommand::CMD;
 		$replyMarkupRow[] = $button;
 
 		if ($this->isPm()) {
@@ -258,7 +260,7 @@ abstract class Events
 			[ // row of buttons
 				[ // button
 					'text' => sprintf('%s Help', \Icons::BACK),
-					'callback_data' => sprintf('/help'),
+					'callback_data' => HelpCommand::CMD,
 				],
 				[ // button
 					'text' => sprintf('%s Refresh list', \Icons::REFRESH),
