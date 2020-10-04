@@ -85,7 +85,7 @@ class TelegramHelper
 		return (!empty($update->message->photo));
 	}
 
-	public static function isViaBot(Update $update, $botUsername = null): bool {
+	public static function isViaBot(Update $update, ?string $botUsername = null): bool {
 		if (empty($update->message->via_bot) === false) {
 			if (is_null($botUsername)) {
 				return true;
@@ -93,6 +93,27 @@ class TelegramHelper
 				return true;
 			} else {
 				return false;
+			}
+		}
+		return false;
+	}
+
+	public static function chatCreated(Update $update): bool {
+		return $update->message->group_chat_created;
+	}
+
+	public static function addedToChat(Update $update, ?string $username = null): bool {
+		if (self::chatCreated($update)) {
+			return true; // User added while creating group
+		} else if (count($update->message->new_chat_members) > 0) {
+			if (is_null($username)) {
+				return true; // Any user was added to already group
+			} else {
+				foreach ($update->message->new_chat_members as $newChatMember) {
+					if (mb_strtolower($newChatMember->username) === mb_strtolower($username)) {
+						return true; // Specific user added to already created group
+					}
+				}
 			}
 		}
 		return false;

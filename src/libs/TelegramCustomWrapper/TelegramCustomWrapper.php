@@ -15,6 +15,7 @@ use TelegramCustomWrapper\Events\Command\StartCommand;
 use \TelegramCustomWrapper\Events\Command\UnknownCommand;
 use \TelegramCustomWrapper\Events\Button\HelpButton;
 use \TelegramCustomWrapper\Events\Button\FavouritesButton;
+use \TelegramCustomWrapper\Events\Special\AddedToChat;
 use \TelegramCustomWrapper\Events\Special\File;
 use TelegramCustomWrapper\Events\Special\InlineQuery;
 use \TelegramCustomWrapper\Events\Special\Photo;
@@ -45,6 +46,9 @@ class TelegramCustomWrapper
 		}
 		if ($update->edited_channel_post || $update->edited_message) {
 			return 'Edit\'s are ignored';
+		}
+		if (TelegramHelper::addedToChat($update, \Config::TELEGRAM_BOT_NAME)) {
+			return new AddedToChat($update);
 		}
 		if (TelegramHelper::isViaBot($update, \Config::TELEGRAM_BOT_NAME)) {
 			return 'I will ignore my own via_bot (from inline) messages.';
