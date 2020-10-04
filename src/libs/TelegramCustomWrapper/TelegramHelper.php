@@ -12,11 +12,23 @@ class TelegramHelper
 	const MESSAGE_PREFIX = \Icons::LOCATION . ' <b>Better location</b> by @' . \Config::TELEGRAM_BOT_NAME . ':' . PHP_EOL;
 
 	/**
-	 * Command is valid if
-	 * - command doesn't contain "@BotName"
-	 * - command does contain "@BotName" but its same as in config
+	 * Get regex for command entity
+	 *
+	 * @param bool $strict Enforce containing bot's username (set in \Config class). Valid commands:
+	 * - true:  /command@BetterLocationBot
+	 * - false: /command@BetterLocationBot, /command
+	 * @return string command without bot's username if it contains
 	 */
-	const COMMAND_REGEX = '/^(\/[a-zA-Z0-9_]+)(?:@' . \Config::TELEGRAM_BOT_NAME . ')?$/';
+	public static function getCommandRegex(bool $strict) {
+		$regex = '/^';
+		$regex .= '(\/[a-z0-9_]+)';
+		$regex .= '(?:@' . \Config::TELEGRAM_BOT_NAME . ')';
+		if ($strict === false) {
+			$regex .= '?'; // make last part of regex optional
+		}
+		$regex .= '$/';
+		return $regex;
+	}
 
 	// @TODO Move CHAT_ACTION_* to some ENUM
 	const CHAT_ACTION_TYPING = 'typing';
@@ -98,7 +110,7 @@ class TelegramHelper
 		}
 	}
 
-	public static function getCommand($update): ?string {
+	public static function getCommand($update, bool $strict = false): ?string {
 		$command = null;
 		if (self::isButtonClick($update)) {
 			$fullCommand = $update->callback_query->data;
@@ -111,7 +123,7 @@ class TelegramHelper
 				}
 			}
 		}
-		if ($command && preg_match(self::COMMAND_REGEX, $command, $matches)) {
+		if ($command && preg_match(self::getCommandRegex($strict), $command, $matches)) {
 			return $matches[1];
 		} else {
 			return null;
@@ -141,6 +153,7 @@ class TelegramHelper
 		$input = trim($input);
 		return $input;
 	}
+
 	public static function InlineTextDecode(string $input): string {
 		$input = trim($input);
 		$input = str_replace('_', '=', $input);

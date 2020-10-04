@@ -29,6 +29,8 @@ class DefaultConfig
 	const TELEGRAM_WEBHOOK_URL = 'https://your-domain.com/better-location/webhook.php';
 	/** @var int Telegram webhook URL, which will automatically receive all events from bot (in this application it should lead to webhook.php) */
 	const TELEGRAM_INLINE_CACHE = 300; // https://core.telegram.org/bots/api#answerinlinequery cache_time attribute (default 300)
+	/** @var int Enforce BotUsername in command, eg. /command@BetterLocationBot */
+	const TELEGRAM_COMMAND_STRICT = false;
 
 	/** @var ?string API Key for using Google Place API: https://developers.google.com/places/web-service/search null to disable */
 	const GOOGLE_PLACE_API_KEY = null;

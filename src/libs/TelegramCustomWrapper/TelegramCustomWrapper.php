@@ -57,7 +57,7 @@ class TelegramCustomWrapper
 			return new InlineQuery($update);
 		}
 
-		$command = TelegramHelper::getCommand($update);
+		$command = TelegramHelper::getCommand($update, \Config::TELEGRAM_COMMAND_STRICT);
 		/** @noinspection PhpUnusedLocalVariableInspection */
 		$params = TelegramHelper::getParams($update);
 
