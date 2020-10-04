@@ -149,9 +149,13 @@ class MGRS
 		$regex .= ' ?';
 		$regex .= '([' . self::MGRS_ZONE_LETTERS . '])';
 		$regex .= ' ?';
+//		$regex .= '([NSWE]?)';
+//		$regex .= ' ?';
 		$regex .= '([A-Z])';
 		$regex .= '([A-Z])';
 		$regex .= ' ?';
+//		$regex .= '([NSWE])';
+//		$regex .= ' ?';
 		$regex .= '((?:[0-9][0-9]){' . $minimumPrecision . ',5})';
 		if ($end) {
 			$regex .= '$/';
@@ -175,14 +179,19 @@ class MGRS
 		}
 		$regex .= '(' . self::REGEX_GRID_ZONE . ')';
 		$regex .= ' ?';
-		$regex .= '([NS])';
+		$regex .= '([' . self::MGRS_ZONE_LETTERS . '])';
+		$regex .= ' ?';
+		$regex .= '([NSWE])';
 		$regex .= ' ?';
 		$regex .= '([0-9]{' . $minimumPrecision . ',7})';
+		$regex .= ' ?';
+		$regex .= '([NSWE])';
 		$regex .= ' ?';
 		$regex .= '([0-9]{' . $minimumPrecision . ',7})';
 		if ($end) {
 			$regex .= '$/';
 		}
+		dumpe($regex);
 		return $regex;
 	}
 

@@ -33,7 +33,7 @@ final class USNGService extends AbstractService
 	}
 
 	public static function isValid(string $input): bool {
-		return MGRS::isMGRS($input);
+		return MGRS::isUSNG($input);
 	}
 
 	/**

@@ -11,6 +11,7 @@ use Utils\MGRS;
 
 final class MGRSService extends AbstractService
 {
+	// @TODO https://maptools.zendesk.com/hc/en-us/articles/206418508-Is-UTM-is-another-name-for-MGRS-
 	const NAME = 'MGRS';
 
 	/**
