@@ -339,7 +339,7 @@ class BetterLocation
 			if ($entity->type === 'url') {
 				$entityContent = mb_substr($text, $entity->offset, $entity->length);
 				if (self::isTrueUrl($entityContent)) {
-					$text = General::substrReplace($text, str_pad('|', $entity->length), $entity->offset, $entity->length);
+					$text = General::substrReplace($text, str_repeat('|', $entity->length), $entity->offset, $entity->length);
 				}
 			}
 		}
