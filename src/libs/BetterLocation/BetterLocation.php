@@ -156,9 +156,7 @@ class BetterLocation
 					throw new \InvalidArgumentException('Unhandled Telegram entity type');
 				}
 
-				// Skip URLs without defined scheme, eg "tomas.palider.cz" but allow "https://tomas.palider.cz/"
-				$parsedUrl = General::parseUrl($url);
-				if (isset($parsedUrl['scheme']) === false) {
+				if (self::isTrueUrl($url) === false) {
 					continue;
 				}
 
@@ -314,6 +312,14 @@ class BetterLocation
 			}
 		}
 		return $this->address;
+	}
+
+	/**
+	 * Skip URLs without defined scheme, eg "tomas.palider.cz" but allow "https://tomas.palider.cz/"
+	 */
+	private static function isTrueUrl(string $url): bool {
+		$parsedUrl = General::parseUrl($url);
+		return (isset($parsedUrl['scheme']) && isset($parsedUrl['host']));
 	}
 
 	private static function getMessageWithoutUrls(string $text, array $entities) {
