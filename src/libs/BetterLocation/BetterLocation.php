@@ -26,6 +26,7 @@ use TelegramCustomWrapper\Events\Button\FavouritesButton;
 use TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
+use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 use Utils\Coordinates;
 use \Utils\General;
 use Utils\StringUtils;
@@ -322,10 +323,24 @@ class BetterLocation
 		return (isset($parsedUrl['scheme']) && isset($parsedUrl['host']));
 	}
 
-	private static function getMessageWithoutUrls(string $text, array $entities) {
+	/**
+	 * Remove all URLs from Telegram message according entities.
+	 * URLs will be replaced with ||| proper length to keep entity offset and length valid eg.:
+	 * 'Hello https://t.me/ here!'
+	 * ->
+	 * 'Hello ||||||||||||| here!'
+	 *
+	 * @param string $text
+	 * @param MessageEntity[] $entities
+	 * @return string
+	 */
+	private static function getMessageWithoutUrls(string $text, array $entities): string {
 		foreach (array_reverse($entities) as $entity) {
 			if ($entity->type === 'url') {
-				$text = General::substrReplace($text, str_pad('|', $entity->length), $entity->offset, $entity->length);
+				$entityContent = mb_substr($text, $entity->offset, $entity->length);
+				if (self::isTrueUrl($entityContent)) {
+					$text = General::substrReplace($text, str_pad('|', $entity->length), $entity->offset, $entity->length);
+				}
 			}
 		}
 		return $text;
