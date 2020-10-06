@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use BetterLocation\BetterLocation;
 use BetterLocation\Service\Exceptions\NotSupportedException;
 use BetterLocation\Service\WhatThreeWordService;
 use PHPUnit\Framework\TestCase;
@@ -30,6 +31,28 @@ final class WhatThreeWordsServiceTest extends TestCase
 	}
 
 	/** @noinspection PhpUnhandledExceptionInspection */
+	public function testGeneral(): void {
+		if (is_null(\Config::W3W_API_KEY)) {
+            $this->markTestSkipped('Missing What3Words API Key.');
+        } else {
+			$result = BetterLocation::generateFromTelegramMessage('Hello ///smaller.biggest.money there! Random URL https://tomas.palider.cz/ there...', [
+				[
+					"offset" => 9,
+					"length" => 21,
+					"type" => "url" // TG is thinking, that this is URL (probably .money is valid domain)
+				],
+				[
+					"offset" => 49,
+					"length" => 25,
+					"type" => "url"
+				]
+			]);
+			$this->assertCount(1, $result);
+			$this->assertEquals('50.086258,14.423709', $result[0]->__toString());
+		}
+	}
+
+	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testWords(): void {
 		if (is_null(\Config::W3W_API_KEY)) {
             $this->markTestSkipped('Missing What3Words API Key.');
@@ -37,6 +60,7 @@ final class WhatThreeWordsServiceTest extends TestCase
 			$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('///define.readings.cucumber')->__toString());
 			$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('///chladná.naopak.vložit')->__toString());
 			$this->assertEquals('-25.066260,-130.100342', WhatThreeWordService::parseCoords('///dispersant.cuts.authentication')->__toString());
+			$this->assertEquals('50.086258,14.423709', WhatThreeWordService::parseCoords('///smaller.biggest.money')->__toString()); // TG is thinking, that this is URL (probably .money is valid domain)
 		}
 	}
 
