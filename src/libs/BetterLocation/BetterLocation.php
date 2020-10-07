@@ -22,6 +22,7 @@ use \BetterLocation\Service\RopikyNetService;
 use \BetterLocation\Service\WazeService;
 use \BetterLocation\Service\WhatThreeWordService;
 use BetterLocation\Service\WikipediaService;
+use \BetterLocation\Service\ZniceneKostelyCzService;
 use TelegramCustomWrapper\Events\Button\FavouritesButton;
 use TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use Tracy\Debugger;
@@ -198,6 +199,8 @@ class BetterLocation
 						$betterLocationsCollection[] = RopikyNetService::parseCoords($url);
 					} else if (DrobnePamatkyCzService::isValid($url)) {
 						$betterLocationsCollection[] = DrobnePamatkyCzService::parseCoords($url);
+					} else if (ZniceneKostelyCzService::isValid($url)) {
+						$betterLocationsCollection[] = ZniceneKostelyCzService::parseCoords($url);
 					} else {
 						$headers = null;
 						try {
