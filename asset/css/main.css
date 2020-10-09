@@ -1,3 +1,7 @@
+.container {
+	margin-top: 1em;
+}
+
 h1 {
 	text-align: center;
 }
@@ -11,6 +15,7 @@ h1 {
 	text-align: right;
 	font-weight: bold;
 }
+
 #webhook-formatted table tr td:last-child {
 	text-align: left;
 	width: 100%;

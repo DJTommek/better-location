@@ -25,7 +25,7 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 <body>
 <div class="container">
 	<h1><?= \Icons::LOCATION; ?> BetterLocation - Admin</h1>
-	<ul class="nav nav-tabs" id="main-tab" role="tablist">
+	<ul class="nav nav-tabs nav-fill" id="main-tab" role="tablist">
 		<li class="nav-item">
 			<a class="nav-link active" id="tab-install" data-toggle="tab" href="#install"><?= \Dashboard\Status::getInstallTabIcon() ?> Install and status</a>
 		</li>
