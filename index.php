@@ -35,6 +35,9 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 		<li class="nav-item">
 			<a class="nav-link" id="tab-statistics" data-toggle="tab" href="#statistics">Statistics</a>
 		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="tab-tester" data-toggle="tab" href="#tester">Tester</a>
+		</li>
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane fade show active" id="install">
@@ -189,17 +192,15 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 				?>
 			</p>
 		</div>
-		<div class="tab-pane fade" id="statistics">
+		<div class="tab-pane fade" id="tester">
 			<h2>Tester</h2>
 			<div id="tester">
 				<?php
 				$input = (isset($_POST['input']) ? trim($_POST['input']) : null);
 				?>
 				<form method="POST">
-					<label>
-						<textarea name="input"><?= $input ?? 'Type something...' ?></textarea>
-					</label>
-					<button type="submit">Send</button>
+					<textarea name="input" class="form-control" placeholder="Type something..."><?= $input ?? '' ?></textarea>
+					<button type="submit" class="btn btn-primary">Send</button>
 				</form>
 				<h3>Result</h3>
 				<div>

@@ -21,8 +21,12 @@ h1 {
 	width: 100%;
 }
 
-#tester textarea {
+#tester form textarea {
 	height: 10em;
+	width: 100%;
+}
+
+#tester form button {
 	width: 100%;
 }
 
