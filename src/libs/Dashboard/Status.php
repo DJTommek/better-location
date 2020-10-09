@@ -86,6 +86,36 @@ class Status
 		return true;
 	}
 
+	public static function getUsersCount(): int {
+		return self::$db->query('SELECT COUNT(*) AS count FROM better_location_user')->fetch()['count'];
+	}
+
+	public static function getChatsStats(): array {
+		return self::$db->query('SELECT chat_telegram_type, COUNT(*) as count FROM `better_location_chat` GROUP BY chat_telegram_type')->fetchAll(\PDO::FETCH_KEY_PAIR);
+	}
+
+	public static function getNewestUser(): ?array {
+		$user = self::$db->query('SELECT * FROM better_location_user ORDER BY user_last_update DESC LIMIT 1')->fetch();
+		if ($user) {
+			$user['user_registered'] = new \DateTimeImmutable($user['user_registered'], new \DateTimeZone('UTC'));
+			$user['user_last_update'] = new \DateTimeImmutable($user['user_last_update'], new \DateTimeZone('UTC'));
+			return $user;
+		} else {
+			return null;
+		}
+	}
+
+	public static function getLatestChangedUser(): ?array {
+		$user = self::$db->query('SELECT * FROM better_location_user ORDER BY user_registered DESC LIMIT 1')->fetch();
+		if ($user) {
+			$user['user_registered'] = new \DateTimeImmutable($user['user_registered'], new \DateTimeZone('UTC'));
+			$user['user_last_update'] = new \DateTimeImmutable($user['user_last_update'], new \DateTimeZone('UTC'));
+			return $user;
+		} else {
+			return null;
+		}
+	}
+
 	public static function getInstallTabIcon(): string {
 		if (self::isTGWebhookUrSet() && self::isTGTokenSet() && self::isTGBotNameSet() && self::isDatabaseConnectionSet() && self::isDatabaseTablesSet()) {
 			return \Icons::SUCCESS;

@@ -135,38 +135,28 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 			?>
 		</div>
 		<div class="tab-pane fade" id="statistics">
-			<h2>Database</h2>
+			<h2>Statistics</h2>
 			<p>
 				<?php
-				$db = Factory::Database();
-				if ($db) {
-					printf('<h3>Stats</h3>');
+				if (\Dashboard\Status::isDatabaseConnectionSet() && \Dashboard\Status::isDatabaseTablesSet()) {
 					printf('<ul>');
 					$now = new DateTimeImmutable();
 
-					// Detected users
-					$usersCount = $db->query('SELECT COUNT(*) AS count FROM better_location_user')->fetch();
-					printf('<li><b>%d</b> detected users (wrote at least one message or command)</li>', $usersCount['count']);
-					$lastChangedUser = $db->query('SELECT * FROM better_location_user ORDER BY user_registered DESC LIMIT 1')->fetch();
-					if ($lastChangedUser) {
-						$lastChangedUser['user_registered'] = new DateTimeImmutable($lastChangedUser['user_registered'], new DateTimeZone('UTC'));
-						$lastChangedUser['user_last_update'] = new DateTimeImmutable($lastChangedUser['user_last_update'], new DateTimeZone('UTC'));
-
-						printf('<li>Newest registered user:<br>ID = <b>%d</b><br>TG ID = <b>%d</b><br>TG Name = <b>%s</b><br>Registered = <b>%s</b> (%s ago)<br>Last update = <b>%s</b> (%s ago)</li>',
-							$lastChangedUser['user_id'],
-							$lastChangedUser['user_telegram_id'],
-							$lastChangedUser['user_telegram_name'] ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $lastChangedUser['user_telegram_name']) : '<i>unknown</i>',
-							$lastChangedUser['user_registered']->format(DateTimeInterface::W3C),
-							Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_registered']->getTimestamp()),
-							$lastChangedUser['user_last_update']->format(DateTimeInterface::W3C),
-							Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_last_update']->getTimestamp()),
-						);
+					// Detected chats
+					$results = [];
+					$totalCount = 0;
+					foreach (\Dashboard\Status::getChatsStats() as $groupType => $groupCount) {
+						$results[] = sprintf('%s = <b>%d</b>', $groupType, $groupCount);
+						$totalCount += $groupCount;
 					}
+					printf('<li><b>%d</b> detected chats (%s)</li>', $totalCount, join(', ', $results));
 
-					$newestUser = $db->query('SELECT * FROM better_location_user ORDER BY user_last_update DESC LIMIT 1')->fetch();
+					// Detected users
+					printf('<li><b>%d</b> detected users (wrote at least one message or command)</li>', \Dashboard\Status::getUsersCount());
+
+					// Newest user
+					$newestUser = \Dashboard\Status::getNewestUser();
 					if ($newestUser) {
-						$newestUser['user_registered'] = new DateTimeImmutable($newestUser['user_registered'], new DateTimeZone('UTC'));
-						$newestUser['user_last_update'] = new DateTimeImmutable($newestUser['user_last_update'], new DateTimeZone('UTC'));
 						printf('<li>Most recent active user:<br>ID = <b>%d</b><br>TG ID = <b>%d</b><br>TG Name = <b>%s</b><br>Registered = <b>%s</b> (%s ago)<br>Last update = <b>%s</b> (%s ago)</li>',
 							$newestUser['user_id'],
 							$newestUser['user_telegram_id'],
@@ -178,17 +168,23 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 						);
 					}
 
-					// Detected chats
-					$chatsCount = $db->query('SELECT chat_telegram_type, COUNT(*) as count FROM `better_location_chat` GROUP BY chat_telegram_type')->fetchAll();
-					$results = [];
-					$totalCount = 0;
-					foreach ($chatsCount as $row) {
-						$results[] = sprintf('%s = <b>%d</b>', $row['chat_telegram_type'], $row['count']);
-						$totalCount += $row['count'];
+					// Last changed user
+					$lastChangedUser = \Dashboard\Status::getLatestChangedUser();
+					if ($lastChangedUser) {
+						printf('<li>Newest registered user:<br>ID = <b>%d</b><br>TG ID = <b>%d</b><br>TG Name = <b>%s</b><br>Registered = <b>%s</b> (%s ago)<br>Last update = <b>%s</b> (%s ago)</li>',
+							$lastChangedUser['user_id'],
+							$lastChangedUser['user_telegram_id'],
+							$lastChangedUser['user_telegram_name'] ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $lastChangedUser['user_telegram_name']) : '<i>unknown</i>',
+							$lastChangedUser['user_registered']->format(DateTimeInterface::W3C),
+							Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_registered']->getTimestamp()),
+							$lastChangedUser['user_last_update']->format(DateTimeInterface::W3C),
+							Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_last_update']->getTimestamp()),
+						);
 					}
-					printf('<li><b>%d</b> detected chats (%s)</li>', $totalCount, join(', ', $results));
 
 					printf('</ul>');
+				} else {
+					printf('<p>%s Setup database connection and prepare tables.</p>', \Icons::ERROR);
 				}
 				?>
 			</p>
