@@ -24,7 +24,7 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 </head>
 <body>
 <div class="container">
-	<h1><?= \Icons::LOCATION; ?> BetterLocation - Admin</h1>
+	<h1><?= \Icons::LOCATION; ?> <a href="./">BetterLocation</a> - Admin</h1>
 	<ul class="nav nav-tabs nav-fill" id="main-tab" role="tablist">
 		<li class="nav-item">
 			<a class="nav-link active" id="tab-install" data-toggle="tab" href="#install"><?= \Dashboard\Status::getInstallTabIcon() ?> Install and status</a>
@@ -40,7 +40,7 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 		<div class="tab-pane fade show active" id="install">
 			<h2>Install and status</h2>
 			<ol>
-				<li>Download/clone <a href="https://github.com/DJTommek/better-location">BetterLocation repository</a> <?= \Icons::SUCCESS; ?></li>
+				<li>Download/clone <a href="https://github.com/DJTommek/better-location" target="_blank" title="DJTommek/better-location on Github">BetterLocation repository</a> <?= \Icons::SUCCESS; ?></li>
 				<li>Run <code>composer install</code> <?= \Icons::SUCCESS; ?></li>
 				<?php
 				$dbTextPrefix = sprintf('Update all <code>DB_*</code> constants in <b>%s</b>', \Dashboard\Status::getLocalConfigPath());
@@ -69,7 +69,7 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 					);
 				}
 
-				$tgWebhookTextPrefix = 'Enable webhook via <a href="set-webhook.php">set-webhook.php</a>';
+				$tgWebhookTextPrefix = 'Enable webhook via <a href="set-webhook.php" target="_blank">set-webhook.php</a>';
 				if (\Dashboard\Status::isTGset()) {
 					\Dashboard\Status::runGetWebhookStatus();
 					if (\Dashboard\Status::$webhookError) {
