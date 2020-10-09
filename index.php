@@ -2,9 +2,8 @@
 
 require_once __DIR__ . '/src/bootstrap.php';
 
-$tracyEmailSentFile = \Config::FOLDER_DATA . '/tracy-log/email-sent';
 if (isset($_GET['delete-tracy-email-sent'])) {
-	if (@unlink($tracyEmailSentFile)) {
+	if (@unlink(\Dashboard\Status::getTracyEmailSentFilePath())) {
 		printf('<p>%s Tracy\'s "email-sent" file was deleted.</p>', Icons::SUCCESS);
 	} else {
 		$lastPhpError = error_get_last();
@@ -14,245 +13,241 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 }
 
 ?>
-<h1>BetterLocationBot</h1>
-<p>
-	Hello world! <?= Icons::CHECKED; ?>
-</p>
-<h2>Errors</h2>
-<?php
-if (is_null(\Config::TRACY_DEBUGGER_EMAIL) === false) {
-	printf('<h3>Email reporting</h3>');
-	$emailHtml = sprintf('<a href="mailto:%1$s">%1$s</a>', \Config::TRACY_DEBUGGER_EMAIL);
-	$tracyEmailHelpPrefix = 'Tracy\'s "email-sent" (<a href="https://tracy.nette.org/guide" target="_blank" title="Getting started with Tracy">help</a>) file';
-	if (file_exists($tracyEmailSentFile) === true) {
-		printf('%s %s detected - no futher emails to %s will be sent unless this file is removed. <a href="?delete-tracy-email-sent" onclick="return confirm(\'Are you sure, you want to delete Tracy\\\'s \\\'email-sent\\\' file?\')">Delete</a>', Icons::WARNING, $tracyEmailHelpPrefix, $emailHtml);
-	} else {
-		printf('%s %s not detected. In case of error, email will be sent to %s.', Icons::SUCCESS, $tracyEmailHelpPrefix, $emailHtml);
-	}
-}
-?>
-
-<h2>Database</h2>
-<p>
-	<?php
-	$db = null;
-	try {
-		$db = Factory::Database();
-		printf('%s Connected to database "%s".', Icons::SUCCESS, \Config::DB_NAME);
-	} catch (\Exception $exception) {
-		printf('%s Error while connecting to database "%s". Error: "%s"', Icons::ERROR, \Config::DB_NAME, $exception->getMessage());
-	}
-	if ($db) {
-		printf('<h3>Stats</h3>');
-		printf('<ul>');
-		$now = new DateTimeImmutable();
-
-		// Detected users
-		$usersCount = $db->query('SELECT COUNT(*) AS count FROM better_location_user')->fetch();
-		printf('<li><b>%d</b> detected users (wrote at least one message or command)</li>', $usersCount['count']);
-		$lastChangedUser = $db->query('SELECT * FROM better_location_user ORDER BY user_registered DESC LIMIT 1')->fetch();
-		if ($lastChangedUser) {
-			$lastChangedUser['user_registered'] = new DateTimeImmutable($lastChangedUser['user_registered'], new DateTimeZone('UTC'));
-			$lastChangedUser['user_last_update'] = new DateTimeImmutable($lastChangedUser['user_last_update'], new DateTimeZone('UTC'));
-
-			printf('<li>Newest registered user:<br>ID = <b>%d</b><br>TG ID = <b>%d</b><br>TG Name = <b>%s</b><br>Registered = <b>%s</b> (%s ago)<br>Last update = <b>%s</b> (%s ago)</li>',
-				$lastChangedUser['user_id'],
-				$lastChangedUser['user_telegram_id'],
-				$lastChangedUser['user_telegram_name'] ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $lastChangedUser['user_telegram_name']) : '<i>unknown</i>',
-				$lastChangedUser['user_registered']->format(DateTimeInterface::W3C),
-				Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_registered']->getTimestamp()),
-				$lastChangedUser['user_last_update']->format(DateTimeInterface::W3C),
-				Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_last_update']->getTimestamp()),
-			);
-		}
-
-		$newestUser = $db->query('SELECT * FROM better_location_user ORDER BY user_last_update DESC LIMIT 1')->fetch();
-		if ($newestUser) {
-			$newestUser['user_registered'] = new DateTimeImmutable($newestUser['user_registered'], new DateTimeZone('UTC'));
-			$newestUser['user_last_update'] = new DateTimeImmutable($newestUser['user_last_update'], new DateTimeZone('UTC'));
-			printf('<li>Most recent active user:<br>ID = <b>%d</b><br>TG ID = <b>%d</b><br>TG Name = <b>%s</b><br>Registered = <b>%s</b> (%s ago)<br>Last update = <b>%s</b> (%s ago)</li>',
-				$newestUser['user_id'],
-				$newestUser['user_telegram_id'],
-				$newestUser['user_telegram_name'] ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $newestUser['user_telegram_name']) : '<i>unknown</i>',
-				$newestUser['user_registered']->format(DateTimeInterface::W3C),
-				Utils\General::sToHuman($now->getTimestamp() - $newestUser['user_registered']->getTimestamp()),
-				$newestUser['user_last_update']->format(DateTimeInterface::W3C),
-				Utils\General::sToHuman($now->getTimestamp() - $newestUser['user_last_update']->getTimestamp()),
-			);
-		}
-
-		// Detected chats
-		$chatsCount = $db->query('SELECT chat_telegram_type, COUNT(*) as count FROM `better_location_chat` GROUP BY chat_telegram_type')->fetchAll();
-		$results = [];
-		$totalCount = 0;
-		foreach ($chatsCount as $row) {
-			$results[] = sprintf('%s = <b>%d</b>', $row['chat_telegram_type'], $row['count']);
-			$totalCount += $row['count'];
-		}
-		printf('<li><b>%d</b> detected chats (%s)</li>', $totalCount, join(', ', $results));
-
-		printf('</ul>');
-	}
-	?>
-</p>
-<h2>Webhook setup</h2>
-<ol>
-	<li>
-		Update "<b><?= __DIR__ ?>/data/config.local.php:TELEGRAM_WEBHOOK_URL"</b> to your desired URL.<br>
-		<?php
-		if (\Config::TELEGRAM_WEBHOOK_URL !== \DefaultConfig::TELEGRAM_WEBHOOK_URL) {
-			printf('%s Currently set to <a href="%2$s" target="_blank">%2$s</a>', Icons::SUCCESS, \Config::TELEGRAM_WEBHOOK_URL);
-		} else {
-			printf('%s Currently is not set.', Icons::WARNING);
-		}
-		?>
-
-	</li>
-	<li>Open <a href="set-webhook.php">set-webhook.php</a></li>
-</ol>
-<p>
-	If you successfully setup webhook, you can send message to your bot from Telegram and you should get reply.
-</p>
-<h2>Webhook status</h2>
-<?php
-	printf('<p>Response from URL <a href="https://api.telegram.org/bot%s/getWebhookInfo" target="_blank">getWebhookInfo</a>:</p>', \Config::TELEGRAM_BOT_TOKEN);
-
-use BetterLocation\BetterLocation;
-use Tracy\Debugger;
-use Tracy\ILogger;
-use unreal4u\TelegramAPI\HttpClientRequestHandler;
-use unreal4u\TelegramAPI\TgLog;
-
-$loop = \React\EventLoop\Factory::create();
-$tgLog = new TgLog(\Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($loop));
-
-$setWebhook = new \unreal4u\TelegramAPI\Telegram\Methods\GetWebhookInfo();
-
-$promise = $tgLog->performApiRequest($setWebhook);
-
-$promise->then(
-	function (\unreal4u\TelegramAPI\Telegram\Types\WebhookInfo $response) {
-		printf('<h4>Raw</h4><pre>%s</pre>', json_encode(get_object_vars($response), JSON_PRETTY_PRINT));
-		printf('<h4>Formatted</h4><table id="webhook-info">');
-		printf('<tr>');
-		foreach (get_object_vars($response) as $key => $value) {
-			if ($key === 'url') {
-				if (empty($value)) {
-					$stringValue = sprintf('%s Webhook URL is not set according to webhook response.', Icons::ERROR);
-				} else {
-					if ($value === Config::TELEGRAM_WEBHOOK_URL) {
-						$stringValue = sprintf('%s <a href="%2$s" target="_blank">%2$s</a>', Icons::SUCCESS, $value);
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>BetterLocation - Admin</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" href="asset/css/main.css">
+	<link rel="shortcut icon" href="asset/favicon.ico">
+</head>
+<body>
+<div class="container">
+	<h1><?= \Icons::LOCATION; ?> BetterLocation - Admin</h1>
+	<ul class="nav nav-tabs" id="main-tab" role="tablist">
+		<li class="nav-item">
+			<a class="nav-link active" id="tab-install" data-toggle="tab" href="#install"><?= \Dashboard\Status::getInstallTabIcon() ?> Install and status</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="tab-error" data-toggle="tab" href="#error"><?= \Dashboard\Status::getTracyEmailIcon() ?> Errors</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="tab-statistics" data-toggle="tab" href="#statistics">Statistics</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane fade show active" id="install">
+			<h2>Install and status</h2>
+			<ol>
+				<li>Download/clone <a href="https://github.com/DJTommek/better-location">BetterLocation repository</a> <?= \Icons::SUCCESS; ?></li>
+				<li>Run <code>composer install</code> <?= \Icons::SUCCESS; ?></li>
+				<?php
+				$dbTextPrefix = sprintf('Update all <code>DB_*</code> constants in <b>%s</b>', \Dashboard\Status::getLocalConfigPath());
+				$tablesTextPrefix = 'Create tables in database using <b>asset/sql/structure.sql</b>';
+				if (\Dashboard\Status::isDatabaseConnectionSet()) {
+					printf('<li>%s: %s Connected to <b>%s</b></li>', $dbTextPrefix, \Icons::SUCCESS, \Config::DB_NAME);
+					if (\Dashboard\Status::isDatabaseTablesSet()) {
+						printf('<li>%s: %s All tables and columns are set.</li>', $tablesTextPrefix, \Icons::CHECKED);
 					} else {
-						$stringValue = sprintf('%s Webhook URL is set according to webhook response but it\'s different than in config:<br>', Icons::WARNING);
-						$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Webhook response)<br>', $value);
-						$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Config)', Config::TELEGRAM_WEBHOOK_URL);
+						printf('<li>%s: %s Error while checking columns: <b>%s</b></li>', $tablesTextPrefix, \Icons::ERROR, \Dashboard\Status::$tablesError->getMessage());
 					}
-				}
-			} else if ($key === 'pending_update_count') {
-				$stringValue = ($value === 0) ? Icons::SUCCESS . ' None' : Icons::WARNING . ' ' . $value;
-			} else if ($key === 'last_error_message' && $value === '') {
-				$stringValue = Icons::SUCCESS . ' None';
-			} else if ($key === 'last_error_date') {
-				if ($value === 0) {
-					$stringValue = Icons::SUCCESS . ' Never';
 				} else {
-					$lastErrorDate = new DateTimeImmutable('@' . $value);
-					$now = new DateTimeImmutable();
-					$diff = $now->getTimestamp() - $lastErrorDate->getTimestamp();
-
-					$stringValue = sprintf('%d<br>%s<br>%s ago',
-						$lastErrorDate->getTimestamp(),
-						$lastErrorDate->format(DATE_ISO8601),
-						\Utils\General::sToHuman($diff),
+					printf('<li>%s: %s Error while connecting to database <b>%s</b>. Error: <b>%s</b></li>', $dbTextPrefix, \Icons::ERROR, \Config::DB_NAME, \Dashboard\Status::$dbError->getMessage());
+					printf('<li>%s: %s Setup database connection first</li>', $tablesTextPrefix, \Icons::ERROR);
+				}
+				$tgStatusTextPrefix = sprintf('Update all <code>TELEGRAM_*</code> constants in <b>%s</b>', \Dashboard\Status::getLocalConfigPath());
+				if (\Dashboard\Status::isTGWebhookUrSet() === false) {
+					printf('<li>%s: %s webhook URL is not set.</li>', $tgStatusTextPrefix, \Icons::ERROR);
+				} else if (\Dashboard\Status::isTGTokenSet() === false) {
+					printf('<li>%s: %s bot token is not set.</li>', $tgStatusTextPrefix, \Icons::ERROR);
+				} else if (\Dashboard\Status::isTGBotNameSet() === false) {
+					printf('<li>%s: %s bot name is not set.</li>', $tgStatusTextPrefix, \Icons::ERROR);
+				} else {
+					printf('<li>%s: %s TG set to bot <a href="https://t.me/%3$s" target="_blank">%3$s</a> and webhook url to <a href="%4$s" target="_blank">%4$s</a></li>',
+						$tgStatusTextPrefix, \Icons::SUCCESS, \Config::TELEGRAM_BOT_NAME, \Config::TELEGRAM_WEBHOOK_URL,
 					);
 				}
-			} else if (is_bool($value)) {
-				$stringValue = $value ? 'true' : 'false';
-			} else if (is_array($value)) {
-				$stringValue = sprintf('Array of <b>%d</b> values: %s', count($value), print_r($value, true));
-			} else {
-				$stringValue = $value;
-			}
-			printf('<tr><td>%s</td><td>%s</td></tr>', $key, $stringValue);
-		}
-		printf('</table>');
-	},
-	function (\Exception $exception) {
-		printf('<h1>Error</h1><p>Failed to get Telegram webhook info. Error: <b>%s</b></p>', $exception->getMessage());
-		Debugger::log($exception, ILogger::EXCEPTION);
-	}
-);
-$loop->run();
 
-?>
-<h2>Tester</h2>
-<div id="tester">
-	<?php
-	$input = (isset($_POST['input']) ? trim($_POST['input']) : null);
-	?>
-	<form method="POST">
-		<label>
-			<textarea name="input"><?= $input ?? 'Type something...' ?></textarea>
-		</label>
-		<button type="submit">Send</button>
-	</form>
-	<h3>Result</h3>
-	<div>
-		<?php
-		if ($input) {
-			$urls = \Utils\General::getUrls($input);
-
-			// Simulate Telegram message by creating URL entities
-			$entities = [];
-			foreach ($urls as $url) {
-				$entity = new stdClass();
-				$entity->type = 'url';
-				$entity->offset = mb_strpos($input, $url);
-				$entity->length = mb_strlen($url);
-				$entities[] = $entity;
-			}
-			try {
-				$betterLocations = BetterLocation::generateFromTelegramMessage($input, $entities);
-				if (count($betterLocations->getLocations())) {
-					$result = '';
-					foreach ($betterLocations->getLocations() as $betterLocation) {
-						$result .= $betterLocation->generateBetterLocation();
+				$tgWebhookTextPrefix = 'Enable webhook via <a href="set-webhook.php">set-webhook.php</a>';
+				if (\Dashboard\Status::isTGset()) {
+					\Dashboard\Status::runGetWebhookStatus();
+					if (\Dashboard\Status::$webhookError) {
+						$jsonText = sprintf('<pre>%s</pre>', json_encode(get_object_vars(\Dashboard\Status::$webhookError->getError()), JSON_PRETTY_PRINT));
+						$webhookDetailStatus = sprintf('%s Something is wrong: <b>%s</b>:%s', \Icons::ERROR, \Dashboard\Status::$webhookError->getMessage(), $jsonText);
+					} else {
+						if (\Dashboard\Status::$webhookOk) {
+							$webhookDetailStatus = sprintf('%s Everything seems to be ok, check response below.', \Icons::SUCCESS);
+						} else {
+							$webhookDetailStatus = sprintf('%s Something might be wrong, check response below.', \Icons::WARNING);
+						}
 					}
-					printf('<pre>%s</pre>', $result);
+					printf('<li>%s - response from <a href="https://core.telegram.org/bots/api#getwebhookinfo" target="_blank">getWebhookInfo</a>: %s</li>', $tgWebhookTextPrefix, $webhookDetailStatus);
 				} else {
-					printf('No location(s) was detected in text.');
+					printf('<li>%s: %s setup <code>TELEGRAM_*</code> in local config first.</li>', $tgWebhookTextPrefix, \Icons::ERROR);
 				}
-				foreach ($betterLocations->getErrors() as $betterLocationError) {
-					printf('<p>%s Error: <b>%s</b></p>', \Icons::ERROR, htmlentities($betterLocationError->getMessage()));
-				}
-			} catch (\Throwable $exception) {
-				Debugger::log($exception, ILogger::EXCEPTION);
-				printf('%s Error occured while processing input: %s', Icons::ERROR, $exception->getMessage());
+				?>
+			</ol>
+			<?php
+			if (is_null(\Dashboard\Status::$webhookResponseRaw) === false) {
+				?>
+				<ul class="nav nav-tabs" id="webhook-tab" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" id="webhook-tab-formatted" data-toggle="tab" href="#webhook-formatted">Formatted</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="tab-status" data-toggle="tab" href="#webhook-raw">Raw</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane fade show active" id="webhook-formatted">
+						<table class="table table-striped table-bordered table-hover table-sm">
+							<?php
+							foreach (get_object_vars(\Dashboard\Status::$webhookResponse) as $key => $value) {
+								printf('<tr><td>%s</td><td>%s</td></tr>', $key, $value);
+							}
+							?>
+						</table>
+					</div>
+					<div class="tab-pane fade" id="webhook-raw">
+						<pre><?= json_encode(get_object_vars(\Dashboard\Status::$webhookResponseRaw), JSON_PRETTY_PRINT) ?></pre>
+					</div>
+				</div>
+				<?php
 			}
-		} else {
-			print('Fill and send some data.');
-		}
-		?>
+			?>
+		</div>
+		<div class="tab-pane fade" id="error">
+			<h3>Errors</h3>
+			<h4>Email reporting (<a href="https://tracy.nette.org/guide" target="_blank" title="Getting started with Tracy">help</a>)</h4>
+			<?php
+			if (is_null(\Config::TRACY_DEBUGGER_EMAIL)) {
+				printf('<p>%s Email reporting is disabled. Set email to <b>%s::TRACY_DEBUGGER_EMAIL</b> to enable.</p>', \Icons::INFO, \Dashboard\Status::getLocalConfigPath());
+			} else {
+				printf('<p>%s Email reporting is enabled and set to <a href="mailto:%2$s">%2$s</a>.</p>', \Icons::SUCCESS, \Config::TRACY_DEBUGGER_EMAIL);
+				$tracyEmailHelpPrefix = 'Tracy\'s "email-sent" file ';
+				if (file_exists(\Dashboard\Status::getTracyEmailSentFilePath()) === true) {
+					printf('%s %s detected - no futher emails will be sent unless this file is removed. <a href="?delete-tracy-email-sent" onclick="return confirm(\'Are you sure, you want to delete Tracy\\\'s \\\'email-sent\\\' file?\')">Delete</a>', Icons::WARNING, $tracyEmailHelpPrefix);
+				} else {
+					printf('%s %s not detected - in case of error, email will be sent.', Icons::SUCCESS, $tracyEmailHelpPrefix);
+				}
+			}
+			?>
+		</div>
+		<div class="tab-pane fade" id="statistics">
+			<h2>Database</h2>
+			<p>
+				<?php
+				$db = Factory::Database();
+				if ($db) {
+					printf('<h3>Stats</h3>');
+					printf('<ul>');
+					$now = new DateTimeImmutable();
+
+					// Detected users
+					$usersCount = $db->query('SELECT COUNT(*) AS count FROM better_location_user')->fetch();
+					printf('<li><b>%d</b> detected users (wrote at least one message or command)</li>', $usersCount['count']);
+					$lastChangedUser = $db->query('SELECT * FROM better_location_user ORDER BY user_registered DESC LIMIT 1')->fetch();
+					if ($lastChangedUser) {
+						$lastChangedUser['user_registered'] = new DateTimeImmutable($lastChangedUser['user_registered'], new DateTimeZone('UTC'));
+						$lastChangedUser['user_last_update'] = new DateTimeImmutable($lastChangedUser['user_last_update'], new DateTimeZone('UTC'));
+
+						printf('<li>Newest registered user:<br>ID = <b>%d</b><br>TG ID = <b>%d</b><br>TG Name = <b>%s</b><br>Registered = <b>%s</b> (%s ago)<br>Last update = <b>%s</b> (%s ago)</li>',
+							$lastChangedUser['user_id'],
+							$lastChangedUser['user_telegram_id'],
+							$lastChangedUser['user_telegram_name'] ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $lastChangedUser['user_telegram_name']) : '<i>unknown</i>',
+							$lastChangedUser['user_registered']->format(DateTimeInterface::W3C),
+							Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_registered']->getTimestamp()),
+							$lastChangedUser['user_last_update']->format(DateTimeInterface::W3C),
+							Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_last_update']->getTimestamp()),
+						);
+					}
+
+					$newestUser = $db->query('SELECT * FROM better_location_user ORDER BY user_last_update DESC LIMIT 1')->fetch();
+					if ($newestUser) {
+						$newestUser['user_registered'] = new DateTimeImmutable($newestUser['user_registered'], new DateTimeZone('UTC'));
+						$newestUser['user_last_update'] = new DateTimeImmutable($newestUser['user_last_update'], new DateTimeZone('UTC'));
+						printf('<li>Most recent active user:<br>ID = <b>%d</b><br>TG ID = <b>%d</b><br>TG Name = <b>%s</b><br>Registered = <b>%s</b> (%s ago)<br>Last update = <b>%s</b> (%s ago)</li>',
+							$newestUser['user_id'],
+							$newestUser['user_telegram_id'],
+							$newestUser['user_telegram_name'] ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $newestUser['user_telegram_name']) : '<i>unknown</i>',
+							$newestUser['user_registered']->format(DateTimeInterface::W3C),
+							Utils\General::sToHuman($now->getTimestamp() - $newestUser['user_registered']->getTimestamp()),
+							$newestUser['user_last_update']->format(DateTimeInterface::W3C),
+							Utils\General::sToHuman($now->getTimestamp() - $newestUser['user_last_update']->getTimestamp()),
+						);
+					}
+
+					// Detected chats
+					$chatsCount = $db->query('SELECT chat_telegram_type, COUNT(*) as count FROM `better_location_chat` GROUP BY chat_telegram_type')->fetchAll();
+					$results = [];
+					$totalCount = 0;
+					foreach ($chatsCount as $row) {
+						$results[] = sprintf('%s = <b>%d</b>', $row['chat_telegram_type'], $row['count']);
+						$totalCount += $row['count'];
+					}
+					printf('<li><b>%d</b> detected chats (%s)</li>', $totalCount, join(', ', $results));
+
+					printf('</ul>');
+				}
+				?>
+			</p>
+		</div>
+		<div class="tab-pane fade" id="statistics">
+			<h2>Tester</h2>
+			<div id="tester">
+				<?php
+				$input = (isset($_POST['input']) ? trim($_POST['input']) : null);
+				?>
+				<form method="POST">
+					<label>
+						<textarea name="input"><?= $input ?? 'Type something...' ?></textarea>
+					</label>
+					<button type="submit">Send</button>
+				</form>
+				<h3>Result</h3>
+				<div>
+					<?php
+					if ($input) {
+						$urls = \Utils\General::getUrls($input);
+
+						// Simulate Telegram message by creating URL entities
+						$entities = [];
+						foreach ($urls as $url) {
+							$entity = new stdClass();
+							$entity->type = 'url';
+							$entity->offset = mb_strpos($input, $url);
+							$entity->length = mb_strlen($url);
+							$entities[] = $entity;
+						}
+						try {
+							$betterLocations = \BetterLocation\BetterLocation::generateFromTelegramMessage($input, $entities);
+							if (count($betterLocations->getLocations())) {
+								$result = '';
+								foreach ($betterLocations->getLocations() as $betterLocation) {
+									$result .= $betterLocation->generateBetterLocation();
+								}
+								printf('<pre>%s</pre>', $result);
+							} else {
+								printf('No location(s) was detected in text.');
+							}
+							foreach ($betterLocations->getErrors() as $betterLocationError) {
+								printf('<p>%s Error: <b>%s</b></p>', \Icons::ERROR, htmlentities($betterLocationError->getMessage()));
+							}
+						} catch (\Throwable $exception) {
+							\Tracy\Debugger::log($exception, \Tracy\ILogger::EXCEPTION);
+							printf('%s Error occured while processing input: %s', Icons::ERROR, $exception->getMessage());
+						}
+					} else {
+						print('Fill and send some data.');
+					}
+					?>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
-<style>
-	table {
-		border-collapse: collapse;
-	}
-
-	#webhook-info tr td {
-		border: 1px solid black;
-		padding: 0.2em 0.4em;
-	}
-
-	#webhook-info tr td:first-child {
-		text-align: right;
-		font-weight: bold;
-	}
-
-	#tester textarea {
-		height: 10em;
-		width: 100%;
-	}
-
-</style>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>

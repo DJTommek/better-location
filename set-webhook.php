@@ -9,7 +9,7 @@ require_once __DIR__ . '/src/bootstrap.php';
 
 printf('<p>Go back to <a href="./index.php">index.php</a></p>');
 
-if (\Config::TELEGRAM_WEBHOOK_URL !== \DefaultConfig::TELEGRAM_WEBHOOK_URL) {
+if (\Dashboard\Status::isTGWebhookUrSet()) {
 	$loop = \React\EventLoop\Factory::create();
 	$tgLog = new TgLog(\Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($loop));
 

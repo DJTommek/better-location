@@ -1,0 +1,23 @@
+h1 {
+	text-align: center;
+}
+
+#webhook-formatted,
+#webhook-raw {
+	margin: 1em;
+}
+
+#webhook-formatted table tr td:first-child {
+	text-align: right;
+	font-weight: bold;
+}
+#webhook-formatted table tr td:last-child {
+	text-align: left;
+	width: 100%;
+}
+
+#tester textarea {
+	height: 10em;
+	width: 100%;
+}
+

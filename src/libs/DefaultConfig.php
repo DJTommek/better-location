@@ -24,7 +24,7 @@ class DefaultConfig
 	/** @var string Telegram bot token generated from BotFather: https://t.me/BotFather */
 	const TELEGRAM_BOT_TOKEN = '123456789:abcdefghijklmnopqrstuvwxyzabcdefghi';
 	/** @var string Telegram bot name without @ prefix. */
-	const TELEGRAM_BOT_NAME = 'BetterLocationBot';
+	const TELEGRAM_BOT_NAME = 'ExampleBot';
 	/** @var string Telegram webhook URL, which will automatically receive all events from bot (in this application it should lead to webhook.php) */
 	const TELEGRAM_WEBHOOK_URL = 'https://your-domain.com/better-location/webhook.php';
 	/** @var int Telegram webhook URL, which will automatically receive all events from bot (in this application it should lead to webhook.php) */
