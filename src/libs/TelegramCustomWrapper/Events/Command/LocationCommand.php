@@ -3,7 +3,6 @@
 namespace TelegramCustomWrapper\Events\Command;
 
 use BetterLocation\BetterLocation;
-use BetterLocation\Service\Coordinates\WG84DegreesService;
 use \Icons;
 use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
@@ -23,12 +22,7 @@ class LocationCommand extends Command
 
 		$result = null;
 		try {
-			$betterLocation = new BetterLocation(
-				sprintf('%F,%F', $this->update->message->location->latitude, $this->update->message->location->longitude),
-				$this->update->message->location->latitude,
-				$this->update->message->location->longitude,
-				WG84DegreesService::class,
-			);
+			$betterLocation = BetterLocation::fromLatLon($this->update->message->location->latitude, $this->update->message->location->longitude);
 			$betterLocation->setPrefixMessage('Location');
 			$result = $betterLocation->generateBetterLocation();
 			$buttons = $betterLocation->generateDriveButtons();

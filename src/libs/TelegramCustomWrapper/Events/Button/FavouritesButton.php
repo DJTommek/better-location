@@ -3,7 +3,6 @@
 namespace TelegramCustomWrapper\Events\Button;
 
 use BetterLocation\BetterLocation;
-use BetterLocation\Service\Coordinates\WG84DegreesService;
 use OpenLocationCode\OpenLocationCode;
 use TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use TelegramCustomWrapper\TelegramHelper;
@@ -62,7 +61,7 @@ class FavouritesButton extends Button
 				$this->flash(sprintf('%s This location (%s) is already saved in favourite list as %s.', \Icons::INFO, $favourite->__toString(), $favourite->getPrefixMessage()), true);
 			} else {
 				$generatedLocationName = $this->generateFavouriteName($lat, $lon);
-				$betterLocation = new BetterLocation(sprintf('%F,%F', $lat, $lon), $lat, $lon, WG84DegreesService::class);
+				$betterLocation = BetterLocation::fromLatLon($lat, $lon);
 				$betterLocation->setPrefixMessage($generatedLocationName);
 				$betterLocation = $this->user->addFavourite($betterLocation, $generatedLocationName);
 				$this->flash(sprintf('%s Location %s was saved as %s.%sYou can now use it inline in any chat by typing @%s.',

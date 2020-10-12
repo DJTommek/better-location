@@ -524,4 +524,8 @@ class BetterLocation
 	public static function isLonValid(float $lon): bool {
 		return ($lon <= 180 && $lon >= -180);
 	}
+
+	public static function fromLatLon(float $lat, float $lon): self {
+		return new BetterLocation(sprintf('%F,%F', $lat, $lon), $lat, $lon, WG84DegreesService::class);
+	}
 }

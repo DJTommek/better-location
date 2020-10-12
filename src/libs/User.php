@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 
 use BetterLocation\BetterLocation;
-use BetterLocation\Service\Coordinates\WG84DegreesService;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 
 class User
@@ -59,12 +58,7 @@ class User
 				$this->lastKnownLocation = null;
 				$this->lastKnownLocationDatetime = null;
 			} else {
-				$this->lastKnownLocation = new BetterLocation(
-					sprintf('%F,%F', $newUserData['user_location_lat'], $newUserData['user_location_lon']),
-					$newUserData['user_location_lat'],
-					$newUserData['user_location_lon'],
-					WG84DegreesService::class,
-				);
+				$this->lastKnownLocation = BetterLocation::fromLatLon($newUserData['user_location_lat'], $newUserData['user_location_lon']);
 				$this->lastKnownLocationDatetime = new \DateTimeImmutable($newUserData['user_location_last_update'], new \DateTimeZone('UTC'));
 				$this->lastKnownLocation->setPrefixMessage(sprintf('%s Last location', Icons::CURRENT_LOCATION));
 				$this->lastKnownLocation->setDescription(sprintf('Last update %s', $this->lastKnownLocationDatetime->format(\Config::DATETIME_FORMAT_ZONE)));
@@ -101,9 +95,10 @@ class User
 		$this->favourites = [];
 		$this->favouritesDeleted = [];
 		foreach ($favourites as $favouriteDb) {
-			$key = sprintf('%F,%F', $favouriteDb->lat, $favouriteDb->lon);
-			$location = new BetterLocation($key, $favouriteDb->lat, $favouriteDb->lon, WG84DegreesService::class);
+			$location = BetterLocation::fromLatLon($favouriteDb->lat, $favouriteDb->lon);
 			$location->setPrefixMessage(sprintf('%s %s', Icons::FAVOURITE, $favouriteDb->title));
+			$key = $location->__toString();
+
 			if ($favouriteDb->status === self::FAVOURITES_STATUS_ENABLED) {
 				$this->favourites[$key] = $location;
 			} else if ($favouriteDb->status === self::FAVOURITES_STATUS_DELETED) {
