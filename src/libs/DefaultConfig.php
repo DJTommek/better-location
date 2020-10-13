@@ -65,7 +65,7 @@ class DefaultConfig
 	const DATE_FORMAT = 'Y-m-d';
 	const TIME_FORMAT = 'H:i:s';
 	const DATETIME_FORMAT = self::DATE_FORMAT . ' ' . self::TIME_FORMAT;
-	const DATETIME_FORMAT_ZONE = self::DATETIME_FORMAT . 'T';
+	const DATETIME_FORMAT_ZONE = self::DATETIME_FORMAT . ' T';
 
 	public static function isGlympse(): bool {
 		return (
