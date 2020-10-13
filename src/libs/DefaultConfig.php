@@ -64,6 +64,7 @@ class DefaultConfig
 
 	const DATE_FORMAT = 'Y-m-d';
 	const TIME_FORMAT = 'H:i:s';
+	const TIME_FORMAT_ZONE = self::TIME_FORMAT . ' T';
 	const DATETIME_FORMAT = self::DATE_FORMAT . ' ' . self::TIME_FORMAT;
 	const DATETIME_FORMAT_ZONE = self::DATETIME_FORMAT . ' T';
 
