@@ -123,6 +123,7 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 				<li value="7">Google Place API: <?= \Config::GOOGLE_PLACE_API_KEY ? sprintf('%s Enabled', \Icons::SUCCESS) : sprintf('%s Disabled', \Icons::ERROR) ?></li>
 				<li>What3Words API: <?= \Config::W3W_API_KEY ? sprintf('%s Enabled', \Icons::SUCCESS) : sprintf('%s Disabled', \Icons::ERROR) ?></li>
 				<li>MapyCz Dummy server URL: <?= \Config::MAPY_CZ_DUMMY_SERVER_URL ? sprintf('%s Set to <a href="%2$s" target="_blank">%2$s</a>', \Icons::SUCCESS, \Config::MAPY_CZ_DUMMY_SERVER_URL) : sprintf('%s Missing', \Icons::ERROR) ?></li>
+				<li>Glympse API: <?= \Config::isGlympse() ? sprintf('%s Enabled', \Icons::SUCCESS) : sprintf('%s Disabled', \Icons::ERROR) ?></li>
 			</ol>
 
 		</div>
