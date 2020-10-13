@@ -44,8 +44,7 @@ class DefaultConfig
 	 * @var ?string URL of your webserver (without trailing slash) or null to disable and fallback to using inaccurate x and y coordinates from URL.
 	 */
 	const MAPY_CZ_DUMMY_SERVER_URL = null;
-	// Request timeout
-	/** @var int */
+	/** @var int Request timeout in seconds */
 	const MAPY_CZ_DUMMY_SERVER_TIMEOUT = 5;
 
 	/** @var ?string */
