@@ -24,4 +24,11 @@ class Factory
 		}
 		return self::$objects['w3w'];
 	}
+
+	static function Glympse():\GlympseApi\Glympse {
+		if (!isset(self::$objects['glympse'])) {
+			self::$objects['glympse'] = new GlympseApi\Glympse(\Config::GLYMPSE_API_USERNAME, \Config::GLYMPSE_API_PASSWORD, \Config::GLYMPSE_API_KEY);
+		}
+		return self::$objects['glympse'];
+	}
 }

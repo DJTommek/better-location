@@ -10,6 +10,7 @@ use BetterLocation\Service\Coordinates\WG84DegreesService;
 use BetterLocation\Service\DrobnePamatkyCzService;
 use BetterLocation\Service\DuckDuckGoService;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
+use \BetterLocation\Service\GlympseService;
 use \BetterLocation\Service\GoogleMapsService;
 use \BetterLocation\Service\HereWeGoService;
 use \BetterLocation\Service\IngressIntelService;
@@ -190,6 +191,8 @@ class BetterLocation
 						$betterLocationsCollection[] = WazeService::parseCoords($url);
 					} else if (is_null(\Config::W3W_API_KEY) === false && WhatThreeWordService::isValid($url)) {
 						$betterLocationsCollection[] = WhatThreeWordService::parseCoords($url);
+					} else if (\Config::isGlympse() && GlympseService::isValid($url)) {
+						$betterLocationsCollection[] = GlympseService::parseCoords($url);
 					} else if (IngressIntelService::isValid($url)) {
 						$betterLocationsCollection[] = IngressIntelService::parseCoords($url);
 					} else if (DuckDuckGoService::isValid($url)) {

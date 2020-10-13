@@ -48,6 +48,13 @@ class DefaultConfig
 	/** @var int */
 	const MAPY_CZ_DUMMY_SERVER_TIMEOUT = 5;
 
+	/** @var ?string */
+	const GLYMPSE_API_USERNAME = null;
+	/** @var ?string */
+	const GLYMPSE_API_PASSWORD = null;
+	/** @var ?string */
+	const GLYMPSE_API_KEY = null;
+
 	/**
 	 * If some input (URL) has multiple different locations, how far it has to be from main coordinate to add special line
 	 * to notify, that these locations are too far away. Anything lower than this number will be removed from collection
@@ -60,4 +67,12 @@ class DefaultConfig
 	const TIME_FORMAT = 'H:i:s';
 	const DATETIME_FORMAT = self::DATE_FORMAT . ' ' . self::TIME_FORMAT;
 	const DATETIME_FORMAT_ZONE = self::DATETIME_FORMAT . 'T';
+
+	public static function isGlympse(): bool {
+		return (
+			is_null(static::GLYMPSE_API_USERNAME) === false &&
+			is_null(static::GLYMPSE_API_PASSWORD) === false &&
+			is_null(static::GLYMPSE_API_KEY) === false
+		);
+	}
 }
