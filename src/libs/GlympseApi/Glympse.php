@@ -28,6 +28,7 @@ class Glympse
 		$this->apiKey = $apiKey;
 	}
 
+	/** @throws GlympseApiException|\JsonException */
 	public function loadToken(bool $force = false): ?string {
 		if ($this->accessToken === null || $force === true) {
 			$params = [
@@ -41,6 +42,7 @@ class Glympse
 		return $this->getToken();
 	}
 
+	/** @throws GlympseApiException|\JsonException */
 	public function loadGroupMembers(string $tag) {
 		$params = [
 			'branding' => 'true',
@@ -50,6 +52,7 @@ class Glympse
 		return $content->members;
 	}
 
+	/** @throws GlympseApiException|\JsonException */
 	public function loadInvite(string $inviteId, ?int $next = null): TicketInvite {
 		$params = [
 			'next' => $next,
@@ -60,15 +63,7 @@ class Glympse
 		return TicketInvite::createFromVariable($content);
 	}
 
-	public static function getProperty(array $properties, string $name) {
-		foreach ($properties as $property) {
-			if ($property->n === $name) {
-				return $property->v;
-			}
-		}
-		return null;
-	}
-
+	/** @throws GlympseApiException|\JsonException */
 	private function makeApiRequest(string $endpoint, $params) {
 		$url = sprintf('%s%s?%s', self::API_URL, $endpoint, http_build_query($params));
 		$response = \Utils\General::fileGetContents($url);
