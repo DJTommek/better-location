@@ -16,7 +16,9 @@ class TicketProperty extends Property
 		foreach ($properties as $property) {
 			$propertyName = StringUtils::camelize($property->n);
 			$propertyValue = $property->v;
-			if (in_array($propertyName, ['app'])) {
+			if (is_null($propertyValue)) {
+				// skip any processing and save value as-is
+			} else if (in_array($propertyName, ['app'])) {
 				$propertyValue = AppProperty::createFromVariable($propertyValue);
 			} else if (in_array($propertyName, ['eta'])) {
 				$propertyValue = EtaProperty::createFromVariable($propertyValue);
