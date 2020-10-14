@@ -4,6 +4,7 @@ namespace GlympseApi;
 
 use BetterLocation\Service\GlympseService;
 use GlympseApi\Types\AccessToken;
+use GlympseApi\Types\Group;
 use GlympseApi\Types\TicketInvite;
 use Utils\General;
 
@@ -43,13 +44,13 @@ class Glympse
 	}
 
 	/** @throws GlympseApiException|\JsonException */
-	public function loadGroupMembers(string $tag) {
+	public function loadGroup(string $tag) {
 		$params = [
 			'branding' => 'true',
 			'oauth_token' => $this->getToken(),
 		];
 		$content = $this->makeApiRequest(sprintf(self::API_ENDPOINT_GROUPS, $tag), $params);
-		return $content->members;
+		return Group::createFromVariable($content);
 	}
 
 	/** @throws GlympseApiException|\JsonException */
@@ -88,6 +89,19 @@ class Glympse
 			preg_match(GlympseService::PATH_ID_REGEX, $parsedUrl['path'], $matches)
 		) {
 			return mb_substr($parsedUrl['path'], 1);
+		}
+		return null;
+	}
+
+	public static function getGroupIdFromUrl(string $url): ?string {
+		$parsedUrl = General::parseUrl($url);
+		if (
+			isset($parsedUrl['host']) &&
+			in_array(mb_strtolower($parsedUrl['host']), ['glympse.com', 'www.glympse.com']) &&
+			isset($parsedUrl['path']) &&
+			preg_match(GlympseService::PATH_GROUP_REGEX, $parsedUrl['path'], $matches)
+		) {
+			return mb_substr($parsedUrl['path'], 2);
 		}
 		return null;
 	}
