@@ -86,7 +86,7 @@ class Glympse
 			isset($parsedUrl['host']) &&
 			in_array(mb_strtolower($parsedUrl['host']), ['glympse.com', 'www.glympse.com']) &&
 			isset($parsedUrl['path']) &&
-			preg_match(GlympseService::PATH_ID_REGEX, $parsedUrl['path'], $matches)
+			preg_match(GlympseService::PATH_INVITE_ID_REGEX, $parsedUrl['path'], $matches)
 		) {
 			return mb_substr($parsedUrl['path'], 1);
 		}
