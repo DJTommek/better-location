@@ -192,7 +192,8 @@ class BetterLocation
 					} else if (is_null(\Config::W3W_API_KEY) === false && WhatThreeWordService::isValid($url)) {
 						$betterLocationsCollection[] = WhatThreeWordService::parseCoords($url);
 					} else if (\Config::isGlympse() && GlympseService::isValid($url)) {
-						$betterLocationsCollection[] = GlympseService::parseCoords($url);
+						$glympseBetterLocationCollection = GlympseService::parseCoordsMultiple($url);
+						$betterLocationsCollection->mergeCollection($glympseBetterLocationCollection);
 					} else if (IngressIntelService::isValid($url)) {
 						$betterLocationsCollection[] = IngressIntelService::parseCoords($url);
 					} else if (DuckDuckGoService::isValid($url)) {
