@@ -71,7 +71,7 @@ class Glympse
 		if ($content->result === 'ok') {
 			return $content->response;
 		} else {
-			throw new GlympseApiException(sprintf('%s: %s', $content->meta->error, $content->meta->error_detail));
+			throw new GlympseApiException($content->meta->error_detail ?? $content->meta->error);
 		}
 	}
 
