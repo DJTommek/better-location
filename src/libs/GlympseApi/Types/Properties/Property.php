@@ -2,6 +2,9 @@
 
 namespace GlympseApi\Types\Properties;
 
-abstract class Property
+use GlympseApi\Types\Type;
+
+abstract class Property extends Type
 {
+
 }
