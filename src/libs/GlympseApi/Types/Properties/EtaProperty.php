@@ -16,7 +16,7 @@ class EtaProperty extends Property
 		foreach ($variables as $key => $value) {
 			$name = StringUtils::camelize($key);
 			if (in_array($name, ['eta'])) {
-				$value = new \DateInterval(sprintf('PT%dS', $value));
+				$value = new \DateInterval(sprintf('PT%dS', $value / 1000));
 			} else if (in_array($name, ['etaTs'])) {
 				$value = new \DateTimeImmutable(sprintf('@%d', $value / 1000));
 			}
