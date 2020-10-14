@@ -80,11 +80,10 @@ class Glympse
 	}
 
 	public static function getInviteIdFromUrl(string $url): ?string {
-		$url = mb_strtolower($url);
 		$parsedUrl = General::parseUrl($url);
 		if (
 			isset($parsedUrl['host']) &&
-			in_array($parsedUrl['host'], ['glympse.com', 'www.glympse.com']) &&
+			in_array(mb_strtolower($parsedUrl['host']), ['glympse.com', 'www.glympse.com']) &&
 			isset($parsedUrl['path']) &&
 			preg_match(GlympseService::PATH_ID_REGEX, $parsedUrl['path'], $matches)
 		) {
