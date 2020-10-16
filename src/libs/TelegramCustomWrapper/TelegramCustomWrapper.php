@@ -79,6 +79,8 @@ class TelegramCustomWrapper
 					return new HelpButton($update);
 				case FavouritesButton::CMD:
 					return new FavouritesButton($update);
+				case RefreshButton::CMD:
+					return new RefreshButton($update);
 				default: // unknown: malicious request or button command has changed
 					return new InvalidButton($update);
 			}
