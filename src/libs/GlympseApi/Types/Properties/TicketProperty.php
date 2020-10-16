@@ -2,6 +2,7 @@
 
 namespace GlympseApi\Types\Properties;
 
+use Utils\DateImmutableUtils;
 use Utils\StringUtils;
 
 /**
