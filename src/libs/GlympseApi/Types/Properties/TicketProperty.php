@@ -23,7 +23,7 @@ class TicketProperty extends Property
 			} else if (in_array($propertyName, ['eta'])) {
 				$propertyValue = EtaProperty::createFromVariable($propertyValue);
 			} else if (in_array($propertyName, ['startTime', 'endTime'])) {
-				$propertyValue = new \DateTimeImmutable(sprintf('@%d', $propertyValue / 1000));
+				$propertyValue = DateImmutableUtils::fromTimestampMs($propertyValue);
 			} else if (in_array($propertyName, ['destination'])) {
 				$propertyValue = DestinationProperty::createFromVariable($propertyValue);
 			} else if (in_array($propertyName, ['route'])) {

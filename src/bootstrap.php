@@ -38,6 +38,10 @@ Tracy\Debugger::enable(Config::TRACY_DEVELOPMENT_IPS, Config::FOLDER_DATA . '/tr
 Tracy\Debugger::$strictMode = true;
 Tracy\Debugger::$logSeverity = E_NOTICE | E_WARNING;
 
+if (@date_default_timezone_set(\Config::TIMEZONE) === false) {
+	throw new InvalidArgumentException(sprintf('Timezone "%s" is invalid. Update constant TIMEZONE to valid timezone ID or remove to set to default "%s".', \Config::TIMEZONE, \DefaultConfig::TIMEZONE));
+}
+
 if (is_null(Config::TRACY_DEBUGGER_EMAIL) === false) {
 	Tracy\Debugger::$email = Config::TRACY_DEBUGGER_EMAIL;
 }

@@ -68,11 +68,21 @@ class DefaultConfig
 	const DATETIME_FORMAT = self::DATE_FORMAT . ' ' . self::TIME_FORMAT;
 	const DATETIME_FORMAT_ZONE = self::DATETIME_FORMAT . ' T';
 
+	/**
+	 * @var string Default timezone to work with.
+	 * Disclaimer: Changing might result in unexpected behaviour of this app. Make sure that you know, what you are doing.
+	 */
+	const TIMEZONE = 'UTC';
+
 	public static function isGlympse(): bool {
 		return (
 			is_null(static::GLYMPSE_API_USERNAME) === false &&
 			is_null(static::GLYMPSE_API_PASSWORD) === false &&
 			is_null(static::GLYMPSE_API_KEY) === false
 		);
+	}
+
+	public static function getTimezone(): \DateTimeZone {
+		return new DateTimeZone(static::TIMEZONE);
 	}
 }

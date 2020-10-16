@@ -2,6 +2,7 @@
 
 namespace GlympseApi\Types\Properties;
 
+use Utils\DateImmutableUtils;
 use Utils\StringUtils;
 
 /**
@@ -18,7 +19,7 @@ class EtaProperty extends Property
 			if (in_array($name, ['eta'])) {
 				$value = new \DateInterval(sprintf('PT%dS', $value / 1000));
 			} else if (in_array($name, ['etaTs'])) {
-				$value = new \DateTimeImmutable(sprintf('@%d', $value / 1000));
+				$value = DateImmutableUtils::fromTimestampMs($value);
 			}
 			$class->{$name} = $value;
 		}

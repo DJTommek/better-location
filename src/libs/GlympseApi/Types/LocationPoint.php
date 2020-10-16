@@ -2,6 +2,8 @@
 
 namespace GlympseApi\Types;
 
+use Utils\DateImmutableUtils;
+
 /**
  * @version 2020-10-14
  * @author Tomas Palider (DJTommek) https://tomas.palider.cz/
@@ -14,7 +16,7 @@ class LocationPoint extends Type
 //		list($timestamp, $latitude, $longtitude, $speed, $heading, $elevation, $horizontalAccuracy, $verticalAccuracy) = $location;
 		list($timestamp, $latitude, $longtitude, $speed, $heading, $elevation) = $location;
 		$class = new self();
-		$class->timestamp = new \DateTimeImmutable(sprintf('@%d', $timestamp / 1000));
+		$class->timestamp = DateImmutableUtils::fromTimestampMs($timestamp);
 		$class->latitude = $latitude / 10e5; // according documentation it should be 10e6 but it seems to be wrong
 		$class->longtitude = $longtitude / 10e5; // according documentation it should be 10e6 but it seems to be wrong
 		$class->speed = $speed;

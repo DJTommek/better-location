@@ -6,6 +6,7 @@ use unreal4u\TelegramAPI\Exceptions\ClientException;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram\Types\WebhookInfo;
 use unreal4u\TelegramAPI\TgLog;
+use Utils\DateImmutableUtils;
 
 class Status
 {
@@ -97,8 +98,8 @@ class Status
 	public static function getNewestUser(): ?array {
 		$user = self::$db->query('SELECT * FROM better_location_user ORDER BY user_last_update DESC LIMIT 1')->fetch();
 		if ($user) {
-			$user['user_registered'] = new \DateTimeImmutable($user['user_registered'], new \DateTimeZone('UTC'));
-			$user['user_last_update'] = new \DateTimeImmutable($user['user_last_update'], new \DateTimeZone('UTC'));
+			$user['user_registered'] = new \DateTimeImmutable($user['user_registered']);
+			$user['user_last_update'] = new \DateTimeImmutable($user['user_last_update']);
 			return $user;
 		} else {
 			return null;
@@ -108,8 +109,8 @@ class Status
 	public static function getLatestChangedUser(): ?array {
 		$user = self::$db->query('SELECT * FROM better_location_user ORDER BY user_registered DESC LIMIT 1')->fetch();
 		if ($user) {
-			$user['user_registered'] = new \DateTimeImmutable($user['user_registered'], new \DateTimeZone('UTC'));
-			$user['user_last_update'] = new \DateTimeImmutable($user['user_last_update'], new \DateTimeZone('UTC'));
+			$user['user_registered'] = new \DateTimeImmutable($user['user_registered']);
+			$user['user_last_update'] = new \DateTimeImmutable($user['user_last_update']);
 			return $user;
 		} else {
 			return null;
@@ -164,7 +165,7 @@ class Status
 						if ($value === 0) {
 							$responseFormatted->{$key} = \Icons::SUCCESS . ' Never';
 						} else {
-							$lastErrorDate = new \DateTimeImmutable('@' . $value);
+							$lastErrorDate = DateImmutableUtils::fromTimestamp($value);
 							$now = new \DateTimeImmutable();
 							$diff = $now->getTimestamp() - $lastErrorDate->getTimestamp();
 

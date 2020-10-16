@@ -59,7 +59,7 @@ class User
 				$this->lastKnownLocationDatetime = null;
 			} else {
 				$this->lastKnownLocation = BetterLocation::fromLatLon($newUserData['user_location_lat'], $newUserData['user_location_lon']);
-				$this->lastKnownLocationDatetime = new \DateTimeImmutable($newUserData['user_location_last_update'], new \DateTimeZone('UTC'));
+				$this->lastKnownLocationDatetime = new \DateTimeImmutable($newUserData['user_location_last_update']);
 				$this->lastKnownLocation->setPrefixMessage(sprintf('%s Last location', Icons::CURRENT_LOCATION));
 				$this->lastKnownLocation->setDescription(sprintf('Last update %s', $this->lastKnownLocationDatetime->format(\Config::DATETIME_FORMAT_ZONE)));
 			}

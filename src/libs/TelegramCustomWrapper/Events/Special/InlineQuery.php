@@ -55,7 +55,7 @@ class InlineQuery extends Special
 				$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 			} else if ($this->user->getLastKnownLocation() instanceof BetterLocation) {
 				$lastKnownLocation = clone $this->user->getLastKnownLocation();
-				$now = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+				$now = new \DateTimeImmutable();
 				$diff = $now->getTimestamp() - $this->user->getLastKnownLocationDatetime()->getTimestamp();
 				if ($diff <= 600) { // if last update was just few minutes ago, behave just like current location @TODO time border move to config
 					$lastKnownLocation->setPrefixMessage(sprintf('%s Current location', \Icons::CURRENT_LOCATION));
