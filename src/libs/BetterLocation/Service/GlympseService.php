@@ -20,8 +20,20 @@ final class GlympseService extends AbstractService
 
 	const LINK = 'https://glympse.com';
 
+	const TYPE_GROUP = 'group';
+	const TYPE_INVITE = 'invite';
+	const TYPE_DESTINATION = 'destination';
+
+	public static function getConstants(): array {
+		return [
+			self::TYPE_INVITE,
+			self::TYPE_GROUP,
+			self::TYPE_DESTINATION,
+		];
+	}
+
 	const PATH_INVITE_ID_REGEX = '/^\/[0-9a-z]{4}-[0-9a-z]{4}$/i';
-	const PATH_GROUP_REGEX = '/^\/![0-9a-z]+$/i';
+	const PATH_GROUP_REGEX = '/^\/!.+$/i';
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
 		if ($drive) {
@@ -77,30 +89,60 @@ final class GlympseService extends AbstractService
 		}
 	}
 
-	private static function processInviteLocation(string $url, TicketInvite $invite): BetterLocation {
+	public static function processInviteLocation(string $url, string $type, TicketInvite $invite): BetterLocation {
+		if (in_array($type, self::getConstants()) === false) {
+			throw new \OutOfBoundsException(sprintf('Invalid %s service type "%s"', self::NAME, $type));
+		}
 		$now = new \DateTimeImmutable();
 		$currentLocationDescriptions = [];
 		$willExpireWarningInterval = new \DateInterval('PT30M');
-		if ($invite->properties->endTime < $now) {
-			$currentLocationDescriptions[] = sprintf('%s Glympse expired at %s', \Icons::WARNING, $invite->properties->endTime->format(\Config::DATETIME_FORMAT_ZONE));
+		$diff = $invite->properties->endTime->getTimestamp() - $now->getTimestamp();
+		if ($diff <= 0) {
+			$currentLocationDescriptions[] = sprintf('%s Glympse expired at %s (%s ago)',
+				\Icons::WARNING,
+				$invite->properties->endTime->format(\Config::DATETIME_FORMAT_ZONE),
+				preg_replace('/ [0-9]+s$/', '', General::sToHuman($diff * -1))
+			);
 		} else if ($invite->properties->endTime < ((clone $now)->add($willExpireWarningInterval))) {
 			$currentLocationDescriptions[] = sprintf('%s Glympse will expire soon, at %s', \Icons::WARNING, $invite->properties->endTime->format(\Config::TIME_FORMAT_ZONE));
 		}
 		$lastLocation = $invite->getLastLocation();
-		$currentLocation = new BetterLocation($url, $lastLocation->latitude, $lastLocation->longtitude, self::class);
-		$currentLocationDescriptions[] = sprintf('Last update: %s', $lastLocation->timestamp->format(\Config::DATETIME_FORMAT_ZONE));
+		$currentLocation = new BetterLocation($url, $lastLocation->latitude, $lastLocation->longtitude, self::class, $type);
+		$diff = $now->getTimestamp() - $lastLocation->timestamp->getTimestamp();
+		if ($diff > 600) { // show last update message only if it was updated long ago
+			$lastUpdateText = sprintf('%s Last location update: %s (%s ago)',
+				\Icons::WARNING,
+				$lastLocation->timestamp->format(\Config::DATETIME_FORMAT_ZONE),
+				preg_replace('/ [0-9]+s$/', '', General::sToHuman($diff))
+			);
+			$currentLocationDescriptions[] = $lastUpdateText;
+		}
 		if ($invite->properties->message) {
 			$currentLocationDescriptions[] = sprintf('Glympse message: %s', htmlentities($invite->properties->message));
 		}
-		$currentLocation->setPrefixMessage($currentLocation->getPrefixMessage() . ' ' . $invite->properties->name);
+		if ($type === self::TYPE_GROUP) {
+			$prefix = sprintf('Glympse <a href="%s">!%s</a> (<a href="%s">%s</a>)',
+				$url, // assuming, that this url is https://glympse.com/!someTag
+				Glympse::getGroupIdFromUrl($url),
+				$invite->getInviteIdUrl(),
+				$invite->properties->name
+			);
+		} else {
+			$prefix = sprintf('Glympse (<a href="%s">%s</a>)', $invite->getInviteIdUrl(), $invite->properties->name);
+		}
+		$currentLocation->setPrefixMessage($prefix);
 		$currentLocation->setDescription(join(PHP_EOL, $currentLocationDescriptions));
 		return $currentLocation;
 	}
 
-	private static function processInviteDestinationLocation(string $url, TicketInvite $invite): BetterLocation {
+	public static function processInviteDestinationLocation(string $url, TicketInvite $invite): BetterLocation {
+		$now = new \DateTimeImmutable();
 		$destinationDescriptions = [];
-		$destination = new BetterLocation($url, $invite->properties->destination->lat, $invite->properties->destination->lng, self::class);
-		$destination->setPrefixMessage($destination->getPrefixMessage() . ' destination');
+		$destination = new BetterLocation($url, $invite->properties->destination->lat, $invite->properties->destination->lng, self::class, self::TYPE_DESTINATION);
+		$destination->setPrefixMessage(sprintf('Glympse destination (<a href="%s">%s</a>)',
+			$invite->getInviteIdUrl(),
+			$invite->properties->name,
+		));
 		if ($invite->properties->destination->name) {
 			$destinationDescriptions[] = $invite->properties->destination->name;
 		}
@@ -113,25 +155,32 @@ final class GlympseService extends AbstractService
 			} else {
 				$distanceString = sprintf('%d m', $invite->properties->route->distance);
 			}
-			$destinationDescriptions[] = sprintf('Distance: %s, calculated ETA: %s', $distanceString, General::sToHuman(intval($invite->properties->eta->eta->format('%s'))));
+			$destinationDescriptions[] = sprintf('Distance: %s, ETA: %s (%s)',
+				$distanceString,
+				General::sToHuman(intval($invite->properties->eta->eta->format('%s'))),
+				(clone $now)->add($invite->properties->eta->eta)->format(\Config::TIME_FORMAT_ZONE),
+
+			);
 		}
 		$destination->setDescription(join(PHP_EOL, $destinationDescriptions));
 		return $destination;
 	}
 
-	private static function processInvite($url): BetterLocationCollection {
+	public static function processInvite($url): BetterLocationCollection {
 		$glympseApi = \Factory::Glympse();
 		$glympseApi->loadToken();
 		$betterLocationCollection = new BetterLocationCollection();
 		$inviteId = Glympse::getInviteIdFromUrl($url);
 		try {
 			$inviteResponse = $glympseApi->loadInvite($inviteId);
-			$betterLocationCollection->add(self::processInviteLocation($url, $inviteResponse));
+			$inviteLocation = self::processInviteLocation($url, self::TYPE_INVITE, $inviteResponse);
+			$betterLocationCollection->add($inviteLocation);
 			if ($inviteResponse->properties->destination) {
 				$betterLocationCollection->add(self::processInviteDestinationLocation($url, $inviteResponse));
 			}
 			return $betterLocationCollection;
 		} catch (GlympseApiException $exception) {
+			Debugger::log($exception, ILogger::DEBUG);
 			throw new InvalidLocationException(sprintf('Error while processing %s invite code %s: %s', self::NAME, htmlentities($inviteId), $exception->getMessage()));
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
@@ -139,7 +188,7 @@ final class GlympseService extends AbstractService
 		}
 	}
 
-	private static function processGroup($url): BetterLocationCollection {
+	public static function processGroup($url): BetterLocationCollection {
 		$glympseApi = \Factory::Glympse();
 		$glympseApi->loadToken();
 		$betterLocationCollection = new BetterLocationCollection();
@@ -148,10 +197,15 @@ final class GlympseService extends AbstractService
 			$groupsResponse = $glympseApi->loadGroup($groupId);
 			foreach ($groupsResponse->members as $member) {
 				$inviteResponse = $glympseApi->loadInvite($member->invite);
-				$betterLocationCollection->add(self::processInviteLocation($url, $inviteResponse));
+				$inviteLocation = self::processInviteLocation($url, self::TYPE_GROUP, $inviteResponse);
+				$betterLocationCollection->add($inviteLocation);
+				if ($inviteResponse->properties->destination) {
+					$betterLocationCollection->add(self::processInviteDestinationLocation($url, $inviteResponse));
+				}
 			}
 			return $betterLocationCollection;
 		} catch (GlympseApiException $exception) {
+			Debugger::log($exception, ILogger::DEBUG);
 			throw new InvalidLocationException(sprintf('Error while processing %s tag !%s: %s', self::NAME, htmlentities($groupId), $exception->getMessage()));
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
