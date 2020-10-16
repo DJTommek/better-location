@@ -154,12 +154,17 @@ final class GlympseService extends AbstractService
 			} else {
 				$distanceString = sprintf('%d m', $invite->properties->route->distance);
 			}
-			$destinationDescriptions[] = sprintf('Distance: %s, ETA: %s (%s)',
+
+			$etaInfo = sprintf('Distance: %s, ETA: %s (%s)',
 				$distanceString,
 				General::sToHuman(intval($invite->properties->eta->eta->format('%s'))),
-				(clone $now)->add($invite->properties->eta->eta)->format(\Config::TIME_FORMAT_ZONE),
-
+				$invite->properties->eta->etaTs->add($invite->properties->eta->eta)->format(\Config::TIME_FORMAT_ZONE),
 			);
+			$diff = $now->getTimestamp() - $invite->properties->eta->etaTs->getTimestamp();
+			if ($diff > 600) {
+				$etaInfo .= sprintf(' %s Calculated %s ago', \Icons::WARNING, preg_replace('/ [0-9]+s$/', '', General::sToHuman($diff)));
+			}
+			$destinationDescriptions[] = $etaInfo;
 		}
 		$destination->setDescription(join(PHP_EOL, $destinationDescriptions));
 		return $destination;
