@@ -25,6 +25,7 @@ use \BetterLocation\Service\ZanikleObceCzService;
 use \BetterLocation\Service\ZniceneKostelyCzService;
 use TelegramCustomWrapper\Events\Button\FavouritesButton;
 use TelegramCustomWrapper\Events\Command\FavouritesCommand;
+use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
@@ -141,7 +142,7 @@ class BetterLocation
 
 	/**
 	 * @param string $message
-	 * @param array $entities
+	 * @param MessageEntity[] $entities
 	 * @return BetterLocationCollection | \InvalidArgumentException[]
 	 * @throws \Exception
 	 */
@@ -150,13 +151,7 @@ class BetterLocation
 
 		foreach ($entities as $entity) {
 			if (in_array($entity->type, ['url', 'text_link'])) {
-				if ($entity->type === 'url') { // raw url
-					$url = mb_substr($message, $entity->offset, $entity->length);
-				} else if ($entity->type === 'text_link') { // url hidden in text
-					$url = $entity->url;
-				} else {
-					throw new \InvalidArgumentException('Unhandled Telegram entity type');
-				}
+				$url = TelegramHelper::getEntityContent($message, $entity);
 
 				if (self::isTrueUrl($url) === false) {
 					continue;
@@ -349,9 +344,9 @@ class BetterLocation
 	private static function getMessageWithoutUrls(string $text, array $entities): string {
 		foreach (array_reverse($entities) as $entity) {
 			if ($entity->type === 'url') {
-				$entityContent = mb_substr($text, $entity->offset, $entity->length);
+				$entityContent = TelegramHelper::getEntityContent($text, $entity);
 				if (self::isTrueUrl($entityContent)) {
-					$text = General::substrReplace($text, str_repeat('|', $entity->length), $entity->offset, $entity->length);
+					$text = str_replace($entityContent, str_repeat('|', $entity->length), $text);
 				}
 			}
 		}

@@ -2,14 +2,8 @@
 
 namespace Dashboard;
 
-use BetterLocation\BetterLocation;
-use unreal4u\TelegramAPI\Exceptions\ClientException;
-use unreal4u\TelegramAPI\HttpClientRequestHandler;
+use TelegramCustomWrapper\TelegramHelper;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
-use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
-use unreal4u\TelegramAPI\Telegram\Types\WebhookInfo;
-use unreal4u\TelegramAPI\TgLog;
-use Utils\General;
 
 class Tester
 {
@@ -36,16 +30,7 @@ class Tester
 	}
 
 	public function handleInput(): void {
-		$urls = \Utils\General::getUrls($this->getInput());
-		// Simulate Telegram message by creating URL entities
-		$entities = [];
-		foreach ($urls as $url) {
-			$entity = new MessageEntity();
-			$entity->type = 'url';
-			$entity->offset = mb_strpos($this->getInput(), $url);
-			$entity->length = mb_strlen($url);
-			$entities[] = $entity;
-		}
+		$entities = TelegramHelper::generateEntities($this->getInput());
 		$this->outputText = '';
 		$this->outputButtons = [];
 		try {

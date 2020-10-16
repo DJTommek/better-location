@@ -16,16 +16,7 @@ $response->message = null;
 try {
 	if (isset($_POST['input'])) {
 		$input = $_POST['input'];
-		$urls = \Utils\General::getUrls($_POST['input']);
-		// Simulate Telegram message by creating URL entities
-		$entities = [];
-		foreach ($urls as $url) {
-			$entity = new stdClass();
-			$entity->type = 'url';
-			$entity->offset = mb_strpos($input, $url);
-			$entity->length = mb_strlen($url);
-			$entities[] = $entity;
-		}
+		$entities = \TelegramCustomWrapper\TelegramHelper::generateEntities($input);
 		$betterLocations = BetterLocation::generateFromTelegramMessage($input, $entities);
 		if (count($betterLocations)) {
 			$response->error = false;

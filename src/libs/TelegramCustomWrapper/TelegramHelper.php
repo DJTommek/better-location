@@ -2,6 +2,7 @@
 
 namespace TelegramCustomWrapper;
 
+use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 
 class TelegramHelper
@@ -183,5 +184,44 @@ class TelegramHelper
 		$input = base64_decode($input);
 		$input = trim($input);
 		return $input;
+	}
+
+	/**
+	 * Return entity content in UTF-8 (currently supported only for "text_link" and "url")
+	 *
+	 * @author https://stackoverflow.com/questions/49035310/php-telegram-bot-extract-url-in-utf-16-code-units/49430787
+	 * @see https://stackoverflow.com/questions/30604427/php-length-of-string-containing-emojis-special-chars
+	 */
+	public static function getEntityContent(string $message, MessageEntity $entity): string {
+		switch ($entity->type) {
+			case 'url':
+				$message16 = mb_convert_encoding($message, 'UTF-16', 'UTF-8');
+				$entityContent16 = substr($message16, $entity->offset * 2, $entity->length * 2);
+				return mb_convert_encoding($entityContent16, 'UTF-8', 'UTF-16');
+			case 'text_link':
+				return $entity->url;
+			default:
+				throw new \InvalidArgumentException(sprintf('Processing entity content of type "%s" is currently not supported.', $entity->type));
+		}
+	}
+
+	/**
+	 * Simulate Telegram message by creating URL entities (currently only URLs)
+	 *
+	 * @see TelegramHelper::getEntityContent()
+	 * @return MessageEntity[]
+	 */
+	public static function generateEntities(string $message): array {
+		$message16 = mb_convert_encoding($message, 'UTF-16', 'UTF-8');
+		$entities = [];
+		foreach (\Utils\General::getUrls($message) as $url) {
+			$url16 = mb_convert_encoding($url, 'UTF-16', 'UTF-8');
+			$entity = new MessageEntity();
+			$entity->type = 'url';
+			$entity->offset = strpos($message16, $url16) / 2;
+			$entity->length = strlen($url16) / 2;
+			$entities[] = $entity;
+		}
+		return $entities;
 	}
 }

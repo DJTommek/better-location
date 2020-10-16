@@ -98,17 +98,7 @@ class InlineQuery extends Special
 //			$answerInlineQuery->switch_pm_text = sprintf('%s Delete %s,%s', \Icons::DELETE, $lat, $lon);
 //			$answerInlineQuery->switch_pm_parameter = TelegramHelper::InlineTextEncode(sprintf('%s %s %F %F', StartCommand::FAVOURITE, StartCommand::FAVOURITE_DELETE, $lat, $lon));
 		} else {
-			$urls = \Utils\General::getUrls($queryInput);
-
-			// Simulate Telegram message by creating URL entities
-			$entities = [];
-			foreach ($urls as $url) {
-				$entity = new \stdClass();
-				$entity->type = 'url';
-				$entity->offset = mb_strpos($queryInput, $url);
-				$entity->length = mb_strlen($url);
-				$entities[] = $entity;
-			}
+			$entities = TelegramHelper::generateEntities($queryInput);
 			try {
 				$betterLocations = BetterLocation::generateFromTelegramMessage($queryInput, $entities);
 				foreach ($betterLocations->getAll() as $betterLocation) {
