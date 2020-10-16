@@ -412,7 +412,7 @@ class BetterLocation
 			IngressIntelService::class,
 		];
 		$text = '';
-		$text .= sprintf('%s <a href="%s">%s</a> <code>%s</code>',
+		$text .= sprintf('%s <a href="%s" target="_blank">%s</a> <code>%s</code>',
 			$this->prefixMessage,
 			$this->generateScreenshotLink(MapyCzService::class),
 			\Icons::PICTURE,
@@ -425,7 +425,7 @@ class BetterLocation
 
 		// Generate links
 		$text .= join(' | ', \array_map(function (string $service) {
-				return sprintf('<a href="%s">%s</a>',
+				return sprintf('<a href="%s" target="_blank">%s</a>',
 					$this->pregeneratedLinks[$service] ?? $service::getLink($this->lat, $this->lon),
 					$service::NAME,
 				);
