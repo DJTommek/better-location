@@ -147,7 +147,6 @@ final class GlympseService extends AbstractService
 			$destinationDescriptions[] = $invite->properties->destination->name;
 		}
 		if ($invite->properties->eta && $invite->properties->route) {
-			$invite->properties->route->distance = 6578;
 			if ($invite->properties->route->distance >= 100000) { // 100 km
 				$distanceString = sprintf('%d km', round($invite->properties->route->distance / 1000));
 			} else if ($invite->properties->route->distance >= 100) { // 1 km
