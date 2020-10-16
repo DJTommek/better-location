@@ -13,8 +13,8 @@ class LocationPoint extends Type
 {
 
 	public static function createFromArray(array $location): self {
-//		list($timestamp, $latitude, $longtitude, $speed, $heading, $elevation, $horizontalAccuracy, $verticalAccuracy) = $location;
-		list($timestamp, $latitude, $longtitude, $speed, $heading, $elevation) = $location;
+		list($timestamp, $latitude, $longtitude, $speed, $heading, $elevation, $horizontalAccuracy, $verticalAccuracy) = array_pad($location, 8, null);
+
 		$class = new self();
 		$class->timestamp = DateImmutableUtils::fromTimestampMs($timestamp);
 		$class->latitude = $latitude / 10e5; // according documentation it should be 10e6 but it seems to be wrong
@@ -22,8 +22,8 @@ class LocationPoint extends Type
 		$class->speed = $speed;
 		$class->heading = $heading;
 		$class->elevation = $elevation;
-//		$class->horizontalAccuracy = $horizontalAccuracy;
-//  	$class->verticalAccuracy = $verticalAccuracy;
+		$class->horizontalAccuracy = $horizontalAccuracy;
+		$class->verticalAccuracy = $verticalAccuracy;
 		return $class;
 	}
 

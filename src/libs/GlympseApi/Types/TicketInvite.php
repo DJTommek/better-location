@@ -34,24 +34,46 @@ class TicketInvite extends Type
 		return $class;
 	}
 
+	/** @var string */
 	public $type = 'ticket_invite';
-	/** @var ?string */
+
+	/** @var ?string The code assigned to the invite; also part of the Glympse URL associated with the invite. */
 	public $id = null;
-	/** @var ?int */
+
+	/** @var ?int Sequence number to be specified during the next 'GET invites/:code' call. */
 	public $last = null;
-	/** @var ?int */
+
+	/** @var ?int @TODO Not documented */
 	public $next = null;
-	/** @var ?int */
+
+	/** @var ?int @TODO Not documented */
 	public $first = null;
-	/** @var ?bool */
+
+	/** @var ?bool @TODO Not documented */
 	public $uncompressed = null;
 
-	/** @var TicketProperty */
+	/**
+	 * @var TicketProperty Latest values of all ticket properties.
+	 * @see https://developer.glympse.com/docs/core/api/reference/objects/data-points
+	 */
 	public $properties = null;
-	/** @var LocationPoint[] */
+
+	/**
+	 * @var LocationPoint[] All location points uploaded since $next.
+	 * @see https://developer.glympse.com/docs/core/api/reference/objects/location-points
+	 */
 	public $location = [];
 
-	public function getLastLocation(): LocationPoint {
+	/** @return ?LocationPoint Newest location or null if no location available */
+	public function getLastLocation(): ?LocationPoint {
+		if (count($this->location) === 0) {
+			return null;
+		}
 		return end($this->location);
 	}
+
+	public function getInviteIdUrl() {
+		return 'https://glympse.com/' . $this->id;
+	}
+
 }
