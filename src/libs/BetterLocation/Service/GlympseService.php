@@ -120,6 +120,7 @@ final class GlympseService extends AbstractService
 		}
 		$lastLocation = $invite->getLastLocation();
 		$currentLocation = new BetterLocation($url, $lastLocation->latitude, $lastLocation->longtitude, self::class, $type);
+		$currentLocation->setRefreshable(true);
 		$diff = $now->getTimestamp() - $lastLocation->timestamp->getTimestamp();
 		if ($diff > 600) { // show last update message only if it was updated long ago
 			$lastUpdateText = sprintf('%s Last location update: %s (%s ago)',
@@ -152,6 +153,7 @@ final class GlympseService extends AbstractService
 		$now = new \DateTimeImmutable();
 		$destinationDescriptions = [];
 		$destination = new BetterLocation($url, $invite->properties->destination->lat, $invite->properties->destination->lng, self::class, self::TYPE_DESTINATION);
+		$destination->setRefreshable(true);
 		$destination->setPrefixMessage(sprintf('Glympse destination (<a href="%s">%s</a>)',
 			$invite->getInviteIdUrl(),
 			$invite->properties->name,
