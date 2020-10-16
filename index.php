@@ -128,7 +128,7 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 
 		</div>
 		<div class="tab-pane fade" id="error">
-			<h3>Errors</h3>
+			<h2>Errors</h2>
 			<h4>Email reporting (<a href="https://tracy.nette.org/guide" target="_blank" title="Getting started with Tracy">help</a>)</h4>
 			<?php
 			if (is_null(\Config::TRACY_DEBUGGER_EMAIL)) {
@@ -191,7 +191,6 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 							Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_last_update']->getTimestamp()),
 						);
 					}
-
 					printf('</ul>');
 				} else {
 					printf('<p>%s Setup database connection and prepare tables.</p>', \Icons::ERROR);
@@ -203,47 +202,41 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 			<h2>Tester</h2>
 			<div id="tester">
 				<?php
-				$input = (isset($_POST['input']) ? trim($_POST['input']) : null);
+				$tester = new \Dashboard\Tester($_POST['input'] ?? null);
 				?>
 				<form method="POST">
-					<textarea name="input" class="form-control" placeholder="Type something..."><?= $input ?? '' ?></textarea>
+					<textarea name="input" class="form-control" placeholder="Type something..."><?= $tester->getTextareaInput() ?></textarea>
 					<button type="submit" class="btn btn-primary">Send</button>
 				</form>
 				<h3>Result</h3>
-				<div>
+				<div class="result">
 					<?php
-					if ($input) {
-						$urls = \Utils\General::getUrls($input);
-
-						// Simulate Telegram message by creating URL entities
-						$entities = [];
-						foreach ($urls as $url) {
-							$entity = new stdClass();
-							$entity->type = 'url';
-							$entity->offset = mb_strpos($input, $url);
-							$entity->length = mb_strlen($url);
-							$entities[] = $entity;
-						}
-						try {
-							$betterLocations = \BetterLocation\BetterLocation::generateFromTelegramMessage($input, $entities);
-							if (count($betterLocations->getLocations())) {
-								$result = '';
-								foreach ($betterLocations->getLocations() as $betterLocation) {
-									$result .= $betterLocation->generateBetterLocation();
+					if ($tester->isInput()) {
+						$tester->handleInput();
+						if ($tester->isOutputTextEmpty()) {
+							print('<div class="alert alert-info">No location was detected</div>');
+						} else {
+							printf('<div class="message">');
+							printf('<pre>%s</pre>', $tester->getOutputText());
+							foreach ($tester->getOutputButtons() as $row) {
+								printf('<div class="row">');
+								foreach ($row as $button) {
+									printf('<div class="col buttons">');
+									if (empty($button->url) === false) {
+										printf('<a href="%1$s" class="btn btn-secondary" target="_blank" data-toggle="tooltip" title="%1$s">%2$s</a>', $button->url, $button->text);
+									} else if ($button->callback_data) {
+										printf('<button class="btn btn-secondary" data-toggle="tooltip" title="Callback data: \'%s\'">%s</button>', $button->callback_data, $button->text);
+									} else {
+										throw new \OutOfBoundsException('Unexpected button type.');
+									}
+									printf('</div>');
 								}
-								printf('<pre>%s</pre>', $result);
-							} else {
-								printf('No location(s) was detected in text.');
+								printf('</div>');
 							}
-							foreach ($betterLocations->getErrors() as $betterLocationError) {
-								printf('<p>%s Error: <b>%s</b></p>', \Icons::ERROR, htmlentities($betterLocationError->getMessage()));
-							}
-						} catch (\Throwable $exception) {
-							\Tracy\Debugger::log($exception, \Tracy\ILogger::EXCEPTION);
-							printf('%s Error occured while processing input: %s', Icons::ERROR, $exception->getMessage());
+							printf('</div>');
 						}
 					} else {
-						print('Fill and send some data.');
+						print('<div class="alert alert-info">Fill and send some data.</div>');
 					}
 					?>
 				</div>

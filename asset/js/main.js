@@ -14,4 +14,9 @@ $(function () {
 	// on load of the page: switch to the currently selected tab
 	const hash = window.location.hash;
 	$('#main-tab a[href="' + hash + '"]').tab('show');
+
+	// Enable Bootstrap tooltips everywhere
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip();
+	});
 });

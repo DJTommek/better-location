@@ -2,7 +2,7 @@
 	margin-top: 1em;
 }
 
-h1 {
+h1, h2, h3 {
 	text-align: center;
 }
 
@@ -28,5 +28,36 @@ h1 {
 
 #tester form button {
 	width: 100%;
+}
+
+/* Simulate Telegram message (width, border...) */
+#tester .result .message {
+	max-width: 35em;
+	margin: 1em auto;
+	padding: 1em;
+	border-radius: 0.25rem;
+	border: 1px solid #cccccc;
+}
+#tester .result .alert {
+	margin-bottom: 0; /* Reset margin set in Bootstrap */
+}
+
+#tester .result .row {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+#tester .result .buttons .btn {
+	width: 100%;
+	display: block;
+}
+
+#tester .result .buttons a.btn:after {
+	/* Icon @author: https://stackoverflow.com/a/52058198/3334403, https://codepen.io/thiagobraga/pen/bhDdn  */
+    content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
+    font-size: .7em;
+    display: inline-block;
+	right: 2em;
+	top: 0.5em;
+	position: absolute;
 }
 
