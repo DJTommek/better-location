@@ -33,6 +33,8 @@ class BetterLocation
 	private $sourceType;
 	private $pregeneratedLinks = [];
 	private $inlinePrefixMessage;
+	/** @var bool Can location change with same input? */
+	private $refreshable = false;
 
 	/**
 	 * BetterLocation constructor.
@@ -255,6 +257,25 @@ class BetterLocation
 		return $buttons;
 	}
 
+	/** @return Button[] */
+	public static function generateRefreshButtons(bool $autorefreshEnabled): array {
+		$autoRefresh = new Button();
+		if ($autorefreshEnabled) {
+			$autoRefresh->text = sprintf('Autorefresh: %s enabled', \Icons::SUCCESS);
+			$autoRefresh->callback_data = sprintf('%s %s', CronButton::CMD, CronButton::ACTION_STOP);
+		} else {
+			$autoRefresh->text = sprintf('Autorefresh: %s disabled', \Icons::ERROR);
+			$autoRefresh->callback_data = sprintf('%s %s', CronButton::CMD, CronButton::ACTION_START);
+		}
+		$buttons[] = $autoRefresh;
+
+		$manualRefresh = new Button();
+		$manualRefresh->text = sprintf('Manual refresh %s', \Icons::REFRESH);
+		$manualRefresh->callback_data = sprintf('%s %s', CronButton::CMD, CronButton::ACTION_REFRESH);
+		$buttons[] = $manualRefresh;
+		return $buttons;
+	}
+
 	public function generateAddToFavouriteButtton(): Button
 	{
 		$button = new Button();
@@ -336,6 +357,14 @@ class BetterLocation
 	public function setDescription(?string $description): void
 	{
 		$this->description = $description;
+	}
+
+	public function isRefreshable(): bool {
+		return $this->refreshable;
+	}
+
+	public function setRefreshable(bool $refreshable): void {
+		$this->refreshable = $refreshable;
 	}
 
 	public static function isLatValid(float $lat): bool
