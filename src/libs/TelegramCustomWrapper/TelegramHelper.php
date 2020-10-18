@@ -130,7 +130,7 @@ class TelegramHelper
 		}
 	}
 
-	public static function getCommand($update, bool $strict = false): ?string {
+	public static function getCommand(Update $update, bool $strict = false): ?string {
 		$command = null;
 		if (self::isButtonClick($update)) {
 			$fullCommand = $update->callback_query->data;
@@ -145,6 +145,9 @@ class TelegramHelper
 		}
 		if (self::isPM($update)) {
 			$strict = false; // there is no need to write bot username since there is one to one
+		}
+		if (self::isButtonClick($update)) {
+			$strict = false; // clicking on button is going only to bot, who created it
 		}
 		if ($command && preg_match(self::getCommandRegex($strict), $command, $matches)) {
 			return $matches[1];
@@ -208,8 +211,8 @@ class TelegramHelper
 	/**
 	 * Simulate Telegram message by creating URL entities (currently only URLs)
 	 *
-	 * @see TelegramHelper::getEntityContent()
 	 * @return MessageEntity[]
+	 * @see TelegramHelper::getEntityContent()
 	 */
 	public static function generateEntities(string $message): array {
 		$message16 = mb_convert_encoding($message, 'UTF-16', 'UTF-8');
