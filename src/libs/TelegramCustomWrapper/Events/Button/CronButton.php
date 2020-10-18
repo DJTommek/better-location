@@ -26,10 +26,10 @@ class CronButton extends Button
 
 		switch ($action) {
 			case self::ACTION_START:
-				$this->flash(sprintf('%s Enabling automatic refresh is still in progress.', \Icons::ERROR), true);
+				$this->flash(sprintf('%s Enabling automatic refresh is still in development.', \Icons::ERROR), true);
 				break;
 			case self::ACTION_STOP:
-				$this->flash(sprintf('%s Disabling automatic refresh is still in progress.', \Icons::ERROR), true);
+				$this->flash(sprintf('%s Disabling automatic refresh is still in development.', \Icons::ERROR), true);
 				break;
 			case self::ACTION_REFRESH:
 				try {

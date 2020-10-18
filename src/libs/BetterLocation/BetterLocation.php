@@ -261,10 +261,10 @@ class BetterLocation
 	public static function generateRefreshButtons(bool $autorefreshEnabled): array {
 		$autoRefresh = new Button();
 		if ($autorefreshEnabled) {
-			$autoRefresh->text = sprintf('Autorefresh: %s enabled', \Icons::SUCCESS);
+			$autoRefresh->text = sprintf('Autorefresh: %s enabled', \Icons::ENABLED);
 			$autoRefresh->callback_data = sprintf('%s %s', CronButton::CMD, CronButton::ACTION_STOP);
 		} else {
-			$autoRefresh->text = sprintf('Autorefresh: %s disabled', \Icons::ERROR);
+			$autoRefresh->text = sprintf('Autorefresh: %s disabled', \Icons::DISABLED);
 			$autoRefresh->callback_data = sprintf('%s %s', CronButton::CMD, CronButton::ACTION_START);
 		}
 		$buttons[] = $autoRefresh;

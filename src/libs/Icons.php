@@ -15,6 +15,10 @@ class Icons
 	const CHANGE = "\u{270F}"; // https://emojipedia.org/pencil/
 	const DELETE = "\u{1F5D1}"; // https://emojipedia.org/wastebasket/
 
+//	const ENABLED = "\u{1F7E2}"; // https://emojipedia.org/large-green-circle/ Warning: New in 2019 so not supported in older devices (eg. Android 9 or lower)
+	const ENABLED = "\u{2705}"; // https://emojipedia.org/check-mark-button/
+	const DISABLED = "\u{274C}"; // https://emojipedia.org/cross-mark/
+
 	const USER = "\u{1F44D}"; // https://emojipedia.org/thumbs-up/
 	const GROUP = "\u{1F590}"; // https://emojipedia.org/hand-with-fingers-splayed/
 	const CHANNEL = "\u{1F4E2}"; // https://emojipedia.org/loudspeaker/
