@@ -32,7 +32,7 @@ final class GlympseService extends AbstractService
 		];
 	}
 
-	const PATH_INVITE_ID_REGEX = '/^\/[0-9a-z]{4}-[0-9a-z]{4}$/i';
+	const PATH_INVITE_ID_REGEX = '/^\/[0-9a-z]+-[0-9a-z]+$/i';
 	const PATH_GROUP_REGEX = '/^\/!.+$/i';
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string {
