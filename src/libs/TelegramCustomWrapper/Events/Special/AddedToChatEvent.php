@@ -7,7 +7,7 @@ use TelegramCustomWrapper\Events\Command\HelpCommand;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 
-class AddedToChat extends \TelegramCustomWrapper\Events\Special\Special
+class AddedToChatEvent extends Special
 {
 	public function __construct(Update $update) {
 		parent::__construct($update);

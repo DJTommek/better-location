@@ -6,17 +6,17 @@ use \TelegramCustomWrapper\Events\Command\DebugCommand;
 use \TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use \TelegramCustomWrapper\Events\Command\FeedbackCommand;
 use \TelegramCustomWrapper\Events\Command\HelpCommand;
-use \TelegramCustomWrapper\Events\Command\LocationCommand;
-use \TelegramCustomWrapper\Events\Command\MessageCommand;
+use \TelegramCustomWrapper\Events\Special\LocationEvent;
+use \TelegramCustomWrapper\Events\Special\MessageEvent;
 use \TelegramCustomWrapper\Events\Command\SettingsCommand;
 use TelegramCustomWrapper\Events\Command\StartCommand;
 use \TelegramCustomWrapper\Events\Command\UnknownCommand;
 use \TelegramCustomWrapper\Events\Button\HelpButton;
 use \TelegramCustomWrapper\Events\Button\FavouritesButton;
-use \TelegramCustomWrapper\Events\Special\AddedToChat;
-use \TelegramCustomWrapper\Events\Special\File;
-use TelegramCustomWrapper\Events\Special\InlineQuery;
-use \TelegramCustomWrapper\Events\Special\Photo;
+use \TelegramCustomWrapper\Events\Special\AddedToChatEvent;
+use \TelegramCustomWrapper\Events\Special\FileEvent;
+use TelegramCustomWrapper\Events\Special\InlineQueryEvent;
+use \TelegramCustomWrapper\Events\Special\PhotoEvent;
 use \unreal4u\TelegramAPI\Telegram;
 use \unreal4u\TelegramAPI\TgLog;
 use \unreal4u\TelegramAPI\HttpClientRequestHandler;
@@ -29,7 +29,8 @@ class TelegramCustomWrapper
 	private $tgLog;
 	private $loop;
 
-	public function __construct($botToken, $botName) {
+	public function __construct($botToken, $botName)
+	{
 		$this->botToken = $botToken;
 		$this->botName = $botName;
 
@@ -37,7 +38,8 @@ class TelegramCustomWrapper
 		$this->tgLog = new TgLog($botToken, new HttpClientRequestHandler($this->loop));
 	}
 
-	public function handleUpdate($updateData) {
+	public function handleUpdate($updateData)
+	{
 		$update = new Telegram\Types\Update($updateData);
 		if ($update->update_id === 0) { // default value
 			throw new \Exception('Telegram webhook API data are missing!');
@@ -46,7 +48,7 @@ class TelegramCustomWrapper
 			return 'Edit\'s are ignored';
 		}
 		if (TelegramHelper::addedToChat($update, \Config::TELEGRAM_BOT_NAME)) {
-			return new AddedToChat($update);
+			return new AddedToChatEvent($update);
 		}
 		if (TelegramHelper::isViaBot($update, \Config::TELEGRAM_BOT_NAME)) {
 			return 'I will ignore my own via_bot (from inline) messages.';
@@ -56,7 +58,7 @@ class TelegramCustomWrapper
 			return 'ChosenInlineQuery handler is not implemented';
 		}
 		if (TelegramHelper::isInlineQuery($update)) {
-			return new InlineQuery($update);
+			return new InlineQueryEvent($update);
 		}
 
 		$command = TelegramHelper::getCommand($update, \Config::TELEGRAM_COMMAND_STRICT);
@@ -83,11 +85,11 @@ class TelegramCustomWrapper
 			/** @noinspection PhpUndefinedFieldInspection */
 			$update->message->from->displayname = TelegramHelper::getDisplayName($update->message->from);
 			if (TelegramHelper::isLocation($update)) {
-				return new LocationCommand($update);
+				return new LocationEvent($update);
 			} elseif (TelegramHelper::hasDocument($update)) {
-				return new File($update);
+				return new FileEvent($update);
 			} elseif (TelegramHelper::hasPhoto($update)) {
-				return new Photo($update);
+				return new PhotoEvent($update);
 			} else {
 				switch ($command ? mb_strtolower($command) : null) {
 					case StartCommand::CMD:
@@ -103,7 +105,7 @@ class TelegramCustomWrapper
 					case FeedbackCommand::CMD:
 						return new FeedbackCommand($update);
 					case null: // message without command
-						return new MessageCommand($update);
+						return new MessageEvent($update);
 					default: // unknown command
 						return new UnknownCommand($update);
 				}

@@ -1,16 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper\Events\Command;
+namespace TelegramCustomWrapper\Events\Special;
 
 use \BetterLocation\BetterLocation;
 use BetterLocation\Service\Exceptions\InvalidApiKeyException;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
+use TelegramCustomWrapper\Events\Command\HelpCommand;
 use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
-class MessageCommand extends Command
+class MessageEvent extends Special
 {
 	/**
 	 * MessageCommand constructor.

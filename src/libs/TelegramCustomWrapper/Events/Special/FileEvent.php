@@ -10,7 +10,7 @@ use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 use \Icons;
 use unreal4u\TelegramAPI\Telegram\Methods\GetFile;
 
-class File extends \TelegramCustomWrapper\Events\Special\Special
+class FileEvent extends Special
 {
 	const MIME_TYPE_IMAGE_JPEG = 'image/jpeg';
 

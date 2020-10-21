@@ -16,7 +16,7 @@ use unreal4u\TelegramAPI\Telegram\Types\Inline;
 use unreal4u\TelegramAPI\Telegram\Types\InputMessageContent\Text;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 
-class InlineQuery extends Special
+class InlineQueryEvent extends Special
 {
 	/**
 	 * How many favourite locations will be shown?

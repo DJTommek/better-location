@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper\Events\Command;
+namespace TelegramCustomWrapper\Events\Special;
 
 use BetterLocation\BetterLocation;
 use \Icons;
@@ -9,7 +9,7 @@ use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
-class LocationCommand extends Command
+class LocationEvent extends Special
 {
 	/**
 	 * LocationCommand constructor.

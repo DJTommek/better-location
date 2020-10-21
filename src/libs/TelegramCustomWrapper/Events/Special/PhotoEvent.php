@@ -9,7 +9,7 @@ use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
-class Photo extends \TelegramCustomWrapper\Events\Special\Special
+class PhotoEvent extends Special
 {
 	/**
 	 * PhotoCommand constructor.
