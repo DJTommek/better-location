@@ -103,7 +103,7 @@ class StartCommand extends Command
 
 						$refreshFavouriteButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
 						$refreshFavouriteButton->text = sprintf('%s Show list', \Icons::REFRESH);
-						$refreshFavouriteButton->callback_data = sprintf('%s %s', FavouritesCommand::CMD, FavouritesButton::ACTION_REFRESH);
+						$refreshFavouriteButton->callback_data = sprintf('%s %s', FavouritesButton::CMD, FavouritesButton::ACTION_REFRESH);
 						$buttonRow[] = $refreshFavouriteButton;
 
 						$replyMarkup->inline_keyboard[] = $buttonRow;

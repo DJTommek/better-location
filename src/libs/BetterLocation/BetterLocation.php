@@ -24,7 +24,6 @@ use BetterLocation\Service\WikipediaService;
 use \BetterLocation\Service\ZanikleObceCzService;
 use \BetterLocation\Service\ZniceneKostelyCzService;
 use TelegramCustomWrapper\Events\Button\FavouritesButton;
-use TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
@@ -457,7 +456,7 @@ class BetterLocation
 	public function generateAddToFavouriteButtton(): Button {
 		$button = new Button();
 		$button->text = \Icons::FAVOURITE;
-		$button->callback_data = sprintf('%s %s %F %F', FavouritesCommand::CMD, FavouritesButton::ACTION_ADD, $this->getLat(), $this->getLon());
+		$button->callback_data = sprintf('%s %s %F %F', FavouritesButton::CMD, FavouritesButton::ACTION_ADD, $this->getLat(), $this->getLon());
 		return $button;
 	}
 

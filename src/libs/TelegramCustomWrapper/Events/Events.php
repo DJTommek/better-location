@@ -5,6 +5,7 @@ namespace TelegramCustomWrapper\Events;
 use BetterLocation\Service\WazeService;
 use React\EventLoop\Factory;
 use TelegramCustomWrapper\Events\Button\FavouritesButton;
+use TelegramCustomWrapper\Events\Button\HelpButton;
 use TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use TelegramCustomWrapper\Events\Command\FeedbackCommand;
 use TelegramCustomWrapper\Events\Command\HelpCommand;
@@ -244,13 +245,13 @@ abstract class Events
 
 		$button = new Button();
 		$button->text = sprintf('%s Help', \Icons::REFRESH);
-		$button->callback_data = HelpCommand::CMD;
+		$button->callback_data = HelpButton::CMD;
 		$replyMarkupRow[] = $button;
 
 		if ($this->isPm()) {
 			$button = new Button();
 			$button->text = sprintf('%s Favourites', \Icons::FAVOURITE);
-			$button->callback_data = sprintf('%s %s', FavouritesCommand::CMD, FavouritesButton::ACTION_REFRESH);
+			$button->callback_data = sprintf('%s %s', FavouritesButton::CMD, FavouritesButton::ACTION_REFRESH);
 			$replyMarkupRow[] = $button;
 		}
 		$replyMarkup->inline_keyboard[] = $replyMarkupRow;
@@ -263,11 +264,11 @@ abstract class Events
 			[ // row of buttons
 				[ // button
 					'text' => sprintf('%s Help', \Icons::BACK),
-					'callback_data' => HelpCommand::CMD,
+					'callback_data' => HelpButton::CMD,
 				],
 				[ // button
 					'text' => sprintf('%s Refresh list', \Icons::REFRESH),
-					'callback_data' => sprintf('%s %s', FavouritesCommand::CMD, FavouritesButton::ACTION_REFRESH),
+					'callback_data' => sprintf('%s %s', FavouritesButton::CMD, FavouritesButton::ACTION_REFRESH),
 				],
 			],
 		];
@@ -303,7 +304,7 @@ abstract class Events
 
 				$deleteFavouriteButton = new Button();
 				$deleteFavouriteButton->text = sprintf('%s Delete', \Icons::DELETE);
-				$deleteFavouriteButton->callback_data = sprintf('%s %s %F %F', FavouritesCommand::CMD, FavouritesButton::ACTION_DELETE, $favourite->getLat(), $favourite->getLon());
+				$deleteFavouriteButton->callback_data = sprintf('%s %s %F %F', FavouritesButton::CMD, FavouritesButton::ACTION_DELETE, $favourite->getLat(), $favourite->getLon());
 				$buttonRow[] = $deleteFavouriteButton;
 
 				$replyMarkup->inline_keyboard[] = $buttonRow;

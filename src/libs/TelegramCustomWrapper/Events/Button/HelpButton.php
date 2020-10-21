@@ -2,8 +2,12 @@
 
 namespace TelegramCustomWrapper\Events\Button;
 
+use TelegramCustomWrapper\Events\Command\HelpCommand;
+
 class HelpButton extends Button
 {
+	const CMD = HelpCommand::CMD;
+
 	/**
 	 * HelpButton constructor.
 	 *

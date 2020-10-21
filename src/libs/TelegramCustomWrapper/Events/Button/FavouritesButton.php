@@ -12,6 +12,8 @@ use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class FavouritesButton extends Button
 {
+	const CMD = FavouritesCommand::CMD;
+
 	const ACTION_ADD = 'add';
 	const ACTION_DELETE = 'delete';
 	const ACTION_REFRESH = 'refresh';
@@ -85,12 +87,12 @@ class FavouritesButton extends Button
 
 			$refreshFavouriteButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
 			$refreshFavouriteButton->text = sprintf('%s Show list', \Icons::REFRESH);
-			$refreshFavouriteButton->callback_data = sprintf('%s %s', FavouritesCommand::CMD, FavouritesButton::ACTION_REFRESH);
+			$refreshFavouriteButton->callback_data = sprintf('%s %s', FavouritesButton::CMD, FavouritesButton::ACTION_REFRESH);
 			$buttonRow[] = $refreshFavouriteButton;
 
 			$deleteFavouriteButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
 			$deleteFavouriteButton->text = sprintf('%s Add back', \Icons::FAVOURITE);
-			$deleteFavouriteButton->callback_data = sprintf('%s %s %F %F', FavouritesCommand::CMD, FavouritesButton::ACTION_ADD, $lat, $lon);
+			$deleteFavouriteButton->callback_data = sprintf('%s %s %F %F', FavouritesButton::CMD, FavouritesButton::ACTION_ADD, $lat, $lon);
 			$buttonRow[] = $deleteFavouriteButton;
 
 			$replyMarkup->inline_keyboard[] = $buttonRow;

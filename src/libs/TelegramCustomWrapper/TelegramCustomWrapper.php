@@ -69,9 +69,9 @@ class TelegramCustomWrapper
 			$update->callback_query->from->displayname = TelegramHelper::getDisplayName($update->callback_query->from);
 
 			switch ($command ? mb_strtolower($command) : null) {
-				case HelpCommand::CMD:
+				case HelpButton::CMD:
 					return new HelpButton($update);
-				case FavouritesCommand::CMD:
+				case FavouritesButton::CMD:
 					return new FavouritesButton($update);
 				// @TODO log error, this should not happen. Edit: can happen if some command is no longer used (for example /stats was changed to /donor)
 				default: // unknown
