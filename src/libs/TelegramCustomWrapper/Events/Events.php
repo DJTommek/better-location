@@ -89,6 +89,14 @@ abstract class Events
 		return $this->update->message->text;
 	}
 
+	public static function getCmd(bool $withSuffix = false): string {
+		if ($withSuffix) {
+			return sprintf('%s@%s', static::CMD, \Config::TELEGRAM_BOT_NAME);
+		} else {
+			return static::CMD;
+		}
+	}
+
 	/** @return bool|null null if unknown (eg. clicked on button in via_bot message) */
 	public function isPm(): ?bool {
 		return TelegramHelper::isPM($this->update);
@@ -216,9 +224,9 @@ abstract class Events
 //		$text .= sprintf('Currently not supported. Don\'t hesitate to ping author if you are interested in this feature.') . PHP_EOL;
 //		$text .= PHP_EOL;
 		$text .= sprintf('%s <b>Commands:</b>', \Icons::COMMAND) . PHP_EOL;
-		$text .= sprintf('%s@%s - %s Learn more about me (this text)', HelpCommand::CMD, \Config::TELEGRAM_BOT_NAME, \Icons::INFO) . PHP_EOL;
-		$text .= sprintf('%s@%s - %s Report invalid location or just contact the author', FeedbackCommand::CMD, \Config::TELEGRAM_BOT_NAME, \Icons::FEEDBACK) . PHP_EOL;
-		$text .= sprintf('%s@%s %s - Manage your saved favourite locations (works only in PM)', FavouritesCommand::CMD, \Config::TELEGRAM_BOT_NAME, \Icons::FAVOURITE) . PHP_EOL;
+		$text .= sprintf('%s - %s Learn more about me (this text)', HelpCommand::getCmd(!$this->isPm()), \Icons::INFO) . PHP_EOL;
+		$text .= sprintf('%s - %s Report invalid location or just contact the author', FeedbackCommand::getCmd(!$this->isPm()), \Icons::FEEDBACK) . PHP_EOL;
+		$text .= sprintf('%s - %s Manage your saved favourite locations (works only in PM)', FavouritesCommand::getCmd(!$this->isPm()), \Icons::FAVOURITE) . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= sprintf('%s For more info check out the <a href="%s">@BetterLocationInfo</a> channel.', \Icons::INFO, 'https://t.me/BetterLocationInfo/3') . PHP_EOL;
 		$text .= PHP_EOL;

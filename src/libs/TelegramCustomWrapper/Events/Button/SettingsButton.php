@@ -7,6 +7,8 @@ use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class SettingsButton extends Button
 {
+	const CMD = SettingsCommand::CMD;
+
 	public function __construct($update) {
 		parent::__construct($update);
 
@@ -18,7 +20,7 @@ class SettingsButton extends Button
 			[ // row of buttons
 				[ // button
 					'text' => 'Settings:',
-					'callback_data' => SettingsCommand::CMD,
+					'callback_data' => self::CMD,
 				],
 			],
 		];

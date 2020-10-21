@@ -34,7 +34,7 @@ class FavouritesCommand extends Command
 				'reply_markup' => $replyMarkup,
 			];
 
-			$this->reply(sprintf('%s Command <code>%s</code> is available only in private message, open @%s.', \Icons::ERROR, self::CMD, \Config::TELEGRAM_BOT_NAME), $messageSettings);
+			$this->reply(sprintf('%s Command <code>%s</code> is available only in private message, open @%s.', \Icons::ERROR, HelpCommand::getCmd(), \Config::TELEGRAM_BOT_NAME), $messageSettings);
 		}
 	}
 }

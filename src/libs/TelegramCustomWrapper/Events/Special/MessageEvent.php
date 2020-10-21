@@ -67,7 +67,7 @@ class MessageEvent extends Special
 			if ($this->isForward()) {
 				$message .= 'Thanks for forwarded message, but ';
 			}
-			$message .= sprintf('I didn\'t detected any location in that message. Use %s@%s command to get info how to use me.', HelpCommand::CMD, \Config::TELEGRAM_BOT_NAME) . PHP_EOL;
+			$message .= sprintf('I didn\'t detected any location in that message. Use %s command to get info how to use me.', HelpCommand::getCmd(!$this->isPm())) . PHP_EOL;
 			$message .= sprintf('%s Most used tips: ', \Icons::INFO) . PHP_EOL;
 			$message .= '- send me any message with location data (coords, links, Telegram location...)' . PHP_EOL;
 			$message .= '- send me Telegram location' . PHP_EOL;

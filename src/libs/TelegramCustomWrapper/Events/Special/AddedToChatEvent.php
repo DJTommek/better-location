@@ -18,7 +18,7 @@ class AddedToChatEvent extends Special
 		$betterLocationWaze = WazeService::parseCoords($wazeLink);
 
 		$text = sprintf('%s Hi <b>%s</b>, @%s here!', \Icons::LOCATION, htmlentities($update->message->chat->title), \Config::TELEGRAM_BOT_NAME) . PHP_EOL;
-		$text .= sprintf('Thanks for adding me to this chat. I will be checking every message here if it contains any form of location (coordinates, links, photos with EXIF...) and send a nicely formatted message. More info in %s@%s.', HelpCommand::CMD, \Config::TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text .= sprintf('Thanks for adding me to this chat. I will be checking every message here if it contains any form of location (coordinates, links, photos with EXIF...) and send a nicely formatted message. More info in %s.', HelpCommand::getCmd(!$this->isPm())) . PHP_EOL;
 		$text .= sprintf('For example if you send %s I will respond with this:', $wazeLink) . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= $betterLocationWaze->generateBetterLocation();
