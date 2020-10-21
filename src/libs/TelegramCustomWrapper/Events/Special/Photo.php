@@ -52,7 +52,7 @@ class Photo extends \TelegramCustomWrapper\Events\Special\Special
 				],
 			);
 			return;
-		} else if ($this->isPm()) {
+		} else if ($this->isPm() === true) {
 			$this->reply('Thanks for the photo in PM! But I\'m not sure, what to do... If you want to process location from EXIF, you have to send <b>uncompressed</b> photo (send as file).');
 		}
 	}

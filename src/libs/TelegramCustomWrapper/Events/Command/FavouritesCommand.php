@@ -17,7 +17,7 @@ class FavouritesCommand extends Command
 	 */
 	public function __construct($update) {
 		parent::__construct($update);
-		if ($this->isPm()) {
+		if ($this->isPm() === true) {
 			$this->processFavouritesList(false);
 		} else {
 			$replyMarkup = new Markup();

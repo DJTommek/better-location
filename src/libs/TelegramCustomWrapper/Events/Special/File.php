@@ -85,7 +85,7 @@ class File extends \TelegramCustomWrapper\Events\Special\Special
 					'reply_markup' => $markup,
 				],
 			);
-		} else if ($this->isPm()) {
+		} else if ($this->isPm() === true) {
 			$this->reply('Thanks for the file in PM! But I\'m not sure, what to do... No location in EXIF was found.');
 		}
 	}

@@ -122,9 +122,16 @@ class TelegramHelper
 		return sprintf('%s/file/bot%s/%s', self::API_URL, $token, $path);
 	}
 
-	public static function isPM(Update $update): bool {
+	/** @return bool|null null if unknown (eg. clicked on button in via_bot message) */
+	public static function isPM(Update $update): ?bool {
 		if (self::isButtonClick($update)) {
-			return $update->callback_query->from->id === $update->callback_query->message->chat->id;
+			// If the button was attached to a message sent via the bot (in inline mode),
+			// the field inline_message_id will be present. (https://core.telegram.org/bots/api#callbackquery)
+			if ($update->callback_query->inline_message_id) {
+				return null;
+			} else {
+				return $update->callback_query->from->id === $update->callback_query->message->chat->id;
+			}
 		} else {
 			return ($update->message->from->id === $update->message->chat->id);
 		}
@@ -143,7 +150,7 @@ class TelegramHelper
 				}
 			}
 		}
-		if (self::isPM($update)) {
+		if (self::isPM($update) === true) {
 			$strict = false; // there is no need to write bot username since there is one to one
 		}
 		if (self::isButtonClick($update)) {

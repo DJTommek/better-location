@@ -61,7 +61,7 @@ class MessageCommand extends Command
 					'reply_markup' => $markup,
 				],
 			);
-		} else if ($this->isPm()) {
+		} else if ($this->isPm() === true) {
 			$message = 'Hi there in PM!' . PHP_EOL;
 			if ($this->isForward()) {
 				$message .= 'Thanks for forwarded message, but ';

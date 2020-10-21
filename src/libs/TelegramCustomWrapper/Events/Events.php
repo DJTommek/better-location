@@ -89,7 +89,8 @@ abstract class Events
 		return $this->update->message->text;
 	}
 
-	public function isPm() {
+	/** @return bool|null null if unknown (eg. clicked on button in via_bot message) */
+	public function isPm(): ?bool {
 		return TelegramHelper::isPM($this->update);
 	}
 
@@ -248,7 +249,7 @@ abstract class Events
 		$button->callback_data = HelpButton::CMD;
 		$replyMarkupRow[] = $button;
 
-		if ($this->isPm()) {
+		if ($this->isPm() === true) {
 			$button = new Button();
 			$button->text = sprintf('%s Favourites', \Icons::FAVOURITE);
 			$button->callback_data = sprintf('%s %s', FavouritesButton::CMD, FavouritesButton::ACTION_REFRESH);
