@@ -22,7 +22,7 @@ Available publicly on [@BetterLocationBot](https://t.me/BetterLocationBot).
 ## Testing
 1. Run `composer test` (or directly `./vendor/bin/phpunit tests`).
 
-Note: Some tests may be skipped if missing configuration (eg. What3Words or MapyCZ Place ID and Panorama ID)
+Note: Some tests may be skipped if missing configuration (Glympse or What3Words)
 
 ---
 *Based on the simple [DJTommek/php-template](https://github.com/DJTommek/php-template).*
