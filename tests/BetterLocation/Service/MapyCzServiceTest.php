@@ -82,15 +82,11 @@ final class MapyCzServiceTest extends TestCase
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
 	public function testValidMapyCzPanoramaId(): void {
-		if (is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
-            $this->markTestSkipped('MapyCZ dummy server url is not set.');
-        } else {
-			$this->assertEquals('50.075959,15.016772', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0162139&y=50.0820182&z=16&pano=1&pid=68059377&yaw=5.522&fov=1.257&pitch=0.101')->__toString());
-			$this->assertEquals('50.123351,16.284569', MapyCzService::parseCoords('https://en.mapy.cz/turisticka?x=16.2845693&y=50.1233926&z=17&pano=1&source=base&id=2107710&pid=66437731&yaw=6.051&fov=1.257&pitch=0.157')->__toString()); // Viribus Unitis 2019
-			$this->assertEquals('50.094953,15.023081', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0483153&y=50.1142203&z=15&pano=1&source=firm&id=216358&pid=68007689&yaw=3.985&fov=1.257&pitch=0.033')->__toString()); // Three different locations: map, place and panorama
-			 // First neighbour of this panorama ID don't have original neighbour, so coordinates are little off (Original test using "get neighbour of neighbour" result was '50.078499,14.488475')
-			$this->assertEquals('50.078496,14.488369', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4883693&y=50.0784958&z=15&pano=1&pid=70254688&yaw=0.424&fov=1.257&pitch=0.088')->__toString());
-		}
+		$this->assertEquals('50.075959,15.016772', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0162139&y=50.0820182&z=16&pano=1&pid=68059377&yaw=5.522&fov=1.257&pitch=0.101')->__toString());
+		$this->assertEquals('50.123351,16.284569', MapyCzService::parseCoords('https://en.mapy.cz/turisticka?x=16.2845693&y=50.1233926&z=17&pano=1&source=base&id=2107710&pid=66437731&yaw=6.051&fov=1.257&pitch=0.157')->__toString()); // Viribus Unitis 2019
+		$this->assertEquals('50.094953,15.023081', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0483153&y=50.1142203&z=15&pano=1&source=firm&id=216358&pid=68007689&yaw=3.985&fov=1.257&pitch=0.033')->__toString()); // Three different locations: map, place and panorama
+		 // First neighbour of this panorama ID don't have original neighbour, so coordinates are little off (Original test using "get neighbour of neighbour" result was '50.078499,14.488475')
+		$this->assertEquals('50.078496,14.488369', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4883693&y=50.0784958&z=15&pano=1&pid=70254688&yaw=0.424&fov=1.257&pitch=0.088')->__toString());
 	}
 
 	/**
@@ -99,12 +95,8 @@ final class MapyCzServiceTest extends TestCase
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
 	public function testInvalidMapyCzPanoramaId(): void {
-		if (is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
-            $this->markTestSkipped('MapyCZ dummy server url is not set.');
-        } else {
-			$this->expectExceptionMessage('Panorama with id \'99999999999\' not found!');
-			MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0162139&y=50.0820182&z=16&pano=1&pid=99999999999&yaw=5.522&fov=1.257&pitch=0.101');
-		}
+		$this->expectExceptionMessage('Panorama with id \'99999999999\' not found!');
+		MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0162139&y=50.0820182&z=16&pano=1&pid=99999999999&yaw=5.522&fov=1.257&pitch=0.101');
 	}
 
 	/**
@@ -113,22 +105,18 @@ final class MapyCzServiceTest extends TestCase
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
 	public function testValidMapyCzId(): void {
-		if (is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
-            $this->markTestSkipped('MapyCZ dummy server url is not set.');
-        } else {
-			$this->assertEquals('50.073784,14.422105', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=2111676')->__toString());
-			$this->assertEquals('50.084007,14.440339', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4527551&y=50.0750056&z=15&source=pubt&id=15308193')->__toString());
-			$this->assertEquals('50.084747,14.454012', MapyCzService::parseCoords('https://mapy.cz/zakladni?x=14.4651576&y=50.0796325&z=15&source=firm&id=468797')->__toString());
-			$this->assertEquals('50.093312,14.455159', MapyCzService::parseCoords('https://mapy.cz/zakladni?x=14.4367048&y=50.0943640&z=15&source=traf&id=15659817')->__toString());
-			$this->assertEquals('49.993611,14.205278', MapyCzService::parseCoords('https://en.mapy.cz/fotografie?x=14.2029782&y=49.9929235&z=17&source=foto&id=1080344')->__toString());
-			$this->assertEquals('50.106624,14.366203', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.3596717&y=50.0997874&z=15&source=base&id=1833337')->__toString()); // area
-			// some other places than Czechia (source OSM)
-			$this->assertEquals('49.444980,11.109055', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=11.0924687&y=49.4448356&z=15&source=osm&id=112448327')->__toString());
-			// negative coordinates (source OSM)
-			$this->assertEquals('54.766918,-101.873729', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=-101.8754373&y=54.7693842&z=15&source=osm&id=1000536418')->__toString());
-			$this->assertEquals('-18.917187,47.535795', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=47.5323757&y=-18.9155159&z=16&source=osm&id=1040985945')->__toString());
-			$this->assertEquals('-45.870330,-67.507560', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=-67.5159386&y=-45.8711989&z=15&source=osm&id=17164289')->__toString());
-		}
+		$this->assertEquals('50.073784,14.422105', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=2111676')->__toString());
+		$this->assertEquals('50.084007,14.440339', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4527551&y=50.0750056&z=15&source=pubt&id=15308193')->__toString());
+		$this->assertEquals('50.084747,14.454012', MapyCzService::parseCoords('https://mapy.cz/zakladni?x=14.4651576&y=50.0796325&z=15&source=firm&id=468797')->__toString());
+		$this->assertEquals('50.093312,14.455159', MapyCzService::parseCoords('https://mapy.cz/zakladni?x=14.4367048&y=50.0943640&z=15&source=traf&id=15659817')->__toString());
+		$this->assertEquals('49.993611,14.205278', MapyCzService::parseCoords('https://en.mapy.cz/fotografie?x=14.2029782&y=49.9929235&z=17&source=foto&id=1080344')->__toString());
+		$this->assertEquals('50.106624,14.366203', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.3596717&y=50.0997874&z=15&source=base&id=1833337')->__toString()); // area
+		// some other places than Czechia (source OSM)
+		$this->assertEquals('49.444980,11.109055', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=11.0924687&y=49.4448356&z=15&source=osm&id=112448327')->__toString());
+		// negative coordinates (source OSM)
+		$this->assertEquals('54.766918,-101.873729', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=-101.8754373&y=54.7693842&z=15&source=osm&id=1000536418')->__toString());
+		$this->assertEquals('-18.917187,47.535795', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=47.5323757&y=-18.9155159&z=16&source=osm&id=1040985945')->__toString());
+		$this->assertEquals('-45.870330,-67.507560', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=-67.5159386&y=-45.8711989&z=15&source=osm&id=17164289')->__toString());
 	}
 
 	/**
@@ -136,22 +124,18 @@ final class MapyCzServiceTest extends TestCase
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
 	public function testValidMapyCzIdShortUrl(): void {
-		if (is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
-            $this->markTestSkipped('MapyCZ dummy server url is not set.');
-        } else {
-			$this->assertEquals('50.533111,16.155906', MapyCzService::parseCoords('https://en.mapy.cz/s/devevemoje')->__toString());
-			$this->assertEquals('50.084007,14.440339', MapyCzService::parseCoords('https://en.mapy.cz/s/degogalazo')->__toString());
-			$this->assertEquals('50.084747,14.454012', MapyCzService::parseCoords('https://en.mapy.cz/s/cavukepuba')->__toString());
-			$this->assertEquals('50.093312,14.455159', MapyCzService::parseCoords('https://en.mapy.cz/s/fuvatavode')->__toString());
-			$this->assertEquals('50.106624,14.366203', MapyCzService::parseCoords('https://en.mapy.cz/s/gesaperote')->__toString()); // area
-			// some other places than Czechia (source OSM)
-			$this->assertEquals('49.444980,11.109055', MapyCzService::parseCoords('https://en.mapy.cz/s/hozogeruvo')->__toString());
-			// negative coordinates (source OSM)
-			$this->assertEquals('54.766918,-101.873729', MapyCzService::parseCoords('https://en.mapy.cz/s/dasorekeja')->__toString());
+		$this->assertEquals('50.533111,16.155906', MapyCzService::parseCoords('https://en.mapy.cz/s/devevemoje')->__toString());
+		$this->assertEquals('50.084007,14.440339', MapyCzService::parseCoords('https://en.mapy.cz/s/degogalazo')->__toString());
+		$this->assertEquals('50.084747,14.454012', MapyCzService::parseCoords('https://en.mapy.cz/s/cavukepuba')->__toString());
+		$this->assertEquals('50.093312,14.455159', MapyCzService::parseCoords('https://en.mapy.cz/s/fuvatavode')->__toString());
+		$this->assertEquals('50.106624,14.366203', MapyCzService::parseCoords('https://en.mapy.cz/s/gesaperote')->__toString()); // area
+		// some other places than Czechia (source OSM)
+		$this->assertEquals('49.444980,11.109055', MapyCzService::parseCoords('https://en.mapy.cz/s/hozogeruvo')->__toString());
+		// negative coordinates (source OSM)
+		$this->assertEquals('54.766918,-101.873729', MapyCzService::parseCoords('https://en.mapy.cz/s/dasorekeja')->__toString());
 //			$this->assertEquals('-18.917167,47.535756', MapyCzService::parseCoords('https://en.mapy.cz/s/maposedeso')->__toString());
-			$this->assertEquals('-18.917187,47.535795', MapyCzService::parseCoords('https://en.mapy.cz/s/maposedeso')->__toString());
-			$this->assertEquals('-45.870330,-67.507560', MapyCzService::parseCoords('https://en.mapy.cz/s/robelevuja')->__toString());
-		}
+		$this->assertEquals('-18.917187,47.535795', MapyCzService::parseCoords('https://en.mapy.cz/s/maposedeso')->__toString());
+		$this->assertEquals('-45.870330,-67.507560', MapyCzService::parseCoords('https://en.mapy.cz/s/robelevuja')->__toString());
 	}
 
 	/**
@@ -160,12 +144,8 @@ final class MapyCzServiceTest extends TestCase
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
 	public function testInvalidMapyCzId(): void {
-		if (is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
-            $this->markTestSkipped('MapyCZ dummy server url is not set.');
-        } else {
-			$this->expectExceptionMessage('Not found!');
-			MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=1234');
-		}
+		$this->expectExceptionMessage('Not found!');
+		MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=1234');
 	}
 
 	/** @noinspection PhpUnhandledExceptionInspection */

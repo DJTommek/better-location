@@ -39,14 +39,6 @@ class DefaultConfig
 	/** @var ?string API key to What3Word service https://developer.what3words.com/public-api or null to disable */
 	const W3W_API_KEY = null;
 
-	/**
-	 * URL to NodeJS dummy server to handle generating payload and requests for MapyCZ place IDs. For more info see src/nodejs/README.md
-	 * @var ?string URL of your webserver (without trailing slash) or null to disable and fallback to using inaccurate x and y coordinates from URL.
-	 */
-	const MAPY_CZ_DUMMY_SERVER_URL = null;
-	/** @var int Request timeout in seconds */
-	const MAPY_CZ_DUMMY_SERVER_TIMEOUT = 5;
-
 	/** @var ?string */
 	const GLYMPSE_API_USERNAME = null;
 	/** @var ?string */

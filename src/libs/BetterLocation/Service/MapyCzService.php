@@ -153,8 +153,8 @@ final class MapyCzService extends AbstractService
 		parse_str($parsedUrl['query'], $urlParams);
 		if ($urlParams) {
 			$mapyCzApi = new MapyCzApi();
-			// Dummy server is enabled and MapyCZ URL has necessary parameters
-			if (\Config::MAPY_CZ_DUMMY_SERVER_URL && isset($urlParams['pid']) && is_numeric($urlParams['pid']) && $urlParams['pid'] > 0) {
+			// URL with Panoraama ID
+			if (isset($urlParams['pid']) && is_numeric($urlParams['pid']) && $urlParams['pid'] > 0) {
 				$mapyCzResponse = $mapyCzApi->loadPanoramaDetails(intval($urlParams['pid']));
 				$betterLocation = new BetterLocation($url, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PANORAMA);
 				if ($returnCollection) {
@@ -163,7 +163,8 @@ final class MapyCzService extends AbstractService
 					return $betterLocation;
 				}
 			}
-			if (\Config::MAPY_CZ_DUMMY_SERVER_URL && isset($urlParams['id']) && is_numeric($urlParams['id']) && $urlParams['id'] > 0 && isset($urlParams['source'])) {
+			// URL with Place ID
+			if (isset($urlParams['id']) && is_numeric($urlParams['id']) && $urlParams['id'] > 0 && isset($urlParams['source'])) {
 				$mapyCzResponse = $mapyCzApi->loadPoiDetails($urlParams['source'], intval($urlParams['id']));
 				$betterLocation = new BetterLocation($url, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PLACE_ID);
 				if ($returnCollection) {
@@ -203,59 +204,5 @@ final class MapyCzService extends AbstractService
 			return $betterLocationCollection;
 		}
 		throw new InvalidLocationException('Unable to get any valid location from Mapy.cz link');
-	}
-
-	/**
-	 * @param string $source
-	 * @param int $placeId
-	 * @return float[]
-	 * @throws InvalidLocationException
-	 */
-	private static function getCoordsFromPlaceId(string $source, int $placeId): array {
-		$dummyMapyCzApiUrl = \Config::MAPY_CZ_DUMMY_SERVER_URL . '/poiagg?' . http_build_query([
-				'source' => $source,
-				'point' => $placeId,
-			]);
-		try {
-			$response = General::fileGetContents($dummyMapyCzApiUrl, [
-				CURLOPT_CONNECTTIMEOUT => \Config::MAPY_CZ_DUMMY_SERVER_TIMEOUT,
-				CURLOPT_TIMEOUT => \Config::MAPY_CZ_DUMMY_SERVER_TIMEOUT,
-			]);
-			$jsonResponse = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
-		} catch (\Exception $exception) {
-			Debugger::log(sprintf('MapyCZ dummy server request: "%s", error: "%s"', $dummyMapyCzApiUrl, $exception->getMessage()), Debugger::ERROR);
-			throw new InvalidLocationException('Unable to get coordinates from MapyCZ place ID.');
-		}
-		if (isset($jsonResponse->result->poi->mark->lat) && isset($jsonResponse->result->poi->mark->lon)) {
-			return [$jsonResponse->result->poi->mark->lat, $jsonResponse->result->poi->mark->lon];
-		} else {
-			throw new InvalidLocationException(sprintf('Unable to get valid coordinates from place ID "%d".', $placeId));
-		}
-	}
-
-	/**
-	 * @param int $panoramaId
-	 * @return float[]
-	 * @throws InvalidLocationException
-	 */
-	private static function getCoordsFromPanoramaId(int $panoramaId): array {
-		$dummyMapyCzApiUrl = \Config::MAPY_CZ_DUMMY_SERVER_URL . '/panorpc?' . http_build_query([
-				'point' => $panoramaId,
-			]);
-		try {
-			$response = General::fileGetContents($dummyMapyCzApiUrl, [
-				CURLOPT_CONNECTTIMEOUT => \Config::MAPY_CZ_DUMMY_SERVER_TIMEOUT,
-				CURLOPT_TIMEOUT => \Config::MAPY_CZ_DUMMY_SERVER_TIMEOUT,
-			]);
-			$jsonResponse = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
-		} catch (\Exception $exception) {
-			Debugger::log(sprintf('MapyCZ dummy server request: "%s", error: "%s"', $dummyMapyCzApiUrl, $exception->getMessage()), Debugger::ERROR);
-			throw new InvalidLocationException('Unable to get coordinates from MapyCZ panorama ID, contact Admin for more info.');
-		}
-		if (isset($jsonResponse->result->result->mark->lat) && isset($jsonResponse->result->result->mark->lon)) {
-			return [$jsonResponse->result->result->mark->lat, $jsonResponse->result->result->mark->lon];
-		} else {
-			throw new InvalidLocationException(sprintf('Unable to get valid coordinates from panorama ID "%d".', $panoramaId));
-		}
 	}
 }

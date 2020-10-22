@@ -10,10 +10,6 @@ Available publicly on [@BetterLocationBot](https://t.me/BetterLocationBot).
 - Database server (written and tested with MySQL 8 and MariaDB 10)
 - Domain with SSL certificate (might be self-signed). Detailed requirements are described on [Telegram's webhook page](https://core.telegram.org/bots/webhooks).
 
-## ⚠ Important note
-MapyCZ link with a Place ID or Panorama ID is currently **NOT** working properly without an additional NodeJS server. Read [this page](src/nodejs/README.md) for more info.  
-
-
 ## Installation
 1. Download/clone [BetterLocation repository](https://github.com/DJTommek/better-location).
 1. Run `composer install`.
