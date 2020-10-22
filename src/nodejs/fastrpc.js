@@ -151,12 +151,13 @@ function panoramaIdToPayload(panoramaId) {
 	// const frpcCall = JAK.FRPC.serializeCall('base', ['pubt', placeId], null);
 	const result = JAK.Base64.btoa(frpcCall);
 	console.log(`Panorama ID "${panoramaId}" = payload "${result}"`);
-	return result
+	return result;
 }
 
 /**
  * Request to MapyCZ FastRPC API
  *
+ * @param path {string}
  * @param {string} postContent - Magic base64 string generated from JAK.Base64.btoa()
  * @param {function(null|string, null|json)} callback
  */
