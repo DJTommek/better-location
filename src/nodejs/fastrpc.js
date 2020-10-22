@@ -73,46 +73,16 @@ const server = HTTP.createServer((req, res) => {
 			});
 			break;
 		case '/panorpc':
-			const panoramaBase64Request = panoramaIdToPayload(mapyCzPlaceId);
-			requestMapyCz('/panorpc', panoramaBase64Request, function (error, firstResponse) {
-				try {
-					if (error) {
-						throw new Error(error);
-					}
-					if (firstResponse.result.neighbours.length === 0) {
-						throw new Error('No neighbour is available.');
-					}
-					requestMapyCz('/panorpc', panoramaIdToPayload(firstResponse.result.neighbours[0].near.pid), function (error, secondResponse) {
-						try {
-							if (error) {
-								throw new Error(error);
-							}
-							if (secondResponse.result.neighbours.length === 0) {
-								throw new Error('Neighbour\'s neighbour has no neighbour.. huh?');
-							}
-							for (const neighbour of secondResponse.result.neighbours) {
-								if (neighbour.near.pid === mapyCzPlaceId) {
-									res.result.message = null;
-									res.result.error = false;
-									res.result.result = neighbour;
-									break;
-								}
-							}
-							if (res.result.error) {
-								res.result.error = false;
-								res.result.result = firstResponse.result.neighbours[0];
-								res.result.message = 'Can\'t find neighbour with PID as have original requested panorama ID. Using it\'s neighbour PID "' + firstResponse.result.neighbours[0].near.pid + '" .';
-							}
-						} catch (error) {
-							res.result.message = error.message;
-						} finally {
-							res.result.end();
-						}
-					});
-				} catch (error) {
-					res.result.message = error.message;
-					res.result.end();
+			const panoramaBase64Request = panoramaIdDetailToPayload(mapyCzPlaceId);
+			requestMapyCz('/panorpc', panoramaBase64Request, function (error, response) {
+				if (error) {
+					res.result.message = error;
+				} else {
+					res.result.message = null;
+					res.result.error = false;
+					res.result.result = response;
 				}
+				res.result.end();
 			});
 			break;
 		default:
@@ -146,9 +116,22 @@ function placeIdToPayload(placeId, source) {
  * @param {number} panoramaId
  * @return {string}
  */
-function panoramaIdToPayload(panoramaId) {
+function panoramaIdNeighboursToPayload(panoramaId) {
 	const frpcCall = JAK.FRPC.serializeCall('getneighbours', [panoramaId], null);
 	// const frpcCall = JAK.FRPC.serializeCall('base', ['pubt', placeId], null);
+	const result = JAK.Base64.btoa(frpcCall);
+	console.log(`Panorama ID "${panoramaId}" = payload "${result}"`);
+	return result;
+}
+
+/**
+ * All magic happens here...
+ *
+ * @param {number} panoramaId
+ * @return {string}
+ */
+function panoramaIdDetailToPayload(panoramaId) {
+	const frpcCall = JAK.FRPC.serializeCall('detail', [panoramaId], null);
 	const result = JAK.Base64.btoa(frpcCall);
 	console.log(`Panorama ID "${panoramaId}" = payload "${result}"`);
 	return result;

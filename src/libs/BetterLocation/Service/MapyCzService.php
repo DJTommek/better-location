@@ -250,8 +250,8 @@ final class MapyCzService extends AbstractService
 			Debugger::log(sprintf('MapyCZ dummy server request: "%s", error: "%s"', $dummyMapyCzApiUrl, $exception->getMessage()), Debugger::ERROR);
 			throw new InvalidLocationException('Unable to get coordinates from MapyCZ panorama ID, contact Admin for more info.');
 		}
-		if (isset($jsonResponse->result->near->mark->lat) && isset($jsonResponse->result->near->mark->lon)) {
-			return [$jsonResponse->result->near->mark->lat, $jsonResponse->result->near->mark->lon];
+		if (isset($jsonResponse->result->result->mark->lat) && isset($jsonResponse->result->result->mark->lon)) {
+			return [$jsonResponse->result->result->mark->lat, $jsonResponse->result->result->mark->lon];
 		} else {
 			throw new InvalidLocationException(sprintf('Unable to get valid coordinates from panorama ID "%d".', $panoramaId));
 		}
