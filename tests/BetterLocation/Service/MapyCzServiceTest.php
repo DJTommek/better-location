@@ -102,7 +102,7 @@ final class MapyCzServiceTest extends TestCase
 		if (is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
             $this->markTestSkipped('MapyCZ dummy server url is not set.');
         } else {
-			$this->expectExceptionMessage('Unable to get valid coordinates from panorama ID "99999999999".');
+			$this->expectExceptionMessage('Panorama with id \'99999999999\' not found!');
 			MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0162139&y=50.0820182&z=16&pano=1&pid=99999999999&yaw=5.522&fov=1.257&pitch=0.101');
 		}
 	}
@@ -163,7 +163,7 @@ final class MapyCzServiceTest extends TestCase
 		if (is_null(\Config::MAPY_CZ_DUMMY_SERVER_URL)) {
             $this->markTestSkipped('MapyCZ dummy server url is not set.');
         } else {
-			$this->expectExceptionMessage('Unable to get valid coordinates from place ID "1234".');
+			$this->expectExceptionMessage('Not found!');
 			MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=1234');
 		}
 	}

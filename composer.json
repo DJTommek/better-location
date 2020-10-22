@@ -14,7 +14,8 @@
 		"djtommek/telegram-api": "master",
 		"bogdaan/open-location-code": "dev-master",
 		"what3words/w3w-php-wrapper": "^3.3",
-		"ext-pdo": "*"
+		"ext-pdo": "*",
+		"ext-simplexml": "*"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^9"

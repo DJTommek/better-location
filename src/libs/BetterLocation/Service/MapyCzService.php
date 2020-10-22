@@ -7,6 +7,7 @@ use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
 use BetterLocation\Url;
+use MapyCzApi\MapyCzApi;
 use Tracy\Debugger;
 use Utils\General;
 
@@ -151,10 +152,11 @@ final class MapyCzService extends AbstractService
 		}
 		parse_str($parsedUrl['query'], $urlParams);
 		if ($urlParams) {
+			$mapyCzApi = new MapyCzApi();
 			// Dummy server is enabled and MapyCZ URL has necessary parameters
 			if (\Config::MAPY_CZ_DUMMY_SERVER_URL && isset($urlParams['pid']) && is_numeric($urlParams['pid']) && $urlParams['pid'] > 0) {
-				list($lat, $lon) = self::getCoordsFromPanoramaId(intval($urlParams['pid']));
-				$betterLocation = new BetterLocation($url, $lat, $lon, self::class, self::TYPE_PANORAMA);
+				$mapyCzResponse = $mapyCzApi->loadPanoramaDetails(intval($urlParams['pid']));
+				$betterLocation = new BetterLocation($url, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PANORAMA);
 				if ($returnCollection) {
 					$betterLocationCollection[self::TYPE_PANORAMA] = $betterLocation;
 				} else {
@@ -162,8 +164,8 @@ final class MapyCzService extends AbstractService
 				}
 			}
 			if (\Config::MAPY_CZ_DUMMY_SERVER_URL && isset($urlParams['id']) && is_numeric($urlParams['id']) && $urlParams['id'] > 0 && isset($urlParams['source'])) {
-				list($lat, $lon) = self::getCoordsFromPlaceId($urlParams['source'], intval($urlParams['id']));
-				$betterLocation = new BetterLocation($url, $lat, $lon, self::class, self::TYPE_PLACE_ID);
+				$mapyCzResponse = $mapyCzApi->loadPoiDetails($urlParams['source'], intval($urlParams['id']));
+				$betterLocation = new BetterLocation($url, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PLACE_ID);
 				if ($returnCollection) {
 					$betterLocationCollection[self::TYPE_PLACE_ID] = $betterLocation;
 				} else {
