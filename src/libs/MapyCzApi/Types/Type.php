@@ -8,7 +8,13 @@ namespace MapyCzApi\Types;
  */
 abstract class Type
 {
-	protected static function cast(\stdClass $instance)
+	/**
+	 * Cast stdClass into specific type
+	 *
+	 * @author https://stackoverflow.com/a/3243949/3334403
+	 * @author https://tommcfarlin.com/cast-a-php-standard-class-to-a-specific-type/
+	 */
+	public static function cast(\stdClass $instance)
 	{
 		return unserialize(sprintf(
 			'O:%d:"%s"%s',

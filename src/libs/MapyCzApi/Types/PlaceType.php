@@ -3,13 +3,11 @@
 namespace MapyCzApi\Types;
 
 /**
+ * @method static self cast(\stdClass $stdClass)
+ *
  * @version 2020-10-22
  * @author Tomas Palider (DJTommek) https://tomas.palider.cz/
  */
 class PlaceType extends Type
 {
-	public static function cast(\stdClass $instance): self
-	{
-		return parent::cast($instance);
-	}
 }
