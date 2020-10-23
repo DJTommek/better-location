@@ -2,6 +2,10 @@
 
 namespace MapyCzApi;
 
+use MapyCzApi\Types\PanoramaNeighbourType;
+use MapyCzApi\Types\PanoramaType;
+use MapyCzApi\Types\PlaceType;
+
 class MapyCzApi
 {
 	const API_URL = 'https://pro.mapy.cz';
@@ -10,21 +14,33 @@ class MapyCzApi
 	private const API_ENDPOINT_PANORAMA = '/panorpc';
 
 	private const API_METHOD_DETAIL = 'detail';
+	private const API_METHOD_GET_NEIGHBOURS = 'getneighbours';
 
 	/** @throws MapyCzApiException|\JsonException */
-	public function loadPoiDetails(string $source, int $id): Types\PlaceType
+	public function loadPoiDetails(string $source, int $id): PlaceType
 	{
 		$xmlBody = $this->generateXmlRequest(self::API_METHOD_DETAIL, $source, $id);
 		$response = $this->makeApiRequest(self::API_ENDPOINT_POI, $xmlBody);
-		return \MapyCzApi\Types\PlaceType::cast($response->poi);
+		return PlaceType::cast($response->poi);
 	}
 
 	/** @throws MapyCzApiException|\JsonException */
-	public function loadPanoramaDetails(int $id): Types\PanoramaType
+	public function loadPanoramaDetails(int $id): PanoramaType
 	{
 		$body = $this->generateXmlRequest(self::API_METHOD_DETAIL, $id);
 		$response = $this->makeApiRequest(self::API_ENDPOINT_PANORAMA, $body);
-		return \MapyCzApi\Types\PanoramaType::cast($response->result);
+		return PanoramaType::cast($response->result);
+	}
+
+	/**
+	 * @return PanoramaNeighbourType[]
+	 * @throws MapyCzApiException|\JsonException
+	 */
+	public function loadPanoramaNeighbours(int $id): array
+	{
+		$body = $this->generateXmlRequest(self::API_METHOD_GET_NEIGHBOURS, $id);
+		$response = $this->makeApiRequest(self::API_ENDPOINT_PANORAMA, $body);
+		return PanoramaNeighbourType::createFromResponse($response);
 	}
 
 	/** @throws MapyCzApiException */
