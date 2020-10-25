@@ -211,7 +211,7 @@ abstract class Events
 		$text .= sprintf('- add any link, text, special code etc and choose one of the output') . PHP_EOL;
 		$text .= sprintf('- send your current position (on mobile devices only)') . PHP_EOL;
 		$text .= sprintf('- search literally anything via Google search API') . PHP_EOL;
-		$text .= sprintf('%s <a href="%s">See video here</a>', \Icons::VIDEO, 'https://t.me/BetterLocationInfo/8') . PHP_EOL;
+		$text .= sprintf('%s <a href="%s">See video here</a>', \Icons::VIDEO, 'https://t.me/BetterLocation/8') . PHP_EOL;
 		$text .= PHP_EOL;
 //		$text .= sprintf('%s <b>Private chat:</b>', Icons::USER) . PHP_EOL;
 //		$text .= sprintf('Just send me some link to or coordinate and I will generate message <b>just</b> for you.') . PHP_EOL;
@@ -228,7 +228,7 @@ abstract class Events
 		$text .= sprintf('%s - %s Report invalid location or just contact the author', FeedbackCommand::getCmd(!$this->isPm()), \Icons::FEEDBACK) . PHP_EOL;
 		$text .= sprintf('%s - %s Manage your saved favourite locations (works only in PM)', FavouritesCommand::getCmd(!$this->isPm()), \Icons::FAVOURITE) . PHP_EOL;
 		$text .= PHP_EOL;
-		$text .= sprintf('%s For more info check out the <a href="%s">@BetterLocationInfo</a> channel.', \Icons::INFO, 'https://t.me/BetterLocationInfo/3') . PHP_EOL;
+		$text .= sprintf('%s For more info check out the <a href="%s">@BetterLocation</a> channel.', \Icons::INFO, 'https://t.me/BetterLocation/3') . PHP_EOL;
 		$text .= PHP_EOL;
 
 //		$text .= sprintf(Icons::WARNING . ' <b>Warning</b>: Bot is currently in active development so there is no guarantee that it will work at all times. Check Github for more info.') . PHP_EOL;
