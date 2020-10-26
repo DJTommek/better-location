@@ -14,6 +14,7 @@ class MapyCzApi
 	private const API_ENDPOINT_PANORAMA = '/panorpc';
 
 	private const API_METHOD_DETAIL = 'detail';
+	private const API_METHOD_LOOKUP_BOX = 'lookupbox';
 	private const API_METHOD_GET_NEIGHBOURS = 'getneighbours';
 
 	/** @throws MapyCzApiException|\JsonException */
@@ -41,6 +42,19 @@ class MapyCzApi
 		$body = $this->generateXmlRequest(self::API_METHOD_GET_NEIGHBOURS, $id);
 		$response = $this->makeApiRequest(self::API_ENDPOINT_PANORAMA, $body);
 		return PanoramaNeighbourType::createFromResponse($response);
+	}
+
+	/** @throws MapyCzApiException|\JsonException */
+	public function loadLookupBox(float $lon1, float $lat1, float $lon2, float $lat2, $options): array
+	{
+		$xmlBody = $this->generateXmlRequest(self::API_METHOD_LOOKUP_BOX, $lon1, $lat1, $lon2, $lat2, $options);
+		dump($xmlBody);
+		$response = $this->makeApiRequest(self::API_ENDPOINT_POI, $xmlBody);
+		$places = [];
+		foreach ($response->poi as $poi) {
+			$places[] = PlaceType::cast($poi);
+		}
+		return $places;
 	}
 
 	/** @throws MapyCzApiException */
@@ -77,8 +91,24 @@ class MapyCzApi
 			$xmlValue = $xmlParam->addChild('value');
 			if (is_int($param)) {
 				$xmlValue->addChild('int', strval($param));
+			} else if (is_double($param)) {
+				$xmlValue->addChild('double', strval($param));
 			} else if (is_string($param)) {
 				$xmlValue->addChild('string', $param);
+			} else if ($param instanceof \stdClass) {
+				$xmlStruct = $xmlValue->addChild('struct');
+				foreach ($param as $structName => $structValue) {
+					$xmlStructMember = $xmlStruct->addChild('member');
+					$xmlStructMember->addChild('name', $structName);
+					$xmlStructMemberValue = $xmlStructMember->addChild('value');
+					if (is_int($structValue)) {
+						$xmlStructMemberValue->addChild('int', strval($structValue));
+					} else if (is_string($structValue)) {
+						$xmlStructMemberValue->addChild('string', $structValue);
+					} else {
+						throw new \InvalidArgumentException(sprintf('Unexpected struct type "%s" of parameter.', gettype($param)));
+					}
+				}
 			} else {
 				throw new \InvalidArgumentException(sprintf('Unexpected type "%s" of parameter.', gettype($param)));
 			}
