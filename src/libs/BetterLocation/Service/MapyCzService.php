@@ -7,9 +7,8 @@ use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
 use BetterLocation\Url;
-use MapyCzApi\MapyCzApi;
-use Tracy\Debugger;
-use Utils\General;
+use \DJTommek\MapyCzApi\MapyCzApi;
+use \DJTommek\MapyCzApi\MapyCzApiException;
 
 final class MapyCzService extends AbstractService
 {
@@ -155,7 +154,11 @@ final class MapyCzService extends AbstractService
 			$mapyCzApi = new MapyCzApi();
 			// URL with Panoraama ID
 			if (isset($urlParams['pid']) && is_numeric($urlParams['pid']) && $urlParams['pid'] > 0) {
-				$mapyCzResponse = $mapyCzApi->loadPanoramaDetails(intval($urlParams['pid']));
+				try {
+					$mapyCzResponse = $mapyCzApi->loadPanoramaDetails(intval($urlParams['pid']));
+				} catch (MapyCzApiException $exception) {
+					throw new InvalidLocationException(sprintf('MapyCz API response: "%s"', htmlentities($exception->getMessage())));
+				}
 				$betterLocation = new BetterLocation($url, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PANORAMA);
 				if ($returnCollection) {
 					$betterLocationCollection[self::TYPE_PANORAMA] = $betterLocation;
@@ -165,7 +168,11 @@ final class MapyCzService extends AbstractService
 			}
 			// URL with Place ID
 			if (isset($urlParams['id']) && is_numeric($urlParams['id']) && $urlParams['id'] > 0 && isset($urlParams['source'])) {
-				$mapyCzResponse = $mapyCzApi->loadPoiDetails($urlParams['source'], intval($urlParams['id']));
+				try {
+					$mapyCzResponse = $mapyCzApi->loadPoiDetails($urlParams['source'], intval($urlParams['id']));
+				} catch (MapyCzApiException $exception) {
+					throw new InvalidLocationException(sprintf('MapyCz API response: "%s"', htmlentities($exception->getMessage())));
+				}
 				$betterLocation = new BetterLocation($url, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PLACE_ID);
 				if ($returnCollection) {
 					$betterLocationCollection[self::TYPE_PLACE_ID] = $betterLocation;
