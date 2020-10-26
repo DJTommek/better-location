@@ -10,6 +10,7 @@
 		"unreal4u/telegram-api": "dev-master#8985cd8572419db028737d9960a309b1749def15",
 		"bogdaan/open-location-code": "dev-master",
 		"what3words/w3w-php-wrapper": "^3.3",
+		"djtommek/mapycz-api": "^1",
 		"ext-pdo": "*",
 		"ext-simplexml": "*"
 	},
