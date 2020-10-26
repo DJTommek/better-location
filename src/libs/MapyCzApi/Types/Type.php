@@ -24,13 +24,4 @@ abstract class Type
 		));
 	}
 
-	public function getLat(): float
-	{
-		return $this->mark->lat;
-	}
-
-	public function getLon(): float
-	{
-		return $this->mark->lon;
-	}
 }
