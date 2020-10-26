@@ -1,17 +1,13 @@
 {
-	"repositories": [
-		{
-			"url": "https://github.com/DJTommek/telegram-api.git",
-			"type": "git"
-		}
-	],
+	"name": "djtommek/better-location",
+	"description": "Telegram bot for parsing and generating various of location formats.",
 	"require": {
 		"ext-json": "*",
 		"ext-curl": "*",
 		"ext-mbstring": "*",
 		"ext-exif": "*",
-		"tracy/tracy": "v2.7.3",
-		"djtommek/telegram-api": "master",
+		"tracy/tracy": "^2.7",
+		"unreal4u/telegram-api": "dev-master#8985cd8572419db028737d9960a309b1749def15",
 		"bogdaan/open-location-code": "dev-master",
 		"what3words/w3w-php-wrapper": "^3.3",
 		"ext-pdo": "*",
@@ -23,6 +19,6 @@
 	"scripts": {
 		"pre-install-cmd": "@php ./src/tools/CopyLocalConfig.php",
 		"pre-update-cmd": "@php ./src/tools/CopyLocalConfig.php",
-        "test": "phpunit tests"
+		"test": "phpunit tests"
 	}
 }
