@@ -259,22 +259,27 @@ abstract class Events
 	private function getHelpButtons(): Markup
 	{
 		$replyMarkup = new Markup();
-		$replyMarkup->inline_keyboard = [];
-
-		$replyMarkupRow = [];
-
-		$button = new Button();
-		$button->text = sprintf('%s Help', \Icons::REFRESH);
-		$button->callback_data = HelpButton::CMD;
-		$replyMarkupRow[] = $button;
+		$replyMarkup->inline_keyboard = [
+			[ // first row
+				new Button([
+					'text' => sprintf('%s Help', \Icons::REFRESH),
+					'callback_data' => HelpButton::CMD,
+				]),
+			], [ // second row
+				new Button([
+					'text' => sprintf('%s Try inline searching', \Icons::INLINE),
+					'switch_inline_query_current_chat' => 'Czechia Prague',
+				]),
+			],
+		];
 
 		if ($this->isPm() === true) {
-			$button = new Button();
-			$button->text = sprintf('%s Favourites', \Icons::FAVOURITE);
-			$button->callback_data = sprintf('%s %s', FavouritesButton::CMD, FavouritesButton::ACTION_REFRESH);
-			$replyMarkupRow[] = $button;
+			// add buton into first row
+			$replyMarkup->inline_keyboard[0][] = new Button([
+				'text' => sprintf('%s Favourites', \Icons::FAVOURITE),
+				'callback_data' => sprintf('%s %s', FavouritesButton::CMD, FavouritesButton::ACTION_REFRESH),
+			]);
 		}
-		$replyMarkup->inline_keyboard[] = $replyMarkupRow;
 		return $replyMarkup;
 	}
 
