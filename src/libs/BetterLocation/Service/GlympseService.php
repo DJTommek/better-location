@@ -7,7 +7,6 @@ use BetterLocation\BetterLocationCollection;
 use BetterLocation\Service\Exceptions\InvalidLocationException;
 use BetterLocation\Service\Exceptions\NotImplementedException;
 use BetterLocation\Service\Exceptions\NotSupportedException;
-use GlympseApi\Glympse;
 use GlympseApi\GlympseApiException;
 use GlympseApi\Types\TicketInvite;
 use Tracy\Debugger;
@@ -123,7 +122,7 @@ final class GlympseService extends AbstractService
 		if ($type === self::TYPE_GROUP) {
 			$prefix = sprintf('Glympse <a href="%s">!%s</a> (<a href="%s">%s</a>)',
 				$url, // assuming, that this url is https://glympse.com/!someTag
-				Glympse::getGroupIdFromUrl($url),
+				self::getGroupIdFromUrl($url),
 				$invite->getInviteIdUrl(),
 				$invite->properties->name
 			);
@@ -174,7 +173,7 @@ final class GlympseService extends AbstractService
 		$glympseApi = \Factory::Glympse();
 		$glympseApi->loadToken();
 		$betterLocationCollection = new BetterLocationCollection();
-		$inviteId = Glympse::getInviteIdFromUrl($url);
+		$inviteId = self::getInviteIdFromUrl($url);
 		try {
 			$inviteResponse = $glympseApi->loadInvite($inviteId);
 			$inviteLocation = self::processInviteLocation($url, self::TYPE_INVITE, $inviteResponse);
@@ -196,7 +195,7 @@ final class GlympseService extends AbstractService
 		$glympseApi = \Factory::Glympse();
 		$glympseApi->loadToken();
 		$betterLocationCollection = new BetterLocationCollection();
-		$groupId = Glympse::getGroupIdFromUrl($url);
+		$groupId = self::getGroupIdFromUrl($url);
 		try {
 			$groupsResponse = $glympseApi->loadGroup($groupId);
 			foreach ($groupsResponse->members as $member) {
@@ -217,4 +216,29 @@ final class GlympseService extends AbstractService
 		}
 	}
 
+	public static function getInviteIdFromUrl(string $url): ?string {
+		$parsedUrl = General::parseUrl($url);
+		if (
+			isset($parsedUrl['host']) &&
+			in_array(mb_strtolower($parsedUrl['host']), ['glympse.com', 'www.glympse.com']) &&
+			isset($parsedUrl['path']) &&
+			preg_match(GlympseService::PATH_INVITE_ID_REGEX, $parsedUrl['path'])
+		) {
+			return mb_substr($parsedUrl['path'], 1);
+		}
+		return null;
+	}
+
+	public static function getGroupIdFromUrl(string $url): ?string {
+		$parsedUrl = General::parseUrl($url);
+		if (
+			isset($parsedUrl['host']) &&
+			in_array(mb_strtolower($parsedUrl['host']), ['glympse.com', 'www.glympse.com']) &&
+			isset($parsedUrl['path']) &&
+			preg_match(GlympseService::PATH_GROUP_REGEX, $parsedUrl['path'])
+		) {
+			return urldecode(mb_substr($parsedUrl['path'], 2));
+		}
+		return null;
+	}
 }

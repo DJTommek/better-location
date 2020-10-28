@@ -2,11 +2,9 @@
 
 namespace GlympseApi;
 
-use BetterLocation\Service\GlympseService;
 use GlympseApi\Types\AccessToken;
 use GlympseApi\Types\Group;
 use GlympseApi\Types\TicketInvite;
-use Utils\General;
 
 class Glympse
 {
@@ -78,31 +76,5 @@ class Glympse
 
 	public function getToken(): ?string {
 		return $this->accessToken->accessToken;
-	}
-
-	public static function getInviteIdFromUrl(string $url): ?string {
-		$parsedUrl = General::parseUrl($url);
-		if (
-			isset($parsedUrl['host']) &&
-			in_array(mb_strtolower($parsedUrl['host']), ['glympse.com', 'www.glympse.com']) &&
-			isset($parsedUrl['path']) &&
-			preg_match(GlympseService::PATH_INVITE_ID_REGEX, $parsedUrl['path'])
-		) {
-			return mb_substr($parsedUrl['path'], 1);
-		}
-		return null;
-	}
-
-	public static function getGroupIdFromUrl(string $url): ?string {
-		$parsedUrl = General::parseUrl($url);
-		if (
-			isset($parsedUrl['host']) &&
-			in_array(mb_strtolower($parsedUrl['host']), ['glympse.com', 'www.glympse.com']) &&
-			isset($parsedUrl['path']) &&
-			preg_match(GlympseService::PATH_GROUP_REGEX, $parsedUrl['path'])
-		) {
-			return urldecode(mb_substr($parsedUrl['path'], 2));
-		}
-		return null;
 	}
 }
