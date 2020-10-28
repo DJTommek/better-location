@@ -12,6 +12,7 @@
 		"bogdaan/open-location-code": "dev-master",
 		"what3words/w3w-php-wrapper": "^3.3",
 		"djtommek/mapycz-api": "^1",
+		"djtommek/glympse-api": "^0.1.0",
 		"ext-pdo": "*",
 		"ext-simplexml": "*"
 	},
