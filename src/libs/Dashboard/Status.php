@@ -139,11 +139,11 @@ class Status
 				foreach (get_object_vars($response) as $key => $value) {
 					if ($key === 'url') {
 						if (empty($value)) {
-							$responseFormatted->{$key} = sprintf('%s Webhook URL is not set according to webhook response.', \Icons::ERROR);
+							$responseFormatted->{$key} = sprintf('%s According to Telegram API response, webhook URL is not set. Did you run <a href="set-webhook.php" target="_blank">set-webhook.php</a>?', \Icons::ERROR);
 							$webhookOk = false;
 						} else {
 							if ($value === \Config::TELEGRAM_WEBHOOK_URL) {
-								$responseFormatted->{$key} = sprintf('%s <a href="%2$s" target="_blank">%2$s</a>', \Icons::SUCCESS, $value);
+								$responseFormatted->{$key} = sprintf('%s <a href="%2$s" target="_blank">%2$s</a> (matching with Config)', \Icons::SUCCESS, $value);
 							} else {
 								$stringValue = sprintf('%s Webhook URL is set according to webhook response but it\'s different than in Config:<br>', \Icons::WARNING);
 								$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Webhook response)<br>', $value);
