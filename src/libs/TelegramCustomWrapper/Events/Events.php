@@ -33,7 +33,8 @@ abstract class Events
 	protected $command = null;
 	protected $params = [];
 
-	public function __construct(Update $update) {
+	public function __construct(Update $update)
+	{
 		$this->update = $update;
 
 		$this->loop = Factory::create();
@@ -81,15 +82,18 @@ abstract class Events
 
 	abstract protected function getMessageId();
 
-	public function getFromId() {
+	public function getFromId()
+	{
 		return $this->update->message->from->id;
 	}
 
-	public function getText() {
+	public function getText()
+	{
 		return $this->update->message->text;
 	}
 
-	public static function getCmd(bool $withSuffix = false): string {
+	public static function getCmd(bool $withSuffix = false): string
+	{
 		if ($withSuffix) {
 			return sprintf('%s@%s', static::CMD, \Config::TELEGRAM_BOT_NAME);
 		} else {
@@ -98,11 +102,13 @@ abstract class Events
 	}
 
 	/** @return bool|null null if unknown (eg. clicked on button in via_bot message) */
-	public function isPm(): ?bool {
+	public function isPm(): ?bool
+	{
 		return TelegramHelper::isPM($this->update);
 	}
 
-	public function isForward() {
+	public function isForward()
+	{
 		return TelegramHelper::isForward($this->update);
 	}
 
@@ -112,7 +118,8 @@ abstract class Events
 	 * @noinspection PhpUnused
 	 * @TODO Check if action string is valid
 	 */
-	public function sendAction(string $action = TelegramHelper::CHAT_ACTION_TYPING) {
+	public function sendAction(string $action = TelegramHelper::CHAT_ACTION_TYPING)
+	{
 		$chatAction = new SendChatAction();
 		$chatAction->chat_id = $this->getChatId();
 		$chatAction->action = $action;
@@ -127,7 +134,8 @@ abstract class Events
 	 * @return null
 	 * @throws \Exception
 	 */
-	public function reply(string $text, array $options = []) {
+	public function reply(string $text, array $options = [])
+	{
 		$msg = new SendMessage($this->getChatId(), $text, $this->getMessageId());
 		if (isset($options['reply_markup'])) {
 			$msg->setReplyMarkup($options['reply_markup']);
@@ -143,7 +151,8 @@ abstract class Events
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	public function run($objectToSend) {
+	public function run($objectToSend)
+	{
 
 		$promise = $this->tgLog->performApiRequest($objectToSend);
 		$this->loop->run();
@@ -180,7 +189,8 @@ abstract class Events
 	 * @param bool $inline
 	 * @throws \Exception
 	 */
-	protected function processHelp(bool $inline = false) {
+	protected function processHelp(bool $inline = false)
+	{
 
 		$lat = 50.087451;
 		$lon = 14.420671;
@@ -246,7 +256,8 @@ abstract class Events
 		}
 	}
 
-	private function getHelpButtons(): Markup {
+	private function getHelpButtons(): Markup
+	{
 		$replyMarkup = new Markup();
 		$replyMarkup->inline_keyboard = [];
 
@@ -267,7 +278,8 @@ abstract class Events
 		return $replyMarkup;
 	}
 
-	protected function processFavouritesList(bool $inline = false) {
+	protected function processFavouritesList(bool $inline = false)
+	{
 		$replyMarkup = new Markup();
 		$replyMarkup->inline_keyboard = [
 			[ // row of buttons
