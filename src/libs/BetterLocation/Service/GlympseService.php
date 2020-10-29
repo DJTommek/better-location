@@ -216,28 +216,20 @@ final class GlympseService extends AbstractService
 		}
 	}
 
-	public static function getInviteIdFromUrl(string $url): ?string {
+	private static function getInviteIdFromUrl(string $url): ?string {
 		$parsedUrl = General::parseUrl($url);
-		if (
-			isset($parsedUrl['host']) &&
-			in_array(mb_strtolower($parsedUrl['host']), ['glympse.com', 'www.glympse.com']) &&
-			isset($parsedUrl['path']) &&
-			preg_match(GlympseService::PATH_INVITE_ID_REGEX, $parsedUrl['path'])
-		) {
-			return mb_substr($parsedUrl['path'], 1);
+		// no need to check domain and path, it already has been done earlier
+		if (preg_match(GlympseService::PATH_INVITE_ID_REGEX, $parsedUrl['path'])) {
+			return mb_substr($parsedUrl['path'], 1); // remove "/"
 		}
 		return null;
 	}
 
-	public static function getGroupIdFromUrl(string $url): ?string {
+	private static function getGroupIdFromUrl(string $url): ?string {
 		$parsedUrl = General::parseUrl($url);
-		if (
-			isset($parsedUrl['host']) &&
-			in_array(mb_strtolower($parsedUrl['host']), ['glympse.com', 'www.glympse.com']) &&
-			isset($parsedUrl['path']) &&
-			preg_match(GlympseService::PATH_GROUP_REGEX, $parsedUrl['path'])
-		) {
-			return urldecode(mb_substr($parsedUrl['path'], 2));
+		// no need to check domain and path, it already has been done earlier
+		if (preg_match(GlympseService::PATH_GROUP_REGEX, $parsedUrl['path'])) {
+			return urldecode(mb_substr($parsedUrl['path'], 2)); // remove "/!"
 		}
 		return null;
 	}
