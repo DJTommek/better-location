@@ -13,7 +13,7 @@ $localConfigFilePath = __DIR__ . '/../data/config.local.php';
 if (file_exists($localConfigFilePath)) {
 	require_once $localConfigFilePath;
 } else {
-	throw new \Exception(sprintf('Missing local config in "%s".', $localConfigFilePath));
+	throw new \Exception(sprintf('Missing local config in "%s". Tip: Did you try to run "composer install" command?', $vendorAutoloadFilePath));
 }
 
 Tracy\Debugger::enable(App\Config::TRACY_DEVELOPMENT_IPS, App\Config::FOLDER_DATA . '/tracy-log/');
