@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocation;
 use Tracy\Debugger;
 
 require_once __DIR__ . '/src/bootstrap.php';
@@ -16,14 +16,14 @@ $response->message = null;
 try {
 	if (isset($_POST['input'])) {
 		$input = $_POST['input'];
-		$entities = \TelegramCustomWrapper\TelegramHelper::generateEntities($input);
+		$entities = \App\TelegramCustomWrapper\TelegramHelper::generateEntities($input);
 		$betterLocations = BetterLocation::generateFromTelegramMessage($input, $entities);
 		if (count($betterLocations)) {
 			$response->error = false;
 			foreach ($betterLocations->getAll() as $betterLocation) {
 				if ($betterLocation instanceof BetterLocation) {
 					$response->result[] = $betterLocation->export();
-				} else if ($betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException) {
+				} else if ($betterLocation instanceof \App\BetterLocation\Service\Exceptions\InvalidLocationException) {
 					$response->message = htmlentities($betterLocation->getMessage());
 				} else {
 					Debugger::log($betterLocation, \Tracy\ILogger::EXCEPTION);
@@ -40,6 +40,6 @@ try {
 	}
 } catch (\Exception $exception) {
 	$response->error = true;
-	$response->message = sprintf('%s Error occured while processing input: %s', Icons::ERROR, $exception->getMessage());
+	$response->message = sprintf('%s Error occured while processing input: %s', App\Icons::ERROR, $exception->getMessage());
 }
 die(json_encode($response));
