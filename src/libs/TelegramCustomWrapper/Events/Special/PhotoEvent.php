@@ -1,23 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper\Events\Special;
+namespace App\TelegramCustomWrapper\Events\Special;
 
-use \Icons;
-use BetterLocation\BetterLocation;
-use TelegramCustomWrapper\TelegramHelper;
+use App\BetterLocation\BetterLocation;
+use App\Icons;
+use App\TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class PhotoEvent extends Special
 {
-	/**
-	 * PhotoCommand constructor.
-	 *
-	 * @param $update
-	 * @throws \Exception
-	 */
-	public function __construct($update) {
+	public function __construct($update)
+	{
 		parent::__construct($update);
 
 		$result = '';

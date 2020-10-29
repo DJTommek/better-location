@@ -3,11 +3,11 @@
 require_once __DIR__ . '/src/bootstrap.php';
 
 if (isset($_GET['delete-tracy-email-sent'])) {
-	if (@unlink(\Dashboard\Status::getTracyEmailSentFilePath())) {
-		printf('<p>%s Tracy\'s "email-sent" file was deleted.</p>', Icons::SUCCESS);
+	if (@unlink(\App\Dashboard\Status::getTracyEmailSentFilePath())) {
+		printf('<p>%s Tracy\'s "email-sent" file was deleted.</p>', \App\Icons::SUCCESS);
 	} else {
 		$lastPhpError = error_get_last();
-		printf('<p>%s Error while deleting Tracy\'s "email-sent" file: <b>%s</b></p>', Icons::ERROR, $lastPhpError ? $lastPhpError['message'] : 'unknown error');
+		printf('<p>%s Error while deleting Tracy\'s "email-sent" file: <b>%s</b></p>', \App\Icons::ERROR, $lastPhpError ? $lastPhpError['message'] : 'unknown error');
 	}
 	die('<p>Go back to <a href="./index.php">index.php</a></p>');
 }
@@ -24,13 +24,13 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 </head>
 <body>
 <div class="container">
-	<h1><?= \Icons::LOCATION; ?> <a href="./">BetterLocation</a> - Admin</h1>
+	<h1><?= \App\Icons::LOCATION; ?> <a href="./">BetterLocation</a> - Admin</h1>
 	<ul class="nav nav-tabs nav-fill" id="main-tab" role="tablist">
 		<li class="nav-item">
-			<a class="nav-link active" id="tab-install" data-toggle="tab" href="#install"><?= \Dashboard\Status::getInstallTabIcon() ?> Install and status</a>
+			<a class="nav-link active" id="tab-install" data-toggle="tab" href="#install"><?= \App\Dashboard\Status::getInstallTabIcon() ?> Install and status</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="tab-error" data-toggle="tab" href="#error"><?= \Dashboard\Status::getTracyEmailIcon() ?> Errors</a>
+			<a class="nav-link" id="tab-error" data-toggle="tab" href="#error"><?= \App\Dashboard\Status::getTracyEmailIcon() ?> Errors</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" id="tab-statistics" data-toggle="tab" href="#statistics">Statistics</a>
@@ -43,56 +43,56 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 		<div class="tab-pane fade show active" id="install">
 			<h2>Install and status</h2>
 			<ol>
-				<li>Download/clone <a href="https://github.com/DJTommek/better-location" target="_blank" title="DJTommek/better-location on Github">BetterLocation repository</a> <?= \Icons::SUCCESS; ?></li>
-				<li>Run <code>composer install</code> <?= \Icons::SUCCESS; ?></li>
+				<li>Download/clone <a href="https://github.com/DJTommek/better-location" target="_blank" title="DJTommek/better-location on Github">BetterLocation repository</a> <?= \App\Icons::SUCCESS; ?></li>
+				<li>Run <code>composer install</code> <?= \App\Icons::SUCCESS; ?></li>
 				<?php
-				$dbTextPrefix = sprintf('Update all <code>DB_*</code> constants in <b>%s</b>', \Dashboard\Status::getLocalConfigPath());
+				$dbTextPrefix = sprintf('Update all <code>DB_*</code> constants in <b>%s</b>', \App\Dashboard\Status::getLocalConfigPath());
 				$tablesTextPrefix = 'Create tables in database using <b>asset/sql/structure.sql</b>';
-				if (\Dashboard\Status::isDatabaseConnectionSet()) {
-					printf('<li>%s: %s Connected to <b>%s</b></li>', $dbTextPrefix, \Icons::SUCCESS, \Config::DB_NAME);
-					if (\Dashboard\Status::isDatabaseTablesSet()) {
-						printf('<li>%s: %s All tables and columns are set.</li>', $tablesTextPrefix, \Icons::CHECKED);
+				if (\App\Dashboard\Status::isDatabaseConnectionSet()) {
+					printf('<li>%s: %s Connected to <b>%s</b></li>', $dbTextPrefix, \App\Icons::SUCCESS, \App\Config::DB_NAME);
+					if (\App\Dashboard\Status::isDatabaseTablesSet()) {
+						printf('<li>%s: %s All tables and columns are set.</li>', $tablesTextPrefix, \App\Icons::CHECKED);
 					} else {
-						printf('<li>%s: %s Error while checking columns: <b>%s</b></li>', $tablesTextPrefix, \Icons::ERROR, \Dashboard\Status::$tablesError->getMessage());
+						printf('<li>%s: %s Error while checking columns: <b>%s</b></li>', $tablesTextPrefix, \App\Icons::ERROR, \App\Dashboard\Status::$tablesError->getMessage());
 					}
 				} else {
-					printf('<li>%s: %s Error while connecting to database <b>%s</b>. Error: <b>%s</b></li>', $dbTextPrefix, \Icons::ERROR, \Config::DB_NAME, \Dashboard\Status::$dbError->getMessage());
-					printf('<li>%s: %s Setup database connection first</li>', $tablesTextPrefix, \Icons::ERROR);
+					printf('<li>%s: %s Error while connecting to database <b>%s</b>. Error: <b>%s</b></li>', $dbTextPrefix, \App\Icons::ERROR, \App\Config::DB_NAME, \App\Dashboard\Status::$dbError->getMessage());
+					printf('<li>%s: %s Setup database connection first</li>', $tablesTextPrefix, \App\Icons::ERROR);
 				}
-				$tgStatusTextPrefix = sprintf('Update all <code>TELEGRAM_*</code> constants in <b>%s</b>', \Dashboard\Status::getLocalConfigPath());
-				if (\Dashboard\Status::isTGWebhookUrSet() === false) {
-					printf('<li>%s: %s webhook URL is not set.</li>', $tgStatusTextPrefix, \Icons::ERROR);
-				} else if (\Dashboard\Status::isTGTokenSet() === false) {
-					printf('<li>%s: %s bot token is not set.</li>', $tgStatusTextPrefix, \Icons::ERROR);
-				} else if (\Dashboard\Status::isTGBotNameSet() === false) {
-					printf('<li>%s: %s bot name is not set.</li>', $tgStatusTextPrefix, \Icons::ERROR);
+				$tgStatusTextPrefix = sprintf('Update all <code>TELEGRAM_*</code> constants in <b>%s</b>', \App\Dashboard\Status::getLocalConfigPath());
+				if (\App\Dashboard\Status::isTGWebhookUrSet() === false) {
+					printf('<li>%s: %s webhook URL is not set.</li>', $tgStatusTextPrefix, \App\Icons::ERROR);
+				} else if (\App\Dashboard\Status::isTGTokenSet() === false) {
+					printf('<li>%s: %s bot token is not set.</li>', $tgStatusTextPrefix, \App\Icons::ERROR);
+				} else if (\App\Dashboard\Status::isTGBotNameSet() === false) {
+					printf('<li>%s: %s bot name is not set.</li>', $tgStatusTextPrefix, \App\Icons::ERROR);
 				} else {
 					printf('<li>%s: %s TG set to bot <a href="https://t.me/%3$s" target="_blank">%3$s</a> and webhook url to <a href="%4$s" target="_blank">%4$s</a></li>',
-						$tgStatusTextPrefix, \Icons::SUCCESS, \Config::TELEGRAM_BOT_NAME, \Config::TELEGRAM_WEBHOOK_URL,
+						$tgStatusTextPrefix, \App\Icons::SUCCESS, \App\Config::TELEGRAM_BOT_NAME, \App\Config::TELEGRAM_WEBHOOK_URL,
 					);
 				}
 
 				$tgWebhookTextPrefix = 'Enable webhook via <a href="set-webhook.php" target="_blank">set-webhook.php</a>';
-				if (\Dashboard\Status::isTGset()) {
-					\Dashboard\Status::runGetWebhookStatus();
-					if (\Dashboard\Status::$webhookError) {
-						$jsonText = sprintf('<pre>%s</pre>', json_encode(get_object_vars(\Dashboard\Status::$webhookError->getError()), JSON_PRETTY_PRINT));
-						$webhookDetailStatus = sprintf('%s Something is wrong: <b>%s</b>:%s', \Icons::ERROR, \Dashboard\Status::$webhookError->getMessage(), $jsonText);
+				if (\App\Dashboard\Status::isTGset()) {
+					\App\Dashboard\Status::runGetWebhookStatus();
+					if (\App\Dashboard\Status::$webhookError) {
+						$jsonText = sprintf('<pre>%s</pre>', json_encode(get_object_vars(\App\Dashboard\Status::$webhookError->getError()), JSON_PRETTY_PRINT));
+						$webhookDetailStatus = sprintf('%s Something is wrong: <b>%s</b>:%s', \App\Icons::ERROR, \App\Dashboard\Status::$webhookError->getMessage(), $jsonText);
 					} else {
-						if (\Dashboard\Status::$webhookOk) {
-							$webhookDetailStatus = sprintf('%s Everything seems to be ok, check response below.', \Icons::SUCCESS);
+						if (\App\Dashboard\Status::$webhookOk) {
+							$webhookDetailStatus = sprintf('%s Everything seems to be ok, check response below.', \App\Icons::SUCCESS);
 						} else {
-							$webhookDetailStatus = sprintf('%s Something might be wrong, check response below.', \Icons::WARNING);
+							$webhookDetailStatus = sprintf('%s Something might be wrong, check response below.', \App\Icons::WARNING);
 						}
 					}
 					printf('<li>%s - response from <a href="https://core.telegram.org/bots/api#getwebhookinfo" target="_blank">getWebhookInfo</a>: %s</li>', $tgWebhookTextPrefix, $webhookDetailStatus);
 				} else {
-					printf('<li>%s: %s setup <code>TELEGRAM_*</code> in local config first.</li>', $tgWebhookTextPrefix, \Icons::ERROR);
+					printf('<li>%s: %s setup <code>TELEGRAM_*</code> in local config first.</li>', $tgWebhookTextPrefix, \App\Icons::ERROR);
 				}
 				?>
 			</ol>
 			<?php
-			if (is_null(\Dashboard\Status::$webhookResponseRaw) === false) {
+			if (is_null(\App\Dashboard\Status::$webhookResponseRaw) === false) {
 				?>
 				<ul class="nav nav-tabs" id="webhook-tab" role="tablist">
 					<li class="nav-item">
@@ -106,23 +106,23 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 					<div class="tab-pane fade show active" id="webhook-formatted">
 						<table class="table table-striped table-bordered table-hover table-sm">
 							<?php
-							foreach (get_object_vars(\Dashboard\Status::$webhookResponse) as $key => $value) {
+							foreach (get_object_vars(\App\Dashboard\Status::$webhookResponse) as $key => $value) {
 								printf('<tr><td>%s</td><td>%s</td></tr>', $key, $value);
 							}
 							?>
 						</table>
 					</div>
 					<div class="tab-pane fade" id="webhook-raw">
-						<pre><?= json_encode(get_object_vars(\Dashboard\Status::$webhookResponseRaw), JSON_PRETTY_PRINT) ?></pre>
+						<pre><?= json_encode(get_object_vars(\App\Dashboard\Status::$webhookResponseRaw), JSON_PRETTY_PRINT) ?></pre>
 					</div>
 				</div>
 				<?php
 			}
 			?>
 			<ol>
-				<li value="7">Google Place API: <?= \Config::GOOGLE_PLACE_API_KEY ? sprintf('%s Enabled', \Icons::SUCCESS) : sprintf('%s Disabled', \Icons::ERROR) ?></li>
-				<li>What3Words API: <?= \Config::W3W_API_KEY ? sprintf('%s Enabled', \Icons::SUCCESS) : sprintf('%s Disabled', \Icons::ERROR) ?></li>
-				<li>Glympse API: <?= \Config::isGlympse() ? sprintf('%s Enabled', \Icons::SUCCESS) : sprintf('%s Disabled', \Icons::ERROR) ?></li>
+				<li value="7">Google Place API: <?= \App\Config::GOOGLE_PLACE_API_KEY ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
+				<li>What3Words API: <?= \App\Config::W3W_API_KEY ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
+				<li>Glympse API: <?= \App\Config::isGlympse() ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
 			</ol>
 
 		</div>
@@ -130,15 +130,15 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 			<h2>Errors</h2>
 			<h4>Email reporting (<a href="https://tracy.nette.org/guide" target="_blank" title="Getting started with Tracy">help</a>)</h4>
 			<?php
-			if (is_null(\Config::TRACY_DEBUGGER_EMAIL)) {
-				printf('<p>%s Email reporting is disabled. Set email to <b>%s::TRACY_DEBUGGER_EMAIL</b> to enable.</p>', \Icons::INFO, \Dashboard\Status::getLocalConfigPath());
+			if (is_null(\App\Config::TRACY_DEBUGGER_EMAIL)) {
+				printf('<p>%s Email reporting is disabled. Set email to <b>%s::TRACY_DEBUGGER_EMAIL</b> to enable.</p>', \App\Icons::INFO, \App\Dashboard\Status::getLocalConfigPath());
 			} else {
-				printf('<p>%s Email reporting is enabled and set to <a href="mailto:%2$s">%2$s</a>.</p>', \Icons::SUCCESS, \Config::TRACY_DEBUGGER_EMAIL);
+				printf('<p>%s Email reporting is enabled and set to <a href="mailto:%2$s">%2$s</a>.</p>', \App\Icons::SUCCESS, \App\Config::TRACY_DEBUGGER_EMAIL);
 				$tracyEmailHelpPrefix = 'Tracy\'s "email-sent" file ';
-				if (file_exists(\Dashboard\Status::getTracyEmailSentFilePath()) === true) {
-					printf('%s %s detected - no futher emails will be sent unless this file is removed. <a href="?delete-tracy-email-sent" onclick="return confirm(\'Are you sure, you want to delete Tracy\\\'s \\\'email-sent\\\' file?\')">Delete</a>', Icons::WARNING, $tracyEmailHelpPrefix);
+				if (file_exists(\App\Dashboard\Status::getTracyEmailSentFilePath()) === true) {
+					printf('%s %s detected - no futher emails will be sent unless this file is removed. <a href="?delete-tracy-email-sent" onclick="return confirm(\'Are you sure, you want to delete Tracy\\\'s \\\'email-sent\\\' file?\')">Delete</a>', \App\Icons::WARNING, $tracyEmailHelpPrefix);
 				} else {
-					printf('%s %s not detected - in case of error, email will be sent.', Icons::SUCCESS, $tracyEmailHelpPrefix);
+					printf('%s %s not detected - in case of error, email will be sent.', \App\Icons::SUCCESS, $tracyEmailHelpPrefix);
 				}
 			}
 			?>
@@ -147,52 +147,52 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 			<h2>Statistics</h2>
 			<p>
 				<?php
-				if (\Dashboard\Status::isDatabaseConnectionSet() && \Dashboard\Status::isDatabaseTablesSet()) {
+				if (\App\Dashboard\Status::isDatabaseConnectionSet() && \App\Dashboard\Status::isDatabaseTablesSet()) {
 					printf('<ul>');
 					$now = new DateTimeImmutable();
 
 					// Detected chats
 					$results = [];
 					$totalCount = 0;
-					foreach (\Dashboard\Status::getChatsStats() as $groupType => $groupCount) {
+					foreach (\App\Dashboard\Status::getChatsStats() as $groupType => $groupCount) {
 						$results[] = sprintf('%s = <b>%d</b>', $groupType, $groupCount);
 						$totalCount += $groupCount;
 					}
 					printf('<li><b>%d</b> detected chats (%s)</li>', $totalCount, join(', ', $results));
 
 					// Detected users
-					printf('<li><b>%d</b> detected users (wrote at least one message or command)</li>', \Dashboard\Status::getUsersCount());
+					printf('<li><b>%d</b> detected users (wrote at least one message or command)</li>', \App\Dashboard\Status::getUsersCount());
 
 					// Newest user
-					$newestUser = \Dashboard\Status::getNewestUser();
+					$newestUser = \App\Dashboard\Status::getNewestUser();
 					if ($newestUser) {
 						printf('<li>Most recent active user:<br>ID = <b>%d</b><br>TG ID = <b>%d</b><br>TG Name = <b>%s</b><br>Registered = <b>%s</b> (%s ago)<br>Last update = <b>%s</b> (%s ago)</li>',
 							$newestUser['user_id'],
 							$newestUser['user_telegram_id'],
 							$newestUser['user_telegram_name'] ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $newestUser['user_telegram_name']) : '<i>unknown</i>',
 							$newestUser['user_registered']->format(DateTimeInterface::W3C),
-							Utils\General::sToHuman($now->getTimestamp() - $newestUser['user_registered']->getTimestamp()),
+							\App\Utils\General::sToHuman($now->getTimestamp() - $newestUser['user_registered']->getTimestamp()),
 							$newestUser['user_last_update']->format(DateTimeInterface::W3C),
-							Utils\General::sToHuman($now->getTimestamp() - $newestUser['user_last_update']->getTimestamp()),
+							\App\Utils\General::sToHuman($now->getTimestamp() - $newestUser['user_last_update']->getTimestamp()),
 						);
 					}
 
 					// Last changed user
-					$lastChangedUser = \Dashboard\Status::getLatestChangedUser();
+					$lastChangedUser = \App\Dashboard\Status::getLatestChangedUser();
 					if ($lastChangedUser) {
 						printf('<li>Newest registered user:<br>ID = <b>%d</b><br>TG ID = <b>%d</b><br>TG Name = <b>%s</b><br>Registered = <b>%s</b> (%s ago)<br>Last update = <b>%s</b> (%s ago)</li>',
 							$lastChangedUser['user_id'],
 							$lastChangedUser['user_telegram_id'],
 							$lastChangedUser['user_telegram_name'] ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $lastChangedUser['user_telegram_name']) : '<i>unknown</i>',
 							$lastChangedUser['user_registered']->format(DateTimeInterface::W3C),
-							Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_registered']->getTimestamp()),
+							\App\Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_registered']->getTimestamp()),
 							$lastChangedUser['user_last_update']->format(DateTimeInterface::W3C),
-							Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_last_update']->getTimestamp()),
+							\App\Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_last_update']->getTimestamp()),
 						);
 					}
 					printf('</ul>');
 				} else {
-					printf('<p>%s Setup database connection and prepare tables.</p>', \Icons::ERROR);
+					printf('<p>%s Setup database connection and prepare tables.</p>', \App\Icons::ERROR);
 				}
 				?>
 			</p>
@@ -201,7 +201,7 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 			<h2>Tester</h2>
 			<div id="tester">
 				<?php
-				$tester = new \Dashboard\Tester($_POST['input'] ?? null);
+				$tester = new \App\Dashboard\Tester($_POST['input'] ?? null);
 				?>
 				<form method="POST">
 					<textarea name="input" class="form-control" placeholder="Type something..."><?= $tester->getTextareaInput() ?></textarea>

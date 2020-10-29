@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation\Service;
+namespace App\BetterLocation\Service;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\BetterLocationCollection;
-use BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
 
 final class DuckDuckGoService extends AbstractService
 {
@@ -19,7 +19,8 @@ final class DuckDuckGoService extends AbstractService
 	 * @return string
 	 * @throws NotImplementedException
 	 */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string {
+	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	{
 		if ($drive) {
 			throw new NotImplementedException('Drive link is not implemented.');
 		} else {
@@ -27,7 +28,8 @@ final class DuckDuckGoService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool {
+	public static function isValid(string $url): bool
+	{
 		return false;
 	}
 
@@ -36,7 +38,8 @@ final class DuckDuckGoService extends AbstractService
 	 * @return BetterLocation
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoords(string $url): BetterLocation {
+	public static function parseCoords(string $url): BetterLocation
+	{
 		throw new NotImplementedException('Parsing coordinates is not available.');
 	}
 
@@ -45,7 +48,8 @@ final class DuckDuckGoService extends AbstractService
 	 * @return BetterLocationCollection
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection {
+	public static function parseCoordsMultiple(string $input): BetterLocationCollection
+	{
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }

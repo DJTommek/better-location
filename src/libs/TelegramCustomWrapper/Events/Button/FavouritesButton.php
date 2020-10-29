@@ -1,11 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper\Events\Button;
+namespace App\TelegramCustomWrapper\Events\Button;
 
-use BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocation;
+use App\Config;
+use App\Factory;
+use App\Icons;
+use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
+use App\TelegramCustomWrapper\TelegramHelper;
 use OpenLocationCode\OpenLocationCode;
-use TelegramCustomWrapper\Events\Command\FavouritesCommand;
-use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
@@ -24,7 +27,8 @@ class FavouritesButton extends Button
 	 * @param $update
 	 * @throws \Exception
 	 */
-	public function __construct($update) {
+	public function __construct($update)
+	{
 		parent::__construct($update);
 
 		$params = TelegramHelper::getParams($update);
@@ -46,7 +50,7 @@ class FavouritesButton extends Button
 				$this->processFavouritesList(true);
 				break;
 			default:
-				$this->flash(sprintf('%s This button (favourite) is invalid.%sIf you believe that this is error, please contact admin', \Icons::ERROR, PHP_EOL), true);
+				$this->flash(sprintf('%s This button (favourite) is invalid.%sIf you believe that this is error, please contact admin', Icons::ERROR, PHP_EOL), true);
 				break;
 		}
 	}
@@ -56,23 +60,24 @@ class FavouritesButton extends Button
 	 * @param float $lon
 	 * @throws \Exception
 	 */
-	private function addFavourite(float $lat, float $lon): void {
+	private function addFavourite(float $lat, float $lon): void
+	{
 		try {
 			$favourite = $this->user->getFavourite($lat, $lon);
 			if ($favourite) {
-				$this->flash(sprintf('%s This location (%s) is already saved in favourite list as %s.', \Icons::INFO, $favourite->__toString(), $favourite->getPrefixMessage()), true);
+				$this->flash(sprintf('%s This location (%s) is already saved in favourite list as %s.', Icons::INFO, $favourite->__toString(), $favourite->getPrefixMessage()), true);
 			} else {
 				$generatedLocationName = $this->generateFavouriteName($lat, $lon);
 				$betterLocation = BetterLocation::fromLatLon($lat, $lon);
 				$betterLocation->setPrefixMessage($generatedLocationName);
 				$betterLocation = $this->user->addFavourite($betterLocation, $generatedLocationName);
 				$this->flash(sprintf('%s Location %s was saved as %s.%sYou can now use it inline in any chat by typing @%s.',
-					\Icons::SUCCESS, $betterLocation->__toString(), $betterLocation->getPrefixMessage(), PHP_EOL, \Config::TELEGRAM_BOT_NAME
+					Icons::SUCCESS, $betterLocation->__toString(), $betterLocation->getPrefixMessage(), PHP_EOL, Config::TELEGRAM_BOT_NAME
 				), true);
 			}
 		} catch (\Exception $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
-			$this->flash(sprintf('%s Can\'t save this location to favourites.%sIf you believe that this is error, please contact admin.', \Icons::ERROR, PHP_EOL), true);
+			$this->flash(sprintf('%s Can\'t save this location to favourites.%sIf you believe that this is error, please contact admin.', Icons::ERROR, PHP_EOL), true);
 		}
 	}
 
@@ -80,18 +85,19 @@ class FavouritesButton extends Button
 	 * @param float $lat
 	 * @param float $lon
 	 */
-	private function deleteFavourite(float $lat, float $lon) {
+	private function deleteFavourite(float $lat, float $lon)
+	{
 		try {
 			$replyMarkup = new Markup();
 			$replyMarkup->inline_keyboard = [];
 
 			$refreshFavouriteButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
-			$refreshFavouriteButton->text = sprintf('%s Show list', \Icons::REFRESH);
+			$refreshFavouriteButton->text = sprintf('%s Show list', Icons::REFRESH);
 			$refreshFavouriteButton->callback_data = sprintf('%s %s', FavouritesButton::CMD, FavouritesButton::ACTION_REFRESH);
 			$buttonRow[] = $refreshFavouriteButton;
 
 			$deleteFavouriteButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
-			$deleteFavouriteButton->text = sprintf('%s Add back', \Icons::FAVOURITE);
+			$deleteFavouriteButton->text = sprintf('%s Add back', Icons::FAVOURITE);
 			$deleteFavouriteButton->callback_data = sprintf('%s %s %F %F', FavouritesButton::CMD, FavouritesButton::ACTION_ADD, $lat, $lon);
 			$buttonRow[] = $deleteFavouriteButton;
 
@@ -103,14 +109,14 @@ class FavouritesButton extends Button
 
 			$favourite = $this->user->getFavourite($lat, $lon);
 			if (is_null($favourite)) {
-				$this->reply(sprintf('%s Location <code>%F,%F</code> was already removed from favourites.', \Icons::INFO, $lat, $lon), $messageSettings);
+				$this->reply(sprintf('%s Location <code>%F,%F</code> was already removed from favourites.', Icons::INFO, $lat, $lon), $messageSettings);
 			} else {
 				$this->user->deleteFavourite($favourite);
-				$this->reply(sprintf('%s Location %s <code>%s</code> was removed from favourites.', \Icons::SUCCESS, $favourite->getPrefixMessage(), $favourite->__toString()), $messageSettings);
+				$this->reply(sprintf('%s Location %s <code>%s</code> was removed from favourites.', Icons::SUCCESS, $favourite->getPrefixMessage(), $favourite->__toString()), $messageSettings);
 			}
 		} catch (\Exception $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
-			$this->flash(sprintf('%s Unexpected error while removing location (%F,%F) from favourites.%sIf you believe that this is error, please contact admin.', \Icons::ERROR, $lat, $lon, PHP_EOL), true);
+			$this->flash(sprintf('%s Unexpected error while removing location (%F,%F) from favourites.%sIf you believe that this is error, please contact admin.', Icons::ERROR, $lat, $lon, PHP_EOL), true);
 		}
 	}
 
@@ -122,9 +128,10 @@ class FavouritesButton extends Button
 	 * @return string
 	 * @throws \Exception
 	 */
-	private function generateFavouriteName(float $lat, float $lon): string {
+	private function generateFavouriteName(float $lat, float $lon): string
+	{
 		try {
-			$result = \Factory::WhatThreeWords()->convertTo3wa($lat, $lon);
+			$result = Factory::WhatThreeWords()->convertTo3wa($lat, $lon);
 			if ($result) {
 				return sprintf('///%s', $result['words']);
 			} else {

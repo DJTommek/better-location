@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation\Service;
+namespace App\BetterLocation\Service;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\BetterLocationCollection;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotImplementedException;
-use BetterLocation\Url;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\Url;
+use App\Utils\General;
 use Tracy\Debugger;
 use Tracy\ILogger;
-use Utils\General;
 
 final class HereWeGoService extends AbstractService
 {
@@ -25,7 +25,8 @@ final class HereWeGoService extends AbstractService
 	const TYPE_PLACE_SHARE = 'Place share';
 	const TYPE_PLACE_ORIGINAL_ID = 'Place';
 
-	public static function getConstants(): array {
+	public static function getConstants(): array
+	{
 		return [
 			self::TYPE_PLACE_ORIGINAL_ID,
 			self::TYPE_PLACE_SHARE,
@@ -41,7 +42,8 @@ final class HereWeGoService extends AbstractService
 	 * @return string
 	 * @see https://developer.here.com/documentation/deeplink-web/dev_guide/topics/key-concepts.html
 	 */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string {
+	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	{
 		if ($drive) { // https://developer.here.com/documentation/deeplink-web/dev_guide/topics/share-route.html
 			return self::LINK_SHARE . sprintf('/r/%1$f,%2$f', $lat, $lon);
 		} else { // https://developer.here.com/documentation/deeplink-web/dev_guide/topics/share-location.html
@@ -49,7 +51,8 @@ final class HereWeGoService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool {
+	public static function isValid(string $url): bool
+	{
 		return self::isUrl($url);
 	}
 
@@ -58,11 +61,13 @@ final class HereWeGoService extends AbstractService
 	 * @return BetterLocation
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoords(string $url): BetterLocation {
+	public static function parseCoords(string $url): BetterLocation
+	{
 		throw new NotImplementedException('Parsing single coordinate is not supported. Use parseMultipleCoords() instead.');
 	}
 
-	public static function isShortUrl(string $url): bool {
+	public static function isShortUrl(string $url): bool
+	{
 		$parsedUrl = parse_url($url);
 		if (isset($parsedUrl['host']) === false) {
 			return false;
@@ -73,7 +78,8 @@ final class HereWeGoService extends AbstractService
 		return in_array($parsedUrl['host'], $allowedHosts);
 	}
 
-	public static function isNormalUrl(string $url): bool {
+	public static function isNormalUrl(string $url): bool
+	{
 		$parsedUrl = parse_url($url);
 		if (isset($parsedUrl['host']) === false) {
 			return false;
@@ -85,7 +91,8 @@ final class HereWeGoService extends AbstractService
 		return in_array($parsedUrl['host'], $allowedHosts);
 	}
 
-	public static function isUrl(string $url): bool {
+	public static function isUrl(string $url): bool
+	{
 		return self::isShortUrl($url) || self::isNormalUrl($url);
 	}
 
@@ -94,7 +101,8 @@ final class HereWeGoService extends AbstractService
 	 * @return BetterLocationCollection
 	 * @throws InvalidLocationException
 	 */
-	public static function parseUrl(string $url): BetterLocationCollection {
+	public static function parseUrl(string $url): BetterLocationCollection
+	{
 		$betterLocationCollection = new BetterLocationCollection();
 		$parsedUrl = General::parseUrl($url);
 		$messageInUrl = isset($parsedUrl['query']['msg']) ? htmlspecialchars($parsedUrl['query']['msg']) : null;
@@ -137,7 +145,8 @@ final class HereWeGoService extends AbstractService
 	 * @return BetterLocationCollection
 	 * @throws InvalidLocationException
 	 */
-	public static function parseCoordsMultiple(string $url): BetterLocationCollection {
+	public static function parseCoordsMultiple(string $url): BetterLocationCollection
+	{
 		if (self::isShortUrl($url)) {
 			$redirectUrl = Url::getRedirectUrl($url);
 			try {
@@ -153,7 +162,8 @@ final class HereWeGoService extends AbstractService
 		}
 	}
 
-	private static function requestByLoc($url): \stdClass {
+	private static function requestByLoc($url): \stdClass
+	{
 		$response = General::fileGetContents($url, [
 			CURLOPT_CONNECTTIMEOUT => 5,
 			CURLOPT_TIMEOUT => 5,
@@ -179,7 +189,8 @@ final class HereWeGoService extends AbstractService
 	 * @throws InvalidLocationException
 	 * @throws \Exception
 	 */
-	private static function processShortShareUrl($originalUrl, $redirectUrl) {
+	private static function processShortShareUrl($originalUrl, $redirectUrl)
+	{
 		$parsedNewLocation = parse_url($redirectUrl);
 		if ($parsedNewLocation['host'] !== 'share.here.com') {
 			throw new \Exception(sprintf('Unexpected redirect URL "%s".', $parsedNewLocation['host']));

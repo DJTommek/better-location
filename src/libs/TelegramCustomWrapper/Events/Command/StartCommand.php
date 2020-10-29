@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper\Events\Command;
+namespace App\TelegramCustomWrapper\Events\Command;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\Service\Coordinates\WG84DegreesService;
-use \Icons;
-use TelegramCustomWrapper\Events\Button\FavouritesButton;
-use TelegramCustomWrapper\TelegramHelper;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\Service\Coordinates\WG84DegreesService;
+use App\Icons;
+use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
+use App\TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
@@ -28,7 +28,8 @@ class StartCommand extends Command
 	 * @param $update
 	 * @throws \Exception
 	 */
-	public function __construct($update) {
+	public function __construct($update)
+	{
 		parent::__construct($update);
 		$encodedParams = TelegramHelper::getParams($update);
 		if (count($encodedParams) === 0) {
@@ -49,7 +50,8 @@ class StartCommand extends Command
 		}
 	}
 
-	private function processStartCoordinates(array $matches) {
+	private function processStartCoordinates(array $matches)
+	{
 		$lat = intval($matches[1]) / 1000000;
 		$lon = intval($matches[2]) / 1000000;
 		if (BetterLocation::isLatValid($lat) === false || BetterLocation::isLonValid($lon) === false) {
@@ -82,7 +84,8 @@ class StartCommand extends Command
 	 * @param array $params
 	 * @throws \Exception
 	 */
-	private function processFavourites(array $params) {
+	private function processFavourites(array $params)
+	{
 		$action = array_shift($params);
 		switch ($action) {
 			case self::FAVOURITE_LIST:
@@ -102,7 +105,7 @@ class StartCommand extends Command
 						$replyMarkup->inline_keyboard = [];
 
 						$refreshFavouriteButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
-						$refreshFavouriteButton->text = sprintf('%s Show list', \Icons::REFRESH);
+						$refreshFavouriteButton->text = sprintf('%s Show list', Icons::REFRESH);
 						$refreshFavouriteButton->callback_data = sprintf('%s %s', FavouritesButton::CMD, FavouritesButton::ACTION_REFRESH);
 						$buttonRow[] = $refreshFavouriteButton;
 

@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation\Service;
+namespace App\BetterLocation\Service;
 
-use \BetterLocation\BetterLocation;
-use BetterLocation\BetterLocationCollection;
-use \BetterLocation\Service\Exceptions\InvalidApiKeyException;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotImplementedException;
-use BetterLocation\Service\Exceptions\NotSupportedException;
-use What3words\Geocoder\Geocoder;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Exceptions\InvalidApiKeyException;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\Factory;
 
 final class WhatThreeWordService extends AbstractService
 {
@@ -21,18 +21,13 @@ final class WhatThreeWordService extends AbstractService
 	const RE = '/^\/{3}(?:\p{L}\p{M}*){1,}[・.。](?:\p{L}\p{M}*){1,}[・.。](?:\p{L}\p{M}*){1,}$/u';
 	const RE_IN_STRING = '/\/{3}((?:\p{L}\p{M}*){1,}[・.。](?:\p{L}\p{M}*){1,}[・.。](?:\p{L}\p{M}*){1,})/u';
 
-	/**
-	 * @param float $lat
-	 * @param float $lon
-	 * @param bool $drive
-	 * @return string
-	 * @throws \Exception
-	 */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string {
+	/** @throws NotSupportedException|\Exception */
+	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
 		} else {
-			$w3wApi = \Factory::WhatThreeWords();
+			$w3wApi = Factory::WhatThreeWords();
 			// @TODO dirty hack to get stdclass instead of associated array
 			$response = $w3wApi->convertTo3wa($lat, $lon);
 			$error = $w3wApi->getError();
@@ -46,16 +41,17 @@ final class WhatThreeWordService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $input): bool {
+	public static function isValid(string $input): bool
+	{
 		return self::isWords($input) || self::isShortUrl($input) || self::isNormalUrl($input);
 	}
 
 	/**
 	 * @param string $input words or URL
-	 * @return BetterLocation
 	 * @throws \Exception
 	 */
-	public static function parseCoords(string $input): BetterLocation {
+	public static function parseCoords(string $input): BetterLocation
+	{
 		$words = null;
 		if (self::isNormalUrl($input)) {
 			$words = str_replace(self::LINK, '', $input);
@@ -66,7 +62,7 @@ final class WhatThreeWordService extends AbstractService
 		}
 		if ($words) {
 			$words = urldecode($words);
-			$w3wApi = \Factory::WhatThreeWords();
+			$w3wApi = Factory::WhatThreeWords();
 			$response = $w3wApi->convertToCoordinates($words);
 			$error = $w3wApi->getError();
 			if ($error) {
@@ -91,18 +87,21 @@ final class WhatThreeWordService extends AbstractService
 		}
 	}
 
-	public static function isWords(string $words): bool {
+	public static function isWords(string $words): bool
+	{
 		// ///chladná.naopak.vložit
 		// \\\flicks.gazed.tapes
 		return !!(preg_match_all(self::RE, $words));
 	}
 
-	public static function isShortUrl(string $url): bool {
+	public static function isShortUrl(string $url): bool
+	{
 		// https://w3w.co/chladná.naopak.vložit
 		return (substr($url, 0, mb_strlen(self::LINK_SHORT)) === self::LINK_SHORT);
 	}
 
-	public static function isNormalUrl(string $url): bool {
+	public static function isNormalUrl(string $url): bool
+	{
 		// https://what3words.com/define.readings.cucumber
 		return (substr($url, 0, mb_strlen(self::LINK)) === self::LINK);
 	}
@@ -112,7 +111,8 @@ final class WhatThreeWordService extends AbstractService
 	 * @return BetterLocationCollection
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection {
+	public static function parseCoordsMultiple(string $input): BetterLocationCollection
+	{
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }

@@ -1,16 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Utils;
+namespace App\Utils;
 
 class StringUtils
 {
-	/**
-	 * Replace or remove some characters
-	 *
-	 * @param string $text
-	 * @return string
-	 */
-	public static function translit(string $text) {
+	/** Replace or remove some characters */
+	public static function translit(string $text): string
+	{
 		$chars = [
 			'"' => ['″'],
 			'\'' => ['′'],
@@ -19,9 +15,5 @@ class StringUtils
 			$text = str_replace($invalidChars, $validChar, $text);
 		}
 		return $text;
-	}
-
-	public static function camelize($input, $separator = '_') {
-		return str_replace($separator, '', lcfirst(ucwords($input, $separator)));
 	}
 }

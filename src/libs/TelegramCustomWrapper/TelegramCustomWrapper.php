@@ -1,25 +1,26 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper;
+namespace App\TelegramCustomWrapper;
 
-use \TelegramCustomWrapper\Events\Command\DebugCommand;
-use \TelegramCustomWrapper\Events\Command\FavouritesCommand;
-use \TelegramCustomWrapper\Events\Command\FeedbackCommand;
-use \TelegramCustomWrapper\Events\Command\HelpCommand;
-use \TelegramCustomWrapper\Events\Special\LocationEvent;
-use \TelegramCustomWrapper\Events\Special\MessageEvent;
-use \TelegramCustomWrapper\Events\Command\SettingsCommand;
-use TelegramCustomWrapper\Events\Command\StartCommand;
-use \TelegramCustomWrapper\Events\Command\UnknownCommand;
-use \TelegramCustomWrapper\Events\Button\HelpButton;
-use \TelegramCustomWrapper\Events\Button\FavouritesButton;
-use \TelegramCustomWrapper\Events\Special\AddedToChatEvent;
-use \TelegramCustomWrapper\Events\Special\FileEvent;
-use TelegramCustomWrapper\Events\Special\InlineQueryEvent;
-use \TelegramCustomWrapper\Events\Special\PhotoEvent;
-use \unreal4u\TelegramAPI\Telegram;
-use \unreal4u\TelegramAPI\TgLog;
-use \unreal4u\TelegramAPI\HttpClientRequestHandler;
+use App\Config;
+use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
+use App\TelegramCustomWrapper\Events\Button\HelpButton;
+use App\TelegramCustomWrapper\Events\Command\DebugCommand;
+use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
+use App\TelegramCustomWrapper\Events\Command\FeedbackCommand;
+use App\TelegramCustomWrapper\Events\Command\HelpCommand;
+use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
+use App\TelegramCustomWrapper\Events\Command\StartCommand;
+use App\TelegramCustomWrapper\Events\Command\UnknownCommand;
+use App\TelegramCustomWrapper\Events\Special\AddedToChatEvent;
+use App\TelegramCustomWrapper\Events\Special\FileEvent;
+use App\TelegramCustomWrapper\Events\Special\InlineQueryEvent;
+use App\TelegramCustomWrapper\Events\Special\LocationEvent;
+use App\TelegramCustomWrapper\Events\Special\MessageEvent;
+use App\TelegramCustomWrapper\Events\Special\PhotoEvent;
+use unreal4u\TelegramAPI\HttpClientRequestHandler;
+use unreal4u\TelegramAPI\Telegram;
+use unreal4u\TelegramAPI\TgLog;
 
 class TelegramCustomWrapper
 {
@@ -47,10 +48,10 @@ class TelegramCustomWrapper
 		if ($update->edited_channel_post || $update->edited_message) {
 			return 'Edit\'s are ignored';
 		}
-		if (TelegramHelper::addedToChat($update, \Config::TELEGRAM_BOT_NAME)) {
+		if (TelegramHelper::addedToChat($update, Config::TELEGRAM_BOT_NAME)) {
 			return new AddedToChatEvent($update);
 		}
-		if (TelegramHelper::isViaBot($update, \Config::TELEGRAM_BOT_NAME)) {
+		if (TelegramHelper::isViaBot($update, Config::TELEGRAM_BOT_NAME)) {
 			return 'I will ignore my own via_bot (from inline) messages.';
 		}
 		if (TelegramHelper::isChosenInlineQuery($update)) {
@@ -61,7 +62,7 @@ class TelegramCustomWrapper
 			return new InlineQueryEvent($update);
 		}
 
-		$command = TelegramHelper::getCommand($update, \Config::TELEGRAM_COMMAND_STRICT);
+		$command = TelegramHelper::getCommand($update, Config::TELEGRAM_COMMAND_STRICT);
 		/** @noinspection PhpUnusedLocalVariableInspection */
 		$params = TelegramHelper::getParams($update);
 

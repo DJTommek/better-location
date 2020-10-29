@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation\Service;
+namespace App\BetterLocation\Service;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\BetterLocationCollection;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
 
 final class OpenStreetMapService extends AbstractService
 {
@@ -19,7 +19,8 @@ final class OpenStreetMapService extends AbstractService
 	 * @param bool $drive
 	 * @return string
 	 */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string {
+	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	{
 		if ($drive) {
 			return self::LINK . sprintf('/directions?from=&to=%1$f,%2$f', $lat, $lon);
 		} else {
@@ -27,7 +28,8 @@ final class OpenStreetMapService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool {
+	public static function isValid(string $url): bool
+	{
 		return self::isShortUrl($url) || self::isNormalUrl($url);
 	}
 
@@ -36,7 +38,8 @@ final class OpenStreetMapService extends AbstractService
 	 * @return BetterLocation
 	 * @throws \Exception
 	 */
-	public static function parseCoords(string $url): BetterLocation {
+	public static function parseCoords(string $url): BetterLocation
+	{
 		if (self::isShortUrl($url)) {
 			throw new InvalidLocationException('Short URL processing is not yet implemented.');
 		} else if (self::isNormalUrl($url)) {  // at least two characters, otherwise it is probably /s/hort-version of link
@@ -51,7 +54,8 @@ final class OpenStreetMapService extends AbstractService
 		}
 	}
 
-	public static function isShortUrl(string $url): bool {
+	public static function isShortUrl(string $url): bool
+	{
 		// https://osm.org/go/0J0kf83sQ--?m=
 		// https://osm.org/go/0EEQjE==
 		// https://osm.org/go/0EEQjEEb
@@ -68,7 +72,8 @@ final class OpenStreetMapService extends AbstractService
 	 * @return bool
 	 *
 	 */
-	public static function isNormalUrl(string $url): bool {
+	public static function isNormalUrl(string $url): bool
+	{
 		// https://www.openstreetmap.org/#map=17/49.355164/14.272819
 		// https://www.openstreetmap.org/#map=17/49.32085/14.16402&layers=N
 		// https://www.openstreetmap.org/#map=18/50.05215/14.45283
@@ -84,7 +89,8 @@ final class OpenStreetMapService extends AbstractService
 	 * @param string $url
 	 * @return array|null
 	 */
-	public static function parseUrl(string $url): ?array {
+	public static function parseUrl(string $url): ?array
+	{
 		$paramsHashString = explode('#map=', $url);
 		// url is in format some-url/blahblah#map=lat/lon
 		if (count($paramsHashString) === 2) {
@@ -111,7 +117,8 @@ final class OpenStreetMapService extends AbstractService
 	 * @return BetterLocationCollection
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection {
+	public static function parseCoordsMultiple(string $input): BetterLocationCollection
+	{
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }

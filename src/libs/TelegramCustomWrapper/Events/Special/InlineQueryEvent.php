@@ -1,18 +1,21 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper\Events\Special;
+namespace App\TelegramCustomWrapper\Events\Special;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\Service\Coordinates\WG84DegreesService;
-use BetterLocation\Service\GoogleMapsService;
-use BetterLocation\Service\MapyCzService;
-use TelegramCustomWrapper\Events\Command\StartCommand;
-use TelegramCustomWrapper\TelegramHelper;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\Service\Coordinates\WG84DegreesService;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\GoogleMapsService;
+use App\BetterLocation\Service\MapyCzService;
+use App\Config;
+use App\Icons;
+use App\TelegramCustomWrapper\Events\Command\StartCommand;
+use App\TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram\Methods\AnswerInlineQuery;
-use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 use unreal4u\TelegramAPI\Telegram\Types\Inline;
+use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 use unreal4u\TelegramAPI\Telegram\Types\InputMessageContent\Text;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 
@@ -27,18 +30,13 @@ class InlineQueryEvent extends Special
 
 	const GOOGLE_SEARCH_MIN_LENGTH = 3;
 
-	/**
-	 * InlineQuery constructor.
-	 *
-	 * @param Update $update
-	 * @throws \Exception
-	 */
-	public function __construct(Update $update) {
+	public function __construct(Update $update)
+	{
 		parent::__construct($update);
 
 		$answerInlineQuery = new AnswerInlineQuery();
 		$answerInlineQuery->inline_query_id = $update->inline_query->id;
-		$answerInlineQuery->cache_time = \Config::TELEGRAM_INLINE_CACHE;
+		$answerInlineQuery->cache_time = Config::TELEGRAM_INLINE_CACHE;
 
 		$queryInput = trim($update->inline_query->query);
 
@@ -51,17 +49,17 @@ class InlineQueryEvent extends Special
 					$update->inline_query->location->longitude,
 					WG84DegreesService::class,
 				);
-				$betterLocation->setPrefixMessage(sprintf('%s Current location', \Icons::CURRENT_LOCATION));
+				$betterLocation->setPrefixMessage(sprintf('%s Current location', Icons::CURRENT_LOCATION));
 				$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 			} else if ($this->user->getLastKnownLocation() instanceof BetterLocation) {
 				$lastKnownLocation = clone $this->user->getLastKnownLocation();
 				$now = new \DateTimeImmutable();
 				$diff = $now->getTimestamp() - $this->user->getLastKnownLocationDatetime()->getTimestamp();
 				if ($diff <= 600) { // if last update was just few minutes ago, behave just like current location @TODO time border move to config
-					$lastKnownLocation->setPrefixMessage(sprintf('%s Current location', \Icons::CURRENT_LOCATION));
+					$lastKnownLocation->setPrefixMessage(sprintf('%s Current location', Icons::CURRENT_LOCATION));
 					$lastKnownLocation->setDescription(null);
 				}
-				$inlineText = sprintf('%s (%s ago)', $lastKnownLocation->getPrefixMessage(), \Utils\General::sToHuman($diff));
+				$inlineText = sprintf('%s (%s ago)', $lastKnownLocation->getPrefixMessage(), \App\Utils\General::sToHuman($diff));
 				$answerInlineQuery->addResult($this->getInlineQueryResult($lastKnownLocation, $inlineText));
 			}
 
@@ -88,7 +86,7 @@ class InlineQueryEvent extends Special
 					sprintf('%s %s %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_ERROR, StartCommand::FAVOURITE_ERROR_TOO_LONG)
 				);
 			} else {
-				$answerInlineQuery->switch_pm_text = sprintf('%s Rename to "%s"', \Icons::CHANGE, $newName);
+				$answerInlineQuery->switch_pm_text = sprintf('%s Rename to "%s"', Icons::CHANGE, $newName);
 				$answerInlineQuery->switch_pm_parameter = $newNameCommandDecoded;
 			}
 //		} else if (preg_match(sprintf('/^%s %s (-?[0-9]{1,2}\.[0-9]{1,6}) (-?[0-9]{1,3}\.[0-9]{1,6})$/', StartCommand::FAVOURITE, StartCommand::FAVOURITE_DELETE), $queryInput, $matches)) {
@@ -104,7 +102,7 @@ class InlineQueryEvent extends Special
 				foreach ($betterLocations->getAll() as $betterLocation) {
 					if ($betterLocation instanceof BetterLocation) {
 						$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
-					} else if ($betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException) {
+					} else if ($betterLocation instanceof InvalidLocationException) {
 						continue; // Ignore this error in inline query
 					} else {
 						Debugger::log($betterLocation, Debugger::EXCEPTION);
@@ -112,8 +110,8 @@ class InlineQueryEvent extends Special
 				}
 
 				// only if there is no match from previous processing
-				if (mb_strlen($queryInput) >= self::GOOGLE_SEARCH_MIN_LENGTH && count($answerInlineQuery->getResults()) === 0 && is_null(\Config::GOOGLE_PLACE_API_KEY) === false) {
-					$placeApi = new \BetterLocation\GooglePlaceApi();
+				if (mb_strlen($queryInput) >= self::GOOGLE_SEARCH_MIN_LENGTH && count($answerInlineQuery->getResults()) === 0 && is_null(Config::GOOGLE_PLACE_API_KEY) === false) {
+					$placeApi = new \App\BetterLocation\GooglePlaceApi();
 					$placeCandidates = $placeApi->runSearch(
 						$queryInput,
 						['formatted_address', 'name', 'geometry', 'place_id'],
@@ -153,7 +151,8 @@ class InlineQueryEvent extends Special
 		$this->run($answerInlineQuery);
 	}
 
-	private function getInlineQueryResult(BetterLocation $betterLocation, string $inlineTitle = null): Inline\Query\Result\Location {
+	private function getInlineQueryResult(BetterLocation $betterLocation, string $inlineTitle = null): Inline\Query\Result\Location
+	{
 		$inlineQueryResult = new Inline\Query\Result\Location();
 		$inlineQueryResult->id = rand(100000, 999999);
 		$inlineQueryResult->latitude = $betterLocation->getLat();

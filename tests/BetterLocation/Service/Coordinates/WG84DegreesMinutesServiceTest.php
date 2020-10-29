@@ -1,31 +1,35 @@
 <?php declare(strict_types=1);
 
-use BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;
-use \BetterLocation\Service\Coordinates\WG84DegreesMinutesService;
-use \BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\Coordinates\WG84DegreesMinutesService;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 
 require_once __DIR__ . '/../../../../src/bootstrap.php';
 
 final class WG84DegreesMinutesServiceTest extends TestCase
 {
-	public function testGenerateShareLink(): void {
+	public function testGenerateShareLink(): void
+	{
 		$this->expectException(NotSupportedException::class);
 		$this->expectExceptionMessage('Share link for raw coordinates is not supported.');
 		WG84DegreesMinutesService::getLink(50.087451, 14.420671);
 	}
 
-	public function testGenerateDriveLink(): void {
+	public function testGenerateDriveLink(): void
+	{
 		$this->expectException(NotSupportedException::class);
 		$this->expectExceptionMessage('Drive link for raw coordinates is not supported.');
 		WG84DegreesMinutesService::getLink(50.087451, 14.420671, true);
 	}
 
-	public function testNothingInText(): void {
+	public function testNothingInText(): void
+	{
 		$this->assertEquals([], WG84DegreesMinutesService::findInText('Nothing valid')->getAll());
 	}
 
-	public function testCoordinatesFromGeocaching(): void {
+	public function testCoordinatesFromGeocaching(): void
+	{
 		$this->assertEquals('50.079733,14.477500', WG84DegreesMinutesService::parseCoords('N 50° 04.784 E 014° 28.650')->__toString()); // https://www.geocaching.com/geocache/GC19HCD_kafkuv-hrob-kafkas-grave
 		$this->assertEquals('49.871733,18.423450', WG84DegreesMinutesService::parseCoords('N 49° 52.304 E 018° 25.407')->__toString()); // https://www.geocaching.com/geocache/GCY3MG_orlova-jinak-orlovacity-otherwise
 		$this->assertEquals('-51.692183,-57.856267', WG84DegreesMinutesService::parseCoords('S 51° 41.531 W 057° 51.376')->__toString()); // https://www.geocaching.com/geocache/GC5HVVP_public-jetty
@@ -33,7 +37,8 @@ final class WG84DegreesMinutesServiceTest extends TestCase
 		$this->assertEquals('41.882600,-87.623000', WG84DegreesMinutesService::parseCoords('N 41° 52.956 W 087° 37.380')->__toString()); // https://www.geocaching.com/geocache/GCJZDR_cloud-gate-aka-the-bean
 	}
 
-	public function testCoordinates(): void {
+	public function testCoordinates(): void
+	{
 		$text = '';
 		$text .= 'N50°59.72333\', E10°31.36987\'' . PHP_EOL;    // +/+
 		$text .= 'N 51°4.34702\', E11°46.32372\'' . PHP_EOL;    // +/+

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper\Events\Command;
+namespace App\TelegramCustomWrapper\Events\Command;
 
 class HelpCommand extends Command
 {
@@ -12,7 +12,8 @@ class HelpCommand extends Command
 	 * @param $update
 	 * @throws \Exception
 	 */
-	public function __construct($update) {
+	public function __construct($update)
+	{
 		parent::__construct($update);
 		$this->processHelp();
 	}

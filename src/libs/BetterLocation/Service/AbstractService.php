@@ -1,10 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation\Service;
+namespace App\BetterLocation\Service;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\BetterLocationCollection;
-use Utils\General;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
 
 abstract class AbstractService
 {
@@ -20,7 +19,8 @@ abstract class AbstractService
 	 */
 	abstract public static function parseCoordsMultiple(string $input): BetterLocationCollection;
 
-	public static function getConstants() {
+	public static function getConstants()
+	{
 		return [];
 	}
 }

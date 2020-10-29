@@ -1,13 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper\Events\Command;
+namespace App\TelegramCustomWrapper\Events\Command;
 
-abstract class Command extends \TelegramCustomWrapper\Events\Events
+abstract class Command extends \App\TelegramCustomWrapper\Events\Events
 {
-	protected function getChatId() {
+	protected function getChatId()
+	{
 		return $this->update->message->chat->id;
 	}
-	protected function getMessageId() {
+
+	protected function getMessageId()
+	{
 		return $this->update->message->message_id;
 	}
 }

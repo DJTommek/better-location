@@ -1,8 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation;
+namespace App\BetterLocation;
 
-use Utils\General;
+use App\Config;
+use App\Utils\General;
 
 class GooglePlaceApi
 {
@@ -17,8 +18,9 @@ class GooglePlaceApi
 	const RESPONSE_ZERO_RESULTS = 'ZERO_RESULTS';
 	const RESPONSE_OK = 'OK';
 
-	public function __construct() {
-		$this->apiKey = \Config::GOOGLE_PLACE_API_KEY;
+	public function __construct()
+	{
+		$this->apiKey = Config::GOOGLE_PLACE_API_KEY;
 	}
 
 	/**
@@ -28,7 +30,8 @@ class GooglePlaceApi
 	 * @param string|null $locationBias @see https://developers.google.com/places/web-service/search#FindPlaceRequests -> Optional parameters
 	 * @return string
 	 */
-	private function gePlaceSearchUrl(string $input, array $outputFields, string $language, ?string $locationBias = null): string {
+	private function gePlaceSearchUrl(string $input, array $outputFields, string $language, ?string $locationBias = null): string
+	{
 		return self::PLACE_SEARCH_URL . '?' . http_build_query([
 				'input' => $input,
 				'inputtype' => 'textquery', // @TODO add support for phonenumber?
@@ -44,7 +47,8 @@ class GooglePlaceApi
 	 * @param string[] $outputFields see https://developers.google.com/places/web-service/details#fields
 	 * @return string
 	 */
-	private function gePlaceDetailsUrl(string $placeId, array $outputFields): string {
+	private function gePlaceDetailsUrl(string $placeId, array $outputFields): string
+	{
 		return self::PLACE_DETAILS_URL . '?' . http_build_query([
 				'place_id' => $placeId,
 				'fields' => join(',', $outputFields),
@@ -60,7 +64,8 @@ class GooglePlaceApi
 	 * @return \stdClass[]
 	 * @throws \JsonException|\Exception
 	 */
-	public function runSearch(string $input, array $outputFields, string $language, ?BetterLocation $locationBias = null): array {
+	public function runSearch(string $input, array $outputFields, string $language, ?BetterLocation $locationBias = null): array
+	{
 		$url = $this->gePlaceSearchUrl($input, $outputFields, $language, ($locationBias ? $this->generateLocationBias($locationBias) : null));
 		$response = General::fileGetContents($url);
 		$content = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
@@ -79,7 +84,8 @@ class GooglePlaceApi
 	 * @return \stdClass
 	 * @throws \JsonException|\Exception
 	 */
-	public function getPlaceDetails(string $placeId, array $outputFields): \stdClass {
+	public function getPlaceDetails(string $placeId, array $outputFields): \stdClass
+	{
 		$url = $this->gePlaceDetailsUrl($placeId, $outputFields);
 		$response = General::fileGetContents($url);
 		$content = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
@@ -89,7 +95,8 @@ class GooglePlaceApi
 		return $content->result;
 	}
 
-	private function generateLocationBias(BetterLocation $betterLocation) {
+	private function generateLocationBias(BetterLocation $betterLocation)
+	{
 		return 'point:' . $betterLocation->__toString();
 	}
 }

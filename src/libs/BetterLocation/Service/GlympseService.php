@@ -1,17 +1,20 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation\Service;
+namespace App\BetterLocation\Service;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\BetterLocationCollection;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotImplementedException;
-use BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\Config;
+use App\Factory;
+use App\Icons;
+use App\Utils\General;
 use DJTommek\GlympseApi\GlympseApiException;
 use DJTommek\GlympseApi\Types\TicketInvite;
 use Tracy\Debugger;
 use Tracy\ILogger;
-use Utils\General;
 
 final class GlympseService extends AbstractService
 {
@@ -23,7 +26,8 @@ final class GlympseService extends AbstractService
 	const TYPE_INVITE = 'invite';
 	const TYPE_DESTINATION = 'destination';
 
-	public static function getConstants(): array {
+	public static function getConstants(): array
+	{
 		return [
 			self::TYPE_INVITE,
 			self::TYPE_GROUP,
@@ -34,7 +38,8 @@ final class GlympseService extends AbstractService
 	const PATH_INVITE_ID_REGEX = '/^\/[0-9a-z]+-[0-9a-z]+$/i';
 	const PATH_GROUP_REGEX = '/^\/!.+$/i';
 
-	public static function getLink(float $lat, float $lon, bool $drive = false): string {
+	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
 		} else {
@@ -42,7 +47,8 @@ final class GlympseService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool {
+	public static function isValid(string $url): bool
+	{
 		return self::isUrl($url);
 	}
 
@@ -51,15 +57,18 @@ final class GlympseService extends AbstractService
 	 * @return BetterLocation
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoords(string $url): BetterLocation {
+	public static function parseCoords(string $url): BetterLocation
+	{
 		throw new NotImplementedException('Parsing single coordinate is not supported. Use parseMultipleCoords() instead.');
 	}
 
-	public static function isUrl(string $url): bool {
+	public static function isUrl(string $url): bool
+	{
 		return self::isCorrectDomainUrl($url) && (self::isInviteIdUrl($url) || self::isGroupUrl($url));
 	}
 
-	private static function isCorrectDomainUrl($url): bool {
+	private static function isCorrectDomainUrl($url): bool
+	{
 		$parsedUrl = General::parseUrl($url);
 		return (
 			isset($parsedUrl['host']) &&
@@ -68,17 +77,20 @@ final class GlympseService extends AbstractService
 		);
 	}
 
-	public static function isInviteIdUrl(string $url): bool {
+	public static function isInviteIdUrl(string $url): bool
+	{
 		$parsedUrl = General::parseUrl($url);
 		return (!!preg_match(self::PATH_INVITE_ID_REGEX, $parsedUrl['path']));
 	}
 
-	public static function isGroupUrl(string $url): bool {
+	public static function isGroupUrl(string $url): bool
+	{
 		$parsedUrl = General::parseUrl($url);
 		return (!!preg_match(self::PATH_GROUP_REGEX, $parsedUrl['path']));
 	}
 
-	public static function parseCoordsMultiple(string $url): BetterLocationCollection {
+	public static function parseCoordsMultiple(string $url): BetterLocationCollection
+	{
 		if (self::isInviteIdUrl($url)) {
 			return self::processInvite($url);
 		} else if (self::isGroupUrl($url)) {
@@ -88,7 +100,8 @@ final class GlympseService extends AbstractService
 		}
 	}
 
-	public static function processInviteLocation(string $url, string $type, TicketInvite $invite): BetterLocation {
+	public static function processInviteLocation(string $url, string $type, TicketInvite $invite): BetterLocation
+	{
 		if (in_array($type, self::getConstants()) === false) {
 			throw new \OutOfBoundsException(sprintf('Invalid %s service type "%s"', self::NAME, $type));
 		}
@@ -98,20 +111,20 @@ final class GlympseService extends AbstractService
 		$diff = $invite->properties->endTime->getTimestamp() - $now->getTimestamp();
 		if ($diff <= 0) {
 			$currentLocationDescriptions[] = sprintf('%s Glympse expired at %s (%s ago)',
-				\Icons::WARNING,
-				$invite->properties->endTime->format(\Config::DATETIME_FORMAT_ZONE),
+				Icons::WARNING,
+				$invite->properties->endTime->format(Config::DATETIME_FORMAT_ZONE),
 				preg_replace('/ [0-9]+s$/', '', General::sToHuman($diff * -1))
 			);
 		} else if ($invite->properties->endTime < ((clone $now)->add($willExpireWarningInterval))) {
-			$currentLocationDescriptions[] = sprintf('%s Glympse will expire soon, at %s', \Icons::WARNING, $invite->properties->endTime->format(\Config::TIME_FORMAT_ZONE));
+			$currentLocationDescriptions[] = sprintf('%s Glympse will expire soon, at %s', Icons::WARNING, $invite->properties->endTime->format(Config::TIME_FORMAT_ZONE));
 		}
 		$lastLocation = $invite->getLastLocation();
 		$currentLocation = new BetterLocation($url, $lastLocation->latitude, $lastLocation->longtitude, self::class, $type);
 		$diff = $now->getTimestamp() - $lastLocation->timestamp->getTimestamp();
 		if ($diff > 600) { // show last update message only if it was updated long ago
 			$lastUpdateText = sprintf('%s Last location update: %s (%s ago)',
-				\Icons::WARNING,
-				$lastLocation->timestamp->format(\Config::DATETIME_FORMAT_ZONE),
+				Icons::WARNING,
+				$lastLocation->timestamp->format(Config::DATETIME_FORMAT_ZONE),
 				preg_replace('/ [0-9]+s$/', '', General::sToHuman($diff))
 			);
 			$currentLocationDescriptions[] = $lastUpdateText;
@@ -134,7 +147,8 @@ final class GlympseService extends AbstractService
 		return $currentLocation;
 	}
 
-	public static function processInviteDestinationLocation(string $url, TicketInvite $invite): BetterLocation {
+	public static function processInviteDestinationLocation(string $url, TicketInvite $invite): BetterLocation
+	{
 		$now = new \DateTimeImmutable();
 		$destinationDescriptions = [];
 		$destination = new BetterLocation($url, $invite->properties->destination->lat, $invite->properties->destination->lng, self::class, self::TYPE_DESTINATION);
@@ -157,11 +171,11 @@ final class GlympseService extends AbstractService
 			$etaInfo = sprintf('Distance: %s, ETA: %s (%s)',
 				$distanceString,
 				General::sToHuman(intval($invite->properties->eta->eta->format('%s'))),
-				$invite->properties->eta->etaTs->add($invite->properties->eta->eta)->format(\Config::TIME_FORMAT_ZONE),
+				$invite->properties->eta->etaTs->add($invite->properties->eta->eta)->format(Config::TIME_FORMAT_ZONE),
 			);
 			$diff = $now->getTimestamp() - $invite->properties->eta->etaTs->getTimestamp();
 			if ($diff > 600) {
-				$etaInfo .= sprintf(' %s Calculated %s ago', \Icons::WARNING, preg_replace('/ [0-9]+s$/', '', General::sToHuman($diff)));
+				$etaInfo .= sprintf(' %s Calculated %s ago', Icons::WARNING, preg_replace('/ [0-9]+s$/', '', General::sToHuman($diff)));
 			}
 			$destinationDescriptions[] = $etaInfo;
 		}
@@ -169,8 +183,9 @@ final class GlympseService extends AbstractService
 		return $destination;
 	}
 
-	public static function processInvite($url): BetterLocationCollection {
-		$glympseApi = \Factory::Glympse();
+	public static function processInvite($url): BetterLocationCollection
+	{
+		$glympseApi = Factory::Glympse();
 		$glympseApi->loadToken();
 		$betterLocationCollection = new BetterLocationCollection();
 		$inviteId = self::getInviteIdFromUrl($url);
@@ -191,8 +206,9 @@ final class GlympseService extends AbstractService
 		}
 	}
 
-	public static function processGroup($url): BetterLocationCollection {
-		$glympseApi = \Factory::Glympse();
+	public static function processGroup($url): BetterLocationCollection
+	{
+		$glympseApi = Factory::Glympse();
 		$glympseApi->loadToken();
 		$betterLocationCollection = new BetterLocationCollection();
 		$groupId = self::getGroupIdFromUrl($url);
@@ -216,7 +232,8 @@ final class GlympseService extends AbstractService
 		}
 	}
 
-	private static function getInviteIdFromUrl(string $url): ?string {
+	private static function getInviteIdFromUrl(string $url): ?string
+	{
 		$parsedUrl = General::parseUrl($url);
 		// no need to check domain and path, it already has been done earlier
 		if (preg_match(GlympseService::PATH_INVITE_ID_REGEX, $parsedUrl['path'])) {
@@ -225,7 +242,8 @@ final class GlympseService extends AbstractService
 		return null;
 	}
 
-	private static function getGroupIdFromUrl(string $url): ?string {
+	private static function getGroupIdFromUrl(string $url): ?string
+	{
 		$parsedUrl = General::parseUrl($url);
 		// no need to check domain and path, it already has been done earlier
 		if (preg_match(GlympseService::PATH_GROUP_REGEX, $parsedUrl['path'])) {

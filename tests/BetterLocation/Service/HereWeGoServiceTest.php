@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use \BetterLocation\Service\HereWeGoService;
+use App\BetterLocation\Service\HereWeGoService;
 
 require_once __DIR__ . '/../../../src/bootstrap.php';
 
-
 final class HereWeGoServiceTest extends TestCase
 {
-	public function testGenerateShareLink(): void {
+	public function testGenerateShareLink(): void
+	{
 		$this->assertEquals('https://share.here.com/l/50.087451,14.420671?p=yes', HereWeGoService::getLink(50.087451, 14.420671));
 		$this->assertEquals('https://share.here.com/l/50.100000,14.500000?p=yes', HereWeGoService::getLink(50.1, 14.5));
 		$this->assertEquals('https://share.here.com/l/-50.200000,14.600000?p=yes', HereWeGoService::getLink(-50.2, 14.6000001)); // round down
@@ -16,7 +16,8 @@ final class HereWeGoServiceTest extends TestCase
 		$this->assertEquals('https://share.here.com/l/-50.400000,-14.800008?p=yes', HereWeGoService::getLink(-50.4, -14.800008));
 	}
 
-	public function testGenerateDriveLink(): void {
+	public function testGenerateDriveLink(): void
+	{
 		$this->assertEquals('https://share.here.com/r/50.087451,14.420671', HereWeGoService::getLink(50.087451, 14.420671, true));
 		$this->assertEquals('https://share.here.com/r/50.100000,14.500000', HereWeGoService::getLink(50.1, 14.5, true));
 		$this->assertEquals('https://share.here.com/r/-50.200000,14.600000', HereWeGoService::getLink(-50.2, 14.6000001, true)); // round down
@@ -25,7 +26,8 @@ final class HereWeGoServiceTest extends TestCase
 	}
 
 	/** @noinspection PhpUnhandledExceptionInspection */
-	public function testNormalUrl(): void {
+	public function testNormalUrl(): void
+	{
 		$this->assertEquals('50.075130,14.454530', HereWeGoService::parseCoordsMultiple('https://wego.here.com/?map=50.07513,14.45453,15,normal')[0]->__toString()); // browser
 
 		$this->assertEquals('50.086290,14.428080', HereWeGoService::parseCoordsMultiple('https://wego.here.com/?x=ep&map=50.08629,14.42808,15,satellite_traffic')[0]->__toString());
@@ -56,14 +58,16 @@ final class HereWeGoServiceTest extends TestCase
 	}
 
 	/** @noinspection PhpUnhandledExceptionInspection */
-	public function testStartPointUrl(): void {
+	public function testStartPointUrl(): void
+	{
 		$location = HereWeGoService::parseCoordsMultiple('https://wego.here.com/directions/mix/Bottomwoods,-Longwood,-Saint-Helena:-15.95104,-5.67743/?map=-15.9508,-5.67904,18,terrain&msg=Bottomwoods');
 		$this->assertEquals('-15.951040,-5.677430', $location[0]->__toString());
 		$this->assertEquals('-15.950800,-5.679040', $location[1]->__toString());
 	}
 
 	/** @noinspection PhpUnhandledExceptionInspection */
-	public function testRequestLocUrl(): void {
+	public function testRequestLocUrl(): void
+	{
 		$location = HereWeGoService::parseCoordsMultiple('https://wego.here.com/czech-republic/prague/street-square/m%C3%A1nes%C5%AFv-most--loc-dmVyc2lvbj0xO3RpdGxlPU0lQzMlQTFuZXMlQzUlQUZ2K21vc3Q7bGF0PTUwLjA4OTM0O2xvbj0xNC40MTM2NDtzdHJlZXQ9TSVDMyVBMW5lcyVDNSVBRnYrbW9zdDtjaXR5PVByYWd1ZTtwb3N0YWxDb2RlPTExOCswMDtjb3VudHJ5PUNaRTtkaXN0cmljdD1QcmFoYSsxO3N0YXRlQ29kZT1QcmFndWU7Y291bnR5PVByYWd1ZTtjYXRlZ29yeUlkPXN0cmVldC1zcXVhcmU7c291cmNlU3lzdGVtPWludGVybmFs?map=50.08963,14.41276,16,satellite_traffic&msg=M%C3%A1nes%C5%AFv%20most');
 		$this->assertEquals('50.089340,14.413640', $location[0]->__toString());
 		$this->assertEquals('50.089630,14.412760', $location[1]->__toString());
@@ -77,8 +81,10 @@ final class HereWeGoServiceTest extends TestCase
 		$this->assertEquals('-15.978160,-5.712050', $location[0]->__toString());
 		$this->assertEquals('-15.994290,-5.756810', $location[1]->__toString());
 	}
+
 	/** @noinspection PhpUnhandledExceptionInspection */
-	public function testShortUrl(): void {
+	public function testShortUrl(): void
+	{
 		$location = HereWeGoService::parseCoordsMultiple('https://her.is/3lZVXD3'); // map center was few kilometers off the shared point when creating share link
 		// -> https://share.here.com/p/s-Yz1wb3N0YWwtYXJlYTtsYXQ9NTAuMTA5NTc7bG9uPTE0LjQ0MTIyO249UHJhaGErNztoPTc1NWM3OQ?ref=here_com
 		// -> https://wego.here.com/p/s-Yz1wb3N0YWwtYXJlYTtsYXQ9NTAuMTA5NTc7bG9uPTE0LjQ0MTIyO249UHJhaGErNztoPTc1NWM3OQ?map=50.10957%2C14.44122%2C15%2Cnormal&ref=here_com
@@ -90,7 +96,8 @@ final class HereWeGoServiceTest extends TestCase
 		$this->assertEquals('50.096670,14.445130', $location[0]->__toString());
 	}
 
-	public function testIsInvalidUrl(): void {
+	public function testIsInvalidUrl(): void
+	{
 		$this->assertFalse(HereWeGoService::isValid('Novinky.cz'));
 	}
 }

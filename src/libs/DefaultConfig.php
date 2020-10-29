@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace App;
+
 /**
  * Warning: Never update this file directly, always update config.local.php in data folder!
  *
@@ -66,7 +68,8 @@ class DefaultConfig
 	 */
 	const TIMEZONE = 'UTC';
 
-	public static function isGlympse(): bool {
+	public static function isGlympse(): bool
+	{
 		return (
 			is_null(static::GLYMPSE_API_USERNAME) === false &&
 			is_null(static::GLYMPSE_API_PASSWORD) === false &&
@@ -74,7 +77,8 @@ class DefaultConfig
 		);
 	}
 
-	public static function getTimezone(): \DateTimeZone {
-		return new DateTimeZone(static::TIMEZONE);
+	public static function getTimezone(): \DateTimeZone
+	{
+		return new \DateTimeZone(static::TIMEZONE);
 	}
 }

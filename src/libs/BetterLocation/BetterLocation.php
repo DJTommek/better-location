@@ -1,36 +1,40 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation;
+namespace App\BetterLocation;
 
-use BetterLocation\Service\Coordinates\MGRSService;
-use BetterLocation\Service\Coordinates\USNGService;
-use BetterLocation\Service\Coordinates\WG84DegreesMinutesSecondsService;
-use BetterLocation\Service\Coordinates\WG84DegreesMinutesService;
-use BetterLocation\Service\Coordinates\WG84DegreesService;
-use BetterLocation\Service\DrobnePamatkyCzService;
-use BetterLocation\Service\DuckDuckGoService;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use \BetterLocation\Service\GlympseService;
-use \BetterLocation\Service\GoogleMapsService;
-use \BetterLocation\Service\HereWeGoService;
-use \BetterLocation\Service\IngressIntelService;
-use \BetterLocation\Service\MapyCzService;
-use \BetterLocation\Service\OpenStreetMapService;
-use \BetterLocation\Service\OpenLocationCodeService;
-use \BetterLocation\Service\RopikyNetService;
-use \BetterLocation\Service\WazeService;
-use \BetterLocation\Service\WhatThreeWordService;
-use BetterLocation\Service\WikipediaService;
-use \BetterLocation\Service\ZanikleObceCzService;
-use \BetterLocation\Service\ZniceneKostelyCzService;
-use TelegramCustomWrapper\Events\Button\FavouritesButton;
-use TelegramCustomWrapper\TelegramHelper;
+use App\BetterLocation\Service\AbstractService;
+use App\BetterLocation\Service\Coordinates\MGRSService;
+use App\BetterLocation\Service\Coordinates\USNGService;
+use App\BetterLocation\Service\Coordinates\WG84DegreesMinutesSecondsService;
+use App\BetterLocation\Service\Coordinates\WG84DegreesMinutesService;
+use App\BetterLocation\Service\Coordinates\WG84DegreesService;
+use App\BetterLocation\Service\DrobnePamatkyCzService;
+use App\BetterLocation\Service\DuckDuckGoService;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\GlympseService;
+use App\BetterLocation\Service\GoogleMapsService;
+use App\BetterLocation\Service\HereWeGoService;
+use App\BetterLocation\Service\IngressIntelService;
+use App\BetterLocation\Service\MapyCzService;
+use App\BetterLocation\Service\OpenLocationCodeService;
+use App\BetterLocation\Service\OpenStreetMapService;
+use App\BetterLocation\Service\RopikyNetService;
+use App\BetterLocation\Service\WazeService;
+use App\BetterLocation\Service\WhatThreeWordService;
+use App\BetterLocation\Service\WikipediaService;
+use App\BetterLocation\Service\ZanikleObceCzService;
+use App\BetterLocation\Service\ZniceneKostelyCzService;
+use App\Config;
+use App\Factory;
+use App\Icons;
+use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
+use App\TelegramCustomWrapper\TelegramHelper;
+use App\Utils\Coordinates;
+use App\Utils\General;
+use App\Utils\StringUtils;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
-use Utils\Coordinates;
-use \Utils\General;
-use Utils\StringUtils;
 
 class BetterLocation
 {
@@ -68,7 +72,8 @@ class BetterLocation
 	 * @param string|null $sourceType
 	 * @throws InvalidLocationException|Service\Exceptions\NotImplementedException
 	 */
-	public function __construct(string $originalInput, float $lat, float $lon, string $sourceService, ?string $sourceType = null) {
+	public function __construct(string $originalInput, float $lat, float $lon, string $sourceService, ?string $sourceType = null)
+	{
 		$this->originalInput = $originalInput;
 		if (self::isLatValid($lat) === false) {
 			throw new InvalidLocationException('Latitude coordinate must be between or equal from -90 to 90 degrees.');
@@ -81,8 +86,8 @@ class BetterLocation
 		if (class_exists($sourceService) === false) {
 			throw new InvalidLocationException(sprintf('Invalid source service: "%s".', $sourceService));
 		}
-		if (is_subclass_of($sourceService, \BetterLocation\Service\AbstractService::class) === false) {
-			throw new InvalidLocationException(sprintf('Source service has to be subclass of "%s".', \BetterLocation\Service\AbstractService::class));
+		if (is_subclass_of($sourceService, AbstractService::class) === false) {
+			throw new InvalidLocationException(sprintf('Source service has to be subclass of "%s".', AbstractService::class));
 		}
 
 		$this->sourceService = $sourceService;
@@ -119,11 +124,13 @@ class BetterLocation
 		}
 	}
 
-	public function getName() {
+	public function getName()
+	{
 		return $this->sourceType;
 	}
 
-	private static function handleShortUrl(string $url): string {
+	private static function handleShortUrl(string $url): string
+	{
 		$originalUrl = $url;
 		$tries = 0;
 		while (is_null($url) === false && Url::isShortUrl($url)) {
@@ -145,7 +152,8 @@ class BetterLocation
 	 * @return BetterLocationCollection | \InvalidArgumentException[]
 	 * @throws \Exception
 	 */
-	public static function generateFromTelegramMessage(string $message, array $entities): BetterLocationCollection {
+	public static function generateFromTelegramMessage(string $message, array $entities): BetterLocationCollection
+	{
 		$betterLocationsCollection = new BetterLocationCollection();
 
 		foreach ($entities as $entity) {
@@ -161,17 +169,17 @@ class BetterLocation
 				try {
 					if (GoogleMapsService::isValid($url)) {
 						$googleMapsBetterLocationCollection = GoogleMapsService::parseCoordsMultiple($url);
-						$googleMapsBetterLocationCollection->filterTooClose(\Config::DISTANCE_IGNORE);
+						$googleMapsBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
 						$betterLocationsCollection->mergeCollection($googleMapsBetterLocationCollection);
 					} else if (MapyCzService::isValid($url)) {
 						$mapyCzBetterLocationCollection = MapyCzService::parseCoordsMultiple($url);
-						$mapyCzBetterLocationCollection->filterTooClose(\Config::DISTANCE_IGNORE);
+						$mapyCzBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
 						$betterLocationsCollection->mergeCollection($mapyCzBetterLocationCollection);
 					} else if (OpenStreetMapService::isValid($url)) {
 						$betterLocationsCollection[] = OpenStreetMapService::parseCoords($url);
 					} else if (HereWeGoService::isValid($url)) {
 						$hereBetterLocationCollection = HereWeGoService::parseCoordsMultiple($url);
-						$hereBetterLocationCollection->filterTooClose(\Config::DISTANCE_IGNORE);
+						$hereBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
 						$betterLocationsCollection->mergeCollection($hereBetterLocationCollection);
 					} else if (WikipediaService::isValid($url)) {
 						try {
@@ -183,9 +191,9 @@ class BetterLocation
 						$betterLocationsCollection[] = OpenLocationCodeService::parseCoords($url);
 					} else if (WazeService::isValid($url)) {
 						$betterLocationsCollection[] = WazeService::parseCoords($url);
-					} else if (is_null(\Config::W3W_API_KEY) === false && WhatThreeWordService::isValid($url)) {
+					} else if (is_null(Config::W3W_API_KEY) === false && WhatThreeWordService::isValid($url)) {
 						$betterLocationsCollection[] = WhatThreeWordService::parseCoords($url);
-					} else if (\Config::isGlympse() && GlympseService::isValid($url)) {
+					} else if (Config::isGlympse() && GlympseService::isValid($url)) {
 						$glympseBetterLocationCollection = GlympseService::parseCoordsMultiple($url);
 						$betterLocationsCollection->mergeCollection($glympseBetterLocationCollection);
 					} else if (IngressIntelService::isValid($url)) {
@@ -252,7 +260,7 @@ class BetterLocation
 		}
 
 		// What Three Word
-		if (is_null(\Config::W3W_API_KEY) === false && preg_match_all(WhatThreeWordService::RE_IN_STRING, $messageWithoutUrls, $matches)) {
+		if (is_null(Config::W3W_API_KEY) === false && preg_match_all(WhatThreeWordService::RE_IN_STRING, $messageWithoutUrls, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				$words = $matches[0][$i];
 				try {
@@ -270,7 +278,8 @@ class BetterLocation
 		return $betterLocationsCollection;
 	}
 
-	public function export(): array {
+	public function export(): array
+	{
 		return [
 			'lat' => $this->getLat(),
 			'lon' => $this->getLon(),
@@ -278,26 +287,28 @@ class BetterLocation
 		];
 	}
 
-	public function generateScreenshotLink(string $serviceClass) {
+	public function generateScreenshotLink(string $serviceClass)
+	{
 		if (class_exists($serviceClass) === false) {
 			throw new \InvalidArgumentException(sprintf('Invalid location service: "%s".', $serviceClass));
 		}
-		if (is_subclass_of($serviceClass, \BetterLocation\Service\AbstractService::class) === false) {
-			throw new \InvalidArgumentException(sprintf('Source service has to be subclass of "%s".', \BetterLocation\Service\AbstractService::class));
+		if (is_subclass_of($serviceClass, AbstractService::class) === false) {
+			throw new \InvalidArgumentException(sprintf('Source service has to be subclass of "%s".', AbstractService::class));
 		}
 		if (method_exists($serviceClass, 'getScreenshotLink') === false) {
 			throw new \InvalidArgumentException(sprintf('Source service "%s" does not supports screenshot links.', $serviceClass));
 		}
-		/** @var $services \BetterLocation\Service\AbstractService[] */
+		/** @var $services AbstractService[] */
 		return $serviceClass::getScreenshotLink($this->getLat(), $this->getLon());
 	}
 
-
-	public function setAddress(string $address) {
+	public function setAddress(string $address)
+	{
 		$this->address = $address;
 	}
 
-	public function getAddress(): ?string {
+	public function getAddress(): ?string
+	{
 		return $this->address;
 	}
 
@@ -305,10 +316,11 @@ class BetterLocation
 	 * @return string
 	 * @throws \Exception
 	 */
-	public function generateAddress() {
+	public function generateAddress()
+	{
 		if (is_null($this->address)) {
 			try {
-				$result = \Factory::WhatThreeWords()->convertTo3wa($this->getLat(), $this->getLon());
+				$result = Factory::WhatThreeWords()->convertTo3wa($this->getLat(), $this->getLon());
 			} catch (\Exception $exception) {
 				throw new \Exception('Unable to get address from W3W API');
 			}
@@ -324,7 +336,8 @@ class BetterLocation
 	/**
 	 * Skip URLs without defined scheme, eg "tomas.palider.cz" but allow "https://tomas.palider.cz/"
 	 */
-	private static function isTrueUrl(string $url): bool {
+	private static function isTrueUrl(string $url): bool
+	{
 		$parsedUrl = General::parseUrl($url);
 		return (isset($parsedUrl['scheme']) && isset($parsedUrl['host']));
 	}
@@ -340,7 +353,8 @@ class BetterLocation
 	 * @param MessageEntity[] $entities
 	 * @return string
 	 */
-	private static function getMessageWithoutUrls(string $text, array $entities): string {
+	private static function getMessageWithoutUrls(string $text, array $entities): string
+	{
 		foreach (array_reverse($entities) as $entity) {
 			if ($entity->type === 'url') {
 				$entityContent = TelegramHelper::getEntityContent($text, $entity);
@@ -357,7 +371,8 @@ class BetterLocation
 	 * @return BetterLocation|null
 	 * @throws InvalidLocationException|Service\Exceptions\NotImplementedException
 	 */
-	public static function fromExif($input): ?BetterLocation {
+	public static function fromExif($input): ?BetterLocation
+	{
 		if (is_string($input) === false && is_resource($input) === false) {
 			throw new \InvalidArgumentException('Input must be string or resource.');
 		}
@@ -394,8 +409,9 @@ class BetterLocation
 	 * @return string
 	 * @throws \Exception
 	 */
-	public function generateBetterLocation($withAddress = true): string {
-		/** @var $services \BetterLocation\Service\AbstractService[] */
+	public function generateBetterLocation($withAddress = true): string
+	{
+		/** @var $services AbstractService[] */
 		$services = [
 			GoogleMapsService::class,
 			MapyCzService::class,
@@ -409,7 +425,7 @@ class BetterLocation
 		$text .= sprintf('%s <a href="%s" target="_blank">%s</a> <code>%s</code>',
 			$this->prefixMessage,
 			$this->generateScreenshotLink(MapyCzService::class),
-			\Icons::PICTURE,
+			Icons::PICTURE,
 			$this->__toString()
 		);
 		if ($this->getCoordinateSuffixMessage()) {
@@ -436,8 +452,9 @@ class BetterLocation
 		return $text . PHP_EOL;
 	}
 
-	public function generateDriveButtons() {
-		/** @var $services \BetterLocation\Service\AbstractService[] */
+	public function generateDriveButtons()
+	{
+		/** @var $services AbstractService[] */
 		$services = [
 			GoogleMapsService::class,
 			WazeService::class,
@@ -446,16 +463,17 @@ class BetterLocation
 		$buttons = [];
 		foreach ($services as $service) {
 			$button = new Button();
-			$button->text = sprintf('%s %s', $service::NAME, \Icons::CAR);
+			$button->text = sprintf('%s %s', $service::NAME, Icons::CAR);
 			$button->url = $service::getLink($this->lat, $this->lon, true);
 			$buttons[] = $button;
 		}
 		return $buttons;
 	}
 
-	public function generateAddToFavouriteButtton(): Button {
+	public function generateAddToFavouriteButtton(): Button
+	{
 		$button = new Button();
-		$button->text = \Icons::FAVOURITE;
+		$button->text = Icons::FAVOURITE;
 		$button->callback_data = sprintf('%s %s %F %F', FavouritesButton::CMD, FavouritesButton::ACTION_ADD, $this->getLat(), $this->getLon());
 		return $button;
 	}
@@ -463,67 +481,80 @@ class BetterLocation
 	/**
 	 * @param string $prefixMessage
 	 */
-	public function setPrefixMessage(string $prefixMessage): void {
+	public function setPrefixMessage(string $prefixMessage): void
+	{
 		$this->prefixMessage = $prefixMessage;
 	}
 
 	/**
 	 * @return mixed
 	 */
-	public function getPrefixMessage(): ?string {
+	public function getPrefixMessage(): ?string
+	{
 		return $this->prefixMessage;
 	}
 
 	/**
 	 * @param string $coordinateSuffixMessage
 	 */
-	public function setCoordinateSuffixMessage(string $coordinateSuffixMessage): void {
+	public function setCoordinateSuffixMessage(string $coordinateSuffixMessage): void
+	{
 		$this->coordinateSuffixMessage = $coordinateSuffixMessage;
 	}
 
-	public function getCoordinateSuffixMessage(): ?string {
+	public function getCoordinateSuffixMessage(): ?string
+	{
 		return $this->coordinateSuffixMessage;
 	}
 
-	public function getLink($class, bool $drive = false) {
-		if ($class instanceof \BetterLocation\Service\AbstractService === false) {
-			throw new \InvalidArgumentException('Class must be instance of \BetterLocation\Service\AbstractService');
+	public function getLink($class, bool $drive = false)
+	{
+		if ($class instanceof AbstractService === false) {
+			throw new \InvalidArgumentException(sprintf('Class must be instance of "%s"', AbstractService::class));
 		}
 		return $class::getLink($this->lat, $this->lon, $drive);
 	}
 
-	public function getLat(): float {
+	public function getLat(): float
+	{
 		return $this->lat;
 	}
 
-	public function getLon(): float {
+	public function getLon(): float
+	{
 		return $this->lon;
 	}
 
-	public function getLatLon(): array {
+	public function getLatLon(): array
+	{
 		return [$this->lat, $this->lon];
 	}
 
-	public function __toString() {
+	public function __toString()
+	{
 		return sprintf('%F,%F', $this->lat, $this->lon);
 	}
 
 	/**
 	 * @param string|null $description
 	 */
-	public function setDescription(?string $description): void {
+	public function setDescription(?string $description): void
+	{
 		$this->description = $description;
 	}
 
-	public static function isLatValid(float $lat): bool {
+	public static function isLatValid(float $lat): bool
+	{
 		return ($lat <= 90 && $lat >= -90);
 	}
 
-	public static function isLonValid(float $lon): bool {
+	public static function isLonValid(float $lon): bool
+	{
 		return ($lon <= 180 && $lon >= -180);
 	}
 
-	public static function fromLatLon(float $lat, float $lon): self {
+	public static function fromLatLon(float $lat, float $lon): self
+	{
 		return new BetterLocation(sprintf('%F,%F', $lat, $lon), $lat, $lon, WG84DegreesService::class);
 	}
 }

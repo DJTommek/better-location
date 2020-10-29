@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation;
+namespace App\BetterLocation;
 
-use Utils\General;
+use App\Utils\General;
 
 class Url
 {
@@ -14,7 +14,8 @@ class Url
 		'tiny.cc', // https://tiny.cc/
 	];
 
-	public static function isShortUrl($url) {
+	public static function isShortUrl($url)
+	{
 		$parsedUrl = General::parseUrl($url);
 		if ($parsedUrl && isset($parsedUrl['host'])) {
 			$host = mb_strtolower($parsedUrl['host']);
@@ -30,7 +31,8 @@ class Url
 	 * @return mixed|null
 	 * @throws \Exception
 	 */
-	public static function getRedirectUrl($url): ?string {
+	public static function getRedirectUrl($url): ?string
+	{
 		$headers = General::getHeaders($url);
 		return $headers['location'] ?? null;
 	}

@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation\Service;
+namespace App\BetterLocation\Service;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\BetterLocationCollection;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotImplementedException;
-use BetterLocation\Url;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\Url;
 
 final class WazeService extends AbstractService
 {
@@ -20,7 +20,8 @@ final class WazeService extends AbstractService
 	 * @param bool $drive
 	 * @return string
 	 */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string {
+	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	{
 		if ($drive) {
 			return sprintf(self::LINK . '/ul?ll=%1$f,%2$f&navigate=yes', $lat, $lon);
 		} else {
@@ -28,7 +29,8 @@ final class WazeService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool {
+	public static function isValid(string $url): bool
+	{
 		return self::isShortUrl($url) || self::isNormalUrl($url);
 	}
 
@@ -37,7 +39,8 @@ final class WazeService extends AbstractService
 	 * @return BetterLocation
 	 * @throws \Exception
 	 */
-	public static function parseCoords(string $url): BetterLocation {
+	public static function parseCoords(string $url): BetterLocation
+	{
 		if (self::isShortUrl($url)) {
 			$wazeUpdatedUrl = str_replace('waze.com/ul/h', 'www.waze.com/livemap?h=', $url);
 			$newLocation = Url::getRedirectUrl($wazeUpdatedUrl);
@@ -65,13 +68,15 @@ final class WazeService extends AbstractService
 		}
 	}
 
-	public static function isShortUrl(string $url): bool {
+	public static function isShortUrl(string $url): bool
+	{
 		// Mapy.cz short link:
 		// https://waze.com/ul/hu2fk8zezt
 		return !!(preg_match('/^https?:\/\/waze\.com\/ul\/[a-z0-9A-Z]+$/', $url));
 	}
 
-	public static function isNormalUrl(string $url): bool {
+	public static function isNormalUrl(string $url): bool
+	{
 		return !!(preg_match('/^https?:\/\/(?:www\.)?waze\.com\/.+/', $url));
 	}
 
@@ -79,7 +84,8 @@ final class WazeService extends AbstractService
 	 * @param string $url
 	 * @return array|null
 	 */
-	public static function parseUrl(string $url): ?array {
+	public static function parseUrl(string $url): ?array
+	{
 		$paramsString = explode('?', $url);
 		parse_str($paramsString[1], $params);
 		if (isset($params['latlng'])) {
@@ -103,7 +109,8 @@ final class WazeService extends AbstractService
 	 * @return BetterLocation[]
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection {
+	public static function parseCoordsMultiple(string $input): BetterLocationCollection
+	{
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }

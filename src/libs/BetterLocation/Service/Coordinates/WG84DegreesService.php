@@ -1,17 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation\Service\Coordinates;
+namespace App\BetterLocation\Service\Coordinates;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\BetterLocationCollection;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 
 final class WG84DegreesService extends AbstractService
 {
 	const RE_COORD = '([0-9]{1,3}\.[0-9]{1,20})';
 	const NAME = 'WG84';
 
-	public static function getRegex(): string {
+	public static function getRegex(): string
+	{
 		return
 			self::RE_HEMISPHERE .
 			self::RE_OPTIONAL_SPACE . self::RE_OPTIONAL_DEGREE_SIGN . self::RE_OPTIONAL_SPACE .
@@ -28,7 +29,8 @@ final class WG84DegreesService extends AbstractService
 			self::RE_HEMISPHERE;
 	}
 
-	public static function getFullRegex(bool $start = false, bool $end = false): string {
+	public static function getFullRegex(bool $start = false, bool $end = false): string
+	{
 		$result = '/';
 		if ($start) {
 			$result .= '^';
@@ -45,7 +47,8 @@ final class WG84DegreesService extends AbstractService
 	 * @param $text
 	 * @return BetterLocationCollection
 	 */
-	public static function findInText($text): BetterLocationCollection {
+	public static function findInText($text): BetterLocationCollection
+	{
 		$collection = new BetterLocationCollection();
 		if (preg_match_all(self::getFullRegex(), $text, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
@@ -59,7 +62,8 @@ final class WG84DegreesService extends AbstractService
 		return $collection;
 	}
 
-	public static function isValid(string $input): bool {
+	public static function isValid(string $input): bool
+	{
 		return !!preg_match(self::getFullRegex(true, true), $input);
 	}
 
@@ -68,7 +72,8 @@ final class WG84DegreesService extends AbstractService
 	 * @return BetterLocation
 	 * @throws InvalidLocationException
 	 */
-	public static function parseCoords(string $input): BetterLocation {
+	public static function parseCoords(string $input): BetterLocation
+	{
 		if (!preg_match(self::getFullRegex(true, true), $input, $matches)) {
 			throw new InvalidLocationException(sprintf('Input is not valid %s coordinates.', self::NAME));
 		}

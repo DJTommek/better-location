@@ -1,14 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper\Events\Special;
+namespace App\TelegramCustomWrapper\Events\Special;
 
-use \BetterLocation\BetterLocation;
-use TelegramCustomWrapper\TelegramHelper;
+use App\BetterLocation\BetterLocation;
+use App\Config;
+use App\Icons;
+use App\TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
-use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
-use \Icons;
 use unreal4u\TelegramAPI\Telegram\Methods\GetFile;
+use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class FileEvent extends Special
 {
@@ -16,13 +17,8 @@ class FileEvent extends Special
 
 	const MAX_FILE_SIZE_DOWNLOAD = 20 * 1024 * 1024; // in bytes
 
-	/**
-	 * FileCommand constructor.
-	 *
-	 * @param $update
-	 * @throws \Exception
-	 */
-	public function __construct($update) {
+	public function __construct($update)
+	{
 		parent::__construct($update);
 
 		$buttonsRows = [];
@@ -47,7 +43,7 @@ class FileEvent extends Special
 				return;
 			}
 			try {
-				$fileLink = TelegramHelper::getFileUrl(\Config::TELEGRAM_BOT_TOKEN, $response->file_path);
+				$fileLink = TelegramHelper::getFileUrl(Config::TELEGRAM_BOT_TOKEN, $response->file_path);
 				$betterLocationExif = BetterLocation::fromExif($fileLink);
 				if ($betterLocationExif instanceof BetterLocation) {
 					$replyMessage .= $betterLocationExif->generateBetterLocation();

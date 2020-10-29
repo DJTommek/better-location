@@ -1,16 +1,17 @@
 <?php declare(strict_types=1);
 
-use BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use PHPUnit\Framework\TestCase;
-use \BetterLocation\Service\MapyCzService;
-use \BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\MapyCzService;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 
 require_once __DIR__ . '/../../../src/bootstrap.php';
 
 final class MapyCzServiceTest extends TestCase
 {
 	/** @noinspection PhpUnhandledExceptionInspection */
-	public function testGenerateShareLink(): void {
+	public function testGenerateShareLink(): void
+	{
 		$this->assertEquals('https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451', MapyCzService::getLink(50.087451, 14.420671));
 		$this->assertEquals('https://mapy.cz/zakladni?y=50.100000&x=14.500000&source=coor&id=14.500000%2C50.100000', MapyCzService::getLink(50.1, 14.5));
 		$this->assertEquals('https://mapy.cz/zakladni?y=-50.200000&x=14.600000&source=coor&id=14.600000%2C-50.200000', MapyCzService::getLink(-50.2, 14.6000001)); // round down
@@ -18,14 +19,16 @@ final class MapyCzServiceTest extends TestCase
 		$this->assertEquals('https://mapy.cz/zakladni?y=-50.400000&x=-14.800008&source=coor&id=-14.800008%2C-50.400000', MapyCzService::getLink(-50.4, -14.800008));
 	}
 
-	public function testGenerateDriveLink(): void {
+	public function testGenerateDriveLink(): void
+	{
 		$this->expectException(NotImplementedException::class);
 		$this->expectExceptionMessage('Drive link is not implemented.');
 		MapyCzService::getLink(50.087451, 14.420671, true);
 	}
 
 	/** @noinspection PhpUnhandledExceptionInspection */
-	public function testMapyCzXY(): void {
+	public function testMapyCzXY(): void
+	{
 		$this->assertEquals('50.069524,14.450824', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15')->__toString());
 		$this->assertEquals('50.069524,14.450824', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?y=50.0695244&x=14.4508239&z=15')->__toString());
 	}
@@ -35,7 +38,8 @@ final class MapyCzServiceTest extends TestCase
 	 *
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
-	public function testValidCoordinatesMapyCzId(): void {
+	public function testValidCoordinatesMapyCzId(): void
+	{
 		$this->assertEquals('48.873288,14.578971', MapyCzService::parseCoords('https://en.mapy.cz/zemepisna?x=14.5702160&y=48.8734857&z=16&source=coor&id=14.57897074520588%2C48.87328807384455')->__toString());
 		$this->assertEquals('50.077886,14.371990', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586')->__toString());
 		$this->assertEquals('49.205899,14.257356', MapyCzService::parseCoords('https://en.mapy.cz/textova?x=14.2573931&y=49.2063073&z=18&source=coor&id=14.257355545997598%2C49.205899024478754')->__toString()); // iQuest textova
@@ -49,7 +53,8 @@ final class MapyCzServiceTest extends TestCase
 	 *
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
-	public function testValidCoordinatesMapyCzIdShort(): void {
+	public function testValidCoordinatesMapyCzIdShort(): void
+	{
 		$this->assertEquals('48.873288,14.578971', MapyCzService::parseCoords('https://mapy.cz/s/cekahebefu')->__toString());
 		$this->assertEquals('48.873288,14.578971', MapyCzService::parseCoords('https://en.mapy.cz/s/gacegelola')->__toString()); // same as above just generated later by different user and on different IP and PC
 		$this->assertEquals('50.077886,14.371990', MapyCzService::parseCoords('https://en.mapy.cz/s/bosafonabo')->__toString());
@@ -61,7 +66,8 @@ final class MapyCzServiceTest extends TestCase
 	/**
 	 * ID parameter is in INVALID latitude coordinates format
 	 */
-	public function testInvalidLatCoordinatesMapyCzId(): void {
+	public function testInvalidLatCoordinatesMapyCzId(): void
+	{
 		$this->expectException(InvalidLocationException::class);
 		$this->expectExceptionMessage('Latitude coordinate must be between or equal from -90 to 90 degrees.');
 		$this->assertEquals('50.077886,14.371990', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C150.07788610486586')->__toString());
@@ -70,7 +76,8 @@ final class MapyCzServiceTest extends TestCase
 	/**
 	 * ID parameter is in INVALID longitude coordinates format
 	 */
-	public function testInvalidLonCoordinatesMapyCzId(): void {
+	public function testInvalidLonCoordinatesMapyCzId(): void
+	{
 		$this->expectException(InvalidLocationException::class);
 		$this->expectExceptionMessage('Longitude coordinate must be between or equal from -180 to 180 degrees.');
 		MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=190.371989590930184%2C50.07788610486586');
@@ -81,11 +88,12 @@ final class MapyCzServiceTest extends TestCase
 	 *
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
-	public function testValidMapyCzPanoramaId(): void {
+	public function testValidMapyCzPanoramaId(): void
+	{
 		$this->assertEquals('50.075959,15.016772', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0162139&y=50.0820182&z=16&pano=1&pid=68059377&yaw=5.522&fov=1.257&pitch=0.101')->__toString());
 		$this->assertEquals('50.123351,16.284569', MapyCzService::parseCoords('https://en.mapy.cz/turisticka?x=16.2845693&y=50.1233926&z=17&pano=1&source=base&id=2107710&pid=66437731&yaw=6.051&fov=1.257&pitch=0.157')->__toString()); // Viribus Unitis 2019
 		$this->assertEquals('50.094953,15.023081', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0483153&y=50.1142203&z=15&pano=1&source=firm&id=216358&pid=68007689&yaw=3.985&fov=1.257&pitch=0.033')->__toString()); // Three different locations: map, place and panorama
-		 // First neighbour of this panorama ID don't have original neighbour, so coordinates are little off (Original test using "get neighbour of neighbour" result was '50.078499,14.488475')
+		// First neighbour of this panorama ID don't have original neighbour, so coordinates are little off (Original test using "get neighbour of neighbour" result was '50.078499,14.488475')
 		$this->assertEquals('50.078496,14.488369', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4883693&y=50.0784958&z=15&pano=1&pid=70254688&yaw=0.424&fov=1.257&pitch=0.088')->__toString());
 	}
 
@@ -94,7 +102,8 @@ final class MapyCzServiceTest extends TestCase
 	 *
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
-	public function testInvalidMapyCzPanoramaId(): void {
+	public function testInvalidMapyCzPanoramaId(): void
+	{
 		$this->expectExceptionMessage('Panorama with id \'99999999999\' not found!');
 		MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=15.0162139&y=50.0820182&z=16&pano=1&pid=99999999999&yaw=5.522&fov=1.257&pitch=0.101');
 	}
@@ -104,7 +113,8 @@ final class MapyCzServiceTest extends TestCase
 	 *
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
-	public function testValidMapyCzId(): void {
+	public function testValidMapyCzId(): void
+	{
 		$this->assertEquals('50.073784,14.422105', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=2111676')->__toString());
 		$this->assertEquals('50.084007,14.440339', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4527551&y=50.0750056&z=15&source=pubt&id=15308193')->__toString());
 		$this->assertEquals('50.084747,14.454012', MapyCzService::parseCoords('https://mapy.cz/zakladni?x=14.4651576&y=50.0796325&z=15&source=firm&id=468797')->__toString());
@@ -123,7 +133,8 @@ final class MapyCzServiceTest extends TestCase
 	 * @see MapyCzServiceTest::testValidMapyCzId() exactly the same just shortened links
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
-	public function testValidMapyCzIdShortUrl(): void {
+	public function testValidMapyCzIdShortUrl(): void
+	{
 		$this->assertEquals('50.533111,16.155906', MapyCzService::parseCoords('https://en.mapy.cz/s/devevemoje')->__toString());
 		$this->assertEquals('50.084007,14.440339', MapyCzService::parseCoords('https://en.mapy.cz/s/degogalazo')->__toString());
 		$this->assertEquals('50.084747,14.454012', MapyCzService::parseCoords('https://en.mapy.cz/s/cavukepuba')->__toString());
@@ -143,13 +154,15 @@ final class MapyCzServiceTest extends TestCase
 	 *
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
-	public function testInvalidMapyCzId(): void {
+	public function testInvalidMapyCzId(): void
+	{
 		$this->expectExceptionMessage('Not found!');
 		MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=1234');
 	}
 
 	/** @noinspection PhpUnhandledExceptionInspection */
-	public function testMapyCzIdFallback(): void {
+	public function testMapyCzIdFallback(): void
+	{
 		// Method is using constant from local config, which can't be changed, so "fake" place ID and put some non-numeric char there which is invalid and it will run fallback to X/Y
 		// @TODO refactor this to be able to run true tests
 		$this->assertEquals('50.069524,14.450824', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=2111676a')->__toString());

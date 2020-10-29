@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation\Service;
+namespace App\BetterLocation\Service;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\BetterLocationCollection;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Url;
-use \Utils\General;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Url;
+use App\Utils\General;
 
 final class GoogleMapsService extends AbstractService
 {
@@ -24,7 +24,8 @@ final class GoogleMapsService extends AbstractService
 	const TYPE_HIDDEN = 'hidden';
 	const TYPE_DRIVE = 'drive';
 
-	public static function getConstants(): array {
+	public static function getConstants(): array
+	{
 		return [
 			self::TYPE_INLINE_SEARCH,
 			self::TYPE_STREET_VIEW,
@@ -37,11 +38,13 @@ final class GoogleMapsService extends AbstractService
 		];
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false): string {
+	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	{
 		return sprintf($drive ? self::LINK_DRIVE : self::LINK, $lat, $lon);
 	}
 
-	public static function isValid(string $url): bool {
+	public static function isValid(string $url): bool
+	{
 		return self::isShortUrl($url) || self::isNormalUrl($url);
 	}
 
@@ -51,7 +54,8 @@ final class GoogleMapsService extends AbstractService
 	 * @return string
 	 * @throws \Exception
 	 */
-	public static function getScreenshotLink(float $lat, float $lon): string {
+	public static function getScreenshotLink(float $lat, float $lon): string
+	{
 		if (defined('GOOGLE_MAPS_API_KEY') === false) {
 			throw new \Exception('Google maps API key is not defined.');
 		}
@@ -71,7 +75,8 @@ final class GoogleMapsService extends AbstractService
 	 * @return BetterLocation
 	 * @throws InvalidLocationException
 	 */
-	public static function parseCoords(string $url): BetterLocation {
+	public static function parseCoords(string $url): BetterLocation
+	{
 		return self::parseCoordsHelper($url, false);
 	}
 
@@ -80,7 +85,8 @@ final class GoogleMapsService extends AbstractService
 	 * @return BetterLocationCollection
 	 * @throws InvalidLocationException
 	 */
-	public static function parseCoordsMultiple(string $url): BetterLocationCollection {
+	public static function parseCoordsMultiple(string $url): BetterLocationCollection
+	{
 		return self::parseCoordsHelper($url, true);
 	}
 
@@ -91,7 +97,8 @@ final class GoogleMapsService extends AbstractService
 	 * @throws InvalidLocationException
 	 * @throws \Exception
 	 */
-	public static function parseCoordsHelper(string $url, bool $returnCollection) {
+	public static function parseCoordsHelper(string $url, bool $returnCollection)
+	{
 		if (self::isShortUrl($url)) {
 			$newLocation = Url::getRedirectUrl($url);
 			if ($newLocation) {
@@ -106,7 +113,8 @@ final class GoogleMapsService extends AbstractService
 		}
 	}
 
-	public static function isShortUrl(string $url): bool {
+	public static function isShortUrl(string $url): bool
+	{
 		$googleMapsShortUrlV1Https = 'https://goo.gl/maps/';
 		$googleMapsShortUrlV1Http = 'http://goo.gl/maps/';
 		$googleMapsShortUrlV2Https = 'https://maps.app.goo.gl/';
@@ -119,7 +127,8 @@ final class GoogleMapsService extends AbstractService
 		);
 	}
 
-	public static function isNormalUrl(string $url): bool {
+	public static function isNormalUrl(string $url): bool
+	{
 		return !!(preg_match('/https?:\/\/(?:(?:www|maps)\.)google\.[a-z]{1,5}\//', $url));
 	}
 
@@ -130,7 +139,8 @@ final class GoogleMapsService extends AbstractService
 	 * @throws InvalidLocationException
 	 * @throws \Exception
 	 */
-	public static function parseUrl(string $url, bool $returnCollection = false) {
+	public static function parseUrl(string $url, bool $returnCollection = false)
+	{
 		$betterLocationCollection = new BetterLocationCollection();
 		$paramsString = explode('?', $url);
 		if (count($paramsString) === 2) {

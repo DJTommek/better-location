@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotSupportedException;
-use BetterLocation\Service\ZanikleObceCzService;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\Service\ZanikleObceCzService;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../../../src/bootstrap.php';
 
-
 final class ZanikleObceCzServiceTest extends TestCase
 {
-	public function testGenerateShareLink(): void {
+	public function testGenerateShareLink(): void
+	{
 		$this->assertEquals('http://zanikleobce.cz/index.php?menu=222&mpx=14.420671&mpy=50.087451', ZanikleObceCzService::getLink(50.087451, 14.420671));
 		$this->assertEquals('http://zanikleobce.cz/index.php?menu=222&mpx=14.500000&mpy=50.100000', ZanikleObceCzService::getLink(50.1, 14.5));
 		$this->assertEquals('http://zanikleobce.cz/index.php?menu=222&mpx=14.600000&mpy=-50.200000', ZanikleObceCzService::getLink(-50.2, 14.6000001)); // round down
@@ -18,17 +18,20 @@ final class ZanikleObceCzServiceTest extends TestCase
 		$this->assertEquals('http://zanikleobce.cz/index.php?menu=222&mpx=-14.800008&mpy=-50.400000', ZanikleObceCzService::getLink(-50.4, -14.800008));
 	}
 
-	public function testGenerateDriveLink(): void {
+	public function testGenerateDriveLink(): void
+	{
 		$this->expectException(NotSupportedException::class);
 		$this->expectExceptionMessage('Drive link is not supported.');
 		ZanikleObceCzService::getLink(50.087451, 14.420671, true);
 	}
 
-	public function testIsValidObec(): void {
+	public function testIsValidObec(): void
+	{
 		$this->assertTrue(ZanikleObceCzService::isValid('http://www.zanikleobce.cz/?obec=26831'));
 	}
 
-	public function testIsValidDetail(): void {
+	public function testIsValidDetail(): void
+	{
 		$this->assertTrue(ZanikleObceCzService::isValid('http://www.zanikleobce.cz/index.php?detail=1110015')); // valid but doesn't contain any location
 
 		$this->assertTrue(ZanikleObceCzService::isValid('http://www.zanikleobce.cz/index.php?detail=282687'));
@@ -59,7 +62,8 @@ final class ZanikleObceCzServiceTest extends TestCase
 	}
 
 	/** @noinspection PhpUnhandledExceptionInspection */
-	public function testUrlObec(): void {
+	public function testUrlObec(): void
+	{
 		$this->assertEquals('48.590270,14.234440', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?obec=502')->__toString());
 		$this->assertEquals('49.786750,12.557330', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?obec=22307')->__toString());
 		$this->assertEquals('48.915560,13.889190', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?obec=7087')->__toString());
@@ -68,14 +72,16 @@ final class ZanikleObceCzServiceTest extends TestCase
 	}
 
 	/** @noinspection PhpUnhandledExceptionInspection */
-	public function testUrlDetail(): void {
+	public function testUrlDetail(): void
+	{
 		$this->assertEquals('48.590270,14.234440', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?detail=119532')->__toString());
 		$this->assertEquals('48.915560,13.889190', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?detail=223422')->__toString());
 		$this->assertEquals('48.915560,13.889190', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?detail=1451711')->__toString());
 		$this->assertEquals('49.778330,13.120830', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?lang=d&detail=48637')->__toString());
 	}
 
-	public function testMissingCoordinates(): void {
+	public function testMissingCoordinates(): void
+	{
 		$this->expectException(InvalidLocationException::class);
 		$this->expectExceptionMessage('Detail page "http://www.zanikleobce.cz/index.php?detail=1110015" has no location.');
 		ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?detail=1110015');

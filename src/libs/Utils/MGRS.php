@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Utils;
+namespace App\Utils;
 
 /**
  *
@@ -51,15 +51,18 @@ class MGRS
 	private $lat;
 	private $lon;
 
-	public function getZoneNumber(): string {
+	public function getZoneNumber(): string
+	{
 		return $this->zoneNumber;
 	}
 
-	public function getZoneBand(): string {
+	public function getZoneBand(): string
+	{
 		return $this->zoneBand;
 	}
 
-	public function setGridZone(string $zoneNumber, string $zoneBand): void {
+	public function setGridZone(string $zoneNumber, string $zoneBand): void
+	{
 		if (preg_match('/^' . self::REGEX_GRID_ZONE . '$/', $zoneNumber) && preg_match('/^[' . self::MGRS_ZONE_LETTERS . ']$/', $zoneBand)) {
 			$this->zoneNumber = $zoneNumber;
 			$this->zoneBand = $zoneBand;
@@ -68,31 +71,38 @@ class MGRS
 		}
 	}
 
-	public function getGridSquareId1(): string {
+	public function getGridSquareId1(): string
+	{
 		return $this->gridSquareId1;
 	}
 
-	public function getGridSquareId2(): string {
+	public function getGridSquareId2(): string
+	{
 		return $this->gridSquareId2;
 	}
 
-	public function getGridSquareId(): string {
+	public function getGridSquareId(): string
+	{
 		return $this->gridSquareId1 . $this->gridSquareId2;
 	}
 
-	public function getLat(): float {
+	public function getLat(): float
+	{
 		return $this->lat;
 	}
 
-	public function getLon(): float {
+	public function getLon(): float
+	{
 		return $this->lon;
 	}
 
-	public function getPrecision(): int {
+	public function getPrecision(): int
+	{
 		return $this->precision;
 	}
 
-	public function setGridSquareId(string $gridSquareId1, string $gridSquareId2): void {
+	public function setGridSquareId(string $gridSquareId1, string $gridSquareId2): void
+	{
 		if (preg_match('/^[A-Z]$/', $gridSquareId1) && preg_match('/^[A-Z]$/', $gridSquareId2)) {
 			$this->gridSquareId1 = $gridSquareId1;
 			$this->gridSquareId2 = $gridSquareId2;
@@ -101,7 +111,8 @@ class MGRS
 		}
 	}
 
-	public function setNumericalIng(string $easting, string $northing): void {
+	public function setNumericalIng(string $easting, string $northing): void
+	{
 		if (ctype_digit($easting) === false || ctype_digit($northing) === false) {
 			throw new \InvalidArgumentException('Easting or Northing are not valid numbers');
 		}
@@ -113,11 +124,13 @@ class MGRS
 		$this->precision = strlen($easting);
 	}
 
-	public function getEasting(): string {
+	public function getEasting(): string
+	{
 		return $this->easting;
 	}
 
-	public function getNorthing(): string {
+	public function getNorthing(): string
+	{
 		return $this->northing;
 	}
 
@@ -135,7 +148,8 @@ class MGRS
 	 * @param bool $end
 	 * @return string
 	 */
-	public static function getMgrsRegex(int $minimumPrecision = 3, bool $start = true, bool $end = true): string {
+	public static function getMgrsRegex(int $minimumPrecision = 3, bool $start = true, bool $end = true): string
+	{
 		if ($minimumPrecision > 5 || $minimumPrecision < 0) {
 			throw new \InvalidArgumentException(sprintf('Precision settings must be in range 0 (10 000 meters) - 5 (1 meter) but provided %d', $minimumPrecision));
 		}
@@ -163,7 +177,8 @@ class MGRS
 	 * @param bool $end
 	 * @return string
 	 */
-	public static function getUSNGRegex(int $minimumPrecision = 3, bool $start = true, bool $end = true): string {
+	public static function getUSNGRegex(int $minimumPrecision = 3, bool $start = true, bool $end = true): string
+	{
 		if ($minimumPrecision > 7 || $minimumPrecision < 0) {
 			throw new \InvalidArgumentException(sprintf('Precision settings must be in range 0 (10 000 meters) - 7 (1 meter) but provided %d', $minimumPrecision));
 		}
@@ -190,7 +205,8 @@ class MGRS
 	 *
 	 * @return float
 	 */
-	private static function getE1(): float {
+	private static function getE1(): float
+	{
 		static $E1;
 		if ($E1 === null) {
 			$E1 = (1 - sqrt(1 - self::ECC_SQUARED)) / (1 + sqrt(1 - self::ECC_SQUARED));
@@ -210,7 +226,8 @@ class MGRS
 	 * @param $lon
 	 * @return int
 	 */
-	public function generateZoneNumber($lat, $lon) {
+	public function generateZoneNumber($lat, $lon)
+	{
 
 		$lat = floatval($lat);
 		$lon = floatval($lon);
@@ -266,7 +283,8 @@ class MGRS
 	 * @param bool $zone
 	 * @return null|void
 	 */
-	public function LLtoUTM($lat, $lon, &$utmcoords, $zone = false) {
+	public function LLtoUTM($lat, $lon, &$utmcoords, $zone = false)
+	{
 
 		// ! 'utmcords' pass by reference
 		$lat = floatval($lat);
@@ -344,7 +362,8 @@ class MGRS
 	 * @param $precision
 	 * @return string
 	 */
-	public function LLtoUSNG($lat, $lon, $precision) {
+	public function LLtoUSNG($lat, $lon, $precision)
+	{
 
 		$lat = floatval($lat);
 		$lon = floatval($lon);
@@ -397,7 +416,8 @@ class MGRS
 	 * @param $UTMEasting
 	 * @return void lat, lon
 	 */
-	public function UTMLtoLL($UTMZoneNumber, $UTMNorthing, $UTMEasting): void {
+	public function UTMLtoLL($UTMZoneNumber, $UTMNorthing, $UTMEasting): void
+	{
 		$UTMZoneNumber = intval($UTMZoneNumber); // @TODO just for backward compatibility, should be strictly converted to int
 		// remove 500,000 meter offset for longitude
 		$xUTM = floatval($UTMEasting) - self::EASTING_OFFSET;
@@ -462,7 +482,8 @@ class MGRS
 	 * @param string $north int but has to be string to keep precision
 	 * @return \stdClass N, E, zone, letter
 	 */
-	public function MGRStoUTM(string $zone, string $letter, string $sq1, string $sq2, string $east, string $north): \stdClass {
+	public function MGRStoUTM(string $zone, string $letter, string $sq1, string $sq2, string $east, string $north): \stdClass
+	{
 
 		//Starts (southern edge) of N-S zones in millons of meters
 		$zoneBase = [1.1, 2.0, 2.9, 3.8, 4.7, 5.6, 6.5, 7.3, 8.2, 9.1, 0, 0.8, 1.7, 2.6, 3.5, 4.4, 5.3, 6.2, 7.0, 7.9];
@@ -492,7 +513,8 @@ class MGRS
 	}
 
 
-	public static function fromMGRS($mgrsString): self {
+	public static function fromMGRS($mgrsString): self
+	{
 		if (self::isMGRS($mgrsString) === false) {
 			throw new \UnexpectedValueException(sprintf('Input string "%s" is not valid MGRS coordinate.', $mgrsString));
 		}
@@ -517,7 +539,8 @@ class MGRS
 		return $self;
 	}
 
-	public static function fromUSNG($usngString): self {
+	public static function fromUSNG($usngString): self
+	{
 		if (self::isUSNG($usngString) === false) {
 			throw new \UnexpectedValueException(sprintf('Input string "%s" is not valid UTM/USNG coordinate.', $usngString));
 		}
@@ -546,7 +569,8 @@ class MGRS
 	 * @return string|string[]|null
 	 * @noinspection PhpUnused
 	 */
-	public function LLtoMGRS($lat, $lon, $precision) {
+	public function LLtoMGRS($lat, $lon, $precision)
+	{
 		return preg_replace('/\s/', '', self::LLtoUSNG($lat, $lon, $precision));
 	}
 
@@ -554,7 +578,8 @@ class MGRS
 	 * @param string $mgrsInput
 	 * @return false|string
 	 */
-	public static function isMGRS(string $mgrsInput): bool {
+	public static function isMGRS(string $mgrsInput): bool
+	{
 		return !!preg_match(self::getMgrsRegex(), $mgrsInput);
 	}
 
@@ -562,7 +587,8 @@ class MGRS
 	 * @param string $mgrsInput
 	 * @return false|string
 	 */
-	public static function isUSNG(string $mgrsInput): bool {
+	public static function isUSNG(string $mgrsInput): bool
+	{
 		return !!preg_match(self::getUSNGRegex(), $mgrsInput);
 	}
 
@@ -577,7 +603,8 @@ class MGRS
 	 * @param $lat
 	 * @return string
 	 */
-	private function UTMLetterDesignator($lat) {
+	private function UTMLetterDesignator($lat)
+	{
 		$lat = floatval($lat);
 
 		if ((84 >= $lat) && ($lat >= 72))
@@ -626,7 +653,8 @@ class MGRS
 		return $letterDesignator;
 	}
 
-	private function findSet($zoneNum) {
+	private function findSet($zoneNum)
+	{
 		switch (intval($zoneNum) % 6) {
 			case 0:
 				return 6;
@@ -653,7 +681,8 @@ class MGRS
 	 * @param $easting
 	 * @return string
 	 */
-	private function findGridLetters($zoneNum, $northing, $easting) {
+	private function findGridLetters($zoneNum, $northing, $easting)
+	{
 
 		$zoneNum = intval($zoneNum);
 		$northing = floatval($northing);
@@ -700,7 +729,8 @@ class MGRS
 	 * @param $col
 	 * @return string
 	 */
-	private function lettersHelper($set, $row, $col) {
+	private function lettersHelper($set, $row, $col)
+	{
 
 		// handle case of last row
 		if ($row == 0) {
@@ -750,7 +780,8 @@ class MGRS
 	 * @return \stdClass
 	 * @throws \Exception
 	 */
-	private function parseMGRS($mgrsString): \stdClass {
+	private function parseMGRS($mgrsString): \stdClass
+	{
 		if (self::isMGRS($mgrsString) === false) {
 			throw new \UnexpectedValueException(sprintf('Input string "%s" is not valid MGRS coordinate.', $mgrsString));
 		}
@@ -774,6 +805,4 @@ class MGRS
 
 		return $MGRS;
 	}
-
-
 }

@@ -1,15 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper\Events\Button;
+namespace App\TelegramCustomWrapper\Events\Button;
 
-use TelegramCustomWrapper\Events\Command\SettingsCommand;
+use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class SettingsButton extends Button
 {
 	const CMD = SettingsCommand::CMD;
 
-	public function __construct($update) {
+	public function __construct($update)
+	{
 		parent::__construct($update);
 
 		$text = sprintf('<b>Settings</b>') . PHP_EOL;

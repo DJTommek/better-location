@@ -1,14 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper;
+namespace App\TelegramCustomWrapper;
 
+use App\Config;
+use App\Icons;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 
 class TelegramHelper
 {
 	const API_URL = 'https://api.telegram.org';
-	const MESSAGE_PREFIX = \Icons::LOCATION . ' <b>Better location</b> by @' . \Config::TELEGRAM_BOT_NAME . ':' . PHP_EOL;
+	const MESSAGE_PREFIX = Icons::LOCATION . ' <b>Better location</b> by @' . Config::TELEGRAM_BOT_NAME . ':' . PHP_EOL;
 
 	/**
 	 * Get regex for command entity
@@ -18,10 +20,11 @@ class TelegramHelper
 	 * - false: /command@BetterLocationBot, /command@betterLOCATIONbot, /command
 	 * @return string command without bot's username if it contains
 	 */
-	public static function getCommandRegex(bool $strict) {
+	public static function getCommandRegex(bool $strict)
+	{
 		$regex = '/^';
 		$regex .= '(\/[a-z0-9_]+)';
-		$regex .= '(?:@' . \Config::TELEGRAM_BOT_NAME . ')';
+		$regex .= '(?:@' . Config::TELEGRAM_BOT_NAME . ')';
 		if ($strict === false) {
 			$regex .= '?'; // make last part of regex optional
 		}
@@ -44,7 +47,8 @@ class TelegramHelper
 	const NOT_CHANGED = 'Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message';
 	const TOO_OLD = 'Bad Request: query is too old and response timeout expired or query ID is invalid';
 
-	public static function getDisplayName($tgfrom) {
+	public static function getDisplayName($tgfrom)
+	{
 		if ($tgfrom->username) {
 			$displayName = '@' . $tgfrom->username;
 		} else {
@@ -56,35 +60,43 @@ class TelegramHelper
 		return trim(htmlentities($displayName));
 	}
 
-	public static function isButtonClick($update): bool {
+	public static function isButtonClick($update): bool
+	{
 		return (!empty($update->callback_query));
 	}
 
-	public static function isForward(Update $update): bool {
+	public static function isForward(Update $update): bool
+	{
 		return (!empty($update->message->forward_from));
 	}
 
-	public static function isInlineQuery(Update $update): bool {
+	public static function isInlineQuery(Update $update): bool
+	{
 		return (!empty($update->inline_query));
 	}
 
-	public static function isChosenInlineQuery(Update $update): bool {
+	public static function isChosenInlineQuery(Update $update): bool
+	{
 		return (!empty($update->chosen_inline_result));
 	}
 
-	public static function isLocation($update): bool {
+	public static function isLocation($update): bool
+	{
 		return (!empty($update->message->location));
 	}
 
-	public static function hasDocument($update): bool {
+	public static function hasDocument($update): bool
+	{
 		return (!empty($update->message->document));
 	}
 
-	public static function hasPhoto($update): bool {
+	public static function hasPhoto($update): bool
+	{
 		return (!empty($update->message->photo));
 	}
 
-	public static function isViaBot(Update $update, ?string $botUsername = null): bool {
+	public static function isViaBot(Update $update, ?string $botUsername = null): bool
+	{
 		if (empty($update->message->via_bot) === false) {
 			if (is_null($botUsername)) {
 				return true;
@@ -97,11 +109,13 @@ class TelegramHelper
 		return false;
 	}
 
-	public static function chatCreated(Update $update): bool {
+	public static function chatCreated(Update $update): bool
+	{
 		return ($update->message && $update->message->group_chat_created);
 	}
 
-	public static function addedToChat(Update $update, ?string $username = null): bool {
+	public static function addedToChat(Update $update, ?string $username = null): bool
+	{
 		if (self::chatCreated($update)) {
 			return true; // User added while creating group
 		} else if (count($update->message->new_chat_members ?? []) > 0) {
@@ -118,12 +132,14 @@ class TelegramHelper
 		return false;
 	}
 
-	public static function getFileUrl(string $token, string $path): string {
+	public static function getFileUrl(string $token, string $path): string
+	{
 		return sprintf('%s/file/bot%s/%s', self::API_URL, $token, $path);
 	}
 
 	/** @return bool|null null if unknown (eg. clicked on button in via_bot message) */
-	public static function isPM(Update $update): ?bool {
+	public static function isPM(Update $update): ?bool
+	{
 		if (self::isButtonClick($update)) {
 			// If the button was attached to a message sent via the bot (in inline mode),
 			// the field inline_message_id will be present. (https://core.telegram.org/bots/api#callbackquery)
@@ -137,7 +153,8 @@ class TelegramHelper
 		}
 	}
 
-	public static function getCommand(Update $update, bool $strict = false): ?string {
+	public static function getCommand(Update $update, bool $strict = false): ?string
+	{
 		$command = null;
 		if (self::isButtonClick($update)) {
 			$fullCommand = $update->callback_query->data;
@@ -163,7 +180,8 @@ class TelegramHelper
 		}
 	}
 
-	public static function getParams($update): array {
+	public static function getParams($update): array
+	{
 		if (self::isButtonClick($update)) {
 			$text = $update->callback_query->data;
 		} else {
@@ -174,11 +192,13 @@ class TelegramHelper
 		return $params;
 	}
 
-	public static function generateStart(string $params) {
-		return sprintf('https://t.me/%s?start=', \Config::TELEGRAM_BOT_NAME) . TelegramHelper::InlineTextEncode($params);
+	public static function generateStart(string $params)
+	{
+		return sprintf('https://t.me/%s?start=', Config::TELEGRAM_BOT_NAME) . self::InlineTextEncode($params);
 	}
 
-	public static function InlineTextEncode(string $input): string {
+	public static function InlineTextEncode(string $input): string
+	{
 		$input = trim($input);
 		$input = base64_encode($input);
 		$input = str_replace('=', '_', $input);
@@ -187,7 +207,8 @@ class TelegramHelper
 		return $input;
 	}
 
-	public static function InlineTextDecode(string $input): string {
+	public static function InlineTextDecode(string $input): string
+	{
 		$input = trim($input);
 		$input = str_replace('_', '=', $input);
 		$input = str_replace('-', '+', $input);
@@ -202,7 +223,8 @@ class TelegramHelper
 	 * @author https://stackoverflow.com/questions/49035310/php-telegram-bot-extract-url-in-utf-16-code-units/49430787
 	 * @see https://stackoverflow.com/questions/30604427/php-length-of-string-containing-emojis-special-chars
 	 */
-	public static function getEntityContent(string $message, MessageEntity $entity): string {
+	public static function getEntityContent(string $message, MessageEntity $entity): string
+	{
 		switch ($entity->type) {
 			case 'url':
 				$message16 = mb_convert_encoding($message, 'UTF-16', 'UTF-8');
@@ -219,12 +241,13 @@ class TelegramHelper
 	 * Simulate Telegram message by creating URL entities (currently only URLs)
 	 *
 	 * @return MessageEntity[]
-	 * @see TelegramHelper::getEntityContent()
+	 * @see self::getEntityContent()
 	 */
-	public static function generateEntities(string $message): array {
+	public static function generateEntities(string $message): array
+	{
 		$message16 = mb_convert_encoding($message, 'UTF-16', 'UTF-8');
 		$entities = [];
-		foreach (\Utils\General::getUrls($message) as $url) {
+		foreach (\App\Utils\General::getUrls($message) as $url) {
 			$url16 = mb_convert_encoding($url, 'UTF-16', 'UTF-8');
 			$entity = new MessageEntity();
 			$entity->type = 'url';

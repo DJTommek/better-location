@@ -1,21 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper\Events\Command;
+namespace App\TelegramCustomWrapper\Events\Command;
 
-use TelegramCustomWrapper\TelegramHelper;
+use App\Config;
+use App\Icons;
+use App\TelegramCustomWrapper\TelegramHelper;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class FavouritesCommand extends Command
 {
 	const CMD = '/favourites';
 
-	/**
-	 * FavouriteCommand constructor.
-	 *
-	 * @param $update
-	 * @throws \Exception
-	 */
-	public function __construct($update) {
+	public function __construct($update)
+	{
 		parent::__construct($update);
 		if ($this->isPm() === true) {
 			$this->processFavouritesList(false);
@@ -24,7 +21,7 @@ class FavouritesCommand extends Command
 			$replyMarkup->inline_keyboard = [
 				[ // row of buttons
 					[ // button
-						'text' => sprintf('%s Open in PM', \Icons::FAVOURITE),
+						'text' => sprintf('%s Open in PM', Icons::FAVOURITE),
 						'url' => TelegramHelper::generateStart(sprintf('%s %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_LIST)),
 					],
 				],
@@ -34,7 +31,7 @@ class FavouritesCommand extends Command
 				'reply_markup' => $replyMarkup,
 			];
 
-			$this->reply(sprintf('%s Command <code>%s</code> is available only in private message, open @%s.', \Icons::ERROR, HelpCommand::getCmd(), \Config::TELEGRAM_BOT_NAME), $messageSettings);
+			$this->reply(sprintf('%s Command <code>%s</code> is available only in private message, open @%s.', Icons::ERROR, HelpCommand::getCmd(), Config::TELEGRAM_BOT_NAME), $messageSettings);
 		}
 	}
 }

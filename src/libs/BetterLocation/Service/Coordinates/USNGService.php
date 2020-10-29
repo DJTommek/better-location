@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation\Service\Coordinates;
+namespace App\BetterLocation\Service\Coordinates;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\BetterLocationCollection;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use Utils\MGRS;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\Utils\MGRS;
 
 final class USNGService extends AbstractService
 {
@@ -15,7 +15,8 @@ final class USNGService extends AbstractService
 	 * @param $text
 	 * @return BetterLocationCollection
 	 */
-	public static function findInText($text): BetterLocationCollection {
+	public static function findInText($text): BetterLocationCollection
+	{
 		$collection = new BetterLocationCollection();
 		$inStringRegex = '/' . MGRS::getUSNGRegex(3, false, false) . '/';
 		if (preg_match_all($inStringRegex, $text, $matches)) {
@@ -30,7 +31,8 @@ final class USNGService extends AbstractService
 		return $collection;
 	}
 
-	public static function isValid(string $input): bool {
+	public static function isValid(string $input): bool
+	{
 		return MGRS::isMGRS($input);
 	}
 
@@ -39,7 +41,8 @@ final class USNGService extends AbstractService
 	 * @return BetterLocation
 	 * @throws InvalidLocationException
 	 */
-	public static function parseCoords(string $input): BetterLocation {
+	public static function parseCoords(string $input): BetterLocation
+	{
 		$mgrs = MGRS::fromUSNG($input);
 		return new BetterLocation($input, $mgrs->getLat(), $mgrs->getLon(), get_called_class());
 	}

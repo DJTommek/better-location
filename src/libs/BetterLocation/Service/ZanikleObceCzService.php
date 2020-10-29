@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation\Service;
+namespace App\BetterLocation\Service;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\BetterLocationCollection;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotImplementedException;
-use BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\Utils\General;
 use Tracy\Debugger;
 use Tracy\ILogger;
-use Utils\General;
 
 final class ZanikleObceCzService extends AbstractService
 {
@@ -17,14 +17,9 @@ final class ZanikleObceCzService extends AbstractService
 
 	const LINK = 'http://zanikleobce.cz';
 
-	/**
-	 * @param float $lat
-	 * @param float $lon
-	 * @param bool $drive
-	 * @return string
-	 * @throws NotSupportedException
-	 */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string {
+	/**@throws NotSupportedException */
+	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
 		} else {
@@ -33,7 +28,8 @@ final class ZanikleObceCzService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool {
+	public static function isValid(string $url): bool
+	{
 		return self::isUrl($url);
 	}
 
@@ -42,7 +38,8 @@ final class ZanikleObceCzService extends AbstractService
 	 * @return BetterLocation
 	 * @throws InvalidLocationException
 	 */
-	public static function parseCoords(string $url): BetterLocation {
+	public static function parseCoords(string $url): BetterLocation
+	{
 		$originalUrl = $url;
 		if (self::isDetailPageUrl($url)) {
 			$url = self::getObecUrlFromDetail($url);
@@ -59,7 +56,8 @@ final class ZanikleObceCzService extends AbstractService
 		}
 	}
 
-	private static function isCorrectDomainUrl($url): bool {
+	private static function isCorrectDomainUrl($url): bool
+	{
 		$parsedUrl = General::parseUrl($url);
 		return (
 			isset($parsedUrl['host']) &&
@@ -68,7 +66,8 @@ final class ZanikleObceCzService extends AbstractService
 		);
 	}
 
-	private static function isObecPageUrl($url): bool {
+	private static function isObecPageUrl($url): bool
+	{
 		$parsedUrl = General::parseUrl($url);
 		return (
 			isset($parsedUrl['query']['obec']) &&
@@ -76,7 +75,8 @@ final class ZanikleObceCzService extends AbstractService
 		);
 	}
 
-	private static function isDetailPageUrl($url): bool {
+	private static function isDetailPageUrl($url): bool
+	{
 		$parsedUrl = General::parseUrl($url);
 		return (
 			isset($parsedUrl['query']['detail']) &&
@@ -84,11 +84,13 @@ final class ZanikleObceCzService extends AbstractService
 		);
 	}
 
-	public static function isUrl(string $url): bool {
+	public static function isUrl(string $url): bool
+	{
 		return self::isCorrectDomainUrl($url) && (self::isObecPageUrl($url) || self::isDetailPageUrl($url));
 	}
 
-	private static function getObecUrlFromDetail(string $url): ?string {
+	private static function getObecUrlFromDetail(string $url): ?string
+	{
 		try {
 			$response = General::fileGetContents($url, [
 				CURLOPT_CONNECTTIMEOUT => 5,
@@ -106,7 +108,8 @@ final class ZanikleObceCzService extends AbstractService
 		return self::LINK . '/' . html_entity_decode($matches[1]);
 	}
 
-	private static function getLocationFromPageObec(string $url): ?array {
+	private static function getLocationFromPageObec(string $url): ?array
+	{
 		try {
 			$response = General::fileGetContents($url, [
 				CURLOPT_CONNECTTIMEOUT => 5,
@@ -136,7 +139,8 @@ final class ZanikleObceCzService extends AbstractService
 	 * @return BetterLocationCollection
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection {
+	public static function parseCoordsMultiple(string $input): BetterLocationCollection
+	{
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }

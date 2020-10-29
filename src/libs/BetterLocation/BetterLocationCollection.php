@@ -1,8 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation;
+namespace App\BetterLocation;
 
-use Utils\Coordinates;
+use App\Icons;
+use App\Utils\Coordinates;
 
 class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 {
@@ -12,34 +13,41 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	private $errors = [];
 	private $position = 0;
 
-	public function __invoke() {
+	public function __invoke()
+	{
 		return $this->locations;
 	}
 
-	public function add(BetterLocation $betterLocation) {
+	public function add(BetterLocation $betterLocation)
+	{
 		$this->locations[] = $betterLocation;
 	}
 
-	public function getAll() {
+	public function getAll()
+	{
 		return array_merge($this->locations, $this->errors);
 	}
 
 	/**
 	 * @return BetterLocation[]
 	 */
-	public function getLocations(): array {
+	public function getLocations(): array
+	{
 		return $this->locations;
 	}
 
-	public function getErrors() {
+	public function getErrors()
+	{
 		return $this->errors;
 	}
 
-	public function getFirst() {
+	public function getFirst()
+	{
 		return reset($this->locations);
 	}
 
-	public function mergeCollection(BetterLocationCollection $betterLocationCollection): void {
+	public function mergeCollection(BetterLocationCollection $betterLocationCollection): void
+	{
 		foreach ($betterLocationCollection->getAll() as $betterLocation) {
 			if ($betterLocation instanceof BetterLocation) {
 				$this->locations[] = $betterLocation;
@@ -49,7 +57,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		}
 	}
 
-	public function filterTooClose(int $ignoreDistance = 0): void {
+	public function filterTooClose(int $ignoreDistance = 0): void
+	{
 		$mostImportantLocation = $this->getFirst();
 		foreach ($this->locations as $key => $location) {
 			if ($mostImportantLocation === $location) {
@@ -66,7 +75,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 					// Remove locations that are too close to main location
 					unset($this->locations[$key]);
 				} else {
-					$location->setDescription(sprintf('%s Location is %d meters away from %s %s.', \Icons::WARNING, $distance, $mostImportantLocation->getName(), \Icons::ARROW_UP));
+					$location->setDescription(sprintf('%s Location is %d meters away from %s %s.', Icons::WARNING, $distance, $mostImportantLocation->getName(), Icons::ARROW_UP));
 				}
 			}
 		}
@@ -75,7 +84,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	/**
 	 * Remove locations with exact same coordinates and keep only one
 	 */
-	public function deduplicate(): void {
+	public function deduplicate(): void
+	{
 		$originalCoordinates = [];
 		foreach ($this->locations as $location) {
 			$key = $location->__toString();
@@ -99,15 +109,18 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		}
 	}
 
-	public function offsetExists($offset) {
+	public function offsetExists($offset)
+	{
 		return isset($this->locations[$offset]);
 	}
 
-	public function offsetGet($offset) {
+	public function offsetGet($offset)
+	{
 		return isset($this->locations[$offset]) ? $this->locations[$offset] : null;
 	}
 
-	public function offsetSet($offset, $value) {
+	public function offsetSet($offset, $value)
+	{
 		if ($value instanceof BetterLocation) {
 			if (is_null($offset)) {
 				$this->locations[] = $value;
@@ -125,31 +138,38 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		}
 	}
 
-	public function offsetUnset($offset) {
+	public function offsetUnset($offset)
+	{
 		unset($this->locations[$offset]);
 	}
 
-	public function current() {
+	public function current()
+	{
 		return $this->locations[$this->position];
 	}
 
-	public function next() {
+	public function next()
+	{
 		++$this->position;
 	}
 
-	public function key() {
+	public function key()
+	{
 		return $this->position;
 	}
 
-	public function valid() {
+	public function valid()
+	{
 		return isset($this->locations[$this->position]);
 	}
 
-	public function rewind() {
+	public function rewind()
+	{
 		$this->position = 0;
 	}
 
-	public function count() {
+	public function count()
+	{
 		return count($this->locations);
 	}
 }

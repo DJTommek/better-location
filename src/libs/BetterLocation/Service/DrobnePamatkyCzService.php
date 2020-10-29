@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation\Service;
+namespace App\BetterLocation\Service;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\BetterLocationCollection;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotImplementedException;
-use BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\Utils\General;
 use Tracy\Debugger;
 use Tracy\ILogger;
-use Utils\General;
 
 final class DrobnePamatkyCzService extends AbstractService
 {
@@ -26,7 +26,8 @@ final class DrobnePamatkyCzService extends AbstractService
 	 * @return string
 	 * @throws NotSupportedException
 	 */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string {
+	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
 		} else {
@@ -34,7 +35,8 @@ final class DrobnePamatkyCzService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool {
+	public static function isValid(string $url): bool
+	{
 		return self::isUrl($url);
 	}
 
@@ -43,7 +45,8 @@ final class DrobnePamatkyCzService extends AbstractService
 	 * @return BetterLocation
 	 * @throws InvalidLocationException
 	 */
-	public static function parseCoords(string $url): BetterLocation {
+	public static function parseCoords(string $url): BetterLocation
+	{
 		$coords = self::parseUrl($url);
 		if ($coords) {
 			return new BetterLocation($url, $coords[0], $coords[1], self::class);
@@ -52,7 +55,8 @@ final class DrobnePamatkyCzService extends AbstractService
 		}
 	}
 
-	public static function isUrl(string $url): bool {
+	public static function isUrl(string $url): bool
+	{
 		$url = mb_strtolower($url);
 		$parsedUrl = General::parseUrl($url);
 		return (
@@ -63,7 +67,8 @@ final class DrobnePamatkyCzService extends AbstractService
 		);
 	}
 
-	public static function parseUrl(string $url): ?array {
+	public static function parseUrl(string $url): ?array
+	{
 		try {
 			$response = General::fileGetContents($url, [
 				CURLOPT_CONNECTTIMEOUT => 5,
@@ -88,7 +93,8 @@ final class DrobnePamatkyCzService extends AbstractService
 	 * @return BetterLocationCollection
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection {
+	public static function parseCoordsMultiple(string $input): BetterLocationCollection
+	{
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }

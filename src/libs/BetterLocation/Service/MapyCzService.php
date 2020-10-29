@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation\Service;
+namespace App\BetterLocation\Service;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\BetterLocationCollection;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotImplementedException;
-use BetterLocation\Url;
-use \DJTommek\MapyCzApi\MapyCzApi;
-use \DJTommek\MapyCzApi\MapyCzApiException;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\Url;
+use DJTommek\MapyCzApi\MapyCzApi;
+use DJTommek\MapyCzApi\MapyCzApiException;
 
 final class MapyCzService extends AbstractService
 {
@@ -21,7 +21,8 @@ final class MapyCzService extends AbstractService
 	const TYPE_PLACE_COORDS = 'Place coords';
 	const TYPE_PANORAMA = 'Panorama';
 
-	public static function getConstants(): array {
+	public static function getConstants(): array
+	{
 		return [
 			self::TYPE_PANORAMA,
 			self::TYPE_PLACE_ID,
@@ -38,7 +39,8 @@ final class MapyCzService extends AbstractService
 	 * @return string
 	 * @throws NotImplementedException
 	 */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string {
+	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	{
 		if ($drive) {
 			// No official API for backend so it might be probably generated only via simulating frontend
 			// @see https://napoveda.seznam.cz/forum/threads/120687/1
@@ -49,7 +51,8 @@ final class MapyCzService extends AbstractService
 		}
 	}
 
-	public static function getScreenshotLink(float $lat, float $lon): string {
+	public static function getScreenshotLink(float $lat, float $lon): string
+	{
 		// URL Parameters to screenshoter (Mapy.cz website is using it with p=3 and l=0):
 		// l=0 hide right panel (can be opened via arrow icon)
 		// p=1 disable right panel (can't be opened) and disable bottom left panorama view screenshot
@@ -58,7 +61,8 @@ final class MapyCzService extends AbstractService
 		return 'https://en.mapy.cz/screenshoter?url=' . urlencode(self::getLink($lat, $lon) . '&p=3&l=0');
 	}
 
-	public static function isValid(string $url): bool {
+	public static function isValid(string $url): bool
+	{
 		return self::isShortUrl($url) || self::isNormalUrl($url);
 	}
 
@@ -68,7 +72,8 @@ final class MapyCzService extends AbstractService
 	 * @throws InvalidLocationException
 	 * @throws \Exception
 	 */
-	public static function parseCoords(string $url): BetterLocation {
+	public static function parseCoords(string $url): BetterLocation
+	{
 		return self::parseCoordsHelper($url, false);
 	}
 
@@ -77,7 +82,8 @@ final class MapyCzService extends AbstractService
 	 * @return BetterLocationCollection
 	 * @throws InvalidLocationException
 	 */
-	public static function parseCoordsMultiple(string $url): BetterLocationCollection {
+	public static function parseCoordsMultiple(string $url): BetterLocationCollection
+	{
 		return self::parseCoordsHelper($url, true);
 	}
 
@@ -88,7 +94,8 @@ final class MapyCzService extends AbstractService
 	 * @throws InvalidLocationException
 	 * @throws \Exception
 	 */
-	public static function parseCoordsHelper(string $url, bool $returnCollection) {
+	public static function parseCoordsHelper(string $url, bool $returnCollection)
+	{
 		if (self::isShortUrl($url)) {
 			$newLocation = Url::getRedirectUrl($url);
 			if ($newLocation) {
@@ -103,7 +110,8 @@ final class MapyCzService extends AbstractService
 		}
 	}
 
-	public static function isShortUrl(string $url): bool {
+	public static function isShortUrl(string $url): bool
+	{
 		// Mapy.cz short link:
 		// https://mapy.cz/s/porumejene
 		// https://en.mapy.cz/s/porumejene
@@ -119,7 +127,8 @@ final class MapyCzService extends AbstractService
 		);
 	}
 
-	public static function isNormalUrl(string $url): bool {
+	public static function isNormalUrl(string $url): bool
+	{
 		// https://en.mapy.cz/zakladni?x=14.2991869&y=49.0999235&z=16&pano=1&source=firm&id=350556
 		// https://mapy.cz/?x=15.278244&y=49.691235&z=15&ma_x=15.278244&ma_y=49.691235&ma_t=Jsem+tady%2C+otev%C5%99i+odkaz&source=coor&id=15.278244%2C49.691235
 		// Mapy.cz panorama:
@@ -143,7 +152,8 @@ final class MapyCzService extends AbstractService
 	 * @return BetterLocation|BetterLocationCollection
 	 * @throws InvalidLocationException
 	 */
-	public static function parseUrl(string $url, bool $returnCollection = false) {
+	public static function parseUrl(string $url, bool $returnCollection = false)
+	{
 		$betterLocationCollection = new BetterLocationCollection();
 		$parsedUrl = parse_url(urldecode($url));
 		if (!isset($parsedUrl['query'])) {

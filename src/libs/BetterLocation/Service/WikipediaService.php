@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation\Service;
+namespace App\BetterLocation\Service;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\BetterLocationCollection;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotImplementedException;
-use BetterLocation\Service\Exceptions\NotSupportedException;
-use Utils\General;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\Utils\General;
 
 final class WikipediaService extends AbstractService
 {
@@ -22,7 +22,8 @@ final class WikipediaService extends AbstractService
 	 * @return string
 	 * @throws NotSupportedException
 	 */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string {
+	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
 		} else {
@@ -30,7 +31,8 @@ final class WikipediaService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool {
+	public static function isValid(string $url): bool
+	{
 		$parsedUrl = parse_url($url);
 		$allowedHost = 'wikipedia.org';
 		$allowedPath = '/wiki/';
@@ -53,7 +55,8 @@ final class WikipediaService extends AbstractService
 	 * @return BetterLocation
 	 * @throws InvalidLocationException|\JsonException
 	 */
-	public static function parseCoords(string $url): BetterLocation {
+	public static function parseCoords(string $url): BetterLocation
+	{
 		$response = self::requestLocationFromWikipediaPage($url);
 		if (isset($response->wgCoordinates) && isset($response->wgCoordinates->lat) && isset($response->wgCoordinates->lon)) {
 			return new BetterLocation(
@@ -73,7 +76,8 @@ final class WikipediaService extends AbstractService
 	 * @return BetterLocationCollection
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoordsMultiple(string $url): BetterLocationCollection {
+	public static function parseCoordsMultiple(string $url): BetterLocationCollection
+	{
 		throw new NotImplementedException('Parsing multiple coordinate is not supported. Use parseCoords() instead.');
 	}
 
@@ -82,7 +86,8 @@ final class WikipediaService extends AbstractService
 	 * @return \stdClass
 	 * @throws \JsonException|\Exception
 	 */
-	private static function requestLocationFromWikipediaPage($url): \stdClass {
+	private static function requestLocationFromWikipediaPage($url): \stdClass
+	{
 		$response = General::fileGetContents($url, [
 			CURLOPT_CONNECTTIMEOUT => 5,
 			CURLOPT_TIMEOUT => 5,

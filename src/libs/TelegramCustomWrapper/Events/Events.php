@@ -1,26 +1,31 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper\Events;
+namespace App\TelegramCustomWrapper\Events;
 
-use BetterLocation\Service\WazeService;
+use App\BetterLocation\Service\WazeService;
+use App\Chat;
+use App\Config;
+use App\Icons;
+use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
+use App\TelegramCustomWrapper\Events\Button\HelpButton;
+use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
+use App\TelegramCustomWrapper\Events\Command\FeedbackCommand;
+use App\TelegramCustomWrapper\Events\Command\HelpCommand;
+use App\TelegramCustomWrapper\Events\Command\StartCommand;
+use App\TelegramCustomWrapper\SendMessage;
+use App\TelegramCustomWrapper\TelegramHelper;
+use App\User;
+use App\Utils\DummyLogger;
 use React\EventLoop\Factory;
-use TelegramCustomWrapper\Events\Button\FavouritesButton;
-use TelegramCustomWrapper\Events\Button\HelpButton;
-use TelegramCustomWrapper\Events\Command\FavouritesCommand;
-use TelegramCustomWrapper\Events\Command\FeedbackCommand;
-use TelegramCustomWrapper\Events\Command\HelpCommand;
-use TelegramCustomWrapper\Events\Command\StartCommand;
-use TelegramCustomWrapper\SendMessage;
-use TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
+use unreal4u\TelegramAPI\Abstracts\TelegramMethods;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram\Methods\SendChatAction;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 use unreal4u\TelegramAPI\TgLog;
-use Utils\DummyLogger;
 
 abstract class Events
 {
@@ -38,10 +43,10 @@ abstract class Events
 		$this->update = $update;
 
 		$this->loop = Factory::create();
-		$this->tgLog = new TgLog(\Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($this->loop));
+		$this->tgLog = new TgLog(Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($this->loop));
 
 		if (TelegramHelper::isInlineQuery($update)) {
-			$this->user = new \User($update->inline_query->from->id, $update->inline_query->from->username);
+			$this->user = new User($update->inline_query->from->id, $update->inline_query->from->username);
 			if (empty($this->update->inline_query->location) === false) {
 				try {
 					$this->user->setLastKnownLocation(
@@ -53,19 +58,19 @@ abstract class Events
 				}
 			}
 		} else if (TelegramHelper::isButtonClick($update)) {
-			$this->user = new \User($update->callback_query->from->id, $update->callback_query->from->username);
+			$this->user = new User($update->callback_query->from->id, $update->callback_query->from->username);
 			if ($update->callback_query->message) { // if clicked on button in message shared from inline (in "via @BotName"), there is no message
 				/** @noinspection PhpUndefinedFieldInspection */
-				$this->chat = new \Chat(
+				$this->chat = new Chat(
 					$update->callback_query->message->chat->id,
 					$update->callback_query->message->chat->type,
 					empty($update->callback_query->message->chat->title) ? $update->callback_query->from->displayname : $update->callback_query->message->chat->title,
 				);
 			}
 		} else {
-			$this->user = new \User($update->message->from->id, $update->message->from->username);
+			$this->user = new User($update->message->from->id, $update->message->from->username);
 			/** @noinspection PhpUndefinedFieldInspection */
-			$this->chat = new \Chat(
+			$this->chat = new Chat(
 				$update->message->chat->id,
 				$update->message->chat->type,
 				empty($update->message->chat->title) ? $update->message->from->displayname : $update->message->chat->title
@@ -95,7 +100,7 @@ abstract class Events
 	public static function getCmd(bool $withSuffix = false): string
 	{
 		if ($withSuffix) {
-			return sprintf('%s@%s', static::CMD, \Config::TELEGRAM_BOT_NAME);
+			return sprintf('%s@%s', static::CMD, Config::TELEGRAM_BOT_NAME);
 		} else {
 			return static::CMD;
 		}
@@ -126,14 +131,7 @@ abstract class Events
 		$this->run($chatAction);
 	}
 
-	/**
-	 * Send message as reply to recieved message
-	 *
-	 * @param string $text
-	 * @param array $options
-	 * @return null
-	 * @throws \Exception
-	 */
+	/** Send message as reply to recieved message */
 	public function reply(string $text, array $options = [])
 	{
 		$msg = new SendMessage($this->getChatId(), $text, $this->getMessageId());
@@ -146,14 +144,9 @@ abstract class Events
 		return $this->run($msg->msg);
 	}
 
-	/**
-	 * @param $objectToSend
-	 * @return mixed
-	 * @throws \Exception
-	 */
-	public function run($objectToSend)
+	/** @throws \Exception */
+	public function run(TelegramMethods $objectToSend)
 	{
-
 		$promise = $this->tgLog->performApiRequest($objectToSend);
 		$this->loop->run();
 		DummyLogger::log(DummyLogger::NAME_TELEGRAM_OUTPUT, $objectToSend);
@@ -185,25 +178,21 @@ abstract class Events
 		}
 	}
 
-	/**
-	 * @param bool $inline
-	 * @throws \Exception
-	 */
+	/** @throws \Exception */
 	protected function processHelp(bool $inline = false)
 	{
-
 		$lat = 50.087451;
 		$lon = 14.420671;
 		$wazeLink = WazeService::getLink($lat, $lon);
 		$betterLocationWaze = WazeService::parseCoords($wazeLink);
 
-		$text = sprintf('%s Welcome to @%s!', \Icons::LOCATION, \Config::TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text = sprintf('%s Welcome to @%s!', Icons::LOCATION, Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('I\'m a simple but smart bot to catch all possible location formats in any chats you invite me to, and generate links to your favourite location services such as Google maps, Waze, OpenStreetMaps etc.') . PHP_EOL;
 		$text .= sprintf('For example, if you send a message containing the coordinates "<code>%f,%f</code>" or the link "%s" I will respond with this:', $lat, $lon, $wazeLink) . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= $betterLocationWaze->generateBetterLocation();
 		// @TODO newline is filled in $result (yeah, it shouldn't be like that..)
-		$text .= sprintf('%s <b>Formats I can read:</b>', \Icons::FEATURES) . PHP_EOL;
+		$text .= sprintf('%s <b>Formats I can read:</b>', Icons::FEATURES) . PHP_EOL;
 		$text .= sprintf('- coordinates: <a href="%s">WGS84</a>, <a href="%s">USNG</a>, <a href="%s">MGRS</a>, <a href="%s">UTM</a>, ...',
 				'https://en.wikipedia.org/wiki/World_Geodetic_System',
 				'https://en.wikipedia.org/wiki/United_States_National_Grid',
@@ -216,12 +205,12 @@ abstract class Events
 		$text .= sprintf('- Telegram location') . PHP_EOL;
 		$text .= sprintf('- EXIF from <b>uncompressed</b> images') . PHP_EOL;
 		$text .= PHP_EOL;
-		$text .= sprintf('%s <b>Inline:</b>', \Icons::INLINE) . PHP_EOL;
-		$text .= sprintf('To send my Better locations to a group I am not in, or to a private message, just type <code>@%s</code>', \Config::TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text .= sprintf('%s <b>Inline:</b>', Icons::INLINE) . PHP_EOL;
+		$text .= sprintf('To send my Better locations to a group I am not in, or to a private message, just type <code>@%s</code>', Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('- add any link, text, special code etc and choose one of the output') . PHP_EOL;
 		$text .= sprintf('- send your current position (on mobile devices only)') . PHP_EOL;
 		$text .= sprintf('- search literally anything via Google search API') . PHP_EOL;
-		$text .= sprintf('%s <a href="%s">See video here</a>', \Icons::VIDEO, 'https://t.me/BetterLocation/8') . PHP_EOL;
+		$text .= sprintf('%s <a href="%s">See video here</a>', Icons::VIDEO, 'https://t.me/BetterLocation/8') . PHP_EOL;
 		$text .= PHP_EOL;
 //		$text .= sprintf('%s <b>Private chat:</b>', Icons::USER) . PHP_EOL;
 //		$text .= sprintf('Just send me some link to or coordinate and I will generate message <b>just</b> for you.') . PHP_EOL;
@@ -233,12 +222,12 @@ abstract class Events
 //		$text .= sprintf('%s <b>Channel:</b>', Icons::CHANNEL) . PHP_EOL;
 //		$text .= sprintf('Currently not supported. Don\'t hesitate to ping author if you are interested in this feature.') . PHP_EOL;
 //		$text .= PHP_EOL;
-		$text .= sprintf('%s <b>Commands:</b>', \Icons::COMMAND) . PHP_EOL;
-		$text .= sprintf('%s - %s Learn more about me (this text)', HelpCommand::getCmd(!$this->isPm()), \Icons::INFO) . PHP_EOL;
-		$text .= sprintf('%s - %s Report invalid location or just contact the author', FeedbackCommand::getCmd(!$this->isPm()), \Icons::FEEDBACK) . PHP_EOL;
-		$text .= sprintf('%s - %s Manage your saved favourite locations (works only in PM)', FavouritesCommand::getCmd(!$this->isPm()), \Icons::FAVOURITE) . PHP_EOL;
+		$text .= sprintf('%s <b>Commands:</b>', Icons::COMMAND) . PHP_EOL;
+		$text .= sprintf('%s - %s Learn more about me (this text)', HelpCommand::getCmd(!$this->isPm()), Icons::INFO) . PHP_EOL;
+		$text .= sprintf('%s - %s Report invalid location or just contact the author', FeedbackCommand::getCmd(!$this->isPm()), Icons::FEEDBACK) . PHP_EOL;
+		$text .= sprintf('%s - %s Manage your saved favourite locations (works only in PM)', FavouritesCommand::getCmd(!$this->isPm()), Icons::FAVOURITE) . PHP_EOL;
 		$text .= PHP_EOL;
-		$text .= sprintf('%s For more info check out the <a href="%s">@BetterLocation</a> channel.', \Icons::INFO, 'https://t.me/BetterLocation/3') . PHP_EOL;
+		$text .= sprintf('%s For more info check out the <a href="%s">@BetterLocation</a> channel.', Icons::INFO, 'https://t.me/BetterLocation/3') . PHP_EOL;
 		$text .= PHP_EOL;
 
 //		$text .= sprintf(Icons::WARNING . ' <b>Warning</b>: Bot is currently in active development so there is no guarantee that it will work at all times. Check Github for more info.') . PHP_EOL;
@@ -250,7 +239,7 @@ abstract class Events
 
 		if ($inline) {
 			$this->replyButton($text, $messageSettings);
-			$this->flash(sprintf('%s Help was refreshed.', \Icons::REFRESH));
+			$this->flash(sprintf('%s Help was refreshed.', Icons::REFRESH));
 		} else {
 			$this->reply($text, $messageSettings);
 		}
@@ -262,12 +251,12 @@ abstract class Events
 		$replyMarkup->inline_keyboard = [
 			[ // first row
 				new Button([
-					'text' => sprintf('%s Help', \Icons::REFRESH),
+					'text' => sprintf('%s Help', Icons::REFRESH),
 					'callback_data' => HelpButton::CMD,
 				]),
 			], [ // second row
 				new Button([
-					'text' => sprintf('%s Try inline searching', \Icons::INLINE),
+					'text' => sprintf('%s Try inline searching', Icons::INLINE),
 					'switch_inline_query_current_chat' => 'Czechia Prague',
 				]),
 			],
@@ -276,7 +265,7 @@ abstract class Events
 		if ($this->isPm() === true) {
 			// add buton into first row
 			$replyMarkup->inline_keyboard[0][] = new Button([
-				'text' => sprintf('%s Favourites', \Icons::FAVOURITE),
+				'text' => sprintf('%s Favourites', Icons::FAVOURITE),
 				'callback_data' => sprintf('%s %s', FavouritesButton::CMD, FavouritesButton::ACTION_REFRESH),
 			]);
 		}
@@ -289,24 +278,24 @@ abstract class Events
 		$replyMarkup->inline_keyboard = [
 			[ // row of buttons
 				[ // button
-					'text' => sprintf('%s Help', \Icons::BACK),
+					'text' => sprintf('%s Help', Icons::BACK),
 					'callback_data' => HelpButton::CMD,
 				],
 				[ // button
-					'text' => sprintf('%s Refresh list', \Icons::REFRESH),
+					'text' => sprintf('%s Refresh list', Icons::REFRESH),
 					'callback_data' => sprintf('%s %s', FavouritesButton::CMD, FavouritesButton::ACTION_REFRESH),
 				],
 			],
 		];
 
-		$text = sprintf('%s A list of <b>favourite</b> locations saved by @%s.', \Icons::FAVOURITE, \Config::TELEGRAM_BOT_NAME) . PHP_EOL;
-		$text .= sprintf('Here you can manage your favourite locations, which will appear as soon as you type @%s in any chat.', \Config::TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text = sprintf('%s A list of <b>favourite</b> locations saved by @%s.', Icons::FAVOURITE, Config::TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text .= sprintf('Here you can manage your favourite locations, which will appear as soon as you type @%s in any chat.', Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('I don\'t have to be in that chat in order for it to work!') . PHP_EOL;
 		$text .= PHP_EOL;
 		if (count($this->user->getFavourites()) === 0) {
-			$text .= sprintf('%s Sadly, you don\'t have any favourite locations saved yet.', \Icons::INFO) . PHP_EOL;
+			$text .= sprintf('%s Sadly, you don\'t have any favourite locations saved yet.', Icons::INFO) . PHP_EOL;
 		} else {
-			$text .= sprintf('%s You have %d favourite location(s):', \Icons::INFO, count($this->user->getFavourites())) . PHP_EOL;
+			$text .= sprintf('%s You have %d favourite location(s):', Icons::INFO, count($this->user->getFavourites())) . PHP_EOL;
 			foreach ($this->user->getFavourites() as $favourite) {
 				$text .= $favourite->generateBetterLocation();
 
@@ -318,7 +307,7 @@ abstract class Events
 				$buttonRow = [];
 
 				$renameFavouriteButton = new Button();
-				$renameFavouriteButton->text = sprintf('%s Rename', \Icons::CHANGE);
+				$renameFavouriteButton->text = sprintf('%s Rename', Icons::CHANGE);
 				$renameFavouriteButton->switch_inline_query_current_chat = sprintf('%s %s %F %F %s',
 					StartCommand::FAVOURITE,
 					StartCommand::FAVOURITE_RENAME,
@@ -329,14 +318,14 @@ abstract class Events
 				$buttonRow[] = $renameFavouriteButton;
 
 				$deleteFavouriteButton = new Button();
-				$deleteFavouriteButton->text = sprintf('%s Delete', \Icons::DELETE);
+				$deleteFavouriteButton->text = sprintf('%s Delete', Icons::DELETE);
 				$deleteFavouriteButton->callback_data = sprintf('%s %s %F %F', FavouritesButton::CMD, FavouritesButton::ACTION_DELETE, $favourite->getLat(), $favourite->getLon());
 				$buttonRow[] = $deleteFavouriteButton;
 
 				$replyMarkup->inline_keyboard[] = $buttonRow;
 			}
 		}
-		$text .= sprintf('%s To add a location to your favourites, just send any link, coordinates etc. to me via PM and click on the %s button in my response.', \Icons::INFO, \Icons::FAVOURITE) . PHP_EOL;
+		$text .= sprintf('%s To add a location to your favourites, just send any link, coordinates etc. to me via PM and click on the %s button in my response.', Icons::INFO, Icons::FAVOURITE) . PHP_EOL;
 
 		$messageSettings = [
 			'disable_web_page_preview' => true,
@@ -345,7 +334,7 @@ abstract class Events
 
 		if ($inline) {
 			$this->replyButton($text, $messageSettings);
-			$this->flash(sprintf('%s List of favourite locations was refreshed.', \Icons::REFRESH));
+			$this->flash(sprintf('%s List of favourite locations was refreshed.', Icons::REFRESH));
 		} else {
 			$this->reply($text, $messageSettings);
 		}

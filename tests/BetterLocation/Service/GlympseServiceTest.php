@@ -1,12 +1,10 @@
 <?php declare(strict_types=1);
 
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotSupportedException;
-use BetterLocation\Service\GlympseService;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\Service\GlympseService;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../../../src/bootstrap.php';
-
 
 final class GlympseServiceTest extends TestCase
 {

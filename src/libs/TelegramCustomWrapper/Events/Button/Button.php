@@ -1,20 +1,24 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper\Events\Button;
+namespace App\TelegramCustomWrapper\Events\Button;
 
-use \TelegramCustomWrapper\SendMessage;
+use App\TelegramCustomWrapper\SendMessage;
 use unreal4u\TelegramAPI\Telegram\Methods\AnswerCallbackQuery;
 
-abstract class Button extends \TelegramCustomWrapper\Events\Events
+abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 {
-	protected function getChatId() {
+	protected function getChatId()
+	{
 		return $this->update->callback_query->message->chat->id;
 	}
-	protected function getMessageId() {
+
+	protected function getMessageId()
+	{
 		return $this->update->callback_query->message->message_id;
 	}
 
-	public function replyButton(string $text, array $options = []) {
+	public function replyButton(string $text, array $options = [])
+	{
 		// if not set, set default to true
 		if (!isset($options['edit_message'])) {
 			$options['edit_message'] = true;
@@ -36,12 +40,8 @@ abstract class Button extends \TelegramCustomWrapper\Events\Events
 		return $this->run($msg->msg);
 	}
 
-	/**
-	 * @param string $text
-	 * @param bool $alert
-	 * @throws \Exception
-	 */
-	public function flash(string $text, bool $alert = false) {
+	public function flash(string $text, bool $alert = false)
+	{
 		$flash = new AnswerCallbackQuery();
 		$flash->text = $text;
 		$flash->show_alert = $alert;

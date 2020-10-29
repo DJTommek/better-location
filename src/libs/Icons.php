@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace App;
+
 class Icons
 {
 	const ERROR = "\u{26D4}"; // https://emojipedia.org/no-entry/

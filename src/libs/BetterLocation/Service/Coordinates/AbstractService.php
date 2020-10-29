@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation\Service\Coordinates;
+namespace App\BetterLocation\Service\Coordinates;
 
-use BetterLocation\BetterLocation;
-use BetterLocation\BetterLocationCollection;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotImplementedException;
-use BetterLocation\Service\Exceptions\NotSupportedException;
-use Utils\Coordinates;
-use Utils\General;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\Utils\Coordinates;
+use App\Utils\General;
 
-abstract class AbstractService extends \BetterLocation\Service\AbstractService
+abstract class AbstractService extends \App\BetterLocation\Service\AbstractService
 {
 	const RE_HEMISPHERE = '([-+NSWE])?';
 	/**
@@ -40,7 +40,8 @@ abstract class AbstractService extends \BetterLocation\Service\AbstractService
 	 * @return string
 	 * @throws NotSupportedException
 	 */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string {
+	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link for raw coordinates is not supported.');
 		} else {
@@ -53,7 +54,8 @@ abstract class AbstractService extends \BetterLocation\Service\AbstractService
 	 * @return BetterLocationCollection
 	 * @throws NotImplementedException
 	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection {
+	public static function parseCoordsMultiple(string $input): BetterLocationCollection
+	{
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 
@@ -71,7 +73,8 @@ abstract class AbstractService extends \BetterLocation\Service\AbstractService
 	 * @return BetterLocation
 	 * @throws InvalidLocationException
 	 */
-	protected static function processWG84(string $serviceClass, array $matches) {
+	protected static function processWG84(string $serviceClass, array $matches)
+	{
 		switch ($serviceClass) {
 			case WG84DegreesService::class:
 				list($input, $latHemisphere1, $latCoordDegrees, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonHemisphere2) = $matches;

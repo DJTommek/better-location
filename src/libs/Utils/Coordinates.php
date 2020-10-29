@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Utils;
+namespace App\Utils;
 
 class Coordinates
 {
@@ -37,28 +37,15 @@ class Coordinates
 	// 51°37'39.864"S, 69°13'19.682"W
 	const RE_WGS84_DEGREES_MINUTES_SECONDS = '/(([0-9]{1,2})°([0-9]{1,2})\'([0-9]{1,2}(?:\.[0-9]{1,10})?) ?"([NS]))[ ,]{0,3}(([0-9]{1,3})°([0-9]{1,2})\'([0-9]{1,2}(?:\.[0-9]{1,10})?)" ?([WE]))/';
 
-	/**
-	 * Get decimal format from degrees-minutes
-	 *
-	 * @param float $degrees
-	 * @param float $minutes
-	 * @param string $hemisphere
-	 * @return float
-	 */
-	public static function wgs84DegreesMinutesToDecimal(float $degrees, float $minutes, string $hemisphere) {
+	/** Get decimal format from degrees-minutes */
+	public static function wgs84DegreesMinutesToDecimal(float $degrees, float $minutes, string $hemisphere): float
+	{
 		return self::flip($hemisphere) * ($degrees + $minutes / 60);
 	}
 
-	/**
-	 * Get decimal format from degrees-minutes
-	 *
-	 * @param float $degrees
-	 * @param float $minutes
-	 * @param float $seconds
-	 * @param string $hemisphere
-	 * @return float
-	 */
-	public static function wgs84DegreesMinutesSecondsToDecimal(float $degrees, float $minutes, float $seconds, string $hemisphere) {
+	/** Get decimal format from degrees-minutes-seconds */
+	public static function wgs84DegreesMinutesSecondsToDecimal(float $degrees, float $minutes, float $seconds, string $hemisphere): float
+	{
 		return self::flip($hemisphere) * ($degrees + $minutes / 60 + $seconds / 3600);
 	}
 
@@ -68,10 +55,9 @@ class Coordinates
 	 * @see https://en.wikipedia.org/wiki/Geotagging
 	 * @example exifGpsToDecimal(['57/1', '38/1', '5683/100'], S) === -57.64911
 	 * @param string[] $exifCoord
-	 * @param string $hemisphere
-	 * @return float
 	 */
-	public static function exifToDecimal(array $exifCoord, string $hemisphere): float {
+	public static function exifToDecimal(array $exifCoord, string $hemisphere): float
+	{
 		$degrees = count($exifCoord) > 0 ? self::gpsSubIFDToFloat($exifCoord[0]) : 0;
 		$minutes = count($exifCoord) > 1 ? self::gpsSubIFDToFloat($exifCoord[1]) : 0;
 		$seconds = count($exifCoord) > 2 ? self::gpsSubIFDToFloat($exifCoord[2]) : 0;
@@ -84,10 +70,9 @@ class Coordinates
 	 *
 	 * @see https://en.wikipedia.org/wiki/Geotagging
 	 * @example gpsSubIFDToFloat('5683/100') === 56.83
-	 * @param $coordPart
-	 * @return float
 	 */
-	public static function gpsSubIFDToFloat(string $coordPart): float {
+	public static function gpsSubIFDToFloat(string $coordPart): float
+	{
 		$parts = explode('/', $coordPart);
 		if (count($parts) <= 0) {
 			return 0;
@@ -101,10 +86,10 @@ class Coordinates
 	/**
 	 * Get info if decimal coordinates should be negative
 	 *
-	 * @param string $hemisphere
-	 * @return int
+	 * @return int 1|-1
 	 */
-	public static function flip(string $hemisphere) {
+	public static function flip(string $hemisphere): int
+	{
 		$hemisphere = mb_strtoupper($hemisphere);
 		if (in_array($hemisphere, [self::NORTH, self::EAST, '', '+'], true)) {
 			return 1;
@@ -126,7 +111,8 @@ class Coordinates
 	 * @return float Distance between points in [m] (same as earthRadius)
 	 * @author https://stackoverflow.com/a/10054282/3334403
 	 */
-	public static function distance(float $latitudeFrom, float $longitudeFrom, float $latitudeTo, float $longitudeTo, float $earthRadius = self::EARTH_RADIUS) {
+	public static function distance(float $latitudeFrom, float $longitudeFrom, float $latitudeTo, float $longitudeTo, float $earthRadius = self::EARTH_RADIUS): float
+	{
 		// convert from degrees to radians
 		$latFrom = deg2rad($latitudeFrom);
 		$lonFrom = deg2rad($longitudeFrom);
@@ -144,13 +130,11 @@ class Coordinates
 	/**
 	 * Check if point is inside of polygon
 	 *
-	 * @param float $lat
-	 * @param float $lng
 	 * @param array $polygon multi-array of coordinates, example: [[50.5,16.5], [51.5,16.5], [51.5,17.5], [50.5,17.5]]
-	 * @return bool
 	 * @author https://stackoverflow.com/a/18190354/3334403
 	 */
-	public static function isInPolygon(float $lat, float $lng, array $polygon): bool {
+	public static function isInPolygon(float $lat, float $lng, array $polygon): bool
+	{
 		$c = 0;
 		$p1 = $polygon[0];
 		$n = count($polygon);

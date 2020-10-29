@@ -2,24 +2,6 @@
 
 DEFINE('LOG_ID', rand(10000, 99999));
 
-/**
- * Dummy autoloader which will try load files named and located exactly as namespace and class name.
- * Eg. class SomeDumbClass with namespace 'Some\Namespace\' will be located in libs/Some/Namespace/SomeDumbClass.php
- * Files without namespace has to be located directly in libs folder.
- *
- * @param string $className
- * @throws \Exception
- */
-spl_autoload_register(function (string $className): void {
-	$path = str_replace('\\', '/', $className);
-	$file = str_replace('\\', '/', __DIR__) . '/libs/' . $path . '.php';
-	if (file_exists($file)) {
-		require_once $file;
-	} else {
-		throw new \Exception(sprintf('Class "%s" cannot be loaded, file "%s" does not exists.', $path, $file));
-	}
-});
-
 $vendorAutoloadFilePath = __DIR__ . '/../vendor/autoload.php';
 if (file_exists($vendorAutoloadFilePath)) {
 	require_once $vendorAutoloadFilePath;
@@ -34,17 +16,17 @@ if (file_exists($localConfigFilePath)) {
 	throw new \Exception(sprintf('Missing local config in "%s".', $localConfigFilePath));
 }
 
-Tracy\Debugger::enable(Config::TRACY_DEVELOPMENT_IPS, Config::FOLDER_DATA . '/tracy-log/');
+Tracy\Debugger::enable(App\Config::TRACY_DEVELOPMENT_IPS, App\Config::FOLDER_DATA . '/tracy-log/');
 Tracy\Debugger::$strictMode = true;
 Tracy\Debugger::$logSeverity = E_NOTICE | E_WARNING;
 
-if (@date_default_timezone_set(\Config::TIMEZONE) === false) {
-	throw new InvalidArgumentException(sprintf('Timezone "%s" is invalid. Update constant TIMEZONE to valid timezone ID or remove to set to default "%s".', \Config::TIMEZONE, \DefaultConfig::TIMEZONE));
+if (@date_default_timezone_set(App\Config::TIMEZONE) === false) {
+	throw new InvalidArgumentException(sprintf('Timezone "%s" is invalid. Update constant TIMEZONE to valid timezone ID or remove to set to default "%s".', App\Config::TIMEZONE, App\DefaultConfig::TIMEZONE));
 }
 
-if (is_null(Config::TRACY_DEBUGGER_EMAIL) === false) {
-	Tracy\Debugger::$email = Config::TRACY_DEBUGGER_EMAIL;
+if (is_null(App\Config::TRACY_DEBUGGER_EMAIL) === false) {
+	Tracy\Debugger::$email = App\Config::TRACY_DEBUGGER_EMAIL;
 }
 
 // Note: this might a lot of data to log but it's ok for alpha/beta phase. Probably should be removed in stable or production.
-\Utils\DummyLogger::log(\Utils\DummyLogger::NAME_ALL_REQUESTS, $_SERVER);
+\App\Utils\DummyLogger::log(\App\Utils\DummyLogger::NAME_ALL_REQUESTS, $_SERVER);

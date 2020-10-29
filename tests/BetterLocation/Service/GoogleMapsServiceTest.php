@@ -1,13 +1,14 @@
 <?php declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use \BetterLocation\Service\GoogleMapsService;
+use App\BetterLocation\Service\GoogleMapsService;
 
 require_once __DIR__ . '/../../../src/bootstrap.php';
 
 final class GoogleMapsServiceTest extends TestCase
 {
-	public function testGenerateShareLink(): void {
+	public function testGenerateShareLink(): void
+	{
 		$this->assertEquals('https://www.google.cz/maps/place/50.087451,14.420671?q=50.087451,14.420671', GoogleMapsService::getLink(50.087451, 14.420671));
 		$this->assertEquals('https://www.google.cz/maps/place/50.100000,14.500000?q=50.100000,14.500000', GoogleMapsService::getLink(50.1, 14.5));
 		$this->assertEquals('https://www.google.cz/maps/place/-50.200000,14.600000?q=-50.200000,14.600000', GoogleMapsService::getLink(-50.2, 14.6000001)); // round down
@@ -15,7 +16,8 @@ final class GoogleMapsServiceTest extends TestCase
 		$this->assertEquals('https://www.google.cz/maps/place/-50.400000,-14.800008?q=-50.400000,-14.800008', GoogleMapsService::getLink(-50.4, -14.800008));
 	}
 
-	public function testGenerateDriveLink(): void {
+	public function testGenerateDriveLink(): void
+	{
 		$this->assertEquals('https://maps.google.cz/?daddr=50.087451,14.420671&travelmode=driving', GoogleMapsService::getLink(50.087451, 14.420671, true));
 		$this->assertEquals('https://maps.google.cz/?daddr=50.100000,14.500000&travelmode=driving', GoogleMapsService::getLink(50.1, 14.5, true));
 		$this->assertEquals('https://maps.google.cz/?daddr=-50.200000,14.600000&travelmode=driving', GoogleMapsService::getLink(-50.2, 14.6000001, true)); // round down
@@ -37,7 +39,8 @@ final class GoogleMapsServiceTest extends TestCase
 //	}
 
 	/** @noinspection PhpUnhandledExceptionInspection */
-	public function testNormalUrl(): void {
+	public function testNormalUrl(): void
+	{
 		$this->assertEquals('49.294166,14.225833', GoogleMapsService::parseCoords('https://www.google.com/maps/place/Velk%C3%BD+Meheln%C3%ADk,+397+01+Pisek/@49.2941662,14.2258333,14z/data=!4m2!3m1!1s0x470b5087ca84a6e9:0xfeb1428d8c8334da')->__toString());
 		$this->assertEquals('49.211328,14.255349', GoogleMapsService::parseCoords('https://www.google.com/maps/place/Zelend%C3%A1rky/@49.2069545,14.2495123,15z/data=!4m5!3m4!1s0x0:0x3ad3965c4ecb9e51!8m2!3d49.2113282!4d14.2553488')->__toString());
 		$this->assertEquals('36.826460,22.528715', GoogleMapsService::parseCoords('https://www.google.cz/maps/@36.8264601,22.5287146,9.33z')->__toString());

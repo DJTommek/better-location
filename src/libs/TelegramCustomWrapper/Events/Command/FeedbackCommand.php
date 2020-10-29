@@ -1,11 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper\Events\Command;
+namespace App\TelegramCustomWrapper\Events\Command;
 
-use \Icons;
-use TelegramCustomWrapper\TelegramHelper;
+use App\Config;
+use App\Icons;
+use App\TelegramCustomWrapper\TelegramHelper;
+use App\Utils\DummyLogger;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
-use Utils\DummyLogger;
 
 class FeedbackCommand extends Command
 {
@@ -17,15 +18,16 @@ class FeedbackCommand extends Command
 	 * @param Update $update
 	 * @throws \Exception
 	 */
-	public function __construct(Update $update) {
+	public function __construct(Update $update)
+	{
 		parent::__construct($update);
 
-		$messagePrefix = sprintf('%s <b>Feedback</b> for @%s.', Icons::FEEDBACK, \Config::TELEGRAM_BOT_NAME) . PHP_EOL;
+		$messagePrefix = sprintf('%s <b>Feedback</b> for @%s.', Icons::FEEDBACK, Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$params = TelegramHelper::getParams($update);
 
 		// Using reply
 		if ($update->message->reply_to_message) {
-			if ($update->message->reply_to_message->from->username === \Config::TELEGRAM_BOT_NAME) {
+			if ($update->message->reply_to_message->from->username === Config::TELEGRAM_BOT_NAME) {
 				$this->logFeedback();
 				// @TODO adjust condition to match only real BetterLocation message, not just any message from bot
 				$this->reply($messagePrefix . 'Thanks for reporting, my BetterLocation message will be reviewed.');
@@ -45,12 +47,13 @@ class FeedbackCommand extends Command
 			$text .= sprintf('- "<code>%s Thanks for the bot!</code>" to increase morale of authors.', FeedbackCommand::getCmd(!$this->isPm())) . PHP_EOL;
 			$text .= sprintf('- "<code>%s I hate this bot, it can\'t do the dishes!</code>" to request more features.', FeedbackCommand::getCmd(!$this->isPm())) . PHP_EOL;
 			$text .= PHP_EOL;
-			$text .= sprintf('%s Tip: Use reply to any message if you want to authors that specific message why it should (not) be location.', \Icons::INFO);
+			$text .= sprintf('%s Tip: Use reply to any message if you want to authors that specific message why it should (not) be location.', Icons::INFO);
 			$this->reply($text);
 		}
 	}
 
-	private function logFeedback() {
-		\Utils\DummyLogger::log(DummyLogger::NAME_FEEDBACK, $this->update);
+	private function logFeedback()
+	{
+		DummyLogger::log(DummyLogger::NAME_FEEDBACK, $this->update);
 	}
 }

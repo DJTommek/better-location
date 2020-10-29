@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-use BetterLocation\Service\DrobnePamatkyCzService;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\Service\DrobnePamatkyCzService;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../../../src/bootstrap.php';
 
-
 final class DrobnePamatkyCzServiceTest extends TestCase
 {
 	/** @noinspection PhpUnhandledExceptionInspection */
-	public function testGenerateShareLink(): void {
+	public function testGenerateShareLink(): void
+	{
 		$this->assertEquals('https://www.drobnepamatky.cz/blizko?km[latitude]=50.087451&km[longitude]=14.420671&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(50.087451, 14.420671));
 		$this->assertEquals('https://www.drobnepamatky.cz/blizko?km[latitude]=50.100000&km[longitude]=14.500000&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(50.1, 14.5));
 		$this->assertEquals('https://www.drobnepamatky.cz/blizko?km[latitude]=-50.200000&km[longitude]=14.600000&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(-50.2, 14.6000001)); // round down
@@ -19,13 +19,15 @@ final class DrobnePamatkyCzServiceTest extends TestCase
 		$this->assertEquals('https://www.drobnepamatky.cz/blizko?km[latitude]=-50.400000&km[longitude]=-14.800008&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(-50.4, -14.800008));
 	}
 
-	public function testGenerateDriveLink(): void {
+	public function testGenerateDriveLink(): void
+	{
 		$this->expectException(NotSupportedException::class);
 		$this->expectExceptionMessage('Drive link is not supported.');
 		DrobnePamatkyCzService::getLink(50.087451, 14.420671, true);
 	}
 
-	public function testIsValid(): void {
+	public function testIsValid(): void
+	{
 		$this->assertTrue(DrobnePamatkyCzService::isValid('https://www.drobnepamatky.cz/node/36966'));
 		$this->assertTrue(DrobnePamatkyCzService::isValid('http://www.drobnepamatky.cz/node/36966'));
 		$this->assertTrue(DrobnePamatkyCzService::isValid('https://drobnepamatky.cz/node/36966'));
@@ -42,7 +44,8 @@ final class DrobnePamatkyCzServiceTest extends TestCase
 	}
 
 	/** @noinspection PhpUnhandledExceptionInspection */
-	public function testUrl(): void {
+	public function testUrl(): void
+	{
 		$this->assertEquals('50.067665,14.401487', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/36966')->__toString());
 		$this->assertEquals('49.703025,13.215935', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/40369')->__toString());
 		$this->assertEquals('49.854270,18.542159', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/9279')->__toString());
@@ -52,7 +55,8 @@ final class DrobnePamatkyCzServiceTest extends TestCase
 		$this->assertEquals('48.974158,14.612296', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/2892')->__toString());
 	}
 
-	public function testMissingCoordinates1(): void {
+	public function testMissingCoordinates1(): void
+	{
 		$this->expectException(InvalidLocationException::class);
 		$this->expectExceptionMessage('Coordinates on DrobnePamatky.cz page are missing.');
 		DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/9999999');

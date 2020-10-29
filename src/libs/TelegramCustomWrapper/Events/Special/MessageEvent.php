@@ -1,25 +1,21 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper\Events\Special;
+namespace App\TelegramCustomWrapper\Events\Special;
 
-use \BetterLocation\BetterLocation;
-use BetterLocation\Service\Exceptions\InvalidApiKeyException;
-use BetterLocation\Service\Exceptions\InvalidLocationException;
-use TelegramCustomWrapper\Events\Command\HelpCommand;
-use TelegramCustomWrapper\TelegramHelper;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\Service\Exceptions\InvalidApiKeyException;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\Icons;
+use App\TelegramCustomWrapper\Events\Command\HelpCommand;
+use App\TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class MessageEvent extends Special
 {
-	/**
-	 * MessageCommand constructor.
-	 *
-	 * @param $update
-	 * @throws \Exception
-	 */
-	public function __construct($update) {
+	public function __construct($update)
+	{
 		parent::__construct($update);
 
 		// PM or whitelisted group
@@ -41,15 +37,15 @@ class MessageEvent extends Special
 					$betterLocation instanceof InvalidLocationException ||
 					$betterLocation instanceof InvalidApiKeyException
 				) {
-					$result .= \Icons::ERROR . $betterLocation->getMessage() . PHP_EOL . PHP_EOL;
+					$result .= Icons::ERROR . $betterLocation->getMessage() . PHP_EOL . PHP_EOL;
 				} else {
-					$result .= \Icons::ERROR . 'Unexpected error occured while proceessing message for locations.' . PHP_EOL . PHP_EOL;
+					$result .= Icons::ERROR . 'Unexpected error occured while proceessing message for locations.' . PHP_EOL . PHP_EOL;
 					Debugger::log($betterLocation, Debugger::EXCEPTION);
 				}
 			}
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
-			$this->reply(sprintf('%s Unexpected error occured while processing message for Better location. Contact Admin for more info.', \Icons::ERROR));
+			$this->reply(sprintf('%s Unexpected error occured while processing message for Better location. Contact Admin for more info.', Icons::ERROR));
 			return;
 		}
 		if ($result) {
@@ -68,7 +64,7 @@ class MessageEvent extends Special
 				$message .= 'Thanks for forwarded message, but ';
 			}
 			$message .= sprintf('I didn\'t detected any location in that message. Use %s command to get info how to use me.', HelpCommand::getCmd(!$this->isPm())) . PHP_EOL;
-			$message .= sprintf('%s Most used tips: ', \Icons::INFO) . PHP_EOL;
+			$message .= sprintf('%s Most used tips: ', Icons::INFO) . PHP_EOL;
 			$message .= '- send me any message with location data (coords, links, Telegram location...)' . PHP_EOL;
 			$message .= '- send me Telegram location' . PHP_EOL;
 			$message .= '- send me <b>uncompressed</b> photos (as file) to process location from EXIF' . PHP_EOL;

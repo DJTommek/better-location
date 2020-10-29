@@ -2,7 +2,9 @@
 
 require_once __DIR__ . '/src/bootstrap.php';
 
-use \Utils\DummyLogger;
+use App\Config;
+use App\TelegramCustomWrapper\TelegramCustomWrapper;
+use \App\Utils\DummyLogger;
 
 printf('<p>Go back to <a href="./index.php">index.php</a></p>');
 
@@ -14,9 +16,9 @@ try {
 	$updateData = json_decode($input, true, 512, JSON_THROW_ON_ERROR);
 	DummyLogger::log(DummyLogger::NAME_TELEGRAM_INPUT, $updateData);
 
-	Factory::Database(); // Just check if database connection is valid, otherwise throw Exception and end script now.
+	\App\Factory::Database(); // Just check if database connection is valid, otherwise throw Exception and end script now.
 
-	$telegramCustomWrapper = new \TelegramCustomWrapper\TelegramCustomWrapper(\Config::TELEGRAM_BOT_TOKEN, \Config::TELEGRAM_BOT_NAME);
+	$telegramCustomWrapper = new TelegramCustomWrapper(Config::TELEGRAM_BOT_TOKEN, Config::TELEGRAM_BOT_NAME);
 	$telegramCustomWrapper->handleUpdate($updateData);
 	printf('OK.');
 } catch (\Throwable $exception) {
