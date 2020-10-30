@@ -1,8 +1,13 @@
 <?php declare(strict_types=1);
 
-use BetterLocation\BetterLocation;
-use \unreal4u\TelegramAPI\Telegram;
-use \TelegramCustomWrapper\Exceptions\MessageDeletedException;
+namespace App;
+
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\Service\Exceptions\InvalidApiKeyException;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\TelegramCustomWrapper\Exceptions\MessageDeletedException;
+use App\TelegramCustomWrapper\SendMessage;
+use unreal4u\TelegramAPI\Telegram;
 
 class Cron
 {
@@ -92,8 +97,8 @@ class Cron
 	{
 		// @TODO move somewhere else
 		$loop = \React\EventLoop\Factory::create();
-		$tgLog = new \unreal4u\TelegramAPI\TgLog(\Config::TELEGRAM_BOT_TOKEN, new \unreal4u\TelegramAPI\HttpClientRequestHandler($loop));
-		$collection = \BetterLocation\BetterLocation::generateFromTelegramMessage(
+		$tgLog = new \unreal4u\TelegramAPI\TgLog(Config::TELEGRAM_BOT_TOKEN, new \unreal4u\TelegramAPI\HttpClientRequestHandler($loop));
+		$collection = BetterLocation::generateFromTelegramMessage(
 			$this->update->callback_query->message->reply_to_message->text,
 			$this->update->callback_query->message->reply_to_message->entities,
 		);
@@ -101,7 +106,7 @@ class Cron
 		$buttonLimit = 1; // @TODO move to config (chat settings)
 		$buttons = [];
 		foreach ($collection->getAll() as $betterLocation) {
-			if ($betterLocation instanceof \BetterLocation\BetterLocation) {
+			if ($betterLocation instanceof BetterLocation) {
 				$result .= $betterLocation->generateBetterLocation();
 				if (count($buttons) < $buttonLimit) {
 					$driveButtons = $betterLocation->generateDriveButtons();
@@ -109,23 +114,23 @@ class Cron
 					$buttons[] = $driveButtons;
 				}
 			} else if (
-				$betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidLocationException ||
-				$betterLocation instanceof \BetterLocation\Service\Exceptions\InvalidApiKeyException
+				$betterLocation instanceof InvalidLocationException ||
+				$betterLocation instanceof InvalidApiKeyException
 			) {
-				$result .= \Icons::ERROR . $betterLocation->getMessage() . PHP_EOL . PHP_EOL;
+				$result .= Icons::ERROR . $betterLocation->getMessage() . PHP_EOL . PHP_EOL;
 			} else {
-				$result .= \Icons::ERROR . 'Unexpected error occured while proceessing message for locations.' . PHP_EOL . PHP_EOL;
+				$result .= Icons::ERROR . 'Unexpected error occured while proceessing message for locations.' . PHP_EOL . PHP_EOL;
 				\Tracy\Debugger::log($betterLocation, \Tracy\Debugger::EXCEPTION);
 			}
 		}
 		$buttons[] = BetterLocation::generateRefreshButtons(true);
 
 		$now = new \DateTimeImmutable();
-		$result .= sprintf('%s Last refresh: %s', \Icons::REFRESH, $now->format(\Config::DATETIME_FORMAT_ZONE));
+		$result .= sprintf('%s Last refresh: %s', Icons::REFRESH, $now->format(Config::DATETIME_FORMAT_ZONE));
 		$markup = (new Telegram\Types\Inline\Keyboard\Markup());
 		$markup->inline_keyboard = $buttons;
 
-		$sendMessage = new \TelegramCustomWrapper\SendMessage($this->telegramChatId, $result, null, null, $this->telegramBetterMessageId);
+		$sendMessage = new SendMessage($this->telegramChatId, $result, null, null, $this->telegramBetterMessageId);
 		$sendMessage->disableWebPagePreview(true);
 		$sendMessage->setReplyMarkup($markup);
 		$promise = $tgLog->performApiRequest($sendMessage->msg);
