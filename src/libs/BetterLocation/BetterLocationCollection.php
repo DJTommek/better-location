@@ -18,12 +18,14 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return $this->locations;
 	}
 
-	public function add(BetterLocation $betterLocation)
+	public function add($betterLocation)
 	{
 		if ($betterLocation instanceof BetterLocation) {
 			$this->locations[] = $betterLocation;
-		} else {
+		} else if ($betterLocation instanceof \Throwable) {
 			$this->errors[] = $betterLocation;
+		} else {
+			throw new \InvalidArgumentException(sprintf('%s is accepting only "%s" and "%s" objects.', self::class, BetterLocation::class, \Throwable::class));
 		}
 	}
 
