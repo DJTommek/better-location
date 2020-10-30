@@ -3,13 +3,15 @@
 namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\Config;
 use App\Icons;
+use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
-use unreal4u\TelegramAPI\Telegram\Methods\GetFile;
-use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
+use unreal4u\TelegramAPI\Telegram;
 
 class FileEvent extends Special
 {
@@ -21,68 +23,62 @@ class FileEvent extends Special
 	{
 		parent::__construct($update);
 
-		$buttonsRows = [];
+		$collection = new BetterLocationCollection();
 
-		$replyMessage = '';
-		// PM or whitelisted group
 		$document = $this->update->message->document;
 		if ($document->mime_type === self::MIME_TYPE_IMAGE_JPEG) {
 			if ($document->file_size > self::MAX_FILE_SIZE_DOWNLOAD) {
-				$this->reply(sprintf('%s I can\'t check for location in image\'s EXIF, because file is too big (> 20 MB, Telegram bot API limit).', Icons::ERROR));
-				return;
-			}
-			$this->sendAction();
-			try {
-				$getFile = new GetFile();
-				$getFile->file_id = $document->file_id;
-
-				$response = $this->run($getFile);
-			} catch (\Throwable $exception) {
-				Debugger::log($exception, ILogger::EXCEPTION);
-				$this->reply(sprintf('%s Unexpected error occured while downloading image. Contact Admin for more info.', Icons::ERROR));
-				return;
-			}
-			try {
-				$fileLink = TelegramHelper::getFileUrl(Config::TELEGRAM_BOT_TOKEN, $response->file_path);
-				$betterLocationExif = BetterLocation::fromExif($fileLink);
-				if ($betterLocationExif instanceof BetterLocation) {
-					$replyMessage .= $betterLocationExif->generateBetterLocation();
-					$exifButtons = $betterLocationExif->generateDriveButtons();
-					$exifButtons[] = $betterLocationExif->generateAddToFavouriteButtton();
-					$buttonsRows[] = $exifButtons;
+				if ($this->isPm() === true) { // Send error only if PM
+					$collection->add(new InvalidLocationException(sprintf('%s I can\'t check for location in image\'s EXIF, because file is too big (> 20 MB, Telegram bot API limit).', Icons::ERROR)));
 				}
-			} catch (\Throwable $exception) {
-				Debugger::log($exception, ILogger::EXCEPTION);
-				$this->reply(sprintf('%s Unexpected error occured while processing EXIF data from image for Better location. Contact Admin for more info.', Icons::ERROR));
-				return;
+			} else {
+				$this->sendAction();
+				try {
+					$getFile = new Telegram\Methods\GetFile();
+					$getFile->file_id = $document->file_id;
+					/** @var Telegram\Types\File $response */
+					$response = $this->run($getFile);
+					$fileLink = TelegramHelper::getFileUrl(Config::TELEGRAM_BOT_TOKEN, $response->file_path);
+					$betterLocationExif = BetterLocation::fromExif($fileLink);
+					if ($betterLocationExif instanceof BetterLocation) {
+						$collection->add($betterLocationExif);
+					}
+				} catch (\Throwable $exception) {
+					Debugger::log($exception, ILogger::EXCEPTION);
+					if ($this->isPm() === true) { // Send error only if PM
+						$collection->add(new InvalidLocationException(sprintf('%s Unexpected error occured while searching EXIF in image. Contact Admin for more info.', Icons::ERROR)));
+					}
+				}
 			}
 		}
-		$betterLocationsMessage = BetterLocation::generateFromTelegramMessage(
+		
+		$collection->mergeCollection(BetterLocation::generateFromTelegramMessage(
 			$this->update->message->caption,
 			$this->update->message->caption_entities
-		);
+		));
 
-		foreach ($betterLocationsMessage->getAll() as $betterLocation) {
-			$replyMessage .= $betterLocation->generateBetterLocation();
-			if (count($buttonsRows) === 0) { // show only one row of buttons
-				$exifButtons = $betterLocation->generateDriveButtons();
-				$exifButtons[] = $betterLocation->generateAddToFavouriteButtton();
-				$buttonsRows[] = $exifButtons;
-			}
-		}
-
-		if ($replyMessage) {
-			$markup = (new Markup());
-			$markup->inline_keyboard = $buttonsRows;
+		$processedCollection = new ProcessedMessageResult($collection);
+		$processedCollection->process();
+		if ($collection->count() > 0) {
 			$this->reply(
-				TelegramHelper::MESSAGE_PREFIX . $replyMessage,
+				TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText(),
 				[
 					'disable_web_page_preview' => true,
-					'reply_markup' => $markup,
+					'reply_markup' => $processedCollection->getMarkup(1),
 				],
 			);
-		} else if ($this->isPm() === true) {
-			$this->reply('Thanks for the file in PM! But I\'m not sure, what to do... No location in EXIF was found.');
+		} else { // No detected locations or occured errors
+			if ($this->isPm() === true) {
+				$message = 'Hi there in PM!' . PHP_EOL;
+				$message .= 'Thanks for the ';
+				if ($this->isForward()) {
+					$message .= 'forwarded ';
+				}
+				$message .= 'file but I\'m not sure, what to do... No location in EXIF was found.';
+				$this->reply($message);
+			} else {
+				// do not send anything to chat
+			}
 		}
 	}
 }
