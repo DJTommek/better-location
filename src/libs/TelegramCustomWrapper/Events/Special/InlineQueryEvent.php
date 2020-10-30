@@ -3,8 +3,6 @@
 namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\Service\Coordinates\WG84DegreesService;
-use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\MapyCzService;
 use App\Config;
@@ -43,12 +41,7 @@ class InlineQueryEvent extends Special
 		if (empty($queryInput)) {
 			// If user agrees to share location, and is using device, where is possible to get location (typically mobile devices)
 			if (empty($update->inline_query->location) === false) {
-				$betterLocation = new BetterLocation(
-					$queryInput,
-					$update->inline_query->location->latitude,
-					$update->inline_query->location->longitude,
-					WG84DegreesService::class,
-				);
+				$betterLocation = BetterLocation::fromLatLon($update->inline_query->location->latitude, $update->inline_query->location->longitude);
 				$betterLocation->setPrefixMessage(sprintf('%s Current location', Icons::CURRENT_LOCATION));
 				$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 			} else if ($this->user->getLastKnownLocation() instanceof BetterLocation) {
@@ -98,15 +91,12 @@ class InlineQueryEvent extends Special
 		} else {
 			$entities = TelegramHelper::generateEntities($queryInput);
 			try {
-				$betterLocations = BetterLocation::generateFromTelegramMessage($queryInput, $entities);
-				foreach ($betterLocations->getAll() as $betterLocation) {
-					if ($betterLocation instanceof BetterLocation) {
-						$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
-					} else if ($betterLocation instanceof InvalidLocationException) {
-						continue; // Ignore this error in inline query
-					} else {
-						Debugger::log($betterLocation, Debugger::EXCEPTION);
-					}
+				$collection = BetterLocation::generateFromTelegramMessage($queryInput, $entities);
+				foreach ($collection->getLocations() as $betterLocation) {
+					$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
+				}
+				foreach ($collection->getErrors() as $errors) {
+					Debugger::log($errors, Debugger::EXCEPTION);
 				}
 
 				// only if there is no match from previous processing
