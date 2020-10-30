@@ -20,7 +20,11 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 
 	public function add(BetterLocation $betterLocation)
 	{
-		$this->locations[] = $betterLocation;
+		if ($betterLocation instanceof BetterLocation) {
+			$this->locations[] = $betterLocation;
+		} else {
+			$this->errors[] = $betterLocation;
+		}
 	}
 
 	public function getAll()
@@ -49,11 +53,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	public function mergeCollection(BetterLocationCollection $betterLocationCollection): void
 	{
 		foreach ($betterLocationCollection->getAll() as $betterLocation) {
-			if ($betterLocation instanceof BetterLocation) {
-				$this->locations[] = $betterLocation;
-			} else {
-				$this->errors[] = $betterLocation;
-			}
+			$this->add($betterLocation);
 		}
 	}
 
