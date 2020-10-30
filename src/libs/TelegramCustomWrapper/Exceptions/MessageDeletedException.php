@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace TelegramCustomWrapper\Exceptions;
+namespace App\TelegramCustomWrapper\Exceptions;
 
 class MessageDeletedException extends \Exception
 {
