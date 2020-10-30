@@ -174,6 +174,6 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 
 	public function count()
 	{
-		return count($this->locations);
+		return count($this->locations) + count($this->errors);
 	}
 }
