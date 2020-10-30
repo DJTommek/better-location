@@ -44,7 +44,7 @@ class Tester
 			$betterLocations = BetterLocation::generateFromTelegramMessage($this->getInput(), $entities);
 			$buttonLimit = 1; // @TODO move to config (chat settings)
 			foreach ($betterLocations->getLocations() as $betterLocation) {
-				$this->outputText .= $betterLocation->generateBetterLocation();
+				$this->outputText .= $betterLocation->generateMessage();
 				if (count($this->outputButtons) < $buttonLimit) {
 					$driveButtons = $betterLocation->generateDriveButtons();
 					$driveButtons[] = $betterLocation->generateAddToFavouriteButtton();

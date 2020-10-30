@@ -59,7 +59,7 @@ class StartCommand extends Command
 		} else {
 			try {
 				$betterLocation = new BetterLocation($matches[0], $lat, $lon, WG84DegreesService::class);
-				$result = $betterLocation->generateBetterLocation();
+				$result = $betterLocation->generateMessage();
 				$buttons = $betterLocation->generateDriveButtons();
 				$buttons[] = $betterLocation->generateAddToFavouriteButtton();
 				$markup = (new Markup());

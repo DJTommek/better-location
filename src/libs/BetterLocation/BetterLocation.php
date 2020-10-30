@@ -402,14 +402,7 @@ class BetterLocation
 		}
 	}
 
-	/**
-	 * Generate BetterLocation Telegram message
-	 *
-	 * @param bool $withAddress
-	 * @return string
-	 * @throws \Exception
-	 */
-	public function generateBetterLocation($withAddress = true): string
+	public function generateMessage($withAddress = true): string
 	{
 		/** @var $services AbstractService[] */
 		$services = [

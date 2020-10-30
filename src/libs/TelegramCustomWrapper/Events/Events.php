@@ -190,7 +190,7 @@ abstract class Events
 		$text .= sprintf('I\'m a simple but smart bot to catch all possible location formats in any chats you invite me to, and generate links to your favourite location services such as Google maps, Waze, OpenStreetMaps etc.') . PHP_EOL;
 		$text .= sprintf('For example, if you send a message containing the coordinates "<code>%f,%f</code>" or the link "%s" I will respond with this:', $lat, $lon, $wazeLink) . PHP_EOL;
 		$text .= PHP_EOL;
-		$text .= $betterLocationWaze->generateBetterLocation();
+		$text .= $betterLocationWaze->generateMessage();
 		// @TODO newline is filled in $result (yeah, it shouldn't be like that..)
 		$text .= sprintf('%s <b>Formats I can read:</b>', Icons::FEATURES) . PHP_EOL;
 		$text .= sprintf('- coordinates: <a href="%s">WGS84</a>, <a href="%s">USNG</a>, <a href="%s">MGRS</a>, <a href="%s">UTM</a>, ...',
@@ -297,7 +297,7 @@ abstract class Events
 		} else {
 			$text .= sprintf('%s You have %d favourite location(s):', Icons::INFO, count($this->user->getFavourites())) . PHP_EOL;
 			foreach ($this->user->getFavourites() as $favourite) {
-				$text .= $favourite->generateBetterLocation();
+				$text .= $favourite->generateMessage();
 
 				$shareFavouriteButton = new Button();
 				$shareFavouriteButton->text = sprintf('Share %s', $favourite->getPrefixMessage());
