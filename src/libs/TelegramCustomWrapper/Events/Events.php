@@ -20,6 +20,8 @@ use React\EventLoop\Factory;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Abstracts\TelegramMethods;
+use unreal4u\TelegramAPI\Abstracts\TelegramTypes;
+use unreal4u\TelegramAPI\Exceptions\ClientException;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram\Methods\SendChatAction;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
@@ -144,8 +146,8 @@ abstract class Events
 		return $this->run($msg->msg);
 	}
 
-	/** @throws \Exception */
-	public function run(TelegramMethods $objectToSend)
+	/** @throws ClientException */
+	public function run(TelegramMethods $objectToSend): TelegramTypes
 	{
 		$promise = $this->tgLog->performApiRequest($objectToSend);
 		$this->loop->run();
@@ -172,6 +174,7 @@ abstract class Events
 		);
 
 		if ($resultException) {
+			/** @var ClientException $resultException */
 			throw $resultException;
 		} else {
 			return $resultResponse;
@@ -338,7 +341,5 @@ abstract class Events
 		} else {
 			$this->reply($text, $messageSettings);
 		}
-
-
 	}
 }
