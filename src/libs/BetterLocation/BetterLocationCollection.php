@@ -18,7 +18,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return $this->locations;
 	}
 
-	public function add($betterLocation)
+	/** @param BetterLocation|\Throwable $betterLocation */
+	public function add($betterLocation): self
 	{
 		if ($betterLocation instanceof BetterLocation) {
 			$this->locations[] = $betterLocation;
@@ -27,6 +28,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		} else {
 			throw new \InvalidArgumentException(sprintf('%s is accepting only "%s" and "%s" objects.', self::class, BetterLocation::class, \Throwable::class));
 		}
+		return $this;
 	}
 
 	public function getAll()
