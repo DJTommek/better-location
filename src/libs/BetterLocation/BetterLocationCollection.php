@@ -209,6 +209,16 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return count($this->locations) + count($this->errors);
 	}
 
+	public function hasRefreshableLocation(): bool
+	{
+		foreach ($this->locations as $location) {
+			if ($location->isRefreshable()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/** @param MessageEntity[] $entities */
 	public static function fromTelegramMessage(string $message, array $entities): self
 	{

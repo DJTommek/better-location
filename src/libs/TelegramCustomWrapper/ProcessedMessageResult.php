@@ -2,6 +2,7 @@
 
 namespace App\TelegramCustomWrapper;
 
+use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\Icons;
@@ -47,11 +48,14 @@ class ProcessedMessageResult
 
 	public function getButtons(?int $maxRows = null): array
 	{
-		if (is_null($maxRows)) {
-			return $this->buttons;
-		} else {
-			return array_slice($this->buttons, 0, $maxRows);
+		$result = $this->buttons;
+		if ($maxRows > 0) {
+			$result = array_slice($result, 0, $maxRows);
 		}
+		if ($this->collection->hasRefreshableLocation()) {
+			$result[] = BetterLocation::generateRefreshButtons(false);
+		}
+		return $result;
 	}
 
 	public function getMarkup(?int $maxRows = null): Markup
