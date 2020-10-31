@@ -40,7 +40,7 @@ class Tester
 		$entities = TelegramHelper::generateEntities($this->getInput());
 		$collection = BetterLocationCollection::fromTelegramMessage($this->getInput(), $entities);
 		$processedCollection = new ProcessedMessageResult($collection);
-		$processedCollection->process();
+		$processedCollection->process(true);
 		if ($collection->count() > 0) {
 			$this->outputText = trim($processedCollection->getText());
 			$this->outputButtons = $processedCollection->getButtons(1);

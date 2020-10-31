@@ -23,7 +23,7 @@ class ProcessedMessageResult
 		$this->collection = $collection;
 	}
 
-	public function process(): self
+	public function process(bool $printAllErrors = false): self
 	{
 		foreach ($this->collection->getLocations() as $betterLocation) {
 			$this->resultText .= $betterLocation->generateMessage();
@@ -36,7 +36,9 @@ class ProcessedMessageResult
 			if ($error instanceof InvalidLocationException) {
 				$this->resultText .= Icons::ERROR . $error->getMessage() . PHP_EOL;
 			} else {
-				$this->resultText .= Icons::ERROR . 'Unexpected error occured while proceessing message for locations.' . PHP_EOL;
+				if ($printAllErrors) {
+					$this->resultText .= Icons::ERROR . ' Unexpected error occured while proceessing message for locations.' . PHP_EOL;
+				}
 				Debugger::log($error, Debugger::EXCEPTION);
 			}
 		}
