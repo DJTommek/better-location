@@ -3,6 +3,7 @@
 namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\MapyCzService;
 use App\Config;
@@ -91,7 +92,7 @@ class InlineQueryEvent extends Special
 		} else {
 			$entities = TelegramHelper::generateEntities($queryInput);
 			try {
-				$collection = BetterLocation::generateFromTelegramMessage($queryInput, $entities);
+				$collection = BetterLocationCollection::fromTelegramMessage($queryInput, $entities);
 				foreach ($collection->getLocations() as $betterLocation) {
 					$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 				}

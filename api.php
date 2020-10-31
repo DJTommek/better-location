@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
 use Tracy\Debugger;
 
 require_once __DIR__ . '/src/bootstrap.php';
@@ -17,7 +18,7 @@ try {
 	if (isset($_POST['input'])) {
 		$input = $_POST['input'];
 		$entities = \App\TelegramCustomWrapper\TelegramHelper::generateEntities($input);
-		$betterLocations = BetterLocation::generateFromTelegramMessage($input, $entities);
+		$betterLocations = BetterLocationCollection::fromTelegramMessage($input, $entities);
 		if (count($betterLocations)) {
 			$response->error = false;
 			foreach ($betterLocations->getAll() as $betterLocation) {

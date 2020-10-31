@@ -2,7 +2,7 @@
 
 namespace App\TelegramCustomWrapper\Events\Special;
 
-use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
@@ -14,7 +14,7 @@ class MessageEvent extends Special
 	{
 		parent::__construct($update);
 
-		$collection = BetterLocation::generateFromTelegramMessage($this->getText(), $this->update->message->entities);
+		$collection = BetterLocationCollection::fromTelegramMessage($this->getText(), $this->update->message->entities);
 		$processedCollection = new ProcessedMessageResult($collection);
 		$processedCollection->process();
 		if ($collection->count() > 0) {

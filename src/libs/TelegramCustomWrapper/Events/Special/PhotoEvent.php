@@ -2,7 +2,7 @@
 
 namespace App\TelegramCustomWrapper\Events\Special;
 
-use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 
@@ -12,7 +12,7 @@ class PhotoEvent extends Special
 	{
 		parent::__construct($update);
 
-		$collection = BetterLocation::generateFromTelegramMessage(
+		$collection = BetterLocationCollection::fromTelegramMessage(
 			$this->update->message->caption,
 			$this->update->message->caption_entities,
 		);

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\WhatThreeWordService;
 use PHPUnit\Framework\TestCase;
@@ -47,7 +47,7 @@ final class WhatThreeWordsServiceTest extends TestCase
 			$entity->offset = 49;
 			$entity->length = 25;
 			$entities[] = $entity;
-			$result = BetterLocation::generateFromTelegramMessage('Hello ///smaller.biggest.money there! Random URL https://tomas.palider.cz/ there...', $entities);
+			$result = BetterLocationCollection::fromTelegramMessage('Hello ///smaller.biggest.money there! Random URL https://tomas.palider.cz/ there...', $entities);
 			$this->assertCount(1, $result);
 			$this->assertEquals('50.086258,14.423709', $result[0]->__toString());
 		}

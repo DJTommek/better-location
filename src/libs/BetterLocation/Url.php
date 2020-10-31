@@ -6,6 +6,19 @@ use App\Utils\General;
 
 class Url
 {
+	/**
+	 * List of content types for images supporting EXIF
+	 *
+	 * @see https://www.iana.org/assignments/media-types/media-types.xhtml#image
+	 */
+	const CONTENT_TYPE_IMAGE_EXIF = [
+		'image/jpeg',
+		'image/png',
+		'image/tiff',
+		'image/tiff-x',
+		'image/webp',
+	];
+
 	const SHORT_URL_DOMAINS = [
 		'bit.ly', // https://bitly.com/
 		'tinyurl.com', // https://tinyurl.com/
@@ -35,5 +48,14 @@ class Url
 	{
 		$headers = General::getHeaders($url);
 		return $headers['location'] ?? null;
+	}
+
+	/**
+	 * Skip URLs without defined scheme, eg "tomas.palider.cz" but allow "https://tomas.palider.cz/"
+	 */
+	public static function isTrueUrl(string $url): bool
+	{
+		$parsedUrl = General::parseUrl($url);
+		return (isset($parsedUrl['scheme']) && isset($parsedUrl['host']));
 	}
 }

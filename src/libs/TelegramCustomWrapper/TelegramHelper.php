@@ -257,4 +257,28 @@ class TelegramHelper
 		}
 		return $entities;
 	}
+
+	/**
+	 * Remove all URLs from Telegram message according entities.
+	 * URLs will be replaced with ||| proper length to keep entity offset and length valid eg.:
+	 * 'Hello https://t.me/ here!'
+	 * ->
+	 * 'Hello ||||||||||||| here!'
+	 *
+	 * @param string $text
+	 * @param MessageEntity[] $entities
+	 * @return string
+	 */
+	public static function getMessageWithoutUrls(string $text, array $entities): string
+	{
+		foreach (array_reverse($entities) as $entity) {
+			if ($entity->type === 'url') {
+				$entityContent = TelegramHelper::getEntityContent($text, $entity);
+				if (\App\BetterLocation\Url::isTrueUrl($entityContent)) {
+					$text = str_replace($entityContent, str_repeat('|', $entity->length), $text);
+				}
+			}
+		}
+		return $text;
+	}
 }

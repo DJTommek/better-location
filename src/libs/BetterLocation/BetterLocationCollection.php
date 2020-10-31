@@ -2,8 +2,35 @@
 
 namespace App\BetterLocation;
 
+use App\BetterLocation\Service\Coordinates\MGRSService;
+use App\BetterLocation\Service\Coordinates\USNGService;
+use App\BetterLocation\Service\Coordinates\WG84DegreesMinutesSecondsService;
+use App\BetterLocation\Service\Coordinates\WG84DegreesMinutesService;
+use App\BetterLocation\Service\Coordinates\WG84DegreesService;
+use App\BetterLocation\Service\DrobnePamatkyCzService;
+use App\BetterLocation\Service\DuckDuckGoService;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\GlympseService;
+use App\BetterLocation\Service\GoogleMapsService;
+use App\BetterLocation\Service\HereWeGoService;
+use App\BetterLocation\Service\IngressIntelService;
+use App\BetterLocation\Service\MapyCzService;
+use App\BetterLocation\Service\OpenLocationCodeService;
+use App\BetterLocation\Service\OpenStreetMapService;
+use App\BetterLocation\Service\RopikyNetService;
+use App\BetterLocation\Service\WazeService;
+use App\BetterLocation\Service\WhatThreeWordService;
+use App\BetterLocation\Service\WikipediaService;
+use App\BetterLocation\Service\ZanikleObceCzService;
+use App\BetterLocation\Service\ZniceneKostelyCzService;
+use App\Config;
 use App\Icons;
+use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
+use App\Utils\General;
+use App\Utils\StringUtils;
+use Tracy\Debugger;
+use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 
 class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 {
@@ -176,4 +203,149 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	{
 		return count($this->locations) + count($this->errors);
 	}
+
+	/** @param MessageEntity[] $entities */
+	public static function fromTelegramMessage(string $message, array $entities): self
+	{
+		$betterLocationsCollection = new self();
+
+		foreach ($entities as $entity) {
+			if (in_array($entity->type, ['url', 'text_link'])) {
+				$url = TelegramHelper::getEntityContent($message, $entity);
+
+				if (Url::isTrueUrl($url) === false) {
+					continue;
+				}
+
+				$url = self::handleShortUrl($url);
+
+				try {
+					if (GoogleMapsService::isValid($url)) {
+						$googleMapsBetterLocationCollection = GoogleMapsService::parseCoordsMultiple($url);
+						$googleMapsBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
+						$betterLocationsCollection->mergeCollection($googleMapsBetterLocationCollection);
+					} else if (MapyCzService::isValid($url)) {
+						$mapyCzBetterLocationCollection = MapyCzService::parseCoordsMultiple($url);
+						$mapyCzBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
+						$betterLocationsCollection->mergeCollection($mapyCzBetterLocationCollection);
+					} else if (OpenStreetMapService::isValid($url)) {
+						$betterLocationsCollection[] = OpenStreetMapService::parseCoords($url);
+					} else if (HereWeGoService::isValid($url)) {
+						$hereBetterLocationCollection = HereWeGoService::parseCoordsMultiple($url);
+						$hereBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
+						$betterLocationsCollection->mergeCollection($hereBetterLocationCollection);
+					} else if (WikipediaService::isValid($url)) {
+						try {
+							$betterLocationsCollection[] = WikipediaService::parseCoords($url);
+						} catch (InvalidLocationException $exception) {
+							// @HACK workaround to not show error in chat, if processing Wikipedia link without location
+						}
+					} else if (OpenLocationCodeService::isValid($url)) {
+						$betterLocationsCollection[] = OpenLocationCodeService::parseCoords($url);
+					} else if (WazeService::isValid($url)) {
+						$betterLocationsCollection[] = WazeService::parseCoords($url);
+					} else if (is_null(Config::W3W_API_KEY) === false && WhatThreeWordService::isValid($url)) {
+						$betterLocationsCollection[] = WhatThreeWordService::parseCoords($url);
+					} else if (Config::isGlympse() && GlympseService::isValid($url)) {
+						$glympseBetterLocationCollection = GlympseService::parseCoordsMultiple($url);
+						$betterLocationsCollection->mergeCollection($glympseBetterLocationCollection);
+					} else if (IngressIntelService::isValid($url)) {
+						$betterLocationsCollection[] = IngressIntelService::parseCoords($url);
+					} else if (DuckDuckGoService::isValid($url)) {
+						$betterLocationsCollection[] = DuckDuckGoService::parseCoords($url);
+					} else if (RopikyNetService::isValid($url)) {
+						$betterLocationsCollection[] = RopikyNetService::parseCoords($url);
+					} else if (DrobnePamatkyCzService::isValid($url)) {
+						$betterLocationsCollection[] = DrobnePamatkyCzService::parseCoords($url);
+					} else if (ZniceneKostelyCzService::isValid($url)) {
+						$betterLocationsCollection[] = ZniceneKostelyCzService::parseCoords($url);
+					} else if (ZanikleObceCzService::isValid($url)) {
+						try {
+							$betterLocationsCollection[] = ZanikleObceCzService::parseCoords($url);
+						} catch (InvalidLocationException $exception) {
+							// @HACK workaround to not show error in chat, if processing Wikipedia link without location
+						}
+					} else {
+						$headers = null;
+						try {
+							$headers = General::getHeaders($url, [
+								CURLOPT_CONNECTTIMEOUT => 5,
+								CURLOPT_TIMEOUT => 5,
+							]);
+						} catch (\Throwable$exception) {
+							Debugger::log(sprintf('Error while loading headers for URL "%s": %s', $url, $exception->getMessage()));
+						}
+						if ($headers && isset($headers['content-type']) && General::checkIfValueInHeaderMatchArray($headers['content-type'], Url::CONTENT_TYPE_IMAGE_EXIF)) {
+							$betterLocationExif = BetterLocation::fromExif($url);
+							if ($betterLocationExif instanceof BetterLocation) {
+								$betterLocationExif->setPrefixMessage(sprintf('<a href="%s">EXIF</a>', $url));
+								$betterLocationsCollection[] = $betterLocationExif;
+							}
+						}
+					}
+				} catch (\Exception $exception) {
+					$betterLocationsCollection[] = $exception;
+				}
+			}
+		}
+
+		$messageWithoutUrls = TelegramHelper::getMessageWithoutUrls($message, $entities);
+		$messageWithoutUrls = StringUtils::translit($messageWithoutUrls);
+
+		$betterLocationsCollection->mergeCollection(WG84DegreesService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->mergeCollection(WG84DegreesMinutesService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->mergeCollection(WG84DegreesMinutesSecondsService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->mergeCollection(MGRSService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->mergeCollection(USNGService::findInText($messageWithoutUrls));
+
+		// OpenLocationCode (Plus codes)
+		$openLocationCodes = preg_match_all(OpenLocationCodeService::RE_IN_STRING, $messageWithoutUrls, $matches);
+		if ($openLocationCodes) {
+			foreach ($matches[2] as $plusCode) {
+				try {
+					if (OpenLocationCodeService::isValid($plusCode)) {
+						$betterLocationsCollection[] = OpenLocationCodeService::parseCoords($plusCode);
+					}
+				} catch (\Exception $exception) {
+					$betterLocationsCollection[] = $exception;
+				}
+			}
+		}
+
+		// What Three Word
+		if (is_null(Config::W3W_API_KEY) === false && preg_match_all(WhatThreeWordService::RE_IN_STRING, $messageWithoutUrls, $matches)) {
+			for ($i = 0; $i < count($matches[0]); $i++) {
+				$words = $matches[0][$i];
+				try {
+					if (WhatThreeWordService::isWords($words)) {
+						$betterLocationsCollection[] = WhatThreeWordService::parseCoords($words);
+					}
+				} catch (\Exception $exception) {
+					$betterLocationsCollection[] = $exception;
+				}
+			}
+		}
+
+		$betterLocationsCollection->deduplicate();
+
+		return $betterLocationsCollection;
+	}
+
+	private static function handleShortUrl(string $url): string
+	{
+		$originalUrl = $url;
+		$tries = 0;
+		while (is_null($url) === false && Url::isShortUrl($url)) {
+			if ($tries >= 5) {
+				Debugger::log(sprintf('Too many tries (%d) for translating original URL "%s"', $tries, $originalUrl));
+			}
+			$url = Url::getRedirectUrl($url);
+			$tries++;
+		}
+		if (is_null($url)) { // in case of some error, revert to original URL
+			$url = $originalUrl;
+		}
+		return $url;
+	}
+
 }
