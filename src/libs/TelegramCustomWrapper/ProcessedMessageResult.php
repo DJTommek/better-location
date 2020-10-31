@@ -34,9 +34,9 @@ class ProcessedMessageResult
 		}
 		foreach ($this->collection->getErrors() as $error) {
 			if ($error instanceof InvalidLocationException) {
-				$this->resultText .= Icons::ERROR . $error->getMessage() . PHP_EOL . PHP_EOL;
+				$this->resultText .= Icons::ERROR . $error->getMessage() . PHP_EOL;
 			} else {
-				$this->resultText .= Icons::ERROR . 'Unexpected error occured while proceessing message for locations.' . PHP_EOL . PHP_EOL;
+				$this->resultText .= Icons::ERROR . 'Unexpected error occured while proceessing message for locations.' . PHP_EOL;
 				Debugger::log($error, Debugger::EXCEPTION);
 			}
 		}
