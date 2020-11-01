@@ -16,12 +16,18 @@ class ProcessedMessageResult
 
 	private $resultText = '';
 	private $buttons = [];
+	private $autorefreshEnabled = false;
 
 	private $validLocationsCount = 0;
 
 	public function __construct(BetterLocationCollection $collection)
 	{
 		$this->collection = $collection;
+	}
+
+	public function setAutorefresh(bool $enabled): void
+	{
+		$this->autorefreshEnabled = $enabled;
 	}
 
 	public function process(bool $printAllErrors = false): self
@@ -53,7 +59,7 @@ class ProcessedMessageResult
 			$result = array_slice($result, 0, $maxRows);
 		}
 		if ($this->collection->hasRefreshableLocation()) {
-			$result[] = BetterLocation::generateRefreshButtons(false);
+			$result[] = BetterLocation::generateRefreshButtons($this->autorefreshEnabled);
 		}
 		return $result;
 	}
@@ -75,7 +81,7 @@ class ProcessedMessageResult
 		return $this->validLocationsCount;
 	}
 
-	public function getCollection()
+	public function getCollection(): BetterLocationCollection
 	{
 		return $this->collection;
 	}

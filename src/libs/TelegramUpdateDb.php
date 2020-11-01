@@ -9,8 +9,12 @@ use App\TelegramCustomWrapper\Exceptions\MessageDeletedException;
 use App\TelegramCustomWrapper\SendMessage;
 use unreal4u\TelegramAPI\Telegram;
 
-class Cron
+class TelegramUpdateDb
 {
+	const STATUS_DISABLED = 0;
+	const STATUS_ENABLED = 1;
+	const STATUS_DELETED = 2;
+
 	/** @var Database */
 	private $db;
 
@@ -19,78 +23,86 @@ class Cron
 	/** @var int */
 	private $telegramChatId;
 	/** @var int */
-	private $telegramOriginalMessageId;
+	private $telegramMessageId;
 	/** @var int */
-	private $telegramBetterMessageId;
+	private $status;
 
-	/**
-	 * Cron constructor.
-	 *
-	 * @param Telegram\Types\Update $update Full update object from button click in BetterLocation message with reply to original message
-	 */
-	public function __construct(Telegram\Types\Update $update)
+	public function __construct(Telegram\Types\Update $update, int $status = self::STATUS_DISABLED)
 	{
 		$this->db = Factory::Database();
-
-		$this->update = $update;
-
-		$betterMessageId = $this->update->callback_query->message->message_id;
-		if (is_int($betterMessageId) === false || $betterMessageId === 0) {
-			throw new MessageDeletedException(sprintf('Better Message ID "%s" in Update object is not valid.', $betterMessageId));
-		}
-		$this->telegramBetterMessageId = $betterMessageId;
-
-		$chatId = $this->update->callback_query->message->reply_to_message->chat->id ?? null;
+		$chatId = $update->message->chat->id ?? null;
 		if (is_int($chatId) === false || $chatId === 0) {
 			throw new MessageDeletedException(sprintf('Chat ID "%s" in Update object is not valid.', $chatId));
 		}
-		$this->telegramChatId = $chatId;
 
-		$messageId = $this->update->callback_query->message->reply_to_message->message_id ?? null;
+		$messageId = $update->message->message_id ?? null;
 		if (is_int($chatId) === false || $chatId === 0) {
-			throw new MessageDeletedException(sprintf('Original message ID "%s" in Update object is not valid.', $messageId));
+			throw new MessageDeletedException(sprintf('Message ID "%s" in Update object is not valid.', $messageId));
 		}
-		$this->telegramOriginalMessageId = $messageId;
+
+		$this->telegramChatId = $chatId;
+		$this->telegramMessageId = $messageId;
+		$this->update = $update;
+		$this->status = $status;
 	}
 
-	public function isInDb(): bool
+	public static function fromDb(int $chatId, int $messageId): self
 	{
-		$numberOfRows = $this->db->query('SELECT COUNT(*) FROM better_location_cron WHERE cron_telegram_chat_id = ? AND cron_telegram_message_id = ?',
-			$this->telegramChatId, $this->telegramOriginalMessageId
-		)->fetchColumn();
-		return ($numberOfRows === 1);
+		$row = Factory::Database()->query('SELECT * FROM better_location_telegram_updates WHERE chat_id = ? AND message_id = ?',
+			$chatId, $messageId
+		)->fetch();
+		$dataJson = json_decode($row['update_object'], true, 512, JSON_THROW_ON_ERROR);
+		return new self(new Telegram\Types\Update($dataJson), intval($row['autorefresh_status']));
 	}
 
-	private static function generateFromDb(array $row): self
+	public function insert(): void
 	{
-		$dataJson = json_decode($row['cron_telegram_update_object'], true, 512, JSON_THROW_ON_ERROR);
-		$update = new Telegram\Types\Update($dataJson);
-		return new self($update);
+		$this->db->query('INSERT INTO better_location_telegram_updates (chat_id, message_id, update_object, autorefresh_status, last_update) VALUES (?, ?, ?, ?, UTC_TIMESTAMP())',
+			$this->telegramChatId, $this->telegramMessageId, json_encode($this->update), self::STATUS_DISABLED
+		);
+		$this->status = self::STATUS_DISABLED;
+	}
+
+	public function autorefreshEnable()
+	{
+		$this->setAutorefresh(self::STATUS_ENABLED);
+	}
+
+	public function isAutorefreshEnabled()
+	{
+		return $this->status === self::STATUS_ENABLED;
+	}
+
+	public function autorefreshDisable()
+	{
+		$this->setAutorefresh(self::STATUS_DISABLED);
+	}
+
+	private function setAutorefresh(int $status): void
+	{
+		$this->db->query('UPDATE better_location_telegram_updates SET autorefresh_status = ? WHERE chat_id = ? AND message_id = ?',
+			$status, $this->telegramChatId, $this->telegramMessageId
+		);
+		$this->status = $status;
+	}
+
+	public function touchLastUpdate(): void
+	{
+		$this->db->query('UPDATE better_location_telegram_updates SET last_update = UTC_TIMESTAMP() WHERE chat_id = ? AND message_id = ?',
+			$this->telegramChatId, $this->telegramMessageId
+		);
 	}
 
 	/** @return self[] */
 	public static function loadAll(): array
 	{
-		$result = [];
-		$rows = Factory::Database()->query('SELECT * FROM better_location_cron')->fetchAll();
+		$results = [];
+		$rows = Factory::Database()->query('SELECT * FROM better_location_telegram_updates')->fetchAll();
 		foreach ($rows as $row) {
-			$result[] = self::generateFromDb($row);
+			$dataJson = json_decode($row['update_object'], true, 512, JSON_THROW_ON_ERROR);
+			$results[] = new self(new Telegram\Types\Update($dataJson), intval($row['autorefresh_status']));
 		}
-		return $result;
-	}
-
-	public function insert(): void
-	{
-		$this->db->query('INSERT INTO better_location_cron (cron_telegram_chat_id, cron_telegram_message_id, cron_telegram_update_object) VALUES (?, ?, ?)',
-			$this->telegramChatId, $this->telegramOriginalMessageId, json_encode($this->update),
-		);
-	}
-
-	public function delete(): void
-	{
-		$this->db->query('DELETE FROM better_location_cron WHERE cron_telegram_chat_id = ? AND cron_telegram_message_id = ?',
-			$this->telegramChatId, $this->telegramOriginalMessageId
-		);
+		return $results;
 	}
 
 	public function run()
@@ -148,7 +160,7 @@ class Cron
 		$loop->run();
 	}
 
-	public function getUpdate()
+	public function getUpdate(): Telegram\Types\Update
 	{
 		return $this->update;
 	}

@@ -122,6 +122,10 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	 */
 	public function deduplicate(): void
 	{
+		// @TODO fix deduplicate if refreshable location
+		// If is send location to some place and then refreshable location to the same place,
+		// second location is removed, thus refreshable button is not available
+
 		$originalCoordinates = [];
 		foreach ($this->locations as $location) {
 			$key = $location->__toString();
