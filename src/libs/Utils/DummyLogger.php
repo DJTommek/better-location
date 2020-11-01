@@ -15,10 +15,9 @@ class DummyLogger
 
 	public static function log(string $name, $content): void
 	{
-		if (!preg_match('/^[a-zA-Z0-9_]{1,30}$/', $name)) {
+		if (self::isLogNameValid($name) === false) {
 			throw new \InvalidArgumentException('Invalid log name.');
 		}
-		$name = mb_strtolower($name);
 		$path = sprintf('%s/log/%s', \App\Config::FOLDER_DATA, $name);
 		if (!file_exists($path)) {
 			mkdir($path, 0750, true);
@@ -37,5 +36,11 @@ class DummyLogger
 			json_encode($writeLogObject) . self::LINE_SEPARATOR,
 			FILE_APPEND,
 		);
+	}
+
+	private static function isLogNameValid(string $name)
+	{
+		$constants = General::getClassConstants(self::class, 'NAME_');
+		return in_array($name, $constants, true);
 	}
 }

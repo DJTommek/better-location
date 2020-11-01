@@ -139,4 +139,23 @@ class General
 		}
 		return $parsedUrl;
 	}
+
+	/**
+	 * @param ?string $prefix constant name must start with $prefix
+	 * @return array indexed array of constantName => constantValue
+	 * @throws \ReflectionException
+	 */
+	public static function getClassConstants(string $class, ?string $prefix = null): array
+	{
+		$reflection = new \ReflectionClass($class);
+		$constants = $reflection->getConstants();
+
+		if (is_null($prefix)) {
+			return $constants;
+		} else {
+			return array_filter($constants, function ($constant) use ($prefix) {
+				return StringUtils::startWith($constant, $prefix);
+			}, ARRAY_FILTER_USE_KEY);
+		}
+	}
 }

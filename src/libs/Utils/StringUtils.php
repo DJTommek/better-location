@@ -16,4 +16,9 @@ class StringUtils
 		}
 		return $text;
 	}
+
+	public static function startWith(string $haystack, string $needle): bool
+	{
+		return mb_substr($haystack, 0, mb_strlen($needle)) === $needle;
+	}
 }
