@@ -3,6 +3,7 @@
 namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocationCollection;
+use App\TelegramUpdateDb;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
@@ -25,6 +26,10 @@ class MessageEvent extends Special
 					'reply_markup' => $processedCollection->getMarkup(1),
 				],
 			);
+			if ($collection->hasRefreshableLocation()) {
+				$cron = new TelegramUpdateDb($update);
+				$cron->insert();
+			}
 		} else { // No detected locations or occured errors
 			if ($this->isPm() === true) {
 				$message = 'Hi there in PM!' . PHP_EOL;

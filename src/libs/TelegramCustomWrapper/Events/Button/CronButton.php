@@ -2,17 +2,15 @@
 
 namespace App\TelegramCustomWrapper\Events\Button;
 
-use App\BetterLocation\BetterLocation;
-use App\BetterLocation\Service\Exceptions\InvalidApiKeyException;
-use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\BetterLocationCollection;
 use App\Config;
-use App\Cron;
 use App\Icons;
 use App\TelegramCustomWrapper\Exceptions\MessageDeletedException;
+use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
+use App\TelegramUpdateDb;
 use Tracy\Debugger;
 use Tracy\ILogger;
-use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class CronButton extends Button
 {
@@ -22,40 +20,43 @@ class CronButton extends Button
 	const ACTION_STOP = 'stop';
 	const ACTION_REFRESH = 'refresh';
 
+	private $telegramUpdateDb;
+
 	public function __construct($update)
 	{
 		parent::__construct($update);
 		try {
 			$params = TelegramHelper::getParams($update);
 			$action = array_shift($params);
-			$cron = new Cron($this->update);
-			$cronIsInDb = $cron->isInDb();
+			$this->telegramUpdateDb = TelegramUpdateDb::fromDb(
+				$this->update->callback_query->message->reply_to_message->chat->id,
+				$this->update->callback_query->message->reply_to_message->message_id,
+			);
 
 			switch ($action) {
 				case self::ACTION_START:
-					if ($cronIsInDb) {
+					if ($this->telegramUpdateDb->isAutorefreshEnabled()) {
 						$this->processRefresh(true);
-						$this->flash(sprintf('%s Autorefresh is already enabled.', Icons::SUCCESS), true);
+						$this->flash(sprintf('%s Autorefresh was already enabled.', Icons::SUCCESS), true);
 					} else {
-						$cron->insert();
+						$this->telegramUpdateDb->autorefreshEnable();
 						$this->processRefresh(true);
-						$this->flash(sprintf('%s Autorefresh was enabled.', Icons::SUCCESS), true);
+						$this->flash(sprintf('%s Autorefresh is now enabled.', Icons::SUCCESS), true);
 					}
 					break;
 				case self::ACTION_STOP:
-					if ($cronIsInDb === false) {
+					if ($this->telegramUpdateDb->isAutorefreshEnabled() === false) {
 						$this->processRefresh(false);
-						$this->flash(sprintf('%s Autorefresh is already disabled.', Icons::SUCCESS), true);
+						$this->flash(sprintf('%s Autorefresh was already disabled.', Icons::SUCCESS), true);
 					} else {
-						$cron->delete();
+						$this->telegramUpdateDb->autorefreshDisable();
 						$this->processRefresh(false);
-						$this->flash(sprintf('%s Autorefresh was disabled.', Icons::SUCCESS), true);
+						$this->flash(sprintf('%s Autorefresh is now disabled.', Icons::SUCCESS), true);
 					}
-					$this->flash(sprintf('%s Disabling automatic refresh is still in development.', Icons::ERROR), true);
 					break;
 				case self::ACTION_REFRESH:
 					try {
-						$this->processRefresh($cronIsInDb);
+						$this->processRefresh($this->telegramUpdateDb->isAutorefreshEnabled());
 						$this->flash(sprintf('%s All locations were refreshed.', Icons::SUCCESS));
 					} catch (\Throwable $exception) {
 						Debugger::log($exception, ILogger::EXCEPTION);
@@ -77,43 +78,58 @@ class CronButton extends Button
 	/**
 	 * @throws \Exception
 	 */
-	private function processRefresh(bool $isCronEnabled)
+	private function processRefresh(bool $autorefreshEnabled)
 	{
-		$collection = BetterLocation::generateFromTelegramMessage(
-			$this->update->callback_query->message->reply_to_message->text,
-			$this->update->callback_query->message->reply_to_message->entities,
+		$collection = BetterLocationCollection::fromTelegramMessage(
+			$this->telegramUpdateDb->getUpdate()->message->text,
+			$this->telegramUpdateDb->getUpdate()->message->entities,
 		);
-		$result = '';
-		$buttonLimit = 1; // @TODO move to config (chat settings)
-		$buttons = [];
-		foreach ($collection->getAll() as $betterLocation) {
-			if ($betterLocation instanceof BetterLocation) {
-				$result .= $betterLocation->generateBetterLocation();
-				if (count($buttons) < $buttonLimit) {
-					$driveButtons = $betterLocation->generateDriveButtons();
-					$driveButtons[] = $betterLocation->generateAddToFavouriteButtton();
-					$buttons[] = $driveButtons;
-				}
-			} else if (
-				$betterLocation instanceof InvalidLocationException ||
-				$betterLocation instanceof InvalidApiKeyException
-			) {
-				$result .= Icons::ERROR . $betterLocation->getMessage() . PHP_EOL . PHP_EOL;
-			} else {
-				$result .= Icons::ERROR . 'Unexpected error occured while proceessing message for locations.' . PHP_EOL . PHP_EOL;
-				Debugger::log($betterLocation, Debugger::EXCEPTION);
-			}
+		$processedCollection = new ProcessedMessageResult($collection);
+		$processedCollection->setAutorefresh($autorefreshEnabled);
+		$processedCollection->process();
+		$text = TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText();
+		$text .= sprintf('%s Last refresh: %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
+		if ($collection->count() > 0) {
+			$this->replyButton($text,
+				[
+					'disable_web_page_preview' => true,
+					'reply_markup' => $processedCollection->getMarkup(),
+				],
+			);
 		}
-		$buttons[] = BetterLocation::generateRefreshButtons($isCronEnabled);
-		$now = (new \DateTimeImmutable())->setTimezone(new \DateTimeZone('UTC'));
-		$result .= sprintf('%s Last refresh: %s', Icons::REFRESH, $now->format(Config::DATETIME_FORMAT_ZONE));
-		$markup = (new Markup());
-		$markup->inline_keyboard = $buttons;
-		$this->replyButton(TelegramHelper::MESSAGE_PREFIX . $result,
-			[
-				'disable_web_page_preview' => true,
-				'reply_markup' => $markup,
-			],
-		);
+		$this->telegramUpdateDb->touchLastUpdate();
+
+//		$result = '';
+//		$buttonLimit = 1; // @TODO move to config (chat settings)
+//		$buttons = [];
+//		foreach ($collection->getAll() as $betterLocation) {
+//			if ($betterLocation instanceof BetterLocation) {
+//				$result .= $betterLocation->generateBetterLocation();
+//				if (count($buttons) < $buttonLimit) {
+//					$driveButtons = $betterLocation->generateDriveButtons();
+//					$driveButtons[] = $betterLocation->generateAddToFavouriteButtton();
+//					$buttons[] = $driveButtons;
+//				}
+//			} else if (
+//				$betterLocation instanceof InvalidLocationException ||
+//				$betterLocation instanceof InvalidApiKeyException
+//			) {
+//				$result .= Icons::ERROR . $betterLocation->getMessage() . PHP_EOL . PHP_EOL;
+//			} else {
+//				$result .= Icons::ERROR . 'Unexpected error occured while proceessing message for locations.' . PHP_EOL . PHP_EOL;
+//				Debugger::log($betterLocation, Debugger::EXCEPTION);
+//			}
+//		}
+//		$buttons[] = BetterLocation::generateRefreshButtons($isCronEnabled);
+//		$now = (new \DateTimeImmutable())->setTimezone(new \DateTimeZone('UTC'));
+//		$result .= sprintf('%s Last refresh: %s', Icons::REFRESH, $now->format(Config::DATETIME_FORMAT_ZONE));
+//		$markup = (new Markup());
+//		$markup->inline_keyboard = $buttons;
+//		$this->replyButton(TelegramHelper::MESSAGE_PREFIX . $result,
+//			[
+//				'disable_web_page_preview' => true,
+//				'reply_markup' => $markup,
+//			],
+//		);
 	}
 }
