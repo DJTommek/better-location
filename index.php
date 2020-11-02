@@ -142,6 +142,22 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 				}
 			}
 			?>
+			<h2>Logs</h2>
+			<?php
+			$maxLines = 10;
+			printf('<p>Showing last %d lines per log file, oldest lines first.</p>', $maxLines);
+			$now = new DateTimeImmutable();
+			$logs = \App\Dashboard\Logs::getLogs($now, $maxLines);
+			foreach ($logs as $logName => $logLines) {
+				printf('<h4>%s <small>(%s)</small></h4>', $logName, $now->format(\App\Config::DATE_FORMAT));
+				if (count($logLines) === 0) {
+					printf('<p>No log for this day is available.</p>');
+				} else {
+					$newestLogLine = htmlentities(json_encode($logLines[0]));
+					printf('<pre>%s</pre>', htmlentities(join(PHP_EOL, array_map('json_encode', $logLines))));
+				}
+			}
+			?>
 		</div>
 		<div class="tab-pane fade" id="statistics">
 			<h2>Statistics</h2>

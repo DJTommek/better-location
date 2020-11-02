@@ -49,9 +49,31 @@ class DummyLogger
 		);
 	}
 
+	public static function getLogNames()
+	{
+		return General::getClassConstants(self::class, 'NAME_');
+	}
+
 	private static function isLogNameValid(string $name)
 	{
 		$constants = General::getClassConstants(self::class, 'NAME_');
 		return in_array($name, $constants, true);
 	}
+
+	public static function getLogContent(string $name, \DateTimeInterface $date, int $numberOfLines)
+	{
+		if (self::isLogNameValid($name) === false) {
+			throw new \InvalidArgumentException('Invalid log name.');
+		}
+//		$fileContent = file_get_contents(self::getFilePath($name, $date));
+		$fileContent = General::tail(self::getFilePath($name, $date), $numberOfLines);
+		if ($fileContent === false) {
+			return [];
+		}
+		$lines = explode(self::LINE_SEPARATOR, $fileContent);
+		return array_map(function ($line) {
+			return json_decode($line, false, 512, JSON_THROW_ON_ERROR);
+		}, $lines);
+	}
+
 }
