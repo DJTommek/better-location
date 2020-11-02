@@ -18,7 +18,8 @@ class DummyLogger
 		if (self::isLogNameValid($name) === false) {
 			throw new \InvalidArgumentException('Invalid log name.');
 		}
-		$path = sprintf('%s/log/%s', \App\Config::FOLDER_DATA, $name);
+		$filePath = self::getFilePath($name);
+		$path = dirname($filePath);
 		if (!file_exists($path)) {
 			mkdir($path, 0750, true);
 		}
@@ -31,10 +32,20 @@ class DummyLogger
 		}
 		$writeLogObject->name = $name;
 		$writeLogObject->content = $content;
-		file_put_contents(
-			sprintf('%s/%s_%s.%s', $path, $name, $now->format(\App\Config::DATE_FORMAT), self::FILE_EXTENSION),
-			json_encode($writeLogObject) . self::LINE_SEPARATOR,
-			FILE_APPEND,
+		file_put_contents($filePath, json_encode($writeLogObject) . self::LINE_SEPARATOR, FILE_APPEND);
+	}
+
+	private static function getFilePath(string $logName, \DateTimeInterface $date = null): string
+	{
+		if (is_null($date)) {
+			$date = new \DateTimeImmutable();
+		}
+		return sprintf('%s/log/%s/%s_%s.%s',
+			\App\Config::FOLDER_DATA,
+			$logName,
+			$logName,
+			$date->format(\App\Config::DATE_FORMAT),
+			self::FILE_EXTENSION
 		);
 	}
 
