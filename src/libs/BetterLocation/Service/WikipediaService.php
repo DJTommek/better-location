@@ -94,7 +94,7 @@ final class WikipediaService extends AbstractService
 			// CURLOPT_RANGE => '0-500', // Not working for *.here URLs. Their server is probably forcing full request
 		]);
 		$startString = '<script>document.documentElement.className="client-js";RLCONF=';
-		$endString = ';RLSTATE=';
+		$endString = 'RLSTATE=';
 		$posStart = mb_strpos($response, $startString);
 		$posEnd = mb_strpos($response, $endString);
 		$jsonText = mb_substr(
@@ -102,6 +102,8 @@ final class WikipediaService extends AbstractService
 			mb_strlen($startString) + $posStart,
 			$posEnd - $posStart - mb_strlen($startString),
 		);
+
+		$jsonText = rtrim($jsonText, " \t\n\r\0\x0B;"); // default trim and ;
 		$jsonText = str_replace([':!0', ':!1'], [':false', ':true'], $jsonText);
 		return json_decode($jsonText, false, 512, JSON_THROW_ON_ERROR);
 	}
