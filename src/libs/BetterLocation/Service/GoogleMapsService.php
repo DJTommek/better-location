@@ -163,6 +163,15 @@ final class GoogleMapsService extends AbstractService
 				return $result;
 			}
 		}
+		// https://www.google.cz/maps/place/50.02261,14.525433
+		if (preg_match('/\/maps\/place\/([0-9.]+),([0-9.]+)/', urldecode($url), $matches)) {
+			$result = new BetterLocation($url, floatval($matches[1]), floatval($matches[2]), self::class, self::TYPE_PLACE);
+			if ($returnCollection) {
+				$betterLocationCollection[] = $result;
+			} else {
+				return $result;
+			}
+		}
 
 		if (isset($params['ll'])) {
 			$coords = explode(',', $params['ll']);

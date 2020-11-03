@@ -51,6 +51,7 @@ final class GoogleMapsServiceTest extends TestCase
 		$this->assertEquals('49.417361,14.652640', GoogleMapsService::parseCoords('https://maps.google.com/?q=49.417361,14.652640')->__toString()); // same as above, just https
 		$this->assertEquals('50.052098,14.451968', GoogleMapsService::parseCoords('http://maps.google.com/?daddr=50.052098,14.451968')->__toString()); // http drive link from @ingressportalbot
 		$this->assertEquals('50.052098,14.451968', GoogleMapsService::parseCoords('https://maps.google.com/?daddr=50.052098,14.451968')->__toString()); // same as above, just https
+		$this->assertEquals('50.022610,14.525433', GoogleMapsService::parseCoords('https://www.google.cz/maps/place/50.02261,14.525433')->__toString());
 	}
 
 }
