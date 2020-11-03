@@ -44,7 +44,8 @@ final class WikipediaServiceTest extends TestCase
 	{
 		$this->assertEquals('50.050278,14.436111', WikipediaService::parseCoords('https://cs.wikipedia.org/wiki/City_Tower')->__toString());
 		$this->assertEquals('50.083333,14.416667', WikipediaService::parseCoords('https://cs.wikipedia.org/wiki/Praha')->__toString());
-		$this->assertEquals('49.205300,16.602200', WikipediaService::parseCoords('https://cs.wikipedia.org/wiki/Nejvy%C5%A1%C5%A1%C3%AD_soud_%C4%8Cesk%C3%A9_republiky')->__toString());
+		$this->assertEquals('49.205193,16.602196', WikipediaService::parseCoords('https://cs.wikipedia.org/wiki/Nejvy%C5%A1%C5%A1%C3%AD_soud_%C4%8Cesk%C3%A9_republiky')->__toString());
+		$this->assertEquals('49.205193,16.602196', WikipediaService::parseCoords('https://cs.wikipedia.org/wiki/Nejvyšší_soud_České_republiky')->__toString()); // same as above just urldecoded
 
 		// pages from "Random article" on en.wikipedia.org
 		$this->assertEquals('41.947222,-80.560833', WikipediaService::parseCoords('https://en.wikipedia.org/wiki/Conneaut_High_School')->__toString());
@@ -58,9 +59,9 @@ final class WikipediaServiceTest extends TestCase
 	public function testPermanentUrl(): void
 	{
 		// all links leads to same location
-		$this->assertEquals('49.205300,16.602200', WikipediaService::parseCoords('https://cs.wikipedia.org/w/index.php?title=Nejvy%C5%A1%C5%A1%C3%AD_soud_%C4%8Cesk%C3%A9_republiky&oldid=18532372')->__toString());
-		$this->assertEquals('49.205300,16.602200', WikipediaService::parseCoords('https://cs.wikipedia.org/w/index.php?oldid=18532372')->__toString());
-		$this->assertEquals('49.205300,16.602200', WikipediaService::parseCoords('https://cs.wikipedia.org/w/?oldid=18532372')->__toString());
+		$this->assertEquals('49.210000,16.600000', WikipediaService::parseCoords('https://cs.wikipedia.org/w/index.php?title=Nejvy%C5%A1%C5%A1%C3%AD_soud_%C4%8Cesk%C3%A9_republiky&oldid=18532372')->__toString());
+		$this->assertEquals('49.210000,16.600000', WikipediaService::parseCoords('https://cs.wikipedia.org/w/index.php?oldid=18532372')->__toString());
+		$this->assertEquals('49.210000,16.600000', WikipediaService::parseCoords('https://cs.wikipedia.org/w/?oldid=18532372')->__toString());
 	}
 
 	/** Same page in different languages (part 1) */
