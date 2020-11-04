@@ -11,6 +11,7 @@ use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram\Methods\GetWebhookInfo;
 use unreal4u\TelegramAPI\Telegram\Types\WebhookInfo;
 use unreal4u\TelegramAPI\TgLog;
+use function Clue\React\Block\await;
 
 class Status
 {
@@ -146,68 +147,61 @@ class Status
 	{
 		$loop = \React\EventLoop\Factory::create();
 		$tgLog = new TgLog(Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($loop));
-
-		$getWebhook = new GetWebhookInfo();
-		$promise = $tgLog->performApiRequest($getWebhook);
-		$promise->then(
-			function (WebhookInfo $response) {
-				self::$webhookResponseRaw = $response;
-				$responseFormatted = new \stdClass();
-				$webhookOk = true;
-				foreach (get_object_vars($response) as $key => $value) {
-					if ($key === 'url') {
-						if (empty($value)) {
-							$responseFormatted->{$key} = sprintf('%s According to Telegram API response, webhook URL is not set. Did you run <a href="set-webhook.php" target="_blank">set-webhook.php</a>?', Icons::ERROR);
-							$webhookOk = false;
-						} else {
-							if ($value === Config::TELEGRAM_WEBHOOK_URL) {
-								$responseFormatted->{$key} = sprintf('%s <a href="%2$s" target="_blank">%2$s</a> (matching with Config)', Icons::SUCCESS, $value);
-							} else {
-								$stringValue = sprintf('%s Webhook URL is set according to webhook response but it\'s different than in Config:<br>', Icons::WARNING);
-								$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Webhook response)<br>', $value);
-								$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Config)', Config::TELEGRAM_WEBHOOK_URL);
-								$responseFormatted->{$key} = $stringValue;
-								$webhookOk = false;
-							}
-						}
-					} else if ($key === 'pending_update_count') {
-						if ($value === 0) {
-							$responseFormatted->{$key} = Icons::SUCCESS . ' None';
-						} else {
-							$webhookOk = false;
-							$responseFormatted->{$key} = Icons::WARNING . ' ' . $value;
-						}
-					} else if ($key === 'last_error_message' && $value === '') {
-						$responseFormatted->{$key} = Icons::SUCCESS . ' None';
-					} else if ($key === 'last_error_date') {
-						if ($value === 0) {
-							$responseFormatted->{$key} = Icons::SUCCESS . ' Never';
-						} else {
-							$lastErrorDate = DateImmutableUtils::fromTimestamp($value);
-							$now = new \DateTimeImmutable();
-							$diff = $now->getTimestamp() - $lastErrorDate->getTimestamp();
-
-							$responseFormatted->{$key} = sprintf('%d<br>%s<br>%s ago',
-								$lastErrorDate->getTimestamp(),
-								$lastErrorDate->format(DATE_ISO8601),
-								\App\Utils\General::sToHuman($diff),
-							);
-						}
-					} else if (is_bool($value)) {
-						$responseFormatted->{$key} = $value ? 'true' : 'false';
-					} else if (is_array($value)) {
-						$responseFormatted->{$key} = sprintf('Array of <b>%d</b> values: %s', count($value), print_r($value, true));
+		try {
+			self::$webhookResponseRaw = await($tgLog->performApiRequest(new GetWebhookInfo()), $loop);
+			$responseFormatted = new \stdClass();
+			$webhookOk = true;
+			foreach (get_object_vars(self::$webhookResponseRaw) as $key => $value) {
+				if ($key === 'url') {
+					if (empty($value)) {
+						$responseFormatted->{$key} = sprintf('%s According to Telegram API response, webhook URL is not set. Did you run <a href="set-webhook.php" target="_blank">set-webhook.php</a>?', Icons::ERROR);
+						$webhookOk = false;
 					} else {
-						$responseFormatted->{$key} = $value;
+						if ($value === Config::TELEGRAM_WEBHOOK_URL) {
+							$responseFormatted->{$key} = sprintf('%s <a href="%2$s" target="_blank">%2$s</a> (matching with Config)', Icons::SUCCESS, $value);
+						} else {
+							$stringValue = sprintf('%s Webhook URL is set according to webhook response but it\'s different than in Config:<br>', Icons::WARNING);
+							$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Webhook response)<br>', $value);
+							$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Config)', Config::TELEGRAM_WEBHOOK_URL);
+							$responseFormatted->{$key} = $stringValue;
+							$webhookOk = false;
+						}
 					}
+				} else if ($key === 'pending_update_count') {
+					if ($value === 0) {
+						$responseFormatted->{$key} = Icons::SUCCESS . ' None';
+					} else {
+						$webhookOk = false;
+						$responseFormatted->{$key} = Icons::WARNING . ' ' . $value;
+					}
+				} else if ($key === 'last_error_message' && $value === '') {
+					$responseFormatted->{$key} = Icons::SUCCESS . ' None';
+				} else if ($key === 'last_error_date') {
+					if ($value === 0) {
+						$responseFormatted->{$key} = Icons::SUCCESS . ' Never';
+					} else {
+						$lastErrorDate = DateImmutableUtils::fromTimestamp($value);
+						$now = new \DateTimeImmutable();
+						$diff = $now->getTimestamp() - $lastErrorDate->getTimestamp();
+
+						$responseFormatted->{$key} = sprintf('%d<br>%s<br>%s ago',
+							$lastErrorDate->getTimestamp(),
+							$lastErrorDate->format(DATE_ISO8601),
+							\App\Utils\General::sToHuman($diff),
+						);
+					}
+				} else if (is_bool($value)) {
+					$responseFormatted->{$key} = $value ? 'true' : 'false';
+				} else if (is_array($value)) {
+					$responseFormatted->{$key} = sprintf('Array of <b>%d</b> values: %s', count($value), print_r($value, true));
+				} else {
+					$responseFormatted->{$key} = $value;
 				}
-				self::$webhookOk = $webhookOk;
-				self::$webhookResponse = $responseFormatted;
-			},
-			function (\Throwable $exception) {
-				self::$webhookError = $exception;
 			}
-		);
-		$loop->run();
+			self::$webhookOk = $webhookOk;
+			self::$webhookResponse = $responseFormatted;
+		} catch (ClientException $clientException) {
+			self::$webhookError = $clientException;
+		}
 	}
 }
