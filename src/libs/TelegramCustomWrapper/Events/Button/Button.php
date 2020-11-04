@@ -2,7 +2,6 @@
 
 namespace App\TelegramCustomWrapper\Events\Button;
 
-use App\TelegramCustomWrapper\SendMessage;
 use unreal4u\TelegramAPI\Telegram\Methods\AnswerCallbackQuery;
 
 abstract class Button extends \App\TelegramCustomWrapper\Events\Events
@@ -17,27 +16,25 @@ abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 		return $this->update->callback_query->message->message_id;
 	}
 
+	/**
+	 * @param array $options
+	 * @return ?\unreal4u\TelegramAPI\Abstracts\TelegramTypes
+	 * @throws \Exception
+	 */
 	public function replyButton(string $text, array $options = [])
 	{
-		// if not set, set default to true
-		if (!isset($options['edit_message'])) {
-			$options['edit_message'] = true;
-		}
-
-		$msg = new SendMessage(
-			$this->getChatId(),
-			$text,
-			null,
-			null,
-			$options['edit_message'] ? $this->getMessageId() : null,
-		);
+		$msg = new \unreal4u\TelegramAPI\Telegram\Methods\EditMessageText();
+		$msg->text = $text;
+		$msg->chat_id = $this->getChatId();
+		$msg->parse_mode = 'HTML';
 		if (isset($options['reply_markup'])) {
-			$msg->setReplyMarkup($options['reply_markup']);
+			$msg->reply_markup = $options['reply_markup'];
 		}
 		if (isset($options['disable_web_page_preview'])) {
-			$msg->disableWebPagePreview($options['disable_web_page_preview']);
+			$msg->disable_web_page_preview = $options['disable_web_page_preview'];
 		}
-		return $this->run($msg->msg);
+		$msg->message_id = $this->getMessageId();
+		return $this->run($msg);
 	}
 
 	public function flash(string $text, bool $alert = false)
