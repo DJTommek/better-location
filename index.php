@@ -2,13 +2,6 @@
 
 require_once __DIR__ . '/src/bootstrap.php';
 
-//$api = \App\Factory::Glympse();
-//$api->loadToken();
-//$group = $api->loadGroup('neco');
-//dumpe($group);
-//$log = \App\Utils\DummyLogger::getLogContent(\App\Utils\DummyLogger::NAME_TELEGRAM_INPUT, new DateTimeImmutable());
-//dumpe($log);
-
 if (isset($_GET['delete-tracy-email-sent'])) {
 	if (@unlink(\App\Dashboard\Status::getTracyEmailSentFilePath())) {
 		printf('<p>%s Tracy\'s "email-sent" file was deleted.</p>', \App\Icons::SUCCESS);
