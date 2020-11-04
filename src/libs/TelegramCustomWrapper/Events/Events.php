@@ -28,6 +28,7 @@ use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 use unreal4u\TelegramAPI\TgLog;
+use function Clue\React\Block\await;
 
 abstract class Events
 {
@@ -146,39 +147,29 @@ abstract class Events
 		return $this->run($msg->msg);
 	}
 
-	/** @throws ClientException */
-	public function run(TelegramMethods $objectToSend): TelegramTypes
+	/**
+	 * @return ?TelegramTypes null if whitelisted exception
+	 * @throws ClientException|\Exception
+	 */
+	public function run(TelegramMethods $objectToSend): ?TelegramTypes
 	{
-		$promise = $this->tgLog->performApiRequest($objectToSend);
-		$this->loop->run();
 		DummyLogger::log(DummyLogger::NAME_TELEGRAM_OUTPUT, $objectToSend);
-		$resultResponse = null;
-		$resultException = null;
-		$promise->then(
-			function ($response) use (&$resultResponse) {
-				$resultResponse = $response;
-				DummyLogger::log(DummyLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $resultResponse);
-			},
-			function (\Exception $exception) use (&$resultException) {
-				DummyLogger::log(DummyLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $exception->getMessage());
-				$ignoreErorrs = [
-					TelegramHelper::NOT_CHANGED,
-					TelegramHelper::TOO_OLD,
-				];
-				if (in_array($exception->getMessage(), $ignoreErorrs) === false) {
-					$resultException = $exception;
-					Debugger::log(sprintf('TG API Command request error: "%s"', $exception->getMessage()), ILogger::EXCEPTION);
-					Debugger::log($exception, ILogger::EXCEPTION);
-				}
+		try {
+			$response = await($this->tgLog->performApiRequest($objectToSend), $this->loop);
+			DummyLogger::log(DummyLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $response);
+		} catch (ClientException $exception) {
+			DummyLogger::log(DummyLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $exception->getMessage());
+			$ignoredExceptions = [
+				TelegramHelper::NOT_CHANGED,
+				TelegramHelper::TOO_OLD,
+			];
+			if (in_array($exception->getMessage(), $ignoredExceptions, true) === false) {
+				Debugger::log(sprintf('TG API Command request error: "%s"', $exception->getMessage()), ILogger::EXCEPTION);
+				Debugger::log($exception, ILogger::EXCEPTION);
+				throw $exception;
 			}
-		);
-
-		if ($resultException) {
-			/** @var ClientException $resultException */
-			throw $resultException;
-		} else {
-			return $resultResponse;
 		}
+		return null;
 	}
 
 	/** @throws \Exception */
