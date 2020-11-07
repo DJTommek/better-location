@@ -15,7 +15,7 @@ use App\BetterLocation\Service\OsmAndService;
 use App\BetterLocation\Service\WazeService;
 use App\Factory;
 use App\Icons;
-use App\TelegramCustomWrapper\Events\Button\CronButton;
+use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\Utils\Coordinates;
 use App\Utils\General;
@@ -263,16 +263,16 @@ class BetterLocation
 		$autoRefresh = new Button();
 		if ($autorefreshEnabled) {
 			$autoRefresh->text = sprintf('Autorefresh: %s enabled', Icons::ENABLED);
-			$autoRefresh->callback_data = sprintf('%s %s', CronButton::CMD, CronButton::ACTION_STOP);
+			$autoRefresh->callback_data = sprintf('%s %s', RefreshButton::CMD, RefreshButton::ACTION_STOP);
 		} else {
 			$autoRefresh->text = sprintf('Autorefresh: %s disabled', Icons::DISABLED);
-			$autoRefresh->callback_data = sprintf('%s %s', CronButton::CMD, CronButton::ACTION_START);
+			$autoRefresh->callback_data = sprintf('%s %s', RefreshButton::CMD, RefreshButton::ACTION_START);
 		}
 		$buttons[] = $autoRefresh;
 
 		$manualRefresh = new Button();
 		$manualRefresh->text = sprintf('Manual refresh %s', Icons::REFRESH);
-		$manualRefresh->callback_data = sprintf('%s %s', CronButton::CMD, CronButton::ACTION_REFRESH);
+		$manualRefresh->callback_data = sprintf('%s %s', RefreshButton::CMD, RefreshButton::ACTION_REFRESH);
 		$buttons[] = $manualRefresh;
 		return $buttons;
 	}
