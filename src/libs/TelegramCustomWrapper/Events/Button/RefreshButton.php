@@ -12,9 +12,9 @@ use App\TelegramUpdateDb;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
-class CronButton extends Button
+class RefreshButton extends Button
 {
-	const CMD = '/cron';
+	const CMD = '/refresh';
 
 	const ACTION_START = 'start';
 	const ACTION_STOP = 'stop';
