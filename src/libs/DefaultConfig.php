@@ -70,6 +70,13 @@ class DefaultConfig
 	 */
 	const DISTANCE_IGNORE = 10;
 
+	/**
+	 * How often refreshable location can be manually refreshed.
+	 *
+	 * @var int cooldown in seconds
+	 */
+	const REFRESH_COOLDOWN = 30;
+
 	const DATE_FORMAT = 'Y-m-d';
 	const TIME_FORMAT = 'H:i:s';
 	const TIME_FORMAT_ZONE = self::TIME_FORMAT . ' T';
