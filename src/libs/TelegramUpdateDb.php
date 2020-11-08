@@ -2,11 +2,7 @@
 
 namespace App;
 
-use App\BetterLocation\BetterLocation;
-use App\BetterLocation\Service\Exceptions\InvalidApiKeyException;
-use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\TelegramCustomWrapper\Exceptions\MessageDeletedException;
-use App\TelegramCustomWrapper\SendMessage;
 use unreal4u\TelegramAPI\Telegram;
 
 class TelegramUpdateDb
@@ -28,8 +24,10 @@ class TelegramUpdateDb
 	private $status;
 	/** @var \DateTimeImmutable */
 	private $lastUpdate;
+	/** @var int */
+	private $botReplyMessageId;
 
-	public function __construct(Telegram\Types\Update $update, int $status, \DateTimeImmutable $lastUpdate)
+	public function __construct(Telegram\Types\Update $update, int $botReplyMessageId, int $status, \DateTimeImmutable $lastUpdate)
 	{
 		$this->db = Factory::Database();
 		$chatId = $update->message->chat->id ?? null;
@@ -42,6 +40,7 @@ class TelegramUpdateDb
 			throw new MessageDeletedException(sprintf('Message ID "%s" in Update object is not valid.', $messageId));
 		}
 
+		$this->botReplyMessageId = $botReplyMessageId;
 		$this->telegramChatId = $chatId;
 		$this->telegramMessageId = $messageId;
 		$this->update = $update;
@@ -55,13 +54,13 @@ class TelegramUpdateDb
 			$chatId, $messageId
 		)->fetch();
 		$dataJson = json_decode($row['update_object'], true, 512, JSON_THROW_ON_ERROR);
-		return new self(new Telegram\Types\Update($dataJson), intval($row['autorefresh_status']), new \DateTimeImmutable($row['last_update']));
+		return new self(new Telegram\Types\Update($dataJson), intval($row['bot_reply_message_id']), intval($row['autorefresh_status']), new \DateTimeImmutable($row['last_update']));
 	}
 
 	public function insert(): void
 	{
-		$this->db->query('INSERT INTO better_location_telegram_updates (chat_id, message_id, update_object, autorefresh_status, last_update) VALUES (?, ?, ?, ?, UTC_TIMESTAMP())',
-			$this->telegramChatId, $this->telegramMessageId, json_encode($this->update), $this->status
+		$this->db->query('INSERT INTO better_location_telegram_updates (chat_id, message_id, update_object, bot_reply_message_id, autorefresh_status, last_update) VALUES (?, ?, ?, ?, ?, UTC_TIMESTAMP())',
+			$this->telegramChatId, $this->telegramMessageId, json_encode($this->update), $this->botReplyMessageId, $this->status
 		);
 		$this->status = self::STATUS_DISABLED;
 	}
@@ -89,7 +88,8 @@ class TelegramUpdateDb
 		$this->status = $status;
 	}
 
-	public function getLastUpdate(): \DateTimeImmutable {
+	public function getLastUpdate(): \DateTimeImmutable
+	{
 		return $this->lastUpdate;
 	}
 
@@ -108,7 +108,7 @@ class TelegramUpdateDb
 		$rows = Factory::Database()->query('SELECT * FROM better_location_telegram_updates')->fetchAll();
 		foreach ($rows as $row) {
 			$dataJson = json_decode($row['update_object'], true, 512, JSON_THROW_ON_ERROR);
-			$results[] = new self(new Telegram\Types\Update($dataJson), intval($row['autorefresh_status']), new \DateTimeImmutable($row['last_update']));
+			$results[] = new self(new Telegram\Types\Update($dataJson), intval($row['bot_reply_message_id']), intval($row['autorefresh_status']), new \DateTimeImmutable($row['last_update']));
 		}
 		return $results;
 	}
@@ -171,5 +171,20 @@ class TelegramUpdateDb
 	public function getUpdate(): Telegram\Types\Update
 	{
 		return $this->update;
+	}
+
+	public function getChatId(): int
+	{
+		return $this->telegramChatId;
+	}
+
+	public function getMessageId(): int
+	{
+		return $this->telegramMessageId;
+	}
+
+	public function getBotReplyMessageId(): int
+	{
+		return $this->botReplyMessageId;
 	}
 }

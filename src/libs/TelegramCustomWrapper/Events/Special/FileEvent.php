@@ -61,7 +61,7 @@ class FileEvent extends Special
 		$processedCollection = new ProcessedMessageResult($collection);
 		$processedCollection->process();
 		if ($collection->count() > 0) {
-			$this->reply(
+			$response = $this->reply(
 				TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText(),
 				[
 					'disable_web_page_preview' => true,
@@ -69,7 +69,7 @@ class FileEvent extends Special
 				],
 			);
 			if ($collection->hasRefreshableLocation()) {
-				$cron = new TelegramUpdateDb($update);
+				$cron = new TelegramUpdateDb($update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
 				$cron->insert();
 			}
 		} else { // No detected locations or occured errors
