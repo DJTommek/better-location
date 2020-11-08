@@ -102,70 +102,15 @@ class TelegramUpdateDb
 	}
 
 	/** @return self[] */
-	public static function loadAll(): array
+	public static function loadAll(int $status): array
 	{
 		$results = [];
-		$rows = Factory::Database()->query('SELECT * FROM better_location_telegram_updates')->fetchAll();
+		$rows = Factory::Database()->query('SELECT * FROM better_location_telegram_updates WHERE autorefresh_status = ?', $status)->fetchAll();
 		foreach ($rows as $row) {
 			$dataJson = json_decode($row['update_object'], true, 512, JSON_THROW_ON_ERROR);
 			$results[] = new self(new Telegram\Types\Update($dataJson), intval($row['bot_reply_message_id']), intval($row['autorefresh_status']), new \DateTimeImmutable($row['last_update']));
 		}
 		return $results;
-	}
-
-	public function run()
-	{
-		// @TODO move somewhere else
-		$loop = \React\EventLoop\Factory::create();
-		$tgLog = new \unreal4u\TelegramAPI\TgLog(Config::TELEGRAM_BOT_TOKEN, new \unreal4u\TelegramAPI\HttpClientRequestHandler($loop));
-		$collection = BetterLocation::generateFromTelegramMessage(
-			$this->update->callback_query->message->reply_to_message->text,
-			$this->update->callback_query->message->reply_to_message->entities,
-		);
-		$result = '';
-		$buttonLimit = 1; // @TODO move to config (chat settings)
-		$buttons = [];
-		foreach ($collection->getAll() as $betterLocation) {
-			if ($betterLocation instanceof BetterLocation) {
-				$result .= $betterLocation->generateBetterLocation();
-				if (count($buttons) < $buttonLimit) {
-					$driveButtons = $betterLocation->generateDriveButtons();
-					$driveButtons[] = $betterLocation->generateAddToFavouriteButtton();
-					$buttons[] = $driveButtons;
-				}
-			} else if (
-				$betterLocation instanceof InvalidLocationException ||
-				$betterLocation instanceof InvalidApiKeyException
-			) {
-				$result .= Icons::ERROR . $betterLocation->getMessage() . PHP_EOL . PHP_EOL;
-			} else {
-				$result .= Icons::ERROR . 'Unexpected error occured while proceessing message for locations.' . PHP_EOL . PHP_EOL;
-				\Tracy\Debugger::log($betterLocation, \Tracy\Debugger::EXCEPTION);
-			}
-		}
-		$buttons[] = BetterLocation::generateRefreshButtons(true);
-
-		$now = new \DateTimeImmutable();
-		$result .= sprintf('%s Last refresh: %s', Icons::REFRESH, $now->format(Config::DATETIME_FORMAT_ZONE));
-		$markup = (new Telegram\Types\Inline\Keyboard\Markup());
-		$markup->inline_keyboard = $buttons;
-
-		$sendMessage = new SendMessage($this->telegramChatId, $result, null, null, $this->telegramBetterMessageId);
-		$sendMessage->disableWebPagePreview(true);
-		$sendMessage->setReplyMarkup($markup);
-		$promise = $tgLog->performApiRequest($sendMessage->msg);
-		$promise->then(
-			function (Telegram\Types\Message $message) {
-				printf('<h1>Success</h1><p>Message ID <b>%d</b> in chat ID <b>%d</b> was successfully edited.</p>',
-					$message->message_id, $message->chat->id
-				);
-			},
-			function (\Exception $exception) {
-				printf('<h1>Error</h1><p>Failed to edit message: <b>%s</b>.</p>', $exception->getMessage());
-				\Tracy\Debugger::log($exception, \Tracy\ILogger::EXCEPTION);
-			}
-		);
-		$loop->run();
 	}
 
 	public function getUpdate(): Telegram\Types\Update
