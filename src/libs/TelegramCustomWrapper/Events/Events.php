@@ -26,6 +26,7 @@ use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram\Methods\SendChatAction;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
+use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 use unreal4u\TelegramAPI\TgLog;
 use function Clue\React\Block\await;
@@ -135,7 +136,7 @@ abstract class Events
 	}
 
 	/** Send message as reply to recieved message */
-	public function reply(string $text, array $options = [])
+	public function reply(string $text, array $options = []): Telegram\Types\Message
 	{
 		$msg = new SendMessage($this->getChatId(), $text, $this->getMessageId());
 		if (isset($options['reply_markup'])) {
@@ -144,7 +145,9 @@ abstract class Events
 		if (isset($options['disable_web_page_preview'])) {
 			$msg->disableWebPagePreview($options['disable_web_page_preview']);
 		}
-		return $this->run($msg->msg);
+		/** @var Telegram\Types\Message $response It always should be this type. Other should throw exception */
+		$response = $this->run($msg->msg);
+		return $response;
 	}
 
 	/**
@@ -157,6 +160,7 @@ abstract class Events
 		try {
 			$response = await($this->tgLog->performApiRequest($objectToSend), $this->loop);
 			DummyLogger::log(DummyLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $response);
+			return $response;
 		} catch (ClientException $exception) {
 			DummyLogger::log(DummyLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $exception->getMessage());
 			$ignoredExceptions = [
