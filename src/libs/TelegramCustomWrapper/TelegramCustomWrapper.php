@@ -5,6 +5,7 @@ namespace App\TelegramCustomWrapper;
 use App\Config;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\Button\HelpButton;
+use App\TelegramCustomWrapper\Events\Button\InvalidButton;
 use App\TelegramCustomWrapper\Events\Command\DebugCommand;
 use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use App\TelegramCustomWrapper\Events\Command\FeedbackCommand;
@@ -18,6 +19,7 @@ use App\TelegramCustomWrapper\Events\Special\InlineQueryEvent;
 use App\TelegramCustomWrapper\Events\Special\LocationEvent;
 use App\TelegramCustomWrapper\Events\Special\MessageEvent;
 use App\TelegramCustomWrapper\Events\Special\PhotoEvent;
+use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\TgLog;
@@ -76,9 +78,8 @@ class TelegramCustomWrapper
 					return new HelpButton($update);
 				case FavouritesButton::CMD:
 					return new FavouritesButton($update);
-				// @TODO log error, this should not happen. Edit: can happen if some command is no longer used (for example /stats was changed to /donor)
-				default: // unknown
-					return;
+				default: // unknown: malicious request or button command has changed
+					return new InvalidButton($update);
 			}
 		} else {
 
