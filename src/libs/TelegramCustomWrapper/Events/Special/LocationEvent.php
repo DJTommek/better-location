@@ -45,6 +45,10 @@ class LocationEvent extends Special
 					'reply_markup' => $processedCollection->getMarkup(1),
 				],
 			);
+			if ($collection->hasRefreshableLocation()) {
+				$cron = new TelegramUpdateDb($update);
+				$cron->insert();
+			}
 		} else { // No detected locations or occured errors
 			if ($this->isPm() === true) {
 				$this->reply(sprintf('%s Unexpected error occured while processing location. Contact Admin for more info.', Icons::ERROR));
