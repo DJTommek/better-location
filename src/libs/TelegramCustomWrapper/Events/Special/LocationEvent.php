@@ -7,17 +7,27 @@ use App\BetterLocation\BetterLocationCollection;
 use App\Icons;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
+use unreal4u\TelegramAPI\Telegram\Types\Update;
 
 class LocationEvent extends Special
 {
-	public function __construct($update)
+	/** @var bool is sended location live location */
+	private $live;
+
+	public function __construct(Update $update)
 	{
 		parent::__construct($update);
+		$this->live = TelegramHelper::isLocation($update, true);
 
 		$collection = new BetterLocationCollection();
 
 		$betterLocation = BetterLocation::fromLatLon($this->update->message->location->latitude, $this->update->message->location->longitude);
-		$betterLocation->setPrefixMessage('Location');
+		if ($this->live) {
+			$this->user->setLastKnownLocation($this->update->message->location->latitude, $this->update->message->location->longitude);
+			$betterLocation->setPrefixMessage('Live location');
+		} else {
+			$betterLocation->setPrefixMessage('Location');
+		}
 		$collection->add($betterLocation);
 
 		$processedCollection = new ProcessedMessageResult($collection);

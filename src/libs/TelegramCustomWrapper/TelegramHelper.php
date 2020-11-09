@@ -80,9 +80,24 @@ class TelegramHelper
 		return (!empty($update->chosen_inline_result));
 	}
 
-	public static function isLocation($update): bool
+	/** @param bool $live is location live */
+	public static function isLocation(Update $update, bool $live = false): bool
 	{
-		return (!empty($update->message->location));
+		$location = $update->message->location ?? $update->edited_message->location ?? null;
+		if ($location) {
+			if ($live === true && empty($location->live_period)) {
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public static function isEdit(Update $update): bool
+	{
+		return ($update->edited_channel_post || $update->edited_message);
 	}
 
 	public static function hasDocument($update): bool
