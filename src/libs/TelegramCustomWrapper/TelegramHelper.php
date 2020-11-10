@@ -4,8 +4,10 @@ namespace App\TelegramCustomWrapper;
 
 use App\Config;
 use App\Icons;
+use unreal4u\TelegramAPI\Telegram\Types\Chat;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
+use unreal4u\TelegramAPI\Telegram\Types\User;
 
 class TelegramHelper
 {
@@ -47,17 +49,23 @@ class TelegramHelper
 	const NOT_CHANGED = 'Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message';
 	const TOO_OLD = 'Bad Request: query is too old and response timeout expired or query ID is invalid';
 
-	public static function getDisplayName($tgfrom)
+	/**
+	 * @param User|Chat $from If chat is private, User and Chat have similar properties
+	 * @return string
+	 */
+	public static function getUserDisplayname($from): string
 	{
-		if ($tgfrom->username) {
-			$displayName = '@' . $tgfrom->username;
-		} else {
-			$displayName = '';
-			$displayName .= ($tgfrom->first_name || ''); // first_name probably fill be always filled
-			$displayName .= ' ';
-			$displayName .= ($tgfrom->last_name || ''); // might be empty
-		}
+		$displayName = $from->username ? ('@' . $from->username) : ($from->first_name . ' ' . $from->last_name);
 		return trim(htmlentities($displayName));
+	}
+
+	public static function getChatDisplayname(Chat $chat): string
+	{
+		if ($chat->title) {
+			return trim(htmlentities($chat->title));
+		} else {
+			return self::getUserDisplayname($chat);
+		}
 	}
 
 	public static function isButtonClick($update): bool
