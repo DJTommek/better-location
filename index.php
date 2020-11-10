@@ -169,7 +169,7 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 				if (count($logLines) === 0) {
 					printf('<p>No log for this day is available.</p>');
 				} else {
-					$newestLogLine = htmlentities(json_encode($logLines[0]));
+					$newestLogLine = htmlentities(json_encode(end($logLines)));
 					printf('<button class="btn btn-sm btn-outline-primary copy-log-content" data-to-copy="%s">Copy content of newest log</button> <span style="display: none;">Copied!</span>', $newestLogLine);
 					printf('<pre>%s</pre>', htmlentities(join(PHP_EOL, array_map('json_encode', $logLines))));
 				}
