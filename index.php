@@ -145,13 +145,17 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 			<h2>Tracy logs</h2>
 			<?php
 			$tracyLogs = \App\Dashboard\Logs::getTracyLogs(10);
-			foreach ($tracyLogs as $tracyLogName => $tracyLogContent) {
-				$className = $tracyLogName;
-				if (in_array($tracyLogName, [\Tracy\ILogger::ERROR, \Tracy\ILogger::EXCEPTION, \Tracy\ILogger::CRITICAL], true)) {
-					$className = 'danger';
+			if (count($tracyLogs) === 0) {
+				printf('<p>No logs are available.</p>');
+			} else {
+				foreach ($tracyLogs as $tracyLogName => $tracyLogContent) {
+					$className = $tracyLogName;
+					if (in_array($tracyLogName, [\Tracy\ILogger::ERROR, \Tracy\ILogger::EXCEPTION, \Tracy\ILogger::CRITICAL], true)) {
+						$className = 'danger';
+					}
+					printf('<h4 class="text-%s">%s</h4>', $className, $tracyLogName);
+					printf('<pre>%s</pre>', htmlentities(join(PHP_EOL, $tracyLogContent)));
 				}
-				printf('<h4 class="text-%s">%s</h4>', $className, $tracyLogName);
-				printf('<pre>%s</pre>', htmlentities(join(PHP_EOL, $tracyLogContent)));
 			}
 			?>
 			<h2>Dummy logs</h2>
