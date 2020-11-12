@@ -59,9 +59,9 @@ final class WikipediaServiceTest extends TestCase
 	public function testPermanentUrl(): void
 	{
 		// all links leads to same location
-		$this->assertEquals('49.210000,16.600000', WikipediaService::parseCoords('https://cs.wikipedia.org/w/index.php?title=Nejvy%C5%A1%C5%A1%C3%AD_soud_%C4%8Cesk%C3%A9_republiky&oldid=18532372')->__toString());
-		$this->assertEquals('49.210000,16.600000', WikipediaService::parseCoords('https://cs.wikipedia.org/w/index.php?oldid=18532372')->__toString());
-		$this->assertEquals('49.210000,16.600000', WikipediaService::parseCoords('https://cs.wikipedia.org/w/?oldid=18532372')->__toString());
+		$this->assertEquals('49.205194,16.602194', WikipediaService::parseCoords('https://cs.wikipedia.org/w/index.php?title=Nejvy%C5%A1%C5%A1%C3%AD_soud_%C4%8Cesk%C3%A9_republiky&oldid=18532372')->__toString());
+		$this->assertEquals('49.205194,16.602194', WikipediaService::parseCoords('https://cs.wikipedia.org/w/index.php?oldid=18532372')->__toString());
+		$this->assertEquals('49.205194,16.602194', WikipediaService::parseCoords('https://cs.wikipedia.org/w/?oldid=18532372')->__toString());
 	}
 
 	/** Same page in different languages (part 1) */
