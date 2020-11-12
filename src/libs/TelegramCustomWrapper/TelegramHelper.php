@@ -197,7 +197,7 @@ class TelegramHelper
 			$strict = false; // clicking on button is going only to bot, who created it
 		}
 		if ($command && preg_match(self::getCommandRegex($strict), $command, $matches)) {
-			return $matches[1];
+			return mb_strtolower($matches[1]);
 		} else {
 			return null;
 		}

@@ -73,7 +73,7 @@ class TelegramCustomWrapper
 			/** @noinspection PhpUndefinedFieldInspection */
 			$update->callback_query->from->displayname = TelegramHelper::getDisplayName($update->callback_query->from);
 
-			switch ($command ? mb_strtolower($command) : null) {
+			switch ($command) {
 				case HelpButton::CMD:
 					return new HelpButton($update);
 				case FavouritesButton::CMD:
@@ -93,7 +93,7 @@ class TelegramCustomWrapper
 			} elseif (TelegramHelper::hasPhoto($update)) {
 				return new PhotoEvent($update);
 			} else {
-				switch ($command ? mb_strtolower($command) : null) {
+				switch ($command) {
 					case StartCommand::CMD:
 						return new StartCommand($update);
 					case HelpCommand::CMD:
