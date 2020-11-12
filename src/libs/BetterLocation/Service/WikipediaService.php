@@ -102,9 +102,9 @@ final class WikipediaService extends AbstractService
 			mb_strlen($startString) + $posStart,
 			$posEnd - $posStart - mb_strlen($startString),
 		);
-
-		$jsonText = rtrim($jsonText, " \t\n\r\0\x0B;"); // default trim and ;
-		$jsonText = str_replace([':!0', ':!1'], [':false', ':true'], $jsonText);
+		$jsonText = rtrim($jsonText, " \t\n\r\0\x0B;"); // default whitespace trim and ;
+		$jsonText = preg_replace('/:\s?!0/', ':false', $jsonText); // replace !0 with false
+		$jsonText = preg_replace('/:\s?!1/', ':true', $jsonText); // replace !1 with true
 		return json_decode($jsonText, false, 512, JSON_THROW_ON_ERROR);
 	}
 }
