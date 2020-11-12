@@ -102,10 +102,18 @@ class TelegramUpdateDb
 	}
 
 	/** @return self[] */
-	public static function loadAll(int $status): array
+	public static function loadAll(int $status, int $chatId = null): array
 	{
 		$results = [];
-		$rows = Factory::Database()->query('SELECT * FROM better_location_telegram_updates WHERE autorefresh_status = ?', $status)->fetchAll();
+		$sqlQuery = 'SELECT * FROM better_location_telegram_updates WHERE autorefresh_status = ?';
+		$sqlParams = [
+			$status,
+		];
+		if ($chatId) {
+			$sqlQuery .= ' AND chat_id = ?';
+			$sqlParams[] = $chatId;
+		}
+		$rows = Factory::Database()->queryArray($sqlQuery, $sqlParams)->fetchAll();
 		foreach ($rows as $row) {
 			$dataJson = json_decode($row['update_object'], true, 512, JSON_THROW_ON_ERROR);
 			$results[] = new self(new Telegram\Types\Update($dataJson), intval($row['bot_reply_message_id']), intval($row['autorefresh_status']), new \DateTimeImmutable($row['last_update']));

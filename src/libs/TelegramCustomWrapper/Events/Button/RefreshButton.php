@@ -39,9 +39,14 @@ class RefreshButton extends Button
 						$this->processRefresh(true);
 						$this->flash(sprintf('%s Autorefresh was already enabled.', Icons::SUCCESS), true);
 					} else {
-						$this->telegramUpdateDb->autorefreshEnable();
-						$this->processRefresh(true);
-						$this->flash(sprintf('%s Autorefresh is now enabled.', Icons::SUCCESS), true);
+						$autorefreshList = TelegramUpdateDb::loadAll(TelegramUpdateDb::STATUS_ENABLED, $this->getChatId());
+						if (count($autorefreshList) >= Config::REFRESH_AUTO_MAX_PER_CHAT) {
+							$this->flash(sprintf('%s You already have %d autorefresh enabled, which is maximum per one chat.', Icons::ERROR, count($autorefreshList)), true);
+						} else {
+							$this->telegramUpdateDb->autorefreshEnable();
+							$this->processRefresh(true);
+							$this->flash(sprintf('%s Autorefresh is now enabled.', Icons::SUCCESS), true);
+						}
 					}
 					break;
 				case self::ACTION_STOP:
