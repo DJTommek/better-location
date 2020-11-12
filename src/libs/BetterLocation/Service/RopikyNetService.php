@@ -65,7 +65,7 @@ final class RopikyNetService extends AbstractService
 			isset($parsedUrl['host']) &&
 			in_array($parsedUrl['host'], ['ropiky.net', 'www.ropiky.net']) &&
 			isset($parsedUrl['path']) &&
-			$parsedUrl['path'] === '/dbase_objekt.php' &&
+			in_array($parsedUrl['path'], ['/dbase_objekt.php', '/nerop_objekt.php'], true) &&
 			isset($parsedUrl['query']) &&
 			isset($parsedUrl['query']['id']) &&
 			preg_match('/^[0-9]+$/', $parsedUrl['query']['id'])
