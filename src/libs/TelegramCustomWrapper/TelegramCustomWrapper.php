@@ -6,6 +6,7 @@ use App\Config;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\Button\HelpButton;
 use App\TelegramCustomWrapper\Events\Button\InvalidButton;
+use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\TelegramCustomWrapper\Events\Command\DebugCommand;
 use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use App\TelegramCustomWrapper\Events\Command\FeedbackCommand;
