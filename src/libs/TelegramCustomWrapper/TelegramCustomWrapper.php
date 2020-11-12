@@ -19,7 +19,6 @@ use App\TelegramCustomWrapper\Events\Special\InlineQueryEvent;
 use App\TelegramCustomWrapper\Events\Special\LocationEvent;
 use App\TelegramCustomWrapper\Events\Special\MessageEvent;
 use App\TelegramCustomWrapper\Events\Special\PhotoEvent;
-use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\TgLog;
@@ -47,7 +46,7 @@ class TelegramCustomWrapper
 		if ($update->update_id === 0) { // default value
 			throw new \Exception('Telegram webhook API data are missing!');
 		}
-		if ($update->edited_channel_post || $update->edited_message) {
+		if (TelegramHelper::isEdit($update)) {
 			return 'Edit\'s are ignored';
 		}
 		if (TelegramHelper::addedToChat($update, Config::TELEGRAM_BOT_NAME)) {
@@ -65,14 +64,8 @@ class TelegramCustomWrapper
 		}
 
 		$command = TelegramHelper::getCommand($update, Config::TELEGRAM_COMMAND_STRICT);
-		/** @noinspection PhpUnusedLocalVariableInspection */
-		$params = TelegramHelper::getParams($update);
 
 		if (TelegramHelper::isButtonClick($update)) {
-			$update->callback_query->from->username = $update->callback_query->from->username === '' ? null : $update->callback_query->from->username;
-			/** @noinspection PhpUndefinedFieldInspection */
-			$update->callback_query->from->displayname = TelegramHelper::getDisplayName($update->callback_query->from);
-
 			switch ($command) {
 				case HelpButton::CMD:
 					return new HelpButton($update);
@@ -82,10 +75,6 @@ class TelegramCustomWrapper
 					return new InvalidButton($update);
 			}
 		} else {
-
-			$update->message->from->username = $update->message->from->username === '' ? null : $update->message->from->username;
-			/** @noinspection PhpUndefinedFieldInspection */
-			$update->message->from->displayname = TelegramHelper::getDisplayName($update->message->from);
 			if (TelegramHelper::isLocation($update)) {
 				return new LocationEvent($update);
 			} elseif (TelegramHelper::hasDocument($update)) {
