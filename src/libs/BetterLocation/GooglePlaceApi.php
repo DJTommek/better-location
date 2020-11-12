@@ -4,11 +4,14 @@ namespace App\BetterLocation;
 
 use App\Config;
 use App\Utils\General;
+use Tracy\Debugger;
+use Tracy\ILogger;
 
 class GooglePlaceApi
 {
 	private $apiKey;
 
+	const TEXT_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
 	const PLACE_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json';
 	const PLACE_DETAILS_URL = 'https://maps.googleapis.com/maps/api/place/details/json';
 
@@ -24,7 +27,7 @@ class GooglePlaceApi
 	}
 
 	/**
-	 * @param string $input
+	 * @param string $input What should be searched
 	 * @param string[] $outputFields @see https://developers.google.com/places/web-service/search#Fields
 	 * @param string $language @see https://developers.google.com/maps/faq#languagesupport
 	 * @param string|null $locationBias @see https://developers.google.com/places/web-service/search#FindPlaceRequests -> Optional parameters
@@ -43,6 +46,26 @@ class GooglePlaceApi
 	}
 
 	/**
+	 * @see https://developers.google.com/places/web-service/search#TextSearchRequests
+	 * @param string $input What should be searched
+	 * @param string $language @see https://developers.google.com/maps/faq#languagesupport
+	 * @param string|null $location
+	 * @return string
+	 */
+	private function geTextSearchUrl(string $input, string $language, ?string $location = null): string
+	{
+		$params = [
+			'key' => $this->apiKey,
+			'query' => $input,
+		];
+		if ($location) {
+			$params['location'] = $location;
+			$params['radius'] = 50000; // maximum is 50 000 meters
+		}
+		return self::TEXT_SEARCH_URL . '?' . http_build_query($params);
+	}
+
+	/**
 	 * @param string $placeId
 	 * @param string[] $outputFields see https://developers.google.com/places/web-service/details#fields
 	 * @return string
@@ -57,25 +80,38 @@ class GooglePlaceApi
 	}
 
 	/**
-	 * @param string $input
+	 * @param string $input What should be searched
 	 * @param string[] $outputFields @see https://developers.google.com/places/web-service/search#Fields
 	 * @param string $language @see https://developers.google.com/maps/faq#languagesupport
 	 * @param BetterLocation|null $locationBias @see https://developers.google.com/places/web-service/search#FindPlaceRequests -> Optional parameters
 	 * @return \stdClass[]
 	 * @throws \JsonException|\Exception
 	 */
-	public function runSearch(string $input, array $outputFields, string $language, ?BetterLocation $locationBias = null): array
+	public function runPlaceSearch(string $input, array $outputFields, string $language, ?BetterLocation $locationBias = null): array
 	{
 		$url = $this->gePlaceSearchUrl($input, $outputFields, $language, ($locationBias ? $this->generateLocationBias($locationBias) : null));
-		$response = General::fileGetContents($url);
-		$content = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
+		$content = $this->runGoogleApiRequest($url);
 		if ($content->status === self::RESPONSE_ZERO_RESULTS) {
 			return [];
 		}
-		if ($content->status !== self::RESPONSE_OK) {
-			throw new \Exception(sprintf('Invalid status (%s) from Google Place Search API. Error: "%s"', $content->status, $content->error_message ?? 'Not provided'));
-		}
 		return $content->candidates;
+	}
+
+	/**
+	 * @param string $input What should be searched
+	 * @param string $language @see https://developers.google.com/maps/faq#languagesupport
+	 * @param BetterLocation|null $location @see https://developers.google.com/places/web-service/search#FindPlaceRequests -> Optional parameters
+	 * @return \stdClass[]
+	 * @throws \JsonException|\Exception
+	 */
+	public function runTextSearch(string $input, string $language, ?BetterLocation $location = null): array
+	{
+		$url = $this->geTextSearchUrl($input, $language, ($location ? $location->__toString() : null));
+		$content = $this->runGoogleApiRequest($url);
+		if ($content->status === self::RESPONSE_ZERO_RESULTS) {
+			return [];
+		}
+		return $content->results;
 	}
 
 	/**
@@ -87,12 +123,21 @@ class GooglePlaceApi
 	public function getPlaceDetails(string $placeId, array $outputFields): \stdClass
 	{
 		$url = $this->gePlaceDetailsUrl($placeId, $outputFields);
+		$content = $this->runGoogleApiRequest($url);
+		return $content->result;
+	}
+
+	private function runGoogleApiRequest(string $url): \stdClass
+	{
 		$response = General::fileGetContents($url);
 		$content = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
-		if ($content->status !== self::RESPONSE_OK) {
-			throw new \Exception(sprintf('Invalid status (%s) from Google Place Details API. Error: "%s"', $content->status, $content->error_message ?? 'Not provided'));
+		if (in_array($content->status, [self::RESPONSE_OK, self::RESPONSE_ZERO_RESULTS], true)) {
+			return $content;
+		} else {
+			Debugger::log('Request URL: ' . $url, ILogger::DEBUG);
+			Debugger::log('Response content: ' . $response, ILogger::DEBUG);
+			throw new \Exception(sprintf('Invalid status "%s" from Google Place API. Error: "%s". See debug.log for more info.', $content->status, $content->error_message ?? 'Not provided'));
 		}
-		return $content->result;
 	}
 
 	private function generateLocationBias(BetterLocation $betterLocation)
