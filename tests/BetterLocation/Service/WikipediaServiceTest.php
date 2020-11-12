@@ -27,6 +27,9 @@ final class WikipediaServiceTest extends TestCase
 	{
 		$this->assertTrue(WikipediaService::isValid('https://en.wikipedia.org/wiki/Conneaut_High_School'));
 		$this->assertTrue(WikipediaService::isValid('https://cs.wikipedia.org/wiki/City_Tower'));
+		// mobile URLs
+		$this->assertTrue(WikipediaService::isValid('https://en.m.wikipedia.org/wiki/Conneaut_High_School'));
+		$this->assertTrue(WikipediaService::isValid('https://cs.m.wikipedia.org/wiki/City_Tower'));
 		// permanent URLs
 		$this->assertTrue(WikipediaService::isValid('https://cs.wikipedia.org/w/index.php?title=Nejvy%C5%A1%C5%A1%C3%AD_soud_%C4%8Cesk%C3%A9_republiky&oldid=18532372'));
 		$this->assertTrue(WikipediaService::isValid('https://cs.wikipedia.org/w/index.php?oldid=18532372'));
@@ -46,13 +49,15 @@ final class WikipediaServiceTest extends TestCase
 		$this->assertEquals('50.083333,14.416667', WikipediaService::parseCoords('https://cs.wikipedia.org/wiki/Praha')->__toString());
 		$this->assertEquals('49.205193,16.602196', WikipediaService::parseCoords('https://cs.wikipedia.org/wiki/Nejvy%C5%A1%C5%A1%C3%AD_soud_%C4%8Cesk%C3%A9_republiky')->__toString());
 		$this->assertEquals('49.205193,16.602196', WikipediaService::parseCoords('https://cs.wikipedia.org/wiki/Nejvyšší_soud_České_republiky')->__toString()); // same as above just urldecoded
-
 		// pages from "Random article" on en.wikipedia.org
 		$this->assertEquals('41.947222,-80.560833', WikipediaService::parseCoords('https://en.wikipedia.org/wiki/Conneaut_High_School')->__toString());
 		$this->assertEquals('50.431697,-120.185119', WikipediaService::parseCoords('https://en.wikipedia.org/wiki/Birken_Forest_Buddhist_Monastery')->__toString());
 		$this->assertEquals('50.772835,-1.817606', WikipediaService::parseCoords('https://en.wikipedia.org/wiki/Christchurch_F.C.')->__toString());
 		$this->assertEquals('9.600000,0.883333', WikipediaService::parseCoords('https://en.wikipedia.org/wiki/Samba,_Togo')->__toString());
 		$this->assertEquals('-23.550000,-46.633333', WikipediaService::parseCoords('https://en.wikipedia.org/wiki/S%C3%A3o_Paulo')->__toString());
+		// mobile URL
+		$this->assertEquals('50.050278,14.436111', WikipediaService::parseCoords('https://cs.m.wikipedia.org/wiki/City_Tower')->__toString());
+		$this->assertEquals('41.947222,-80.560833', WikipediaService::parseCoords('https://en.m.wikipedia.org/wiki/Conneaut_High_School')->__toString());
 	}
 
 	/** @noinspection PhpUnhandledExceptionInspection */
