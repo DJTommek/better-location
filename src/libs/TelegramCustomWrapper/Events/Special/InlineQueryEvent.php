@@ -37,7 +37,7 @@ class InlineQueryEvent extends Special
 		$answerInlineQuery->inline_query_id = $update->inline_query->id;
 		$answerInlineQuery->cache_time = Config::TELEGRAM_INLINE_CACHE;
 
-		$queryInput = trim($update->inline_query->query);
+		$queryInput = preg_replace('/\s+/', ' ', trim($update->inline_query->query));
 
 		if (empty($queryInput)) {
 			// If user agrees to share location, and is using device, where is possible to get location (typically mobile devices)
