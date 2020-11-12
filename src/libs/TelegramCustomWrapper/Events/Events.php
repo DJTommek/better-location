@@ -23,10 +23,10 @@ use unreal4u\TelegramAPI\Abstracts\TelegramMethods;
 use unreal4u\TelegramAPI\Abstracts\TelegramTypes;
 use unreal4u\TelegramAPI\Exceptions\ClientException;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
+use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Methods\SendChatAction;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
-use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 use unreal4u\TelegramAPI\TgLog;
 use function Clue\React\Block\await;
@@ -48,57 +48,67 @@ abstract class Events
 
 		$this->loop = Factory::create();
 		$this->tgLog = new TgLog(Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($this->loop));
-
-		if (TelegramHelper::isInlineQuery($update)) {
-			$this->user = new User($update->inline_query->from->id, $update->inline_query->from->username);
-			if (empty($this->update->inline_query->location) === false) {
-				try {
-					$this->user->setLastKnownLocation(
-						$this->update->inline_query->location->latitude,
-						$this->update->inline_query->location->longitude,
-					);
-				} catch (\Exception $exception) {
-					Debugger::log($exception, ILogger::EXCEPTION);
-				}
-			}
-		} else if (TelegramHelper::isButtonClick($update)) {
-			$this->user = new User($update->callback_query->from->id, $update->callback_query->from->username);
-			if ($update->callback_query->message) { // if clicked on button in message shared from inline (in "via @BotName"), there is no message
-				/** @noinspection PhpUndefinedFieldInspection */
-				$this->chat = new Chat(
-					$update->callback_query->message->chat->id,
-					$update->callback_query->message->chat->type,
-					empty($update->callback_query->message->chat->title) ? $update->callback_query->from->displayname : $update->callback_query->message->chat->title,
-				);
-			}
-		} else {
-			$this->user = new User($update->message->from->id, $update->message->from->username);
-			/** @noinspection PhpUndefinedFieldInspection */
+		$this->user = new User($this->getFromId(), $this->getFromDisplayname());
+		if ($this->hasMessage()) {
 			$this->chat = new Chat(
-				$update->message->chat->id,
-				$update->message->chat->type,
-				empty($update->message->chat->title) ? $update->message->from->displayname : $update->message->chat->title
+				$this->getChatId(),
+				$this->getChat()->type,
+				$this->getChatDisplayname()
 			);
 		}
 
-		if (TelegramHelper::isInlineQuery($update) === false) {
+		if (TelegramHelper::isInlineQuery($update) === false && TelegramHelper::isEdit($update) === false) {
 			$this->command = TelegramHelper::getCommand($update);
 			$this->params = TelegramHelper::getParams($update);
 		}
 	}
 
-	abstract protected function getChatId();
-
-	abstract protected function getMessageId();
-
-	public function getFromId()
+	public function getChat(): Telegram\Types\Chat
 	{
-		return $this->update->message->from->id;
+		return $this->getMessage()->chat;
 	}
 
-	public function getText()
+	public function getFrom(): Telegram\Types\User
 	{
-		return $this->update->message->text;
+		return $this->getMessage()->from;
+	}
+
+	public function getChatId(): int
+	{
+		return $this->getChat()->id;
+	}
+
+	public function getFromId(): int
+	{
+		return $this->getFrom()->id;
+	}
+
+	public function getFromDisplayname(): string
+	{
+		return TelegramHelper::getUserDisplayname($this->getFrom());
+	}
+
+	public function getChatDisplayname(): string
+	{
+		return TelegramHelper::getChatDisplayname($this->getChat());
+	}
+
+	public function getMessageId(): int
+	{
+		return $this->getMessage()->message_id;
+	}
+
+	public function getText(): string
+	{
+		return $this->getMessage()->text;
+	}
+
+	abstract public function getMessage(): Telegram\Types\Message;
+
+	/** @return bool overridden with false, where Telegram\Types\Message is not available */
+	public function hasMessage(): bool
+	{
+		return true;
 	}
 
 	public static function getCmd(bool $withSuffix = false): string

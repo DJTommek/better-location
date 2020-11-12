@@ -12,6 +12,7 @@ use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
+use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Methods\AnswerInlineQuery;
 use unreal4u\TelegramAPI\Telegram\Types\Inline;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
@@ -106,7 +107,7 @@ class InlineQueryEvent extends Special
 					$placeCandidates = $placeApi->runPlaceSearch(
 						$queryInput,
 						['formatted_address', 'name', 'geometry', 'place_id'],
-						$this->update->inline_query->from->language_code ?? 'en',
+						$this->getFrom()->language_code ?? 'en',
 						$this->user->getLastKnownLocation(),
 					);
 					foreach ($placeCandidates as $placeCandidate) {
@@ -140,6 +141,21 @@ class InlineQueryEvent extends Special
 			}
 		}
 		$this->run($answerInlineQuery);
+	}
+
+	public function hasMessage(): bool
+	{
+		return false;
+	}
+
+	public function getMessage(): Telegram\Types\Message
+	{
+		throw new \Exception(sprintf('Type %s doesn\'t support getMessage().', static::class));
+	}
+
+	public function getFrom(): Telegram\Types\User
+	{
+		return $this->update->inline_query->from;
 	}
 
 	private function getInlineQueryResult(BetterLocation $betterLocation, string $inlineTitle = null): Inline\Query\Result\Location

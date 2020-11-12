@@ -2,18 +2,33 @@
 
 namespace App\TelegramCustomWrapper\Events\Button;
 
+use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Methods\AnswerCallbackQuery;
 
 abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 {
-	protected function getChatId()
+	/** @return bool False if clicked on button in shared in message created from inline (in "via @BotName") */
+	public function hasMessage(): bool
 	{
-		return $this->update->callback_query->message->chat->id;
+		return isset($this->update->callback_query->message);
 	}
 
-	protected function getMessageId()
+	public function getMessage(): Telegram\Types\Message
 	{
-		return $this->update->callback_query->message->message_id;
+		if ($this->hasMessage()) {
+			return $this->update->callback_query->message;
+		} else {
+			throw new \Exception(sprintf('Type %s doesn\'t support getMessage().', static::class));
+		}
+	}
+
+	/**
+	 * Can't use from in getMessage, because that's message where was clicked on button which is message from bot.
+	 * @return Telegram\Types\User
+	 */
+	public function getFrom(): Telegram\Types\User
+	{
+		return $this->update->callback_query->from;
 	}
 
 	/**

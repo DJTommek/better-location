@@ -11,7 +11,7 @@ class User
 
 	private $id;
 	private $telegramId;
-	private $telegramUsername;
+	private $telegramDisplayname;
 	private $lastKnownLocation;
 	private $lastKnownLocationDatetime;
 
@@ -30,12 +30,12 @@ class User
 	 */
 	private $favouritesDeleted = [];
 
-	public function __construct(int $telegramId, ?string $telegramUsername = null)
+	public function __construct(int $telegramId, string $telegramDisplayname)
 	{
 		$this->telegramId = $telegramId;
-		$this->telegramUsername = $telegramUsername;
+		$this->telegramDisplayname = $telegramDisplayname;
 		$this->db = Factory::Database();
-		$userData = $this->register($telegramId, $telegramUsername);
+		$userData = $this->register($telegramId, $telegramDisplayname);
 		$this->updateCachedData($userData);
 		$this->loadFavourites();
 	}
@@ -44,7 +44,7 @@ class User
 	{
 		$this->id = $newUserData['user_id'];
 		$this->telegramId = $newUserData['user_telegram_id'];
-		$this->telegramUsername = $newUserData['user_telegram_name'];
+		$this->telegramDisplayname = $newUserData['user_telegram_name'];
 		if (isset($newUserData['user_location_lat']) and isset($newUserData['user_location_lon']) and isset($newUserData['user_location_last_update'])) {
 			if (is_null($newUserData['user_location_lat']) || is_null($newUserData['user_location_lon']) || is_null($newUserData['user_location_last_update'])) {
 				$this->lastKnownLocation = null;
@@ -203,9 +203,9 @@ class User
 		return $this->telegramId;
 	}
 
-	public function getTelegramUsername()
+	public function getTelegramDisplayname()
 	{
-		return $this->telegramUsername;
+		return $this->telegramDisplayname;
 	}
 
 	/** @return BetterLocation[] */

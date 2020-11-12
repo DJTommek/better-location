@@ -2,15 +2,12 @@
 
 namespace App\TelegramCustomWrapper\Events\Special;
 
+use unreal4u\TelegramAPI\Telegram;
+
 abstract class Special extends \App\TelegramCustomWrapper\Events\Events
 {
-	protected function getChatId()
+	public function getMessage(): Telegram\Types\Message
 	{
-		return $this->update->message->chat->id;
-	}
-
-	protected function getMessageId()
-	{
-		return $this->update->message->message_id;
+		return $this->update->message;
 	}
 }
