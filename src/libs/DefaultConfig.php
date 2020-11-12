@@ -77,6 +77,9 @@ class DefaultConfig
 	 */
 	const REFRESH_COOLDOWN = 30;
 
+	/** @var int How many autorefreshed messages can be in one chat */
+	const REFRESH_AUTO_MAX_PER_CHAT = 5;
+
 	const DATE_FORMAT = 'Y-m-d';
 	const TIME_FORMAT = 'H:i:s';
 	const TIME_FORMAT_ZONE = self::TIME_FORMAT . ' T';
