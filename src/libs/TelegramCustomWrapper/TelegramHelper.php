@@ -48,6 +48,7 @@ class TelegramHelper
 
 	const NOT_CHANGED = 'Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message';
 	const TOO_OLD = 'Bad Request: query is too old and response timeout expired or query ID is invalid';
+	const MESSAGE_TO_EDIT_DELETED = 'Bad Request: message to edit not found';
 
 	/**
 	 * @param User|Chat $from If chat is private, User and Chat have similar properties

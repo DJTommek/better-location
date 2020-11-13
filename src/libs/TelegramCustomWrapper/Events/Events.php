@@ -176,6 +176,7 @@ abstract class Events
 			$ignoredExceptions = [
 				TelegramHelper::NOT_CHANGED,
 				TelegramHelper::TOO_OLD,
+				TelegramHelper::MESSAGE_TO_EDIT_DELETED,
 			];
 			if (in_array($exception->getMessage(), $ignoredExceptions, true) === false) {
 				Debugger::log(sprintf('TG API Command request error: "%s"', $exception->getMessage()), ILogger::EXCEPTION);
