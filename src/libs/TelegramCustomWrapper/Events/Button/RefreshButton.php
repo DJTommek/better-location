@@ -29,8 +29,8 @@ class RefreshButton extends Button
 			$params = TelegramHelper::getParams($update);
 			$action = array_shift($params);
 			$this->telegramUpdateDb = TelegramUpdateDb::fromDb(
-				$this->update->callback_query->message->reply_to_message->chat->id,
-				$this->update->callback_query->message->reply_to_message->message_id,
+				$this->getChatId(),
+				$this->getMessageId(),
 			);
 
 			switch ($action) {
