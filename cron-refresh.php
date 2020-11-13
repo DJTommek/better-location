@@ -27,8 +27,8 @@ try {
 	} else {
 		foreach ($messagesToRefresh as $messageToRefresh) {
 			$collection = BetterLocationCollection::fromTelegramMessage(
-				$messageToRefresh->getUpdate()->message->text,
-				$messageToRefresh->getUpdate()->message->entities,
+				$messageToRefresh->getOriginalUpdateObject()->message->text,
+				$messageToRefresh->getOriginalUpdateObject()->message->entities,
 			);
 			$processedCollection = new ProcessedMessageResult($collection);
 			$processedCollection->setAutorefresh(true);
