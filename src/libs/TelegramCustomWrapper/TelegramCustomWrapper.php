@@ -49,6 +49,9 @@ class TelegramCustomWrapper
 		if (TelegramHelper::isEdit($update)) {
 			return 'Edit\'s are ignored';
 		}
+		if (TelegramHelper::isChannel($update)) {
+			return 'Channel messages are ignored';
+		}
 		if (TelegramHelper::addedToChat($update, Config::TELEGRAM_BOT_NAME)) {
 			return new AddedToChatEvent($update);
 		}

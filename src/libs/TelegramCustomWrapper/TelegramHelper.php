@@ -109,6 +109,11 @@ class TelegramHelper
 		return ($update->edited_channel_post || $update->edited_message);
 	}
 
+	public static function isChannel(Update $update): bool
+	{
+		return !empty($update->channel_post);
+	}
+
 	public static function hasDocument($update): bool
 	{
 		return (!empty($update->message->document));
