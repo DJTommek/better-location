@@ -41,7 +41,7 @@ try {
 				$msg->chat_id = $messageToRefresh->getChatId();
 				$msg->message_id = $messageToRefresh->getBotReplyMessageId();
 				$msg->parse_mode = 'HTML';
-				$msg->reply_markup = $processedCollection->getMarkup();
+				$msg->reply_markup = $processedCollection->getMarkup(1);
 				$msg->disable_web_page_preview = true;
 				dump($msg);
 				$response = await($tgLog->performApiRequest($msg), $loop);
