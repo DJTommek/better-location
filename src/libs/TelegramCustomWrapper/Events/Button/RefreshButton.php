@@ -86,8 +86,8 @@ class RefreshButton extends Button
 	private function processRefresh(bool $autorefreshEnabled)
 	{
 		$collection = BetterLocationCollection::fromTelegramMessage(
-			$this->telegramUpdateDb->getUpdate()->message->text,
-			$this->telegramUpdateDb->getUpdate()->message->entities,
+			$this->telegramUpdateDb->getOriginalUpdateObject()->message->text,
+			$this->telegramUpdateDb->getOriginalUpdateObject()->message->entities,
 		);
 		$processedCollection = new ProcessedMessageResult($collection);
 		$processedCollection->setAutorefresh($autorefreshEnabled);

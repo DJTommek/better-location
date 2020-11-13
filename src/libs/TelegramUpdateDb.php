@@ -15,11 +15,9 @@ class TelegramUpdateDb
 	private $db;
 
 	/** @var Telegram\Types\Update */
-	private $update;
+	private $originalUpdateObject;
 	/** @var int */
 	private $telegramChatId;
-	/** @var int */
-	private $telegramMessageId;
 	/** @var int */
 	private $status;
 	/** @var \DateTimeImmutable */
@@ -27,40 +25,39 @@ class TelegramUpdateDb
 	/** @var int */
 	private $botReplyMessageId;
 
-	public function __construct(Telegram\Types\Update $update, int $botReplyMessageId, int $status, \DateTimeImmutable $lastUpdate)
+	public function __construct(Telegram\Types\Update $originalUpdate, int $botReplyMessageId, int $status, \DateTimeImmutable $lastUpdate)
 	{
 		$this->db = Factory::Database();
-		$chatId = $update->message->chat->id ?? null;
+		$chatId = $originalUpdate->message->chat->id ?? null;
 		if (is_int($chatId) === false || $chatId === 0) {
 			throw new MessageDeletedException(sprintf('Chat ID "%s" in Update object is not valid.', $chatId));
 		}
 
-		$messageId = $update->message->message_id ?? null;
+		$messageId = $originalUpdate->message->message_id ?? null;
 		if (is_int($chatId) === false || $chatId === 0) {
 			throw new MessageDeletedException(sprintf('Message ID "%s" in Update object is not valid.', $messageId));
 		}
 
 		$this->botReplyMessageId = $botReplyMessageId;
 		$this->telegramChatId = $chatId;
-		$this->telegramMessageId = $messageId;
-		$this->update = $update;
+		$this->originalUpdateObject = $originalUpdate;
 		$this->status = $status;
 		$this->lastUpdate = $lastUpdate;
 	}
 
-	public static function fromDb(int $chatId, int $messageId): self
+	public static function fromDb(int $chatId, int $botReplyMessageId): self
 	{
-		$row = Factory::Database()->query('SELECT * FROM better_location_telegram_updates WHERE chat_id = ? AND message_id = ?',
-			$chatId, $messageId
+		$row = Factory::Database()->query('SELECT * FROM better_location_telegram_updates WHERE chat_id = ? AND bot_reply_message_id = ?',
+			$chatId, $botReplyMessageId
 		)->fetch();
-		$dataJson = json_decode($row['update_object'], true, 512, JSON_THROW_ON_ERROR);
+		$dataJson = json_decode($row['original_update_object'], true, 512, JSON_THROW_ON_ERROR);
 		return new self(new Telegram\Types\Update($dataJson), intval($row['bot_reply_message_id']), intval($row['autorefresh_status']), new \DateTimeImmutable($row['last_update']));
 	}
 
 	public function insert(): void
 	{
-		$this->db->query('INSERT INTO better_location_telegram_updates (chat_id, message_id, update_object, bot_reply_message_id, autorefresh_status, last_update) VALUES (?, ?, ?, ?, ?, UTC_TIMESTAMP())',
-			$this->telegramChatId, $this->telegramMessageId, json_encode($this->update), $this->botReplyMessageId, $this->status
+		$this->db->query('INSERT INTO better_location_telegram_updates (chat_id, bot_reply_message_id, original_update_object, autorefresh_status, last_update) VALUES (?, ?, ?, ?, UTC_TIMESTAMP())',
+			$this->telegramChatId, $this->botReplyMessageId, json_encode($this->originalUpdateObject), $this->status
 		);
 		$this->status = self::STATUS_DISABLED;
 	}
@@ -82,8 +79,8 @@ class TelegramUpdateDb
 
 	private function setAutorefresh(int $status): void
 	{
-		$this->db->query('UPDATE better_location_telegram_updates SET autorefresh_status = ? WHERE chat_id = ? AND message_id = ?',
-			$status, $this->telegramChatId, $this->telegramMessageId
+		$this->db->query('UPDATE better_location_telegram_updates SET autorefresh_status = ? WHERE chat_id = ? AND bot_reply_message_id = ?',
+			$status, $this->telegramChatId, $this->botReplyMessageId
 		);
 		$this->status = $status;
 	}
@@ -95,8 +92,8 @@ class TelegramUpdateDb
 
 	public function touchLastUpdate(): void
 	{
-		$this->db->query('UPDATE better_location_telegram_updates SET last_update = UTC_TIMESTAMP() WHERE chat_id = ? AND message_id = ?',
-			$this->telegramChatId, $this->telegramMessageId
+		$this->db->query('UPDATE better_location_telegram_updates SET last_update = UTC_TIMESTAMP() WHERE chat_id = ? AND bot_reply_message_id = ?',
+			$this->telegramChatId, $this->botReplyMessageId
 		);
 		$this->lastUpdate = new \DateTimeImmutable();
 	}
@@ -115,25 +112,20 @@ class TelegramUpdateDb
 		}
 		$rows = Factory::Database()->queryArray($sqlQuery, $sqlParams)->fetchAll();
 		foreach ($rows as $row) {
-			$dataJson = json_decode($row['update_object'], true, 512, JSON_THROW_ON_ERROR);
+			$dataJson = json_decode($row['original_update_object'], true, 512, JSON_THROW_ON_ERROR);
 			$results[] = new self(new Telegram\Types\Update($dataJson), intval($row['bot_reply_message_id']), intval($row['autorefresh_status']), new \DateTimeImmutable($row['last_update']));
 		}
 		return $results;
 	}
 
-	public function getUpdate(): Telegram\Types\Update
+	public function getOriginalUpdateObject(): Telegram\Types\Update
 	{
-		return $this->update;
+		return $this->originalUpdateObject;
 	}
 
 	public function getChatId(): int
 	{
 		return $this->telegramChatId;
-	}
-
-	public function getMessageId(): int
-	{
-		return $this->telegramMessageId;
 	}
 
 	public function getBotReplyMessageId(): int
