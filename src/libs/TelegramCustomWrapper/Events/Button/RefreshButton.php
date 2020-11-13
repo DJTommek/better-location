@@ -64,13 +64,8 @@ class RefreshButton extends Button
 					if ($diff < Config::REFRESH_COOLDOWN) {
 						$this->flash(sprintf('%s You need to wait %d more seconds before another refresh.', Icons::ERROR, Config::REFRESH_COOLDOWN - $diff), true);
 					} else {
-						try {
-							$this->processRefresh($this->telegramUpdateDb->isAutorefreshEnabled());
-							$this->flash(sprintf('%s All locations were refreshed.', Icons::SUCCESS));
-						} catch (\Throwable $exception) {
-							Debugger::log($exception, ILogger::EXCEPTION);
-							$this->flash('%s Unexpected error refreshing location. Try again later or contact Admin for more info.');
-						}
+						$this->processRefresh($this->telegramUpdateDb->isAutorefreshEnabled());
+						$this->flash(sprintf('%s All locations were refreshed.', Icons::SUCCESS));
 					}
 					break;
 				default:
