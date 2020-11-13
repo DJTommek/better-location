@@ -103,7 +103,7 @@ class RefreshButton extends Button
 			$this->replyButton($text,
 				[
 					'disable_web_page_preview' => true,
-					'reply_markup' => $processedCollection->getMarkup(),
+					'reply_markup' => $processedCollection->getMarkup(1),
 				],
 			);
 		}
