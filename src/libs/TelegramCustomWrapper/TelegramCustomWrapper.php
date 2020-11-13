@@ -13,6 +13,7 @@ use App\TelegramCustomWrapper\Events\Command\HelpCommand;
 use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\Events\Command\UnknownCommand;
+use App\TelegramCustomWrapper\Events\Edit\LocationEditEvent;
 use App\TelegramCustomWrapper\Events\Special\AddedToChatEvent;
 use App\TelegramCustomWrapper\Events\Special\FileEvent;
 use App\TelegramCustomWrapper\Events\Special\InlineQueryEvent;
@@ -47,7 +48,11 @@ class TelegramCustomWrapper
 			throw new \Exception('Telegram webhook API data are missing!');
 		}
 		if (TelegramHelper::isEdit($update)) {
-			return 'Edit\'s are ignored';
+			if (TelegramHelper::isLocation($update)) {
+				new LocationEditEvent($update);
+			} else {
+				return 'Edit\'s are ignored';
+			}
 		}
 		if (TelegramHelper::isChannel($update)) {
 			return 'Channel messages are ignored';
