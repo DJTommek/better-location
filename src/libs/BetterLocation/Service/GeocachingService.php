@@ -37,6 +37,16 @@ final class GeocachingService extends AbstractService
 	 */
 	const URL_PATH_MAP_GEOCACHE_REGEX = '/^\/play\/map\/(' . self::CACHE_REGEX . ')$/';
 
+	const TYPE_CACHE = 'cache';
+	const TYPE_MAP = 'map';
+
+	public static function getConstants(): array
+	{
+		return [
+			self::TYPE_CACHE,
+			self::TYPE_MAP,
+		];
+	}
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
 		if ($drive) {
@@ -64,7 +74,7 @@ final class GeocachingService extends AbstractService
 	public static function isUrl(string $url): bool
 	{
 		if (self::isCorrectDomainUrl($url)) {
-			return is_string(self::getCacheIdFromUrl($url));
+			return is_string(self::getCacheIdFromUrl($url)) || is_array(self::getCoordsFromMapUrl($url));
 		}
 		return false;
 	}
@@ -129,29 +139,55 @@ final class GeocachingService extends AbstractService
 		return null;
 	}
 
+	public static function getCoordsFromMapUrl(string $url): ?array
+	{
+		$parsedUrl = General::parseUrl($url);
+		if (
+			isset($parsedUrl['path']) &&
+			mb_strpos($parsedUrl['path'], '/play/map') === 0 && // might be "/play/map" or "/play/map/"
+			isset($parsedUrl['query']) &&
+			isset($parsedUrl['query']['lat']) &&
+			BetterLocation::isLatValid(floatval($parsedUrl['query']['lat'])) &&
+			isset($parsedUrl['query']['lng']) &&
+			BetterLocation::isLonValid(floatval($parsedUrl['query']['lng']))
+		) {
+			return [
+				floatval($parsedUrl['query']['lat']),
+				floatval($parsedUrl['query']['lng']),
+			];
+		} else {
+			return null;
+		}
+	}
+
 	public static function parseUrl(string $url): BetterLocation
 	{
-		try {
-			$geocacheId = self::getCacheIdFromUrl($url);
-			$geocache = Factory::Geocaching()->loadGeocachePreview($geocacheId);
-			$betterLocation = new BetterLocation($url, $geocache->postedCoordinates->latitude, $geocache->postedCoordinates->longitude, self::class);
-			$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a> <a href="%s">%s</a>',
-				$url,
-				self::NAME,
-				$geocache->getLink(),
-				$geocache->code,
-			));
-			$betterLocation->setDescription(sprintf('<b>%s</b> (%s, %s, difficulty: %.1F, terrain: %.1F)',
-				htmlentities($geocache->name),
-				$geocache->getType(),
-				$geocache->getSize(),
-				$geocache->terrain,
-				$geocache->difficulty,
-			));
-			return $betterLocation;
-		} catch (\Throwable $exception) {
-			Debugger::log($exception, ILogger::EXCEPTION);
-			throw new InvalidLocationException(sprintf('Error while processing %s URL, try again later.', self::NAME));
+		$coords = self::getCoordsFromMapUrl($url);
+		if ($coords) {
+			return new BetterLocation($url, $coords[0], $coords[1], self::class, self::TYPE_MAP);
+		} else {
+			try {
+				$geocacheId = self::getCacheIdFromUrl($url);
+				$geocache = Factory::Geocaching()->loadGeocachePreview($geocacheId);
+				$betterLocation = new BetterLocation($url, $geocache->postedCoordinates->latitude, $geocache->postedCoordinates->longitude, self::class, self::TYPE_CACHE);
+				$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a> <a href="%s">%s</a>',
+					$url,
+					self::NAME,
+					$geocache->getLink(),
+					$geocache->code,
+				));
+				$betterLocation->setDescription(sprintf('<b>%s</b> (%s, %s, difficulty: %.1F, terrain: %.1F)',
+					htmlentities($geocache->name),
+					$geocache->getType(),
+					$geocache->getSize(),
+					$geocache->terrain,
+					$geocache->difficulty,
+				));
+				return $betterLocation;
+			} catch (\Throwable $exception) {
+				Debugger::log($exception, ILogger::EXCEPTION);
+				throw new InvalidLocationException(sprintf('Error while processing %s URL, try again later.', self::NAME));
+			}
 		}
 	}
 
