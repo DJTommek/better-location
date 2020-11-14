@@ -10,6 +10,7 @@ use App\BetterLocation\Service\Coordinates\WG84DegreesService;
 use App\BetterLocation\Service\DrobnePamatkyCzService;
 use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\GeocachingService;
 use App\BetterLocation\Service\GlympseService;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;
@@ -234,6 +235,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 						$hereBetterLocationCollection = HereWeGoService::parseCoordsMultiple($url);
 						$hereBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
 						$betterLocationsCollection->mergeCollection($hereBetterLocationCollection);
+					} else if (GeocachingService::isUrl($url)) {
+						$betterLocationsCollection[] = GeocachingService::parseUrl($url);
 					} else if (WikipediaService::isValid($url)) {
 						try {
 							$betterLocationsCollection[] = WikipediaService::parseCoords($url);
