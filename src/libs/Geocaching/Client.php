@@ -11,6 +11,7 @@ class Client
 	const LINK = 'https://www.geocaching.com';
 	const LINK_CACHE = self::LINK . '/geocache/';
 	const LINK_CACHE_API = self::LINK . '/api/proxy/web/search/geocachepreview/';
+	const LINK_SHARE = 'https://coord.info';
 
 	const COOKIE_NAME = 'gspkauth';
 
