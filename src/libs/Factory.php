@@ -37,4 +37,12 @@ class Factory
 		}
 		return self::$objects['glympse'];
 	}
+
+	static function Geocaching(): \App\Geocaching\Client
+	{
+		if (!isset(self::$objects['geocaching'])) {
+			self::$objects['geocaching'] = new \App\Geocaching\Client(Config::GEOCACHING_COOKIE);
+		}
+		return self::$objects['geocaching'];
+	}
 }

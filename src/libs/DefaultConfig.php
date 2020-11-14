@@ -48,6 +48,9 @@ class DefaultConfig
 	/** @var ?string */
 	const GLYMPSE_API_KEY = null;
 
+	/** @var ?string Cookie of logged user to geocaching.com */
+	const GEOCACHING_COOKIE = null;
+
 	/**
 	 * If some input (URL) has multiple different locations, how far it has to be from main coordinate to add special line
 	 * to notify, that these locations are too far away. Anything lower than this number will be removed from collection
