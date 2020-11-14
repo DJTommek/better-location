@@ -11,6 +11,30 @@ use App\Geocaching\Client;
  */
 class GeocachePreviewType
 {
+	const TYPE_TRADITIONAL = 2;
+	const TYPE_MULTI = 3;
+	const TYPE_VIRTUAL = 4;
+	const TYPE_LETTERBOX = 5;
+	const TYPE_EVENT = 6;
+	const TYPE_MYSTERY = 8;
+	const TYPE_WEBCAM = 11;
+	const TYPE_EARTH = 137;
+	const TYPE_EVENT_MEGA = 453;
+	const TYPE_GPS_ADVENTURES_EXHIBIT = 1304;
+	const TYPE_WHERIGO = 1858;
+	const TYPE_EVENT_GIGA = 7005;
+
+	const SIZE_NONE = 1;
+	const SIZE_MICRO = 2;
+	const SIZE_REGULAR = 3;
+	const SIZE_LARGE = 4;
+	const SIZE_VIRTUAL = 5;
+	const SIZE_OTHER = 6;
+	const SIZE_SMALL = 8;
+
+	const STATUS_ACTIVE = 0;
+	const STATUS_DISABLED = 1;
+
 	/** @var string */
 	public $name;
 	/** @var string */
@@ -76,29 +100,29 @@ class GeocachePreviewType
 	public function getType(): string
 	{
 		switch ($this->geocacheType) {
-			case 2: // https://www.geocaching.com/geocache/GC24GCV
+			case self::TYPE_TRADITIONAL: // https://www.geocaching.com/geocache/GC24GCV
 				return 'Traditional';
-			case 3: // https://www.geocaching.com/geocache/GC3HK7M
+			case self::TYPE_MULTI: // https://www.geocaching.com/geocache/GC3HK7M
 				return 'Multi';
-			case 4: // https://www.geocaching.com/geocache/GC88ZPV
+			case self::TYPE_VIRTUAL: // https://www.geocaching.com/geocache/GC88ZPV
 				return 'Virtual';
-			case 5: // https://www.geocaching.com/geocache/GC7X2M6
+			case self::TYPE_LETTERBOX: // https://www.geocaching.com/geocache/GC7X2M6
 				return 'Letterbox Hybrid';
-			case 6: // https://www.geocaching.com/geocache/GC90M42
+			case self::TYPE_EVENT: // https://www.geocaching.com/geocache/GC90M42
 				return 'Event';
-			case 11: // https://www.geocaching.com/geocache/GCPDPE
-				return 'Webcam';
-			case 8: // https://www.geocaching.com/geocache/GC3DYC4
+			case self::TYPE_MYSTERY: // https://www.geocaching.com/geocache/GC3DYC4
 				return 'Mystery';
-			case 137: // https://www.geocaching.com/geocache/GC1PPBR
+			case self::TYPE_WEBCAM: // https://www.geocaching.com/geocache/GCPDPE
+				return 'Webcam';
+			case self::TYPE_EARTH: // https://www.geocaching.com/geocache/GC1PPBR
 				return 'Earth';
-			case 453: // https://www.geocaching.com/geocache/GC8MCKP
+			case self::TYPE_EVENT_MEGA: // https://www.geocaching.com/geocache/GC8MCKP
 				return 'Mega-Event';
-			case 1304: // https://www.geocaching.com/geocache/GC7WWW0
+			case self::TYPE_GPS_ADVENTURES_EXHIBIT: // https://www.geocaching.com/geocache/GC7WWW0
 				return 'GPS Adventures Exhibit';
-			case 1858: // https://www.geocaching.com/geocache/GC6NTQV
+			case self::TYPE_WHERIGO: // https://www.geocaching.com/geocache/GC6NTQV
 				return 'Wherigo';
-			case 7005: // https://www.geocaching.com/geocache/GC7WWWW
+			case self::TYPE_EVENT_GIGA: // https://www.geocaching.com/geocache/GC7WWWW
 				return 'Giga-Event';
 			default:
 				throw new \InvalidArgumentException(sprintf('Unknown geocache type for geocacheType "%s".', $this->geocacheType));
@@ -108,19 +132,19 @@ class GeocachePreviewType
 	public function getSize(): string
 	{
 		switch ($this->containerType) {
-			case 1: // https://www.geocaching.com/geocache/GC1PPBR
+			case self::SIZE_NONE: // https://www.geocaching.com/geocache/GC1PPBR
 				return 'none';
-			case 2:
+			case self::SIZE_MICRO:
 				return 'micro';
-			case 3:
+			case self::SIZE_REGULAR:
 				return 'regular';
-			case 4: // https://www.geocaching.com/geocache/GC7X2M6
+			case self::SIZE_LARGE: // https://www.geocaching.com/geocache/GC7X2M6
 				return 'large';
-			case 5: // https://www.geocaching.com/geocache/GC88ZPV
+			case self::SIZE_VIRTUAL: // https://www.geocaching.com/geocache/GC88ZPV
 				return 'virtual';
-			case 6: // https://www.geocaching.com/geocache/GC825XA
+			case self::SIZE_OTHER: // https://www.geocaching.com/geocache/GC825XA
 				return 'other';
-			case 8: // https://www.geocaching.com/geocache/GC24GCV
+			case self::SIZE_SMALL: // https://www.geocaching.com/geocache/GC24GCV
 				return 'small';
 			default:
 				throw new \InvalidArgumentException(sprintf('Unknown container size for containerType "%s".', $this->geocacheType));
@@ -130,13 +154,12 @@ class GeocachePreviewType
 	public function getStatus(): string
 	{
 		switch ($this->cacheStatus) {
-			case 0:
+			case self::STATUS_ACTIVE:
 				return 'active';
-			case 1: // https://www.geocaching.com/geocache/GC8ZFK8
+			case self::STATUS_DISABLED: // https://www.geocaching.com/geocache/GC8ZFK8
 				return 'disabled';
 			default:
 				throw new \InvalidArgumentException(sprintf('Unknown geocache status for cacheStatus "%s".', $this->geocacheType));
 		}
-
 	}
 }
