@@ -7,14 +7,14 @@ use App\BetterLocation\BetterLocationCollection;
 use App\Icons;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
-use unreal4u\TelegramAPI\Telegram\Types\Update;
+use unreal4u\TelegramAPI\Telegram;
 
 class LocationEvent extends Special
 {
 	/** @var bool is sended location live location */
 	private $live;
 
-	public function __construct(Update $update)
+	public function __construct(Telegram\Types\Update $update)
 	{
 		parent::__construct($update);
 		$this->live = TelegramHelper::isLocation($update, true);
@@ -25,6 +25,11 @@ class LocationEvent extends Special
 		if ($this->live) {
 			$this->user->setLastKnownLocation($this->update->message->location->latitude, $this->update->message->location->longitude);
 			$betterLocation->setPrefixMessage('Live location');
+		} else if (TelegramHelper::isVenue($update)) {
+			$venue = $update->message->venue;
+			$title = $venue->foursquare_id ? $this->venueHrefLink($venue) : $venue->title;
+			$betterLocation->setPrefixMessage('Venue ' . $title);
+			$betterLocation->setDescription($update->message->venue->address);
 		} else {
 			$betterLocation->setPrefixMessage('Location');
 		}
@@ -47,6 +52,11 @@ class LocationEvent extends Special
 				// do not send anything to group chat
 			}
 		}
+	}
+
+	private function venueHrefLink(Telegram\Types\Venue $venue)
+	{
+		return sprintf('<a href="https://foursquare.com/v/%s">%s</a>', $venue->foursquare_id, $venue->title);
 	}
 }
 

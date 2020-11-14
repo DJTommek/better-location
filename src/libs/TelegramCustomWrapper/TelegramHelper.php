@@ -104,6 +104,11 @@ class TelegramHelper
 		}
 	}
 
+	public static function isVenue(Update $update): bool
+	{
+		return !empty($update->message->venue);
+	}
+
 	public static function isEdit(Update $update): bool
 	{
 		return ($update->edited_channel_post || $update->edited_message);
