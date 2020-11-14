@@ -18,6 +18,7 @@ final class GeocachingService extends AbstractService
 	const NAME = 'Geocaching';
 
 	const LINK = Client::LINK;
+	const LINK_SHARE = Client::LINK_SHARE;
 
 	const CACHE_REGEX = 'GC[a-zA-Z0-9]{1,5}'; // keep limit as low as possible to best match and eliminate false positive
 	const LOG_REGEX = 'GL[a-zA-Z0-9]{1,7}'; // keep limit as low as possible to best match and eliminate false positive
@@ -73,7 +74,7 @@ final class GeocachingService extends AbstractService
 		$parsedUrl = General::parseUrl($url);
 		return (
 			isset($parsedUrl['host']) &&
-			in_array(mb_strtolower($parsedUrl['host']), ['geocaching.com', 'www.geocaching.com'])
+			in_array(mb_strtolower($parsedUrl['host']), ['geocaching.com', 'www.geocaching.com', 'coord.info', 'www.coord.info'])
 		);
 	}
 
@@ -91,22 +92,37 @@ final class GeocachingService extends AbstractService
 	{
 		$parsedUrl = General::parseUrl($url);
 		if (isset($parsedUrl['path'])) {
-			if (preg_match(self::URL_PATH_GEOCACHE_REGEX, $parsedUrl['path'], $matches)) {
-				// https://www.geocaching.com/geocache/GC3DYC4_find-the-bug
-				// https://www.geocaching.com/geocache/GC3DYC4
-				// https://www.geocaching.com/geocache/GC3DYC4_find-the-bug?guid=df11c170-1af3-4ee1-853a-e97c1afe0722
-				return $matches[1];
-			} else if (preg_match(self::URL_PATH_MAP_GEOCACHE_REGEX, $parsedUrl['path'])) {
-				// https://www.geocaching.com/play/map/GC3DYC4
-				return $matches[1];
-			} else if (isset($parsedUrl['query'])) {
-				$query = $parsedUrl['query'];
-				if (isset($query['code']) && preg_match('/^' . self::CACHE_REGEX . '$/', $query['code'], $matches)) {
-					// https://www.geocaching.com/seek/log.aspx?code=GL133PQK0
-					return $query['code'];
-				} else if (isset($query['gc']) && preg_match('/^' . self::CACHE_REGEX . '$/', $query['gc'], $matches)) {
-					// https://www.geocaching.com/play/map?gc=GC3DYC4
-					return $query['gc'];
+			if (in_array(mb_strtolower($parsedUrl['host']), ['geocaching.com', 'www.geocaching.com'])) {
+				if (preg_match(self::URL_PATH_GEOCACHE_REGEX, $parsedUrl['path'], $matches)) {
+					// https://www.geocaching.com/geocache/GC3DYC4_find-the-bug
+					// https://www.geocaching.com/geocache/GC3DYC4
+					// https://www.geocaching.com/geocache/GC3DYC4_find-the-bug?guid=df11c170-1af3-4ee1-853a-e97c1afe0722
+					return $matches[1];
+				} else if (preg_match(self::URL_PATH_MAP_GEOCACHE_REGEX, $parsedUrl['path'], $matches)) {
+					// https://www.geocaching.com/play/map/GC3DYC4
+					return $matches[1];
+				} else if (isset($parsedUrl['query'])) {
+					$query = $parsedUrl['query'];
+					if (
+						$parsedUrl['path'] === '/seek/log.aspx' &&
+						isset($query['code']) &&
+						preg_match('/^' . self::LOG_REGEX . '$/', $query['code'], $matches)
+					) {
+						// https://www.geocaching.com/seek/log.aspx?code=GL133PQK0
+						return null; // @TODO load log to get geocache ID
+					} else if (
+						mb_strpos($parsedUrl['path'], '/play/map') === 0 && // might be "/play/map" or "/play/map/"
+						isset($query['gc']) &&
+						preg_match('/^' . self::CACHE_REGEX . '$/', $query['gc'], $matches)
+					) {
+						// https://www.geocaching.com/play/map?gc=GC3DYC4
+						return $query['gc'];
+					}
+				}
+			}
+			if (in_array(mb_strtolower($parsedUrl['host']), ['coord.info', 'www.coord.info'])) {
+				if (preg_match('/^\/(' . self::CACHE_REGEX . ')$/', $parsedUrl['path'], $matches)) {
+					return $matches[1];
 				}
 			}
 		}
