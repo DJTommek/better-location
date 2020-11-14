@@ -9,6 +9,7 @@ use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Factory;
 use App\Geocaching\Client;
+use App\Icons;
 use App\Utils\General;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -47,6 +48,7 @@ final class GeocachingService extends AbstractService
 			self::TYPE_MAP,
 		];
 	}
+
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
 		if ($drive) {
@@ -170,18 +172,17 @@ final class GeocachingService extends AbstractService
 				$geocacheId = self::getCacheIdFromUrl($url);
 				$geocache = Factory::Geocaching()->loadGeocachePreview($geocacheId);
 				$betterLocation = new BetterLocation($url, $geocache->postedCoordinates->latitude, $geocache->postedCoordinates->longitude, self::class, self::TYPE_CACHE);
-				$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a> <a href="%s">%s</a>',
-					$url,
-					self::NAME,
-					$geocache->getLink(),
-					$geocache->code,
-				));
-				$betterLocation->setDescription(sprintf('<b>%s</b> (%s, %s, difficulty: %.1F, terrain: %.1F)',
-					htmlentities($geocache->name),
-					$geocache->getType(),
-					$geocache->getSize(),
-					$geocache->terrain,
-					$geocache->difficulty,
+				$prefix = sprintf('<a href="%s">%s</a>', $url, self::NAME);
+				$prefix .= sprintf(' <a href="%s">%s</a>', $geocache->getLink(), $geocache->code);
+				if ($geocache->isDisabled()) {
+					$prefix .= sprintf(' %s %s', Icons::WARNING, $geocache->getStatus());
+				}
+				$betterLocation->setPrefixMessage($prefix);
+				$betterLocation->setDescription(sprintf('%s (%s, D: %s, T: %s)',
+					$geocache->name,
+					$geocache->getTypeAndSize(),
+					sprintf($geocache->terrain >= 4 ? '<b>%.1F</b>' : '%.1F', $geocache->terrain),
+					sprintf($geocache->difficulty >= 4 ? '<b>%.1F</b>' : '%.1F', $geocache->difficulty),
 				));
 				return $betterLocation;
 			} catch (\Throwable $exception) {

@@ -162,4 +162,25 @@ class GeocachePreviewType
 				throw new \InvalidArgumentException(sprintf('Unknown geocache status for cacheStatus "%s".', $this->geocacheType));
 		}
 	}
+
+	public function isDisabled(): bool
+	{
+		return ($this->cacheStatus === self::STATUS_DISABLED);
+	}
+
+	/**
+	 * Optimalize output info about type and size of cache (remove redundant info)
+	 *
+	 * @return string
+	 */
+	public function getTypeAndSize(): string
+	{
+		$otherSizes = [self::SIZE_VIRTUAL, self::SIZE_OTHER, self::SIZE_NONE];
+		if ($this->geocacheType === self::TYPE_VIRTUAL && in_array($this->containerType, $otherSizes, true)) {
+			return $this->getType();
+		} else if ($this->geocacheType === self::TYPE_EARTH && in_array($this->containerType, $otherSizes, true)) {
+			return $this->getType();
+		}
+		return $this->getType() . ' ' . $this->getSize();
+	}
 }
