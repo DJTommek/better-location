@@ -27,7 +27,7 @@ class Client
 	{
 		$json = $this->makeJsonRequest(self::LINK_CACHE_API . $cacheId);
 		if (isset($json->statusCode) && $json->statusCode !== 200) {
-			throw new \Exception('Loading geocache preview responded with bad response code %d: "%s"', $json->statusCode, $json->statusMessage);
+			throw new \Exception(sprintf('Loading geocache preview responded with bad response code %d: "%s"', $json->statusCode, $json->statusMessage));
 		}
 		return GeocachePreviewType::createFromVariable($json);
 	}
