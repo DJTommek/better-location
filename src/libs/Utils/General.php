@@ -2,6 +2,9 @@
 
 namespace App\Utils;
 
+use Tracy\Debugger;
+use Tracy\ILogger;
+
 class General
 {
 	/**
@@ -53,7 +56,8 @@ class General
 		$curlInfo = curl_getinfo($curl);
 		list($header, $body) = explode("\r\n\r\n", $curlResponse, 2);
 		if ($curlInfo['http_code'] >= 500) {
-			throw new \Exception(sprintf('Page responded with HTTP code %d: Text response: "%s"', $curlInfo['http_code'], $body));
+			Debugger::log($body, ILogger::DEBUG);
+			throw new \Exception(sprintf('Page responded with HTTP code %d. Check debug.log for more info.', $curlInfo['http_code']));
 		}
 		if (!$body) {
 			$responseCode = trim(explode(PHP_EOL, $header)[0]);
