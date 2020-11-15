@@ -104,4 +104,21 @@ final class GeocachingServiceTest extends TestCase
 		$this->assertNull(GeocachingService::getCoordsFromMapUrl('https://www.geocaching.com/play/map?lat=95&lng=123&zoom=12&asc=true&sort=distance&sw=1')); // lat over limit
 		$this->assertNull(GeocachingService::getCoordsFromMapUrl('https://www.geocaching.com/play/map?lat=49.5&lng=191.111&zoom=12&asc=true&sort=distance&sw=1')); // lng over limit
 	}
+
+	public function testGetGeocachesIdFromText(): void {
+		$this->assertSame(['GC1111', 'gc12aBd'], GeocachingService::getGeocachesIdFromText('Some random text, geocache GC1111 newline
+gc12aBd, case in-sensitive, gc-blabla, gc.abc'));
+		$this->assertSame(['GC1111', 'gc12aBd'], GeocachingService::getGeocachesIdFromText('Some random text, geocache GC1111 newline gc12aBd
+, case in-sensitive, gc-blabla, gc.abc'));
+		$this->assertSame(['GC1111', 'gc12aBd'], GeocachingService::getGeocachesIdFromText('Some random text, geocache GC1111 newline 
+gc12aBd
+, case in-sensitive, gc-blabla, gc.abc'));
+		$this->assertSame(['gcbda', 'GC3DYC4'], GeocachingService::getGeocachesIdFromText('gcbda matching start and end strings GC3DYC4'));
+		$this->assertSame([], GeocachingService::getGeocachesIdFromText('Some random text ThisGCIsNot matched'));
+		$this->assertSame([], GeocachingService::getGeocachesIdFromText('Some random text GC-3DYC4 splitted, not matched'));
+		$this->assertSame([], GeocachingService::getGeocachesIdFromText('Some random text GC.3DYC4 splitted, not matched'));
+		$this->assertSame([], GeocachingService::getGeocachesIdFromText('Some random text GC,3DYC4 splitted, not matched'));
+		$this->assertSame([], GeocachingService::getGeocachesIdFromText('Some random text, splitted by newline GC
+11 not matched'));
+	}
 }
