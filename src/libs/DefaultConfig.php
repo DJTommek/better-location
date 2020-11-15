@@ -48,7 +48,7 @@ class DefaultConfig
 	/** @var ?string */
 	const GLYMPSE_API_KEY = null;
 
-	/** @var ?string Cookie of logged user to geocaching.com */
+	/** @var ?string Cookie of logged user to geocaching.com or null to disable */
 	const GEOCACHING_COOKIE = null;
 
 	/**
