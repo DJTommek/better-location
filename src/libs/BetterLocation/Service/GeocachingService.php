@@ -21,22 +21,22 @@ final class GeocachingService extends AbstractService
 	const LINK = Client::LINK;
 	const LINK_SHARE = Client::LINK_SHARE;
 
-	const CACHE_REGEX = 'GC[a-zA-Z0-9]{1,5}'; // keep limit as low as possible to best match and eliminate false positive
-	const LOG_REGEX = 'GL[a-zA-Z0-9]{1,7}'; // keep limit as low as possible to best match and eliminate false positive
+	const CACHE_REGEX = 'GC[A-Z0-9]{1,5}'; // keep limit as low as possible to best match and eliminate false positive
+	const LOG_REGEX = 'GL[A-Z0-9]{1,7}'; // keep limit as low as possible to best match and eliminate false positive
 
 	/**
 	 * https://www.geocaching.com/geocache/GC3DYC4_find-the-bug
 	 * https://www.geocaching.com/geocache/GC3DYC4
 	 * https://www.geocaching.com/geocache/GC3DYC4_find-the-bug?guid=df11c170-1af3-4ee1-853a-e97c1afe0722
 	 */
-	const URL_PATH_GEOCACHE_REGEX = '/^\/geocache\/(' . self::CACHE_REGEX . ')($|_)/'; // end or character "_"
+	const URL_PATH_GEOCACHE_REGEX = '/^\/geocache\/(' . self::CACHE_REGEX . ')($|_)/i'; // end or character "_"
 
 	/**
 	 * https://www.geocaching.com/geocache/GC3DYC4_find-the-bug
 	 * https://www.geocaching.com/geocache/GC3DYC4
 	 * https://www.geocaching.com/geocache/GC3DYC4_find-the-bug?guid=df11c170-1af3-4ee1-853a-e97c1afe0722
 	 */
-	const URL_PATH_MAP_GEOCACHE_REGEX = '/^\/play\/map\/(' . self::CACHE_REGEX . ')$/';
+	const URL_PATH_MAP_GEOCACHE_REGEX = '/^\/play\/map\/(' . self::CACHE_REGEX . ')$/i';
 
 	const TYPE_CACHE = 'cache';
 	const TYPE_MAP = 'map';
@@ -109,32 +109,32 @@ final class GeocachingService extends AbstractService
 					// https://www.geocaching.com/geocache/GC3DYC4_find-the-bug
 					// https://www.geocaching.com/geocache/GC3DYC4
 					// https://www.geocaching.com/geocache/GC3DYC4_find-the-bug?guid=df11c170-1af3-4ee1-853a-e97c1afe0722
-					return $matches[1];
+					return mb_strtoupper($matches[1]);
 				} else if (preg_match(self::URL_PATH_MAP_GEOCACHE_REGEX, $parsedUrl['path'], $matches)) {
 					// https://www.geocaching.com/play/map/GC3DYC4
-					return $matches[1];
+					return mb_strtoupper($matches[1]);
 				} else if (isset($parsedUrl['query'])) {
 					$query = $parsedUrl['query'];
 					if (
 						$parsedUrl['path'] === '/seek/log.aspx' &&
 						isset($query['code']) &&
-						preg_match('/^' . self::LOG_REGEX . '$/', $query['code'], $matches)
+						preg_match('/^' . self::LOG_REGEX . '$/i', $query['code'], $matches)
 					) {
 						// https://www.geocaching.com/seek/log.aspx?code=GL133PQK0
 						return null; // @TODO load log to get geocache ID
 					} else if (
 						mb_strpos($parsedUrl['path'], '/play/map') === 0 && // might be "/play/map" or "/play/map/"
 						isset($query['gc']) &&
-						preg_match('/^' . self::CACHE_REGEX . '$/', $query['gc'], $matches)
+						preg_match('/^' . self::CACHE_REGEX . '$/i', $query['gc'], $matches)
 					) {
 						// https://www.geocaching.com/play/map?gc=GC3DYC4
-						return $query['gc'];
+						return mb_strtoupper($query['gc']);
 					}
 				}
 			}
 			if (in_array(mb_strtolower($parsedUrl['host']), ['coord.info', 'www.coord.info'])) {
-				if (preg_match('/^\/(' . self::CACHE_REGEX . ')$/', $parsedUrl['path'], $matches)) {
-					return $matches[1];
+				if (preg_match('/^\/(' . self::CACHE_REGEX . ')$/i', $parsedUrl['path'], $matches)) {
+					return mb_strtoupper($matches[1]);
 				}
 			}
 		}
@@ -149,8 +149,10 @@ final class GeocachingService extends AbstractService
 			mb_strpos($parsedUrl['path'], '/play/map') === 0 && // might be "/play/map" or "/play/map/"
 			isset($parsedUrl['query']) &&
 			isset($parsedUrl['query']['lat']) &&
+			is_numeric($parsedUrl['query']['lat']) &&
 			BetterLocation::isLatValid(floatval($parsedUrl['query']['lat'])) &&
 			isset($parsedUrl['query']['lng']) &&
+			is_numeric($parsedUrl['query']['lng']) &&
 			BetterLocation::isLonValid(floatval($parsedUrl['query']['lng']))
 		) {
 			return [
