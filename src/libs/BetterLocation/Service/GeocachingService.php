@@ -221,7 +221,9 @@ final class GeocachingService extends AbstractService
 			try {
 				$geocacheId = self::getCacheIdFromUrl($url);
 				$geocache = Factory::Geocaching()->loadGeocachePreview($geocacheId);
-				return self::formatApiResponse($geocache);
+				return self::formatApiResponse($geocache, $originalUrl);
+			} catch (InvalidLocationException $exception) {
+				throw $exception;
 			} catch (\Throwable $exception) {
 				Debugger::log($exception, ILogger::EXCEPTION);
 				throw new InvalidLocationException(sprintf('Error while processing %s URL, try again later.', self::NAME));
@@ -236,6 +238,9 @@ final class GeocachingService extends AbstractService
 
 	private static function formatApiResponse(GeocachePreviewType $geocache, string $input): BetterLocation
 	{
+		if ($geocache->premiumOnly === true) {
+			throw new InvalidLocationException(sprintf('Cannot show coordinates for geocache <a href="%s">%s</a> - for Geocaching premium users only.', $geocache->getLink(), $geocache->code));
+		}
 		$betterLocation = new BetterLocation($input, $geocache->postedCoordinates->latitude, $geocache->postedCoordinates->longitude, self::class, self::TYPE_CACHE);
 		if (preg_match('/^https?:\/\//', $input)) {
 			$prefix = sprintf('<a href="%s">%s</a>', $input, self::NAME);
