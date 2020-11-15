@@ -10,6 +10,7 @@ use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Url;
 use App\Factory;
 use App\Geocaching\Client;
+use App\Geocaching\Types\GeocachePreviewType;
 use App\Icons;
 use App\Utils\General;
 use App\Utils\StringUtils;
@@ -25,6 +26,8 @@ final class GeocachingService extends AbstractService
 
 	const CACHE_REGEX = 'GC[A-Z0-9]{1,5}'; // keep limit as low as possible to best match and eliminate false positive
 	const LOG_REGEX = 'GL[A-Z0-9]{1,7}'; // keep limit as low as possible to best match and eliminate false positive
+
+	const CACHE_IN_TEXT_REGEX = '/(?:^|\W)(' . self::CACHE_REGEX . ')(?:$|\W)/ims';
 
 	/**
 	 * https://www.geocaching.com/geocache/GC3DYC4_find-the-bug
@@ -58,6 +61,33 @@ final class GeocachingService extends AbstractService
 		} else {
 			return self::LINK . sprintf('/play/map?lat=%1$f&lng=%2$f', $lat, $lon);
 		}
+	}
+
+	public static function getGeocachesIdFromText(string $text): array
+	{
+		$geocaches = [];
+		$inStringRegex = self::CACHE_IN_TEXT_REGEX;
+		if (preg_match_all($inStringRegex, $text, $matches)) {
+			for ($i = 0; $i < count($matches[1]); $i++) {
+				$geocaches[] = trim($matches[1][$i]);
+			}
+		}
+		return $geocaches;
+	}
+
+	public static function findInText(string $text): BetterLocationCollection
+	{
+		$collection = new BetterLocationCollection();
+		foreach (self::getGeocachesIdFromText($text) as $geocacheId) {
+			try {
+				$geocache = Factory::Geocaching()->loadGeocachePreview($geocacheId);
+				$collection->add(self::formatApiResponse($geocache, $geocacheId));
+			} catch (\Throwable $exception) {
+				Debugger::log($exception, ILogger::DEBUG);
+				// do nothing, probably not valid cache
+			}
+		}
+		return $collection;
 	}
 
 	public static function isValid(string $input): bool
@@ -191,20 +221,7 @@ final class GeocachingService extends AbstractService
 			try {
 				$geocacheId = self::getCacheIdFromUrl($url);
 				$geocache = Factory::Geocaching()->loadGeocachePreview($geocacheId);
-				$betterLocation = new BetterLocation($originalUrl, $geocache->postedCoordinates->latitude, $geocache->postedCoordinates->longitude, self::class, self::TYPE_CACHE);
-				$prefix = sprintf('<a href="%s">%s</a>', $originalUrl, self::NAME);
-				$prefix .= sprintf(' <a href="%s">%s</a>', $geocache->getLink(), $geocache->code);
-				if ($geocache->isDisabled()) {
-					$prefix .= sprintf(' %s %s', Icons::WARNING, $geocache->getStatus());
-				}
-				$betterLocation->setPrefixMessage($prefix);
-				$betterLocation->setDescription(sprintf('%s (%s, D: %s, T: %s)',
-					$geocache->name,
-					$geocache->getTypeAndSize(),
-					sprintf($geocache->terrain >= 4 ? '<b>%.1F</b>' : '%.1F', $geocache->terrain),
-					sprintf($geocache->difficulty >= 4 ? '<b>%.1F</b>' : '%.1F', $geocache->difficulty),
-				));
-				return $betterLocation;
+				return self::formatApiResponse($geocache);
 			} catch (\Throwable $exception) {
 				Debugger::log($exception, ILogger::EXCEPTION);
 				throw new InvalidLocationException(sprintf('Error while processing %s URL, try again later.', self::NAME));
@@ -215,5 +232,27 @@ final class GeocachingService extends AbstractService
 	public static function parseCoordsMultiple(string $input): BetterLocationCollection
 	{
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
+	}
+
+	private static function formatApiResponse(GeocachePreviewType $geocache, string $input): BetterLocation
+	{
+		$betterLocation = new BetterLocation($input, $geocache->postedCoordinates->latitude, $geocache->postedCoordinates->longitude, self::class, self::TYPE_CACHE);
+		if (preg_match('/^https?:\/\//', $input)) {
+			$prefix = sprintf('<a href="%s">%s</a>', $input, self::NAME);
+		} else {
+			$prefix = self::NAME;
+		}
+		$prefix .= sprintf(' <a href="%s">%s</a>', $geocache->getLink(), $geocache->code);
+		if ($geocache->isDisabled()) {
+			$prefix .= sprintf(' %s %s', Icons::WARNING, $geocache->getStatus());
+		}
+		$betterLocation->setPrefixMessage($prefix);
+		$betterLocation->setDescription(sprintf('%s (%s, D: %s, T: %s)',
+			$geocache->name,
+			$geocache->getTypeAndSize(),
+			sprintf($geocache->terrain >= 4 ? '<b>%.1F</b>' : '%.1F', $geocache->terrain),
+			sprintf($geocache->difficulty >= 4 ? '<b>%.1F</b>' : '%.1F', $geocache->difficulty),
+		));
+		return $betterLocation;
 	}
 }

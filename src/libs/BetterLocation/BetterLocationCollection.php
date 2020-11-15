@@ -300,6 +300,9 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		$betterLocationsCollection->mergeCollection(WG84DegreesMinutesSecondsService::findInText($messageWithoutUrls));
 		$betterLocationsCollection->mergeCollection(MGRSService::findInText($messageWithoutUrls));
 		$betterLocationsCollection->mergeCollection(USNGService::findInText($messageWithoutUrls));
+		if (is_null(Config::GEOCACHING_COOKIE) === false) {
+			$betterLocationsCollection->mergeCollection(GeocachingService::findInText($messageWithoutUrls));
+		}
 
 		// OpenLocationCode (Plus codes)
 		$openLocationCodes = preg_match_all(OpenLocationCodeService::RE_IN_STRING, $messageWithoutUrls, $matches);
