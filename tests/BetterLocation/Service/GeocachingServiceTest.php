@@ -25,6 +25,46 @@ final class GeocachingServiceTest extends TestCase
 		GeocachingService::getLink(50.087451, 14.420671, true);
 	}
 
+	public function testIsUrl(): void
+	{
+		// geocaching.com geocache
+		$this->assertTrue(GeocachingService::isUrl('https://www.geocaching.com/geocache/GC3DYC4'));
+		$this->assertTrue(GeocachingService::isUrl('http://www.geocaching.com/geocache/GC3DYC4'));
+		$this->assertTrue(GeocachingService::isUrl('https://geocaching.com/geocache/GC3DYC4'));
+		$this->assertTrue(GeocachingService::isUrl('http://geocaching.com/geocache/GC3DYC4'));
+		$this->assertTrue(GeocachingService::isUrl('https://GEOcacHing.cOm/geocache/GC3dyC4'));
+
+		// geocaching.com geocache with name
+		$this->assertTrue(GeocachingService::isUrl('https://www.geocaching.com/geocache/GC3DYC4_find-the-bug'));
+		$this->assertTrue(GeocachingService::isUrl('https://www.geocaching.com/geocache/GC3DYC4_find-the-bug?guid=df11c170-1af3-4ee1-853a-e97c1afe0722'));
+
+		// geocaching.com geocache guid
+		$this->assertTrue(GeocachingService::isUrl('https://www.geocaching.com/seek/cache_details.aspx?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
+		$this->assertTrue(GeocachingService::isUrl('https://www.geocaching.com/seek/cache_details.aspx?GUID=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
+
+		// geocaching.com map geocache
+		$this->assertTrue(GeocachingService::isUrl('https://www.geocaching.com/play/map/GC3DYC4'));
+		$this->assertTrue(GeocachingService::isUrl('https://www.geocaching.com/play/map/gC3dyC4'));
+
+		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com'));
+		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com/geocache/'));
+		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com/geocache/AA3DYC4'));
+
+		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com/seek/cache_details.aspx?guid={498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4}'));
+		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com/seek/cache_details.aaa?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
+		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com/seek/blabla.aspx?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
+		$this->assertFalse(GeocachingService::isUrl('https://coord.info/seek/cache_details.aspx?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
+
+		// coord.info geocache
+		$this->assertTrue(GeocachingService::isUrl('https://coord.info/GC3DYC4'));
+		$this->assertTrue(GeocachingService::isUrl('https://www.coord.info/GC3DYC4'));
+		$this->assertTrue(GeocachingService::isUrl('https://coOrD.INfo/Gc3dyC4'));
+
+		$this->assertFalse(GeocachingService::isUrl('https://coord.info/AA3dyC4'));
+		$this->assertFalse(GeocachingService::isUrl('https://coord.info/GC'));
+	}
+
+
 	public function testGetCacheIdFromUrlGeocachingCom(): void
 	{
 		$this->assertEquals('GC3DYC4', GeocachingService::getCacheIdFromUrl('https://www.geocaching.com/geocache/GC3DYC4'));
@@ -49,8 +89,8 @@ final class GeocachingServiceTest extends TestCase
 		$this->assertEquals('GC3DYC4', GeocachingService::getCacheIdFromUrl('https://www.coord.info/GC3DYC4'));
 		$this->assertEquals('GC3DYC4', GeocachingService::getCacheIdFromUrl('https://coOrD.INfo/Gc3dyC4'));
 
-		$this->assertNull(GeocachingService::getCacheIdFromUrl('https://coOrD.INfo/AA3dyC4'));
-		$this->assertNull(GeocachingService::getCacheIdFromUrl('https://coOrD.INfo/GC'));
+		$this->assertNull(GeocachingService::getCacheIdFromUrl('https://coord.info/AA3dyC4'));
+		$this->assertNull(GeocachingService::getCacheIdFromUrl('https://coord.info/GC'));
 	}
 
 	public function testGetCoordsFromMapUrl(): void

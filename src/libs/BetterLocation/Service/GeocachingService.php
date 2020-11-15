@@ -7,10 +7,12 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\Url;
 use App\Factory;
 use App\Geocaching\Client;
 use App\Icons;
 use App\Utils\General;
+use App\Utils\StringUtils;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
@@ -76,7 +78,7 @@ final class GeocachingService extends AbstractService
 	public static function isUrl(string $url): bool
 	{
 		if (self::isCorrectDomainUrl($url)) {
-			return is_string(self::getCacheIdFromUrl($url)) || is_array(self::getCoordsFromMapUrl($url));
+			return is_string(self::getCacheIdFromUrl($url)) || is_array(self::getCoordsFromMapUrl($url)) || self::isGuidUrl($url);
 		}
 		return false;
 	}
@@ -86,7 +88,20 @@ final class GeocachingService extends AbstractService
 		$parsedUrl = General::parseUrl($url);
 		return (
 			isset($parsedUrl['host']) &&
-			in_array(mb_strtolower($parsedUrl['host']), ['geocaching.com', 'www.geocaching.com', 'coord.info', 'www.coord.info'])
+			in_array(mb_strtolower($parsedUrl['host']), ['geocaching.com', 'www.geocaching.com', 'coord.info', 'www.coord.info'], true)
+		);
+	}
+
+	private static function isGuidUrl($url): bool
+	{
+		$parsedUrl = General::parseUrl(mb_strtolower($url));
+		return (
+			in_array($parsedUrl['host'], ['geocaching.com', 'www.geocaching.com'], true) &&
+			isset($parsedUrl['path']) &&
+			$parsedUrl['path'] === '/seek/cache_details.aspx' &&
+			isset($parsedUrl['query']) &&
+			isset($parsedUrl['query']['guid']) &&
+			StringUtils::isGuid($parsedUrl['query']['guid'], false)
 		);
 	}
 
@@ -104,7 +119,7 @@ final class GeocachingService extends AbstractService
 	{
 		$parsedUrl = General::parseUrl($url);
 		if (isset($parsedUrl['path'])) {
-			if (in_array(mb_strtolower($parsedUrl['host']), ['geocaching.com', 'www.geocaching.com'])) {
+			if (in_array(mb_strtolower($parsedUrl['host']), ['geocaching.com', 'www.geocaching.com'], true)) {
 				if (preg_match(self::URL_PATH_GEOCACHE_REGEX, $parsedUrl['path'], $matches)) {
 					// https://www.geocaching.com/geocache/GC3DYC4_find-the-bug
 					// https://www.geocaching.com/geocache/GC3DYC4
@@ -166,15 +181,18 @@ final class GeocachingService extends AbstractService
 
 	public static function parseUrl(string $url): BetterLocation
 	{
-		$coords = self::getCoordsFromMapUrl($url);
-		if ($coords) {
-			return new BetterLocation($url, $coords[0], $coords[1], self::class, self::TYPE_MAP);
+		$originalUrl = $url;
+		if ($coords = self::getCoordsFromMapUrl($url)) {
+			return new BetterLocation($originalUrl, $coords[0], $coords[1], self::class, self::TYPE_MAP);
 		} else {
+			if (self::isGuidUrl($url)) {
+				$url = Url::getRedirectUrl($url);
+			}
 			try {
 				$geocacheId = self::getCacheIdFromUrl($url);
 				$geocache = Factory::Geocaching()->loadGeocachePreview($geocacheId);
-				$betterLocation = new BetterLocation($url, $geocache->postedCoordinates->latitude, $geocache->postedCoordinates->longitude, self::class, self::TYPE_CACHE);
-				$prefix = sprintf('<a href="%s">%s</a>', $url, self::NAME);
+				$betterLocation = new BetterLocation($originalUrl, $geocache->postedCoordinates->latitude, $geocache->postedCoordinates->longitude, self::class, self::TYPE_CACHE);
+				$prefix = sprintf('<a href="%s">%s</a>', $originalUrl, self::NAME);
 				$prefix .= sprintf(' <a href="%s">%s</a>', $geocache->getLink(), $geocache->code);
 				if ($geocache->isDisabled()) {
 					$prefix .= sprintf(' %s %s', Icons::WARNING, $geocache->getStatus());
