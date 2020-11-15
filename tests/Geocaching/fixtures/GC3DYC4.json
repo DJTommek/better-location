@@ -1,0 +1,161 @@
+{
+	"name": "Find the bug",
+	"code": "GC3DYC4",
+	"premiumOnly": false,
+	"favoritePoints": 35,
+	"geocacheType": 8,
+	"containerType": 2,
+	"difficulty": 2.5,
+	"terrain": 1.5,
+	"description": "<p>EN<br>\r\n<br>\r\nUse of the term \"bug\" to describe inexplicable defects has been a part of engineering jargon for many decades and predates computers and computer software; it may have originally been used in hardware engineering to describe mechanical malfunctions. For instance, Thomas Edison wrote the following words in a letter to an associate in 1878: It has been just so in all of my inventions. The first step is an intuition, and comes with a burst, then difficulties arise — this thing gives out and [it is] then that \"Bugs\" — as such little faults and difficulties are called — show themselves and months of intense watching, study and labor are requisite before commercial success or failure is certainly reached. The Middle English word bugge is the basis for the terms \"bugbear\" and \"bugaboo\", terms used for a monster. Baffle Ball, the first mechanical pinball game, was advertised as being \"free of bugs\" in 1931. Problems with military gear during World War II were referred to as bugs (or glitches). A page from the Harvard Mark II electromechanical computer's log, featuring a dead moth that was removed from the device The term \"bug\" was used in an account by computer pioneer Grace Hopper, who publicized the cause of a malfunction in an early electromechanical computer. A typical version of the story is given by this quote: In 1946, when Hopper was released from active duty, she joined the Harvard Faculty at the Computation Laboratory where she continued her work on the Mark II and Mark III. Operators traced an error in the Mark II to a moth trapped in a relay, coining the term bug. This bug was carefully removed and taped to the log book. Stemming from the first bug, today we call errors or glitches in a program a bug. Hopper was not actually the one who found the insect, as she readily acknowledged. The date in the log book was September 9, 1947, although sometimes erroneously reported as 1945. The operators who did find it, including William \"Bill\" Burke, later of the Naval Weapons Laboratory, Dahlgren, Virginia, were familiar with the engineering term and, amused, kept the insect with the notation \"First actual case of bug being found.\" Hopper loved to recount the story. This log book, complete with attached moth, is part of the collection of the Smithsonian National Museum of American History. The related term \"debug\" also appears to predate its usage in computing: the Oxford English Dictionary's etymology of the word contains an attestation from 1945, in the context of aircraft engines.</p>\r\nCZ<br>\r\n<br>\r\nProgramátorská chyba se často i v češtině označuje anglickým výrazem bug a proces jejího odstraňování ladění (debugování). Bug znamená doslova moucha, štěnice nebo obecně brouk. V angličtině se ve významu chyba (například konstruktérská) používá už velmi dlouho – použil ho například Thomas Edison roku 1878, když mluvil o svých vynálezech. S počítači pak pronikl do mnoha dalších jazyků. Traduje se, že původem tohoto významu je problém způsobený skutečným hmyzem. Známá je třeba historka o molu zachyceném na relé počítače Mark II dne 9. září 1947. Mol byl pečlivě vyproštěn a nalepen do záznamu s poznámkou „první skutečný případ nalezeného bugu“. Je ovšem zřejmé nejen to, že se nejedná o první výskyt termínu, ale také to, že operátoři o konstruktérském použití věděli. Zdroj: wikipedia.org",
+	"shortDescription": "EN<br>\r\nThe point of this mystery cache is first to find (or discover by chance) the TB that has attached to it the coordinates of the cache. The TB name is <a href=\"http://coord.info/TB4EAMY\">Find the bug TB</a> with tracking code <a href=\"http://coord.info/TB4EAMY\">TB4EAMY</a>.<br>\r\nCZ<br>\r\nHlavním cílem mystery-častí této cache je najít (nebo objevit náhodou) TB <a href=\"http://coord.info/TB4EAMY\">Find The Bug</a> s kódem TB4EAMY, který vám odhalí souřadnice finále.",
+	"hint": "Pod velkým kamenem.",
+	"userFound": false,
+	"userDidNotFind": false,
+	"userFavorited": false,
+	"detailsUrl": "/geocache/GC3DYC4",
+	"hasGeotour": false,
+	"placedDate": "2012-03-05T00:00:00",
+	"owner": {
+		"code": "PR6GAZ7",
+		"username": "AdMari"
+	},
+	"cacheStatus": 0,
+	"postedCoordinates": {
+		"latitude": 50.087717,
+		"longitude": 14.42115
+	},
+	"totalActivities": 685,
+	"recentActivities": [
+		{
+			"owner": {
+				"code": "PRA85QQ",
+				"username": "rabbit PF",
+				"avatar": "https://img.geocaching.com/avatar/c80f1684-49f2-4197-8f4e-57095dcd0a45.jpeg"
+			},
+			"activityTypeId": 2,
+			"text": "<p>Tak na druhy pokus odlovena,logoval jsem jako prvni do cisteho logbooku. A kdyz ted koukam na cas,tak uplne suprove - 11.11.2020 v 11h11m :-D</p>\n<p>Diky!</p>\n",
+			"code": "GL134X6V4",
+			"dateCreatedUtc": "2020-11-11T10:12:39.1791876",
+			"dateLastUpdatedUtc": "2020-11-11T10:12:39.383",
+			"logDate": "2020-11-11T12:00:00"
+		},
+		{
+			"owner": {
+				"code": "PR6GAZ7",
+				"username": "AdMari",
+				"avatar": "https://img.geocaching.com/avatar/892415f6-9a2e-4a5a-a49b-d8f1a3d54260.jpg"
+			},
+			"activityTypeId": 46,
+			"text": "<p>Náhradní krabička je na místě. Návrat poblíž k původním souřadnicím. Děkuji všem za trpělivost.</p>\n",
+			"code": "GL133PQK0",
+			"dateCreatedUtc": "2020-11-07T14:06:35.1047619",
+			"dateLastUpdatedUtc": "2020-11-07T14:06:35.13",
+			"logDate": "2020-11-07T12:00:00"
+		},
+		{
+			"owner": {
+				"code": "PRX2QK1",
+				"username": "RadimDusek",
+				"avatar": "https://img.geocaching.com/avatar/3c88e5b8-1e15-4b4f-8eef-57e4b5483846.png"
+			},
+			"activityTypeId": 3,
+			"text": "<p>My bohužel také nic. Možná by to chtělo kontrolu místa </p>\n",
+			"code": "GL130J9AX",
+			"dateCreatedUtc": "2020-10-24T14:09:07.8425623",
+			"dateLastUpdatedUtc": "2020-10-24T14:09:07.86",
+			"logDate": "2020-10-24T16:09:07"
+		},
+		{
+			"owner": {
+				"code": "PR3KWJX",
+				"username": "bosorcicka",
+				"avatar": "https://img.geocaching.com/avatar/a629f6f3-7d42-4e1b-aba7-cf3b43dddd83.jpg"
+			},
+			"activityTypeId": 3,
+			"text": "<p>DNF jsem si nevsimla, takze jsme si taky chvilku cvicne zahledali...</p>\n",
+			"code": "GL12WDX2Q",
+			"dateCreatedUtc": "2020-10-08T16:14:26.4834449",
+			"dateLastUpdatedUtc": "2020-10-08T16:14:26.497",
+			"logDate": "2020-10-08T12:00:00"
+		},
+		{
+			"owner": {
+				"code": "PR4J5ZF",
+				"username": "Hygen",
+				"avatar": "https://img.geocaching.com/avatar/41924db5-3d72-44ac-9299-416e9bf96ccd.jpg"
+			},
+			"activityTypeId": 3,
+			"text": "<p>Tady dneska bez nálezu a bez nápadu :(</p>\n",
+			"code": "GL12T66AP",
+			"dateCreatedUtc": "2020-09-28T14:40:52.8410851",
+			"dateLastUpdatedUtc": "2020-09-28T14:40:52.87",
+			"logDate": "2020-09-27T12:00:00"
+		},
+		{
+			"owner": {
+				"code": "PRA85QQ",
+				"username": "rabbit PF",
+				"avatar": "https://img.geocaching.com/avatar/c80f1684-49f2-4197-8f4e-57095dcd0a45.jpeg"
+			},
+			"activityTypeId": 3,
+			"text": "<p>Jsem podrapanej od ostruzin, popalenej od kopriv, ale ani po pul hodine jsem nic nenasel..... TB cestuje,ale uz tu od kvetna neni nalez.... Treba jsem jen spatne hledal. Zkusil jsem vice stromu,ne jen 15m od finalnich spuradnic.</p>\n",
+			"code": "GL12ND94P",
+			"dateCreatedUtc": "2020-09-15T10:57:10.1679223",
+			"dateLastUpdatedUtc": "2020-09-15T17:47:55.487",
+			"logDate": "2020-09-15T12:00:00"
+		},
+		{
+			"owner": {
+				"code": "PR5X0V6",
+				"username": "Demolik",
+				"avatar": "https://img.geocaching.com/avatar/0c7b8a04-c0c7-4849-a5bf-0ca99f8d98e6.jpg"
+			},
+			"activityTypeId": 2,
+			"text": "<p>Diky za keš. Knečně došlo na tento dlouho odkládaný restík. </p>\n",
+			"code": "GL11BXFJK",
+			"dateCreatedUtc": "2020-05-12T20:29:08.8703303",
+			"dateLastUpdatedUtc": "2020-05-12T20:29:08.89",
+			"logDate": "2020-05-06T12:00:00"
+		},
+		{
+			"owner": {
+				"code": "PR3KWJX",
+				"username": "bosorcicka",
+				"avatar": "https://img.geocaching.com/avatar/a629f6f3-7d42-4e1b-aba7-cf3b43dddd83.jpg"
+			},
+			"activityTypeId": 4,
+			"text": "<p>TB odvezen na udrzbu k ownerum...</p>\n",
+			"code": "GL10Z1H7M",
+			"dateCreatedUtc": "2020-03-20T16:30:50.2991081",
+			"dateLastUpdatedUtc": "2020-03-20T16:30:50.353",
+			"logDate": "2020-03-20T12:00:00"
+		},
+		{
+			"owner": {
+				"code": "PRTAP9B",
+				"username": "Rhodopis",
+				"avatar": "https://img.geocaching.com/avatar/6c318afc-4975-4787-a2fc-ed05db4e87a1.jpg"
+			},
+			"activityTypeId": 2,
+			"text": "<p>🌞odpoledne jsme se s hannčou opět toulaly po Praze a při hledání jedné mysterky jsme náhodou narazily na tuhle krabičku...:-D<br />\nDíky :-)</p>\n",
+			"code": "GL10V1NTE",
+			"dateCreatedUtc": "2020-03-01T16:55:05.0605038",
+			"dateLastUpdatedUtc": "2020-03-02T22:35:16.15",
+			"logDate": "2020-03-01T17:54:33.983"
+		},
+		{
+			"owner": {
+				"code": "PR40MA5",
+				"username": "makulka2005",
+				"avatar": "https://img.geocaching.com/avatar/bf83c220-f99c-48da-97af-6a04aefba14f.jpg"
+			},
+			"activityTypeId": 3,
+			"text": "<p>Ve 14,15 jsem přijela z Pardubic do Prahy na lov. Chodila jsem 4hodiny, 15km a našla 25 keší, všem ownerům moc děkuji.<br />\nLovení ve městě nemám ráda za bílého dne, proto jsem byla nadšená hlavně z virtuálek, kterých je tu opravdu hodně. Doufám že jsem v těch davech byla co nejvíc nenápadná.<br />\nV 18,30 přijela moje milá tchýně a šly jsme spolu do divadla Studio 2 a pak zase vlakem domů.</p>\n<p>Tak tady jsem neuspěla. Na hledání byl klid a čas, ale nic jsem nenašla 😕</p>\n",
+			"code": "GL10PMHB2",
+			"dateCreatedUtc": "2020-02-14T08:47:00.4470659",
+			"dateLastUpdatedUtc": "2020-02-14T08:47:00.467",
+			"logDate": "2020-02-13T12:00:00"
+		}
+	]
+}
