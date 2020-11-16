@@ -31,6 +31,7 @@ class BetterLocation
 	private $sourceService;
 	private $sourceType;
 	private $pregeneratedLinks = [];
+	private $inlinePrefixMessage;
 
 	/**
 	 * BetterLocation constructor.
@@ -273,6 +274,16 @@ class BetterLocation
 	public function getPrefixMessage(): ?string
 	{
 		return $this->prefixMessage;
+	}
+
+	public function setInlinePrefixMessage(string $inlinePrefixMessage): void
+	{
+		$this->inlinePrefixMessage = $inlinePrefixMessage;
+	}
+
+	public function getInlinePrefixMessage(): ?string
+	{
+		return $this->inlinePrefixMessage;
 	}
 
 	/**

@@ -164,7 +164,13 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->id = rand(100000, 999999);
 		$inlineQueryResult->latitude = $betterLocation->getLat();
 		$inlineQueryResult->longitude = $betterLocation->getLon();
-		$inlineQueryResult->title = $inlineTitle ?? strip_tags($betterLocation->getPrefixMessage());
+		if (is_null($inlineTitle)) {
+			$inlineTitle = $betterLocation->getInlinePrefixMessage();
+			if (is_null($inlineTitle)) {
+				$inlineTitle = $betterLocation->getPrefixMessage();
+			}
+		}
+		$inlineQueryResult->title = strip_tags($inlineTitle);
 		if ($betterLocation->getAddress()) {
 			$inlineQueryResult->title .= sprintf(' (%s)', $betterLocation->getAddress());
 		}
