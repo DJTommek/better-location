@@ -55,6 +55,27 @@ final class GeocachingServiceTest extends TestCase
 		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com/seek/blabla.aspx?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
 		$this->assertFalse(GeocachingService::isUrl('https://coord.info/seek/cache_details.aspx?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
 
+		// geocaching.com map search
+		$this->assertTrue(GeocachingService::isUrl('https://www.geocaching.com/play/map?lat=50.087717&lng=14.42115&zoom=18&asc=true&sort=distance'));
+		$this->assertTrue(GeocachingService::isUrl('https://www.geocaching.com/play/map/?lat=50.087717&lng=14.42115&zoom=18&asc=true&sort=distance'));
+		$this->assertTrue(GeocachingService::isUrl('https://www.geocaching.com/play/map?lat=-50.08&lng=14.42115&zoom=18&asc=true&sort=distance'));
+		$this->assertTrue(GeocachingService::isUrl('https://www.geocaching.com/play/map?lat=-51.705545&lng=-57.933311&zoom=12&asc=true&sort=distance&sw=1'));
+
+		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com/play/map?lat=-51.aaa&lng=123&zoom=12&asc=true&sort=distance&sw=1')); // invalid lat
+		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com/play/map?lat=-51.705545&lng=123aa&zoom=12&asc=true&sort=distance&sw=1')); // invalid lng
+		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com/play/map?lat=95&lng=123&zoom=12&asc=true&sort=distance&sw=1')); // lat over limit
+		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com/play/map?lat=49.5&lng=191.111&zoom=12&asc=true&sort=distance&sw=1')); // lng over limit
+
+		// geocaching.com map browse
+		$this->assertTrue(GeocachingService::isUrl('https://www.geocaching.com/map/#?ll=50.05821,14.457&z=16'));
+		$this->assertTrue(GeocachingService::isUrl('https://www.geocaching.com/map/#?ll=-50.08,14.42115&z=9'));
+		$this->assertTrue(GeocachingService::isUrl('https://www.geocaching.com/map/#?z=10&ll=-51.705545,-57.933311'));
+
+		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com/map/#?ll=50.aaa,14.457&z=16')); // invalid lat
+		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com/map/#?ll=50.05821,14.123aaa&z=16')); // invalid lng
+		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com/map/#?ll=95.05821,14.457&z=16')); // lat over limit
+		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com/map/#?ll=50.05821,194.457&z=16')); // lng over limit
+
 		// coord.info geocache
 		$this->assertTrue(GeocachingService::isUrl('https://coord.info/GC3DYC4'));
 		$this->assertTrue(GeocachingService::isUrl('https://www.coord.info/GC3DYC4'));
@@ -93,19 +114,33 @@ final class GeocachingServiceTest extends TestCase
 		$this->assertNull(GeocachingService::getCacheIdFromUrl('https://coord.info/GC'));
 	}
 
-	public function testGetCoordsFromMapUrl(): void
+	public function testGetCoordsFromMapSearchUrl(): void
 	{
-		$this->assertEquals([50.087717, 14.42115], GeocachingService::getCoordsFromMapUrl('https://www.geocaching.com/play/map?lat=50.087717&lng=14.42115&zoom=18&asc=true&sort=distance'));
-		$this->assertEquals([-50.08, 14.42115], GeocachingService::getCoordsFromMapUrl('https://www.geocaching.com/play/map?lat=-50.08&lng=14.42115&zoom=18&asc=true&sort=distance'));
-		$this->assertEquals([-51.705545, -57.933311], GeocachingService::getCoordsFromMapUrl('https://www.geocaching.com/play/map?lat=-51.705545&lng=-57.933311&zoom=12&asc=true&sort=distance&sw=1'));
+		$this->assertEquals([50.087717, 14.42115], GeocachingService::getCoordsFromMapSearchUrl('https://www.geocaching.com/play/map?lat=50.087717&lng=14.42115&zoom=18&asc=true&sort=distance'));
+		$this->assertEquals([50.087717, 14.42115], GeocachingService::getCoordsFromMapSearchUrl('https://www.geocaching.com/play/map/?lat=50.087717&lng=14.42115&zoom=18&asc=true&sort=distance'));
+		$this->assertEquals([-50.08, 14.42115], GeocachingService::getCoordsFromMapSearchUrl('https://www.geocaching.com/play/map?lat=-50.08&lng=14.42115&zoom=18&asc=true&sort=distance'));
+		$this->assertEquals([-51.705545, -57.933311], GeocachingService::getCoordsFromMapSearchUrl('https://www.geocaching.com/play/map?lat=-51.705545&lng=-57.933311&zoom=12&asc=true&sort=distance&sw=1'));
 
-		$this->assertNull(GeocachingService::getCoordsFromMapUrl('https://www.geocaching.com/play/map?lat=-51.aaa&lng=123&zoom=12&asc=true&sort=distance&sw=1')); // invalid lat
-		$this->assertNull(GeocachingService::getCoordsFromMapUrl('https://www.geocaching.com/play/map?lat=-51.705545&lng=123aa&zoom=12&asc=true&sort=distance&sw=1')); // invalid lng
-		$this->assertNull(GeocachingService::getCoordsFromMapUrl('https://www.geocaching.com/play/map?lat=95&lng=123&zoom=12&asc=true&sort=distance&sw=1')); // lat over limit
-		$this->assertNull(GeocachingService::getCoordsFromMapUrl('https://www.geocaching.com/play/map?lat=49.5&lng=191.111&zoom=12&asc=true&sort=distance&sw=1')); // lng over limit
+		$this->assertNull(GeocachingService::getCoordsFromMapSearchUrl('https://www.geocaching.com/play/map?lat=-51.aaa&lng=123&zoom=12&asc=true&sort=distance&sw=1')); // invalid lat
+		$this->assertNull(GeocachingService::getCoordsFromMapSearchUrl('https://www.geocaching.com/play/map?lat=-51.705545&lng=123aa&zoom=12&asc=true&sort=distance&sw=1')); // invalid lng
+		$this->assertNull(GeocachingService::getCoordsFromMapSearchUrl('https://www.geocaching.com/play/map?lat=95&lng=123&zoom=12&asc=true&sort=distance&sw=1')); // lat over limit
+		$this->assertNull(GeocachingService::getCoordsFromMapSearchUrl('https://www.geocaching.com/play/map?lat=49.5&lng=191.111&zoom=12&asc=true&sort=distance&sw=1')); // lng over limit
 	}
 
-	public function testGetGeocachesIdFromText(): void {
+	public function testGetCoordsFromMapBrowseUrl(): void
+	{
+		$this->assertEquals([50.05821, 14.457], GeocachingService::getCoordsFromMapBrowseUrl('https://www.geocaching.com/map/#?ll=50.05821,14.457&z=16'));
+		$this->assertEquals([-50.08, 14.42115], GeocachingService::getCoordsFromMapBrowseUrl('https://www.geocaching.com/map/#?ll=-50.08,14.42115&z=9'));
+		$this->assertEquals([-51.705545, -57.933311], GeocachingService::getCoordsFromMapBrowseUrl('https://www.geocaching.com/map/#?z=10&ll=-51.705545,-57.933311'));
+
+		$this->assertNull(GeocachingService::getCoordsFromMapBrowseUrl('https://www.geocaching.com/map/#?ll=50.aaa,14.457&z=16')); // invalid lat
+		$this->assertNull(GeocachingService::getCoordsFromMapBrowseUrl('https://www.geocaching.com/map/#?ll=50.05821,14.123aaa&z=16')); // invalid lng
+		$this->assertNull(GeocachingService::getCoordsFromMapBrowseUrl('https://www.geocaching.com/map/#?ll=95.05821,14.457&z=16')); // lat over limit
+		$this->assertNull(GeocachingService::getCoordsFromMapBrowseUrl('https://www.geocaching.com/map/#?ll=50.05821,194.457&z=16')); // lng over limit
+	}
+
+	public function testGetGeocachesIdFromText(): void
+	{
 		$this->assertSame(['GC1111', 'gc12aBd'], GeocachingService::getGeocachesIdFromText('Some random text, geocache GC1111 newline
 gc12aBd, case in-sensitive, gc-blabla, gc.abc'));
 		$this->assertSame(['GC1111', 'gc12aBd'], GeocachingService::getGeocachesIdFromText('Some random text, geocache GC1111 newline gc12aBd

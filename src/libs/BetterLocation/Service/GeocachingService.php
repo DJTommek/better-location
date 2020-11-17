@@ -108,7 +108,7 @@ final class GeocachingService extends AbstractService
 	public static function isUrl(string $url): bool
 	{
 		if (self::isCorrectDomainUrl($url)) {
-			return is_string(self::getCacheIdFromUrl($url)) || is_array(self::getCoordsFromMapUrl($url)) || self::isGuidUrl($url);
+			return is_string(self::getCacheIdFromUrl($url)) || is_array(self::getCoordsFromMapSearchUrl($url)) || is_array(self::getCoordsFromMapBrowseUrl($url)) || self::isGuidUrl($url);
 		}
 		return false;
 	}
@@ -186,12 +186,17 @@ final class GeocachingService extends AbstractService
 		return null;
 	}
 
-	public static function getCoordsFromMapUrl(string $url): ?array
+	/**
+	 * Map type "Search geocaches"
+	 *
+	 * @see https://www.geocaching.com/play/map/
+	 */
+	public static function getCoordsFromMapSearchUrl(string $url): ?array
 	{
 		$parsedUrl = General::parseUrl($url);
 		if (
 			isset($parsedUrl['path']) &&
-			mb_strpos($parsedUrl['path'], '/play/map') === 0 && // might be "/play/map" or "/play/map/"
+			rtrim($parsedUrl['path'], '/') === '/play/map' && // might be "/play/map" or "/play/map/"
 			isset($parsedUrl['query']) &&
 			isset($parsedUrl['query']['lat']) &&
 			is_numeric($parsedUrl['query']['lat']) &&
@@ -209,10 +214,38 @@ final class GeocachingService extends AbstractService
 		}
 	}
 
+	/**
+	 * Map type "Browse geocaches"
+	 *
+	 * @see https://www.geocaching.com/map/
+	 */
+	public static function getCoordsFromMapBrowseUrl(string $url): ?array
+	{
+		$parsedUrl = General::parseUrl($url);
+		if (
+			isset($parsedUrl['path']) &&
+			$parsedUrl['path'] === '/map/' &&
+			isset($parsedUrl['fragment'])
+		) {
+			parse_str(ltrim($parsedUrl['fragment'], '?'), $fragmentQuery);
+			if (isset($fragmentQuery['ll']) && preg_match('/^(-?[0-9.]+),(-?[0-9.]+)$/', $fragmentQuery['ll'], $matches)) {
+				if (BetterLocation::isLatValid(floatval($matches[1])) && BetterLocation::isLonValid(floatval($matches[2]))) {
+					return [
+						floatval($matches[1]),
+						floatval($matches[2]),
+					];
+				}
+			}
+		}
+		return null;
+	}
+
 	public static function parseUrl(string $url): BetterLocation
 	{
 		$originalUrl = $url;
-		if ($coords = self::getCoordsFromMapUrl($url)) {
+		if ($coords = self::getCoordsFromMapSearchUrl($url)) {
+			return new BetterLocation($originalUrl, $coords[0], $coords[1], self::class, self::TYPE_MAP);
+		} else if ($coords = self::getCoordsFromMapBrowseUrl($url)) {
 			return new BetterLocation($originalUrl, $coords[0], $coords[1], self::class, self::TYPE_MAP);
 		} else {
 			if (self::isGuidUrl($url)) {
