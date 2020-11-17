@@ -44,13 +44,17 @@ final class GeocachingService extends AbstractService
 	const URL_PATH_MAP_GEOCACHE_REGEX = '/^\/play\/map\/(' . self::CACHE_REGEX . ')$/i';
 
 	const TYPE_CACHE = 'cache';
-	const TYPE_MAP = 'map';
+	const TYPE_MAP_BROWSE = 'browse map';
+	const TYPE_MAP_SEARCH = 'search map';
+	const TYPE_MAP_COORD = 'coord map';
 
 	public static function getConstants(): array
 	{
 		return [
 			self::TYPE_CACHE,
-			self::TYPE_MAP,
+			self::TYPE_MAP_BROWSE,
+			self::TYPE_MAP_SEARCH,
+			self::TYPE_MAP_COORD,
 		];
 	}
 
@@ -108,7 +112,13 @@ final class GeocachingService extends AbstractService
 	public static function isUrl(string $url): bool
 	{
 		if (self::isCorrectDomainUrl($url)) {
-			return is_string(self::getCacheIdFromUrl($url)) || is_array(self::getCoordsFromMapSearchUrl($url)) || is_array(self::getCoordsFromMapBrowseUrl($url)) || self::isGuidUrl($url);
+			return (
+				is_string(self::getCacheIdFromUrl($url)) ||
+				is_array(self::getCoordsFromMapSearchUrl($url)) ||
+				is_array(self::getCoordsFromMapBrowseUrl($url)) ||
+				is_array(self::getCoordsFromMapCoordInfoUrl($url)) ||
+				self::isGuidUrl($url)
+			);
 		}
 		return false;
 	}
@@ -240,13 +250,40 @@ final class GeocachingService extends AbstractService
 		return null;
 	}
 
+	/**
+	 * Short URL from coord.info obtainable on (and redirecting to) "Browse geocaches" map
+	 *
+	 * @see http://coord.info/map
+	 */
+	public static function getCoordsFromMapCoordInfoUrl(string $url): ?array
+	{
+		$parsedUrl = General::parseUrl($url);
+		if (
+			isset($parsedUrl['path']) &&
+			$parsedUrl['path'] === '/map' &&
+			isset($parsedUrl['query']) &&
+			isset($parsedUrl['query']['ll']) &&
+			preg_match('/^(-?[0-9.]+),(-?[0-9.]+)$/', $parsedUrl['query']['ll'], $matches)
+		) {
+			if (BetterLocation::isLatValid(floatval($matches[1])) && BetterLocation::isLonValid(floatval($matches[2]))) {
+				return [
+					floatval($matches[1]),
+					floatval($matches[2]),
+				];
+			}
+		}
+		return null;
+	}
+
 	public static function parseUrl(string $url): BetterLocation
 	{
 		$originalUrl = $url;
 		if ($coords = self::getCoordsFromMapSearchUrl($url)) {
-			return new BetterLocation($originalUrl, $coords[0], $coords[1], self::class, self::TYPE_MAP);
+			return new BetterLocation($originalUrl, $coords[0], $coords[1], self::class, self::TYPE_MAP_SEARCH);
 		} else if ($coords = self::getCoordsFromMapBrowseUrl($url)) {
-			return new BetterLocation($originalUrl, $coords[0], $coords[1], self::class, self::TYPE_MAP);
+			return new BetterLocation($originalUrl, $coords[0], $coords[1], self::class, self::TYPE_MAP_BROWSE);
+		} else if ($coords = self::getCoordsFromMapCoordInfoUrl($url)) {
+			return new BetterLocation($originalUrl, $coords[0], $coords[1], self::class, self::TYPE_MAP_COORD);
 		} else {
 			if (self::isGuidUrl($url)) {
 				$url = Url::getRedirectUrl($url);
