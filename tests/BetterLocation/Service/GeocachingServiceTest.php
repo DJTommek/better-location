@@ -76,6 +76,16 @@ final class GeocachingServiceTest extends TestCase
 		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com/map/#?ll=95.05821,14.457&z=16')); // lat over limit
 		$this->assertFalse(GeocachingService::isUrl('https://www.geocaching.com/map/#?ll=50.05821,194.457&z=16')); // lng over limit
 
+		// coord.info map browse
+		$this->assertTrue(GeocachingService::isUrl('http://coord.info/map?ll=50.05821,14.457&z=16'));
+		$this->assertTrue(GeocachingService::isUrl('http://coord.info/map?ll=-50.08,14.42115&z=9'));
+		$this->assertTrue(GeocachingService::isUrl('http://coord.info/map?z=10&ll=-51.705545,-57.933311'));
+
+		$this->assertFalse(GeocachingService::isUrl('http://coord.info/map?ll=50.aaa,14.457&z=16')); // invalid lat
+		$this->assertFalse(GeocachingService::isUrl('http://coord.info/map?ll=50.05821,14.123aaa&z=16')); // invalid lng
+		$this->assertFalse(GeocachingService::isUrl('http://coord.info/map?ll=95.05821,14.457&z=16')); // lat over limit
+		$this->assertFalse(GeocachingService::isUrl('http://coord.info/map?ll=50.05821,194.457&z=16')); // lng over limit
+
 		// coord.info geocache
 		$this->assertTrue(GeocachingService::isUrl('https://coord.info/GC3DYC4'));
 		$this->assertTrue(GeocachingService::isUrl('https://www.coord.info/GC3DYC4'));
@@ -137,6 +147,18 @@ final class GeocachingServiceTest extends TestCase
 		$this->assertNull(GeocachingService::getCoordsFromMapBrowseUrl('https://www.geocaching.com/map/#?ll=50.05821,14.123aaa&z=16')); // invalid lng
 		$this->assertNull(GeocachingService::getCoordsFromMapBrowseUrl('https://www.geocaching.com/map/#?ll=95.05821,14.457&z=16')); // lat over limit
 		$this->assertNull(GeocachingService::getCoordsFromMapBrowseUrl('https://www.geocaching.com/map/#?ll=50.05821,194.457&z=16')); // lng over limit
+	}
+
+	public function testGetCoordsFromMapCoordInfoUrl(): void
+	{
+		$this->assertEquals([50.05821, 14.457], GeocachingService::getCoordsFromMapCoordInfoUrl('http://coord.info/map?ll=50.05821,14.457&z=16'));
+		$this->assertEquals([-50.08, 14.42115], GeocachingService::getCoordsFromMapCoordInfoUrl('http://coord.info/map?ll=-50.08,14.42115&z=9'));
+		$this->assertEquals([-51.705545, -57.933311], GeocachingService::getCoordsFromMapCoordInfoUrl('http://coord.info/map?z=10&ll=-51.705545,-57.933311'));
+
+		$this->assertNull(GeocachingService::getCoordsFromMapCoordInfoUrl('http://coord.info/map?ll=50.aaa,14.457&z=16')); // invalid lat
+		$this->assertNull(GeocachingService::getCoordsFromMapCoordInfoUrl('http://coord.info/map?ll=50.05821,14.123aaa&z=16')); // invalid lng
+		$this->assertNull(GeocachingService::getCoordsFromMapCoordInfoUrl('http://coord.info/map?ll=95.05821,14.457&z=16')); // lat over limit
+		$this->assertNull(GeocachingService::getCoordsFromMapCoordInfoUrl('http://coord.info/map?ll=50.05821,194.457&z=16')); // lng over limit
 	}
 
 	public function testGetGeocachesIdFromText(): void
