@@ -126,7 +126,7 @@ final class MapyCzServiceTest extends TestCase
 		// negative coordinates (source OSM)
 		$this->assertEquals('54.766918,-101.873729', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=-101.8754373&y=54.7693842&z=15&source=osm&id=1000536418')->__toString());
 		$this->assertEquals('-18.917187,47.535795', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=47.5323757&y=-18.9155159&z=16&source=osm&id=1040985945')->__toString());
-		$this->assertEquals('-45.870330,-67.507560', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=-67.5159386&y=-45.8711989&z=15&source=osm&id=17164289')->__toString());
+		$this->assertEquals('-45.870289,-67.507777', MapyCzService::parseCoords('https://en.mapy.cz/zakladni?x=-67.5159386&y=-45.8711989&z=15&source=osm&id=17164289')->__toString());
 	}
 
 	/**
@@ -146,7 +146,7 @@ final class MapyCzServiceTest extends TestCase
 		$this->assertEquals('54.766918,-101.873729', MapyCzService::parseCoords('https://en.mapy.cz/s/dasorekeja')->__toString());
 //			$this->assertEquals('-18.917167,47.535756', MapyCzService::parseCoords('https://en.mapy.cz/s/maposedeso')->__toString());
 		$this->assertEquals('-18.917187,47.535795', MapyCzService::parseCoords('https://en.mapy.cz/s/maposedeso')->__toString());
-		$this->assertEquals('-45.870330,-67.507560', MapyCzService::parseCoords('https://en.mapy.cz/s/robelevuja')->__toString());
+		$this->assertEquals('-45.870289,-67.507777', MapyCzService::parseCoords('https://en.mapy.cz/s/robelevuja')->__toString());
 	}
 
 	/**
