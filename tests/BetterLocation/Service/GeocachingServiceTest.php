@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\GeocachingService;
 use PHPUnit\Framework\TestCase;
@@ -178,4 +179,39 @@ gc12aBd
 		$this->assertSame([], GeocachingService::getGeocachesIdFromText('Some random text, splitted by newline GC
 11 not matched'));
 	}
+
+	public function testParseUrl(): void
+	{
+		if (is_null(\App\Config::GEOCACHING_COOKIE)) {
+			$this->markTestSkipped('Missing Geocaching cookie.');
+		} else {
+			$this->assertEquals('50.087717,14.421150', GeocachingService::parseUrl('https://www.geocaching.com/geocache/GC3DYC4')->__toString());
+			$this->assertEquals('50.087717,14.421150', GeocachingService::parseUrl('https://www.geocaching.com/geocache/GC3DYC4_find-the-bug')->__toString());
+			$this->assertEquals('50.087717,14.421150', GeocachingService::parseUrl('https://coord.info/GC3DYC4')->__toString());
+			$this->assertEquals('50.087717,14.421150', GeocachingService::parseUrl('https://www.geocaching.com/seek/cache_details.aspx?guid=df11c170-1af3-4ee1-853a-e97c1afe0722')->__toString());
+		}
+	}
+
+	public function testParseUrlPremium(): void
+	{
+		if (is_null(\App\Config::GEOCACHING_COOKIE)) {
+			$this->markTestSkipped('Missing Geocaching cookie.');
+		} else {
+			$this->expectException(InvalidLocationException::class);
+			$this->expectExceptionMessage('Cannot show coordinates for geocache <a href="https://www.geocaching.com/geocache/GC2QB60">GC2QB60</a> - for Geocaching premium users only');
+			GeocachingService::parseUrl('https://www.geocaching.com/geocache/GC2QB60_chebsky-most?guid=8edaee5b-6723-4022-a295-8a21d990ef11')->__toString();
+		}
+	}
+
+	public function testFindInText(): void
+	{
+		if (is_null(\App\Config::GEOCACHING_COOKIE)) {
+			$this->markTestSkipped('Missing Geocaching cookie.');
+		} else {
+			$collection = GeocachingService::findInText('GC3DYC4');
+			$this->assertCount(1, $collection->getAll());
+			$this->assertEquals('50.087717,14.421150', $collection[0]->__toString());
+		}
+	}
+
 }
