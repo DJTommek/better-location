@@ -164,14 +164,14 @@ final class GeocachingServiceTest extends TestCase
 
 	public function testGetGeocachesIdFromText(): void
 	{
-		$this->assertSame(['GC1111', 'gc12aBd'], GeocachingService::getGeocachesIdFromText('Some random text, geocache GC1111 newline
+		$this->assertSame(['GC1111', 'GC12ABD'], GeocachingService::getGeocachesIdFromText('Some random text, geocache GC1111 newline
 gc12aBd, case in-sensitive, gc-blabla, gc.abc'));
-		$this->assertSame(['GC1111', 'gc12aBd'], GeocachingService::getGeocachesIdFromText('Some random text, geocache GC1111 newline gc12aBd
+		$this->assertSame(['GC1111', 'GC12ABD'], GeocachingService::getGeocachesIdFromText('Some random text, geocache GC1111 newline gc12aBd
 , case in-sensitive, gc-blabla, gc.abc'));
-		$this->assertSame(['GC1111', 'gc12aBd'], GeocachingService::getGeocachesIdFromText('Some random text, geocache GC1111 newline 
+		$this->assertSame(['GC1111', 'GC12ABD'], GeocachingService::getGeocachesIdFromText('Some random text, geocache GC1111 newline 
 gc12aBd
 , case in-sensitive, gc-blabla, gc.abc'));
-		$this->assertSame(['gcbda', 'GC3DYC4'], GeocachingService::getGeocachesIdFromText('gcbda matching start and end strings GC3DYC4'));
+		$this->assertSame(['GCBDA', 'GC3DYC4'], GeocachingService::getGeocachesIdFromText('gcbda matching start and end strings GC3DYC4'));
 		$this->assertSame([], GeocachingService::getGeocachesIdFromText('Some random text ThisGCIsNot matched'));
 		$this->assertSame([], GeocachingService::getGeocachesIdFromText('Some random text GC-3DYC4 splitted, not matched'));
 		$this->assertSame([], GeocachingService::getGeocachesIdFromText('Some random text GC.3DYC4 splitted, not matched'));
