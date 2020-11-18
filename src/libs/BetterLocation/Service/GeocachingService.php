@@ -73,7 +73,7 @@ final class GeocachingService extends AbstractService
 		$inStringRegex = self::CACHE_IN_TEXT_REGEX;
 		if (preg_match_all($inStringRegex, $text, $matches)) {
 			for ($i = 0; $i < count($matches[1]); $i++) {
-				$geocaches[] = trim($matches[1][$i]);
+				$geocaches[] = mb_strtoupper(trim($matches[1][$i]));
 			}
 		}
 		return $geocaches;
@@ -106,6 +106,7 @@ final class GeocachingService extends AbstractService
 
 	private static function isLogId(string $input): bool
 	{
+		return false;  // @TODO currently disabled, waiting for https://github.com/DJTommek/better-location/issues/35
 		return !!(preg_match_all(self::LOG_REGEX, $input));
 	}
 
