@@ -199,10 +199,11 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 					// Newest user
 					$newestUser = \App\Dashboard\Status::getNewestUser();
 					if ($newestUser) {
+						$newestUserUsername = (mb_strpos($newestUser['user_telegram_name'], '@') === 0) ? mb_substr($newestUser['user_telegram_name'], 1) : null;
 						printf('<li>Most recent active user:<br>ID = <b>%d</b><br>TG ID = <b>%d</b><br>TG Name = <b>%s</b><br>Registered = <b>%s</b> (%s ago)<br>Last update = <b>%s</b> (%s ago)</li>',
 							$newestUser['user_id'],
 							$newestUser['user_telegram_id'],
-							$newestUser['user_telegram_name'] ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $newestUser['user_telegram_name']) : '<i>unknown</i>',
+							$newestUserUsername ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $newestUserUsername) : sprintf('<i>%s</i>', $newestUser['user_telegram_name']),
 							$newestUser['user_registered']->format(DateTimeInterface::W3C),
 							\App\Utils\General::sToHuman($now->getTimestamp() - $newestUser['user_registered']->getTimestamp()),
 							$newestUser['user_last_update']->format(DateTimeInterface::W3C),
@@ -213,10 +214,11 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 					// Last changed user
 					$lastChangedUser = \App\Dashboard\Status::getLatestChangedUser();
 					if ($lastChangedUser) {
+						$lastChangedUserUsername = (mb_strpos($lastChangedUser['user_telegram_name'], '@') === 0) ? mb_substr($lastChangedUser['user_telegram_name'], 1) : null;
 						printf('<li>Newest registered user:<br>ID = <b>%d</b><br>TG ID = <b>%d</b><br>TG Name = <b>%s</b><br>Registered = <b>%s</b> (%s ago)<br>Last update = <b>%s</b> (%s ago)</li>',
 							$lastChangedUser['user_id'],
 							$lastChangedUser['user_telegram_id'],
-							$lastChangedUser['user_telegram_name'] ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $lastChangedUser['user_telegram_name']) : '<i>unknown</i>',
+							$lastChangedUserUsername ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $lastChangedUserUsername) : sprintf('<i>%s</i>', $lastChangedUser['user_telegram_name']),
 							$lastChangedUser['user_registered']->format(DateTimeInterface::W3C),
 							\App\Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_registered']->getTimestamp()),
 							$lastChangedUser['user_last_update']->format(DateTimeInterface::W3C),
