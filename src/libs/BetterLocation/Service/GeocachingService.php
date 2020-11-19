@@ -323,8 +323,8 @@ final class GeocachingService extends AbstractService
 		$betterLocation->setDescription(sprintf('%s (%s, D: %s, T: %s)',
 			$geocache->name,
 			$geocache->getTypeAndSize(),
-			sprintf($geocache->terrain >= 4 ? '<b>%.1F</b>' : '%.1F', $geocache->terrain),
 			sprintf($geocache->difficulty >= 4 ? '<b>%.1F</b>' : '%.1F', $geocache->difficulty),
+			sprintf($geocache->terrain >= 4 ? '<b>%.1F</b>' : '%.1F', $geocache->terrain),
 		));
 		return $betterLocation;
 	}
