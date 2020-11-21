@@ -12,18 +12,19 @@ use App\Utils\General;
 
 abstract class AbstractService extends \App\BetterLocation\Service\AbstractService
 {
-	const RE_HEMISPHERE = '([-+NSWE])?';
+	const RE_OPTIONAL_HEMISPHERE = '([-+NSWE])?';
 	/**
 	 * Loose version, migh be buggy, eg:
 	 * N52.1111 E12.2222 S53.1111 W13.2222
 	 */
-	const RE_SPACE_BETWEEN_COORDS = '[., ]{1,4}';
+	const RE_BETWEEN_COORDS = '[;.,\\s]{1,3}';
 
 	/**
 	 * Must be used Unicode version instead of ° and regex has to contain modifier "u", eg: /someRegex/u
 	 * @see https://stackoverflow.com/questions/7211541/having-trouble-with-a-preg-match-all-and-a-degree-symbol/20429497
 	 */
-	const RE_OPTIONAL_DEGREE_SIGN = '(?:\x{00B0})?';
+//	const RE_OPTIONAL_DEGREE_SIGN = '(?:\x{00B0})?';
+	const RE_OPTIONAL_DEGREE_SIGN = '°?';
 
 	/**
 	 * Strict less-buggy version
@@ -31,15 +32,50 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 	 */
 //	const RE_SPACE_BETWEEN_COORDS = ', ?';
 
-	const RE_OPTIONAL_SPACE = ' ?';
+	const RE_OPTIONAL_SPACE = ' {0,4}';
 
-	/**
-	 * @param float $lat
-	 * @param float $lon
-	 * @param bool $drive
-	 * @return string
-	 * @throws NotSupportedException
-	 */
+	const RE_OPTIONAL_SEMICOLON = ':?';
+
+	public static function getRegex(): string
+	{
+		return
+			static::RE_OPTIONAL_HEMISPHERE .
+			static::RE_OPTIONAL_SEMICOLON .
+			static::RE_OPTIONAL_SPACE . static::RE_OPTIONAL_DEGREE_SIGN . static::RE_OPTIONAL_SPACE .
+			static::RE_COORD .
+			static::RE_OPTIONAL_SPACE . static::RE_OPTIONAL_DEGREE_SIGN . static::RE_OPTIONAL_SPACE .
+			static::RE_OPTIONAL_HEMISPHERE .
+
+			static::RE_BETWEEN_COORDS .
+
+			static::RE_OPTIONAL_HEMISPHERE .
+			static::RE_OPTIONAL_SEMICOLON .
+			static::RE_OPTIONAL_SPACE . static::RE_OPTIONAL_DEGREE_SIGN . static::RE_OPTIONAL_SPACE .
+			static::RE_COORD .
+			static::RE_OPTIONAL_SPACE . static::RE_OPTIONAL_DEGREE_SIGN . static::RE_OPTIONAL_SPACE .
+			static::RE_OPTIONAL_HEMISPHERE;
+	}
+
+	public static function findInText($text): BetterLocationCollection
+	{
+		$collection = new BetterLocationCollection();
+		if (preg_match_all('/' . self::getRegex() . '/u', $text, $matches)) {
+			for ($i = 0; $i < count($matches[0]); $i++) {
+				try {
+					$collection[] = static::parseCoords($matches[0][$i]);
+				} catch (InvalidLocationException $exception) {
+					$collection[] = $exception;
+				}
+			}
+		}
+		return $collection;
+	}
+
+	public static function isValid(string $input): bool
+	{
+		return !!preg_match('/^' . static::getRegex() . '$/u', $input);
+	}
+
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
 		if ($drive) {
@@ -59,18 +95,11 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 
-	abstract public static function isValid(string $input);
-
+	/** @throws InvalidLocationException */
 	abstract public static function parseCoords(string $input): BetterLocation;
-
-	abstract public static function findInText(string $text): BetterLocationCollection;
 
 	/**
 	 * Handle matches from all WG84* service regexes
-	 *
-	 * @param string $serviceClass
-	 * @param array $matches
-	 * @return BetterLocation
 	 * @throws InvalidLocationException
 	 */
 	protected static function processWG84(string $serviceClass, array $matches)
@@ -192,7 +221,7 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 			$input,
 			Coordinates::flip($latHemisphere) * $latCoord,
 			Coordinates::flip($lonHemisphere) * $lonCoord,
-			get_called_class(),
+			static::class,
 		);
 	}
 }
