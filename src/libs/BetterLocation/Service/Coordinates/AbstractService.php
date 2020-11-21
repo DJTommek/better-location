@@ -9,6 +9,8 @@ use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Utils\Coordinates;
 use App\Utils\General;
+use Tracy\Debugger;
+use Tracy\ILogger;
 
 abstract class AbstractService extends \App\BetterLocation\Service\AbstractService
 {
@@ -62,9 +64,9 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 		if (preg_match_all('/' . self::getRegex() . '/u', $text, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				try {
-					$collection[] = static::parseCoords($matches[0][$i]);
+					$collection->add(static::parseCoords($matches[0][$i]));
 				} catch (InvalidLocationException $exception) {
-					$collection[] = $exception;
+					Debugger::log($exception, ILogger::DEBUG);
 				}
 			}
 		}

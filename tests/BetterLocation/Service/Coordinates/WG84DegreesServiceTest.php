@@ -332,8 +332,9 @@ final class WG84DegreesServiceTest extends TestCase
 		$this->assertEquals([-58.1111, 18.2222], $betterLocations[8]->getLatLon());
 		$this->assertEquals([59.1111, -19.2222], $betterLocations[9]->getLatLon());
 
-		$errors = $betterLocations->getErrors();
-		$this->assertInstanceOf(InvalidLocationException::class, $errors[0]);
-		$this->assertInstanceOf(InvalidLocationException::class, $errors[1]);
+		$this->assertCount(0, $betterLocations->getErrors());
+//		$errors = $betterLocations->getErrors();
+//		$this->assertInstanceOf(InvalidLocationException::class, $errors[0]);
+//		$this->assertInstanceOf(InvalidLocationException::class, $errors[1]);
 	}
 }
