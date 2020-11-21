@@ -113,6 +113,12 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 				throw new \InvalidArgumentException(sprintf('"%s" is invalid service class name', $serviceClass));
 		}
 
+		// regex wrongly detected two hemisphere for first coordinate
+		if ($latHemisphere1 && $latHemisphere2 && !$lonHemisphere1 && !$lonHemisphere2) {
+			$lonHemisphere1 = $latHemisphere2;
+			$latHemisphere2 = '';
+		}
+
 		if ($latHemisphere1 && $latHemisphere2) {
 			throw new InvalidLocationException(sprintf('Invalid format of coordinates "%s" - hemisphere is defined twice for first coordinate', $input));
 		}
