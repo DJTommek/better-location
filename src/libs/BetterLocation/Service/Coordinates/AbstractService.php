@@ -101,18 +101,18 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 	abstract public static function parseCoords(string $input): BetterLocation;
 
 	/**
-	 * Handle matches from all WG84* service regexes
+	 * Handle matches from all WGS84* service regexes
 	 * @throws InvalidLocationException
 	 */
-	protected static function processWG84(string $serviceClass, array $matches)
+	protected static function processWGS84(string $serviceClass, array $matches)
 	{
 		switch ($serviceClass) {
-			case WG84DegreesService::class:
+			case WGS84DegreesService::class:
 				list($input, $latHemisphere1, $latCoordDegrees, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonHemisphere2) = $matches;
 				$latCoord = floatval($latCoordDegrees);
 				$lonCoord = floatval($lonCoordDegrees);
 				break;
-			case WG84DegreesMinutesService::class:
+			case WGS84DegreesMinutesService::class:
 				list($input, $latHemisphere1, $latCoordDegrees, $latCoordMinutes, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonCoordMinutes, $lonHemisphere2) = $matches;
 				$latCoord = Coordinates::wgs84DegreesMinutesToDecimal(
 					floatval($latCoordDegrees),
@@ -125,7 +125,7 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 					Coordinates::EAST, // @TODO Temporary hack to just fill up function parameters
 				);
 				break;
-			case WG84DegreesMinutesSecondsService::class:
+			case WGS84DegreesMinutesSecondsService::class:
 				list($input, $latHemisphere1, $latCoordDegrees, $latCoordMinutes, $latCoordSeconds, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonCoordMinutes, $lonCoordSeconds, $lonHemisphere2) = $matches;
 				$latCoord = Coordinates::wgs84DegreesMinutesSecondsToDecimal(
 					floatval($latCoordDegrees),

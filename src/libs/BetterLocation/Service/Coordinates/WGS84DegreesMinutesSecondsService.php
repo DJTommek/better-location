@@ -5,10 +5,10 @@ namespace App\BetterLocation\Service\Coordinates;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 
-final class WG84DegreesMinutesSecondsService extends AbstractService
+final class WGS84DegreesMinutesSecondsService extends AbstractService
 {
 	const RE_COORD = '([0-9]{1,3})[° ]{1,3}([0-9]{1,2})[\' ]{1,3}([0-9]{1,3}\.[0-9]{1,20})[\" ]{0,2}';
-	const NAME = 'WG84 DMS';
+	const NAME = 'WGS84 DMS';
 
 	public static function parseCoords(string $input): BetterLocation
 	{
@@ -17,6 +17,6 @@ final class WG84DegreesMinutesSecondsService extends AbstractService
 		}
 		// preg_match truncating empty values from the end in $matches array: https://stackoverflow.com/questions/43912763/php-can-preg-match-include-unmatched-groups#comment74860670_43912763
 		$matches = array_pad($matches, 11, '');
-		return static::processWG84(self::class, $matches);
+		return static::processWGS84(self::class, $matches);
 	}
 }

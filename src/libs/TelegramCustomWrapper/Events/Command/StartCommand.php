@@ -3,7 +3,7 @@
 namespace App\TelegramCustomWrapper\Events\Command;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\Service\Coordinates\WG84DegreesService;
+use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\TelegramHelper;
@@ -58,7 +58,7 @@ class StartCommand extends Command
 			$this->reply(sprintf('%s Coordinates <code>%F,%F</code> are not valid.', Icons::ERROR, $lat, $lon));
 		} else {
 			try {
-				$betterLocation = new BetterLocation($matches[0], $lat, $lon, WG84DegreesService::class);
+				$betterLocation = new BetterLocation($matches[0], $lat, $lon, WGS84DegreesService::class);
 				$result = $betterLocation->generateMessage();
 				$buttons = $betterLocation->generateDriveButtons();
 				$buttons[] = $betterLocation->generateAddToFavouriteButtton();

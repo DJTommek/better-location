@@ -3,7 +3,7 @@
 namespace App\BetterLocation;
 
 use App\BetterLocation\Service\AbstractService;
-use App\BetterLocation\Service\Coordinates\WG84DegreesService;
+use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\GoogleMapsService;
@@ -182,7 +182,7 @@ class BetterLocation
 				json_encode([$exif['GPSLatitude'], $exif['GPSLatitudeRef'], $exif['GPSLongitude'], $exif['GPSLongitudeRef']]),
 				Coordinates::exifToDecimal($exif['GPSLatitude'], $exif['GPSLatitudeRef']),
 				Coordinates::exifToDecimal($exif['GPSLongitude'], $exif['GPSLongitudeRef']),
-				WG84DegreesService::class,
+				WGS84DegreesService::class,
 			);
 			$betterLocationExif->setPrefixMessage('EXIF');
 			return $betterLocationExif;
@@ -347,6 +347,6 @@ class BetterLocation
 
 	public static function fromLatLon(float $lat, float $lon): self
 	{
-		return new BetterLocation(sprintf('%F,%F', $lat, $lon), $lat, $lon, WG84DegreesService::class);
+		return new BetterLocation(sprintf('%F,%F', $lat, $lon), $lat, $lon, WGS84DegreesService::class);
 	}
 }

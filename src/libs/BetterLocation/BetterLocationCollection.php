@@ -4,9 +4,9 @@ namespace App\BetterLocation;
 
 use App\BetterLocation\Service\Coordinates\MGRSService;
 use App\BetterLocation\Service\Coordinates\USNGService;
-use App\BetterLocation\Service\Coordinates\WG84DegreesMinutesSecondsService;
-use App\BetterLocation\Service\Coordinates\WG84DegreesMinutesService;
-use App\BetterLocation\Service\Coordinates\WG84DegreesService;
+use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesSecondsService;
+use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesService;
+use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\DrobnePamatkyCzService;
 use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
@@ -295,9 +295,9 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		$messageWithoutUrls = TelegramHelper::getMessageWithoutUrls($message, $entities);
 		$messageWithoutUrls = StringUtils::translit($messageWithoutUrls);
 
-		$betterLocationsCollection->mergeCollection(WG84DegreesService::findInText($messageWithoutUrls));
-		$betterLocationsCollection->mergeCollection(WG84DegreesMinutesService::findInText($messageWithoutUrls));
-		$betterLocationsCollection->mergeCollection(WG84DegreesMinutesSecondsService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->mergeCollection(WGS84DegreesService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->mergeCollection(WGS84DegreesMinutesService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->mergeCollection(WGS84DegreesMinutesSecondsService::findInText($messageWithoutUrls));
 		$betterLocationsCollection->mergeCollection(MGRSService::findInText($messageWithoutUrls));
 		$betterLocationsCollection->mergeCollection(USNGService::findInText($messageWithoutUrls));
 		if (is_null(Config::GEOCACHING_COOKIE) === false) {
