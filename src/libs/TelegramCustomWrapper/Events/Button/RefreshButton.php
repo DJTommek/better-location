@@ -32,6 +32,10 @@ class RefreshButton extends Button
 				$this->getMessageId(),
 			);
 
+			// @TODO if returned location would remove refresh buttons (no refreshable location) or returned error, do not update
+			// original message, just send warning that update can't be completed
+			// or at least keep original update and add warning below that message
+
 			switch ($action) {
 				case self::ACTION_START:
 					if ($this->telegramUpdateDb->isAutorefreshEnabled()) {
