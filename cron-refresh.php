@@ -7,27 +7,38 @@ use App\TelegramCustomWrapper\TelegramHelper;
 use function Clue\React\Block\await;
 
 require_once __DIR__ . '/src/bootstrap.php';
-//\Tracy\Debugger::$showBar = false;
 
-$response = new \stdClass();
-$response->datetime = (new \DateTimeImmutable())->format(DateTimeInterface::W3C);
-$response->result = [];
-$response->error = true;
-$response->message = null;
+function printlog($text)
+{
+	printf('<p><b>%s</b>: %s</p>', (new DateTime())->format(DATE_W3C), $text);
+}
 
-try {
-	$loop = \React\EventLoop\Factory::create();
-	$tgLog = new \unreal4u\TelegramAPI\TgLog(Config::TELEGRAM_BOT_TOKEN, new \unreal4u\TelegramAPI\HttpClientRequestHandler($loop));
+$loop = \React\EventLoop\Factory::create();
+$tgLog = new \unreal4u\TelegramAPI\TgLog(Config::TELEGRAM_BOT_TOKEN, new \unreal4u\TelegramAPI\HttpClientRequestHandler($loop));
 
-	$messagesToRefresh = \App\TelegramUpdateDb::loadAll(\App\TelegramUpdateDb::STATUS_ENABLED);
+$messagesToRefresh = \App\TelegramUpdateDb::loadAll(
+	\App\TelegramUpdateDb::STATUS_ENABLED,
+	null,
+	Config::REFRESH_CRON_MAX_UPDATES,
+	(new DateTime())->sub(new DateInterval(sprintf('PT%dS', Config::REFRESH_CRON_MIN_OLD)))
+);
 
-	if (count($messagesToRefresh) === 0) {
-		printf('No message need refresh');
-	} else {
-		$telegramCustomWrapper = new \App\TelegramCustomWrapper\TelegramCustomWrapper(Config::TELEGRAM_BOT_TOKEN, Config::TELEGRAM_BOT_NAME);
-		foreach ($messagesToRefresh as $messageToRefresh) {
+if (count($messagesToRefresh) === 0) {
+	printlog('No message need refresh');
+} else {
+	printlog(sprintf('Loaded %s updates to refresh.', count($messagesToRefresh)));
+	$telegramCustomWrapper = new \App\TelegramCustomWrapper\TelegramCustomWrapper(Config::TELEGRAM_BOT_TOKEN, Config::TELEGRAM_BOT_NAME);
+	foreach ($messagesToRefresh as $messageToRefresh) {
+		try {
 			$telegramCustomWrapper->getUpdateEvent($messageToRefresh->getOriginalUpdateObject());
 			$event = $telegramCustomWrapper->getEvent();
+			$diff = time() - $messageToRefresh->getLastUpdate()->getTimestamp();
+			printlog(sprintf('Processing chat ID %d - message ID %d with last refresh %s (%s ago)',
+				$messageToRefresh->getChatId(),
+				$messageToRefresh->getBotReplyMessageId(),
+				$messageToRefresh->getLastUpdate()->format(DATE_W3C),
+				App\Utils\General::sToHuman($diff),
+			));
 			$collection = $event->getCollection();
 			$processedCollection = new ProcessedMessageResult($collection);
 			$processedCollection->setAutorefresh(true);
@@ -42,17 +53,18 @@ try {
 				$msg->parse_mode = 'HTML';
 				$msg->reply_markup = $processedCollection->getMarkup(1);
 				$msg->disable_web_page_preview = true;
-				$response = await($tgLog->performApiRequest($msg), $loop);
+				await($tgLog->performApiRequest($msg), $loop);
 			}
 			$messageToRefresh->touchLastUpdate();
+			printlog(sprintf('Chat ID %d - message ID %d was processed.', $messageToRefresh->getChatId(), $messageToRefresh->getBotReplyMessageId()));
+		} catch (\Throwable $exception) {
+			printlog(sprintf('Exception occured while processing chat ID %d - message ID %d: %s',
+				$messageToRefresh->getChatId(),
+				$messageToRefresh->getBotReplyMessageId(),
+				$exception->getMessage(),
+			));
+			\Tracy\Debugger::log($exception, \Tracy\ILogger::EXCEPTION);
 		}
-		$response->error = false;
-		$response->result[] = 'aaa';
-		$response->message = 'bbbb';
 	}
-} catch (\Exception $exception) {
-	$response->error = true;
-	$response->message = sprintf('%s Error occured while processing Glympse CRON: %s', Icons::ERROR, $exception->getMessage());
-	throw $exception;
+	printlog('All updates were processed');
 }
-//die(json_encode($response));

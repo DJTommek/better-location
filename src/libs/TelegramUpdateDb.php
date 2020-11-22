@@ -99,7 +99,7 @@ class TelegramUpdateDb
 	}
 
 	/** @return self[] */
-	public static function loadAll(int $status, int $chatId = null): array
+	public static function loadAll(int $status, int $chatId = null, int $limit = null, \DateTimeInterface $olderThan = null): array
 	{
 		$results = [];
 		$sqlQuery = 'SELECT * FROM better_location_telegram_updates WHERE autorefresh_status = ?';
@@ -109,6 +109,15 @@ class TelegramUpdateDb
 		if ($chatId) {
 			$sqlQuery .= ' AND chat_id = ?';
 			$sqlParams[] = $chatId;
+		}
+		if ($olderThan) {
+			$sqlQuery .= ' AND last_update < ?';
+			$sqlParams[] = $olderThan->format('Y-m-d\TH:i:s'); // @TODO Now it is not respecting timezone in object
+		}
+		$sqlQuery .= ' ORDER BY last_update ASC';
+		if ($limit) {
+			$sqlQuery .= ' LIMIT ?';
+			$sqlParams[] = $limit;
 		}
 		$rows = Factory::Database()->queryArray($sqlQuery, $sqlParams)->fetchAll();
 		foreach ($rows as $row) {
