@@ -109,7 +109,9 @@ final class GlympseService extends AbstractService
 		$currentLocationDescriptions = [];
 		$willExpireWarningInterval = new \DateInterval('PT30M');
 		$diff = $invite->properties->endTime->getTimestamp() - $now->getTimestamp();
+		$glympseExpired = false;
 		if ($diff <= 0) {
+			$glympseExpired = true;
 			$currentLocationDescriptions[] = sprintf('%s Glympse expired at %s (%s ago)',
 				Icons::WARNING,
 				$invite->properties->endTime->format(Config::DATETIME_FORMAT_ZONE),
@@ -122,7 +124,10 @@ final class GlympseService extends AbstractService
 		$currentLocation = new BetterLocation($url, $lastLocation->latitude, $lastLocation->longtitude, self::class, $type);
 		$currentLocation->setRefreshable(true);
 		$diff = $now->getTimestamp() - $lastLocation->timestamp->getTimestamp();
-		if ($diff > 600) { // show last update message only if it was updated long ago
+		if (
+			$diff > 600 &&  // show last update message only if it was updated long ago.
+			$glympseExpired === false // If Glympse is expired, there is already warning message so no need to duplicate that info
+		) {
 			$lastUpdateText = sprintf('%s Last location update: %s (%s ago)',
 				Icons::WARNING,
 				$lastLocation->timestamp->format(Config::DATETIME_FORMAT_ZONE),
