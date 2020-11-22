@@ -42,6 +42,8 @@ abstract class Events
 	protected $command = null;
 	protected $params = [];
 
+	abstract public function handleWebhookUpdate();
+
 	public function __construct(Update $update)
 	{
 		$this->update = $update;

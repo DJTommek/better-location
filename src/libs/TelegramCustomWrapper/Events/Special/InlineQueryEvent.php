@@ -18,7 +18,6 @@ use unreal4u\TelegramAPI\Telegram\Methods\AnswerInlineQuery;
 use unreal4u\TelegramAPI\Telegram\Types\Inline;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 use unreal4u\TelegramAPI\Telegram\Types\InputMessageContent\Text;
-use unreal4u\TelegramAPI\Telegram\Types\Update;
 
 class InlineQueryEvent extends Special
 {
@@ -31,20 +30,18 @@ class InlineQueryEvent extends Special
 
 	const GOOGLE_SEARCH_MIN_LENGTH = 3;
 
-	public function __construct(Update $update)
+	public function handleWebhookUpdate()
 	{
-		parent::__construct($update);
-
 		$answerInlineQuery = new AnswerInlineQuery();
-		$answerInlineQuery->inline_query_id = $update->inline_query->id;
+		$answerInlineQuery->inline_query_id = $this->update->inline_query->id;
 		$answerInlineQuery->cache_time = Config::TELEGRAM_INLINE_CACHE;
 
-		$queryInput = preg_replace('/\s+/', ' ', trim($update->inline_query->query));
+		$queryInput = preg_replace('/\s+/', ' ', trim($this->update->inline_query->query));
 
 		if (empty($queryInput)) {
 			// If user agrees to share location, and is using device, where is possible to get location (typically mobile devices)
-			if (empty($update->inline_query->location) === false) {
-				$betterLocation = BetterLocation::fromLatLon($update->inline_query->location->latitude, $update->inline_query->location->longitude);
+			if (empty($this->update->inline_query->location) === false) {
+				$betterLocation = BetterLocation::fromLatLon($this->update->inline_query->location->latitude, $this->update->inline_query->location->longitude);
 				$betterLocation->setPrefixMessage(sprintf('%s Current location', Icons::CURRENT_LOCATION));
 				$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 			} else if ($this->user->getLastKnownLocation() instanceof BetterLocation) {

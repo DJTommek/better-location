@@ -27,11 +27,9 @@ class FavouritesButton extends Button
 	 * @param $update
 	 * @throws \Exception
 	 */
-	public function __construct($update)
+	public function handleWebhookUpdate()
 	{
-		parent::__construct($update);
-
-		$params = TelegramHelper::getParams($update);
+		$params = TelegramHelper::getParams($this->update);
 		$action = array_shift($params);
 
 		switch ($action) {

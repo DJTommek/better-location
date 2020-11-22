@@ -22,16 +22,9 @@ class StartCommand extends Command
 	const FAVOURITE_ERROR = 'e';
 	const FAVOURITE_ERROR_TOO_LONG = 'too-long';
 
-	/**
-	 * HelpCommand constructor.
-	 *
-	 * @param $update
-	 * @throws \Exception
-	 */
-	public function __construct($update)
+	public function handleWebhookUpdate()
 	{
-		parent::__construct($update);
-		$encodedParams = TelegramHelper::getParams($update);
+		$encodedParams = TelegramHelper::getParams($this->update);
 		if (count($encodedParams) === 0) {
 			$this->processHelp();
 		} else if (count($encodedParams) === 1 && preg_match('/^(-?[0-9]{1,8})_(-?[0-9]{1,9})$/', $encodedParams[0], $matches)) {

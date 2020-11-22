@@ -11,14 +11,11 @@ use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
-use unreal4u\TelegramAPI\Telegram\Types\Update;
 
 class AddedToChatEvent extends Special
 {
-	public function __construct(Update $update)
+	public function handleWebhookUpdate()
 	{
-		parent::__construct($update);
-
 		$lat = 50.087451;
 		$lon = 14.420671;
 		$wazeLink = WazeService::getLink($lat, $lon);
@@ -49,7 +46,8 @@ class AddedToChatEvent extends Special
 		]);
 	}
 
-	private function getChatLocation(): ?BetterLocation {
+	private function getChatLocation(): ?BetterLocation
+	{
 		$betterLocation = null;
 		try {
 			$getChatRequest = new Telegram\Methods\GetChat();

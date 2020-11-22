@@ -9,10 +9,8 @@ class SettingsButton extends Button
 {
 	const CMD = SettingsCommand::CMD;
 
-	public function __construct($update)
+	public function handleWebhookUpdate()
 	{
-		parent::__construct($update);
-
 		$text = sprintf('<b>Settings</b>') . PHP_EOL;
 		$text .= sprintf('Choose one of the settings via buttons below:') . PHP_EOL;
 

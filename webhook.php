@@ -19,7 +19,13 @@ try {
 	\App\Factory::Database(); // Just check if database connection is valid, otherwise throw Exception and end script now.
 
 	$telegramCustomWrapper = new TelegramCustomWrapper(Config::TELEGRAM_BOT_TOKEN, Config::TELEGRAM_BOT_NAME);
-	$telegramCustomWrapper->handleUpdate($updateData);
+	$update = new \unreal4u\TelegramAPI\Telegram\Types\Update($updateData);
+	$telegramCustomWrapper->getUpdateEvent($update);
+	if ($event = $telegramCustomWrapper->getEvent()) {
+		$telegramCustomWrapper->handle();
+	} else {
+		printf('<p>%s</p>', $telegramCustomWrapper->getEventNote());
+	}
 	printf('OK.');
 } catch (\Throwable $exception) {
 	if (isset($_GET['exception']) && $_GET['exception'] === '0') {
