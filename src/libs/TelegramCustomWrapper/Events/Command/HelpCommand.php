@@ -6,15 +6,8 @@ class HelpCommand extends Command
 {
 	const CMD = '/help';
 
-	/**
-	 * HelpCommand constructor.
-	 *
-	 * @param $update
-	 * @throws \Exception
-	 */
-	public function __construct($update)
+	public function handleWebhookUpdate()
 	{
-		parent::__construct($update);
 		$this->processHelp();
 	}
 }

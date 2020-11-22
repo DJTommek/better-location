@@ -20,12 +20,9 @@ class FileEvent extends Special
 
 	const MAX_FILE_SIZE_DOWNLOAD = 20 * 1024 * 1024; // in bytes
 
-	public function __construct($update)
+	public function getCollection(): BetterLocationCollection
 	{
-		parent::__construct($update);
-
 		$collection = new BetterLocationCollection();
-
 		$document = $this->update->message->document;
 		if ($document->mime_type === self::MIME_TYPE_IMAGE_JPEG) {
 			if ($document->file_size > self::MAX_FILE_SIZE_DOWNLOAD) {
@@ -52,12 +49,16 @@ class FileEvent extends Special
 				}
 			}
 		}
-
 		$collection->mergeCollection(BetterLocationCollection::fromTelegramMessage(
 			$this->update->message->caption,
 			$this->update->message->caption_entities
 		));
+		return $collection;
+	}
 
+	public function handleWebhookUpdate()
+	{
+		$collection = $this->getCollection();
 		$processedCollection = new ProcessedMessageResult($collection);
 		$processedCollection->process();
 		if ($collection->count() > 0) {
@@ -69,7 +70,7 @@ class FileEvent extends Special
 				],
 			);
 			if ($collection->hasRefreshableLocation()) {
-				$cron = new TelegramUpdateDb($update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
+				$cron = new TelegramUpdateDb($this->update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
 				$cron->insert();
 			}
 		} else { // No detected locations or occured errors

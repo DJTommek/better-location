@@ -8,9 +8,8 @@ class HelpButton extends Button
 {
 	const CMD = HelpCommand::CMD;
 
-	public function __construct($update)
+	public function handleWebhookUpdate()
 	{
-		parent::__construct($update);
 		$this->processHelp(true);
 	}
 }

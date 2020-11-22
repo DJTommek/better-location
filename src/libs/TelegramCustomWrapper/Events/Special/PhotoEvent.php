@@ -9,14 +9,16 @@ use App\TelegramUpdateDb;
 
 class PhotoEvent extends Special
 {
-	public function __construct($update)
-	{
-		parent::__construct($update);
-
-		$collection = BetterLocationCollection::fromTelegramMessage(
+	public function getCollection(): BetterLocationCollection {
+		return BetterLocationCollection::fromTelegramMessage(
 			$this->update->message->caption,
 			$this->update->message->caption_entities,
 		);
+	}
+
+	public function handleWebhookUpdate()
+	{
+		$collection = $this->getCollection();
 		$processedCollection = new ProcessedMessageResult($collection);
 		$processedCollection->process();
 		if ($collection->count() > 0) {
@@ -28,7 +30,7 @@ class PhotoEvent extends Special
 				],
 			);
 			if ($collection->hasRefreshableLocation()) {
-				$cron = new TelegramUpdateDb($update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
+				$cron = new TelegramUpdateDb($this->update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
 				$cron->insert();
 			}
 		} else { // No detected locations or occured errors

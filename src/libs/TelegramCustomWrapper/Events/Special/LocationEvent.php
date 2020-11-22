@@ -7,6 +7,7 @@ use App\BetterLocation\BetterLocationCollection;
 use App\Icons;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
+use App\TelegramUpdateDb;
 use unreal4u\TelegramAPI\Telegram;
 
 class LocationEvent extends Special
@@ -14,31 +15,36 @@ class LocationEvent extends Special
 	/** @var bool is sended location live location */
 	private $live;
 
-	public function __construct(Telegram\Types\Update $update)
+	public function getCollection(): BetterLocationCollection
 	{
-		parent::__construct($update);
-		$this->live = TelegramHelper::isLocation($update, true);
-
 		$collection = new BetterLocationCollection();
 
 		$betterLocation = BetterLocation::fromLatLon($this->update->message->location->latitude, $this->update->message->location->longitude);
 		if ($this->live) {
 			$this->user->setLastKnownLocation($this->update->message->location->latitude, $this->update->message->location->longitude);
 			$betterLocation->setPrefixMessage('Live location');
-		} else if (TelegramHelper::isVenue($update)) {
-			$venue = $update->message->venue;
+			$betterLocation->setRefreshable(true);
+		} else if (TelegramHelper::isVenue($this->update)) {
+			$venue = $this->update->message->venue;
 			$title = $venue->foursquare_id ? $this->venueHrefLink($venue) : $venue->title;
 			$betterLocation->setPrefixMessage('Venue ' . $title);
-			$betterLocation->setDescription($update->message->venue->address);
+			$betterLocation->setDescription($this->update->message->venue->address);
 		} else {
 			$betterLocation->setPrefixMessage('Location');
 		}
 		$collection->add($betterLocation);
+		return $collection;
+	}
+
+	public function handleWebhookUpdate()
+	{
+		$this->live = TelegramHelper::isLocation($this->update, true);
+		$collection = $this->getCollection();
 
 		$processedCollection = new ProcessedMessageResult($collection);
 		$processedCollection->process();
 		if ($collection->count() > 0) {
-			$this->reply(
+			$response = $this->reply(
 				TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText(),
 				[
 					'disable_web_page_preview' => true,
@@ -46,7 +52,7 @@ class LocationEvent extends Special
 				],
 			);
 			if ($collection->hasRefreshableLocation()) {
-				$cron = new TelegramUpdateDb($update);
+				$cron = new TelegramUpdateDb($this->update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
 				$cron->insert();
 			}
 		} else { // No detected locations or occured errors

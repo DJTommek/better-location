@@ -1,7 +1,5 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
-use App\BetterLocation\BetterLocationCollection;
 use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
@@ -22,14 +20,15 @@ try {
 	$tgLog = new \unreal4u\TelegramAPI\TgLog(Config::TELEGRAM_BOT_TOKEN, new \unreal4u\TelegramAPI\HttpClientRequestHandler($loop));
 
 	$messagesToRefresh = \App\TelegramUpdateDb::loadAll(\App\TelegramUpdateDb::STATUS_ENABLED);
+
 	if (count($messagesToRefresh) === 0) {
 		printf('No message need refresh');
 	} else {
+		$telegramCustomWrapper = new \App\TelegramCustomWrapper\TelegramCustomWrapper(Config::TELEGRAM_BOT_TOKEN, Config::TELEGRAM_BOT_NAME);
 		foreach ($messagesToRefresh as $messageToRefresh) {
-			$collection = BetterLocationCollection::fromTelegramMessage(
-				$messageToRefresh->getOriginalUpdateObject()->message->text,
-				$messageToRefresh->getOriginalUpdateObject()->message->entities,
-			);
+			$telegramCustomWrapper->getUpdateEvent($messageToRefresh->getOriginalUpdateObject());
+			$event = $telegramCustomWrapper->getEvent();
+			$collection = $event->getCollection();
 			$processedCollection = new ProcessedMessageResult($collection);
 			$processedCollection->setAutorefresh(true);
 			$processedCollection->process();
@@ -43,9 +42,7 @@ try {
 				$msg->parse_mode = 'HTML';
 				$msg->reply_markup = $processedCollection->getMarkup(1);
 				$msg->disable_web_page_preview = true;
-				dump($msg);
 				$response = await($tgLog->performApiRequest($msg), $loop);
-				dump($response);
 			}
 			$messageToRefresh->touchLastUpdate();
 		}

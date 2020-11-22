@@ -6,28 +6,19 @@ use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\SimpleLogger;
-use unreal4u\TelegramAPI\Telegram\Types\Update;
 
 class FeedbackCommand extends Command
 {
 	const CMD = '/feedback';
 
-	/**
-	 * FeedbackCommand constructor.
-	 *
-	 * @param Update $update
-	 * @throws \Exception
-	 */
-	public function __construct(Update $update)
+	public function handleWebhookUpdate()
 	{
-		parent::__construct($update);
-
 		$messagePrefix = sprintf('%s <b>Feedback</b> for @%s.', Icons::FEEDBACK, Config::TELEGRAM_BOT_NAME) . PHP_EOL;
-		$params = TelegramHelper::getParams($update);
+		$params = TelegramHelper::getParams($this->update);
 
 		// Using reply
-		if ($update->message->reply_to_message) {
-			if ($update->message->reply_to_message->from->username === Config::TELEGRAM_BOT_NAME) {
+		if ($this->update->message->reply_to_message) {
+			if ($this->update->message->reply_to_message->from->username === Config::TELEGRAM_BOT_NAME) {
 				$this->logFeedback();
 				// @TODO adjust condition to match only real BetterLocation message, not just any message from bot
 				$this->reply($messagePrefix . 'Thanks for reporting, my BetterLocation message will be reviewed.');
@@ -54,6 +45,6 @@ class FeedbackCommand extends Command
 
 	private function logFeedback()
 	{
-		SimpleLogger::log(SimpleLogger::NAME_FEEDBACK, $this->update);
+		DummyLogger::log(DummyLogger::NAME_FEEDBACK, $this->update);
 	}
 }

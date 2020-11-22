@@ -22,11 +22,10 @@ class RefreshButton extends Button
 
 	private $telegramUpdateDb;
 
-	public function __construct($update)
+	public function handleWebhookUpdate()
 	{
-		parent::__construct($update);
 		try {
-			$params = TelegramHelper::getParams($update);
+			$params = TelegramHelper::getParams($this->update);
 			$action = array_shift($params);
 			$this->telegramUpdateDb = TelegramUpdateDb::fromDb(
 				$this->getChatId(),

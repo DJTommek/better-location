@@ -11,9 +11,8 @@ class FavouritesCommand extends Command
 {
 	const CMD = '/favourites';
 
-	public function __construct($update)
+	public function handleWebhookUpdate()
 	{
-		parent::__construct($update);
 		if ($this->isPm() === true) {
 			$this->processFavouritesList(false);
 		} else {

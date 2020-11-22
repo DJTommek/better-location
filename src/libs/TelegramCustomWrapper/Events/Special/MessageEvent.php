@@ -3,19 +3,21 @@
 namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocationCollection;
-use App\TelegramUpdateDb;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
+use App\TelegramUpdateDb;
 
 class MessageEvent extends Special
 {
-	public function __construct($update)
-	{
-		parent::__construct($update);
+	public function getCollection() {
+		return BetterLocationCollection::fromTelegramMessage($this->getText(), $this->update->message->entities);
+	}
 
-		$collection = BetterLocationCollection::fromTelegramMessage($this->getText(), $this->update->message->entities);
+	public function handleWebhookUpdate()
+	{
+		$collection = $this->getCollection();
 		$processedCollection = new ProcessedMessageResult($collection);
 		$processedCollection->process();
 		if ($collection->count() > 0) {
@@ -27,7 +29,7 @@ class MessageEvent extends Special
 				],
 			);
 			if ($collection->hasRefreshableLocation()) {
-				$cron = new TelegramUpdateDb($update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
+				$cron = new TelegramUpdateDb($this->update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
 				$cron->insert();
 			}
 		} else { // No detected locations or occured errors
