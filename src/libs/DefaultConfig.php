@@ -80,6 +80,12 @@ class DefaultConfig
 	/** @var int How many autorefreshed messages can be in one chat */
 	const REFRESH_AUTO_MAX_PER_CHAT = 5;
 
+	/** @var int How many object to run autorefresh is loaded from database in one cron run */
+	const REFRESH_CRON_MAX_UPDATES = 5;
+
+	/** @var int How many seconds has to elapse since last refresh */
+	const REFRESH_CRON_MIN_OLD = 300;
+
 	const DATE_FORMAT = 'Y-m-d';
 	const TIME_FORMAT = 'H:i:s';
 	const TIME_FORMAT_ZONE = self::TIME_FORMAT . ' T';
