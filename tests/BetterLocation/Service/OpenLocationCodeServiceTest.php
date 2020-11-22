@@ -4,8 +4,6 @@ use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\OpenLocationCodeService;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../../../src/bootstrap.php';
-
 final class OpenLocationCodeServiceTest extends TestCase
 {
 	/** @noinspection PhpUnhandledExceptionInspection */

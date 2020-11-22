@@ -29,6 +29,6 @@
 		"pre-install-cmd": "@php ./src/tools/CopyLocalConfig.php",
 		"pre-update-cmd": "@php ./src/tools/CopyLocalConfig.php",
 		"phpstan": "phpstan analyse src tests",
-		"test": "phpunit tests"
+		"test": "phpunit"
 	}
 }

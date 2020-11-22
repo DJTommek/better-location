@@ -4,8 +4,6 @@ use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesSecondsService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../../../../src/bootstrap.php';
-
 final class WGS84DegreesMinutesSecondsServiceTest extends TestCase
 {
 	public function testGenerateShareLink(): void

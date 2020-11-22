@@ -6,8 +6,6 @@ use App\BetterLocation\Service\WhatThreeWordService;
 use PHPUnit\Framework\TestCase;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 
-require_once __DIR__ . '/../../../src/bootstrap.php';
-
 final class WhatThreeWordsServiceTest extends TestCase
 {
 	/** @noinspection PhpUnhandledExceptionInspection */

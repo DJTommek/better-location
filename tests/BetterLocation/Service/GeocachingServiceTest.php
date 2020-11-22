@@ -5,8 +5,6 @@ use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\GeocachingService;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../../../src/bootstrap.php';
-
 final class GeocachingServiceTest extends TestCase
 {
 	/** @noinspection PhpUnhandledExceptionInspection */

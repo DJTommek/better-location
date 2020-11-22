@@ -3,7 +3,6 @@
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../src/bootstrap.php';
 
 final class EnvironmentSettingsTest extends TestCase
 {

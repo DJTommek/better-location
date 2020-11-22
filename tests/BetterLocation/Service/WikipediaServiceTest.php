@@ -5,8 +5,6 @@ use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\WikipediaService;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../../../src/bootstrap.php';
-
 final class WikipediaServiceTest extends TestCase
 {
 	public function testGenerateShareLink(): void

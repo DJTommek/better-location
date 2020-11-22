@@ -4,8 +4,6 @@ use App\BetterLocation\Service\Coordinates\MGRSService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../../../src/bootstrap.php';
-
 final class MGRSServiceTest extends TestCase
 {
 	public function testGenerateShareLink(): void

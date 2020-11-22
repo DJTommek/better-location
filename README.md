@@ -20,7 +20,7 @@ Available publicly on [@BetterLocationBot](https://t.me/BetterLocationBot).
 1. **Optional but recommended**: Disable public access to all files except webhook.php, which has to be accessed from Telegram servers.
 
 ## Testing
-1. Run `composer test` (or directly `./vendor/bin/phpunit tests`).
+1. Run `composer test` (or directly `./vendor/bin/phpunit`).
 
 Note: Some tests may be skipped if missing configuration (Glympse or What3Words)
 

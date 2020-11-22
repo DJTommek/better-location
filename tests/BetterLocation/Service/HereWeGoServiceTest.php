@@ -3,8 +3,6 @@
 use PHPUnit\Framework\TestCase;
 use App\BetterLocation\Service\HereWeGoService;
 
-require_once __DIR__ . '/../../../src/bootstrap.php';
-
 final class HereWeGoServiceTest extends TestCase
 {
 	public function testGenerateShareLink(): void

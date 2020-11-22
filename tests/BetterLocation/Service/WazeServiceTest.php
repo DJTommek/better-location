@@ -3,8 +3,6 @@
 use PHPUnit\Framework\TestCase;
 use App\BetterLocation\Service\WazeService;
 
-require_once __DIR__ . '/../../../src/bootstrap.php';
-
 final class WazeServiceTest extends TestCase
 {
 	public function testGenerateShareLink(): void

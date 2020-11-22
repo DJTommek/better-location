@@ -3,8 +3,6 @@
 use PHPUnit\Framework\TestCase;
 use App\BetterLocation\Service\GoogleMapsService;
 
-require_once __DIR__ . '/../../../src/bootstrap.php';
-
 final class GoogleMapsServiceTest extends TestCase
 {
 	public function testGenerateShareLink(): void

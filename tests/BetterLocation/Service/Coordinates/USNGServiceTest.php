@@ -4,8 +4,6 @@ use App\BetterLocation\Service\Coordinates\USNGService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../../../../src/bootstrap.php';
-
 final class USNGServiceTest extends TestCase
 {
 	public function testGenerateShareLink(): void

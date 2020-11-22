@@ -3,8 +3,6 @@
 use App\Utils\StringUtils;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../../src/bootstrap.php';
-
 final class StringUtilsTest extends TestCase
 {
 	public function testCheckIfValueInHeaderMatchArray(): void

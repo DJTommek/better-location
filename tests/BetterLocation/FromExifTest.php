@@ -3,8 +3,6 @@
 use App\BetterLocation\BetterLocation;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../../src/bootstrap.php';
-
 
 final class FromExifTest extends TestCase
 {

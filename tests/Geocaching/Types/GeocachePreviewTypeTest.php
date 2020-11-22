@@ -3,9 +3,6 @@
 use App\Geocaching\Types\GeocachePreviewType;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../../../src/bootstrap.php';
-
-
 final class GeocachePreviewTypeTest extends TestCase
 {
 	private static $GC3DYC4;

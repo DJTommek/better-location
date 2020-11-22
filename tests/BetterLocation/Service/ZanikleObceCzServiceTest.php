@@ -5,8 +5,6 @@ use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\ZanikleObceCzService;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../../../src/bootstrap.php';
-
 final class ZanikleObceCzServiceTest extends TestCase
 {
 	public function testGenerateShareLink(): void

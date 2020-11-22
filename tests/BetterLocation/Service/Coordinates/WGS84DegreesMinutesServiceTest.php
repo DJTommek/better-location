@@ -5,8 +5,6 @@ use PHPUnit\Framework\TestCase;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 
-require_once __DIR__ . '/../../../../src/bootstrap.php';
-
 final class WGS84DegreesMinutesServiceTest extends TestCase
 {
 	public function testGenerateShareLink(): void

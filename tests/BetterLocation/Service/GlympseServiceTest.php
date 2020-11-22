@@ -4,8 +4,6 @@ use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\GlympseService;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../../../src/bootstrap.php';
-
 final class GlympseServiceTest extends TestCase
 {
 	public function testGenerateShareLink(): void
