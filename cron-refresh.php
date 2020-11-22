@@ -8,9 +8,10 @@ use function Clue\React\Block\await;
 
 require_once __DIR__ . '/src/bootstrap.php';
 
-function printlog($text)
+function printlog(string $text)
 {
 	printf('<p><b>%s</b>: %s</p>', (new DateTime())->format(DATE_W3C), $text);
+	\App\Utils\DummyLogger::log(\App\Utils\DummyLogger::NAME_CRON_AUTOREFRESH, $text);
 }
 
 $loop = \React\EventLoop\Factory::create();

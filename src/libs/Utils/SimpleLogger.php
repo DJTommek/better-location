@@ -9,6 +9,7 @@ class SimpleLogger
 	const NAME_TELEGRAM_INPUT = 'telegram_input';
 	const NAME_TELEGRAM_OUTPUT = 'telegram_output';
 	const NAME_TELEGRAM_OUTPUT_RESPONSE = 'telegram_output_response';
+	const NAME_CRON_AUTOREFRESH = 'cron_autorefresh';
 
 	const FILE_EXTENSION = 'jsonl';
 	const LINE_SEPARATOR = "\n"; // not PHP_EOL because it is \r\n on Windows
