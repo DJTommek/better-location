@@ -9,6 +9,7 @@ use App\BetterLocation\Service\MapyCzService;
 use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
+use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -94,6 +95,9 @@ class InlineQueryEvent extends Special
 			$entities = TelegramHelper::generateEntities($queryInput);
 			try {
 				$collection = BetterLocationCollection::fromTelegramMessage($queryInput, $entities);
+				if (count($collection->getLocations()) > 1) {
+					$answerInlineQuery->addResult($this->getAllLocationsInlineQueryResult($collection));
+				}
 				foreach ($collection->getLocations() as $betterLocation) {
 					$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 				}
@@ -183,6 +187,26 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->reply_markup->inline_keyboard = [$buttons];
 		$inlineQueryResult->input_message_content = new Text();
 		$inlineQueryResult->input_message_content->message_text = TelegramHelper::MESSAGE_PREFIX . $betterLocation->generateMessage();
+		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
+		$inlineQueryResult->input_message_content->disable_web_page_preview = true;
+		return $inlineQueryResult;
+	}
+
+	private function getAllLocationsInlineQueryResult(BetterLocationCollection $collection): Inline\Query\Result\Article
+	{
+		$processedCollection = new ProcessedMessageResult($collection);
+		$processedCollection->process(true);
+
+		$inlineQueryResult = new Inline\Query\Result\Article();
+		$inlineQueryResult->id = rand(100000, 999999);
+		$inlineQueryResult->title = sprintf('%s Multiple locations', Icons::LOCATION);
+		$inlineQueryResult->description = sprintf('Send all %d locations listed below as one message', count($collection->getLocations()));
+		$inlineQueryResult->reply_markup = $processedCollection->getMarkup(1);
+		// @TODO workaround until resolving https://github.com/DJTommek/better-location/issues/2 (Secure public access)
+		$inlineQueryResult->thumb_url = 'https://raw.githubusercontent.com/DJTommek/better-location/master/asset/map-icon-bot%20v1.png';
+
+		$inlineQueryResult->input_message_content = new Text();
+		$inlineQueryResult->input_message_content->message_text = TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText();;
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
 		$inlineQueryResult->input_message_content->disable_web_page_preview = true;
 		return $inlineQueryResult;
