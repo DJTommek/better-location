@@ -1,0 +1,377 @@
+{
+	"nextOffset": -1,
+	"portalData": [
+		{
+			"guid": "e2e513d0e5e84f5ebd49107e40c64111.16",
+			"lat": 50.042149,
+			"lng": 1.412214,
+			"name": "Terrain sportif basket"
+		},
+		{
+			"guid": "b28e82feac574ad4ad747975eaaeb219.16",
+			"lat": 50.042174,
+			"lng": 1.418436,
+			"name": "anno JC 1819"
+		},
+		{
+			"guid": "73936f925c9e462eac4e6bc27cc4f2d5.16",
+			"lat": 50.042305,
+			"lng": 1.411912,
+			"name": "Terrain de p\u00e9tanque d'Eu"
+		},
+		{
+			"guid": "d9b99acebc3342d082800a6b92217843.16",
+			"lat": 50.043379,
+			"lng": 1.420616,
+			"name": "40eme anniversaire de la lib\u00e9ration"
+		},
+		{
+			"guid": "dfb36e61dd2c47d7acb4d25185ffe1e9.16",
+			"lat": 50.043604,
+			"lng": 1.419314,
+			"name": "Monument De Eu"
+		},
+		{
+			"guid": "d01343ec4f8a4ba8ad0c3ffe1c21246d.16",
+			"lat": 50.04365,
+			"lng": 1.420552,
+			"name": "st jean"
+		},
+		{
+			"guid": "884133df0b6e44149adb5708ca6d8918.16",
+			"lat": 50.043897,
+			"lng": 1.426556,
+			"name": "Monument Aux Morts"
+		},
+		{
+			"guid": "803f3fe26fdc4069b2976fdc578a81b1.16",
+			"lat": 50.044285,
+			"lng": 1.410387,
+			"name": "ch\u00e2teau d eau"
+		},
+		{
+			"guid": "18d6b0a05d2647e69afa81065db9365c.16",
+			"lat": 50.044447,
+			"lng": 1.422279,
+			"name": "centre de tri la poste"
+		},
+		{
+			"guid": "2f58d1822c264c8283fe96216859af8b.16",
+			"lat": 50.044635,
+			"lng": 1.424408,
+			"name": "Eglise apostolique"
+		},
+		{
+			"guid": "87c8d90651b64c619b898b2098c62515.16",
+			"lat": 50.044823,
+			"lng": 1.426231,
+			"name": "le chemin Vert"
+		},
+		{
+			"guid": "31b2644aa8574009918548b03c0d24f9.16",
+			"lat": 50.045188,
+			"lng": 1.419591,
+			"name": "Alg\u00e9rie-Tunisie-Maroc"
+		},
+		{
+			"guid": "034b1473723649daaea5ad250d1fd6e3.16",
+			"lat": 50.045231,
+			"lng": 1.418782,
+			"name": "Tr\u00e9sorerie Municipale"
+		},
+		{
+			"guid": "e249505152884dec95c7676a6b6fc631.16",
+			"lat": 50.04542,
+			"lng": 1.422626,
+			"name": "chef viking"
+		},
+		{
+			"guid": "4a9003c5efe846f4b2040209ebf3fe50.16",
+			"lat": 50.045427,
+			"lng": 1.423143,
+			"name": "Ancienne Porte De La Ville"
+		},
+		{
+			"guid": "08d9da6f10844ac3857da9eb4615d78e.16",
+			"lat": 50.046114,
+			"lng": 1.419261,
+			"name": "maison paul Bignon"
+		},
+		{
+			"guid": "0f73a470376f49999a90c1e1de5876ea.16",
+			"lat": 50.046608,
+			"lng": 1.42348,
+			"name": "Terrain de p\u00e9tanque"
+		},
+		{
+			"guid": "2f615b513d76473895487496d7c728ca.16",
+			"lat": 50.04708,
+			"lng": 1.415139,
+			"name": "Visage en fa\u00e7ade"
+		},
+		{
+			"guid": "7b9ac41e7057430692a1e73c6e675e5a.16",
+			"lat": 50.047133,
+			"lng": 1.417812,
+			"name": "H\u00f4tel de France"
+		},
+		{
+			"guid": "4a4132b7cac04b619dbd5892288e5320.16",
+			"lat": 50.047246,
+			"lng": 1.420204,
+			"name": "Chapelle Du Coll\u00e8ge"
+		},
+		{
+			"guid": "f2fb5f79b48e469fa4b4a0b809e261ae.16",
+			"lat": 50.047398,
+			"lng": 1.419574,
+			"name": "statue religieuse sculpt\u00e9e en pierre"
+		},
+		{
+			"guid": "b044037704a1423885dcbe10c0556b47.16",
+			"lat": 50.047425,
+			"lng": 1.418816,
+			"name": "Fontaine D\u2019eu"
+		},
+		{
+			"guid": "a26c742e15864b51ad43bb122fe51c57.16",
+			"lat": 50.047568,
+			"lng": 1.421716,
+			"name": "plante piranhas"
+		},
+		{
+			"guid": "d5ef7e648427443c9d6d266ecd6820cd.16",
+			"lat": 50.047763,
+			"lng": 1.418498,
+			"name": "Porte Sculpt\u00e9e "
+		},
+		{
+			"guid": "6177a267505e4d75997b2b010f543794.16",
+			"lat": 50.048152,
+			"lng": 1.420763,
+			"name": "Double visage en fa\u00e7ade"
+		},
+		{
+			"guid": "1f337110d2594f279c0f861a34a93d60.16",
+			"lat": 50.048234,
+			"lng": 1.420117,
+			"name": "Fontaine T\u00eate de Lion"
+		},
+		{
+			"guid": "e93c7cfed18647e9b6c51aa4c1f4a7c6.16",
+			"lat": 50.048494,
+			"lng": 1.41906,
+			"name": "Office de tourisme"
+		},
+		{
+			"guid": "bf4f12e3d7fd4573ac6ee7dffd70a1f8.16",
+			"lat": 50.048502,
+			"lng": 1.419511,
+			"name": "Guillaume Mathilde "
+		},
+		{
+			"guid": "d6b1d94d795640fc810a1a052b04b690.16",
+			"lat": 50.048514,
+			"lng": 1.418256,
+			"name": "Th\u00e9\u00e2tre "
+		},
+		{
+			"guid": "26005c6fc64047698157663169d17d30.16",
+			"lat": 50.048544,
+			"lng": 1.413801,
+			"name": "St\u00e8le d'un chevalier et de son \u00e9p\u00e9e"
+		},
+		{
+			"guid": "122ee50b02274f17924c20f7227de5db.16",
+			"lat": 50.048554,
+			"lng": 1.419853,
+			"name": "Les comptes d'Eu et la Normandie"
+		},
+		{
+			"guid": "e215bb26dc5f44e8b5e5e6337ee9054d.16",
+			"lat": 50.048642,
+			"lng": 1.416565,
+			"name": "table en pierre 16eme si\u00e8cles"
+		},
+		{
+			"guid": "e31f13f15b9b4600bda66685937d7644.16",
+			"lat": 50.048708,
+			"lng": 1.414145,
+			"name": "Fontaine d\u2019eau"
+		},
+		{
+			"guid": "5ee90e684765436893e21fdcd60f6874.16",
+			"lat": 50.048721,
+			"lng": 1.415824,
+			"name": "B\u00e9b\u00e9 Guisard"
+		},
+		{
+			"guid": "f88fff9722234834aa1a1219be28e4a7.16",
+			"lat": 50.048742,
+			"lng": 1.412692,
+			"name": "parcours sport sant\u00e9"
+		},
+		{
+			"guid": "711bc5af37f247b29bbfe005629a4ae4.16",
+			"lat": 50.048745,
+			"lng": 1.417539,
+			"name": "Ferdinand Duc D'orleans"
+		},
+		{
+			"guid": "4046c54c9790470d90ed589aa9653fd0.16",
+			"lat": 50.048766,
+			"lng": 1.413632,
+			"name": "Carr\u00e9 Du Mill\u00e9naire"
+		},
+		{
+			"guid": "931fc22fdc414341a4bef4024fa2f7c8.16",
+			"lat": 50.048785,
+			"lng": 1.418093,
+			"name": "boite aux livres"
+		},
+		{
+			"guid": "78e41ceb07cc4922b686a6520b239415.16",
+			"lat": 50.048826,
+			"lng": 1.416758,
+			"name": "Table Des Guise"
+		},
+		{
+			"guid": "5278d69739ae40628f9078b41b39e1bd.16",
+			"lat": 50.048833,
+			"lng": 1.415113,
+			"name": "Glaci\u00e8re Du Ch\u00e2teau "
+		},
+		{
+			"guid": "59a9c959843d493596e4f7982ff3a336.16",
+			"lat": 50.048941,
+			"lng": 1.418993,
+			"name": "Coll\u00e9giale Notre Dame"
+		},
+		{
+			"guid": "82888cdaa8ea43bc9a96953a43727bad.16",
+			"lat": 50.04903,
+			"lng": 1.420505,
+			"name": "Maison Paroissiale"
+		},
+		{
+			"guid": "71fd4efef1a44acc855999934ed776d7.16",
+			"lat": 50.049048,
+			"lng": 1.410056,
+			"name": "structure sportif circuit rondino"
+		},
+		{
+			"guid": "5f339ae0697142d5a3ba10c17dda6180.12",
+			"lat": 50.049079,
+			"lng": 1.416047,
+			"name": "Diane de Versailles (Copie)"
+		},
+		{
+			"guid": "ad43d4b351c248e88ef298f0f649a488.16",
+			"lat": 50.049133,
+			"lng": 1.414527,
+			"name": "perspective Guizot"
+		},
+		{
+			"guid": "98ac43bdd5bc4658bc57533547726d76.16",
+			"lat": 50.049164,
+			"lng": 1.418534,
+			"name": "Espace Viollet Le Duc"
+		},
+		{
+			"guid": "bc4d9c7503e64f7083b22309fa901813.16",
+			"lat": 50.049208,
+			"lng": 1.418053,
+			"name": "Plaque Du Ch\u00e2teau D\u2019Eu "
+		},
+		{
+			"guid": "d914b65441664178adf35b30e07b378f.16",
+			"lat": 50.04922,
+			"lng": 1.419933,
+			"name": "Croix Irlandaise"
+		},
+		{
+			"guid": "49864923ac4e443eb74fbbbee5b1f737.16",
+			"lat": 50.049345,
+			"lng": 1.416883,
+			"name": "Mairie d\u2019Eu"
+		},
+		{
+			"guid": "51b994c436bd41bd83b012ba2f43899b.16",
+			"lat": 50.04936,
+			"lng": 1.420261,
+			"name": "Michel Anguier"
+		},
+		{
+			"guid": "243ee1255b58413693d4859969d4decc.16",
+			"lat": 50.049373,
+			"lng": 1.416092,
+			"name": "Fontaine"
+		},
+		{
+			"guid": "54eae356d35e426781bbe6efab666924.16",
+			"lat": 50.049379,
+			"lng": 1.419667,
+			"name": "Point de vue de la ville d'Eu"
+		},
+		{
+			"guid": "f17352f6c72944ffac01f4fabb0b668b.16",
+			"lat": 50.049397,
+			"lng": 1.415156,
+			"name": "Statue du jardin du ch\u00e2teau"
+		},
+		{
+			"guid": "201289baadbb479689701f9770502ade.16",
+			"lat": 50.049522,
+			"lng": 1.420807,
+			"name": "Biblioth\u00e8que de Eu"
+		},
+		{
+			"guid": "c3e3ed8c25d04292bd9f1736669199fd.16",
+			"lat": 50.049523,
+			"lng": 1.435007,
+			"name": "Monument comm\u00e9moratif de l'Isle la bataille"
+		},
+		{
+			"guid": "193756e46d5347aaaf6227173e96a66f.16",
+			"lat": 50.049636,
+			"lng": 1.421179,
+			"name": "canal de la teinturie"
+		},
+		{
+			"guid": "a2dfa7c06da04fb1b4556885ef91c322.16",
+			"lat": 50.049658,
+			"lng": 1.417037,
+			"name": "Isabelle D'Orl\u00e9ans"
+		},
+		{
+			"guid": "c738d45282944c188b3ffa2d590a7f6f.16",
+			"lat": 50.049671,
+			"lng": 1.416071,
+			"name": "Statue du jardin du ch\u00e2teau"
+		},
+		{
+			"guid": "3539f526032843a092759151705a0f01.16",
+			"lat": 50.04973,
+			"lng": 1.415384,
+			"name": "Canon"
+		},
+		{
+			"guid": "2bcece7f08cb4a2b8788d3b418784f48.16",
+			"lat": 50.049771,
+			"lng": 1.418905,
+			"name": "Pavillon Des Fontaines"
+		},
+		{
+			"guid": "a3b86a451e014961b103f8c9038695e1.16",
+			"lat": 50.049845,
+			"lng": 1.418284,
+			"name": "M\u00e9morial De Jeanne D Arc"
+		},
+		{
+			"guid": "d09c5cf75493498cb13f4f6fa46eee8f.16",
+			"lat": 50.049972,
+			"lng": 1.420793,
+			"name": "Aire de jeux de l\u2019Hotel Dieu"
+		}
+	]
+}
