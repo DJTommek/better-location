@@ -7,6 +7,9 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\IngressLanchedRu;
+use Tracy\Debugger;
+use Tracy\ILogger;
 
 final class IngressIntelService extends AbstractService
 {
@@ -34,7 +37,21 @@ final class IngressIntelService extends AbstractService
 	{
 		$coords = self::parseUrl($url);
 		if ($coords) {
-			return new BetterLocation($url, $coords[0], $coords[1], self::class);
+			list($lat, $lon) = $coords;
+			$location = new BetterLocation($url, $lat, $lon, self::class);
+			try {
+				if ($portal = (new IngressLanchedRu\Client())->getPortalByCoords($lat, $lon)) {
+					$prefix = $location->getPrefixMessage();
+					$prefix .= sprintf(' <a href="%s">%s</a>', $portal->getIntelLink(), htmlspecialchars($portal->name));
+					$location->setPrefixMessage($prefix);
+					if (in_array($portal->address, ['', 'undefined', '[Unknown Location]'], true) === false) { // show portal address only if it makes sense
+						$location->setAddress(htmlspecialchars($portal->address));
+					}
+				}
+			} catch (\Throwable $exception) {
+				Debugger::log($exception, ILogger::EXCEPTION);
+			}
+			return $location;
 		} else {
 			throw new InvalidLocationException(sprintf('Unable to get coords from Ingress Intel link "%s".', $url));
 		}
