@@ -162,21 +162,17 @@ class InlineQueryEvent extends Special
 		return $this->update->inline_query->from;
 	}
 
-	private function getInlineQueryResult(BetterLocation $betterLocation, string $inlineTitle = null): Inline\Query\Result\Location
+	private function getInlineQueryResult(BetterLocation $betterLocation, string $inlineTitle = null): Inline\Query\Result\Article
 	{
-		$inlineQueryResult = new Inline\Query\Result\Location();
+		$inlineQueryResult = new Inline\Query\Result\Article();
 		$inlineQueryResult->id = rand(100000, 999999);
-		$inlineQueryResult->latitude = $betterLocation->getLat();
-		$inlineQueryResult->longitude = $betterLocation->getLon();
 		if (is_null($inlineTitle)) {
-			$inlineTitle = $betterLocation->getInlinePrefixMessage();
-			if (is_null($inlineTitle)) {
-				$inlineTitle = $betterLocation->getPrefixMessage();
-			}
+			$inlineTitle = $betterLocation->getInlinePrefixMessage() ?? $betterLocation->getPrefixMessage();
 		}
 		$inlineQueryResult->title = strip_tags($inlineTitle);
+		$inlineQueryResult->description = $betterLocation->__toString();
 		if ($betterLocation->getAddress()) {
-			$inlineQueryResult->title .= sprintf(' (%s)', $betterLocation->getAddress());
+			$inlineQueryResult->description .= sprintf(' (%s)', $betterLocation->getAddress());
 		}
 		$inlineQueryResult->thumb_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
 		$inlineQueryResult->reply_markup = new Markup();
