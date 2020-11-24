@@ -86,9 +86,9 @@ class Client
 			'offset' => $offset,
 		];
 		$url = self::LINK_SEARCH_PORTALS . '?' . http_build_query($params);
-		$json = $this->makeJsonRequest($url);
+		$json = $this->makeJsonRequest($url); // json might be null if no portal was found
 		$result = [];
-		foreach ($json as $portalData) {
+		foreach ($json ?? [] as $portalData) {
 			$result[] = PortalType::createFromVariable($portalData);
 		}
 		return $result;
@@ -106,7 +106,7 @@ class Client
 		}
 	}
 
-	/** @return \stdClass|array<mixed> */
+	/** @return \stdClass|array<mixed>|null */
 	private function makeJsonRequest(string $url)
 	{
 		$response = $this->makeRequest($url);
