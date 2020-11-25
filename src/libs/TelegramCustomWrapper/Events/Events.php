@@ -208,16 +208,21 @@ abstract class Events
 				'https://en.wikipedia.org/wiki/Military_Grid_Reference_System',
 				'https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system',
 			) . PHP_EOL;
-		$text .= sprintf('- special codes: <a href="%s">What3Words</a>, <a href="%s">Open Location Codes</a>, ...', 'https://what3words.com/', 'https://plus.codes/') . PHP_EOL;
-		$text .= sprintf('- URL links: google.com, mapy.cz, intel.ingress.com, ...') . PHP_EOL;
-		$text .= sprintf('- short URL links: goo.gl, bit.ly, tinyurl.com, t.co, tiny.cc, ...') . PHP_EOL;
-		$text .= sprintf('- Telegram location') . PHP_EOL;
+		$text .= sprintf('- codes: <a href="%s">Geocaching GCxxx</a>, <a href="%s">What3Words</a>, <a href="%s">Open Location Codes</a>, ...',
+				'https://what3words.com/',
+				'https://plus.codes/',
+				'https://geocaching.com/',
+			) . PHP_EOL;
+		$text .= sprintf('- links: google.com, glympse.com, mapy.cz, intel.ingress.com, ...') . PHP_EOL;
+		$text .= sprintf('- short links: goo.gl, bit.ly, tinyurl.com, t.co, tiny.cc, ...') . PHP_EOL;
+		$text .= sprintf('- Telegram (live) location and venues') . PHP_EOL;
 		$text .= sprintf('- EXIF from <b>uncompressed</b> images') . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= sprintf('%s <b>Inline:</b>', Icons::INLINE) . PHP_EOL;
-		$text .= sprintf('To send my Better locations to a group I am not in, or to a private message, just type <code>@%s</code>', Config::TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text .= sprintf('To send my Better locations to a group I am not in, or to a private chat, just type <code>@%s</code>', Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('- add any link, text, special code etc and choose one of the output') . PHP_EOL;
 		$text .= sprintf('- send your current position (on mobile devices only)') . PHP_EOL;
+		$text .= sprintf('- send previously saved favourited locations') . PHP_EOL;
 		$text .= sprintf('- search literally anything via Google search API') . PHP_EOL;
 		$text .= sprintf('%s <a href="%s">See video here</a>', Icons::VIDEO, 'https://t.me/BetterLocation/8') . PHP_EOL;
 		$text .= PHP_EOL;
