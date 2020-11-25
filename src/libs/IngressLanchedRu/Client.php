@@ -3,7 +3,7 @@
 namespace App\IngressLanchedRu;
 
 use App\IngressLanchedRu\Types\PortalType;
-use App\Utils\General;
+use App\MiniCurl\MiniCurl;
 
 /**
  * Hi there. Looks you are interested in Ingress portal search. I can help you with it.
@@ -109,15 +109,6 @@ class Client
 	/** @return \stdClass|array<mixed>|null */
 	private function makeJsonRequest(string $url)
 	{
-		$response = $this->makeRequest($url);
-		return json_decode($response, false, 512, JSON_THROW_ON_ERROR);
-	}
-
-	private function makeRequest(string $url): string
-	{
-		return General::fileGetContents($url, [
-			CURLOPT_CONNECTTIMEOUT => 5,
-			CURLOPT_TIMEOUT => 5,
-		]);
+		return (new MiniCurl($url))->run()->getBodyAsJson();
 	}
 }

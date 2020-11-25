@@ -56,7 +56,7 @@ final class DrobnePamatkyCzServiceTest extends TestCase
 	public function testMissingCoordinates1(): void
 	{
 		$this->expectException(InvalidLocationException::class);
-		$this->expectExceptionMessage('Coordinates on DrobnePamatky.cz page are missing.');
+		$this->expectExceptionMessage('Unable to get coords from DrobnePamatky.cz link https://www.drobnepamatky.cz/node/9999999.');
 		DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/9999999');
 	}
 

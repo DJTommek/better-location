@@ -7,7 +7,7 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
-use App\Utils\General;
+use App\MiniCurl\MiniCurl;
 
 final class WikipediaService extends AbstractService
 {
@@ -88,11 +88,7 @@ final class WikipediaService extends AbstractService
 	 */
 	private static function requestLocationFromWikipediaPage($url): \stdClass
 	{
-		$response = General::fileGetContents($url, [
-			CURLOPT_CONNECTTIMEOUT => 5,
-			CURLOPT_TIMEOUT => 5,
-			// CURLOPT_RANGE => '0-500', // Not working for *.here URLs. Their server is probably forcing full request
-		]);
+        $response = (new MiniCurl($url))->run()->getBody();
 		$startString = '<script>document.documentElement.className="client-js";RLCONF=';
 		$endString = 'RLSTATE=';
 		$posStart = mb_strpos($response, $startString);

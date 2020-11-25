@@ -84,7 +84,7 @@ final class RopikyNetServiceTest extends TestCase
 	public function testInvalidId(): void
 	{
 		$this->expectException(InvalidLocationException::class);
-		$this->expectExceptionMessage('Unable to get coords from Ropiky.net link https://ropiky.net/dbase_objekt.php?id=123.');
+		$this->expectExceptionMessage('Coordinates on Ropiky.net page are missing.');
 		RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=123');
 	}
 }

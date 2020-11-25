@@ -7,6 +7,7 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Url;
+use App\MiniCurl\MiniCurl;
 use App\Utils\General;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -164,11 +165,7 @@ final class HereWeGoService extends AbstractService
 
 	private static function requestByLoc($url): \stdClass
 	{
-		$response = General::fileGetContents($url, [
-			CURLOPT_CONNECTTIMEOUT => 5,
-			CURLOPT_TIMEOUT => 5,
-			// CURLOPT_RANGE => '0-500', // Not working for *.here URLs. Their server is probably forcing full request
-		]);
+        $response = (new MiniCurl($url))->run()->getBody();
 		// @TODO probably could be solved somehow better. Needs more testing
 		preg_match('/<script type="application\/ld\+json">(.+?)<\/script>/s', $response, $matches);
 		return json_decode($matches[1]);

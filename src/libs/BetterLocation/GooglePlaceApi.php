@@ -3,7 +3,7 @@
 namespace App\BetterLocation;
 
 use App\Config;
-use App\Utils\General;
+use App\MiniCurl\MiniCurl;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
@@ -129,13 +129,13 @@ class GooglePlaceApi
 
 	private function runGoogleApiRequest(string $url): \stdClass
 	{
-		$response = General::fileGetContents($url);
-		$content = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
+		$response = (new MiniCurl($url))->run();
+		$content = $response->getBodyAsJson();
 		if (in_array($content->status, [self::RESPONSE_OK, self::RESPONSE_ZERO_RESULTS], true)) {
 			return $content;
 		} else {
 			Debugger::log('Request URL: ' . $url, ILogger::DEBUG);
-			Debugger::log('Response content: ' . $response, ILogger::DEBUG);
+			Debugger::log('Response content: ' . $response->getBody(), ILogger::DEBUG);
 			throw new \Exception(sprintf('Invalid status "%s" from Google Place API. Error: "%s". See debug.log for more info.', $content->status, $content->error_message ?? 'Not provided'));
 		}
 	}

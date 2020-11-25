@@ -4,7 +4,7 @@ namespace App\Geocaching;
 
 use App\Config;
 use App\Geocaching\Types\GeocachePreviewType;
-use App\Utils\General;
+use App\MiniCurl\MiniCurl;
 
 class Client
 {
@@ -34,19 +34,12 @@ class Client
 
 	private function makeJsonRequest(string $url): \stdClass
 	{
-		$response = $this->makeRequest($url);
-		return json_decode($response, false, 512, JSON_THROW_ON_ERROR);
-	}
-
-	private function makeRequest(string $url): string
-	{
 		$cookies = [
 			'gspkauth' => Config::GEOCACHING_COOKIE,
 		];
-		return General::fileGetContents($url, [
-			CURLOPT_CONNECTTIMEOUT => 5,
-			CURLOPT_TIMEOUT => 5,
-			CURLOPT_COOKIE => http_build_query($cookies),
-		]);
+		return (new MiniCurl($url))
+			->setCurlOption(CURLOPT_COOKIE, http_build_query($cookies))
+			->run()
+			->getBodyAsJson();
 	}
 }

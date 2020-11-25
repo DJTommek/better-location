@@ -6,7 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Url;
-use App\Utils\General;
+use App\MiniCurl\MiniCurl;
 
 final class GoogleMapsService extends AbstractService
 {
@@ -237,7 +237,7 @@ final class GoogleMapsService extends AbstractService
 		// @TODO probably there will be always at least map center so this code never occure? Needs testing
 		if ($returnCollection === false || count($betterLocationCollection) <= 0) {
 			// URL don't have any coordinates or place-id to translate so load content and there are some coordinates hidden in page in some of brutal multi-array
-			$content = General::fileGetContents($url);
+			$content = (new MiniCurl($url))->run()->getBody();
 			// Regex is searching for something like this: ',"",null,[null,null,50.0641584,14.468139599999999]';
 			// Warning: Not exact position
 			if (preg_match('/","",null,\[null,null,(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)]\n/', $content, $matches)) {
