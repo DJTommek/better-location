@@ -185,6 +185,12 @@ final class GeocachingService extends AbstractService
 					) {
 						// https://www.geocaching.com/play/map?gc=GC3DYC4
 						return mb_strtoupper($query['gc']);
+					} else if ( // https://www.geocaching.com/seek/cache_details.aspx?wp=GC1GDKZ
+						$parsedUrl['path'] === '/seek/cache_details.aspx' &&
+						isset($query['wp']) &&
+						preg_match('/^' . self::CACHE_REGEX . '$/i', $query['wp'], $matches)
+					) {
+						return mb_strtoupper($query['wp']);
 					}
 				}
 			}
