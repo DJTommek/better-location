@@ -35,7 +35,7 @@ class Client
 	private function makeJsonRequest(string $url): \stdClass
 	{
 		$cookies = [
-			'gspkauth' => Config::GEOCACHING_COOKIE,
+			self::COOKIE_NAME => Config::GEOCACHING_COOKIE,
 		];
 		return (new MiniCurl($url))
 			->setCurlOption(CURLOPT_COOKIE, http_build_query($cookies))
