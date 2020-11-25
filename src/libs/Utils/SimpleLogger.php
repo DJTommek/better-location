@@ -2,7 +2,7 @@
 
 namespace App\Utils;
 
-class DummyLogger
+class SimpleLogger
 {
 	const NAME_ALL_REQUESTS = 'request';
 	const NAME_FEEDBACK = 'feedback';

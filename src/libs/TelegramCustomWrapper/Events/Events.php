@@ -15,7 +15,7 @@ use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\SendMessage;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\User;
-use App\Utils\DummyLogger;
+use App\Utils\SimpleLogger;
 use React\EventLoop\Factory;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -166,13 +166,13 @@ abstract class Events
 	 */
 	public function run(TelegramMethods $objectToSend): ?TelegramTypes
 	{
-		DummyLogger::log(DummyLogger::NAME_TELEGRAM_OUTPUT, $objectToSend);
+		SimpleLogger::log(SimpleLogger::NAME_TELEGRAM_OUTPUT, $objectToSend);
 		try {
 			$response = await($this->tgLog->performApiRequest($objectToSend), $this->loop);
-			DummyLogger::log(DummyLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $response);
+			SimpleLogger::log(SimpleLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $response);
 			return $response;
 		} catch (ClientException $exception) {
-			DummyLogger::log(DummyLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $exception->getMessage());
+			SimpleLogger::log(SimpleLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $exception->getMessage());
 			$ignoredExceptions = [
 				TelegramHelper::NOT_CHANGED,
 				TelegramHelper::TOO_OLD,

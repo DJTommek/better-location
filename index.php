@@ -158,7 +158,7 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 				}
 			}
 			?>
-			<h2>Dummy logs</h2>
+			<h2>SimpleLogger logs</h2>
 			<?php
 			$maxLines = 10;
 			printf('<p>Showing last %d lines per log file, oldest lines first.</p>', $maxLines);

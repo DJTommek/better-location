@@ -3,7 +3,7 @@
 namespace App\Dashboard;
 
 use App\Config;
-use App\Utils\DummyLogger;
+use App\Utils\SimpleLogger;
 use App\Utils\General;
 use Tracy\ILogger;
 
@@ -12,8 +12,8 @@ class Logs
 	public static function getLogs(\DateTimeImmutable $date, int $maxLines)
 	{
 		$logContents = [];
-		foreach (DummyLogger::getLogNames() as $logName) {
-			$logContents[$logName] = DummyLogger::getLogContent($logName, $date, $maxLines);
+		foreach (SimpleLogger::getLogNames() as $logName) {
+			$logContents[$logName] = SimpleLogger::getLogContent($logName, $date, $maxLines);
 		}
 		return $logContents;
 	}

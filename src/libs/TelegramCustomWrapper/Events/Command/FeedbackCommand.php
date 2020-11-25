@@ -5,7 +5,7 @@ namespace App\TelegramCustomWrapper\Events\Command;
 use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\TelegramHelper;
-use App\Utils\DummyLogger;
+use App\Utils\SimpleLogger;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 
 class FeedbackCommand extends Command
@@ -54,6 +54,6 @@ class FeedbackCommand extends Command
 
 	private function logFeedback()
 	{
-		DummyLogger::log(DummyLogger::NAME_FEEDBACK, $this->update);
+		SimpleLogger::log(SimpleLogger::NAME_FEEDBACK, $this->update);
 	}
 }
