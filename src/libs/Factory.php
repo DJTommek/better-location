@@ -45,4 +45,12 @@ class Factory
 		}
 		return self::$objects['geocaching'];
 	}
+
+	static function Foursquare(): \App\Foursquare\Client
+	{
+		if (!isset(self::$objects['foursquare'])) {
+			self::$objects['foursquare'] = new \App\Foursquare\Client(Config::FOURSQUARE_CLIENT_ID, Config::FOURSQUARE_CLIENT_SECRET);
+		}
+		return self::$objects['foursquare'];
+	}
 }
