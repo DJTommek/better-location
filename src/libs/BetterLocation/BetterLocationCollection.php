@@ -10,6 +10,7 @@ use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\DrobnePamatkyCzService;
 use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\FoursquareService;
 use App\BetterLocation\Service\GeocachingService;
 use App\BetterLocation\Service\GlympseService;
 use App\BetterLocation\Service\GoogleMapsService;
@@ -254,6 +255,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 						$betterLocationsCollection->mergeCollection($glympseBetterLocationCollection);
 					} else if (IngressIntelService::isValid($url)) {
 						$betterLocationsCollection[] = IngressIntelService::parseCoords($url);
+					} else if (FoursquareService::isValid($url)) {
+						$betterLocationsCollection[] = FoursquareService::parseUrl($url);
 					} else if (DuckDuckGoService::isValid($url)) {
 						$betterLocationsCollection[] = DuckDuckGoService::parseCoords($url);
 					} else if (RopikyNetService::isValid($url)) {

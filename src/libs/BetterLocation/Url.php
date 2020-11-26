@@ -25,6 +25,7 @@ class Url
 		't.co', // https://help.twitter.com/en/using-twitter/url-shortener
 		'rb.gy', // https://rebrandly.com/
 		'tiny.cc', // https://tiny.cc/
+		'4sq.com', // https://foursquare.com/
 	];
 
 	public static function isShortUrl($url)
