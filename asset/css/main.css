@@ -38,6 +38,11 @@ h1, h2, h3 {
 	border-radius: 0.25rem;
 	border: 1px solid #cccccc;
 }
+
+#tester .result .message pre {
+	white-space: pre-wrap;
+}
+
 #tester .result .alert {
 	margin-bottom: 0; /* Reset margin set in Bootstrap */
 }
