@@ -85,6 +85,14 @@ class DefaultConfig
 		);
 	}
 
+	public static function isFoursquare(): bool
+	{
+		return (
+			is_null(static::FOURSQUARE_CLIENT_ID) === false &&
+			is_null(static::FOURSQUARE_CLIENT_SECRET) === false
+		);
+	}
+
 	public static function getTimezone(): \DateTimeZone
 	{
 		return new \DateTimeZone(static::TIMEZONE);
