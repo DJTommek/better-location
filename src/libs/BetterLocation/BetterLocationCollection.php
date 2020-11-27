@@ -255,7 +255,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 						$betterLocationsCollection->mergeCollection($glympseBetterLocationCollection);
 					} else if (IngressIntelService::isValid($url)) {
 						$betterLocationsCollection[] = IngressIntelService::parseCoords($url);
-					} else if (FoursquareService::isValid($url)) {
+					} else if (Config::isFoursquare() && FoursquareService::isValid($url)) {
 						$betterLocationsCollection[] = FoursquareService::parseUrl($url);
 					} else if (DuckDuckGoService::isValid($url)) {
 						$betterLocationsCollection[] = DuckDuckGoService::parseCoords($url);
