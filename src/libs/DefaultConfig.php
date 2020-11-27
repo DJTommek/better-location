@@ -10,6 +10,7 @@ namespace App;
 class DefaultConfig
 {
 	const FOLDER_DATA = __DIR__;
+	const FOLDER_TEMP = __DIR__ . '/../../temp/';
 
 	const DB_SERVER = 'localhost';
 	const DB_USER = 'dbuser';
