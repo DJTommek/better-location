@@ -102,7 +102,8 @@ final class FoursquareService extends AbstractService
 		$betterLocation = new BetterLocation($inputUrl, $venue->location->lat, $venue->location->lng, self::class);
 		$betterLocation->setAddress($venue->location->getFormattedAddress());
 
-		$betterLocation->setInlinePrefixMessage(sprintf('%s %s', $betterLocation->getPrefixMessage(), $venue->name));
+		$prefix = sprintf(sprintf('%s <a href="%s">%s</a>', $betterLocation->getPrefixMessage(), $venue->url, $venue->name));
+		$betterLocation->setPrefixMessage($prefix);
 
 		$descriptionValues = [];
 		if (isset($venue->contact->facebookUsername)) {
@@ -117,12 +118,9 @@ final class FoursquareService extends AbstractService
 		if (isset($venue->contact->formattedPhone)) {
 			$descriptionValues[] = $venue->contact->formattedPhone;
 		}
-
-		$description = sprintf('<a href="%s">%s</a>', $venue->url, $venue->name);
 		if (count($descriptionValues) > 0) {
-			$description .= sprintf(' (%s)', join(', ', $descriptionValues));
+			$betterLocation->setDescription(join(', ', $descriptionValues));
 		}
-		$betterLocation->setDescription($description);
 		return $betterLocation;
 	}
 }
