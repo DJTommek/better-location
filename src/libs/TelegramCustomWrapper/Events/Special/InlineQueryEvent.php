@@ -122,14 +122,18 @@ class InlineQueryEvent extends Special
 							GoogleMapsService::class,
 							GoogleMapsService::TYPE_INLINE_SEARCH,
 						);
+						$address = $placeCandidate->formatted_address;
 						try {
-							$placeDetails = $placeApi->getPlaceDetails($placeCandidate->place_id, ['url', 'website']);
+							$placeDetails = $placeApi->getPlaceDetails($placeCandidate->place_id, ['url', 'website', 'international_phone_number']);
 							$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a>', ($placeDetails->website ?? $placeDetails->url), $placeCandidate->name));
+							if ($placeDetails->international_phone_number) {
+								$address .= sprintf(' (%s)', $placeDetails->international_phone_number);
+							}
 						} catch (\Throwable $exception) {
 							Debugger::log($exception, ILogger::EXCEPTION);
 							$betterLocation->setPrefixMessage($placeCandidate->name);
 						}
-						$betterLocation->setAddress($placeCandidate->formatted_address);
+						$betterLocation->setAddress($address);
 						$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 					}
 				}
