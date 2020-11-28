@@ -8,9 +8,15 @@ class Response
     private $body;
     private $headers = [];
     private $info;
+    /** @var false|\DateTimeImmutable */
+    private $cacheHit;
 
-    public function __construct(string $rawResponse, array $curlInfo)
+    public function __construct(string $rawResponse, array $curlInfo, $cacheHit = false)
     {
+    	if ($cacheHit !== false && ($cacheHit instanceof \DateTimeImmutable === false)) { // @TODO use constructor union in PHP 8
+			throw new \InvalidArgumentException(sprintf('Argument $cacheHit can be only false or DateTimeImmutable but "%s" provided.', gettype($cacheHit) === 'object' ? get_class($cacheHit) : gettype($cacheHit)));
+	    }
+        $this->cacheHit = $cacheHit;
         $this->raw = $rawResponse;
         list($headerString, $body) = explode("\r\n\r\n", $rawResponse, 2);
         $this->body = $body;
@@ -31,6 +37,12 @@ class Response
     public function getRaw(): string
     {
         return $this->raw;
+    }
+
+	/** @return \DateTimeImmutable|false Datetime when cache was created or false if no cache was available or caching was disabled */
+    public function cacheHit()
+    {
+        return $this->cacheHit;
     }
 
     public function getBody(): string
