@@ -26,8 +26,8 @@ class Client
 	{
 		$url = sprintf(self::LINK_API_VENUE_DETAIL, $venueId);
 		$json = $this->makeJsonRequest($url, 20201126);
-		if (isset($json->statusCode) && $json->statusCode !== 200) {
-			throw new \Exception(sprintf('Loading geocache preview responded with bad response code %d: "%s"', $json->statusCode, $json->statusMessage));
+		if ($json->meta->code !== 200) {
+			throw new \Exception(sprintf('Loading venue responded with bad HTTP response code %d. Error type: "%s", Error detail: "%s"', $json->meta->code, $json->meta->errorType, $json->meta->errorDetail ?? 'Unspecified'));
 		}
 		return VenueType::createFromVariable($json->response->venue);
 	}
