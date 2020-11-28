@@ -97,13 +97,13 @@ class MiniCurl
             throw new ExecException(sprintf('CURL request error %s: "%s"', $curlErrno, curl_error($this->curl)));
         }
         $curlInfo = curl_getinfo($this->curl);
-	    if (isset($cacheId)) {
-		    $this->saveToCache($cacheId, $curlResponse, $curlInfo);
-	    }
         $response = new Response($curlResponse, $curlInfo);
         if (is_null($requireResponseCode) === false && $response->getCode() !== $requireResponseCode) {
             throw new InvalidResponseException(sprintf('Invalid response code "%d" but required "%d".', $response->getCode(), $requireResponseCode));
         }
+	    if (isset($cacheId)) {
+		    $this->saveToCache($cacheId, $curlResponse, $curlInfo);
+	    }
         return $response;
     }
 
