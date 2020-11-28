@@ -7,6 +7,7 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\General;
 use Tracy\Debugger;
@@ -76,7 +77,7 @@ final class RopikyNetService extends AbstractService
 	public static function parseUrl(string $url): ?array
 	{
 		try {
-			$response = (new MiniCurl($url))->run()->getBody();
+			$response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_ROPIKY_NET)->run()->getBody();
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::DEBUG);
 			return null;

@@ -17,10 +17,18 @@ class Client
 
 	/** @var string */
 	private $cookieToken;
+	/** @var int */
+	private $cacheTtl = 0;
 
 	public function __construct(string $cookieToken)
 	{
 		$this->cookieToken = $cookieToken;
+	}
+
+	public function setCache(int $ttl): self
+	{
+		$this->cacheTtl = $ttl;
+		return $this;
 	}
 
 	public function loadGeocachePreview(string $cacheId): GeocachePreviewType
@@ -39,6 +47,7 @@ class Client
 		];
 		return (new MiniCurl($url))
 			->setCurlOption(CURLOPT_COOKIE, http_build_query($cookies))
+			->allowCache($this->cacheTtl)
 			->run()
 			->getBodyAsJson();
 	}

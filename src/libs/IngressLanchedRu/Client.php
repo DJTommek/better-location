@@ -24,6 +24,15 @@ class Client
 	const LINK_GET_PORTALS = self::LINK . '/getPortals.php';
 	const LINK_SEARCH_PORTALS = self::LINK . '/searchPortals.php';
 
+	/** @var int */
+	private $cacheTtl = 0;
+
+	public function setCache(int $ttl): self
+	{
+		$this->cacheTtl = $ttl;
+		return $this;
+	}
+
 	/**
 	 * Script allows getting portals in selected area (box).
 	 *
@@ -109,6 +118,6 @@ class Client
 	/** @return \stdClass|array<mixed>|null */
 	private function makeJsonRequest(string $url)
 	{
-		return (new MiniCurl($url))->run()->getBodyAsJson();
+		return (new MiniCurl($url))->allowCache($this->cacheTtl)->run()->getBodyAsJson();
 	}
 }

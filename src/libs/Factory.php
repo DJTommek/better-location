@@ -42,6 +42,7 @@ class Factory
 	{
 		if (!isset(self::$objects['geocaching'])) {
 			self::$objects['geocaching'] = new \App\Geocaching\Client(Config::GEOCACHING_COOKIE);
+			self::$objects['geocaching']->setCache(Config::CACHE_TTL_GEOCACHING_API);
 		}
 		return self::$objects['geocaching'];
 	}
@@ -50,6 +51,7 @@ class Factory
 	{
 		if (!isset(self::$objects['foursquare'])) {
 			self::$objects['foursquare'] = new \App\Foursquare\Client(Config::FOURSQUARE_CLIENT_ID, Config::FOURSQUARE_CLIENT_SECRET);
+			self::$objects['foursquare']->setCache(Config::CACHE_TTL_FOURSQUARE_API);
 		}
 		return self::$objects['foursquare'];
 	}
@@ -58,6 +60,7 @@ class Factory
 	{
 		if (!isset(self::$objects['ingressLanchedRu'])) {
 			self::$objects['ingressLanchedRu'] = new \App\IngressLanchedRu\Client();
+			self::$objects['ingressLanchedRu']->setCache(Config::CACHE_TTL_INGRESS_LANCHED_RU_API);
 		}
 		return self::$objects['ingressLanchedRu'];
 	}

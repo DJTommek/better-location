@@ -7,6 +7,7 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\General;
 use Tracy\Debugger;
@@ -93,7 +94,7 @@ final class ZanikleObceCzService extends AbstractService
 	private static function getObecUrlFromDetail(string $url): ?string
 	{
 		try {
-            $response = (new MiniCurl($url))->run()->getBody();
+            $response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_ZANIKLE_OBCE_CZ)->run()->getBody();
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::DEBUG);
 			return null;
@@ -109,7 +110,7 @@ final class ZanikleObceCzService extends AbstractService
 	private static function getLocationFromPageObec(string $url): ?array
 	{
 		try {
-            $response = (new MiniCurl($url))->run()->getBody();
+            $response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_ZANIKLE_OBCE_CZ)->run()->getBody();
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::DEBUG);
 			return null;

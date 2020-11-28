@@ -7,6 +7,7 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\Config;
 use App\MiniCurl\MiniCurl;
 
 final class WikipediaService extends AbstractService
@@ -88,7 +89,7 @@ final class WikipediaService extends AbstractService
 	 */
 	private static function requestLocationFromWikipediaPage($url): \stdClass
 	{
-        $response = (new MiniCurl($url))->run()->getBody();
+        $response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_WIKIPEDIA)->run()->getBody();
 		$startString = '<script>document.documentElement.className="client-js";RLCONF=';
 		$endString = 'RLSTATE=';
 		$posStart = mb_strpos($response, $startString);

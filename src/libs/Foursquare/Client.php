@@ -15,11 +15,18 @@ class Client
 	private $clientId;
 	/** @var string */
 	private $clientSecret;
+	/** @var int */
+	private $cacheTtl = 0;
 
 	public function __construct(string $clientId, string $clientSecret)
 	{
 		$this->clientId = $clientId;
 		$this->clientSecret = $clientSecret;
+	}
+
+	public function setCache(int $ttl): self {
+		$this->cacheTtl = $ttl;
+		return $this;
 	}
 
 	public function loadVenue(string $venueId)
@@ -40,6 +47,6 @@ class Client
 			'client_secret' => $this->clientSecret,
 			'v' => $version,
 		];
-		return (new MiniCurl($url . '?' . http_build_query($queryParams)))->run()->getBodyAsJson();
+		return (new MiniCurl($url . '?' . http_build_query($queryParams)))->allowCache($this->cacheTtl)->run(null)->getBodyAsJson();
 	}
 }

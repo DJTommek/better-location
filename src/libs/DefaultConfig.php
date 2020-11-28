@@ -71,6 +71,18 @@ class DefaultConfig
 	const DATETIME_FORMAT = self::DATE_FORMAT . ' ' . self::TIME_FORMAT;
 	const DATETIME_FORMAT_ZONE = self::DATETIME_FORMAT . ' T';
 
+	const CACHE_TTL_FOURSQUARE_API = 60 * 60 * 24;
+	const CACHE_TTL_GOOGLE_PLACE_API = 60 * 60 * 24;
+	const CACHE_TTL_GOOGLE_MAPS = 60 * 60 * 24;
+	const CACHE_TTL_GEOCACHING_API = 60 * 60 * 24;
+	const CACHE_TTL_INGRESS_LANCHED_RU_API = 60 * 60 * 24;
+	const CACHE_TTL_DROBNE_PAMATKY_CZ = 60 * 60 * 24;
+	const CACHE_TTL_ROPIKY_NET = 60 * 60 * 24;
+	const CACHE_TTL_ZNICENE_KOSTELY_CZ = 60 * 60 * 24;
+	const CACHE_TTL_ZANIKLE_OBCE_CZ = 60 * 60 * 24;
+	const CACHE_TTL_HERE_WE_GO_LOC = 60 * 60 * 24;
+	const CACHE_TTL_WIKIPEDIA = 60 * 60 * 24;
+
 	/**
 	 * @var string Default timezone to work with.
 	 * Disclaimer: Changing might result in unexpected behaviour of this app. Make sure that you know, what you are doing.
