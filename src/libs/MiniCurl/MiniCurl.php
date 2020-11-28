@@ -122,7 +122,7 @@ class MiniCurl
     	$path = $this->getCachePath($cacheId);
         if (is_file($path)) {
             $cache = Cache::fromString(file_get_contents($path));
-            if ($cache->datetime->getTimestamp() - time() + $this->cacheTtl > 0) { // cache expired
+            if ($cache->datetime->getTimestamp() - time() + $this->cacheTtl > 0) { // check if cache is not expired
 	            return new Response(
 	                $cache->rawResponse,
 	                $cache->curlInfo,
