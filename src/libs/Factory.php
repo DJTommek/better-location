@@ -53,4 +53,12 @@ class Factory
 		}
 		return self::$objects['foursquare'];
 	}
+
+	static function IngressLanchedRu(): \App\IngressLanchedRu\Client
+	{
+		if (!isset(self::$objects['ingressLanchedRu'])) {
+			self::$objects['ingressLanchedRu'] = new \App\IngressLanchedRu\Client();
+		}
+		return self::$objects['ingressLanchedRu'];
+	}
 }

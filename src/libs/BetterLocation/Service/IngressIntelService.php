@@ -7,7 +7,7 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
-use App\IngressLanchedRu;
+use App\Factory;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
@@ -40,7 +40,7 @@ final class IngressIntelService extends AbstractService
 			list($lat, $lon) = $coords;
 			$location = new BetterLocation($url, $lat, $lon, self::class);
 			try {
-				if ($portal = (new IngressLanchedRu\Client())->getPortalByCoords($lat, $lon)) {
+				if ($portal = Factory::IngressLanchedRu()->getPortalByCoords($lat, $lon)) {
 					$prefix = $location->getPrefixMessage();
 					$prefix .= sprintf(' <a href="%s">%s</a>', $portal->getIntelLink(), htmlspecialchars($portal->name));
 					$location->setPrefixMessage($prefix);
