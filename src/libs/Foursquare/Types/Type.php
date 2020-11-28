@@ -24,6 +24,6 @@ abstract class Type
 	/** @param mixed $value */
 	public function __set(string $name, $value): void
 	{
-		Debugger::log(sprintf('Property "%s$%s" is not predefined.', static::class, $name), Debugger::WARNING);
+		Debugger::log(sprintf('Property "%s$%s" of type "%s" is not predefined.', static::class, $name, gettype($value)), Debugger::WARNING);
 	}
 }

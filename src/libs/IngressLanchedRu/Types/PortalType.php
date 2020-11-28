@@ -3,6 +3,7 @@
 namespace App\IngressLanchedRu\Types;
 
 use App\IngressLanchedRu\Client;
+use Tracy\Debugger;
 
 class PortalType
 {
@@ -34,7 +35,7 @@ class PortalType
 	/** @param mixed $value */
 	public function __set(string $name, $value): void
 	{
-		throw new \OutOfBoundsException(sprintf('Property "%s$%s" is not predefined.', static::class, $name));
+		Debugger::log(sprintf('Property "%s$%s" of type "%s" is not predefined.', static::class, $name, gettype($value)), Debugger::WARNING);
 	}
 
 	public function getIntelLink(): string
