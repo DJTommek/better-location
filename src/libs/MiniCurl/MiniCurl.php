@@ -6,6 +6,7 @@ use App\Config;
 use App\MiniCurl\Exceptions\ExecException;
 use App\MiniCurl\Exceptions\InitException;
 use App\MiniCurl\Exceptions\InvalidResponseException;
+use Tracy\Debugger;
 
 class MiniCurl
 {
@@ -86,8 +87,10 @@ class MiniCurl
         if ($this->cacheAllowed) {
             $cacheId = $this->generateCacheId();
             if ($cachedResponse = $this->loadFromCache($cacheId)) {
+            	Debugger::log(sprintf('Cache ID "%s" hit!', $cacheId), Debugger::DEBUG);
                 return $cachedResponse;
             }
+            Debugger::log(sprintf('Cache ID "%s" miss.', $cacheId), Debugger::DEBUG);
         }
 
         curl_setopt_array($this->curl, $this->options);
