@@ -59,8 +59,6 @@ final class FoursquareService extends AbstractService
 	private static function isVenueIdUrl($url): bool
 	{
 		$parsedUrl = General::parseUrl(mb_strtolower($url));
-		dump(self::URL_PATH_VENUE_REGEX);
-		dump($parsedUrl);
 		return !!(preg_match(self::URL_PATH_VENUE_REGEX, $parsedUrl['path']));
 	}
 
