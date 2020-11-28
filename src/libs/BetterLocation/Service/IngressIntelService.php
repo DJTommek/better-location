@@ -8,6 +8,7 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Factory;
+use App\Icons;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
@@ -43,6 +44,8 @@ final class IngressIntelService extends AbstractService
 				if ($portal = Factory::IngressLanchedRu()->getPortalByCoords($lat, $lon)) {
 					$prefix = $location->getPrefixMessage();
 					$prefix .= sprintf(' <a href="%s">%s</a>', $portal->getIntelLink(), htmlspecialchars($portal->name));
+					$location->setInlinePrefixMessage($prefix);
+					$prefix .= sprintf(' <a href="%s">%s</a>', $portal->image, Icons::PICTURE);
 					$location->setPrefixMessage($prefix);
 					if (in_array($portal->address, ['', 'undefined', '[Unknown Location]'], true) === false) { // show portal address only if it makes sense
 						$location->setAddress(htmlspecialchars($portal->address));
