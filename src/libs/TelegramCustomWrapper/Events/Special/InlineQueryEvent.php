@@ -126,7 +126,7 @@ class InlineQueryEvent extends Special
 						try {
 							$placeDetails = $placeApi->getPlaceDetails($placeCandidate->place_id, ['url', 'website', 'international_phone_number']);
 							$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a>', ($placeDetails->website ?? $placeDetails->url), $placeCandidate->name));
-							if ($placeDetails->international_phone_number) {
+							if (isset($placeDetails->international_phone_number)) {
 								$address .= sprintf(' (%s)', $placeDetails->international_phone_number);
 							}
 						} catch (\Throwable $exception) {
