@@ -322,10 +322,10 @@ final class GeocachingService extends AbstractService
 		$serviceName = preg_match('/^https?:\/\//', $input) ? sprintf('<a href="%s">%s</a>', $input, self::NAME) : self::NAME;
 		$cacheCodeLink = sprintf('<a href="%s">%s</a>', $geocache->getLink(), $geocache->code);
 		$cacheNameLink = sprintf('<a href="%s">%s</a>', $geocache->getLink(), $geocache->name);
-		$textDisabled = $geocache->isDisabled() ? sprintf('%s %s', Icons::WARNING, $geocache->getStatus()) : '';
+		$textDisabled = $geocache->isDisabled() ? sprintf(' %s %s', Icons::WARNING, $geocache->getStatus()) : '';
 
-		$betterLocation->setPrefixMessage(sprintf('%s %s %s', $serviceName, $cacheCodeLink, $textDisabled));
-		$betterLocation->setInlinePrefixMessage(sprintf('%s %s: %s %s', $serviceName, $cacheCodeLink, $cacheNameLink, $textDisabled));
+		$betterLocation->setPrefixMessage(sprintf('%s %s%s', $serviceName, $cacheCodeLink, $textDisabled));
+		$betterLocation->setInlinePrefixMessage(sprintf('%s %s: %s%s', $serviceName, $cacheCodeLink, $cacheNameLink, $textDisabled));
 		$betterLocation->setDescription(sprintf('%s (%s, D: %s, T: %s)',
 			$geocache->name,
 			$geocache->getTypeAndSize(),
