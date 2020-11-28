@@ -21,6 +21,8 @@ class VenueType extends Type
 	public $categories;
 	/** @var bool */
 	public $verified;
+	/** @var bool */
+	public $venueRatingBlacklisted;
 	/** @var VenueStats */
 	public $stats;
 	/** @var string */
@@ -71,6 +73,12 @@ class VenueType extends Type
 	public $defaultHours;
 	/** @var VenuePageUpdates */
 	public $pageUpdates;
+	/** @var VenuePage */
+	public $venuePage;
+	/** @var Page */
+	public $page;
+	/** @var string */
+	public $description;
 	/** @var VenueInbox */
 	public $inbox;
 	/** @var VenueAttributes */
