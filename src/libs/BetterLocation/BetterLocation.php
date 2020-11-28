@@ -207,7 +207,7 @@ class BetterLocation
 		$text .= sprintf('%s <a href="%s" target="_blank">%s</a> <code>%s</code>',
 			$this->prefixMessage,
 			$this->generateScreenshotLink(MapyCzService::class),
-			Icons::PICTURE,
+			Icons::MAP_SCREEN,
 			$this->__toString()
 		);
 		if ($this->getCoordinateSuffixMessage()) {
