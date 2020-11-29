@@ -11,6 +11,7 @@ use Tracy\Debugger;
 class MiniCurl
 {
     const CACHE_FOLDER = Config::FOLDER_TEMP . '/mini-curl/cached-responses';
+    private const EXPECTED_ENCODING = 'UTF-8';
 
     private $cacheAllowed = false;
     private $cacheTtl = 0;
@@ -99,6 +100,12 @@ class MiniCurl
             $curlErrno = curl_errno($this->curl);
             throw new ExecException(sprintf('CURL request error %s: "%s"', $curlErrno, curl_error($this->curl)));
         }
+
+		$detectedEncoding = mb_detect_encoding($curlResponse, [self::EXPECTED_ENCODING, 'ISO-8859-1']);
+        if ($detectedEncoding !== self::EXPECTED_ENCODING) {
+            $curlResponse = mb_convert_encoding($curlResponse, self::EXPECTED_ENCODING);
+        }
+
         $curlInfo = curl_getinfo($this->curl);
         $response = new Response($curlResponse, $curlInfo);
         if (is_null($requireResponseCode) === false && $response->getCode() !== $requireResponseCode) {
