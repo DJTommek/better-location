@@ -69,9 +69,13 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 		return $this->lastResponseText;
 	}
 
-	public function getLastResponseReplyMarkup(): ?Telegram\Types\Inline\Keyboard\Markup
+	public function getLastResponseReplyMarkup(bool $clone = false): ?Telegram\Types\Inline\Keyboard\Markup
 	{
-		return $this->lastResponseReplyMarkup;
+		$result = $this->lastResponseReplyMarkup;
+		if ($clone) {
+			return clone $result;
+		}
+		return $result;
 	}
 
 	public static function fromDb(int $chatId, int $botReplyMessageId): self
