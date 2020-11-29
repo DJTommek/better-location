@@ -6,7 +6,6 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\Config;
 use App\Icons;
-use App\TelegramCustomWrapper\Exceptions\MessageDeletedException;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\TelegramUpdateDb;
@@ -33,10 +32,6 @@ class RefreshButton extends Button
 				$this->getChatId(),
 				$this->getMessageId(),
 			);
-
-			// @TODO if returned location would remove refresh buttons (no refreshable location) or returned error, do not update
-			// original message, just send warning that update can't be completed
-			// or at least keep original update and add warning below that message
 
 			switch ($action) {
 				case self::ACTION_START:
@@ -77,8 +72,6 @@ class RefreshButton extends Button
 					$this->flash(sprintf('%s This button (cron) is invalid.%sIf you believe that this is error, please contact admin', Icons::ERROR, PHP_EOL), true);
 					break;
 			}
-		} catch (MessageDeletedException $exception) {
-			$this->flash(sprintf('%s Location can\'t be refreshed, original message was deleted.', Icons::ERROR), true);
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
 			$this->flash(sprintf('%s Unexpected error while processing autorefresh, please contact admin for more info.', Icons::ERROR), true);
@@ -112,48 +105,19 @@ class RefreshButton extends Button
 			$processedCollection->process();
 			$text = TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText();
 			$text .= sprintf('%s Last refresh: %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
-			if ($collection->count() > 0) {
+			if ($collection->getLocations() > 0) {
 				$this->replyButton($text,
 					[
 						'disable_web_page_preview' => true,
 						'reply_markup' => $processedCollection->getMarkup(1),
 					],
 				);
+			} else {
+				// @TODO if returned location would remove refresh buttons (no refreshable location) or returned error, do not update
+				// original message, just send warning that update can't be completed
+				// or at least keep original update and add warning below that message
 			}
 			$this->telegramUpdateDb->touchLastUpdate();
 		}
-
-//		$result = '';
-//		$buttonLimit = 1; // @TODO move to config (chat settings)
-//		$buttons = [];
-//		foreach ($collection->getAll() as $betterLocation) {
-//			if ($betterLocation instanceof BetterLocation) {
-//				$result .= $betterLocation->generateBetterLocation();
-//				if (count($buttons) < $buttonLimit) {
-//					$driveButtons = $betterLocation->generateDriveButtons();
-//					$driveButtons[] = $betterLocation->generateAddToFavouriteButtton();
-//					$buttons[] = $driveButtons;
-//				}
-//			} else if (
-//				$betterLocation instanceof InvalidLocationException ||
-//				$betterLocation instanceof InvalidApiKeyException
-//			) {
-//				$result .= Icons::ERROR . $betterLocation->getMessage() . PHP_EOL . PHP_EOL;
-//			} else {
-//				$result .= Icons::ERROR . 'Unexpected error occured while proceessing message for locations.' . PHP_EOL . PHP_EOL;
-//				Debugger::log($betterLocation, Debugger::EXCEPTION);
-//			}
-//		}
-//		$buttons[] = BetterLocation::generateRefreshButtons($isCronEnabled);
-//		$now = (new \DateTimeImmutable())->setTimezone(new \DateTimeZone('UTC'));
-//		$result .= sprintf('%s Last refresh: %s', Icons::REFRESH, $now->format(Config::DATETIME_FORMAT_ZONE));
-//		$markup = (new Markup());
-//		$markup->inline_keyboard = $buttons;
-//		$this->replyButton(TelegramHelper::MESSAGE_PREFIX . $result,
-//			[
-//				'disable_web_page_preview' => true,
-//				'reply_markup' => $markup,
-//			],
-//		);
 	}
 }
