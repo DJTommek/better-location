@@ -67,7 +67,7 @@ class MiniCurl
             throw new \InvalidArgumentException('Parameter $interval must be 0 or higher but "%d" provided.');
         } else {
             $this->cacheAllowed = true;
-            if (is_dir(self::CACHE_FOLDER) === false && @mkdir(self::CACHE_FOLDER, 755, true) === false) {
+            if (is_dir(self::CACHE_FOLDER) === false && @mkdir(self::CACHE_FOLDER, 0755, true) === false) {
                 throw new \Exception(sprintf('Error while creating folder for MiniCurl cached responses: "%s"', error_get_last()['message']));
             }
         }
