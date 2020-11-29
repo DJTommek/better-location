@@ -117,7 +117,7 @@ class MiniCurl
 
     private function getCachePath(string $cacheId)
     {
-        return sprintf('%s/%s', self::CACHE_FOLDER, $cacheId);
+        return sprintf('%s/%s.json', self::CACHE_FOLDER, $cacheId);
     }
 
     private function loadFromCache(string $cacheId): ?Response
