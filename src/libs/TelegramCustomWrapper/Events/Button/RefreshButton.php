@@ -2,6 +2,7 @@
 
 namespace App\TelegramCustomWrapper\Events\Button;
 
+use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\Config;
 use App\Icons;
@@ -20,6 +21,7 @@ class RefreshButton extends Button
 	const ACTION_STOP = 'stop';
 	const ACTION_REFRESH = 'refresh';
 
+	/** @var TelegramUpdateDb */
 	private $telegramUpdateDb;
 
 	public function handleWebhookUpdate()
@@ -39,7 +41,7 @@ class RefreshButton extends Button
 			switch ($action) {
 				case self::ACTION_START:
 					if ($this->telegramUpdateDb->isAutorefreshEnabled()) {
-						$this->processRefresh(true);
+						$this->processRefresh(true, true);
 						$this->flash(sprintf('%s Autorefresh was already enabled.', Icons::SUCCESS), true);
 					} else {
 						$autorefreshList = TelegramUpdateDb::loadAll(TelegramUpdateDb::STATUS_ENABLED, $this->getChatId());
@@ -47,18 +49,18 @@ class RefreshButton extends Button
 							$this->flash(sprintf('%s You already have %d autorefresh enabled, which is maximum per one chat.', Icons::ERROR, count($autorefreshList)), true);
 						} else {
 							$this->telegramUpdateDb->autorefreshEnable();
-							$this->processRefresh(true);
+							$this->processRefresh(true, true);
 							$this->flash(sprintf('%s Autorefresh is now enabled.', Icons::SUCCESS), true);
 						}
 					}
 					break;
 				case self::ACTION_STOP:
 					if ($this->telegramUpdateDb->isAutorefreshEnabled() === false) {
-						$this->processRefresh(false);
+						$this->processRefresh(false, true);
 						$this->flash(sprintf('%s Autorefresh was already disabled.', Icons::SUCCESS), true);
 					} else {
 						$this->telegramUpdateDb->autorefreshDisable();
-						$this->processRefresh(false);
+						$this->processRefresh(false, true);
 						$this->flash(sprintf('%s Autorefresh is now disabled.', Icons::SUCCESS), true);
 					}
 					break;
@@ -67,7 +69,7 @@ class RefreshButton extends Button
 					if ($diff < Config::REFRESH_COOLDOWN) {
 						$this->flash(sprintf('%s You need to wait %d more seconds before another refresh.', Icons::ERROR, Config::REFRESH_COOLDOWN - $diff), true);
 					} else {
-						$this->processRefresh($this->telegramUpdateDb->isAutorefreshEnabled());
+						$this->processRefresh($this->telegramUpdateDb->isAutorefreshEnabled(), false);
 						$this->flash(sprintf('%s All locations were refreshed.', Icons::SUCCESS));
 					}
 					break;
@@ -86,26 +88,40 @@ class RefreshButton extends Button
 	/**
 	 * @throws \Exception
 	 */
-	private function processRefresh(bool $autorefreshEnabled)
+	private function processRefresh(bool $autorefreshEnabled, bool $fromCache)
 	{
-		$collection = BetterLocationCollection::fromTelegramMessage(
-			$this->telegramUpdateDb->getOriginalUpdateObject()->message->text,
-			$this->telegramUpdateDb->getOriginalUpdateObject()->message->entities,
-		);
-		$processedCollection = new ProcessedMessageResult($collection);
-		$processedCollection->setAutorefresh($autorefreshEnabled);
-		$processedCollection->process();
-		$text = TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText();
-		$text .= sprintf('%s Last refresh: %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
-		if ($collection->count() > 0) {
-			$this->replyButton($text,
-				[
-					'disable_web_page_preview' => true,
-					'reply_markup' => $processedCollection->getMarkup(1),
-				],
+		if ($fromCache) {
+			$text = $this->telegramUpdateDb->getLastResponseText();
+			$text .= sprintf('%s Last refresh: %s', Icons::REFRESH, $this->telegramUpdateDb->getLastUpdate()->format(Config::DATETIME_FORMAT_ZONE));
+
+			$markup = $this->telegramUpdateDb->getLastResponseReplyMarkup(true);
+			unset($markup->inline_keyboard[count($markup->inline_keyboard)-1]); // refresh buttons are always last row
+			$markup->inline_keyboard[] = BetterLocation::generateRefreshButtons($autorefreshEnabled);
+
+			$this->replyButton($text, [
+				'disable_web_page_preview' => true,
+				'reply_markup' => $markup,
+			]);
+		} else {
+			$collection = BetterLocationCollection::fromTelegramMessage(
+				$this->telegramUpdateDb->getOriginalUpdateObject()->message->text,
+				$this->telegramUpdateDb->getOriginalUpdateObject()->message->entities,
 			);
+			$processedCollection = new ProcessedMessageResult($collection);
+			$processedCollection->setAutorefresh($autorefreshEnabled);
+			$processedCollection->process();
+			$text = TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText();
+			$text .= sprintf('%s Last refresh: %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
+			if ($collection->count() > 0) {
+				$this->replyButton($text,
+					[
+						'disable_web_page_preview' => true,
+						'reply_markup' => $processedCollection->getMarkup(1),
+					],
+				);
+			}
+			$this->telegramUpdateDb->touchLastUpdate();
 		}
-		$this->telegramUpdateDb->touchLastUpdate();
 
 //		$result = '';
 //		$buttonLimit = 1; // @TODO move to config (chat settings)
