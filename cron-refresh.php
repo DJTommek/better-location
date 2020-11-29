@@ -12,7 +12,7 @@ require_once __DIR__ . '/src/bootstrap.php';
 function printlog(string $text)
 {
 	printf('<p><b>%s</b>: %s</p>', (new DateTime())->format(DATE_W3C), $text);
-	\App\Utils\DummyLogger::log(\App\Utils\DummyLogger::NAME_CRON_AUTOREFRESH, $text);
+	\App\Utils\SimpleLogger::log(\App\Utils\SimpleLogger::NAME_CRON_AUTOREFRESH, $text);
 }
 
 $loop = \React\EventLoop\Factory::create();
