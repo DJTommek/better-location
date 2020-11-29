@@ -31,7 +31,7 @@ class Cache
 			'rawResponse' => $this->rawResponse,
 			'curlInfo' => $this->curlInfo,
 			'timestamp' => $this->datetime->getTimestamp(),
-		]);
+		], JSON_THROW_ON_ERROR);
 	}
 
 	public static function fromString(string $jsonString): self
