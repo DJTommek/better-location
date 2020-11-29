@@ -44,16 +44,16 @@ class LocationEvent extends Special
 		$processedCollection = new ProcessedMessageResult($collection);
 		$processedCollection->process();
 		if ($collection->count() > 0) {
-			$response = $this->reply(
-				TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText(),
-				[
-					'disable_web_page_preview' => true,
-					'reply_markup' => $processedCollection->getMarkup(1),
-				],
-			);
+			$text = TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText();
+			$markup = $processedCollection->getMarkup(1);
+			$response = $this->reply($text, [
+				'disable_web_page_preview' => true,
+				'reply_markup' => $markup,
+			]);
 			if ($collection->hasRefreshableLocation()) {
 				$cron = new TelegramUpdateDb($this->update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
 				$cron->insert();
+				$cron->setLastSendData($text, $markup, true);
 			}
 		} else { // No detected locations or occured errors
 			if ($this->isPm() === true) {
