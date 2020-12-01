@@ -120,10 +120,10 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 			}
 			?>
 			<ol>
-				<li value="7">Google Place API: <?= \App\Config::GOOGLE_PLACE_API_KEY ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
+				<li value="7">Google Place API: <?= \App\Config::GOOGLE_PLACE_API_KEY ? sprintf('%s Enabled (cache set to %s)', \App\Icons::SUCCESS, \App\Utils\General::sToHuman(\App\Config::CACHE_TTL_GOOGLE_PLACE_API)) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
 				<li>What3Words API: <?= \App\Config::W3W_API_KEY ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
 				<li>Glympse API: <?= \App\Config::isGlympse() ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
-				<li>Foursquare API: <?= \App\Config::isFoursquare() ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
+				<li>Foursquare API: <?= \App\Config::isFoursquare() ? sprintf('%s Enabled (cache set to %s)', \App\Icons::SUCCESS, \App\Utils\General::sToHuman(\App\Config::CACHE_TTL_FOURSQUARE_API)) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
 			</ol>
 
 		</div>
