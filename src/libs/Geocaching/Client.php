@@ -42,11 +42,8 @@ class Client
 
 	private function makeJsonRequest(string $url): \stdClass
 	{
-		$cookies = [
-			self::COOKIE_NAME => Config::GEOCACHING_COOKIE,
-		];
 		return (new MiniCurl($url))
-			->setCurlOption(CURLOPT_COOKIE, http_build_query($cookies))
+			->setHttpCookie(self::COOKIE_NAME, Config::GEOCACHING_COOKIE)
 			->allowCache($this->cacheTtl)
 			->run()
 			->getBodyAsJson();
