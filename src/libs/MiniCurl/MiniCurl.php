@@ -10,8 +10,37 @@ use Tracy\Debugger;
 
 class MiniCurl
 {
-    const CACHE_FOLDER = Config::FOLDER_TEMP . '/mini-curl/cached-responses';
-    private const EXPECTED_ENCODING = 'UTF-8';
+	private const CACHE_FOLDER = Config::FOLDER_TEMP . '/mini-curl/cached-responses';
+
+	/**
+	 * List of real useragents to make difficult to detect scraping
+	 *
+	 * @see https://techblog.willshouse.com/2012/01/03/most-common-user-agents/ (last updated 2020-12-02
+	 * @see https://github.com/Kikobeats/top-user-agents
+	 */
+	private const USERAGENTS = [
+		'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:82.0) Gecko/20100101 Firefox/82.0',
+		// @TODO if random http user agent is used, caching mechanism will cache response only for that specific useragent.
+		// Solution: set random useragent after checking cache and only if is not already set by user
+//		'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
+//		'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36',
+//		'Mozilla/5.0 (X11; Linux x86_64; rv:82.0) Gecko/20100101 Firefox/82.0',
+//		'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36',
+//		'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0 ',
+//		'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36',
+//		'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0 ',
+//		'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:82.0) Gecko/20100101 Firefox/82.0',
+//		'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.193 Safari/537.36',
+//		'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15',
+//		'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.1 Safari/605.1.15',
+//		'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36',
+//		'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:82.0) Gecko/20100101 Firefox/82.0',
+//		'Mozilla/5.0 (X11; Linux x86_64; rv:83.0) Gecko/20100101 Firefox/83.0 ',
+//		'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
+//		'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36',
+	];
+
+	private const EXPECTED_ENCODING = 'UTF-8';
 
 	private $cacheAllowed = false;
 	private $cacheTtl = 0;
@@ -28,14 +57,15 @@ class MiniCurl
 	private $httpHeaders = [];
 	private $httpCookies = [];
 
-    public function __construct(string $url)
-    {
-        $this->url = $url;
-        $this->curl = curl_init($url);
-        if ($this->curl === false) {
-            throw new InitException('CURL can\'t be initialited.');
-        }
-    }
+	public function __construct(string $url)
+	{
+		$this->url = $url;
+		$this->curl = curl_init($url);
+		if ($this->curl === false) {
+			throw new InitException('CURL can\'t be initialited.');
+		}
+		$this->setHttpHeader('user-agent', self::getRandomUseragent());
+	}
 
 	/**
 	 * Set curl_option as in curl_setopt()
@@ -199,4 +229,8 @@ class MiniCurl
 		return $cache;
 	}
 
+	private static function getRandomUseragent(): string
+	{
+		return self::USERAGENTS[array_rand(self::USERAGENTS)];
+	}
 }
