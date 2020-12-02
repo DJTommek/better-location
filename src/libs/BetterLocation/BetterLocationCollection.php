@@ -16,6 +16,7 @@ use App\BetterLocation\Service\GlympseService;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\IngressIntelService;
+use App\BetterLocation\Service\IngressMosaicService;
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\OpenStreetMapService;
@@ -255,6 +256,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 						$betterLocationsCollection->mergeCollection($glympseBetterLocationCollection);
 					} else if (IngressIntelService::isValid($url)) {
 						$betterLocationsCollection[] = IngressIntelService::parseCoords($url);
+					} else if (Config::isIngressMosaic() && IngressMosaicService::isValid($url)) {
+						$betterLocationsCollection[] = IngressMosaicService::parseUrl($url);
 					} else if (Config::isFoursquare() && FoursquareService::isValid($url)) {
 						$betterLocationsCollection[] = FoursquareService::parseUrl($url);
 					} else if (DuckDuckGoService::isValid($url)) {

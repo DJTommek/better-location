@@ -57,6 +57,11 @@ class DefaultConfig
 	/** @var ?string */
 	const FOURSQUARE_CLIENT_SECRET = null;
 
+	/** @var ?string */
+	const INGRESS_MOSAIC_COOKIE_SESSION = null;
+	/** @var ?string */
+	const INGRESS_MOSAIC_COOKIE_XSRF = null;
+
 	/**
 	 * If some input (URL) has multiple different locations, how far it has to be from main coordinate to add special line
 	 * to notify, that these locations are too far away. Anything lower than this number will be removed from collection
@@ -82,6 +87,7 @@ class DefaultConfig
 	const CACHE_TTL_ZANIKLE_OBCE_CZ = 60 * 60 * 24;
 	const CACHE_TTL_HERE_WE_GO_LOC = 60 * 60 * 24;
 	const CACHE_TTL_WIKIPEDIA = 60 * 60 * 24;
+	const CACHE_TTL_INGRESS_MOSAIC = 60 * 60 * 24;
 
 	/**
 	 * @var string Default timezone to work with.
@@ -95,6 +101,14 @@ class DefaultConfig
 			is_null(static::GLYMPSE_API_USERNAME) === false &&
 			is_null(static::GLYMPSE_API_PASSWORD) === false &&
 			is_null(static::GLYMPSE_API_KEY) === false
+		);
+	}
+
+	public static function isIngressMosaic(): bool
+	{
+		return (
+			is_null(static::INGRESS_MOSAIC_COOKIE_SESSION) === false &&
+			is_null(static::INGRESS_MOSAIC_COOKIE_XSRF) === false
 		);
 	}
 
