@@ -29,4 +29,21 @@ class StringUtils
 		}
 		return !!preg_match('/^' . $regex . '$/i', $guid);
 	}
+
+	/**
+	 * Replace only X times
+	 *
+	 * @author Inspiration from https://stackoverflow.com/a/1252710/3334403
+	 */
+	public static function replaceLimit(string $from, string $to, string $content, int $limit = 1): string {
+		$i = 0;
+		do {
+			$pos = strpos($content, $from);
+			if ($pos !== false) {
+			    $content = substr_replace($content, $to, $pos, strlen($from));
+			}
+			$i++;
+		} while($i < $limit);
+		return $content;
+	}
 }
