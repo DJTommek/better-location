@@ -9,14 +9,15 @@ use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Config;
 use App\Factory;
 use App\Icons;
-use App\MiniCurl\MiniCurl;
+use App\IngressMosaic\Client;
+use App\IngressMosaic\Types\MosaicType;
 use App\Utils\General;
 
 final class IngressMosaicService extends AbstractService
 {
 	const NAME = 'IngressMosaic';
 	const LINK = 'https://ingressmosaic.com';
-	const RE_PATH = '/^\/mosaic\/[0-9]+$/';
+	const RE_PATH = '/^\/mosaic\/([0-9]+)$/';
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
@@ -41,11 +42,10 @@ final class IngressMosaicService extends AbstractService
 	public static function parseUrl(string $url): ?BetterLocation
 	{
 		if ($mosaic = self::loadMosaicPage($url)) {
-			list($lat, $lon) = $mosaic[3]->latLng;
-			$betterLocation = new BetterLocation($url, $lat, $lon, self::class);
+			$betterLocation = new BetterLocation($url, $mosaic->startLat, $mosaic->startLon, self::class);
 			$ingressApi = Factory::IngressLanchedRu();
 			$description = 'Some random info about mosaic...';
-			if ($portal = $ingressApi->getPortalByCoords($lat, $lon)) {
+			if ($portal = $ingressApi->getPortalByCoords($mosaic->startLat, $mosaic->startLon)) {
 				$betterLocation->setAddress($portal->address);
 				$description .= sprintf('<br>Start portal: <a href="%s">%s</a> <a href="%s">%s</a>', $portal->getIntelLink(), htmlspecialchars($portal->name), $portal->image, Icons::PICTURE);
 			}
@@ -67,24 +67,10 @@ final class IngressMosaicService extends AbstractService
 		throw new NotImplementedException('Parsing multiple coordinate is not supported.');
 	}
 
-	private static function loadMosaicPage($url)
+	private static function loadMosaicPage(string $url): MosaicType
 	{
-		$response = (new MiniCurl($url))
-			->allowCache(Config::CACHE_TTL_INGRESS_MOSAIC)
-			->setHttpCookie('XSRF-TOKEN', Config::INGRESS_MOSAIC_COOKIE_XSRF)
-			->setHttpCookie('ingressmosaik_session', Config::INGRESS_MOSAIC_COOKIE_SESSION)
-			->setHttpCookie('lang', 'en')
-			->run()
-			->getBody();
-		return self::getMosaicInfoFromResponse($response);
-	}
-
-	private static function getMosaicInfoFromResponse(string $response): ?array {
-		if (preg_match('/ {8}var lang_txt_M = (\[(?:.+) {8}]);/s', $response, $matches)) {
-			$langTxtM = str_replace('\'', '"', $matches[1]);
-			return json_decode($langTxtM, false, 512, JSON_THROW_ON_ERROR);
-		} else {
-			return null;
-		}
+		$parsedUrl = General::parseUrl($url);
+		preg_match(self::RE_PATH, $parsedUrl['path'], $matches);
+		return (new Client(Config::INGRESS_MOSAIC_COOKIE_XSRF, Config::INGRESS_MOSAIC_COOKIE_SESSION))->setCache(Config::CACHE_TTL_INGRESS_MOSAIC)->loadMosaic((int)$matches[1]);
 	}
 }
