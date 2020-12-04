@@ -49,11 +49,24 @@ final class IngressMosaicService extends AbstractService
 			$prefix .= sprintf(' <a href="%s">%s</a> <a href="%s">%s</a>', $mosaic->url, $mosaic->name, $mosaic->image, Icons::PICTURE);
 			$betterLocation->setPrefixMessage($prefix);
 
+			$description = sprintf('%d missions, %d/%d portals/unique, %.1F km, %s',
+				$mosaic->missionsTotal,
+				$mosaic->portalsTotal,
+				$mosaic->portalsUnique,
+				$mosaic->distanceTotal / 1000,
+				$mosaic->byFootTotal->format('%hh %im'),
+			);
+			if ($mosaic->nonstop === true) {
+				$description .= ', 24/7';
+			}
+			if ($mosaic->status !== 100) {
+				$description = sprintf('%s %d%% online, %s', Icons::WARNING, $mosaic->status, $description);
+			}
+
 			$ingressApi = Factory::IngressLanchedRu();
-			$description = 'Some random info about mosaic...';
 			if ($portal = $ingressApi->getPortalByCoords($mosaic->startLat, $mosaic->startLon)) {
 				$betterLocation->setAddress($portal->address);
-				$description .= sprintf('<br>Start portal: <a href="%s">%s</a> <a href="%s">%s</a>', $portal->getIntelLink(), htmlspecialchars($portal->name), $portal->image, Icons::PICTURE);
+				$description .= PHP_EOL . sprintf('Start portal: <a href="%s">%s</a> <a href="%s">%s</a>', $portal->getIntelLink(), htmlspecialchars($portal->name), $portal->image, Icons::PICTURE);
 			}
 			$betterLocation->setDescription($description);
 
