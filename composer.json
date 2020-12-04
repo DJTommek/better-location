@@ -14,7 +14,8 @@
 		"djtommek/mapycz-api": "^1",
 		"djtommek/glympse-api": "^0.1.0",
 		"ext-pdo": "*",
-		"ext-simplexml": "*"
+		"ext-simplexml": "*",
+		"ext-dom": "*"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^9",
