@@ -26,8 +26,10 @@ class MosaicType
 	/** @var float */
 	public $startLon;
 
+	/** @var string City name */
 	public $location;
 	public $type;
+	/** @var ?bool */
 	public $nonstop;
 	public $status;
 	/** @var \DateTimeImmutable */
@@ -146,7 +148,7 @@ class MosaicType
 					$this->distanceStartEndPortal = $this->parseDistance($value);
 					break;
 				case 'Status':
-					$this->status = str_replace('% Online', '', $value);
+					$this->status = (int)str_replace('% Online', '', $value);
 					break;
 				case 'Hacks':
 					$this->actions->hacks = (int)$value;
