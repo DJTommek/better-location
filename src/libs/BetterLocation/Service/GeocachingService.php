@@ -27,7 +27,7 @@ final class GeocachingService extends AbstractService
 	const CACHE_REGEX = 'GC[A-Z0-9]{1,5}'; // keep limit as low as possible to best match and eliminate false positive
 	const LOG_REGEX = 'GL[A-Z0-9]{1,7}'; // keep limit as low as possible to best match and eliminate false positive
 
-	const CACHE_IN_TEXT_REGEX = '/(?:^|\W)(' . self::CACHE_REGEX . ')(?:$|\W)/ims';
+	const CACHE_IN_TEXT_REGEX = '/(?:^|\W)(' . self::CACHE_REGEX . ')(?=(?:$|\W))/ims';
 
 	/**
 	 * https://www.geocaching.com/geocache/GC3DYC4_find-the-bug
