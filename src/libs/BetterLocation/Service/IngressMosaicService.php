@@ -43,6 +43,12 @@ final class IngressMosaicService extends AbstractService
 	{
 		if ($mosaic = self::loadMosaicPage($url)) {
 			$betterLocation = new BetterLocation($url, $mosaic->startLat, $mosaic->startLon, self::class);
+
+			$prefix = $betterLocation->getPrefixMessage();
+			$betterLocation->setInlinePrefixMessage(sprintf('%s %s', $prefix, $mosaic->name));
+			$prefix .= sprintf(' <a href="%s">%s</a> <a href="%s">%s</a>', $mosaic->url, $mosaic->name, $mosaic->image, Icons::PICTURE);
+			$betterLocation->setPrefixMessage($prefix);
+
 			$ingressApi = Factory::IngressLanchedRu();
 			$description = 'Some random info about mosaic...';
 			if ($portal = $ingressApi->getPortalByCoords($mosaic->startLat, $mosaic->startLon)) {

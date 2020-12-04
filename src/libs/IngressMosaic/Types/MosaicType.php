@@ -2,6 +2,7 @@
 
 namespace App\IngressMosaic\Types;
 
+use App\IngressMosaic\Client;
 use App\Utils\StringUtils;
 use Tracy\Debugger;
 
@@ -59,6 +60,7 @@ class MosaicType
 		@$dom->loadHTML($response);
 		$this->parseMissionsJson($response);
 		$this->parseLeftPanel($dom);
+		$this->url = Client::LINK_MOSAIC . $this->id;
 	}
 
 	private function parseMissionsJson(string $response)
@@ -68,9 +70,6 @@ class MosaicType
 			$this->mosaicInfoVariableRaw = json_decode($langTxtM, false, 512, JSON_THROW_ON_ERROR);
 
 			$this->id = (int)$this->mosaicInfoVariableRaw[1];
-//			$this->name = $this->mosaicInfoVariableRaw[3]->data->dap;
-//			$this->image = $this->mosaicInfoVariableRaw[3]->data->image;
-//			$this->guid = $this->mosaicInfoVariableRaw[3]->data->guid;
 			list($lat, $lon) = $this->mosaicInfoVariableRaw[3]->latLng;
 			$this->startLat = $lat;
 			$this->startLon = $lon;
@@ -83,6 +82,8 @@ class MosaicType
 	{
 		$finder = new \DOMXPath($dom);
 		$nodes = $finder->query('//*[@id="mo_img"]/div/div[@class="col-xs-12 non-padding"]');
+		$this->name = trim($finder->query('//*[@id="mosaik-id"]')->item(0)->textContent);
+		$this->image = trim($finder->query('//*[@id="mo_img"]/div/div[1]/img')->item(0)->getAttribute('src'));
 
 		$this->attributesRaw = [];
 		foreach ($nodes as $node) {
