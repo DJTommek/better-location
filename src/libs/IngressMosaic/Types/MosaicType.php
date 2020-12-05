@@ -27,22 +27,25 @@ class MosaicType
 	public $startLon;
 
 	/** @var string City name */
-	public $location;
+	public $locationName;
 	public $type;
 	/** @var ?bool */
 	public $nonstop;
+	/** @var int */
 	public $status;
 	/** @var \DateTimeImmutable */
 	public $lastCheck;
+	/** @var int */
 	public $missionsTotal;
+	/** @var int */
 	public $distanceTotal;
-	/** @var ?\DateInterval */
+	/** @var ?\DateInterval total time for mosaic */
 	public $byFootTotal;
-	/** @var ?\DateInterval */
+	/** @var ?\DateInterval average time per mission */
 	public $byFootAvg;
-	/** @var ?\DateInterval */
+	/** @var ?\DateInterval total time for mosaic */
 	public $byBicycleTotal;
-	/** @var ?\DateInterval */
+	/** @var ?\DateInterval average time per mission */
 	public $byBicycleAvg;
 	/** @var int */
 	public $portalsTotal;
@@ -100,7 +103,7 @@ class MosaicType
 			}
 		}
 		$this->mapAttributes();
-		$this->portalsAvgPerMission = $this->portalsTotal / $this->missionsTotal;
+		$this->portalsAvgPerMission = (float) $this->portalsTotal / $this->missionsTotal;
 	}
 
 	private function mapAttributes()
@@ -109,7 +112,7 @@ class MosaicType
 		foreach ($this->attributesRaw as $key => $value) {
 			switch ($key) {
 				case 'Location':
-					$this->location = $value;
+					$this->locationName = $value;
 					break;
 				case 'Type':
 					$this->type = $value;
@@ -222,7 +225,7 @@ class MosaicType
 	}
 
 
-	private function parseIsNonstop(\DOMElement $node)
+	private function parseIsNonstop(\DOMElement $node): ?bool
 	{
 		$classes = $node->childNodes[1]->childNodes[0]->getAttribute('class');
 		switch ($classes) {
