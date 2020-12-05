@@ -57,6 +57,8 @@ class MosaicType
 	public $distanceStartEndPortal;
 	/** @var int */
 	public $actions;
+	/** @var string */
+	public $url;
 
 	public function __construct(string $response)
 	{
@@ -64,8 +66,7 @@ class MosaicType
 		$dom = new \DOMDocument();
 		@$dom->loadHTML($response);
 		$this->parseMissionsJson($response);
-		$this->parseLeftPanel($dom);
-		$this->url = Client::LINK_MOSAIC . $this->id;
+		$this->parseDomValues($dom);
 	}
 
 	private function parseMissionsJson(string $response)
@@ -75,6 +76,7 @@ class MosaicType
 			$this->mosaicInfoVariableRaw = json_decode($langTxtM, false, 512, JSON_THROW_ON_ERROR);
 
 			$this->id = (int)$this->mosaicInfoVariableRaw[1];
+			$this->url = Client::LINK_MOSAIC . $this->id;
 			list($lat, $lon) = $this->mosaicInfoVariableRaw[3]->latLng;
 			$this->startLat = $lat;
 			$this->startLon = $lon;
@@ -83,7 +85,7 @@ class MosaicType
 		}
 	}
 
-	private function parseLeftPanel(\DOMDocument $dom)
+	private function parseDomValues(\DOMDocument $dom)
 	{
 		$finder = new \DOMXPath($dom);
 		$nodes = $finder->query('//*[@id="mo_img"]/div/div[@class="col-xs-12 non-padding"]');
