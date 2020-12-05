@@ -6,7 +6,6 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
-use App\Config;
 use App\Factory;
 use App\Icons;
 use App\IngressMosaic\Client;
@@ -16,7 +15,7 @@ use App\Utils\General;
 final class IngressMosaicService extends AbstractService
 {
 	const NAME = 'IngressMosaic';
-	const LINK = 'https://ingressmosaic.com';
+	const LINK = Client::LINK;
 	const RE_PATH = '/^\/mosaic\/([0-9]+)$/';
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
@@ -86,10 +85,13 @@ final class IngressMosaicService extends AbstractService
 		throw new NotImplementedException('Parsing multiple coordinate is not supported.');
 	}
 
-	private static function loadMosaicPage(string $url): MosaicType
+	private static function loadMosaicPage(string $url): ?MosaicType
 	{
 		$parsedUrl = General::parseUrl($url);
-		preg_match(self::RE_PATH, $parsedUrl['path'], $matches);
-		return (new Client(Config::INGRESS_MOSAIC_COOKIE_XSRF, Config::INGRESS_MOSAIC_COOKIE_SESSION))->setCache(Config::CACHE_TTL_INGRESS_MOSAIC)->loadMosaic((int)$matches[1]);
+		if (preg_match(self::RE_PATH, $parsedUrl['path'], $matches)) {
+			return Factory::IngressMosaic()->loadMosaic((int)$matches[1]);
+		} else {
+			return null;
+		}
 	}
 }

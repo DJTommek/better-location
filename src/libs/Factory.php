@@ -64,4 +64,13 @@ class Factory
 		}
 		return self::$objects['ingressLanchedRu'];
 	}
+
+	static function IngressMosaic(): \App\IngressMosaic\Client
+	{
+		if (!isset(self::$objects['ingressMosaic'])) {
+			self::$objects['ingressMosaic'] = new \App\IngressMosaic\Client(Config::INGRESS_MOSAIC_COOKIE_XSRF, Config::INGRESS_MOSAIC_COOKIE_SESSION);
+			self::$objects['ingressMosaic']->setCache(Config::CACHE_TTL_INGRESS_MOSAIC);
+		}
+		return self::$objects['ingressMosaic'];
+	}
 }
