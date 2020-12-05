@@ -57,6 +57,37 @@ final class MosaicTypeTest extends TestCase
 			$this->assertIsInt($mosaic->status, $message);
 			$this->assertGreaterThanOrEqual(0, $mosaic->status, $message);
 			$this->assertIsString($mosaic->type, $message);
+			$this->assertIsString($mosaic->url, $message);
 		}
+	}
+
+	/** Test general values from left panel */
+	public function testJsonValues(): void
+	{
+		$this->assertEquals(1788, self::$mosaics[1788]->id);
+		$this->assertEquals(50.062815, self::$mosaics[1788]->startLat);
+		$this->assertEquals(14.439725, self::$mosaics[1788]->startLon);
+	}
+
+	/** Test values from left panel */
+	public function testDomValues(): void
+	{
+		$this->assertEquals('0h 7m 16s', self::$mosaics[1788]->byBicycleAvg->format('%hh %im %ss'));
+		$this->assertEquals('0h 43m 36s', self::$mosaics[1788]->byBicycleTotal->format('%hh %im %ss'));
+		$this->assertEquals('0h 15m 42s', self::$mosaics[1788]->byFootAvg->format('%hh %im %ss'));
+		$this->assertEquals('1h 34m 0s', self::$mosaics[1788]->byFootTotal->format('%hh %im %ss'));
+		$this->assertEquals(1650, self::$mosaics[1788]->distanceStartEndPortal);
+		$this->assertEquals(5600, self::$mosaics[1788]->distanceTotal);
+		$this->assertEquals('https://ingressmosaik.com/image/mosaic/1/1788.jpg?t=1533815451', self::$mosaics[1788]->image);
+		$this->assertEquals('2018-08-09', self::$mosaics[1788]->lastCheck->format('Y-m-d'));
+		$this->assertEquals('Prague', self::$mosaics[1788]->locationName);
+		$this->assertEquals(6, self::$mosaics[1788]->missionsTotal);
+		$this->assertEquals('Matrix', self::$mosaics[1788]->name);
+		$this->assertEquals(7.6666666667, self::$mosaics[1788]->portalsAvgPerMission);
+		$this->assertEquals(46, self::$mosaics[1788]->portalsTotal);
+		$this->assertEquals(44, self::$mosaics[1788]->portalsUnique);
+		$this->assertEquals(100, self::$mosaics[1788]->status);
+		$this->assertEquals('Banner', self::$mosaics[1788]->type);
+		$this->assertEquals('https://ingressmosaic.com/mosaic/1788', self::$mosaics[1788]->url);
 	}
 }
