@@ -55,7 +55,7 @@ class MosaicType
 	public $portalsUnique;
 	/** @var int */
 	public $distanceStartEndPortal;
-	/** @var int */
+	/** @var ActionsType */
 	public $actions;
 	/** @var string */
 	public $url;
