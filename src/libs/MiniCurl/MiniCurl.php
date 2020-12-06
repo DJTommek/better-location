@@ -185,7 +185,7 @@ class MiniCurl
 		$curlInfo = curl_getinfo($this->curl);
 		$response = new Response($curlResponse, $curlInfo);
 		if (is_null($requireResponseCode) === false && $response->getCode() !== $requireResponseCode) {
-			throw new InvalidResponseException(sprintf('Invalid response code "%d" but required "%d".', $response->getCode(), $requireResponseCode));
+			throw new InvalidResponseException(sprintf('Invalid response code "%d" but required "%d" for URL "%s".', $response->getCode(), $requireResponseCode, $this->url), $response->getCode());
 		}
 		if (isset($cacheId)) {
 			$this->saveToCache($cacheId, $curlResponse, $curlInfo);
