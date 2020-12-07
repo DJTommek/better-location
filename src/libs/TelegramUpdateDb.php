@@ -173,7 +173,8 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 		return $this->botReplyMessageId;
 	}
 
-	private static function parseDbData(array $row): self {
+	private static function parseDbData(array $row): self
+	{
 		$dataJson = json_decode($row['original_update_object'], true, 512, JSON_THROW_ON_ERROR);
 		$self = new self(new Telegram\Types\Update($dataJson), intval($row['bot_reply_message_id']), intval($row['autorefresh_status']), new \DateTimeImmutable($row['last_update']));
 		if ($row['last_response_text'] && $row['last_response_reply_markup']) {
@@ -183,5 +184,16 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 			);
 		}
 		return $self;
+	}
+
+	/** self[] */
+	public static function query(string $query, ...$params): array
+	{
+		$results = [];
+		$rows = Factory::Database()->queryArray($query, $params)->fetchAll();
+		foreach ($rows as $row) {
+			$results[] = self::parseDbData($row);
+		}
+		return $results;
 	}
 }

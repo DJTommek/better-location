@@ -5,6 +5,7 @@ namespace App\Dashboard;
 use App\Config;
 use App\DefaultConfig;
 use App\Icons;
+use App\TelegramUpdateDb;
 use App\Utils\DateImmutableUtils;
 use unreal4u\TelegramAPI\Exceptions\ClientException;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
@@ -205,5 +206,18 @@ class Status
 		} catch (ClientException $clientException) {
 			self::$webhookError = $clientException;
 		}
+	}
+
+	/**
+	 * Get last update of the oldest or newest refreshed message
+	 *
+	 * @param bool $oldest true to get oldest, false to get newest
+	 */
+	public static function getEdgeRefreshedMessage(bool $oldest): ?\DateTimeImmutable
+	{
+		$query = sprintf('SELECT * FROM better_location_telegram_updates WHERE autorefresh_status = ? ORDER BY last_update %s LIMIT 1', $oldest ? 'ASC' : 'DESC');
+		/** @var TelegramUpdateDb[] $rows */
+		$rows = TelegramUpdateDb::query($query, TelegramUpdateDb::STATUS_ENABLED);
+		return count($rows) ? $rows[0]->getLastUpdate() : null;
 	}
 }
