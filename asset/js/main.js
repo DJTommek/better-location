@@ -9,7 +9,9 @@ $(function () {
 	});
 	// store the currently selected tab in the hash value
 	$("ul.nav-tabs > li > a").on("shown.bs.tab", function (e) {
-		window.location.hash = $(e.target).attr("href").substr(1);
+		// Update hash without scrolling to it's ID
+		// @author https://stackoverflow.com/a/14560718/3334403
+		history.pushState({}, '', '#' + $(e.target).attr("href").substr(1));
 	});
 	// on load of the page: switch to the currently selected tab
 	const hash = window.location.hash;
