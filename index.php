@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use App\TelegramUpdateDb;
+
 require_once __DIR__ . '/src/bootstrap.php';
 
 if (isset($_GET['delete-tracy-email-sent'])) {
@@ -120,27 +122,23 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 			}
 			?>
 			<ol>
-				<?php
-				$now = new DateTimeImmutable();
-				$oldestRefresh = \App\Dashboard\Status::getEdgeRefreshedMessage(true);
-				$newestRefresh = \App\Dashboard\Status::getEdgeRefreshedMessage(false);
-				if (is_null($oldestRefresh) && is_null($newestRefresh)) {
-					printf('<li value="7">Setup CRON to <a href="cron-refresh.php">cron-refresh.php</a>. No refreshable locations in database</li>');
-				} else {
-					$diffOldNewRefresh = $newestRefresh->getTimestamp() - $oldestRefresh->getTimestamp();
-					$diffNowOldRefresh = $now->getTimestamp() - $oldestRefresh->getTimestamp();
-					$diffNowNewRefresh = $now->getTimestamp() - $newestRefresh->getTimestamp();
-					printf('<li value="7">Setup CRON to <a href="cron-refresh.php">cron-refresh.php</a><br>Oldest refresh: %s (%s ago)%s</br>Newest refresh: %s. (%s ago)%s<br> Diff: %s</li>',
-						$oldestRefresh->format(\App\Config::DATETIME_FORMAT),
-						\App\Utils\General::sToHuman($diffNowOldRefresh),
-						($diffNowOldRefresh > 60 * 60) ? \App\Icons::WARNING : '',
-						$newestRefresh->format(\App\Config::DATETIME_FORMAT),
-						\App\Utils\General::sToHuman($diffNowNewRefresh),
-						($diffNowNewRefresh > 60 * 60) ? \App\Icons::WARNING : '',
-						$diffOldNewRefresh > 0 ? \App\Utils\General::sToHuman($diffOldNewRefresh) : 'none',
-					);
-				}
-				?>
+				<li value="7">Setup CRON to <a href="cron-refresh.php" target="_blank">cron-refresh.php</a>.
+					<?php
+					$now = new DateTimeImmutable();
+					$autorefreshAll = TelegramUpdateDb::loadAll(TelegramUpdateDb::STATUS_ENABLED);
+					$oldestRefresh = null;
+					$newestRefresh = null;
+					if (count($autorefreshAll) > 0) {
+						$oldestRefresh = $autorefreshAll[0];
+						$newestRefresh = $autorefreshAll[count($autorefreshAll) - 1];
+						$diffNowOldRefresh = $now->getTimestamp() - $oldestRefresh->getLastUpdate()->getTimestamp();
+						print(($diffNowOldRefresh > 3600) ? \App\Icons::WARNING : \App\Icons::SUCCESS); // @TODO move to config
+						printf(' Oldest refresh was at <b>%s</b> (<b>%s</b> ago)', $now->format(\App\Config::DATETIME_FORMAT), \App\Utils\General::sToHuman($diffNowOldRefresh));
+						// @TODO solve this
+						print('<br><small>Note: might not be true - refresh is actually just last update which will change everytime user will use "Refresh" button or send refreshable location and enable autorefresh.</small>');
+					}
+					?>
+				</li>
 				<li>Google Place API: <?= \App\Config::GOOGLE_PLACE_API_KEY ? sprintf('%s Enabled (cache set to %s)', \App\Icons::SUCCESS, \App\Utils\General::sToHuman(\App\Config::CACHE_TTL_GOOGLE_PLACE_API)) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
 				<li>What3Words API: <?= \App\Config::W3W_API_KEY ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
 				<li>Glympse API: <?= \App\Config::isGlympse() ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
@@ -247,6 +245,26 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 							\App\Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_last_update']->getTimestamp()),
 						);
 					}
+
+					// Autorefresh messages
+					printf('<li>Count of messages with enabled autorefresh: <b>%d</b></li>', count($autorefreshAll));
+					if (count($autorefreshAll) > 0) {
+						$now = new DateTimeImmutable();
+						$diffOldNewRefresh = $newestRefresh->getLastUpdate()->getTimestamp() - $oldestRefresh->getLastUpdate()->getTimestamp();
+						$diffNowOldRefresh = $now->getTimestamp() - $newestRefresh->getLastUpdate()->getTimestamp();
+						$diffNowNewRefresh = $now->getTimestamp() - $oldestRefresh->getLastUpdate()->getTimestamp();
+
+						printf('<li>Oldest autorefresh: <b>%s</b> (%s ago)</li>',
+							$oldestRefresh->getLastUpdate()->format(\App\Config::DATETIME_FORMAT),
+							\App\Utils\General::sToHuman($diffNowOldRefresh),
+						);
+						printf('<li>Newest autorefresh: <b>%s</b> (%s ago)</li>',
+							$newestRefresh->getLastUpdate()->format(\App\Config::DATETIME_FORMAT),
+							\App\Utils\General::sToHuman($diffNowNewRefresh),
+						);
+						printf('<li>Diff between newest and oldest autorefresh: <b>%s</b></li>', $diffOldNewRefresh > 0 ? \App\Utils\General::sToHuman($diffOldNewRefresh) : 'none');
+					}
+
 					printf('</ul>');
 				} else {
 					printf('<p>%s Setup database connection and prepare tables.</p>', \App\Icons::ERROR);
