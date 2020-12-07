@@ -30,13 +30,14 @@ class Logs
 		return $logsContent;
 	}
 
-	private static function getTracyLogContent(string $logName, int $maxLines)
+	private static function getTracyLogContent(string $logName, int $maxLines): array
 	{
 		$tracyLogPath = Config::FOLDER_DATA . '/tracy-log/' . $logName . '.log';
-		$fileContent = General::tail($tracyLogPath, $maxLines);
-		if ($fileContent === false) {
+		if (file_exists($tracyLogPath)) {
+			$fileContent = General::tail($tracyLogPath, $maxLines);
+			return explode(PHP_EOL, $fileContent);
+		} else {
 			return [];
 		}
-		return explode(PHP_EOL, $fileContent);
 	}
 }

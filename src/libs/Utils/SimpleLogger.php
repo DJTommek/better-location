@@ -65,15 +65,16 @@ class SimpleLogger
 		if (self::isLogNameValid($name) === false) {
 			throw new \InvalidArgumentException('Invalid log name.');
 		}
-//		$fileContent = file_get_contents(self::getFilePath($name, $date));
-		$fileContent = General::tail(self::getFilePath($name, $date), $numberOfLines);
-		if ($fileContent === false) {
+		$fileName = self::getFilePath($name, $date);
+		if (file_exists($fileName)) {
+			$fileContent = General::tail($fileName, $numberOfLines);
+			$lines = explode(self::LINE_SEPARATOR, $fileContent);
+			return array_map(function ($line) {
+				return json_decode($line, false, 512, JSON_THROW_ON_ERROR);
+			}, $lines);
+		} else {
 			return [];
 		}
-		$lines = explode(self::LINE_SEPARATOR, $fileContent);
-		return array_map(function ($line) {
-			return json_decode($line, false, 512, JSON_THROW_ON_ERROR);
-		}, $lines);
 	}
 
 }
