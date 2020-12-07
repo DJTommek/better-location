@@ -46,10 +46,12 @@ class MiniCurl
 	private $cacheTtl = 0;
 	private $url;
 	private $curl;
+	private $allowRandomUseragent = true;
 	/** @var array<int,mixed> Options to CURL method (predefined, can be updated) */
 	private $options = [
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_HEADER => true,
+		CURLOPT_NOBODY => false,
 		CURLOPT_CONNECTTIMEOUT => 5,
 		CURLOPT_TIMEOUT => 5,
 		CURLOPT_FOLLOWLOCATION => true,
@@ -64,7 +66,6 @@ class MiniCurl
 		if ($this->curl === false) {
 			throw new InitException('CURL can\'t be initialited.');
 		}
-		$this->setHttpHeader('user-agent', self::getRandomUseragent());
 	}
 
 	/**
@@ -136,6 +137,11 @@ class MiniCurl
 		return $this;
 	}
 
+	public function allowRandomUseragent(bool $allow = true)
+	{
+		$this->allowRandomUseragent = $allow;
+	}
+
 	/**
 	 * Perform request (or load cached response) and return Response
 	 *
@@ -146,6 +152,11 @@ class MiniCurl
 	 */
 	public function run(?int $requireResponseCode = 200): Response
 	{
+		if ($this->allowRandomUseragent) {
+			$randomUseragent = self::USERAGENTS[array_rand(self::USERAGENTS)];
+			$this->setHttpHeader('user-agent', $randomUseragent);
+		}
+
 		if (empty($this->options[CURLOPT_COOKIE]) && count($this->httpCookies)) {
 			$cookie = '';
 			foreach ($this->httpCookies as $cookieName => $cookieValue) {
