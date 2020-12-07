@@ -28,6 +28,7 @@ use App\BetterLocation\Service\ZanikleObceCzService;
 use App\BetterLocation\Service\ZniceneKostelyCzService;
 use App\Config;
 use App\Icons;
+use App\MiniCurl\MiniCurl;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
 use App\Utils\General;
@@ -277,10 +278,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 					} else {
 						$headers = null;
 						try {
-							$headers = General::getHeaders($url, [
-								CURLOPT_CONNECTTIMEOUT => 5,
-								CURLOPT_TIMEOUT => 5,
-							]);
+							$headers = MiniCurl::loadHeaders($url);
 						} catch (\Throwable$exception) {
 							Debugger::log(sprintf('Error while loading headers for URL "%s": %s', $url, $exception->getMessage()));
 						}
@@ -351,7 +349,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 			if ($tries >= 5) {
 				Debugger::log(sprintf('Too many tries (%d) for translating original URL "%s"', $tries, $originalUrl));
 			}
-			$url = Url::getRedirectUrl($url);
+			$url = MiniCurl::loadRedirectUrl($url);
 			$tries++;
 		}
 		if (is_null($url)) { // in case of some error, revert to original URL

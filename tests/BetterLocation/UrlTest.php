@@ -40,27 +40,29 @@ final class UrlTest extends TestCase
 	/** @throws Exception */
 	public function testGetRedirectUrl(): void
 	{
-		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\BetterLocation\Url::getRedirectUrl('https://bit.ly/3hFN12b'));
-		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\BetterLocation\Url::getRedirectUrl('http://bit.ly/3hFN12b'));
-		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\BetterLocation\Url::getRedirectUrl('https://bit.ly/BetterLocationTest')); // custom URL
-		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\BetterLocation\Url::getRedirectUrl('http://bit.ly/BetterLocationTest')); // custom URL
+		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://bit.ly/3hFN12b'));
+		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://bit.ly/3hFN12b'));
+		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://bit.ly/BetterLocationTest')); // custom URL
+		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://bit.ly/BetterLocationTest')); // custom URL
 
-		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\BetterLocation\Url::getRedirectUrl('https://tinyurl.com/q4e74we'));
-		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\BetterLocation\Url::getRedirectUrl('http://tinyurl.com/q4e74we'));
-		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\BetterLocation\Url::getRedirectUrl('https://tinyurl.com/BetterLocationTest')); // custom URL
-		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\BetterLocation\Url::getRedirectUrl('http://tinyurl.com/BetterLocationTest')); // custom URL
+		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://tinyurl.com/q4e74we'));
+		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://tinyurl.com/q4e74we'));
+		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://tinyurl.com/BetterLocationTest')); // custom URL
+		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://tinyurl.com/BetterLocationTest')); // custom URL
 
-		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\BetterLocation\Url::getRedirectUrl('https://t.co/F9s19A9pU2?amp=1'));
-		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\BetterLocation\Url::getRedirectUrl('https://t.co/F9s19A9pU2'));
-		$this->assertEquals('https://t.co/F9s19A9pU2', \App\BetterLocation\Url::getRedirectUrl('http://t.co/F9s19A9pU2'));
+		// Twitter URLs are not returning 'location' header if provided browser useragent
+		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://t.co/F9s19A9pU2?amp=1'));
+		$this->assertEquals('https://t.co/F9s19A9pU2?amp=1', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://t.co/F9s19A9pU2?amp=1'));
+		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://t.co/F9s19A9pU2'));
+		$this->assertEquals('https://t.co/F9s19A9pU2', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://t.co/F9s19A9pU2'));
 
-		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\BetterLocation\Url::getRedirectUrl('https://rb.gy/yjoqrj'));
-		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\BetterLocation\Url::getRedirectUrl('http://rb.gy/yjoqrj'));
+		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://rb.gy/yjoqrj'));
+		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://rb.gy/yjoqrj'));
 
-		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\BetterLocation\Url::getRedirectUrl('https://tiny.cc/ji2ysz'));
-		$this->assertEquals('https://tiny.cc/ji2ysz', \App\BetterLocation\Url::getRedirectUrl('http://tiny.cc/ji2ysz'));
-		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\BetterLocation\Url::getRedirectUrl('https://tiny.cc/BetterLocationTest')); // custom URL
-		$this->assertEquals('https://tiny.cc/BetterLocationTest', \App\BetterLocation\Url::getRedirectUrl('http://tiny.cc/BetterLocationTest')); // custom URL
+		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://tiny.cc/ji2ysz'));
+		$this->assertEquals('https://tiny.cc/ji2ysz', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://tiny.cc/ji2ysz'));
+		$this->assertEquals('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://tiny.cc/BetterLocationTest')); // custom URL
+		$this->assertEquals('https://tiny.cc/BetterLocationTest', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://tiny.cc/BetterLocationTest')); // custom URL
 	}
 
 }

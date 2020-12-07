@@ -6,7 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
-use App\BetterLocation\Url;
+use App\MiniCurl\MiniCurl;
 
 final class WazeService extends AbstractService
 {
@@ -43,7 +43,7 @@ final class WazeService extends AbstractService
 	{
 		if (self::isShortUrl($url)) {
 			$wazeUpdatedUrl = str_replace('waze.com/ul/h', 'www.waze.com/livemap?h=', $url);
-			$newLocation = Url::getRedirectUrl($wazeUpdatedUrl);
+			$newLocation = MiniCurl::loadRedirectUrl($wazeUpdatedUrl);
 			if ($newLocation) {
 				// location is returned without domain
 				$newLocation = self::LINK . $newLocation;

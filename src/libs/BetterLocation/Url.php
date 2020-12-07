@@ -41,17 +41,6 @@ class Url
 	}
 
 	/**
-	 * @param $url
-	 * @return mixed|null
-	 * @throws \Exception
-	 */
-	public static function getRedirectUrl($url): ?string
-	{
-		$headers = General::getHeaders($url);
-		return $headers['location'] ?? null;
-	}
-
-	/**
 	 * Skip URLs without defined scheme, eg "tomas.palider.cz" but allow "https://tomas.palider.cz/"
 	 */
 	public static function isTrueUrl(string $url): bool

@@ -7,11 +7,11 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
-use App\BetterLocation\Url;
 use App\Factory;
 use App\Geocaching\Client;
 use App\Geocaching\Types\GeocachePreviewType;
 use App\Icons;
+use App\MiniCurl\MiniCurl;
 use App\Utils\General;
 use App\Utils\StringUtils;
 use Tracy\Debugger;
@@ -293,7 +293,7 @@ final class GeocachingService extends AbstractService
 			return new BetterLocation($originalUrl, $coords[0], $coords[1], self::class, self::TYPE_MAP_COORD);
 		} else {
 			if (self::isGuidUrl($url)) {
-				$url = Url::getRedirectUrl($url);
+				$url = MiniCurl::loadRedirectUrl($url);
 			}
 			try {
 				$geocacheId = self::getCacheIdFromUrl($url);

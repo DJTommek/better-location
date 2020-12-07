@@ -6,7 +6,6 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
-use App\BetterLocation\Url;
 use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\General;
@@ -150,7 +149,7 @@ final class HereWeGoService extends AbstractService
 	public static function parseCoordsMultiple(string $url): BetterLocationCollection
 	{
 		if (self::isShortUrl($url)) {
-			$redirectUrl = Url::getRedirectUrl($url);
+			$redirectUrl = MiniCurl::loadRedirectUrl($url);
 			try {
 				return self::processShortShareUrl($url, $redirectUrl);
 			} catch (\Exception $exception) {
@@ -166,7 +165,7 @@ final class HereWeGoService extends AbstractService
 
 	private static function requestByLoc($url): \stdClass
 	{
-        $response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_HERE_WE_GO_LOC)->run()->getBody();
+		$response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_HERE_WE_GO_LOC)->run()->getBody();
 		// @TODO probably could be solved somehow better. Needs more testing
 		preg_match('/<script type="application\/ld\+json">(.+?)<\/script>/s', $response, $matches);
 		return json_decode($matches[1]);
@@ -193,7 +192,7 @@ final class HereWeGoService extends AbstractService
 		if ($parsedNewLocation['host'] !== 'share.here.com') {
 			throw new \Exception(sprintf('Unexpected redirect URL "%s".', $parsedNewLocation['host']));
 		}
-		$redirectUrl2 = Url::getRedirectUrl($redirectUrl);
+		$redirectUrl2 = MiniCurl::loadRedirectUrl($redirectUrl);
 		if ($redirectUrl2 === null) {
 			throw new \Exception('Missing second redirect URL.');
 		}

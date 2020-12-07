@@ -5,7 +5,6 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Url;
 use App\Config;
 use App\MiniCurl\MiniCurl;
 
@@ -101,7 +100,7 @@ final class GoogleMapsService extends AbstractService
 	public static function parseCoordsHelper(string $url, bool $returnCollection)
 	{
 		if (self::isShortUrl($url)) {
-			$newLocation = Url::getRedirectUrl($url);
+			$newLocation = MiniCurl::loadRedirectUrl($url);
 			if ($newLocation) {
 				return self::parseUrl($newLocation, $returnCollection);
 			} else {

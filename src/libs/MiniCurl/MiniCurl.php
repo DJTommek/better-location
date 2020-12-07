@@ -240,8 +240,20 @@ class MiniCurl
 		return $cache;
 	}
 
-	private static function getRandomUseragent(): string
+	/** @return array<string,string>|string|null */
+	public static function loadHeaders(string $url, ?string $key = null)
 	{
-		return self::USERAGENTS[array_rand(self::USERAGENTS)];
+		$client = new self($url);
+		$client->allowRandomUseragent(false);
+		$client->setCurlOption(CURLOPT_FOLLOWLOCATION, false);
+		$client->setCurlOption(CURLOPT_NOBODY, true);
+		$client->setCurlOption(CURLOPT_FRESH_CONNECT, true);
+		$response = $client->run(null);
+		return $response->getHeaders($key);
+	}
+
+	public static function loadRedirectUrl(string $url): ?string
+	{
+		return self::loadHeaders($url, 'location');
 	}
 }

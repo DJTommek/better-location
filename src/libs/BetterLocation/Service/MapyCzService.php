@@ -6,7 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
-use App\BetterLocation\Url;
+use App\MiniCurl\MiniCurl;
 use DJTommek\MapyCzApi\MapyCzApi;
 use DJTommek\MapyCzApi\MapyCzApiException;
 
@@ -97,7 +97,7 @@ final class MapyCzService extends AbstractService
 	public static function parseCoordsHelper(string $url, bool $returnCollection)
 	{
 		if (self::isShortUrl($url)) {
-			$newLocation = Url::getRedirectUrl($url);
+			$newLocation = MiniCurl::loadRedirectUrl($url);
 			if ($newLocation) {
 				return self::parseUrl($newLocation, $returnCollection);
 			} else {
