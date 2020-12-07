@@ -83,15 +83,7 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 		$row = Factory::Database()->query('SELECT * FROM better_location_telegram_updates WHERE chat_id = ? AND bot_reply_message_id = ?',
 			$chatId, $botReplyMessageId
 		)->fetch();
-		$dataJson = json_decode($row['original_update_object'], true, 512, JSON_THROW_ON_ERROR);
-		$self = new self(new Telegram\Types\Update($dataJson), intval($row['bot_reply_message_id']), intval($row['autorefresh_status']), new \DateTimeImmutable($row['last_update']));
-		if ($row['last_response_text'] && $row['last_response_reply_markup']) {
-			$self->setLastSendData(
-				$row['last_response_text'],
-				new Telegram\Types\Inline\Keyboard\Markup(json_decode($row['last_response_reply_markup'], true, 512, JSON_THROW_ON_ERROR))
-			);
-		}
-		return $self;
+		return self::parseDbData($row);
 	}
 
 	public function insert(): void
@@ -161,15 +153,7 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 		}
 		$rows = Factory::Database()->queryArray($sqlQuery, $sqlParams)->fetchAll();
 		foreach ($rows as $row) {
-			$dataJson = json_decode($row['original_update_object'], true, 512, JSON_THROW_ON_ERROR);
-			$self = new self(new Telegram\Types\Update($dataJson), intval($row['bot_reply_message_id']), intval($row['autorefresh_status']), new \DateTimeImmutable($row['last_update']));
-			if ($row['last_response_text'] && $row['last_response_reply_markup']) {
-				$self->setLastSendData(
-					$row['last_response_text'],
-					new Telegram\Types\Inline\Keyboard\Markup(json_decode($row['last_response_reply_markup'], true, 512, JSON_THROW_ON_ERROR))
-				);
-			}
-			$results[] = $self;
+			$results[] = self::parseDbData($row);
 		}
 		return $results;
 	}
@@ -187,5 +171,17 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 	public function getBotReplyMessageId(): int
 	{
 		return $this->botReplyMessageId;
+	}
+
+	private static function parseDbData(array $row): self {
+		$dataJson = json_decode($row['original_update_object'], true, 512, JSON_THROW_ON_ERROR);
+		$self = new self(new Telegram\Types\Update($dataJson), intval($row['bot_reply_message_id']), intval($row['autorefresh_status']), new \DateTimeImmutable($row['last_update']));
+		if ($row['last_response_text'] && $row['last_response_reply_markup']) {
+			$self->setLastSendData(
+				$row['last_response_text'],
+				new Telegram\Types\Inline\Keyboard\Markup(json_decode($row['last_response_reply_markup'], true, 512, JSON_THROW_ON_ERROR))
+			);
+		}
+		return $self;
 	}
 }
