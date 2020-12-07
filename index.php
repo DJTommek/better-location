@@ -120,7 +120,28 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 			}
 			?>
 			<ol>
-				<li value="7">Google Place API: <?= \App\Config::GOOGLE_PLACE_API_KEY ? sprintf('%s Enabled (cache set to %s)', \App\Icons::SUCCESS, \App\Utils\General::sToHuman(\App\Config::CACHE_TTL_GOOGLE_PLACE_API)) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
+				<?php
+				$now = new DateTimeImmutable();
+				$oldestRefresh = \App\Dashboard\Status::getEdgeRefreshedMessage(true);
+				$newestRefresh = \App\Dashboard\Status::getEdgeRefreshedMessage(false);
+				if (is_null($oldestRefresh) && is_null($newestRefresh)) {
+					printf('<li value="7">Setup CRON to <a href="cron-refresh.php">cron-refresh.php</a>. No refreshable locations in database</li>');
+				} else {
+					$diffOldNewRefresh = $newestRefresh->getTimestamp() - $oldestRefresh->getTimestamp();
+					$diffNowOldRefresh = $now->getTimestamp() - $oldestRefresh->getTimestamp();
+					$diffNowNewRefresh = $now->getTimestamp() - $newestRefresh->getTimestamp();
+					printf('<li value="7">Setup CRON to <a href="cron-refresh.php">cron-refresh.php</a><br>Oldest refresh: %s (%s ago)%s</br>Newest refresh: %s. (%s ago)%s<br> Diff: %s</li>',
+						$oldestRefresh->format(\App\Config::DATETIME_FORMAT),
+						\App\Utils\General::sToHuman($diffNowOldRefresh),
+						($diffNowOldRefresh > 60 * 60) ? \App\Icons::WARNING : '',
+						$newestRefresh->format(\App\Config::DATETIME_FORMAT),
+						\App\Utils\General::sToHuman($diffNowNewRefresh),
+						($diffNowNewRefresh > 60 * 60) ? \App\Icons::WARNING : '',
+						$diffOldNewRefresh > 0 ? \App\Utils\General::sToHuman($diffOldNewRefresh) : 'none',
+					);
+				}
+				?>
+				<li>Google Place API: <?= \App\Config::GOOGLE_PLACE_API_KEY ? sprintf('%s Enabled (cache set to %s)', \App\Icons::SUCCESS, \App\Utils\General::sToHuman(\App\Config::CACHE_TTL_GOOGLE_PLACE_API)) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
 				<li>What3Words API: <?= \App\Config::W3W_API_KEY ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
 				<li>Glympse API: <?= \App\Config::isGlympse() ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
 				<li>Foursquare API: <?= \App\Config::isFoursquare() ? sprintf('%s Enabled (cache set to %s)', \App\Icons::SUCCESS, \App\Utils\General::sToHuman(\App\Config::CACHE_TTL_FOURSQUARE_API)) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
