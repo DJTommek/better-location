@@ -20,6 +20,7 @@ use App\BetterLocation\Service\IngressMosaicService;
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\OpenStreetMapService;
+use App\BetterLocation\Service\OsmAndService;
 use App\BetterLocation\Service\RopikyNetService;
 use App\BetterLocation\Service\WazeService;
 use App\BetterLocation\Service\WhatThreeWordService;
@@ -257,6 +258,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 						$betterLocationsCollection->mergeCollection($glympseBetterLocationCollection);
 					} else if (IngressIntelService::isValid($url)) {
 						$betterLocationsCollection[] = IngressIntelService::parseCoords($url);
+					} else if (OsmAndService::isUrl($url)) {
+						$betterLocationsCollection[] = OsmAndService::parseUrl($url);
 					} else if (Config::isIngressMosaic() && IngressMosaicService::isValid($url)) {
 						$betterLocationsCollection[] = IngressMosaicService::parseUrl($url);
 					} else if (Config::isFoursquare() && FoursquareService::isValid($url)) {
