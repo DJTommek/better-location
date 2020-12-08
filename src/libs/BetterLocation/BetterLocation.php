@@ -11,6 +11,7 @@ use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\IngressIntelService;
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\OpenStreetMapService;
+use App\BetterLocation\Service\OsmAndService;
 use App\BetterLocation\Service\WazeService;
 use App\Factory;
 use App\Icons;
@@ -202,6 +203,7 @@ class BetterLocation
 			HereWeGoService::class,
 			OpenStreetMapService::class,
 			IngressIntelService::class,
+			OsmAndService::class,
 		];
 		$text = '';
 		$text .= sprintf('%s <a href="%s" target="_blank">%s</a> <code>%s</code>',
@@ -241,6 +243,7 @@ class BetterLocation
 			GoogleMapsService::class,
 			WazeService::class,
 			HereWeGoService::class,
+			OsmAndService::class,
 		];
 		$buttons = [];
 		foreach ($services as $service) {
