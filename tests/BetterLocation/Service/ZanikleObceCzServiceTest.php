@@ -9,11 +9,11 @@ final class ZanikleObceCzServiceTest extends TestCase
 {
 	public function testGenerateShareLink(): void
 	{
-		$this->assertEquals('http://zanikleobce.cz/index.php?menu=222&mpx=14.420671&mpy=50.087451', ZanikleObceCzService::getLink(50.087451, 14.420671));
-		$this->assertEquals('http://zanikleobce.cz/index.php?menu=222&mpx=14.500000&mpy=50.100000', ZanikleObceCzService::getLink(50.1, 14.5));
-		$this->assertEquals('http://zanikleobce.cz/index.php?menu=222&mpx=14.600000&mpy=-50.200000', ZanikleObceCzService::getLink(-50.2, 14.6000001)); // round down
-		$this->assertEquals('http://zanikleobce.cz/index.php?menu=222&mpx=-14.700001&mpy=50.300000', ZanikleObceCzService::getLink(50.3, -14.7000009)); // round up
-		$this->assertEquals('http://zanikleobce.cz/index.php?menu=222&mpx=-14.800008&mpy=-50.400000', ZanikleObceCzService::getLink(-50.4, -14.800008));
+		$this->assertSame('http://zanikleobce.cz/index.php?menu=222&mpx=14.420671&mpy=50.087451', ZanikleObceCzService::getLink(50.087451, 14.420671));
+		$this->assertSame('http://zanikleobce.cz/index.php?menu=222&mpx=14.500000&mpy=50.100000', ZanikleObceCzService::getLink(50.1, 14.5));
+		$this->assertSame('http://zanikleobce.cz/index.php?menu=222&mpx=14.600000&mpy=-50.200000', ZanikleObceCzService::getLink(-50.2, 14.6000001)); // round down
+		$this->assertSame('http://zanikleobce.cz/index.php?menu=222&mpx=-14.700001&mpy=50.300000', ZanikleObceCzService::getLink(50.3, -14.7000009)); // round up
+		$this->assertSame('http://zanikleobce.cz/index.php?menu=222&mpx=-14.800008&mpy=-50.400000', ZanikleObceCzService::getLink(-50.4, -14.800008));
 	}
 
 	public function testGenerateDriveLink(): void
@@ -62,20 +62,20 @@ final class ZanikleObceCzServiceTest extends TestCase
 	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testUrlObec(): void
 	{
-		$this->assertEquals('48.590270,14.234440', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?obec=502')->__toString());
-		$this->assertEquals('49.786750,12.557330', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?obec=22307')->__toString());
-		$this->assertEquals('48.915560,13.889190', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?obec=7087')->__toString());
-		$this->assertEquals('50.111750,14.509370', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?obec=27819')->__toString());
-		$this->assertEquals('50.519070,13.644160', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?lang=d&obec=27059')->__toString());
+		$this->assertSame('48.590270,14.234440', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?obec=502')->__toString());
+		$this->assertSame('49.786750,12.557330', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?obec=22307')->__toString());
+		$this->assertSame('48.915560,13.889190', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?obec=7087')->__toString());
+		$this->assertSame('50.111750,14.509370', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?obec=27819')->__toString());
+		$this->assertSame('50.519070,13.644160', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?lang=d&obec=27059')->__toString());
 	}
 
 	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testUrlDetail(): void
 	{
-		$this->assertEquals('48.590270,14.234440', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?detail=119532')->__toString());
-		$this->assertEquals('48.915560,13.889190', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?detail=223422')->__toString());
-		$this->assertEquals('48.915560,13.889190', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?detail=1451711')->__toString());
-		$this->assertEquals('49.778330,13.120830', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?lang=d&detail=48637')->__toString());
+		$this->assertSame('48.590270,14.234440', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?detail=119532')->__toString());
+		$this->assertSame('48.915560,13.889190', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?detail=223422')->__toString());
+		$this->assertSame('48.915560,13.889190', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?detail=1451711')->__toString());
+		$this->assertSame('49.778330,13.120830', ZanikleObceCzService::parseCoords('http://www.zanikleobce.cz/index.php?lang=d&detail=48637')->__toString());
 	}
 
 	public function testMissingCoordinates(): void

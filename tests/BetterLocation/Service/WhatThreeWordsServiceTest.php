@@ -14,11 +14,11 @@ final class WhatThreeWordsServiceTest extends TestCase
 		if (is_null(\App\Config::W3W_API_KEY)) {
 			$this->markTestSkipped('Missing What3Words API Key.');
 		} else {
-			$this->assertEquals('https://w3w.co/paves.fans.piston', WhatThreeWordService::getLink(50.087451, 14.420671));
-			$this->assertEquals('https://w3w.co/perkily.salon.receive', WhatThreeWordService::getLink(50.1, 14.5));
-			$this->assertEquals('https://w3w.co/proximity.moaned.laxatives', WhatThreeWordService::getLink(-50.2, 14.6000001)); // round down
-			$this->assertEquals('https://w3w.co/hardly.underpriced.frustrate', WhatThreeWordService::getLink(50.3, -14.7000009)); // round up
-			$this->assertEquals('https://w3w.co/stampedes.foresees.prow', WhatThreeWordService::getLink(-50.4, -14.800008));
+			$this->assertSame('https://w3w.co/paves.fans.piston', WhatThreeWordService::getLink(50.087451, 14.420671));
+			$this->assertSame('https://w3w.co/perkily.salon.receive', WhatThreeWordService::getLink(50.1, 14.5));
+			$this->assertSame('https://w3w.co/proximity.moaned.laxatives', WhatThreeWordService::getLink(-50.2, 14.6000001)); // round down
+			$this->assertSame('https://w3w.co/hardly.underpriced.frustrate', WhatThreeWordService::getLink(50.3, -14.7000009)); // round up
+			$this->assertSame('https://w3w.co/stampedes.foresees.prow', WhatThreeWordService::getLink(-50.4, -14.800008));
 		}
 	}
 
@@ -47,7 +47,7 @@ final class WhatThreeWordsServiceTest extends TestCase
 			$entities[] = $entity;
 			$result = BetterLocationCollection::fromTelegramMessage('Hello ///smaller.biggest.money there! Random URL https://tomas.palider.cz/ there...', $entities);
 			$this->assertCount(1, $result);
-			$this->assertEquals('50.086258,14.423709', $result[0]->__toString());
+			$this->assertSame('50.086258,14.423709', $result[0]->__toString());
 		}
 	}
 
@@ -57,10 +57,10 @@ final class WhatThreeWordsServiceTest extends TestCase
 		if (is_null(\App\Config::W3W_API_KEY)) {
 			$this->markTestSkipped('Missing What3Words API Key.');
 		} else {
-			$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('///define.readings.cucumber')->__toString());
-			$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('///chladná.naopak.vložit')->__toString());
-			$this->assertEquals('-25.066260,-130.100342', WhatThreeWordService::parseCoords('///dispersant.cuts.authentication')->__toString());
-			$this->assertEquals('50.086258,14.423709', WhatThreeWordService::parseCoords('///smaller.biggest.money')->__toString()); // TG is thinking, that this is URL (probably .money is valid domain)
+			$this->assertSame('49.297286,14.126510', WhatThreeWordService::parseCoords('///define.readings.cucumber')->__toString());
+			$this->assertSame('49.297286,14.126510', WhatThreeWordService::parseCoords('///chladná.naopak.vložit')->__toString());
+			$this->assertSame('-25.066260,-130.100342', WhatThreeWordService::parseCoords('///dispersant.cuts.authentication')->__toString());
+			$this->assertSame('50.086258,14.423709', WhatThreeWordService::parseCoords('///smaller.biggest.money')->__toString()); // TG is thinking, that this is URL (probably .money is valid domain)
 		}
 	}
 
@@ -70,10 +70,10 @@ final class WhatThreeWordsServiceTest extends TestCase
 		if (is_null(\App\Config::W3W_API_KEY)) {
 			$this->markTestSkipped('Missing What3Words API Key.');
 		} else {
-			$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('https://w3w.co/define.readings.cucumber')->__toString());
-			$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('https://w3w.co/chladná.naopak.vložit')->__toString());
-			$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('https://w3w.co/chladn%C3%A1.naopak.vlo%C5%BEit')->__toString());
-			$this->assertEquals('-25.066260,-130.100342', WhatThreeWordService::parseCoords('https://w3w.co/dispersant.cuts.authentication')->__toString());
+			$this->assertSame('49.297286,14.126510', WhatThreeWordService::parseCoords('https://w3w.co/define.readings.cucumber')->__toString());
+			$this->assertSame('49.297286,14.126510', WhatThreeWordService::parseCoords('https://w3w.co/chladná.naopak.vložit')->__toString());
+			$this->assertSame('49.297286,14.126510', WhatThreeWordService::parseCoords('https://w3w.co/chladn%C3%A1.naopak.vlo%C5%BEit')->__toString());
+			$this->assertSame('-25.066260,-130.100342', WhatThreeWordService::parseCoords('https://w3w.co/dispersant.cuts.authentication')->__toString());
 		}
 	}
 
@@ -83,10 +83,10 @@ final class WhatThreeWordsServiceTest extends TestCase
 		if (is_null(\App\Config::W3W_API_KEY)) {
 			$this->markTestSkipped('Missing What3Words API Key.');
 		} else {
-			$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('https://what3words.com/define.readings.cucumber')->__toString());
-			$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('https://what3words.com/chladná.naopak.vložit')->__toString());
-			$this->assertEquals('49.297286,14.126510', WhatThreeWordService::parseCoords('https://what3words.com/chladn%C3%A1.naopak.vlo%C5%BEit')->__toString());
-			$this->assertEquals('-25.066260,-130.100342', WhatThreeWordService::parseCoords('https://what3words.com/dispersant.cuts.authentication')->__toString());
+			$this->assertSame('49.297286,14.126510', WhatThreeWordService::parseCoords('https://what3words.com/define.readings.cucumber')->__toString());
+			$this->assertSame('49.297286,14.126510', WhatThreeWordService::parseCoords('https://what3words.com/chladná.naopak.vložit')->__toString());
+			$this->assertSame('49.297286,14.126510', WhatThreeWordService::parseCoords('https://what3words.com/chladn%C3%A1.naopak.vlo%C5%BEit')->__toString());
+			$this->assertSame('-25.066260,-130.100342', WhatThreeWordService::parseCoords('https://what3words.com/dispersant.cuts.authentication')->__toString());
 		}
 	}
 }

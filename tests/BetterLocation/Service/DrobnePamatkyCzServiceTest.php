@@ -10,11 +10,11 @@ final class DrobnePamatkyCzServiceTest extends TestCase
 	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testGenerateShareLink(): void
 	{
-		$this->assertEquals('https://www.drobnepamatky.cz/blizko?km[latitude]=50.087451&km[longitude]=14.420671&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(50.087451, 14.420671));
-		$this->assertEquals('https://www.drobnepamatky.cz/blizko?km[latitude]=50.100000&km[longitude]=14.500000&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(50.1, 14.5));
-		$this->assertEquals('https://www.drobnepamatky.cz/blizko?km[latitude]=-50.200000&km[longitude]=14.600000&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(-50.2, 14.6000001)); // round down
-		$this->assertEquals('https://www.drobnepamatky.cz/blizko?km[latitude]=50.300000&km[longitude]=-14.700001&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(50.3, -14.7000009)); // round up
-		$this->assertEquals('https://www.drobnepamatky.cz/blizko?km[latitude]=-50.400000&km[longitude]=-14.800008&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(-50.4, -14.800008));
+		$this->assertSame('https://www.drobnepamatky.cz/blizko?km[latitude]=50.087451&km[longitude]=14.420671&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(50.087451, 14.420671));
+		$this->assertSame('https://www.drobnepamatky.cz/blizko?km[latitude]=50.100000&km[longitude]=14.500000&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(50.1, 14.5));
+		$this->assertSame('https://www.drobnepamatky.cz/blizko?km[latitude]=-50.200000&km[longitude]=14.600000&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(-50.2, 14.6000001)); // round down
+		$this->assertSame('https://www.drobnepamatky.cz/blizko?km[latitude]=50.300000&km[longitude]=-14.700001&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(50.3, -14.7000009)); // round up
+		$this->assertSame('https://www.drobnepamatky.cz/blizko?km[latitude]=-50.400000&km[longitude]=-14.800008&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(-50.4, -14.800008));
 	}
 
 	public function testGenerateDriveLink(): void
@@ -44,13 +44,13 @@ final class DrobnePamatkyCzServiceTest extends TestCase
 	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testUrl(): void
 	{
-		$this->assertEquals('50.067665,14.401487', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/36966')->__toString());
-		$this->assertEquals('49.703025,13.215935', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/40369')->__toString());
-		$this->assertEquals('49.854270,18.542159', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/9279')->__toString());
-		$this->assertEquals('49.805000,18.449748', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/9282')->__toString());
+		$this->assertSame('50.067665,14.401487', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/36966')->__toString());
+		$this->assertSame('49.703025,13.215935', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/40369')->__toString());
+		$this->assertSame('49.854270,18.542159', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/9279')->__toString());
+		$this->assertSame('49.805000,18.449748', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/9282')->__toString());
 		// Oborané památky (https://www.drobnepamatky.cz/oborane)
-		$this->assertEquals('49.687435,14.712323', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/10646')->__toString());
-		$this->assertEquals('48.974158,14.612296', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/2892')->__toString());
+		$this->assertSame('49.687435,14.712323', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/10646')->__toString());
+		$this->assertSame('48.974158,14.612296', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/2892')->__toString());
 	}
 
 	public function testMissingCoordinates1(): void

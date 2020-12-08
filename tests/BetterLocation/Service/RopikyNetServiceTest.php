@@ -48,15 +48,15 @@ final class RopikyNetServiceTest extends TestCase
 	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testUrl(): void
 	{
-		$this->assertEquals('48.325750,20.233450', RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1183840757')->__toString());
-		$this->assertEquals('48.331710,20.240140', RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1183840760')->__toString());
-		$this->assertEquals('50.127520,16.601080', RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1075717726')->__toString());
-		$this->assertEquals('49.346390,16.974210', RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1075718529')->__toString());
-		$this->assertEquals('47.999410,18.780630', RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1075728128')->__toString());
+		$this->assertSame('48.325750,20.233450', RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1183840757')->__toString());
+		$this->assertSame('48.331710,20.240140', RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1183840760')->__toString());
+		$this->assertSame('50.127520,16.601080', RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1075717726')->__toString());
+		$this->assertSame('49.346390,16.974210', RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1075718529')->__toString());
+		$this->assertSame('47.999410,18.780630', RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1075728128')->__toString());
 
-		$this->assertEquals('49.728630,13.558510', RopikyNetService::parseCoords('http://www.ropiky.net/nerop_objekt.php?id=1296479566')->__toString());
-		$this->assertEquals('49.182180,13.470280', RopikyNetService::parseCoords('http://www.ropiky.net/nerop_objekt.php?id=1397407312')->__toString());
-		$this->assertEquals('50.599950,13.889120', RopikyNetService::parseCoords('http://www.ropiky.net/nerop_objekt.php?id=1396538830')->__toString());
+		$this->assertSame('49.728630,13.558510', RopikyNetService::parseCoords('http://www.ropiky.net/nerop_objekt.php?id=1296479566')->__toString());
+		$this->assertSame('49.182180,13.470280', RopikyNetService::parseCoords('http://www.ropiky.net/nerop_objekt.php?id=1397407312')->__toString());
+		$this->assertSame('50.599950,13.889120', RopikyNetService::parseCoords('http://www.ropiky.net/nerop_objekt.php?id=1396538830')->__toString());
 	}
 
 	public function testMissingCoordinates1(): void

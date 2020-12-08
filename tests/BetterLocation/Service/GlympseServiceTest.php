@@ -55,13 +55,13 @@ final class GlympseServiceTest extends TestCase
 		$method = $class->getMethod('getGroupIdFromUrl');
 		$method->setAccessible(true);
 
-		$this->assertEquals('BetterLocationBot', $method->invokeArgs(null, ['https://glympse.com/!BetterLocationBot']));
-		$this->assertEquals('BetterLocationBot', $method->invokeArgs(null, ['https://www.glympse.com/!BetterLocationBot']));
-		$this->assertEquals('BetterLocationBot', $method->invokeArgs(null, ['http://glympse.com/!BetterLocationBot']));
-		$this->assertEquals('BetterLocationBot', $method->invokeArgs(null, ['http://www.glympse.com/!BetterLocationBot']));
-		$this->assertEquals('BetterLocationBot', $method->invokeArgs(null, ['https://gLYMpse.com/!BetterLocationBot']));
-		$this->assertEquals('BetterLocationBot123', $method->invokeArgs(null, ['https://glympse.com/!BetterLocationBot123']));
-		$this->assertEquals('Better157LocationBot', $method->invokeArgs(null, ['https://glympse.com/!Better157LocationBot']));
+		$this->assertSame('BetterLocationBot', $method->invokeArgs(null, ['https://glympse.com/!BetterLocationBot']));
+		$this->assertSame('BetterLocationBot', $method->invokeArgs(null, ['https://www.glympse.com/!BetterLocationBot']));
+		$this->assertSame('BetterLocationBot', $method->invokeArgs(null, ['http://glympse.com/!BetterLocationBot']));
+		$this->assertSame('BetterLocationBot', $method->invokeArgs(null, ['http://www.glympse.com/!BetterLocationBot']));
+		$this->assertSame('BetterLocationBot', $method->invokeArgs(null, ['https://gLYMpse.com/!BetterLocationBot']));
+		$this->assertSame('BetterLocationBot123', $method->invokeArgs(null, ['https://glympse.com/!BetterLocationBot123']));
+		$this->assertSame('Better157LocationBot', $method->invokeArgs(null, ['https://glympse.com/!Better157LocationBot']));
 	}
 
 	public function testGetInviteId(): void
@@ -70,12 +70,12 @@ final class GlympseServiceTest extends TestCase
 		$method = $class->getMethod('getInviteIdFromUrl');
 		$method->setAccessible(true);
 
-		$this->assertEquals('ABCD-EFGH', $method->invokeArgs(null, ['https://glympse.com/ABCD-EFGH']));
-		$this->assertEquals('ABCD-EFGH', $method->invokeArgs(null, ['https://www.glympse.com/ABCD-EFGH']));
-		$this->assertEquals('abCD-EFgh', $method->invokeArgs(null, ['http://glympse.com/abCD-EFgh']));
-		$this->assertEquals('ABCD-EFGH', $method->invokeArgs(null, ['http://www.glympse.com/ABCD-EFGH']));
-		$this->assertEquals('ABCD-EFGH', $method->invokeArgs(null, ['https://gLYMpse.com/ABCD-EFGH']));
-		$this->assertEquals('AB12-EF34', $method->invokeArgs(null, ['https://glympse.com/AB12-EF34']));
-		$this->assertEquals('AB1-EF3', $method->invokeArgs(null, ['https://glympse.com/AB1-EF3']));
+		$this->assertSame('ABCD-EFGH', $method->invokeArgs(null, ['https://glympse.com/ABCD-EFGH']));
+		$this->assertSame('ABCD-EFGH', $method->invokeArgs(null, ['https://www.glympse.com/ABCD-EFGH']));
+		$this->assertSame('abCD-EFgh', $method->invokeArgs(null, ['http://glympse.com/abCD-EFgh']));
+		$this->assertSame('ABCD-EFGH', $method->invokeArgs(null, ['http://www.glympse.com/ABCD-EFGH']));
+		$this->assertSame('ABCD-EFGH', $method->invokeArgs(null, ['https://gLYMpse.com/ABCD-EFGH']));
+		$this->assertSame('AB12-EF34', $method->invokeArgs(null, ['https://glympse.com/AB12-EF34']));
+		$this->assertSame('AB1-EF3', $method->invokeArgs(null, ['https://glympse.com/AB1-EF3']));
 	}
 }
