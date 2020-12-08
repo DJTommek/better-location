@@ -45,6 +45,6 @@ class FeedbackCommand extends Command
 
 	private function logFeedback()
 	{
-		DummyLogger::log(DummyLogger::NAME_FEEDBACK, $this->update);
+		SimpleLogger::log(SimpleLogger::NAME_FEEDBACK, $this->update);
 	}
 }
