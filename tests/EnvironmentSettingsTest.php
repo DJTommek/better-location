@@ -14,17 +14,33 @@ final class EnvironmentSettingsTest extends TestCase
 	public function testLocale(): void
 	{
 		$localeOriginal = setlocale(LC_NUMERIC, 0); // do not change anything, just save original location to restore it later
-		$betterLocation = WGS84DegreesService::parseCoords('50.123456,10.123456');
+		$betterLocationPositive = WGS84DegreesService::parseCoords('50.123456,10.123456');
+		$betterLocationPositiveNegative = WGS84DegreesService::parseCoords('50.123456,-10.123456');
+		$betterLocationNegativePositive = WGS84DegreesService::parseCoords('-50.123456,10.123456');
+		$betterLocationNegative = WGS84DegreesService::parseCoords('-50.123456,-10.123456');
 
-		$this->assertSame('50.123456,10.123456', $betterLocation->__toString()); // default formatting (usually from environment settings)
+		// default formatting (usually from environment settings)
+		$this->assertSame('50.123456,10.123456', $betterLocationPositive->__toString());
+		$this->assertSame('50.123456,-10.123456', $betterLocationPositiveNegative->__toString());
+		$this->assertSame('-50.123456,10.123456', $betterLocationNegativePositive->__toString());
+		$this->assertSame('-50.123456,-10.123456', $betterLocationNegative->__toString());
 
 		setlocale(LC_NUMERIC, 'swedish'); // swedish formatting is using "," instead of "." in floating point
-		$this->assertSame('50.123456,10.123456', $betterLocation->__toString());
+		$this->assertSame('50.123456,10.123456', $betterLocationPositive->__toString());
+		$this->assertSame('50.123456,-10.123456', $betterLocationPositiveNegative->__toString());
+		$this->assertSame('-50.123456,10.123456', $betterLocationNegativePositive->__toString());
+		$this->assertSame('-50.123456,-10.123456', $betterLocationNegative->__toString());
 
 		setlocale(LC_NUMERIC, 'american'); // american formatting is using "." instead of "," in floating point
-		$this->assertSame('50.123456,10.123456', $betterLocation->__toString());
+		$this->assertSame('50.123456,10.123456', $betterLocationPositive->__toString());
+		$this->assertSame('50.123456,-10.123456', $betterLocationPositiveNegative->__toString());
+		$this->assertSame('-50.123456,10.123456', $betterLocationNegativePositive->__toString());
+		$this->assertSame('-50.123456,-10.123456', $betterLocationNegative->__toString());
 
-		setlocale(LC_NUMERIC, $localeOriginal); // restore original settings
-		$this->assertSame('50.123456,10.123456', $betterLocation->__toString()); // again default formatting
+		setlocale(LC_NUMERIC, $localeOriginal); // restore original settings (again default formatting)
+		$this->assertSame('50.123456,10.123456', $betterLocationPositive->__toString()); //
+		$this->assertSame('50.123456,-10.123456', $betterLocationPositiveNegative->__toString());
+		$this->assertSame('-50.123456,10.123456', $betterLocationNegativePositive->__toString());
+		$this->assertSame('-50.123456,-10.123456', $betterLocationNegative->__toString());
 	}
 }
