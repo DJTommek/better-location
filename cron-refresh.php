@@ -82,8 +82,13 @@ if (count($messagesToRefresh) === 0) {
 				$messageToRefresh->touchLastUpdate();
 			}
 		} catch (\Throwable $exception) {
-			printlog(sprintf('Exception occured while processing %s: %s', $id, $exception->getMessage()));
-			\Tracy\Debugger::log($exception, \Tracy\ILogger::EXCEPTION);
+			if ($exception instanceof \unreal4u\TelegramAPI\Exceptions\ClientException && $exception->getMessage() === TelegramHelper::MESSAGE_TO_EDIT_DELETED) {
+				$messageToRefresh->autorefreshDisable();
+				printlog(sprintf('Message %s, which should be edited was deleted, disabling autorefresh.', $id));
+			} else {
+				printlog(sprintf('Exception occured while processing %s: %s', $id, $exception->getMessage()));
+				\Tracy\Debugger::log($exception, \Tracy\ILogger::EXCEPTION);
+			}
 		}
 	}
 	printlog('All updates were processed');
