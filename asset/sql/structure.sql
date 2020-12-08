@@ -37,3 +37,18 @@ CREATE TABLE IF NOT EXISTS `better_location_favourites` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 ALTER TABLE `better_location_favourites` ADD CONSTRAINT `favourites.user_id` FOREIGN KEY (`user_id`) REFERENCES `better_location_user` (`user_id`);
+
+/*
+ * For compatibility reasons there is used LONGTEXT instead of JSON
+ * @see https://mariadb.com/kb/en/json-data-type/
+ */
+CREATE TABLE IF NOT EXISTS `better_location_telegram_updates` (
+  `chat_id` bigint NOT NULL,
+  `bot_reply_message_id` int NOT NULL,
+  `original_update_object` LONGTEXT NOT NULL,
+  `autorefresh_status` tinyint NOT NULL DEFAULT '0',
+  `last_update` datetime NOT NULL,
+  `last_response_text` text COLLATE utf8mb4_bin,
+  `last_response_reply_markup` LONGTEXT DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
