@@ -100,7 +100,7 @@ final class FoursquareService extends AbstractService
 		$betterLocation = new BetterLocation($inputUrl, $venue->location->lat, $venue->location->lng, self::class);
 		$betterLocation->setAddress($venue->location->getFormattedAddress());
 
-		$prefix = sprintf(sprintf('%s <a href="%s">%s</a>', $betterLocation->getPrefixMessage(), $venue->url, $venue->name));
+		$prefix = sprintf('%s <a href="%s">%s</a>', $betterLocation->getPrefixMessage(), $venue->url, $venue->name);
 		$betterLocation->setPrefixMessage($prefix);
 
 		$descriptionValues = [];
