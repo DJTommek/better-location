@@ -19,7 +19,7 @@
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^9",
-		"phpstan/phpstan": "^0.12.52"
+		"phpstan/phpstan": "^0.12"
 	},
 	"autoload": {
 		"psr-4": {
@@ -29,7 +29,7 @@
 	"scripts": {
 		"pre-install-cmd": "@php ./src/tools/CopyLocalConfig.php",
 		"pre-update-cmd": "@php ./src/tools/CopyLocalConfig.php",
-		"phpstan": "phpstan analyse src tests",
+		"phpstan": "phpstan analyse",
 		"test": "phpunit"
 	}
 }
