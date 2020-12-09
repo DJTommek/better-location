@@ -1,1 +1,5 @@
 * text=auto
+
+# Ignore fixtures files to properly count repository language stats
+# @see https://github.com/github/linguist#vendored-code
+tests/*/fixtures/* linguist-vendored
