@@ -23,4 +23,12 @@ abstract class AbstractService
 	{
 		return [];
 	}
+
+	public static function getName(bool $short = false) {
+		if ($short && defined(sprintf('%s::%s',static::class, 'NAME_SHORT'))) {
+			return static::NAME_SHORT;
+		} else {
+			return static::NAME;
+		}
+	}
 }

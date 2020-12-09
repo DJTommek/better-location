@@ -14,7 +14,8 @@ use Tracy\ILogger;
 
 final class HereWeGoService extends AbstractService
 {
-	const NAME = 'HERE';
+	const NAME = 'HERE WeGo';
+	const NAME_SHORT = 'HERE';
 
 	const LINK = 'https://wego.here.com';
 	const LINK_SHARE = 'https://share.here.com';

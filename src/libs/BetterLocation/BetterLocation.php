@@ -224,7 +224,7 @@ class BetterLocation
 		$text .= join(' | ', \array_map(function (string $service) {
 				return sprintf('<a href="%s" target="_blank">%s</a>',
 					$this->pregeneratedLinks[$service] ?? $service::getLink($this->lat, $this->lon),
-					$service::NAME,
+					$service::getName(true),
 				);
 			}, $services)) . PHP_EOL;
 
