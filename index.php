@@ -29,10 +29,10 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 	<h1><?= \App\Icons::LOCATION; ?> <a href="./">BetterLocation</a> - Admin</h1>
 	<ul class="nav nav-tabs nav-fill" id="main-tab" role="tablist">
 		<li class="nav-item">
-			<a class="nav-link active" id="tab-install" data-toggle="tab" href="#install"><?= \App\Dashboard\Status::getInstallTabIcon() ?> Install and status</a>
+			<a class="nav-link active" id="tab-status" data-toggle="tab" href="#status"><?= \App\Dashboard\Status::getInstallTabIcon() ?> Status</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="tab-error" data-toggle="tab" href="#error"><?= \App\Dashboard\Status::getTracyEmailIcon() ?> Errors</a>
+			<a class="nav-link" id="tab-logs" data-toggle="tab" href="#logs"><?= \App\Dashboard\Status::getTracyEmailIcon() ?> Logs</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" id="tab-statistics" data-toggle="tab" href="#statistics">Statistics</a>
@@ -42,7 +42,7 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 		</li>
 	</ul>
 	<div class="tab-content">
-		<div class="tab-pane fade show active" id="install">
+		<div class="tab-pane fade show active" id="status">
 			<h2>Install and status</h2>
 			<ol>
 				<li>Download/clone <a href="https://github.com/DJTommek/better-location" target="_blank" title="DJTommek/better-location on Github">BetterLocation repository</a> <?= \App\Icons::SUCCESS; ?></li>
@@ -146,7 +146,7 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 			</ol>
 
 		</div>
-		<div class="tab-pane fade" id="error">
+		<div class="tab-pane fade" id="logs">
 			<h2>Errors</h2>
 			<h4>Email reporting (<a href="https://tracy.nette.org/guide" target="_blank" title="Getting started with Tracy">help</a>)</h4>
 			<?php
