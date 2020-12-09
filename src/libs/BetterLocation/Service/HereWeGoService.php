@@ -160,7 +160,7 @@ final class HereWeGoService extends AbstractService
 		} else if (self::isNormalUrl($url)) {
 			return self::parseUrl($url);
 		} else {
-			throw new InvalidLocationException(sprintf('Unable to get coords for Here WeGo maps link "%".', $url));
+			throw new InvalidLocationException(sprintf('Unable to get coords for Here WeGo maps link "%s".', $url));
 		}
 	}
 

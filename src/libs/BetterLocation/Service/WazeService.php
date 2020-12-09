@@ -64,7 +64,7 @@ final class WazeService extends AbstractService
 				throw new InvalidLocationException(sprintf('Unable to get coords for Waze normal link "%s".', $url));
 			}
 		} else {
-			throw new InvalidLocationException(sprintf('Unable to get coords for Waze link "%".', $url));
+			throw new InvalidLocationException(sprintf('Unable to get coords for Waze link "%s".', $url));
 		}
 	}
 

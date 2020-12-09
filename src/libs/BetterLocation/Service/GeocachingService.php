@@ -101,13 +101,13 @@ final class GeocachingService extends AbstractService
 
 	private static function isGeocacheId(string $input): bool
 	{
-		return !!(preg_match_all(self::CACHE_REGEX, $input));
+		return !!(preg_match('/' . self::CACHE_REGEX . '/', $input));
 	}
 
 	private static function isLogId(string $input): bool
 	{
 		return false;  // @TODO currently disabled, waiting for https://github.com/DJTommek/better-location/issues/35
-		return !!(preg_match_all(self::LOG_REGEX, $input));
+		return !!(preg_match('/' . self::LOG_REGEX . '/', $input));
 	}
 
 	public static function isUrl(string $url): bool

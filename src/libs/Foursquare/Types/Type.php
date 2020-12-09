@@ -7,6 +7,8 @@ use Tracy\Debugger;
 
 abstract class Type
 {
+	private final function __construct() {}
+
 	public static function createFromVariable(\stdClass $variables)
 	{
 		$class = new static();
