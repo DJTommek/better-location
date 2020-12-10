@@ -37,7 +37,9 @@ class StartCommand extends Command
 					$this->processFavourites($params);
 					break;
 				default:
-					$this->reply(sprintf('%s Hidden start parameter is unknown.', Icons::ERROR));
+					// Bot indexers can add their own start parameters, so if no valid parameter is detected, continue just like /start without parameter
+					Debugger::log(sprintf('Hidden start parameter "%s" is unknown.', $this->getText()), ILogger::DEBUG);
+					$this->processHelp();
 					break;
 			}
 		}
