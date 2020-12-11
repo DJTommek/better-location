@@ -11,25 +11,25 @@ class VenueType extends Type
 	public $id;
 	/** @var string The best known name for this venue. */
 	public $name;
-	/** @var VenueContact */
+	/** @var \stdClass */
 	public $contact;
 	/** @var VenueLocationType */
 	public $location;
 	/** @var string */
 	public $canonicalUrl;
-	/** @var VenueCategory[] */
+	/** @var \stdClass[] */
 	public $categories;
 	/** @var bool */
 	public $verified;
 	/** @var bool */
 	public $venueRatingBlacklisted;
-	/** @var VenueStats */
+	/** @var \stdClass */
 	public $stats;
 	/** @var string */
 	public $url;
-	/** @var VenuePrice */
+	/** @var \stdClass */
 	public $price;
-	/** @var VenueLikes */
+	/** @var \stdClass */
 	public $likes;
 	/** @var bool */
 	public $dislike;
@@ -43,48 +43,48 @@ class VenueType extends Type
 	public $ratingSignals;
 	/** @var bool */
 	public $allowMenuUrlEdit;
-	/** @var VenueBeenHere */
+	/** @var \stdClass */
 	public $beenHere;
-	/** @var VenueSpecials */
+	/** @var \stdClass */
 	public $specials;
-	/** @var VenuePhotos */
+	/** @var \stdClass */
 	public $photos;
-	/** @var VenueReasons */
+	/** @var \stdClass */
 	public $reasons;
-	/** @var VenueHereNow */
+	/** @var \stdClass */
 	public $hereNow;
 	/** @var \DateTimeImmutable */
 	public $createdAt;
-	/** @var VenueTips */
+	/** @var \stdClass */
 	public $tips;
 	/** @var string */
 	public $shortUrl;
 	/** @var string */
 	public $timeZone;
-	/** @var VenueListed */
+	/** @var \stdClass */
 	public $listed;
-	/** @var VenueHours */
+	/** @var \stdClass */
 	public $hours;
-	/** @var VenuePopular */
+	/** @var \stdClass */
 	public $popular;
-	/** @var VenueSeasonHours */
+	/** @var \stdClass */
 	public $seasonalHours;
-	/** @var VenueDefaultHours */
+	/** @var \stdClass */
 	public $defaultHours;
-	/** @var VenuePageUpdates */
+	/** @var \stdClass */
 	public $pageUpdates;
-	/** @var VenuePage */
+	/** @var \stdClass */
 	public $venuePage;
-	/** @var Page */
+	/** @var \stdClass */
 	public $page;
 	/** @var string */
 	public $description;
-	/** @var VenueInbox */
+	/** @var \stdClass */
 	public $inbox;
-	/** @var VenueAttributes */
+	/** @var \stdClass */
 	public $attributes;
-	/** @var VenueBestPhoto */
+	/** @var \stdClass */
 	public $bestPhoto;
-	/** @var VenueColors */
+	/** @var \stdClass */
 	public $colors;
 }

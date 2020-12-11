@@ -11,11 +11,7 @@ final class MGRSService extends AbstractService
 {
 	const NAME = 'MGRS';
 
-	/**
-	 * @param $text
-	 * @return BetterLocationCollection
-	 */
-	public static function findInText($text): BetterLocationCollection
+	public static function findInText(string $text): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
 		$inStringRegex = '/' . MGRS::getMgrsRegex(3, false, false) . '/';

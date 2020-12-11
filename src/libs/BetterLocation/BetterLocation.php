@@ -124,7 +124,6 @@ class BetterLocation
 		if (method_exists($serviceClass, 'getScreenshotLink') === false) {
 			throw new \InvalidArgumentException(sprintf('Source service "%s" does not supports screenshot links.', $serviceClass));
 		}
-		/** @var $services AbstractService[] */
 		return $serviceClass::getScreenshotLink($this->getLat(), $this->getLon());
 	}
 
@@ -197,7 +196,7 @@ class BetterLocation
 
 	public function generateMessage($withAddress = true): string
 	{
-		/** @var $services AbstractService[] */
+		/** @var AbstractService[] $services */
 		$services = [
 			GoogleMapsService::class,
 			MapyCzService::class,
@@ -241,7 +240,7 @@ class BetterLocation
 
 	public function generateDriveButtons()
 	{
-		/** @var $services AbstractService[] */
+		/** @var AbstractService[] $services */
 		$services = [
 			GoogleMapsService::class,
 			WazeService::class,
@@ -251,7 +250,7 @@ class BetterLocation
 		$buttons = [];
 		foreach ($services as $service) {
 			$button = new Button();
-			$button->text = sprintf('%s %s', $service::NAME, Icons::CAR);
+			$button->text = sprintf('%s %s', $service::getName(), Icons::CAR);
 			$button->url = $service::getLink($this->lat, $this->lon, true);
 			$buttons[] = $button;
 		}
@@ -285,17 +284,11 @@ class BetterLocation
 		return $button;
 	}
 
-	/**
-	 * @param string $prefixMessage
-	 */
 	public function setPrefixMessage(string $prefixMessage): void
 	{
 		$this->prefixMessage = $prefixMessage;
 	}
 
-	/**
-	 * @return mixed
-	 */
 	public function getPrefixMessage(): ?string
 	{
 		return $this->prefixMessage;

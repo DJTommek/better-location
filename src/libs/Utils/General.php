@@ -52,10 +52,10 @@ class General
 	/**
 	 * Swap content of two variables with each other
 	 *
-	 * @param $var1
-	 * @param $var2
+	 * @param mixed $var1
+	 * @param mixed $var2
 	 */
-	public static function swap(&$var1, &$var2)
+	public static function swap(&$var1, &$var2): void
 	{
 		$tmp = $var1;
 		$var1 = $var2;

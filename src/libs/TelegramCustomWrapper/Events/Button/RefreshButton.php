@@ -105,7 +105,7 @@ class RefreshButton extends Button
 			$processedCollection->process();
 			$text = TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText();
 			$text .= sprintf('%s Last refresh: %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
-			if ($collection->getLocations() > 0) {
+			if (count($collection->getLocations()) > 0) {
 				$this->replyButton($text,
 					[
 						'disable_web_page_preview' => true,

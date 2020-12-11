@@ -58,7 +58,7 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 			static::RE_OPTIONAL_HEMISPHERE;
 	}
 
-	public static function findInText($text): BetterLocationCollection
+	public static function findInText(string $text): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
 		if (preg_match_all('/' . self::getRegex() . '/u', $text, $matches)) {

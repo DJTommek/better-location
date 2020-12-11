@@ -85,16 +85,17 @@ class MosaicType
 		}
 	}
 
-	private function parseDomValues(\DOMDocument $dom)
+	private function parseDomValues(\DOMDocument $dom): void
 	{
 		$finder = new \DOMXPath($dom);
-		$nodes = $finder->query('//*[@id="mo_img"]/div/div[@class="col-xs-12 non-padding"]');
 		$this->name = trim($finder->query('//*[@id="mosaik-id"]')->item(0)->textContent);
-		$this->image = trim($finder->query('//*[@id="mo_img"]/div/div[1]/img')->item(0)->getAttribute('src'));
+		/** @var \DOMElement $imageElement */
+		$imageElement = $finder->query('//*[@id="mo_img"]/div/div[1]/img')->item(0);
+		$this->image = trim($imageElement->getAttribute('src'));
 
 		$this->attributesRaw = [];
-		foreach ($nodes as $node) {
-			/** @var $node \DOMElement */
+		foreach ($finder->query('//*[@id="mo_img"]/div/div[@class="col-xs-12 non-padding"]') as $node) {
+			/** @var \DOMElement $node */
 			$content = preg_split('/ {4,}/', trim($node->textContent));
 			if (count($content) === 1) {
 				if ($content[0] === '24 / 7') {
@@ -105,7 +106,7 @@ class MosaicType
 			}
 		}
 		$this->mapAttributes();
-		$this->portalsAvgPerMission = (float) $this->portalsTotal / $this->missionsTotal;
+		$this->portalsAvgPerMission = (float)$this->portalsTotal / $this->missionsTotal;
 	}
 
 	private function mapAttributes()

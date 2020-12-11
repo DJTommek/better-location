@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Call to an undefined static method App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:getScreenshotLink\\(\\)\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/BetterLocation.php
+
+		-
 			message: "#^Access to undefined constant App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:NAME_SHORT\\.$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/AbstractService.php

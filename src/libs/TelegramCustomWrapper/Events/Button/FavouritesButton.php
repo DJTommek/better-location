@@ -21,12 +21,6 @@ class FavouritesButton extends Button
 	const ACTION_DELETE = 'delete';
 	const ACTION_REFRESH = 'refresh';
 
-	/**
-	 * FavouriteButton constructor.
-	 *
-	 * @param $update
-	 * @throws \Exception
-	 */
 	public function handleWebhookUpdate()
 	{
 		$params = TelegramHelper::getParams($this->update);

@@ -82,12 +82,7 @@ final class WikipediaService extends AbstractService
 		throw new NotImplementedException('Parsing multiple coordinate is not supported. Use parseCoords() instead.');
 	}
 
-	/**
-	 * @param $url
-	 * @return \stdClass
-	 * @throws \JsonException|\Exception
-	 */
-	private static function requestLocationFromWikipediaPage($url): \stdClass
+	private static function requestLocationFromWikipediaPage(string $url): \stdClass
 	{
         $response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_WIKIPEDIA)->run()->getBody();
 		$startString = '<script>document.documentElement.className="client-js";RLCONF=';

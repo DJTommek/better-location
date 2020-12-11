@@ -12,7 +12,7 @@ class VenueLocationType extends Type
 	public $lat;
 	/** @var float */
 	public $lng;
-	/** @var VenueLabeledLatLngs[] */
+	/** @var \stdClass[] */
 	public $labeledLatLngs;
 	/** @var string */
 	public $postalCode;

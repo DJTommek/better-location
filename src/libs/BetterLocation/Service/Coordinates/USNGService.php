@@ -11,11 +11,7 @@ final class USNGService extends AbstractService
 {
 	const NAME = 'USNG';
 
-	/**
-	 * @param $text
-	 * @return BetterLocationCollection
-	 */
-	public static function findInText($text): BetterLocationCollection
+	public static function findInText(string $text): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
 		$inStringRegex = '/' . MGRS::getUSNGRegex(3, false, false) . '/';
@@ -36,11 +32,7 @@ final class USNGService extends AbstractService
 		return MGRS::isMGRS($input);
 	}
 
-	/**
-	 * @param string $input
-	 * @return BetterLocation
-	 * @throws InvalidLocationException
-	 */
+	/** @throws InvalidLocationException */
 	public static function parseCoords(string $input): BetterLocation
 	{
 		$mgrs = MGRS::fromUSNG($input);

@@ -181,13 +181,11 @@ final class HereWeGoService extends AbstractService
 	 * -> https://wego.here.com/p/s-Yz1wb3N0YWwtYXJlYTtsYXQ9NTAuMTA5NTc7bG9uPTE0LjQ0MTIyO249UHJhaGErNztoPTc1NWM3OQ?map=50.10957%2C14.44122%2C15%2Cnormal&ref=here_com
 	 * = 50.10957, 14.44122
 	 *
-	 * @param $originalUrl
-	 * @param $redirectUrl
 	 * @return BetterLocationCollection
 	 * @throws InvalidLocationException
 	 * @throws \Exception
 	 */
-	private static function processShortShareUrl($originalUrl, $redirectUrl)
+	private static function processShortShareUrl(string $originalUrl, string $redirectUrl): BetterLocationCollection
 	{
 		$parsedNewLocation = parse_url($redirectUrl);
 		if ($parsedNewLocation['host'] !== 'share.here.com') {

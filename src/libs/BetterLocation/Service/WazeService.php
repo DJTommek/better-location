@@ -104,11 +104,7 @@ final class WazeService extends AbstractService
 		];
 	}
 
-	/**
-	 * @param string $input
-	 * @return BetterLocation[]
-	 * @throws NotImplementedException
-	 */
+	/** @throws NotImplementedException */
 	public static function parseCoordsMultiple(string $input): BetterLocationCollection
 	{
 		throw new NotImplementedException('Parsing multiple coordinates is not available.');
