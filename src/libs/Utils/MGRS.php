@@ -653,7 +653,7 @@ class MGRS
 		return $letterDesignator;
 	}
 
-	private function findSet($zoneNum)
+	private function findSet($zoneNum): int
 	{
 		switch (intval($zoneNum) % 6) {
 			case 0:
@@ -729,7 +729,7 @@ class MGRS
 	 * @param $col
 	 * @return string
 	 */
-	private function lettersHelper($set, $row, $col)
+	private function lettersHelper(int $set, $row, $col)
 	{
 
 		// handle case of last row
@@ -765,9 +765,10 @@ class MGRS
 				$l1 = 'STUVWXYZ';
 				$l2 = ($even) ? self::MGRSSqLetEven : self::MGRSSqLetOdd;
 				break;
+			default:
+				throw new \InvalidArgumentException(sprintf('Parameter $set = "%d" is not valid.', $set));
 		}
 
-		/** @noinspection PhpUndefinedVariableInspection */
 		return $l1{$col} . $l2{$row};
 	}
 
