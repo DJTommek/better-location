@@ -5,5 +5,6 @@ parameters:
 		- tests
 	bootstrapFiles:
 		- src/bootstrap.php
+	tmpDir: temp/phpstan
 includes:
 	- phpstan-baseline.neon
