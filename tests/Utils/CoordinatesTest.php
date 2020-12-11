@@ -67,10 +67,36 @@ final class CoordinatesTest extends TestCase
 		$this->assertSame(11.885126666663888, Coordinates::exifToDecimal($fixture['GPSLongitude'], $fixture['GPSLongitudeRef']));
 
 		$fixture = self::$jsonFixtures['fujifilm-no-gps.json'];
-		var_dump($fixture);
 		$this->assertNull($fixture['GPSLatitude']);
 		$this->assertNull($fixture['GPSLatitudeRef']);
 		$this->assertNull($fixture['GPSLongitude']);
 		$this->assertNull($fixture['GPSLongitudeRef']);
+	}
+
+	public function testGpsSubIFDToFloat(): void
+	{
+		// values from oneplus5t-snezka1
+		$this->assertSame(50.0, Coordinates::gpsSubIFDToFloat('50/1'));
+		$this->assertSame(41.0, Coordinates::gpsSubIFDToFloat('41/1'));
+		$this->assertSame(54.0644, Coordinates::gpsSubIFDToFloat('540644/10000'));
+		$this->assertSame(15.0, Coordinates::gpsSubIFDToFloat('15/1'));
+		$this->assertSame(44.0, Coordinates::gpsSubIFDToFloat('44/1'));
+		$this->assertSame(12.2187, Coordinates::gpsSubIFDToFloat('122187/10000'));
+
+		// values from oneplus5t-snezka2
+		$this->assertSame(50.0, Coordinates::gpsSubIFDToFloat('50/1'));
+		$this->assertSame(41.0, Coordinates::gpsSubIFDToFloat('41/1'));
+		$this->assertSame(45.4754, Coordinates::gpsSubIFDToFloat('454754/10000'));
+		$this->assertSame(15.0, Coordinates::gpsSubIFDToFloat('15/1'));
+		$this->assertSame(44.0, Coordinates::gpsSubIFDToFloat('44/1'));
+		$this->assertSame(15.5659, Coordinates::gpsSubIFDToFloat('155659/10000'));
+
+		// values from DSCN0010
+		$this->assertSame(43.0, Coordinates::gpsSubIFDToFloat('43/1'));
+		$this->assertSame(28.0, Coordinates::gpsSubIFDToFloat('28/1'));
+		$this->assertSame(2.814, Coordinates::gpsSubIFDToFloat('281400000/100000000'));
+		$this->assertSame(11.0, Coordinates::gpsSubIFDToFloat('11/1'));
+		$this->assertSame(53.0, Coordinates::gpsSubIFDToFloat('53/1'));
+		$this->assertSame(6.45599999, Coordinates::gpsSubIFDToFloat('645599999/100000000'));
 	}
 }
