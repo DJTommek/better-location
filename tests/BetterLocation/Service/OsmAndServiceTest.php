@@ -31,6 +31,9 @@ final class OsmAndServiceTest extends TestCase
 		$this->assertTrue(OsmAndService::isUrl('https://osmand.net/go.html?lat=50.087451&lon=14.420671'));
 		$this->assertTrue(OsmAndService::isUrl('https://osmand.net/go.html?z=17&lat=50.087451&lon=14.420671'));
 		$this->assertTrue(OsmAndService::isUrl('https://osmand.net/go.html?lat=50.087451&z=17&lon=14.420671'));
+		$this->assertTrue(OsmAndService::isUrl('https://osmand.net/go?lat=50.087451&z=17&lon=14.420671'));
+		$this->assertTrue(OsmAndService::isUrl('https://www.osmand.net/go?lat=50.087451&z=17&lon=14.420671'));
+		$this->assertTrue(OsmAndService::isUrl('http://osmand.net/go?lat=50.087451&z=17&lon=14.420671'));
 
 		$this->assertTrue(OsmAndService::isUrl('https://osmand.net/go.html?lat=50.087451&lon=14.420671'));
 		$this->assertTrue(OsmAndService::isUrl('https://osmand.net/go.html?lat=50.087451&lon=-14.420671'));
@@ -63,6 +66,7 @@ final class OsmAndServiceTest extends TestCase
 		$this->assertSame('50.087451,14.420671', OsmAndService::parseUrl('https://osmand.net/go.html?lat=50.087451&lon=14.420671')->__toString());
 		$this->assertSame('50.087451,14.420671', OsmAndService::parseUrl('https://osmand.net/go.html?z=17&lat=50.087451&lon=14.420671')->__toString());
 		$this->assertSame('50.087451,14.420671', OsmAndService::parseUrl('https://osmand.net/go.html?lat=50.087451&z=17&lon=14.420671')->__toString());
+		$this->assertSame('50.087451,14.420671', OsmAndService::parseUrl('https://osmand.net/go?lat=50.087451&z=17&lon=14.420671')->__toString());
 
 		$this->assertSame('50.087451,14.420671', OsmAndService::parseUrl('https://osmand.net/go.html?lat=50.087451&lon=14.420671')->__toString());
 		$this->assertSame('50.087451,-14.420671', OsmAndService::parseUrl('https://osmand.net/go.html?lat=50.087451&lon=-14.420671')->__toString());

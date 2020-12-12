@@ -35,7 +35,7 @@ final class OsmAndService extends AbstractService
 			isset($parsedUrl['host']) &&
 			in_array(mb_strtolower($parsedUrl['host']), ['osmand.net', 'www.osmand.net'], true) &&
 			isset($parsedUrl['path']) &&
-			$parsedUrl['path'] === '/go.html' &&
+			($parsedUrl['path'] === '/go.html' || $parsedUrl['path'] === '/go') &&
 			isset($parsedUrl['query']) &&
 			isset($parsedUrl['query']['lat']) &&
 			isset($parsedUrl['query']['lon']) &&
