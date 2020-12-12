@@ -187,7 +187,7 @@ final class HereWeGoService extends AbstractService
 	 */
 	private static function processShortShareUrl(string $originalUrl, string $redirectUrl): BetterLocationCollection
 	{
-		$parsedNewLocation = parse_url($redirectUrl);
+		$parsedNewLocation = General::parseUrl($redirectUrl);
 		if ($parsedNewLocation['host'] !== 'share.here.com') {
 			throw new \Exception(sprintf('Unexpected redirect URL "%s".', $parsedNewLocation['host']));
 		}
@@ -195,11 +195,10 @@ final class HereWeGoService extends AbstractService
 		if ($redirectUrl2 === null) {
 			throw new \Exception('Missing second redirect URL.');
 		}
-		$parsedNewLocation2 = parse_url($redirectUrl2);
+		$parsedNewLocation2 = General::parseUrl($redirectUrl2);
 		if (isset($parsedNewLocation2['query']) === false) {
 			throw new \Exception(sprintf('Missing "query" parameter in second redirect URL "%s".', $redirectUrl2));
 		}
-		parse_str($parsedNewLocation2['query'], $parsedNewLocation2['query']);
 		if (isset($parsedNewLocation2['query']['map']) === false) {
 			throw new \Exception(sprintf('Missing "map" parameter in query in second redirect URL "%s".', $redirectUrl2));
 		}

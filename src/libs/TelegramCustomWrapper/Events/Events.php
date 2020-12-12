@@ -293,14 +293,14 @@ abstract class Events
 		$replyMarkup = new Markup();
 		$replyMarkup->inline_keyboard = [
 			[ // row of buttons
-				[ // button
+				new Button([ // button
 					'text' => sprintf('%s Help', Icons::BACK),
 					'callback_data' => HelpButton::CMD,
-				],
-				[ // button
+				]),
+				new Button([ // button
 					'text' => sprintf('%s Refresh list', Icons::REFRESH),
 					'callback_data' => sprintf('%s %s', FavouritesButton::CMD, FavouritesButton::ACTION_REFRESH),
-				],
+				]),
 			],
 		];
 

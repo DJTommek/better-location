@@ -81,7 +81,7 @@ class Status
 		try {
 			self::$db = \App\Factory::Database();
 			return true;
-		} catch (\Exception $exception) {
+		} catch (\PDOException $exception) {
 			self::$dbError = $exception;
 			return false;
 		}
@@ -93,7 +93,7 @@ class Status
 			self::$db->query('SELECT user_id, user_telegram_id, user_telegram_name, user_registered, user_last_update, user_location_lat, user_location_lon, user_location_last_update FROM better_location_user LIMIT 1');
 			self::$db->query('SELECT chat_id, chat_telegram_id, chat_telegram_type, chat_telegram_name, chat_registered, chat_last_update FROM better_location_chat LIMIT 1');
 			self::$db->query('SELECT id, user_id, status, lat, lon, title FROM better_location_favourites LIMIT 1');
-		} catch (\Exception $exception) {
+		} catch (\PDOException $exception) {
 			self::$tablesError = $exception;
 			return false;
 		}

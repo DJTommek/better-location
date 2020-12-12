@@ -29,7 +29,7 @@
 	"scripts": {
 		"pre-install-cmd": "@php ./src/tools/CopyLocalConfig.php",
 		"pre-update-cmd": "@php ./src/tools/CopyLocalConfig.php",
-		"phpstan": "phpstan analyse",
+		"phpstan": "phpstan analyse --memory-limit 512m",
 		"test": "phpunit"
 	}
 }

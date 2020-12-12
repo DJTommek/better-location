@@ -41,7 +41,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 {
 	/** @var BetterLocation[] */
 	private $locations = [];
-	/** @var \Exception[] */
+	/** @var \Throwable[] */
 	private $errors = [];
 	private $position = 0;
 

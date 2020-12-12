@@ -19,7 +19,7 @@ use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\Utils\Coordinates;
 use App\Utils\General;
-use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
+use unreal4u\TelegramAPI\Telegram\Types;
 
 class BetterLocation
 {
@@ -238,7 +238,8 @@ class BetterLocation
 		return $text . PHP_EOL;
 	}
 
-	public function generateDriveButtons()
+	/** @return Types\Inline\Keyboard\Button[] */
+	public function generateDriveButtons(): array
 	{
 		/** @var AbstractService[] $services */
 		$services = [
@@ -249,7 +250,7 @@ class BetterLocation
 		];
 		$buttons = [];
 		foreach ($services as $service) {
-			$button = new Button();
+			$button = new Types\Inline\Keyboard\Button();
 			$button->text = sprintf('%s %s', $service::getName(), Icons::CAR);
 			$button->url = $service::getLink($this->lat, $this->lon, true);
 			$buttons[] = $button;
@@ -257,9 +258,9 @@ class BetterLocation
 		return $buttons;
 	}
 
-	/** @return Button[] */
+	/** @return Types\Inline\Keyboard\Button[] */
 	public static function generateRefreshButtons(bool $autorefreshEnabled): array {
-		$autoRefresh = new Button();
+		$autoRefresh = new Types\Inline\Keyboard\Button();
 		if ($autorefreshEnabled) {
 			$autoRefresh->text = sprintf('Autorefresh: %s enabled', Icons::ENABLED);
 			$autoRefresh->callback_data = sprintf('%s %s', RefreshButton::CMD, RefreshButton::ACTION_STOP);
@@ -269,16 +270,16 @@ class BetterLocation
 		}
 		$buttons[] = $autoRefresh;
 
-		$manualRefresh = new Button();
+		$manualRefresh = new Types\Inline\Keyboard\Button();
 		$manualRefresh->text = sprintf('Manual refresh %s', Icons::REFRESH);
 		$manualRefresh->callback_data = sprintf('%s %s', RefreshButton::CMD, RefreshButton::ACTION_REFRESH);
 		$buttons[] = $manualRefresh;
 		return $buttons;
 	}
 
-	public function generateAddToFavouriteButtton(): Button
+	public function generateAddToFavouriteButtton(): Types\Inline\Keyboard\Button
 	{
-		$button = new Button();
+		$button = new Types\Inline\Keyboard\Button();
 		$button->text = Icons::FAVOURITE;
 		$button->callback_data = sprintf('%s %s %F %F', FavouritesButton::CMD, FavouritesButton::ACTION_ADD, $this->getLat(), $this->getLon());
 		return $button;

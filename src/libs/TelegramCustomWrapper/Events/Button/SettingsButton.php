@@ -3,7 +3,7 @@
 namespace App\TelegramCustomWrapper\Events\Button;
 
 use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
-use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
+use unreal4u\TelegramAPI\Telegram\Types;
 
 class SettingsButton extends Button
 {
@@ -14,16 +14,19 @@ class SettingsButton extends Button
 		$text = sprintf('<b>Settings</b>') . PHP_EOL;
 		$text .= sprintf('Choose one of the settings via buttons below:') . PHP_EOL;
 
-		$replyMarkup = new Markup();
+		$replyMarkup = new Types\Inline\Keyboard\Markup();
 		$replyMarkup->inline_keyboard = [
 			[ // row of buttons
-				[ // button
+				new Types\Inline\Keyboard\Button([
 					'text' => 'Settings:',
 					'callback_data' => self::CMD,
-				],
+				]),
 			],
 		];
 
-		$this->replyButton($text, $replyMarkup);
+		$this->replyButton($text, [
+			'disable_web_page_preview' => true,
+			'reply_markup' => $replyMarkup,
+		]);
 	}
 }

@@ -21,8 +21,63 @@ parameters:
 			path: src/libs/BetterLocation/Service/Coordinates/AbstractService.php
 
 		-
+			message: "#^Argument of an invalid type stdClass supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/libs/Foursquare/Types/Type.php
+
+		-
+			message: "#^Argument of an invalid type stdClass supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/libs/Geocaching/Types/GeocachePreviewType.php
+
+		-
+			message: "#^Argument of an invalid type stdClass supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/libs/IngressLanchedRu/Types/PortalType.php
+
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\EditMessageText\\:\\:\\$chat_id \\(string\\) does not accept int\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Button/Button.php
+
+		-
+			message: "#^Array \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Button/FavouritesButton.php
+
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Markup\\:\\:\\$inline_keyboard \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, array\\<int, unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\>\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Button/SettingsButton.php
+
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Markup\\:\\:\\$inline_keyboard \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, array\\<int, unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\>\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/FavouritesCommand.php
+
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Markup\\:\\:\\$inline_keyboard \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\>\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
+
+		-
+			message: "#^Array \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
+
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\EditMessageText\\:\\:\\$chat_id \\(string\\) does not accept int\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Edit/Edit.php
+
+		-
 			message: "#^Access to undefined constant App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:CMD\\.$#"
 			count: 2
+			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\SendChatAction\\:\\:\\$chat_id \\(string\\) does not accept int\\.$#"
+			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Events.php
 
 		-
@@ -34,4 +89,44 @@ parameters:
 			message: "#^Call to an undefined method App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:flash\\(\\)\\.$#"
 			count: 2
 			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Markup\\:\\:\\$inline_keyboard \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, array\\<int, unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\>\\.$#"
+			count: 2
+			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
+		-
+			message: "#^Array \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\.$#"
+			count: 2
+			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Markup\\:\\:\\$inline_keyboard \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\>\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Special/AddedToChatEvent.php
+
+		-
+			message: "#^Array \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Special/AddedToChatEvent.php
+
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\GetChat\\:\\:\\$chat_id \\(string\\) does not accept int\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Special/AddedToChatEvent.php
+
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Query\\\\Result\\:\\:\\$id \\(string\\) does not accept int\\.$#"
+			count: 2
+			path: src/libs/TelegramCustomWrapper/Events/Special/InlineQueryEvent.php
+
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Markup\\:\\:\\$inline_keyboard \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\>\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Special/InlineQueryEvent.php
+
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\EditMessageText\\:\\:\\$chat_id \\(string\\) does not accept int\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/SendMessage.php
 

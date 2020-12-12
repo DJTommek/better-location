@@ -57,10 +57,8 @@ class StartCommand extends Command
 				$result = $betterLocation->generateMessage();
 				$buttons = $betterLocation->generateDriveButtons();
 				$buttons[] = $betterLocation->generateAddToFavouriteButtton();
-				$markup = (new Markup());
-				if (isset($buttons)) {
-					$markup->inline_keyboard = [$buttons];
-				}
+				$markup = new Markup();
+				$markup->inline_keyboard = [$buttons];
 				$this->reply(
 					TelegramHelper::MESSAGE_PREFIX . $result,
 					[

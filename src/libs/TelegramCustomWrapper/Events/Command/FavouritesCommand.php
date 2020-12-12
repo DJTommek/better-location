@@ -5,6 +5,7 @@ namespace App\TelegramCustomWrapper\Events\Command;
 use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\TelegramHelper;
+use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class FavouritesCommand extends Command
@@ -19,10 +20,10 @@ class FavouritesCommand extends Command
 			$replyMarkup = new Markup();
 			$replyMarkup->inline_keyboard = [
 				[ // row of buttons
-					[ // button
+					new Button([
 						'text' => sprintf('%s Open in PM', Icons::FAVOURITE),
 						'url' => TelegramHelper::generateStart(sprintf('%s %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_LIST)),
-					],
+					]),
 				],
 			];
 			$messageSettings = [
