@@ -158,6 +158,14 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 		return $results;
 	}
 
+	public static function loadByOriginalMessageId(int $chatId = null, int $originalMessageId = null): ?self
+	{
+		// @TODO optimalize to not use searching mesage from JSON but create generated column instead
+		$sqlQuery = 'SELECT * FROM better_location_telegram_updates WHERE chat_id = ? AND original_update_object->>\'$.message.message_id\' = ?';
+		$row = Factory::Database()->query($sqlQuery, $chatId, $originalMessageId)->fetch();
+		return self::parseDbData($row);
+	}
+
 	public function getOriginalUpdateObject(): Telegram\Types\Update
 	{
 		return $this->originalUpdateObject;

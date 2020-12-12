@@ -9,26 +9,32 @@ use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\TelegramUpdateDb;
 use unreal4u\TelegramAPI\Telegram;
+use unreal4u\TelegramAPI\Telegram\Types\Update;
 
 class LocationEvent extends Special
 {
 	/** @var bool is sended location live location */
 	private $live;
 
+	public function __construct(Update $update)
+	{
+		parent::__construct($update);
+		$this->live = TelegramHelper::isLocation($this->update, true);
+	}
+
 	public function getCollection(): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
-
-		$betterLocation = BetterLocation::fromLatLon($this->update->message->location->latitude, $this->update->message->location->longitude);
+		$betterLocation = BetterLocation::fromLatLon($this->getMessage()->location->latitude, $this->getMessage()->location->longitude);
 		if ($this->live) {
-			$this->user->setLastKnownLocation($this->update->message->location->latitude, $this->update->message->location->longitude);
+			$this->user->setLastKnownLocation($this->getMessage()->location->latitude, $this->getMessage()->location->longitude);
 			$betterLocation->setPrefixMessage('Live location');
 			$betterLocation->setRefreshable(true);
 		} else if (TelegramHelper::isVenue($this->update)) {
-			$venue = $this->update->message->venue;
+			$venue = $this->getMessage()->venue;
 			$title = $venue->foursquare_id ? $this->venueHrefLink($venue) : $venue->title;
 			$betterLocation->setPrefixMessage('Venue ' . $title);
-			$betterLocation->setDescription($this->update->message->venue->address);
+			$betterLocation->setDescription($this->getMessage()->venue->address);
 		} else {
 			$betterLocation->setPrefixMessage('Location');
 		}
@@ -38,14 +44,16 @@ class LocationEvent extends Special
 
 	public function handleWebhookUpdate()
 	{
-		$this->live = TelegramHelper::isLocation($this->update, true);
-		$collection = $this->getCollection();
+		if ($this->live) {
+			$this->user->setLastKnownLocation($this->getMessage()->location->latitude, $this->getMessage()->location->longitude);
+		}
 
+		$collection = $this->getCollection();
 		$processedCollection = new ProcessedMessageResult($collection);
 		$processedCollection->process();
 		if ($collection->count() > 0) {
 			$text = TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText();
-			$markup = $processedCollection->getMarkup(1);
+			$markup = $processedCollection->getMarkup(1, false);
 			$response = $this->reply($text, [
 				'disable_web_page_preview' => true,
 				'reply_markup' => $markup,

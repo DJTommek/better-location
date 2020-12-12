@@ -7,7 +7,7 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\Icons;
 use Tracy\Debugger;
-use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
+use unreal4u\TelegramAPI\Telegram\Types;
 
 class ProcessedMessageResult
 {
@@ -15,6 +15,7 @@ class ProcessedMessageResult
 	private $collection;
 
 	private $resultText = '';
+	/** @var array<array<Types\Inline\Keyboard\Button>> */
 	private $buttons = [];
 	private $autorefreshEnabled = false;
 
@@ -52,22 +53,23 @@ class ProcessedMessageResult
 		return $this;
 	}
 
-	public function getButtons(?int $maxRows = null): array
+	/** @return array<array<Types\Inline\Keyboard\Button>> */
+	public function getButtons(?int $maxRows = null, bool $includeRefreshRow = true): array
 	{
 		$result = $this->buttons;
 		if ($maxRows > 0) {
 			$result = array_slice($result, 0, $maxRows);
 		}
-		if ($this->collection->hasRefreshableLocation()) {
+		if ($includeRefreshRow && $this->collection->hasRefreshableLocation()) {
 			$result[] = BetterLocation::generateRefreshButtons($this->autorefreshEnabled);
 		}
 		return $result;
 	}
 
-	public function getMarkup(?int $maxRows = null): Markup
+	public function getMarkup(?int $maxRows = null, bool $includeRefreshRow = true): Types\Inline\Keyboard\Markup
 	{
-		$markup = new Markup();
-		$markup->inline_keyboard = $this->getButtons($maxRows);
+		$markup = new Types\Inline\Keyboard\Markup();
+		$markup->inline_keyboard = $this->getButtons($maxRows, $includeRefreshRow);
 		return $markup;
 	}
 
