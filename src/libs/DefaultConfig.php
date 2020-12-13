@@ -62,6 +62,9 @@ class DefaultConfig
 	/** @var ?string */
 	const INGRESS_MOSAIC_COOKIE_XSRF = null;
 
+	/** @var ?string https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key */
+	const BING_STATIC_MAPS_TOKEN = null;
+
 	/**
 	 * If some input (URL) has multiple different locations, how far it has to be from main coordinate to add special line
 	 * to notify, that these locations are too far away. Anything lower than this number will be removed from collection
