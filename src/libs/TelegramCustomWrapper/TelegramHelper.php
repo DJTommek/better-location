@@ -226,7 +226,7 @@ class TelegramHelper
 		return $params;
 	}
 
-	public static function generateStart(string $params)
+	public static function generateStart(string $params): string
 	{
 		return sprintf('https://t.me/%s?start=', Config::TELEGRAM_BOT_NAME) . self::InlineTextEncode($params);
 	}
