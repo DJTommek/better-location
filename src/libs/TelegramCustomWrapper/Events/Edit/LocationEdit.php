@@ -47,7 +47,7 @@ class LocationEdit extends Edit
 
 		$processedCollection = new ProcessedMessageResult($collection);
 		$processedCollection->process();
-		$text = TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText();
+		$text = $processedCollection->getText();
 		$text .= sprintf('%s Last live location from %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
 		if ($this->live === false) {
 			// If user cancel sharing, edit event is fired but it's not live location anymore.

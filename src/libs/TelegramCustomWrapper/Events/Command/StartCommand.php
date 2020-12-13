@@ -60,7 +60,7 @@ class StartCommand extends Command
 				$markup = new Markup();
 				$markup->inline_keyboard = [$buttons];
 				$this->reply(
-					TelegramHelper::MESSAGE_PREFIX . $result,
+					TelegramHelper::getMessagePrefix() . $result,
 					[
 						'disable_web_page_preview' => true,
 						'reply_markup' => $markup,

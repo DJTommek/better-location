@@ -183,7 +183,7 @@ class InlineQueryEvent extends Special
 
 		$inlineQueryResult->reply_markup->inline_keyboard = [$buttons];
 		$inlineQueryResult->input_message_content = new Text();
-		$inlineQueryResult->input_message_content->message_text = TelegramHelper::MESSAGE_PREFIX . $betterLocation->generateMessage();
+		$inlineQueryResult->input_message_content->message_text = TelegramHelper::getMessagePrefix() . $betterLocation->generateMessage();
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
 		$inlineQueryResult->input_message_content->disable_web_page_preview = true;
 		return $inlineQueryResult;
@@ -203,7 +203,7 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->thumb_url = 'https://raw.githubusercontent.com/DJTommek/better-location/master/asset/map-icon-bot%20v1.png';
 
 		$inlineQueryResult->input_message_content = new Text();
-		$inlineQueryResult->input_message_content->message_text = TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText();;
+		$inlineQueryResult->input_message_content->message_text = $processedCollection->getText();
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
 		$inlineQueryResult->input_message_content->disable_web_page_preview = true;
 		return $inlineQueryResult;

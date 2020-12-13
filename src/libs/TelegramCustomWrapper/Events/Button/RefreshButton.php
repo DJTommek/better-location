@@ -103,7 +103,7 @@ class RefreshButton extends Button
 			$processedCollection = new ProcessedMessageResult($collection);
 			$processedCollection->setAutorefresh($autorefreshEnabled);
 			$processedCollection->process();
-			$text = TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText();
+			$text = $processedCollection->getText();
 			$text .= sprintf('%s Last refresh: %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
 			if (count($collection->getLocations()) > 0) {
 				$this->replyButton($text,

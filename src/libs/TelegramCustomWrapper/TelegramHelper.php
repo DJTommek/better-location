@@ -12,7 +12,17 @@ use unreal4u\TelegramAPI\Telegram\Types\User;
 class TelegramHelper
 {
 	const API_URL = 'https://api.telegram.org';
-	const MESSAGE_PREFIX = Icons::LOCATION . ' <b>Better location</b> by @' . Config::TELEGRAM_BOT_NAME . ':' . PHP_EOL;
+
+	public static function getMessagePrefix(?string $hiddenLink = null): string
+	{
+		$result = '';
+		if ($hiddenLink) {
+			$result .= sprintf('<a href="%s">%s</a>', $hiddenLink, Icons::LOCATION);
+		} else {
+			$result .= Icons::LOCATION;
+		}
+		return $result . ' <b>Better location</b> by @' . Config::TELEGRAM_BOT_NAME . ':' . PHP_EOL;
+	}
 
 	/**
 	 * Get regex for command entity

@@ -6,7 +6,6 @@ use App\BetterLocation\BetterLocationCollection;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
-use App\TelegramCustomWrapper\TelegramHelper;
 use App\TelegramUpdateDb;
 
 class MessageEvent extends Special
@@ -22,7 +21,7 @@ class MessageEvent extends Special
 		$processedCollection = new ProcessedMessageResult($collection);
 		$processedCollection->process();
 		if ($collection->count() > 0) {
-			$text = TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText();
+			$text = $processedCollection->getText();
 			$markup = $processedCollection->getMarkup(1);
 			$response = $this->reply($text, [
 				'disable_web_page_preview' => true,

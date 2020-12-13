@@ -73,7 +73,7 @@ if (count($messagesToRefresh) === 0) {
 				await($tgLog->performApiRequest($msg), $loop);
 			} else {
 				$replyMarkup = $processedCollection->getMarkup(1);
-				$text = TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText();
+				$text = $processedCollection->getText();
 				$msg->text = $text . sprintf('%s Autorefreshed: %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
 				$msg->reply_markup = $replyMarkup;
 				await($tgLog->performApiRequest($msg), $loop);

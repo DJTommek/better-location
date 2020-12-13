@@ -73,9 +73,17 @@ class ProcessedMessageResult
 		return $markup;
 	}
 
-	public function getText(): string
+	public function getText(bool $withPrefix = true, bool $withStaticMapsLink = true): string
 	{
-		return $this->resultText;
+		// @TODO Currently not ready to release to production since link contains app token.
+		// Hide URL behind proxy or download image somewhere and offer new URL
+		$withStaticMapsLink = false;
+
+		$result = '';
+		if ($withPrefix) {
+			$result .= TelegramHelper::getMessagePrefix($withStaticMapsLink ? $this->collection->getStaticMapUrl() : null);
+		}
+		return $result . $this->resultText;
 	}
 
 	public function validLocationsCount(): int

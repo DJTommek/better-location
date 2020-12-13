@@ -62,7 +62,7 @@ class FileEvent extends Special
 		$processedCollection = new ProcessedMessageResult($collection);
 		$processedCollection->process();
 		if ($collection->count() > 0) {
-			$text = TelegramHelper::MESSAGE_PREFIX . $processedCollection->getText();
+			$text = $processedCollection->getText();
 			$markup = $processedCollection->getMarkup(1);
 			$response = $this->reply($text, [
 				'disable_web_page_preview' => true,
