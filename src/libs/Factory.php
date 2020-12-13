@@ -73,4 +73,10 @@ class Factory
 		}
 		return self::$objects['ingressMosaic'];
 	}
+
+	/** Not cached */
+	static function BingStaticMaps(): \App\BingMaps\StaticMaps
+	{
+		return new \App\BingMaps\StaticMaps(Config::BING_STATIC_MAPS_TOKEN);
+	}
 }
