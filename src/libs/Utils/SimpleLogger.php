@@ -14,6 +14,9 @@ class SimpleLogger
 	const FILE_EXTENSION = 'jsonl';
 	const LINE_SEPARATOR = "\n"; // not PHP_EOL because it is \r\n on Windows
 
+	/** @var string[] strings that should not be logged will be automatically anonymized */
+	public static $anonymize = [];
+
 	public static function log(string $name, $content): void
 	{
 		if (self::isLogNameValid($name) === false) {
@@ -33,7 +36,8 @@ class SimpleLogger
 		}
 		$writeLogObject->name = $name;
 		$writeLogObject->content = $content;
-		file_put_contents($filePath, json_encode($writeLogObject) . self::LINE_SEPARATOR, FILE_APPEND);
+		$stringToWrite = str_replace(self::$anonymize, '<anonymized>', json_encode($writeLogObject));
+		file_put_contents($filePath, $stringToWrite . self::LINE_SEPARATOR, FILE_APPEND);
 	}
 
 	private static function getFilePath(string $logName, \DateTimeInterface $date = null): string
