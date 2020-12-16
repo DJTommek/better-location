@@ -18,7 +18,7 @@ if (Config::isTelegram()) {
 	$setWebhook->url = Config::getTelegramWebhookUrl(true);
 	try {
 		await($tgLog->performApiRequest($setWebhook), $loop);
-		printf('<h1>Success</h1><p>Telegram webhook URL successfully set to <a href="%1$s" target="_blank">%1$s</a></p> with secret password.', Config::getTelegramWebhookUrl());
+		printf('<h1>Success</h1><p>Telegram webhook URL successfully set to <a href="%1$s" target="_blank">%1$s</a> with secret password.</p>', Config::getTelegramWebhookUrl());
 	} catch (ClientException $exception) {
 		printf('<h1>Error</h1><p>Failed to set Telegram webhook URL to <a href="%1$s" target="_blank">%1$s</a>:<br><b>%2$s</b></p>.', Config::getTelegramWebhookUrl(), $exception->getMessage());
 		Debugger::log($exception, ILogger::EXCEPTION);

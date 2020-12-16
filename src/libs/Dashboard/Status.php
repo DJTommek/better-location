@@ -3,7 +3,6 @@
 namespace App\Dashboard;
 
 use App\Config;
-use App\DefaultConfig;
 use App\Icons;
 use App\Utils\DateImmutableUtils;
 use unreal4u\TelegramAPI\Exceptions\ClientException;
@@ -138,11 +137,17 @@ class Status
 						$webhookOk = false;
 					} else {
 						if ($value === Config::getTelegramWebhookUrl(true)) {
-							$responseFormatted->{$key} = sprintf('%s <a href="%2$s" target="_blank">%2$s</a> (matching with Config)', Icons::SUCCESS, $value);
+							$responseFormatted->{$key} = sprintf('%s <a href="%2$s" target="_blank">%2$s</a> (matching with Config)', Icons::SUCCESS, Config::getTelegramWebhookUrl());
 						} else {
-							$stringValue = sprintf('%s Webhook URL is set according to webhook response but it\'s different than in Config:<br>', Icons::WARNING);
-							$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Webhook response)<br>', $value);
-							$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Config)', Config::getTelegramWebhookUrl(true));
+							$valueWithoutPassword = strtok($value, '?');
+							if ($valueWithoutPassword === Config::getTelegramWebhookUrl()) {
+								$stringValue = sprintf('%s Webhook URL is set according to webhook response but password is different than in Config. Check local config and manually run Telegram\'s API getWebhookInfo.<br>', Icons::WARNING);
+								$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Config without password)', Config::getTelegramWebhookUrl());
+							} else {
+								$stringValue = sprintf('%s Webhook URL is set according to webhook response but it\'s different than in Config:<br>', Icons::WARNING);
+								$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Webhook response without password)<br>', $valueWithoutPassword);
+								$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Config without password)', Config::getTelegramWebhookUrl());
+							}
 							$responseFormatted->{$key} = $stringValue;
 							$webhookOk = false;
 						}

@@ -117,7 +117,11 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 						</table>
 					</div>
 					<div class="tab-pane fade" id="webhook-raw">
-						<pre><?= json_encode(get_object_vars(\App\Dashboard\Status::$webhookResponseRaw), JSON_PRETTY_PRINT) ?></pre>
+						<?php
+							$json = get_object_vars(\App\Dashboard\Status::$webhookResponseRaw);
+							$json['url'] = strtok($json['url'], '?');
+						?>
+						<pre><?= json_encode($json, JSON_PRETTY_PRINT) ?></pre>
 					</div>
 				</div>
 				<?php

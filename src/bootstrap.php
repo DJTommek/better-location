@@ -34,5 +34,7 @@ if (@date_default_timezone_set(App\Config::TIMEZONE) === false) {
 	throw new InvalidArgumentException(sprintf('Timezone "%s" is invalid. Update constant TIMEZONE to valid timezone ID or remove to set to default "%s".', App\Config::TIMEZONE, App\DefaultConfig::TIMEZONE));
 }
 
+\App\Utils\SimpleLogger::$anonymize[] = \App\Config::TELEGRAM_WEBHOOK_PASSWORD;
+
 // Note: this might a lot of data to log but it's ok for alpha/beta phase. Probably should be removed in stable or production.
 \App\Utils\SimpleLogger::log(\App\Utils\SimpleLogger::NAME_ALL_REQUESTS, $_SERVER);
