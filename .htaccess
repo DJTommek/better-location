@@ -1,0 +1,5 @@
+# Only public folder is content in www. Any other file or directory (src, data, ...) MUST NOT be accessed publicly.
+# If you dont have access to mod rewrite (not installed, disabled, etc.) and Apache is throwing error,
+# you can remove these two lines but then you have to make sure, that only folder www is public as described above.
+RewriteEngine On
+RewriteRule (.*) www/$1 [L]
