@@ -8,9 +8,7 @@ use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\TgLog;
 use function Clue\React\Block\await;
 
-require_once __DIR__ . '/src/bootstrap.php';
-
-printf('<p>Go back to <a href="./index.php">index.php</a></p>');
+require_once __DIR__ . '/../../src/bootstrap.php';
 
 if (\App\Dashboard\Status::isTGWebhookUrSet()) {
 	$loop = \React\EventLoop\Factory::create();

@@ -5,7 +5,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use Tracy\Debugger;
 
-require_once __DIR__ . '/src/bootstrap.php';
+require_once __DIR__ . '/../../src/bootstrap.php';
 Debugger::$showBar = false;
 
 $response = new \stdClass();

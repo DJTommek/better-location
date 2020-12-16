@@ -7,7 +7,7 @@ use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use function Clue\React\Block\await;
 
-require_once __DIR__ . '/src/bootstrap.php';
+require_once __DIR__ . '/../../src/bootstrap.php';
 
 function printlog(string $text)
 {
