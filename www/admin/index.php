@@ -62,20 +62,22 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 					printf('<li>%s: %s Setup database connection first</li>', $tablesTextPrefix, \App\Icons::ERROR);
 				}
 				$tgStatusTextPrefix = sprintf('Update all <code>TELEGRAM_*</code> constants in <b>%s</b>', \App\Dashboard\Status::getLocalConfigPath());
-				if (\App\Dashboard\Status::isTGWebhookUrSet() === false) {
+				if (\App\Config::isTelegramWebhookUrl() === false) {
 					printf('<li>%s: %s webhook URL is not set.</li>', $tgStatusTextPrefix, \App\Icons::ERROR);
-				} else if (\App\Dashboard\Status::isTGTokenSet() === false) {
+				} else if (\App\Config::isTelegramWebhookPassword() === false) {
+					printf('<li>%s: %s webhook password is not set.</li>', $tgStatusTextPrefix, \App\Icons::ERROR);
+				} else if (\App\Config::isTelegramBotToken() === false) {
 					printf('<li>%s: %s bot token is not set.</li>', $tgStatusTextPrefix, \App\Icons::ERROR);
-				} else if (\App\Dashboard\Status::isTGBotNameSet() === false) {
+				} else if (\App\Config::isTelegramBotName() === false) {
 					printf('<li>%s: %s bot name is not set.</li>', $tgStatusTextPrefix, \App\Icons::ERROR);
 				} else {
 					printf('<li>%s: %s TG set to bot <a href="https://t.me/%3$s" target="_blank">%3$s</a> and webhook url to <a href="%4$s" target="_blank">%4$s</a></li>',
-						$tgStatusTextPrefix, \App\Icons::SUCCESS, \App\Config::TELEGRAM_BOT_NAME, \App\Config::TELEGRAM_WEBHOOK_URL,
+						$tgStatusTextPrefix, \App\Icons::SUCCESS, \App\Config::TELEGRAM_BOT_NAME, \App\Config::getTelegramWebhookUrl(),
 					);
 				}
 
 				$tgWebhookTextPrefix = 'Enable webhook via <a href="set-webhook.php" target="_blank">set-webhook.php</a>';
-				if (\App\Dashboard\Status::isTGset()) {
+				if (\App\Config::isTelegram()) {
 					\App\Dashboard\Status::runGetWebhookStatus();
 					if (\App\Dashboard\Status::$webhookError) {
 						$jsonText = sprintf('<pre>%s</pre>', json_encode(get_object_vars(\App\Dashboard\Status::$webhookError->getError()), JSON_PRETTY_PRINT));

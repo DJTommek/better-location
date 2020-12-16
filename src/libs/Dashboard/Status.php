@@ -31,26 +31,6 @@ class Status
 	/** @var bool */
 	public static $webhookOk = false;
 
-	public static function isTGWebhookUrSet(): bool
-	{
-		return (\App\Config::TELEGRAM_WEBHOOK_URL !== DefaultConfig::TELEGRAM_WEBHOOK_URL);
-	}
-
-	public static function isTGTokenSet(): bool
-	{
-		return (Config::TELEGRAM_BOT_TOKEN !== DefaultConfig::TELEGRAM_BOT_TOKEN);
-	}
-
-	public static function isTGBotNameSet(): bool
-	{
-		return (Config::TELEGRAM_BOT_NAME !== DefaultConfig::TELEGRAM_BOT_NAME);
-	}
-
-	public static function isTGset(): bool
-	{
-		return (self::isTGWebhookUrSet() && self::isTGTokenSet() && self::isTGBotNameSet());
-	}
-
 	public static function getLocalConfigPath(bool $absolute = false): string
 	{
 		if ($absolute === true) {
@@ -136,7 +116,7 @@ class Status
 
 	public static function getInstallTabIcon(): string
 	{
-		if (self::isTGWebhookUrSet() && self::isTGTokenSet() && self::isTGBotNameSet() && self::isDatabaseConnectionSet() && self::isDatabaseTablesSet()) {
+		if (Config::isTelegram() && self::isDatabaseConnectionSet() && self::isDatabaseTablesSet()) {
 			return Icons::SUCCESS;
 		} else {
 			return Icons::ERROR;
@@ -157,12 +137,12 @@ class Status
 						$responseFormatted->{$key} = sprintf('%s According to Telegram API response, webhook URL is not set. Did you run <a href="set-webhook.php" target="_blank">set-webhook.php</a>?', Icons::ERROR);
 						$webhookOk = false;
 					} else {
-						if ($value === Config::TELEGRAM_WEBHOOK_URL) {
+						if ($value === Config::getTelegramWebhookUrl(true)) {
 							$responseFormatted->{$key} = sprintf('%s <a href="%2$s" target="_blank">%2$s</a> (matching with Config)', Icons::SUCCESS, $value);
 						} else {
 							$stringValue = sprintf('%s Webhook URL is set according to webhook response but it\'s different than in Config:<br>', Icons::WARNING);
 							$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Webhook response)<br>', $value);
-							$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Config)', Config::TELEGRAM_WEBHOOK_URL);
+							$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Config)', Config::getTelegramWebhookUrl(true));
 							$responseFormatted->{$key} = $stringValue;
 							$webhookOk = false;
 						}

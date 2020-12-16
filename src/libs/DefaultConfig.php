@@ -29,7 +29,14 @@ class DefaultConfig
 	/** @var string Telegram bot name without @ prefix. */
 	const TELEGRAM_BOT_NAME = 'ExampleBot';
 	/** @var string Telegram webhook URL, which will automatically receive all events from bot (in this application it should lead to webhook.php) */
-	const TELEGRAM_WEBHOOK_URL = 'https://your-domain.com/better-location/webhook.php';
+	protected const TELEGRAM_WEBHOOK_URL = 'https://your-domain.com/better-location/webhook.php';
+	/**
+	 * @var string Telegram webhook password to secure webhook access. To provide proper compatibility, it should:
+	 * - be random
+	 * - contain only alphanumeric characters
+	 * - be "long enough" (its up to you but I would go to at least 20 characters)
+	 */
+	const TELEGRAM_WEBHOOK_PASSWORD = 'someRandomPassword';
 	/** @var int Telegram webhook URL, which will automatically receive all events from bot (in this application it should lead to webhook.php) */
 	const TELEGRAM_INLINE_CACHE = 300; // https://core.telegram.org/bots/api#answerinlinequery cache_time attribute (default 300)
 	/** @var int Enforce BotUsername in command, eg. /command@BetterLocationBot */
@@ -121,6 +128,45 @@ class DefaultConfig
 			is_null(static::GLYMPSE_API_PASSWORD) === false &&
 			is_null(static::GLYMPSE_API_KEY) === false
 		);
+	}
+
+	public static function isTelegram(): bool
+	{
+		return (
+			self::isTelegramWebhookUrl() &&
+			self::isTelegramWebhookPassword() &&
+			self::isTelegramBotToken() &&
+			self::isTelegramBotName()
+		);
+	}
+
+	public static function isTelegramWebhookUrl(): bool
+	{
+		return (Config::TELEGRAM_WEBHOOK_URL !== DefaultConfig::TELEGRAM_WEBHOOK_URL && is_string(Config::TELEGRAM_WEBHOOK_URL));
+	}
+
+	public static function isTelegramWebhookPassword(): bool
+	{
+		return (Config::TELEGRAM_WEBHOOK_PASSWORD !== DefaultConfig::TELEGRAM_WEBHOOK_PASSWORD && is_string(Config::TELEGRAM_WEBHOOK_PASSWORD));
+	}
+
+	public static function isTelegramBotToken(): bool
+	{
+		return (Config::TELEGRAM_BOT_TOKEN !== DefaultConfig::TELEGRAM_BOT_TOKEN && is_string(Config::TELEGRAM_BOT_TOKEN));
+	}
+
+	public static function isTelegramBotName(): bool
+	{
+		return (Config::TELEGRAM_BOT_NAME !== DefaultConfig::TELEGRAM_BOT_NAME && is_string(Config::TELEGRAM_BOT_NAME));
+	}
+
+	public static function getTelegramWebhookUrl(bool $withPassword = false): string
+	{
+		$result = static::TELEGRAM_WEBHOOK_URL;
+		if ($withPassword) {
+			$result .= '?password=' . Config::TELEGRAM_WEBHOOK_PASSWORD;
+		}
+		return $result;
 	}
 
 	public static function isIngressMosaic(): bool

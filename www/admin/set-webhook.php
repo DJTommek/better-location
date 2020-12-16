@@ -10,20 +10,20 @@ use function Clue\React\Block\await;
 
 require_once __DIR__ . '/../../src/bootstrap.php';
 
-if (\App\Dashboard\Status::isTGWebhookUrSet()) {
+if (Config::isTelegram()) {
 	$loop = \React\EventLoop\Factory::create();
 	$tgLog = new TgLog(Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($loop));
 
 	$setWebhook = new \unreal4u\TelegramAPI\Telegram\Methods\SetWebhook();
-	$setWebhook->url = Config::TELEGRAM_WEBHOOK_URL;
+	$setWebhook->url = Config::getTelegramWebhookUrl(true);
 	try {
 		await($tgLog->performApiRequest($setWebhook), $loop);
-		printf('<h1>Success</h1><p>Telegram webhook URL successfully set to <a href="%1$s" target="_blank">%1$s</a></p>.', Config::TELEGRAM_WEBHOOK_URL);
+		printf('<h1>Success</h1><p>Telegram webhook URL successfully set to <a href="%1$s" target="_blank">%1$s</a></p> with secret password.', Config::getTelegramWebhookUrl());
 	} catch (ClientException $exception) {
-		printf('<h1>Error</h1><p>Failed to set Telegram webhook URL to <a href="%1$s" target="_blank">%1$s</a>:<br><b>%2$s</b></p>.', Config::TELEGRAM_WEBHOOK_URL, $exception->getMessage());
+		printf('<h1>Error</h1><p>Failed to set Telegram webhook URL to <a href="%1$s" target="_blank">%1$s</a>:<br><b>%2$s</b></p>.', Config::getTelegramWebhookUrl(), $exception->getMessage());
 		Debugger::log($exception, ILogger::EXCEPTION);
 	}
 } else {
-	printf('Updating Telegram webhook URL is not allowed. Set "TELEGRAM_WEBHOOK_URL" to some URL and try again.');
+	printf('Updating Telegram webhook URL is not allowed. Set all necessary TELEGRAM_* constants in local config and try again.');
 }
 
