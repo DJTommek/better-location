@@ -11,32 +11,6 @@ class Coordinates
 
 	const EARTH_RADIUS = 6371000; // in meters
 
-	// @TODO maybe use universal regex for various of formats?
-	// https://regex101.com/r/gD9aU5/1
-
-	// @see https://regexr.com/57rn1
-	// 49.9767533N, 14.5672972E
-	// 49.9767533N,14.5672972E
-	// N49.9767533, E14.5672972
-	// N49.9767533,E14.5672972
-	// 49.9767533, 14.5672972
-	// 49.9767533,14.5672972
-	// +49.9767533, -14.5672972
-	// +49.9767533,-14.5672972
-	// @TODO All coordinates are handled as North and East (N/E, +/+). So S/W and - are ignored
-	const RE_WGS84_DEGREES = '/([-+ NSWE])?([0-9]{1,3}\.[0-9]{1,20})([-+ NSWE])?[., ]{1,4}([-+ NSWE])?([0-9]{1,3}\.[0-9]{1,20})([-+ NSWE])?/';
-
-	// @see https://regexr.com/5838t
-	// N 49°59.72333', E 14°31.36987'
-	// N 10°4.34702', E 78°46.32372'
-	// S 41°18.11425', E 174°46.79265'
-	// S 51°37.66440', W 69°13.32803'
-	const RE_WGS84_DEGREES_MINUTES = '/(([NS]) ?([0-9]{1,2})°([0-9]{1,2}(?:\.[0-9]{1,10})?))\'[ ,]{0,3}(([EW]) ? ?([0-9]{1,3})°([0-9]{1,2}(?:\.[0-9]{1,10})?)\')/';
-
-	// @see https://regexr.com/583bn
-	// 51°37'39.864"S, 69°13'19.682"W
-	const RE_WGS84_DEGREES_MINUTES_SECONDS = '/(([0-9]{1,2})°([0-9]{1,2})\'([0-9]{1,2}(?:\.[0-9]{1,10})?) ?"([NS]))[ ,]{0,3}(([0-9]{1,3})°([0-9]{1,2})\'([0-9]{1,2}(?:\.[0-9]{1,10})?)" ?([WE]))/';
-
 	/** Get decimal format from degrees-minutes */
 	public static function wgs84DegreesMinutesToDecimal(float $degrees, float $minutes, string $hemisphere): float
 	{
@@ -73,14 +47,11 @@ class Coordinates
 	 */
 	public static function gpsSubIFDToFloat(string $coordPart): float
 	{
-		$parts = explode('/', $coordPart);
-		if (count($parts) <= 0) {
-			return 0;
+		if (preg_match('/^([0-9]+)\/([0-9]+)$/', $coordPart, $matches)) {
+			return (float) $matches[1] / (float) $matches[2];
+		} else {
+			throw new \InvalidArgumentException(sprintf('Provided part of coordination "%s" is not valid.', $coordPart));
 		}
-		if (count($parts) == 1) {
-			return floatval($parts[0]);
-		}
-		return floatval($parts[0]) / floatval($parts[1]);
 	}
 
 	/**
@@ -125,34 +96,5 @@ class Coordinates
 
 		$angle = atan2(sqrt($a), $b);
 		return $angle * $earthRadius;
-	}
-
-	/**
-	 * Check if point is inside of polygon
-	 *
-	 * @param array $polygon multi-array of coordinates, example: [[50.5,16.5], [51.5,16.5], [51.5,17.5], [50.5,17.5]]
-	 * @author https://stackoverflow.com/a/18190354/3334403
-	 */
-	public static function isInPolygon(float $lat, float $lng, array $polygon): bool
-	{
-		$c = 0;
-		$p1 = $polygon[0];
-		$n = count($polygon);
-
-		for ($i = 1; $i <= $n; $i++) {
-			$p2 = $polygon[$i % $n];
-			if ($lng > min($p1[1], $p2[1])
-				&& $lng <= max($p1[1], $p2[1])
-				&& $lat <= max($p1[0], $p2[0])
-				&& $p1[1] != $p2[1]) {
-				$xinters = ($lng - $p1[1]) * ($p2[0] - $p1[0]) / ($p2[1] - $p1[1]) + $p1[0];
-				if ($p1[0] == $p2[0] || $lat <= $xinters) {
-					$c++;
-				}
-			}
-			$p1 = $p2;
-		}
-		// if the number of edges we passed through is even, then it's not in the poly.
-		return $c % 2 != 0;
 	}
 }
