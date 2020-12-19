@@ -13,4 +13,5 @@
 
 	# Nicer URL and for future compatibility if some router is implemented
 	RewriteRule webhook/telegram/([0-9a-z]+) webhook/telegram.php?password=$1 [F]
+	RewriteRule api/staticmap/([0-9a-f]+) api/staticmap.php?id=$1 [F]
 </IfModule>

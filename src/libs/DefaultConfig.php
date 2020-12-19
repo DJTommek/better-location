@@ -73,6 +73,11 @@ class DefaultConfig
 	/** @var ?string */
 	const INGRESS_MOSAIC_COOKIE_XSRF = null;
 
+	/** @var ?string */
+	const STATIC_MAPS_PROXY_URL = null;
+	// const STATIC_MAPS_PROXY_URL = 'https://your-domain.com/better-location/api/staticmap.php?id='; // Default example
+	// const STATIC_MAPS_PROXY_URL = 'https://your-domain.com/better-location/api/staticmap/'; // Example with nice URL
+
 	/** @var ?string https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key */
 	const BING_STATIC_MAPS_TOKEN = null;
 
