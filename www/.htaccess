@@ -10,4 +10,7 @@
 
 	# prevents files starting with dot to be viewed by browser
 	RewriteRule /\.|^\. - [F]
+
+	# Nicer URL and for future compatibility if some router is implemented
+	RewriteRule webhook/telegram/([0-9a-z]+) webhook/telegram.php?password=$1 [F]
 </IfModule>

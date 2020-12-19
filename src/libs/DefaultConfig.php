@@ -28,8 +28,12 @@ class DefaultConfig
 	const TELEGRAM_BOT_TOKEN = '123456789:abcdefghijklmnopqrstuvwxyzabcdefghi';
 	/** @var string Telegram bot name without @ prefix. */
 	const TELEGRAM_BOT_NAME = 'ExampleBot';
+
 	/** @var string Telegram webhook URL, which will automatically receive all events from bot (in this application it should lead to webhook.php) */
-	protected const TELEGRAM_WEBHOOK_URL = 'https://your-domain.com/better-location/webhook.php';
+	protected const TELEGRAM_WEBHOOK_URL = 'https://your-domain.com/better-location/webhook/telegram/';
+	/** If mod_rewrite is not working for you, you can use this version */
+	// protected const TELEGRAM_WEBHOOK_URL = 'https://your-domain.com/better-location/webhook/telegram.php?password=';
+
 	/**
 	 * @var string Telegram webhook password to secure webhook access. To provide proper compatibility, it should:
 	 * - be random
@@ -164,7 +168,7 @@ class DefaultConfig
 	{
 		$result = static::TELEGRAM_WEBHOOK_URL;
 		if ($withPassword) {
-			$result .= '?password=' . Config::TELEGRAM_WEBHOOK_PASSWORD;
+			$result .= Config::TELEGRAM_WEBHOOK_PASSWORD;
 		}
 		return $result;
 	}
