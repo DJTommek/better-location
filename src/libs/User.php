@@ -3,6 +3,7 @@
 namespace App;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 
 class User
@@ -18,17 +19,10 @@ class User
 	const FAVOURITES_STATUS_ENABLED = 1;
 	const FAVOURITES_STATUS_DELETED = 2;
 
-	/**
-	 * @TODO convert to \BetterLocation\BetterLocationCollection
-	 * @var BetterLocation[]
-	 */
-	private $favourites = [];
-
-	/**
-	 * @TODO convert to \BetterLocation\BetterLocationCollection
-	 * @var BetterLocation[]
-	 */
-	private $favouritesDeleted = [];
+	/** @var BetterLocationCollection */
+	private $favourites;
+	/** @var BetterLocationCollection */
+	private $favouritesDeleted;
 
 	public function __construct(int $telegramId, string $telegramDisplayname)
 	{
@@ -37,7 +31,7 @@ class User
 		$this->db = Factory::Database();
 		$userData = $this->register($telegramId, $telegramDisplayname);
 		$this->updateCachedData($userData);
-		$this->loadFavourites();
+		$this->updateFavouritesFromDb();
 	}
 
 	private function updateCachedData($newUserData)
@@ -64,7 +58,7 @@ class User
 			ON DUPLICATE KEY UPDATE user_telegram_name = ?, user_last_update = UTC_TIMESTAMP()',
 			$telegramId, $telegramUsername, $telegramUsername
 		);
-		return $this->load();
+		return $this->loadFromDb();
 	}
 
 	/** @throws InvalidLocationException */
@@ -73,28 +67,24 @@ class User
 		$this->update(null, $lat, $lon);
 	}
 
-	private function load()
+	private function loadFromDb()
 	{
-		return $this->db->query('SELECT * FROM better_location_user WHERE user_telegram_id = ?', $this->telegramId)->fetchAll()[0];
+		return $this->db->query('SELECT * FROM better_location_user WHERE user_telegram_id = ?', $this->telegramId)->fetch();
 	}
 
-	/**
-	 * @return BetterLocation[]
-	 */
-	public function loadFavourites(): array
+	public function updateFavouritesFromDb(): BetterLocationCollection
 	{
 		$favourites = $this->db->query('SELECT * FROM better_location_favourites WHERE user_id = ?', $this->id)->fetchAll(\PDO::FETCH_OBJ);
-		$this->favourites = [];
-		$this->favouritesDeleted = [];
+		$this->favourites = new BetterLocationCollection();
+		$this->favouritesDeleted = new BetterLocationCollection();
 		foreach ($favourites as $favouriteDb) {
 			$location = BetterLocation::fromLatLon($favouriteDb->lat, $favouriteDb->lon);
 			$location->setPrefixMessage(sprintf('%s %s', Icons::FAVOURITE, $favouriteDb->title));
-			$key = $location->__toString();
 
 			if ($favouriteDb->status === self::FAVOURITES_STATUS_ENABLED) {
-				$this->favourites[$key] = $location;
+				$this->favourites->add($location);
 			} else if ($favouriteDb->status === self::FAVOURITES_STATUS_DELETED) {
-				$this->favouritesDeleted[$key] = $location;
+				$this->favouritesDeleted->add($location);
 			} else {
 				throw new \Exception(sprintf('Unexpected type of favourites type: "%d"', $favouriteDb->status));
 			}
@@ -104,12 +94,7 @@ class User
 
 	public function getFavourite(float $lat, float $lon): ?BetterLocation
 	{
-		$key = sprintf('%F,%F', $lat, $lon);
-		if (isset($this->favourites[$key])) {
-			return $this->favourites[$key];
-		} else {
-			return null;
-		}
+		return $this->favourites->getByLatLon($lat, $lon);
 	}
 
 	/**
@@ -118,22 +103,20 @@ class User
 	 */
 	public function addFavourite(BetterLocation $betterLocation, ?string $title = null): BetterLocation
 	{
-		$key = $betterLocation->__toString();
-		if (in_array($key, $this->favourites)) {
+		if ($this->getFavourite($betterLocation->getLat(), $betterLocation->getLon())) {
 			// already saved
-		} else if (in_array($key, $this->favouritesDeleted)) { // already saved but deleted
+		} else if ($deletedFavourite = $this->favouritesDeleted->getByLatLon($betterLocation->getLat(), $betterLocation->getLon())) { // already saved but deleted
 			$this->db->query('UPDATE better_location_favourites SET status = ? WHERE user_id = ? AND lat = ? AND lon = ?',
 				self::FAVOURITES_STATUS_ENABLED, $this->id, $betterLocation->getLat(), $betterLocation->getLon()
 			);
-			$this->favourites[$key] = $this->favouritesDeleted[$key];
-			unset($this->favouritesDeleted[$key]);
+			$this->updateFavouritesFromDb();
 		} else { // not in database at all
 			$this->db->query('INSERT INTO better_location_favourites (user_id, status, lat, lon, title) VALUES (?, ?, ?, ?, ?)',
 				$this->id, self::FAVOURITES_STATUS_ENABLED, $betterLocation->getLat(), $betterLocation->getLon(), $title
 			);
-			$this->loadFavourites();
+			$this->updateFavouritesFromDb();
 		}
-		return $this->favourites[$key];
+		return $this->getFavourite($betterLocation->getLat(), $betterLocation->getLon());
 	}
 
 	/** @throws \Exception */
@@ -142,9 +125,7 @@ class User
 		$this->db->query('UPDATE better_location_favourites SET status = ? WHERE user_id = ? AND lat = ? AND lon = ?',
 			self::FAVOURITES_STATUS_DELETED, $this->id, $betterLocation->getLat(), $betterLocation->getLon()
 		);
-		$key = $betterLocation->__toString();
-		$this->favouritesDeleted[$key] = $this->favourites[$key];
-		unset($this->favourites[$key]);
+		$this->updateFavouritesFromDb();
 	}
 
 	/** @throws \Exception */
@@ -154,12 +135,12 @@ class User
 			htmlspecialchars($title),
 			$this->id, $betterLocation->getLat(), $betterLocation->getLon()
 		);
-		$this->loadFavourites();
+		$this->updateFavouritesFromDb();
 		return $this->getFavourite($betterLocation->getLat(), $betterLocation->getLon());
 	}
 
 	/** @throws InvalidLocationException */
-	public function update(?string $telegramUsername = null, ?float $locationLat = null, ?float $locationLon = null)
+	public function update(?string $telegramUsername = null, ?float $locationLat = null, ?float $locationLon = null): self
 	{
 		$queries = [];
 		$params = [];
@@ -182,34 +163,28 @@ class User
 
 			$params[] = $this->telegramId;
 			call_user_func_array([$this->db, 'query'], array_merge([$query], $params));
-			$newData = $this->load();
+			$newData = $this->loadFromDb();
 			$this->updateCachedData($newData);
 		}
-		return $this->get();
-	}
-
-	public function get()
-	{
 		return $this;
 	}
 
-	public function getId()
+	public function getId(): int
 	{
 		return $this->id;
 	}
 
-	public function getTelegramId()
+	public function getTelegramId(): int
 	{
 		return $this->telegramId;
 	}
 
-	public function getTelegramDisplayname()
+	public function getTelegramDisplayname(): string
 	{
 		return $this->telegramDisplayname;
 	}
 
-	/** @return BetterLocation[] */
-	public function getFavourites(): array
+	public function getFavourites(): BetterLocationCollection
 	{
 		return $this->favourites;
 	}

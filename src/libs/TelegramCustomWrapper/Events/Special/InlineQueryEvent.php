@@ -61,9 +61,8 @@ class InlineQueryEvent extends Special
 			}
 
 			// Show list of favourites
-			$favourites = $this->user->loadFavourites();
 			$index = 0;
-			foreach ($favourites as $favourite) {
+			foreach ($this->user->getFavourites() as $favourite) {
 				if ($index++ < self::MAX_FAVOURITES) {
 					$answerInlineQuery->addResult($this->getInlineQueryResult($favourite));
 				}
