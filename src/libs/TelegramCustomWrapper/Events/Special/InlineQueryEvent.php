@@ -38,6 +38,10 @@ class InlineQueryEvent extends Special
 
 		$queryInput = preg_replace('/\s+/', ' ', trim($this->update->inline_query->query));
 
+		if ($this->update->inline_query->location) {
+			$this->user->setLastKnownLocation($this->update->inline_query->location->latitude, $this->update->inline_query->location->longitude);
+		}
+
 		if (empty($queryInput)) {
 			// If user agrees to share location, and is using device, where is possible to get location (typically mobile devices)
 			if (empty($this->update->inline_query->location) === false) {
