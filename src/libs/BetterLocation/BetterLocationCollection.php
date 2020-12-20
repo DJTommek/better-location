@@ -68,6 +68,29 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return array_merge($this->locations, $this->errors);
 	}
 
+	public function getByLatLon(float $lat, float $lon): ?BetterLocation
+	{
+		$key = sprintf('%F,%F', $lat, $lon);
+		$location = null;
+		foreach ($this->getLocations() as $location) {
+			if ($location->__toString() === $key) {
+				return $location;
+			}
+		}
+		return null;
+	}
+
+	public function removeByLatLon(float $lat, float $lon): void
+	{
+		$key = sprintf('%F,%F', $lat, $lon);
+		foreach ($this->locations as $index => $location) {
+			if ($location->__toString() === $key) {
+				unset($this->locations[$key]);
+				return;
+			}
+		}
+	}
+
 	/**
 	 * @return BetterLocation[]
 	 */
