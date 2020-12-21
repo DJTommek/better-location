@@ -124,6 +124,11 @@ class DefaultConfig
 	const CACHE_TTL_WIKIPEDIA = 60 * 60 * 24;
 	const CACHE_TTL_INGRESS_MOSAIC = 60 * 60 * 24;
 
+	/** @var string[] */
+	const API_KEYS = [];
+	/** @var ?string */
+	const CRON_PASSWORD = null;
+
 	/**
 	 * @var string Default timezone to work with.
 	 * Disclaimer: Changing might result in unexpected behaviour of this app. Make sure that you know, what you are doing.
