@@ -128,6 +128,8 @@ class DefaultConfig
 	const API_KEYS = [];
 	/** @var ?string */
 	const CRON_PASSWORD = null;
+	/** @var ?string */
+	const ADMIN_PASSWORD = null;
 
 	/**
 	 * @var string Default timezone to work with.

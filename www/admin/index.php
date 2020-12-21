@@ -4,6 +4,14 @@ use App\TelegramUpdateDb;
 
 require_once __DIR__ . '/../../src/bootstrap.php';
 
+if (empty(\App\Config::ADMIN_PASSWORD)) {
+	die('Set ADMIN_PASSWORD in your local config file first');
+}
+
+if (isset($_GET['password']) === false || $_GET['password'] !== \App\Config::ADMIN_PASSWORD) {
+	die('You don\'t have access without password.');
+}
+
 if (isset($_GET['delete-tracy-email-sent'])) {
 	if (@unlink(\App\Dashboard\Status::getTracyEmailSentFilePath())) {
 		printf('<p>%s Tracy\'s "email-sent" file was deleted.</p>', \App\Icons::SUCCESS);

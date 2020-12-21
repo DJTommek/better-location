@@ -31,5 +31,7 @@ final class Config extends DefaultConfig
 	 * - be "long enough" (its up to you but I would go to at least 20 characters)
 	 */
 	const TELEGRAM_WEBHOOK_PASSWORD = 'someRandomPassword';
+
+	const ADMIN_PASSWORD = null; // Set to some random string and use it as ?password=YourRandomPassword to get access to Admin dashboard
 }
 

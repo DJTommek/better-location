@@ -10,6 +10,14 @@ use function Clue\React\Block\await;
 
 require_once __DIR__ . '/../../src/bootstrap.php';
 
+if (empty(\App\Config::ADMIN_PASSWORD)) {
+	die('Set ADMIN_PASSWORD in your local config file first');
+}
+
+if (isset($_GET['password']) === false || $_GET['password'] !== \App\Config::ADMIN_PASSWORD) {
+	die('You don\'t have access without password.');
+}
+
 if (Config::isTelegram()) {
 	$loop = \React\EventLoop\Factory::create();
 	$tgLog = new TgLog(Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($loop));
