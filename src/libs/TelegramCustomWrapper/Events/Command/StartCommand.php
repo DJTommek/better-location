@@ -59,13 +59,7 @@ class StartCommand extends Command
 				$buttons[] = $betterLocation->generateAddToFavouriteButtton();
 				$markup = new Markup();
 				$markup->inline_keyboard = [$buttons];
-				$this->reply(
-					TelegramHelper::getMessagePrefix() . $result,
-					[
-						'disable_web_page_preview' => true,
-						'reply_markup' => $markup,
-					],
-				);
+				$this->reply(TelegramHelper::getMessagePrefix() . $result, $markup);
 			} catch (\Throwable $exception) {
 				Debugger::log($exception, ILogger::EXCEPTION);
 				$this->reply(sprintf('%s Unexpected error occured while processing coordinates in start command for Better location. Contact Admin for more info.', Icons::ERROR));
@@ -103,14 +97,10 @@ class StartCommand extends Command
 						$buttonRow[] = $refreshFavouriteButton;
 
 						$replyMarkup->inline_keyboard[] = $buttonRow;
-						$messageSettings = [
-							'disable_web_page_preview' => true,
-							'reply_markup' => $replyMarkup,
-						];
 
 						$this->reply(sprintf('%s Location %s was successfully renamed from <b>%s</b> to <b>%s</b>.',
 							Icons::SUCCESS, $favourite->__toString(), $oldName, $newName
-						), $messageSettings);
+						), $replyMarkup);
 					} catch (\Throwable $exception) {
 						Debugger::log($exception, ILogger::EXCEPTION);
 						$this->reply(sprintf('%s Unexpected error occured while renaming favourite. Contact Admin for more info.', Icons::ERROR));

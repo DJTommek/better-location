@@ -26,12 +26,8 @@ class FavouritesCommand extends Command
 					]),
 				],
 			];
-			$messageSettings = [
-				'disable_web_page_preview' => true,
-				'reply_markup' => $replyMarkup,
-			];
 
-			$this->reply(sprintf('%s Command <code>%s</code> is available only in private message, open @%s.', Icons::ERROR, HelpCommand::getCmd(), Config::TELEGRAM_BOT_NAME), $messageSettings);
+			$this->reply(sprintf('%s Command <code>%s</code> is available only in private message, open @%s.', Icons::ERROR, HelpCommand::getCmd(), Config::TELEGRAM_BOT_NAME), $replyMarkup);
 		}
 	}
 }

@@ -94,17 +94,13 @@ class FavouritesButton extends Button
 			$buttonRow[] = $deleteFavouriteButton;
 
 			$replyMarkup->inline_keyboard[] = $buttonRow;
-			$messageSettings = [
-				'disable_web_page_preview' => true,
-				'reply_markup' => $replyMarkup,
-			];
 
 			$favourite = $this->user->getFavourite($lat, $lon);
 			if (is_null($favourite)) {
-				$this->reply(sprintf('%s Location <code>%F,%F</code> was already removed from favourites.', Icons::INFO, $lat, $lon), $messageSettings);
+				$this->reply(sprintf('%s Location <code>%F,%F</code> was already removed from favourites.', Icons::INFO, $lat, $lon), $replyMarkup);
 			} else {
 				$this->user->deleteFavourite($favourite);
-				$this->reply(sprintf('%s Location %s <code>%s</code> was removed from favourites.', Icons::SUCCESS, $favourite->getPrefixMessage(), $favourite->__toString()), $messageSettings);
+				$this->reply(sprintf('%s Location %s <code>%s</code> was removed from favourites.', Icons::SUCCESS, $favourite->getPrefixMessage(), $favourite->__toString()), $replyMarkup);
 			}
 		} catch (\Exception $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);

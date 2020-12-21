@@ -24,9 +24,6 @@ class SettingsButton extends Button
 			],
 		];
 
-		$this->replyButton($text, [
-			'disable_web_page_preview' => true,
-			'reply_markup' => $replyMarkup,
-		]);
+		$this->replyButton($text, $replyMarkup);
 	}
 }

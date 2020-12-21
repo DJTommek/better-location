@@ -148,11 +148,11 @@ abstract class Events
 	}
 
 	/** Send message as reply to recieved message */
-	public function reply(string $text, array $options = []): Telegram\Types\Message
+	public function reply(string $text, ?Markup $markup = null, array $options = []): Telegram\Types\Message
 	{
 		$msg = new SendMessage($this->getChatId(), $text, $this->getMessageId());
-		if (isset($options['reply_markup'])) {
-			$msg->setReplyMarkup($options['reply_markup']);
+		if ($markup) {
+			$msg->setReplyMarkup($markup);
 		}
 		if (isset($options['disable_web_page_preview'])) {
 			$msg->disableWebPagePreview($options['disable_web_page_preview']);
@@ -248,16 +248,13 @@ abstract class Events
 
 //		$text .= sprintf(Icons::WARNING . ' <b>Warning</b>: Bot is currently in active development so there is no guarantee that it will work at all times. Check Github for more info.') . PHP_EOL;
 
-		$messageSettings = [
-			'disable_web_page_preview' => true,
-			'reply_markup' => $this->getHelpButtons(),
-		];
+		$markup = $this->getHelpButtons();
 
 		if ($inline) {
-			$this->replyButton($text, $messageSettings);
+			$this->replyButton($text, $markup);
 			$this->flash(sprintf('%s Help was refreshed.', Icons::REFRESH));
 		} else {
-			$this->reply($text, $messageSettings);
+			$this->reply($text, $markup);
 		}
 	}
 
@@ -311,7 +308,11 @@ abstract class Events
 		if (count($this->user->getFavourites()) === 0) {
 			$text .= sprintf('%s Sadly, you don\'t have any favourite locations saved yet.', Icons::INFO) . PHP_EOL;
 		} else {
-			$text .= sprintf('%s You have %d favourite location(s):', Icons::INFO, count($this->user->getFavourites())) . PHP_EOL;
+			$text .= sprintf('<a href="%s">%s</a> You have %d favourite location(s):',
+					$this->user->getFavourites()->getStaticMapUrl(),
+					Icons::INFO,
+					count($this->user->getFavourites())
+				) . PHP_EOL;
 			foreach ($this->user->getFavourites() as $favourite) {
 				$text .= $favourite->generateMessage();
 
@@ -343,16 +344,11 @@ abstract class Events
 		}
 		$text .= sprintf('%s To add a location to your favourites, just send any link, coordinates etc. to me via PM and click on the %s button in my response.', Icons::INFO, Icons::FAVOURITE) . PHP_EOL;
 
-		$messageSettings = [
-			'disable_web_page_preview' => true,
-			'reply_markup' => $replyMarkup,
-		];
-
 		if ($inline) {
-			$this->replyButton($text, $messageSettings);
+			$this->replyButton($text, $replyMarkup);
 			$this->flash(sprintf('%s List of favourite locations was refreshed.', Icons::REFRESH));
 		} else {
-			$this->reply($text, $messageSettings);
+			$this->reply($text, $replyMarkup);
 		}
 	}
 }

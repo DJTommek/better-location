@@ -36,14 +36,14 @@ abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 	 * @return ?\unreal4u\TelegramAPI\Abstracts\TelegramTypes
 	 * @throws \Exception
 	 */
-	public function replyButton(string $text, array $options = [])
+	public function replyButton(string $text, ?Telegram\Types\Inline\Keyboard\Markup $markup = null, array $options = [])
 	{
 		$msg = new \unreal4u\TelegramAPI\Telegram\Methods\EditMessageText();
 		$msg->text = $text;
 		$msg->chat_id = $this->getChatId();
 		$msg->parse_mode = 'HTML';
-		if (isset($options['reply_markup'])) {
-			$msg->reply_markup = $options['reply_markup'];
+		if ($markup) {
+			$msg->reply_markup = $markup;
 		}
 		if (isset($options['disable_web_page_preview'])) {
 			$msg->disable_web_page_preview = $options['disable_web_page_preview'];
