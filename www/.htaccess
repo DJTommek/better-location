@@ -8,6 +8,8 @@
 <IfModule mod_rewrite.c>
 	RewriteEngine On
 
+	RewriteBase /www
+
 	# prevents files starting with dot to be viewed by browser
 	RewriteRule /\.|^\. - [F]
 
