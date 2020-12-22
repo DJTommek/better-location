@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use App\Config;
 use App\TelegramUpdateDb;
 
 require_once __DIR__ . '/../../src/bootstrap.php';
@@ -127,9 +128,9 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 					<div class="tab-pane fade" id="webhook-raw">
 						<?php
 							$json = get_object_vars(\App\Dashboard\Status::$webhookResponseRaw);
-							$json['url'] = strtok($json['url'], '?');
+							$json['url'] = str_replace(Config::TELEGRAM_WEBHOOK_PASSWORD, '<anonymized>', $json['url']);
 						?>
-						<pre><?= json_encode($json, JSON_PRETTY_PRINT) ?></pre>
+						<pre><?= htmlentities(json_encode($json, JSON_PRETTY_PRINT)) ?></pre>
 					</div>
 				</div>
 				<?php
