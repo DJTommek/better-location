@@ -87,7 +87,7 @@ class Chat
 		return $this->telegramChatType;
 	}
 
-	public function getTelegramChatName()
+	public function getTelegramChatName(): ?string
 	{
 		return $this->telegramChatName;
 	}
