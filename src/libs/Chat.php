@@ -77,7 +77,7 @@ class Chat
 		return $this->id;
 	}
 
-	public function getTelegramChatId()
+	public function getTelegramChatId(): int
 	{
 		return $this->telegramChatId;
 	}
