@@ -28,6 +28,7 @@ use App\BetterLocation\Service\WikipediaService;
 use App\BetterLocation\Service\ZanikleObceCzService;
 use App\BetterLocation\Service\ZniceneKostelyCzService;
 use App\Config;
+use App\Factory;
 use App\Icons;
 use App\MiniCurl\MiniCurl;
 use App\TelegramCustomWrapper\TelegramHelper;
@@ -400,8 +401,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 
 	public function getStaticMapUrl(): string
 	{
-		$staticMap = new StaticMapProxy();
-		$staticMap->addMarkers($this)->run();
+		$staticMap = Factory::StaticMapProxy();
+		$staticMap->addMarkers($this)->downloadAndCache();
 		return $staticMap->getUrl();
 	}
 }

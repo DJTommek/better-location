@@ -79,4 +79,9 @@ class Factory
 	{
 		return new \App\BingMaps\StaticMaps(Config::BING_STATIC_MAPS_TOKEN);
 	}
+
+	static function StaticMapProxy(): \App\BetterLocation\StaticMapProxy
+	{
+		return new \App\BetterLocation\StaticMapProxy(self::Database());
+	}
 }

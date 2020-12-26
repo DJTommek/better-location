@@ -7,8 +7,9 @@ use Tracy\Debugger;
 
 if (isset($_GET['id'])) {
 	$id = $_GET['id'];
-	$file = StaticMapProxy::generateCachePath($id);
-	if (StaticMapProxy::cacheHit($file)) {
+	$mapProxy = \App\Factory::StaticMapProxy();
+	if ($mapProxy->loadById($id)) {
+		$file = $mapProxy->generateCachePath();
 		Debugger::$showBar = false;
 		header('Content-Description: File Transfer');
 		header('Content-Type: image/jpeg');
