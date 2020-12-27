@@ -24,6 +24,8 @@ class TelegramUpdateDb
 	private $lastUpdate;
 	/** @var int */
 	private $botReplyMessageId;
+	/** @var int */
+	private $inputMessageId;
 	/** @var ?string */
 	private $lastResponseText;
 	/** @var ?Telegram\Types\Inline\Keyboard\Markup */
@@ -37,12 +39,13 @@ class TelegramUpdateDb
 			throw new MessageDeletedException(sprintf('Chat ID "%s" in Update object is not valid.', $chatId));
 		}
 
-		$messageId = $originalUpdate->message->message_id ?? null;
+		$inputMessageId = $originalUpdate->message->message_id ?? null;
 		if (is_int($chatId) === false || $chatId === 0) {
-			throw new MessageDeletedException(sprintf('Message ID "%s" in Update object is not valid.', $messageId));
+			throw new MessageDeletedException(sprintf('Message ID "%s" in Update object is not valid.', $inputMessageId));
 		}
 
 		$this->botReplyMessageId = $botReplyMessageId;
+		$this->inputMessageId = $inputMessageId;
 		$this->telegramChatId = $chatId;
 		$this->originalUpdateObject = $originalUpdate;
 		$this->status = $status;
@@ -88,8 +91,8 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 
 	public function insert(): void
 	{
-		$this->db->query('INSERT INTO better_location_telegram_updates (chat_id, bot_reply_message_id, original_update_object, autorefresh_status, last_update) VALUES (?, ?, ?, ?, UTC_TIMESTAMP())',
-			$this->telegramChatId, $this->botReplyMessageId, json_encode($this->originalUpdateObject), $this->status
+		$this->db->query('INSERT INTO better_location_telegram_updates (chat_id, input_message_id, bot_reply_message_id, original_update_object, autorefresh_status, last_update) VALUES (?, ?, ?, ?, ?, UTC_TIMESTAMP())',
+			$this->telegramChatId, $this->inputMessageId, $this->botReplyMessageId, json_encode($this->originalUpdateObject), $this->status
 		);
 		$this->status = self::STATUS_DISABLED;
 	}
@@ -158,10 +161,9 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 		return $results;
 	}
 
-	public static function loadByOriginalMessageId(int $chatId = null, int $originalMessageId = null): ?self
+	public static function loadByOriginalMessageId(int $chatId, int $originalMessageId): ?self
 	{
-		// @TODO optimalize to not use searching mesage from JSON but create generated column instead
-		$sqlQuery = 'SELECT * FROM better_location_telegram_updates WHERE chat_id = ? AND original_update_object->>\'$.message.message_id\' = ?';
+		$sqlQuery = 'SELECT * FROM better_location_telegram_updates WHERE chat_id = ? AND input_message_id = ?';
 		$row = Factory::Database()->query($sqlQuery, $chatId, $originalMessageId)->fetch();
 		return self::parseDbData($row);
 	}
