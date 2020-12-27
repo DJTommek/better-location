@@ -15,7 +15,7 @@ function printlog(string $text)
 	\App\Utils\SimpleLogger::log(\App\Utils\SimpleLogger::NAME_CRON_AUTOREFRESH, $text);
 }
 
-if (isset($_GET['password']) && $_GET['password'] === \App\Config::CRON_KEY) {
+if (isset($_GET['password']) && $_GET['password'] === \App\Config::CRON_PASSWORD) {
 	$loop = \React\EventLoop\Factory::create();
 	$tgLog = new \unreal4u\TelegramAPI\TgLog(Config::TELEGRAM_BOT_TOKEN, new \unreal4u\TelegramAPI\HttpClientRequestHandler($loop));
 

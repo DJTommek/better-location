@@ -2,7 +2,6 @@
 
 require_once __DIR__ . '/../../src/bootstrap.php';
 
-use App\BetterLocation\StaticMapProxy;
 use Tracy\Debugger;
 
 if (isset($_GET['id'])) {
