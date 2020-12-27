@@ -8,7 +8,7 @@ use App\Factory;
 
 class StaticMapProxy
 {
-	const CACHE_PATH = Config::FOLDER_DATA . '/staticmap';
+	const CACHE_FOLDER = Config::FOLDER_TEMP . '/staticmap';
 	const HASH_ALGORITHM = 'fnv1a64';
 
 	/** @var BetterLocation[] */
@@ -29,6 +29,9 @@ class StaticMapProxy
 			throw new \Exception('Public cache URL is not set in local config.');
 		}
 		$this->db = $database;
+		if (is_dir(self::CACHE_FOLDER) === false && @mkdir(self::CACHE_FOLDER, 0755, true) === false) {
+			throw new \Exception(sprintf('Error while creating folder for Static map proxy cached responses: "%s"', error_get_last()['message']));
+		}
 	}
 
 	private function throwIfLocked(): void
@@ -133,7 +136,7 @@ class StaticMapProxy
 
 	public function generateCachePath(): string
 	{
-		return sprintf('%s/%s.jpg', self::CACHE_PATH, $this->cacheId);
+		return sprintf('%s/%s.jpg', self::CACHE_FOLDER, $this->cacheId);
 	}
 
 	private function generateCacheUrl(): string
