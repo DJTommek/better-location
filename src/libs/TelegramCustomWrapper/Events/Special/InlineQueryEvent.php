@@ -186,7 +186,7 @@ class InlineQueryEvent extends Special
 
 		$inlineQueryResult->reply_markup->inline_keyboard = [$buttons];
 		$inlineQueryResult->input_message_content = new Text();
-		$inlineQueryResult->input_message_content->message_text = TelegramHelper::getMessagePrefix() . $betterLocation->generateMessage();
+		$inlineQueryResult->input_message_content->message_text = TelegramHelper::getMessagePrefix($betterLocation->getStaticMapUrl()) . $betterLocation->generateMessage();
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
 		$inlineQueryResult->input_message_content->disable_web_page_preview = true;
 		return $inlineQueryResult;

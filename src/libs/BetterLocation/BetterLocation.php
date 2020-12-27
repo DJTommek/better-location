@@ -362,6 +362,13 @@ class BetterLocation
 		$this->refreshable = $refreshable;
 	}
 
+	public function getStaticMapUrl(): string
+	{
+		$staticMap = Factory::StaticMapProxy();
+		$staticMap->addMarker($this)->downloadAndCache();
+		return $staticMap->getUrl();
+	}
+
 	public static function isLatValid(float $lat): bool
 	{
 		return ($lat <= 90 && $lat >= -90);
