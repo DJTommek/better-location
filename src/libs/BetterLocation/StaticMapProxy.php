@@ -60,11 +60,10 @@ class StaticMapProxy
 		$this->urlOriginal = $this->generateUrlOriginal();
 		$this->cacheId = $this->generateCacheId();
 		$this->fileCached = $this->generateCachePath();
-		// @TODO check if it's saved to database
 		if ($this->cacheHit() === false) {
 			$this->downloadImage();
-			$this->saveToDb();
 		}
+		$this->saveToDb();
 		$this->urlCached = $this->generateCacheUrl();
 		return $this;
 	}
@@ -113,7 +112,9 @@ class StaticMapProxy
 
 	private function saveToDb(): void
 	{
-		$this->db->query('INSERT INTO better_location_static_map_cache (id, url) VALUES (?, ?)', $this->cacheId, $this->urlOriginal);
+		// Not using INSERT IGNORE as it ignores ALL errors so run update, see https://stackoverflow.com/a/4920619/3334403
+		$sql = 'INSERT INTO better_location_static_map_cache (id, url) VALUES (?, ?) ON DUPLICATE KEY UPDATE url=url';
+		$this->db->query($sql, $this->cacheId, $this->urlOriginal);
 	}
 
 	private function generateUrlOriginal(): string
