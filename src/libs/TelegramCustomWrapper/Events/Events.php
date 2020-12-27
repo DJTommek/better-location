@@ -251,10 +251,14 @@ abstract class Events
 		$markup = $this->getHelpButtons();
 
 		if ($inline) {
-			$this->replyButton($text, $markup);
+			$this->replyButton($text, $markup, [
+				'disable_web_page_preview' => true,
+			]);
 			$this->flash(sprintf('%s Help was refreshed.', Icons::REFRESH));
 		} else {
-			$this->reply($text, $markup);
+			$this->reply($text, $markup, [
+				'disable_web_page_preview' => true,
+			]);
 		}
 	}
 

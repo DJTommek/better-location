@@ -40,7 +40,9 @@ class AddedToChatEvent extends Special
 			);
 		}
 
-		$this->reply($text, $markup);
+		$this->reply($text, $markup, [
+			'disable_web_page_preview' => true,
+		]);
 	}
 
 	private function getChatLocation(): ?BetterLocation
