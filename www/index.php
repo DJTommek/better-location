@@ -2,6 +2,11 @@
 
 require_once __DIR__ . '/../src/bootstrap.php';
 
+dump('$_GET:', $_GET);
+
+$a = \App\TelegramCustomWrapper\TelegramHelper::prepareAuthorization($_GET);
+dump('Verified $_GET:', $_GET);
+
 ?>
 <html lang="en">
 <head>

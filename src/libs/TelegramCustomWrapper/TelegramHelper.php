@@ -4,6 +4,7 @@ namespace App\TelegramCustomWrapper;
 
 use App\Config;
 use App\Icons;
+use App\TelegramCustomWrapper\Exceptions\LoginUrl;
 use unreal4u\TelegramAPI\Telegram\Types\Chat;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
@@ -324,5 +325,53 @@ class TelegramHelper
 			}
 		}
 		return $text;
+	}
+
+	/**
+	 * Check if authorization data are correct, prepare them for futher processing and validate them
+	 *
+	 * @link https://core.telegram.org/widgets/login#checking-authorization
+	 * @link https://core.telegram.org/bots/api#loginurl
+	 * @author https://gist.github.com/anonymous/6516521b1fb3b464534fbc30ea3573c2#file-check_authorization-php
+	 * @param array $data GET parameters from Telegram's Login URL button
+	 * @return array If all data are correct
+	 * @throws LoginUrl
+	 */
+	public static function prepareAuthorization(array $data): array
+	{
+		$requiredInputs = ['id', 'first_name', 'auth_date', 'hash'];
+		$allowedInputs = ['last_name', 'username', 'photo_url'];
+		$result = [];
+		foreach($requiredInputs as $inputName) {
+			if (isset($data[$inputName]) === false) {
+				throw new LoginUrl(sprintf('Login URL is missing "%s".', $inputName));
+			}
+		}
+		foreach(array_merge($requiredInputs, $allowedInputs) as $inputName) {
+			if (isset($data[$inputName])) {
+				$result[$inputName] = $data[$inputName];
+			}
+		}
+		return self::verifyAuthorization($result);
+	}
+
+	private static function verifyAuthorization(array $authData): array
+	{
+		$checkHash = $authData['hash'];
+		unset($authData['hash']);
+		$dataCheckArr = [];
+		foreach ($authData as $key => $value) {
+			$dataCheckArr[] = $key . '=' . $value;
+		}
+		sort($dataCheckArr);
+		$secretKey = hash('sha256', Config::TELEGRAM_BOT_TOKEN, true);
+		$hash = hash_hmac('sha256', implode("\n", $dataCheckArr), $secretKey);
+		if (strcmp($hash, $checkHash) !== 0) {
+			throw new LoginUrl('Login URL is not valid.');
+		}
+		if ((time() - $authData['auth_date']) > 86400) {
+			throw new LoginUrl('Login URL is too old, try it again.');
+		}
+		return $authData;
 	}
 }
