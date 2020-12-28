@@ -42,16 +42,16 @@ final class DrobnePamatkyCzService extends AbstractService
 		return self::isUrl($url);
 	}
 
-	/**
-	 * @param string $url
-	 * @return BetterLocation
-	 * @throws InvalidLocationException
-	 */
+	/** @throws InvalidLocationException */
 	public static function parseCoords(string $url): BetterLocation
 	{
-		$coords = self::parseUrl($url);
-		if ($coords) {
-			return new BetterLocation($url, $coords[0], $coords[1], self::class);
+		if ($data = self::parseUrl($url)) {
+			list($lat, $lon, $title) = $data;
+			$location = new BetterLocation($url, $lat, $lon, self::class);
+			if ($title) {
+				$location->setDescription($title);
+			}
+			return $location;
 		} else {
 			throw new InvalidLocationException(sprintf('Unable to get coords from %s link %s.', self::NAME, $url));
 		}
@@ -81,10 +81,17 @@ final class DrobnePamatkyCzService extends AbstractService
 			Debugger::log($response, ILogger::DEBUG);
 			throw new InvalidLocationException(sprintf('Coordinates on %s page are missing.', self::NAME));
 		}
-		return [
+		$result = [
 			floatval($matches[1]),
 			floatval($matches[2]),
 		];
+		$re = '/<h1[^>]+>(.+)<\/h1>/s';
+		if (preg_match($re, $response, $titleMatches)) {
+			$result[] = trim(strip_tags($titleMatches[1]));
+		} else {
+			$result[] = null;
+		}
+		return $result;
 	}
 
 	/**
