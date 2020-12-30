@@ -32,7 +32,7 @@ class TelegramHelper
 	 * - false: /command@BetterLocationBot, /command@betterLOCATIONbot, /command
 	 * @return string command without bot's username if it contains
 	 */
-	public static function getCommandRegex(bool $strict)
+	public static function getCommandRegex(bool $strict): string
 	{
 		$regex = '/^';
 		$regex .= '(\/[a-z0-9_]+)';
