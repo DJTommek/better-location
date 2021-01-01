@@ -10,6 +10,7 @@ use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\DrobnePamatkyCzService;
 use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\FacebookService;
 use App\BetterLocation\Service\FoursquareService;
 use App\BetterLocation\Service\GeocachingService;
 use App\BetterLocation\Service\GlympseService;
@@ -287,6 +288,10 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 						}
 					} else if (OpenLocationCodeService::isValid($url)) {
 						$betterLocationsCollection[] = OpenLocationCodeService::parseCoords($url);
+					} else if (FacebookService::isUrl($url)) {
+						if ($location = FacebookService::parseUrl($url)) {
+							$betterLocationsCollection[] = $location;
+						}
 					} else if (WazeService::isValid($url)) {
 						$betterLocationsCollection[] = WazeService::parseCoords($url);
 					} else if (is_null(Config::W3W_API_KEY) === false && WhatThreeWordService::isValid($url)) {
