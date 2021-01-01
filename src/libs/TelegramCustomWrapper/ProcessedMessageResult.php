@@ -77,7 +77,12 @@ class ProcessedMessageResult
 	{
 		$result = '';
 		if ($withPrefix) {
-			$result .= TelegramHelper::getMessagePrefix($withStaticMapsLink ? $this->collection->getStaticMapUrl() : null);
+			if ($withStaticMapsLink && (count($this->collection->getLocations()) > 0)) {
+				$staticMapsLink = $this->collection->getStaticMapUrl();
+			} else {
+				$staticMapsLink = null;
+			}
+			$result .= TelegramHelper::getMessagePrefix($staticMapsLink);
 		}
 		return $result . $this->resultText;
 	}
