@@ -17,12 +17,20 @@ class StringUtils
 		return $text;
 	}
 
+	/** @author https://stackoverflow.com/a/10473026/3334403 */
 	public static function startWith(string $haystack, string $needle): bool
 	{
-		return mb_substr($haystack, 0, mb_strlen($needle)) === $needle;
+		return substr_compare($haystack, $needle, 0, strlen($needle)) === 0;
 	}
 
-	public static function isGuid(string $guid, bool $supportParenthess = true) {
+	/** @author https://stackoverflow.com/a/10473026/3334403 */
+	public static function endWith(string $haystack, string $needle): bool
+	{
+		return substr_compare($haystack, $needle, -strlen($needle)) === 0;
+	}
+
+	public static function isGuid(string $guid, bool $supportParenthess = true): bool
+	{
 		$regex = '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}';
 		if ($supportParenthess) {
 			$regex = '{?' . $regex . '}?';
@@ -35,15 +43,16 @@ class StringUtils
 	 *
 	 * @author Inspiration from https://stackoverflow.com/a/1252710/3334403
 	 */
-	public static function replaceLimit(string $from, string $to, string $content, int $limit = 1): string {
+	public static function replaceLimit(string $from, string $to, string $content, int $limit = 1): string
+	{
 		$i = 0;
 		do {
 			$pos = strpos($content, $from);
 			if ($pos !== false) {
-			    $content = substr_replace($content, $to, $pos, strlen($from));
+				$content = substr_replace($content, $to, $pos, strlen($from));
 			}
 			$i++;
-		} while($i < $limit);
+		} while ($i < $limit);
 		return $content;
 	}
 }
