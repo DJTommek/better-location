@@ -42,7 +42,7 @@ final class WazeService extends AbstractService
 	public static function parseCoords(string $url): BetterLocation
 	{
 		if (self::isShortUrl($url)) {
-			$wazeUpdatedUrl = str_replace('waze.com/ul/h', 'www.waze.com/livemap?h=', $url);
+			$wazeUpdatedUrl = str_replace('waze.com/ul/h', 'www.waze.com/live-map?h=', $url);
 			$newLocation = MiniCurl::loadRedirectUrl($wazeUpdatedUrl);
 			if ($newLocation) {
 				// location is returned without domain
