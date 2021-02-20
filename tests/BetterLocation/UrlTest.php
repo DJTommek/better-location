@@ -28,6 +28,10 @@ final class UrlTest extends TestCase
 		$this->assertTrue(\App\BetterLocation\Url::isShortUrl('http://tiny.cc/ji2ysz'));
 		$this->assertTrue(\App\BetterLocation\Url::isShortUrl('https://tiny.cc/BetterLocationTest')); // custom URL
 		$this->assertTrue(\App\BetterLocation\Url::isShortUrl('http://tiny.cc/BetterLocationTest')); // custom URL
+
+		$this->assertTrue(\App\BetterLocation\Url::isShortUrl('http://jdem.cz/fguwx2'));
+		// @TODO add support for URL with custom subdomain
+//		$this->assertTrue(\App\BetterLocation\Url::isShortUrl('http://better-location-test.jdem.cz/')); // custom permanent link
 	}
 
 	public function testIsShortUrlFalse(): void
@@ -63,6 +67,10 @@ final class UrlTest extends TestCase
 		$this->assertSame('https://tiny.cc/ji2ysz', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://tiny.cc/ji2ysz'));
 		$this->assertSame('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://tiny.cc/BetterLocationTest')); // custom URL
 		$this->assertSame('https://tiny.cc/BetterLocationTest', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://tiny.cc/BetterLocationTest')); // custom URL
+
+		$this->assertSame('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://jdem.cz/fguwx2'));
+		$this->assertSame('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://better-location-test.jdem.cz/'));
+		$this->assertSame('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://better-location-test.jdem.cz'));
 	}
 
 }

@@ -26,6 +26,7 @@ class Url
 		'rb.gy', // https://rebrandly.com/
 		'tiny.cc', // https://tiny.cc/
 		'4sq.com', // https://foursquare.com/
+		'jdem.cz', // http://jdem.cz/
 	];
 
 	public static function isShortUrl($url)
