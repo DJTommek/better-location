@@ -27,6 +27,7 @@ class Url
 		'tiny.cc', // https://tiny.cc/
 		'4sq.com', // https://foursquare.com/
 		'jdem.cz', // http://jdem.cz/
+		'1url.cz', // https://1url.cz/
 	];
 
 	public static function isShortUrl($url)
