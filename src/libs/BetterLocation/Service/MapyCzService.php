@@ -184,6 +184,8 @@ final class MapyCzService extends AbstractService
 					throw new InvalidLocationException(sprintf('MapyCz API response: "%s"', htmlentities($exception->getMessage())));
 				}
 				$betterLocation = new BetterLocation($url, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PLACE_ID);
+				$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s %s</a>', $url, self::NAME, $mapyCzResponse->title));
+				$betterLocation->setAddress($mapyCzResponse->titleVars->locationMain1);
 				if ($returnCollection) {
 					$betterLocationCollection[self::TYPE_PLACE_ID] = $betterLocation;
 				} else {
