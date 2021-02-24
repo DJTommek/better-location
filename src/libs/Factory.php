@@ -84,4 +84,12 @@ class Factory
 	{
 		return new \App\BetterLocation\StaticMapProxy(self::Database());
 	}
+
+	static function ServicesManager(): \App\BetterLocation\ServicesManager
+	{
+		if (!isset(self::$objects['servicesManager'])) {
+			self::$objects['servicesManager'] = new \App\BetterLocation\ServicesManager();
+		}
+		return self::$objects['servicesManager'];
+	}
 }

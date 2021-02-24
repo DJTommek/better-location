@@ -2,6 +2,7 @@
 
 namespace App\BetterLocation;
 
+use App\BetterLocation\Service\AbstractServiceNew;
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\DuckDuckGoService;
@@ -61,8 +62,8 @@ class BetterLocation
 		if (class_exists($sourceService) === false) {
 			throw new InvalidLocationException(sprintf('Invalid source service: "%s".', $sourceService));
 		}
-		if (is_subclass_of($sourceService, AbstractService::class) === false) {
-			throw new InvalidLocationException(sprintf('Source service has to be subclass of "%s".', AbstractService::class));
+		if (is_subclass_of($sourceService, AbstractService::class) === false && is_subclass_of($sourceService, AbstractServiceNew::class) === false) {
+			throw new InvalidLocationException(sprintf('Source service has to be subclass of "%s".', AbstractServiceNew::class));
 		}
 
 		$this->sourceService = $sourceService;
@@ -118,7 +119,7 @@ class BetterLocation
 		if (class_exists($serviceClass) === false) {
 			throw new \InvalidArgumentException(sprintf('Invalid location service: "%s".', $serviceClass));
 		}
-		if (is_subclass_of($serviceClass, AbstractService::class) === false) {
+		if (is_subclass_of($serviceClass, AbstractService::class) === false && is_subclass_of($serviceClass, AbstractServiceNew::class) === false) {
 			throw new \InvalidArgumentException(sprintf('Source service has to be subclass of "%s".', AbstractService::class));
 		}
 		if (method_exists($serviceClass, 'getScreenshotLink') === false) {

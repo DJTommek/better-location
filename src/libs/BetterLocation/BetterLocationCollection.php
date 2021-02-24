@@ -265,15 +265,19 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 
 				$url = self::handleShortUrl($url);
 
+				$serviceCollection = Factory::ServicesManager()->iterate($url);
+				$serviceCollection->filterTooClose(Config::DISTANCE_IGNORE);
+				$betterLocationsCollection->mergeCollection($serviceCollection);
+
 				try {
 					if (GoogleMapsService::isValid($url)) {
 						$googleMapsBetterLocationCollection = GoogleMapsService::parseCoordsMultiple($url);
 						$googleMapsBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
 						$betterLocationsCollection->mergeCollection($googleMapsBetterLocationCollection);
-					} else if (MapyCzService::isValid($url)) {
-						$mapyCzBetterLocationCollection = MapyCzService::parseCoordsMultiple($url);
-						$mapyCzBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
-						$betterLocationsCollection->mergeCollection($mapyCzBetterLocationCollection);
+//					} else if (MapyCzService::isValid($url)) {
+//						$mapyCzBetterLocationCollection = MapyCzService::parseCoordsMultiple($url);
+//						$mapyCzBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
+//						$betterLocationsCollection->mergeCollection($mapyCzBetterLocationCollection);
 					} else if (OpenStreetMapService::isValid($url)) {
 						$betterLocationsCollection[] = OpenStreetMapService::parseCoords($url);
 					} else if (HereWeGoService::isValid($url)) {
