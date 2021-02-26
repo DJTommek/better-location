@@ -97,4 +97,16 @@ class Coordinates
 		$angle = atan2(sqrt($a), $b);
 		return $angle * $earthRadius;
 	}
+
+	/** @param string|int|float $lat */
+	public static function isLat($lat): bool
+	{
+		return (Strict::isFloat($lat) && $lat <= 90 && $lat >= -90);
+	}
+
+	/** @param string|int|float $lon */
+	public static function isLon($lon): bool
+	{
+		return (Strict::isFloat($lon) && $lon <= 180 && $lon >= -180);
+	}
 }
