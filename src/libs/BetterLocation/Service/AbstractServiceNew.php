@@ -52,6 +52,11 @@ abstract class AbstractServiceNew
 		return $this->collection;
 	}
 
+	final public function getFirst(): BetterLocation
+	{
+		return $this->collection->getFirst();
+	}
+
 	public static function getConstants()
 	{
 		return [];
@@ -66,8 +71,19 @@ abstract class AbstractServiceNew
 		}
 	}
 
-	public static function isValidStatic(string $input): bool {
+	public static function isValidStatic(string $input): bool
+	{
 		$instance = new static($input);
 		return $instance->isValid();
+	}
+
+	public static function processStatic(string $input): self
+	{
+		$instance = new static($input);
+		if ($instance->isValid() === false) {
+			throw new \InvalidArgumentException('Input is not valid.');
+		}
+		$instance->process();
+		return $instance;
 	}
 }
