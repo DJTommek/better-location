@@ -48,7 +48,7 @@ class Coordinates
 	public static function gpsSubIFDToFloat(string $coordPart): float
 	{
 		if (preg_match('/^([0-9]+)\/([0-9]+)$/', $coordPart, $matches)) {
-			return (float) $matches[1] / (float) $matches[2];
+			return (float)$matches[1] / (float)$matches[2];
 		} else {
 			throw new \InvalidArgumentException(sprintf('Provided part of coordination "%s" is not valid.', $coordPart));
 		}
