@@ -7,6 +7,7 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\MiniCurl\MiniCurl;
+use App\Utils\Coordinates;
 use App\Utils\General;
 use App\Utils\Strict;
 use DJTommek\MapyCzApi\MapyCzApi;
@@ -23,6 +24,10 @@ final class MapyCzServiceNew extends AbstractServiceNew
 	const TYPE_PLACE_ID = 'Place';
 	const TYPE_PLACE_COORDS = 'Place coords';
 	const TYPE_PANORAMA = 'Panorama';
+
+	public function beforeStart(): void {
+		$this->data->placeIdCoord = false;
+	}
 
 	public function isValid(): bool
 	{
@@ -58,12 +63,24 @@ final class MapyCzServiceNew extends AbstractServiceNew
 		// Mapy.cz panorama:
 		// https://en.mapy.cz/zakladni?x=14.3139613&y=49.1487367&z=15&pano=1&pid=30158941&yaw=1.813&fov=1.257&pitch=-0.026
 //		$parsedUrl = parse_url(urldecode($url)); // @TODO why it is used urldecode?
-		return (
-			$this->inputUrl->getQueryParameter('x') && $this->inputUrl->getQueryParameter('y') || // map position
-			$this->inputUrl->getQueryParameter('id') && $this->inputUrl->getQueryParameter('source') || // place ID
-			$this->inputUrl->getQueryParameter('pid') || // panorama ID
-			$this->inputUrl->getQueryParameter('ma_x') && $this->inputUrl->getQueryParameter('ma_y') // not sure what is this...
-		);
+
+		if (
+			Coordinates::isLat($this->inputUrl->getQueryParameter('x')) && Coordinates::isLon($this->inputUrl->getQueryParameter('y')) || // map position
+			Strict::isPositiveInt($this->inputUrl->getQueryParameter( 'id')) && $this->inputUrl->getQueryParameter('source') || // place ID
+			Strict::isPositiveInt($this->inputUrl->getQueryParameter('pid')) || // panorama ID
+			Coordinates::isLat($this->inputUrl->getQueryParameter('ma_x')) && Coordinates::isLon($this->inputUrl->getQueryParameter('ma_y')) // not sure what is this...
+		) {
+			return true;
+		} else if ($this->inputUrl->getQueryParameter('source') === 'coor' && $this->inputUrl->getQueryParameter( 'id')) { // coordinates in place ID
+			$coords = explode(',', $this->inputUrl->getQueryParameter( 'id'));
+			if (count($coords) === 2 && Coordinates::isLat($coords[1]) && Coordinates::isLon($coords[0])) {
+				$this->data->placeIdCoord = true;
+				$this->data->placeIdCoordLat = Strict::floatval($coords[1]);
+				$this->data->placeIdCoordLon = Strict::floatval($coords[0]);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static function getConstants(): array
@@ -131,8 +148,8 @@ final class MapyCzServiceNew extends AbstractServiceNew
 		}
 
 		// MapyCZ URL has ID in format of coordinates
-		if ($this->url->getQueryParameter('id') && preg_match('/^(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)$/', $this->url->getQueryParameter('id'), $matches)) {
-			$betterLocation = new BetterLocation($this->input, floatval($matches[2]), floatval($matches[1]), self::class, self::TYPE_PLACE_COORDS);
+		if ($this->data->placeIdCoord === true) {
+			$betterLocation = new BetterLocation($this->input, $this->data->placeIdCoordLat, $this->data->placeIdCoordLon, self::class, self::TYPE_PLACE_COORDS);
 			$this->collection[] = $betterLocation;
 		}
 
