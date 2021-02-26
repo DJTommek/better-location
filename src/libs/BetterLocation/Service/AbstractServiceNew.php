@@ -33,6 +33,10 @@ abstract class AbstractServiceNew
 		}
 		$this->collection = new BetterLocationCollection();
 		$this->data = new \stdClass();
+
+		if (method_exists($this, 'beforeStart')) {
+			$this->beforeStart();
+		}
 	}
 
 	abstract public function isValid(): bool;
