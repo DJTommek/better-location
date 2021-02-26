@@ -64,15 +64,8 @@ final class MapyCzServiceNew extends AbstractServiceNew
 		// https://en.mapy.cz/zakladni?x=14.3139613&y=49.1487367&z=15&pano=1&pid=30158941&yaw=1.813&fov=1.257&pitch=-0.026
 //		$parsedUrl = parse_url(urldecode($url)); // @TODO why it is used urldecode?
 
-		if (
-			Coordinates::isLat($this->inputUrl->getQueryParameter('x')) && Coordinates::isLon($this->inputUrl->getQueryParameter('y')) || // map position
-			Strict::isPositiveInt($this->inputUrl->getQueryParameter( 'id')) && $this->inputUrl->getQueryParameter('source') || // place ID
-			Strict::isPositiveInt($this->inputUrl->getQueryParameter('pid')) || // panorama ID
-			Coordinates::isLat($this->inputUrl->getQueryParameter('ma_x')) && Coordinates::isLon($this->inputUrl->getQueryParameter('ma_y')) // not sure what is this...
-		) {
-			return true;
-		} else if ($this->inputUrl->getQueryParameter('source') === 'coor' && $this->inputUrl->getQueryParameter( 'id')) { // coordinates in place ID
-			$coords = explode(',', $this->inputUrl->getQueryParameter( 'id'));
+		if ($this->inputUrl->getQueryParameter('source') === 'coor' && $this->inputUrl->getQueryParameter( 'id')) { // coordinates in place ID
+			$coords = explode(',', $this->inputUrl->getQueryParameter('id'));
 			if (count($coords) === 2 && Coordinates::isLat($coords[1]) && Coordinates::isLon($coords[0])) {
 				$this->data->placeIdCoord = true;
 				$this->data->placeIdCoordLat = Strict::floatval($coords[1]);
@@ -80,7 +73,13 @@ final class MapyCzServiceNew extends AbstractServiceNew
 				return true;
 			}
 		}
-		return false;
+
+		return (
+			Coordinates::isLat($this->inputUrl->getQueryParameter('x')) && Coordinates::isLon($this->inputUrl->getQueryParameter('y')) || // map position
+			Strict::isPositiveInt($this->inputUrl->getQueryParameter( 'id')) && $this->inputUrl->getQueryParameter('source') || // place ID
+			Strict::isPositiveInt($this->inputUrl->getQueryParameter('pid')) || // panorama ID
+			Coordinates::isLat($this->inputUrl->getQueryParameter('ma_x')) && Coordinates::isLon($this->inputUrl->getQueryParameter('ma_y')) // not sure what is this...
+		);
 	}
 
 	public static function getConstants(): array
