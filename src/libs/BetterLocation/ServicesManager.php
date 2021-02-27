@@ -18,6 +18,7 @@ class ServicesManager
 		$this->services[] = MapyCzServiceNew::class;
 		$this->services[] = IngressIntelService::class;
 		$this->services[] = DrobnePamatkyCzService::class;
+//		$this->services[] = DuckDuckGoService::class; // currently not supported
 	}
 
 	public function iterate(string $input): BetterLocationCollection
