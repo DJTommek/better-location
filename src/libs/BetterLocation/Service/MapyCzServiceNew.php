@@ -41,11 +41,6 @@ final class MapyCzServiceNew extends AbstractServiceNew
 		);
 	}
 
-	public function parse(string $input): BetterLocation
-	{
-		// TODO: Implement parse() method.
-	}
-
 	private function isShortUrl()
 	{
 		// Mapy.cz short link:

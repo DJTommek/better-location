@@ -43,8 +43,6 @@ abstract class AbstractServiceNew
 
 	abstract public function process();
 
-	abstract public function parse(string $input): BetterLocation;
-
 	abstract static public function getLink(float $lat, float $lon, bool $drive = false);
 
 	final public function getCollection(): BetterLocationCollection
