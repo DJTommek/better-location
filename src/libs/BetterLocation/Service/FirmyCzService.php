@@ -3,13 +3,11 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
-use App\Utils\General;
+use App\Utils\Strict;
 use DJTommek\MapyCzApi\MapyCzApi;
 
-final class FirmyCzService extends AbstractService
+final class FirmyCzService extends AbstractServiceNew
 {
 	const NAME = 'Firmy.cz';
 
@@ -27,48 +25,26 @@ final class FirmyCzService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $input): bool
+	public function isValid(): bool
 	{
-		return self::isUrl($input);
+		if (
+			$this->inputUrl !== null &&
+			$this->inputUrl->getDomain(2) === 'firmy.cz' &&
+			preg_match(self::URL_PATH_REGEX, $this->inputUrl->getPath(), $matches)
+		) {
+			$this->data->firmId = Strict::intval($matches[1]);
+			return true;
+		}
+		return false;
 	}
 
-	public static function parseCoords(string $input): BetterLocation
+	public function process()
 	{
-		throw new NotImplementedException('Parsing coordinates is not available.');
-	}
-
-	public static function isUrl(string $url): bool
-	{
-		$url = mb_strtolower($url);
-		$parsedUrl = General::parseUrl($url);
-		return (
-			isset($parsedUrl['host']) &&
-			in_array($parsedUrl['host'], ['firmy.cz', 'www.firmy.cz']) &&
-			isset($parsedUrl['path']) &&
-			preg_match(self::URL_PATH_REGEX, $parsedUrl['path'])
-		);
-	}
-
-	public static function parseUrl(string $url): BetterLocation
-	{
-		$parsedUrl = General::parseUrl($url);
-		preg_match(self::URL_PATH_REGEX, $parsedUrl['path'], $matches);
-		$firmId = (int)$matches[1];
 		$mapyCzApi = new MapyCzApi();
-		$firmDetail = $mapyCzApi->loadPoiDetails('firm', $firmId);
-		$location = new BetterLocation($url, $firmDetail->getLat(), $firmDetail->getLon(), self::class);
-		$location->setPrefixMessage(sprintf('<a href="%s">%s %s</a>', $url, self::NAME, $firmDetail->title));
+		$firmDetail = $mapyCzApi->loadPoiDetails('firm', $this->data->firmId);
+		$location = new BetterLocation($this->input, $firmDetail->getLat(), $firmDetail->getLon(), self::class);
+		$location->setPrefixMessage(sprintf('<a href="%s">%s %s</a>', $this->input, self::NAME, $firmDetail->title));
 		$location->setAddress($firmDetail->titleVars->locationMain1);
-		return $location;
-	}
-
-	/**
-	 * @param string $input
-	 * @return BetterLocationCollection
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection
-	{
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
+		$this->collection->add($location);
 	}
 }
