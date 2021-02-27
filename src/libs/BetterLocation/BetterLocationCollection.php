@@ -319,8 +319,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 						$betterLocationsCollection[] = DuckDuckGoService::parseCoords($url);
 					} else if (RopikyNetService::isValid($url)) {
 						$betterLocationsCollection[] = RopikyNetService::parseCoords($url);
-					} else if (DrobnePamatkyCzService::isValid($url)) {
-						$betterLocationsCollection[] = DrobnePamatkyCzService::parseCoords($url);
+//					} else if (DrobnePamatkyCzService::isValid($url)) {
+//						$betterLocationsCollection[] = DrobnePamatkyCzService::parseCoords($url);
 					} else if (ZniceneKostelyCzService::isValid($url)) {
 						$betterLocationsCollection[] = ZniceneKostelyCzService::parseCoords($url);
 					} else if (ZanikleObceCzService::isValid($url)) {

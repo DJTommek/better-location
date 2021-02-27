@@ -3,8 +3,10 @@
 namespace App\BetterLocation;
 
 use App\BetterLocation\Service\AbstractServiceNew;
+use App\BetterLocation\Service\DrobnePamatkyCzService;
 use App\BetterLocation\Service\IngressIntelService;
 use App\BetterLocation\Service\MapyCzServiceNew;
+use Tracy\Debugger;
 
 class ServicesManager
 {
@@ -15,6 +17,7 @@ class ServicesManager
 	{
 		$this->services[] = MapyCzServiceNew::class;
 		$this->services[] = IngressIntelService::class;
+		$this->services[] = DrobnePamatkyCzService::class;
 	}
 
 	public function iterate(string $input): BetterLocationCollection

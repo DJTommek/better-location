@@ -26,37 +26,36 @@ final class DrobnePamatkyCzServiceTest extends TestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(DrobnePamatkyCzService::isValid('https://www.drobnepamatky.cz/node/36966'));
-		$this->assertTrue(DrobnePamatkyCzService::isValid('http://www.drobnepamatky.cz/node/36966'));
-		$this->assertTrue(DrobnePamatkyCzService::isValid('https://drobnepamatky.cz/node/36966'));
-		$this->assertTrue(DrobnePamatkyCzService::isValid('http://drobnepamatky.cz/node/36966'));
+		$this->assertTrue(DrobnePamatkyCzService::isValidStatic('https://www.drobnepamatky.cz/node/36966'));
+		$this->assertTrue(DrobnePamatkyCzService::isValidStatic('http://www.drobnepamatky.cz/node/36966'));
+		$this->assertTrue(DrobnePamatkyCzService::isValidStatic('https://drobnepamatky.cz/node/36966'));
+		$this->assertTrue(DrobnePamatkyCzService::isValidStatic('http://drobnepamatky.cz/node/36966'));
 
-		$this->assertFalse(DrobnePamatkyCzService::isValid('https://www.drobnepamatky.cz/'));
-		$this->assertFalse(DrobnePamatkyCzService::isValid('https://www.drobnepamatky.cz/node/'));
-		$this->assertFalse(DrobnePamatkyCzService::isValid('https://www.drobnepamatky.cz/node/abc'));
-		$this->assertFalse(DrobnePamatkyCzService::isValid('https://www.drobnepamatky.cz/node/123abc'));
-		$this->assertFalse(DrobnePamatkyCzService::isValid('https://www.drobnepamatky.cz/node/abc123'));
-		$this->assertFalse(DrobnePamatkyCzService::isValid('https://www.drobnepamatky.cz/node/123aaa456'));
+		$this->assertFalse(DrobnePamatkyCzService::isValidStatic('https://www.drobnepamatky.cz/'));
+		$this->assertFalse(DrobnePamatkyCzService::isValidStatic('https://www.drobnepamatky.cz/node/'));
+		$this->assertFalse(DrobnePamatkyCzService::isValidStatic('https://www.drobnepamatky.cz/node/abc'));
+		$this->assertFalse(DrobnePamatkyCzService::isValidStatic('https://www.drobnepamatky.cz/node/123abc'));
+		$this->assertFalse(DrobnePamatkyCzService::isValidStatic('https://www.drobnepamatky.cz/node/abc123'));
+		$this->assertFalse(DrobnePamatkyCzService::isValidStatic('https://www.drobnepamatky.cz/node/123aaa456'));
 
-		$this->assertFalse(DrobnePamatkyCzService::isValid('some invalid url'));
+		$this->assertFalse(DrobnePamatkyCzService::isValidStatic('some invalid url'));
 	}
 
-	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testUrl(): void
 	{
-		$this->assertSame('50.067665,14.401487', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/36966')->__toString());
-		$this->assertSame('49.854270,18.542159', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/9279')->__toString());
-		$this->assertSame('49.805000,18.449748', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/9282')->__toString());
+		$this->assertSame('50.067665,14.401487', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/36966')->getFirst()->__toString());
+		$this->assertSame('49.854270,18.542159', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/9279')->getFirst()->__toString());
+		$this->assertSame('49.805000,18.449748', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/9282')->getFirst()->__toString());
 		// Oborané památky (https://www.drobnepamatky.cz/oborane)
-		$this->assertSame('49.687435,14.712323', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/10646')->__toString());
-		$this->assertSame('48.974158,14.612296', DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/2892')->__toString());
+		$this->assertSame('49.687435,14.712323', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/10646')->getFirst()->__toString());
+		$this->assertSame('48.974158,14.612296', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/2892')->getFirst()->__toString());
 	}
 
 	public function testMissingCoordinates1(): void
 	{
-		$this->expectException(InvalidLocationException::class);
-		$this->expectExceptionMessage('Unable to get coords from DrobnePamatky.cz link https://www.drobnepamatky.cz/node/9999999.');
-		DrobnePamatkyCzService::parseCoords('https://www.drobnepamatky.cz/node/9999999');
+		$this->expectException(\App\MiniCurl\Exceptions\InvalidResponseException::class);
+		$this->expectExceptionMessage('Invalid response code "404" but required "200" for URL "https://www.drobnepamatky.cz/node/9999999');
+		DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/9999999');
 	}
 
 }

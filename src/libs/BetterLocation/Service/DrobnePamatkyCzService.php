@@ -3,31 +3,22 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Config;
 use App\MiniCurl\MiniCurl;
-use App\Utils\General;
+use App\Utils\Strict;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
-final class DrobnePamatkyCzService extends AbstractService
+final class DrobnePamatkyCzService extends AbstractServiceNew
 {
 	const NAME = 'DrobnePamatky.cz';
 
 	const LINK = 'https://www.drobnepamatky.cz';
 
-	const PATH_REGEX = '/^\/node\/([0-9]+)$/';
+	const PATH_REGEX = '/^\/node\/[0-9]+$/';
 
-	/**
-	 * @param float $lat
-	 * @param float $lon
-	 * @param bool $drive
-	 * @return string
-	 * @throws NotSupportedException
-	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
 		if ($drive) {
@@ -37,70 +28,26 @@ final class DrobnePamatkyCzService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool
+	public function isValid(): bool
 	{
-		return self::isUrl($url);
-	}
-
-	/** @throws InvalidLocationException */
-	public static function parseCoords(string $url): BetterLocation
-	{
-		if ($data = self::parseUrl($url)) {
-			list($lat, $lon, $title) = $data;
-			$location = new BetterLocation($url, $lat, $lon, self::class);
-			if ($title) {
-				$location->setDescription($title);
-			}
-			return $location;
-		} else {
-			throw new InvalidLocationException(sprintf('Unable to get coords from %s link %s.', self::NAME, $url));
-		}
-	}
-
-	public static function isUrl(string $url): bool
-	{
-		$url = mb_strtolower($url);
-		$parsedUrl = General::parseUrl($url);
 		return (
-			isset($parsedUrl['host']) &&
-			in_array($parsedUrl['host'], ['drobnepamatky.cz', 'www.drobnepamatky.cz']) &&
-			isset($parsedUrl['path']) &&
-			preg_match(self::PATH_REGEX, $parsedUrl['path'])
+			$this->inputUrl !== null &&
+			$this->inputUrl->getDomain(2) === 'drobnepamatky.cz' &&
+			preg_match(self::PATH_REGEX, $this->inputUrl->getPath(), $matches)
 		);
 	}
 
-	public static function parseUrl(string $url): ?array
+	public function process()
 	{
-		try {
-			$response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_DROBNE_PAMATKY_CZ)->run()->getBody();
-		} catch (\Throwable $exception) {
-			Debugger::log($exception, ILogger::DEBUG);
-			return null;
-		}
+		$response = (new MiniCurl($this->input))->allowCache(Config::CACHE_TTL_DROBNE_PAMATKY_CZ)->run()->getBody();
 		if (!preg_match('/<meta\s+name="geo\.position"\s*content="([0-9.]+);\s*([0-9.]+)\s*"/', $response, $matches)) {
 			Debugger::log($response, ILogger::DEBUG);
 			throw new InvalidLocationException(sprintf('Coordinates on %s page are missing.', self::NAME));
 		}
-		$result = [
-			floatval($matches[1]),
-			floatval($matches[2]),
-		];
-		$re = '/<h1[^>]+>(.+)<\/h1>/s';
-		if (preg_match($re, $response, $titleMatches)) {
-			$result[] = trim(strip_tags($titleMatches[1]));
-		} else {
-			$result[] = null;
+		$location = new BetterLocation($this->input, Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class);
+		if (preg_match('/<h1[^>]+>(.+)<\/h1>/s', $response, $titleMatches)) {
+			$location->setDescription(trim(strip_tags($titleMatches[1])));
 		}
-		return $result;
-	}
-
-	/**
-	 * @param string $input
-	 * @return BetterLocationCollection
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection
-	{
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
+		$this->collection->add($location);
 	}
 }
