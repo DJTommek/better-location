@@ -294,8 +294,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 						}
 					} else if (OpenLocationCodeService::isValid($url)) {
 						$betterLocationsCollection[] = OpenLocationCodeService::parseCoords($url);
-					} else if (FirmyCzService::isUrl($url)) {
-						$betterLocationsCollection[] = FirmyCzService::parseUrl($url);
+//					} else if (FirmyCzService::isUrl($url)) {
+//						$betterLocationsCollection[] = FirmyCzService::parseUrl($url);
 					} else if (FacebookService::isUrl($url)) {
 						if ($location = FacebookService::parseUrl($url)) {
 							$betterLocationsCollection[] = $location;
@@ -313,10 +313,10 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 						$betterLocationsCollection[] = OsmAndService::parseUrl($url);
 					} else if (Config::isIngressMosaic() && IngressMosaicService::isValid($url)) {
 						$betterLocationsCollection[] = IngressMosaicService::parseUrl($url);
-					} else if (Config::isFoursquare() && FoursquareService::isValid($url)) {
-						$betterLocationsCollection[] = FoursquareService::parseUrl($url);
-					} else if (DuckDuckGoService::isValid($url)) {
-						$betterLocationsCollection[] = DuckDuckGoService::parseCoords($url);
+//					} else if (Config::isFoursquare() && FoursquareService::isValid($url)) {
+//						$betterLocationsCollection[] = FoursquareService::parseUrl($url);
+//					} else if (DuckDuckGoService::isValid($url)) {
+//						$betterLocationsCollection[] = DuckDuckGoService::parseCoords($url);
 					} else if (RopikyNetService::isValid($url)) {
 						$betterLocationsCollection[] = RopikyNetService::parseCoords($url);
 //					} else if (DrobnePamatkyCzService::isValid($url)) {

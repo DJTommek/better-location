@@ -3,16 +3,12 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
-use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Factory;
 use App\Foursquare\Client;
 use App\Foursquare\Types\VenueType;
-use App\Utils\General;
 
-final class FoursquareService extends AbstractService
+final class FoursquareService extends AbstractServiceNew
 {
 	const NAME = 'Foursquare';
 
@@ -35,69 +31,31 @@ final class FoursquareService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $input): bool
+	public function isValid(): bool
 	{
-		return self::isUrl($input);
-	}
-
-	public static function isUrl(string $url): bool
-	{
-		return self::isCorrectDomainUrl($url) && self::isVenueIdUrl($url);
-	}
-
-	private static function isCorrectDomainUrl($url): bool
-	{
-		$parsedUrl = General::parseUrl($url);
-		return (
-			isset($parsedUrl['host']) &&
-			// @TODO add support for domains based on country (eg it.foursquare.com)
-			in_array(mb_strtolower($parsedUrl['host']), ['foursquare.com', 'www.foursquare.com'], true) &&
-			isset($parsedUrl['path'])
-		);
-	}
-
-	private static function isVenueIdUrl($url): bool
-	{
-		$parsedUrl = General::parseUrl(mb_strtolower($url));
-		return !!(preg_match(self::URL_PATH_VENUE_REGEX, $parsedUrl['path']));
-	}
-
-	private static function getVenueIdFromUrl($url): ?string
-	{
-		$parsedUrl = General::parseUrl(mb_strtolower($url));
-		if (preg_match(self::URL_PATH_VENUE_REGEX, $parsedUrl['path'], $matches)) {
-			return $matches[1];
-		} else {
-			return null;
+		if (
+			$this->inputUrl !== null &&
+			$this->inputUrl->getDomain(2) === 'foursquare.com' &&
+			preg_match(self::URL_PATH_VENUE_REGEX, $this->inputUrl->getPath(), $matches)
+		) {
+			$this->data->venueId = $matches[1];
+			return true;
 		}
+		return false;
 	}
 
-	public static function parseUrl(string $url): BetterLocation
+	public function process()
 	{
-		if ($venueId = self::getVenueIdFromUrl($url)) {
-			$client = Factory::Foursquare();
-			$venue = $client->loadVenue($venueId);
-			return self::formatApiResponse($venue, $url);
-		} else {
-			throw new InvalidLocationException(sprintf('Invalid venue ID in URL %s.', self::NAME));
-		}
+		$client = Factory::Foursquare();
+		$venue = $client->loadVenue($this->data->venueId);
+		$this->collection->add($this->venueToBetterLocation($venue));
 	}
 
-	public static function parseCoords(string $url): BetterLocation
-	{
-		throw new NotImplementedException('Parsing coordinates is not available.');
-	}
-
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection
-	{
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
-	}
-
-	private static function formatApiResponse(VenueType $venue, string $inputUrl): BetterLocation
+	private function venueToBetterLocation(VenueType $venue): BetterLocation
 	{
 		// @TODO warning if location isFuzzed (lat lon are inaccurate)
 		// @TODO warning if now closed?
-		$betterLocation = new BetterLocation($inputUrl, $venue->location->lat, $venue->location->lng, self::class);
+		$betterLocation = new BetterLocation($this->input, $venue->location->lat, $venue->location->lng, self::class);
 		$betterLocation->setAddress($venue->location->getFormattedAddress());
 
 		$prefix = sprintf('%s <a href="%s">%s</a>', $betterLocation->getPrefixMessage(), $venue->url, $venue->name);
