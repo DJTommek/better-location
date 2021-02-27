@@ -23,4 +23,18 @@ final class DuckDuckGoServiceTest extends TestCase
 		DuckDuckGoService::getLink(50.087451, 14.420671, true);
 	}
 
+	public function testIsValid(): void
+	{
+		$this->expectException(NotImplementedException::class);
+		$this->expectExceptionMessage('Validating is not implemented.');
+		DuckDuckGoService::isValidStatic('https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps');
+	}
+
+	public function testProcess(): void
+	{
+		$this->expectException(NotImplementedException::class);
+		$this->expectExceptionMessage('Validating is not implemented.');
+		DuckDuckGoService::processStatic('https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps');
+	}
+
 }

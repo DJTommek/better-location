@@ -2,24 +2,15 @@
 
 namespace App\BetterLocation\Service;
 
-use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 
-final class DuckDuckGoService extends AbstractService
+final class DuckDuckGoService extends AbstractServiceNew
 {
 	const NAME = 'DuckDuckGo';
 	const NAME_SHORT = 'DDG';
 
 	const LINK = 'https://duckduckgo.com';
 
-	/**
-	 * @param float $lat
-	 * @param float $lon
-	 * @param bool $drive
-	 * @return string
-	 * @throws NotImplementedException
-	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
 		if ($drive) {
@@ -29,28 +20,13 @@ final class DuckDuckGoService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool
+	public function isValid(): bool
 	{
-		return false;
+		throw new NotImplementedException('Validating is not implemented.');
 	}
 
-	/**
-	 * @param string $url
-	 * @return BetterLocation
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoords(string $url): BetterLocation
+	public function process()
 	{
-		throw new NotImplementedException('Parsing coordinates is not available.');
-	}
-
-	/**
-	 * @param string $input
-	 * @return BetterLocationCollection
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection
-	{
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
+		throw new NotImplementedException('Processing is not available.');
 	}
 }
