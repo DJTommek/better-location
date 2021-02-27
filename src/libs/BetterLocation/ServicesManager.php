@@ -23,7 +23,11 @@ class ServicesManager
 			/** @var $service AbstractServiceNew */
 			$service = new $serviceName($input);
 			if ($service->isValid()) {
-				$service->process();
+				try {
+					$service->process();
+				} catch (\Throwable $exception) {
+					Debugger::log($exception, Debugger::DEBUG);
+				}
 				return $service->getCollection();
 			}
 		}
