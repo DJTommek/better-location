@@ -3,18 +3,19 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
-use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Factory;
 use App\Icons;
+use App\Utils\Coordinates;
+use App\Utils\Strict;
 use Tracy\Debugger;
-use Tracy\ILogger;
 
-final class IngressIntelService extends AbstractService
+final class IngressIntelService extends AbstractServiceNew
 {
 	const NAME = 'Ingress';
+
+	const TYPE_MAP = 'map';
+	const TYPE_PORTAL = 'portal';
 
 	const LINK = 'https://intel.ingress.com';
 
@@ -28,71 +29,66 @@ final class IngressIntelService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool
+	public function isValid(): bool
 	{
-		return self::isUrl($url);
+		$result = false;
+		if ($param = $this->inputUrl->getQueryParameter('pll')) { // map coordinates
+			$coords = explode(',', $param);
+			if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
+				$this->data->portalCoord = true;
+				$this->data->portalCoordLat = Strict::floatval($coords[0]);
+				$this->data->portalCoordLon = Strict::floatval($coords[1]);
+				$result = true;
+			}
+		}
+
+		if ($param = $this->inputUrl->getQueryParameter('ll')) { // portal coordinates
+			$coords = explode(',', $param);
+			if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
+				$this->data->mapCoord = true;
+				$this->data->mapCoordLat = Strict::floatval($coords[0]);
+				$this->data->mapCoordLon = Strict::floatval($coords[1]);
+				$result = true;
+			}
+		}
+		return $result;
 	}
 
-	/** @throws InvalidLocationException */
-	public static function parseCoords(string $url): BetterLocation
+	public function process()
 	{
-		$coords = self::parseUrl($url);
-		if ($coords) {
-			list($lat, $lon) = $coords;
-			$location = new BetterLocation($url, $lat, $lon, self::class);
-			try {
-				if ($portal = Factory::IngressLanchedRu()->getPortalByCoords($lat, $lon)) {
-					$prefix = $location->getPrefixMessage();
-					$prefix .= sprintf(' <a href="%s">%s</a>', $portal->getIntelLink(), htmlspecialchars($portal->name));
-					$location->setInlinePrefixMessage($prefix);
-					$prefix .= sprintf(' <a href="%s">%s</a>', $portal->image, Icons::PICTURE);
-					$location->setPrefixMessage($prefix);
-					if (in_array($portal->address, ['', 'undefined', '[Unknown Location]'], true) === false) { // show portal address only if it makes sense
-						$location->setAddress(htmlspecialchars($portal->address));
-					}
+		if ($this->data->portalCoord) {
+			$location = new BetterLocation($this->input, $this->data->portalCoordLat, $this->data->portalCoordLon, self::class, self::TYPE_PORTAL);
+			$this->addPortalData($location);
+			$this->collection->add($location);
+		}
+		if ($this->data->mapCoord) {
+			$this->collection->add(new BetterLocation($this->input, $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP));
+		}
+	}
+
+	private function addPortalData(BetterLocation $location): void
+	{
+		try {
+			if ($portal = Factory::IngressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon())) {
+				$prefix = $location->getPrefixMessage();
+				$prefix .= sprintf(' <a href="%s">%s</a>', $portal->getIntelLink(), htmlspecialchars($portal->name));
+				$location->setInlinePrefixMessage($prefix);
+				$prefix .= sprintf(' <a href="%s">%s</a>', $portal->image, Icons::PICTURE);
+				$location->setPrefixMessage($prefix);
+				if (in_array($portal->address, ['', 'undefined', '[Unknown Location]'], true) === false) { // show portal address only if it makes sense
+					$location->setAddress(htmlspecialchars($portal->address));
 				}
-			} catch (\Throwable $exception) {
-				Debugger::log($exception, ILogger::EXCEPTION);
 			}
-			return $location;
-		} else {
-			throw new InvalidLocationException(sprintf('Unable to get coords from Ingress Intel link "%s".', $url));
+		} catch (\Throwable $exception) {
+			Debugger::log($exception, Debugger::EXCEPTION);
 		}
 	}
 
-	public static function isUrl(string $url): bool
+	public static function getConstants(): array
 	{
-		return substr($url, 0, mb_strlen(self::LINK)) === self::LINK;
-	}
-
-	public static function parseUrl(string $url): ?array
-	{
-		$paramsString = explode('?', $url);
-		if (count($paramsString) === 2) {
-			parse_str($paramsString[1], $params);
-			if (isset($params['pll'])) {
-				$coords = explode(',', $params['pll']);
-			} else if (isset($params['ll'])) {
-				$coords = explode(',', $params['ll']);
-			} else {
-				return null;
-			}
-			return [
-				floatval($coords[0]),
-				floatval($coords[1]),
-			];
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * @param string $input
-	 * @return BetterLocationCollection
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection
-	{
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
+		return [
+			self::TYPE_PORTAL,
+			self::TYPE_MAP,
+		];
 	}
 }

@@ -3,6 +3,7 @@
 namespace App\BetterLocation;
 
 use App\BetterLocation\Service\AbstractServiceNew;
+use App\BetterLocation\Service\IngressIntelService;
 use App\BetterLocation\Service\MapyCzServiceNew;
 
 class ServicesManager
@@ -13,6 +14,7 @@ class ServicesManager
 	public function __construct()
 	{
 		$this->services[] = MapyCzServiceNew::class;
+		$this->services[] = IngressIntelService::class;
 	}
 
 	public function iterate(string $input): BetterLocationCollection
