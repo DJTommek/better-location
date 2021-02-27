@@ -213,9 +213,9 @@ abstract class Events
 				'https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system',
 			) . PHP_EOL;
 		$text .= sprintf('- codes: <a href="%s">Geocaching GCxxx</a>, <a href="%s">What3Words</a>, <a href="%s">Open Location Codes</a>, ...',
+				'https://geocaching.com/',
 				'https://what3words.com/',
 				'https://plus.codes/',
-				'https://geocaching.com/',
 			) . PHP_EOL;
 		$text .= sprintf('- links: google.com, glympse.com, mapy.cz, intel.ingress.com, ...') . PHP_EOL;
 		$text .= sprintf('- short links: goo.gl, bit.ly, tinyurl.com, t.co, tiny.cc, ...') . PHP_EOL;
