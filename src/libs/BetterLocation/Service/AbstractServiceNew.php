@@ -90,6 +90,10 @@ abstract class AbstractServiceNew
 		}
 	}
 
+	public function getData() {
+		return $this->data;
+	}
+
 	public static function isValidStatic(string $input): bool
 	{
 		$instance = new static($input);
