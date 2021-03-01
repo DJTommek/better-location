@@ -10,11 +10,31 @@ abstract class AbstractServiceNew
 {
 	/** @var bool */
 	private $processed = false;
-	/** @var string */
+
+	/**
+	 * Raw input as-is
+	 *
+	 * @readonly
+	 * @var string
+	 */
 	protected $input;
-	/** @var ?UrlImmutable */
+
+	/**
+	 * URL generated from input (if possible) and after passing constructor it will never change.
+	 *
+	 * @readonly
+	 * @var ?UrlImmutable
+	 */
 	protected $inputUrl;
-	/** @var ?UrlImmutable */
+
+	/**
+	 * URL initially generated from input, but can be changed, eg. if input URL is alias or redirecting to another URL
+	 *
+	 * Example URL https://www.geocaching.com/seek/cache_details.aspx?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4
+	 * will be replaced with https://www.geocaching.com/geocache/GC85BTR_antivirova-cache?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4
+	 *
+	 * @var ?UrlImmutable
+	 */
 	protected $url;
 
 	protected $collection;
@@ -26,7 +46,8 @@ abstract class AbstractServiceNew
 	{
 		$this->input = $input;
 		try {
-			$this->inputUrl = new UrlImmutable($input);
+			$url = new UrlImmutable($input);
+			$this->inputUrl = $url->withHost(mb_strtolower($url->getHost())); // Convert host to lowercase
 			$this->url = $this->inputUrl;
 		} catch (\Nette\InvalidArgumentException $exception) {
 			// Silent, probably is not URL
