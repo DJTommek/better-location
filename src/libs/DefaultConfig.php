@@ -50,6 +50,10 @@ class DefaultConfig
 	const GOOGLE_PLACE_API_KEY = null;
 	//const GOOGLE_PLACE_API_KEY = 'someRandomGeneratedApiKeyFromGoogleCloudPlatform';
 
+	/** @var ?string API Key for Google Maps Static API: https://developers.google.com/maps/documentation/maps-static null to disable */
+	const GOOGLE_MAPS_STATIC_API_KEY = null;
+	//const GOOGLE_MAPS_STATIC_API_KEY = 'someRandomGeneratedApiKeyFromGoogleCloudPlatform';
+
 	/** @var ?string API key to What3Word service https://developer.what3words.com/public-api or null to disable */
 	const W3W_API_KEY = null;
 

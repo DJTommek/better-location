@@ -56,8 +56,8 @@ final class GoogleMapsService extends AbstractService
 	 */
 	public static function getScreenshotLink(float $lat, float $lon): string
 	{
-		if (defined('GOOGLE_MAPS_API_KEY') === false) {
-			throw new \Exception('Google maps API key is not defined.');
+		if (is_null(Config::GOOGLE_MAPS_STATIC_API_KEY)) {
+			throw new \Exception('Google Maps Static API key is not defined.');
 		}
 		$params = [
 			'center' => '',
@@ -65,7 +65,7 @@ final class GoogleMapsService extends AbstractService
 			'size' => '600x600',
 			'maptype' => 'roadmap',
 			'markers' => sprintf('color:red|label:|%1$s,%2$s', $lat, $lon),
-			'key' => GOOGLE_MAPS_API_KEY,
+			'key' => Config::GOOGLE_MAPS_STATIC_API_KEY,
 		];
 		return 'https://maps.googleapis.com/maps/api/staticmap?' . http_build_query($params);
 	}
