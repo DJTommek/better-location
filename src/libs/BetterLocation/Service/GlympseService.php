@@ -16,7 +16,7 @@ use DJTommek\GlympseApi\Types\TicketInvite;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
-final class GlympseService extends AbstractService
+final class GlympseService extends AbstractServiceNew
 {
 	const NAME = 'Glympse';
 
@@ -35,8 +35,8 @@ final class GlympseService extends AbstractService
 		];
 	}
 
-	const PATH_INVITE_ID_REGEX = '/^\/[0-9a-z]+-[0-9a-z]+$/i';
-	const PATH_GROUP_REGEX = '/^\/!.+$/i';
+	const PATH_INVITE_ID_REGEX = '/^\/([0-9a-z]+-[0-9a-z]+)$/i';
+	const PATH_GROUP_REGEX = '/^\/!(.+)$/i';
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
@@ -47,60 +47,32 @@ final class GlympseService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool
+	public function isValid(): bool
 	{
-		return self::isUrl($url);
+		if ($this->url->getDomain() === 'glympse.com') {
+			if (preg_match(self::PATH_INVITE_ID_REGEX, $this->url->getPath(), $matches)) {
+				$this->data->inviteId = $matches[1];
+				return true;
+			} else if (preg_match(self::PATH_GROUP_REGEX, $this->url->getPath(), $matches)) {
+				$this->data->groupName = $matches[1];
+				return true;
+			}
+		}
+		return false;
 	}
 
-	/**
-	 * @param string $url
-	 * @return BetterLocation
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoords(string $url): BetterLocation
+	public function process()
 	{
-		throw new NotImplementedException('Parsing single coordinate is not supported. Use parseMultipleCoords() instead.');
-	}
-
-	public static function isUrl(string $url): bool
-	{
-		return self::isCorrectDomainUrl($url) && (self::isInviteIdUrl($url) || self::isGroupUrl($url));
-	}
-
-	private static function isCorrectDomainUrl($url): bool
-	{
-		$parsedUrl = General::parseUrl($url);
-		return (
-			isset($parsedUrl['host']) &&
-			in_array(mb_strtolower($parsedUrl['host']), ['glympse.com', 'www.glympse.com']) &&
-			isset($parsedUrl['path'])
-		);
-	}
-
-	public static function isInviteIdUrl(string $url): bool
-	{
-		$parsedUrl = General::parseUrl($url);
-		return (!!preg_match(self::PATH_INVITE_ID_REGEX, $parsedUrl['path']));
-	}
-
-	public static function isGroupUrl(string $url): bool
-	{
-		$parsedUrl = General::parseUrl($url);
-		return (!!preg_match(self::PATH_GROUP_REGEX, $parsedUrl['path']));
-	}
-
-	public static function parseCoordsMultiple(string $url): BetterLocationCollection
-	{
-		if (self::isInviteIdUrl($url)) {
-			return self::processInvite($url);
-		} else if (self::isGroupUrl($url)) {
-			return self::processGroup($url);
+		if ($this->data->inviteId) {
+			$this->processInvite();
+		} else if ($this->data->groupName) {
+			$this->processGroup();
 		} else {
 			throw new \LogicException(sprintf('Invalid %s link.', self::NAME));
 		}
 	}
 
-	public static function processInviteLocation(string $url, string $type, TicketInvite $invite): BetterLocation
+	private function processInviteLocation(string $type, TicketInvite $invite): BetterLocation
 	{
 		if (in_array($type, self::getConstants()) === false) {
 			throw new \OutOfBoundsException(sprintf('Invalid %s service type "%s"', self::NAME, $type));
@@ -121,7 +93,7 @@ final class GlympseService extends AbstractService
 			$currentLocationDescriptions[] = sprintf('%s Glympse will expire soon, at %s', Icons::WARNING, $invite->properties->endTime->format(Config::TIME_FORMAT_ZONE));
 		}
 		$lastLocation = $invite->getLastLocation();
-		$currentLocation = new BetterLocation($url, $lastLocation->latitude, $lastLocation->longtitude, self::class, $type);
+		$currentLocation = new BetterLocation($this->inputUrl->getAbsoluteUrl(), $lastLocation->latitude, $lastLocation->longtitude, self::class, $type);
 		$currentLocation->setRefreshable(true);
 		$diff = $now->getTimestamp() - $lastLocation->timestamp->getTimestamp();
 		if (
@@ -140,8 +112,8 @@ final class GlympseService extends AbstractService
 		}
 		if ($type === self::TYPE_GROUP) {
 			$prefix = sprintf('Glympse <a href="%s">!%s</a> (<a href="%s">%s</a>)',
-				$url, // assuming, that this url is https://glympse.com/!someTag
-				self::getGroupIdFromUrl($url),
+				$this->inputUrl->getAbsoluteUrl(), // assuming, that this url is https://glympse.com/!someTag
+				self::getGroupIdFromUrl($this->inputUrl->getAbsoluteUrl()),
 				$invite->getInviteIdUrl(),
 				$invite->properties->name
 			);
@@ -153,11 +125,11 @@ final class GlympseService extends AbstractService
 		return $currentLocation;
 	}
 
-	public static function processInviteDestinationLocation(string $url, TicketInvite $invite): BetterLocation
+	private function processInviteDestinationLocation(TicketInvite $invite): BetterLocation
 	{
 		$now = new \DateTimeImmutable();
 		$destinationDescriptions = [];
-		$destination = new BetterLocation($url, $invite->properties->destination->lat, $invite->properties->destination->lng, self::class, self::TYPE_DESTINATION);
+		$destination = new BetterLocation($this->inputUrl->getAbsoluteUrl(), $invite->properties->destination->lat, $invite->properties->destination->lng, self::class, self::TYPE_DESTINATION);
 		$destination->setRefreshable(true);
 		$destination->setPrefixMessage(sprintf('Glympse destination (<a href="%s">%s</a>)',
 			$invite->getInviteIdUrl(),
@@ -190,56 +162,50 @@ final class GlympseService extends AbstractService
 		return $destination;
 	}
 
-	public static function processInvite($url): BetterLocationCollection
+	public function processInvite(): void
 	{
 		$glympseApi = Factory::Glympse();
 		$glympseApi->loadToken();
-		$betterLocationCollection = new BetterLocationCollection();
-		$inviteId = self::getInviteIdFromUrl($url);
 		try {
-			$inviteResponse = $glympseApi->loadInvite($inviteId);
-			$inviteLocation = self::processInviteLocation($url, self::TYPE_INVITE, $inviteResponse);
-			$betterLocationCollection->add($inviteLocation);
+			$inviteResponse = $glympseApi->loadInvite($this->data->inviteId);
+			$inviteLocation = $this->processInviteLocation(self::TYPE_INVITE, $inviteResponse);
+			$this->collection->add($inviteLocation);
 			if ($inviteResponse->properties->destination) {
-				$betterLocationCollection->add(self::processInviteDestinationLocation($url, $inviteResponse));
+				$this->collection->add($this->processInviteDestinationLocation($inviteResponse));
 			}
-			return $betterLocationCollection;
 		} catch (GlympseApiException $exception) {
 			Debugger::log($exception, ILogger::DEBUG);
-			throw new InvalidLocationException(sprintf('Error while processing %s invite code %s: %s', self::NAME, htmlentities($inviteId), $exception->getMessage()));
+			throw new InvalidLocationException(sprintf('Error while processing %s invite code %s: %s', self::NAME, htmlentities($this->data->inviteId), $exception->getMessage()));
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
 			throw new InvalidLocationException(sprintf('Coordinates on %s page are missing.', self::NAME));
 		}
 	}
 
-	public static function processGroup($url): BetterLocationCollection
+	public function processGroup(): void
 	{
 		$glympseApi = Factory::Glympse();
 		$glympseApi->loadToken();
-		$betterLocationCollection = new BetterLocationCollection();
-		$groupId = self::getGroupIdFromUrl($url);
 		try {
-			$groupsResponse = $glympseApi->loadGroup($groupId);
+			$groupsResponse = $glympseApi->loadGroup($this->data->groupName);
 			foreach ($groupsResponse->members as $member) {
 				$inviteResponse = $glympseApi->loadInvite($member->invite);
-				$inviteLocation = self::processInviteLocation($url, self::TYPE_GROUP, $inviteResponse);
-				$betterLocationCollection->add($inviteLocation);
+				$inviteLocation = $this->processInviteLocation(self::TYPE_GROUP, $inviteResponse);
+				$this->collection->add($inviteLocation);
 				if ($inviteResponse->properties->destination) {
-					$betterLocationCollection->add(self::processInviteDestinationLocation($url, $inviteResponse));
+					$this->collection->add($this->processInviteDestinationLocation($inviteResponse));
 				}
 			}
-			return $betterLocationCollection;
 		} catch (GlympseApiException $exception) {
 			Debugger::log($exception, ILogger::DEBUG);
-			throw new InvalidLocationException(sprintf('Error while processing %s tag !%s: %s', self::NAME, htmlentities($groupId), $exception->getMessage()));
+			throw new InvalidLocationException(sprintf('Error while processing %s tag !%s: %s', self::NAME, htmlentities($this->data->groupName), $exception->getMessage()));
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
 			throw new InvalidLocationException(sprintf('Coordinates on %s page are missing.', self::NAME));
 		}
 	}
 
-	private static function getInviteIdFromUrl(string $url): ?string
+	public static function getInviteIdFromUrl(string $url): ?string
 	{
 		$parsedUrl = General::parseUrl($url);
 		// no need to check domain and path, it already has been done earlier
@@ -249,7 +215,7 @@ final class GlympseService extends AbstractService
 		return null;
 	}
 
-	private static function getGroupIdFromUrl(string $url): ?string
+	public static function getGroupIdFromUrl(string $url): ?string
 	{
 		$parsedUrl = General::parseUrl($url);
 		// no need to check domain and path, it already has been done earlier
