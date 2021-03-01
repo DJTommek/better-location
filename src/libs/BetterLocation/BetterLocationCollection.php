@@ -304,9 +304,9 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 						$betterLocationsCollection[] = WazeService::parseCoords($url);
 					} else if (is_null(Config::W3W_API_KEY) === false && WhatThreeWordService::isValid($url)) {
 						$betterLocationsCollection[] = WhatThreeWordService::parseCoords($url);
-					} else if (Config::isGlympse() && GlympseService::isValid($url)) {
-						$glympseBetterLocationCollection = GlympseService::parseCoordsMultiple($url);
-						$betterLocationsCollection->mergeCollection($glympseBetterLocationCollection);
+//					} else if (Config::isGlympse() && GlympseService::isValid($url)) {
+//						$glympseBetterLocationCollection = GlympseService::parseCoordsMultiple($url);
+//						$betterLocationsCollection->mergeCollection($glympseBetterLocationCollection);
 //					} else if (IngressIntelService::isValid($url)) {
 //						$betterLocationsCollection[] = IngressIntelService::parseCoords($url);
 					} else if (OsmAndService::isUrl($url)) {

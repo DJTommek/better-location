@@ -6,6 +6,7 @@ use App\BetterLocation\Service\AbstractServiceNew;
 use App\BetterLocation\Service\DrobnePamatkyCzService;
 use App\BetterLocation\Service\FoursquareService;
 use App\BetterLocation\Service\GeocachingService;
+use App\BetterLocation\Service\GlympseService;
 use App\BetterLocation\Service\IngressIntelService;
 use App\BetterLocation\Service\MapyCzServiceNew;
 use App\Config;
@@ -27,6 +28,9 @@ class ServicesManager
 		}
 		if (is_null(Config::GEOCACHING_COOKIE) === false) {
 			$this->services[] = GeocachingService::class;
+		}
+		if (Config::isGlympse()) {
+			$this->services[] = GlympseService::class;
 		}
 	}
 
