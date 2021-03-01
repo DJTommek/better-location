@@ -284,8 +284,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 						$hereBetterLocationCollection = HereWeGoService::parseCoordsMultiple($url);
 						$hereBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
 						$betterLocationsCollection->mergeCollection($hereBetterLocationCollection);
-					} else if (is_null(Config::GEOCACHING_COOKIE) === false && GeocachingService::isUrl($url)) {
-						$betterLocationsCollection[] = GeocachingService::parseUrl($url);
+//					} else if (is_null(Config::GEOCACHING_COOKIE) === false && GeocachingService::isUrl($url)) {
+//						$betterLocationsCollection[] = GeocachingService::parseUrl($url);
 					} else if (WikipediaService::isValid($url)) {
 						try {
 							$betterLocationsCollection[] = WikipediaService::parseCoords($url);

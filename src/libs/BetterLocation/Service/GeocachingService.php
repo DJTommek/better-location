@@ -5,19 +5,20 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Factory;
 use App\Geocaching\Client;
 use App\Geocaching\Types\GeocachePreviewType;
 use App\Icons;
 use App\MiniCurl\MiniCurl;
-use App\Utils\General;
+use App\Utils\Coordinates;
+use App\Utils\Strict;
 use App\Utils\StringUtils;
+use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
-final class GeocachingService extends AbstractService
+final class GeocachingService extends AbstractServiceNew
 {
 	const NAME = 'Geocaching';
 
@@ -94,9 +95,9 @@ final class GeocachingService extends AbstractService
 		return $collection;
 	}
 
-	public static function isValid(string $input): bool
+	public function isValid(): bool
 	{
-		return self::isUrl($input) || self::isGeocacheId($input) || self::isLogId($input);
+		return $this->isUrl() || self::isGeocacheId($this->input) || self::isLogId($this->input);
 	}
 
 	private static function isGeocacheId(string $input): bool
@@ -110,97 +111,73 @@ final class GeocachingService extends AbstractService
 		return !!(preg_match('/' . self::LOG_REGEX . '/', $input));
 	}
 
-	public static function isUrl(string $url): bool
+	public function isUrl(): bool
 	{
-		if (self::isCorrectDomainUrl($url)) {
-			return (
-				is_string(self::getCacheIdFromUrl($url)) ||
-				is_array(self::getCoordsFromMapSearchUrl($url)) ||
-				is_array(self::getCoordsFromMapBrowseUrl($url)) ||
-				is_array(self::getCoordsFromMapCoordInfoUrl($url)) ||
-				self::isGuidUrl($url)
-			);
-		}
-		return false;
-	}
-
-	private static function isCorrectDomainUrl($url): bool
-	{
-		$parsedUrl = General::parseUrl($url);
 		return (
-			isset($parsedUrl['host']) &&
-			in_array(mb_strtolower($parsedUrl['host']), ['geocaching.com', 'www.geocaching.com', 'coord.info', 'www.coord.info'], true)
+			$this->isUrlGeocache() ||
+			$this->isUrlMapCoord() ||
+			$this->isUrlMapBrowse() ||
+			$this->isUrlCoordMap() ||
+			$this->isUrlGuid()
 		);
 	}
 
-	private static function isGuidUrl($url): bool
+	public static function getGeocacheIdFromUrl(UrlImmutable $url): ?string
 	{
-		$parsedUrl = General::parseUrl(mb_strtolower($url));
-		return (
-			in_array($parsedUrl['host'], ['geocaching.com', 'www.geocaching.com'], true) &&
-			isset($parsedUrl['path']) &&
-			$parsedUrl['path'] === '/seek/cache_details.aspx' &&
-			isset($parsedUrl['query']) &&
-			isset($parsedUrl['query']['guid']) &&
-			StringUtils::isGuid($parsedUrl['query']['guid'], false)
-		);
-	}
-
-	public static function parseCoords(string $url): BetterLocation
-	{
-		$coords = self::parseUrl($url);
-		if ($coords) {
-			return new BetterLocation($url, $coords[0], $coords[1], self::class);
-		} else {
-			throw new InvalidLocationException(sprintf('Unable to get coords from %s link %s.', self::NAME, $url));
-		}
-	}
-
-	public static function getCacheIdFromUrl(string $url): ?string
-	{
-		$parsedUrl = General::parseUrl($url);
-		if (isset($parsedUrl['path'])) {
-			if (in_array(mb_strtolower($parsedUrl['host']), ['geocaching.com', 'www.geocaching.com'], true)) {
-				if (preg_match(self::URL_PATH_GEOCACHE_REGEX, $parsedUrl['path'], $matches)) {
-					// https://www.geocaching.com/geocache/GC3DYC4_find-the-bug
-					// https://www.geocaching.com/geocache/GC3DYC4
-					// https://www.geocaching.com/geocache/GC3DYC4_find-the-bug?guid=df11c170-1af3-4ee1-853a-e97c1afe0722
-					return mb_strtoupper($matches[1]);
-				} else if (preg_match(self::URL_PATH_MAP_GEOCACHE_REGEX, $parsedUrl['path'], $matches)) {
-					// https://www.geocaching.com/play/map/GC3DYC4
-					return mb_strtoupper($matches[1]);
-				} else if (isset($parsedUrl['query'])) {
-					$query = $parsedUrl['query'];
-					if (
-						$parsedUrl['path'] === '/seek/log.aspx' &&
-						isset($query['code']) &&
-						preg_match('/^' . self::LOG_REGEX . '$/i', $query['code'], $matches)
-					) {
-						// https://www.geocaching.com/seek/log.aspx?code=GL133PQK0
-						return null; // @TODO load log to get geocache ID
-					} else if (
-						mb_strpos($parsedUrl['path'], '/play/map') === 0 && // might be "/play/map" or "/play/map/"
-						isset($query['gc']) &&
-						preg_match('/^' . self::CACHE_REGEX . '$/i', $query['gc'], $matches)
-					) {
-						// https://www.geocaching.com/play/map?gc=GC3DYC4
-						return mb_strtoupper($query['gc']);
-					} else if ( // https://www.geocaching.com/seek/cache_details.aspx?wp=GC1GDKZ
-						$parsedUrl['path'] === '/seek/cache_details.aspx' &&
-						isset($query['wp']) &&
-						preg_match('/^' . self::CACHE_REGEX . '$/i', $query['wp'], $matches)
-					) {
-						return mb_strtoupper($query['wp']);
-					}
-				}
+		if (mb_strtolower($url->getDomain()) === 'geocaching.com') {
+			if (preg_match(self::URL_PATH_GEOCACHE_REGEX, $url->getPath(), $matches)) {
+				// https://www.geocaching.com/geocache/GC3DYC4_find-the-bug
+				// https://www.geocaching.com/geocache/GC3DYC4
+				// https://www.geocaching.com/geocache/GC3DYC4_find-the-bug?guid=df11c170-1af3-4ee1-853a-e97c1afe0722
+				return mb_strtoupper($matches[1]);
+			} else if (preg_match(self::URL_PATH_MAP_GEOCACHE_REGEX, $url->getPath(), $matches)) {
+				// https://www.geocaching.com/play/map/GC3DYC4
+				return mb_strtoupper($matches[1]);
+			} else if ($url->getPath() === '/seek/log.aspx' && preg_match('/^' . self::LOG_REGEX . '$/i', $url->getQueryParameter('code') ?? '', $matches)) {
+				// https://www.geocaching.com/seek/log.aspx?code=GL133PQK0
+				return null; // @TODO load log to get geocache ID (https://github.com/DJTommek/better-location/issues/35)
+			} else if (
+				mb_strpos($url->getPath(), '/play/map') === 0 && // might be "/play/map" or "/play/map/"
+				preg_match('/^' . self::CACHE_REGEX . '$/i', $url->getQueryParameter('gc') ?? '')
+			) {
+				// https://www.geocaching.com/play/map?gc=GC3DYC4
+				return mb_strtoupper($url->getQueryParameter('gc'));
+			} else if ( // https://www.geocaching.com/seek/cache_details.aspx?wp=GC1GDKZ
+				$url->getPath() === '/seek/cache_details.aspx' &&
+				preg_match('/^' . self::CACHE_REGEX . '$/i', $url->getQueryParameter('wp') ?? '')
+			) {
+				return mb_strtoupper($url->getQueryParameter('wp'));
 			}
-			if (in_array(mb_strtolower($parsedUrl['host']), ['coord.info', 'www.coord.info'])) {
-				if (preg_match('/^\/(' . self::CACHE_REGEX . ')$/i', $parsedUrl['path'], $matches)) {
-					return mb_strtoupper($matches[1]);
-				}
-			}
+		} else if (mb_strtolower($url->getDomain(2)) === 'coord.info' && preg_match('/^\/(' . self::CACHE_REGEX . ')$/i', $url->getPath(), $matches)) {
+			return mb_strtoupper($matches[1]);
 		}
 		return null;
+	}
+
+	public function isUrlGeocache(): bool
+	{
+		if ($geocacheId = self::getGeocacheIdFromUrl($this->url)) {
+			$this->data->geocacheId = $geocacheId;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function isUrlGuid(): bool
+	{
+		if (
+			$this->url->getDomain() === 'geocaching.com' &&
+			$this->url->getPath() === '/seek/cache_details.aspx'
+		) {
+			// parameter GUID is case in-sensitive
+			$parameters = array_change_key_case($this->url->getQueryParameters(), CASE_LOWER);
+			if (StringUtils::isGuid($parameters['guid'] ?? '', false)) {
+				$this->data->isUrlGuid = true;
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -208,27 +185,20 @@ final class GeocachingService extends AbstractService
 	 *
 	 * @see https://www.geocaching.com/play/map/
 	 */
-	public static function getCoordsFromMapSearchUrl(string $url): ?array
+	public function isUrlMapCoord(): bool
 	{
-		$parsedUrl = General::parseUrl($url);
 		if (
-			isset($parsedUrl['path']) &&
-			rtrim($parsedUrl['path'], '/') === '/play/map' && // might be "/play/map" or "/play/map/"
-			isset($parsedUrl['query']) &&
-			isset($parsedUrl['query']['lat']) &&
-			is_numeric($parsedUrl['query']['lat']) &&
-			BetterLocation::isLatValid(floatval($parsedUrl['query']['lat'])) &&
-			isset($parsedUrl['query']['lng']) &&
-			is_numeric($parsedUrl['query']['lng']) &&
-			BetterLocation::isLonValid(floatval($parsedUrl['query']['lng']))
+			$this->url->getDomain(2) === 'geocaching.com' &&
+			rtrim($this->url->getPath(), '/') === '/play/map' && // might be "/play/map" or "/play/map/"
+			Coordinates::isLat($this->url->getQueryParameter('lat')) &&
+			Coordinates::isLon($this->url->getQueryParameter('lng'))
 		) {
-			return [
-				floatval($parsedUrl['query']['lat']),
-				floatval($parsedUrl['query']['lng']),
-			];
-		} else {
-			return null;
+			$this->data->mapCoord = true;
+			$this->data->mapCoordLat = Strict::floatval($this->url->getQueryParameter('lat'));
+			$this->data->mapCoordLon = Strict::floatval($this->url->getQueryParameter('lng'));
+			return true;
 		}
+		return false;
 	}
 
 	/**
@@ -236,69 +206,56 @@ final class GeocachingService extends AbstractService
 	 *
 	 * @see https://www.geocaching.com/map/
 	 */
-	public static function getCoordsFromMapBrowseUrl(string $url): ?array
+	public function isUrlMapBrowse(): bool
 	{
-		$parsedUrl = General::parseUrl($url);
 		if (
-			isset($parsedUrl['path']) &&
-			$parsedUrl['path'] === '/map/' &&
-			isset($parsedUrl['fragment'])
+			$this->url->getDomain(2) === 'geocaching.com' &&
+			$this->url->getPath() === '/map/' &&
+			$this->url->getFragment()
 		) {
-			parse_str(ltrim($parsedUrl['fragment'], '?'), $fragmentQuery);
+			parse_str(ltrim($this->url->getFragment(), '?'), $fragmentQuery);
 			if (isset($fragmentQuery['ll']) && preg_match('/^(-?[0-9.]+),(-?[0-9.]+)$/', $fragmentQuery['ll'], $matches)) {
-				if (BetterLocation::isLatValid(floatval($matches[1])) && BetterLocation::isLonValid(floatval($matches[2]))) {
-					return [
-						floatval($matches[1]),
-						floatval($matches[2]),
-					];
+				if (Coordinates::isLat($matches[1]) && Coordinates::isLon($matches[2])) {
+					$this->data->mapBrowseCoord = true;
+					$this->data->mapBrowseCoordLat = Strict::floatval($matches[1]);
+					$this->data->mapBrowseCoordLon = Strict::floatval($matches[2]);
+					return true;
 				}
 			}
 		}
-		return null;
+		return false;
 	}
 
 	/**
-	 * Short URL from coord.info obtainable on (and redirecting to) "Browse geocaches" map
+	 * Map type "Browse geocaches"
 	 *
-	 * @see http://coord.info/map
+	 * @see https://www.geocaching.com/map/
 	 */
-	public static function getCoordsFromMapCoordInfoUrl(string $url): ?array
+	public function isUrlCoordMap(): bool
 	{
-		$parsedUrl = General::parseUrl($url);
 		if (
-			isset($parsedUrl['path']) &&
-			$parsedUrl['path'] === '/map' &&
-			isset($parsedUrl['query']) &&
-			isset($parsedUrl['query']['ll']) &&
-			preg_match('/^(-?[0-9.]+),(-?[0-9.]+)$/', $parsedUrl['query']['ll'], $matches)
+			$this->url->getDomain(2) === 'coord.info' &&
+			$this->url->getPath() === '/map' &&
+			preg_match('/^(-?[0-9.]+),(-?[0-9.]+)$/', $this->url->getQueryParameter('ll') ?? '', $matches)
 		) {
-			if (BetterLocation::isLatValid(floatval($matches[1])) && BetterLocation::isLonValid(floatval($matches[2]))) {
-				return [
-					floatval($matches[1]),
-					floatval($matches[2]),
-				];
+			if (Coordinates::isLat($matches[1]) && Coordinates::isLon($matches[2])) {
+				$this->data->coordCoord = true;
+				$this->data->coordCoordLat = Strict::floatval($matches[1]);
+				$this->data->coordCoordLon = Strict::floatval($matches[2]);
+				return true;
 			}
 		}
-		return null;
+		return false;
 	}
 
-	public static function parseUrl(string $url): BetterLocation
+	public function process()
 	{
-		$originalUrl = $url;
-		if ($coords = self::getCoordsFromMapSearchUrl($url)) {
-			return new BetterLocation($originalUrl, $coords[0], $coords[1], self::class, self::TYPE_MAP_SEARCH);
-		} else if ($coords = self::getCoordsFromMapBrowseUrl($url)) {
-			return new BetterLocation($originalUrl, $coords[0], $coords[1], self::class, self::TYPE_MAP_BROWSE);
-		} else if ($coords = self::getCoordsFromMapCoordInfoUrl($url)) {
-			return new BetterLocation($originalUrl, $coords[0], $coords[1], self::class, self::TYPE_MAP_COORD);
-		} else {
-			if (self::isGuidUrl($url)) {
-				$url = MiniCurl::loadRedirectUrl($url);
-			}
+		if ($this->data->isUrlGuid) {
 			try {
-				$geocacheId = self::getCacheIdFromUrl($url);
-				$geocache = Factory::Geocaching()->loadGeocachePreview($geocacheId);
-				return self::formatApiResponse($geocache, $originalUrl);
+				$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($this->input));
+				if ($this->isValid() === false) {
+					throw new InvalidLocationException(sprintf('Unprocessable input: "%s"', $this->input));
+				}
 			} catch (InvalidLocationException $exception) {
 				throw $exception;
 			} catch (\Throwable $exception) {
@@ -306,11 +263,19 @@ final class GeocachingService extends AbstractService
 				throw new InvalidLocationException(sprintf('Error while processing %s URL, try again later.', self::NAME));
 			}
 		}
-	}
 
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection
-	{
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
+		if ($this->data->geocacheId) {
+			$geocache = Factory::Geocaching()->loadGeocachePreview($this->data->geocacheId);
+			$this->collection->add(self::formatApiResponse($geocache, $this->input));
+		} else if ($this->data->mapCoord) {
+			$this->collection->add(new BetterLocation($this->input, $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP_SEARCH));
+		} else if ($this->data->mapBrowseCoord) {
+			$this->collection->add(new BetterLocation($this->input, $this->data->mapBrowseCoordLat, $this->data->mapBrowseCoordLon, self::class, self::TYPE_MAP_BROWSE));
+		} else if ($this->data->coordCoord) {
+			$this->collection->add(new BetterLocation($this->input, $this->data->coordCoordLat, $this->data->coordCoordLon, self::class, self::TYPE_MAP_COORD));
+		} else {
+			Debugger::log(sprintf('Unprocessable input: "%s"', $this->input), ILogger::ERROR);
+		}
 	}
 
 	private static function formatApiResponse(GeocachePreviewType $geocache, string $input): BetterLocation

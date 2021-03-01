@@ -5,6 +5,7 @@ namespace App\BetterLocation;
 use App\BetterLocation\Service\AbstractServiceNew;
 use App\BetterLocation\Service\DrobnePamatkyCzService;
 use App\BetterLocation\Service\FoursquareService;
+use App\BetterLocation\Service\GeocachingService;
 use App\BetterLocation\Service\IngressIntelService;
 use App\BetterLocation\Service\MapyCzServiceNew;
 use Tracy\Debugger;
@@ -21,6 +22,7 @@ class ServicesManager
 		$this->services[] = DrobnePamatkyCzService::class;
 //		$this->services[] = DuckDuckGoService::class; // currently not supported
 		$this->services[] = FoursquareService::class;
+		$this->services[] = GeocachingService::class;
 	}
 
 	public function iterate(string $input): BetterLocationCollection
