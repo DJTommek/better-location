@@ -3,12 +3,15 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\Config;
 use App\MiniCurl\MiniCurl;
+use App\Utils\Coordinates;
+use App\Utils\Strict;
+use Nette\Http\UrlImmutable;
+use Nette\Utils\Strings;
 
-final class GoogleMapsService extends AbstractService
+final class GoogleMapsService extends AbstractServiceNew
 {
 	const NAME = 'Google';
 
@@ -43,17 +46,35 @@ final class GoogleMapsService extends AbstractService
 		return sprintf($drive ? self::LINK_DRIVE : self::LINK, $lat, $lon);
 	}
 
-	public static function isValid(string $url): bool
+	public function isValid(): bool
 	{
-		return self::isShortUrl($url) || self::isNormalUrl($url);
+		return $this->isShortUrl() || $this->isNormalUrl();
 	}
 
-	/**
-	 * @param float $lat
-	 * @param float $lon
-	 * @return string
-	 * @throws \Exception
-	 */
+	public function isShortUrl(): bool
+	{
+		if ((
+				$this->url->getDomain(0) === 'goo.gl' &&
+				Strings::startsWith($this->url->getPath(), '/maps/')
+			) || (
+				$this->url->getDomain(0) === 'maps.app.goo.gl'
+			)) {
+			$this->data->isShort = true;
+			return true;
+		}
+		return false;
+	}
+
+	public function isNormalUrl(): bool
+	{
+		return ((
+				$this->url->getDomain(-1) === 'www.google' &&
+				Strings::startsWith($this->url->getPath(), '/maps/')
+			) || (
+				$this->url->getDomain(-1) === 'maps.google'
+			));
+	}
+
 	public static function getScreenshotLink(float $lat, float $lon): string
 	{
 		if (is_null(Config::GOOGLE_MAPS_STATIC_API_KEY)) {
@@ -70,85 +91,28 @@ final class GoogleMapsService extends AbstractService
 		return 'https://maps.googleapis.com/maps/api/staticmap?' . http_build_query($params);
 	}
 
-	/**
-	 * @param string $url
-	 * @return BetterLocation
-	 * @throws InvalidLocationException
-	 */
-	public static function parseCoords(string $url): BetterLocation
+	public function process()
 	{
-		return self::parseCoordsHelper($url, false);
-	}
-
-	/**
-	 * @param string $url
-	 * @return BetterLocationCollection
-	 * @throws InvalidLocationException
-	 */
-	public static function parseCoordsMultiple(string $url): BetterLocationCollection
-	{
-		return self::parseCoordsHelper($url, true);
-	}
-
-	/**
-	 * @param string $url
-	 * @param bool $returnCollection
-	 * @return BetterLocation|BetterLocationCollection
-	 * @throws InvalidLocationException
-	 * @throws \Exception
-	 */
-	public static function parseCoordsHelper(string $url, bool $returnCollection)
-	{
-		if (self::isShortUrl($url)) {
-			$newLocation = MiniCurl::loadRedirectUrl($url);
-			if ($newLocation) {
-				return self::parseUrl($newLocation, $returnCollection);
-			} else {
-				throw new InvalidLocationException(sprintf('Unable to get real url for Goo.gl short link "%s".', $url));
+		if ($this->data->isShort) {
+			$urlToRequest = $this->url->withScheme('https'); // Optimalization by skipping one extra redirecting from http to https
+			$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($urlToRequest->getAbsoluteUrl()));
+			if ($this->isValid() === false) {
+				throw new InvalidLocationException(sprintf('Invalid redirect for short Google maps link "%s".', $this->inputUrl->getAbsoluteUrl()));
 			}
-		} else if (self::isNormalUrl($url)) {
-			return self::parseUrl($url, $returnCollection);
+		}
+
+		if ($this->isNormalUrl()) {
+			$this->processUrl();
 		} else {
-			throw new InvalidLocationException(sprintf('Unable to get coords for Google maps link "%s".', $url));
+			throw new InvalidLocationException(sprintf('Unable to get coords for Google maps link "%s".', $this->url->getAbsoluteUrl()));
 		}
 	}
 
-	public static function isShortUrl(string $url): bool
+	private function processUrl(): void
 	{
-		$googleMapsShortUrlV1Https = 'https://goo.gl/maps/';
-		$googleMapsShortUrlV1Http = 'http://goo.gl/maps/';
-		$googleMapsShortUrlV2Https = 'https://maps.app.goo.gl/';
-		$googleMapsShortUrlV2Http = 'http://maps.app.goo.gl/';
-		return (
-			substr($url, 0, mb_strlen($googleMapsShortUrlV1Https)) === $googleMapsShortUrlV1Https ||
-			substr($url, 0, mb_strlen($googleMapsShortUrlV1Http)) === $googleMapsShortUrlV1Http ||
-			substr($url, 0, mb_strlen($googleMapsShortUrlV2Https)) === $googleMapsShortUrlV2Https ||
-			substr($url, 0, mb_strlen($googleMapsShortUrlV2Http)) === $googleMapsShortUrlV2Http
-		);
-	}
-
-	public static function isNormalUrl(string $url): bool
-	{
-		return !!(preg_match('/https?:\/\/(?:(?:www|maps)\.)google\.[a-z]{1,5}\//', $url));
-	}
-
-	/**
-	 * @param string $url
-	 * @param bool $returnCollection
-	 * @return BetterLocation|BetterLocationCollection
-	 * @throws InvalidLocationException
-	 * @throws \Exception
-	 */
-	public static function parseUrl(string $url, bool $returnCollection = false)
-	{
-		$betterLocationCollection = new BetterLocationCollection();
-		$paramsString = explode('?', $url);
-		if (count($paramsString) === 2) {
-			parse_str($paramsString[1], $params);
-		}
 		// https://www.google.com/maps/place/50%C2%B006'04.6%22N+14%C2%B031'44.0%22E/@50.101271,14.5281082,18z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d50.1012711!4d14.5288824?shorturl=1
 		// Regex is matching "!3d50.1012711!4d14.5288824"
-		if (preg_match_all('/!3d(-?[0-9]{1,3}\.[0-9]+)!4d(-?[0-9]{1,3}\.[0-9]+)/', $url, $matches)) {
+		if (preg_match_all('/!3d(-?[0-9]{1,3}\.[0-9]+)!4d(-?[0-9]{1,3}\.[0-9]+)/', $this->url->getPath(), $matches)) {
 			/**
 			 * There might be more than just one parameter to match, example:
 			 * https://www.google.com/maps/place/49%C2%B050'19.5%22N+18%C2%B023'29.9%22E/@49.8387187,18.3912988,88m/data=!3m1!1e3!4m14!1m7!3m6!1s0x4713fdb643f28f71:0xcbeec5757ed37704!2zT2Rib3LFrywgNzM1IDQxIFBldMWZdmFsZA!3b1!8m2!3d49.8386455!4d18.39618!3m5!1s0x0:0x0!7e2!8m2!3d49.8387596!4d18.3916417
@@ -156,102 +120,70 @@ final class GoogleMapsService extends AbstractService
 			 * https://www.google.com/maps/place/49%C2%B050'19.5%22N+18%C2%B023'29.9%22E/@49.8387187,18.3912988,88m/data=!3m1!1e3!4m6!3m5!1s0x0:0x0!7e2!8m2!3d49.8387596!4d18.3916417?shorturl=1
 			 * In this URL is only one parameter to match. Strange...
 			 */
-			$result = new BetterLocation($url, floatval(end($matches[1])), floatval(end($matches[2])), self::class, self::TYPE_PLACE);
-			if ($returnCollection) {
-				$betterLocationCollection[] = $result;
-			} else {
-				return $result;
+			if (Coordinates::isLat(end($matches[1])) && Coordinates::isLon(end($matches[2]))) {
+				$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval(end($matches[1])), Strict::floatval(end($matches[2])), self::class, self::TYPE_PLACE));
 			}
 		}
+
 		// https://www.google.cz/maps/place/50.02261,14.525433
-		if (preg_match('/\/maps\/place\/([0-9.]+),([0-9.]+)/', urldecode($url), $matches)) {
-			$result = new BetterLocation($url, floatval($matches[1]), floatval($matches[2]), self::class, self::TYPE_PLACE);
-			if ($returnCollection) {
-				$betterLocationCollection[] = $result;
-			} else {
-				return $result;
+		if (preg_match('/\/maps\/place\/(-?[0-9.]+),(-?[0-9.]+)/', urldecode($this->url->getPath()), $matches)) {
+			if (Coordinates::isLat($matches[1]) && Coordinates::isLon($matches[2])) {
+				$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, self::TYPE_PLACE));
 			}
 		}
 
-		if (isset($params['ll'])) {
-			$coords = explode(',', $params['ll']);
-			if (count($coords) !== 2) {
-				throw new InvalidLocationException(sprintf('Invalid "ll" parameter in Google link "%s".', $url));
-			}
-			$result = new BetterLocation($url, floatval($coords[0]), floatval($coords[1]), self::class, self::TYPE_UNKNOWN);
-			if ($returnCollection) {
-				$betterLocationCollection[] = $result;
-			} else {
-				return $result;
+		if ($this->url->getQueryParameter('ll')) {
+			$coords = explode(',', $this->url->getQueryParameter('ll'));
+			if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
+				$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval($coords[0]), Strict::floatval($coords[1]), self::class, self::TYPE_UNKNOWN));
 			}
 		}
 
-		if (isset($params['daddr'])) {
-			$coords = explode(',', $params['daddr']);
-			if (count($coords) !== 2) {
-				throw new InvalidLocationException(sprintf('Invalid "daddr" parameter in Google link "%s".', $url));
-			}
-			$result = new BetterLocation($url, floatval($coords[0]), floatval($coords[1]), self::class, self::TYPE_DRIVE);
-			if ($returnCollection) {
-				$betterLocationCollection[] = $result;
-			} else {
-				return $result;
+		if ($this->url->getQueryParameter('daddr')) {
+			$coords = explode(',', $this->url->getQueryParameter('daddr'));
+			if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
+				$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval($coords[0]), Strict::floatval($coords[1]), self::class, self::TYPE_DRIVE));
 			}
 		}
 
-		if (isset($params['q'])) { // @TODO in this parameter probably might be also non-coordinates locations (eg. address)
-			$coords = explode(',', $params['q']);
-			if (count($coords) !== 2) {
-				throw new InvalidLocationException(sprintf('Invalid "q" parameter in Google link "%s".', $url));
+		if ($this->url->getQueryParameter('q')) {
+			$coords = explode(',', $this->url->getQueryParameter('q'));
+			if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
+				$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval($coords[0]), Strict::floatval($coords[1]), self::class, self::TYPE_SEARCH));
+				// Warning: coordinates in URL in format "@50.00,15.00" is position of the map, not selected/shared point.
 			}
-			$result = new BetterLocation($url, floatval($coords[0]), floatval($coords[1]), self::class, self::TYPE_SEARCH);
-			if ($returnCollection) {
-				$betterLocationCollection[] = $result;
-			} else {
-				return $result;
-			}
-			// Warning: coordinates in URL in format "@50.00,15.00" is position of the map, not selected/shared point.
 		}
 
-		if (preg_match('/@([0-9]{1,3}\.[0-9]+),([0-9]{1,3}\.[0-9]+)/', $url, $matches)) {
+		// https://www.google.com/maps/@50.0873231,14.4208835,3a,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656
+		//                              \__lat___/ \__lon___/ \/ \_/ \_____/ \_/
+		//		                         \___coordinates___/   \_street_view__/
+		if (preg_match('/@(-?[0-9.]+),(-?[0-9.]+)/', $this->url->getPath(), $matches)) {
 			if (
-				preg_match('/,[0-9.]+a/', $url) &&
-				preg_match('/,[0-9.]+y/', $url) &&
-				preg_match('/,[0-9.]+h/', $url) &&
-				preg_match('/,[0-9.]+t/', $url)
+				Coordinates::isLat($matches[1]) &&
+				Coordinates::isLon($matches[2]) &&
+				preg_match('/,[0-9.]+a/', $this->url->getPath()) &&
+				preg_match('/,[0-9.]+y/', $this->url->getPath()) &&
+				preg_match('/,[0-9.]+h/', $this->url->getPath()) &&
+				preg_match('/,[0-9.]+t/', $this->url->getPath())
 			) {
 				$type = self::TYPE_STREET_VIEW;
 			} else {
 				$type = self::TYPE_MAP;
 			}
-			$result = new BetterLocation($url, floatval($matches[1]), floatval($matches[2]), self::class, $type);
-			if ($returnCollection) {
-				$betterLocationCollection[] = $result;
-			} else {
-				return $result;
-			}
+			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, $type));
 		}
 
 		// To prevent doing unnecessary request, this is done only if there is no other location detected
 		// Google is disabling access with RECAPTCHA
 		// @TODO probably there will be always at least map center so this code never occure? Needs testing
-		if ($returnCollection === false || count($betterLocationCollection) <= 0) {
+		if ($this->collection->count() === 0) {
 			// URL don't have any coordinates or place-id to translate so load content and there are some coordinates hidden in page in some of brutal multi-array
-			$content = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_GOOGLE_MAPS)->run()->getBody();
+			$content = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_GOOGLE_MAPS)->run()->getBody();
 			// Regex is searching for something like this: ',"",null,[null,null,50.0641584,14.468139599999999]';
 			// Warning: Not exact position
 			if (preg_match('/","",null,\[null,null,(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)]\n/', $content, $matches)) {
-				$result = new BetterLocation($url, floatval($matches[1]), floatval($matches[2]), self::class, self::TYPE_HIDDEN);
-				if ($returnCollection) {
-					$betterLocationCollection[] = $result;
-				} else {
-					return $result;
-				}
+				$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, self::TYPE_HIDDEN));
 			}
 		}
-		if ($returnCollection && count($betterLocationCollection) > 0) {
-			return $betterLocationCollection;
-		}
-		throw new InvalidLocationException('Unable to get any valid location from Google link');
 	}
 }
