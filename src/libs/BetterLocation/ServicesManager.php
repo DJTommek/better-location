@@ -8,10 +8,12 @@ use App\BetterLocation\Service\FoursquareService;
 use App\BetterLocation\Service\GeocachingService;
 use App\BetterLocation\Service\GlympseService;
 use App\BetterLocation\Service\GoogleMapsService;
+use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\IngressIntelService;
 use App\BetterLocation\Service\MapyCzServiceNew;
 use App\Config;
 use Tracy\Debugger;
+use Tracy\ILogger;
 
 class ServicesManager
 {
@@ -21,6 +23,7 @@ class ServicesManager
 	public function __construct()
 	{
 		$this->services[] = GoogleMapsService::class;
+		$this->services[] = HereWeGoService::class;
 		$this->services[] = MapyCzServiceNew::class;
 		$this->services[] = IngressIntelService::class;
 		$this->services[] = DrobnePamatkyCzService::class;
