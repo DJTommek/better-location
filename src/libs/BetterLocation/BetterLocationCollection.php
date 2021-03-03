@@ -281,10 +281,10 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 //						$betterLocationsCollection->mergeCollection($mapyCzBetterLocationCollection);
 					} else if (OpenStreetMapService::isValid($url)) {
 						$betterLocationsCollection[] = OpenStreetMapService::parseCoords($url);
-					} else if (HereWeGoService::isValid($url)) {
-						$hereBetterLocationCollection = HereWeGoService::parseCoordsMultiple($url);
-						$hereBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
-						$betterLocationsCollection->mergeCollection($hereBetterLocationCollection);
+//					} else if (HereWeGoService::isValid($url)) {
+//						$hereBetterLocationCollection = HereWeGoService::parseCoordsMultiple($url);
+//						$hereBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
+//						$betterLocationsCollection->mergeCollection($hereBetterLocationCollection);
 //					} else if (is_null(Config::GEOCACHING_COOKIE) === false && GeocachingService::isUrl($url)) {
 //						$betterLocationsCollection[] = GeocachingService::parseUrl($url);
 					} else if (WikipediaService::isValid($url)) {
