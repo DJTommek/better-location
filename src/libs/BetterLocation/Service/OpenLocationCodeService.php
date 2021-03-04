@@ -8,7 +8,8 @@ use OpenLocationCode\OpenLocationCode;
 
 final class OpenLocationCodeService extends AbstractServiceNew
 {
-	const NAME = 'OLC';
+	const NAME = 'OpenLocationCode';
+	const NAME_SHORT = 'OLC';
 
 	const LINK = 'https://plus.codes/';
 
