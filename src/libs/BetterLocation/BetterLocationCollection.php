@@ -293,8 +293,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 						} catch (InvalidLocationException $exception) {
 							// @HACK workaround to not show error in chat, if processing Wikipedia link without location
 						}
-					} else if (OpenLocationCodeService::isValid($url)) {
-						$betterLocationsCollection[] = OpenLocationCodeService::parseCoords($url);
+//					} else if (OpenLocationCodeService::isValid($url)) {
+//						$betterLocationsCollection[] = OpenLocationCodeService::parseCoords($url);
 //					} else if (FirmyCzService::isUrl($url)) {
 //						$betterLocationsCollection[] = FirmyCzService::parseUrl($url);
 					} else if (FacebookService::isUrl($url)) {
@@ -368,8 +368,10 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		if ($openLocationCodes) {
 			foreach ($matches[2] as $plusCode) {
 				try {
-					if (OpenLocationCodeService::isValid($plusCode)) {
-						$betterLocationsCollection[] = OpenLocationCodeService::parseCoords($plusCode);
+					$openLocationCodeService = new OpenLocationCodeService($plusCode);
+					if ($openLocationCodeService->isValid()) {
+						$openLocationCodeService->process();
+						$betterLocationsCollection->mergeCollection($openLocationCodeService->getCollection());
 					}
 				} catch (\Exception $exception) {
 					$betterLocationsCollection[] = $exception;
