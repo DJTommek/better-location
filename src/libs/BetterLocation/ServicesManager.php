@@ -10,6 +10,7 @@ use App\BetterLocation\Service\GlympseService;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\IngressIntelService;
+use App\BetterLocation\Service\IngressMosaicService;
 use App\BetterLocation\Service\MapyCzServiceNew;
 use App\Config;
 use Tracy\Debugger;
@@ -30,6 +31,9 @@ class ServicesManager
 //		$this->services[] = DuckDuckGoService::class; // currently not supported
 		if (Config::isFoursquare()) {
 			$this->services[] = FoursquareService::class;
+		}
+		if (Config::isIngressMosaic()) {
+			$this->services[] = IngressMosaicService::class;
 		}
 		if (is_null(Config::GEOCACHING_COOKIE) === false) {
 			$this->services[] = GeocachingService::class;
