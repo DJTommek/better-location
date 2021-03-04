@@ -185,7 +185,9 @@ final class MapyCzService extends AbstractService
 				}
 				$betterLocation = new BetterLocation($url, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PLACE_ID);
 				$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s %s</a>', $url, self::NAME, $mapyCzResponse->title));
-				$betterLocation->setAddress($mapyCzResponse->titleVars->locationMain1);
+				if ($mapyCzResponse->titleVars->locationMain1) {
+					$betterLocation->setAddress($mapyCzResponse->titleVars->locationMain1);
+				}
 				if ($returnCollection) {
 					$betterLocationCollection[self::TYPE_PLACE_ID] = $betterLocation;
 				} else {
