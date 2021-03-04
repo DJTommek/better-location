@@ -220,7 +220,7 @@ abstract class Events
 		$text .= sprintf('- links: google.com, glympse.com, mapy.cz, intel.ingress.com, ...') . PHP_EOL;
 		$text .= sprintf('- short links: goo.gl, bit.ly, tinyurl.com, t.co, tiny.cc, ...') . PHP_EOL;
 		$text .= sprintf('- Telegram (live) location and venues') . PHP_EOL;
-		$text .= sprintf('- EXIF from <b>uncompressed</b> images') . PHP_EOL;
+		$text .= sprintf('- <a href="%s">Exif</a> from <b>uncompressed</b> images', 'https://wikipedia.org/wiki/Exif') . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= sprintf('%s <b>Inline:</b>', Icons::INLINE) . PHP_EOL;
 		$text .= sprintf('To send my Better locations to a group I am not in, or to a private chat, just type <code>@%s</code>', Config::TELEGRAM_BOT_NAME) . PHP_EOL;
