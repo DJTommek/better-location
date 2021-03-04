@@ -3,16 +3,15 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
-use App\Utils\General;
 use App\Utils\Strict;
 use DJTommek\MapyCzApi\MapyCzApi;
 use DJTommek\MapyCzApi\MapyCzApiException;
 use Nette\Http\UrlImmutable;
+use Tracy\Debugger;
 
 final class MapyCzServiceNew extends AbstractServiceNew
 {
@@ -25,15 +24,11 @@ final class MapyCzServiceNew extends AbstractServiceNew
 	const TYPE_PLACE_COORDS = 'Place coords';
 	const TYPE_PANORAMA = 'Panorama';
 
-	public function beforeStart(): void {
-		$this->data->placeIdCoord = false;
-	}
-
 	public function isValid(): bool
 	{
 		return (
-			$this->inputUrl !== null &&
-			$this->inputUrl->getDomain(2) === 'mapy.cz' &&
+			$this->url !== null &&
+			$this->url->getDomain(2) === 'mapy.cz' &&
 			(
 				$this->isShortUrl() ||
 				$this->isNormalUrl()
@@ -48,7 +43,7 @@ final class MapyCzServiceNew extends AbstractServiceNew
 		// https://en.mapy.cz/s/porumejene
 		// https://en.mapy.cz/s/3ql7u
 		// https://en.mapy.cz/s/faretabotu
-		return $this->data->isShortUrl = (preg_match('/^\/s\/[a-zA-Z0-9]+$/', $this->inputUrl->getPath()));
+		return $this->data->isShortUrl = (preg_match('/^\/s\/[a-zA-Z0-9]+$/', $this->url->getPath()));
 	}
 
 	public function isNormalUrl(): bool
@@ -59,8 +54,8 @@ final class MapyCzServiceNew extends AbstractServiceNew
 		// https://en.mapy.cz/zakladni?x=14.3139613&y=49.1487367&z=15&pano=1&pid=30158941&yaw=1.813&fov=1.257&pitch=-0.026
 //		$parsedUrl = parse_url(urldecode($url)); // @TODO why it is used urldecode?
 
-		if ($this->inputUrl->getQueryParameter('source') === 'coor' && $this->inputUrl->getQueryParameter( 'id')) { // coordinates in place ID
-			$coords = explode(',', $this->inputUrl->getQueryParameter('id'));
+		if ($this->url->getQueryParameter('source') === 'coor' && $this->url->getQueryParameter('id')) { // coordinates in place ID
+			$coords = explode(',', $this->url->getQueryParameter('id'));
 			if (count($coords) === 2 && Coordinates::isLat($coords[1]) && Coordinates::isLon($coords[0])) {
 				$this->data->placeIdCoord = true;
 				$this->data->placeIdCoordLat = Strict::floatval($coords[1]);
@@ -70,10 +65,10 @@ final class MapyCzServiceNew extends AbstractServiceNew
 		}
 
 		return (
-			Coordinates::isLat($this->inputUrl->getQueryParameter('x')) && Coordinates::isLon($this->inputUrl->getQueryParameter('y')) || // map position
-			Strict::isPositiveInt($this->inputUrl->getQueryParameter( 'id')) && $this->inputUrl->getQueryParameter('source') || // place ID
-			Strict::isPositiveInt($this->inputUrl->getQueryParameter('pid')) || // panorama ID
-			Coordinates::isLat($this->inputUrl->getQueryParameter('ma_x')) && Coordinates::isLon($this->inputUrl->getQueryParameter('ma_y')) // not sure what is this...
+			Coordinates::isLat($this->url->getQueryParameter('x')) && Coordinates::isLon($this->url->getQueryParameter('y')) || // map position
+			Strict::isPositiveInt($this->url->getQueryParameter('id')) && $this->url->getQueryParameter('source') || // place ID
+			Strict::isPositiveInt($this->url->getQueryParameter('pid')) || // panorama ID
+			Coordinates::isLat($this->url->getQueryParameter('ma_x')) && Coordinates::isLon($this->url->getQueryParameter('ma_y')) // not sure what is this...
 		);
 	}
 
@@ -113,7 +108,7 @@ final class MapyCzServiceNew extends AbstractServiceNew
 	public function process()
 	{
 		if ($this->data->isShortUrl) {
-			$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($this->data->input));
+			$this->processShortUrl();
 		}
 		$mapyCzApi = new MapyCzApi();
 
@@ -121,40 +116,46 @@ final class MapyCzServiceNew extends AbstractServiceNew
 		if (Strict::isPositiveInt($this->url->getQueryParameter('pid'))) {
 			try {
 				$mapyCzResponse = $mapyCzApi->loadPanoramaDetails(Strict::intval($this->url->getQueryParameter('pid')));
+				$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PANORAMA));
 			} catch (MapyCzApiException $exception) {
-				throw new InvalidLocationException(sprintf('MapyCz API response: "%s"', htmlentities($exception->getMessage())));
+				Debugger::log(sprintf('MapyCz Panorama API response: "%s"', $exception->getMessage()), Debugger::ERROR);
 			}
-			$betterLocation = new BetterLocation($this->input, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PANORAMA);
-			$this->collection[self::TYPE_PANORAMA] = $betterLocation;
 		}
 
 		// URL with Place ID
 		if ($this->url->getQueryParameter('source') && Strict::isPositiveInt($this->url->getQueryParameter('id'))) {
 			try {
 				$mapyCzResponse = $mapyCzApi->loadPoiDetails($this->url->getQueryParameter('source'), Strict::intval($this->url->getQueryParameter('id')));
+				$betterLocation = new BetterLocation($this->inputUrl->getAbsoluteUrl(), $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PLACE_ID);
+				$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s %s</a>', $this->url, self::NAME, $mapyCzResponse->title));
+				if ($mapyCzResponse->titleVars->locationMain1) {
+					$betterLocation->setAddress($mapyCzResponse->titleVars->locationMain1);
+				}
+				$this->collection->add($betterLocation);
 			} catch (MapyCzApiException $exception) {
-				throw new InvalidLocationException(sprintf('MapyCz API response: "%s"', htmlentities($exception->getMessage())));
+				Debugger::log(sprintf('MapyCz Place API response: "%s"', $exception->getMessage()), Debugger::ERROR);
 			}
-			$betterLocation = new BetterLocation($this->input, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PLACE_ID);
-			$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s %s</a>', $this->url, self::NAME, $mapyCzResponse->title));
-			$betterLocation->setAddress($mapyCzResponse->titleVars->locationMain1);
-			$this->collection[self::TYPE_PLACE_ID] = $betterLocation;
 		}
 
 		// MapyCZ URL has ID in format of coordinates
-		if ($this->data->placeIdCoord === true) {
-			$betterLocation = new BetterLocation($this->input, $this->data->placeIdCoordLat, $this->data->placeIdCoordLon, self::class, self::TYPE_PLACE_COORDS);
-			$this->collection[] = $betterLocation;
+		if (($this->data->placeIdCoord ?? false) === true) {
+			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $this->data->placeIdCoordLat, $this->data->placeIdCoordLon, self::class, self::TYPE_PLACE_COORDS));
 		}
 
 		if (Strict::isFloat($this->url->getQueryParameter('ma_x')) && Strict::isFloat($this->url->getQueryParameter('ma_y'))) {
-			$betterLocation = new BetterLocation($this->input, Strict::floatval($this->url->getQueryParameter('ma_y')), Strict::floatval($this->url->getQueryParameter('ma_x')), self::class, self::TYPE_UNKNOWN);
-			$this->collection[] = $betterLocation;
+			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval($this->url->getQueryParameter('ma_y')), Strict::floatval($this->url->getQueryParameter('ma_x')), self::class, self::TYPE_UNKNOWN));
 		}
 
-		if (Strict::isFloat($this->url->getQueryParameter('x')) && Strict::isFloat($this->url->getQueryParameter('y'))) {
-			$betterLocation = new BetterLocation($this->input, Strict::floatval($this->url->getQueryParameter('y')), Strict::floatval($this->url->getQueryParameter('x')), self::class, self::TYPE_MAP);
-			$this->collection[] = $betterLocation;
+		if (Coordinates::isLon($this->url->getQueryParameter('x')) && Coordinates::isLat($this->url->getQueryParameter('y'))) {
+			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval($this->url->getQueryParameter('y')), Strict::floatval($this->url->getQueryParameter('x')), self::class, self::TYPE_MAP));
+		}
+	}
+
+	private function processShortUrl()
+	{
+		$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl()));
+		if ($this->isValid() === false) {
+			throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url->getAbsoluteUrl(), $this->inputUrl->getAbsoluteUrl()));
 		}
 	}
 }
