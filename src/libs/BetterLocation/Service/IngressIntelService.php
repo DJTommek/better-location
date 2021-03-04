@@ -56,12 +56,12 @@ final class IngressIntelService extends AbstractServiceNew
 
 	public function process()
 	{
-		if ($this->data->portalCoord) {
+		if ($this->data->portalCoord ?? false) {
 			$location = new BetterLocation($this->input, $this->data->portalCoordLat, $this->data->portalCoordLon, self::class, self::TYPE_PORTAL);
 			$this->addPortalData($location);
 			$this->collection->add($location);
 		}
-		if ($this->data->mapCoord) {
+		if ($this->data->mapCoord ?? false) {
 			$this->collection->add(new BetterLocation($this->input, $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP));
 		}
 	}

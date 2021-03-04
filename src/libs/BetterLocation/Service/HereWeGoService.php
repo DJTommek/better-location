@@ -48,7 +48,6 @@ final class HereWeGoService extends AbstractServiceNew
 
 	public function isValid(): bool
 	{
-		$this->data->isShortUrl = false;
 		return $this->isShortUrl() || $this->isNormalUrl();
 	}
 
@@ -94,7 +93,7 @@ final class HereWeGoService extends AbstractServiceNew
 		}
 
 		// Short links always center map to point so there is no need to load page to get information about point
-		if ($this->data->isShortUrl !== true && preg_match('/^\/p\/s-[a-zA-Z0-9]+$/', $this->url->getPath())) { // from short links
+		if (($this->data->isShortUrl ?? false) === false && preg_match('/^\/p\/s-[a-zA-Z0-9]+$/', $this->url->getPath())) { // from short links
 			// need to replace from "share" subdomain, otherwise there would be another redirect
 			$locationData = self::requestByLoc(str_replace('https://share.here.com/', 'https://wego.here.com/', $this->url->getAbsoluteUrl()));
 			// @TODO use property "name" or set of properties in "address.*" to better describe current location
@@ -111,7 +110,7 @@ final class HereWeGoService extends AbstractServiceNew
 			}
 		}
 		if (preg_match('/^(-?[0-9]{1,2}\.[0-9]{1,}),(-?[0-9]{1,3}\.[0-9]{1,}),/', $this->url->getQueryParameter('map') ?? '', $matches)) {
-			$type = ($this->data->isShortUrl) ? self::TYPE_PLACE_SHARE : self::TYPE_MAP;
+			$type = ($this->data->isShortUrl ?? false) ? self::TYPE_PLACE_SHARE : self::TYPE_MAP;
 			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), floatval($matches[1]), floatval($matches[2]), self::class, $type));
 		}
 	}

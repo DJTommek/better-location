@@ -250,7 +250,7 @@ final class GeocachingService extends AbstractServiceNew
 
 	public function process()
 	{
-		if ($this->data->isUrlGuid) {
+		if ($this->data->isUrlGuid ?? false) {
 			try {
 				$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($this->input));
 				if ($this->isValid() === false) {
@@ -264,14 +264,14 @@ final class GeocachingService extends AbstractServiceNew
 			}
 		}
 
-		if ($this->data->geocacheId) {
+		if ($this->data->geocacheId ?? null) {
 			$geocache = Factory::Geocaching()->loadGeocachePreview($this->data->geocacheId);
 			$this->collection->add(self::formatApiResponse($geocache, $this->input));
-		} else if ($this->data->mapCoord) {
+		} else if ($this->data->mapCoord ?? false) {
 			$this->collection->add(new BetterLocation($this->input, $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP_SEARCH));
-		} else if ($this->data->mapBrowseCoord) {
+		} else if ($this->data->mapBrowseCoord ?? false) {
 			$this->collection->add(new BetterLocation($this->input, $this->data->mapBrowseCoordLat, $this->data->mapBrowseCoordLon, self::class, self::TYPE_MAP_BROWSE));
-		} else if ($this->data->coordCoord) {
+		} else if ($this->data->coordCoord ?? false) {
 			$this->collection->add(new BetterLocation($this->input, $this->data->coordCoordLat, $this->data->coordCoordLon, self::class, self::TYPE_MAP_COORD));
 		} else {
 			Debugger::log(sprintf('Unprocessable input: "%s"', $this->input), ILogger::ERROR);
