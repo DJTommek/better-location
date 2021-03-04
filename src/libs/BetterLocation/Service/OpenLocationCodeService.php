@@ -3,13 +3,10 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
-use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use OpenLocationCode\OpenLocationCode;
 
-final class OpenLocationCodeService extends AbstractService
+final class OpenLocationCodeService extends AbstractServiceNew
 {
 	const NAME = 'OLC';
 
@@ -37,84 +34,43 @@ final class OpenLocationCodeService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $input): bool
+	public function isValid(): bool
 	{
-		return self::isUrl($input) || self::isCode($input);
+		return $this->isUrl() || $this->isPlusCode();
 	}
 
-	/**
-	 * @param string $plusCodeInput
-	 * @return BetterLocation
-	 * @throws InvalidLocationException
-	 * @throws \Exception
-	 */
-	public static function parseCoords(string $plusCodeInput): BetterLocation
+	public function process()
 	{
-		if (self::isUrl($plusCodeInput)) {
-			$coords = self::parseUrl($plusCodeInput);
-			return new BetterLocation($plusCodeInput, $coords[0], $coords[1], self::class); // @TODO would be nice to return detected OLC code
-		} else if (self::isCode($plusCodeInput)) {  // at least two characters, otherwise it is probably /s/hort-version of link
-			$coords = OpenLocationCode::decode($plusCodeInput);
-			$betterLocation = new BetterLocation($plusCodeInput, $coords['latitudeCenter'], $coords['longitudeCenter'], self::class);
-			$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a> <code>%s</code>: ',
-				self::getLink($coords['latitudeCenter'], $coords['longitudeCenter']),
-				self::NAME,
-				$plusCodeInput
-			));
-			return $betterLocation;
-		} else {
-			throw new InvalidLocationException(sprintf('Unable to get coords from OpenLocationCode "%s".', $plusCodeInput));
-		}
+		$coords = OpenLocationCode::decode($this->data->plusCode);
+		$betterLocation = new BetterLocation($this->input, $coords['latitudeCenter'], $coords['longitudeCenter'], self::class);
+		$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a> <code>%s</code>: ',
+			self::getLink($coords['latitudeCenter'], $coords['longitudeCenter']),
+			self::NAME,
+			$this->data->plusCode
+		));
+		$this->collection->add($betterLocation);
 	}
 
-	/**
-	 * @param string $url
-	 * @return bool
-	 */
-	public static function isUrl(string $url): bool
+	/** @example https://plus.codes/8FXP74WG+XHW */
+	public function isUrl(): bool
 	{
-		// https://plus.codes/8FXP74WG+XHW
-		if (substr($url, 0, mb_strlen(self::LINK)) === self::LINK) {
-			$plusCode = str_replace(self::LINK, '', $url);
-			return self::isValid($plusCode);
+		if ($this->url->getDomain(2) === 'plus.codes') {
+			$plusCode = ltrim($this->url->getPath(), '/');
+			if (OpenLocationCode::isFull($plusCode)) {
+				$this->data->plusCode = $plusCode;
+				return true;
+			}
 		}
 		return false;
 	}
 
-	/**
-	 * @param string $plusCode
-	 * @return bool
-	 *
-	 */
-	public static function isCode(string $plusCode): bool
+	/** @example 8FXP74WG+XHW */
+	public function isPlusCode(): bool
 	{
-		return OpenLocationCode::isValid($plusCode);
-	}
-
-	/**
-	 * @TODO query parameters should have higher priority than hash params
-	 *
-	 * @param string $url
-	 * @return array|null
-	 * @throws \Exception
-	 */
-	public static function parseUrl(string $url): ?array
-	{
-		$plusCode = str_replace(self::LINK, '', $url);
-		$coords = OpenLocationCode::decode($plusCode);
-		return [
-			$coords['latitudeCenter'],
-			$coords['longitudeCenter'],
-		];
-	}
-
-	/**
-	 * @param string $input
-	 * @return BetterLocationCollection
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection
-	{
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
+		if (OpenLocationCode::isFull($this->input)) {
+			$this->data->plusCode = $this->input;
+			return true;
+		}
+		return false;
 	}
 }

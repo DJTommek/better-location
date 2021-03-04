@@ -12,6 +12,7 @@ use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\IngressIntelService;
 use App\BetterLocation\Service\IngressMosaicService;
 use App\BetterLocation\Service\MapyCzServiceNew;
+use App\BetterLocation\Service\OpenLocationCodeService;
 use App\Config;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -28,6 +29,7 @@ class ServicesManager
 		$this->services[] = MapyCzServiceNew::class;
 		$this->services[] = IngressIntelService::class;
 		$this->services[] = DrobnePamatkyCzService::class;
+		$this->services[] = OpenLocationCodeService::class;
 //		$this->services[] = DuckDuckGoService::class; // currently not supported
 		if (Config::isFoursquare()) {
 			$this->services[] = FoursquareService::class;
