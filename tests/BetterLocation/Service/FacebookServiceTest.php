@@ -52,7 +52,7 @@ final class FacebookServiceTest extends TestCase
 		$this->assertSame('40.411600,-3.700390', FacebookService::parseUrl('https://www.facebook.com/Bodegas-Alfaro-730504807012751/')->__toString());
 		$this->assertSame('-43.538899,172.652603', FacebookService::parseUrl('https://m.facebook.com/gentlegiantcafex/')->__toString());
 		$this->assertSame('-25.285736,-57.559743', FacebookService::parseUrl('https://www.facebook.com/Biggie-Express-251025431718109/about/?ref=page_internal')->__toString());
-		$this->assertSame('-17.792721,-63.155202', FacebookService::parseUrl('https://www.facebook.com/FlotaVacaDiezSCZ/'));
+		$this->assertSame('-17.792721,-63.155202', FacebookService::parseUrl('https://www.facebook.com/FlotaVacaDiezSCZ/')->__toString());
 	}
 
 	public function testMissingCoordinates(): void
