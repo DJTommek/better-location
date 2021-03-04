@@ -93,7 +93,7 @@ final class GoogleMapsService extends AbstractServiceNew
 
 	public function process()
 	{
-		if ($this->data->isShort) {
+		if ($this->data->isShort ?? false) {
 			$urlToRequest = $this->url->withScheme('https'); // Optimalization by skipping one extra redirecting from http to https
 			$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($urlToRequest->getAbsoluteUrl()));
 			if ($this->isValid() === false) {

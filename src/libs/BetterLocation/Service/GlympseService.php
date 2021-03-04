@@ -63,9 +63,9 @@ final class GlympseService extends AbstractServiceNew
 
 	public function process()
 	{
-		if ($this->data->inviteId) {
+		if ($this->data->inviteId ?? null) {
 			$this->processInvite();
-		} else if ($this->data->groupName) {
+		} else if ($this->data->groupName ?? null) {
 			$this->processGroup();
 		} else {
 			throw new \LogicException(sprintf('Invalid %s link.', self::NAME));
