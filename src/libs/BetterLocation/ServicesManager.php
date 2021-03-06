@@ -15,6 +15,7 @@ use App\BetterLocation\Service\MapyCzServiceNew;
 use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\OpenStreetMapService;
 use App\BetterLocation\Service\OsmAndService;
+use App\BetterLocation\Service\RopikyNetService;
 use App\Config;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -47,6 +48,7 @@ class ServicesManager
 		if (Config::isGlympse()) {
 			$this->services[] = GlympseService::class;
 		}
+		$this->services[] = RopikyNetService::class;
 	}
 
 	public function iterate(string $input): BetterLocationCollection
