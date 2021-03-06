@@ -279,8 +279,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 //						$mapyCzBetterLocationCollection = MapyCzService::parseCoordsMultiple($url);
 //						$mapyCzBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
 //						$betterLocationsCollection->mergeCollection($mapyCzBetterLocationCollection);
-					} else if (OpenStreetMapService::isValid($url)) {
-						$betterLocationsCollection[] = OpenStreetMapService::parseCoords($url);
+//					} else if (OpenStreetMapService::isValid($url)) {
+//						$betterLocationsCollection[] = OpenStreetMapService::parseCoords($url);
 //					} else if (HereWeGoService::isValid($url)) {
 //						$hereBetterLocationCollection = HereWeGoService::parseCoordsMultiple($url);
 //						$hereBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
