@@ -16,6 +16,7 @@ use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\OpenStreetMapService;
 use App\BetterLocation\Service\OsmAndService;
 use App\BetterLocation\Service\RopikyNetService;
+use App\BetterLocation\Service\WazeService;
 use App\Config;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -28,6 +29,7 @@ class ServicesManager
 	public function __construct()
 	{
 		$this->services[] = GoogleMapsService::class;
+		$this->services[] = WazeService::class;
 		$this->services[] = HereWeGoService::class;
 		$this->services[] = OpenStreetMapService::class;
 		$this->services[] = MapyCzServiceNew::class;

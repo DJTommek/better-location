@@ -301,8 +301,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 						if ($location = FacebookService::parseUrl($url)) {
 							$betterLocationsCollection[] = $location;
 						}
-					} else if (WazeService::isValid($url)) {
-						$betterLocationsCollection[] = WazeService::parseCoords($url);
+//					} else if (WazeService::isValid($url)) {
+//						$betterLocationsCollection[] = WazeService::parseCoords($url);
 					} else if (is_null(Config::W3W_API_KEY) === false && WhatThreeWordService::isValid($url)) {
 						$betterLocationsCollection[] = WhatThreeWordService::parseCoords($url);
 //					} else if (Config::isGlympse() && GlympseService::isValid($url)) {
