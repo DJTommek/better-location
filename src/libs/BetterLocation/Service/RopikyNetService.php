@@ -3,29 +3,18 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
-use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Config;
 use App\MiniCurl\MiniCurl;
-use App\Utils\General;
-use Tracy\Debugger;
-use Tracy\ILogger;
+use App\Utils\Strict;
+use Nette\Utils\Arrays;
 
-final class RopikyNetService extends AbstractService
+final class RopikyNetService extends AbstractServiceNew
 {
 	const NAME = 'Řopíky.net';
 
 	const LINK = 'https://ropiky.net';
 
-	/**
-	 * @param float $lat
-	 * @param float $lon
-	 * @param bool $drive
-	 * @return string
-	 * @throws NotSupportedException
-	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
 		if ($drive) {
@@ -39,71 +28,26 @@ final class RopikyNetService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool
+	public function isValid(): bool
 	{
-		return self::isUrl($url);
-	}
-
-	/**
-	 * @param string $url
-	 * @return BetterLocation
-	 * @throws InvalidLocationException
-	 */
-	public static function parseCoords(string $url): BetterLocation
-	{
-		$coords = self::parseUrl($url);
-		if ($coords) {
-			return new BetterLocation($url, $coords[0], $coords[1], self::class);
-		} else {
-			throw new InvalidLocationException(sprintf('Unable to get coords from Ropiky.net link %s.', $url));
-		}
-	}
-
-	public static function isUrl(string $url): bool
-	{
-		$url = mb_strtolower($url);
-		$parsedUrl = General::parseUrl($url);
 		return (
-			isset($parsedUrl['host']) &&
-			in_array($parsedUrl['host'], ['ropiky.net', 'www.ropiky.net']) &&
-			isset($parsedUrl['path']) &&
-			in_array($parsedUrl['path'], ['/dbase_objekt.php', '/nerop_objekt.php'], true) &&
-			isset($parsedUrl['query']) &&
-			isset($parsedUrl['query']['id']) &&
-			preg_match('/^[0-9]+$/', $parsedUrl['query']['id'])
+			$this->url->getDomain(2) === 'ropiky.net' &&
+			Arrays::contains(['/dbase_objekt.php', '/nerop_objekt.php'], $this->url->getPath()) &&
+			Strict::isPositiveInt($this->url->getQueryParameter('id'))
 		);
 	}
 
-	public static function parseUrl(string $url): ?array
+	public function process(): void
 	{
-		try {
-			$response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_ROPIKY_NET)->run()->getBody();
-		} catch (\Throwable $exception) {
-			Debugger::log($exception, ILogger::DEBUG);
-			return null;
+		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_ROPIKY_NET)->run()->getBody();
+		if (preg_match('/<a href=\"(https:\/\/mapy\.cz\/[^"]+)/', $response, $matches)) {
+			$mapyCzService = new MapyCzServiceNew($matches[1]);
+			if ($mapyCzService->isValid()) {
+				$mapyCzService->process();
+				if ($mapyCzLocation = $mapyCzService->getCollection()->getFirst()) {
+					$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $mapyCzLocation->getLat(), $mapyCzLocation->getLon(), self::class));
+				}
+			}
 		}
-		if (!preg_match('/<a href=\"(https:\/\/mapy\.cz\/[^"]+)/', $response, $matches)) {
-			Debugger::log($response, ILogger::DEBUG);
-			throw new InvalidLocationException(sprintf('Coordinates on Ropiky.net page are missing.'));
-		}
-		$mapyCzUrl = $matches[1];
-		if (MapyCzService::isNormalUrl($mapyCzUrl) === false) {
-			throw new InvalidLocationException(sprintf('Parsed Mapy.cz URL from "%s" is not valid.', $url));
-		}
-		$mapyCzLocation = MapyCzService::parseUrl($mapyCzUrl);
-		return [
-			$mapyCzLocation->getLat(),
-			$mapyCzLocation->getLon(),
-		];
-	}
-
-	/**
-	 * @param string $input
-	 * @return BetterLocationCollection
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection
-	{
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }

@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\RopikyNetService;
 use PHPUnit\Framework\TestCase;
@@ -23,68 +22,75 @@ final class RopikyNetServiceTest extends TestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(RopikyNetService::isValid('https://www.ropiky.net/dbase_objekt.php?id=1183840757'));
-		$this->assertTrue(RopikyNetService::isValid('https://ropiky.net/dbase_objekt.php?id=1183840757'));
-		$this->assertTrue(RopikyNetService::isValid('http://www.ropiky.net/dbase_objekt.php?id=1183840757'));
-		$this->assertTrue(RopikyNetService::isValid('http://ropiky.net/dbase_objekt.php?id=1183840757'));
+		$this->assertTrue(RopikyNetService::isValidStatic('https://www.ropiky.net/dbase_objekt.php?id=1183840757'));
+		$this->assertTrue(RopikyNetService::isValidStatic('https://ropiky.net/dbase_objekt.php?id=1183840757'));
+		$this->assertTrue(RopikyNetService::isValidStatic('http://www.ropiky.net/dbase_objekt.php?id=1183840757'));
+		$this->assertTrue(RopikyNetService::isValidStatic('http://ropiky.net/dbase_objekt.php?id=1183840757'));
 
-		$this->assertTrue(RopikyNetService::isValid('https://www.ropiky.net/nerop_objekt.php?id=1397407312'));
-		$this->assertTrue(RopikyNetService::isValid('https://ropiky.net/nerop_objekt.php?id=1397407312'));
-		$this->assertTrue(RopikyNetService::isValid('http://www.ropiky.net/nerop_objekt.php?id=1397407312'));
-		$this->assertTrue(RopikyNetService::isValid('http://ropiky.net/nerop_objekt.php?id=1397407312'));
+		$this->assertTrue(RopikyNetService::isValidStatic('https://www.ropiky.net/nerop_objekt.php?id=1397407312'));
+		$this->assertTrue(RopikyNetService::isValidStatic('https://ropiky.net/nerop_objekt.php?id=1397407312'));
+		$this->assertTrue(RopikyNetService::isValidStatic('http://www.ropiky.net/nerop_objekt.php?id=1397407312'));
+		$this->assertTrue(RopikyNetService::isValidStatic('http://ropiky.net/nerop_objekt.php?id=1397407312'));
 
-		$this->assertFalse(RopikyNetService::isValid('https://www.ropiky.net/dbase_objekt.php?id=abcd'));
-		$this->assertFalse(RopikyNetService::isValid('https://www.ropiky.net/dbase_objekt.php?id='));
-		$this->assertFalse(RopikyNetService::isValid('https://www.ropiky.net/dbase_objekt.blabla?id=1183840757'));
-		$this->assertFalse(RopikyNetService::isValid('https://www.ropiky.net/nerop_objekt.php?id=abcd'));
-		$this->assertFalse(RopikyNetService::isValid('https://www.ropiky.net/nerop_objekt.php?id='));
-		$this->assertFalse(RopikyNetService::isValid('https://www.ropiky.net/nerop_objekt.blabla?id=1183840757'));
-		$this->assertFalse(RopikyNetService::isValid('https://www.ropiky.net/aaaaa.php?id=1183840757'));
-		$this->assertFalse(RopikyNetService::isValid('https://www.ropiky.net'));
+		$this->assertFalse(RopikyNetService::isValidStatic('https://www.ropiky.net/dbase_objekt.php?id=abcd'));
+		$this->assertFalse(RopikyNetService::isValidStatic('https://www.ropiky.net/dbase_objekt.php?id='));
+		$this->assertFalse(RopikyNetService::isValidStatic('https://www.ropiky.net/dbase_objekt.blabla?id=1183840757'));
+		$this->assertFalse(RopikyNetService::isValidStatic('https://www.ropiky.net/nerop_objekt.php?id=abcd'));
+		$this->assertFalse(RopikyNetService::isValidStatic('https://www.ropiky.net/nerop_objekt.php?id='));
+		$this->assertFalse(RopikyNetService::isValidStatic('https://www.ropiky.net/nerop_objekt.blabla?id=1183840757'));
+		$this->assertFalse(RopikyNetService::isValidStatic('https://www.ropiky.net/aaaaa.php?id=1183840757'));
+		$this->assertFalse(RopikyNetService::isValidStatic('https://www.ropiky.net'));
 
-		$this->assertFalse(RopikyNetService::isValid('some invalid url'));
+		$this->assertFalse(RopikyNetService::isValidStatic('some invalid url'));
 	}
 
-	/** @noinspection PhpUnhandledExceptionInspection */
-	public function testUrl(): void
+	public function testProcessDBaseObjekt(): void
 	{
-		$this->assertSame('48.325750,20.233450', RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1183840757')->__toString());
-		$this->assertSame('48.331710,20.240140', RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1183840760')->__toString());
-		$this->assertSame('50.127520,16.601080', RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1075717726')->__toString());
-		$this->assertSame('49.346390,16.974210', RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1075718529')->__toString());
-		$this->assertSame('47.999410,18.780630', RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1075728128')->__toString());
+		$collection = RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1183840757')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('48.325750,20.233450', $collection[0]->__toString());
 
-		$this->assertSame('49.728630,13.558510', RopikyNetService::parseCoords('http://www.ropiky.net/nerop_objekt.php?id=1296479566')->__toString());
-		$this->assertSame('49.182180,13.470280', RopikyNetService::parseCoords('http://www.ropiky.net/nerop_objekt.php?id=1397407312')->__toString());
-		$this->assertSame('50.599950,13.889120', RopikyNetService::parseCoords('http://www.ropiky.net/nerop_objekt.php?id=1396538830')->__toString());
+		$collection = RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1183840760')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('48.331710,20.240140', $collection[0]->__toString());
+
+		$collection = RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1075717726')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('50.127520,16.601080', $collection[0]->__toString());
+
+		$collection = RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1075718529')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('49.346390,16.974210', $collection[0]->__toString());
+
+		$collection = RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1075728128')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('47.999410,18.780630', $collection[0]->__toString());
 	}
 
-	public function testMissingCoordinates1(): void
+	public function testProcessNeropObjekt(): void
 	{
-		$this->expectException(InvalidLocationException::class);
-		$this->expectExceptionMessage('Coordinates on Ropiky.net page are missing.');
-		RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1121190136');
+		$collection = RopikyNetService::processStatic('http://www.ropiky.net/nerop_objekt.php?id=1296479566')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('49.728630,13.558510', $collection[0]->__toString());
 
+		$collection = RopikyNetService::processStatic('http://www.ropiky.net/nerop_objekt.php?id=1397407312')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('49.182180,13.470280', $collection[0]->__toString());
+
+		$collection = RopikyNetService::processStatic('http://www.ropiky.net/nerop_objekt.php?id=1396538830')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('50.599950,13.889120', $collection[0]->__toString());
 	}
 
-	public function testMissingCoordinates2(): void
+	public function testMissingCoordinates(): void
 	{
-		$this->expectException(InvalidLocationException::class);
-		$this->expectExceptionMessage('Coordinates on Ropiky.net page are missing.');
-		RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=1121190152');
-	}
-
-	public function testMissingCoordinates3(): void
-	{
-		$this->expectException(InvalidLocationException::class);
-		$this->expectExceptionMessage('Coordinates on Ropiky.net page are missing.');
-		RopikyNetService::parseCoords('http://www.ropiky.net/nerop_objekt.php?id=1249996776');
+		$this->assertCount(0, RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1121190136')->getCollection());
+		$this->assertCount(0, RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1121190152')->getCollection());
+		$this->assertCount(0, RopikyNetService::processStatic('http://www.ropiky.net/nerop_objekt.php?id=1249996776')->getCollection());
 	}
 
 	public function testInvalidId(): void
 	{
-		$this->expectException(InvalidLocationException::class);
-		$this->expectExceptionMessage('Coordinates on Ropiky.net page are missing.');
-		RopikyNetService::parseCoords('https://ropiky.net/dbase_objekt.php?id=123');
+		$this->assertCount(0, RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=123')->getCollection());
 	}
 }
