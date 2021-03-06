@@ -3,23 +3,17 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\MiniCurl\MiniCurl;
+use App\Utils\Coordinates;
+use Nette\Http\UrlImmutable;
 
-final class WazeService extends AbstractService
+final class WazeService extends AbstractServiceNew
 {
 	const NAME = 'Waze';
 
 	const LINK = 'https://www.waze.com';
 
-	/**
-	 * @param float $lat
-	 * @param float $lon
-	 * @param bool $drive
-	 * @return string
-	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
 		if ($drive) {
@@ -29,84 +23,97 @@ final class WazeService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool
+	public function isValid(): bool
 	{
-		return self::isShortUrl($url) || self::isNormalUrl($url);
+		return $this->isShortUrl() || $this->isNormalUrl();
 	}
 
-	/**
-	 * @param string $url
-	 * @return BetterLocation
-	 * @throws \Exception
-	 */
-	public static function parseCoords(string $url): BetterLocation
+	public function isShortUrl(): bool
 	{
-		if (self::isShortUrl($url)) {
-			$wazeUpdatedUrl = str_replace('waze.com/ul/h', 'www.waze.com/live-map?h=', $url);
-			$newLocation = MiniCurl::loadRedirectUrl($wazeUpdatedUrl);
-			if ($newLocation) {
-				// location is returned without domain
-				$newLocation = self::LINK . $newLocation;
-				$coords = self::parseUrl($newLocation);
-				if ($coords) {
-					return new BetterLocation($url, $coords[0], $coords[1], self::class);
-				} else {
-					throw new InvalidLocationException(sprintf('Unable to get coords for Waze short link "%s".', $url));
+		if (
+			$this->url->getDomain(2) === 'waze.com' &&
+			preg_match('/^\/ul\/h([a-z0-9A-Z]+)$/', $this->url->getPath(), $matches)
+		) {
+			$this->data->isShortUrl = true;
+			$this->data->shortUrlCode = $matches[1];
+			return true;
+		}
+		return false;
+	}
+
+	public function isNormalUrl(): bool
+	{
+		$result = false;
+		if ($this->url->getDomain(2) === 'waze.com') {
+			if ($coords = Coordinates::getLatLon($this->url->getQueryParameter('ll') ?? '')) {
+				$this->data->ll = true;
+				$this->data->llLat = $coords[0];
+				$this->data->llLon = $coords[1];
+				$result = true;
+			}
+			if ($coords = Coordinates::getLatLon($this->url->getQueryParameter('latlng') ?? '')) {
+				$this->data->latLng = true;
+				$this->data->latLngLat = $coords[0];
+				$this->data->latLngLon = $coords[1];
+				$result = true;
+			}
+			if ($this->url->getQueryParameter('to')) {
+				$param = ltrim($this->url->getQueryParameter('to'), 'l.');
+				if ($coords = Coordinates::getLatLon($param)) {
+					$this->data->to = true;
+					$this->data->toLat = $coords[0];
+					$this->data->toLon = $coords[1];
+					$result = true;
 				}
-			} else {
-				throw new InvalidLocationException(sprintf('Unable to get real url for Waze short link "%s".', $url));
 			}
-		} else if (self::isNormalUrl($url)) {
-			$coords = self::parseUrl($url);
-			if ($coords) {
-				return new BetterLocation($url, $coords[0], $coords[1], self::class);
-			} else {
-				throw new InvalidLocationException(sprintf('Unable to get coords for Waze normal link "%s".', $url));
+			if ($this->url->getQueryParameter('from')) {
+				$param = ltrim($this->url->getQueryParameter('from'), 'l.');
+				if ($coords = Coordinates::getLatLon($param)) {
+					$this->data->from = true;
+					$this->data->fromLat = $coords[0];
+					$this->data->fromLon = $coords[1];
+					$result = true;
+				}
 			}
-		} else {
-			throw new InvalidLocationException(sprintf('Unable to get coords for Waze link "%s".', $url));
 		}
+		return $result;
 	}
 
-	public static function isShortUrl(string $url): bool
+	public function process(): void
 	{
-		// Mapy.cz short link:
-		// https://waze.com/ul/hu2fk8zezt
-		return !!(preg_match('/^https?:\/\/waze\.com\/ul\/[a-z0-9A-Z]+$/', $url));
-	}
+		if ($this->data->isShortUrl ?? false) {
+			$this->url = new UrlImmutable($this->getRedirectUrl());
+			if ($this->isValid() === false) {
+				throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url->getAbsoluteUrl(), $this->inputUrl->getAbsoluteUrl()));
+			}
+		}
 
-	public static function isNormalUrl(string $url): bool
-	{
-		return !!(preg_match('/^https?:\/\/(?:www\.)?waze\.com\/.+/', $url));
+		if ($this->data->ll ?? false) {
+			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $this->data->llLat, $this->data->llLon, self::class));
+		}
+		if ($this->data->latLng ?? false) {
+			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $this->data->latLngLat, $this->data->latLngLon, self::class));
+		}
+		if ($this->data->to ?? false) {
+			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $this->data->toLat, $this->data->toLon, self::class));
+		}
+		if ($this->data->from ?? false) {
+			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $this->data->fromLat, $this->data->fromLon, self::class));
+		}
 	}
 
 	/**
-	 * @param string $url
-	 * @return array|null
+	 * Optimize number of requests by changing input URL to third redirect
+	 *
+	 * https://waze.com/ul/hu2fhzy57j
+	 * -> https://www.waze.com/ul/hu2fhzy57j
+	 * -> https://www.waze.com/live-map?h=u2fhzy57j
+	 * -> /live-map/?to=ll.50.087206%2C14.407775 (https://www.waze.com/live-map/?to=ll.50.087206%2C14.407775)
+	 * -> /live-map/directions?to=ll.50.087206%2C14.407775 (https://www.waze.com/live-map/directions?to=ll.50.087206%2C14.407775)
 	 */
-	public static function parseUrl(string $url): ?array
+	private function getRedirectUrl(): string
 	{
-		$paramsString = explode('?', $url);
-		parse_str($paramsString[1], $params);
-		if (isset($params['latlng'])) {
-			$coords = explode(',', $params['latlng']);
-		} else if (isset($params['ll'])) {
-			$coords = explode(',', $params['ll']);
-		} else if (isset($params['to'])) {
-			$coords = explode(',', $params['to']);
-			$coords[0] = str_replace('ll.', '', $coords[0]);
-		} else {
-			return null;
-		}
-		return [
-			floatval($coords[0]),
-			floatval($coords[1]),
-		];
-	}
-
-	/** @throws NotImplementedException */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection
-	{
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
+		$urlToRequest = self::LINK . '/live-map?h=' . $this->data->shortUrlCode;
+		return self::LINK . MiniCurl::loadRedirectUrl($urlToRequest);
 	}
 }
