@@ -310,8 +310,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 //						$betterLocationsCollection->mergeCollection($glympseBetterLocationCollection);
 //					} else if (IngressIntelService::isValid($url)) {
 //						$betterLocationsCollection[] = IngressIntelService::parseCoords($url);
-					} else if (OsmAndService::isUrl($url)) {
-						$betterLocationsCollection[] = OsmAndService::parseUrl($url);
+//					} else if (OsmAndService::isUrl($url)) {
+//						$betterLocationsCollection[] = OsmAndService::parseUrl($url);
 //					} else if (Config::isIngressMosaic() && IngressMosaicService::isValid($url)) {
 //						$betterLocationsCollection[] = IngressMosaicService::parseUrl($url);
 //					} else if (Config::isFoursquare() && FoursquareService::isValid($url)) {

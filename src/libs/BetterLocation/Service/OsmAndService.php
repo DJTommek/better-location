@@ -3,11 +3,11 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
-use App\Utils\General;
+use App\Utils\Coordinates;
+use App\Utils\Strict;
+use Nette\Utils\Arrays;
 
-final class OsmAndService extends AbstractService
+final class OsmAndService extends AbstractServiceNew
 {
 	const NAME = 'OsmAnd';
 
@@ -18,42 +18,24 @@ final class OsmAndService extends AbstractService
 		return self::LINK . sprintf('/go.html?lat=%1$f&lon=%2$f', $lat, $lon);
 	}
 
-	public static function parseCoords(string $url): BetterLocation
+	public function isValid(): bool
 	{
-		throw new NotImplementedException('Parsing coordinates is not available.');
-	}
-
-	public static function isValid(string $input): bool
-	{
-		return false;
-	}
-
-	public static function isUrl(string $url): bool
-	{
-		$parsedUrl = General::parseUrl($url);
 		return (
-			isset($parsedUrl['host']) &&
-			in_array(mb_strtolower($parsedUrl['host']), ['osmand.net', 'www.osmand.net'], true) &&
-			isset($parsedUrl['path']) &&
-			($parsedUrl['path'] === '/go.html' || $parsedUrl['path'] === '/go') &&
-			isset($parsedUrl['query']) &&
-			isset($parsedUrl['query']['lat']) &&
-			isset($parsedUrl['query']['lon']) &&
-			preg_match('/^-?[0-9]{1,3}\.[0-9]{1,20}$/', $parsedUrl['query']['lat']) &&
-			preg_match('/^-?[0-9]{1,3}\.[0-9]{1,20}$/', $parsedUrl['query']['lon']) &&
-			BetterLocation::isLatValid(floatval($parsedUrl['query']['lat'])) &&
-			BetterLocation::isLonValid(floatval($parsedUrl['query']['lon']))
+			$this->url->getDomain(2) === 'osmand.net' &&
+			Arrays::contains(['/go', '/go.html'], $this->url->getPath()) &&
+			Coordinates::isLat($this->url->getQueryParameter('lat')) &&
+			Coordinates::isLat($this->url->getQueryParameter('lon'))
 		);
 	}
 
-	public static function parseUrl(string $url): BetterLocation
+	public function process(): void
 	{
-		$parsedUrl = General::parseUrl($url);
-		return new BetterLocation($url, floatval($parsedUrl['query']['lat']), floatval($parsedUrl['query']['lon']), self::class);
-	}
-
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection
-	{
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
+		$location = new BetterLocation(
+			$this->inputUrl->getAbsoluteUrl(),
+			Strict::floatval($this->url->getQueryParameter('lat')),
+			Strict::floatval($this->url->getQueryParameter('lon')),
+			self::class
+		);
+		$this->collection->add($location);
 	}
 }
