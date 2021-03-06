@@ -13,6 +13,7 @@ use App\BetterLocation\Service\IngressIntelService;
 use App\BetterLocation\Service\IngressMosaicService;
 use App\BetterLocation\Service\MapyCzServiceNew;
 use App\BetterLocation\Service\OpenLocationCodeService;
+use App\BetterLocation\Service\OpenStreetMapService;
 use App\Config;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -26,6 +27,7 @@ class ServicesManager
 	{
 		$this->services[] = GoogleMapsService::class;
 		$this->services[] = HereWeGoService::class;
+		$this->services[] = OpenStreetMapService::class;
 		$this->services[] = MapyCzServiceNew::class;
 		$this->services[] = IngressIntelService::class;
 		$this->services[] = DrobnePamatkyCzService::class;

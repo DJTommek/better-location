@@ -59,7 +59,7 @@ final class OpenStreetMapService extends AbstractServiceNew
 
 	public function process(): void
 	{
-		if ($this->data->isShortUrl) {
+		if ($this->data->isShortUrl ?? false) {
 			$urlToRequest = $this->url->withHost('www.openstreetmap.org');
 			$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($urlToRequest->getAbsoluteUrl()));
 			if ($this->isValid() === false) {
@@ -67,10 +67,10 @@ final class OpenStreetMapService extends AbstractServiceNew
 			}
 		}
 
-		if ($this->data->pointCoord) {
+		if ($this->data->pointCoord ?? false) {
 			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $this->data->pointCoordLat, $this->data->pointCoordLon, self::class, self::TYPE_POINT));
 		}
-		if ($this->data->mapCoord) {
+		if ($this->data->mapCoord ?? false) {
 			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP));
 		}
 	}

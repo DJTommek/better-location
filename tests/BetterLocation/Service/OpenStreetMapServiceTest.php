@@ -39,22 +39,31 @@ final class OpenStreetMapServiceTest extends TestCase
 		$collection = OpenStreetMapService::processStatic('https://www.openstreetmap.org/#map=17/49.355164/14.272819')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('49.355164,14.272819', $collection[0]->__toString());
+		$this->assertSame('Map', $collection[0]->getName());
 
 		$collection = OpenStreetMapService::processStatic('https://www.openstreetmap.org/#map=17/49.32085/14.16402&layers=N')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('49.320850,14.164020', $collection[0]->__toString());
+		$this->assertSame('Map', $collection[0]->getName());
 
 		$collection = OpenStreetMapService::processStatic('https://www.openstreetmap.org/#map=18/50.05215/14.45283')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('50.052150,14.452830', $collection[0]->__toString());
+		$this->assertSame('Map', $collection[0]->getName());
 
 		$collection = OpenStreetMapService::processStatic('https://www.openstreetmap.org/?mlat=50.05215&mlon=14.45283#map=18/50.05215/14.45283')->getCollection();
 		$this->assertCount(2, $collection);
 		$this->assertSame('50.052150,14.452830', $collection[0]->__toString());
+		$this->assertSame('Point', $collection[0]->getName());
+		$this->assertSame('50.052150,14.452830', $collection[1]->__toString());
+		$this->assertSame('Map', $collection[1]->getName());
 
 		$collection = OpenStreetMapService::processStatic('https://www.openstreetmap.org/?mlat=50.05328&mlon=14.45640#map=18/50.05328/14.45640')->getCollection();
 		$this->assertCount(2, $collection);
 		$this->assertSame('50.053280,14.456400', $collection[0]->__toString());
+		$this->assertSame('Point', $collection[0]->getName());
+		$this->assertSame('50.053280,14.456400', $collection[1]->__toString());
+		$this->assertSame('Map', $collection[1]->getName());
 
 		$collection = OpenStreetMapService::processStatic('https://www.openstreetmap.org/#map=15/-34.6101/-58.3641')->getCollection();
 		$this->assertCount(1, $collection);
