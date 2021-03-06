@@ -109,4 +109,16 @@ class Coordinates
 	{
 		return (Strict::isFloat($lon) && $lon <= 180 && $lon >= -180);
 	}
+
+	public static function getLatLon(string $input, string $separator = ','): ?array
+	{
+		$coords = explode($separator, $input);
+		if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
+			return [
+				Strict::floatval($coords[0]),
+				Strict::floatval($coords[1])
+			];
+		}
+		return null;
+	}
 }
