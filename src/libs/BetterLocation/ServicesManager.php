@@ -14,6 +14,7 @@ use App\BetterLocation\Service\IngressMosaicService;
 use App\BetterLocation\Service\MapyCzServiceNew;
 use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\OpenStreetMapService;
+use App\BetterLocation\Service\OsmAndService;
 use App\Config;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -30,6 +31,7 @@ class ServicesManager
 		$this->services[] = OpenStreetMapService::class;
 		$this->services[] = MapyCzServiceNew::class;
 		$this->services[] = IngressIntelService::class;
+		$this->services[] = OsmAndService::class;
 		$this->services[] = DrobnePamatkyCzService::class;
 		$this->services[] = OpenLocationCodeService::class;
 //		$this->services[] = DuckDuckGoService::class; // currently not supported
