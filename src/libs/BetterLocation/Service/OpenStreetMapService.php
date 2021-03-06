@@ -3,22 +3,22 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
+use App\MiniCurl\MiniCurl;
+use App\Utils\Coordinates;
+use App\Utils\Strict;
+use Nette\Http\UrlImmutable;
+use Nette\Utils\Strings;
 
-final class OpenStreetMapService extends AbstractService
+final class OpenStreetMapService extends AbstractServiceNew
 {
 	const NAME = 'OSM';
 
 	const LINK = 'https://www.openstreetmap.org';
 
-	/**
-	 * @param float $lat
-	 * @param float $lon
-	 * @param bool $drive
-	 * @return string
-	 */
+	const TYPE_MAP = 'Map';
+	const TYPE_POINT = 'Point';
+
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
 		if ($drive) {
@@ -28,97 +28,58 @@ final class OpenStreetMapService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool
+	public function isValid(): bool
 	{
-		return self::isShortUrl($url) || self::isNormalUrl($url);
+		$result = false;
+		if ($this->url->getDomain(2) === 'openstreetmap.org') {
+			if (Coordinates::isLat($this->url->getQueryParameter('mlat')) && Coordinates::isLon($this->url->getQueryParameter('mlon'))) {
+				$this->data->pointCoord = true;
+				$this->data->pointCoordLat = Strict::floatval($this->url->getQueryParameter('mlat'));
+				$this->data->pointCoordLon = Strict::floatval($this->url->getQueryParameter('mlon'));
+				$result = true;
+			}
+			if ($this->url->getFragment()) {
+				parse_str($this->url->getFragment(), $fragments);
+				if (isset($fragments['map'])) {
+					$coords = explode('/', $fragments['map']);
+					if (count($coords) >= 3 && Coordinates::isLat($coords[1]) && Coordinates::isLon($coords[2])) {
+						$this->data->mapCoord = true;
+						$this->data->mapCoordLat = Strict::floatval($coords[1]);
+						$this->data->mapCoordLon = Strict::floatval($coords[2]);
+						$result = true;
+					}
+				}
+			}
+		} else if ($this->url->getDomain(0) === 'osm.org' && Strings::startsWith($this->url->getPath(), '/go/')) {
+			$this->data->isShortUrl = true;
+			$result = true;
+		}
+		return $result;
 	}
 
-	/**
-	 * @param string $url
-	 * @return BetterLocation
-	 * @throws \Exception
-	 */
-	public static function parseCoords(string $url): BetterLocation
+	public function process(): void
 	{
-		if (self::isShortUrl($url)) {
-			throw new InvalidLocationException('Short URL processing is not yet implemented.');
-		} else if (self::isNormalUrl($url)) {  // at least two characters, otherwise it is probably /s/hort-version of link
-			$coords = self::parseUrl($url);
-			if ($coords) {
-				return new BetterLocation($url, $coords[0], $coords[1], self::class);
-			} else {
-				throw new InvalidLocationException(sprintf('Unable to get coords from OSM basic link "%s".', $url));
+		if ($this->data->isShortUrl) {
+			$urlToRequest = $this->url->withHost('www.openstreetmap.org');
+			$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($urlToRequest->getAbsoluteUrl()));
+			if ($this->isValid() === false) {
+				throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url->getAbsoluteUrl(), $this->inputUrl->getAbsoluteUrl()));
 			}
-		} else {
-			throw new InvalidLocationException(sprintf('Unable to get coords from OSM link "%s".', $url));
+		}
+
+		if ($this->data->pointCoord) {
+			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $this->data->pointCoordLat, $this->data->pointCoordLon, self::class, self::TYPE_POINT));
+		}
+		if ($this->data->mapCoord) {
+			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP));
 		}
 	}
 
-	public static function isShortUrl(string $url): bool
+	public static function getConstants(): array
 	{
-		// https://osm.org/go/0J0kf83sQ--?m=
-		// https://osm.org/go/0EEQjE==
-		// https://osm.org/go/0EEQjEEb
-		// https://osm.org/go/0J0kf3lAU--
-		// https://osm.org/go/0J0kf3lAU--?m=
-		$openStreetMapShortUrl = 'https://osm.org/go/';
-		return (substr($url, 0, mb_strlen($openStreetMapShortUrl)) === $openStreetMapShortUrl);
-	}
-
-	/**
-	 * @TODO this method should be more strict
-	 *
-	 * @param string $url
-	 * @return bool
-	 *
-	 */
-	public static function isNormalUrl(string $url): bool
-	{
-		// https://www.openstreetmap.org/#map=17/49.355164/14.272819
-		// https://www.openstreetmap.org/#map=17/49.32085/14.16402&layers=N
-		// https://www.openstreetmap.org/#map=18/50.05215/14.45283
-		// https://www.openstreetmap.org/?mlat=50.05215&mlon=14.45283#map=18/50.05215/14.45283
-		// https://www.openstreetmap.org/?mlat=50.05328&mlon=14.45640#map=18/50.05328/14.45640
-		$openStreetMapUrl = 'https://www.openstreetmap.org/';
-		return (substr($url, 0, mb_strlen($openStreetMapUrl)) === $openStreetMapUrl);
-	}
-
-	/**
-	 * @TODO query parameters should have higher priority than hash params
-	 *
-	 * @param string $url
-	 * @return array|null
-	 */
-	public static function parseUrl(string $url): ?array
-	{
-		$paramsHashString = explode('#map=', $url);
-		// url is in format some-url/blahblah#map=lat/lon
-		if (count($paramsHashString) === 2) {
-			$urlCoords = explode('/', $paramsHashString[1]);
-			return [
-				floatval($urlCoords[1]),
-				floatval($urlCoords[2]),
-			];
-		} else {
-			$paramsQueryString = explode('?', $url);
-			if (count($paramsQueryString) === 2) {
-				parse_str($paramsQueryString[1], $params);
-				return [
-					floatval($params['mlat']),
-					floatval($params['mlon']),
-				];
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * @param string $input
-	 * @return BetterLocationCollection
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection
-	{
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
+		return [
+			self::TYPE_POINT,
+			self::TYPE_MAP,
+		];
 	}
 }
