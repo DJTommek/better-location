@@ -38,6 +38,7 @@ use App\Utils\Coordinates;
 use App\Utils\General;
 use App\Utils\Strict;
 use App\Utils\StringUtils;
+use App\WhatThreeWord\Helper;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 
@@ -303,8 +304,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 						}
 //					} else if (WazeService::isValid($url)) {
 //						$betterLocationsCollection[] = WazeService::parseCoords($url);
-					} else if (is_null(Config::W3W_API_KEY) === false && WhatThreeWordService::isValid($url)) {
-						$betterLocationsCollection[] = WhatThreeWordService::parseCoords($url);
+//					} else if (is_null(Config::W3W_API_KEY) === false && WhatThreeWordService::isValid($url)) {
+//						$betterLocationsCollection[] = WhatThreeWordService::parseCoords($url);
 //					} else if (Config::isGlympse() && GlympseService::isValid($url)) {
 //						$glympseBetterLocationCollection = GlympseService::parseCoordsMultiple($url);
 //						$betterLocationsCollection->mergeCollection($glympseBetterLocationCollection);
@@ -380,16 +381,10 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		}
 
 		// What Three Word
-		if (is_null(Config::W3W_API_KEY) === false && preg_match_all(WhatThreeWordService::RE_IN_STRING, $messageWithoutUrls, $matches)) {
-			for ($i = 0; $i < count($matches[0]); $i++) {
-				$words = $matches[0][$i];
-				try {
-					if (WhatThreeWordService::isWords($words)) {
-						$betterLocationsCollection[] = WhatThreeWordService::parseCoords($words);
-					}
-				} catch (\Exception $exception) {
-					$betterLocationsCollection[] = $exception;
-				}
+		if (is_null(Config::W3W_API_KEY) === false && $wordsAddresses = Helper::findInText($messageWithoutUrls)) {
+			foreach($wordsAddresses as $wordsAddress) {
+				// It is ok to use processStatic since words should be already valid
+				$betterLocationsCollection->mergeCollection(WhatThreeWordService::processStatic($wordsAddress)->getCollection());
 			}
 		}
 

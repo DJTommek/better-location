@@ -17,6 +17,7 @@ use App\BetterLocation\Service\OpenStreetMapService;
 use App\BetterLocation\Service\OsmAndService;
 use App\BetterLocation\Service\RopikyNetService;
 use App\BetterLocation\Service\WazeService;
+use App\BetterLocation\Service\WhatThreeWordService;
 use App\Config;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -46,6 +47,9 @@ class ServicesManager
 		}
 		if (is_null(Config::GEOCACHING_COOKIE) === false) {
 			$this->services[] = GeocachingService::class;
+		}
+		if (is_null(Config::W3W_API_KEY) === false) {
+			$this->services[] = WhatThreeWordService::class;
 		}
 		if (Config::isGlympse()) {
 			$this->services[] = GlympseService::class;
