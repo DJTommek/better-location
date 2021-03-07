@@ -3,26 +3,18 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
-use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Config;
 use App\MiniCurl\MiniCurl;
+use App\Utils\Coordinates;
+use Nette\Utils\Strings;
 
-final class WikipediaService extends AbstractService
+final class WikipediaService extends AbstractServiceNew
 {
 	const NAME = 'Wikipedia';
 
 	const LINK = 'https://wikipedia.org';
 
-	/**
-	 * @param float $lat
-	 * @param float $lon
-	 * @param bool $drive
-	 * @return string
-	 * @throws NotSupportedException
-	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
 		if ($drive) {
@@ -32,59 +24,29 @@ final class WikipediaService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool
+	public function isValid(): bool
 	{
-		$parsedUrl = parse_url($url);
-		$allowedHost = 'wikipedia.org';
-		$allowedPath = '/wiki/';
-		$allowedPathShort = '/w/';
 		return (
-			isset($parsedUrl['path'])
-			&&
-			( // path startwith
-				mb_substr($parsedUrl['path'], 0, mb_strlen($allowedPath)) === $allowedPath
-				||
-				mb_substr($parsedUrl['path'], 0, mb_strlen($allowedPathShort)) === $allowedPathShort
+			$this->url->getDomain(2) === 'wikipedia.org' &&
+			(
+				Strings::startsWith($this->url->getPath(), '/wiki/') ||
+				Strings::startsWith($this->url->getPath(), '/w/')
 			)
-			&& // domain endwith @author https://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php#comment14337453_834355
-			mb_substr($parsedUrl['host'], -mb_strlen($allowedHost)) === $allowedHost
 		);
 	}
 
-	/**
-	 * @param string $url
-	 * @return BetterLocation
-	 * @throws InvalidLocationException|\JsonException
-	 */
-	public static function parseCoords(string $url): BetterLocation
+	public function process(): void
 	{
-		$response = self::requestLocationFromWikipediaPage($url);
-		if (isset($response->wgCoordinates) && isset($response->wgCoordinates->lat) && isset($response->wgCoordinates->lon)) {
-			return new BetterLocation(
-				$url,
-				$response->wgCoordinates->lat,
-				$response->wgCoordinates->lon,
-				self::class
-			);
-		} else {
-			// @TODO maybe should return null instead of error since not all pages has saved location
-			throw new InvalidLocationException('No valid location found');
+		$response = $this->requestLocationFromWikipediaPage();
+		if (isset($response->wgCoordinates) && Coordinates::isLat($response->wgCoordinates->lat) && Coordinates::isLon($response->wgCoordinates->lon)) {
+			$location = new BetterLocation($this->inputUrl->getAbsoluteUrl(), $response->wgCoordinates->lat, $response->wgCoordinates->lon, self::class);
+			$this->collection->add($location);
 		}
 	}
 
-	/**
-	 * @param string $url
-	 * @return BetterLocationCollection
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoordsMultiple(string $url): BetterLocationCollection
+	private function requestLocationFromWikipediaPage(): \stdClass
 	{
-		throw new NotImplementedException('Parsing multiple coordinate is not supported. Use parseCoords() instead.');
-	}
-
-	private static function requestLocationFromWikipediaPage(string $url): \stdClass
-	{
-        $response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_WIKIPEDIA)->run()->getBody();
+		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_WIKIPEDIA)->run()->getBody();
 		$startString = '<script>document.documentElement.className="client-js";RLCONF=';
 		$endString = 'RLSTATE=';
 		$posStart = mb_strpos($response, $startString);
