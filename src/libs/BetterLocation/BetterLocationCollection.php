@@ -288,12 +288,12 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 //						$betterLocationsCollection->mergeCollection($hereBetterLocationCollection);
 //					} else if (is_null(Config::GEOCACHING_COOKIE) === false && GeocachingService::isUrl($url)) {
 //						$betterLocationsCollection[] = GeocachingService::parseUrl($url);
-					} else if (WikipediaService::isValid($url)) {
-						try {
-							$betterLocationsCollection[] = WikipediaService::parseCoords($url);
-						} catch (InvalidLocationException $exception) {
+//					} else if (WikipediaService::isValid($url)) {
+//						try {
+//							$betterLocationsCollection[] = WikipediaService::parseCoords($url);
+//						} catch (InvalidLocationException $exception) {
 							// @HACK workaround to not show error in chat, if processing Wikipedia link without location
-						}
+//						}
 //					} else if (OpenLocationCodeService::isValid($url)) {
 //						$betterLocationsCollection[] = OpenLocationCodeService::parseCoords($url);
 //					} else if (FirmyCzService::isUrl($url)) {

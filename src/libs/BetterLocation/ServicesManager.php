@@ -18,6 +18,7 @@ use App\BetterLocation\Service\OsmAndService;
 use App\BetterLocation\Service\RopikyNetService;
 use App\BetterLocation\Service\WazeService;
 use App\BetterLocation\Service\WhatThreeWordService;
+use App\BetterLocation\Service\WikipediaService;
 use App\Config;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -38,6 +39,7 @@ class ServicesManager
 		$this->services[] = OsmAndService::class;
 		$this->services[] = DrobnePamatkyCzService::class;
 		$this->services[] = OpenLocationCodeService::class;
+		$this->services[] = WikipediaService::class;
 //		$this->services[] = DuckDuckGoService::class; // currently not supported
 		if (Config::isFoursquare()) {
 			$this->services[] = FoursquareService::class;
