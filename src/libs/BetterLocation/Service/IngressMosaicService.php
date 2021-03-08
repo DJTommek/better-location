@@ -40,7 +40,7 @@ final class IngressMosaicService extends AbstractServiceNew
 	public function process(): void
 	{
 		$mosaic = Factory::IngressMosaic()->loadMosaic($this->data->mosaicId);
-		$location = new BetterLocation($this->inputUrl->getAbsoluteUrl(), $mosaic->startLat, $mosaic->startLon, self::class);
+		$location = new BetterLocation($this->inputUrl, $mosaic->startLat, $mosaic->startLon, self::class);
 
 		$prefix = $location->getPrefixMessage();
 		$location->setInlinePrefixMessage(sprintf('%s %s', $prefix, $mosaic->name));

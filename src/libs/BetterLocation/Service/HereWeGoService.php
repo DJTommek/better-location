@@ -85,7 +85,7 @@ final class HereWeGoService extends AbstractServiceNew
 		if (preg_match('/--loc-[a-zA-Z0-9]+/', $this->url->getPath())) {
 			$locationData = self::requestByLoc($this->url->getAbsoluteUrl());
 			// @TODO use property "name" or set of properties in "address.*" to better describe current location
-			$location = new BetterLocation($this->inputUrl->getAbsoluteUrl(), $locationData->geo->latitude, $locationData->geo->longitude, self::class, self::TYPE_PLACE_ORIGINAL_ID);
+			$location = new BetterLocation($this->inputUrl, $locationData->geo->latitude, $locationData->geo->longitude, self::class, self::TYPE_PLACE_ORIGINAL_ID);
 			if ($messageInUrl) {
 				$location->setPrefixMessage($location->getPrefixMessage() . ' ' . $messageInUrl);
 			}
@@ -97,12 +97,12 @@ final class HereWeGoService extends AbstractServiceNew
 			// need to replace from "share" subdomain, otherwise there would be another redirect
 			$locationData = self::requestByLoc(str_replace('https://share.here.com/', 'https://wego.here.com/', $this->url->getAbsoluteUrl()));
 			// @TODO use property "name" or set of properties in "address.*" to better describe current location
-			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $locationData->geo->latitude, $locationData->geo->longitude, self::class, self::TYPE_PLACE_SHARE));
+			$this->collection->add(new BetterLocation($this->inputUrl, $locationData->geo->latitude, $locationData->geo->longitude, self::class, self::TYPE_PLACE_SHARE));
 		}
 
 		if (preg_match(self::RE_COORDS_IN_MAP, $this->url->getPath(), $matches)) {
 			if (Coordinates::isLat($matches[1]) && Coordinates::isLon($matches[2])) {
-				$location = new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, self::TYPE_PLACE_COORDS);
+				$location = new BetterLocation($this->inputUrl, Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, self::TYPE_PLACE_COORDS);
 				if ($messageInUrl) {
 					$location->setPrefixMessage($location->getPrefixMessage() . ' ' . $messageInUrl);
 				}
@@ -111,7 +111,7 @@ final class HereWeGoService extends AbstractServiceNew
 		}
 		if (preg_match('/^(-?[0-9]{1,2}\.[0-9]{1,}),(-?[0-9]{1,3}\.[0-9]{1,}),/', $this->url->getQueryParameter('map') ?? '', $matches)) {
 			$type = ($this->data->isShortUrl ?? false) ? self::TYPE_PLACE_SHARE : self::TYPE_MAP;
-			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), floatval($matches[1]), floatval($matches[2]), self::class, $type));
+			$this->collection->add(new BetterLocation($this->inputUrl, floatval($matches[1]), floatval($matches[2]), self::class, $type));
 		}
 	}
 
@@ -136,11 +136,11 @@ final class HereWeGoService extends AbstractServiceNew
 	{
 		$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl()));
 		if ($this->url->getDomain(0) !== 'share.here.com') {
-			throw new InvalidLocationException(sprintf('Unexpected first redirect URL "%s".', $this->url->getAbsoluteUrl()));
+			throw new InvalidLocationException(sprintf('Unexpected first redirect URL "%s".', $this->url));
 		}
 		$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl()));
 		if ($this->url->getDomain(0) !== 'wego.here.com') {
-			throw new InvalidLocationException(sprintf('Unexpected second redirect URL "%s".', $this->url->getAbsoluteUrl()));
+			throw new InvalidLocationException(sprintf('Unexpected second redirect URL "%s".', $this->url));
 		}
 	}
 }

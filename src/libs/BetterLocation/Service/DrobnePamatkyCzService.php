@@ -31,9 +31,9 @@ final class DrobnePamatkyCzService extends AbstractServiceNew
 	public function isValid(): bool
 	{
 		return (
-			$this->inputUrl !== null &&
-			$this->inputUrl->getDomain(2) === 'drobnepamatky.cz' &&
-			preg_match(self::PATH_REGEX, $this->inputUrl->getPath(), $matches)
+			$this->url !== null &&
+			$this->url->getDomain(2) === 'drobnepamatky.cz' &&
+			preg_match(self::PATH_REGEX, $this->url->getPath(), $matches)
 		);
 	}
 

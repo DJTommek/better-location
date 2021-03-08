@@ -63,15 +63,15 @@ final class OpenStreetMapService extends AbstractServiceNew
 			$urlToRequest = $this->url->withHost('www.openstreetmap.org');
 			$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($urlToRequest->getAbsoluteUrl()));
 			if ($this->isValid() === false) {
-				throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url->getAbsoluteUrl(), $this->inputUrl->getAbsoluteUrl()));
+				throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url, $this->inputUrl));
 			}
 		}
 
 		if ($this->data->pointCoord ?? false) {
-			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $this->data->pointCoordLat, $this->data->pointCoordLon, self::class, self::TYPE_POINT));
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->pointCoordLat, $this->data->pointCoordLon, self::class, self::TYPE_POINT));
 		}
 		if ($this->data->mapCoord ?? false) {
-			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP));
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP));
 		}
 	}
 

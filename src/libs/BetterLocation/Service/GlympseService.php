@@ -93,7 +93,7 @@ final class GlympseService extends AbstractServiceNew
 			$currentLocationDescriptions[] = sprintf('%s Glympse will expire soon, at %s', Icons::WARNING, $invite->properties->endTime->format(Config::TIME_FORMAT_ZONE));
 		}
 		$lastLocation = $invite->getLastLocation();
-		$currentLocation = new BetterLocation($this->inputUrl->getAbsoluteUrl(), $lastLocation->latitude, $lastLocation->longtitude, self::class, $type);
+		$currentLocation = new BetterLocation($this->inputUrl, $lastLocation->latitude, $lastLocation->longtitude, self::class, $type);
 		$currentLocation->setRefreshable(true);
 		$diff = $now->getTimestamp() - $lastLocation->timestamp->getTimestamp();
 		if (
@@ -129,7 +129,7 @@ final class GlympseService extends AbstractServiceNew
 	{
 		$now = new \DateTimeImmutable();
 		$destinationDescriptions = [];
-		$destination = new BetterLocation($this->inputUrl->getAbsoluteUrl(), $invite->properties->destination->lat, $invite->properties->destination->lng, self::class, self::TYPE_DESTINATION);
+		$destination = new BetterLocation($this->inputUrl, $invite->properties->destination->lat, $invite->properties->destination->lng, self::class, self::TYPE_DESTINATION);
 		$destination->setRefreshable(true);
 		$destination->setPrefixMessage(sprintf('Glympse destination (<a href="%s">%s</a>)',
 			$invite->getInviteIdUrl(),
