@@ -84,21 +84,21 @@ final class WazeService extends AbstractServiceNew
 		if ($this->data->isShortUrl ?? false) {
 			$this->url = new UrlImmutable($this->getRedirectUrl());
 			if ($this->isValid() === false) {
-				throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url->getAbsoluteUrl(), $this->inputUrl->getAbsoluteUrl()));
+				throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url, $this->inputUrl));
 			}
 		}
 
 		if ($this->data->ll ?? false) {
-			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $this->data->llLat, $this->data->llLon, self::class));
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->llLat, $this->data->llLon, self::class));
 		}
 		if ($this->data->latLng ?? false) {
-			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $this->data->latLngLat, $this->data->latLngLon, self::class));
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->latLngLat, $this->data->latLngLon, self::class));
 		}
 		if ($this->data->to ?? false) {
-			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $this->data->toLat, $this->data->toLon, self::class));
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->toLat, $this->data->toLon, self::class));
 		}
 		if ($this->data->from ?? false) {
-			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $this->data->fromLat, $this->data->fromLon, self::class));
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->fromLat, $this->data->fromLon, self::class));
 		}
 	}
 

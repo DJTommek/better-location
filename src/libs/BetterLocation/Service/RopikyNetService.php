@@ -45,7 +45,7 @@ final class RopikyNetService extends AbstractServiceNew
 			if ($mapyCzService->isValid()) {
 				$mapyCzService->process();
 				if ($mapyCzLocation = $mapyCzService->getCollection()->getFirst()) {
-					$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $mapyCzLocation->getLat(), $mapyCzLocation->getLon(), self::class));
+					$this->collection->add(new BetterLocation($this->inputUrl, $mapyCzLocation->getLat(), $mapyCzLocation->getLon(), self::class));
 				}
 			}
 		}

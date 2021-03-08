@@ -2,24 +2,24 @@
 
 namespace App\BetterLocation;
 
-use App\BetterLocation\Service\AbstractServiceNew;
 use App\BetterLocation\Service\AbstractService;
+use App\BetterLocation\Service\AbstractServiceNew;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\IngressIntelService;
-use App\BetterLocation\Service\MapyCzService;
+use App\BetterLocation\Service\MapyCzServiceNew;
 use App\BetterLocation\Service\OpenStreetMapService;
 use App\BetterLocation\Service\OsmAndService;
 use App\BetterLocation\Service\WazeService;
 use App\Factory;
 use App\Icons;
-use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
+use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\Utils\Coordinates;
-use App\Utils\General;
+use Nette\Http\UrlImmutable;
 use unreal4u\TelegramAPI\Telegram\Types;
 
 class BetterLocation
@@ -30,7 +30,10 @@ class BetterLocation
 	private $prefixMessage;
 	private $coordinateSuffixMessage;
 	private $address;
-	private $originalInput;
+	/** @var string */
+	private $input;
+	/** @var ?UrlImmutable */
+	private $inputUrl;
 	private $sourceService;
 	private $sourceType;
 	private $pregeneratedLinks = [];
@@ -41,16 +44,17 @@ class BetterLocation
 	/**
 	 * BetterLocation constructor.
 	 *
-	 * @param string $originalInput
+	 * @param string|\Nette\Http\Url|\Nette\Http\UrlImmutable $input
 	 * @param float $lat
 	 * @param float $lon
 	 * @param string $sourceService has to be name of class extending \BetterLocation\Service\AbstractService
 	 * @param string|null $sourceType
 	 * @throws InvalidLocationException|Service\Exceptions\NotImplementedException
 	 */
-	public function __construct(string $originalInput, float $lat, float $lon, string $sourceService, ?string $sourceType = null)
+	public function __construct($input, float $lat, float $lon, string $sourceService, ?string $sourceType = null)
 	{
-		$this->originalInput = $originalInput;
+		$this->processInput($input);
+
 		if (self::isLatValid($lat) === false) {
 			throw new InvalidLocationException('Latitude coordinate must be between or equal from -90 to 90 degrees.');
 		}
@@ -85,18 +89,37 @@ class BetterLocation
 		if ($this->sourceType) {
 			$generatedPrefix .= ' ' . $this->sourceType;
 		}
-		if (preg_match('/^https?:\/\//', $this->originalInput)) {
-			$generatedPrefix = sprintf('<a href="%s">%s</a>', $this->originalInput, $generatedPrefix);
+		if ($this->inputUrl) {
+			$generatedPrefix = sprintf('<a href="%s">%s</a>', $this->inputUrl, $generatedPrefix);
 		}
 		$this->setPrefixMessage($generatedPrefix);
 
 		// pregenerate link for MapyCz if contains source and ID (@see https://github.com/DJTommek/better-location/issues/17)
-		if ($sourceService === MapyCzService::class && $sourceType === MapyCzService::TYPE_PLACE_ID) {
-			$parsedUrl = General::parseUrl($originalInput);
-			$generatedUrl = MapyCzService::getLink($this->lat, $this->lon);
-			$generatedUrl = str_replace(sprintf('%F%%2C%F', $this->lon, $this->lat), $parsedUrl['query']['id'], $generatedUrl);
-			$generatedUrl = str_replace('source=coor', 'source=' . $parsedUrl['query']['source'], $generatedUrl);
-			$this->pregeneratedLinks[MapyCzService::class] = $generatedUrl;
+		if ($this->inputUrl && $sourceService === MapyCzServiceNew::class && $sourceType === MapyCzServiceNew::TYPE_PLACE_ID) {
+			$generatedUrl = MapyCzServiceNew::getLink($this->lat, $this->lon);
+			$generatedUrl = str_replace(sprintf('%F%%2C%F', $this->lon, $this->lat), $this->inputUrl->getQueryParameter('id'), $generatedUrl);
+			$generatedUrl = str_replace('source=coor', 'source=' . $this->inputUrl->getQueryParameter('source'), $generatedUrl);
+			$this->pregeneratedLinks[MapyCzServiceNew::class] = $generatedUrl;
+		}
+	}
+
+	private function processInput($input): void
+	{
+		if ($input instanceof \Nette\Http\UrlImmutable) {
+			$this->input = $input->getAbsoluteUrl();
+			$this->inputUrl = $input;
+		} else if ($input instanceof \Nette\Http\Url) {
+			$this->input = $input->getAbsoluteUrl();
+			$this->inputUrl = new \Nette\Http\UrlImmutable($input);
+		} else if (is_string($input)) {
+			$this->input = $input;
+			try {
+				$this->inputUrl = new UrlImmutable($input);
+			} catch (\Nette\InvalidArgumentException $exception) {
+				// Silent, probably is not URL
+			}
+		} else {
+			throw new \InvalidArgumentException(sprintf('Input must be string, instance of "%s" or "%s"', \Nette\Http\Url::class, \Nette\Http\UrlImmutable::class));
 		}
 	}
 
@@ -200,7 +223,7 @@ class BetterLocation
 		/** @var AbstractService[] $services */
 		$services = [
 			GoogleMapsService::class,
-			MapyCzService::class,
+			MapyCzServiceNew::class,
 			DuckDuckGoService::class,
 			WazeService::class,
 			HereWeGoService::class,
@@ -211,7 +234,7 @@ class BetterLocation
 		$text = '';
 		$text .= sprintf('%s <a href="%s" target="_blank">%s</a> <code>%s</code>',
 			$this->prefixMessage,
-			$this->generateScreenshotLink(MapyCzService::class),
+			$this->generateScreenshotLink(MapyCzServiceNew::class),
 			Icons::MAP_SCREEN,
 			$this->__toString()
 		);
@@ -260,7 +283,8 @@ class BetterLocation
 	}
 
 	/** @return Types\Inline\Keyboard\Button[] */
-	public static function generateRefreshButtons(bool $autorefreshEnabled): array {
+	public static function generateRefreshButtons(bool $autorefreshEnabled): array
+	{
 		$autoRefresh = new Types\Inline\Keyboard\Button();
 		if ($autorefreshEnabled) {
 			$autoRefresh->text = sprintf('Autorefresh: %s enabled', Icons::ENABLED);
@@ -355,11 +379,13 @@ class BetterLocation
 		$this->description = $description;
 	}
 
-	public function isRefreshable(): bool {
+	public function isRefreshable(): bool
+	{
 		return $this->refreshable;
 	}
 
-	public function setRefreshable(bool $refreshable): void {
+	public function setRefreshable(bool $refreshable): void
+	{
 		$this->refreshable = $refreshable;
 	}
 

@@ -97,14 +97,14 @@ final class GoogleMapsService extends AbstractServiceNew
 			$urlToRequest = $this->url->withScheme('https'); // Optimalization by skipping one extra redirecting from http to https
 			$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($urlToRequest->getAbsoluteUrl()));
 			if ($this->isValid() === false) {
-				throw new InvalidLocationException(sprintf('Invalid redirect for short Google maps link "%s".', $this->inputUrl->getAbsoluteUrl()));
+				throw new InvalidLocationException(sprintf('Invalid redirect for short Google maps link "%s".', $this->inputUrl));
 			}
 		}
 
 		if ($this->isNormalUrl()) {
 			$this->processUrl();
 		} else {
-			throw new InvalidLocationException(sprintf('Unable to get coords for Google maps link "%s".', $this->url->getAbsoluteUrl()));
+			throw new InvalidLocationException(sprintf('Unable to get coords for Google maps link "%s".', $this->url));
 		}
 	}
 
@@ -121,35 +121,35 @@ final class GoogleMapsService extends AbstractServiceNew
 			 * In this URL is only one parameter to match. Strange...
 			 */
 			if (Coordinates::isLat(end($matches[1])) && Coordinates::isLon(end($matches[2]))) {
-				$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval(end($matches[1])), Strict::floatval(end($matches[2])), self::class, self::TYPE_PLACE));
+				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval(end($matches[1])), Strict::floatval(end($matches[2])), self::class, self::TYPE_PLACE));
 			}
 		}
 
 		// https://www.google.cz/maps/place/50.02261,14.525433
 		if (preg_match('/\/maps\/place\/(-?[0-9.]+),(-?[0-9.]+)/', urldecode($this->url->getPath()), $matches)) {
 			if (Coordinates::isLat($matches[1]) && Coordinates::isLon($matches[2])) {
-				$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, self::TYPE_PLACE));
+				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, self::TYPE_PLACE));
 			}
 		}
 
 		if ($this->url->getQueryParameter('ll')) {
 			$coords = explode(',', $this->url->getQueryParameter('ll'));
 			if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
-				$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval($coords[0]), Strict::floatval($coords[1]), self::class, self::TYPE_UNKNOWN));
+				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($coords[0]), Strict::floatval($coords[1]), self::class, self::TYPE_UNKNOWN));
 			}
 		}
 
 		if ($this->url->getQueryParameter('daddr')) {
 			$coords = explode(',', $this->url->getQueryParameter('daddr'));
 			if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
-				$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval($coords[0]), Strict::floatval($coords[1]), self::class, self::TYPE_DRIVE));
+				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($coords[0]), Strict::floatval($coords[1]), self::class, self::TYPE_DRIVE));
 			}
 		}
 
 		if ($this->url->getQueryParameter('q')) {
 			$coords = explode(',', $this->url->getQueryParameter('q'));
 			if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
-				$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval($coords[0]), Strict::floatval($coords[1]), self::class, self::TYPE_SEARCH));
+				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($coords[0]), Strict::floatval($coords[1]), self::class, self::TYPE_SEARCH));
 				// Warning: coordinates in URL in format "@50.00,15.00" is position of the map, not selected/shared point.
 			}
 		}
@@ -170,7 +170,7 @@ final class GoogleMapsService extends AbstractServiceNew
 			} else {
 				$type = self::TYPE_MAP;
 			}
-			$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, $type));
+			$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, $type));
 		}
 
 		// To prevent doing unnecessary request, this is done only if there is no other location detected
@@ -182,7 +182,7 @@ final class GoogleMapsService extends AbstractServiceNew
 			// Regex is searching for something like this: ',"",null,[null,null,50.0641584,14.468139599999999]';
 			// Warning: Not exact position
 			if (preg_match('/","",null,\[null,null,(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)]\n/', $content, $matches)) {
-				$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, self::TYPE_HIDDEN));
+				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, self::TYPE_HIDDEN));
 			}
 		}
 	}

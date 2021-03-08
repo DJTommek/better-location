@@ -31,7 +31,7 @@ final class OsmAndService extends AbstractServiceNew
 	public function process(): void
 	{
 		$location = new BetterLocation(
-			$this->inputUrl->getAbsoluteUrl(),
+			$this->inputUrl,
 			Strict::floatval($this->url->getQueryParameter('lat')),
 			Strict::floatval($this->url->getQueryParameter('lon')),
 			self::class
