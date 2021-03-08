@@ -3,17 +3,16 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Config;
 use App\MiniCurl\MiniCurl;
-use App\Utils\General;
+use App\Utils\Strict;
+use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
-final class ZanikleObceCzService extends AbstractService
+final class ZanikleObceCzService extends AbstractServiceNew
 {
 	const NAME = 'ZanikleObce.cz';
 
@@ -30,113 +29,58 @@ final class ZanikleObceCzService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool
+	public function isValid(): bool
 	{
-		return self::isUrl($url);
-	}
-
-	/**
-	 * @param string $url
-	 * @return BetterLocation
-	 * @throws InvalidLocationException
-	 */
-	public static function parseCoords(string $url): BetterLocation
-	{
-		$originalUrl = $url;
-		if (self::isDetailPageUrl($url)) {
-			$url = self::getObecUrlFromDetail($url);
-			if (is_null($url)) {
-				// @TODO maybe should return null instead of error since not all pages has saved location
-				throw new InvalidLocationException('No valid location found');
+		if ($this->url->getDomain(2) === 'zanikleobce.cz') {
+			// if both query parameters ('detail' + 'obec') are available, 'detail' has higher priority (as of 2021.03.08)
+			if (Strict::isPositiveInt($this->url->getQueryParameter('detail'))) {
+				$this->data->isPageDetail = true;
+				return true;
+			} else if (Strict::isPositiveInt($this->url->getQueryParameter('obec'))) {
+				$this->data->isPageObec = true;
+				return true;
 			}
 		}
-		$coords = self::getLocationFromPageObec($url);
-		if ($coords) {
-			return new BetterLocation($originalUrl, $coords[0], $coords[1], self::class);
-		} else {
-			throw new InvalidLocationException(sprintf('Unable to get coords from %s link %s.', self::NAME, $url));
+		return false;
+	}
+
+	public function process(): void
+	{
+		if ($this->data->isPageDetail ?? false) {
+			$this->url = new UrlImmutable($this->getObecUrlFromDetail());
+			if ($this->isValid() === false) {
+				throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url, $this->inputUrl));
+			}
 		}
+		$this->processPageObec();
 	}
 
-	private static function isCorrectDomainUrl($url): bool
+	private function getObecUrlFromDetail(): string
 	{
-		$parsedUrl = General::parseUrl($url);
-		return (
-			isset($parsedUrl['host']) &&
-			in_array(mb_strtolower($parsedUrl['host']), ['zanikleobce.cz', 'www.zanikleobce.cz']) &&
-			isset($parsedUrl['query'])
-		);
-	}
-
-	private static function isObecPageUrl($url): bool
-	{
-		$parsedUrl = General::parseUrl($url);
-		return (
-			isset($parsedUrl['query']['obec']) &&
-			preg_match('/^[0-9]+$/', $parsedUrl['query']['obec'])
-		);
-	}
-
-	private static function isDetailPageUrl($url): bool
-	{
-		$parsedUrl = General::parseUrl($url);
-		return (
-			isset($parsedUrl['query']['detail']) &&
-			preg_match('/^[0-9]+$/', $parsedUrl['query']['detail'])
-		);
-	}
-
-	public static function isUrl(string $url): bool
-	{
-		return self::isCorrectDomainUrl($url) && (self::isObecPageUrl($url) || self::isDetailPageUrl($url));
-	}
-
-	private static function getObecUrlFromDetail(string $url): ?string
-	{
-		try {
-            $response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_ZANIKLE_OBCE_CZ)->run()->getBody();
-		} catch (\Throwable $exception) {
-			Debugger::log($exception, ILogger::DEBUG);
-			return null;
-		}
+		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_ZANIKLE_OBCE_CZ)->run()->getBody();
 //		if (!preg_match('/<DIV class="detail_popis"><BIG><B><A HREF="([^"]+)/', $response, $matches)) { // original matching but not matching all urls
 		if (!preg_match('/HREF="([^"]+obec=[^"]+)"/', $response, $matches)) {
 			Debugger::log($response, ILogger::DEBUG);
-			throw new InvalidLocationException(sprintf('Detail page "%s" has no location.', $url));
+			throw new InvalidLocationException(sprintf('Detail page "%s" has no location.', $this->url));
 		}
 		return self::LINK . '/' . html_entity_decode($matches[1]);
 	}
 
-	private static function getLocationFromPageObec(string $url): ?array
+	private function processPageObec(): void
 	{
-		try {
-            $response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_ZANIKLE_OBCE_CZ)->run()->getBody();
-		} catch (\Throwable $exception) {
-			Debugger::log($exception, ILogger::DEBUG);
-			return null;
-		}
+		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_ZANIKLE_OBCE_CZ)->run()->getBody();
 		if (!preg_match('/<a href=\"(https:\/\/mapy\.cz\/[^"]+)/', $response, $matches)) {  // might be multiple matches, return first occured
 			Debugger::log($response, ILogger::DEBUG);
-			throw new InvalidLocationException(sprintf('Coordinates on obec page "%s" are missing.', $url));
+			throw new InvalidLocationException(sprintf('Coordinates on obec page "%s" are missing.', $this->url));
 		}
-		$mapyCzUrl = $matches[1];
-		if (MapyCzService::isNormalUrl($mapyCzUrl) === false) {
-			throw new InvalidLocationException(sprintf('Parsed Mapy.cz URL from "%s" is not valid.', $url));
+		$mapyCzService = new MapyCzServiceNew($matches[1]);
+		if ($mapyCzService->isValid()) {
+			$mapyCzService->process();
+			if ($mapyCzLocation = $mapyCzService->getCollection()->getFirst()) {
+				$this->collection->add(new BetterLocation($this->inputUrl->getAbsoluteUrl(), $mapyCzLocation->getLat(), $mapyCzLocation->getLon(), self::class));
+			}
+		} else {
+			throw new InvalidLocationException(sprintf('Parsed Mapy.cz URL from "%s" is not valid.', $this->url));
 		}
-		$mapyCzLocation = MapyCzService::parseUrl($mapyCzUrl);
-		return [
-			$mapyCzLocation->getLat(),
-			$mapyCzLocation->getLon(),
-		];
-	}
-
-	/**
-	 * @param string $input
-	 * @return BetterLocationCollection
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection
-	{
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }
