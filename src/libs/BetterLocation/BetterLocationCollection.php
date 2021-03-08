@@ -325,12 +325,12 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 //						$betterLocationsCollection[] = DrobnePamatkyCzService::parseCoords($url);
 					} else if (ZniceneKostelyCzService::isValid($url)) {
 						$betterLocationsCollection[] = ZniceneKostelyCzService::parseCoords($url);
-					} else if (ZanikleObceCzService::isValid($url)) {
-						try {
-							$betterLocationsCollection[] = ZanikleObceCzService::parseCoords($url);
-						} catch (InvalidLocationException $exception) {
+//					} else if (ZanikleObceCzService::isValid($url)) {
+//						try {
+//							$betterLocationsCollection[] = ZanikleObceCzService::parseCoords($url);
+//						} catch (InvalidLocationException $exception) {
 							// @HACK workaround to not show error in chat, if processing Wikipedia link without location
-						}
+//						}
 					} else {
 						$headers = null;
 						try {

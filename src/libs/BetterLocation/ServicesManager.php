@@ -19,6 +19,7 @@ use App\BetterLocation\Service\RopikyNetService;
 use App\BetterLocation\Service\WazeService;
 use App\BetterLocation\Service\WhatThreeWordService;
 use App\BetterLocation\Service\WikipediaService;
+use App\BetterLocation\Service\ZanikleObceCzService;
 use App\Config;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -57,6 +58,7 @@ class ServicesManager
 			$this->services[] = GlympseService::class;
 		}
 		$this->services[] = RopikyNetService::class;
+		$this->services[] = ZanikleObceCzService::class;
 	}
 
 	public function iterate(string $input): BetterLocationCollection
