@@ -298,10 +298,10 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 //						$betterLocationsCollection[] = OpenLocationCodeService::parseCoords($url);
 //					} else if (FirmyCzService::isUrl($url)) {
 //						$betterLocationsCollection[] = FirmyCzService::parseUrl($url);
-					} else if (FacebookService::isUrl($url)) {
-						if ($location = FacebookService::parseUrl($url)) {
-							$betterLocationsCollection[] = $location;
-						}
+//					} else if (FacebookService::isUrl($url)) {
+//						if ($location = FacebookService::parseUrl($url)) {
+//							$betterLocationsCollection[] = $location;
+//						}
 //					} else if (WazeService::isValid($url)) {
 //						$betterLocationsCollection[] = WazeService::parseCoords($url);
 //					} else if (is_null(Config::W3W_API_KEY) === false && WhatThreeWordService::isValid($url)) {

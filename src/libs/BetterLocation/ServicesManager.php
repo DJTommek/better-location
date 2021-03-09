@@ -4,6 +4,7 @@ namespace App\BetterLocation;
 
 use App\BetterLocation\Service\AbstractServiceNew;
 use App\BetterLocation\Service\DrobnePamatkyCzService;
+use App\BetterLocation\Service\FacebookService;
 use App\BetterLocation\Service\FoursquareService;
 use App\BetterLocation\Service\GeocachingService;
 use App\BetterLocation\Service\GlympseService;
@@ -36,6 +37,7 @@ class ServicesManager
 		$this->services[] = WazeService::class;
 		$this->services[] = HereWeGoService::class;
 		$this->services[] = OpenStreetMapService::class;
+		$this->services[] = FacebookService::class;
 		$this->services[] = MapyCzServiceNew::class;
 		$this->services[] = IngressIntelService::class;
 		$this->services[] = OsmAndService::class;

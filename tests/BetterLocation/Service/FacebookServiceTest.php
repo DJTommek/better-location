@@ -22,41 +22,59 @@ final class FacebookServiceTest extends TestCase
 
 	public function testIsUrl(): void
 	{
-		$this->assertTrue(FacebookService::isUrl('https://facebook.com/burgerzelva'));
-		$this->assertTrue(FacebookService::isUrl('http://facebook.com/burgerzelva'));
-		$this->assertTrue(FacebookService::isUrl('http://www.facebook.com/burgerzelva'));
-		$this->assertTrue(FacebookService::isUrl('https://www.facebook.com/burgerzelva'));
-		$this->assertTrue(FacebookService::isUrl('https://facebook.com/burgerzelva/'));
-		$this->assertTrue(FacebookService::isUrl('https://facebook.com/burgerzelva/menu'));
-		$this->assertTrue(FacebookService::isUrl('https://facebook.com/burgerzelva/menu/?ref=page_internal'));
-		$this->assertTrue(FacebookService::isUrl('https://facebook.com/burgerzelva?ref=page_internal'));
-		$this->assertTrue(FacebookService::isUrl('https://m.facebook.com/burgerzelva'));
-		$this->assertTrue(FacebookService::isUrl('https://pt-br.facebook.com/burgerzelva'));
-		$this->assertTrue(FacebookService::isUrl('https://m.facebook.com/gentlegiantcafex/'));
-		$this->assertTrue(FacebookService::isUrl('https://pt-br.facebook.com/fantaziecafe/'));
-		$this->assertTrue(FacebookService::isUrl('https://www.facebook.com/FlotaVacaDiezSCZ/'));
-		$this->assertTrue(FacebookService::isUrl('https://www.facebook.com/Bodegas-Alfaro-730504807012751/'));
-		$this->assertTrue(FacebookService::isUrl('https://www.facebook.com/Biggie-Express-251025431718109/about/?ref=page_internal'));
+		$this->assertTrue(FacebookService::isValidStatic('https://facebook.com/burgerzelva'));
+		$this->assertTrue(FacebookService::isValidStatic('http://facebook.com/burgerzelva'));
+		$this->assertTrue(FacebookService::isValidStatic('http://www.facebook.com/burgerzelva'));
+		$this->assertTrue(FacebookService::isValidStatic('https://www.facebook.com/burgerzelva'));
+		$this->assertTrue(FacebookService::isValidStatic('https://facebook.com/burgerzelva/'));
+		$this->assertTrue(FacebookService::isValidStatic('https://facebook.com/burgerzelva/menu'));
+		$this->assertTrue(FacebookService::isValidStatic('https://facebook.com/burgerzelva/menu/?ref=page_internal'));
+		$this->assertTrue(FacebookService::isValidStatic('https://facebook.com/burgerzelva?ref=page_internal'));
+		$this->assertTrue(FacebookService::isValidStatic('https://m.facebook.com/burgerzelva'));
+		$this->assertTrue(FacebookService::isValidStatic('https://pt-br.facebook.com/burgerzelva'));
+		$this->assertTrue(FacebookService::isValidStatic('https://m.facebook.com/gentlegiantcafex/'));
+		$this->assertTrue(FacebookService::isValidStatic('https://pt-br.facebook.com/fantaziecafe/'));
+		$this->assertTrue(FacebookService::isValidStatic('https://www.facebook.com/FlotaVacaDiezSCZ/'));
+		$this->assertTrue(FacebookService::isValidStatic('https://www.facebook.com/Bodegas-Alfaro-730504807012751/'));
+		$this->assertTrue(FacebookService::isValidStatic('https://www.facebook.com/Biggie-Express-251025431718109/about/?ref=page_internal'));
 
-		$this->assertFalse(FacebookService::isUrl('https://facebook.com/'));
-		$this->assertFalse(FacebookService::isUrl('https://facebook.com'));
-		$this->assertFalse(FacebookService::isUrl('https://facebook.com?foo=bar'));
+		$this->assertFalse(FacebookService::isValidStatic('https://facebook.com/'));
+		$this->assertFalse(FacebookService::isValidStatic('https://facebook.com'));
+		$this->assertFalse(FacebookService::isValidStatic('https://facebook.com?foo=bar'));
 
-		$this->assertFalse(FacebookService::isUrl('some invalid url'));
+		$this->assertFalse(FacebookService::isValidStatic('some invalid url'));
 	}
 
 	public function testUrl(): void
 	{
-		$this->assertSame('50.087244,14.469230', FacebookService::parseUrl('https://pt-br.facebook.com/burgerzelva/menu/?ref=page_internal')->__toString());
-		$this->assertSame('50.061790,14.437030', FacebookService::parseUrl('https://pt-br.facebook.com/fantaziecafe/')->__toString());
-		$this->assertSame('40.411600,-3.700390', FacebookService::parseUrl('https://www.facebook.com/Bodegas-Alfaro-730504807012751/')->__toString());
-		$this->assertSame('-43.538899,172.652603', FacebookService::parseUrl('https://m.facebook.com/gentlegiantcafex/')->__toString());
-		$this->assertSame('-25.285736,-57.559743', FacebookService::parseUrl('https://www.facebook.com/Biggie-Express-251025431718109/about/?ref=page_internal')->__toString());
-		$this->assertSame('-17.792721,-63.155202', FacebookService::parseUrl('https://www.facebook.com/FlotaVacaDiezSCZ/')->__toString());
+		$collection = FacebookService::processStatic('https://pt-br.facebook.com/burgerzelva/menu/?ref=page_internal')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('50.087244,14.469230', $collection[0]->__toString());
+
+		$collection = FacebookService::processStatic('https://pt-br.facebook.com/fantaziecafe/')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('50.061790,14.437030', $collection[0]->__toString());
+
+		$collection = FacebookService::processStatic('https://www.facebook.com/Bodegas-Alfaro-730504807012751/')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('40.411600,-3.700390', $collection[0]->__toString());
+
+		$collection = FacebookService::processStatic('https://m.facebook.com/gentlegiantcafex/')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('-43.538899,172.652603', $collection[0]->__toString());
+
+		$collection = FacebookService::processStatic('https://www.facebook.com/Biggie-Express-251025431718109/about/?ref=page_internal')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('-25.285736,-57.559743', $collection[0]->__toString());
+
+		$collection = FacebookService::processStatic('https://www.facebook.com/FlotaVacaDiezSCZ/')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('-17.792721,-63.155202', $collection[0]->__toString());
 	}
 
 	public function testMissingCoordinates(): void
 	{
-		$this->assertNull(FacebookService::parseUrl('https://www.facebook.com/ThePokeHaus'));
+		$collection = FacebookService::processStatic('https://www.facebook.com/ThePokeHaus')->getCollection();
+		$this->assertCount(0, $collection);
 	}
 }
