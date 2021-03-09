@@ -3,17 +3,13 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
-use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Config;
 use App\MiniCurl\MiniCurl;
-use App\Utils\General;
-use Tracy\Debugger;
-use Tracy\ILogger;
+use App\Utils\Coordinates;
+use App\Utils\Strict;
 
-final class ZniceneKostelyCzService extends AbstractService
+final class ZniceneKostelyCzService extends AbstractServiceNew
 {
 	const NAME = 'ZniceneKostely.cz';
 
@@ -29,66 +25,23 @@ final class ZniceneKostelyCzService extends AbstractService
 		}
 	}
 
-	public static function isValid(string $url): bool
+	public function isValid(): bool
 	{
-		return self::isUrl($url);
-	}
-
-	/**
-	 * @param string $url
-	 * @return BetterLocation
-	 * @throws InvalidLocationException
-	 */
-	public static function parseCoords(string $url): BetterLocation
-	{
-		$coords = self::parseUrl($url);
-		if ($coords) {
-			return new BetterLocation($url, $coords[0], $coords[1], self::class);
-		} else {
-			throw new InvalidLocationException(sprintf('Unable to get coords from %s link %s.', self::NAME, $url));
-		}
-	}
-
-	public static function isUrl(string $url): bool
-	{
-		$url = mb_strtolower($url);
-		$parsedUrl = General::parseUrl($url);
 		return (
-			isset($parsedUrl['host']) &&
-			in_array($parsedUrl['host'], ['znicenekostely.cz', 'www.znicenekostely.cz']) &&
-			isset($parsedUrl['query']) &&
-			isset($parsedUrl['query']['load']) &&
-			$parsedUrl['query']['load'] === 'detail' &&
-			isset($parsedUrl['query']['id']) &&
-			preg_match('/^[0-9]+$/', $parsedUrl['query']['id'])
+			$this->url->getDomain(2) === 'znicenekostely.cz' &&
+			$this->url->getQueryParameter('load') === 'detail' &&
+			Strict::isPositiveInt($this->url->getQueryParameter('id'))
 		);
 	}
 
-	public static function parseUrl(string $url): ?array
+	public function process(): void
 	{
-		try {
-			$response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_ZNICENE_KOSTELY_CZ)->run()->getBody();
-		} catch (\Throwable $exception) {
-			Debugger::log($exception, ILogger::DEBUG);
-			return null;
+		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_ZNICENE_KOSTELY_CZ)->run()->getBody();
+		if (preg_match('/WGS84 souřadnice objektu: ([0-9.]+)°N, ([0-9.]+)°E/', $response, $matches)) {
+			if (Coordinates::isLat($matches[1]) && Coordinates::isLon($matches[2])) {
+				$location = new BetterLocation($this->inputUrl, Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class);
+				$this->collection->add($location);
+			}
 		}
-		if (!preg_match('/WGS84 souřadnice objektu: ([0-9.]+)°N, ([0-9.]+)°E/', $response, $matches)) {
-			Debugger::log($response, ILogger::DEBUG);
-			throw new InvalidLocationException(sprintf('Coordinates on %s page are missing.', self::NAME));
-		}
-		return [
-			floatval($matches[1]),
-			floatval($matches[2]),
-		];
-	}
-
-	/**
-	 * @param string $input
-	 * @return BetterLocationCollection
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection
-	{
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
 	}
 }
