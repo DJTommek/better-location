@@ -52,6 +52,8 @@ class TelegramCustomWrapper
 	{
 		if ($update->update_id === 0) { // default value
 			throw new \Exception('Telegram webhook API data are missing!');
+		} else if (isset($update->my_chat_member)) {
+			$this->eventNote = '$update->my_chat_member is ignored';
 		} else if (TelegramHelper::isEdit($update)) {
 			if (TelegramHelper::isLocation($update)) {
 				$this->event = new LocationEdit($update);
