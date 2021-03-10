@@ -547,7 +547,6 @@ class MGRS
 		if (preg_match(self::getUSNGRegex(), $usngString, $matches) === false) { // duplicated regex from isUSNG to get $matches by it's parts
 			throw new \LogicException('Invalid format of MGRS string which should be catched by self::isUTM().');
 		}
-		dump($matches);
 
 		list(, $zone, $hemisphere, $easting, $northing) = $matches;
 
