@@ -198,7 +198,7 @@ abstract class Events
 		$lat = 50.087451;
 		$lon = 14.420671;
 		$wazeLink = WazeService::getLink($lat, $lon);
-		$betterLocationWaze = WazeService::parseCoords($wazeLink);
+		$betterLocationWaze = WazeService::processStatic($wazeLink)->getFirst();
 
 		$text = sprintf('%s Welcome to @%s!', Icons::LOCATION, Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('I\'m a simple but smart bot to catch all possible location formats in any chats you invite me to, and generate links to your favourite location services such as Google maps, Waze, OpenStreetMaps etc.') . PHP_EOL;
