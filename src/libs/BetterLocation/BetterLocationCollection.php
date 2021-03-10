@@ -36,6 +36,7 @@ use App\MiniCurl\MiniCurl;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
 use App\Utils\General;
+use App\Utils\Strict;
 use App\Utils\StringUtils;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
@@ -258,7 +259,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 			if (in_array($entity->type, ['url', 'text_link'])) {
 				$url = TelegramHelper::getEntityContent($message, $entity);
 
-				if (Url::isTrueUrl($url) === false) {
+				if (Strict::isUrl($url) === false) {
 					continue;
 				}
 

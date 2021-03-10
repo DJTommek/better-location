@@ -4,6 +4,7 @@ namespace App\TelegramCustomWrapper;
 
 use App\Config;
 use App\Icons;
+use App\Utils\Strict;
 use unreal4u\TelegramAPI\Telegram\Types\Chat;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
@@ -319,7 +320,7 @@ class TelegramHelper
 		foreach (array_reverse($entities) as $entity) {
 			if ($entity->type === 'url') {
 				$entityContent = TelegramHelper::getEntityContent($text, $entity);
-				if (\App\BetterLocation\Url::isTrueUrl($entityContent)) {
+				if (Strict::isUrl($entityContent)) {
 					$text = str_replace($entityContent, str_repeat('|', $entity->length), $text);
 				}
 			}

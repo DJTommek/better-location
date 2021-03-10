@@ -41,13 +41,4 @@ class Url
 		}
 		return false;
 	}
-
-	/**
-	 * Skip URLs without defined scheme, eg "tomas.palider.cz" but allow "https://tomas.palider.cz/"
-	 */
-	public static function isTrueUrl(string $url): bool
-	{
-		$parsedUrl = General::parseUrl($url);
-		return (isset($parsedUrl['scheme']) && isset($parsedUrl['host']));
-	}
 }
