@@ -5,14 +5,14 @@ namespace App\BetterLocation\Service\Coordinates;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Utils\Coordinates;
 use App\Utils\General;
+use App\Utils\Strict;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
-abstract class AbstractService extends \App\BetterLocation\Service\AbstractService
+abstract class AbstractService extends \App\BetterLocation\Service\AbstractServiceNew
 {
 	const RE_OPTIONAL_HEMISPHERE = '([-+NSWE])?';
 	/**
@@ -63,8 +63,15 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 		$collection = new BetterLocationCollection();
 		if (preg_match_all('/' . self::getRegex() . '/u', $text, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
+				$coordsRaw = $matches[0][$i];
+				$service = new static($coordsRaw);
 				try {
-					$collection->add(static::parseCoords($matches[0][$i]));
+					if ($service->isValid()) {
+						$service->process();
+						$collection->mergeCollection($service->getCollection());
+					} else {
+						Debugger::log(sprintf('Coordinate input "%s" was findInText() but not validated', $coordsRaw), Debugger::ERROR);
+					}
 				} catch (InvalidLocationException $exception) {
 					Debugger::log($exception, ILogger::DEBUG);
 				}
@@ -73,9 +80,13 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 		return $collection;
 	}
 
-	public static function isValid(string $input): bool
+	public function isValid(): bool
 	{
-		return !!preg_match('/^' . static::getRegex() . '$/u', $input);
+		if (preg_match('/^' . static::getRegex() . '$/u', $this->input, $matches)) {
+			$this->data->matches = $matches;
+			return true;
+		}
+		return false;
 	}
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
@@ -88,60 +99,47 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 	}
 
 	/**
-	 * @param string $input
-	 * @return BetterLocationCollection
-	 * @throws NotImplementedException
-	 */
-	public static function parseCoordsMultiple(string $input): BetterLocationCollection
-	{
-		throw new NotImplementedException('Parsing multiple coordinates is not available.');
-	}
-
-	/** @throws InvalidLocationException */
-	abstract public static function parseCoords(string $input): BetterLocation;
-
-	/**
 	 * Handle matches from all WGS84* service regexes
 	 * @throws InvalidLocationException
 	 */
-	protected static function processWGS84(string $serviceClass, array $matches)
+	protected function processWGS84(): BetterLocation
 	{
-		switch ($serviceClass) {
+		switch (static::class) {
 			case WGS84DegreesService::class:
-				list($input, $latHemisphere1, $latCoordDegrees, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonHemisphere2) = $matches;
-				$latCoord = floatval($latCoordDegrees);
-				$lonCoord = floatval($lonCoordDegrees);
+				list($input, $latHemisphere1, $latCoordDegrees, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonHemisphere2) = array_pad($this->data->matches, 7, '');
+				$latCoord = Strict::floatval($latCoordDegrees);
+				$lonCoord = Strict::floatval($lonCoordDegrees);
 				break;
 			case WGS84DegreesMinutesService::class:
-				list($input, $latHemisphere1, $latCoordDegrees, $latCoordMinutes, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonCoordMinutes, $lonHemisphere2) = $matches;
+				list($input, $latHemisphere1, $latCoordDegrees, $latCoordMinutes, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonCoordMinutes, $lonHemisphere2) = array_pad($this->data->matches, 9, '');
 				$latCoord = Coordinates::wgs84DegreesMinutesToDecimal(
-					floatval($latCoordDegrees),
-					floatval($latCoordMinutes),
-					Coordinates::NORTH, // @TODO Temporary hack to just fill up function parameters
+					Strict::floatval($latCoordDegrees),
+					Strict::floatval($latCoordMinutes),
+					Coordinates::NORTH // Temporary fill default value
 				);
 				$lonCoord = Coordinates::wgs84DegreesMinutesToDecimal(
-					floatval($lonCoordDegrees),
-					floatval($lonCoordMinutes),
-					Coordinates::EAST, // @TODO Temporary hack to just fill up function parameters
+					Strict::floatval($lonCoordDegrees),
+					Strict::floatval($lonCoordMinutes),
+					Coordinates::EAST // Temporary fill default value
 				);
 				break;
 			case WGS84DegreesMinutesSecondsService::class:
-				list($input, $latHemisphere1, $latCoordDegrees, $latCoordMinutes, $latCoordSeconds, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonCoordMinutes, $lonCoordSeconds, $lonHemisphere2) = $matches;
+				list($input, $latHemisphere1, $latCoordDegrees, $latCoordMinutes, $latCoordSeconds, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonCoordMinutes, $lonCoordSeconds, $lonHemisphere2) = array_pad($this->data->matches, 11, '');
 				$latCoord = Coordinates::wgs84DegreesMinutesSecondsToDecimal(
-					floatval($latCoordDegrees),
-					floatval($latCoordMinutes),
-					floatval($latCoordSeconds),
-					Coordinates::NORTH, // @TODO Temporary hack to just fill up function parameters
+					Strict::floatval($latCoordDegrees),
+					Strict::floatval($latCoordMinutes),
+					Strict::floatval($latCoordSeconds),
+					Coordinates::NORTH // Temporary fill default value
 				);
 				$lonCoord = Coordinates::wgs84DegreesMinutesSecondsToDecimal(
-					floatval($lonCoordDegrees),
-					floatval($lonCoordMinutes),
-					floatval($lonCoordSeconds),
-					Coordinates::EAST, // @TODO Temporary hack to just fill up function parameters
+					Strict::floatval($lonCoordDegrees),
+					Strict::floatval($lonCoordMinutes),
+					Strict::floatval($lonCoordSeconds),
+					Coordinates::EAST // Temporary fill default value
 				);
 				break;
 			default:
-				throw new \InvalidArgumentException(sprintf('"%s" is invalid service class name', $serviceClass));
+				throw new \InvalidArgumentException(sprintf('"%s" is invalid service class name', static::class));
 		}
 
 		// regex wrongly detected two hemisphere for first coordinate
@@ -213,10 +211,10 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 
 		// Check if final format of hemispheres and coordinates is valid
 		if (in_array($latHemisphere, [Coordinates::EAST, Coordinates::WEST])) {
-			throw new InvalidLocationException(sprintf('Both coordinates "%s" are east-west hemisphere', $matches[0]));
+			throw new InvalidLocationException(sprintf('Both coordinates "%s" are east-west hemisphere', $this->input));
 		}
 		if (in_array($lonHemisphere, [Coordinates::NORTH, Coordinates::SOUTH])) {
-			throw new InvalidLocationException(sprintf('Both coordinates "%s" are north-south hemisphere', $matches[0]));
+			throw new InvalidLocationException(sprintf('Both coordinates "%s" are north-south hemisphere', $this->input));
 		}
 
 		return new BetterLocation(
