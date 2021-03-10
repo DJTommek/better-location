@@ -45,81 +45,24 @@ class BetterLocation
 	 * BetterLocation constructor.
 	 *
 	 * @param string|\Nette\Http\Url|\Nette\Http\UrlImmutable $input
-	 * @param float $lat
-	 * @param float $lon
 	 * @param string $sourceService has to be name of class extending \BetterLocation\Service\AbstractService
-	 * @param string|null $sourceType
-	 * @throws InvalidLocationException|Service\Exceptions\NotImplementedException
+	 * @param ?string $sourceType if $sourceService class has multiple type of source, this must be included
+	 * @throws InvalidLocationException
 	 */
 	public function __construct($input, float $lat, float $lon, string $sourceService, ?string $sourceType = null)
 	{
-		$this->processInput($input);
-
-		if (self::isLatValid($lat) === false) {
-			throw new InvalidLocationException('Latitude coordinate must be between or equal from -90 to 90 degrees.');
-		}
-		$this->lat = $lat;
-		if (self::isLonValid($lon) === false) {
-			throw new InvalidLocationException('Longitude coordinate must be between or equal from -180 to 180 degrees.');
-		}
-		$this->lon = $lon;
-		if (class_exists($sourceService) === false) {
-			throw new InvalidLocationException(sprintf('Invalid source service: "%s".', $sourceService));
-		}
-		if (is_subclass_of($sourceService, AbstractService::class) === false && is_subclass_of($sourceService, AbstractServiceNew::class) === false) {
-			throw new InvalidLocationException(sprintf('Source service has to be subclass of "%s".', AbstractServiceNew::class));
-		}
-
-		$this->sourceService = $sourceService;
-		$sourceTypes = $sourceService::getConstants();
-		if (count($sourceTypes) === 0 && $sourceType !== null) {
-			throw new InvalidLocationException(sprintf('Service "%s" doesn\'t contain any types so $sourceType has to be null, not "%s"', $sourceService, $sourceType));
-		}
-		if (count($sourceTypes) > 0) {
-			if ($sourceType === null) {
-				throw new InvalidLocationException(sprintf('Missing source type for service "%s"', $sourceService));
-			}
-			if (in_array($sourceType, $sourceTypes) === false) {
-				throw new InvalidLocationException(sprintf('Invalid source type "%s" for service "%s".', $sourceType, $sourceService));
-			}
-		}
-		$this->sourceType = $sourceType;
-
-		$generatedPrefix = $sourceService::NAME;
-		if ($this->sourceType) {
-			$generatedPrefix .= ' ' . $this->sourceType;
-		}
-		if ($this->inputUrl) {
-			$generatedPrefix = sprintf('<a href="%s">%s</a>', $this->inputUrl, $generatedPrefix);
-		}
-		$this->setPrefixMessage($generatedPrefix);
+		$this->validateInput($input);
+		$this->validateCoords($lat, $lon);
+		$this->validateSourceService($sourceService);
+		$this->validateSourceType($sourceType);
+		$this->generateDefaultPrefix();
 
 		// pregenerate link for MapyCz if contains source and ID (@see https://github.com/DJTommek/better-location/issues/17)
-		if ($this->inputUrl && $sourceService === MapyCzServiceNew::class && $sourceType === MapyCzServiceNew::TYPE_PLACE_ID) {
+		if ($this->inputUrl && $this->sourceService === MapyCzServiceNew::class && $this->sourceType === MapyCzServiceNew::TYPE_PLACE_ID) {
 			$generatedUrl = MapyCzServiceNew::getLink($this->lat, $this->lon);
 			$generatedUrl = str_replace(sprintf('%F%%2C%F', $this->lon, $this->lat), $this->inputUrl->getQueryParameter('id'), $generatedUrl);
 			$generatedUrl = str_replace('source=coor', 'source=' . $this->inputUrl->getQueryParameter('source'), $generatedUrl);
 			$this->pregeneratedLinks[MapyCzServiceNew::class] = $generatedUrl;
-		}
-	}
-
-	private function processInput($input): void
-	{
-		if ($input instanceof \Nette\Http\UrlImmutable) {
-			$this->input = $input->getAbsoluteUrl();
-			$this->inputUrl = $input;
-		} else if ($input instanceof \Nette\Http\Url) {
-			$this->input = $input->getAbsoluteUrl();
-			$this->inputUrl = new \Nette\Http\UrlImmutable($input);
-		} else if (is_string($input)) {
-			$this->input = $input;
-			try {
-				$this->inputUrl = new UrlImmutable($input);
-			} catch (\Nette\InvalidArgumentException $exception) {
-				// Silent, probably is not URL
-			}
-		} else {
-			throw new \InvalidArgumentException(sprintf('Input must be string, instance of "%s" or "%s"', \Nette\Http\Url::class, \Nette\Http\UrlImmutable::class));
 		}
 	}
 
@@ -409,5 +352,80 @@ class BetterLocation
 	public static function fromLatLon(float $lat, float $lon): self
 	{
 		return new BetterLocation(sprintf('%F,%F', $lat, $lon), $lat, $lon, WGS84DegreesService::class);
+	}
+
+	private function validateInput($input): void
+	{
+		if ($input instanceof \Nette\Http\UrlImmutable) {
+			$this->input = $input->getAbsoluteUrl();
+			$this->inputUrl = $input;
+		} else if ($input instanceof \Nette\Http\Url) {
+			$this->input = $input->getAbsoluteUrl();
+			$this->inputUrl = new \Nette\Http\UrlImmutable($input);
+		} else if (is_string($input)) {
+			$this->input = $input;
+			try {
+				$this->inputUrl = new UrlImmutable($input);
+			} catch (\Nette\InvalidArgumentException $exception) {
+				// Silent, probably is not URL
+			}
+		} else {
+			throw new \InvalidArgumentException(sprintf('Input must be string, instance of "%s" or "%s"', \Nette\Http\Url::class, \Nette\Http\UrlImmutable::class));
+		}
+	}
+
+	/**
+	 * @throws InvalidLocationException
+	 */
+	private function validateCoords(float $lat, float $lon): void
+	{
+		if (Coordinates::isLat($lat) === false) {
+			throw new InvalidLocationException('Latitude coordinate must be between or equal from -90 to 90 degrees.');
+		}
+		$this->lat = $lat;
+		if (Coordinates::isLon($lon) === false) {
+			throw new InvalidLocationException('Longitude coordinate must be between or equal from -180 to 180 degrees.');
+		}
+		$this->lon = $lon;
+	}
+
+	private function validateSourceService(string $sourceService): void
+	{
+		if (class_exists($sourceService) === false) {
+			throw new \InvalidArgumentException(sprintf('Invalid source service: "%s".', $sourceService));
+		}
+		if (is_subclass_of($sourceService, AbstractService::class) === false && is_subclass_of($sourceService, AbstractServiceNew::class) === false) {
+			throw new \InvalidArgumentException(sprintf('Source service has to be subclass of "%s".', AbstractServiceNew::class));
+		}
+		$this->sourceService = $sourceService;
+	}
+
+	private function validateSourceType(?string $sourceType = null): void
+	{
+		$sourceTypes = $this->sourceService::getConstants();
+		if (count($sourceTypes) === 0 && $sourceType !== null) {
+			throw new \InvalidArgumentException(sprintf('Service "%s" doesn\'t contain any types so $sourceType has to be null, not "%s"', $this->sourceService, $sourceType));
+		}
+		if (count($sourceTypes) > 0) {
+			if ($sourceType === null) {
+				throw new \InvalidArgumentException(sprintf('Missing source type for service "%s"', $this->sourceService));
+			}
+			if (in_array($sourceType, $sourceTypes) === false) {
+				throw new \InvalidArgumentException(sprintf('Invalid source type "%s" for service "%s".', $sourceType, $this->sourceService));
+			}
+		}
+		$this->sourceType = $sourceType;
+	}
+
+	private function generateDefaultPrefix(): void
+	{
+		$generatedPrefix = $this->sourceService::NAME;
+		if ($this->sourceType) {
+			$generatedPrefix .= ' ' . $this->sourceType;
+		}
+		if ($this->inputUrl) {
+			$generatedPrefix = sprintf('<a href="%s">%s</a>', $this->inputUrl, $generatedPrefix);
+		}
+		$this->setPrefixMessage($generatedPrefix);
 	}
 }
