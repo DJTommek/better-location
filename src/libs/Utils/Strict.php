@@ -2,6 +2,8 @@
 
 namespace App\Utils;
 
+use Nette;
+
 class Strict
 {
 	public static function isInt($input): bool
@@ -68,5 +70,44 @@ class Strict
 		} else {
 			throw new \InvalidArgumentException('Input is not valid float');
 		}
+	}
+
+	/**
+	 * Stricter creator of Nette\Http\Url requiring URL to contain host and http(s) scheme.
+	 *
+	 * @param string|Nette\Http\UrlImmutable|Nette\Http\Url $input
+	 */
+	public static function url($input): Nette\Http\Url
+	{
+		if (self::isUrl($input) === false) {
+			throw new Nette\InvalidArgumentException;
+		}
+		return new Nette\Http\Url($input);
+	}
+
+	/**
+	 * Stricter creator of Nette\Http\UrlImmutable requiring URL to contain host and http(s) scheme.
+	 *
+	 * @param string|Nette\Http\UrlImmutable|Nette\Http\Url $input
+	 */
+	public static function urlImmutable($input): Nette\Http\UrlImmutable
+	{
+		return new Nette\Http\UrlImmutable(self::url($input));
+	}
+
+	/**
+	 * Stricter checker for URL requiring URL containing host and http(s) scheme.
+	 *
+	 * @param string|Nette\Http\UrlImmutable|Nette\Http\Url $input
+	 */
+	public static function isUrl($input): bool
+	{
+		if (is_string($input)) {
+			$input = new Nette\Http\Url($input);
+		}
+		if ($input instanceof \Nette\Http\UrlImmutable || $input instanceof \Nette\Http\Url) {
+			return ($input->getHost() && in_array($input->getScheme(), ['https', 'http'], true) === true);
+		}
+		return false;
 	}
 }
