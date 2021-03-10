@@ -20,12 +20,11 @@ final class USNGServiceTest extends TestCase
 		USNGService::getLink(50.087451, 14.420671, true);
 	}
 
-	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testValidLocation(): void
 	{
-		$this->assertSame('50.083718,14.400509', USNGService::parseCoords('33 N 457111 5548111')->__toString()); // Prague
-		$this->assertSame('50.083718,14.400509', USNGService::parseCoords('33N 457111 5548111')->__toString()); // Prague
-		$this->assertSame('50.083718,14.400509', USNGService::parseCoords('33N457111 5548111')->__toString()); // Prague
+		$this->assertSame('50.083718,14.400509', USNGService::processStatic('33 N 457111 5548111')->getFirst()->__toString()); // Prague
+		$this->assertSame('50.083718,14.400509', USNGService::processStatic('33N 457111 5548111')->getFirst()->__toString()); // Prague
+		$this->assertSame('50.083718,14.400509', USNGService::processStatic('33N457111 5548111')->getFirst()->__toString()); // Prague
 	}
 
 

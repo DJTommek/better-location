@@ -6,6 +6,8 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\Utils\MGRS;
+use Tracy\Debugger;
+use Tracy\ILogger;
 
 final class USNGService extends AbstractService
 {
@@ -17,25 +19,31 @@ final class USNGService extends AbstractService
 		$inStringRegex = '/' . MGRS::getUSNGRegex(3, false, false) . '/';
 		if (preg_match_all($inStringRegex, $text, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
+				$usngRaw = $matches[0][$i];
+				$service = new self($usngRaw);
 				try {
-					$collection[] = self::parseCoords($matches[0][$i]);
+					if ($service->isValid()) {
+						$service->process();
+						$collection->mergeCollection($service->getCollection());
+					} else {
+						Debugger::log(sprintf('USNG input "%s" was findInText() but not validated', $usngRaw), Debugger::ERROR);
+					}
 				} catch (InvalidLocationException $exception) {
-					$collection[] = $exception;
+					Debugger::log($exception, ILogger::DEBUG);
 				}
 			}
 		}
 		return $collection;
 	}
 
-	public static function isValid(string $input): bool
+	public function isValid(): bool
 	{
-		return MGRS::isMGRS($input);
+		return MGRS::isUSNG($this->input);
 	}
 
-	/** @throws InvalidLocationException */
-	public static function parseCoords(string $input): BetterLocation
+	public function process(): void
 	{
-		$mgrs = MGRS::fromUSNG($input);
-		return new BetterLocation($input, $mgrs->getLat(), $mgrs->getLon(), get_called_class());
+		$usng = MGRS::fromUSNG($this->input);
+		$this->collection->add(new BetterLocation($this->input, $usng->getLat(), $usng->getLon(), get_called_class()));
 	}
 }
