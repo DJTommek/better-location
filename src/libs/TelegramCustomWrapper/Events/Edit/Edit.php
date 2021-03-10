@@ -2,6 +2,7 @@
 
 namespace App\TelegramCustomWrapper\Events\Edit;
 
+use unreal4u\TelegramAPI\Abstracts\TelegramTypes;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Methods\EditMessageText;
 
@@ -12,7 +13,7 @@ abstract class Edit extends \App\TelegramCustomWrapper\Events\Events
 		return $this->update->edited_message;
 	}
 
-	protected function editMessage(int $messageIdToEdit, string $text, array $options = [])
+	protected function editMessage(int $messageIdToEdit, string $text, array $options = []): ?TelegramTypes
 	{
 		$editMessage = new EditMessageText();
 		$editMessage->text = $text;

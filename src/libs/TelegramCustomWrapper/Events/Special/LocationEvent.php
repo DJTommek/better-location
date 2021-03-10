@@ -55,7 +55,7 @@ class LocationEvent extends Special
 			$text = $processedCollection->getText();
 			$markup = $processedCollection->getMarkup(1, false);
 			$response = $this->reply($text, $markup);
-			if ($collection->hasRefreshableLocation()) {
+			if ($response && $collection->hasRefreshableLocation()) {
 				$cron = new TelegramUpdateDb($this->update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
 				$cron->insert();
 				$cron->setLastSendData($text, $markup, true);

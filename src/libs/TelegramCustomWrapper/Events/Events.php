@@ -148,7 +148,7 @@ abstract class Events
 	}
 
 	/** Send message as reply to recieved message */
-	public function reply(string $text, ?Markup $markup = null, array $options = []): Telegram\Types\Message
+	public function reply(string $text, ?Markup $markup = null, array $options = []): ?Telegram\Types\Message
 	{
 		$msg = new SendMessage($this->getChatId(), $text, $this->getMessageId());
 		if ($markup) {

@@ -2,6 +2,7 @@
 
 namespace App\TelegramCustomWrapper\Events\Button;
 
+use unreal4u\TelegramAPI\Abstracts\TelegramTypes;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Methods\AnswerCallbackQuery;
 
@@ -24,7 +25,6 @@ abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 
 	/**
 	 * Can't use from in getMessage, because that's message where was clicked on button which is message from bot.
-	 * @return Telegram\Types\User
 	 */
 	public function getFrom(): Telegram\Types\User
 	{
@@ -32,11 +32,9 @@ abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 	}
 
 	/**
-	 * @param array $options
-	 * @return ?\unreal4u\TelegramAPI\Abstracts\TelegramTypes
 	 * @throws \Exception
 	 */
-	public function replyButton(string $text, ?Telegram\Types\Inline\Keyboard\Markup $markup = null, array $options = [])
+	public function replyButton(string $text, ?Telegram\Types\Inline\Keyboard\Markup $markup = null, array $options = []): ?TelegramTypes
 	{
 		$msg = new \unreal4u\TelegramAPI\Telegram\Methods\EditMessageText();
 		$msg->text = $text;

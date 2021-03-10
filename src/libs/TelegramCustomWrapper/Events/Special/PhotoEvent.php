@@ -24,7 +24,7 @@ class PhotoEvent extends Special
 			$text = $processedCollection->getText();
 			$markup = $processedCollection->getMarkup(1);
 			$response = $this->reply($text, $markup);
-			if ($collection->hasRefreshableLocation()) {
+			if ($response && $collection->hasRefreshableLocation()) {
 				$cron = new TelegramUpdateDb($this->update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
 				$cron->insert();
 				$cron->setLastSendData($text, $markup, true);
