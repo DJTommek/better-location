@@ -2,6 +2,8 @@
 
 namespace App\Utils;
 
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+
 class Coordinates
 {
 	const NORTH = 'N';
@@ -10,6 +12,61 @@ class Coordinates
 	const WEST = 'W';
 
 	const EARTH_RADIUS = 6371000; // in meters
+
+	/** @var float */
+	private $lat;
+	/** @var float */
+	private $lon;
+
+	/**
+	 * @param string|int|float $lat Latitude coordinate in WGS-84 format
+	 * @param string|int|float $lon Longitude coordinate in WGS-84 format
+	 * @throws InvalidLocationException
+	 */
+	public function __construct($lat, $lon)
+	{
+		$this->setLat($lat);
+		$this->setLon($lon);
+	}
+
+	public function getLat(): float
+	{
+		return $this->lat;
+	}
+
+	public function getLon(): float
+	{
+		return $this->lon;
+	}
+
+	/**
+	 * @param string|int|float $lat
+	 * @throws InvalidLocationException
+	 */
+	public function setLat($lat): void
+	{
+		if (self::isLat($lat) === false) {
+			throw new InvalidLocationException('Latitude coordinate must be numeric between or equal from -90 to 90 degrees.');
+		}
+		$this->lat = Strict::floatval($lat);
+	}
+
+	/**
+	 * @param string|int|float $lon
+	 * @throws InvalidLocationException
+	 */
+	public function setLon($lon): void
+	{
+		if (self::isLon($lon) === false) {
+			throw new InvalidLocationException('Longitude coordinate must be numeric between or equal from -180 to 180 degrees.');
+		}
+		$this->lon = Strict::floatval($lon);
+	}
+
+	public function __toString(): string
+	{
+		return sprintf('%F,%F', $this->lat, $this->lon);
+	}
 
 	/** Get decimal format from degrees-minutes */
 	public static function wgs84DegreesMinutesToDecimal(float $degrees, float $minutes, string $hemisphere): float
