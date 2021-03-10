@@ -4,6 +4,9 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use Nette\Http\UrlImmutable;
 
 abstract class AbstractServiceNew
@@ -62,8 +65,15 @@ abstract class AbstractServiceNew
 
 	abstract public function isValid(): bool;
 
+	/**
+	 * @throws InvalidLocationException
+	 */
 	abstract public function process();
 
+	/**
+	 * @throws NotImplementedException
+	 * @throws NotSupportedException
+	 */
 	abstract static public function getLink(float $lat, float $lon, bool $drive = false);
 
 	final public function getCollection(): BetterLocationCollection
