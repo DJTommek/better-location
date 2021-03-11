@@ -150,6 +150,14 @@ final class OpenLocationCodeServiceTest extends TestCase
 
 	public function testSearchInText(): void
 	{
+		$collection = OpenLocationCodeService::findInText('some random text before 8FXP74WG+XHW and after');
+		$this->assertCount(1, $collection);
+		$this->assertSame('49.297487,14.126453', $collection[0]->__toString());
+
+		// Plus code is valid, but to improve success detection rate, two or three codes after + sign are required
+		$collection = OpenLocationCodeService::findInText('some random text before 8FWCX400+ and after');
+		$this->assertCount(0, $collection);
+
 		$this->assertSame(1, preg_match_all(OpenLocationCodeService::RE_IN_STRING, 'some random text before 8FXP74WG+XHW and after', $matches));
 		$this->assertCount(1, $matches[2]);
 		$this->assertSame('8FXP74WG+XHW', $matches[2][0]);
