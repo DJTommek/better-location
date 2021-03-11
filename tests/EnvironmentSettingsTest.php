@@ -8,16 +8,14 @@ final class EnvironmentSettingsTest extends TestCase
 {
 	/**
 	 * Keep same floating point character even if locale is different
-	 *
-	 * @noinspection PhpUnhandledExceptionInspection
 	 */
 	public function testLocale(): void
 	{
 		$localeOriginal = setlocale(LC_NUMERIC, 0); // do not change anything, just save original location to restore it later
-		$betterLocationPositive = WGS84DegreesService::parseCoords('50.123456,10.123456');
-		$betterLocationPositiveNegative = WGS84DegreesService::parseCoords('50.123456,-10.123456');
-		$betterLocationNegativePositive = WGS84DegreesService::parseCoords('-50.123456,10.123456');
-		$betterLocationNegative = WGS84DegreesService::parseCoords('-50.123456,-10.123456');
+		$betterLocationPositive = WGS84DegreesService::processStatic('50.123456,10.123456')->getFirst();
+		$betterLocationPositiveNegative = WGS84DegreesService::processStatic('50.123456,-10.123456')->getFirst();
+		$betterLocationNegativePositive = WGS84DegreesService::processStatic('-50.123456,10.123456')->getFirst();
+		$betterLocationNegative = WGS84DegreesService::processStatic('-50.123456,-10.123456')->getFirst();
 
 		// default formatting (usually from environment settings)
 		$this->assertSame('50.123456,10.123456', $betterLocationPositive->__toString());
