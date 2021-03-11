@@ -5,7 +5,7 @@ namespace App\TelegramCustomWrapper\Events\Special;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\GoogleMapsService;
-use App\BetterLocation\Service\MapyCzServiceNew;
+use App\BetterLocation\Service\MapyCzService;
 use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
@@ -178,7 +178,7 @@ class InlineQueryEvent extends Special
 		if ($betterLocation->getAddress()) {
 			$inlineQueryResult->description .= sprintf(' (%s)', $betterLocation->getAddress());
 		}
-		$inlineQueryResult->thumb_url = MapyCzServiceNew::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
+		$inlineQueryResult->thumb_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
 		$inlineQueryResult->reply_markup = new Markup();
 
 		$buttons = $betterLocation->generateDriveButtons();

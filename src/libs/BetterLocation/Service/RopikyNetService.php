@@ -41,7 +41,7 @@ final class RopikyNetService extends AbstractServiceNew
 	{
 		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_ROPIKY_NET)->run()->getBody();
 		if (preg_match('/<a href=\"(https:\/\/mapy\.cz\/[^"]+)/', $response, $matches)) {
-			$mapyCzService = new MapyCzServiceNew($matches[1]);
+			$mapyCzService = new MapyCzService($matches[1]);
 			if ($mapyCzService->isValid()) {
 				$mapyCzService->process();
 				if ($mapyCzLocation = $mapyCzService->getCollection()->getFirst()) {

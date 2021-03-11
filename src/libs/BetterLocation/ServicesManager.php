@@ -12,7 +12,7 @@ use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\IngressIntelService;
 use App\BetterLocation\Service\IngressMosaicService;
-use App\BetterLocation\Service\MapyCzServiceNew;
+use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\OpenStreetMapService;
 use App\BetterLocation\Service\OsmAndService;
@@ -38,7 +38,7 @@ class ServicesManager
 		$this->services[] = HereWeGoService::class;
 		$this->services[] = OpenStreetMapService::class;
 		$this->services[] = FacebookService::class;
-		$this->services[] = MapyCzServiceNew::class;
+		$this->services[] = MapyCzService::class;
 		$this->services[] = IngressIntelService::class;
 		$this->services[] = OsmAndService::class;
 		$this->services[] = DrobnePamatkyCzService::class;
