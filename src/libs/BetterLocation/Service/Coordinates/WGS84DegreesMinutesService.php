@@ -9,7 +9,7 @@ final class WGS84DegreesMinutesService extends AbstractService
 
 	public function process(): void
 	{
-		$location = static::processWGS84();
+		$location = self::processWGS84();
 		$this->collection->add($location);
 	}
 }
