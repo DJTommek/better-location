@@ -7,6 +7,8 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\Utils\Strict;
+use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
 
 abstract class AbstractService
@@ -31,12 +33,13 @@ abstract class AbstractService
 	protected $inputUrl;
 
 	/**
-	 * URL initially generated from input, but can be changed, eg. if input URL is alias or redirecting to another URL
+	 * URL initially generated from inputUrl, but can be changed, eg. if input URL is alias or redirecting to another URL.
+	 * Hostname part of URL is lowercased
 	 *
 	 * Example URL https://www.geocaching.com/seek/cache_details.aspx?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4
 	 * will be replaced with https://www.geocaching.com/geocache/GC85BTR_antivirova-cache?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4
 	 *
-	 * @var ?UrlImmutable
+	 * @var ?Url
 	 */
 	protected $url;
 
@@ -48,12 +51,10 @@ abstract class AbstractService
 	public function __construct(string $input)
 	{
 		$this->input = $input;
-		try {
-			$url = new UrlImmutable($input);
-			$this->inputUrl = $url->withHost(mb_strtolower($url->getHost())); // Convert host to lowercase
-			$this->url = $this->inputUrl;
-		} catch (\Nette\InvalidArgumentException $exception) {
-			// Silent, probably is not URL
+		if (Strict::isUrl($input)) {
+			$this->inputUrl = Strict::urlImmutable($input);
+			$this->url = Strict::url($this->inputUrl);
+			$this->url->setHost(mb_strtolower($this->url->getHost())); // Convert host to lowercase
 		}
 		$this->collection = new BetterLocationCollection();
 		$this->data = new \stdClass();

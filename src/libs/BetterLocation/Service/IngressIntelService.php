@@ -32,23 +32,25 @@ final class IngressIntelService extends AbstractService
 	public function isValid(): bool
 	{
 		$result = false;
-		if ($param = $this->inputUrl->getQueryParameter('pll')) { // map coordinates
-			$coords = explode(',', $param);
-			if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
-				$this->data->portalCoord = true;
-				$this->data->portalCoordLat = Strict::floatval($coords[0]);
-				$this->data->portalCoordLon = Strict::floatval($coords[1]);
-				$result = true;
+		if ($this->url) {
+			if ($param = $this->inputUrl->getQueryParameter('pll')) { // map coordinates
+				$coords = explode(',', $param);
+				if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
+					$this->data->portalCoord = true;
+					$this->data->portalCoordLat = Strict::floatval($coords[0]);
+					$this->data->portalCoordLon = Strict::floatval($coords[1]);
+					$result = true;
+				}
 			}
-		}
 
-		if ($param = $this->inputUrl->getQueryParameter('ll')) { // portal coordinates
-			$coords = explode(',', $param);
-			if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
-				$this->data->mapCoord = true;
-				$this->data->mapCoordLat = Strict::floatval($coords[0]);
-				$this->data->mapCoordLon = Strict::floatval($coords[1]);
-				$result = true;
+			if ($param = $this->inputUrl->getQueryParameter('ll')) { // portal coordinates
+				$coords = explode(',', $param);
+				if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
+					$this->data->mapCoord = true;
+					$this->data->mapCoordLat = Strict::floatval($coords[0]);
+					$this->data->mapCoordLon = Strict::floatval($coords[1]);
+					$result = true;
+				}
 			}
 		}
 		return $result;

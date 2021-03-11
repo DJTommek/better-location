@@ -28,6 +28,7 @@ final class FacebookService extends AbstractService
 	public function isValid(): bool
 	{
 		return (
+			$this->url &&
 			$this->url->getDomain(2) === 'facebook.com' &&
 			preg_match('/^\/[^\/]+/', $this->url->getPath()) // at least "/a"
 		);

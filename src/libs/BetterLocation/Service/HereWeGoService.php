@@ -8,7 +8,6 @@ use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
-use Nette\Http\UrlImmutable;
 use Nette\Utils\Arrays;
 
 final class HereWeGoService extends AbstractService
@@ -53,7 +52,7 @@ final class HereWeGoService extends AbstractService
 
 	public function isShortUrl(): bool
 	{
-		if (Arrays::contains(['her.is'], $this->url->getDomain(0))) {
+		if ($this->url && Arrays::contains(['her.is'], $this->url->getDomain(0))) {
 			$this->data->isShortUrl = true;
 			return true;
 		}
@@ -62,10 +61,10 @@ final class HereWeGoService extends AbstractService
 
 	public function isNormalUrl(): bool
 	{
-		return Arrays::contains([
-			'share.here.com',
-			'wego.here.com',
-		], $this->url->getDomain(0));
+		return $this->url && Arrays::contains([
+				'share.here.com',
+				'wego.here.com',
+			], $this->url->getDomain(0));
 	}
 
 	public function process(): void
@@ -134,11 +133,11 @@ final class HereWeGoService extends AbstractService
 	 */
 	private function processShortShareUrl(): void
 	{
-		$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl()));
+		$this->url = Strict::url(MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl()));
 		if ($this->url->getDomain(0) !== 'share.here.com') {
 			throw new InvalidLocationException(sprintf('Unexpected first redirect URL "%s".', $this->url));
 		}
-		$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl()));
+		$this->url = Strict::url(MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl()));
 		if ($this->url->getDomain(0) !== 'wego.here.com') {
 			throw new InvalidLocationException(sprintf('Unexpected second redirect URL "%s".', $this->url));
 		}

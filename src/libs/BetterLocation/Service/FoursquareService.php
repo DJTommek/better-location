@@ -34,7 +34,7 @@ final class FoursquareService extends AbstractService
 	public function isValid(): bool
 	{
 		if (
-			$this->url !== null &&
+			$this->url &&
 			$this->url->getDomain(2) === 'foursquare.com' &&
 			preg_match(self::URL_PATH_VENUE_REGEX, $this->url->getPath(), $matches)
 		) {

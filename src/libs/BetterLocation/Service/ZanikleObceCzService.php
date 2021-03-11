@@ -8,7 +8,6 @@ use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Strict;
-use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
@@ -31,7 +30,7 @@ final class ZanikleObceCzService extends AbstractService
 
 	public function isValid(): bool
 	{
-		if ($this->url->getDomain(2) === 'zanikleobce.cz') {
+		if ($this->url && $this->url->getDomain(2) === 'zanikleobce.cz') {
 			// if both query parameters ('detail' + 'obec') are available, 'detail' has higher priority (as of 2021.03.08)
 			if (Strict::isPositiveInt($this->url->getQueryParameter('detail'))) {
 				$this->data->isPageDetail = true;
@@ -47,7 +46,7 @@ final class ZanikleObceCzService extends AbstractService
 	public function process(): void
 	{
 		if ($this->data->isPageDetail ?? false) {
-			$this->url = new UrlImmutable($this->getObecUrlFromDetail());
+			$this->url = Strict::url($this->getObecUrlFromDetail());
 			if ($this->isValid() === false) {
 				throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url, $this->inputUrl));
 			}

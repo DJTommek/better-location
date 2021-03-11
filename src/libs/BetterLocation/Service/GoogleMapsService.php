@@ -8,7 +8,6 @@ use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
-use Nette\Http\UrlImmutable;
 use Nette\Utils\Strings;
 
 final class GoogleMapsService extends AbstractService
@@ -53,7 +52,7 @@ final class GoogleMapsService extends AbstractService
 
 	public function isShortUrl(): bool
 	{
-		if ((
+		if ($this->url && (
 				$this->url->getDomain(0) === 'goo.gl' &&
 				Strings::startsWith($this->url->getPath(), '/maps/')
 			) || (
@@ -67,7 +66,7 @@ final class GoogleMapsService extends AbstractService
 
 	public function isNormalUrl(): bool
 	{
-		return ((
+		return ($this->url && (
 				$this->url->getDomain(-1) === 'www.google' &&
 				Strings::startsWith($this->url->getPath(), '/maps/')
 			) || (
@@ -94,8 +93,8 @@ final class GoogleMapsService extends AbstractService
 	public function process()
 	{
 		if ($this->data->isShort ?? false) {
-			$urlToRequest = $this->url->withScheme('https'); // Optimalization by skipping one extra redirecting from http to https
-			$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($urlToRequest->getAbsoluteUrl()));
+			$urlToRequest = $this->url->setScheme('https'); // Optimalization by skipping one extra redirecting from http to https
+			$this->url = Strict::url(MiniCurl::loadRedirectUrl($urlToRequest->getAbsoluteUrl()));
 			if ($this->isValid() === false) {
 				throw new InvalidLocationException(sprintf('Invalid redirect for short Google maps link "%s".', $this->inputUrl));
 			}

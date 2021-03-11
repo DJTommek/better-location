@@ -49,7 +49,7 @@ final class OpenLocationCodeService extends AbstractService
 	/** @example https://plus.codes/8FXP74WG+XHW */
 	public function isUrl(): bool
 	{
-		if ($this->url->getDomain(2) === 'plus.codes') {
+		if ($this->url && $this->url->getDomain(2) === 'plus.codes') {
 			$plusCode = ltrim($this->url->getPath(), '/');
 			if (OpenLocationCode::isFull($plusCode)) {
 				$this->data->plusCode = $plusCode;

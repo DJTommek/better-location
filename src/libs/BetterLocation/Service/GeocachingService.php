@@ -14,7 +14,7 @@ use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
 use App\Utils\StringUtils;
-use Nette\Http\UrlImmutable;
+use Nette\Http\Url;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
@@ -122,7 +122,7 @@ final class GeocachingService extends AbstractService
 		);
 	}
 
-	public static function getGeocacheIdFromUrl(UrlImmutable $url): ?string
+	public static function getGeocacheIdFromUrl(Url $url): ?string
 	{
 		if (mb_strtolower($url->getDomain()) === 'geocaching.com') {
 			if (preg_match(self::URL_PATH_GEOCACHE_REGEX, $url->getPath(), $matches)) {
@@ -188,6 +188,7 @@ final class GeocachingService extends AbstractService
 	public function isUrlMapCoord(): bool
 	{
 		if (
+			$this->url &&
 			$this->url->getDomain(2) === 'geocaching.com' &&
 			rtrim($this->url->getPath(), '/') === '/play/map' && // might be "/play/map" or "/play/map/"
 			Coordinates::isLat($this->url->getQueryParameter('lat')) &&
@@ -252,7 +253,7 @@ final class GeocachingService extends AbstractService
 	{
 		if ($this->data->isUrlGuid ?? false) {
 			try {
-				$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($this->input));
+				$this->url = Strict::url(MiniCurl::loadRedirectUrl($this->input));
 				if ($this->isValid() === false) {
 					throw new InvalidLocationException(sprintf('Unprocessable input: "%s"', $this->input));
 				}

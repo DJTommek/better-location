@@ -28,6 +28,7 @@ final class ZniceneKostelyCzService extends AbstractService
 	public function isValid(): bool
 	{
 		return (
+			$this->url &&
 			$this->url->getDomain(2) === 'znicenekostely.cz' &&
 			$this->url->getQueryParameter('load') === 'detail' &&
 			Strict::isPositiveInt($this->url->getQueryParameter('id'))

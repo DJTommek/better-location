@@ -27,6 +27,7 @@ final class WikipediaService extends AbstractService
 	public function isValid(): bool
 	{
 		return (
+			$this->url &&
 			$this->url->getDomain(2) === 'wikipedia.org' &&
 			(
 				Strings::startsWith($this->url->getPath(), '/wiki/') ||

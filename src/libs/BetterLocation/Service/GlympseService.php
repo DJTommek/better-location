@@ -49,7 +49,7 @@ final class GlympseService extends AbstractService
 
 	public function isValid(): bool
 	{
-		if ($this->url->getDomain() === 'glympse.com') {
+		if ($this->url && $this->url->getDomain() === 'glympse.com') {
 			if (preg_match(self::PATH_INVITE_ID_REGEX, $this->url->getPath(), $matches)) {
 				$this->data->inviteId = $matches[1];
 				return true;

@@ -10,7 +10,6 @@ use App\Utils\Coordinates;
 use App\Utils\Strict;
 use DJTommek\MapyCzApi\MapyCzApi;
 use DJTommek\MapyCzApi\MapyCzApiException;
-use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
 
 final class MapyCzService extends AbstractService
@@ -27,7 +26,7 @@ final class MapyCzService extends AbstractService
 	public function isValid(): bool
 	{
 		return (
-			$this->url !== null &&
+			$this->url &&
 			$this->url->getDomain(2) === 'mapy.cz' &&
 			(
 				$this->isShortUrl() ||
@@ -153,7 +152,7 @@ final class MapyCzService extends AbstractService
 
 	private function processShortUrl()
 	{
-		$this->url = new UrlImmutable(MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl()));
+		$this->url = Strict::url(MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl()));
 		if ($this->isValid() === false) {
 			throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url, $this->inputUrl));
 		}

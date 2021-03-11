@@ -18,6 +18,7 @@ use App\Icons;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\Utils\Coordinates;
+use App\Utils\Strict;
 use Nette\Http\UrlImmutable;
 use unreal4u\TelegramAPI\Telegram\Types;
 
@@ -363,10 +364,8 @@ class BetterLocation
 			$this->inputUrl = new \Nette\Http\UrlImmutable($input);
 		} else if (is_string($input)) {
 			$this->input = $input;
-			try {
-				$this->inputUrl = new UrlImmutable($input);
-			} catch (\Nette\InvalidArgumentException $exception) {
-				// Silent, probably is not URL
+			if (Strict::isUrl($input)) {
+				$this->inputUrl = Strict::url($input);
 			}
 		} else {
 			throw new \InvalidArgumentException(sprintf('Input must be string, instance of "%s" or "%s"', \Nette\Http\Url::class, \Nette\Http\UrlImmutable::class));
