@@ -10,7 +10,7 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\IngressIntelService;
-use App\BetterLocation\Service\MapyCzServiceNew;
+use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\OpenStreetMapService;
 use App\BetterLocation\Service\OsmAndService;
 use App\BetterLocation\Service\WazeService;
@@ -58,11 +58,11 @@ class BetterLocation
 		$this->generateDefaultPrefix();
 
 		// pregenerate link for MapyCz if contains source and ID (@see https://github.com/DJTommek/better-location/issues/17)
-		if ($this->inputUrl && $this->sourceService === MapyCzServiceNew::class && $this->sourceType === MapyCzServiceNew::TYPE_PLACE_ID) {
-			$generatedUrl = MapyCzServiceNew::getLink($this->lat, $this->lon);
+		if ($this->inputUrl && $this->sourceService === MapyCzService::class && $this->sourceType === MapyCzService::TYPE_PLACE_ID) {
+			$generatedUrl = MapyCzService::getLink($this->lat, $this->lon);
 			$generatedUrl = str_replace(sprintf('%F%%2C%F', $this->lon, $this->lat), $this->inputUrl->getQueryParameter('id'), $generatedUrl);
 			$generatedUrl = str_replace('source=coor', 'source=' . $this->inputUrl->getQueryParameter('source'), $generatedUrl);
-			$this->pregeneratedLinks[MapyCzServiceNew::class] = $generatedUrl;
+			$this->pregeneratedLinks[MapyCzService::class] = $generatedUrl;
 		}
 	}
 
@@ -166,7 +166,7 @@ class BetterLocation
 		/** @var AbstractService[] $services */
 		$services = [
 			GoogleMapsService::class,
-			MapyCzServiceNew::class,
+			MapyCzService::class,
 			DuckDuckGoService::class,
 			WazeService::class,
 			HereWeGoService::class,
@@ -177,7 +177,7 @@ class BetterLocation
 		$text = '';
 		$text .= sprintf('%s <a href="%s" target="_blank">%s</a> <code>%s</code>',
 			$this->prefixMessage,
-			$this->generateScreenshotLink(MapyCzServiceNew::class),
+			$this->generateScreenshotLink(MapyCzService::class),
 			Icons::MAP_SCREEN,
 			$this->__toString()
 		);

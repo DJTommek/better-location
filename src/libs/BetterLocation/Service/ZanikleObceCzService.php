@@ -73,7 +73,7 @@ final class ZanikleObceCzService extends AbstractServiceNew
 			Debugger::log($response, ILogger::DEBUG);
 			throw new InvalidLocationException(sprintf('Coordinates on obec page "%s" are missing.', $this->url));
 		}
-		$mapyCzService = new MapyCzServiceNew($matches[1]);
+		$mapyCzService = new MapyCzService($matches[1]);
 		if ($mapyCzService->isValid()) {
 			$mapyCzService->process();
 			if ($mapyCzLocation = $mapyCzService->getCollection()->getFirst()) {
