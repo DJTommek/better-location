@@ -11,7 +11,7 @@ use App\Utils\Strict;
 use Nette\Http\UrlImmutable;
 use Nette\Utils\Strings;
 
-final class GoogleMapsService extends AbstractServiceNew
+final class GoogleMapsService extends AbstractService
 {
 	const NAME = 'Google';
 

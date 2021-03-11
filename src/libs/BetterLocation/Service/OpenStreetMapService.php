@@ -10,7 +10,7 @@ use App\Utils\Strict;
 use Nette\Http\UrlImmutable;
 use Nette\Utils\Strings;
 
-final class OpenStreetMapService extends AbstractServiceNew
+final class OpenStreetMapService extends AbstractService
 {
 	const NAME = 'OSM';
 

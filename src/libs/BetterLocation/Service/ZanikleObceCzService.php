@@ -12,7 +12,7 @@ use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
-final class ZanikleObceCzService extends AbstractServiceNew
+final class ZanikleObceCzService extends AbstractService
 {
 	const NAME = 'ZanikleObce.cz';
 

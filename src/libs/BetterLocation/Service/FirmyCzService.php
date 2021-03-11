@@ -7,7 +7,7 @@ use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Utils\Strict;
 use DJTommek\MapyCzApi\MapyCzApi;
 
-final class FirmyCzService extends AbstractServiceNew
+final class FirmyCzService extends AbstractService
 {
 	const NAME = 'Firmy.cz';
 

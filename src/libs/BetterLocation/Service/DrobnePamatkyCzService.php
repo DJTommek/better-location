@@ -11,7 +11,7 @@ use App\Utils\Strict;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
-final class DrobnePamatkyCzService extends AbstractServiceNew
+final class DrobnePamatkyCzService extends AbstractService
 {
 	const NAME = 'DrobnePamatky.cz';
 

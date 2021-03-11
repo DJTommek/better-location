@@ -10,7 +10,7 @@ use App\Utils\Coordinates;
 use App\Utils\Strict;
 use Nette\Http\Url;
 
-final class FacebookService extends AbstractServiceNew
+final class FacebookService extends AbstractService
 {
 	const NAME = 'Facebook';
 

@@ -10,7 +10,7 @@ use App\IngressMosaic\Client;
 use App\Utils\Strict;
 use Nette\Utils\Arrays;
 
-final class IngressMosaicService extends AbstractServiceNew
+final class IngressMosaicService extends AbstractService
 {
 	const NAME = 'IngressMosaic';
 	const LINK = Client::LINK;

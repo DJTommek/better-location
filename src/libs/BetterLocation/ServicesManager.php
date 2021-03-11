@@ -2,7 +2,7 @@
 
 namespace App\BetterLocation;
 
-use App\BetterLocation\Service\AbstractServiceNew;
+use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\Service\DrobnePamatkyCzService;
 use App\BetterLocation\Service\FacebookService;
 use App\BetterLocation\Service\FoursquareService;
@@ -28,7 +28,7 @@ use Tracy\ILogger;
 
 class ServicesManager
 {
-	/** @var AbstractServiceNew[] */
+	/** @var AbstractService[] */
 	private $services = [];
 
 	public function __construct()
@@ -68,7 +68,7 @@ class ServicesManager
 	public function iterate(string $input): BetterLocationCollection
 	{
 		foreach ($this->services as $serviceName) {
-			/** @var $service AbstractServiceNew */
+			/** @var $service AbstractService */
 			$service = new $serviceName($input);
 			if ($service->isValid()) {
 				try {

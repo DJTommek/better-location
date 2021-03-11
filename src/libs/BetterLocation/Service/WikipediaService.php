@@ -9,7 +9,7 @@ use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use Nette\Utils\Strings;
 
-final class WikipediaService extends AbstractServiceNew
+final class WikipediaService extends AbstractService
 {
 	const NAME = 'Wikipedia';
 

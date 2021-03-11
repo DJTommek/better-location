@@ -13,7 +13,7 @@ use DJTommek\MapyCzApi\MapyCzApiException;
 use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
 
-final class MapyCzService extends AbstractServiceNew
+final class MapyCzService extends AbstractService
 {
 	const NAME = 'Mapy.cz';
 	const LINK = 'https://mapy.cz/zakladni?y=%1$f&x=%2$f&source=coor&id=%2$f%%2C%1$f';
