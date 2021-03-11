@@ -6,7 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
-use Nette\Http\UrlImmutable;
+use App\Utils\Strict;
 
 final class WazeService extends AbstractService
 {
@@ -31,6 +31,7 @@ final class WazeService extends AbstractService
 	public function isShortUrl(): bool
 	{
 		if (
+			$this->url &&
 			$this->url->getDomain(2) === 'waze.com' &&
 			preg_match('/^\/ul\/h([a-z0-9A-Z]+)$/', $this->url->getPath(), $matches)
 		) {
@@ -44,7 +45,7 @@ final class WazeService extends AbstractService
 	public function isNormalUrl(): bool
 	{
 		$result = false;
-		if ($this->url->getDomain(2) === 'waze.com') {
+		if ($this->url && $this->url->getDomain(2) === 'waze.com') {
 			if ($coords = Coordinates::getLatLon($this->url->getQueryParameter('ll') ?? '')) {
 				$this->data->ll = true;
 				$this->data->llLat = $coords[0];
@@ -82,7 +83,7 @@ final class WazeService extends AbstractService
 	public function process(): void
 	{
 		if ($this->data->isShortUrl ?? false) {
-			$this->url = new UrlImmutable($this->getRedirectUrl());
+			$this->url = Strict::url($this->getRedirectUrl());
 			if ($this->isValid() === false) {
 				throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url, $this->inputUrl));
 			}

@@ -28,6 +28,7 @@ final class IngressMosaicService extends AbstractService
 	public function isValid(): bool
 	{
 		if (
+			$this->url &&
 			Arrays::contains(['ingressmosaic.com', 'ingressmosaik.com'], $this->url->getDomain(2)) &&
 			preg_match(self::RE_PATH, $this->url->getPath(), $matches)
 		) {

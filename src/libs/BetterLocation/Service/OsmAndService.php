@@ -21,6 +21,7 @@ final class OsmAndService extends AbstractService
 	public function isValid(): bool
 	{
 		return (
+			$this->url &&
 			$this->url->getDomain(2) === 'osmand.net' &&
 			Arrays::contains(['/go', '/go.html'], $this->url->getPath()) &&
 			Coordinates::isLat($this->url->getQueryParameter('lat')) &&

@@ -28,7 +28,7 @@ final class FirmyCzService extends AbstractService
 	public function isValid(): bool
 	{
 		if (
-			$this->url !== null &&
+			$this->url &&
 			$this->url->getDomain(2) === 'firmy.cz' &&
 			preg_match(self::URL_PATH_REGEX, $this->url->getPath(), $matches)
 		) {

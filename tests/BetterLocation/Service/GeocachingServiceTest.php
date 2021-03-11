@@ -97,30 +97,30 @@ final class GeocachingServiceTest extends TestCase
 
 	public function testGetCacheIdFromUrlGeocachingCom(): void
 	{
-		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\UrlImmutable('https://www.geocaching.com/geocache/GC3DYC4')));
-		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\UrlImmutable('https://geocaching.com/geocache/GC3DYC4')));
-		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\UrlImmutable('https://GEOcacHing.cOm/geocache/GC3dyC4')));
+		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://www.geocaching.com/geocache/GC3DYC4')));
+		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://geocaching.com/geocache/GC3DYC4')));
+		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://GEOcacHing.cOm/geocache/GC3dyC4')));
 		// including name
-		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\UrlImmutable('https://www.geocaching.com/geocache/GC3DYC4_find-the-bug')));
-		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\UrlImmutable('https://www.geocaching.com/geocache/GC3DYC4_find-the-bug?guid=df11c170-1af3-4ee1-853a-e97c1afe0722')));
+		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://www.geocaching.com/geocache/GC3DYC4_find-the-bug')));
+		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://www.geocaching.com/geocache/GC3DYC4_find-the-bug?guid=df11c170-1af3-4ee1-853a-e97c1afe0722')));
 		// from map
-		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\UrlImmutable('https://www.geocaching.com/play/map/GC3DYC4')));
-		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\UrlImmutable('https://www.geocaching.com/play/map/gC3dyC4')));
+		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://www.geocaching.com/play/map/GC3DYC4')));
+		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://www.geocaching.com/play/map/gC3dyC4')));
 
-		$this->assertNull(GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\UrlImmutable('https://www.geocaching.com/play/map/gc'))); // missing ID after prefix
-		$this->assertNull(GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\UrlImmutable('https://www.geocaching.com/play/map/BB3DYC4'))); // missing correct prefix
-		$this->assertNull(GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\UrlImmutable('https://www.geocaching.com/aaaaaaaa/GC3dyC4'))); // wrong path
-		$this->assertNull(GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\UrlImmutable('https://www.geocaching.com/geocache/GC3DYC4-find-the-bug'))); // invalid divider before ID and name
+		$this->assertNull(GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://www.geocaching.com/play/map/gc'))); // missing ID after prefix
+		$this->assertNull(GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://www.geocaching.com/play/map/BB3DYC4'))); // missing correct prefix
+		$this->assertNull(GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://www.geocaching.com/aaaaaaaa/GC3dyC4'))); // wrong path
+		$this->assertNull(GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://www.geocaching.com/geocache/GC3DYC4-find-the-bug'))); // invalid divider before ID and name
 	}
 
 	public function testGetGeocacheIdFromUrlCoordInfo(): void
 	{
-		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\UrlImmutable('https://coord.info/GC3DYC4')));
-		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\UrlImmutable('https://www.coord.info/GC3DYC4')));
-		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\UrlImmutable('https://coOrD.INfo/Gc3dyC4')));
+		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://coord.info/GC3DYC4')));
+		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://www.coord.info/GC3DYC4')));
+		$this->assertSame('GC3DYC4', GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://coOrD.INfo/Gc3dyC4')));
 
-		$this->assertNull(GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\UrlImmutable('https://coord.info/AA3dyC4')));
-		$this->assertNull(GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\UrlImmutable('https://coord.info/GC')));
+		$this->assertNull(GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://coord.info/AA3dyC4')));
+		$this->assertNull(GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://coord.info/GC')));
 	}
 
 	public function testGetCoordsFromMapSearchUrl(): void

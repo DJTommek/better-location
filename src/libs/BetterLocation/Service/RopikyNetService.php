@@ -31,6 +31,7 @@ final class RopikyNetService extends AbstractService
 	public function isValid(): bool
 	{
 		return (
+			$this->url &&
 			$this->url->getDomain(2) === 'ropiky.net' &&
 			Arrays::contains(['/dbase_objekt.php', '/nerop_objekt.php'], $this->url->getPath()) &&
 			Strict::isPositiveInt($this->url->getQueryParameter('id'))
