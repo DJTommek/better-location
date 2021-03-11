@@ -103,7 +103,11 @@ class Strict
 	public static function isUrl($input): bool
 	{
 		if (is_string($input)) {
-			$input = new Nette\Http\Url($input);
+			try {
+				$input = new Nette\Http\Url($input);
+			} catch (\Nette\InvalidArgumentException $exception) {
+				return false;
+			}
 		}
 		if ($input instanceof \Nette\Http\UrlImmutable || $input instanceof \Nette\Http\Url) {
 			return ($input->getHost() && in_array($input->getScheme(), ['https', 'http'], true) === true);
