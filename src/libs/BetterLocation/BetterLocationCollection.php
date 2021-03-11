@@ -7,28 +7,9 @@ use App\BetterLocation\Service\Coordinates\USNGService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesSecondsService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
-use App\BetterLocation\Service\DrobnePamatkyCzService;
-use App\BetterLocation\Service\DuckDuckGoService;
-use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\FacebookService;
-use App\BetterLocation\Service\FirmyCzService;
-use App\BetterLocation\Service\FoursquareService;
 use App\BetterLocation\Service\GeocachingService;
-use App\BetterLocation\Service\GlympseService;
-use App\BetterLocation\Service\GoogleMapsService;
-use App\BetterLocation\Service\HereWeGoService;
-use App\BetterLocation\Service\IngressIntelService;
-use App\BetterLocation\Service\IngressMosaicService;
-use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\OpenLocationCodeService;
-use App\BetterLocation\Service\OpenStreetMapService;
-use App\BetterLocation\Service\OsmAndService;
-use App\BetterLocation\Service\RopikyNetService;
-use App\BetterLocation\Service\WazeService;
 use App\BetterLocation\Service\WhatThreeWordService;
-use App\BetterLocation\Service\WikipediaService;
-use App\BetterLocation\Service\ZanikleObceCzService;
-use App\BetterLocation\Service\ZniceneKostelyCzService;
 use App\Config;
 use App\Factory;
 use App\Icons;
@@ -271,79 +252,17 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 				$betterLocationsCollection->mergeCollection($serviceCollection);
 
 				try {
-					if (false) {
-//					} else if (GoogleMapsService::isValid($url)) {
-//						$googleMapsBetterLocationCollection = GoogleMapsService::parseCoordsMultiple($url);
-//						$googleMapsBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
-//						$betterLocationsCollection->mergeCollection($googleMapsBetterLocationCollection);
-//					} else if (MapyCzService::isValid($url)) {
-//						$mapyCzBetterLocationCollection = MapyCzService::parseCoordsMultiple($url);
-//						$mapyCzBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
-//						$betterLocationsCollection->mergeCollection($mapyCzBetterLocationCollection);
-//					} else if (OpenStreetMapService::isValid($url)) {
-//						$betterLocationsCollection[] = OpenStreetMapService::parseCoords($url);
-//					} else if (HereWeGoService::isValid($url)) {
-//						$hereBetterLocationCollection = HereWeGoService::parseCoordsMultiple($url);
-//						$hereBetterLocationCollection->filterTooClose(Config::DISTANCE_IGNORE);
-//						$betterLocationsCollection->mergeCollection($hereBetterLocationCollection);
-//					} else if (is_null(Config::GEOCACHING_COOKIE) === false && GeocachingService::isUrl($url)) {
-//						$betterLocationsCollection[] = GeocachingService::parseUrl($url);
-//					} else if (WikipediaService::isValid($url)) {
-//						try {
-//							$betterLocationsCollection[] = WikipediaService::parseCoords($url);
-//						} catch (InvalidLocationException $exception) {
-							// @HACK workaround to not show error in chat, if processing Wikipedia link without location
-//						}
-//					} else if (OpenLocationCodeService::isValid($url)) {
-//						$betterLocationsCollection[] = OpenLocationCodeService::parseCoords($url);
-//					} else if (FirmyCzService::isUrl($url)) {
-//						$betterLocationsCollection[] = FirmyCzService::parseUrl($url);
-//					} else if (FacebookService::isUrl($url)) {
-//						if ($location = FacebookService::parseUrl($url)) {
-//							$betterLocationsCollection[] = $location;
-//						}
-//					} else if (WazeService::isValid($url)) {
-//						$betterLocationsCollection[] = WazeService::parseCoords($url);
-//					} else if (is_null(Config::W3W_API_KEY) === false && WhatThreeWordService::isValid($url)) {
-//						$betterLocationsCollection[] = WhatThreeWordService::parseCoords($url);
-//					} else if (Config::isGlympse() && GlympseService::isValid($url)) {
-//						$glympseBetterLocationCollection = GlympseService::parseCoordsMultiple($url);
-//						$betterLocationsCollection->mergeCollection($glympseBetterLocationCollection);
-//					} else if (IngressIntelService::isValid($url)) {
-//						$betterLocationsCollection[] = IngressIntelService::parseCoords($url);
-//					} else if (OsmAndService::isUrl($url)) {
-//						$betterLocationsCollection[] = OsmAndService::parseUrl($url);
-//					} else if (Config::isIngressMosaic() && IngressMosaicService::isValid($url)) {
-//						$betterLocationsCollection[] = IngressMosaicService::parseUrl($url);
-//					} else if (Config::isFoursquare() && FoursquareService::isValid($url)) {
-//						$betterLocationsCollection[] = FoursquareService::parseUrl($url);
-//					} else if (DuckDuckGoService::isValid($url)) {
-//						$betterLocationsCollection[] = DuckDuckGoService::parseCoords($url);
-//					} else if (RopikyNetService::isValid($url)) {
-//						$betterLocationsCollection[] = RopikyNetService::parseCoords($url);
-//					} else if (DrobnePamatkyCzService::isValid($url)) {
-//						$betterLocationsCollection[] = DrobnePamatkyCzService::parseCoords($url);
-//					} else if (ZniceneKostelyCzService::isValid($url)) {
-//						$betterLocationsCollection[] = ZniceneKostelyCzService::parseCoords($url);
-//					} else if (ZanikleObceCzService::isValid($url)) {
-//						try {
-//							$betterLocationsCollection[] = ZanikleObceCzService::parseCoords($url);
-//						} catch (InvalidLocationException $exception) {
-							// @HACK workaround to not show error in chat, if processing Wikipedia link without location
-//						}
-					} else {
-						$headers = null;
-						try {
-							$headers = MiniCurl::loadHeaders($url);
-						} catch (\Throwable$exception) {
-							Debugger::log(sprintf('Error while loading headers for URL "%s": %s', $url, $exception->getMessage()));
-						}
-						if ($headers && isset($headers['content-type']) && General::checkIfValueInHeaderMatchArray($headers['content-type'], Url::CONTENT_TYPE_IMAGE_EXIF)) {
-							$betterLocationExif = BetterLocation::fromExif($url);
-							if ($betterLocationExif instanceof BetterLocation) {
-								$betterLocationExif->setPrefixMessage(sprintf('<a href="%s">EXIF</a>', $url));
-								$betterLocationsCollection[] = $betterLocationExif;
-							}
+					$headers = null;
+					try {
+						$headers = MiniCurl::loadHeaders($url);
+					} catch (\Throwable $exception) {
+						Debugger::log(sprintf('Error while loading headers for URL "%s": %s', $url, $exception->getMessage()));
+					}
+					if ($headers && isset($headers['content-type']) && General::checkIfValueInHeaderMatchArray($headers['content-type'], Url::CONTENT_TYPE_IMAGE_EXIF)) {
+						$betterLocationExif = BetterLocation::fromExif($url);
+						if ($betterLocationExif instanceof BetterLocation) {
+							$betterLocationExif->setPrefixMessage(sprintf('<a href="%s">EXIF</a>', $url));
+							$betterLocationsCollection[] = $betterLocationExif;
 						}
 					}
 				} catch (\Exception $exception) {
@@ -382,7 +301,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 
 		// What Three Word
 		if (is_null(Config::W3W_API_KEY) === false && $wordsAddresses = Helper::findInText($messageWithoutUrls)) {
-			foreach($wordsAddresses as $wordsAddress) {
+			foreach ($wordsAddresses as $wordsAddress) {
 				// It is ok to use processStatic since words should be already valid
 				$betterLocationsCollection->mergeCollection(WhatThreeWordService::processStatic($wordsAddress)->getCollection());
 			}
