@@ -3,6 +3,7 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use OpenLocationCode\OpenLocationCode;
 
@@ -18,13 +19,6 @@ final class OpenLocationCodeService extends AbstractService
 	const RE = '/^([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,3})$/i';
 	const RE_IN_STRING = '/(^|\s)([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,3})(\s|$)/i';
 
-	/**
-	 * @param float $lat
-	 * @param float $lon
-	 * @param bool $drive
-	 * @return string
-	 * @throws \Exception
-	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
 		if ($drive) {
@@ -73,5 +67,15 @@ final class OpenLocationCodeService extends AbstractService
 			return true;
 		}
 		return false;
+	}
+
+	public static function findInText(string $input): BetterLocationCollection {
+		$collection = new BetterLocationCollection();
+		if (preg_match_all(self::RE_IN_STRING, $input, $matches)) {
+			foreach ($matches[2] as $plusCode) {
+				$collection->mergeCollection(self::processStatic($plusCode)->getCollection());
+			}
+		}
+		return $collection;
 	}
 }

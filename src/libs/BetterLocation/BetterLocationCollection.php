@@ -279,24 +279,9 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		$betterLocationsCollection->mergeCollection(WGS84DegreesMinutesSecondsService::findInText($messageWithoutUrls));
 		$betterLocationsCollection->mergeCollection(MGRSService::findInText($messageWithoutUrls));
 		$betterLocationsCollection->mergeCollection(USNGService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->mergeCollection(OpenLocationCodeService::findInText($messageWithoutUrls));
 		if (is_null(Config::GEOCACHING_COOKIE) === false) {
 			$betterLocationsCollection->mergeCollection(GeocachingService::findInText($messageWithoutUrls));
-		}
-
-		// OpenLocationCode (Plus codes)
-		$openLocationCodes = preg_match_all(OpenLocationCodeService::RE_IN_STRING, $messageWithoutUrls, $matches);
-		if ($openLocationCodes) {
-			foreach ($matches[2] as $plusCode) {
-				try {
-					$openLocationCodeService = new OpenLocationCodeService($plusCode);
-					if ($openLocationCodeService->isValid()) {
-						$openLocationCodeService->process();
-						$betterLocationsCollection->mergeCollection($openLocationCodeService->getCollection());
-					}
-				} catch (\Exception $exception) {
-					$betterLocationsCollection[] = $exception;
-				}
-			}
 		}
 
 		// What Three Word
