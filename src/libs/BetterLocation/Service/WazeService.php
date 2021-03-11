@@ -8,7 +8,7 @@ use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use Nette\Http\UrlImmutable;
 
-final class WazeService extends AbstractServiceNew
+final class WazeService extends AbstractService
 {
 	const NAME = 'Waze';
 

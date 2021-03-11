@@ -18,7 +18,7 @@ use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
-final class GeocachingService extends AbstractServiceNew
+final class GeocachingService extends AbstractService
 {
 	const NAME = 'Geocaching';
 

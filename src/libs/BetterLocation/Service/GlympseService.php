@@ -16,7 +16,7 @@ use DJTommek\GlympseApi\Types\TicketInvite;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
-final class GlympseService extends AbstractServiceNew
+final class GlympseService extends AbstractService
 {
 	const NAME = 'Glympse';
 

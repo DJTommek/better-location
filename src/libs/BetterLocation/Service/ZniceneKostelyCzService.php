@@ -9,7 +9,7 @@ use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
 
-final class ZniceneKostelyCzService extends AbstractServiceNew
+final class ZniceneKostelyCzService extends AbstractService
 {
 	const NAME = 'ZniceneKostely.cz';
 

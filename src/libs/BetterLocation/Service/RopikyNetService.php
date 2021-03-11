@@ -9,7 +9,7 @@ use App\MiniCurl\MiniCurl;
 use App\Utils\Strict;
 use Nette\Utils\Arrays;
 
-final class RopikyNetService extends AbstractServiceNew
+final class RopikyNetService extends AbstractService
 {
 	const NAME = 'Řopíky.net';
 

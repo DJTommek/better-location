@@ -7,7 +7,7 @@ use App\Utils\Coordinates;
 use App\Utils\Strict;
 use Nette\Utils\Arrays;
 
-final class OsmAndService extends AbstractServiceNew
+final class OsmAndService extends AbstractService
 {
 	const NAME = 'OsmAnd';
 

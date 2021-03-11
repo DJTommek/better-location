@@ -7,7 +7,7 @@ use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\WhatThreeWord\Helper;
 use Nette\Utils\Arrays;
 
-final class WhatThreeWordService extends AbstractServiceNew
+final class WhatThreeWordService extends AbstractService
 {
 	const NAME = 'W3W';
 

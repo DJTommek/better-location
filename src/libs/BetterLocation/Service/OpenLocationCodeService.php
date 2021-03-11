@@ -6,7 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use OpenLocationCode\OpenLocationCode;
 
-final class OpenLocationCodeService extends AbstractServiceNew
+final class OpenLocationCodeService extends AbstractService
 {
 	const NAME = 'OpenLocationCode';
 	const NAME_SHORT = 'OLC';

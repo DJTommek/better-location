@@ -10,7 +10,7 @@ use App\Utils\Coordinates;
 use App\Utils\Strict;
 use Tracy\Debugger;
 
-final class IngressIntelService extends AbstractServiceNew
+final class IngressIntelService extends AbstractService
 {
 	const NAME = 'Ingress';
 

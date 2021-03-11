@@ -11,7 +11,7 @@ use App\Utils\Strict;
 use Nette\Http\UrlImmutable;
 use Nette\Utils\Arrays;
 
-final class HereWeGoService extends AbstractServiceNew
+final class HereWeGoService extends AbstractService
 {
 	const NAME = 'HERE WeGo';
 	const NAME_SHORT = 'HERE';

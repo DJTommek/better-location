@@ -9,7 +9,7 @@ use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use Nette\Http\UrlImmutable;
 
-abstract class AbstractServiceNew
+abstract class AbstractService
 {
 	/** @var bool */
 	private $processed = false;

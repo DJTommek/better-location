@@ -8,7 +8,7 @@ use App\Factory;
 use App\Foursquare\Client;
 use App\Foursquare\Types\VenueType;
 
-final class FoursquareService extends AbstractServiceNew
+final class FoursquareService extends AbstractService
 {
 	const NAME = 'Foursquare';
 

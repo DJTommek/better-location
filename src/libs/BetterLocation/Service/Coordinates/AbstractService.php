@@ -12,7 +12,7 @@ use App\Utils\Strict;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
-abstract class AbstractService extends \App\BetterLocation\Service\AbstractServiceNew
+abstract class AbstractService extends \App\BetterLocation\Service\AbstractService
 {
 	const RE_OPTIONAL_HEMISPHERE = '([-+NSWE])?';
 	/**

@@ -2,7 +2,7 @@
 
 namespace App\BetterLocation;
 
-use App\BetterLocation\Service\AbstractServiceNew;
+use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
@@ -84,8 +84,8 @@ class BetterLocation
 		if (class_exists($serviceClass) === false) {
 			throw new \InvalidArgumentException(sprintf('Invalid location service: "%s".', $serviceClass));
 		}
-		if (is_subclass_of($serviceClass, AbstractServiceNew::class) === false && is_subclass_of($serviceClass, AbstractServiceNew::class) === false) {
-			throw new \InvalidArgumentException(sprintf('Source service has to be subclass of "%s".', AbstractServiceNew::class));
+		if (is_subclass_of($serviceClass, AbstractService::class) === false && is_subclass_of($serviceClass, AbstractService::class) === false) {
+			throw new \InvalidArgumentException(sprintf('Source service has to be subclass of "%s".', AbstractService::class));
 		}
 		if (method_exists($serviceClass, 'getScreenshotLink') === false) {
 			throw new \InvalidArgumentException(sprintf('Source service "%s" does not supports screenshot links.', $serviceClass));
@@ -162,7 +162,7 @@ class BetterLocation
 
 	public function generateMessage($withAddress = true): string
 	{
-		/** @var AbstractServiceNew[] $services */
+		/** @var AbstractService[] $services */
 		$services = [
 			GoogleMapsService::class,
 			MapyCzService::class,
@@ -207,7 +207,7 @@ class BetterLocation
 	/** @return Types\Inline\Keyboard\Button[] */
 	public function generateDriveButtons(): array
 	{
-		/** @var AbstractServiceNew[] $services */
+		/** @var AbstractService[] $services */
 		$services = [
 			GoogleMapsService::class,
 			WazeService::class,
@@ -287,8 +287,8 @@ class BetterLocation
 
 	public function getLink($class, bool $drive = false)
 	{
-		if ($class instanceof AbstractServiceNew === false) {
-			throw new \InvalidArgumentException(sprintf('Class must be instance of "%s"', AbstractServiceNew::class));
+		if ($class instanceof AbstractService === false) {
+			throw new \InvalidArgumentException(sprintf('Class must be instance of "%s"', AbstractService::class));
 		}
 		return $class::getLink($this->lat, $this->lon, $drive);
 	}
@@ -393,8 +393,8 @@ class BetterLocation
 		if (class_exists($sourceService) === false) {
 			throw new \InvalidArgumentException(sprintf('Invalid source service: "%s".', $sourceService));
 		}
-		if (is_subclass_of($sourceService, AbstractServiceNew::class) === false && is_subclass_of($sourceService, AbstractServiceNew::class) === false) {
-			throw new \InvalidArgumentException(sprintf('Source service has to be subclass of "%s".', AbstractServiceNew::class));
+		if (is_subclass_of($sourceService, AbstractService::class) === false && is_subclass_of($sourceService, AbstractService::class) === false) {
+			throw new \InvalidArgumentException(sprintf('Source service has to be subclass of "%s".', AbstractService::class));
 		}
 		$this->sourceService = $sourceService;
 	}
