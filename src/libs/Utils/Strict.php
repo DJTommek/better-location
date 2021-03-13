@@ -73,7 +73,10 @@ class Strict
 	}
 
 	/**
-	 * Stricter creator of Nette\Http\Url requiring URL to contain host and http(s) scheme.
+	 * Stricter creator of \Nette\Http\Url:
+	 * - requiring at least second-level domain ("palider.cz", "tomas.palider.cz", "foo.tomas.palider.cz" but not "cz")
+	 * - requiring http or https scheme
+	 * - not allowing IP address
 	 *
 	 * @param string|Nette\Http\UrlImmutable|Nette\Http\Url $input
 	 */
@@ -86,7 +89,10 @@ class Strict
 	}
 
 	/**
-	 * Stricter creator of Nette\Http\UrlImmutable requiring URL to contain host and http(s) scheme.
+	 * Stricter creator of \Nette\Http\UrlImmutable:
+	 * - requiring at least second-level domain ("palider.cz", "tomas.palider.cz", "foo.tomas.palider.cz" but not "cz")
+	 * - requiring http or https scheme
+	 * - not allowing IP address
 	 *
 	 * @param string|Nette\Http\UrlImmutable|Nette\Http\Url $input
 	 */
@@ -96,7 +102,10 @@ class Strict
 	}
 
 	/**
-	 * Stricter checker for URL requiring URL containing host and http(s) scheme.
+	 * Stricter checker for URL:
+	 * - requiring at least second-level domain ("palider.cz", "tomas.palider.cz", "foo.tomas.palider.cz" but not "cz")
+	 * - requiring http or https scheme
+	 * - not allowing IP address
 	 *
 	 * @param string|Nette\Http\UrlImmutable|Nette\Http\Url $input
 	 */
@@ -110,7 +119,10 @@ class Strict
 			}
 		}
 		if ($input instanceof \Nette\Http\UrlImmutable || $input instanceof \Nette\Http\Url) {
-			return ($input->getHost() && in_array($input->getScheme(), ['https', 'http'], true) === true);
+			return (
+				$input->getDomain(-1) && // filtering out IP adresses and first-level domains
+				in_array($input->getScheme(), ['https', 'http'], true) === true
+			);
 		}
 		return false;
 	}
