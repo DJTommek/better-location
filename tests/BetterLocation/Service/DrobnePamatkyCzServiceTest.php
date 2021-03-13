@@ -44,7 +44,7 @@ final class DrobnePamatkyCzServiceTest extends TestCase
 	public function testUrl(): void
 	{
 		$this->assertSame('50.067665,14.401487', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/36966')->getFirst()->__toString());
-		$this->assertSame('49.854270,18.542159', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/9279')->getFirst()->__toString());
+		$this->assertSame('49.854270,18.542166', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/9279')->getFirst()->__toString());
 		$this->assertSame('49.805000,18.449748', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/9282')->getFirst()->__toString());
 		// Oborané památky (https://www.drobnepamatky.cz/oborane)
 		$this->assertSame('49.687435,14.712323', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/10646')->getFirst()->__toString());
