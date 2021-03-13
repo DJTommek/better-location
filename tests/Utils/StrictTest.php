@@ -93,4 +93,55 @@ final class StrictTest extends TestCase
 		$this->assertFalse(Strict::isFloat('+1', true));
 		$this->assertFalse(Strict::isFloat('- 1', true));
 	}
+
+	public function testIsUrlTrue(): void
+	{
+		$this->assertFalse(Strict::isUrl('http://a'));
+		$this->assertTrue(Strict::isUrl('http://a.b'));
+		$this->assertTrue(Strict::isUrl('http://a.b.c'));
+		$this->assertTrue(Strict::isUrl('http://a.b.c.d'));
+
+		$this->assertTrue(Strict::isUrl('https://github.com/'));
+		$this->assertTrue(Strict::isUrl('https://github.com'));
+		$this->assertTrue(Strict::isUrl('http://github.com'));
+		$this->assertTrue(Strict::isUrl('http://github.com/'));
+		$this->assertTrue(Strict::isUrl('http://github.com/path'));
+		$this->assertTrue(Strict::isUrl('http://github.com/path with spaces'));
+		$this->assertTrue(Strict::isUrl('https://github.com/DJTommek/better-location'));
+		$this->assertTrue(Strict::isUrl('https://www.waze.com/ul?ll=50.087451,14.420671'));
+		$this->assertTrue(Strict::isUrl('https://www.google.cz/maps/place/50.087451,14.420671?q=50.087451,14.420671'));
+		$this->assertTrue(Strict::isUrl('https://pldr-gallery.redilap.cz/#/special-characters/'));
+	}
+
+	public function testIsUrlFalse(): void
+	{
+		$this->assertFalse(Strict::isUrl(''));
+		$this->assertFalse(Strict::isUrl('/'));
+		$this->assertFalse(Strict::isUrl('random text'));
+		$this->assertFalse(Strict::isUrl('http://')); // missing domain
+		$this->assertFalse(Strict::isUrl('http://localhost')); // missing domain
+		$this->assertFalse(Strict::isUrl('github.com')); // missing scheme
+		$this->assertFalse(Strict::isUrl('//github.com')); // missing scheme
+		$this->assertFalse(Strict::isUrl('ftp://github.com/')); // invalid scheme
+
+		$this->assertFalse(Strict::isUrl('http://192.168.1.1')); // ip address
+		$this->assertFalse(Strict::isUrl('http://192.168.1.1/')); // ip address
+		$this->assertFalse(Strict::isUrl('http://192.168.1.1/some path')); // ip address
+		$this->assertFalse(Strict::isUrl('http://localhost')); // missing domain
+		$this->assertFalse(Strict::isUrl('localhost')); // missing domain and scheme
+		$this->assertFalse(Strict::isUrl('192.168.1.1')); // IPv4 address
+		$this->assertFalse(Strict::isUrl('192.168.1.1/')); // IPv4 address
+		$this->assertFalse(Strict::isUrl('2001:0db8:0000:0000:0000:ff00:0042:8329')); // IPv6 address
+		$this->assertFalse(Strict::isUrl('2001:db8:0:0:0:ff00:42:8329')); // IPv6 address
+		$this->assertFalse(Strict::isUrl('2001:db8::ff00:42:8329')); // IPv6 address
+		$this->assertFalse(Strict::isUrl('0000:0000:0000:0000:0000:0000:0000:0001')); // IPv6 address
+		$this->assertFalse(Strict::isUrl('::1')); // IPv6 address
+
+		$this->assertFalse(Strict::isUrl('///vynikat.vyrábět.poctivá'));
+		$this->assertFalse(Strict::isUrl('///slang.ground.markets'));
+
+		$this->assertFalse(Strict::isUrl('   http://github.com')); // not trimmed
+		// @TODO this appears to be valid according parse_url() but should it?
+//		$this->assertFalse(Strict::isUrl('http://github.com   ')); // not trimmed
+	}
 }
