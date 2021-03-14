@@ -181,10 +181,7 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->thumb_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
 		$inlineQueryResult->reply_markup = new Markup();
 
-		$buttons = $betterLocation->generateDriveButtons();
-		$buttons[] = $betterLocation->generateAddToFavouriteButtton();
-
-		$inlineQueryResult->reply_markup->inline_keyboard = [$buttons];
+		$inlineQueryResult->reply_markup->inline_keyboard = [$betterLocation->generateDriveButtons()];
 		$inlineQueryResult->input_message_content = new Text();
 		$inlineQueryResult->input_message_content->message_text = TelegramHelper::getMessagePrefix($betterLocation->getStaticMapUrl()) . $betterLocation->generateMessage();
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';

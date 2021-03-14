@@ -59,10 +59,8 @@ class StartCommand extends Command
 			try {
 				$betterLocation = new BetterLocation($matches[0], $lat, $lon, WGS84DegreesService::class);
 				$result = $betterLocation->generateMessage();
-				$buttons = $betterLocation->generateDriveButtons();
-				$buttons[] = $betterLocation->generateAddToFavouriteButtton();
 				$markup = new Markup();
-				$markup->inline_keyboard = [$buttons];
+				$markup->inline_keyboard = [$betterLocation->generateDriveButtons()];
 				$this->reply(TelegramHelper::getMessagePrefix() . $result, $markup);
 			} catch (\Throwable $exception) {
 				Debugger::log($exception, ILogger::EXCEPTION);

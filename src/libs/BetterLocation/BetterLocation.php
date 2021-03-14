@@ -15,7 +15,6 @@ use App\BetterLocation\Service\OsmAndService;
 use App\BetterLocation\Service\WazeService;
 use App\Factory;
 use App\Icons;
-use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\TelegramHelper;
@@ -252,14 +251,6 @@ class BetterLocation
 		$manualRefresh->callback_data = sprintf('%s %s', RefreshButton::CMD, RefreshButton::ACTION_REFRESH);
 		$buttons[] = $manualRefresh;
 		return $buttons;
-	}
-
-	public function generateAddToFavouriteButtton(): Types\Inline\Keyboard\Button
-	{
-		$button = new Types\Inline\Keyboard\Button();
-		$button->text = Icons::FAVOURITE;
-		$button->callback_data = sprintf('%s %s %F %F', FavouritesButton::CMD, FavouritesButton::ACTION_ADD, $this->getLat(), $this->getLon());
-		return $button;
 	}
 
 	public function setPrefixMessage(string $prefixMessage): void

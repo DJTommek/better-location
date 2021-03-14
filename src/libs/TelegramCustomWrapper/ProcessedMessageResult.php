@@ -35,9 +35,7 @@ class ProcessedMessageResult
 	{
 		foreach ($this->collection->getLocations() as $betterLocation) {
 			$this->resultText .= $betterLocation->generateMessage();
-			$rowButtons = $betterLocation->generateDriveButtons();
-			$rowButtons[] = $betterLocation->generateAddToFavouriteButtton();
-			$this->buttons[] = $rowButtons;
+			$this->buttons[] = $betterLocation->generateDriveButtons();
 			$this->validLocationsCount++;
 		}
 		foreach ($this->collection->getErrors() as $error) {
