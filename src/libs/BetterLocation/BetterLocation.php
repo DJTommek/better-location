@@ -17,6 +17,8 @@ use App\Factory;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\Button\RefreshButton;
+use App\TelegramCustomWrapper\Events\Command\StartCommand;
+use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
 use Nette\Http\UrlImmutable;
@@ -188,12 +190,18 @@ class BetterLocation
 		$text .= PHP_EOL;
 
 		// Generate links
-		$text .= join(' | ', \array_map(function (string $service) {
-				return sprintf('<a href="%s" target="_blank">%s</a>',
-					$this->pregeneratedLinks[$service] ?? $service::getLink($this->lat, $this->lon),
-					$service::getName(true),
-				);
-			}, $services)) . PHP_EOL;
+		$textLinks = \array_map(function (string $service) {
+			return sprintf('<a href="%s" target="_blank">%s</a>',
+				$this->pregeneratedLinks[$service] ?? $service::getLink($this->lat, $this->lon),
+				$service::getName(true),
+			);
+		}, $services);
+		// Add to favourites
+		$textLinks[] = sprintf('<a href="%s" target="_blank">%s</a>',
+			TelegramHelper::generateStart(sprintf('%s %s %s %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_ADD, $this->getLat(), $this->getLon())),
+			Icons::FAVOURITE,
+		);
+		$text .= join(' | ', $textLinks) . PHP_EOL;
 
 		if ($withAddress && is_null($this->address) === false) {
 			$text .= $this->getAddress() . PHP_EOL;
