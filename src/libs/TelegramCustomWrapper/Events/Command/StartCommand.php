@@ -4,9 +4,12 @@ namespace App\TelegramCustomWrapper\Events\Command;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
+use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\TelegramHelper;
+use App\Utils\Coordinates;
+use App\Utils\Strict;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
@@ -16,6 +19,7 @@ class StartCommand extends Command
 	const CMD = '/start';
 
 	const FAVOURITE = 'f';
+	const FAVOURITE_ADD = 'a';
 	const FAVOURITE_RENAME = 'r';
 	const FAVOURITE_DELETE = 'd';
 	const FAVOURITE_LIST = 'l';
@@ -77,6 +81,42 @@ class StartCommand extends Command
 		switch ($action) {
 			case self::FAVOURITE_LIST:
 				$this->processFavouritesList(false);
+				break;
+			case self::FAVOURITE_ADD:
+				$replyMarkup = new Markup();
+				$replyMarkup->inline_keyboard = [];
+
+				$refreshFavouriteButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
+				$refreshFavouriteButton->text = sprintf('%s Show list', Icons::REFRESH);
+				$refreshFavouriteButton->callback_data = sprintf('%s %s', FavouritesButton::CMD, FavouritesButton::ACTION_REFRESH);
+				$buttonRow[] = $refreshFavouriteButton;
+
+				if (Coordinates::isLat($params[0]) && Coordinates::isLon($params[1])) {
+					$lat = Strict::floatval($params[0]);
+					$lon = Strict::floatval($params[1]);
+
+					$deleteFavouriteButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
+					$deleteFavouriteButton->text = sprintf('%s Remove', Icons::FAVOURITE_REMOVE);
+					$deleteFavouriteButton->callback_data = sprintf('%s %s %F %F', FavouritesButton::CMD, FavouritesButton::ACTION_DELETE, $lat, $lon);
+					$buttonRow[] = $deleteFavouriteButton;
+
+					$replyMarkup->inline_keyboard[] = $buttonRow;
+
+					if ($favourite = $this->user->getFavourite($lat, $lon)) {
+						$this->reply(sprintf('%s This location (<code>%s</code>) is already saved in favourite list as %s.', Icons::INFO, $favourite->__toString(), $favourite->getPrefixMessage()), $replyMarkup);
+					} else {
+						$location = BetterLocation::fromLatLon($lat, $lon);
+						$favourite = $this->user->addFavourite($location, BetterLocation::generateFavouriteName($lat, $lon));
+
+						$text = sprintf('%s Location <code>%s</code> was successfully saved to favourites as %s.',
+							Icons::SUCCESS, $favourite->__toString(), $favourite->getPrefixMessage()
+						) . PHP_EOL;
+						$text .= sprintf('You can now use it inline in any chat by typing @%s.', Config::TELEGRAM_BOT_NAME);
+						$this->reply($text, $replyMarkup);
+					}
+				} else {
+					$this->reply(sprintf('%s Invalid hiden parameters (coordinates) for adding to favourites.', Icons::ERROR));
+				}
 				break;
 			case self::FAVOURITE_RENAME:
 				$lat = floatval($params[0]);
