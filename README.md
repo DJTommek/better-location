@@ -25,5 +25,19 @@ Available publicly on [@BetterLocationBot](https://t.me/BetterLocationBot).
 
 Note: Some tests may be skipped if missing configuration (Glympse or What3Words)
 
+## Deep linking
+
+This bot is supporting Telegram's [deep linking](https://core.telegram.org/bots#deep-linking) using `?start=parameter` so you can create links from your website or app to directly perform one of actions: 
+
+### Show location
+Show location as better message.<br> 
+Because Telegram is very restrictive what can be in start parameter, WGS-84 coordinates are encoded as two parts (lat_lon) with `_` as divider. To encode coordinate, multiply coordinate it by 1 000 000 and round to integer.
+
+| Input coordinates | Encoded coordinates | Result link |
+|-------------------|---------------------|-------------|
+| `50.733088,15.741169` |  `50733088_15741169` | [https://t.me/BetterLocationBot?start=50733088_15741169](https://t.me/BetterLocationBot?start=50733088_15741169) |
+|  `-14.7653,4.845524` |  `-14765300_4845524` | [https://t.me/BetterLocationBot?start=-14765300_4845524](https://t.me/BetterLocationBot?start=-14765300_4845524) |
+| `-41.326919711111,174.80770311111` | `-41326919_174807703` | [https://t.me/BetterLocationBot?start=-41326919_174807703](https://t.me/BetterLocationBot?start=-41326919_174807703) |
+
 ---
 *Based on the simple [DJTommek/php-template](https://github.com/DJTommek/php-template).*
