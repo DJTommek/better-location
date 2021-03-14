@@ -59,10 +59,8 @@ class FavouritesButton extends Button
 			if ($favourite) {
 				$this->flash(sprintf('%s This location (%s) is already saved in favourite list as %s.', Icons::INFO, $favourite->__toString(), $favourite->getPrefixMessage()), true);
 			} else {
-				$generatedLocationName = $this->generateFavouriteName($lat, $lon);
 				$betterLocation = BetterLocation::fromLatLon($lat, $lon);
-				$betterLocation->setPrefixMessage($generatedLocationName);
-				$betterLocation = $this->user->addFavourite($betterLocation, $generatedLocationName);
+				$betterLocation = $this->user->addFavourite($betterLocation, BetterLocation::generateFavouriteName($lat, $lon));
 				$this->flash(sprintf('%s Location %s was saved as %s.%sYou can now use it inline in any chat by typing @%s.',
 					Icons::SUCCESS, $betterLocation->__toString(), $betterLocation->getPrefixMessage(), PHP_EOL, Config::TELEGRAM_BOT_NAME
 				), true);
@@ -105,28 +103,6 @@ class FavouritesButton extends Button
 		} catch (\Exception $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
 			$this->flash(sprintf('%s Unexpected error while removing location (%F,%F) from favourites.%sIf you believe that this is error, please contact admin.', Icons::ERROR, $lat, $lon, PHP_EOL), true);
-		}
-	}
-
-	/**
-	 * Generate name for newly added favourite item from as what3words with error fallback to OpenLocationCode
-	 *
-	 * @param float $lat
-	 * @param float $lon
-	 * @return string
-	 * @throws \Exception
-	 */
-	private function generateFavouriteName(float $lat, float $lon): string
-	{
-		try {
-			$result = Factory::WhatThreeWords()->convertTo3wa($lat, $lon);
-			if ($result) {
-				return sprintf('///%s', $result['words']);
-			} else {
-				return OpenLocationCode::encode($lat, $lon);
-			}
-		} catch (\Exception $exception) {
-			return OpenLocationCode::encode($lat, $lon);
 		}
 	}
 }

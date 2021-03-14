@@ -20,6 +20,7 @@ use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
 use Nette\Http\UrlImmutable;
+use OpenLocationCode\OpenLocationCode;
 use unreal4u\TelegramAPI\Telegram\Types;
 
 class BetterLocation
@@ -425,5 +426,27 @@ class BetterLocation
 			$generatedPrefix = sprintf('<a href="%s">%s</a>', $this->inputUrl, $generatedPrefix);
 		}
 		$this->setPrefixMessage($generatedPrefix);
+	}
+
+	/**
+	 * Generate name for newly added favourite item from as what3words with error fallback to OpenLocationCode
+	 *
+	 * @param float $lat
+	 * @param float $lon
+	 * @return string
+	 * @throws \Exception
+	 */
+	public static function generateFavouriteName(float $lat, float $lon): string
+	{
+		try {
+			$result = Factory::WhatThreeWords()->convertTo3wa($lat, $lon);
+			if ($result) {
+				return sprintf('///%s', $result['words']);
+			} else {
+				return OpenLocationCode::encode($lat, $lon);
+			}
+		} catch (\Exception $exception) {
+			return OpenLocationCode::encode($lat, $lon);
+		}
 	}
 }
