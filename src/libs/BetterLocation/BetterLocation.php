@@ -224,7 +224,7 @@ class BetterLocation
 		$buttons = [];
 		foreach ($services as $service) {
 			$button = new Types\Inline\Keyboard\Button();
-			$button->text = sprintf('%s %s', $service::getName(), Icons::CAR);
+			$button->text = sprintf('%s %s', $service::getName(true), Icons::CAR);
 			$button->url = $service::getLink($this->lat, $this->lon, true);
 			$buttons[] = $button;
 		}
