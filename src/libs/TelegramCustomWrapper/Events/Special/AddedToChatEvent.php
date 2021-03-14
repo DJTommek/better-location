@@ -19,7 +19,7 @@ class AddedToChatEvent extends Special
 		$lat = 50.087451;
 		$lon = 14.420671;
 		$wazeLink = WazeService::getLink($lat, $lon);
-		$betterLocationWaze = WazeService::parseCoords($wazeLink);
+		$betterLocationWaze = WazeService::processStatic($wazeLink)->getFirst();
 
 		$markup = new Markup();
 		$markup->inline_keyboard = [array_merge(
