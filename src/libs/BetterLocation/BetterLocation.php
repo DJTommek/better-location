@@ -8,7 +8,6 @@ use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;
-use App\BetterLocation\Service\IngressIntelService;
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\OpenStreetMapService;
 use App\BetterLocation\Service\OsmAndService;
@@ -173,7 +172,6 @@ class BetterLocation
 			WazeService::class,
 			HereWeGoService::class,
 			OpenStreetMapService::class,
-			IngressIntelService::class,
 			OsmAndService::class,
 		];
 		$text = '';
