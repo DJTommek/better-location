@@ -34,7 +34,7 @@ Parameter `startgroup` works similarly, but user will be prompted to select grou
 
 ### Show location
 Show location as better message.<br> 
-Because Telegram is very restrictive what can be in start parameter, WGS-84 coordinates are encoded as two parts (lat_lon) with `_` as divider. To encode coordinate, multiply coordinate it by 1 000 000 and round to integer.
+Because Telegram is very restrictive what can be in start parameter, WGS-84 coordinates are encoded as two parts (lat_lon) with `_` as divider. To encode coordinate, multiply coordinate by 1 000 000 and round to integer.
 
 | Input coordinates | Encoded coordinates | Result link |
 |-------------------|---------------------|-------------|
