@@ -27,7 +27,10 @@ Note: Some tests may be skipped if missing configuration (Glympse or What3Words)
 
 ## Deep linking
 
-This bot is supporting Telegram's [deep linking](https://core.telegram.org/bots#deep-linking) using `?start=parameter` so you can create links from your website or app to directly perform one of actions: 
+This bot is supporting Telegram's [deep linking](https://core.telegram.org/bots#deep-linking) using `?start=parameter` or `?startgroup=parameter` so you can create links from your website or app to directly perform one of actions listed below (currently only [Show location](#show-location)).
+
+Parameter `start` will open in user's private message and create "start" button.<br> 
+Parameter `startgroup` works similarly, but user will be prompted to select group, where @BetterLocationBot will be added.
 
 ### Show location
 Show location as better message.<br> 
