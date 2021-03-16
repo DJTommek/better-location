@@ -101,7 +101,8 @@ abstract class AbstractService
 		}
 	}
 
-	public function getData() {
+	public function getData(): \stdClass
+	{
 		return $this->data;
 	}
 
