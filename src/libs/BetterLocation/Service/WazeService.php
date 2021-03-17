@@ -76,6 +76,13 @@ final class WazeService extends AbstractService
 					$result = true;
 				}
 			}
+			// This URL is from Wikipedia's Geohack, eg. https://geohack.toolforge.org/geohack.php?params=050.093652_N_0014.412417_E
+			if (Coordinates::isLat($this->url->getQueryParameter('lat')) && Coordinates::isLon($this->url->getQueryParameter('lon'))) {
+				$this->data->queryLatLon = true;
+				$this->data->queryLatLonLat = Strict::floatval($this->url->getQueryParameter('lat'));
+				$this->data->queryLatLonLon = Strict::floatval($this->url->getQueryParameter('lon'));
+				$result = true;
+			}
 		}
 		return $result;
 	}
@@ -100,6 +107,9 @@ final class WazeService extends AbstractService
 		}
 		if ($this->data->from ?? false) {
 			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->fromLat, $this->data->fromLon, self::class));
+		}
+		if ($this->data->queryLatLon ?? false) {
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->queryLatLonLat, $this->data->queryLatLonLon, self::class));
 		}
 	}
 
