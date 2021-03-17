@@ -128,6 +128,7 @@ class DefaultConfig
 	const CACHE_TTL_WIKIPEDIA = 60 * 60 * 24;
 	const CACHE_TTL_INGRESS_MOSAIC = 60 * 60 * 24;
 	const CACHE_TTL_FACEBOOK = 60 * 60 * 24;
+	const CACHE_TTL_FEVGAMES = 60 * 60 * 24;
 
 	/** @var string[] */
 	const API_KEYS = [];

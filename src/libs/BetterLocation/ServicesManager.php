@@ -5,6 +5,7 @@ namespace App\BetterLocation;
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\Service\DrobnePamatkyCzService;
 use App\BetterLocation\Service\FacebookService;
+use App\BetterLocation\Service\FevGamesService;
 use App\BetterLocation\Service\FoursquareService;
 use App\BetterLocation\Service\GeocachingService;
 use App\BetterLocation\Service\GlympseService;
@@ -63,6 +64,7 @@ class ServicesManager
 		$this->services[] = RopikyNetService::class;
 		$this->services[] = ZanikleObceCzService::class;
 		$this->services[] = ZniceneKostelyCzService::class;
+		$this->services[] = FevGamesService::class;
 	}
 
 	public function iterate(string $input): BetterLocationCollection
