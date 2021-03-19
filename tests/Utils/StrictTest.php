@@ -94,6 +94,62 @@ final class StrictTest extends TestCase
 		$this->assertFalse(Strict::isFloat('- 1', true));
 	}
 
+	public function testIsBool(): void
+	{
+		// boolable to true
+		$this->assertTrue(Strict::isBool(true));
+		$this->assertTrue(Strict::isBool(1));
+		$this->assertTrue(Strict::isBool('1'));
+		$this->assertTrue(Strict::isBool('true'));
+		$this->assertTrue(Strict::isBool('TRue'));
+		// boolable to false
+		$this->assertTrue(Strict::isBool(false));
+		$this->assertTrue(Strict::isBool(0));
+		$this->assertTrue(Strict::isBool('0'));
+		$this->assertTrue(Strict::isBool('false'));
+		$this->assertTrue(Strict::isBool('FAlse'));
+
+		$this->assertFalse(Strict::isBool(''));
+		$this->assertFalse(Strict::isBool('11'));
+		$this->assertFalse(Strict::isBool('t'));
+		$this->assertFalse(Strict::isBool('ttrue'));
+		$this->assertFalse(Strict::isBool(' true')); // not trimmed
+		$this->assertFalse(Strict::isBool('f'));
+		$this->assertFalse(Strict::isBool(1.0));
+		$this->assertFalse(Strict::isBool(-1));
+		$this->assertFalse(Strict::isBool(0.0000000000001));
+	}
+
+	public function testBoolval(): void
+	{
+		// boolable to true
+		$this->assertTrue(Strict::boolval(true));
+		$this->assertTrue(Strict::boolval(1));
+		$this->assertTrue(Strict::boolval('1'));
+		$this->assertTrue(Strict::boolval('true'));
+		$this->assertTrue(Strict::boolval('TRue'));
+		// boolable to false
+		$this->assertFalse(Strict::boolval(false));
+		$this->assertFalse(Strict::boolval(0));
+		$this->assertFalse(Strict::boolval('0'));
+		$this->assertFalse(Strict::boolval('false'));
+		$this->assertFalse(Strict::boolval('FAlse'));
+	}
+
+	public function testIsBoolException1(): void
+	{
+		$this->expectException(\InvalidArgumentException::class);
+		$this->expectExceptionMessage('Input is not valid bool');
+		Strict::boolval('');
+	}
+
+	public function testIsBoolException2(): void
+	{
+		$this->expectException(\InvalidArgumentException::class);
+		$this->expectExceptionMessage('Input is not valid bool');
+		Strict::boolval('f');
+	}
+
 	public function testIsUrlTrue(): void
 	{
 		$this->assertFalse(Strict::isUrl('http://a'));

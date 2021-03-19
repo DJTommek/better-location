@@ -72,6 +72,45 @@ class Strict
 		}
 	}
 
+	public static function isBool($input): bool
+	{
+		if (is_bool($input)) {
+			return true;
+		} elseif (is_string($input)) {
+			return in_array(mb_strtolower($input), ['true', 'false', '0', '1'], true);
+		} else if (is_int($input)) {
+			return $input === 0 || $input === 1;
+		} else {
+			return false;
+		}
+	}
+
+	public static function boolval($input): bool
+	{
+		if (is_bool($input)) {
+			return $input;
+		} elseif (is_string($input)) {
+			$input = mb_strtolower($input);
+			if ($input === 'true' || $input === '1')
+				return true;
+			else if ($input === 'false' || $input === '0') {
+				return false;
+			} else {
+				throw new \InvalidArgumentException('Input is not valid bool');
+			}
+		} else if (is_int($input)) {
+			if ($input === 1) {
+				return true;
+			} else if ($input === 0) {
+				return false;
+			} else {
+				throw new \InvalidArgumentException('Input is not valid bool');
+			}
+		} else {
+			throw new \InvalidArgumentException('Input is not valid bool');
+		}
+	}
+
 	/**
 	 * Stricter creator of \Nette\Http\Url:
 	 * - requiring at least second-level domain ("palider.cz", "tomas.palider.cz", "foo.tomas.palider.cz" but not "cz")
