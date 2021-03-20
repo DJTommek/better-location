@@ -17,7 +17,8 @@ class SettingsButton extends Button
 		if (count($this->params) > 1) {
 			switch ($this->params[0]) {
 				case self::ACTION_SETTINGS_PREVIEW:
-					$previewEnabled = $this->user->settings()->setPreview(Strict::boolval($this->params[1]));
+					$previewEnabled = Strict::boolval($this->params[1]);
+					$this->user->setSettingsPreview($previewEnabled);
 					$this->flash(sprintf('%s Map preview for locations was %s.', Icons::SUCCESS, $previewEnabled ? 'enabled' : 'disabled'));
 					break;
 			}

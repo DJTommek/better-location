@@ -165,7 +165,7 @@ class User
 		}
 		if (is_bool($settingsPreview)) {
 			$queries[] = 'settings_preview = ?';
-			$params[] = $settingsPreview;
+			$params[] = $settingsPreview ? 1 : 0;  // @TODO enabled vs disabled move to ENUM
 		}
 		if ($locationLat && $locationLon) {
 			if (BetterLocation::isLatValid($locationLat) === false || BetterLocation::isLonValid($locationLon) === false) {
