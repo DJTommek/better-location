@@ -41,4 +41,6 @@ class Icons
 
 	const FAVOURITE = "\u{2764}"; // https://emojipedia.org/red-heart/
 	const FAVOURITE_REMOVE = "\u{1F494}"; // https://emojipedia.org/broken-heart/
+
+	const SETTINGS = "\u{2699}"; // https://emojipedia.org/gear/
 }

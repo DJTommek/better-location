@@ -365,7 +365,7 @@ abstract class Events
 		$processedCollection = new ProcessedMessageResult($collection);
 		$processedCollection->process();
 
-		$text = sprintf('%s <b>User settings</b> for @%s. Example message:', Icons::COMMAND, Config::TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text = sprintf('%s <b>User settings</b> for @%s. Example message:', Icons::SETTINGS, Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= $processedCollection->getText();
 		$replyMarkup = $processedCollection->getMarkup(1);
