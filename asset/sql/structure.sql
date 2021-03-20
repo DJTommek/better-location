@@ -10,6 +10,7 @@ CREATE TABLE `better_location_user` (
   `user_location_lat` DOUBLE(10,6) NULL,
   `user_location_lon` DOUBLE(10,6) NULL,
   `user_location_last_update` DATETIME NULL,
+  `settings_preview` TINYINT UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_telegram_id` (`user_telegram_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;

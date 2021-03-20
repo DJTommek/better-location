@@ -5,6 +5,7 @@ namespace App;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use Nette\Utils\Strings;
 
 class User
 {
@@ -15,6 +16,9 @@ class User
 	private $telegramDisplayname;
 	private $lastKnownLocation;
 	private $lastKnownLocationDatetime;
+
+	/** @var UserSettings */
+	private $settings;
 
 	const FAVOURITES_STATUS_ENABLED = 1;
 	const FAVOURITES_STATUS_DELETED = 2;
@@ -29,6 +33,7 @@ class User
 		$this->telegramId = $telegramId;
 		$this->telegramDisplayname = $telegramDisplayname;
 		$this->db = Factory::Database();
+		$this->settings = new UserSettings();
 		$userData = $this->register($telegramId, $telegramDisplayname);
 		$this->updateCachedData($userData);
 		$this->updateFavouritesFromDb();
@@ -50,6 +55,11 @@ class User
 				$this->lastKnownLocation->setDescription(sprintf('Last update %s', $this->lastKnownLocationDatetime->format(\App\Config::DATETIME_FORMAT_ZONE)));
 			}
 		}
+		foreach ($newUserData as $key => $value) {
+			if (Strings::startsWith($key, 'settings_')) {
+				$this->settings->set($key, $value);
+			}
+		}
 	}
 
 	public function register(int $telegramId, ?string $telegramUsername = null)
@@ -65,6 +75,11 @@ class User
 	public function setLastKnownLocation(float $lat, float $lon)
 	{
 		$this->update(null, $lat, $lon);
+	}
+
+	public function setSettingsPreview(bool $value)
+	{
+		$this->update(null, null, null, $value);
 	}
 
 	private function loadFromDb()
@@ -140,13 +155,17 @@ class User
 	}
 
 	/** @throws InvalidLocationException */
-	public function update(?string $telegramUsername = null, ?float $locationLat = null, ?float $locationLon = null): self
+	public function update(?string $telegramUsername = null, ?float $locationLat = null, ?float $locationLon = null, ?bool $settingsPreview = null): self
 	{
 		$queries = [];
 		$params = [];
 		if (is_string($telegramUsername)) {
 			$queries[] = 'user_telegram_name = ?';
 			$params[] = $telegramUsername;
+		}
+		if (is_bool($settingsPreview)) {
+			$queries[] = 'settings_preview = ?';
+			$params[] = $settingsPreview;
 		}
 		if ($locationLat && $locationLon) {
 			if (BetterLocation::isLatValid($locationLat) === false || BetterLocation::isLonValid($locationLon) === false) {
@@ -197,5 +216,10 @@ class User
 	public function getLastKnownLocationDatetime(): ?\DateTimeImmutable
 	{
 		return $this->lastKnownLocationDatetime;
+	}
+
+	public function settings(): UserSettings
+	{
+		return $this->settings;
 	}
 }
