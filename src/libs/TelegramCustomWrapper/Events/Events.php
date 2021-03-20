@@ -12,6 +12,7 @@ use App\TelegramCustomWrapper\Events\Button\SettingsButton;
 use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use App\TelegramCustomWrapper\Events\Command\FeedbackCommand;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
+use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\SendMessage;
@@ -245,6 +246,7 @@ abstract class Events
 		$text .= sprintf('%s - %s Learn more about me (this text)', HelpCommand::getCmd(!$this->isPm()), Icons::INFO) . PHP_EOL;
 		$text .= sprintf('%s - %s Report invalid location or just contact the author', FeedbackCommand::getCmd(!$this->isPm()), Icons::FEEDBACK) . PHP_EOL;
 		$text .= sprintf('%s - %s Manage your saved favourite locations (works only in PM)', FavouritesCommand::getCmd(!$this->isPm()), Icons::FAVOURITE) . PHP_EOL;
+		$text .= sprintf('%s - %s Adjust your settings (works only in PM)', SettingsCommand::getCmd(!$this->isPm()), Icons::SETTINGS) . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= sprintf('%s For more info check out the <a href="%s">@BetterLocation</a> channel.', Icons::INFO, 'https://t.me/BetterLocation/3') . PHP_EOL;
 		$text .= PHP_EOL;
