@@ -26,6 +26,8 @@ class StartCommand extends Command
 	const FAVOURITE_ERROR = 'e';
 	const FAVOURITE_ERROR_TOO_LONG = 'too-long';
 
+	const SETTINGS = SettingsCommand::CMD;
+
 	public function handleWebhookUpdate()
 	{
 		$encodedParams = TelegramHelper::getParams($this->update);
@@ -39,6 +41,9 @@ class StartCommand extends Command
 			switch ($action) {
 				case self::FAVOURITE;
 					$this->processFavourites($params);
+					break;
+				case self::SETTINGS;
+					$this->processSettings();
 					break;
 				default:
 					// Bot indexers can add their own start parameters, so if no valid parameter is detected, continue just like /start without parameter
