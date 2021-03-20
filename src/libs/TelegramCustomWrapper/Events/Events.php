@@ -350,10 +350,10 @@ abstract class Events
 		$text .= sprintf('%s To add a location to your favourites, just send any link, coordinates etc. to me via PM and click on the %s button in my response.', Icons::INFO, Icons::FAVOURITE) . PHP_EOL;
 
 		if ($inline) {
-			$this->replyButton($text, $replyMarkup);
+			$this->replyButton($text, $replyMarkup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
 			$this->flash(sprintf('%s List of favourite locations was refreshed.', Icons::REFRESH));
 		} else {
-			$this->reply($text, $replyMarkup);
+			$this->reply($text, $replyMarkup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
 		}
 	}
 }

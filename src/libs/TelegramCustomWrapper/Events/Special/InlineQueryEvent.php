@@ -185,7 +185,7 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->input_message_content = new Text();
 		$inlineQueryResult->input_message_content->message_text = TelegramHelper::getMessagePrefix($betterLocation->getStaticMapUrl()) . $betterLocation->generateMessage();
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
-		$inlineQueryResult->input_message_content->disable_web_page_preview = true;
+		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->user->settings()->getPreview();
 		return $inlineQueryResult;
 	}
 
@@ -205,7 +205,7 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->input_message_content = new Text();
 		$inlineQueryResult->input_message_content->message_text = $processedCollection->getText();
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
-		$inlineQueryResult->input_message_content->disable_web_page_preview = true;
+		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->user->settings()->getPreview();
 		return $inlineQueryResult;
 	}
 }

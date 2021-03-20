@@ -61,7 +61,7 @@ class StartCommand extends Command
 				$result = $betterLocation->generateMessage();
 				$markup = new Markup();
 				$markup->inline_keyboard = [$betterLocation->generateDriveButtons()];
-				$this->reply(TelegramHelper::getMessagePrefix() . $result, $markup);
+				$this->reply(TelegramHelper::getMessagePrefix() . $result, $markup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
 			} catch (\Throwable $exception) {
 				Debugger::log($exception, ILogger::EXCEPTION);
 				$this->reply(sprintf('%s Unexpected error occured while processing coordinates in start command for Better location. Contact Admin for more info.', Icons::ERROR));
