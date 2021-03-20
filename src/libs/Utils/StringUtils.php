@@ -55,4 +55,9 @@ class StringUtils
 		} while ($i < $limit);
 		return $content;
 	}
+
+	public static function camelize(string $input, string $separator = '_'): string
+	{
+		return str_replace($separator, '', lcfirst(ucwords($input, $separator)));
+	}
 }

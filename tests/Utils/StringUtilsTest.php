@@ -41,4 +41,18 @@ final class StringUtilsTest extends TestCase
 		$this->assertFalse(StringUtils::isGuid('ffffffff-ffff-ffffffff-ffffffffffff'));
 		$this->assertFalse(StringUtils::isGuid('ffffffff-ffff-ffff-ffffffffffffffff'));
 	}
+
+	public function testCamelize(): void
+	{
+		$this->assertSame('one', StringUtils::camelize('one'));
+		$this->assertSame('oneTwo', StringUtils::camelize('one_two'));
+		$this->assertSame('oneTwoThree', StringUtils::camelize('one_two_three'));
+		$this->assertSame('oneTwoThreeFour', StringUtils::camelize('one_two_three_four'));
+		$this->assertSame('one', StringUtils::camelize('one'));
+		$this->assertSame('oneTwo', StringUtils::camelize('one-two', '-'));
+		$this->assertSame('oneTwoThree', StringUtils::camelize('one-two-three', '-'));
+		$this->assertSame('oneTwoThreeFour', StringUtils::camelize('one-two-three-four', '-'));
+		$this->assertSame('one-two', StringUtils::camelize('one-two'));
+		$this->assertSame('one2Three', StringUtils::camelize('one_2_three'));
+	}
 }
