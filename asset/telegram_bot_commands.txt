@@ -1,3 +1,4 @@
 help - ℹ Learn more about me, @BetterLocationBot
 feedback - 🗣 Report invalid location or just contact the author @DJTommek
 favourites - ❤ Manage your saved favourite locations (works only in PM)
+settings - ⚙  Adjust your settings (works only in PM)
