@@ -8,10 +8,12 @@ use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\Button\HelpButton;
+use App\TelegramCustomWrapper\Events\Button\SettingsButton;
 use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use App\TelegramCustomWrapper\Events\Command\FeedbackCommand;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
+use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\SendMessage;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\User;
@@ -352,6 +354,35 @@ abstract class Events
 		if ($inline) {
 			$this->replyButton($text, $replyMarkup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
 			$this->flash(sprintf('%s List of favourite locations was refreshed.', Icons::REFRESH));
+		} else {
+			$this->reply($text, $replyMarkup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
+		}
+	}
+
+	protected function processSettings(bool $inline = false)
+	{
+		$collection = WazeService::processStatic(WazeService::getLink(50.087451, 14.420671))->getCollection();
+		$processedCollection = new ProcessedMessageResult($collection);
+		$processedCollection->process();
+
+		$text = sprintf('%s <b>User settings</b> for @%s. Example message:', Icons::COMMAND, Config::TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text .= PHP_EOL;
+		$text .= $processedCollection->getText();
+		$replyMarkup = $processedCollection->getMarkup(1);
+
+		$previewButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
+		if ($this->user->settings()->getPreview()) {
+			$previewButton->text = sprintf('Map preview: %s', Icons::ENABLED);
+			$previewButton->callback_data = sprintf('%s %s false', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_PREVIEW);
+		} else {
+			$previewButton->text = sprintf('Map preview: %s', Icons::DISABLED);
+			$previewButton->callback_data = sprintf('%s %s true', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_PREVIEW);
+		}
+		$buttonRow[] = $previewButton;
+		$replyMarkup->inline_keyboard[] = $buttonRow;
+
+		if ($inline) {
+			$this->replyButton($text, $replyMarkup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
 		} else {
 			$this->reply($text, $replyMarkup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
 		}

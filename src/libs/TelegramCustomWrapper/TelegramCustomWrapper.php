@@ -7,6 +7,7 @@ use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\Button\HelpButton;
 use App\TelegramCustomWrapper\Events\Button\InvalidButton;
 use App\TelegramCustomWrapper\Events\Button\RefreshButton;
+use App\TelegramCustomWrapper\Events\Button\SettingsButton;
 use App\TelegramCustomWrapper\Events\Command\DebugCommand;
 use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use App\TelegramCustomWrapper\Events\Command\FeedbackCommand;
@@ -83,6 +84,9 @@ class TelegramCustomWrapper
 						break;
 					case RefreshButton::CMD:
 						$this->event = new RefreshButton($update);
+						break;
+					case SettingsButton::CMD:
+						$this->event = new SettingsButton($update);
 						break;
 					default: // unknown: malicious request or button command has changed
 						$this->event = new InvalidButton($update);

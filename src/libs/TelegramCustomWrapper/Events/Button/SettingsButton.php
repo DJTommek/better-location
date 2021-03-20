@@ -2,28 +2,26 @@
 
 namespace App\TelegramCustomWrapper\Events\Button;
 
+use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
-use unreal4u\TelegramAPI\Telegram\Types;
+use App\Utils\Strict;
 
 class SettingsButton extends Button
 {
 	const CMD = SettingsCommand::CMD;
 
+	const ACTION_SETTINGS_PREVIEW = 'preview';
+
 	public function handleWebhookUpdate()
 	{
-		$text = sprintf('<b>Settings</b>') . PHP_EOL;
-		$text .= sprintf('Choose one of the settings via buttons below:') . PHP_EOL;
-
-		$replyMarkup = new Types\Inline\Keyboard\Markup();
-		$replyMarkup->inline_keyboard = [
-			[ // row of buttons
-				new Types\Inline\Keyboard\Button([
-					'text' => 'Settings:',
-					'callback_data' => self::CMD,
-				]),
-			],
-		];
-
-		$this->replyButton($text, $replyMarkup);
+		if (count($this->params) > 1) {
+			switch ($this->params[0]) {
+				case self::ACTION_SETTINGS_PREVIEW:
+					$previewEnabled = $this->user->settings()->setPreview(Strict::boolval($this->params[1]));
+					$this->flash(sprintf('%s Map preview for locations was %s.', Icons::SUCCESS, $previewEnabled ? 'enabled' : 'disabled'));
+					break;
+			}
+		}
+		$this->processSettings(true);
 	}
 }
