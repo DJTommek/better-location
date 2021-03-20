@@ -19,7 +19,7 @@ class SendMessage
 		$this->setReplyToMessageId($replyMessageId);
 		$this->setReplyMarkup($replyMarkup);
 		$this->setParseMode('HTML');
-		$this->disableWebPagePreview(false);
+		$this->disableWebPagePreview(true);
 	}
 
 	public function setParseMode($parseMode)

@@ -46,7 +46,7 @@ abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 		if (isset($options['disable_web_page_preview'])) {
 			$msg->disable_web_page_preview = $options['disable_web_page_preview'];
 		} else {
-			$msg->disable_web_page_preview = true; // Temporary until showing static map will be adjustable in settings
+			$msg->disable_web_page_preview = true;
 		}
 		$msg->message_id = $this->getMessageId();
 		return $this->run($msg);

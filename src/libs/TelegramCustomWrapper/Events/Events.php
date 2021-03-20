@@ -156,8 +156,6 @@ abstract class Events
 		}
 		if (isset($options['disable_web_page_preview'])) {
 			$msg->disableWebPagePreview($options['disable_web_page_preview']);
-		} else {
-			$msg->disableWebPagePreview(true); // Temporary until showing static map will be adjustable in settings
 		}
 		/** @var Telegram\Types\Message $response It always should be this type. Other should throw exception */
 		$response = $this->run($msg->msg);
