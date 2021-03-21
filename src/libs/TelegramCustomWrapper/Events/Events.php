@@ -2,6 +2,7 @@
 
 namespace App\TelegramCustomWrapper\Events;
 
+use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\WazeService;
 use App\Chat;
 use App\Config;
@@ -18,6 +19,7 @@ use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\SendMessage;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\User;
+use App\Utils\Coordinates;
 use App\Utils\SimpleLogger;
 use React\EventLoop\Factory;
 use Tracy\Debugger;
@@ -163,6 +165,21 @@ abstract class Events
 		/** @var Telegram\Types\Message $response It always should be this type. Other should throw exception */
 		$response = $this->run($msg->msg);
 		return $response;
+	}
+
+	/** @param BetterLocation|Coordinates */
+	public function replyLocation($location, ?Markup $markup = null): ?TelegramTypes
+	{
+		if ($location instanceof BetterLocation === false && $location instanceof Coordinates === false) {
+			throw new \InvalidArgumentException();
+		}
+
+		$locationMessage = new Telegram\Methods\SendLocation();
+		$locationMessage->chat_id = $this->getChatId();
+		$locationMessage->latitude = $location->getLat();
+		$locationMessage->longitude = $location->getLon();
+		$locationMessage->reply_markup = $markup;
+		return $this->run($locationMessage);
 	}
 
 	/**
