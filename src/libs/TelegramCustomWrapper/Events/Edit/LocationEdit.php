@@ -43,31 +43,31 @@ class LocationEdit extends Edit
 		}
 
 		$collection = $this->getCollection();
-		$messageToRefresh = TelegramUpdateDb::loadByOriginalMessageId($this->getChatId(), $this->getMessageId());
+		if ($messageToRefresh = TelegramUpdateDb::loadByOriginalMessageId($this->getChatId(), $this->getMessageId())) {
+			$processedCollection = new ProcessedMessageResult($collection);
+			$processedCollection->process();
+			$text = $processedCollection->getText();
+			$text .= sprintf('%s Last live location from %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
+			if ($this->live === false) {
+				// If user cancel sharing, edit event is fired but it's not live location anymore.
+				// But if sharing is expired (automatically), TG server is not sending any edit event.
+				$text .= ' (sharing has stopped)';
+			}
 
-		$processedCollection = new ProcessedMessageResult($collection);
-		$processedCollection->process();
-		$text = $processedCollection->getText();
-		$text .= sprintf('%s Last live location from %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
-		if ($this->live === false) {
-			// If user cancel sharing, edit event is fired but it's not live location anymore.
-			// But if sharing is expired (automatically), TG server is not sending any edit event.
-			$text .= ' (sharing has stopped)';
+			$replyMarkup = $processedCollection->getMarkup(1, false);
+
+			$editMessage = new \unreal4u\TelegramAPI\Telegram\Methods\EditMessageText();
+			$editMessage->chat_id = $messageToRefresh->getChatId();
+			$editMessage->message_id = $messageToRefresh->getBotReplyMessageId();
+			$editMessage->parse_mode = 'HTML';
+			$editMessage->disable_web_page_preview = !$this->user->settings()->getPreview();
+			$editMessage->text = $text;
+			$editMessage->reply_markup = $replyMarkup;
+			$this->run($editMessage);
+
+			$messageToRefresh->setLastSendData($text, $replyMarkup, true);
+			$messageToRefresh->touchLastUpdate();
 		}
-
-		$replyMarkup = $processedCollection->getMarkup(1, false);
-
-		$editMessage = new \unreal4u\TelegramAPI\Telegram\Methods\EditMessageText();
-		$editMessage->chat_id = $messageToRefresh->getChatId();
-		$editMessage->message_id = $messageToRefresh->getBotReplyMessageId();
-		$editMessage->parse_mode = 'HTML';
-		$editMessage->disable_web_page_preview = !$this->user->settings()->getPreview();
-		$editMessage->text = $text;
-		$editMessage->reply_markup = $replyMarkup;
-		$this->run($editMessage);
-
-		$messageToRefresh->setLastSendData($text, $replyMarkup, true);
-		$messageToRefresh->touchLastUpdate();
 	}
 }
 
