@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `better_location_telegram_updates` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 CREATE TABLE `better_location_static_map_cache` (
-  `id` varchar(255) NOT NULL PRIMARY KEY,
+  `id` varchar(16) NOT NULL PRIMARY KEY,
   `url` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
