@@ -8,6 +8,8 @@ class UserSettings
 {
 	/** @var bool */
 	private $preview = false;
+	/** @var bool */
+	private $sendNativeLocation = false;
 
 	/**
 	 * @param mixed $value
@@ -19,6 +21,9 @@ class UserSettings
 			case 'settings_preview';
 			case 'preview';
 				return $this->setPreview(Strict::boolval($value));
+			case 'settings_send_native_location';
+			case 'send_native_location';
+				return $this->setSendNativeLocation(Strict::boolval($value));
 			default:
 				throw new \InvalidArgumentException(sprintf('Unknown settings name "%s".', $name));
 		}
@@ -52,5 +57,15 @@ class UserSettings
 	public function getPreview(): bool
 	{
 		return $this->preview;
+	}
+
+	public function setSendNativeLocation(bool $value): bool
+	{
+		return $this->sendNativeLocation = $value;
+	}
+
+	public function getSendNativeLocation(): bool
+	{
+		return $this->sendNativeLocation;
 	}
 }

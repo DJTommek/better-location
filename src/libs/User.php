@@ -79,6 +79,11 @@ class User
 		$this->update(null, null, null, $value);
 	}
 
+	public function setSettingsSendNativeLocation(bool $value)
+	{
+		$this->update(null, null, null, null, $value);
+	}
+
 	private function loadFromDb()
 	{
 		return $this->db->query('SELECT * FROM better_location_user WHERE user_telegram_id = ?', $this->telegramId)->fetch();
@@ -152,7 +157,13 @@ class User
 	}
 
 	/** @throws InvalidLocationException */
-	public function update(?string $telegramUsername = null, ?float $locationLat = null, ?float $locationLon = null, ?bool $settingsPreview = null): self
+	public function update(
+		?string $telegramUsername = null,
+		?float $locationLat = null,
+		?float $locationLon = null,
+		?bool $settingsPreview = null,
+		?bool $settingsSendNativeLocation = null
+	): self
 	{
 		$queries = [];
 		$params = [];
@@ -163,6 +174,10 @@ class User
 		if (is_bool($settingsPreview)) {
 			$queries[] = 'settings_preview = ?';
 			$params[] = $settingsPreview ? Database::TRUE : Database::FALSE;
+		}
+		if (is_bool($settingsSendNativeLocation)) {
+			$queries[] = 'settings_send_native_location = ?';
+			$params[] = $settingsSendNativeLocation ? Database::TRUE : Database::FALSE;
 		}
 		if ($locationLat && $locationLon) {
 			if (BetterLocation::isLatValid($locationLat) === false || BetterLocation::isLonValid($locationLon) === false) {

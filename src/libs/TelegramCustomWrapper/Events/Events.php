@@ -398,6 +398,17 @@ abstract class Events
 			$previewButton->callback_data = sprintf('%s %s true', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_PREVIEW);
 		}
 		$buttonRow[] = $previewButton;
+
+		$sendNativeLocationButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
+		if ($this->user->settings()->getSendNativeLocation()) {
+			$sendNativeLocationButton->text = sprintf('Send native location: %s', Icons::ENABLED);
+			$sendNativeLocationButton->callback_data = sprintf('%s %s false', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_SEND_NATIVE_LOCATION);
+		} else {
+			$sendNativeLocationButton->text = sprintf('Send native location: %s', Icons::DISABLED);
+			$sendNativeLocationButton->callback_data = sprintf('%s %s true', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_SEND_NATIVE_LOCATION);
+		}
+		$buttonRow[] = $sendNativeLocationButton;
+
 		$replyMarkup->inline_keyboard[] = $buttonRow;
 
 		if ($inline) {
