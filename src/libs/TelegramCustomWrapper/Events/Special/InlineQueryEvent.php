@@ -95,7 +95,7 @@ class InlineQueryEvent extends Special
 			$entities = TelegramHelper::generateEntities($queryInput);
 			try {
 				$collection = BetterLocationCollection::fromTelegramMessage($queryInput, $entities);
-				if (count($collection->getLocations()) > 1) {
+				if (count($collection->getLocations()) > 1 && $this->user->settings()->getSendNativeLocation()) {
 					$answerInlineQuery->addResult($this->getAllLocationsInlineQueryResult($collection));
 				}
 				foreach ($collection->getLocations() as $betterLocation) {
@@ -166,7 +166,19 @@ class InlineQueryEvent extends Special
 		return $this->update->inline_query->from;
 	}
 
-	private function getInlineQueryResult(BetterLocation $betterLocation, string $inlineTitle = null): Inline\Query\Result\Article
+	/**
+	 * @return Inline\Query\Result\Article|Inline\Query\Result\Location
+	 */
+	private function getInlineQueryResult(BetterLocation $betterLocation, string $inlineTitle = null)
+	{
+		if ($this->user->settings()->getSendNativeLocation()) {
+			return $this->getInlineQueryResultNativeLocation($betterLocation, $inlineTitle);
+		} else {
+			return $this->getInlineQueryResultArticle($betterLocation, $inlineTitle);
+		}
+	}
+
+	private function getInlineQueryResultArticle(BetterLocation $betterLocation, string $inlineTitle = null): Inline\Query\Result\Article
 	{
 		$inlineQueryResult = new Inline\Query\Result\Article();
 		$inlineQueryResult->id = rand(100000, 999999);
@@ -186,6 +198,22 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->input_message_content->message_text = TelegramHelper::getMessagePrefix($betterLocation->getStaticMapUrl()) . $betterLocation->generateMessage();
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
 		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->user->settings()->getPreview();
+		return $inlineQueryResult;
+	}
+
+	private function getInlineQueryResultNativeLocation(BetterLocation $betterLocation, string $inlineTitle = null): Inline\Query\Result\Location
+	{
+		$inlineQueryResult = new Inline\Query\Result\Location();
+		$inlineQueryResult->id = rand(100000, 999999);
+		if (is_null($inlineTitle)) {
+			$inlineTitle = $betterLocation->getInlinePrefixMessage() ?? $betterLocation->getPrefixMessage();
+		}
+		$inlineQueryResult->latitude = $betterLocation->getLat();
+		$inlineQueryResult->longitude = $betterLocation->getLon();
+		$inlineQueryResult->title = strip_tags($inlineTitle);
+		$inlineQueryResult->thumb_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
+		$inlineQueryResult->reply_markup = new Markup();
+		$inlineQueryResult->reply_markup->inline_keyboard = [$betterLocation->generateDriveButtons()];
 		return $inlineQueryResult;
 	}
 
