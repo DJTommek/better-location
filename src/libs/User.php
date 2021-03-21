@@ -20,9 +20,6 @@ class User
 	/** @var UserSettings */
 	private $settings;
 
-	const FAVOURITES_STATUS_ENABLED = 1;
-	const FAVOURITES_STATUS_DELETED = 2;
-
 	/** @var BetterLocationCollection */
 	private $favourites;
 	/** @var BetterLocationCollection */
@@ -96,9 +93,9 @@ class User
 			$location = BetterLocation::fromLatLon($favouriteDb->lat, $favouriteDb->lon);
 			$location->setPrefixMessage(sprintf('%s %s', Icons::FAVOURITE, $favouriteDb->title));
 
-			if ($favouriteDb->status === self::FAVOURITES_STATUS_ENABLED) {
+			if ($favouriteDb->status === Database::ENABLED) {
 				$this->favourites->add($location);
-			} else if ($favouriteDb->status === self::FAVOURITES_STATUS_DELETED) {
+			} else if ($favouriteDb->status === Database::DELETED) {
 				$this->favouritesDeleted->add($location);
 			} else {
 				throw new \Exception(sprintf('Unexpected type of favourites type: "%d"', $favouriteDb->status));
@@ -122,12 +119,12 @@ class User
 			// already saved
 		} else if ($deletedFavourite = $this->favouritesDeleted->getByLatLon($betterLocation->getLat(), $betterLocation->getLon())) { // already saved but deleted
 			$this->db->query('UPDATE better_location_favourites SET status = ? WHERE user_id = ? AND lat = ? AND lon = ?',
-				self::FAVOURITES_STATUS_ENABLED, $this->id, $betterLocation->getLat(), $betterLocation->getLon()
+				Database::ENABLED, $this->id, $betterLocation->getLat(), $betterLocation->getLon()
 			);
 			$this->updateFavouritesFromDb();
 		} else { // not in database at all
 			$this->db->query('INSERT INTO better_location_favourites (user_id, status, lat, lon, title) VALUES (?, ?, ?, ?, ?)',
-				$this->id, self::FAVOURITES_STATUS_ENABLED, $betterLocation->getLat(), $betterLocation->getLon(), $title
+				$this->id, Database::ENABLED, $betterLocation->getLat(), $betterLocation->getLon(), $title
 			);
 			$this->updateFavouritesFromDb();
 		}
@@ -138,7 +135,7 @@ class User
 	public function deleteFavourite(BetterLocation $betterLocation): void
 	{
 		$this->db->query('UPDATE better_location_favourites SET status = ? WHERE user_id = ? AND lat = ? AND lon = ?',
-			self::FAVOURITES_STATUS_DELETED, $this->id, $betterLocation->getLat(), $betterLocation->getLon()
+			Database::DELETED, $this->id, $betterLocation->getLat(), $betterLocation->getLon()
 		);
 		$this->updateFavouritesFromDb();
 	}
@@ -165,7 +162,7 @@ class User
 		}
 		if (is_bool($settingsPreview)) {
 			$queries[] = 'settings_preview = ?';
-			$params[] = $settingsPreview ? 1 : 0;  // @TODO enabled vs disabled move to ENUM
+			$params[] = $settingsPreview ? Database::TRUE : Database::FALSE;
 		}
 		if ($locationLat && $locationLon) {
 			if (BetterLocation::isLatValid($locationLat) === false || BetterLocation::isLonValid($locationLon) === false) {

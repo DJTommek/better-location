@@ -7,6 +7,20 @@ class Database
 	/** @var \PDO */
 	private $db;
 
+	public const TRUE = 1;
+	public const FALSE = 0;
+
+	public const DISABLED = 0;
+	public const ENABLED = 1;
+	public const DELETED = 2;
+
+	public const ORDER_ASC = 'ASC';
+	public const ORDER_DESC = 'DESC';
+	public const ORDERS = [
+		self::ORDER_ASC,
+		self::ORDER_DESC,
+	];
+
 	public function __construct($db_server, $db_schema, $db_user, $db_pass, $db_charset = 'utf8mb4')
 	{
 		$dsn = 'mysql:host=' . $db_server . ';dbname=' . $db_schema . ';charset=' . $db_charset;
