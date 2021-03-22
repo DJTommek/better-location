@@ -7,6 +7,7 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
+use Nette\Utils\Arrays;
 use Nette\Utils\Strings;
 
 final class OpenStreetMapService extends AbstractService
@@ -30,8 +31,11 @@ final class OpenStreetMapService extends AbstractService
 	public function isValid(): bool
 	{
 		$result = false;
-		if ($this->url) {
-			if ($this->url->getDomain(2) === 'openstreetmap.org') {
+		if ($this->url && Arrays::contains(['openstreetmap.org', 'osm.org'], $this->url->getDomain(2))) {
+			if (Strings::startsWith($this->url->getPath(), '/go/')) {
+				$this->data->isShortUrl = true;
+				$result = true;
+			} else {
 				if (Coordinates::isLat($this->url->getQueryParameter('mlat')) && Coordinates::isLon($this->url->getQueryParameter('mlon'))) {
 					$this->data->pointCoord = true;
 					$this->data->pointCoordLat = Strict::floatval($this->url->getQueryParameter('mlat'));
@@ -50,9 +54,6 @@ final class OpenStreetMapService extends AbstractService
 						}
 					}
 				}
-			} else if ($this->url->getDomain(0) === 'osm.org' && Strings::startsWith($this->url->getPath(), '/go/')) {
-				$this->data->isShortUrl = true;
-				$result = true;
 			}
 		}
 		return $result;
