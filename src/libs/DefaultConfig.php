@@ -137,6 +137,9 @@ class DefaultConfig
 	/** @var ?string */
 	const ADMIN_PASSWORD = null;
 
+	/** @var int How long input text must be to start Google API searching */
+	const GOOGLE_SEARCH_MIN_LENGTH = 3;
+
 	/**
 	 * @var string Default timezone to work with.
 	 * Disclaimer: Changing might result in unexpected behaviour of this app. Make sure that you know, what you are doing.

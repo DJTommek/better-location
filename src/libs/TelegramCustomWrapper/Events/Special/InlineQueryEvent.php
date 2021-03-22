@@ -28,8 +28,6 @@ class InlineQueryEvent extends Special
 	 */
 	const MAX_FAVOURITES = 10;
 
-	const GOOGLE_SEARCH_MIN_LENGTH = 3;
-
 	public function handleWebhookUpdate()
 	{
 		$answerInlineQuery = new AnswerInlineQuery();
@@ -106,7 +104,7 @@ class InlineQueryEvent extends Special
 				}
 
 				// only if there is no match from previous processing
-				if (mb_strlen($queryInput) >= self::GOOGLE_SEARCH_MIN_LENGTH && count($answerInlineQuery->getResults()) === 0 && is_null(Config::GOOGLE_PLACE_API_KEY) === false) {
+				if (mb_strlen($queryInput) >= Config::GOOGLE_SEARCH_MIN_LENGTH && count($answerInlineQuery->getResults()) === 0 && is_null(Config::GOOGLE_PLACE_API_KEY) === false) {
 					$placeApi = new \App\BetterLocation\GooglePlaceApi();
 					$placeCandidates = $placeApi->runPlaceSearch(
 						$queryInput,
