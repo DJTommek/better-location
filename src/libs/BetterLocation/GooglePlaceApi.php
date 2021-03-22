@@ -2,6 +2,7 @@
 
 namespace App\BetterLocation;
 
+use App\BetterLocation\Service\GoogleMapsService;
 use App\Config;
 use App\MiniCurl\MiniCurl;
 use Tracy\Debugger;
@@ -143,5 +144,52 @@ class GooglePlaceApi
 	private function generateLocationBias(BetterLocation $betterLocation)
 	{
 		return 'point:' . $betterLocation->__toString();
+	}
+
+	/**
+	 * Helper method to do all logic and return collection of locations
+	 */
+	public static function search(string $queryInput, ?string $languageCode = null, ?BetterLocation $location = null): BetterLocationCollection
+	{
+		$queryInput = self::normalizeInput($queryInput);
+		$placeApi = new self();
+		$placeCandidates = $placeApi->runPlaceSearch(
+			$queryInput,
+			['formatted_address', 'name', 'geometry', 'place_id'],
+			$languageCode ?? 'en',
+			$location,
+		);
+		$collection = new BetterLocationCollection();
+		foreach ($placeCandidates as $placeCandidate) {
+			$betterLocation = new BetterLocation(
+				$queryInput,
+				$placeCandidate->geometry->location->lat,
+				$placeCandidate->geometry->location->lng,
+				GoogleMapsService::class,
+				GoogleMapsService::TYPE_INLINE_SEARCH,
+			);
+			$address = $placeCandidate->formatted_address;
+			try {
+				$placeDetails = $placeApi->getPlaceDetails($placeCandidate->place_id, ['url', 'website', 'international_phone_number']);
+				$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a>', ($placeDetails->website ?? $placeDetails->url), $placeCandidate->name));
+				if (isset($placeDetails->international_phone_number)) {
+					$address .= sprintf(' (%s)', $placeDetails->international_phone_number);
+				}
+			} catch (\Throwable $exception) {
+				Debugger::log($exception, ILogger::EXCEPTION);
+				$betterLocation->setPrefixMessage($placeCandidate->name);
+			}
+			$betterLocation->setAddress($address);
+			$collection->add($betterLocation);
+		}
+		return $collection;
+	}
+
+	/**
+	 * Replace newlines with spaces and remove whitespaces from beginning and end of string
+	 */
+	public static function normalizeInput(string $input): string
+	{
+		return preg_replace('/\s+/', ' ', $input);
 	}
 }

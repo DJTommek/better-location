@@ -4,7 +4,7 @@ namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
-use App\BetterLocation\Service\GoogleMapsService;
+use App\BetterLocation\GooglePlaceApi;
 use App\BetterLocation\Service\MapyCzService;
 use App\Config;
 use App\Icons;
@@ -34,7 +34,7 @@ class InlineQueryEvent extends Special
 		$answerInlineQuery->inline_query_id = $this->update->inline_query->id;
 		$answerInlineQuery->cache_time = Config::TELEGRAM_INLINE_CACHE;
 
-		$queryInput = preg_replace('/\s+/', ' ', trim($this->update->inline_query->query));
+		$queryInput = GooglePlaceApi::normalizeInput($this->update->inline_query->query);
 
 		if ($this->update->inline_query->location) {
 			$this->user->setLastKnownLocation($this->update->inline_query->location->latitude, $this->update->inline_query->location->longitude);
@@ -105,33 +105,8 @@ class InlineQueryEvent extends Special
 
 				// only if there is no match from previous processing
 				if (mb_strlen($queryInput) >= Config::GOOGLE_SEARCH_MIN_LENGTH && count($answerInlineQuery->getResults()) === 0 && is_null(Config::GOOGLE_PLACE_API_KEY) === false) {
-					$placeApi = new \App\BetterLocation\GooglePlaceApi();
-					$placeCandidates = $placeApi->runPlaceSearch(
-						$queryInput,
-						['formatted_address', 'name', 'geometry', 'place_id'],
-						$this->getFrom()->language_code ?? 'en',
-						$this->user->getLastKnownLocation(),
-					);
-					foreach ($placeCandidates as $placeCandidate) {
-						$betterLocation = new BetterLocation(
-							$queryInput,
-							$placeCandidate->geometry->location->lat,
-							$placeCandidate->geometry->location->lng,
-							GoogleMapsService::class,
-							GoogleMapsService::TYPE_INLINE_SEARCH,
-						);
-						$address = $placeCandidate->formatted_address;
-						try {
-							$placeDetails = $placeApi->getPlaceDetails($placeCandidate->place_id, ['url', 'website', 'international_phone_number']);
-							$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a>', ($placeDetails->website ?? $placeDetails->url), $placeCandidate->name));
-							if (isset($placeDetails->international_phone_number)) {
-								$address .= sprintf(' (%s)', $placeDetails->international_phone_number);
-							}
-						} catch (\Throwable $exception) {
-							Debugger::log($exception, ILogger::EXCEPTION);
-							$betterLocation->setPrefixMessage($placeCandidate->name);
-						}
-						$betterLocation->setAddress($address);
+					$googleCollection = GooglePlaceApi::search($queryInput, $this->getFrom()->language_code, $this->user->getLastKnownLocation());
+					foreach ($googleCollection as $betterLocation) {
 						$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 					}
 				}
