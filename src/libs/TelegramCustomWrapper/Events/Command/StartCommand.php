@@ -7,6 +7,7 @@ use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
+use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
@@ -56,17 +57,16 @@ class StartCommand extends Command
 
 	private function processStartCoordinates(array $matches)
 	{
-		$lat = intval($matches[1]) / 1000000;
-		$lon = intval($matches[2]) / 1000000;
+		$lat = Strict::intval($matches[1]) / 1000000;
+		$lon = Strict::intval($matches[2]) / 1000000;
 		if (BetterLocation::isLatValid($lat) === false || BetterLocation::isLonValid($lon) === false) {
 			$this->reply(sprintf('%s Coordinates <code>%F,%F</code> are not valid.', Icons::ERROR, $lat, $lon));
 		} else {
 			try {
-				$betterLocation = new BetterLocation($matches[0], $lat, $lon, WGS84DegreesService::class);
-				$result = $betterLocation->generateMessage();
-				$markup = new Markup();
-				$markup->inline_keyboard = [$betterLocation->generateDriveButtons()];
-				$this->reply(TelegramHelper::getMessagePrefix() . $result, $markup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
+				$collection = WGS84DegreesService::processStatic($lat . ',' . $lon)->getCollection();
+				$processedCollection = new ProcessedMessageResult($collection);
+				$processedCollection->process();
+				$this->reply($processedCollection->getText(), $processedCollection->getMarkup(1), ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
 			} catch (\Throwable $exception) {
 				Debugger::log($exception, ILogger::EXCEPTION);
 				$this->reply(sprintf('%s Unexpected error occured while processing coordinates in start command for Better location. Contact Admin for more info.', Icons::ERROR));
