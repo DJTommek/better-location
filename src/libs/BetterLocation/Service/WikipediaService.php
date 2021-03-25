@@ -41,6 +41,7 @@ final class WikipediaService extends AbstractService
 		$response = $this->requestLocationFromWikipediaPage();
 		if (isset($response->wgCoordinates) && Coordinates::isLat($response->wgCoordinates->lat) && Coordinates::isLon($response->wgCoordinates->lon)) {
 			$location = new BetterLocation($this->inputUrl, $response->wgCoordinates->lat, $response->wgCoordinates->lon, self::class);
+			$location->setPrefixMessage(sprintf('<a href="%s">Wikipedia %s</a>', $this->inputUrl, htmlentities($response->wgTitle)));
 			$this->collection->add($location);
 		}
 	}
