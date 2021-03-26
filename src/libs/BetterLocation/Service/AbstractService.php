@@ -48,7 +48,7 @@ abstract class AbstractService
 	/** @var \stdClass Helper to store data between methods (eg isValid and process) */
 	protected $data;
 
-	public function __construct(string $input)
+	public final function __construct(string $input)
 	{
 		$this->input = $input;
 		if (Strict::isUrl($input)) {

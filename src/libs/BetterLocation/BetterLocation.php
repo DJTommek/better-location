@@ -363,7 +363,7 @@ class BetterLocation
 		} else if (is_string($input)) {
 			$this->input = $input;
 			if (Strict::isUrl($input)) {
-				$this->inputUrl = Strict::url($input);
+				$this->inputUrl = Strict::urlImmutable($input);
 			}
 		} else {
 			throw new \InvalidArgumentException(sprintf('Input must be string, instance of "%s" or "%s"', \Nette\Http\Url::class, \Nette\Http\UrlImmutable::class));

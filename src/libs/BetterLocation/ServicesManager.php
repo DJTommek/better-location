@@ -29,7 +29,6 @@ use Tracy\ILogger;
 
 class ServicesManager
 {
-	/** @var AbstractService[] */
 	private $services = [];
 
 	public function __construct()
@@ -70,8 +69,8 @@ class ServicesManager
 	public function iterate(string $input): BetterLocationCollection
 	{
 		foreach ($this->services as $serviceName) {
-			/** @var $service AbstractService */
 			$service = new $serviceName($input);
+			/** @var $service AbstractService */
 			if ($service->isValid()) {
 				try {
 					$service->process();
