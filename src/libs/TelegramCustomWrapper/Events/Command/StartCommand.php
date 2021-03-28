@@ -59,7 +59,7 @@ class StartCommand extends Command
 	{
 		$lat = Strict::intval($matches[1]) / 1000000;
 		$lon = Strict::intval($matches[2]) / 1000000;
-		if (BetterLocation::isLatValid($lat) === false || BetterLocation::isLonValid($lon) === false) {
+		if (Coordinates::isLat($lat) === false || Coordinates::isLon($lon) === false) {
 			$this->reply(sprintf('%s Coordinates <code>%F,%F</code> are not valid.', Icons::ERROR, $lat, $lon));
 		} else {
 			try {

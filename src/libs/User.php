@@ -5,6 +5,7 @@ namespace App;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\Utils\Coordinates;
 use Nette\Utils\Strings;
 
 class User
@@ -180,7 +181,7 @@ class User
 			$params[] = $settingsSendNativeLocation ? Database::TRUE : Database::FALSE;
 		}
 		if ($locationLat && $locationLon) {
-			if (BetterLocation::isLatValid($locationLat) === false || BetterLocation::isLonValid($locationLon) === false) {
+			if (Coordinates::isLat($locationLat) === false || Coordinates::isLon($locationLon) === false) {
 				throw new InvalidLocationException('Invalid coordinates');
 			}
 			$queries[] = 'user_location_lat = ?';
