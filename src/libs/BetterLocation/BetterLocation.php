@@ -25,26 +25,34 @@ use unreal4u\TelegramAPI\Telegram\Types;
 
 class BetterLocation
 {
+	/** @var float */
 	private $lat;
+	/** @var float */
 	private $lon;
+	/** @var ?string */
 	private $description;
-	private $prefixMessage;
-	private $coordinateSuffixMessage;
-	private $address;
 	/** @var string */
-	private $input;
-	/** @var ?UrlImmutable */
-	private $inputUrl;
-	private $sourceService;
-	private $sourceType;
-	private $pregeneratedLinks = [];
+	private $prefixMessage;
+	/** @var ?string can be ommited if is the same as $prefixMessage */
 	private $inlinePrefixMessage;
+	/** @var ?string */
+	private $coordinateSuffixMessage;
+	/** @var ?string */
+	private $address;
+	/** @var string string representation of input (including links) */
+	private $input;
+	/** @var ?UrlImmutable input as link, if is possible */
+	private $inputUrl;
+	/** @var string|AbstractService string representation of child classname of AbstractService::class */
+	private $sourceService;
+	/** @var ?string If service class has multiple type of output, source type must be included */
+	private $sourceType;
+	/** @var array pregenerated link for service(s) if available */
+	private $pregeneratedLinks = [];
 	/** @var bool Can location change with same input? */
 	private $refreshable = false;
 
 	/**
-	 * BetterLocation constructor.
-	 *
 	 * @param string|\Nette\Http\Url|\Nette\Http\UrlImmutable $input
 	 * @param string $sourceService has to be name of class extending \BetterLocation\Service\AbstractService
 	 * @param ?string $sourceType if $sourceService class has multiple type of source, this must be included
@@ -67,7 +75,7 @@ class BetterLocation
 		}
 	}
 
-	public function getName()
+	public function getName(): string
 	{
 		return $this->sourceType;
 	}
@@ -81,7 +89,7 @@ class BetterLocation
 		];
 	}
 
-	public function generateScreenshotLink(string $serviceClass)
+	public function generateScreenshotLink(string $serviceClass): string
 	{
 		if (class_exists($serviceClass) === false) {
 			throw new \InvalidArgumentException(sprintf('Invalid location service: "%s".', $serviceClass));
@@ -95,7 +103,7 @@ class BetterLocation
 		return $serviceClass::getScreenshotLink($this->getLat(), $this->getLon());
 	}
 
-	public function setAddress(string $address)
+	public function setAddress(string $address): void
 	{
 		$this->address = $address;
 	}
@@ -109,7 +117,7 @@ class BetterLocation
 	 * @return string
 	 * @throws \Exception
 	 */
-	public function generateAddress()
+	public function generateAddress(): string
 	{
 		if (is_null($this->address)) {
 			try {
@@ -284,7 +292,7 @@ class BetterLocation
 		return $this->coordinateSuffixMessage;
 	}
 
-	public function getLink($class, bool $drive = false)
+	public function getLink(string $class, bool $drive = false): string
 	{
 		if ($class instanceof AbstractService === false) {
 			throw new \InvalidArgumentException(sprintf('Class must be instance of "%s"', AbstractService::class));
@@ -307,7 +315,7 @@ class BetterLocation
 		return [$this->lat, $this->lon];
 	}
 
-	public function __toString()
+	public function __toString(): string
 	{
 		return sprintf('%F,%F', $this->lat, $this->lon);
 	}
