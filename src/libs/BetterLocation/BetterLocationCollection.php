@@ -36,15 +36,19 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return $this->locations;
 	}
 
-	/** @param BetterLocation|\Throwable $betterLocation */
-	public function add($betterLocation): self
+	/** @param BetterLocation|BetterLocationCollection|\Throwable $input */
+	public function add($input): self
 	{
-		if ($betterLocation instanceof BetterLocation) {
-			$this->locations[] = $betterLocation;
-		} else if ($betterLocation instanceof \Throwable) {
-			$this->errors[] = $betterLocation;
+		if ($input instanceof BetterLocation) {
+			$this->locations[] = $input;
+		} else if ($input instanceof \Throwable) {
+			$this->errors[] = $input;
+		} else if ($input instanceof BetterLocationCollection) {
+			foreach ($input->getAll() as $betterLocation) {
+				$this->add($betterLocation);
+			}
 		} else {
-			throw new \InvalidArgumentException(sprintf('%s is accepting only "%s" and "%s" objects.', self::class, BetterLocation::class, \Throwable::class));
+			throw new \InvalidArgumentException(sprintf('%s is accepting only "%s", "%s" and "%s" objects.', self::class, BetterLocation::class, BetterLocationCollection::class, \Throwable::class));
 		}
 		return $this;
 	}
@@ -97,9 +101,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 
 	public function mergeCollection(BetterLocationCollection $betterLocationCollection): void
 	{
-		foreach ($betterLocationCollection->getAll() as $betterLocation) {
-			$this->add($betterLocation);
-		}
+		$this->add($betterLocationCollection);
 	}
 
 	public function filterTooClose(int $ignoreDistance = 0): void
