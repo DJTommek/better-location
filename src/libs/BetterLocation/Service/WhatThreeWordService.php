@@ -9,7 +9,8 @@ use Nette\Utils\Arrays;
 
 final class WhatThreeWordService extends AbstractService
 {
-	const NAME = 'W3W';
+	const NAME = 'What3Wwords';
+	const NAME_SHORT = 'W3W';
 
 	const LINK = 'https://what3words.com/';
 	const LINK_SHORT = 'https://w3w.co/';
