@@ -68,7 +68,7 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 				try {
 					if ($service->isValid()) {
 						$service->process();
-						$collection->mergeCollection($service->getCollection());
+						$collection->add($service->getCollection());
 					} else {
 						Debugger::log(sprintf('Coordinate input "%s" was findInText() but not validated', $coordsRaw), Debugger::ERROR);
 					}

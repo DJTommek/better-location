@@ -73,7 +73,7 @@ final class OpenLocationCodeService extends AbstractService
 		$collection = new BetterLocationCollection();
 		if (preg_match_all(self::RE_IN_STRING, $input, $matches)) {
 			foreach ($matches[2] as $plusCode) {
-				$collection->mergeCollection(self::processStatic($plusCode)->getCollection());
+				$collection->add(self::processStatic($plusCode)->getCollection());
 			}
 		}
 		return $collection;

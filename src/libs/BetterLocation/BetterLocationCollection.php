@@ -99,11 +99,6 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return reset($this->locations);
 	}
 
-	public function mergeCollection(BetterLocationCollection $betterLocationCollection): void
-	{
-		$this->add($betterLocationCollection);
-	}
-
 	public function filterTooClose(int $ignoreDistance = 0): void
 	{
 		$mostImportantLocation = $this->getFirst();
@@ -251,7 +246,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 
 				$serviceCollection = Factory::ServicesManager()->iterate($url);
 				$serviceCollection->filterTooClose(Config::DISTANCE_IGNORE);
-				$betterLocationsCollection->mergeCollection($serviceCollection);
+				$betterLocationsCollection->add($serviceCollection);
 
 				try {
 					$headers = null;
@@ -264,11 +259,11 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 						$betterLocationExif = BetterLocation::fromExif($url);
 						if ($betterLocationExif instanceof BetterLocation) {
 							$betterLocationExif->setPrefixMessage(sprintf('<a href="%s">EXIF</a>', $url));
-							$betterLocationsCollection[] = $betterLocationExif;
+							$betterLocationsCollection->add($betterLocationExif);
 						}
 					}
 				} catch (\Exception $exception) {
-					$betterLocationsCollection[] = $exception;
+					$betterLocationsCollection->add($exception);
 				}
 			}
 		}
@@ -276,21 +271,21 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		$messageWithoutUrls = TelegramHelper::getMessageWithoutUrls($message, $entities);
 		$messageWithoutUrls = StringUtils::translit($messageWithoutUrls);
 
-		$betterLocationsCollection->mergeCollection(WGS84DegreesService::findInText($messageWithoutUrls));
-		$betterLocationsCollection->mergeCollection(WGS84DegreesMinutesService::findInText($messageWithoutUrls));
-		$betterLocationsCollection->mergeCollection(WGS84DegreesMinutesSecondsService::findInText($messageWithoutUrls));
-		$betterLocationsCollection->mergeCollection(MGRSService::findInText($messageWithoutUrls));
-		$betterLocationsCollection->mergeCollection(USNGService::findInText($messageWithoutUrls));
-		$betterLocationsCollection->mergeCollection(OpenLocationCodeService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->add(WGS84DegreesService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->add(WGS84DegreesMinutesService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->add(WGS84DegreesMinutesSecondsService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->add(MGRSService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->add(USNGService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->add(OpenLocationCodeService::findInText($messageWithoutUrls));
 		if (is_null(Config::GEOCACHING_COOKIE) === false) {
-			$betterLocationsCollection->mergeCollection(GeocachingService::findInText($messageWithoutUrls));
+			$betterLocationsCollection->add(GeocachingService::findInText($messageWithoutUrls));
 		}
 
 		// What Three Word
 		if (is_null(Config::W3W_API_KEY) === false && $wordsAddresses = Helper::findInText($messageWithoutUrls)) {
 			foreach ($wordsAddresses as $wordsAddress) {
 				// It is ok to use processStatic since words should be already valid
-				$betterLocationsCollection->mergeCollection(WhatThreeWordService::processStatic($wordsAddress)->getCollection());
+				$betterLocationsCollection->add(WhatThreeWordService::processStatic($wordsAddress)->getCollection());
 			}
 		}
 

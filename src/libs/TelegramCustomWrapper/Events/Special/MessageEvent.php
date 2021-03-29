@@ -22,7 +22,7 @@ class MessageEvent extends Special
 		$collection = $this->getCollection();
 		if ($this->isPm() && $collection->count() === 0 && mb_strlen($this->getText()) >= Config::GOOGLE_SEARCH_MIN_LENGTH && is_null(Config::GOOGLE_PLACE_API_KEY) === false) {
 			$googleCollection = GooglePlaceApi::search($this->getText(), $this->getFrom()->language_code, $this->user->getLastKnownLocation());
-			$collection->mergeCollection($googleCollection);
+			$collection->add($googleCollection);
 		}
 		$processedCollection = new ProcessedMessageResult($collection);
 		$processedCollection->process();

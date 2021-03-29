@@ -49,7 +49,7 @@ class FileEvent extends Special
 				}
 			}
 		}
-		$collection->mergeCollection(BetterLocationCollection::fromTelegramMessage(
+		$collection->add(BetterLocationCollection::fromTelegramMessage(
 			$this->update->message->caption,
 			$this->update->message->caption_entities
 		));

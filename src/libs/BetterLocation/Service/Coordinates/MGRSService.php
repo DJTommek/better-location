@@ -24,7 +24,7 @@ final class MGRSService extends AbstractService
 				try {
 					if ($service->isValid()) {
 						$service->process();
-						$collection->mergeCollection($service->getCollection());
+						$collection->add($service->getCollection());
 					} else {
 						Debugger::log(sprintf('MGRS input "%s" was findInText() but not validated', $mgrsRaw), Debugger::ERROR);
 					}
