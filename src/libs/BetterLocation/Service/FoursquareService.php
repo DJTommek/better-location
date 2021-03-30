@@ -13,7 +13,6 @@ final class FoursquareService extends AbstractService
 	const NAME = 'Foursquare';
 
 	const LINK = Client::LINK;
-	const LINK_SHARE = 'https://foursquare.com/explore?ll=50.052152,14.453566';
 
 	const VENUE_ID_REGEX = '[a-f0-9]{24}';
 
