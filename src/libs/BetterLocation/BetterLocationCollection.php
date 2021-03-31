@@ -155,17 +155,17 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		}
 	}
 
-	public function offsetExists($offset)
+	public function offsetExists($offset): bool
 	{
 		return isset($this->locations[$offset]);
 	}
 
-	public function offsetGet($offset)
+	public function offsetGet($offset): ?BetterLocation
 	{
 		return isset($this->locations[$offset]) ? $this->locations[$offset] : null;
 	}
 
-	public function offsetSet($offset, $value)
+	public function offsetSet($offset, $value): void
 	{
 		if ($value instanceof BetterLocation) {
 			if (is_null($offset)) {
@@ -184,12 +184,12 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		}
 	}
 
-	public function offsetUnset($offset)
+	public function offsetUnset($offset): void
 	{
 		unset($this->locations[$offset]);
 	}
 
-	public function current()
+	public function current(): BetterLocation
 	{
 		return $this->locations[$this->position];
 	}
@@ -204,7 +204,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return $this->position;
 	}
 
-	public function valid()
+	public function valid(): bool
 	{
 		return isset($this->locations[$this->position]);
 	}
@@ -214,7 +214,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		$this->position = 0;
 	}
 
-	public function count()
+	public function count(): int
 	{
 		return count($this->locations) + count($this->errors);
 	}
