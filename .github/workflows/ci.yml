@@ -12,5 +12,5 @@ jobs:
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v2
         with:
-          php_extensions: exif
+          php_extensions: mbstring exif
           bootstrap: src/bootstrap.php
