@@ -5,7 +5,6 @@
 		"ext-json": "*",
 		"ext-curl": "*",
 		"ext-mbstring": "*",
-		"ext-exif": "*",
 		"tracy/tracy": "^2.8",
 		"unreal4u/telegram-api": "dev-master#3436f3b",
 		"react/http-client": "0.5.10",
