@@ -10,6 +10,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: php-actions/composer@master
       - name: PHPUnit Tests
-        uses: php-actions/phpunit@9
+        uses: php-actions/phpunit@2
         with:
           bootstrap: src/bootstrap.php
