@@ -35,6 +35,16 @@ final class StrictTest extends TestCase
 		$this->assertFalse(Strict::isInt('-1a'));
 		$this->assertFalse(Strict::isInt('+1'));
 		$this->assertFalse(Strict::isInt('- 1'));
+
+		$this->assertFalse(Strict::isInt(false));
+		$this->assertFalse(Strict::isInt(true));
+		$this->assertFalse(Strict::isInt(null));
+		$this->assertFalse(Strict::isInt([]));
+		$this->assertFalse(Strict::isInt([1]));
+		$this->assertFalse(Strict::isInt([1, 234]));
+		$this->assertFalse(Strict::isInt(['1']));
+		$this->assertFalse(Strict::isInt(['foo']));
+		$this->assertFalse(Strict::isInt(new \stdClass()));
 	}
 
 	public function testIsFloatFalse(): void
@@ -62,6 +72,16 @@ final class StrictTest extends TestCase
 
 		$this->assertFalse(Strict::isFloat(99999999999, false));
 		$this->assertFalse(Strict::isFloat(-99999999999, false));
+
+		$this->assertFalse(Strict::isFloat(false));
+		$this->assertFalse(Strict::isFloat(true));
+		$this->assertFalse(Strict::isFloat(null));
+		$this->assertFalse(Strict::isFloat([]));
+		$this->assertFalse(Strict::isFloat([1]));
+		$this->assertFalse(Strict::isFloat([1, 234]));
+		$this->assertFalse(Strict::isFloat(['1']));
+		$this->assertFalse(Strict::isFloat(['foo']));
+		$this->assertFalse(Strict::isFloat(new \stdClass()));
 	}
 
 	public function testIsFloatAllowIntTrue(): void
@@ -92,6 +112,16 @@ final class StrictTest extends TestCase
 		$this->assertFalse(Strict::isFloat('-1a', true));
 		$this->assertFalse(Strict::isFloat('+1', true));
 		$this->assertFalse(Strict::isFloat('- 1', true));
+
+		$this->assertFalse(Strict::isFloat(false));
+		$this->assertFalse(Strict::isFloat(true));
+		$this->assertFalse(Strict::isFloat(null));
+		$this->assertFalse(Strict::isFloat([]));
+		$this->assertFalse(Strict::isFloat([1]));
+		$this->assertFalse(Strict::isFloat([1, 234]));
+		$this->assertFalse(Strict::isFloat(['1']));
+		$this->assertFalse(Strict::isFloat(['foo']));
+		$this->assertFalse(Strict::isFloat(new \stdClass()));
 	}
 
 	public function testIsBool(): void
@@ -118,6 +148,14 @@ final class StrictTest extends TestCase
 		$this->assertFalse(Strict::isBool(1.0));
 		$this->assertFalse(Strict::isBool(-1));
 		$this->assertFalse(Strict::isBool(0.0000000000001));
+
+		$this->assertFalse(Strict::isBool(null));
+		$this->assertFalse(Strict::isBool([]));
+		$this->assertFalse(Strict::isBool([1]));
+		$this->assertFalse(Strict::isBool([1, 234]));
+		$this->assertFalse(Strict::isBool(['1']));
+		$this->assertFalse(Strict::isBool(['foo']));
+		$this->assertFalse(Strict::isBool(new \stdClass()));
 	}
 
 	public function testBoolval(): void
