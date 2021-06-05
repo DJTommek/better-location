@@ -50,7 +50,7 @@ final class ZniceneKostelyCzServiceTest extends TestCase
 	{
 		$collection = ZniceneKostelyCzService::processStatic('http://www.znicenekostely.cz/?load=detail&id=18231#obsah')->getCollection();
 		$this->assertCount(1, $collection);
-		$this->assertSame('49.885611,14.044380', $collection[0]->__toString());
+		$this->assertSame('49.885617,14.044381', $collection[0]->__toString());
 
 		$collection = ZniceneKostelyCzService::processStatic('http://www.znicenekostely.cz/index.php?load=detail&id=13727')->getCollection();
 		$this->assertCount(1, $collection);
