@@ -85,4 +85,8 @@ class ServicesManager
 		}
 		return new BetterLocationCollection();
 	}
+
+	public function getServices() {
+		return $this->services;
+	}
 }
