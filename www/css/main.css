@@ -1,0 +1,41 @@
+.container-fluid {
+	margin-top: 1em;
+}
+
+#main-left-menu {
+	margin-right: 1em;
+}
+
+#main-left-menu .list-group .list-group-item {
+	text-align: center;
+	padding: 0;
+}
+
+#main-left-menu .list-group .list-group-item > a {
+	display: block;
+	padding: 0.75rem 1.25rem; /* used from .list-group-item to keep whole are clickable */
+}
+
+#main-left-menu .list-group .list-group-item small {
+	display: block;
+}
+
+
+#content-location .websites h3 {
+	text-align: center;
+}
+
+#content-location .websites table thead tr th {
+	text-align: center;
+}
+
+#content-location .websites table tbody tr td.star {
+	width: 1em;
+}
+
+#content-location .websites table tbody tr td a {
+	display: block;
+	width: 100%;
+	padding: 0.2em;
+	text-decoration: none;
+}

@@ -146,6 +146,8 @@ class DefaultConfig
 	 */
 	const TIMEZONE = 'UTC';
 
+	const FOLDER_TEMPLATES = __DIR__ . '/../templates';
+
 	public static function isGlympse(): bool
 	{
 		return (

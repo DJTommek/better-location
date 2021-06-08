@@ -92,4 +92,14 @@ class Factory
 		}
 		return self::$objects['servicesManager'];
 	}
+
+	static function Latte(string $template = null, $params = []): \Latte\Engine
+	{
+		$latte = new \Latte\Engine();
+		$latte->setTempDirectory(Config::FOLDER_TEMP . '/latte');
+		if ($template !== null) {
+			$latte->render(Config::FOLDER_TEMPLATES . '/' . $template, $params);
+		}
+		return $latte;
+	}
 }

@@ -1,0 +1,66 @@
+{layout '@layout.latte'}
+{block content}
+	<div class="row" id="content-location">
+		<div class="col">
+			<h3>Coordinates</h3>
+			<table class="table">
+				<thead>
+				<tr>
+					<th>aaa</th>
+					<th>bbb</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>WGS 84</td>
+					<td>{$betterLocation->getLat()|number:6},{$betterLocation->getLon()|number:6}</td>
+				</tr>
+				<tr>
+					<td>WGS 84 DM</td>
+					<td>{$betterLocation->getLat()|number:6},{$betterLocation->getLon()|number:6}</td>
+				</tr>
+				<tr>
+					<td>WGS 84 DMS</td>
+					<td>{$betterLocation->getLat()|number:6},{$betterLocation->getLon()|number:6}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col websites">
+			<h3>Websites</h3>
+			<table class="table">
+				<thead>
+				<tr>
+					<th></th>
+					<th>Name</th>
+					<th>Drive</th>
+				</tr>
+				</thead>
+				<tbody>
+				{foreach $websites as $title => $links}
+					{if isset($links['share']) || isset($links['drive'])}
+						<tr>
+							<td class="star">
+								<i class="fa fa-star" style="display: none"></i>
+								<i class="fa fa-star-o" style="display: none"></i>
+							</td>
+							<td>
+								{if isset($links['share'])}
+									<a href="{$links['share']}" target="_blank">{$title}</a>
+								{else}
+									<span>{$title}</span>
+								{/if}
+							</td>
+							<td>
+								{if isset($links['drive'])}
+									<a href="{$links['drive']}" target="_blank">drive</a>
+								{/if}
+							</td>
+						</tr>
+					{/if}
+				{/foreach}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{/block}
