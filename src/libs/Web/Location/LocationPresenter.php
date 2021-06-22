@@ -2,7 +2,9 @@
 
 namespace App\Web\Location;
 
+use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\AbstractService;
+use App\BetterLocation\ServicesManager;
 
 class LocationPresenter
 {
@@ -17,10 +19,10 @@ class LocationPresenter
 
 	public function render()
 	{
-		$params = new \App\Web\Location\LocationTemplate();
-		$params->betterLocation = \App\BetterLocation\BetterLocation::fromLatLon($this->lat, $this->lon);
+		$location = BetterLocation::fromLatLon($this->lat, $this->lon);
+		$params = new LocationTemplate($location);
 
-		$manager = new \App\BetterLocation\ServicesManager();
+		$manager = new ServicesManager();
 		foreach ($manager->getServices() as $service) {
 			$params->websites[$service::NAME] = $this->website($service, $this->lat, $this->lon);
 		}
@@ -31,7 +33,7 @@ class LocationPresenter
 //	];
 //	$params->websites[\App\BetterLocation\Service\GeocachingService::NAME] = \App\BetterLocation\Service\GeocachingService::getLink($lat, $lon);
 
-		dump($params->betterLocation);
+//		dump($params->betterLocation);
 		\App\Factory::Latte('location.latte', $params);
 
 	}
