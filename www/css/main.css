@@ -1,3 +1,9 @@
+a {
+	text-decoration: none; /* Disable default underline */
+}
+
+/******************************************************/
+
 .container-fluid {
 	margin-top: 1em;
 }
@@ -18,6 +24,45 @@
 
 #main-left-menu .list-group .list-group-item small {
 	display: block;
+}
+
+/******************************************************/
+#content-location .header-left,
+#content-location .header-right {
+}
+
+#content-location .header-left a,
+#content-location .header-right .header-right-coords {
+	font-size: 2em;
+	color: black;
+}
+
+#content-location .header-left img {
+	width: 1em;
+	height: 1em;
+}
+
+#content-location #most-used-links a {
+	text-decoration: none;
+	padding: 1em;
+	text-align: center;
+}
+
+#content-location #most-used-links a img {
+	height: 5em;
+	width: 5em;
+	text-decoration: none;
+}
+
+#content-location #map-dynamic-leaflet {
+	width: 100%;
+	height: 100%;
+	min-height: 20em;
+	min-width: 20em;
+}
+
+#content-location #map-static img {
+	width: 100%;
 }
 
 

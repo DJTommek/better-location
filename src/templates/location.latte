@@ -1,67 +1,124 @@
 {layout '@layout.latte'}
 {block content}
-	<img src="{$betterLocation->getStaticMapWorldUrl()}"
-	<div class="row" id="content-location">
-		<div class="col">
-			<h3>Coordinates</h3>
-			<table class="table">
-				<thead>
-				<tr>
-					<th>aaa</th>
-					<th>bbb</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr>
-					<td>WGS 84</td>
-					<td>{$betterLocation->getLat()|number:6},{$betterLocation->getLon()|number:6}</td>
-				</tr>
-				<tr>
-					<td>WGS 84 DM</td>
-					<td>{$betterLocation->getLat()|number:6},{$betterLocation->getLon()|number:6}</td>
-				</tr>
-				<tr>
-					<td>WGS 84 DMS</td>
-					<td>{$betterLocation->getLat()|number:6},{$betterLocation->getLon()|number:6}</td>
-				</tr>
-				</tbody>
-			</table>
+	<div id="content-location">
+		<div class="row g-0">
+			<div class="col-12 col-md-6 header-left text-center text-md-start">
+				<a href="/location/?lat={$lat}&lon={$lon}">
+					<img src="/img/logo.png" alt="Logo">
+					BetterLocation
+				</a>
+			</div>
+			<div class="col-md-6 d-none d-md-block header-right text-center text-md-end">
+				<p class="header-right-coords">
+					{$lat},{$lon}
+				</p>
+			</div>
 		</div>
-		<div class="col websites">
-			<h3>Websites</h3>
-			<table class="table">
-				<thead>
-				<tr>
-					<th></th>
-					<th>Name</th>
-					<th>Drive</th>
-				</tr>
-				</thead>
-				<tbody>
-				{foreach $websites as $title => $links}
-					{if isset($links['share']) || isset($links['drive'])}
-						<tr>
-							<td class="star">
-								<i class="fa fa-star" style="display: none"></i>
-								<i class="fa fa-star-o" style="display: none"></i>
-							</td>
-							<td>
-								{if isset($links['share'])}
-									<a href="{$links['share']}" target="_blank">{$title}</a>
-								{else}
-									<span>{$title}</span>
-								{/if}
-							</td>
-							<td>
-								{if isset($links['drive'])}
-									<a href="{$links['drive']}" target="_blank">drive</a>
-								{/if}
-							</td>
-						</tr>
-					{/if}
-				{/foreach}
-				</tbody>
-			</table>
+		<div class="row g-0">
+			<div class="col-12 col-md-2 col-xl-1" id="most-used-links">
+				<div class="row">
+					<a href="{$linkGoogle}" target="_blank" class="col">
+						<img src="/img/icons/google.svg">
+					</a>
+					<a href="{$linkWaze}" target="_blank" class="col">
+						<img src="/img/icons/waze.svg">
+					</a>
+					<a href="{$linkHere}" target="_blank" class="col">
+						<img src="/img/icons/here.svg">
+					</a>
+					<a href="{$linkOSM}" target="_blank" class="col">
+						<img src="/img/icons/osm.svg">
+					</a>
+				</div>
+			</div>
+			<div class="col-12 col-md-10 col-xl-11" id="map-dynamic">
+				<div id="map-dynamic-leaflet"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<h3>Coordinates</h3>
+				<table class="table">
+					<thead>
+					<tr>
+						<th>aaa</th>
+						<th>bbb</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>WGS 84</td>
+						<td>{$betterLocation->getLat()|number:6},{$betterLocation->getLon()|number:6}</td>
+					</tr>
+					<tr>
+						<td>WGS 84 DM</td>
+						<td>{$betterLocation->getLat()|number:6},{$betterLocation->getLon()|number:6}</td>
+					</tr>
+					<tr>
+						<td>WGS 84 DMS</td>
+						<td>{$betterLocation->getLat()|number:6},{$betterLocation->getLon()|number:6}</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col websites">
+				<h3>Websites</h3>
+				<table class="table">
+					<thead>
+					<tr>
+						<th></th>
+						<th>Name</th>
+						<th>Drive</th>
+					</tr>
+					</thead>
+					<tbody>
+					{foreach $websites as $title => $links}
+						{if isset($links['share']) || isset($links['drive'])}
+							<tr>
+								<td class="star">
+									<i class="fa fa-star" style="display: none"></i>
+									<i class="fa fa-star-o" style="display: none"></i>
+								</td>
+								<td>
+									{if isset($links['share'])}
+										<a href="{$links['share']}" target="_blank">{$title}</a>
+									{else}
+										<span>{$title}</span>
+									{/if}
+								</td>
+								<td>
+									{if isset($links['drive'])}
+										<a href="{$links['drive']}" target="_blank">drive</a>
+									{/if}
+								</td>
+							</tr>
+						{/if}
+					{/foreach}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
+{/block}
+{block cssLibs}
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+{/block}
+{block jsLibs}
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+{/block}
+{block js}
+	<script>
+		const map = L.map('map-dynamic-leaflet').setView([{$lat}, {$lon}], 13);
+		{syntax off}
+		L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+			maxZoom: 18,
+			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+				'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+			id: 'mapbox/streets-v11',
+			tileSize: 512,
+			zoomOffset: -1
+		}).addTo(map);
+		{/syntax}
+		const marker = L.marker([{$lat}, {$lon}]).addTo(map);
+	</script>
 {/block}
