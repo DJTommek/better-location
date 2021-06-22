@@ -38,63 +38,42 @@
 		<div class="address">
 			{$betterLocation->getAddress() ?? 'Unknown address'}
 		</div>
-		<div class="row">
-			<div class="col websites">
-				<h3>Websites</h3>
-				<table class="table table-hover table-striped table-sm">
-					<thead>
-					<tr>
-						<th>Service</th>
-						<th>Share</th>
-						<th>Drive</th>
-					</tr>
-					</thead>
-					<tbody>
-					{foreach $websites as $title => $links}
-						{if isset($links['share']) || isset($links['drive'])}
-							<tr>
-								<td class="service-title">{$title}</td>
-								<td class="service-share-link">
-									{if isset($links['share'])}
-										<a href="{$links['share']}" target="_blank">share</a>
-									{/if}
-								</td>
-								<td class="service-drive-link">
-									{if isset($links['drive'])}
-										<a href="{$links['drive']}" target="_blank">drive</a>
-									{/if}
-								</td>
-							</tr>
-						{/if}
-					{/foreach}
-					</tbody>
-				</table>
-			</div>
-			<div class="col">
-				<h3>Coordinates</h3>
-				<table class="table table-hover table-striped table-sm">
-					<thead>
-					<tr>
-						<th>aaa</th>
-						<th>bbb</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>WGS 84</td>
-						<td>{$betterLocation->getLat()|number:6},{$betterLocation->getLon()|number:6}</td>
-					</tr>
-					<tr>
-						<td>WGS 84 DM</td>
-						<td>{$betterLocation->getLat()|number:6},{$betterLocation->getLon()|number:6}</td>
-					</tr>
-					<tr>
-						<td>WGS 84 DMS</td>
-						<td>{$betterLocation->getLat()|number:6},{$betterLocation->getLon()|number:6}</td>
-					</tr>
-					</tbody>
-				</table>
-			</div>
+		<div class="websites">
+			<h3>Websites</h3>
+			<table class="table table-nonfluid table-hover table-striped table-sm">
+				<thead>
+				<tr>
+					<th>Service</th>
+					<th>Share</th>
+					<th>Drive</th>
+					<th>Text</th>
+				</tr>
+				</thead>
+				<tbody>
+				{foreach $websites as $title => $links}
+					{if isset($links['share']) || isset($links['drive']) || isset($links['text'])}
+						<tr>
+							<td class="service-title">{$title}</td>
+							<td class="service-share-link">
+								{if isset($links['share'])}
+									<a href="{$links['share']}" target="_blank">share</a>
+								{/if}
+							</td>
+							<td class="service-drive-link">
+								{if isset($links['drive'])}
+									<a href="{$links['drive']}" target="_blank">drive</a>
+								{/if}
+							</td>
+							<td class="service-share-text">
+								{if isset($links['text'])}
+									{$links['text']}
+								{/if}
+							</td>
+						</tr>
+					{/if}
+				{/foreach}
+				</tbody>
+			</table>
 		</div>
 	</div>
 {/block}

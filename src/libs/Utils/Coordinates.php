@@ -63,6 +63,22 @@ class Coordinates
 		$this->lon = Strict::floatval($lon);
 	}
 
+	public static function wgs84DegreesToDegreesMinutes(float $degrees): array
+	{
+		$degreesRound = floor($degrees);
+		$minutes = ($degrees - $degreesRound) * 60;
+		return [$degrees, $minutes];
+	}
+
+	public static function wgs84DegreesToDegreesMinutesSeconds(float $degrees): array
+	{
+		$degreesRound = floor($degrees);
+		$minutes = ($degrees - $degreesRound) * 60;
+		$minutesRound = floor($minutes);
+		$seconds = ($minutes - $minutesRound) * 60;
+		return [$degrees, $minutes, $seconds];
+	}
+
 	public function __toString(): string
 	{
 		return sprintf('%F,%F', $this->lat, $this->lon);
