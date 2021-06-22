@@ -5,6 +5,7 @@ namespace App\Web\Location;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\ServicesManager;
+use App\Nominatim\NominatimException;
 
 class LocationPresenter
 {
@@ -20,6 +21,7 @@ class LocationPresenter
 	public function render()
 	{
 		$location = BetterLocation::fromLatLon($this->lat, $this->lon);
+		$location->generateAddress();
 		$params = new LocationTemplate($location);
 
 		$manager = new ServicesManager();

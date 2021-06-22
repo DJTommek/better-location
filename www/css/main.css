@@ -61,8 +61,10 @@ a {
 	min-width: 20em;
 }
 
-#content-location #map-static img {
+#content-location .address {
 	width: 100%;
+	text-align: center;
+	font-size: 1.5em;
 }
 
 

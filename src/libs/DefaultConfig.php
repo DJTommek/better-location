@@ -109,6 +109,13 @@ class DefaultConfig
 	/** @var int How many seconds has to elapse since last refresh */
 	const REFRESH_CRON_MIN_OLD = 300;
 
+	/**
+	 * @var string URL for requests for Nominatim search engine
+	 * @link https://nominatim.openstreetmap.org/ui/about.html
+	 * @link https://github.com/maxhelias/php-nominatim
+	 */
+	const NOMINATIM_URL = 'https://nominatim.openstreetmap.org/';
+
 	const DATE_FORMAT = 'Y-m-d';
 	const TIME_FORMAT = 'H:i:s';
 	const TIME_FORMAT_ZONE = self::TIME_FORMAT . ' T';

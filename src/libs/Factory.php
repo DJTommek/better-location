@@ -102,4 +102,13 @@ class Factory
 		}
 		return $latte;
 	}
+
+	static function Nominatim(): \maxh\Nominatim\Nominatim
+	{
+		if (!isset(self::$objects['nominatim'])) {
+			self::$objects['nominatim'] = new \maxh\Nominatim\Nominatim(Config::NOMINATIM_URL);
+		}
+		return self::$objects['nominatim'];
+	}
+
 }
