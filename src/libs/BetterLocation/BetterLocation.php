@@ -12,6 +12,7 @@ use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\OpenStreetMapService;
 use App\BetterLocation\Service\OsmAndService;
 use App\BetterLocation\Service\WazeService;
+use App\BingMaps\StaticMaps;
 use App\Factory;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Button\RefreshButton;
@@ -338,11 +339,24 @@ class BetterLocation
 		$this->refreshable = $refreshable;
 	}
 
-	public function getStaticMapUrl(): string
+	public function getStaticMapUrl(array $mapParams = [], array $pinParams = []): string
 	{
 		$staticMap = Factory::StaticMapProxy();
-		$staticMap->addMarker($this)->downloadAndCache();
+		$staticMap->addMarker($this, $pinParams)->downloadAndCache($mapParams);
 		return $staticMap->getUrl();
+	}
+
+	public function getStaticMapWorldUrl() {
+		$mapParams = [
+			'zoomLevel' => 1,
+			'mapSize' => '511,512',
+			'centerPoint' => '0.0000000001,0.0000000001',  // @HACK For some reason it doesn't work if provided 0,0 or 0.0,0.0
+		];
+		$pinParams = [
+			'iconStyle' => StaticMaps::PUSHPIN_RED_DOT_ICON,
+			'label' => '',
+		];
+		return $this->getStaticMapUrl($mapParams, $pinParams);
 	}
 
 	public static function fromLatLon(float $lat, float $lon): self

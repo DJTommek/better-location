@@ -13,6 +13,7 @@ class StaticMapProxy
 
 	/** @var BetterLocation[] */
 	private $markers = [];
+	private $markersParams = [];
 	private $lock = false;
 
 	private $db;
@@ -41,10 +42,11 @@ class StaticMapProxy
 		}
 	}
 
-	public function addMarker(BetterLocation $marker): self
+	public function addMarker(BetterLocation $marker, array $params = []): self
 	{
 		$this->throwIfLocked();
 		$this->markers[] = $marker;
+		$this->markersParams[] = $params;
 		return $this;
 	}
 
@@ -57,10 +59,10 @@ class StaticMapProxy
 		return $this;
 	}
 
-	public function downloadAndCache(): self
+	public function downloadAndCache(array $mapParams = []): self
 	{
 		$this->lock = true;
-		$this->urlOriginal = $this->generateUrlOriginal();
+		$this->urlOriginal = $this->generateUrlOriginal($mapParams);
 		$this->cacheId = $this->generateCacheId();
 		$this->fileCached = $this->generateCachePath();
 		if ($this->cacheHit() === false) {
@@ -120,13 +122,16 @@ class StaticMapProxy
 		$this->db->query($sql, $this->cacheId, $this->urlOriginal);
 	}
 
-	private function generateUrlOriginal(): string
+	private function generateUrlOriginal(array $mapParams = []): string
 	{
 		$api = Factory::BingStaticMaps();
 		foreach ($this->markers as $key => $marker) {
-			$api->addPushpin($marker->getLat(), $marker->getLon(), null, (string)($key + 1));
+			$markerParams = $this->markersParams[$key] ?? [];
+			$iconStyle =  $markerParams['iconStyle'] ?? null;
+			$label = $markerParams['label'] ?? (string)($key + 1);
+			$api->addPushpin($marker->getLat(), $marker->getLon(), $iconStyle, $label);
 		}
-		return $api->generateLink();
+		return $api->generateLink($mapParams);
 	}
 
 	private function generateCacheId(): string
