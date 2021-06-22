@@ -72,17 +72,25 @@ a {
 	text-align: center;
 }
 
+#content-location .websites table {
+	height: 1px; /* @HACK expand cell content to whole cell https://stackoverflow.com/a/7600749 */
+}
 #content-location .websites table thead tr th {
 	text-align: center;
 }
 
-#content-location .websites table tbody tr td.star {
-	width: 1em;
+#content-location .websites table tbody tr td.service-title {
+	text-align: left;
 }
-
-#content-location .websites table tbody tr td a {
+#content-location .websites table tbody tr td.service-share-link,
+#content-location .websites table tbody tr td.service-drive-link {
+	padding: 0;
+}
+#content-location .websites table tbody tr td.service-share-link a,
+#content-location .websites table tbody tr td.service-drive-link a {
 	display: block;
 	width: 100%;
+	height: 100%;
 	padding: 0.2em;
-	text-decoration: none;
+	text-align: center;
 }
