@@ -20,8 +20,10 @@ use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
+use maxh\Nominatim\Exceptions\NominatimException;
 use Nette\Http\UrlImmutable;
 use OpenLocationCode\OpenLocationCode;
+use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types;
 
 class BetterLocation
@@ -114,22 +116,24 @@ class BetterLocation
 		return $this->address;
 	}
 
-	/**
-	 * @return string
-	 * @throws \Exception
-	 */
-	public function generateAddress(): string
+	public function hasAddress(): bool
+	{
+		return !is_null($this->address);
+	}
+
+	public function generateAddress(): ?string
 	{
 		if (is_null($this->address)) {
 			try {
-				$result = Factory::WhatThreeWords()->convertTo3wa($this->getLat(), $this->getLon());
-			} catch (\Exception $exception) {
-				throw new \Exception('Unable to get address from W3W API');
-			}
-			if ($result) {
-				$this->address = sprintf('Nearby: %s, %s', $result['nearestPlace'], $result['country']);
-			} else {
-				throw new \Exception('Unable to get address from W3W API');
+				$nominatimApi = Factory::Nominatim();
+				$query = $nominatimApi->newReverse()->latlon($this->lat, $this->lon);
+				$result = $nominatimApi->find($query);
+				if (isset($result['error'])) {
+					throw new NominatimException($result['error']);
+				}
+				$this->address = $result['display_name'];
+			} catch (NominatimException | \GuzzleHttp\Exception\GuzzleException $exception) {
+				Debugger::log($exception, Debugger::EXCEPTION);
 			}
 		}
 		return $this->address;
@@ -346,7 +350,8 @@ class BetterLocation
 		return $staticMap->getUrl();
 	}
 
-	public function getStaticMapWorldUrl() {
+	public function getStaticMapWorldUrl()
+	{
 		$mapParams = [
 			'zoomLevel' => 1,
 			'mapSize' => '511,512',
