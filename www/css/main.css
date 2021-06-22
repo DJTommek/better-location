@@ -2,6 +2,10 @@ a {
 	text-decoration: none; /* Disable default underline */
 }
 
+.table-nonfluid {
+	width: auto !important;
+}
+
 /******************************************************/
 
 .container-fluid {
@@ -74,7 +78,9 @@ a {
 
 #content-location .websites table {
 	height: 1px; /* @HACK expand cell content to whole cell https://stackoverflow.com/a/7600749 */
+	margin: 1em auto;
 }
+
 #content-location .websites table thead tr th {
 	text-align: center;
 }
@@ -82,10 +88,13 @@ a {
 #content-location .websites table tbody tr td.service-title {
 	text-align: left;
 }
+
+#content-location .websites table tbody tr td.service-title,
 #content-location .websites table tbody tr td.service-share-link,
 #content-location .websites table tbody tr td.service-drive-link {
-	padding: 0;
+	padding: 0 2em;
 }
+
 #content-location .websites table tbody tr td.service-share-link a,
 #content-location .websites table tbody tr td.service-drive-link a {
 	display: block;

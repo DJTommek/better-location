@@ -3,6 +3,11 @@
 namespace App\BetterLocation;
 
 use App\BetterLocation\Service\AbstractService;
+use App\BetterLocation\Service\Coordinates\MGRSService;
+use App\BetterLocation\Service\Coordinates\USNGService;
+use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesSecondsService;
+use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesService;
+use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\DrobnePamatkyCzService;
 use App\BetterLocation\Service\FacebookService;
 use App\BetterLocation\Service\FevGamesService;
@@ -33,6 +38,11 @@ class ServicesManager
 
 	public function __construct()
 	{
+		$this->services[] = WGS84DegreesService::class;
+		$this->services[] = WGS84DegreesMinutesService::class;
+		$this->services[] = WGS84DegreesMinutesSecondsService::class;
+		$this->services[] = MGRSService::class;
+		$this->services[] = USNGService::class;
 		$this->services[] = GoogleMapsService::class;
 		$this->services[] = WazeService::class;
 		$this->services[] = HereWeGoService::class;
@@ -86,7 +96,8 @@ class ServicesManager
 		return new BetterLocationCollection();
 	}
 
-	public function getServices() {
+	public function getServices()
+	{
 		return $this->services;
 	}
 }

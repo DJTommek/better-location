@@ -12,4 +12,9 @@ final class WGS84DegreesService extends AbstractService
 		$location = self::processWGS84();
 		$this->collection->add($location);
 	}
+
+	public static function getShareText(float $lat, float $lon): string
+	{
+		return sprintf('%F°, %F°', $lat, $lon);
+	}
 }

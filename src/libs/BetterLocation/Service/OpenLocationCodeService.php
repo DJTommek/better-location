@@ -78,4 +78,10 @@ final class OpenLocationCodeService extends AbstractService
 		}
 		return $collection;
 	}
+
+	public static function getShareText(float $lat, float $lon): string
+	{
+		return OpenLocationCode::encode($lat, $lon, self::DEFAULT_CODE_LENGTH);
+	}
+
 }

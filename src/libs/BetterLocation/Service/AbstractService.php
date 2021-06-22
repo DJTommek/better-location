@@ -77,6 +77,15 @@ abstract class AbstractService
 	 */
 	abstract static public function getLink(float $lat, float $lon, bool $drive = false);
 
+	/**
+	 * @throws NotImplementedException
+	 * @throws NotSupportedException
+	 */
+	static public function getShareText(float $lat, float $lon): string
+	{
+		throw new NotImplementedException('Share text is not supported.');
+	}
+
 	final public function getCollection(): BetterLocationCollection
 	{
 		return $this->collection;
