@@ -11,7 +11,8 @@ class StaticMaps
 	 * @var int default icon as described in docs
 	 * @see https://docs.microsoft.com/en-us/bingmaps/rest-services/common-parameters-and-types/pushpin-syntax-and-icon-styles#icon-styles
 	 */
-	private const PUSHPIN_DEFAULT_ICON = 1;
+	public const PUSHPIN_DEFAULT_ICON = 1;
+	public const PUSHPIN_RED_DOT_ICON = 22;
 
 	/** @var string */
 	private $apiKey;
@@ -38,7 +39,10 @@ class StaticMaps
 		return $this;
 	}
 
-	public function generateLink(): string
+	/**
+	 * @param array $params Query parameters to URL, see https://docs.microsoft.com/en-us/bingmaps/rest-services/imagery/get-a-static-map#map-parameters
+	 */
+	public function generateLink(array $params = []): string
 	{
 		if (count($this->pushPinsStr) === 0) {
 			throw new \BadMethodCallException('Must add at least one pushpin to proper render map.');
@@ -46,11 +50,15 @@ class StaticMaps
 
 		$url = self::LINK . self::LINK_PATH;
 
-		$params = [
+		if (isset($params['centerPoint']) && isset($params['zoomLevel'])) {
+			$url .= sprintf('/%s/%d', $params['centerPoint'], $params['zoomLevel']);
+		}
+
+		$defaultParams = [
 			'key' => $this->apiKey,
 			'mapSize' => '600,600',
 		];
-		$paramsStr = http_build_query($params);
+		$paramsStr = http_build_query(array_merge($defaultParams, $params));
 
 		foreach ($this->pushPinsStr as $pushPin) {
 			$paramsStr .= '&pp=' . $pushPin;
