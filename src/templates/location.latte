@@ -17,16 +17,16 @@
 		<div class="row g-0">
 			<div class="col-12 col-md-2 col-xl-1" id="most-used-links">
 				<div class="row">
-					<a href="{$linkGoogle}" target="_blank" class="col">
+					<a href="{$linkGoogle}" target="_blank" class="col" title="Google Maps">
 						<img src="/img/icons/google.svg">
 					</a>
-					<a href="{$linkWaze}" target="_blank" class="col">
+					<a href="{$linkWaze}" target="_blank" class="col" title="Waze">
 						<img src="/img/icons/waze.svg">
 					</a>
-					<a href="{$linkHere}" target="_blank" class="col">
+					<a href="{$linkHere}" target="_blank" class="col" title="HERE WeGo">
 						<img src="/img/icons/here.svg">
 					</a>
-					<a href="{$linkOSM}" target="_blank" class="col">
+					<a href="{$linkOSM}" target="_blank" class="col" title="Open Street Maps">
 						<img src="/img/icons/osm.svg">
 					</a>
 				</div>
@@ -38,8 +38,13 @@
 		<div class="address">
 			{$betterLocation->getAddress() ?? 'Unknown address'}
 		</div>
+		<div class="telegram">
+			<a href="{$linkTG}" target="_blank" title="Telegram">
+				<i class="fa fa-telegram"></i>
+				@BetterLocationBot
+			</a>
+		</div>
 		<div class="websites">
-			<h3>Websites</h3>
 			<table class="table table-nonfluid table-hover table-striped table-sm">
 				<thead>
 				<tr>
