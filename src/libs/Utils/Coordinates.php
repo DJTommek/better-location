@@ -65,18 +65,18 @@ class Coordinates
 
 	public static function wgs84DegreesToDegreesMinutes(float $degrees): array
 	{
-		$degreesRound = floor($degrees);
+		$degreesRound = intval($degrees);
 		$minutes = ($degrees - $degreesRound) * 60;
-		return [$degrees, $minutes];
+		return [$degreesRound, abs($minutes)];
 	}
 
 	public static function wgs84DegreesToDegreesMinutesSeconds(float $degrees): array
 	{
-		$degreesRound = floor($degrees);
+		$degreesRound = intval($degrees);
 		$minutes = ($degrees - $degreesRound) * 60;
-		$minutesRound = floor($minutes);
+		$minutesRound = intval($minutes);
 		$seconds = ($minutes - $minutesRound) * 60;
-		return [$degrees, $minutes, $seconds];
+		return [$degreesRound, abs($minutesRound), abs($seconds)];
 	}
 
 	public function __toString(): string
