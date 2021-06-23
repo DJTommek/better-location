@@ -14,6 +14,12 @@
 	RewriteRule /\.|^\. - [F]
 
 	# Nicer URL and for future compatibility if some router is implemented
-	RewriteRule webhook/telegram/([0-9a-zA-Z]+) webhook/telegram.php?password=$1 [F]
-	RewriteRule api/staticmap/([0-9a-f]+) api/staticmap.php?id=$1 [F]
+	RewriteRule webhook/telegram/([0-9a-zA-Z]+) webhook/telegram.php?password=$1
+	RewriteRule api/staticmap/([0-9a-f]+) api/staticmap.php?id=$1
+	RewriteRule ^(-?[0-9]{1,2}\.[0-9]{1,99}),(-?[0-9]{1,3}\.[0-9]{1,99})$ location.php?lat=$1&lon=$2
+	# @TODO maybe add support for more formats? Such as:
+	# XX,YY
+	# NXX.XXX,EYY.YYY
+	# XX.XXXN,YY.YYYW
+	# EXX.XXX,SYY.YYYW
 </IfModule>
