@@ -99,4 +99,22 @@ final class CoordinatesTest extends TestCase
 		$this->assertSame(53.0, Coordinates::gpsSubIFDToFloat('53/1'));
 		$this->assertSame(6.45599999, Coordinates::gpsSubIFDToFloat('645599999/100000000'));
 	}
+
+	public function testWgs84DegreesToDegreesMinutes(): void
+	{
+		$this->assertSame([50, 5.24706000000009], Coordinates::wgs84DegreesToDegreesMinutes(50.087451));
+		$this->assertSame([14, 25.240260000000028], Coordinates::wgs84DegreesToDegreesMinutes(14.420671));
+		$this->assertSame([-41, 19.615200000000073], Coordinates::wgs84DegreesToDegreesMinutes(-41.326920));
+		$this->assertSame([174,  48.46218000000022], Coordinates::wgs84DegreesToDegreesMinutes(174.807703));
+		$this->assertSame([1, 0.0], Coordinates::wgs84DegreesToDegreesMinutes(1));
+	}
+
+	public function testWgs84DegreesToDegreesMinutesSeconds(): void
+	{
+		$this->assertSame([50, 5, 14.8236000000054], Coordinates::wgs84DegreesToDegreesMinutesSeconds(50.087451));
+		$this->assertSame([14, 25, 14.41560000000166], Coordinates::wgs84DegreesToDegreesMinutesSeconds(14.420671));
+		$this->assertSame([-41, 19, 36.912000000004355], Coordinates::wgs84DegreesToDegreesMinutesSeconds(-41.326920));
+		$this->assertSame([174, 48, 27.730800000013005], Coordinates::wgs84DegreesToDegreesMinutesSeconds(174.807703));
+		$this->assertSame([1, 0, 0.0], Coordinates::wgs84DegreesToDegreesMinutesSeconds(1));
+	}
 }
