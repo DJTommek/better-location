@@ -44,7 +44,7 @@ Because Telegram is very restrictive what can be in start parameter, WGS-84 coor
 
 ### Internal
 There are some internal usages of start parameters as add to favourite, but it is not recommended to use it from external applications, since it might change any time.<br>
-For encoding and decoding parameters are used `InlineTextDecode()`, `InlineTextEncode()` and `generateStart()` methods from [\App\TelegramCustomWrapper\TelegramHelper](src/libs/TelegramCustomWrapper/TelegramHelper.php) namespace.  
+For encoding and decoding parameters are used `InlineTextDecode()`, `InlineTextEncode()`, `generateStart()` and `generateStartCoords()` methods from [\App\TelegramCustomWrapper\TelegramHelper](src/libs/TelegramCustomWrapper/TelegramHelper.php) namespace.  
 
 ---
 *Based on the simple [DJTommek/php-template](https://github.com/DJTommek/php-template).*

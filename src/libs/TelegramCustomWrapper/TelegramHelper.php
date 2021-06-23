@@ -243,6 +243,11 @@ class TelegramHelper
 		return sprintf('https://t.me/%s?start=', Config::TELEGRAM_BOT_NAME) . self::InlineTextEncode($params);
 	}
 
+	public static function generateStartLocation(float $lat, float $lon): string
+	{
+		return sprintf('https://t.me/%s?start=%d_%d', Config::TELEGRAM_BOT_NAME, $lat * 1000000, $lon * 1000000);
+	}
+
 	public static function InlineTextEncode(string $input): string
 	{
 		$input = trim($input);
