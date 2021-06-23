@@ -7,6 +7,7 @@ use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\OpenStreetMapService;
 use App\BetterLocation\Service\WazeService;
+use App\TelegramCustomWrapper\TelegramHelper;
 
 class LocationTemplate
 {
@@ -24,6 +25,7 @@ class LocationTemplate
 	public $linkGoogle;
 	public $linkHere;
 	public $linkOSM;
+	public $linkTG;
 
 	public function __construct(BetterLocation $location)
 	{
@@ -35,6 +37,7 @@ class LocationTemplate
 		$this->linkGoogle = GoogleMapsService::getLink($this->lat, $this->lon);
 		$this->linkHere = HereWeGoService::getLink($this->lat, $this->lon);
 		$this->linkOSM = OpenStreetMapService::getLink($this->lat, $this->lon);
+		$this->linkTG = TelegramHelper::generateStartLocation($this->lat, $this->lon);
 	}
 }
 

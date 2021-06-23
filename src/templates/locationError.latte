@@ -1,6 +1,16 @@
 {layout '@layout.latte'}
 {block content}
-	<p>
-		Location is not valid.
-	</p>
+	<h2 class="text-danger">Invalid location</h2>
+	<div>
+		Provided location is not valid. Only acceptable format is valid decimal version of WGS84 <a href="https://wikipedia.org/wiki/World_Geodetic_System" target="_blank">(wiki)</a>, for example
+		<a href="/50.087451,14.420671">50.087451,14.420671</a> or
+		<a href="/-2.161,-79.88">-2.161,-79.88</a><br>
+		Check if:
+		<ul>
+			<li>coordinates are in correct order: latitude,longitude</li>
+			<li>both coordinates are float: 50.1 is correct but 50 or 50. are not</li>
+			<li>latitude is between -90 and 90</li>
+			<li>longitude is between -180 and 180</li>
+		</ul>
+	</div>
 {/block}
