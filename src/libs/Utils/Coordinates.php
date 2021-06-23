@@ -39,6 +39,15 @@ class Coordinates
 		return $this->lon;
 	}
 
+	public function getLatHemisphere(): string
+	{
+		return $this->lat >= 0 ? Coordinates::NORTH : Coordinates::SOUTH;
+	}
+	public function getLonHemisphere(): string
+	{
+		return $this->lon >= 0 ? Coordinates::EAST : Coordinates::WEST;
+	}
+
 	/**
 	 * @param string|int|float $lat
 	 * @throws InvalidLocationException

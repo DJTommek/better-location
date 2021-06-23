@@ -17,8 +17,12 @@ final class WGS84DegreesMinutesSecondsService extends AbstractService
 
 	public static function getShareText(float $lat, float $lon): string
 	{
+		$coords = new Coordinates($lat, $lon);
 		list($degreesLat, $minutesLat, $secondsLat) = Coordinates::wgs84DegreesToDegreesMinutesSeconds($lat);
 		list($degreesLon, $minutesLon, $secondsLon) = Coordinates::wgs84DegreesToDegreesMinutesSeconds($lon);
-		return sprintf('%d° %d\' %.3F", %d° %d\' %.3F"', $degreesLat, $minutesLat, $secondsLat, $degreesLon, $minutesLon, $secondsLon);
+		return sprintf('%s %d° %d\' %.3F", %s %d° %d\' %.3F"',
+			$coords->getLatHemisphere(), abs($degreesLat), $minutesLat, $secondsLat,
+			$coords->getLonHemisphere(), abs($degreesLon), $minutesLon, $secondsLon
+		);
 	}
 }
