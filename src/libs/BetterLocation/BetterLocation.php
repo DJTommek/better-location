@@ -125,13 +125,9 @@ class BetterLocation
 	{
 		if (is_null($this->address)) {
 			try {
-				$nominatimApi = Factory::Nominatim();
-				$query = $nominatimApi->newReverse()->latlon($this->lat, $this->lon);
-				$result = $nominatimApi->find($query);
-				if (isset($result['error'])) {
-					throw new NominatimException($result['error']);
+				if ($result = \App\Nominatim\Nominatim::reverse($this->lat, $this->lon)) {
+					$this->address = $result['display_name'];
 				}
-				$this->address = $result['display_name'];
 			} catch (NominatimException | \GuzzleHttp\Exception\GuzzleException $exception) {
 				Debugger::log($exception, Debugger::EXCEPTION);
 			}
