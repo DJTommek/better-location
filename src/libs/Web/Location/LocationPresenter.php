@@ -4,6 +4,7 @@ namespace App\Web\Location;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\AbstractService;
+use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
@@ -28,6 +29,9 @@ class LocationPresenter
 
 		$manager = new ServicesManager();
 		foreach ($manager->getServices() as $service) {
+			if ($service::NAME === BetterLocationService::NAME) {
+				continue; // @TODO temporary workaround until adding some filter in ServicesManager
+			}
 			$params->websites[$service::NAME] = $this->website($service, $this->lat, $this->lon);
 		}
 		Factory::Latte('location.latte', $params);
