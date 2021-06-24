@@ -3,6 +3,7 @@
 namespace App\BetterLocation;
 
 use App\BetterLocation\Service\AbstractService;
+use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
@@ -175,16 +176,15 @@ class BetterLocation
 	{
 		/** @var AbstractService[] $services */
 		$services = [
+			BetterLocationService::class,
 			GoogleMapsService::class,
 			MapyCzService::class,
 			DuckDuckGoService::class,
 			WazeService::class,
 			HereWeGoService::class,
 			OpenStreetMapService::class,
-			OsmAndService::class,
 		];
-		$text = '';
-		$text .= sprintf('%s <a href="%s" target="_blank">%s</a> <code>%s</code>',
+		$text = sprintf('%s <a href="%s" target="_blank">%s</a> <code>%s</code>',
 			$this->prefixMessage,
 			$this->generateScreenshotLink(MapyCzService::class),
 			Icons::MAP_SCREEN,
