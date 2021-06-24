@@ -12,7 +12,8 @@ use Nette\Utils\Strings;
 
 final class OpenStreetMapService extends AbstractService
 {
-	const NAME = 'OSM';
+	const NAME = 'OpenStreetMap';
+	const NAME_SHORT = 'OSM';
 
 	const LINK = 'https://www.openstreetmap.org';
 
