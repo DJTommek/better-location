@@ -3,6 +3,7 @@
 namespace App\BetterLocation;
 
 use App\BetterLocation\Service\AbstractService;
+use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\Coordinates\MGRSService;
 use App\BetterLocation\Service\Coordinates\USNGService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesSecondsService;
@@ -38,6 +39,7 @@ class ServicesManager
 
 	public function __construct()
 	{
+		$this->services[] = BetterLocationService::class;
 		$this->services[] = WGS84DegreesService::class;
 		$this->services[] = WGS84DegreesMinutesService::class;
 		$this->services[] = WGS84DegreesMinutesSecondsService::class;
@@ -96,7 +98,10 @@ class ServicesManager
 		return new BetterLocationCollection();
 	}
 
-	public function getServices()
+	/**
+	 * @return AbstractService[]
+	 */
+	public function getServices(): array
 	{
 		return $this->services;
 	}
