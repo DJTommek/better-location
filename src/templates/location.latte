@@ -58,7 +58,11 @@
 				{foreach $websites as $title => $links}
 					{if isset($links['share']) || isset($links['drive']) || isset($links['text'])}
 						<tr>
-							<td class="service-title">{$title}</td>
+							<td class="service-title">
+								<span>
+									{$title}
+								</span>
+							</td>
 							<td class="service-share-link">
 								{if isset($links['share'])}
 									<a href="{$links['share']}" target="_blank">share</a>
@@ -69,9 +73,11 @@
 									<a href="{$links['drive']}" target="_blank">drive</a>
 								{/if}
 							</td>
-							<td class="service-share-text">
+							<td class="service-share-text text-nowrap">
 								{if isset($links['text'])}
-									{$links['text']}
+									<span>
+										{$links['text']}
+									</span>
 								{/if}
 							</td>
 						</tr>
