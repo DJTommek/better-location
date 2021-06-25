@@ -111,6 +111,35 @@
 			}
 			return Math.floor(meters) + 'm';
 		}
+		function locationFound(latLng, accuracy, recenter = false) {
+			console.log(latLng);
+			console.log(accuracy);
+			const iconSvg = '<svg width="20" height="20" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1152 896q0 106-75 181t-181 75-181-75-75-181 75-181 181-75 181 75 75 181zm-256-544q-148 0-273 73t-198 198-73 273 73 273 198 198 273 73 273-73 198-198 73-273-73-273-198-198-273-73zm768 544q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/></svg>'
+			const iconUrl = 'data:image/svg+xml;base64,' + btoa(iconSvg);
+
+			if (mapData.markers.browserLocation === null) {
+				mapData.markers.browserLocation = L.marker(latLng, {
+					icon: L.icon({
+						iconUrl: iconUrl,
+						iconSize: [20, 20],
+						iconAnchor: [10, 10],
+					}),
+				}).addTo(mapData.map).bindPopup();
+				mapData.circles.browserLocationAccuracy = L.circle(latLng, accuracy).addTo(mapData.map);
+			} else {
+				mapData.markers.browserLocation.setLatLng(latLng);
+				mapData.circles.browserLocationAccuracy.setLatLng(latLng).setRadius(accuracy);
+			}
+			let popupContent = '<p>';
+			const latLon = latLng.lat.toFixed(6) + ',' + latLng.lng.toFixed(6);
+			popupContent += 'Browser location: <b><a href="/' + latLon + '">' + latLon + '</a></b> (accuracy <b>' + distanceHuman(accuracy) +'</b>)';
+			popupContent += '<br>Distance to currently opened location: <b>' + distanceHuman(latLng.distanceTo(mapData.markers.pageLocation.getLatLng())) + '</b>';
+			mapData.markers.browserLocation.getPopup().setContent(popupContent);
+			if (recenter) {
+				mapData.map.flyTo(latLng);
+				mapData.markers.browserLocation.openPopup();
+			}
+		}
 
 		const mapData = {
 			map: L.map('map-dynamic-leaflet').setView([{$lat}, {$lon}], 13),
@@ -139,10 +168,7 @@
 				element.title = 'Current location';
 				element.innerHTML = '<i class="fa fa-dot-circle-o"></i>';
 				element.addEventListener('click', function (event) {
-					map.locate({
-						setView: true,
-						maxZoom: 16
-					});
+					map.locate();
 				});
 				return element;
 			},
@@ -155,28 +181,7 @@
 			position: 'topright'
 		}).addTo(mapData.map);
 		mapData.map.on('locationfound', function (event) {
-			const iconSvg = '<svg width="20" height="20" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1152 896q0 106-75 181t-181 75-181-75-75-181 75-181 181-75 181 75 75 181zm-256-544q-148 0-273 73t-198 198-73 273 73 273 198 198 273 73 273-73 198-198 73-273-73-273-198-198-273-73zm768 544q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/></svg>'
-			const iconUrl = 'data:image/svg+xml;base64,' + btoa(iconSvg);
-
-			if (mapData.markers.browserLocation === null) {
-				mapData.markers.browserLocation = L.marker(event.latlng, {
-					icon: L.icon({
-						iconUrl: iconUrl,
-						iconSize: [20, 20],
-						iconAnchor: [10, 10],
-					}),
-				}).addTo(mapData.map).bindPopup();
-				mapData.circles.browserLocationAccuracy = L.circle(event.latlng, event.accuracy).addTo(mapData.map);
-			} else {
-				mapData.markers.browserLocation.setLatLng(event.latlng);
-				mapData.circles.browserLocationAccuracy.setLatLng(event.latlng).setRadius(event.accuracy);
-			}
-			let popupContent = '<p>';
-			const latLon = event.latlng.lat.toFixed(6) + ',' + event.latlng.lng.toFixed(6);
-			popupContent += 'Browser location: <b><a href="/' + latLon + '">' + latLon + '</a></b> (accuracy <b>' + distanceHuman(event.accuracy) +'</b>)';
-			popupContent += '<br>Distance to currently opened location: <b>' + distanceHuman(event.latlng.distanceTo(mapData.markers.pageLocation.getLatLng())) + '</b>';
-			mapData.markers.browserLocation.getPopup().setContent(popupContent).openPopup();
-			mapData.markers.browserLocation.openPopup();
+			locationFound(event.latlng, event.accuracy, true);
 		}).on('locationerror', function (event) {
 			let result = 'Your location couldn\'t be loaded: ';
 			switch(event.code) {
@@ -194,6 +199,21 @@
 					break;
 			}
 			alert(result);
+		});
+
+		// If access to browser location is granted, show it in the map automatically
+		navigator.permissions.query({
+			name: 'geolocation',
+		}).then(function (result) {
+			if (result.state === 'granted') {
+				navigator.geolocation.getCurrentPosition(function (position) {
+					const latlng = new L.latLng(position.coords.latitude, position.coords.longitude);
+					locationFound(latlng, position.coords.accuracy, false);
+				}, function (error) {
+					console.log('Unable to load current location.')
+					console.log(error);
+				});
+			}
 		});
 	</script>
 {/block}
