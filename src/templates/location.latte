@@ -136,7 +136,7 @@
 			popupContent += '<br>Distance to currently opened location: <b>' + distanceHuman(latLng.distanceTo(mapData.markers.pageLocation.getLatLng())) + '</b>';
 			mapData.markers.browserLocation.getPopup().setContent(popupContent);
 			if (recenter) {
-				mapData.map.flyTo(latLng);
+				mapData.map.setView(latLng);
 				mapData.markers.browserLocation.openPopup();
 			}
 		}
