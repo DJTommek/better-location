@@ -111,6 +111,7 @@
 			}
 			return Math.floor(meters) + 'm';
 		}
+
 		function locationFound(latLng, accuracy, recenter = false) {
 			console.log(latLng);
 			console.log(accuracy);
@@ -132,7 +133,7 @@
 			}
 			let popupContent = '<p>';
 			const latLon = latLng.lat.toFixed(6) + ',' + latLng.lng.toFixed(6);
-			popupContent += 'Browser location: <b><a href="/' + latLon + '">' + latLon + '</a></b> (accuracy <b>' + distanceHuman(accuracy) +'</b>)';
+			popupContent += 'Browser location: <b><a href="/' + latLon + '">' + latLon + '</a></b> (accuracy <b>' + distanceHuman(accuracy) + '</b>)';
 			popupContent += '<br>Distance to currently opened location: <b>' + distanceHuman(latLng.distanceTo(mapData.markers.pageLocation.getLatLng())) + '</b>';
 			mapData.markers.browserLocation.getPopup().setContent(popupContent);
 			if (recenter) {
@@ -149,18 +150,58 @@
 			},
 			circles: {
 				browserLocationAccuracy: null,
+			},
+			layers: {
+				{syntax off}
+				baseLayers: {
+					// @TODO change access_token (this is taken from from example on https://leafletjs.com/examples/quick-start/)
+					'OSM default': L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+						maxZoom: 22,
+						attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/" target="_blank" rel="noopener">Mapbox</a>',
+						id: 'mapbox/streets-v11',
+						tileSize: 512,
+						zoomOffset: -1,
+					}),
+					'Waze default': L.tileLayer('https://worldtiles{s}.waze.com/tiles/{z}/{x}/{y}.png', {
+						minZoom: 2,
+						maxZoom: 18,
+						attribution: '<a href="https://www.waze.com/legal/tos" target="_blank" rel="noopener">Waze</a>',
+						tileSize: 256,
+						zoomOffset: 0,
+						subdomains: '1234',
+					}),
+					'Mapy.cz hiking': L.tileLayer('https://mapserver.mapy.cz/turist-m/{z}-{x}-{y}', {
+						minZoom: 2,
+						maxZoom: 18,
+						attribution: '<a href="https://o.seznam.cz" target="_blank" rel="noopener">Seznam.cz, a.s.</a>',
+						tileSize: 256,
+						zoomOffset: 0,
+					}),
+					// @TODO change app_id and app_code (these are taken from wego.here.com)
+					'HERE default': L.tileLayer('https://{s}.base.maps.ls.hereapi.com/maptile/2.1/basetile/newest/normal.day/{z}/{x}/{y}/512/png8?app_id=VgTVFr1a0ft1qGcLCVJ6&app_code=LJXqQ8ErW71UsRUK3R33Ow', {
+						minZoom: 2,
+						maxZoom: 18,
+						attribution: '<a href="https://legal.here.com/en-gb/terms/documentation-license" target="_blank" rel="noopener">&copy; HERE</a>',
+						tileSize: 256,
+						zoomOffset: 0,
+						subdomains: '1234',
+					}),
+					// @TODO change app_id and app_code (these are taken from wego.here.com)
+					'HERE satellite': L.tileLayer('https://{s}.aerial.maps.ls.hereapi.com/maptile/2.1/basetile/newest/satellite.day/{z}/{x}/{y}/512/png8?app_id=VgTVFr1a0ft1qGcLCVJ6&app_code=LJXqQ8ErW71UsRUK3R33Ow', {
+						minZoom: 2,
+						maxZoom: 18,
+						attribution: '<a href="https://legal.here.com/en-gb/terms/documentation-license" target="_blank" rel="noopener">&copy; HERE</a>',
+						tileSize: 256,
+						zoomOffset: 0,
+						subdomains: '1234',
+					}),
+				},
+				{/syntax}
 			}
 		}
-		{syntax off}
-		L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-			maxZoom: 22,
-			minZoom: 1,
-			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-			id: 'mapbox/streets-v11',
-			tileSize: 512,
-			zoomOffset: -1,
-		}).addTo(mapData.map);
-		{/syntax}
+
+		mapData.layers.baseLayers['OSM default'].addTo(mapData.map);
+		L.control.layers(mapData.layers.baseLayers, mapData.layers.overlays).addTo(mapData.map);
 		mapData.markers.pageLocation = L.marker([{$lat}, {$lon}]).addTo(mapData.map);
 
 		L.Control.BrowserLocation = L.Control.extend({
@@ -185,7 +226,7 @@
 			locationFound(event.latlng, event.accuracy, true);
 		}).on('locationerror', function (event) {
 			let result = 'Your location couldn\'t be loaded: ';
-			switch(event.code) {
+			switch (event.code) {
 				case GeolocationPositionError.PERMISSION_DENIED:
 					result += 'permission denied.';
 					break;
