@@ -28,7 +28,8 @@ class Url
 		'4sq.com', // https://foursquare.com/
 		'jdem.cz', // http://jdem.cz/
 		'1url.cz', // https://1url.cz/
-		'ow.ly' // http://ow.ly/
+		'ow.ly', // http://ow.ly/
+		'buff.ly', // https://buff.ly/
 	];
 
 	public static function isShortUrl($url)
