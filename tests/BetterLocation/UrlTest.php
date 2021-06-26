@@ -41,6 +41,11 @@ final class UrlTest extends TestCase
 		$this->assertTrue(\App\BetterLocation\Url::isShortUrl('http://ow.ly/cjiY50FjakQ'));
 
 		$this->assertTrue(\App\BetterLocation\Url::isShortUrl('https://buff.ly/2IzTY3W'));
+
+		$this->assertTrue(\App\BetterLocation\Url::isShortUrl('https://cutt.ly/Rmrysek'));
+		$this->assertTrue(\App\BetterLocation\Url::isShortUrl('http://cutt.ly/Rmrysek'));
+		$this->assertTrue(\App\BetterLocation\Url::isShortUrl('https://cutt.ly/better-location-test'));
+		$this->assertTrue(\App\BetterLocation\Url::isShortUrl('http://cutt.ly/better-location-test'));
 	}
 
 	public function testIsShortUrlFalse(): void
@@ -90,6 +95,10 @@ final class UrlTest extends TestCase
 
 		$this->assertSame('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://buff.ly/2IzTY3W'));
 		$this->assertSame('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://buff.ly/2IzTY3W'));
-	}
 
+		$this->assertSame('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://cutt.ly/Rmrysek'));
+		$this->assertSame('https://cutt.ly/Rmrysek', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://cutt.ly/Rmrysek'));
+		$this->assertSame('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://cutt.ly/better-location-test'));
+		$this->assertSame('https://cutt.ly/better-location-test', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://cutt.ly/better-location-test'));
+	}
 }

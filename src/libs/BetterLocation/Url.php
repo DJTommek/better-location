@@ -30,6 +30,7 @@ class Url
 		'1url.cz', // https://1url.cz/
 		'ow.ly', // http://ow.ly/
 		'buff.ly', // https://buff.ly/
+		'cutt.ly', // https://cutt.ly/
 	];
 
 	public static function isShortUrl($url)
