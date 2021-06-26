@@ -248,22 +248,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 				$serviceCollection->filterTooClose(Config::DISTANCE_IGNORE);
 				$betterLocationsCollection->add($serviceCollection);
 
-				try {
-					$headers = null;
-					try {
-						$headers = MiniCurl::loadHeaders($url);
-					} catch (\Throwable $exception) {
-						Debugger::log(sprintf('Error while loading headers for URL "%s": %s', $url, $exception->getMessage()));
-					}
-					if ($headers && isset($headers['content-type']) && General::checkIfValueInHeaderMatchArray($headers['content-type'], Url::CONTENT_TYPE_IMAGE_EXIF)) {
-						$betterLocationExif = BetterLocation::fromExif($url);
-						if ($betterLocationExif instanceof BetterLocation) {
-							$betterLocationExif->setPrefixMessage(sprintf('<a href="%s">EXIF</a>', $url));
-							$betterLocationsCollection->add($betterLocationExif);
-						}
-					}
-				} catch (\Exception $exception) {
-					$betterLocationsCollection->add($exception);
+				if (count($serviceCollection) === 0) { // process HTTP headers only if no location was found via iteration
+					$betterLocationsCollection->add(self::processHttpHeaders($url));
 				}
 			}
 		}
@@ -309,6 +295,29 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 			$url = $originalUrl;
 		}
 		return $url;
+	}
+
+	private static function processHttpHeaders($url): BetterLocationCollection
+	{
+		$collection = new BetterLocationCollection();
+		try {
+			$headers = null;
+			try {
+				$headers = MiniCurl::loadHeaders($url);
+			} catch (\Throwable $exception) {
+				Debugger::log(sprintf('Error while loading headers for URL "%s": %s', $url, $exception->getMessage()));
+			}
+			if ($headers && isset($headers['content-type']) && General::checkIfValueInHeaderMatchArray($headers['content-type'], Url::CONTENT_TYPE_IMAGE_EXIF)) {
+				$betterLocationExif = BetterLocation::fromExif($url);
+				if ($betterLocationExif instanceof BetterLocation) {
+					$betterLocationExif->setPrefixMessage(sprintf('<a href="%s">EXIF</a>', $url));
+					$collection->add($betterLocationExif);
+				}
+			}
+		} catch (\Exception $exception) {
+			$collection->add($exception);
+		}
+		return $collection;
 	}
 
 	public function getStaticMapUrl(): string
