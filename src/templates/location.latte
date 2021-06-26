@@ -96,53 +96,21 @@
 {/block}
 {block cssLibs}
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@v0.74.0/dist/L.Control.Locate.min.css"/>
 {/block}
 {block jsLibs}
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+	<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@v0.74.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
 {/block}
 {block js}
 	<script>
 		function distanceHuman(meters) {
-			console.log('meters: ' + meters);
 			if (meters > 10_000) {
 				return Math.floor(meters / 1000) + 'km';
 			} else if (meters > 1000) {
 				return Math.floor(meters / 10) / 100 + 'km'; // keep rounded to two decimal places
 			}
 			return Math.floor(meters) + 'm';
-		}
-
-		function locationFound(latLng, accuracy, recenter = false) {
-			console.log(latLng);
-			console.log(accuracy);
-			const iconSvg = '<svg width="20" height="20" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1152 896q0 106-75 181t-181 75-181-75-75-181 75-181 181-75 181 75 75 181zm-256-544q-148 0-273 73t-198 198-73 273 73 273 198 198 273 73 273-73 198-198 73-273-73-273-198-198-273-73zm768 544q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/></svg>'
-			const iconUrl = 'data:image/svg+xml;base64,' + btoa(iconSvg);
-
-			if (mapData.markers.browserLocation === null) {
-				mapData.markers.browserLocation = L.marker(latLng, {
-					icon: L.icon({
-						iconUrl: iconUrl,
-						iconSize: [20, 20],
-						iconAnchor: [10, 10],
-					}),
-				}).addTo(mapData.map).bindPopup();
-				mapData.circles.browserLocationAccuracy = L.circle(latLng, {
-					radius: accuracy,
-					stroke: false,
-				}).addTo(mapData.map);
-			} else {
-				mapData.markers.browserLocation.setLatLng(latLng);
-				mapData.circles.browserLocationAccuracy.setLatLng(latLng).setRadius(accuracy);
-			}
-			let popupContent = '<p>';
-			const latLon = latLng.lat.toFixed(6) + ',' + latLng.lng.toFixed(6);
-			popupContent += 'Browser location: <b><a href="/' + latLon + '">' + latLon + '</a></b> (accuracy <b>' + distanceHuman(accuracy) + '</b>)';
-			popupContent += '<br>Distance to currently opened location: <b>' + distanceHuman(latLng.distanceTo(mapData.markers.pageLocation.getLatLng())) + '</b>';
-			mapData.markers.browserLocation.getPopup().setContent(popupContent);
-			if (recenter) {
-				mapData.map.setView(latLng);
-				mapData.markers.browserLocation.openPopup();
-			}
 		}
 
 		const mapData = {
@@ -207,59 +175,32 @@
 		L.control.layers(mapData.layers.baseLayers, mapData.layers.overlays).addTo(mapData.map);
 		mapData.markers.pageLocation = L.marker([{$lat}, {$lon}]).addTo(mapData.map);
 
-		L.Control.BrowserLocation = L.Control.extend({
-			onAdd: function (map) {
-				const element = L.DomUtil.create('div', 'leaflet-bar leaflet-control current-location');
-				element.title = 'Current location';
-				element.innerHTML = '<a href="#"><i class="fa fa-fw fa-compass"></i></a>';
-				element.addEventListener('click', function (event) {
-					event.preventDefault();
-					map.locate();
-				});
-				return element;
-			},
-		});
-
-		L.control.browserLocation = function (options) {
-			return new L.Control.BrowserLocation(options);
-		}
-		L.control.browserLocation({
-			position: 'topleft'
-		}).addTo(mapData.map);
-		mapData.map.on('locationfound', function (event) {
-			locationFound(event.latlng, event.accuracy, true);
-		}).on('locationerror', function (event) {
-			let result = 'Your location couldn\'t be loaded: ';
-			switch (event.code) {
-				case GeolocationPositionError.PERMISSION_DENIED:
-					result += 'permission denied.';
-					break;
-				case GeolocationPositionError.POSITION_UNAVAILABLE:
-					result += 'not supported.';
-					break;
-				case GeolocationPositionError.TIMEOUT:
-					result += 'took too long. Try again later.';
-					break;
-				default:
-					result += 'unknown error.';
-					break;
+		const locateControl = L.control.locate({
+			setView: false,
+			strings: {
+				popup: function (params) {
+					const markerLatLng = locateControl._marker.getLatLng();
+					const latLon = markerLatLng.lat.toFixed(6) + ',' + markerLatLng.lng.toFixed(6);
+					let popupContent = '<p>';
+					popupContent += 'Browser location: <b><a href="/' + latLon + '">' + latLon + '</a></b> (accuracy <b>' + distanceHuman(params.distance) + '</b>)';
+					popupContent += '<br>Distance to currently opened location: <b>' + distanceHuman(markerLatLng.distanceTo(mapData.markers.pageLocation.getLatLng())) + '</b>';
+					return popupContent;
+				}
 			}
-			alert(result);
-		});
+		}).addTo(mapData.map);
 
-		// If access to browser location is granted, show it in the map automatically
+		// If access to browser location is granted, show it in the map automatically but without pan and zoom
 		navigator.permissions.query({
 			name: 'geolocation',
 		}).then(function (result) {
 			if (result.state === 'granted') {
-				navigator.geolocation.getCurrentPosition(function (position) {
-					const latlng = new L.latLng(position.coords.latitude, position.coords.longitude);
-					locationFound(latlng, position.coords.accuracy, false);
-				}, function (error) {
-					console.log('Unable to load current location.')
-					console.log(error);
-				});
+				locateControl.start();
 			}
+		}).finally(function () {
+			setTimeout(function () {
+				// some timeout is necessary, otherwise it would trigger setView on page load (@TODO maybe is there some event for that?)
+				locateControl.options.setView = 'untilPanOrZoom';
+			}, 100);
 		});
 	</script>
 {/block}

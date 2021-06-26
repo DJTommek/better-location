@@ -64,22 +64,9 @@ a {
 	min-height: 20em;
 	min-width: 20em;
 }
-
-#map-dynamic-leaflet .current-location {
-	background-color: white;
-	border-radius: 2px;
-	border: 2px solid rgba(0, 0, 0, 0.2);
-}
-
-#map-dynamic-leaflet .current-location i.fa {
-	cursor: pointer;
-	display: block;
-	font-size: 20px;
-	line-height: 20px;
-	height: 20px;
-	width: 20px;
-	padding: 6px;
-	/*padding: 0.25em 0.5em;*/
+#content-location #map-dynamic-leaflet .leaflet-control-locate .fa {
+	/* @BUG without this icon is aligned to the top of control button */
+	line-height: 28px;
 }
 
 #content-location .address,
