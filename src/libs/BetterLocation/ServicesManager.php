@@ -24,6 +24,7 @@ use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\OpenStreetMapService;
 use App\BetterLocation\Service\OsmAndService;
 use App\BetterLocation\Service\RopikyNetService;
+use App\BetterLocation\Service\SumavaCzService;
 use App\BetterLocation\Service\WazeService;
 use App\BetterLocation\Service\WhatThreeWordService;
 use App\BetterLocation\Service\WikipediaService;
@@ -75,6 +76,7 @@ class ServicesManager
 		$this->services[] = RopikyNetService::class;
 		$this->services[] = ZanikleObceCzService::class;
 		$this->services[] = ZniceneKostelyCzService::class;
+		$this->services[] = SumavaCzService::class;
 		$this->services[] = FevGamesService::class;
 	}
 
