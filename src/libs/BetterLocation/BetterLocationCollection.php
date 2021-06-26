@@ -30,6 +30,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	/** @var \Throwable[] */
 	private $errors = [];
 	private $position = 0;
+	/** @var bool */
+	public $filterTooClose = true;
 
 	public function __invoke(): array
 	{
@@ -245,7 +247,9 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 				$url = self::handleShortUrl($url);
 
 				$serviceCollection = Factory::ServicesManager()->iterate($url);
-				$serviceCollection->filterTooClose(Config::DISTANCE_IGNORE);
+				if ($serviceCollection->filterTooClose) {
+					$serviceCollection->filterTooClose(Config::DISTANCE_IGNORE);
+				}
 				$betterLocationsCollection->add($serviceCollection);
 
 				if (count($serviceCollection) === 0) { // process HTTP headers only if no location was found via iteration
