@@ -126,7 +126,10 @@
 						iconAnchor: [10, 10],
 					}),
 				}).addTo(mapData.map).bindPopup();
-				mapData.circles.browserLocationAccuracy = L.circle(latLng, accuracy).addTo(mapData.map);
+				mapData.circles.browserLocationAccuracy = L.circle(latLng, {
+					radius: accuracy,
+					stroke: false,
+				}).addTo(mapData.map);
 			} else {
 				mapData.markers.browserLocation.setLatLng(latLng);
 				mapData.circles.browserLocationAccuracy.setLatLng(latLng).setRadius(accuracy);
@@ -206,10 +209,11 @@
 
 		L.Control.BrowserLocation = L.Control.extend({
 			onAdd: function (map) {
-				const element = L.DomUtil.create('div', 'current-location');
+				const element = L.DomUtil.create('div', 'leaflet-bar leaflet-control current-location');
 				element.title = 'Current location';
-				element.innerHTML = '<i class="fa fa-dot-circle-o"></i>';
+				element.innerHTML = '<a href="#"><i class="fa fa-fw fa-compass"></i></a>';
 				element.addEventListener('click', function (event) {
+					event.preventDefault();
 					map.locate();
 				});
 				return element;
@@ -220,7 +224,7 @@
 			return new L.Control.BrowserLocation(options);
 		}
 		L.control.browserLocation({
-			position: 'topright'
+			position: 'topleft'
 		}).addTo(mapData.map);
 		mapData.map.on('locationfound', function (event) {
 			locationFound(event.latlng, event.accuracy, true);
