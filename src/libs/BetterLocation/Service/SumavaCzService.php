@@ -7,21 +7,25 @@ use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
+use App\Utils\StringUtils;
+use Tracy\Debugger;
 
 final class SumavaCzService extends AbstractService
 {
 	const NAME = 'Šumava.cz';
 
-	const LINK = 'http://www.sumava.cz/';
+	const LINK = 'http://www.sumava.cz';
 
 	const TYPE_ACCOMODATION = 'Accomodation';
 	const TYPE_PLACE = 'Place';
+	const TYPE_GALLERY = 'Gallery';
 
 	public static function getConstants(): array
 	{
 		return [
 			self::TYPE_ACCOMODATION,
 			self::TYPE_PLACE,
+			self::TYPE_GALLERY,
 		];
 	}
 
@@ -40,11 +44,14 @@ final class SumavaCzService extends AbstractService
 			$this->url &&
 			$this->url->getDomain(2) === 'sumava.cz'
 		) {
-			if (preg_match('/\/objekt\/([0-9]+)/', $this->url->getPath(), $matches)) {
+			if (preg_match('/^\/objekt\/([0-9]+)/', $this->url->getPath(), $matches)) {
 				$this->data->type = self::TYPE_ACCOMODATION;
 				return true;
-			} else if (preg_match('/\/objekt_az\/([0-9]+)/', $this->url->getPath(), $matches)) {
+			} else if (preg_match('/^\/objekt_az\/([0-9]+)/', $this->url->getPath(), $matches)) {
 				$this->data->type = self::TYPE_PLACE;
+				return true;
+			} else if (preg_match('/^\/galerie_sekce\/([0-9]+)/', $this->url->getPath(), $matches)) {
+				$this->data->type = self::TYPE_GALLERY;
 				return true;
 			}
 		}
@@ -54,11 +61,47 @@ final class SumavaCzService extends AbstractService
 	public function process(): void
 	{
 		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_SUMAVA_CZ)->run()->getBody();
-		if (preg_match('/SMap\.Coords\.fromWGS84\(([0-9.]+),([0-9.]+)/', $response, $matches)) {
-			$coords = new Coordinates($matches[2], $matches[1]);
-			$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class, $this->data->type);
-			$location->setPrefixMessage(sprintf('<a href="%s">%s</a>', $this->inputUrl, self::NAME));
-			$this->collection->add($location);
+		if ($this->data->type === self::TYPE_GALLERY) {
+			$this->processGallery($response);
+		} else {
+			if (preg_match('/SMap\.Coords\.fromWGS84\(([0-9.]+),([0-9.]+)/', $response, $matches)) {
+				$coords = new Coordinates($matches[2], $matches[1]);
+				$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class, $this->data->type);
+				$location->setPrefixMessage(sprintf('<a href="%s">%s</a>', $this->inputUrl, self::NAME));
+				$this->collection->add($location);
+			}
 		}
+	}
+
+	/**
+	 * Gallery doesn't have specific location but it is paired with one or more locations, process them all.
+	 */
+	private function processGallery(string $response)
+	{
+		$doc = new \DOMDocument();
+		$doc->loadHTML($response);
+
+		$xpath = new \DOMXPath($doc);
+		foreach ($xpath->query('//div[@id=\'item_1\']//h3/a') as $linkElement) {
+			assert($linkElement instanceof \DOMElement);
+			$linkPath = $linkElement->getAttribute('href');
+			if (StringUtils::startWith($linkPath, '/objekt_az/')) {
+				$fullLink = self::LINK . $linkPath;
+				$service = new SumavaCzService($fullLink);
+				if ($service->isValid()) {
+					$service->process();
+					$collection = $service->getCollection();
+					assert(count($collection) === 1);
+					$location = $collection->getFirst();
+					$prefix = sprintf('<a href="%s">%s gallery</a> - <a href="%s">%s</a>', $this->url->getAbsoluteUrl(), self::NAME, $fullLink, $linkElement->textContent);
+					$location->setPrefixMessage($prefix);
+					$this->collection->add($location);
+				}
+			} else {
+				// mostly advertisement for random accomodation, not really related to this gallery
+				Debugger::log(sprintf('Ignoring path "%s" (text: "%s")', $linkPath, $linkElement->textContent), Debugger::DEBUG);
+			}
+		}
+		$this->collection->filterTooClose = false;
 	}
 }

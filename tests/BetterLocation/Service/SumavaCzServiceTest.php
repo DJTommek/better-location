@@ -34,10 +34,20 @@ final class SumavaCzServiceTest extends TestCase
 		$this->assertTrue(SumavaCzService::isValidStatic('https://www.sumava.cz/objekt/2/'));
 		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/objekt/2'));
 
+		// Gallery
+		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'));
+		$this->assertTrue(SumavaCzService::isValidStatic('https://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'));
+		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice'));
+		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/galerie_sekce/4711'));
+
 		// Invalid
 		$this->assertFalse(SumavaCzService::isValidStatic('some invalid url'));
 		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/mapa-stranek/'));
 		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/rozcestnik-kategorie/3-infocentra/'));
+		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/galerie/'));
+		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/blabla/objekt_az/765-stezka-v-korunch-d/'));
+		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/foooo/objekt/2/'));
+		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/tomas/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'));
 	}
 
 	public function testProcessPlace(): void
@@ -66,9 +76,38 @@ final class SumavaCzServiceTest extends TestCase
 		$this->assertSame('Accomodation', $collection[0]->getName());
 	}
 
+	/**
+	 * Type is place because gallery is just original source
+	 */
+	public function testProcessGallery(): void
+	{
+		$collection = SumavaCzService::processStatic('http://www.sumava.cz/galerie_sekce/4710-tedraice/')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('49.265100,13.520600', $collection[0]->__toString());
+		$this->assertSame('Place', $collection[0]->getName());
+
+		$collection = SumavaCzService::processStatic('http://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice/')->getCollection();
+		$this->assertCount(3, $collection);
+		$this->assertSame('49.260500,13.497900', $collection[0]->__toString());
+		$this->assertSame('Place', $collection[0]->getName());
+		$this->assertSame('49.261100,13.498100', $collection[1]->__toString());
+		$this->assertSame('Place', $collection[1]->getName());
+		$this->assertSame('49.261300,13.498500', $collection[2]->__toString());
+		$this->assertSame('Place', $collection[2]->getName());
+	}
+
+	/**
+	 * Gallery is not linked to any specific place
+	 */
+	public function testGalleryNotRelated()
+	{
+		$this->assertCount(0, SumavaCzService::processStatic('http://www.sumava.cz/galerie_sekce/4688-strovsk-skotsk-horalsk-hry-2020/')->getCollection());
+	}
+
 	public function testInvalidId(): void
 	{
 		$this->assertCount(0, SumavaCzService::processStatic('https://www.sumava.cz/objekt_az/99999999')->getCollection());
 		$this->assertCount(0, SumavaCzService::processStatic('https://www.sumava.cz/objekt/99999999')->getCollection());
+		$this->assertCount(0, SumavaCzService::processStatic('https://www.sumava.cz/galerie_sekce/9999999')->getCollection());
 	}
 }
