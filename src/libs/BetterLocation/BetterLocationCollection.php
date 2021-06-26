@@ -31,7 +31,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	private $errors = [];
 	private $position = 0;
 
-	public function __invoke()
+	public function __invoke(): array
 	{
 		return $this->locations;
 	}
@@ -61,7 +61,6 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	public function getByLatLon(float $lat, float $lon): ?BetterLocation
 	{
 		$key = sprintf('%F,%F', $lat, $lon);
-		$location = null;
 		foreach ($this->getLocations() as $location) {
 			if ($location->__toString() === $key) {
 				return $location;
@@ -73,7 +72,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	public function removeByLatLon(float $lat, float $lon): void
 	{
 		$key = sprintf('%F,%F', $lat, $lon);
-		foreach ($this->locations as $index => $location) {
+		foreach ($this->locations as $location) {
 			if ($location->__toString() === $key) {
 				unset($this->locations[$key]);
 				return;
@@ -89,11 +88,12 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return $this->locations;
 	}
 
-	public function getErrors()
+	public function getErrors(): array
 	{
 		return $this->errors;
 	}
 
+	/** @return BetterLocation|false */
 	public function getFirst()
 	{
 		return reset($this->locations);
@@ -162,7 +162,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 
 	public function offsetGet($offset): ?BetterLocation
 	{
-		return isset($this->locations[$offset]) ? $this->locations[$offset] : null;
+		return $this->locations[$offset] ?? null;
 	}
 
 	public function offsetSet($offset, $value): void
