@@ -19,6 +19,7 @@ final class SumavaCzService extends AbstractService
 	const TYPE_ACCOMODATION = 'Accomodation';
 	const TYPE_PLACE = 'Place';
 	const TYPE_GALLERY = 'Gallery';
+	const TYPE_COMPANY = 'Company';
 
 	public static function getConstants(): array
 	{
@@ -26,6 +27,7 @@ final class SumavaCzService extends AbstractService
 			self::TYPE_ACCOMODATION,
 			self::TYPE_PLACE,
 			self::TYPE_GALLERY,
+			self::TYPE_COMPANY,
 		];
 	}
 
@@ -49,6 +51,9 @@ final class SumavaCzService extends AbstractService
 				return true;
 			} else if (preg_match('/^\/objekt_az\/([0-9]+)/', $this->url->getPath(), $matches)) {
 				$this->data->type = self::TYPE_PLACE;
+				return true;
+			} else if (preg_match('/^\/firma\/([0-9]+)/', $this->url->getPath(), $matches)) {
+				$this->data->type = self::TYPE_COMPANY;
 				return true;
 			} else if (preg_match('/^\/galerie_sekce\/([0-9]+)/', $this->url->getPath(), $matches)) {
 				$this->data->type = self::TYPE_GALLERY;

@@ -34,6 +34,11 @@ final class SumavaCzServiceTest extends TestCase
 		$this->assertTrue(SumavaCzService::isValidStatic('https://www.sumava.cz/objekt/2/'));
 		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/objekt/2'));
 
+		// Companies
+		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/firma/565-aldi-sd-bodenmais-d/'));
+		$this->assertTrue(SumavaCzService::isValidStatic('https://www.sumava.cz/firma/565-aldi-sd-bodenmais-d'));
+		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/firma/565'));
+
 		// Gallery
 		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'));
 		$this->assertTrue(SumavaCzService::isValidStatic('https://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'));
@@ -47,6 +52,7 @@ final class SumavaCzServiceTest extends TestCase
 		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/galerie/'));
 		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/blabla/objekt_az/765-stezka-v-korunch-d/'));
 		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/foooo/objekt/2/'));
+		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/palider/firma/565-aldi-sd-bodenmais-d/'));
 		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/tomas/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'));
 	}
 
@@ -74,6 +80,19 @@ final class SumavaCzServiceTest extends TestCase
 		$this->assertCount(1, $collection);
 		$this->assertSame('48.670000,14.162900', $collection[0]->__toString());
 		$this->assertSame('Accomodation', $collection[0]->getName());
+	}
+
+	public function testProcessCompanies(): void
+	{
+		$collection = SumavaCzService::processStatic('http://www.sumava.cz/firma/565-aldi-sd-bodenmais-d/')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('49.071600,13.092100', $collection[0]->__toString());
+		$this->assertSame('Company', $collection[0]->getName());
+
+		$collection = SumavaCzService::processStatic('http://www.sumava.cz/firma/805-erpac-stanice-shell-bodenmais-d/')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('49.063400,13.104300', $collection[0]->__toString());
+		$this->assertSame('Company', $collection[0]->getName());
 	}
 
 	/**
