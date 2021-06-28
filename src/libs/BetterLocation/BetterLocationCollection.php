@@ -8,6 +8,7 @@ use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesSecondsService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\GeocachingService;
+use App\BetterLocation\Service\GeohashService;
 use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\WhatThreeWordService;
 use App\Config;
@@ -267,6 +268,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		$betterLocationsCollection->add(MGRSService::findInText($messageWithoutUrls));
 		$betterLocationsCollection->add(USNGService::findInText($messageWithoutUrls));
 		$betterLocationsCollection->add(OpenLocationCodeService::findInText($messageWithoutUrls));
+		$betterLocationsCollection->add(GeohashService::findInText($messageWithoutUrls));
 		if (is_null(Config::GEOCACHING_COOKIE) === false) {
 			$betterLocationsCollection->add(GeocachingService::findInText($messageWithoutUrls));
 		}

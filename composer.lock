@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1802fd55caa80a0f51ecea8fad96a32",
+    "content-hash": "770f858e77781aa690176dbded2b39ec",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1600,6 +1600,51 @@
                 "source": "https://github.com/nette/latte/tree/v2.10.3"
             },
             "time": "2021-02-22T11:17:13+00:00"
+        },
+        {
+            "name": "lvht/geohash",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lvht/geohash.git",
+                "reference": "bbba3e1b487f0ec2e5e666c1bc9d1d4277990a29"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lvht/geohash/zipball/bbba3e1b487f0ec2e5e666c1bc9d1d4277990a29",
+                "reference": "bbba3e1b487f0ec2e5e666c1bc9d1d4277990a29",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Lvht\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "吕海涛",
+                    "email": "git@lvht.net",
+                    "homepage": "https://github.com/lvht"
+                }
+            ],
+            "description": "geohash like python-geohash",
+            "homepage": "http://github.com/lvht/geohash",
+            "keywords": [
+                "geohash"
+            ],
+            "support": {
+                "issues": "https://github.com/lvht/geohash/issues",
+                "source": "https://github.com/lvht/geohash/tree/master"
+            },
+            "time": "2017-08-24T11:05:30+00:00"
         },
         {
             "name": "maxh/php-nominatim",

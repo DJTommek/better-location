@@ -14,6 +14,7 @@ use App\BetterLocation\Service\FacebookService;
 use App\BetterLocation\Service\FevGamesService;
 use App\BetterLocation\Service\FoursquareService;
 use App\BetterLocation\Service\GeocachingService;
+use App\BetterLocation\Service\GeohashService;
 use App\BetterLocation\Service\GlympseService;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;
@@ -56,6 +57,7 @@ class ServicesManager
 		$this->services[] = OsmAndService::class;
 		$this->services[] = DrobnePamatkyCzService::class;
 		$this->services[] = OpenLocationCodeService::class;
+		$this->services[] = GeohashService::class;
 		$this->services[] = WikipediaService::class;
 //		$this->services[] = DuckDuckGoService::class; // currently not supported
 		if (Config::isFoursquare()) {
