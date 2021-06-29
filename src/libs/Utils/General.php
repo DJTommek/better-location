@@ -149,4 +149,10 @@ class General
 		fclose($f);
 		return trim($output);
 	}
+
+	/** @return int|float */
+	public static function clamp(float $value, float $min, float $max)
+	{
+		return max($min, min($max, $value));
+	}
 }
