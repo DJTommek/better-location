@@ -18,11 +18,44 @@ final class Ge0Test extends TestCase
 		$this->assertSame(18.0, $result->zoom);
 	}
 
+	public function testDecodeBorders(): void
+	{
+		$result = Ge0::decode('9_________');
+		$this->assertSame(89.999999, $result->lat);
+		$this->assertSame(179.999999, $result->lon);
+		$this->assertSame(19.25, $result->zoom);
+
+		$result = Ge0::decode('9qqqqqqqqq');
+		$this->assertSame(-89.999999, $result->lat);
+		$this->assertSame(180, $result->lon);
+		$this->assertSame(19.25, $result->zoom);
+
+		$result = Ge0::decode('AVVVVVVVVV');
+		$this->assertSame(89.999999, $result->lat);
+		$this->assertSame(179.999999, $result->lon);
+		$this->assertSame(4.0, $result->zoom);
+
+		$result = Ge0::decode('AAAAAAAAAA');
+		$this->assertSame(89.999999, $result->lat);
+		$this->assertSame(-179.999999, $result->lon);
+		$this->assertSame(4.0, $result->zoom);
+	}
+
 	public function testEncode(): void
 	{
 		$this->assertSame('B4srhdHVVt', Ge0::encode(64.523401, 12.123401, 4.25)->code);
 		$this->assertSame('44G4Yn7Psx', Ge0::encode(50.042366, 14.454461, 18)->code);
+
 	}
+
+	public function testEncodeBorders(): void
+	{
+		$this->assertSame('9_________', Ge0::encode(89.999999, 179.999999, 19.25)->code);
+		$this->assertSame('9qqqqqqqqq', Ge0::encode(89.999999, -180, 19.25)->code);
+		$this->assertSame('AVVVVVVVVV', Ge0::encode(-90, 179.999999, 4)->code);
+		$this->assertSame('AAAAAAAAAA', Ge0::encode(-90, -180, 4)->code);
+	}
+
 
 	/**
 	 * Generate random coordinate, convert them to code, this code convert back to coordinates and compare them with these randomly generated.
