@@ -12,10 +12,24 @@ namespace App\Utils;
  */
 class Ge0
 {
-	public static $maxPointBytes = 10;
-	public static $wgs84Precision = 6;
-
 	private const BASE64_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+
+	private const MAX_ZOOM = 19.75;
+	private const MIN_ZOOM = 4;
+
+	/**
+	 * @var int Count of characters used to save encoded coordinates in Ge0 format. Higher number, better precision
+	 * @example 10 = AAAAAAAAAA
+	 * @example 8 = AAAAAAAA
+	 */
+	public static $maxPointBytes = 10;
+
+	/**
+	 * @var int Number of decimal places for coordinates in WGS 84 format. Higher number, better precision
+	 * @example 6 = 50.123456
+	 * @example 3 = 50.123
+	 */
+	public static $wgs84Precision = 6;
 
 	private static function maxPointBits()
 	{
@@ -38,8 +52,21 @@ class Ge0
 	{
 	}
 
+	public static function isValid(string $code): bool
+	{
+		$base64alphabetRe = str_replace('-', '\\-', self::BASE64_ALPHABET);
+		return !!preg_match('/^[' . $base64alphabetRe . ']{1,' . self::$maxPointBytes . '}$/', $code);
+	}
+
+	/**
+	 * Decode string code to WGS 84 coordinates and zoom level. It must be same or higher length as defined in $maxPointBytes
+	 */
 	public static function decode(string $code): self
 	{
+		if (!self::isValid($code)) {
+			throw new \InvalidArgumentException(sprintf('Invalid code "%s": check for invalid characters or incorrect length', $code));
+		}
+
 		$self = new self();
 		$self->code = $code;
 		$self->zoom = self::decodeZoom($code);
@@ -48,22 +75,22 @@ class Ge0
 	}
 
 	/**
-	 * Get code from lat, lon and zoom
+	 * Encode lat, lon and zoom to Ge0 code.
 	 *
 	 * @param float $lat Latitude between -90 and 90
 	 * @param float $lon Longitude between -180 and 180
-	 * @param float|int $zoom Zoom between 4 and 19.25
+	 * @param float|int $zoom Zoom between 4 and 19.75
 	 */
 	public static function encode(float $lat, float $lon, float $zoom = 15): self
 	{
 		if (!Coordinates::isLat($lat)) {
-			throw new \InvalidArgumentException(sprintf('Invalid latitude "%F".', $lat));
+			throw new \InvalidArgumentException(sprintf('Invalid latitude "%s".', $lat));
 		}
 		if (!Coordinates::isLon($lon)) {
-			throw new \InvalidArgumentException(sprintf('Invalid longitude "%F".', $lon));
+			throw new \InvalidArgumentException(sprintf('Invalid longitude "%s".', $lon));
 		}
-		if ($zoom < 4 || $zoom > 19.25) {
-			throw new \InvalidArgumentException(sprintf('Invalid zoom "%F": must be between 4 and 19.25.', $zoom));
+		if ($zoom < self::MIN_ZOOM || $zoom > self::MAX_ZOOM) {
+			throw new \InvalidArgumentException(sprintf('Invalid zoom %s: must be between %s and %s.', $zoom, self::MIN_ZOOM, self::MAX_ZOOM));
 		}
 		$self = new self();
 		$self->lat = $lat;
@@ -164,7 +191,7 @@ class Ge0
 
 	private static function encodeZoom(float $zoom): string
 	{
-		$zoomRaw = ($zoom <= 4 ? 0 : ($zoom >= 19.75 ? 63 : (int)(($zoom - 4) * 4)));
+		$zoomRaw = (int)(($zoom - 4) * 4);
 		return self::BASE64_ALPHABET[$zoomRaw];
 	}
 

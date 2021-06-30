@@ -70,6 +70,7 @@ final class Ge0Test extends TestCase
 			$result = Ge0::encode($lat, $lon, $zoom);
 			$result2 = Ge0::decode($result->code);
 
+			$this->assertTrue(Ge0::isValid($result->code));
 			$this->assertSame($result->code, $result2->code);
 			$this->assertSame($result->zoom, $result2->zoom);
 			// precision might be lost while converting back and forth (eg 50.042366 can became 50.042365 or 50.042367)
