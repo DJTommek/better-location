@@ -52,10 +52,11 @@ class Ge0
 	{
 	}
 
+	/** @param string $code Code must be at least two characters long. First character is zoom level, rest characters are coordinates. */
 	public static function isValid(string $code): bool
 	{
 		$base64alphabetRe = str_replace('-', '\\-', self::BASE64_ALPHABET);
-		return !!preg_match('/^[' . $base64alphabetRe . ']{1,' . self::$maxPointBytes . '}$/', $code);
+		return !!preg_match('/^[' . $base64alphabetRe . ']{2,' . self::$maxPointBytes . '}$/', $code);
 	}
 
 	/**
