@@ -26,17 +26,17 @@ final class Ge0Test extends TestCase
 		$this->assertSame(19.25, $result->zoom);
 
 		$result = Ge0::decode('9qqqqqqqqq');
-		$this->assertSame(-89.999999, $result->lat);
-		$this->assertSame(180, $result->lon);
+		$this->assertSame(89.999999, $result->lat);
+		$this->assertSame(-179.999999, $result->lon);
 		$this->assertSame(19.25, $result->zoom);
 
 		$result = Ge0::decode('AVVVVVVVVV');
-		$this->assertSame(89.999999, $result->lat);
+		$this->assertSame(-89.999999, $result->lat);
 		$this->assertSame(179.999999, $result->lon);
 		$this->assertSame(4.0, $result->zoom);
 
 		$result = Ge0::decode('AAAAAAAAAA');
-		$this->assertSame(89.999999, $result->lat);
+		$this->assertSame(-89.999999, $result->lat);
 		$this->assertSame(-179.999999, $result->lon);
 		$this->assertSame(4.0, $result->zoom);
 	}
