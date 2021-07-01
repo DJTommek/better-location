@@ -33,5 +33,7 @@ final class WGS84DegreesMinutesSecondsServiceTest extends TestCase
 
 		$this->assertSame('50.093653,14.412417', WGS84DegreesMinutesSecondsService::processStatic('50°5\'37.15" 14°24\'44.70"')->getFirst()->__toString());
 //		$this->assertSame('50.093653,14.412417', WGS84DegreesMinutesSecondsService::parseCoords('50° 5\' 37.15" 14° 24\' 44.70"')->__toString()); // @TODO add this format
+
+		$this->assertSame('10.000000,118.833333', WGS84DegreesMinutesSecondsService::processStatic('N 10°0\'0" E 118°50\'0"')->getFirst()->__toString()); // coordinates from La Casa de Papel
 	}
 }
