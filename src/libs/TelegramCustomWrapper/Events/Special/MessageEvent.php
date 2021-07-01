@@ -9,20 +9,25 @@ use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramUpdateDb;
+use Tracy\Debugger;
 
 class MessageEvent extends Special
 {
-	public function getCollection()
+	public function getCollection(): BetterLocationCollection
 	{
 		return BetterLocationCollection::fromTelegramMessage($this->getText(), $this->update->message->entities);
 	}
 
-	public function handleWebhookUpdate()
+	public function handleWebhookUpdate(): void
 	{
 		$collection = $this->getCollection();
 		if ($this->isPm() && $collection->count() === 0 && mb_strlen($this->getText()) >= Config::GOOGLE_SEARCH_MIN_LENGTH && is_null(Config::GOOGLE_PLACE_API_KEY) === false) {
-			$googleCollection = GooglePlaceApi::search($this->getText(), $this->getFrom()->language_code, $this->user->getLastKnownLocation());
-			$collection->add($googleCollection);
+			try {
+				$googleCollection = GooglePlaceApi::search($this->getText(), $this->getFrom()->language_code, $this->user->getLastKnownLocation());
+				$collection->add($googleCollection);
+			} catch (\Exception $exception) {
+				Debugger::log($exception, Debugger::EXCEPTION);
+			}
 		}
 		$processedCollection = new ProcessedMessageResult($collection);
 		$processedCollection->process();
