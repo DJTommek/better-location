@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace App\Utils;
 
 /**
- * Decode Ge0 used in maps.me or omaps.app and  as sharing coordinates
+ * Decode Ge0 used in maps.me or omaps.app as sharing coordinates
  *
  * @author Alex Zolotarev from Minsk, Belarus <alex@maps.me> - Original author of decode functions and Algorithm (https://github.com/mapsme/ge0_url_decoder)
  * @author Tomas Palider (DJTommek) <tomas@palider.cz> - Refactored to class, added encoding, optimized,
  * @link https://github.com/mapsme/omim/tree/1892903b63f2c85b16ed4966d21fe76aba06b9ba/ge0 original source code written in C++
  */
-class Ge0
+class Ge0Code
 {
 	private const BASE64_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
 
