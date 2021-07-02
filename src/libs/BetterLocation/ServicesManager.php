@@ -23,6 +23,7 @@ use App\BetterLocation\Service\IngressMosaicService;
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\OpenStreetMapService;
+use App\BetterLocation\Service\OrganicMapsService;
 use App\BetterLocation\Service\OsmAndService;
 use App\BetterLocation\Service\RopikyNetService;
 use App\BetterLocation\Service\SumavaCzService;
@@ -58,6 +59,7 @@ class ServicesManager
 		$this->services[] = DrobnePamatkyCzService::class;
 		$this->services[] = OpenLocationCodeService::class;
 		$this->services[] = GeohashService::class;
+		$this->services[] = OrganicMapsService::class;
 		$this->services[] = WikipediaService::class;
 //		$this->services[] = DuckDuckGoService::class; // currently not supported
 		if (Config::isFoursquare()) {
