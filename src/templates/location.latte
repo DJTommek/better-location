@@ -55,28 +55,28 @@
 				</tr>
 				</thead>
 				<tbody>
-				{foreach $websites as $title => $links}
-					{if isset($links['share']) || isset($links['drive']) || isset($links['text'])}
+				{foreach $websites as $service}
+					{if isset($service['share']) || isset($service['drive']) || isset($service['text'])}
 						<tr>
 							<td class="service-title">
 								<span>
-									{$title}
+									{$service['name']}
 								</span>
 							</td>
 							<td class="service-share-link">
-								{if isset($links['share'])}
-									<a href="{$links['share']}" target="_blank">share</a>
+								{if isset($service['share'])}
+									<a href="{$service['share']}" target="_blank">share</a>
 								{/if}
 							</td>
 							<td class="service-drive-link">
-								{if isset($links['drive'])}
-									<a href="{$links['drive']}" target="_blank">drive</a>
+								{if isset($service['drive'])}
+									<a href="{$service['drive']}" target="_blank">drive</a>
 								{/if}
 							</td>
 							<td class="service-share-text text-nowrap">
-								{if isset($links['text'])}
+								{if isset($service['text'])}
 									<span>
-										{$links['text']}
+										{$service['text']}
 									</span>
 								{/if}
 							</td>
