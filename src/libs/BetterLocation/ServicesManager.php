@@ -27,6 +27,7 @@ use App\BetterLocation\Service\OrganicMapsService;
 use App\BetterLocation\Service\OsmAndService;
 use App\BetterLocation\Service\RopikyNetService;
 use App\BetterLocation\Service\SumavaCzService;
+use App\BetterLocation\Service\SygicService;
 use App\BetterLocation\Service\WazeService;
 use App\BetterLocation\Service\WhatThreeWordService;
 use App\BetterLocation\Service\WikipediaService;
@@ -50,6 +51,7 @@ class ServicesManager
 		$this->services[] = USNGService::class;
 		$this->services[] = GoogleMapsService::class;
 		$this->services[] = WazeService::class;
+		$this->services[] = SygicService::class;
 		$this->services[] = HereWeGoService::class;
 		$this->services[] = OpenStreetMapService::class;
 		$this->services[] = FacebookService::class;
