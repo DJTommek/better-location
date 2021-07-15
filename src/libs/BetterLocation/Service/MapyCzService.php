@@ -84,14 +84,10 @@ final class MapyCzService extends AbstractService
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
-		if ($drive) {
-			// No official API for backend so it might be probably generated only via simulating frontend
-			// @see https://napoveda.seznam.cz/forum/threads/120687/1
-			// @see https://napoveda.seznam.cz/forum/file/13641/Schema-otevirani-aplikaci-z-url-a-externe.pdf
-			throw new NotImplementedException('Drive link is not implemented.');
-		} else {
-			return sprintf(self::LINK, $lat, $lon);
-		}
+		// 2021-07-14: Drive link is "kind of" available using planner and on Android device it will open correctly target destination,
+		// but empty deparature, so user has to choose current location manually. That is more clicks, than using classic,
+		// share link.
+		return sprintf(self::LINK, $lat, $lon);
 	}
 
 	public static function getScreenshotLink(float $lat, float $lon): string
