@@ -4,7 +4,6 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
