@@ -18,9 +18,11 @@ final class MapyCzServiceTest extends TestCase
 
 	public function testGenerateDriveLink(): void
 	{
-		$this->expectException(NotImplementedException::class);
-		$this->expectExceptionMessage('Drive link is not implemented.');
-		MapyCzService::getLink(50.087451, 14.420671, true);
+		$this->assertSame('https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451', MapyCzService::getLink(50.087451, 14.420671, true));
+		$this->assertSame('https://mapy.cz/zakladni?y=50.100000&x=14.500000&source=coor&id=14.500000%2C50.100000', MapyCzService::getLink(50.1, 14.5, true));
+		$this->assertSame('https://mapy.cz/zakladni?y=-50.200000&x=14.600000&source=coor&id=14.600000%2C-50.200000', MapyCzService::getLink(-50.2, 14.6000001, true)); // round down
+		$this->assertSame('https://mapy.cz/zakladni?y=50.300000&x=-14.700001&source=coor&id=-14.700001%2C50.300000', MapyCzService::getLink(50.3, -14.7000009, true)); // round up
+		$this->assertSame('https://mapy.cz/zakladni?y=-50.400000&x=-14.800008&source=coor&id=-14.800008%2C-50.400000', MapyCzService::getLink(-50.4, -14.800008, true));
 	}
 
 	public function testIsValidMap(): void
