@@ -103,7 +103,7 @@ final class GoogleMapsService extends AbstractService
 		if ($this->isNormalUrl()) {
 			$this->processUrl();
 		} else {
-			throw new InvalidLocationException(sprintf('Unable to get coords for Google maps link "%s".', $this->url));
+			throw new InvalidLocationException(sprintf('Unable to get coords for normal Google maps link "%s".', $this->url));
 		}
 	}
 
