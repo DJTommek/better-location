@@ -173,14 +173,16 @@ final class GoogleMapsService extends AbstractService
 		}
 
 		// To prevent doing unnecessary request, this is done only if there is no other location detected
-		// Google is disabling access with RECAPTCHA
-		// @TODO probably there will be always at least map center so this code never occure? Needs testing
+		// This might happen if clicked on "Share" button from phone app Google maps:
+		// https://maps.app.goo.gl/X5bZDTSFfdRzchGY6
+		// -> https://www.google.com/maps/place/bauMax,+Chodovsk%C3%A1+1549%2F18,+101+00+Praha+10/data=!4m2!3m1!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2?utm_source=mstt_1&entry=gps
+		//                                                                                                      \__@TODO this might be some place ID__/
 		if ($this->collection->count() === 0) {
 			// URL don't have any coordinates or place-id to translate so load content and there are some coordinates hidden in page in some of brutal multi-array
 			$content = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_GOOGLE_MAPS)->run()->getBody();
 			// Regex is searching for something like this: ',"",null,[null,null,50.0641584,14.468139599999999]';
 			// Warning: Not exact position
-			if (preg_match('/","",null,\[null,null,(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)]\n/', $content, $matches)) {
+			if (preg_match('/",null,\[null,null,(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)]/', $content, $matches)) {
 				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, self::TYPE_HIDDEN));
 			}
 		}
