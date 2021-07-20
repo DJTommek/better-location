@@ -159,4 +159,55 @@ final class GoogleMapsServiceTest extends TestCase
 		$this->assertSame('-50.022610,-14.525433', GoogleMapsService::processStatic('https://www.google.cz/maps/place/-50.02261,-14.525433')->getFirst()->__toString());
 	}
 
+	/**
+	 * Links generated on phone in Google maps app by clicking on "share" button while opened place
+	 */
+	public function testShareUrlPhone(): void
+	{
+		// Baumax Michle
+		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/bauMax,+Chodovsk%C3%A1+1549%2F18,+101+00+Praha+10/data=!4m2!3m1!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2?utm_source=mstt_1&entry=gps')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('hidden', $collection[0]->getName());
+		$this->assertSame('50.056068,14.472953', $collection[0]->__toString());
+		// same as above but short URL
+		$collection = GoogleMapsService::processStatic('https://maps.app.goo.gl/X5bZDTSFfdRzchGY6')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('hidden', $collection[0]->getName());
+		$this->assertSame('50.056068,14.472953', $collection[0]->__toString());
+
+		// Lemour Sušice
+		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/Caf%C3%A9+Lamour,+n%C3%A1b%C5%99.+Karla+Houry+180,+342+01+Su%C5%A1ice/data=!4m2!3m1!1s0x470b2b2fad7dd1c3:0x6c66c5beca8a4117?utm_source=mstt_1&entry=gps')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('hidden', $collection[0]->getName());
+		$this->assertSame('49.231830,13.521600', $collection[0]->__toString());
+		// same as above but short URL
+		$collection = GoogleMapsService::processStatic('https://maps.app.goo.gl/C4FjaU9CXsHuMrobA')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('hidden', $collection[0]->getName());
+		$this->assertSame('49.231830,13.521600', $collection[0]->__toString());
+	}
+
+	/**
+	 * Links generated in browser on Google app by clicking on "share" button
+	 * Opened URL before opening place: https://www.google.com/maps/@50.0543547,14.4763896,16.75z
+	 * Opened URL after opening place: https://www.google.com/maps/place/bauMax/@50.0543547,14.4763896,16.75z/data=!4m5!3m4!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2!8m2!3d50.0560684!4d14.4729532
+	 */
+	public function testShareUrlPCBrowser(): void
+	{
+		// Baumax Michle
+		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/bauMax/@50.0543547,14.4763896,16.75z/data=!4m5!3m4!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2!8m2!3d50.0560684!4d14.4729532?shorturl=1')->getCollection();
+		$this->assertCount(2, $collection);
+		$this->assertSame('Place', $collection[0]->getName());
+		$this->assertSame('50.056068,14.472953', $collection[0]->__toString());
+		$this->assertSame('Map center', $collection[1]->getName());
+		$this->assertSame('50.054355,14.476390', $collection[1]->__toString());
+		// same as above but short URL
+		$collection = GoogleMapsService::processStatic('https://goo.gl/maps/AK13hVJLjnveWZqJA')->getCollection();
+		$this->assertCount(2, $collection);
+		$this->assertSame('Place', $collection[0]->getName());
+		$this->assertSame('50.056068,14.472953', $collection[0]->__toString());
+		$this->assertSame('Map center', $collection[1]->getName());
+		$this->assertSame('50.054355,14.476390', $collection[1]->__toString());
+	}
+
 }
