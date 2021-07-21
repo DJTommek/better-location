@@ -30,6 +30,7 @@ final class FromExifTest extends TestCase
 	 * @noinspection PhpUnhandledExceptionInspection
 	 */
 	public function testFromURLWikipedia(): void {
+		$this->markTestSkipped('All files on wikipedia is now returning "content-type: text/html; charset=utf-8" so decoding EXIF is not working.');
 		$this->assertSame('50.093652,14.412417', BetterLocation::fromExif('https://upload.wikimedia.org/wikipedia/commons/5/51/Vltava_river_in_Prague.jpg')->__toString()); // https://cs.wikipedia.org/wiki/Praha#/media/Soubor:Vltava_in_Prague.jpg
 		$this->assertSame('41.888948,-87.624494', BetterLocation::fromExif('https://upload.wikimedia.org/wikipedia/commons/d/db/GPS_location_stamped_with_GPStamper.jpg')->__toString()); // https://en.wikipedia.org/wiki/Geotagged_photograph#/media/File:GPS_location_stamped_with_GPStamper.jpg
 
