@@ -24,6 +24,14 @@ final class FromExifTest extends TestCase
 		$this->assertSame('50.695965,15.737657', BetterLocation::fromExif('https://pldr-gallery.redilap.cz/api/download?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn')->__toString());
 	}
 
+	/** Images from Github repository Exif Samples: https://github.com/ianare/exif-samples/ */
+	public function testFromURLGithub(): void {
+		$this->assertSame('43.467082,11.884538', BetterLocation::fromExif('https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/gps/DSCN0021.jpg')->__toString());
+		$this->assertSame('43.464455,11.881478', BetterLocation::fromExif('https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/gps/DSCN0042.jpg')->__toString());
+		// No location available
+		$this->assertNull(BetterLocation::fromExif('https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/hdr/canon_hdr_YES.jpg'));
+	}
+
 	/**
 	 * Example images from https://wikipedia.org/
 	 *
