@@ -11,6 +11,7 @@ use App\Utils\Strict;
 
 final class ZniceneKostelyCzService extends AbstractService
 {
+	const ID = 32;
 	const NAME = 'ZniceneKostely.cz';
 
 	const LINK = 'http://znicenekostely.cz';

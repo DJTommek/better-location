@@ -10,6 +10,7 @@ use App\Utils\Strict;
 
 final class WazeService extends AbstractService
 {
+	const ID = 3;
 	const NAME = 'Waze';
 
 	const LINK = 'https://www.waze.com';

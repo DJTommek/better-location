@@ -9,6 +9,7 @@ use Nette\Utils\Arrays;
 
 final class OsmAndService extends AbstractService
 {
+	const ID = 15;
 	const NAME = 'OsmAnd';
 
 	const LINK = 'https://osmand.net';

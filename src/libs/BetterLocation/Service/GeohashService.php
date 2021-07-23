@@ -15,6 +15,7 @@ use Lvht\GeoHash;
  */
 final class GeohashService extends AbstractService
 {
+	const ID = 19;
 	const NAME = 'Geohash';
 
 	const LINK = 'http://geohash.org';

@@ -12,6 +12,7 @@ use Nette\Utils\Strings;
 
 final class OpenStreetMapService extends AbstractService
 {
+	const ID = 7;
 	const NAME = 'OpenStreetMap';
 	const NAME_SHORT = 'OSM';
 

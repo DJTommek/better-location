@@ -12,6 +12,7 @@ use Nette\Utils\Arrays;
 
 final class HereWeGoService extends AbstractService
 {
+	const ID = 5;
 	const NAME = 'HERE WeGo';
 	const NAME_SHORT = 'HERE';
 

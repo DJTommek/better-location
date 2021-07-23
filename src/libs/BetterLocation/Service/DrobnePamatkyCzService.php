@@ -13,6 +13,7 @@ use Tracy\ILogger;
 
 final class DrobnePamatkyCzService extends AbstractService
 {
+	const ID = 16;
 	const NAME = 'DrobnePamatky.cz';
 
 	const LINK = 'https://www.drobnepamatky.cz';

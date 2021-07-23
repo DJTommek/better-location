@@ -11,6 +11,7 @@ use Nette\Utils\Strings;
 
 final class WikipediaService extends AbstractService
 {
+	const ID = 20;
 	const NAME = 'Wikipedia';
 
 	const LINK = 'https://wikipedia.org';

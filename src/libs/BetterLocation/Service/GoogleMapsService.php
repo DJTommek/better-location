@@ -12,6 +12,7 @@ use Nette\Utils\Strings;
 
 final class GoogleMapsService extends AbstractService
 {
+	const ID = 2;
 	const NAME = 'Google';
 
 	const LINK = 'https://www.google.cz/maps/place/%1$f,%2$f?q=%1$f,%2$f';

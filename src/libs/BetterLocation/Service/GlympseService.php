@@ -18,6 +18,7 @@ use Tracy\ILogger;
 
 final class GlympseService extends AbstractService
 {
+	const ID = 27;
 	const NAME = 'Glympse';
 
 	const LINK = 'https://glympse.com';

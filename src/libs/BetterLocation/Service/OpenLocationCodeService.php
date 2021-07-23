@@ -9,6 +9,7 @@ use OpenLocationCode\OpenLocationCode;
 
 final class OpenLocationCodeService extends AbstractService
 {
+	const ID = 17;
 	const NAME = 'OpenLocationCode';
 	const NAME_SHORT = 'OLC';
 

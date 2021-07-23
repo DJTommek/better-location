@@ -10,6 +10,7 @@ use App\Foursquare\Types\VenueType;
 
 final class FoursquareService extends AbstractService
 {
+	const ID = 22;
 	const NAME = 'Foursquare';
 
 	const LINK = Client::LINK;

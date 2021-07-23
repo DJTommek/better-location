@@ -12,6 +12,7 @@ use Nette\Utils\Arrays;
 
 final class IngressMosaicService extends AbstractService
 {
+	const ID = 23;
 	const NAME = 'IngressMosaic';
 	const LINK = Client::LINK;
 	const RE_PATH = '/^\/mosaic\/([0-9]+)$/';

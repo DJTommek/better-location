@@ -9,6 +9,7 @@ use DJTommek\MapyCzApi\MapyCzApi;
 
 final class FirmyCzService extends AbstractService
 {
+	const ID = 25;
 	const NAME = 'Firmy.cz';
 
 	const LINK = 'https://firmy.cz';

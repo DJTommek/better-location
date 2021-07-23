@@ -12,6 +12,7 @@ use Tracy\Debugger;
 
 final class IngressIntelService extends AbstractService
 {
+	const ID = 9;
 	const NAME = 'Ingress';
 
 	const TYPE_MAP = 'map';

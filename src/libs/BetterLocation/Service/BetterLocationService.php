@@ -9,6 +9,7 @@ use App\Utils\Coordinates;
 
 final class BetterLocationService extends AbstractService
 {
+	const ID = 1;
 	const NAME = 'BetterLocation';
 
 	const LINK = 'https://better-location.palider.cz';
