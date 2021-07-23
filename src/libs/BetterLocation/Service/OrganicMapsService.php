@@ -12,6 +12,7 @@ use App\Utils\Ge0Code;
  */
 final class OrganicMapsService extends AbstractService
 {
+	const ID = 18;
 	const NAME = 'Organic Maps';
 
 	const LINK = 'https://organicmaps.app';

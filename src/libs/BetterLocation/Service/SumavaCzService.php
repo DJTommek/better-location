@@ -12,6 +12,7 @@ use Tracy\Debugger;
 
 final class SumavaCzService extends AbstractService
 {
+	const ID = 29;
 	const NAME = 'Šumava.cz';
 
 	const LINK = 'http://www.sumava.cz';

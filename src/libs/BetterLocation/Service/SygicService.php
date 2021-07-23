@@ -4,6 +4,7 @@ namespace App\BetterLocation\Service;
 
 final class SygicService extends AbstractService
 {
+	const ID = 4;
 	const NAME = 'Sygic';
 
 	const LINK = 'https://sygic.com';

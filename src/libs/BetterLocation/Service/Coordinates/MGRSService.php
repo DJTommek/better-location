@@ -11,6 +11,7 @@ use Tracy\ILogger;
 
 final class MGRSService extends AbstractService
 {
+	const ID = 14;
 	const NAME = 'MGRS';
 
 	public static function findInText(string $text): BetterLocationCollection

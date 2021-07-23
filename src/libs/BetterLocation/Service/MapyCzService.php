@@ -13,6 +13,7 @@ use Tracy\Debugger;
 
 final class MapyCzService extends AbstractService
 {
+	const ID = 8;
 	const NAME = 'Mapy.cz';
 	const LINK = 'https://mapy.cz/zakladni?y=%1$f&x=%2$f&source=coor&id=%2$f%%2C%1$f';
 

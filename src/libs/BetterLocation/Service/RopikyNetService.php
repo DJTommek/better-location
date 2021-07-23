@@ -11,6 +11,7 @@ use Nette\Utils\Arrays;
 
 final class RopikyNetService extends AbstractService
 {
+	const ID = 28;
 	const NAME = 'Řopíky.net';
 
 	const LINK = 'https://ropiky.net';

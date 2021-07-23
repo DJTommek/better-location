@@ -12,6 +12,7 @@ use Nette\Http\Url;
 
 final class FacebookService extends AbstractService
 {
+	const ID = 6;
 	const NAME = 'Facebook';
 
 	const LINK = 'https://facebook.com';

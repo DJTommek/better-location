@@ -20,6 +20,7 @@ use Tracy\ILogger;
 
 final class GeocachingService extends AbstractService
 {
+	const ID = 26;
 	const NAME = 'Geocaching';
 
 	const LINK = Client::LINK;

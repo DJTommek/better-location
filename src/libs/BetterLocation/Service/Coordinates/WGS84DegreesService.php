@@ -6,8 +6,9 @@ use App\Utils\Coordinates;
 
 final class WGS84DegreesService extends AbstractService
 {
-	const RE_COORD = '([0-9]{1,3}\.[0-9]{1,20})';
+	const ID = 10;
 	const NAME = 'WGS84';
+	const RE_COORD = '([0-9]{1,3}\.[0-9]{1,20})';
 
 	public function process(): void
 	{

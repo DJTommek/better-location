@@ -6,6 +6,7 @@ use App\BetterLocation\Service\Exceptions\NotImplementedException;
 
 final class DuckDuckGoService extends AbstractService
 {
+	const ID = 21;
 	const NAME = 'DuckDuckGo';
 	const NAME_SHORT = 'DDG';
 

@@ -13,6 +13,7 @@ use Tracy\Debugger;
 
 final class FevGamesService extends AbstractService
 {
+	const ID = 24;
 	const NAME = 'FevGames';
 
 	const LINK = 'https://fevgames.net';
