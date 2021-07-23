@@ -3,19 +3,13 @@
 namespace App\BetterLocation;
 
 use App\BetterLocation\Service\AbstractService;
-use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
-use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\GoogleMapsService;
-use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\MapyCzService;
-use App\BetterLocation\Service\OpenStreetMapService;
-use App\BetterLocation\Service\OsmAndService;
-use App\BetterLocation\Service\WazeService;
 use App\BingMaps\StaticMaps;
 use App\Factory;
 use App\Icons;
+use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\TelegramHelper;
@@ -172,21 +166,12 @@ class BetterLocation
 		}
 	}
 
-	public function generateMessage($withAddress = true): string
+	public function generateMessage(BetterLocationMessageSettings $settings = null): string
 	{
-		/** @var AbstractService[] $services */
-		$services = [
-			BetterLocationService::class,
-			GoogleMapsService::class,
-			MapyCzService::class,
-			DuckDuckGoService::class,
-			WazeService::class,
-			HereWeGoService::class,
-			OpenStreetMapService::class,
-		];
+		$settings = new BetterLocationMessageSettings(); // @TODO load from database if available
 		$text = sprintf('%s <a href="%s" target="_blank">%s</a> <code>%s</code>',
 			$this->prefixMessage,
-			$this->generateScreenshotLink(MapyCzService::class),
+			$this->generateScreenshotLink($settings->screenshotLinkService),
 			Icons::MAP_SCREEN,
 			$this->__toString()
 		);
@@ -201,7 +186,7 @@ class BetterLocation
 				$this->pregeneratedLinks[$service] ?? $service::getLink($this->lat, $this->lon),
 				$service::getName(true),
 			);
-		}, $services);
+		}, $settings->linkServices);
 		// Add to favourites
 		$textLinks[] = sprintf('<a href="%s" target="_blank">%s</a>',
 			TelegramHelper::generateStart(sprintf('%s %s %s %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_ADD, $this->getLat(), $this->getLon())),
@@ -209,7 +194,7 @@ class BetterLocation
 		);
 		$text .= join(' | ', $textLinks) . PHP_EOL;
 
-		if ($withAddress && is_null($this->address) === false) {
+		if ($settings->address && is_null($this->address) === false) {
 			$text .= $this->getAddress() . PHP_EOL;
 		}
 
@@ -221,17 +206,11 @@ class BetterLocation
 	}
 
 	/** @return Types\Inline\Keyboard\Button[] */
-	public function generateDriveButtons(): array
+	public function generateDriveButtons(BetterLocationMessageSettings $settings = null): array
 	{
-		/** @var AbstractService[] $services */
-		$services = [
-			GoogleMapsService::class,
-			WazeService::class,
-			HereWeGoService::class,
-			OsmAndService::class,
-		];
+		$settings = new BetterLocationMessageSettings(); // @TODO load from database if available
 		$buttons = [];
-		foreach ($services as $service) {
+		foreach ($settings->buttonServices as $service) {
 			$button = new Types\Inline\Keyboard\Button();
 			$button->text = sprintf('%s %s', $service::getName(true), Icons::CAR);
 			$button->url = $service::getLink($this->lat, $this->lon, true);
