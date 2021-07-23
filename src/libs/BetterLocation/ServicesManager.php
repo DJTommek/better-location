@@ -10,6 +10,7 @@ use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesSecondsService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\DrobnePamatkyCzService;
+use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\FacebookService;
 use App\BetterLocation\Service\FevGamesService;
 use App\BetterLocation\Service\FoursquareService;
@@ -63,7 +64,7 @@ class ServicesManager
 		$this->services[] = GeohashService::class;
 		$this->services[] = OrganicMapsService::class;
 		$this->services[] = WikipediaService::class;
-//		$this->services[] = DuckDuckGoService::class; // currently not supported
+		$this->services[] = DuckDuckGoService::class;
 		if (Config::isFoursquare()) {
 			$this->services[] = FoursquareService::class;
 		}
