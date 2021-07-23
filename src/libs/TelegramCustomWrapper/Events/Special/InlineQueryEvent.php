@@ -93,7 +93,8 @@ class InlineQueryEvent extends Special
 			$entities = TelegramHelper::generateEntities($queryInput);
 			try {
 				$collection = BetterLocationCollection::fromTelegramMessage($queryInput, $entities);
-				if (count($collection->getLocations()) > 1 && $this->user->settings()->getSendNativeLocation()) {
+				 // There can be only one location if sending native location
+				if (count($collection->getLocations()) > 1 && $this->user->settings()->getSendNativeLocation() === false) {
 					$answerInlineQuery->addResult($this->getAllLocationsInlineQueryResult($collection));
 				}
 				foreach ($collection->getLocations() as $betterLocation) {
