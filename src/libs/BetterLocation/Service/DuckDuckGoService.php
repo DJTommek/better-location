@@ -23,7 +23,7 @@ final class DuckDuckGoService extends AbstractService
 
 	public function isValid(): bool
 	{
-		throw new NotImplementedException('Validating is not implemented.');
+		return false; // Currently not implemented
 	}
 
 	public function process()
