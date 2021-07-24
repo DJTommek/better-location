@@ -167,9 +167,9 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->thumb_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
 		$inlineQueryResult->reply_markup = new Markup();
 
-		$inlineQueryResult->reply_markup->inline_keyboard = [$betterLocation->generateDriveButtons()];
+		$inlineQueryResult->reply_markup->inline_keyboard = [$betterLocation->generateDriveButtons($this->getMessageSettings())];
 		$inlineQueryResult->input_message_content = new Text();
-		$inlineQueryResult->input_message_content->message_text = TelegramHelper::getMessagePrefix($betterLocation->getStaticMapUrl()) . $betterLocation->generateMessage();
+		$inlineQueryResult->input_message_content->message_text = TelegramHelper::getMessagePrefix($betterLocation->getStaticMapUrl()) . $betterLocation->generateMessage($this->getMessageSettings());
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
 		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->user->settings()->getPreview();
 		return $inlineQueryResult;
@@ -187,13 +187,13 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->title = strip_tags($inlineTitle);
 		$inlineQueryResult->thumb_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
 		$inlineQueryResult->reply_markup = new Markup();
-		$inlineQueryResult->reply_markup->inline_keyboard = [$betterLocation->generateDriveButtons()];
+		$inlineQueryResult->reply_markup->inline_keyboard = [$betterLocation->generateDriveButtons($this->getMessageSettings())];
 		return $inlineQueryResult;
 	}
 
 	private function getAllLocationsInlineQueryResult(BetterLocationCollection $collection): Inline\Query\Result\Article
 	{
-		$processedCollection = new ProcessedMessageResult($collection);
+		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
 		$processedCollection->process(true);
 
 		$inlineQueryResult = new Inline\Query\Result\Article();

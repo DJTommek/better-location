@@ -21,9 +21,13 @@ class ProcessedMessageResult
 
 	private $validLocationsCount = 0;
 
-	public function __construct(BetterLocationCollection $collection)
+	/** @var BetterLocationMessageSettings */
+	private $messageSettings;
+
+	public function __construct(BetterLocationCollection $collection, BetterLocationMessageSettings $messageSettings)
 	{
 		$this->collection = $collection;
+		$this->messageSettings = $messageSettings;
 	}
 
 	public function setAutorefresh(bool $enabled): void
@@ -35,8 +39,8 @@ class ProcessedMessageResult
 	{
 		foreach ($this->collection->getLocations() as $betterLocation) {
 			$betterLocation->generateAddress();
-			$this->resultText .= $betterLocation->generateMessage();
-			$this->buttons[] = $betterLocation->generateDriveButtons();
+			$this->resultText .= $betterLocation->generateMessage($this->messageSettings);
+			$this->buttons[] = $betterLocation->generateDriveButtons($this->messageSettings);
 			$this->validLocationsCount++;
 		}
 		foreach ($this->collection->getErrors() as $error) {

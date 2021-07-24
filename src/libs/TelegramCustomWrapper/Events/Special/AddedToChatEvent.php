@@ -22,16 +22,16 @@ class AddedToChatEvent extends Special
 		$betterLocationWaze = WazeService::processStatic($wazeLink)->getFirst();
 
 		$markup = new Markup();
-		$markup->inline_keyboard = [$betterLocationWaze->generateDriveButtons()];
+		$markup->inline_keyboard = [$betterLocationWaze->generateDriveButtons($this->getMessageSettings())];
 
 		$text = sprintf('%s Hi <b>%s</b>, @%s here!', Icons::LOCATION, $this->getChatDisplayname(), Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('Thanks for adding me to this chat. I will be checking every message here if it contains any form of location (coordinates, links, photos with EXIF...) and send a nicely formatted message. More info in %s.', HelpCommand::getCmd(!$this->isPm())) . PHP_EOL;
 		$text .= sprintf('For example if you send %s I will respond with this:', $wazeLink) . PHP_EOL;
-		$text .= $betterLocationWaze->generateMessage();
+		$text .= $betterLocationWaze->generateMessage($this->getMessageSettings());
 		if ($betterLocationLocalGroup = $this->getChatLocation()) {
 			$text .= sprintf('I noticed, that this is local group so here is nice message:') . PHP_EOL;
-			$text .= $betterLocationLocalGroup->generateMessage();
-			$markup->inline_keyboard[] = $betterLocationLocalGroup->generateDriveButtons();
+			$text .= $betterLocationLocalGroup->generateMessage($this->getMessageSettings());
+			$markup->inline_keyboard[] = $betterLocationLocalGroup->generateDriveButtons($this->getMessageSettings());
 		}
 
 		$this->reply($text, $markup, [
