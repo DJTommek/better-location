@@ -64,7 +64,7 @@ class StartCommand extends Command
 		} else {
 			try {
 				$collection = WGS84DegreesService::processStatic($lat . ',' . $lon)->getCollection();
-				$processedCollection = new ProcessedMessageResult($collection);
+				$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
 				$processedCollection->process();
 				$this->reply($processedCollection->getText(), $processedCollection->getMarkup(1), ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
 			} catch (\Throwable $exception) {

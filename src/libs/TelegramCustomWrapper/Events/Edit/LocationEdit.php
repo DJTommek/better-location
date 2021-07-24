@@ -44,7 +44,7 @@ class LocationEdit extends Edit
 
 		$collection = $this->getCollection();
 		if ($messageToRefresh = TelegramUpdateDb::loadByOriginalMessageId($this->getChatId(), $this->getMessageId())) {
-			$processedCollection = new ProcessedMessageResult($collection);
+			$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
 			$processedCollection->process();
 			$text = $processedCollection->getText();
 			$text .= sprintf('%s Last live location from %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));

@@ -49,7 +49,7 @@ class LocationEvent extends Special
 		}
 
 		$collection = $this->getCollection();
-		$processedCollection = new ProcessedMessageResult($collection);
+		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
 		$processedCollection->process();
 		if ($collection->count() > 0) {
 			$markup = $processedCollection->getMarkup(1, false);

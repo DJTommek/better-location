@@ -232,7 +232,7 @@ abstract class Events
 		$text .= sprintf('I\'m a simple but smart bot to catch all possible location formats in any chats you invite me to, and generate links to your favourite location services such as Google maps, Waze, OpenStreetMap etc.') . PHP_EOL;
 		$text .= sprintf('For example, if you send a message containing the coordinates "<code>%f,%f</code>" or the link "%s" I will respond with this:', $lat, $lon, $wazeLink) . PHP_EOL;
 		$text .= PHP_EOL;
-		$text .= $betterLocationWaze->generateMessage();
+		$text .= $betterLocationWaze->generateMessage($this->getMessageSettings());
 		// @TODO newline is filled in $result (yeah, it shouldn't be like that..)
 		$text .= sprintf('%s <b>Formats I can read:</b>', Icons::FEATURES) . PHP_EOL;
 		$text .= sprintf('- coordinates: <a href="%s">WGS84</a>, <a href="%s">USNG</a>, <a href="%s">MGRS</a>, <a href="%s">UTM</a>, ...',
@@ -350,7 +350,7 @@ abstract class Events
 					count($this->user->getFavourites())
 				) . PHP_EOL;
 			foreach ($this->user->getFavourites() as $favourite) {
-				$text .= $favourite->generateMessage();
+				$text .= $favourite->generateMessage($this->getMessageSettings());
 
 				$shareFavouriteButton = new Button();
 				$shareFavouriteButton->text = sprintf('Share %s', $favourite->getPrefixMessage());
@@ -391,7 +391,7 @@ abstract class Events
 	protected function processSettings(bool $inline = false)
 	{
 		$collection = WazeService::processStatic(WazeService::getLink(50.087451, 14.420671))->getCollection();
-		$processedCollection = new ProcessedMessageResult($collection);
+		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
 		$processedCollection->process();
 
 		$text = sprintf('%s <b>User settings</b> for @%s. Example message:', Icons::SETTINGS, Config::TELEGRAM_BOT_NAME) . PHP_EOL;

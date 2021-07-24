@@ -29,7 +29,7 @@ class MessageEvent extends Special
 				Debugger::log($exception, Debugger::EXCEPTION);
 			}
 		}
-		$processedCollection = new ProcessedMessageResult($collection);
+		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
 		$processedCollection->process();
 		if ($collection->count() > 0) {
 			if ($this->user->settings()->getSendNativeLocation()) {
