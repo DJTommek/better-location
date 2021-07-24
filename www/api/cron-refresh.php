@@ -43,7 +43,7 @@ if (isset($_GET['password']) && $_GET['password'] === \App\Config::CRON_PASSWORD
 				));
 				/** @var \App\BetterLocation\BetterLocationCollection $collection */
 				$collection = $event->getCollection();
-				$processedCollection = new ProcessedMessageResult($collection);
+				$processedCollection = new ProcessedMessageResult($collection, $event->getMessageSettings());
 				$processedCollection->setAutorefresh(true);
 				$processedCollection->process();
 
