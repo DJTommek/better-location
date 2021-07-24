@@ -41,10 +41,10 @@ class Chat
 
 	public function load()
 	{
-		return $this->db->query('SELECT * FROM better_location_chat WHERE chat_telegram_id = ?', $this->telegramChatId)->fetchAll()[0];
+		return $this->db->query('SELECT * FROM better_location_chat WHERE chat_telegram_id = ?', $this->telegramChatId)->fetch();
 	}
 
-	public function update(?string $telegramChatType = null, ?string $telegramChatName = null)
+	public function update(?string $telegramChatType = null, ?string $telegramChatName = null): self
 	{
 		$queries = [];
 		$params = [];
@@ -67,7 +67,7 @@ class Chat
 		return $this->get();
 	}
 
-	public function get()
+	public function get(): self
 	{
 		return $this;
 	}
