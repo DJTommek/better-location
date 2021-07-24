@@ -166,12 +166,11 @@ class BetterLocation
 		}
 	}
 
-	public function generateMessage(BetterLocationMessageSettings $settings = null): string
+	public function generateMessage(BetterLocationMessageSettings $settings): string
 	{
-		$settings = new BetterLocationMessageSettings(); // @TODO load from database if available
 		$text = sprintf('%s <a href="%s" target="_blank">%s</a> <code>%s</code>',
 			$this->prefixMessage,
-			$this->generateScreenshotLink($settings->screenshotLinkService),
+			$this->generateScreenshotLink($settings->getScreenshotLinkService()),
 			Icons::MAP_SCREEN,
 			$this->__toString()
 		);
@@ -186,7 +185,7 @@ class BetterLocation
 				$this->pregeneratedLinks[$service] ?? $service::getLink($this->lat, $this->lon),
 				$service::getName(true),
 			);
-		}, $settings->linkServices);
+		}, $settings->getLinkServices());
 		// Add to favourites
 		$textLinks[] = sprintf('<a href="%s" target="_blank">%s</a>',
 			TelegramHelper::generateStart(sprintf('%s %s %s %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_ADD, $this->getLat(), $this->getLon())),
@@ -194,7 +193,7 @@ class BetterLocation
 		);
 		$text .= join(' | ', $textLinks) . PHP_EOL;
 
-		if ($settings->address && is_null($this->address) === false) {
+		if ($settings->showAddress() && is_null($this->address) === false) {
 			$text .= $this->getAddress() . PHP_EOL;
 		}
 
@@ -206,11 +205,10 @@ class BetterLocation
 	}
 
 	/** @return Types\Inline\Keyboard\Button[] */
-	public function generateDriveButtons(BetterLocationMessageSettings $settings = null): array
+	public function generateDriveButtons(BetterLocationMessageSettings $settings): array
 	{
-		$settings = new BetterLocationMessageSettings(); // @TODO load from database if available
 		$buttons = [];
-		foreach ($settings->buttonServices as $service) {
+		foreach ($settings->getButtonServices() as $service) {
 			$button = new Types\Inline\Keyboard\Button();
 			$button->text = sprintf('%s %s', $service::getName(true), Icons::CAR);
 			$button->url = $service::getLink($this->lat, $this->lon, true);
