@@ -5,6 +5,7 @@ namespace App;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\Utils\Coordinates;
 use Nette\Utils\Strings;
 
@@ -25,6 +26,9 @@ class User
 	private $favourites;
 	/** @var BetterLocationCollection */
 	private $favouritesDeleted;
+
+	/** @var ?BetterLocationMessageSettings */
+	private $messageSettings;
 
 	public function __construct(int $telegramId, string $telegramDisplayname)
 	{
@@ -234,5 +238,13 @@ class User
 	public function settings(): UserSettings
 	{
 		return $this->settings;
+	}
+
+	public function getMessageSettings(): BetterLocationMessageSettings
+	{
+		if ($this->messageSettings === null) {
+			$this->messageSettings = BetterLocationMessageSettings::loadByChatId($this->id);
+		}
+		return $this->messageSettings;
 	}
 }
