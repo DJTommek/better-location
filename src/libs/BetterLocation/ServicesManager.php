@@ -44,47 +44,47 @@ class ServicesManager
 
 	public function __construct()
 	{
-		$this->services[] = BetterLocationService::class;
-		$this->services[] = WGS84DegreesService::class;
-		$this->services[] = WGS84DegreesMinutesService::class;
-		$this->services[] = WGS84DegreesMinutesSecondsService::class;
-		$this->services[] = MGRSService::class;
-		$this->services[] = USNGService::class;
-		$this->services[] = GoogleMapsService::class;
-		$this->services[] = WazeService::class;
-		$this->services[] = SygicService::class;
-		$this->services[] = HereWeGoService::class;
-		$this->services[] = OpenStreetMapService::class;
-		$this->services[] = FacebookService::class;
-		$this->services[] = MapyCzService::class;
-		$this->services[] = IngressIntelService::class;
-		$this->services[] = OsmAndService::class;
-		$this->services[] = DrobnePamatkyCzService::class;
-		$this->services[] = OpenLocationCodeService::class;
-		$this->services[] = GeohashService::class;
-		$this->services[] = OrganicMapsService::class;
-		$this->services[] = WikipediaService::class;
-		$this->services[] = DuckDuckGoService::class;
+		$this->services[BetterLocationService::ID] = BetterLocationService::class;
+		$this->services[WGS84DegreesService::ID] = WGS84DegreesService::class;
+		$this->services[WGS84DegreesMinutesService::ID] = WGS84DegreesMinutesService::class;
+		$this->services[WGS84DegreesMinutesSecondsService::ID] = WGS84DegreesMinutesSecondsService::class;
+		$this->services[MGRSService::ID] = MGRSService::class;
+		$this->services[USNGService::ID] = USNGService::class;
+		$this->services[GoogleMapsService::ID] = GoogleMapsService::class;
+		$this->services[WazeService::ID] = WazeService::class;
+		$this->services[SygicService::ID] = SygicService::class;
+		$this->services[HereWeGoService::ID] = HereWeGoService::class;
+		$this->services[OpenStreetMapService::ID] = OpenStreetMapService::class;
+		$this->services[FacebookService::ID] = FacebookService::class;
+		$this->services[MapyCzService::ID] = MapyCzService::class;
+		$this->services[IngressIntelService::ID] = IngressIntelService::class;
+		$this->services[OsmAndService::ID] = OsmAndService::class;
+		$this->services[DrobnePamatkyCzService::ID] = DrobnePamatkyCzService::class;
+		$this->services[OpenLocationCodeService::ID] = OpenLocationCodeService::class;
+		$this->services[GeohashService::ID] = GeohashService::class;
+		$this->services[OrganicMapsService::ID] = OrganicMapsService::class;
+		$this->services[WikipediaService::ID] = WikipediaService::class;
+		$this->services[DuckDuckGoService::ID] = DuckDuckGoService::class;
 		if (Config::isFoursquare()) {
-			$this->services[] = FoursquareService::class;
+			$this->services[FoursquareService::ID] = FoursquareService::class;
 		}
 		if (Config::isIngressMosaic()) {
-			$this->services[] = IngressMosaicService::class;
+			$this->services[IngressMosaicService::ID] = IngressMosaicService::class;
 		}
 		if (is_null(Config::GEOCACHING_COOKIE) === false) {
-			$this->services[] = GeocachingService::class;
+			$this->services[GeocachingService::ID] = GeocachingService::class;
 		}
 		if (is_null(Config::W3W_API_KEY) === false) {
-			$this->services[] = WhatThreeWordService::class;
+			$this->services[WhatThreeWordService::ID] = WhatThreeWordService::class;
 		}
 		if (Config::isGlympse()) {
-			$this->services[] = GlympseService::class;
+			$this->services[GlympseService::ID] = GlympseService::class;
 		}
-		$this->services[] = RopikyNetService::class;
-		$this->services[] = ZanikleObceCzService::class;
-		$this->services[] = ZniceneKostelyCzService::class;
-		$this->services[] = SumavaCzService::class;
-		$this->services[] = FevGamesService::class;
+		$this->services[RopikyNetService::ID] = RopikyNetService::class;
+		$this->services[ZanikleObceCzService::ID] = ZanikleObceCzService::class;
+		$this->services[ZniceneKostelyCzService::ID] = ZniceneKostelyCzService::class;
+		$this->services[SumavaCzService::ID] = SumavaCzService::class;
+		$this->services[FevGamesService::ID] = FevGamesService::class;
 	}
 
 	public function iterate(string $input): BetterLocationCollection
@@ -113,5 +113,11 @@ class ServicesManager
 	public function getServices(): array
 	{
 		return $this->services;
+	}
+
+	/** @return int[] */
+	public function getServicesIds(): array
+	{
+		return array_keys($this->services);
 	}
 }
