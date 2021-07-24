@@ -3,6 +3,7 @@
 namespace App\Dashboard;
 
 use App\BetterLocation\BetterLocationCollection;
+use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
@@ -39,7 +40,7 @@ class Tester
 	{
 		$entities = TelegramHelper::generateEntities($this->getInput());
 		$collection = BetterLocationCollection::fromTelegramMessage($this->getInput(), $entities);
-		$processedCollection = new ProcessedMessageResult($collection);
+		$processedCollection = new ProcessedMessageResult($collection, new BetterLocationMessageSettings());
 		$processedCollection->process(true);
 		if ($collection->count() > 0) {
 			$this->outputText = trim($processedCollection->getText());
