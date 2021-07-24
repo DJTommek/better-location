@@ -7,6 +7,7 @@ use App\BetterLocation\Service\WazeService;
 use App\Chat;
 use App\Config;
 use App\Icons;
+use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\Button\HelpButton;
 use App\TelegramCustomWrapper\Events\Button\SettingsButton;
@@ -73,6 +74,15 @@ abstract class Events
 	public function getChat(): Telegram\Types\Chat
 	{
 		return $this->getMessage()->chat;
+	}
+
+	public final function getMessageSettings(): BetterLocationMessageSettings
+	{
+		if ($this->chat) {
+			return $this->chat->getMessageSettings();
+		} else {
+			return $this->user->getMessageSettings();
+		}
 	}
 
 	public function getFrom(): Telegram\Types\User

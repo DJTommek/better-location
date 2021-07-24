@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\TelegramCustomWrapper\BetterLocationMessageSettings;
+
 class Chat
 {
 	private $db;
@@ -10,6 +12,8 @@ class Chat
 	private $telegramChatId;
 	private $telegramChatName;
 	private $telegramChatType;
+	/** @var BetterLocationMessageSettings */
+	private $messageSettings;
 
 	public function __construct(int $telegramChatId, string $telegramChatType, ?string $telegramChatName = null)
 	{
@@ -90,5 +94,13 @@ class Chat
 	public function getTelegramChatName(): ?string
 	{
 		return $this->telegramChatName;
+	}
+
+	public function getMessageSettings(): BetterLocationMessageSettings
+	{
+		if ($this->messageSettings === null) {
+			$this->messageSettings = BetterLocationMessageSettings::loadByChatId($this->id);
+		}
+		return $this->messageSettings;
 	}
 }
