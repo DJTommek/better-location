@@ -89,8 +89,9 @@ class BetterLocationMessageSettings
 		});
 		$result = [];
 		foreach ($filteredRows as $filteredRow) {
+			$order = Strict::intval($filteredRow['order']);
 			$serviceId = $filteredRow['service_id'];
-			$result[] = $services[$serviceId];
+			$result[$order] = $services[$serviceId];
 		}
 		return $result;
 	}
@@ -99,13 +100,15 @@ class BetterLocationMessageSettings
 	public function setLinkServices(array $services): void
 	{
 		// Ensure, that first service is always BetterLocation, even if it is already set
-		$services = array_unique(array_merge([BetterLocationService::class], $services));
+		$services = array_unique([BetterLocationService::class] + $services);
+		ksort($services, SORT_NUMERIC);
 		$this->linkServices = $services;
 	}
 
 	/** @param AbstractService[] $services */
 	public function setButtonServices(array $services): void
 	{
+		ksort($services, SORT_NUMERIC);
 		$this->buttonServices = $services;
 	}
 
