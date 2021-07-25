@@ -60,3 +60,16 @@ CREATE TABLE `better_location_static_map_cache` (
   `url` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
+CREATE TABLE IF NOT EXISTS better_location_chat_services
+(
+    id         int auto_increment primary key,
+    chat_id    int NOT NULL,
+    service_id int NOT NULL,
+    type       int NOT NULL COMMENT 'Share, Drive, Screenshot, ...',
+    `order`    int NOT NULL,
+    constraint better_location_chat_services_unique_order
+        unique (chat_id, type, `order`),
+    constraint better_location_chat_services_unique_services
+        unique (chat_id, service_id, type)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
