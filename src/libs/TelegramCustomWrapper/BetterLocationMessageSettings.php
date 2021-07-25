@@ -44,11 +44,23 @@ class BetterLocationMessageSettings
 	];
 	const DEFAULT_SCREENSHOT_SERVICE = MapyCzService::class;
 
-	/** @var AbstractService[] $services */
+	/**
+	 * @var array<int,AbstractService> Ordered list of services, to show as links.
+	 * There will be always at least one item which is BetterLocationService, reserved as 0
+	 */
 	private $linkServices;
-	/** @var AbstractService[] $services */
+	/**
+	 * @var array<int,AbstractService> Ordered list of services, to show as buttons.
+	 * Might be empty
+	 */
 	private $buttonServices;
+	/**
+	 * @var AbstractService Service, which is providing static map image of location
+	 */
 	private $screenshotLinkService;
+	/**
+	 * @var bool Should be address displayed
+	 */
 	private $address;
 
 	public function __construct(
@@ -70,19 +82,27 @@ class BetterLocationMessageSettings
 		$rows = $db->query('SELECT * FROM better_location_chat_services WHERE chat_id = ? ORDER BY type, service_id DESC', $chatId)->fetchAll();
 		$result = new self();
 		$services = (new ServicesManager())->getServices();
-		if ($filtered = self::filterByState($services, $rows, self::TYPE_SHARE)) {
+		if ($filtered = self::processRows($services, $rows, self::TYPE_SHARE)) {
 			$result->setLinkServices($filtered);
 		}
-		if ($filtered = self::filterByState($services, $rows, self::TYPE_DRIVE)) {
+		if ($filtered = self::processRows($services, $rows, self::TYPE_DRIVE)) {
 			$result->setButtonServices($filtered);
 		}
-		if ($filtered = self::filterByState($services, $rows, self::TYPE_SCREENSHOT)) {
+		if ($filtered = self::processRows($services, $rows, self::TYPE_SCREENSHOT)) {
 			$result->setScreenshotLinkService($filtered[0]);
 		}
 		return $result;
 	}
 
-	private static function filterByState(array $services, array $rows, int $serviceType)
+	/**
+	 * Process rows from database to return ordered services by serviceType (link, button, ...)
+	 *
+	 * @param array<int,AbstractService> $services List of all available services
+	 * @param array $rows Raw rows loaded from from database
+	 * @param int $serviceType What type of services will be returned
+	 * @return array<int,AbstractService> Ordered list of services
+	 */
+	private static function processRows(array $services, array $rows, int $serviceType): array
 	{
 		$filteredRows = array_filter($rows, function ($row) use ($serviceType) {
 			return Strict::intval($row['type']) === $serviceType;
