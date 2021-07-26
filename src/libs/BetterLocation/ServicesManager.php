@@ -11,6 +11,7 @@ use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\DrobnePamatkyCzService;
 use App\BetterLocation\Service\DuckDuckGoService;
+use App\BetterLocation\Service\EStudankyEuService;
 use App\BetterLocation\Service\FacebookService;
 use App\BetterLocation\Service\FevGamesService;
 use App\BetterLocation\Service\FoursquareService;
@@ -85,6 +86,7 @@ class ServicesManager
 		$this->services[ZniceneKostelyCzService::ID] = ZniceneKostelyCzService::class;
 		$this->services[SumavaCzService::ID] = SumavaCzService::class;
 		$this->services[FevGamesService::ID] = FevGamesService::class;
+		$this->services[EStudankyEuService::ID] = EStudankyEuService::class;
 	}
 
 	public function iterate(string $input): BetterLocationCollection

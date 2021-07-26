@@ -137,6 +137,7 @@ class DefaultConfig
 	const CACHE_TTL_FACEBOOK = 60 * 60 * 24;
 	const CACHE_TTL_FEVGAMES = 60 * 60 * 24;
 	const CACHE_TTL_SUMAVA_CZ = 60 * 60 * 24;
+	const CACHE_TTL_ESTUDANKY_EU = 60 * 60 * 24;
 
 	/** @var string[] */
 	const API_KEYS = [];
