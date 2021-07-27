@@ -6,7 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Config;
 use App\MiniCurl\MiniCurl;
-use App\Utils\Coordinates;
+use App\Utils\General;
 use App\Utils\StringUtils;
 use Tracy\Debugger;
 
@@ -70,8 +70,7 @@ final class SumavaCzService extends AbstractService
 		if ($this->data->type === self::TYPE_GALLERY) {
 			$this->processGallery($response);
 		} else {
-			if (preg_match('/SMap\.Coords\.fromWGS84\(([0-9.]+),([0-9.]+)/', $response, $matches)) {
-				$coords = new Coordinates($matches[2], $matches[1]);
+			if ($coords = General::findMapyCzApiCoords($response)) {
 				$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class, $this->data->type);
 				$location->setPrefixMessage(sprintf('<a href="%s">%s</a>', $this->inputUrl, self::NAME));
 				$this->collection->add($location);

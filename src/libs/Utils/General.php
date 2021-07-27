@@ -155,4 +155,14 @@ class General
 	{
 		return max($min, min($max, $value));
 	}
+
+	/** Search initialization of https://api.mapy.cz/loader.js to get location */
+	public static function findMapyCzApiCoords(string $html): ?Coordinates
+	{
+		if (preg_match('/SMap\.Coords\.fromWGS84\(([0-9.]+), *([0-9.]+)/', $html, $matches)) {
+			return new Coordinates($matches[2], $matches[1]);
+		} else {
+			return null;
+		}
+	}
 }
