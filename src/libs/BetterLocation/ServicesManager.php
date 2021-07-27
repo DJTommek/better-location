@@ -20,6 +20,7 @@ use App\BetterLocation\Service\GeohashService;
 use App\BetterLocation\Service\GlympseService;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;
+use App\BetterLocation\Service\HradyCzService;
 use App\BetterLocation\Service\IngressIntelService;
 use App\BetterLocation\Service\IngressMosaicService;
 use App\BetterLocation\Service\MapyCzService;
@@ -87,6 +88,7 @@ class ServicesManager
 		$this->services[SumavaCzService::ID] = SumavaCzService::class;
 		$this->services[FevGamesService::ID] = FevGamesService::class;
 		$this->services[EStudankyEuService::ID] = EStudankyEuService::class;
+		$this->services[HradyCzService::ID] = HradyCzService::class;
 	}
 
 	public function iterate(string $input): BetterLocationCollection
