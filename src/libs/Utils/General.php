@@ -156,10 +156,13 @@ class General
 		return max($min, min($max, $value));
 	}
 
-	/** Search initialization of https://api.mapy.cz/loader.js to get location */
+	/**
+	 * Search initialization of https://api.mapy.cz/loader.js to get location
+	 * @link https://api.mapy.cz/doc-simple/SMap.Coords.html#fromWGS84
+	 */
 	public static function findMapyCzApiCoords(string $html): ?Coordinates
 	{
-		if (preg_match('/SMap\.Coords\.fromWGS84\(([0-9.]+), *([0-9.]+)/', $html, $matches)) {
+		if (preg_match('/SMap\.Coords\.fromWGS84\(\s*(-?[0-9.]+),\s*(-?[0-9.]+)\s*\)/', $html, $matches)) {
 			return new Coordinates($matches[2], $matches[1]);
 		} else {
 			return null;
