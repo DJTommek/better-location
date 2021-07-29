@@ -420,6 +420,14 @@ abstract class Events
 		$buttonRow[] = $sendNativeLocationButton;
 
 		$replyMarkup->inline_keyboard[] = $buttonRow;
+		$replyMarkup->inline_keyboard[] = [
+			new Button([
+				'text' => 'Settings in browser',
+				'login_url' => new Telegram\Types\LoginUrl([
+					'url' => 'http://better-location.local/login?redirect=blabla',
+				]),
+			]),
+		];
 
 		if ($inline) {
 			$this->replyButton($text, $replyMarkup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
