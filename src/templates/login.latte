@@ -1,0 +1,17 @@
+{layout '@layout.latte'}
+{block content}
+	{if $errors}
+		{foreach $errors as $error}
+			<div class="alert alert-danger" role="alert">
+				{$error}
+			</div>
+		{/foreach}
+	{elseif $logged}
+		<div class="alert alert-success" role="alert">
+			Logged in! Welcome {$loginWrapper->displayname()}.
+		</div>
+	{/if}
+{/block}
+{block title}
+	Login
+{/block}

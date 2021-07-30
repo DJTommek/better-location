@@ -3,7 +3,6 @@
 namespace App\TelegramCustomWrapper;
 
 use App\Config;
-use App\TelegramCustomWrapper\Exceptions\LoginUrlException;
 use App\Utils\DateImmutableUtils;
 use App\Utils\Strict;
 use Nette\Http\Url;
@@ -39,9 +38,6 @@ class Login
 	{
 		$this->raw = $raw;
 		$this->fillFromRaw();
-		if (time() - $this->authDate->getTimestamp() > self::MAX_OLD) {
-			throw new LoginUrlException('Login URL is too old, try it again.');
-		}
 	}
 
 	/** Check if provided array has all required keys for verification */
@@ -70,6 +66,11 @@ class Login
 			$this->verified = strcmp($realHash, $this->hash) === 0;
 		}
 		return $this->verified;
+	}
+
+	public function isTooOld(): bool
+	{
+		return time() - $this->authDate->getTimestamp() > self::MAX_OLD;
 	}
 
 	/** Filter raw GET values to get only these, which are necessary to verification */
@@ -125,4 +126,11 @@ class Login
 	{
 		return $this->photoUrl;
 	}
+
+	public function displayname(): string
+	{
+		$displayName = $this->username ? ('@' . $this->username) : ($this->firstName . ' ' . $this->lastName);
+		return trim(htmlspecialchars($displayName, ENT_NOQUOTES));
+	}
+
 }
