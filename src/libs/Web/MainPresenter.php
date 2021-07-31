@@ -16,8 +16,12 @@ abstract class MainPresenter
 	{
 		$this->db = Factory::Database();
 		$this->login = new LoginFacade();
-		$this->template = new LayoutTemplate();
+		$this->setTemplate();
 		$this->template->login = $this->login;
+	}
+
+	public function setTemplate() {
+		$this->template = new LayoutTemplate();
 	}
 
 	public function redirect($url, $permanent = false)

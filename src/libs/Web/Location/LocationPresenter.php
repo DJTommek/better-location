@@ -8,9 +8,10 @@ use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use App\Factory;
+use App\Web\MainPresenter;
 use Nette\Utils\Json;
 
-class LocationPresenter
+class LocationPresenter extends MainPresenter
 {
 	private $lat;
 	private $lon;
@@ -18,29 +19,33 @@ class LocationPresenter
 	private $location;
 	private $services = [];
 
-	public function __construct(float $lat, float $lon)
+	public function prepare()
 	{
-		$this->lat = $lat;
-		$this->lon = $lon;
+		if (\App\Utils\Coordinates::isLat($_GET['lat'] ?? null) && \App\Utils\Coordinates::isLon($_GET['lon'] ?? null)) {
+			$this->lat = \App\Utils\Strict::floatval($_GET['lat']);
+			$this->lon = \App\Utils\Strict::floatval($_GET['lon']);
+			$this->location = BetterLocation::fromLatLon($this->lat, $this->lon);
+			$this->location->generateAddress();
+
+			$manager = new ServicesManager();
+			foreach ($manager->getServices() as $service) {
+				$this->services[] = $this->website($service, $this->lat, $this->lon);
+			}
+			$this->services = array_values(array_filter($this->services));
+		} else {
+			$this->template->setError('Invalid or missing coordinates');
+		}
 	}
 
-	public function generate()
+	public function setTemplate()
 	{
-		$this->location = BetterLocation::fromLatLon($this->lat, $this->lon);
-		$this->location->generateAddress();
-
-		$manager = new ServicesManager();
-		foreach ($manager->getServices() as $service) {
-			$this->services[] = $this->website($service, $this->lat, $this->lon);
-		}
-		$this->services = array_values(array_filter($this->services));
+		$this->template = new LocationTemplate();
 	}
 
 	public function render(): void
 	{
-		$params = new LocationTemplate($this->location);
-		$params->websites = $this->services;
-		Factory::Latte('location.latte', $params);
+		$this->template->prepare($this->location, $this->services);
+		Factory::Latte('location.latte', $this->template);
 	}
 
 	public function json(): void
