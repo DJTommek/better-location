@@ -168,18 +168,21 @@ class GooglePlaceApi
 				GoogleMapsService::class,
 				GoogleMapsService::TYPE_INLINE_SEARCH,
 			);
-			$address = $placeCandidate->formatted_address;
-			try {
-				$placeDetails = $placeApi->getPlaceDetails($placeCandidate->place_id, ['url', 'website', 'international_phone_number']);
-				$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a>', ($placeDetails->website ?? $placeDetails->url), $placeCandidate->name));
-				if (isset($placeDetails->international_phone_number)) {
-					$address .= sprintf(' (%s)', $placeDetails->international_phone_number);
+			if ($address = $placeCandidate->formatted_address) {
+				try {
+					$placeDetails = $placeApi->getPlaceDetails($placeCandidate->place_id, ['url', 'website', 'international_phone_number']);
+					$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a>', ($placeDetails->website ?? $placeDetails->url), $placeCandidate->name));
+					if (isset($placeDetails->international_phone_number)) {
+						$address .= sprintf(' (%s)', $placeDetails->international_phone_number);
+					}
+				} catch (\Throwable $exception) {
+					Debugger::log($exception, ILogger::EXCEPTION);
+					if ($placeCandidate->name) { // might be empty string
+						$betterLocation->setPrefixMessage($placeCandidate->name);
+					}
 				}
-			} catch (\Throwable $exception) {
-				Debugger::log($exception, ILogger::EXCEPTION);
-				$betterLocation->setPrefixMessage($placeCandidate->name);
+				$betterLocation->setAddress($address);
 			}
-			$betterLocation->setAddress($address);
 			$collection->add($betterLocation);
 		}
 		return $collection;
