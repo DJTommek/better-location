@@ -24,27 +24,13 @@ a {
 	margin: 15px;
 }
 
-
-.container-fluid {
-	margin-top: 1em;
+#content {
+	margin-top: 2em;
 }
 
-#main-left-menu {
-	margin-right: 1em;
-}
-
-#main-left-menu .list-group .list-group-item {
+#content .telegram-login-widget {
+	margin: 0 auto;
 	text-align: center;
-	padding: 0;
-}
-
-#main-left-menu .list-group .list-group-item > a {
-	display: block;
-	padding: 0.75rem 1.25rem; /* used from .list-group-item to keep whole are clickable */
-}
-
-#main-left-menu .list-group .list-group-item small {
-	display: block;
 }
 
 /******************************************************/
