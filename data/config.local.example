@@ -16,6 +16,9 @@ final class Config extends DefaultConfig
 	const DB_PASS = '';
 	const DB_NAME = 'better_location';
 
+	/** @var string Basic URL used across application. Can be used in other constants for easier change in the future */
+	const APP_URL = 'https://your-domain.com/some/path';
+
 	/** @var string Telegram bot token generated from BotFather: https://t.me/BotFather */
 	const TELEGRAM_BOT_TOKEN = '123456789:abcdefghijklmnopqrstuvwxyzabcdefghi';
 	/** @var string Telegram bot name without @ prefix. */

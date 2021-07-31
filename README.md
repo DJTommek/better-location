@@ -13,7 +13,7 @@ Available publicly on [@BetterLocationBot](https://t.me/BetterLocationBot).
 ## Installation
 1. Download/clone [BetterLocation repository](https://github.com/DJTommek/better-location).
 1. Install production dependencies via `composer install --no-dev` - you need [Composer](https://getcomposer.org/) to do that.
-1. Update all `DB_*` and `TELEGRAM_*` constants in `data/config.local.php`.
+1. Update `APP_URL` and all `DB_*` and `TELEGRAM_*` constants in `data/config.local.php`.
 1. Create database using [structure.sql](asset/sql/structure.sql) script.
 1. **Optional**: In case you are not doing this installation directly on your (web)hosting, copy all files there now.
 1. Register [bot webhook](https://core.telegram.org/bots/api#setwebhook) to your webserver via [set-webhook.php](www/admin/set-webhook.php). For detailed info, open [index.php](www/admin/index.php).
