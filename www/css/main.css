@@ -8,6 +8,23 @@ a {
 
 /******************************************************/
 
+#flash-message {
+	width: 60%;
+	max-width: 50em;
+	margin: 0 auto;
+	position: fixed;
+	top: 60px;
+	left: 0;
+	right: 0;
+	text-align: center;
+	z-index: 2000;
+}
+
+#flash-message .alert {
+	margin: 15px;
+}
+
+
 .container-fluid {
 	margin-top: 1em;
 }
@@ -64,6 +81,7 @@ a {
 	min-height: 20em;
 	min-width: 20em;
 }
+
 #content-location #map-dynamic-leaflet .leaflet-control-locate .fa {
 	/* @BUG without this icon is aligned to the top of control button */
 	line-height: 28px;
