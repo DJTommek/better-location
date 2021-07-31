@@ -8,8 +8,9 @@ use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\OpenStreetMapService;
 use App\BetterLocation\Service\WazeService;
 use App\TelegramCustomWrapper\TelegramHelper;
+use App\Web\LayoutTemplate;
 
-class LocationTemplate
+class LocationTemplate extends LayoutTemplate
 {
 	/** @var float */
 	public $lat;
@@ -27,9 +28,11 @@ class LocationTemplate
 	public $linkOSM;
 	public $linkTG;
 
-	public function __construct(BetterLocation $location)
+	public function prepare(BetterLocation $location, array $websites)
 	{
 		$this->betterLocation = $location;
+		$this->websites = $websites;
+
 		$this->lat = $location->getLat();
 		$this->lon = $location->getLon();
 
