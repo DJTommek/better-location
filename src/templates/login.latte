@@ -1,16 +1,6 @@
 {layout '@layout.latte'}
 {block content}
-	{if $errors}
-		{foreach $errors as $error}
-			<div class="alert alert-danger" role="alert">
-				{$error}
-			</div>
-		{/foreach}
-	{elseif $logged}
-		<div class="alert alert-success" role="alert">
-			Logged in! Welcome {$loginWrapper->displayname()}.
-		</div>
-	{/if}
+	@TODO - add <a href="https://core.telegram.org/widgets/login" target="_blank">Telegram login widget</a>
 {/block}
 {block title}
 	Login
