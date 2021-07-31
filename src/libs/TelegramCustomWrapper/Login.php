@@ -5,7 +5,7 @@ namespace App\TelegramCustomWrapper;
 use App\Config;
 use App\Utils\DateImmutableUtils;
 use App\Utils\Strict;
-use Nette\Http\Url;
+use Nette\Http\UrlImmutable;
 
 class Login
 {
@@ -20,19 +20,19 @@ class Login
 	private $verified = null;
 
 	/** @var int */
-	private $id;
+	private $userTelegramId;
 	/** @var string */
-	private $firstName;
+	private $userFirstName;
 	/** @var \DateTimeImmutable */
 	private $authDate;
 	/** @var string */
 	private $hash;
-	/** @var string */
-	private $lastName;
-	/** @var string */
-	private $username;
-	/** @var string */
-	private $photoUrl;
+	/** @var ?string */
+	private $userLastName;
+	/** @var ?string */
+	private $userLoginName;
+	/** @var ?UrlImmutable */
+	private $userPhotoUrl;
 
 	public function __construct(array $raw)
 	{
@@ -88,48 +88,53 @@ class Login
 
 	private function fillFromRaw(): void
 	{
-		$this->id = Strict::intval($this->raw['id']);
-		$this->firstName = $this->raw['first_name'];
+		$this->userTelegramId = Strict::intval($this->raw['id']);
+		$this->userFirstName = $this->raw['first_name'];
 		$this->authDate = DateImmutableUtils::fromTimestamp(Strict::intval($this->raw['auth_date']));
 		$this->hash = $this->raw['hash'];
-		$this->lastName = $this->raw['last_name'] ?? null;
-		$this->username = $this->raw['username'] ?? null;
-		$this->photoUrl = isset($this->raw['photo_url']) ? new Url($this->raw['photo_url']) : null;
+		$this->userLastName = $this->raw['last_name'] ?? null;
+		$this->userLoginName = $this->raw['username'] ?? null;
+		$this->userPhotoUrl = isset($this->raw['photo_url']) ? Strict::urlImmutable($this->raw['photo_url']) : null;
 	}
 
-	public function getId(): int
+	public function hash(): string
 	{
-		return $this->id;
+		return $this->hash;
 	}
 
-	public function getFirstName(): string
+	public function userTelegramId(): int
 	{
-		return $this->firstName;
+		return $this->userTelegramId;
 	}
 
-	public function getAuthDate(): ?\DateTimeImmutable
+	public function userFirstName(): string
+	{
+		return $this->userFirstName;
+	}
+
+	public function authDate(): ?\DateTimeImmutable
 	{
 		return $this->authDate;
 	}
 
-	public function getLastName(): ?string
+	public function userLastName(): ?string
 	{
-		return $this->lastName;
+		return $this->userLastName;
 	}
 
-	public function getUsername(): ?string
+	public function userLoginName(): ?string
 	{
-		return $this->username;
+		return $this->userLoginName;
 	}
 
-	public function getPhotoUrl(): ?string
+	public function userPhotoUrl(): ?UrlImmutable
 	{
-		return $this->photoUrl;
+		return $this->userPhotoUrl;
 	}
 
 	public function displayname(): string
 	{
-		$displayName = $this->username ? ('@' . $this->username) : ($this->firstName . ' ' . $this->lastName);
+		$displayName = $this->userLoginName ? ('@' . $this->userLoginName) : ($this->userFirstName . ' ' . $this->userLastName);
 		return trim(htmlspecialchars($displayName, ENT_NOQUOTES));
 	}
 

@@ -31,13 +31,13 @@ class WebLoginRepository extends Repository
 	public function saveFromTelegramLogin(TelegramCustomWrapper\Login $tgLogin): void
 	{
 		$this->save(
-			$tgLogin->getHash(),
-			$tgLogin->getId(),
-			$tgLogin->getAuthDate(),
-			$tgLogin->getFirstName(),
-			$tgLogin->getLastName(),
-			$tgLogin->getUsername(),
-			$tgLogin->getPhotoUrl()
+			$tgLogin->hash(),
+			$tgLogin->userTelegramId(),
+			$tgLogin->authDate(),
+			$tgLogin->userFirstName(),
+			$tgLogin->userLastName(),
+			$tgLogin->userLoginName(),
+			$tgLogin->userPhotoUrl()
 		);
 	}
 
