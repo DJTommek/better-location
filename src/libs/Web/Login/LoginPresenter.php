@@ -2,36 +2,37 @@
 
 namespace App\Web\Login;
 
+use App\Config;
 use App\Factory;
+use App\Web\MainPresenter;
 use Nette\Http\Url;
 
-class LoginPresenter
+class LoginPresenter extends MainPresenter
 {
 	/** @var Url */
 	private $redirectUrl;
-	/** @var LoginTemplate */
-	private $template;
 
 	public function __construct()
 	{
-		$this->template = new LoginTemplate();
+		parent::__construct();
+		if ($this->login->isLogged()) {
+			$this->redirect(Config::APP_URL);
+		} else if (\App\TelegramCustomWrapper\Login::hasRequiredGetParams($_GET)) {
+			$tgLoginWrapper = new \App\TelegramCustomWrapper\Login($_GET);
+			if ($tgLoginWrapper->isTooOld()) {
+				$this->template->setError('Login URL is no longer valid. Try it again or log in via web.');
+			} else if ($tgLoginWrapper->isVerified()) {
+				$this->login->saveToDatabase($tgLoginWrapper);
+				$this->login->setCookie($tgLoginWrapper->getHash());
+				$this->redirect(Config::APP_URL);
+			} else {
+				$this->template->setError('Could not verify Telegram login URL. Try again or log in via web.');
+			}
+		}
 	}
 
 	public function render(): void
 	{
-		if (\App\TelegramCustomWrapper\Login::hasRequiredGetParams($_GET)) {
-			$this->template->loginWrapper = new \App\TelegramCustomWrapper\Login($_GET);
-			if ($this->template->loginWrapper->isTooOld()) {
-				$this->template->setError('Login URL is no longer valid. Try it again or log in via web.');
-			} else if ($this->template->loginWrapper->isVerified()) {
-				$this->template->logged = true;
-			} else {
-				$this->template->setError('Could not verify URL, try log in via web.');
-			}
-			dump($this->template->loginWrapper);
-		} else {
-			$this->template->setError('Missing required data in GET parameter.');
-		}
 		Factory::Latte('login.latte', $this->template);
 	}
 }
