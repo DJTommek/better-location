@@ -17,6 +17,9 @@ class DefaultConfig
 	const DB_PASS = 'dbpass';
 	const DB_NAME = 'dbschema';
 
+	/** @var string Basic URL used across application. Can be used in other constants for easier change in the future */
+	const APP_URL = 'https://your-domain.com/some/path';
+
 	const TRACY_DEVELOPMENT_IPS = [
 		'12.34.56.78',
 	];
@@ -30,9 +33,9 @@ class DefaultConfig
 	const TELEGRAM_BOT_NAME = 'ExampleBot';
 
 	/** @var string Telegram webhook URL, which will automatically receive all events from bot (in this application it should lead to webhook.php) */
-	protected const TELEGRAM_WEBHOOK_URL = 'https://your-domain.com/better-location/webhook/telegram/';
+	protected const TELEGRAM_WEBHOOK_URL = self::APP_URL . '/webhook/telegram/';
 	/** If mod_rewrite is not working for you, you can use this version */
-	// protected const TELEGRAM_WEBHOOK_URL = 'https://your-domain.com/better-location/webhook/telegram.php?password=';
+	// protected const TELEGRAM_WEBHOOK_URL = self::APP_URL . '/webhook/telegram.php?password=';
 
 	/**
 	 * @var string Telegram webhook password to secure webhook access. To provide proper compatibility, it should:
@@ -79,8 +82,8 @@ class DefaultConfig
 
 	/** @var ?string */
 	const STATIC_MAPS_PROXY_URL = null;
-	// const STATIC_MAPS_PROXY_URL = 'https://your-domain.com/better-location/api/staticmap.php?id='; // Default example
-	// const STATIC_MAPS_PROXY_URL = 'https://your-domain.com/better-location/api/staticmap/'; // Example with nice URL
+	// const STATIC_MAPS_PROXY_URL = self::APP_URL . '/api/staticmap.php?id='; // Default example
+	// const STATIC_MAPS_PROXY_URL = self::APP_URL . '/api/staticmap/'; // Example with nice URL
 
 	/** @var ?string https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key */
 	const BING_STATIC_MAPS_TOKEN = null;
