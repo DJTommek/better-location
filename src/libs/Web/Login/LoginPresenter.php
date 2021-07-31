@@ -23,7 +23,7 @@ class LoginPresenter extends MainPresenter
 				$this->template->setError('Login URL is no longer valid. Try it again or log in via web.');
 			} else if ($tgLoginWrapper->isVerified()) {
 				$this->login->saveToDatabase($tgLoginWrapper);
-				$this->login->setCookie($tgLoginWrapper->getHash());
+				$this->login->setCookie($tgLoginWrapper->hash());
 				$this->redirect(Config::APP_URL);
 			} else {
 				$this->template->setError('Could not verify Telegram login URL. Try again or log in via web.');
