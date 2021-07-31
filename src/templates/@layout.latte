@@ -10,30 +10,40 @@
 	<link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-{*<nav class="navbar navbar-expand-lg navbar-light bg-light">*}
-{*	<div class="container-fluid">*}
-{*		<a class="navbar-brand" href="/">*}
-{*			<img src="/img/logo.png" alt="" width="40" height="40">*}
-{*			BetterLocation*}
-{*		</a>*}
-{*		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">*}
-{*			<span class="navbar-toggler-icon"></span>*}
-{*		</button>*}
-{*		<div class="collapse navbar-collapse" id="navbarSupportedContent">*}
-{*			<ul class="navbar-nav me-auto">*}
-{*				<li class="nav-item">*}
-{*					<a href="https://t.me/BetterLocationBot" target="_blank">Telegram bot</a>*}
-{*				</li>*}
-{*			</ul>*}
-{*			<ul class="navbar-nav">*}
-{*				<li class="nav-item">*}
-{*					<a class="nav-link" href="/user/login">Login</a>*}
-{*				</li>*}
-{*			</ul>*}
-{*		</div>*}
-{*	</div>*}
-{*</nav>*}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<a class="navbar-brand" href="/">
+		<img src="/img/logo.png" alt="" width="40" height="40">
+		BetterLocation
+	</a>
+	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav me-auto">
+			<li class="nav-item">
+				<a href="https://t.me/BetterLocationBot" target="_blank">Telegram bot</a>
+			</li>
+		</ul>
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				{if $login->isLogged()}
+					<a class="nav-link" href="/logout.php">{$login->getDisplayName()} (Logout)</a>
+				{else}
+					<a class="nav-link" href="/login.php">Login</a>
+				{/if}
+			</li>
+		</ul>
+	</div>
+</nav>
 <div class="container">
+	<div id="flash-message">
+		{foreach $flashMessages as $flashMessage}
+			<div class="alert alert-{$flashMessage->type} alert-dismissible fade show" role="alert">
+				{$flashMessage->text}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		{/foreach}
+	</div>
 	<div id="main-right-content">
 		{block content}{/block}
 	</div>
