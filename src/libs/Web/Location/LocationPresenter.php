@@ -32,8 +32,6 @@ class LocationPresenter extends MainPresenter
 				$this->services[] = $this->website($service, $this->lat, $this->lon);
 			}
 			$this->services = array_values(array_filter($this->services));
-		} else {
-			$this->template->setError('Invalid or missing coordinates');
 		}
 	}
 
@@ -44,8 +42,12 @@ class LocationPresenter extends MainPresenter
 
 	public function render(): void
 	{
-		$this->template->prepare($this->location, $this->services);
-		Factory::Latte('location.latte', $this->template);
+		if ($this->location) {
+			$this->template->prepare($this->location, $this->services);
+			Factory::Latte('location.latte', $this->template);
+		} else {
+			Factory::Latte('locationError.latte', $this->template);
+		}
 	}
 
 	public function json(): void
