@@ -7,8 +7,7 @@
 		"ext-mbstring": "*",
 		"ext-exif": "*",
 		"tracy/tracy": "^2.8",
-		"unreal4u/telegram-api": "dev-master#3436f3b",
-		"react/http-client": "0.5.10",
+		"unreal4u/telegram-api": "dev-master",
 		"bogdaan/open-location-code": "dev-master",
 		"what3words/w3w-php-wrapper": "^3.3",
 		"djtommek/mapycz-api": "^1",
@@ -36,5 +35,11 @@
 		"phpstan": "phpstan analyse --memory-limit 512m",
 		"phpstan-baseline": "phpstan analyse --memory-limit 512m --generate-baseline",
 		"test": "phpunit"
-	}
+	},
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/djtommek/telegram-api"
+        }
+    ]
 }
