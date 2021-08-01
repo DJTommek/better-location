@@ -16,7 +16,7 @@ class LoginPresenter extends MainPresenter
 	{
 		parent::__construct();
 		if ($this->login->isLogged()) {
-			$this->redirect(Config::APP_URL);
+			$this->redirect(Config::getAppUrl());
 		} else if (\App\TelegramCustomWrapper\Login::hasRequiredGetParams($_GET)) {
 			$tgLoginWrapper = new \App\TelegramCustomWrapper\Login($_GET);
 			if ($tgLoginWrapper->isTooOld()) {
@@ -24,7 +24,7 @@ class LoginPresenter extends MainPresenter
 			} else if ($tgLoginWrapper->isVerified()) {
 				$this->login->saveToDatabase($tgLoginWrapper);
 				$this->login->setCookie($tgLoginWrapper->hash());
-				$this->redirect(Config::APP_URL);
+				$this->redirect(Config::getAppUrl());
 			} else {
 				$this->template->setError('Could not verify Telegram login URL. Try again or log in via web.');
 			}

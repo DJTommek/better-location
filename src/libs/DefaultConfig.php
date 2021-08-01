@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Nette\Http\UrlImmutable;
+
 /**
  * Warning: Never update this file directly, always update config.local.php in data folder!
  *
@@ -12,13 +14,13 @@ class DefaultConfig
 	const FOLDER_DATA = __DIR__;
 	const FOLDER_TEMP = __DIR__ . '/../../temp/';
 
+	/** @var string Basic URL used across application (web, webhook, static image, ...) */
+	protected const APP_URL = 'https://your-domain.com/some/path';
+
 	const DB_SERVER = 'localhost';
 	const DB_USER = 'dbuser';
 	const DB_PASS = 'dbpass';
 	const DB_NAME = 'dbschema';
-
-	/** @var string Basic URL used across application. Can be used in other constants for easier change in the future */
-	const APP_URL = 'https://your-domain.com/some/path';
 
 	const TRACY_DEVELOPMENT_IPS = [
 		'12.34.56.78',
@@ -31,11 +33,6 @@ class DefaultConfig
 	const TELEGRAM_BOT_TOKEN = '123456789:abcdefghijklmnopqrstuvwxyzabcdefghi';
 	/** @var string Telegram bot name without @ prefix. */
 	const TELEGRAM_BOT_NAME = 'ExampleBot';
-
-	/** @var string Telegram webhook URL, which will automatically receive all events from bot (in this application it should lead to webhook.php) */
-	protected const TELEGRAM_WEBHOOK_URL = self::APP_URL . '/webhook/telegram/';
-	/** If mod_rewrite is not working for you, you can use this version */
-	// protected const TELEGRAM_WEBHOOK_URL = self::APP_URL . '/webhook/telegram.php?password=';
 
 	/**
 	 * @var string Telegram webhook password to secure webhook access. To provide proper compatibility, it should:
@@ -79,11 +76,6 @@ class DefaultConfig
 	const INGRESS_MOSAIC_COOKIE_SESSION = null;
 	/** @var ?string */
 	const INGRESS_MOSAIC_COOKIE_XSRF = null;
-
-	/** @var ?string */
-	const STATIC_MAPS_PROXY_URL = null;
-	// const STATIC_MAPS_PROXY_URL = self::APP_URL . '/api/staticmap.php?id='; // Default example
-	// const STATIC_MAPS_PROXY_URL = self::APP_URL . '/api/staticmap/'; // Example with nice URL
 
 	/** @var ?string https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key */
 	const BING_STATIC_MAPS_TOKEN = null;
@@ -173,16 +165,10 @@ class DefaultConfig
 	public static function isTelegram(): bool
 	{
 		return (
-			self::isTelegramWebhookUrl() &&
 			self::isTelegramWebhookPassword() &&
 			self::isTelegramBotToken() &&
 			self::isTelegramBotName()
 		);
-	}
-
-	public static function isTelegramWebhookUrl(): bool
-	{
-		return (Config::TELEGRAM_WEBHOOK_URL !== DefaultConfig::TELEGRAM_WEBHOOK_URL && is_string(Config::TELEGRAM_WEBHOOK_URL));
 	}
 
 	public static function isTelegramWebhookPassword(): bool
@@ -200,13 +186,14 @@ class DefaultConfig
 		return (Config::TELEGRAM_BOT_NAME !== DefaultConfig::TELEGRAM_BOT_NAME && is_string(Config::TELEGRAM_BOT_NAME));
 	}
 
-	public static function getTelegramWebhookUrl(bool $withPassword = false): string
+	public static function getTelegramWebhookUrl(bool $withPassword = false): UrlImmutable
 	{
-		$result = static::TELEGRAM_WEBHOOK_URL;
+		$appUrl = static::getAppUrl();
+		$webhookUrl = $appUrl->withPath($appUrl->getPath() . '/webhook/telegram.php');
 		if ($withPassword) {
-			$result .= Config::TELEGRAM_WEBHOOK_PASSWORD;
+			$webhookUrl = $webhookUrl->withQueryParameter('password', static::TELEGRAM_WEBHOOK_PASSWORD);
 		}
-		return $result;
+		return $webhookUrl;
 	}
 
 	public static function isIngressMosaic(): bool
@@ -223,6 +210,21 @@ class DefaultConfig
 			is_null(static::FOURSQUARE_CLIENT_ID) === false &&
 			is_null(static::FOURSQUARE_CLIENT_SECRET) === false
 		);
+	}
+
+	public final static function getAppUrl(): UrlImmutable
+	{
+		return new UrlImmutable(static::APP_URL);
+	}
+
+	public final static function getLoginUrl(): UrlImmutable
+	{
+		return new UrlImmutable(static::APP_URL . '/login.php');
+	}
+
+	public final static function getStaticImageUrl(): UrlImmutable
+	{
+		return new UrlImmutable(static::APP_URL . '/api/staticmap.php');
 	}
 
 	public static function getTimezone(): \DateTimeZone

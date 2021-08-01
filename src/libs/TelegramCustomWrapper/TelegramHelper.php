@@ -5,6 +5,7 @@ namespace App\TelegramCustomWrapper;
 use App\Config;
 use App\Icons;
 use App\Utils\Strict;
+use Nette\Http\UrlImmutable;
 use unreal4u\TelegramAPI\Telegram\Types\Chat;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
@@ -14,7 +15,7 @@ class TelegramHelper
 {
 	const API_URL = 'https://api.telegram.org';
 
-	public static function getMessagePrefix(?string $hiddenLink = null): string
+	public static function getMessagePrefix(?UrlImmutable $hiddenLink = null): string
 	{
 		$result = '';
 		if ($hiddenLink) {

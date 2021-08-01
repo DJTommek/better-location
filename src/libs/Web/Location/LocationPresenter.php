@@ -35,7 +35,7 @@ class LocationPresenter extends MainPresenter
 		}
 	}
 
-	public function setTemplate()
+	public function setTemplate(): void
 	{
 		$this->template = new LocationTemplate();
 	}

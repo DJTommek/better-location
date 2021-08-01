@@ -21,6 +21,7 @@ use App\Utils\General;
 use App\Utils\Strict;
 use App\Utils\StringUtils;
 use App\WhatThreeWord\Helper;
+use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 
@@ -326,7 +327,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return $collection;
 	}
 
-	public function getStaticMapUrl(): string
+	public function getStaticMapUrl(): UrlImmutable
 	{
 		$staticMap = Factory::StaticMapProxy();
 		$staticMap->addMarkers($this)->downloadAndCache();

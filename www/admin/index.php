@@ -57,6 +57,14 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 				<li>Download/clone <a href="https://github.com/DJTommek/better-location" target="_blank" title="DJTommek/better-location on Github">BetterLocation repository</a> <?= \App\Icons::SUCCESS; ?></li>
 				<li>Run <code>composer install</code> <?= \App\Icons::SUCCESS; ?></li>
 				<?php
+				printf('<li>Update <code>APP_URL</code> constant in <b>%s</b>: ', \App\Dashboard\Status::getLocalConfigPath());
+				if (Config::getAppUrl()->isEqual(\App\DefaultConfig::getAppUrl())) {
+					printf('%s Not set or equal to default', \App\Icons::ERROR);
+				} else {
+					printf('%1$s Set to <a href="%2$s" target="_blank">%2$s</a>.', \App\Icons::SUCCESS, \App\Config::getAppUrl());
+				}
+				printf('</li>');
+
 				$dbTextPrefix = sprintf('Update all <code>DB_*</code> constants in <b>%s</b>', \App\Dashboard\Status::getLocalConfigPath());
 				$tablesTextPrefix = 'Create tables in database using <b>asset/sql/structure.sql</b>';
 				if (\App\Dashboard\Status::isDatabaseConnectionSet()) {
@@ -71,9 +79,7 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 					printf('<li>%s: %s Setup database connection first</li>', $tablesTextPrefix, \App\Icons::ERROR);
 				}
 				$tgStatusTextPrefix = sprintf('Update all <code>TELEGRAM_*</code> constants in <b>%s</b>', \App\Dashboard\Status::getLocalConfigPath());
-				if (\App\Config::isTelegramWebhookUrl() === false) {
-					printf('<li>%s: %s webhook URL is not set.</li>', $tgStatusTextPrefix, \App\Icons::ERROR);
-				} else if (\App\Config::isTelegramWebhookPassword() === false) {
+				if (\App\Config::isTelegramWebhookPassword() === false) {
 					printf('<li>%s: %s webhook password is not set.</li>', $tgStatusTextPrefix, \App\Icons::ERROR);
 				} else if (\App\Config::isTelegramBotToken() === false) {
 					printf('<li>%s: %s bot token is not set.</li>', $tgStatusTextPrefix, \App\Icons::ERROR);
