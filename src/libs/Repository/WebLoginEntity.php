@@ -32,7 +32,7 @@ class WebLoginEntity extends Entity
 		$entity->userName = $row['user_name'];
 		$entity->userFirstName = $row['user_first_name'];
 		$entity->userLastNAme = $row['user_last_name'];
-		$entity->userPhotoUrl = $row['user_last_name'] ? Strict::urlImmutable($row['user_photo_url']) : null;
+		$entity->userPhotoUrl = $row['user_photo_url'] ? Strict::urlImmutable($row['user_photo_url']) : null;
 		return $entity;
 	}
 
