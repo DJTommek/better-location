@@ -11,6 +11,8 @@ use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 class SettingsCommand extends Command
 {
 	const CMD = '/settings';
+	const ICON = Icons::SETTINGS;
+	const DESCRIPTION = 'Adjust your settings';
 
 	public function handleWebhookUpdate()
 	{

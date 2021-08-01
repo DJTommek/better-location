@@ -91,7 +91,7 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 					);
 				}
 
-				$tgWebhookTextPrefix = 'Enable webhook via <a href="set-webhook.php" target="_blank">set-webhook.php</a>';
+				$tgWebhookTextPrefix = 'Setup webhook and commands via <a href="set-telegram.php" target="_blank">set-telegram.php</a>';
 				if (\App\Config::isTelegram()) {
 					\App\Dashboard\Status::runGetWebhookStatus();
 					if (\App\Dashboard\Status::$webhookError) {

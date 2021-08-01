@@ -11,6 +11,8 @@ use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 class FavouritesCommand extends Command
 {
 	const CMD = '/favourites';
+	const ICON = Icons::FAVOURITE;
+	const DESCRIPTION = 'Manage your saved favourite locations';
 
 	public function handleWebhookUpdate()
 	{

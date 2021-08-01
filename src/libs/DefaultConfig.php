@@ -2,6 +2,11 @@
 
 namespace App;
 
+use App\TelegramCustomWrapper\Events\Command\Command;
+use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
+use App\TelegramCustomWrapper\Events\Command\FeedbackCommand;
+use App\TelegramCustomWrapper\Events\Command\HelpCommand;
+use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
 use Nette\Http\UrlImmutable;
 
 /**
@@ -45,6 +50,20 @@ class DefaultConfig
 	const TELEGRAM_INLINE_CACHE = 300; // https://core.telegram.org/bots/api#answerinlinequery cache_time attribute (default 300)
 	/** @var int Enforce BotUsername in command, eg. /command@BetterLocationBot */
 	const TELEGRAM_COMMAND_STRICT = false;
+
+	/** @var array<string, array<Command>> */
+	const TELEGRAM_COMMANDS = [
+		'all_private_chats' => [
+			HelpCommand::class,
+			FeedbackCommand::class,
+			FavouritesCommand::class,
+			SettingsCommand::class,
+		],
+		'all_group_chats' => [
+			HelpCommand::class,
+			FeedbackCommand::class,
+		],
+	];
 
 	/** @var ?string API Key for using Google Place API: https://developers.google.com/places/web-service/search null to disable */
 	const GOOGLE_PLACE_API_KEY = null;

@@ -134,7 +134,7 @@ class Status
 			foreach (get_object_vars(self::$webhookResponseRaw) as $key => $value) {
 				if ($key === 'url') {
 					if (empty($value)) {
-						$responseFormatted->{$key} = sprintf('%s According to Telegram API response, webhook URL is not set. Did you run <a href="set-webhook.php" target="_blank">set-webhook.php</a>?', Icons::ERROR);
+						$responseFormatted->{$key} = sprintf('%s According to Telegram API response, webhook URL is not set. Did you run <a href="set-telegram.php" target="_blank">set-telegram.php</a>?', Icons::ERROR);
 						$webhookOk = false;
 					} else {
 						$valueUrlWithPassword = new UrlImmutable($value);

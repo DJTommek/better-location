@@ -10,6 +10,8 @@ use App\Utils\SimpleLogger;
 class FeedbackCommand extends Command
 {
 	const CMD = '/feedback';
+	const ICON = Icons::FEEDBACK;
+	const DESCRIPTION = 'Report invalid location or just contact the author @DJTommek';
 
 	public function handleWebhookUpdate()
 	{
