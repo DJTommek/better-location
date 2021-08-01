@@ -6,6 +6,7 @@ use App\Factory;
 use App\Repository\WebLoginEntity;
 use App\Repository\WebLoginRepository;
 use App\TelegramCustomWrapper\Login;
+use Nette\Http\UrlImmutable;
 
 class LoginFacade
 {
@@ -79,6 +80,14 @@ class LoginFacade
 	{
 		if ($this->entity) {
 			return $this->entity->displayName();
+		}
+		return null;
+	}
+
+	public function getPhotoUrl(): ?UrlImmutable
+	{
+		if ($this->entity) {
+			return $this->entity->userPhotoUrl;
 		}
 		return null;
 	}
