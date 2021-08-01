@@ -24,6 +24,13 @@ a {
 	margin: 15px;
 }
 
+/******************************************************/
+#navbar .navbar-brand img,
+#navbar .login img {
+	max-height: 2em;
+	max-width: 2em;
+}
+/******************************************************/
 #content {
 	margin-top: 2em;
 }
@@ -33,7 +40,6 @@ a {
 	text-align: center;
 }
 
-/******************************************************/
 #content-location .header-left,
 #content-location .header-right {
 }
