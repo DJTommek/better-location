@@ -3013,12 +3013,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/DJTommek/telegram-api.git",
-                "reference": "e4fdf5fb94fe6e982dbc0a5a9f84174355c83df4"
+                "reference": "015f1d0332e19b77a29e87f0c99e4fd3cbca47e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DJTommek/telegram-api/zipball/e4fdf5fb94fe6e982dbc0a5a9f84174355c83df4",
-                "reference": "e4fdf5fb94fe6e982dbc0a5a9f84174355c83df4",
+                "url": "https://api.github.com/repos/DJTommek/telegram-api/zipball/015f1d0332e19b77a29e87f0c99e4fd3cbca47e0",
+                "reference": "015f1d0332e19b77a29e87f0c99e4fd3cbca47e0",
                 "shasum": ""
             },
             "require": {
@@ -3069,7 +3069,7 @@
                 "issues": "https://github.com/unreal4u/telegram-api/issues",
                 "source": "https://github.com/unreal4u/telegram-api"
             },
-            "time": "2020-11-18T11:13:29+00:00"
+            "time": "2021-08-01T20:12:03+00:00"
         },
         {
             "name": "what3words/w3w-php-wrapper",
