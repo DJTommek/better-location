@@ -172,15 +172,6 @@ class DefaultConfig
 
 	const FOLDER_TEMPLATES = __DIR__ . '/../templates';
 
-	/** @var ?UrlImmutable */
-	protected static $appUrl = null;
-	/** @var ?UrlImmutable */
-	protected static $loginUrl = null;
-	/** @var ?UrlImmutable */
-	protected static $staticImageUrl = null;
-	/** @var ?UrlImmutable */
-	protected static $telegramWebhookUrl = null;
-
 	public static function isGlympse(): bool
 	{
 		return (
@@ -216,15 +207,13 @@ class DefaultConfig
 
 	public static function getTelegramWebhookUrl(bool $withPassword = false): UrlImmutable
 	{
-		if (static::$telegramWebhookUrl === null) {
-			$appUrl = static::getAppUrl();
-			static::$telegramWebhookUrl = $appUrl->withPath(rtrim($appUrl->getPath(), '/') . '/webhook/telegram.php');
-		}
+		$appUrl = static::getAppUrl();
+		$telegramWebhookUrl = $appUrl->withPath(rtrim($appUrl->getPath(), '/') . '/webhook/telegram.php');
 
 		if ($withPassword) {
-			return static::$telegramWebhookUrl->withQueryParameter('password', static::TELEGRAM_WEBHOOK_PASSWORD);
+			return $telegramWebhookUrl->withQueryParameter('password', static::TELEGRAM_WEBHOOK_PASSWORD);
 		} else {
-			return static::$telegramWebhookUrl;
+			return $telegramWebhookUrl;
 		}
 	}
 
@@ -246,28 +235,19 @@ class DefaultConfig
 
 	public final static function getAppUrl(): UrlImmutable
 	{
-		if (static::$appUrl === null) {
-			static::$appUrl = new UrlImmutable(static::APP_URL);
-		}
-		return static::$appUrl;
+		return new UrlImmutable(static::APP_URL);
 	}
 
 	public final static function getLoginUrl(): UrlImmutable
 	{
-		if (static::$loginUrl === null) {
-			$appUrl = static::getAppUrl();
-			static::$loginUrl = $appUrl->withPath(rtrim($appUrl->getPath(), '/') . '/login.php');
-		}
-		return static::$loginUrl;
+		$appUrl = static::getAppUrl();
+		return $appUrl->withPath(rtrim($appUrl->getPath(), '/') . '/login.php');
 	}
 
 	public final static function getStaticImageUrl(): UrlImmutable
 	{
-		if (static::$staticImageUrl === null) {
-			$appUrl = static::getAppUrl();
-			static::$staticImageUrl = $appUrl->withPath(rtrim($appUrl->getPath(), '/') . '/api/staticmap.php');
-		}
-		return static::$staticImageUrl;
+		$appUrl = static::getAppUrl();
+		return $appUrl->withPath(rtrim($appUrl->getPath(), '/') . '/api/staticmap.php');
 	}
 
 	public static function getTimezone(): \DateTimeZone
