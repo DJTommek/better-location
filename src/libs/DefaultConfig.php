@@ -189,7 +189,7 @@ class DefaultConfig
 	public static function getTelegramWebhookUrl(bool $withPassword = false): UrlImmutable
 	{
 		$appUrl = static::getAppUrl();
-		$webhookUrl = $appUrl->withPath($appUrl->getPath() . '/webhook/telegram.php');
+		$webhookUrl = $appUrl->withPath(rtrim($appUrl->getPath(), '/') . '/webhook/telegram.php');
 		if ($withPassword) {
 			$webhookUrl = $webhookUrl->withQueryParameter('password', static::TELEGRAM_WEBHOOK_PASSWORD);
 		}
@@ -219,12 +219,14 @@ class DefaultConfig
 
 	public final static function getLoginUrl(): UrlImmutable
 	{
-		return new UrlImmutable(static::APP_URL . '/login.php');
+		$appUrl = static::getAppUrl();
+		return $appUrl->withPath(rtrim($appUrl->getPath(), '/') . '/login.php');
 	}
 
 	public final static function getStaticImageUrl(): UrlImmutable
 	{
-		return new UrlImmutable(static::APP_URL . '/api/staticmap.php');
+		$appUrl = static::getAppUrl();
+		return $appUrl->withPath(rtrim($appUrl->getPath(), '/') . '/api/staticmap.php');
 	}
 
 	public static function getTimezone(): \DateTimeZone
