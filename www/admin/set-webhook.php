@@ -23,7 +23,7 @@ if (Config::isTelegram()) {
 	$tgLog = new TgLog(Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($loop));
 
 	$setWebhook = new \unreal4u\TelegramAPI\Telegram\Methods\SetWebhook();
-	$setWebhook->url = Config::getTelegramWebhookUrl(true);
+	$setWebhook->url = Config::getTelegramWebhookUrl(true)->getAbsoluteUrl();
 	try {
 		await($tgLog->performApiRequest($setWebhook), $loop);
 		printf('<h1>Success</h1><p>Telegram webhook URL successfully set to <a href="%1$s" target="_blank">%1$s</a> with secret password.</p>', Config::getTelegramWebhookUrl());
