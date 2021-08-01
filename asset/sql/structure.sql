@@ -73,3 +73,18 @@ CREATE TABLE IF NOT EXISTS better_location_chat_services
         unique (chat_id, service_id, type)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
+CREATE TABLE IF NOT EXISTS better_location_web_login
+(
+    id               int auto_increment
+        primary key,
+    hash             varchar(64)  null,
+    user_telegram_id int          not null,
+    auth_date        int          not null,
+    user_first_name  varchar(255) not null,
+    user_last_name   varchar(255) null,
+    user_name        varchar(255) null,
+    user_photo_url   text         null,
+    constraint better_location_web_login_hash_uindex
+        unique (hash)
+);
+
