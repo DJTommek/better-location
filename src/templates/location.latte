@@ -6,7 +6,7 @@
 				<!-- @TODO -->
 			</div>
 			<div class="col-12 col-md-6 header-right text-center text-md-end">
-					<a href="/{$lat},{$lon}" class="header-right-coords">
+					<a href="{$basePath}/{$lat},{$lon}" class="header-right-coords">
 						{$lat},{$lon}
 					</a>
 				</p>
@@ -16,16 +16,16 @@
 			<div class="col-12 col-md-2 col-xl-1" id="most-used-links">
 				<div class="row">
 					<a href="{$linkGoogle}" target="_blank" class="col" title="Google Maps">
-						<img src="/img/icons/google.svg">
+						<img src="{$basePath}/img/icons/google.svg">
 					</a>
 					<a href="{$linkWaze}" target="_blank" class="col" title="Waze">
-						<img src="/img/icons/waze.svg">
+						<img src="{$basePath}/img/icons/waze.svg">
 					</a>
 					<a href="{$linkHere}" target="_blank" class="col" title="HERE WeGo">
-						<img src="/img/icons/here.svg">
+						<img src="{$basePath}/img/icons/here.svg">
 					</a>
 					<a href="{$linkOSM}" target="_blank" class="col" title="Open Street Map">
-						<img src="/img/icons/osm.svg">
+						<img src="{$basePath}/img/icons/osm.svg">
 					</a>
 				</div>
 			</div>
@@ -180,7 +180,7 @@
 					const markerLatLng = locateControl._marker.getLatLng();
 					const latLon = markerLatLng.lat.toFixed(6) + ',' + markerLatLng.lng.toFixed(6);
 					let popupContent = '<p>';
-					popupContent += 'Browser location: <b><a href="/' + latLon + '">' + latLon + '</a></b> (accuracy <b>' + distanceHuman(params.distance) + '</b>)';
+					popupContent += 'Browser location: <b><a href="{$basePath|noescape}/' + latLon + '">' + latLon + '</a></b> (accuracy <b>' + distanceHuman(params.distance) + '</b>)';
 					popupContent += '<br>Distance to currently opened location: <b>' + distanceHuman(markerLatLng.distanceTo(mapData.markers.pageLocation.getLatLng())) + '</b>';
 					return popupContent;
 				}

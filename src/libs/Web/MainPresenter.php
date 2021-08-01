@@ -2,6 +2,7 @@
 
 namespace App\Web;
 
+use App\Config;
 use App\Factory;
 use App\Utils\Strict;
 use App\Web\Login\LoginFacade;
@@ -18,6 +19,9 @@ abstract class MainPresenter
 		$this->login = new LoginFacade();
 		$this->setTemplate();
 		$this->template->login = $this->login;
+		$appUrl = Config::getAppUrl();
+		$this->template->baseUrl = rtrim($appUrl->getAbsoluteUrl(), '/');
+		$this->template->basePath = rtrim($appUrl->getPath(), '/');
 	}
 
 	public function setTemplate(): void
