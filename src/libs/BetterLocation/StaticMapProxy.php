@@ -5,6 +5,7 @@ namespace App\BetterLocation;
 use App\Config;
 use App\Database;
 use App\Factory;
+use Nette\Http\UrlImmutable;
 
 class StaticMapProxy
 {
@@ -18,17 +19,18 @@ class StaticMapProxy
 
 	private $db;
 
+	/** @var ?string */
 	private $cacheId = null;
+	/** @var ?string */
 	private $urlOriginal = null;
+	/** @var ?UrlImmutable */
 	private $urlCached = null;
+	/** @var ?string  */
 	private $fileCached = null;
 
 
 	public function __construct(Database $database)
 	{
-		if (is_null(Config::STATIC_MAPS_PROXY_URL)) {
-			throw new \Exception('Public cache URL is not set in local config.');
-		}
 		$this->db = $database;
 		if (is_dir(self::CACHE_FOLDER) === false && @mkdir(self::CACHE_FOLDER, 0755, true) === false) {
 			throw new \Exception(sprintf('Error while creating folder for Static map proxy cached responses: "%s"', error_get_last()['message']));
@@ -91,7 +93,7 @@ class StaticMapProxy
 		}
 	}
 
-	public function getUrl(): string
+	public function getUrl(): UrlImmutable
 	{
 		return $this->urlCached;
 	}
@@ -144,8 +146,8 @@ class StaticMapProxy
 		return sprintf('%s/%s.jpg', self::CACHE_FOLDER, $this->cacheId);
 	}
 
-	private function generateCacheUrl(): string
+	private function generateCacheUrl(): UrlImmutable
 	{
-		return Config::STATIC_MAPS_PROXY_URL . $this->cacheId;
+		return Config::getStaticImageUrl()->withQueryParameter('id', $this->cacheId);
 	}
 }

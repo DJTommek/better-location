@@ -20,7 +20,8 @@ abstract class MainPresenter
 		$this->template->login = $this->login;
 	}
 
-	public function setTemplate() {
+	public function setTemplate(): void
+	{
 		$this->template = new LayoutTemplate();
 	}
 

@@ -13,7 +13,7 @@ class LogoutPresenter extends MainPresenter
 		if ($this->login->isLogged()) {
 			$this->login->logout();
 		}
-		$this->redirect(Config::APP_URL);
+		$this->redirect(Config::getAppUrl());
 	}
 
 	public function render(): void

@@ -316,14 +316,14 @@ class BetterLocation
 		$this->refreshable = $refreshable;
 	}
 
-	public function getStaticMapUrl(array $mapParams = [], array $pinParams = []): string
+	public function getStaticMapUrl(array $mapParams = [], array $pinParams = []): UrlImmutable
 	{
 		$staticMap = Factory::StaticMapProxy();
 		$staticMap->addMarker($this, $pinParams)->downloadAndCache($mapParams);
 		return $staticMap->getUrl();
 	}
 
-	public function getStaticMapWorldUrl()
+	public function getStaticMapWorldUrl(): UrlImmutable
 	{
 		$mapParams = [
 			'zoomLevel' => 1,

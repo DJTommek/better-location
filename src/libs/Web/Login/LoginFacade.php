@@ -2,6 +2,7 @@
 
 namespace App\Web\Login;
 
+use App\Config;
 use App\Factory;
 use App\Repository\WebLoginEntity;
 use App\Repository\WebLoginRepository;
@@ -37,7 +38,7 @@ class LoginFacade
 	{
 		setcookie(self::COOKIE_NAME, $hash, [
 				'expires' => time() + self::COOKIE_EXPIRES,
-				'domain' => 'better-location.local',
+				'domain' => Config::getAppUrl()->getDomain(0),
 				'secure' => true,
 				'httponly' => true,
 				'samesite' => 'Strict',
