@@ -30,6 +30,7 @@ a {
 	max-height: 2em;
 	max-width: 2em;
 }
+
 /******************************************************/
 #content {
 	margin-top: 2em;
@@ -47,6 +48,18 @@ a {
 #content-location .header-left a,
 #content-location .header-right {
 	font-size: 2em;
+}
+
+/* Show full heart icon if already in favourites or if not and is hovered */
+#content-location .header-right .icon-heart:before,
+#content-location .header-right .icon-heart-o:hover:before {
+	content: '\f004'; /* fa-heart */
+}
+
+/* Show empty heart icon if is not in favourites or if it is and is hovered */
+#content-location .header-right .icon-heart-o:before,
+#content-location .header-right .icon-heart:hover:before {
+	content: '\f08a'; /* fa-heart-o */
 }
 
 #content-location .header-left img {
