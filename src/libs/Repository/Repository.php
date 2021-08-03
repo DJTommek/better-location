@@ -27,4 +27,16 @@ abstract class Repository
 	{
 		$this->db = $database;
 	}
+
+	/**
+	 * Generate question marks for use as SQL ... IN (?, ?, ?, ...)
+	 *
+	 * @param array $values
+	 * @return string Question marks joined with comma
+	 */
+	protected static function inHelper(array $values): string
+	{
+		$questionMarks = array_fill(0, count($values), '?');
+		return implode(',', $questionMarks);
+	}
 }

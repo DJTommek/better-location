@@ -5,6 +5,7 @@ namespace App;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\Repository\FavouritesRepository;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\Utils\Coordinates;
 use Nette\Utils\Strings;
@@ -24,17 +25,19 @@ class User
 
 	/** @var BetterLocationCollection */
 	private $favourites;
-	/** @var BetterLocationCollection */
-	private $favouritesDeleted;
 
 	/** @var ?BetterLocationMessageSettings */
 	private $messageSettings;
+
+	/** @var FavouritesRepository */
+	private $favouritesRepository;
 
 	public function __construct(int $telegramId, string $telegramDisplayname)
 	{
 		$this->telegramId = $telegramId;
 		$this->telegramDisplayname = $telegramDisplayname;
 		$this->db = Factory::Database();
+		$this->favouritesRepository = new FavouritesRepository($this->db);
 		$this->settings = new UserSettings();
 		$userData = $this->register($telegramId, $telegramDisplayname);
 		$this->updateCachedData($userData);
@@ -96,20 +99,11 @@ class User
 
 	public function updateFavouritesFromDb(): BetterLocationCollection
 	{
-		$favourites = $this->db->query('SELECT * FROM better_location_favourites WHERE user_id = ?', $this->id)->fetchAll(\PDO::FETCH_OBJ);
 		$this->favourites = new BetterLocationCollection();
-		$this->favouritesDeleted = new BetterLocationCollection();
-		foreach ($favourites as $favouriteDb) {
-			$location = BetterLocation::fromLatLon($favouriteDb->lat, $favouriteDb->lon);
-			$location->setPrefixMessage(sprintf('%s %s', Icons::FAVOURITE, $favouriteDb->title));
-
-			if ($favouriteDb->status === Database::ENABLED) {
-				$this->favourites->add($location);
-			} else if ($favouriteDb->status === Database::DELETED) {
-				$this->favouritesDeleted->add($location);
-			} else {
-				throw new \Exception(sprintf('Unexpected type of favourites type: "%d"', $favouriteDb->status));
-			}
+		foreach ($this->favouritesRepository->byUserId($this->id) as $favourite) {
+			$location = BetterLocation::fromLatLon($favourite->lat, $favourite->lon);
+			$location->setPrefixMessage(sprintf('%s %s', Icons::FAVOURITE, $favourite->title));
+			$this->favourites->add($location);
 		}
 		return $this->getFavourites();
 	}
@@ -123,42 +117,28 @@ class User
 	 * @param string|null $title used only if it never existed before
 	 * @throws \Exception
 	 */
-	public function addFavourite(BetterLocation $betterLocation, ?string $title = null): BetterLocation
+	public function addFavourite(BetterLocation $location, ?string $title = null): BetterLocation
 	{
-		if ($this->getFavourite($betterLocation->getLat(), $betterLocation->getLon())) {
-			// already saved
-		} else if ($deletedFavourite = $this->favouritesDeleted->getByLatLon($betterLocation->getLat(), $betterLocation->getLon())) { // already saved but deleted
-			$this->db->query('UPDATE better_location_favourites SET status = ? WHERE user_id = ? AND lat = ? AND lon = ?',
-				Database::ENABLED, $this->id, $betterLocation->getLat(), $betterLocation->getLon()
-			);
-			$this->updateFavouritesFromDb();
-		} else { // not in database at all
-			$this->db->query('INSERT INTO better_location_favourites (user_id, status, lat, lon, title) VALUES (?, ?, ?, ?, ?)',
-				$this->id, Database::ENABLED, $betterLocation->getLat(), $betterLocation->getLon(), $title
-			);
+		if ($this->getFavourite($location->getLat(), $location->getLon()) === null) { // add only if it is not added already
+			$this->favouritesRepository->add($this->id, $location->getLat(), $location->getLon(), $title);
 			$this->updateFavouritesFromDb();
 		}
-		return $this->getFavourite($betterLocation->getLat(), $betterLocation->getLon());
+		return $this->getFavourite($location->getLat(), $location->getLon());
 	}
 
 	/** @throws \Exception */
-	public function deleteFavourite(BetterLocation $betterLocation): void
+	public function deleteFavourite(BetterLocation $location): void
 	{
-		$this->db->query('UPDATE better_location_favourites SET status = ? WHERE user_id = ? AND lat = ? AND lon = ?',
-			Database::DELETED, $this->id, $betterLocation->getLat(), $betterLocation->getLon()
-		);
+		$this->favouritesRepository->removeByUserLatLon($this->id, $location->getLat(), $location->getLon());
 		$this->updateFavouritesFromDb();
 	}
 
 	/** @throws \Exception */
-	public function renameFavourite(BetterLocation $betterLocation, string $title): BetterLocation
+	public function renameFavourite(BetterLocation $location, string $title): BetterLocation
 	{
-		$this->db->query('UPDATE better_location_favourites SET title = ? WHERE user_id = ? AND lat = ? AND lon = ?',
-			htmlspecialchars($title),
-			$this->id, $betterLocation->getLat(), $betterLocation->getLon()
-		);
+		$this->favouritesRepository->renameByUserLatLon($this->id, $location->getLat(), $location->getLon(), $title);
 		$this->updateFavouritesFromDb();
-		return $this->getFavourite($betterLocation->getLat(), $betterLocation->getLon());
+		return $this->getFavourite($location->getLat(), $location->getLon());
 	}
 
 	/** @throws InvalidLocationException */
