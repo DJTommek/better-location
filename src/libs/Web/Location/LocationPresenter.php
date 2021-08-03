@@ -7,6 +7,7 @@ use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
+use App\Config;
 use App\Factory;
 use App\Web\MainPresenter;
 use Nette\Utils\Json;
@@ -25,6 +26,7 @@ class LocationPresenter extends MainPresenter
 			$this->lat = \App\Utils\Strict::floatval($_GET['lat']);
 			$this->lon = \App\Utils\Strict::floatval($_GET['lon']);
 			$this->location = BetterLocation::fromLatLon($this->lat, $this->lon);
+			$this->handleAction();
 			$this->location->generateAddress();
 
 			$manager = new ServicesManager();
@@ -32,6 +34,23 @@ class LocationPresenter extends MainPresenter
 				$this->services[] = $this->website($service, $this->lat, $this->lon);
 			}
 			$this->services = array_values(array_filter($this->services));
+		}
+	}
+
+	private function handleAction()
+	{
+		if (isset($_GET['action'])) {
+			if ($this->login->isLogged()) {
+				switch ($_GET['action']) {
+					case 'add':
+						$this->user->addFavourite($this->location, BetterLocation::generateFavouriteName($this->lat, $this->lon));
+						break;
+					case 'delete':
+						$this->user->deleteFavourite($this->location);
+						break;
+				}
+			}
+			$this->redirect(Config::getAppUrl() . '/' . $this->location->__toString());
 		}
 	}
 

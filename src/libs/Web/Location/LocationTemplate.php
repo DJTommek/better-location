@@ -16,6 +16,8 @@ class LocationTemplate extends LayoutTemplate
 	public $lat;
 	/** @var float */
 	public $lon;
+	/** @var ?bool */
+	public $isFavourite;
 
 	/** @var BetterLocation */
 	public $betterLocation;
@@ -35,6 +37,10 @@ class LocationTemplate extends LayoutTemplate
 
 		$this->lat = $location->getLat();
 		$this->lon = $location->getLon();
+
+		if ($this->login->isLogged()) {
+			$this->isFavourite = $this->user->getFavourite($this->lat, $this->lon) !== null;
+		}
 
 		$this->linkWaze = WazeService::getLink($this->lat, $this->lon);
 		$this->linkGoogle = GoogleMapsService::getLink($this->lat, $this->lon);
