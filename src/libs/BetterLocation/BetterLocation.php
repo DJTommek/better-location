@@ -64,12 +64,15 @@ class BetterLocation
 		$this->validateSourceType($sourceType);
 		$this->generateDefaultPrefix();
 
-		// pregenerate link for MapyCz if contains source and ID (@see https://github.com/DJTommek/better-location/issues/17)
-		if ($this->inputUrl && $this->sourceService === MapyCzService::class && $this->sourceType === MapyCzService::TYPE_PLACE_ID) {
-			$generatedUrl = MapyCzService::getLink($this->lat, $this->lon);
-			$generatedUrl = str_replace(sprintf('%F%%2C%F', $this->lon, $this->lat), $this->inputUrl->getQueryParameter('id'), $generatedUrl);
-			$generatedUrl = str_replace('source=coor', 'source=' . $this->inputUrl->getQueryParameter('source'), $generatedUrl);
-			$this->pregeneratedLinks[MapyCzService::class] = $generatedUrl;
+		// pregenerate link for MapyCz if contains source and ID (@see issue #17)
+		if ($this->inputUrl && $this->sourceService === MapyCzService::class && $this->sourceType === MapyCzService::TYPE_PLACE_ID
+			&& // extra check if original URL really contain these parameters (might be missing for shorted url, see issue #73)
+			$this->inputUrl->getQueryParameter('id') && $this->inputUrl->getQueryParameter('source')
+		) {
+			$generatedUrl = new \Nette\Http\Url(MapyCzService::getLink($this->lat, $this->lon));
+			$generatedUrl->setQueryParameter('id', $this->inputUrl->getQueryParameter('id'));
+			$generatedUrl->setQueryParameter('source', $this->inputUrl->getQueryParameter('source'));
+			$this->pregeneratedLinks[MapyCzService::class] = $generatedUrl->getAbsoluteUrl();
 		}
 	}
 
