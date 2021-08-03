@@ -2,12 +2,15 @@
 
 namespace App\Web;
 
+use App\User;
 use App\Web\Login\LoginFacade;
 
 class LayoutTemplate
 {
 	/** @var LoginFacade */
 	public $login;
+	/** @var ?User */
+	public $user;
 
 	public $flashMessages = [];
 

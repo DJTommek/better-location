@@ -4,6 +4,7 @@ namespace App\Web;
 
 use App\Config;
 use App\Factory;
+use App\User;
 use App\Utils\Strict;
 use App\Web\Login\LoginFacade;
 
@@ -11,14 +12,19 @@ abstract class MainPresenter
 {
 	protected $db;
 	protected $login;
+	protected $user;
 	public $template;
 
 	public function __construct()
 	{
 		$this->db = Factory::Database();
 		$this->login = new LoginFacade();
+		if ($this->login->isLogged()) {
+			$this->user = new User($this->login->getTelegramId(), $this->login->getDisplayName());
+		}
 		$this->setTemplate();
 		$this->template->login = $this->login;
+		$this->template->user = $this->user;
 		$appUrl = Config::getAppUrl();
 		$this->template->baseUrl = rtrim($appUrl->getAbsoluteUrl(), '/');
 		$this->template->basePath = rtrim($appUrl->getPath(), '/');

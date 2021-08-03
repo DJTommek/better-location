@@ -85,6 +85,14 @@ class LoginFacade
 		return null;
 	}
 
+	public function getTelegramId(): ?int
+	{
+		if ($this->entity) {
+			return $this->entity->userTelegramId;
+		}
+		return null;
+	}
+
 	public function getPhotoUrl(): ?UrlImmutable
 	{
 		if ($this->entity) {
