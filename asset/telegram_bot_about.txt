@@ -1,1 +1,1 @@
-Invaluable location-related helper converting various inputs into your favourite location services as Google, Waze etc.
+Invaluable location-related helper converting various inputs into your favorite services as Google, Waze, Sygic etc.
