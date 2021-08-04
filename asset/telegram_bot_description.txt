@@ -1,13 +1,13 @@
 📍 Welcome to @BetterLocationBot!
-I'm simple but smart bot to catch various location formats and generate direct link to location services. For example send https://waze.com/ul/hu2fkbnjnh to get this:
+Smart bot to convert various location formats to links of your favorites location services, e.g. send https://waze.com/ul/hu2fkbnjnh to get this:
 
-Waze ➡️ 50.087726,14.421127:
-Google | Mapycz | Waze | OSM | Intel
+Waze 🗺 50.087726,14.421127
+Google | Waze | OSM | Mapycz | HERE
 
 💡 Features:
-- coordinates: WGS84 (decimal, degrees and seconds)
-- special codes: What3Words, Open Location Codes
-- URL links: google.com, mapy.cz, intel.ingress.com
-- short URL links: goo.gl, mapy.cz, Waze
-- Telegram location
+- coordinates: WGS84, USNG, MGRS, UTM...
+- special codes: What3Words, Open Location Codes...
+- URL links: Sygic, OSM, Foursquare, Wikipedia...
+- short URL links: goo.gl, mapy.cz, Waze...
+- Telegram location and venues
 - EXIF from images
