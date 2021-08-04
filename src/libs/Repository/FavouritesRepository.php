@@ -22,7 +22,7 @@ class FavouritesRepository extends Repository
 
 	public function add(int $userId, float $lat, float $lon, string $title): void
 	{
-		$sql = 'INSERT INTO better_location.better_location_favourites (user_id, status, lat, lon, title) VALUES (?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO better_location_favourites (user_id, status, lat, lon, title) VALUES (?, ?, ?, ?, ?)';
 		$sql .= ' ON DUPLICATE KEY UPDATE status = ?';
 		$this->db->query($sql,
 			$userId, self::ENABLED, $lat, $lon, $title,
