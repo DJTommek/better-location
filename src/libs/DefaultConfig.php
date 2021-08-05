@@ -7,6 +7,7 @@ use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use App\TelegramCustomWrapper\Events\Command\FeedbackCommand;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
 use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
+use App\Utils\Strict;
 use Nette\Http\UrlImmutable;
 use Nette\Utils\Strings;
 
@@ -241,9 +242,13 @@ class DefaultConfig
 		return $appUrl;
 	}
 
-	public final static function getLoginUrl(): UrlImmutable
+	public final static function getLoginUrl(UrlImmutable $redirectUrl = null): UrlImmutable
 	{
-		return static::getAppUrl('/login.php');
+		$loginURl = static::getAppUrl('/login.php');
+		if ($redirectUrl) {
+			$loginURl = $loginURl->withQueryParameter('redirect', $redirectUrl->getAbsoluteUrl());
+		}
+		return $loginURl;
 	}
 
 	public final static function getStaticImageUrl(): UrlImmutable

@@ -4,19 +4,23 @@ namespace App\Web\Login;
 
 use App\Config;
 use App\Factory;
+use App\Utils\Strict;
 use App\Web\MainPresenter;
-use Nette\Http\Url;
+use Nette\Http\UrlImmutable;
 
 class LoginPresenter extends MainPresenter
 {
-	/** @var Url */
-	private $redirectUrl;
-
 	public function __construct()
 	{
 		parent::__construct();
+		if (Strict::isUrl($_GET['redirect'] ?? null)) {
+			$redirectUrl = new UrlImmutable($_GET['redirect']);
+		} else {
+			$redirectUrl = Config::getAppUrl();
+		}
+
 		if ($this->login->isLogged()) {
-			$this->redirect(Config::getAppUrl());
+			$this->redirect($redirectUrl);
 		} else if (\App\TelegramCustomWrapper\Login::hasRequiredGetParams($_GET)) {
 			$tgLoginWrapper = new \App\TelegramCustomWrapper\Login($_GET);
 			if ($tgLoginWrapper->isTooOld()) {
@@ -24,7 +28,7 @@ class LoginPresenter extends MainPresenter
 			} else if ($tgLoginWrapper->isVerified()) {
 				$this->login->saveToDatabase($tgLoginWrapper);
 				$this->login->setCookie($tgLoginWrapper->hash());
-				$this->redirect(Config::getAppUrl());
+				$this->redirect($redirectUrl);
 			} else {
 				$this->template->setError('Could not verify Telegram login URL. Try again or log in via web.');
 			}
