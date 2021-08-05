@@ -85,7 +85,7 @@ class LocationPresenter extends MainPresenter
 		/** @var $service AbstractService */
 		$result = [];
 		try {
-			$result['share'] = $service::getLink($this->lat, $this->lon);
+			$result['share'] = $service::getLink($lat, $lon);
 		} catch (NotImplementedException | NotSupportedException $exception) {
 		}
 		try {
