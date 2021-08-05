@@ -50,7 +50,7 @@ class LocationPresenter extends MainPresenter
 						break;
 				}
 			}
-			$this->redirect(Config::getAppUrl() . $this->location->__toString());
+			$this->redirect(Config::getAppUrl('/' . $this->location->__toString()));
 		}
 	}
 

@@ -8,6 +8,7 @@ use App\TelegramCustomWrapper\Events\Command\FeedbackCommand;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
 use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
 use Nette\Http\UrlImmutable;
+use Nette\Utils\Strings;
 
 /**
  * Warning: Never update this file directly, always update config.local.php in data folder!
@@ -207,9 +208,7 @@ class DefaultConfig
 
 	public static function getTelegramWebhookUrl(bool $withPassword = false): UrlImmutable
 	{
-		$appUrl = static::getAppUrl();
-		$telegramWebhookUrl = $appUrl->withPath(rtrim($appUrl->getPath(), '/') . '/webhook/telegram.php');
-
+		$telegramWebhookUrl = static::getAppUrl('/webhook/telegram.php');
 		if ($withPassword) {
 			return $telegramWebhookUrl->withQueryParameter('password', static::TELEGRAM_WEBHOOK_PASSWORD);
 		} else {
@@ -233,21 +232,23 @@ class DefaultConfig
 		);
 	}
 
-	public final static function getAppUrl(): UrlImmutable
+	public final static function getAppUrl(string $path = null): UrlImmutable
 	{
-		return new UrlImmutable(static::APP_URL);
+		$appUrl = new UrlImmutable(static::APP_URL);
+		if ($path !== null && Strings::startsWith($path, '/')) {
+			$appUrl = $appUrl->withPath(rtrim($appUrl->getPath(), '/') . $path);
+		}
+		return $appUrl;
 	}
 
 	public final static function getLoginUrl(): UrlImmutable
 	{
-		$appUrl = static::getAppUrl();
-		return $appUrl->withPath(rtrim($appUrl->getPath(), '/') . '/login.php');
+		return static::getAppUrl('/login.php');
 	}
 
 	public final static function getStaticImageUrl(): UrlImmutable
 	{
-		$appUrl = static::getAppUrl();
-		return $appUrl->withPath(rtrim($appUrl->getPath(), '/') . '/api/staticmap.php');
+		return static::getAppUrl('/api/staticmap.php');
 	}
 
 	public static function getTimezone(): \DateTimeZone
