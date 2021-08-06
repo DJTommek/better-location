@@ -2,4 +2,4 @@
 
 require_once __DIR__ . '/../src/bootstrap.php';
 
-$presenter = new \App\Web\Logout\LogoutPresenter();
+new \App\Web\Logout\LogoutPresenter();

@@ -7,18 +7,12 @@ use App\Web\MainPresenter;
 
 class LogoutPresenter extends MainPresenter
 {
-	public function __construct()
+	public function action()
 	{
-		parent::__construct();
 		if ($this->login->isLogged()) {
 			$this->login->logout();
 		}
 		$this->redirect(Config::getAppUrl());
-	}
-
-	public function render(): void
-	{
-		// not aplicable
 	}
 }
 

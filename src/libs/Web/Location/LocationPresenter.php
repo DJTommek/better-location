@@ -14,13 +14,22 @@ use Nette\Utils\Json;
 
 class LocationPresenter extends MainPresenter
 {
+	/** @var float */
 	private $lat;
+	/** @var float */
 	private $lon;
 	/** @var BetterLocation */
 	private $location;
+	/** @var array Multidimensional array of all structures, where is possible to generate something (share link, drive link, ...) */
 	private $services = [];
 
-	public function prepare()
+	public function __construct()
+	{
+		$this->template = new LocationTemplate();
+		parent::__construct();
+	}
+
+	public function action()
 	{
 		if (\App\Utils\Coordinates::isLat($_GET['lat'] ?? null) && \App\Utils\Coordinates::isLon($_GET['lon'] ?? null)) {
 			$this->lat = \App\Utils\Strict::floatval($_GET['lat']);
@@ -34,6 +43,9 @@ class LocationPresenter extends MainPresenter
 				$this->services[] = $this->website($service, $this->lat, $this->lon);
 			}
 			$this->services = array_values(array_filter($this->services));
+			if (mb_strtolower($_GET['format'] ?? 'html') === 'json') {
+				$this->json();
+			}
 		}
 	}
 
@@ -52,11 +64,6 @@ class LocationPresenter extends MainPresenter
 			}
 			$this->redirect(Config::getAppUrl('/' . $this->location->__toString()));
 		}
-	}
-
-	public function setTemplate(): void
-	{
-		$this->template = new LocationTemplate();
 	}
 
 	public function render(): void

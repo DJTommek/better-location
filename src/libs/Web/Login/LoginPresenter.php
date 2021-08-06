@@ -10,9 +10,8 @@ use Nette\Http\UrlImmutable;
 
 class LoginPresenter extends MainPresenter
 {
-	public function __construct()
+	public function action()
 	{
-		parent::__construct();
 		if (Strict::isUrl($_GET['redirect'] ?? null)) {
 			$redirectUrl = new UrlImmutable($_GET['redirect']);
 		} else {

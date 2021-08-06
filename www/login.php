@@ -2,5 +2,4 @@
 
 require_once __DIR__ . '/../src/bootstrap.php';
 
-$presenter = new \App\Web\Login\LoginPresenter();
-$presenter->render();
+new \App\Web\Login\LoginPresenter();

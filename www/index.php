@@ -2,5 +2,4 @@
 
 require_once __DIR__ . '/../src/bootstrap.php';
 
-$presenter = new App\Web\Homepage\HomepagePresenter();
-$presenter->render();
+new App\Web\Homepage\HomepagePresenter();
