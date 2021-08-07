@@ -1,0 +1,105 @@
+{layout '@layout.latte'}
+{block content}
+<div id="content-chat-settings">
+	<h2 class="text-center">Chat settings</h2>
+	<div class="alert alert-warning text-center">
+		Currently in read-only mode, active development.
+	</div>
+	<div class="row">
+		<div class="col">
+			<table class="table">
+				<tbody>
+				<tr>
+					<td>Chat ID</td>
+					<td>{$chatResponse->id}</td>
+				</tr>
+				<tr>
+					<td>Chat type</td>
+					<td>{$chatResponse->type}</td>
+				</tr>
+				<tr>
+					<td>Chat title</td>
+					<td>{$chat->getTelegramChatName()}</td>
+				</tr>
+				<tr>
+					<td>Link services</td>
+					<td>
+						{foreach $messageSettings->getLinkServices() as $linkService}
+							{$linkService::NAME}<br>
+						{/foreach}
+					</td>
+				</tr>
+				<tr>
+					<td>Drive button services</td>
+					<td>
+						{foreach $messageSettings->getButtonServices() as $linkService}
+							{$linkService::NAME}<br>
+						{/foreach}
+					</td>
+				</tr>
+				<tr>
+					<td>Static image service</td>
+					<td>
+						{$messageSettings->getScreenshotLinkService()::NAME}
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col">
+			{include exampleTelegramMessage}
+		</div>
+	</div>
+</div>
+{/block}
+
+{block title}
+	Chat {$telegramChatId}
+{/block}
+
+{block local exampleTelegramMessage}
+	<div class="example-message card">
+		<h4 class="card-header text-center">
+			Example message
+		</h4>
+		<div class="card-body">
+			<div class="card-text">
+				<a href="https://better-location.palider.cz/api/staticmap.php?id=ad9d66a6c079f762" target="_blank">
+					{\App\Icons::LOCATION}
+				</a>
+				Better location by <a href="{$botLink}" target="_blank">@{$botName}</a>:
+				<br>
+				<a href="{$exampleInput}" target="_blank">Waze</a>
+				<a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087451%26x%3D14.420671%26source%3Dcoor%26id%3D14.420671%252C50.087451%26p%3D3%26l%3D0" target="_blank">
+					{\App\Icons::MAP_SCREEN}
+				</a>
+				<code>{$exampleLocation->__toString()}</code>
+				<br>
+				{foreach $chat->getMessageSettings()->getLinkServices() as $service}
+					<a href="{$service::getLink($lat, $lon)}" target="_blank">
+						{$service::getName(true)}
+					</a>
+					{if $iterator->last === false}
+						|
+					{/if}
+				{/foreach}
+
+			</div>
+		</div>
+		<a href="https://better-location.palider.cz/api/staticmap.php?id=ad9d66a6c079f762" target="_blank">
+			<img src="https://better-location.palider.cz/api/staticmap.php?id=ad9d66a6c079f762" class="card-img-bottom">
+		</a>
+		<div class="card-footer">
+			<div class="row telegram-message">
+				{foreach $chat->getMessageSettings()->getButtonServices() as $service}
+					<div class="col buttons">
+						{var $driveLink = $service::getLink($lat, $lon, true)}
+						<a href="{$driveLink}" class="btn btn-secondary" target="_blank" data-toggle="tooltip" title="{$driveLink}">
+							{$service::getName(true)} {\App\Icons::CAR}
+						</a>
+					</div>
+				{/foreach}
+			</div>
+		</div>
+	</div>
+{/block}

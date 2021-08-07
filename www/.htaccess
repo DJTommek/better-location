@@ -17,6 +17,7 @@
 	RewriteRule webhook/telegram/([0-9a-zA-Z]+) webhook/telegram.php?password=$1 [L]
 	RewriteRule api/staticmap/([0-9a-f]+) api/staticmap.php?id=$1 [L]
 	RewriteRule ^(-?[0-9]{1,2}\.[0-9]{1,99}),(-?[0-9]{1,3}\.[0-9]{1,99})$ location.php?lat=$1&lon=$2 [L,QSA,NE]
+	RewriteRule ^chat/(-?[0-9]{1,64})$ settings/chat.php?telegramId=$1 [L,QSA,NE]
 	# @TODO maybe add support for more formats? Such as:
 	# XX,YY
 	# NXX.XXX,EYY.YYY

@@ -132,3 +132,35 @@ a {
 	height: 100%;
 	padding: 0.2em 0;
 }
+
+#content-chat-settings .example-message {
+	max-width: 30em;
+}
+
+#content-chat-settings table tr td:nth-child(1) {
+	vertical-align: middle;
+	text-align: right;
+	max-width: 8em;
+	font-weight: bold;
+}
+
+#content-chat-settings table tr td:nth-child(2) {
+	vertical-align: middle;
+	text-align: left;
+}
+
+.telegram-message .buttons .btn {
+	width: 100%;
+	display: block;
+	position: relative;
+}
+
+.telegram-message .buttons a.btn:after {
+	/* Icon @author: https://stackoverflow.com/a/52058198/3334403, https://codepen.io/thiagobraga/pen/bhDdn  */
+	content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
+	font-size: .7em;
+	display: inline-block;
+	right: 0.2em;
+	top: 0.2em;
+	position: absolute;
+}

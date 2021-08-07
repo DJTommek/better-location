@@ -1,0 +1,20 @@
+{layout '@layout.latte'}
+{block content}
+	<h2 class="text-danger">Unable to load chat details</h2>
+	{if $login->isLogged() === false}
+		<p>
+			You must be <a href="{$basePath}/login.php">logged in</a> to access this page.
+		</p>
+	{else}
+		<div>
+			Check if:
+			<ul>
+				<li><a href="{$botLink}" target="_blank">{$botName}</a> is added to this chat</li>
+				<li>you are in this chat</li>
+				<li>you have administrator's rights in this chat</li>
+				<li>chat ID is correct via command <code>{$debugCommand}</code></li>
+			</ul>
+			If problem persist, contact <a href="{$authorLink}" target="_blank">{$authorName}</a>.
+		</div>
+	{/if}
+{/block}
