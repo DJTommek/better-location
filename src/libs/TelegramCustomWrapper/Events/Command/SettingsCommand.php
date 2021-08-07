@@ -5,6 +5,7 @@ namespace App\TelegramCustomWrapper\Events\Command;
 use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\TelegramHelper;
+use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
@@ -16,7 +17,7 @@ class SettingsCommand extends Command
 
 	public function handleWebhookUpdate()
 	{
-		if ($this->isPm() === true) {
+		if ($this->isAdmin()) {
 			$this->processSettings(false);
 		} else {
 			$replyMarkup = new Markup();
@@ -28,8 +29,9 @@ class SettingsCommand extends Command
 					]),
 				],
 			];
-
-			$this->reply(sprintf('%s Command <code>%s</code> is currently available only in private message, open @%s.', Icons::ERROR, self::getCmd(), Config::TELEGRAM_BOT_NAME), $replyMarkup);
+			$this->reply(sprintf('%s Command <code>%s</code> is available only in private message (open @%s) or to chat admins.',
+				Icons::ERROR, self::getCmd(), Config::TELEGRAM_BOT_NAME
+			), $replyMarkup);
 		}
 	}
 }

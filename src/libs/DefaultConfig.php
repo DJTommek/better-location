@@ -66,6 +66,11 @@ class DefaultConfig
 			HelpCommand::class,
 			FeedbackCommand::class,
 		],
+		'all_chat_administrators' => [
+			HelpCommand::class,
+			FeedbackCommand::class,
+			SettingsCommand::class,
+		],
 	];
 
 	/** @var ?string API Key for using Google Place API: https://developers.google.com/places/web-service/search null to disable */

@@ -423,15 +423,10 @@ abstract class Events
 		$buttonRow[] = $sendNativeLocationButton;
 
 		$replyMarkup->inline_keyboard[] = $buttonRow;
-		// @TODO waiting to implement settings on website
-//		$replyMarkup->inline_keyboard[] = [
-//			new Button([
-//				'text' => 'Settings in browser',
-//				'login_url' => new Telegram\Types\LoginUrl([
-//					'url' => Config::getLoginUrl(),
-//				]),
-//			]),
-//		];
+		$chatSettingsUrl = Config::getAppUrl('/chat/' . $this->getChatId());
+		$replyMarkup->inline_keyboard[] = [
+			TelegramHelper::loginUrlButton('Settings in browser', $chatSettingsUrl)
+		];
 
 		if ($inline) {
 			$this->replyButton($text, $replyMarkup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
