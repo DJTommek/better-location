@@ -134,6 +134,7 @@ a {
 }
 
 #content-chat-settings .example-message {
+	margin: 0 auto;
 	max-width: 30em;
 }
 
@@ -147,6 +148,11 @@ a {
 #content-chat-settings table tr td:nth-child(2) {
 	vertical-align: middle;
 	text-align: left;
+}
+
+.telegram-message .buttons {
+	padding-left: 0.1em;
+	padding-right: 0.1em;
 }
 
 .telegram-message .buttons .btn {
