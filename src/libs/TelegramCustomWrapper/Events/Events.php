@@ -48,6 +48,9 @@ abstract class Events
 	protected $command = null;
 	protected $params = [];
 
+	/** @var bool Caching for method isAdmin() */
+	private $isAdmin;
+
 	abstract public function handleWebhookUpdate();
 
 	public function __construct(Update $update)
@@ -435,5 +438,26 @@ abstract class Events
 		} else {
 			$this->reply($text, $replyMarkup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
 		}
+	}
+
+	protected function isAdmin(): bool
+	{
+		if ($this->isAdmin === null) {
+			if ($this->isPm()) {
+				$this->isAdmin = true;
+			} else {
+				$getChatMember = new Telegram\Methods\GetChatMember();
+				$getChatMember->user_id = $this->getFromId();
+				$getChatMember->chat_id = $this->getChatId();
+				$chatMember = $this->run($getChatMember);
+				if ($chatMember instanceof Telegram\Types\ChatMember === false) {
+					throw new \LogicException(sprintf('Unexpected type "%s" returned from getChatMember(), chat_id = "%s", user_id = "%s"',
+							get_class($chatMember), $this->getChatId(), $this->getFromId())
+					);
+				}
+				$this->isAdmin = TelegramHelper::isAdmin($chatMember);
+			}
+		}
+		return $this->isAdmin;
 	}
 }
