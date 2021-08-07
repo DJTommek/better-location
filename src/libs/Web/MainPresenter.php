@@ -54,8 +54,11 @@ abstract class MainPresenter
 		throw new \LogicException(sprintf('No render method was provided for %s', static::class));
 	}
 
-	public function redirect($url, $permanent = false)
+	public final function redirect($url, $permanent = false): void
 	{
+		if (is_string($url) && Strings::startsWith($url, '/')) { // dynamic path, eg '/login.php'
+			$url = Config::getAppUrl($url);
+		}
 		if (Strict::isUrl($url) === false) {
 			throw new \InvalidArgumentException('Invalid redirect link');
 		}
