@@ -21,7 +21,7 @@ class TelegramHelper
 	{
 		$result = '';
 		if ($hiddenLink) {
-			$result .= sprintf('<a href="%s">%s</a>', $hiddenLink, Icons::LOCATION);
+			$result .= sprintf('<a href="%s" target="_blank">%s</a>', $hiddenLink, Icons::LOCATION);
 		} else {
 			$result .= Icons::LOCATION;
 		}
@@ -257,8 +257,7 @@ class TelegramHelper
 		$input = base64_encode($input);
 		$input = str_replace('=', '_', $input);
 		$input = str_replace('+', '-', $input);
-		$input = trim($input);
-		return $input;
+		return trim($input);
 	}
 
 	public static function InlineTextDecode(string $input): string
@@ -267,8 +266,7 @@ class TelegramHelper
 		$input = str_replace('_', '=', $input);
 		$input = str_replace('-', '+', $input);
 		$input = base64_decode($input);
-		$input = trim($input);
-		return $input;
+		return trim($input);
 	}
 
 	/**
@@ -357,5 +355,10 @@ class TelegramHelper
 			$username = '@' . $username;
 		}
 		return sprintf('<a href="%s" target="_blank">%s</a>', self::userLink($username), $username);
+	}
+
+	public static function isAdmin(Telegram\Types\ChatMember $chatMember): bool
+	{
+		return in_array($chatMember->status, ['creator', 'administrator'], true);
 	}
 }
