@@ -15,6 +15,9 @@ class Icons
 	const CHANGE = "\u{270F}"; // https://emojipedia.org/pencil/
 	const DELETE = "\u{1F5D1}"; // https://emojipedia.org/wastebasket/
 
+	const LOGIN = "\u{1F511}"; // https://emojipedia.org/key/
+	const LOGOUT = "\u{1F512}"; // https://emojipedia.org/locked/
+
 //	const ENABLED = "\u{1F7E2}"; // https://emojipedia.org/large-green-circle/ Warning: New in 2019 so not supported in older devices (eg. Android 9 or lower)
 	const ENABLED = "\u{2705}"; // https://emojipedia.org/check-mark-button/
 	const DISABLED = "\u{274C}"; // https://emojipedia.org/cross-mark/

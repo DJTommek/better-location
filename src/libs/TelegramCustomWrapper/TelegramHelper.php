@@ -6,6 +6,8 @@ use App\Config;
 use App\Icons;
 use App\Utils\Strict;
 use Nette\Http\UrlImmutable;
+use Nette\Utils\Strings;
+use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Types\Chat;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
@@ -332,5 +334,28 @@ class TelegramHelper
 			}
 		}
 		return $text;
+	}
+
+	public static function loginUrlButton(string $text, UrlImmutable $redirectUrl = null): Telegram\Types\Inline\Keyboard\Button
+	{
+		return new Telegram\Types\Inline\Keyboard\Button([
+			'text' => $text,
+			'login_url' => new Telegram\Types\LoginUrl([
+				'url' => Config::getLoginUrl($redirectUrl)->getAbsoluteUrl(),
+			]),
+		]);
+	}
+
+	public static function userLink(string $username): string
+	{
+		return 'https://t.me/' . ltrim($username, '@');
+	}
+
+	public static function userLinkTag(string $username): string
+	{
+		if (Strings::startsWith($username, '@') === false) {
+			$username = '@' . $username;
+		}
+		return sprintf('<a href="%s" target="_blank">%s</a>', self::userLink($username), $username);
 	}
 }

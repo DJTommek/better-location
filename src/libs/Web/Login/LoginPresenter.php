@@ -10,6 +10,12 @@ use Nette\Http\UrlImmutable;
 
 class LoginPresenter extends MainPresenter
 {
+	public function __construct()
+	{
+		$this->template = new LoginTemplate();
+		parent::__construct();
+	}
+
 	public function action()
 	{
 		if (Strict::isUrl($_GET['redirect'] ?? null)) {
@@ -36,6 +42,7 @@ class LoginPresenter extends MainPresenter
 
 	public function render(): void
 	{
+		$this->template->prepare();
 		Factory::Latte('login.latte', $this->template);
 	}
 }

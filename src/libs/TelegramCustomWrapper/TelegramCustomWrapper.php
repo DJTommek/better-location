@@ -12,6 +12,7 @@ use App\TelegramCustomWrapper\Events\Command\DebugCommand;
 use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use App\TelegramCustomWrapper\Events\Command\FeedbackCommand;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
+use App\TelegramCustomWrapper\Events\Command\LoginCommand;
 use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\Events\Command\UnknownCommand;
@@ -118,6 +119,9 @@ class TelegramCustomWrapper
 							break;
 						case FeedbackCommand::CMD:
 							$this->event = new FeedbackCommand($update);
+							break;
+						case LoginCommand::CMD:
+							$this->event = new LoginCommand($update);
 							break;
 						case null: // message without command
 							$this->event = new MessageEvent($update);
