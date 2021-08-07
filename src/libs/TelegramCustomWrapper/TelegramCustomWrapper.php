@@ -24,15 +24,16 @@ use App\TelegramCustomWrapper\Events\Special\InlineQueryEvent;
 use App\TelegramCustomWrapper\Events\Special\LocationEvent;
 use App\TelegramCustomWrapper\Events\Special\MessageEvent;
 use App\TelegramCustomWrapper\Events\Special\PhotoEvent;
+use unreal4u\TelegramAPI\Abstracts\TelegramMethods;
+use unreal4u\TelegramAPI\Abstracts\TelegramTypes;
+use unreal4u\TelegramAPI\Exceptions\ClientException;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\TgLog;
+use function Clue\React\Block\await;
 
 class TelegramCustomWrapper
 {
-	private $botToken;
-	private $botName;
-
 	private $tgLog;
 	private $loop;
 
@@ -41,13 +42,10 @@ class TelegramCustomWrapper
 	/** @var string */
 	private $eventNote;
 
-	public function __construct($botToken, $botName)
+	public function __construct()
 	{
-		$this->botToken = $botToken;
-		$this->botName = $botName;
-
 		$this->loop = \React\EventLoop\Factory::create();
-		$this->tgLog = new TgLog($botToken, new HttpClientRequestHandler($this->loop));
+		$this->tgLog = new TgLog(Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($this->loop));
 	}
 
 	public function getUpdateEvent(Telegram\Types\Update $update)
@@ -148,5 +146,13 @@ class TelegramCustomWrapper
 	public function handle()
 	{
 		$this->event->handleWebhookUpdate();
+	}
+
+	/**
+	 * @throws ClientException Errors from API
+	 */
+	public function run(TelegramMethods $telegramMethod): ?TelegramTypes
+	{
+		return await($this->tgLog->performApiRequest($telegramMethod), $this->loop);
 	}
 }

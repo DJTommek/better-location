@@ -19,7 +19,7 @@ if (Config::isTelegramWebhookPassword() === false) {
 
 		\App\Factory::Database(); // Just check if database connection is valid, otherwise throw Exception and end script now.
 
-		$telegramCustomWrapper = new TelegramCustomWrapper(Config::TELEGRAM_BOT_TOKEN, Config::TELEGRAM_BOT_NAME);
+		$telegramCustomWrapper = \App\Factory::Telegram();
 		$update = new \unreal4u\TelegramAPI\Telegram\Types\Update($updateData);
 		$telegramCustomWrapper->getUpdateEvent($update);
 		if ($event = $telegramCustomWrapper->getEvent()) {
