@@ -29,7 +29,7 @@ class SettingsCommand extends Command
 				],
 			];
 
-			$this->reply(sprintf('%s Command <code>%s</code> is currently available only in private message, open @%s.', Icons::ERROR, SettingsCommand::getCmd(), Config::TELEGRAM_BOT_NAME), $replyMarkup);
+			$this->reply(sprintf('%s Command <code>%s</code> is currently available only in private message, open @%s.', Icons::ERROR, self::getCmd(), Config::TELEGRAM_BOT_NAME), $replyMarkup);
 		}
 	}
 }
