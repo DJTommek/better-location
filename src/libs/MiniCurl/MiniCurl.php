@@ -47,6 +47,7 @@ class MiniCurl
 	private $url;
 	private $curl;
 	private $allowRandomUseragent = true;
+	private $autoConvertEncoding = true;
 	/** @var array<int,mixed> Options to CURL method (predefined, can be updated) */
 	private $options = [
 		CURLOPT_RETURNTRANSFER => true,
@@ -137,9 +138,16 @@ class MiniCurl
 		return $this;
 	}
 
-	public function allowRandomUseragent(bool $allow = true)
+	public function allowRandomUseragent(bool $allow = true): self
 	{
 		$this->allowRandomUseragent = $allow;
+		return $this;
+	}
+
+	public function allowAutoConvertEncoding(bool $allow): self
+	{
+		$this->autoConvertEncoding = $allow;
+		return $this;
 	}
 
 	/**
@@ -188,9 +196,11 @@ class MiniCurl
 			throw new ExecException(sprintf('CURL request error %s: "%s"', $curlErrno, curl_error($this->curl)));
 		}
 
-		$detectedEncoding = mb_detect_encoding($curlResponse, [self::EXPECTED_ENCODING, 'ISO-8859-1']);
-		if ($detectedEncoding !== self::EXPECTED_ENCODING) {
-			$curlResponse = mb_convert_encoding($curlResponse, self::EXPECTED_ENCODING);
+		if ($this->autoConvertEncoding) {
+			$detectedEncoding = mb_detect_encoding($curlResponse, [self::EXPECTED_ENCODING, 'ISO-8859-1', 'windows-1252'], true);
+			if ($detectedEncoding !== self::EXPECTED_ENCODING) {
+				$curlResponse = mb_convert_encoding($curlResponse, self::EXPECTED_ENCODING, $detectedEncoding);
+			}
 		}
 
 		$curlInfo = curl_getinfo($this->curl);
