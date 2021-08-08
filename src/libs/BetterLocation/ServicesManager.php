@@ -31,6 +31,7 @@ use App\BetterLocation\Service\OsmAndService;
 use App\BetterLocation\Service\RopikyNetService;
 use App\BetterLocation\Service\SumavaCzService;
 use App\BetterLocation\Service\SygicService;
+use App\BetterLocation\Service\VojenskoCzService;
 use App\BetterLocation\Service\WazeService;
 use App\BetterLocation\Service\WhatThreeWordService;
 use App\BetterLocation\Service\WikipediaService;
@@ -89,6 +90,7 @@ class ServicesManager
 		$this->services[FevGamesService::ID] = FevGamesService::class;
 		$this->services[EStudankyEuService::ID] = EStudankyEuService::class;
 		$this->services[HradyCzService::ID] = HradyCzService::class;
+		$this->services[VojenskoCzService::ID] = VojenskoCzService::class;
 	}
 
 	public function iterate(string $input): BetterLocationCollection
