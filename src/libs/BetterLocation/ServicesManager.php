@@ -3,6 +3,7 @@
 namespace App\BetterLocation;
 
 use App\BetterLocation\Service\AbstractService;
+use App\BetterLocation\Service\BannergressService;
 use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\Coordinates\MGRSService;
 use App\BetterLocation\Service\Coordinates\USNGService;
@@ -71,9 +72,10 @@ class ServicesManager
 		if (Config::isFoursquare()) {
 			$this->services[FoursquareService::ID] = FoursquareService::class;
 		}
-		if (Config::isIngressMosaic()) {
-			$this->services[IngressMosaicService::ID] = IngressMosaicService::class;
-		}
+//		if (Config::isIngressMosaic()) {
+//			$this->services[IngressMosaicService::ID] = IngressMosaicService::class;
+//		}
+		$this->services[BannergressService::ID] = BannergressService::class;
 		if (is_null(Config::GEOCACHING_COOKIE) === false) {
 			$this->services[GeocachingService::ID] = GeocachingService::class;
 		}
