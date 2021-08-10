@@ -11,7 +11,8 @@ class LayoutTemplate
 	public $login;
 	/** @var ?User */
 	public $user;
-
+	/** @var int */
+	public $cachebusterMainCss;
 	public $flashMessages = [];
 
 	public function setError(string $errorText): void
