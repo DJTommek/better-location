@@ -13,6 +13,19 @@ class LayoutTemplate
 	public $user;
 	/** @var int */
 	public $cachebusterMainCss;
+	/**
+	 * @var string Full URL including path without trailing slash
+	 * @example https://better-location.palider.cz/better-location/www
+	 * @example https://better-location.palider.cz
+	 */
+	public $baseUrl;
+	/**
+	 * @var string Path part of URL without domain and trailing slash
+	 * @example '/better-location/www'
+	 * @example ''
+	 */
+	public $basePath;
+	/** @var FlashMessage[] */
 	public $flashMessages = [];
 
 	public function setError(string $errorText): void
