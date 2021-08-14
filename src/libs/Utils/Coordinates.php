@@ -203,4 +203,33 @@ class Coordinates
 		}
 		return null;
 	}
+
+	/**
+	 * Check if point is inside of polygon
+	 *
+	 * @param array $polygon multi-array of coordinates, example: [[50.5,16.5], [51.5,16.5], [51.5,17.5], [50.5,17.5]]
+	 * @author https://stackoverflow.com/a/18190354/3334403
+	 */
+	public function isInPolygon(array $polygon): bool
+	{
+		$c = 0;
+		$p1 = $polygon[0];
+		$n = count($polygon);
+
+		for ($i = 1; $i <= $n; $i++) {
+			$p2 = $polygon[$i % $n];
+			if ($this->lon > min($p1[1], $p2[1])
+				&& $this->lon <= max($p1[1], $p2[1])
+				&& $this->lat <= max($p1[0], $p2[0])
+				&& $p1[1] != $p2[1]) {
+				$xinters = ($this->lon - $p1[1]) * ($p2[0] - $p1[0]) / ($p2[1] - $p1[1]) + $p1[0];
+				if ($p1[0] == $p2[0] || $this->lat <= $xinters) {
+					$c++;
+				}
+			}
+			$p1 = $p2;
+		}
+		// if the number of edges we passed through is even, then it's not in the poly.
+		return $c % 2 != 0;
+	}
 }
