@@ -256,7 +256,7 @@ class MiniCurl
 		$client = new self($url);
 		$client->allowRandomUseragent(false);
 		$client->setCurlOption(CURLOPT_FOLLOWLOCATION, false);
-		$client->setCurlOption(CURLOPT_NOBODY, true);
+		// $client->setCurlOption(CURLOPT_NOBODY, true); // @HACK temporary disabled, see https://github.com/DJTommek/better-location/issues/74
 		$client->setCurlOption(CURLOPT_FRESH_CONNECT, true);
 		$response = $client->run(null);
 		return $response->getHeaders($key);
