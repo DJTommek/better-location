@@ -51,7 +51,7 @@ final class WikipediaService extends AbstractService
 	{
 		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_WIKIPEDIA)->run()->getBody();
 		$startString = '<script>document.documentElement.className="client-js";RLCONF=';
-		$endString = 'RLSTATE=';
+		$endString = 'RLSTATE';
 		$posStart = mb_strpos($response, $startString);
 		$posEnd = mb_strpos($response, $endString);
 		$jsonText = mb_substr(
