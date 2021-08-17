@@ -1,0 +1,18 @@
+{layout '@layout.latte'}
+{block content}
+	<h2 class="text-danger">Invalid locations</h2>
+	<div>
+		None of provided locations is valid. Only acceptable format is valid decimal version of WGS84
+		<a href="https://wikipedia.org/wiki/World_Geodetic_System" target="_blank">(wiki)</a>
+		divided by ; for example
+		<a href="{$basePath}/50.087451,14.420671;50.07977,14.4297314">50.087451,14.420671;50.07977,14.4297314</a> or
+		<a href="{$basePath}/-2.161,-79.88;-0.253,-79.176">-2.161,-79.88;-0.253,-79.176</a><br>
+		Check if:
+		<ul>
+			<li>coordinates are in correct order: latitude,longitude;latitude,longitude;...</li>
+			<li>all latitudes and longitudes are float: 50.1 is correct but 50 or 50. are not</li>
+			<li>latitudes are between -90 and 90</li>
+			<li>longitudes are between -180 and 180</li>
+		</ul>
+	</div>
+{/block}

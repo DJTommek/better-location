@@ -1,0 +1,109 @@
+{layout '@layout.latte'}
+{block content}
+	<div id="content-locations">
+		<div class="row g-0">
+			<div class="col-12 col-md-6 header-left text-center text-md-start">
+				<!-- @TODO -->
+			</div>
+			<div class="col-12 col-md-6 header-right text-center text-md-end">
+				{*				<a href="{$basePath}/{$lat},{$lon}" class="header-right-coords">*}
+{*					{$lat},{$lon}*}
+{*				</a>*}
+{*				<span n:if="$login->isLogged()" class="favourite">*}
+{*					{if $isFavourite}*}
+{*						<a href="{$basePath}/{$lat},{$lon}?action=delete" title="Remove from favourites" class="text-danger">*}
+{*							<i class="fa fa-fw icon-heart"></i>*}
+{*						</a>*}
+{*					{else}*}
+{*						<a href="{$basePath}/{$lat},{$lon}?action=add" title="Add to favourites" class="text-danger">*}
+{*							<i class="fa fa-fw icon-heart-o"></i>*}
+{*						</a>*}
+{*					{/if}*}
+{*				</span>*}
+			</div>
+		</div>
+
+		<div class="row g-0">
+			<div class="col-12 col-md-4 col-xl-3" id="most-used-links">
+				<div class="list-group" role="tablist">
+					{foreach $collection as $location}
+						<button
+								class="list-group-item list-group-item-action {$iterator->first ? 'active'}"
+								data-bs-toggle="list"
+								href="#content-locations-{$location->getCoordinates()->hash()}"
+								role="tab"
+						>
+							<div class="d-flex justify-content-between">
+								{$location->__toString()}
+								<a href="{$basePath}/{$location->__toString()}" target="_blank">
+									<i class="fa fa-external-link"></i>
+								</a>
+							</div>
+						</button>
+					{/foreach}
+				</div>
+			</div>
+			<div class="col-12 col-md-8 col-xl-9" id="map-dynamic" style="background-color: indianred; min-height: 10em;">
+				<div id="map-dynamic-leaflet"></div>
+			</div>
+		</div>
+
+		<div class="tab-content">
+			{foreach $collection as $location}
+				<div id="content-locations-{$location->getCoordinates()->hash()}" class="tab-pane fade {$iterator->first ? 'show active'}" role="tabpanel">
+					<div class="address">
+						{$location->getAddress() ?? 'Unknown address'}
+					</div>
+					<div class="telegram">
+						<a href="{App\TelegramCustomWrapper\TelegramHelper::generateStartLocation($location->getLat(), $location->getLon())}" target="_blank" title="Telegram">
+							<i class="fa fa-telegram"></i>
+							@BetterLocationBot
+						</a>
+					</div>
+					<div class="websites table-responsive">
+						<table class="table table-nonfluid table-hover table-striped table-sm">
+							<thead>
+							<tr>
+								<th>Service</th>
+								<th>Share</th>
+								<th>Drive</th>
+								<th>Text</th>
+							</tr>
+							</thead>
+							<tbody>
+							{foreach $websites[$location->__toString()] as $service}
+								{if isset($service['share']) || isset($service['drive']) || isset($service['text'])}
+									<tr>
+										<td class="service-title">
+								<span>
+									{$service['name']}
+								</span>
+										</td>
+										<td class="service-share-link">
+											{if isset($service['share'])}
+												<a href="{$service['share']}" target="_blank">share</a>
+											{/if}
+										</td>
+										<td class="service-drive-link">
+											{if isset($service['drive'])}
+												<a href="{$service['drive']}" target="_blank">drive</a>
+											{/if}
+										</td>
+										<td class="service-share-text text-nowrap">
+											{if isset($service['text'])}
+												<span>
+										{$service['text']}
+									</span>
+											{/if}
+										</td>
+									</tr>
+								{/if}
+							{/foreach}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			{/foreach}
+		</div>
+	</div>
+{/block}
