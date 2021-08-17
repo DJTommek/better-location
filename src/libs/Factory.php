@@ -109,7 +109,7 @@ class Factory
 			$headers = [
 				'User-Agent' => 'BetterLocation',
 			];
-			$client = new GuzzleHttp\Client([
+			$client = new \GuzzleHttp\Client([
 				'base_uri' => Config::NOMINATIM_URL,
 				'timeout' => 5,
 				'connection_timeout' => 5,
