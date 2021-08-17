@@ -6,6 +6,10 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 
 class Coordinates
 {
+	const RE_BASIC_LAT = '-?[0-9]{1,2}\.[0-9]{1,99}';
+	const RE_BASIC_LON = '-?[0-9]{1,3}\.[0-9]{1,99}';
+	const RE_BASIC = '-?[0-9]{1,2}\.[0-9]{1,99},-?[0-9]{1,3}\.[0-9]{1,99}';
+
 	const NORTH = 'N';
 	const SOUTH = 'S';
 	const EAST = 'E';
@@ -92,6 +96,11 @@ class Coordinates
 	public function __toString(): string
 	{
 		return sprintf('%F,%F', $this->lat, $this->lon);
+	}
+
+	public function hash(): string
+	{
+		return md5($this->__toString());
 	}
 
 	/** Get decimal format from degrees-minutes */
