@@ -156,7 +156,6 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 		}
 
 		// Get hemisphere for first coordinate
-		$latHemisphere = null;
 		if ($latHemisphere1 && !$latHemisphere2) {
 			// hemisphere is in prefix
 			$latHemisphere = mb_strtoupper($latHemisphere1);
@@ -167,20 +166,19 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 
 		// Convert hemisphere format for first coordinates to ENUM
 		$swap = false;
-		if (in_array($latHemisphere, ['', '+', 'N'])) {
+		if (in_array($latHemisphere, ['', '+', 'N'], true)) {
 			$latHemisphere = Coordinates::NORTH;
-		} else if (in_array($latHemisphere, ['-', 'S'])) {
+		} else if (in_array($latHemisphere, ['-', 'S'], true)) {
 			$latHemisphere = Coordinates::SOUTH;
-		} else if (in_array($latHemisphere, ['E'])) {
+		} else if ($latHemisphere === 'E') {
 			$swap = true;
 			$latHemisphere = Coordinates::EAST;
-		} else if (in_array($latHemisphere, ['W'])) {
+		} else if ($latHemisphere === 'W') {
 			$swap = true;
 			$latHemisphere = Coordinates::WEST;
 		}
 
 		// Get hemisphere for second coordinate
-		$lonHemisphere = null;
 		if ($lonHemisphere1 && !$lonHemisphere2) {
 			// hemisphere is in prefix
 			$lonHemisphere = mb_strtoupper($lonHemisphere1);
@@ -190,14 +188,14 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 		}
 
 		// Convert hemisphere format for second coordinates to ENUM
-		if (in_array($lonHemisphere, ['', '+', 'E'])) {
+		if (in_array($lonHemisphere, ['', '+', 'E'], true)) {
 			$lonHemisphere = Coordinates::EAST;
-		} else if (in_array($lonHemisphere, ['-', 'W'])) {
+		} else if (in_array($lonHemisphere, ['-', 'W'], true)) {
 			$lonHemisphere = Coordinates::WEST;
-		} else if (in_array($lonHemisphere, ['N'])) {
+		} else if ($lonHemisphere === 'N') {
 			$swap = true;
 			$lonHemisphere = Coordinates::NORTH;
-		} else if (in_array($lonHemisphere, ['S'])) {
+		} else if ($lonHemisphere === 'S') {
 			$swap = true;
 			$lonHemisphere = Coordinates::SOUTH;
 		}
