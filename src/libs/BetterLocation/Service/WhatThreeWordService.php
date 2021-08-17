@@ -22,8 +22,7 @@ final class WhatThreeWordService extends AbstractService
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
 		} else {
-			$data = Helper::coordsToWords($lat, $lon);
-			return $data->map;
+			return Helper::coordsToWords($lat, $lon)->map;
 		}
 	}
 

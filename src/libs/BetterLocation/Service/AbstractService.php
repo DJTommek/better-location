@@ -42,10 +42,10 @@ abstract class AbstractService
 	 * @var ?Url
 	 */
 	protected $url;
-
+	/** @var BetterLocationCollection */
 	protected $collection;
 
-	/** @var \stdClass Helper to store data between methods (eg isValid and process) */
+	/** @var \stdClass Helper to store data between methods, eg. isValid() and process() */
 	protected $data;
 
 	public final function __construct(string $input)
@@ -96,12 +96,13 @@ abstract class AbstractService
 		return $this->collection->getFirst();
 	}
 
-	public static function getConstants()
+	/** @return string[] */
+	public static function getConstants(): array
 	{
 		return [];
 	}
 
-	public static function getName(bool $short = false)
+	public static function getName(bool $short = false): string
 	{
 		if ($short && defined(sprintf('%s::%s', static::class, 'NAME_SHORT'))) {
 			return static::NAME_SHORT;
