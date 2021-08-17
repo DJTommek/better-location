@@ -106,7 +106,15 @@ class Factory
 	static function Nominatim(): \maxh\Nominatim\Nominatim
 	{
 		if (!isset(self::$objects['nominatim'])) {
-			self::$objects['nominatim'] = new \maxh\Nominatim\Nominatim(Config::NOMINATIM_URL);
+			$headers = [
+				'User-Agent' => 'BetterLocation',
+			];
+			$client = new GuzzleHttp\Client([
+				'base_uri' => Config::NOMINATIM_URL,
+				'timeout' => 5,
+				'connection_timeout' => 5,
+			]);
+			self::$objects['nominatim'] = new \maxh\Nominatim\Nominatim(Config::NOMINATIM_URL, $headers, $client);
 		}
 		return self::$objects['nominatim'];
 	}
