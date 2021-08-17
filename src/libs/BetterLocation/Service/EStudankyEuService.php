@@ -3,7 +3,6 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Config;
 use App\MiniCurl\MiniCurl;
 use Nette\Utils\Strings;
@@ -14,15 +13,6 @@ final class EStudankyEuService extends AbstractService
 	const NAME = 'estudanky.eu';
 
 	const LINK = 'https://estudanky.eu';
-
-	public static function getLink(float $lat, float $lon, bool $drive = false): string
-	{
-		if ($drive) {
-			throw new NotSupportedException('Drive link is not supported.');
-		} else {
-			throw new NotSupportedException('Share link is not supported.');
-		}
-	}
 
 	public function isValid(): bool
 	{

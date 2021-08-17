@@ -3,7 +3,6 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
@@ -16,15 +15,6 @@ final class FacebookService extends AbstractService
 	const NAME = 'Facebook';
 
 	const LINK = 'https://facebook.com';
-
-	public static function getLink(float $lat, float $lon, bool $drive = false): string
-	{
-		if ($drive) {
-			throw new NotSupportedException('Drive link is not supported.');
-		} else {
-			throw new NotSupportedException('Share link is not implemented.');
-		}
-	}
 
 	public function isValid(): bool
 	{

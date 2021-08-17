@@ -3,7 +3,6 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\General;
@@ -30,15 +29,6 @@ final class SumavaCzService extends AbstractService
 			self::TYPE_GALLERY,
 			self::TYPE_COMPANY,
 		];
-	}
-
-	public static function getLink(float $lat, float $lon, bool $drive = false): string
-	{
-		if ($drive) {
-			throw new NotSupportedException('Drive link is not supported.');
-		} else {
-			throw new NotSupportedException('Share link is not supported.');
-		}
 	}
 
 	public function isValid(): bool

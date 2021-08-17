@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\GeohashService;
 use PHPUnit\Framework\TestCase;
 
@@ -17,8 +17,8 @@ final class GeohashServiceTest extends TestCase
 
 	public function testGenerateDriveLink(): void
 	{
-		$this->expectException(NotSupportedException::class);
-		$this->expectExceptionMessage('Drive link is not supported.');
+		$this->expectException(NotImplementedException::class);
+		$this->expectExceptionMessage('Drive link is not implemented.');
 		GeohashService::getLink(50.087451, 14.420671, true);
 	}
 

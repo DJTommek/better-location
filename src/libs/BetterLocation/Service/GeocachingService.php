@@ -250,7 +250,7 @@ final class GeocachingService extends AbstractService
 		return false;
 	}
 
-	public function process()
+	public function process(): void
 	{
 		if ($this->data->isUrlGuid ?? false) {
 			try {

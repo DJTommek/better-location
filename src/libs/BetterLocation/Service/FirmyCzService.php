@@ -3,7 +3,6 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Utils\Strict;
 use DJTommek\MapyCzApi\MapyCzApi;
 
@@ -15,16 +14,6 @@ final class FirmyCzService extends AbstractService
 	const LINK = 'https://firmy.cz';
 
 	const URL_PATH_REGEX = '/^\/detail\/([0-9]+)/';
-
-	/** @throws NotSupportedException */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string
-	{
-		if ($drive) {
-			throw new NotSupportedException('Drive link is not supported.');
-		} else {
-			throw new NotSupportedException('Share link is not supported.');
-		}
-	}
 
 	public function isValid(): bool
 	{
@@ -39,7 +28,7 @@ final class FirmyCzService extends AbstractService
 		return false;
 	}
 
-	public function process()
+	public function process(): void
 	{
 		$mapyCzApi = new MapyCzApi();
 		$firmDetail = $mapyCzApi->loadPoiDetails('firm', $this->data->firmId);

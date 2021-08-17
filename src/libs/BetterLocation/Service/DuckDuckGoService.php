@@ -26,7 +26,7 @@ final class DuckDuckGoService extends AbstractService
 		return false; // Currently not implemented
 	}
 
-	public function process()
+	public function process(): void
 	{
 		throw new NotImplementedException('Processing is not available.');
 	}

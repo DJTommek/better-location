@@ -3,7 +3,6 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\MiniCurl\MiniCurl;
 
 final class VojenskoCzService extends AbstractService
@@ -13,25 +12,12 @@ final class VojenskoCzService extends AbstractService
 
 	const LINK = 'http://www.vojensko.cz';
 
-	/**@throws NotSupportedException */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string
-	{
-		if ($drive) {
-			throw new NotSupportedException('Drive link is not supported.');
-		} else {
-			throw new NotSupportedException('Share link is not supported.');
-		}
-	}
-
 	public function isValid(): bool
 	{
 		return (
-			$this->url
-			&&
-			$this->url->getScheme() === 'http' // page is not working on https
-			&&
-			$this->url->getDomain(2) === 'vojensko.cz'
-			&&
+			$this->url &&
+			$this->url->getScheme() === 'http' && // page is not working on https
+			$this->url->getDomain(2) === 'vojensko.cz' &&
 			mb_strlen($this->url->getPath()) > 1 // not root
 		);
 	}

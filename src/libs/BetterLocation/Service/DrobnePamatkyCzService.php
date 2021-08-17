@@ -38,7 +38,7 @@ final class DrobnePamatkyCzService extends AbstractService
 		);
 	}
 
-	public function process()
+	public function process(): void
 	{
 		$response = (new MiniCurl($this->input))->allowCache(Config::CACHE_TTL_DROBNE_PAMATKY_CZ)->run()->getBody();
 		if (!preg_match('/<meta\s+name="geo\.position"\s*content="([0-9.]+);\s*([0-9.]+)\s*"/', $response, $matches)) {

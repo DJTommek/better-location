@@ -35,7 +35,7 @@ final class OpenLocationCodeService extends AbstractService
 		return $this->isUrl() || $this->isPlusCode();
 	}
 
-	public function process()
+	public function process(): void
 	{
 		$coords = OpenLocationCode::decode($this->data->plusCode);
 		$betterLocation = new BetterLocation($this->input, $coords['latitudeCenter'], $coords['longitudeCenter'], self::class);
@@ -70,7 +70,8 @@ final class OpenLocationCodeService extends AbstractService
 		return false;
 	}
 
-	public static function findInText(string $input): BetterLocationCollection {
+	public static function findInText(string $input): BetterLocationCollection
+	{
 		$collection = new BetterLocationCollection();
 		if (preg_match_all(self::RE_IN_STRING, $input, $matches)) {
 			foreach ($matches[2] as $plusCode) {

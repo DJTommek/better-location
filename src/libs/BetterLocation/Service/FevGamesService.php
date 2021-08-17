@@ -3,7 +3,6 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Config;
 use App\Factory;
 use App\Icons;
@@ -17,16 +16,6 @@ final class FevGamesService extends AbstractService
 	const NAME = 'FevGames';
 
 	const LINK = 'https://fevgames.net';
-
-	/** @throws NotSupportedException */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string
-	{
-		if ($drive) {
-			throw new NotSupportedException('Drive link is not supported.');
-		} else {
-			throw new NotSupportedException('Share link is not implemented.');
-		}
-	}
 
 	public function isValid(): bool
 	{

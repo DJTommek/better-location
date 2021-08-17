@@ -17,11 +17,11 @@ final class WazeService extends AbstractService
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
+		$link = sprintf(self::LINK . '/ul?ll=%1$f,%2$f', $lat, $lon);
 		if ($drive) {
-			return sprintf(self::LINK . '/ul?ll=%1$f,%2$f&navigate=yes', $lat, $lon);
-		} else {
-			return sprintf(self::LINK . '/ul?ll=%1$f,%2$f', $lat, $lon);
+			$link .= '&navigate=yes';
 		}
+		return $link;
 	}
 
 	public function isValid(): bool

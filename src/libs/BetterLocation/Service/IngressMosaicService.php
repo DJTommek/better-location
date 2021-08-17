@@ -3,7 +3,6 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Factory;
 use App\Icons;
 use App\IngressMosaic\Client;
@@ -16,15 +15,6 @@ final class IngressMosaicService extends AbstractService
 	const NAME = 'IngressMosaic';
 	const LINK = Client::LINK;
 	const RE_PATH = '/^\/mosaic\/([0-9]+)$/';
-
-	public static function getLink(float $lat, float $lon, bool $drive = false): string
-	{
-		if ($drive) {
-			throw new NotSupportedException('Drive link is not supported.');
-		} else {
-			throw new NotSupportedException('Share link is not supported.');
-		}
-	}
 
 	public function isValid(): bool
 	{

@@ -64,18 +64,33 @@ abstract class AbstractService
 		}
 	}
 
-	abstract public function isValid(): bool;
+	public function isValid(): bool
+	{
+		return false;
+	}
 
 	/**
+	 * @throws NotImplementedException
+	 * @throws NotSupportedException
 	 * @throws InvalidLocationException
 	 */
-	abstract public function process();
+	public function process(): void
+	{
+		throw new NotImplementedException('Processing is not implemented.');
+	}
 
 	/**
 	 * @throws NotImplementedException
 	 * @throws NotSupportedException
 	 */
-	abstract static public function getLink(float $lat, float $lon, bool $drive = false);
+	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	{
+		if ($drive) {
+			throw new NotImplementedException('Drive link is not implemented.');
+		} else {
+			throw new NotImplementedException('Share link is not implemented.');
+		}
+	}
 
 	/**
 	 * @throws NotImplementedException

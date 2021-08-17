@@ -91,7 +91,7 @@ final class GoogleMapsService extends AbstractService
 		return 'https://maps.googleapis.com/maps/api/staticmap?' . http_build_query($params);
 	}
 
-	public function process()
+	public function process(): void
 	{
 		if ($this->data->isShort ?? false) {
 			$urlToRequest = $this->url->setScheme('https'); // Optimalization by skipping one extra redirecting from http to https

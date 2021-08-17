@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\VojenskoCzService;
 use PHPUnit\Framework\TestCase;
 
@@ -17,15 +17,15 @@ final class VojenskoCzServiceTest extends TestCase
 
 	public function testGenerateShareLink(): void
 	{
-		$this->expectException(NotSupportedException::class);
-		$this->expectExceptionMessage('Share link is not supported.');
+		$this->expectException(NotImplementedException::class);
+		$this->expectExceptionMessage('Share link is not implemented.');
 		VojenskoCzService::getLink(50.087451, 14.420671);
 	}
 
 	public function testGenerateDriveLink(): void
 	{
-		$this->expectException(NotSupportedException::class);
-		$this->expectExceptionMessage('Drive link is not supported.');
+		$this->expectException(NotImplementedException::class);
+		$this->expectExceptionMessage('Drive link is not implemented.');
 		VojenskoCzService::getLink(50.087451, 14.420671, true);
 	}
 

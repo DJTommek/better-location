@@ -1,22 +1,22 @@
 <?php declare(strict_types=1);
 
 use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesSecondsService;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use PHPUnit\Framework\TestCase;
 
 final class WGS84DegreesMinutesSecondsServiceTest extends TestCase
 {
 	public function testGenerateShareLink(): void
 	{
-		$this->expectException(NotSupportedException::class);
-		$this->expectExceptionMessage('Share link for raw coordinates is not supported.');
+		$this->expectException(NotImplementedException::class);
+		$this->expectExceptionMessage('Share link is not implemented.');
 		WGS84DegreesMinutesSecondsService::getLink(50.087451, 14.420671);
 	}
 
 	public function testGenerateDriveLink(): void
 	{
-		$this->expectException(NotSupportedException::class);
-		$this->expectExceptionMessage('Drive link for raw coordinates is not supported.');
+		$this->expectException(NotImplementedException::class);
+		$this->expectExceptionMessage('Drive link is not implemented.');
 		WGS84DegreesMinutesSecondsService::getLink(50.087451, 14.420671, true);
 	}
 

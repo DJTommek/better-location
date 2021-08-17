@@ -25,15 +25,15 @@ final class DuckDuckGoServiceTest extends TestCase
 
 	public function testIsValid(): void
 	{
-		$this->expectException(NotImplementedException::class);
-		$this->expectExceptionMessage('Validating is not implemented.');
-		DuckDuckGoService::isValidStatic('https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps');
+		// Validating is not implemented
+		$this->assertFalse(DuckDuckGoService::isValidStatic('https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps'));
 	}
 
 	public function testProcess(): void
 	{
-		$this->expectException(NotImplementedException::class);
-		$this->expectExceptionMessage('Validating is not implemented.');
+		// Processing is not implemented
+		$this->expectException(InvalidArgumentException::class);
+		$this->expectExceptionMessage('Input is not valid.');
 		DuckDuckGoService::processStatic('https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps');
 	}
 

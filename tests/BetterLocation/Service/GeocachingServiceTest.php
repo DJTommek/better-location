@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\GeocachingService;
 use PHPUnit\Framework\TestCase;
 
@@ -19,8 +19,8 @@ final class GeocachingServiceTest extends TestCase
 
 	public function testGenerateDriveLink(): void
 	{
-		$this->expectException(NotSupportedException::class);
-		$this->expectExceptionMessage('Drive link is not supported.');
+		$this->expectException(NotImplementedException::class);
+		$this->expectExceptionMessage('Drive link is not implemented.');
 		GeocachingService::getLink(50.087451, 14.420671, true);
 	}
 

@@ -39,7 +39,7 @@ final class GeohashService extends AbstractService
 		return $this->isUrl() || $this->isCode();
 	}
 
-	public function process()
+	public function process(): void
 	{
 		assert($this->data->coords instanceof Coordinates);
 		$lat = $this->data->coords->getLat();

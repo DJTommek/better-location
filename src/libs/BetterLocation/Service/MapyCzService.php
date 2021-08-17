@@ -100,7 +100,7 @@ final class MapyCzService extends AbstractService
 		return 'https://en.mapy.cz/screenshoter?url=' . urlencode(self::getLink($lat, $lon) . '&p=3&l=0');
 	}
 
-	public function process()
+	public function process(): void
 	{
 		if ($this->data->isShortUrl) {
 			$this->processShortUrl();

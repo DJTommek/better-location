@@ -3,10 +3,7 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Config;
 use App\Factory;
 use App\Icons;
@@ -39,15 +36,6 @@ final class GlympseService extends AbstractService
 	const PATH_INVITE_ID_REGEX = '/^\/([0-9a-z]+-[0-9a-z]+)$/i';
 	const PATH_GROUP_REGEX = '/^\/!(.+)$/i';
 
-	public static function getLink(float $lat, float $lon, bool $drive = false): string
-	{
-		if ($drive) {
-			throw new NotSupportedException('Drive link is not supported.');
-		} else {
-			throw new NotSupportedException('Share link is not supported.');
-		}
-	}
-
 	public function isValid(): bool
 	{
 		if ($this->url && $this->url->getDomain() === 'glympse.com') {
@@ -62,7 +50,7 @@ final class GlympseService extends AbstractService
 		return false;
 	}
 
-	public function process()
+	public function process(): void
 	{
 		if ($this->data->inviteId ?? null) {
 			$this->processInvite();

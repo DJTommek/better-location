@@ -19,14 +19,4 @@ final class SygicService extends AbstractService
 			return sprintf('%1$s/#/?map=17,%2$F,%3$F&address=%2$F,%3$F', self::SHARE_LINK, $lat, $lon);
 		}
 	}
-
-	public function isValid(): bool
-	{
-		return false; // @TODO add support
-	}
-
-	public function process()
-	{
-		// @TODO add support
-	}
 }

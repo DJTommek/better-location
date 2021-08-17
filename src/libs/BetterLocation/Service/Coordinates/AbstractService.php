@@ -5,7 +5,6 @@ namespace App\BetterLocation\Service\Coordinates;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Utils\Coordinates;
 use App\Utils\General;
 use App\Utils\Strict;
@@ -87,15 +86,6 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 			return true;
 		}
 		return false;
-	}
-
-	public static function getLink(float $lat, float $lon, bool $drive = false): string
-	{
-		if ($drive) {
-			throw new NotSupportedException('Drive link for raw coordinates is not supported.');
-		} else {
-			throw new NotSupportedException('Share link for raw coordinates is not supported.');
-		}
 	}
 
 	/**

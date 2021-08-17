@@ -43,7 +43,7 @@ final class BetterLocationService extends AbstractService
 		return false;
 	}
 
-	public function process()
+	public function process(): void
 	{
 		$location = new BetterLocation($this->input, $this->data->coords->getLat(), $this->data->coords->getLon(), self::class);
 		$this->collection->add($location);
