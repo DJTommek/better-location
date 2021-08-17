@@ -23,10 +23,8 @@ use unreal4u\TelegramAPI\Telegram\Types;
 
 class BetterLocation
 {
-	/** @var float */
-	private $lat;
-	/** @var float */
-	private $lon;
+	/** @var Coordinates */
+	private $coords;
 	/** @var ?string */
 	private $description;
 	/** @var string */
@@ -69,7 +67,7 @@ class BetterLocation
 			&& // extra check if original URL really contain these parameters (might be missing for shorted url, see issue #73)
 			$this->inputUrl->getQueryParameter('id') && $this->inputUrl->getQueryParameter('source')
 		) {
-			$generatedUrl = new \Nette\Http\Url(MapyCzService::getLink($this->lat, $this->lon));
+			$generatedUrl = new \Nette\Http\Url(MapyCzService::getLink($this->getLat(), $this->getLon()));
 			$generatedUrl->setQueryParameter('id', $this->inputUrl->getQueryParameter('id'));
 			$generatedUrl->setQueryParameter('source', $this->inputUrl->getQueryParameter('source'));
 			$this->pregeneratedLinks[MapyCzService::class] = $generatedUrl->getAbsoluteUrl();
@@ -123,7 +121,7 @@ class BetterLocation
 	{
 		if (is_null($this->address)) {
 			try {
-				if ($result = \App\Nominatim\Nominatim::reverse($this->lat, $this->lon)) {
+				if ($result = \App\Nominatim\Nominatim::reverse($this->getLat(), $this->getLon())) {
 					$this->address = $result['display_name'];
 				}
 			} catch (NominatimException | \GuzzleHttp\Exception\GuzzleException $exception) {
@@ -185,7 +183,7 @@ class BetterLocation
 		// Generate links
 		$textLinks = \array_map(function (string $service) {
 			return sprintf('<a href="%s" target="_blank">%s</a>',
-				$this->pregeneratedLinks[$service] ?? $service::getLink($this->lat, $this->lon),
+				$this->pregeneratedLinks[$service] ?? $service::getLink($this->getLat(), $this->getLon()),
 				$service::getName(true),
 			);
 		}, $settings->getLinkServices());
@@ -214,7 +212,7 @@ class BetterLocation
 		foreach ($settings->getButtonServices() as $service) {
 			$button = new Types\Inline\Keyboard\Button();
 			$button->text = sprintf('%s %s', $service::getName(true), Icons::CAR);
-			$button->url = $service::getLink($this->lat, $this->lon, true);
+			$button->url = $service::getLink($this->getLat(), $this->getLon(), true);
 			$buttons[] = $button;
 		}
 		return $buttons;
@@ -273,32 +271,24 @@ class BetterLocation
 		return $this->coordinateSuffixMessage;
 	}
 
-	public function getLink(string $class, bool $drive = false): string
-	{
-		if ($class instanceof AbstractService === false) {
-			throw new \InvalidArgumentException(sprintf('Class must be instance of "%s"', AbstractService::class));
-		}
-		return $class::getLink($this->lat, $this->lon, $drive);
-	}
-
 	public function getLat(): float
 	{
-		return $this->lat;
+		return $this->coords->getLat();
 	}
 
 	public function getLon(): float
 	{
-		return $this->lon;
+		return $this->coords->getLon();
 	}
 
 	public function getLatLon(): array
 	{
-		return [$this->lat, $this->lon];
+		return [$this->getLat(), $this->getLon()];
 	}
 
 	public function __toString(): string
 	{
-		return sprintf('%F,%F', $this->lat, $this->lon);
+		return sprintf('%F,%F', $this->getLat(), $this->getLon());
 	}
 
 	/**
@@ -368,14 +358,7 @@ class BetterLocation
 	 */
 	private function validateCoords(float $lat, float $lon): void
 	{
-		if (Coordinates::isLat($lat) === false) {
-			throw new InvalidLocationException('Latitude coordinate must be between or equal from -90 to 90 degrees.');
-		}
-		$this->lat = $lat;
-		if (Coordinates::isLon($lon) === false) {
-			throw new InvalidLocationException('Longitude coordinate must be between or equal from -180 to 180 degrees.');
-		}
-		$this->lon = $lon;
+		$this->coords = new Coordinates($lat, $lon);
 	}
 
 	private function validateSourceService(string $sourceService): void
@@ -438,5 +421,10 @@ class BetterLocation
 		} catch (\Exception $exception) {
 			return OpenLocationCode::encode($lat, $lon);
 		}
+	}
+
+	public function getCoordinates(): Coordinates
+	{
+		return $this->coords;
 	}
 }
