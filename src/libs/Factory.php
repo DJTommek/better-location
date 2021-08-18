@@ -119,4 +119,19 @@ class Factory
 		return self::$objects['nominatim'];
 	}
 
+	private static function CacheStorage(): \Nette\Caching\Storage
+	{
+		if (!isset(self::$objects['cacheStorage'])) {
+			$dir = Config::FOLDER_TEMP . '/nette-cache';
+			\Nette\Utils\FileSystem::createDir($dir);
+			self::$objects['cacheStorage'] = new \Nette\Caching\Storages\FileStorage($dir);
+		}
+		return self::$objects['cacheStorage'];
+	}
+
+	public static function Cache(string $namespace): \Nette\Caching\Cache
+	{
+		return new \Nette\Caching\Cache(self::CacheStorage(), $namespace);
+	}
+
 }

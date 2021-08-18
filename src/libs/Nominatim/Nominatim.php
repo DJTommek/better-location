@@ -13,6 +13,14 @@ class Nominatim
 
 	public static function reverse(float $lat, float $lon): ?array
 	{
+		$cacheKey = sprintf('reverse-%F-%F', $lat, $lon);
+		return Factory::Cache('nominatim')->load($cacheKey, function () use ($lat, $lon) {
+			return self::reverseReal($lat, $lon);
+		});
+	}
+
+	private static function reverseReal(float $lat, float $lon)
+	{
 		$nominatimApi = Factory::Nominatim();
 		$query = $nominatimApi->newReverse()->latlon($lat, $lon);
 		$result = $nominatimApi->find($query);
