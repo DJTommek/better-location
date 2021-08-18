@@ -19,7 +19,7 @@ use Nette\Utils\Strings;
 class DefaultConfig
 {
 	const FOLDER_DATA = __DIR__;
-	const FOLDER_TEMP = __DIR__ . '/../../temp/';
+	const FOLDER_TEMP = __DIR__ . '/../../temp';
 
 	/** @var string Basic URL used across application (web, webhook, static image, ...) */
 	protected const APP_URL = 'https://your-domain.com/some/path';
