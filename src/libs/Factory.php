@@ -134,4 +134,12 @@ class Factory
 		return new \Nette\Caching\Cache(self::CacheStorage(), $namespace);
 	}
 
+	static function Geonames(): \GeoNames\Client
+	{
+		if (!isset(self::$objects['geonames'])) {
+			self::$objects['geonames'] = new \GeoNames\Client(Config::GEONAMES_USERNAME);
+		}
+		return self::$objects['geonames'];
+	}
+
 }

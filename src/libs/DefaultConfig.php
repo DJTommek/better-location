@@ -138,6 +138,12 @@ class DefaultConfig
 	 */
 	const NOMINATIM_URL = 'https://nominatim.openstreetmap.org/';
 
+	/**
+	 * Identificator to requests to Geonames API. Registration is required.
+	 * @link https://www.geonames.org/export/
+	 */
+	const GEONAMES_USERNAME = 'BetterLocation';
+
 	const DATE_FORMAT = 'Y-m-d';
 	const TIME_FORMAT = 'H:i:s';
 	const TIME_FORMAT_ZONE = self::TIME_FORMAT . ' T';
