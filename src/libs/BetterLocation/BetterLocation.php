@@ -8,6 +8,8 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\MapyCzService;
 use App\BingMaps\StaticMaps;
 use App\Factory;
+use App\Geonames\Geonames;
+use App\Geonames\Types\TimezoneType;
 use App\Icons;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Button\RefreshButton;
@@ -47,6 +49,8 @@ class BetterLocation
 	private $pregeneratedLinks = [];
 	/** @var bool Can location change with same input? */
 	private $refreshable = false;
+	/** @var ?TimezoneType */
+	private $timezoneData;
 
 	/**
 	 * @param string|\Nette\Http\Url|\Nette\Http\UrlImmutable $input
@@ -129,6 +133,23 @@ class BetterLocation
 			}
 		}
 		return $this->address;
+	}
+
+	public function generateDateTimeZone(): ?TimezoneType
+	{
+		if (is_null($this->timezoneData)) {
+			try {
+				$this->timezoneData = Geonames::timezone($this->getLat(), $this->getLon());
+			} catch (\GuzzleHttp\Exception\GuzzleException $exception) {
+				Debugger::log($exception, Debugger::EXCEPTION);
+			}
+		}
+		return $this->timezoneData;
+	}
+
+	public function getTimezoneData(): ?TimezoneType
+	{
+		return $this->timezoneData;
 	}
 
 	/**
