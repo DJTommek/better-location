@@ -92,9 +92,14 @@ a {
 }
 
 #content-location .address,
-#content-location .telegram {
+#content-location .telegram,
+#content-location .timezone {
 	width: 100%;
 	text-align: center;
+}
+
+#content-location .address,
+#content-location .telegram {
 	font-size: 1.5em;
 }
 

@@ -7,6 +7,7 @@ use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\OpenStreetMapService;
 use App\BetterLocation\Service\WazeService;
+use App\Geonames\Types\TimezoneType;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Web\LayoutTemplate;
 
@@ -30,9 +31,13 @@ class LocationTemplate extends LayoutTemplate
 	public $linkOSM;
 	public $linkTG;
 
+	/** @var ?TimezoneType */
+	public $timezoneData;
+
 	public function prepare(BetterLocation $location, array $websites)
 	{
 		$this->betterLocation = $location;
+		$this->timezoneData = $this->betterLocation->getTimezoneData();
 		$this->websites = $websites;
 
 		$this->lat = $location->getLat();

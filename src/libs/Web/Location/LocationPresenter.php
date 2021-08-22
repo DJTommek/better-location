@@ -37,6 +37,7 @@ class LocationPresenter extends MainPresenter
 			$this->location = BetterLocation::fromLatLon($this->lat, $this->lon);
 			$this->handleAction();
 			$this->location->generateAddress();
+			$this->location->generateDateTimeZone();
 
 			$manager = new ServicesManager();
 			foreach ($manager->getServices() as $service) {
