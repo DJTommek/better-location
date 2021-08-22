@@ -43,8 +43,8 @@
 				<div id="map-dynamic-leaflet"></div>
 			</div>
 		</div>
-		<div class="address">
-			{$betterLocation->getAddress() ?? 'Unknown address'}
+		<div class="address" n:ifcontent>
+			{$betterLocation->getAddress()}
 		</div>
 		<div class="timezone" n:if="$timezoneData">
 			Local time: <b title="YYYY-MM-DD hh:mm:ss. Time might be few minutes out of date due to caching.">{$timezoneData->time->format(\App\Config::DATETIME_FORMAT)}</b>,
