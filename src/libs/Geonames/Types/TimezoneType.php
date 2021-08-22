@@ -82,7 +82,7 @@ class TimezoneType
 		$hours = floor($hoursAbs);
 
 		return sprintf('%s%s:%s',
-			$value > 0 ? '+' : '-',
+			$value >= 0 ? '+' : '-',
 			str_pad((string)$hours, 2, '0', STR_PAD_LEFT),
 			str_pad((string)$minutes, 2, '0', STR_PAD_LEFT),
 		);
