@@ -3,6 +3,7 @@
 namespace App\Geonames\Types;
 
 use App\Utils\Coordinates;
+use Tracy\Debugger;
 
 class TimezoneType
 {
@@ -38,8 +39,12 @@ class TimezoneType
 	/** @var Coordinates Generated from lat and lon */
 	public $coords;
 
-	public static function fromResponse(\stdClass $response)
+	public static function fromResponse(\stdClass $response): ?self
 	{
+		if (isset($response->timezoneId) === false) {
+			Debugger::log(sprintf('TimezoneID is empty. Raw response: %s', json_encode($response)), Debugger::DEBUG);
+			return null;
+		}
 		$result = new self();
 		foreach ($response as $item => $value) {
 			$result->{$item} = $value;

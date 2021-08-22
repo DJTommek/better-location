@@ -8,7 +8,7 @@ use Nette\Caching\Cache;
 
 class Geonames
 {
-	public static function timezone(float $lat, float $lon): TimezoneType
+	public static function timezone(float $lat, float $lon): ?TimezoneType
 	{
 		$cacheKey = sprintf('timezone-%F-%F', $lat, $lon);
 		return Factory::Cache('geonames')->load($cacheKey, function (&$dependencies) use ($lat, $lon) {
@@ -17,7 +17,7 @@ class Geonames
 		});
 	}
 
-	private static function timezoneReal(float $lat, float $lon)
+	private static function timezoneReal(float $lat, float $lon): ?TimezoneType
 	{
 		$client = Factory::Geonames();
 		$result = $client->timezone([
