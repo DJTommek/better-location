@@ -55,4 +55,32 @@ class TimezoneType
 		return $result;
 	}
 
+	public function formatGmtOffset(): string
+	{
+		return $this->formatOffset($this->gmtOffset);
+	}
+
+	public function formatRawOffset(): string
+	{
+		return $this->formatOffset($this->rawOffset);
+	}
+
+	public function formatDstOffset(): string
+	{
+		return $this->formatOffset($this->dstOffset);
+	}
+
+	private function formatOffset(float $value): string
+	{
+		$hoursAbs = abs($value);
+		$minutes = floor((abs($value) - floor($hoursAbs)) * 60);
+		$hours = floor($hoursAbs);
+
+		return sprintf('%s%s:%s',
+			$value > 0 ? '+' : '-',
+			str_pad((string)$hours, 2, '0', STR_PAD_LEFT),
+			str_pad((string)$minutes, 2, '0', STR_PAD_LEFT),
+		);
+	}
+
 }
