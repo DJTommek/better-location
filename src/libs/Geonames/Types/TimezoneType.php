@@ -5,6 +5,10 @@ namespace App\Geonames\Types;
 use App\Utils\Coordinates;
 use Tracy\Debugger;
 
+/**
+ * Response from Timezone API
+ * @link http://www.geonames.org/export/web-services.html
+ */
 class TimezoneType
 {
 	/** @var float */
@@ -12,28 +16,41 @@ class TimezoneType
 	/** @var float */
 	public $lng;
 
-	/** @var \DateTimeImmutable */
+	/** @var \DateTimeImmutable the local current time with local timezone */
 	public $time;
-	/** @var \DateTimeImmutable */
+	/** @var \DateTimeImmutable sunset in local time and local timezone */
 	public $sunset;
-	/** @var \DateTimeImmutable */
+	/** @var \DateTimeImmutable sunrise local time and local timezone */
 	public $sunrise;
 
-	/** @var string */
+	/** @var string ISO countrycode */
 	public $countryCode;
-	/** @var string */
+	/** @var string name (language can be set with param lang) */
 	public $countryName;
 
-	/** @var int|float */
+	/**
+	 * @var int|float offset to GMT at 1. January
+	 * @deprecated
+	 */
 	public $gmtOffset;
-	/** @var int|float */
+	/**
+	 * @var int|float the amount of time in hours to add to UTC to get standard time in this time zone.
+	 * Because this value is not affected by daylight saving time, it is called raw offset.
+	 */
 	public $rawOffset;
-	/** @var int|float */
+	/**
+	 * @var int|float offset to GMT at 1. July
+	 * @deprecated
+	 */
 	public $dstOffset;
+	/**
+	 * @var int|float GMT or DST offset based if DST is active or not
+	 */
+	public $nowOffset;
 
-	/** @var string */
+	/** @var string name of the timezone (according to Olson database), this information is sufficient to work with the timezone and defines DST rules */
 	public $timezoneId;
-	/** @var \DateTimeZone */
+	/** @var \DateTimeZone created from $timezoneId */
 	public $timezone;
 
 	/** @var Coordinates Generated from lat and lon */
@@ -56,13 +73,9 @@ class TimezoneType
 		$result->time = new \DateTimeImmutable($result->time, $result->timezone);
 		$result->sunset = new \DateTimeImmutable($result->sunset, $result->timezone);
 		$result->sunrise = new \DateTimeImmutable($result->sunrise, $result->timezone);
+		$result->nowOffset = $result->isDst() ? $result->dstOffset : $result->gmtOffset;
 
 		return $result;
-	}
-
-	public function formatGmtOffset(): string
-	{
-		return $this->formatOffset($this->gmtOffset);
 	}
 
 	public function formatRawOffset(): string
@@ -70,9 +83,27 @@ class TimezoneType
 		return $this->formatOffset($this->rawOffset);
 	}
 
+	/**
+	 * Formatted offset to GMT at 1. January
+	 * @deprecated
+	 */
+	public function formatGmtOffset(): string
+	{
+		return $this->formatOffset($this->gmtOffset);
+	}
+
+	/**
+	 * Formatted offset to GMT at 1. July
+	 * @deprecated
+	 */
 	public function formatDstOffset(): string
 	{
 		return $this->formatOffset($this->dstOffset);
+	}
+
+	public function formatNowOffset(): string
+	{
+		return $this->formatOffset($this->nowOffset);
 	}
 
 	private function formatOffset(float $value): string
@@ -88,4 +119,10 @@ class TimezoneType
 		);
 	}
 
+	public function isDst(): bool
+	{
+		$now = $this->time->getTimestamp();
+		$transitions = $this->timezone->getTransitions($now, $now);
+		return $transitions[0]['isdst'];
+	}
 }

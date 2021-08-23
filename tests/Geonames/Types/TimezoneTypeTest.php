@@ -49,10 +49,14 @@ final class TimezoneTypeTest extends TestCase
 		$this->assertSame(1, self::$prague->gmtOffset);
 		$this->assertSame(1, self::$prague->rawOffset);
 		$this->assertSame(2, self::$prague->dstOffset);
+		$this->assertSame(2, self::$prague->nowOffset);
 
 		$this->assertSame('+01:00', self::$prague->formatGmtOffset());
 		$this->assertSame('+01:00', self::$prague->formatRawOffset());
 		$this->assertSame('+02:00', self::$prague->formatDstOffset());
+		$this->assertSame('+02:00', self::$prague->formatNowOffset());
+
+		$this->assertTrue(self::$prague->isDst());
 
 		$this->assertSame('Europe/Prague', self::$prague->timezoneId);
 		$this->assertInstanceOf(DateTimeZone::class, self::$prague->timezone);
@@ -83,10 +87,14 @@ final class TimezoneTypeTest extends TestCase
 		$this->assertSame(-5, self::$newYork->gmtOffset);
 		$this->assertSame(-5, self::$newYork->rawOffset);
 		$this->assertSame(-4, self::$newYork->dstOffset);
+		$this->assertSame(-4, self::$newYork->nowOffset);
 
 		$this->assertSame('-05:00', self::$newYork->formatGmtOffset());
 		$this->assertSame('-05:00', self::$newYork->formatRawOffset());
 		$this->assertSame('-04:00', self::$newYork->formatDstOffset());
+		$this->assertSame('-04:00', self::$newYork->formatDstOffset());
+
+		$this->assertTrue(self::$newYork->isDst());
 
 		$this->assertSame('America/New_York', self::$newYork->timezoneId);
 		$this->assertInstanceOf(DateTimeZone::class, self::$newYork->timezone);
@@ -117,10 +125,14 @@ final class TimezoneTypeTest extends TestCase
 		$this->assertSame(3.5, self::$tehran->gmtOffset);
 		$this->assertSame(3.5, self::$tehran->rawOffset);
 		$this->assertSame(4.5, self::$tehran->dstOffset);
+		$this->assertSame(4.5, self::$tehran->nowOffset);
 
 		$this->assertSame('+03:30', self::$tehran->formatGmtOffset());
 		$this->assertSame('+03:30', self::$tehran->formatRawOffset());
 		$this->assertSame('+04:30', self::$tehran->formatDstOffset());
+		$this->assertSame('+04:30', self::$tehran->formatNowOffset());
+
+		$this->assertTrue(self::$tehran->isDst());
 
 		$this->assertSame('Asia/Tehran', self::$tehran->timezoneId);
 		$this->assertInstanceOf(DateTimeZone::class, self::$tehran->timezone);

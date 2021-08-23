@@ -49,7 +49,8 @@
 		<div class="timezone" n:if="$timezoneData">
 			Local time: <b title="YYYY-MM-DD hh:mm:ss. Time might be few minutes out of date due to caching.">{$timezoneData->time->format(\App\Config::DATETIME_FORMAT)}</b>,
 			Timezone: <b>{$timezoneData->timezone->getName()}</b>,
-			UTC Offset: <b>{$timezoneData->formatGmtOffset()}</b>
+			UTC Offset: <b>{$timezoneData->formatNowOffset()}</b>,
+			DST: <b>{$timezoneData->isDst() ? 'yes' : 'no'}</b>
 		</div>
 		<div class="telegram">
 			<a href="{$linkTG}" target="_blank" title="Telegram">
