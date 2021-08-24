@@ -16,4 +16,9 @@ class DateImmutableUtils
 		}
 		return (new \DateTimeImmutable())->setTimestamp($timestamp)->setTimezone($timezone);
 	}
+
+	public static function nowUtc(): \DateTimeImmutable
+	{
+		return (new \DateTimeImmutable('now', new \DateTimeZone('UTC')));
+	}
 }
