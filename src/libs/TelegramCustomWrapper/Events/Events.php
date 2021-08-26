@@ -228,7 +228,7 @@ abstract class Events
 	{
 		$lat = 50.087451;
 		$lon = 14.420671;
-		$wazeLink = WazeService::getLink($lat, $lon);
+		$wazeLink = WazeService::getShareLink($lat, $lon);
 		$betterLocationWaze = WazeService::processStatic($wazeLink)->getFirst();
 
 		$text = sprintf('%s Welcome to @%s!', Icons::LOCATION, Config::TELEGRAM_BOT_NAME) . PHP_EOL;
@@ -393,7 +393,7 @@ abstract class Events
 
 	protected function processSettings(bool $inline = false)
 	{
-		$collection = WazeService::processStatic(WazeService::getLink(50.087451, 14.420671))->getCollection();
+		$collection = WazeService::processStatic(WazeService::getShareLink(50.087451, 14.420671))->getCollection();
 		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
 		$processedCollection->process();
 

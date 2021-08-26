@@ -97,7 +97,7 @@ final class MapyCzService extends AbstractService
 		// p=1 disable right panel (can't be opened) and disable bottom left panorama view screenshot
 		// p=2 show right panel and (can't be hidden) and disable bottom left panorama view screenshot
 		// p=3 disable right panel (can't be opened) and enable bottom left panorama view screenshot
-		return 'https://en.mapy.cz/screenshoter?url=' . urlencode(self::getLink($lat, $lon) . '&p=3&l=0');
+		return 'https://en.mapy.cz/screenshoter?url=' . urlencode(self::getShareLink($lat, $lon) . '&p=3&l=0');
 	}
 
 	public function process(): void

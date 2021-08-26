@@ -92,11 +92,11 @@ class LocationPresenter extends MainPresenter
 		/** @var $service AbstractService */
 		$result = [];
 		try {
-			$result['share'] = $service::getLink($lat, $lon);
+			$result['share'] = $service::getShareLink($lat, $lon);
 		} catch (NotSupportedException $exception) {
 		}
 		try {
-			$result['drive'] = $service::getLink($lat, $lon, true);
+			$result['drive'] = $service::getDriveLink($lat, $lon);
 		} catch (NotSupportedException $exception) {
 		}
 		try {

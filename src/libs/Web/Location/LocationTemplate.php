@@ -47,10 +47,10 @@ class LocationTemplate extends LayoutTemplate
 			$this->isFavourite = $this->user->getFavourite($this->lat, $this->lon) !== null;
 		}
 
-		$this->linkWaze = WazeService::getLink($this->lat, $this->lon);
-		$this->linkGoogle = GoogleMapsService::getLink($this->lat, $this->lon);
-		$this->linkHere = HereWeGoService::getLink($this->lat, $this->lon);
-		$this->linkOSM = OpenStreetMapService::getLink($this->lat, $this->lon);
+		$this->linkWaze = WazeService::getShareLink($this->lat, $this->lon);
+		$this->linkGoogle = GoogleMapsService::getShareLink($this->lat, $this->lon);
+		$this->linkHere = HereWeGoService::getShareLink($this->lat, $this->lon);
+		$this->linkOSM = OpenStreetMapService::getShareLink($this->lat, $this->lon);
 		$this->linkTG = TelegramHelper::generateStartLocation($this->lat, $this->lon);
 	}
 }

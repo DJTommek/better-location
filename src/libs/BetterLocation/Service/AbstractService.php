@@ -79,6 +79,7 @@ abstract class AbstractService
 
 	/**
 	 * @throws NotSupportedException
+	 * @deprecated use GetShareLink() or getDriveLink()
 	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
@@ -87,6 +88,26 @@ abstract class AbstractService
 		} else {
 			throw new NotSupportedException('Share link is not supported.');
 		}
+	}
+
+	/**
+	 * Return link to open location in specific app with highlighted location if possible
+	 *
+	 * @throws NotSupportedException
+	 */
+	public static function getShareLink(float $lat, float $lon): string
+	{
+		throw new NotSupportedException('Share link is not supported.');
+	}
+
+	/**
+	 * Return link to open location optimized for quicker navigation (eg. autostart)
+	 *
+	 * @throws NotSupportedException
+	 */
+	public static function getDriveLink(float $lat, float $lon): string
+	{
+		throw new NotSupportedException('Drive link is not supported.');
 	}
 
 	/**

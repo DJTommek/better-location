@@ -40,7 +40,7 @@ final class OpenLocationCodeService extends AbstractService
 		$coords = OpenLocationCode::decode($this->data->plusCode);
 		$betterLocation = new BetterLocation($this->input, $coords['latitudeCenter'], $coords['longitudeCenter'], self::class);
 		$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a> <code>%s</code>: ',
-			self::getLink($coords['latitudeCenter'], $coords['longitudeCenter']),
+			self::getShareLink($coords['latitudeCenter'], $coords['longitudeCenter']),
 			self::NAME,
 			$this->data->plusCode
 		));

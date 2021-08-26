@@ -71,7 +71,7 @@ class BetterLocation
 			&& // extra check if original URL really contain these parameters (might be missing for shorted url, see issue #73)
 			$this->inputUrl->getQueryParameter('id') && $this->inputUrl->getQueryParameter('source')
 		) {
-			$generatedUrl = new \Nette\Http\Url(MapyCzService::getLink($this->getLat(), $this->getLon()));
+			$generatedUrl = new \Nette\Http\Url(MapyCzService::getShareLink($this->getLat(), $this->getLon()));
 			$generatedUrl->setQueryParameter('id', $this->inputUrl->getQueryParameter('id'));
 			$generatedUrl->setQueryParameter('source', $this->inputUrl->getQueryParameter('source'));
 			$this->pregeneratedLinks[MapyCzService::class] = $generatedUrl->getAbsoluteUrl();
@@ -204,7 +204,7 @@ class BetterLocation
 		// Generate links
 		$textLinks = \array_map(function (string $service) {
 			return sprintf('<a href="%s" target="_blank">%s</a>',
-				$this->pregeneratedLinks[$service] ?? $service::getLink($this->getLat(), $this->getLon()),
+				$this->pregeneratedLinks[$service] ?? $service::getShareLink($this->getLat(), $this->getLon()),
 				$service::getName(true),
 			);
 		}, $settings->getLinkServices());
@@ -233,7 +233,7 @@ class BetterLocation
 		foreach ($settings->getButtonServices() as $service) {
 			$button = new Types\Inline\Keyboard\Button();
 			$button->text = sprintf('%s %s', $service::getName(true), Icons::CAR);
-			$button->url = $service::getLink($this->getLat(), $this->getLon(), true);
+			$button->url = $service::getDriveLink($this->getLat(), $this->getLon());
 			$buttons[] = $button;
 		}
 		return $buttons;
