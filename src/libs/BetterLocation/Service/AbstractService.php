@@ -97,7 +97,7 @@ abstract class AbstractService
 	 */
 	public static function getShareLink(float $lat, float $lon): string
 	{
-		throw new NotSupportedException('Share link is not supported.');
+		return static::getLink($lat, $lon, false);
 	}
 
 	/**
@@ -107,7 +107,7 @@ abstract class AbstractService
 	 */
 	public static function getDriveLink(float $lat, float $lon): string
 	{
-		throw new NotSupportedException('Drive link is not supported.');
+		return static::getLink($lat, $lon, true);
 	}
 
 	/**
