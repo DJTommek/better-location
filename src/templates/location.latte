@@ -43,6 +43,10 @@
 				<div id="map-dynamic-leaflet"></div>
 			</div>
 		</div>
+		<div class="downloads">
+			<i class="fa fa-download"></i>
+			<a href="{$basePath}/{$lat},{$lon}?format=gpx">.gpx</a>
+		</div>
 		<div class="address" n:ifcontent>
 			{$betterLocation->getAddress()}
 		</div>

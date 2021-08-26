@@ -9,6 +9,7 @@ use App\BetterLocation\Service\OpenStreetMapService;
 use App\BetterLocation\Service\WazeService;
 use App\Geonames\Types\TimezoneType;
 use App\TelegramCustomWrapper\TelegramHelper;
+use App\Utils\DateImmutableUtils;
 use App\Web\LayoutTemplate;
 
 class LocationTemplate extends LayoutTemplate
@@ -34,6 +35,9 @@ class LocationTemplate extends LayoutTemplate
 	/** @var ?TimezoneType */
 	public $timezoneData;
 
+	/** @var string Text representation of now in UTC */
+	public $nowUtcText;
+
 	public function prepare(BetterLocation $location, array $websites)
 	{
 		$this->betterLocation = $location;
@@ -52,6 +56,8 @@ class LocationTemplate extends LayoutTemplate
 		$this->linkHere = HereWeGoService::getShareLink($this->lat, $this->lon);
 		$this->linkOSM = OpenStreetMapService::getShareLink($this->lat, $this->lon);
 		$this->linkTG = TelegramHelper::generateStartLocation($this->lat, $this->lon);
+
+		$this->nowUtcText = DateImmutableUtils::nowUtc()->format(DATE_ISO8601);
 	}
 }
 
