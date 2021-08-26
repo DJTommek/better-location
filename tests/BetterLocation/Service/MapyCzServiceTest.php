@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\MapyCzService;
 use PHPUnit\Framework\TestCase;
 

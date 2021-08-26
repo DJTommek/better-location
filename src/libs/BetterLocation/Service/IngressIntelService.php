@@ -24,7 +24,7 @@ final class IngressIntelService extends AbstractService
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
 		if ($drive) {
-			throw new NotSupportedException('Drive link is not implemented.');
+			throw new NotSupportedException('Drive link is not supported.');
 		} else {
 			return self::LINK . sprintf('/?ll=%1$f,%2$f&pll=%1$f,%2$f', $lat, $lon);
 		}

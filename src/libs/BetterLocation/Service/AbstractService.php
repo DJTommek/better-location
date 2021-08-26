@@ -5,7 +5,6 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Utils\Strict;
 use Nette\Http\Url;
@@ -70,35 +69,32 @@ abstract class AbstractService
 	}
 
 	/**
-	 * @throws NotImplementedException
 	 * @throws NotSupportedException
 	 * @throws InvalidLocationException
 	 */
 	public function process(): void
 	{
-		throw new NotImplementedException('Processing is not implemented.');
+		throw new NotSupportedException('Processing is not implemented.');
 	}
 
 	/**
-	 * @throws NotImplementedException
 	 * @throws NotSupportedException
 	 */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
 		if ($drive) {
-			throw new NotImplementedException('Drive link is not implemented.');
+			throw new NotSupportedException('Drive link is not supported.');
 		} else {
-			throw new NotImplementedException('Share link is not implemented.');
+			throw new NotSupportedException('Share link is not supported.');
 		}
 	}
 
 	/**
-	 * @throws NotImplementedException
 	 * @throws NotSupportedException
 	 */
 	static public function getShareText(float $lat, float $lon): string
 	{
-		throw new NotImplementedException('Share text is not supported.');
+		throw new NotSupportedException('Share text is not supported.');
 	}
 
 	final public function getCollection(): BetterLocationCollection

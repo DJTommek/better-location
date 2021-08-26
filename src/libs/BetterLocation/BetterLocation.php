@@ -155,7 +155,7 @@ class BetterLocation
 	/**
 	 * @param string|resource $input Path or URL link to file or resource (see https://php.net/manual/en/function.exif-read-data.php)
 	 * @return BetterLocation|null
-	 * @throws InvalidLocationException|Service\Exceptions\NotImplementedException
+	 * @throws InvalidLocationException
 	 */
 	public static function fromExif($input): ?BetterLocation
 	{

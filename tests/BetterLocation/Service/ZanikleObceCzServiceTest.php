@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\ZanikleObceCzService;
 use PHPUnit\Framework\TestCase;
 
@@ -18,8 +18,8 @@ final class ZanikleObceCzServiceTest extends TestCase
 
 	public function testGenerateDriveLink(): void
 	{
-		$this->expectException(NotImplementedException::class);
-		$this->expectExceptionMessage('Drive link is not implemented.');
+		$this->expectException(NotSupportedException::class);
+		$this->expectExceptionMessage('Drive link is not supported.');
 		ZanikleObceCzService::getLink(50.087451, 14.420671, true);
 	}
 

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\OpenLocationCodeService;
 use PHPUnit\Framework\TestCase;
 
@@ -17,8 +17,8 @@ final class OpenLocationCodeServiceTest extends TestCase
 
 	public function testGenerateDriveLink(): void
 	{
-		$this->expectException(NotImplementedException::class);
-		$this->expectExceptionMessage('Drive link is not implemented.');
+		$this->expectException(NotSupportedException::class);
+		$this->expectExceptionMessage('Drive link is not supported.');
 		OpenLocationCodeService::getLink(50.087451, 14.420671, true);
 	}
 

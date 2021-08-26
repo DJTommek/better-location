@@ -2,7 +2,7 @@
 
 namespace App\BetterLocation\Service;
 
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
 
 final class DuckDuckGoService extends AbstractService
 {
@@ -15,7 +15,7 @@ final class DuckDuckGoService extends AbstractService
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
 		if ($drive) {
-			throw new NotImplementedException('Drive link is not implemented.');
+			throw new NotSupportedException('Drive link is not supported.');
 		} else {
 			return self::LINK . sprintf('/?q=%1$f,%2$f&iaxm=maps', $lat, $lon);
 		}
@@ -28,6 +28,6 @@ final class DuckDuckGoService extends AbstractService
 
 	public function process(): void
 	{
-		throw new NotImplementedException('Processing is not available.');
+		throw new NotSupportedException('Processing is not available.');
 	}
 }
