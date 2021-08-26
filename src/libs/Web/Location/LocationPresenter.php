@@ -21,6 +21,8 @@ class LocationPresenter extends MainPresenter
 	private $location;
 	/** @var array Multidimensional array of all structures, where is possible to generate something (share link, drive link, ...) */
 	private $services = [];
+	/** @var string */
+	private $format = 'html';
 
 	public function __construct()
 	{
@@ -43,9 +45,7 @@ class LocationPresenter extends MainPresenter
 				$this->services[] = $this->website($service, $this->lat, $this->lon);
 			}
 			$this->services = array_values(array_filter($this->services));
-			if (mb_strtolower($_GET['format'] ?? 'html') === 'json') {
-				$this->json();
-			}
+			$this->format = mb_strtolower($_GET['format'] ?? 'html');
 		}
 	}
 
@@ -70,7 +70,15 @@ class LocationPresenter extends MainPresenter
 	{
 		if ($this->location) {
 			$this->template->prepare($this->location, $this->services);
-			Factory::Latte('location.latte', $this->template);
+			switch ($this->format) {
+				case 'html':
+				default;
+					Factory::Latte('location.latte', $this->template);
+					break;
+				case 'gpx':
+					$this->fileGpx();
+					break;
+			}
 		} else {
 			Factory::Latte('locationError.latte', $this->template);
 		}
@@ -85,6 +93,12 @@ class LocationPresenter extends MainPresenter
 		$result->services = $this->services;
 		header('Content-Type: application/json');
 		die(Json::encode($result));
+	}
+
+	public function fileGpx(): void
+	{
+		header(sprintf('Content-Disposition: attachment; filename="BetterLocation_%s.gpx"', $this->location->__toString()));
+		Factory::Latte('locationGpx.latte', $this->template);
 	}
 
 	private function website($service, float $lat, float $lon)
