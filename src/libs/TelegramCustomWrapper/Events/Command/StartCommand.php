@@ -28,6 +28,7 @@ class StartCommand extends Command
 	const FAVOURITE_ERROR_TOO_LONG = 'too-long';
 
 	const SETTINGS = SettingsCommand::CMD;
+	const LOGIN = LoginCommand::CMD;
 
 	public function handleWebhookUpdate()
 	{
@@ -45,6 +46,9 @@ class StartCommand extends Command
 					break;
 				case self::SETTINGS;
 					$this->processSettings();
+					break;
+				case self::LOGIN;
+					$this->processLogin();
 					break;
 				default:
 					// Bot indexers can add their own start parameters, so if no valid parameter is detected, continue just like /start without parameter

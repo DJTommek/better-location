@@ -2,10 +2,8 @@
 
 namespace App\TelegramCustomWrapper\Events\Command;
 
-use App\Config;
 use App\Icons;
-use App\TelegramCustomWrapper\TelegramHelper;
-use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
+
 
 class LoginCommand extends Command
 {
@@ -15,21 +13,6 @@ class LoginCommand extends Command
 
 	public function handleWebhookUpdate()
 	{
-		if ($this->isPm()) {
-			$appUrl = Config::getAppUrl();
-			$text = sprintf('%s <b>Login</b> for <a href="%s">%s</a>.', Icons::LOGIN, $appUrl->getAbsoluteUrl(), $appUrl->getDomain(0)) . PHP_EOL;
-			$text .= sprintf('Click on button below to login to access your settings, favourites, etc. on %s website', $appUrl->getDomain(0));
-
-			$replyMarkup = new Markup();
-			$replyMarkup->inline_keyboard[] = [
-				TelegramHelper::loginUrlButton('Login in browser')
-			];
-
-			$this->reply($text, $replyMarkup);
-		} else {
-			$this->reply(sprintf('%s Command <code>%s</code> is available only in private message, open @%s.',
-				Icons::ERROR, self::getCmd(), Config::TELEGRAM_BOT_NAME
-			));
-		}
+		$this->processLogin();
 	}
 }

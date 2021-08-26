@@ -4,6 +4,7 @@ namespace App\Web\Login;
 
 use App\Config;
 use App\TelegramCustomWrapper\Events\Command\LoginCommand;
+use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Web\LayoutTemplate;
 
@@ -15,10 +16,13 @@ class LoginTemplate extends LayoutTemplate
 	public $botUsername = Config::TELEGRAM_BOT_NAME;
 	/** @var string */
 	public $botLink;
+	/** @var string */
+	public $botLinkLogin;
 
 	public function prepare()
 	{
 		$this->botLink = TelegramHelper::userLink($this->botUsername);
+		$this->botLinkLogin = TelegramHelper::generateStart(StartCommand::LOGIN);
 	}
 }
 
