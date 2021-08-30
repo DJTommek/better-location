@@ -220,7 +220,12 @@
 						icon: isFirst ? mapData.icons.active : mapData.icons.inactive,
 					}
 				);
-				marker.bindPopup('<p>Coordinates: <b><a href="{$basePath|noescape}/' + location.key + '">' + location.key + '</a></b></p>', {
+				let popupContent = '<p>';
+				popupContent += 'Coordinates: <b><a href="{$basePath|noescape}/' + location.key + '">' + location.key + '</a></b>';
+				popupContent += '<br>';
+				popupContent += 'Address: <b>' + (location.address ?? 'Unknown address') + '</b>';
+				popupContent += '</p>';
+				marker.bindPopup(popupContent, {
 					offset: [0, -30],
 				});
 				marker.on('popupopen', function (event) {

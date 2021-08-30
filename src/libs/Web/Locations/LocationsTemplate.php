@@ -24,6 +24,7 @@ class LocationsTemplate extends LayoutTemplate
 				'coords' => [$location->getLat(), $location->getLon()],
 				'hash' => $location->getCoordinates()->hash(),
 				'key' => $location->__toString(),
+				'address' => $location->getAddress(),
 			];
 		}, $collection->getLocations());
 		$this->allCoords = array_map(function(BetterLocation $location) {
