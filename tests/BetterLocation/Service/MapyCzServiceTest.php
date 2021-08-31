@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\MapyCzService;
 use PHPUnit\Framework\TestCase;
 
@@ -23,6 +24,14 @@ final class MapyCzServiceTest extends TestCase
 		$this->assertSame('https://mapy.cz/zakladni?y=-50.200000&x=14.600000&source=coor&id=14.600000%2C-50.200000', MapyCzService::getLink(-50.2, 14.6000001, true)); // round down
 		$this->assertSame('https://mapy.cz/zakladni?y=50.300000&x=-14.700001&source=coor&id=-14.700001%2C50.300000', MapyCzService::getLink(50.3, -14.7000009, true)); // round up
 		$this->assertSame('https://mapy.cz/zakladni?y=-50.400000&x=-14.800008&source=coor&id=-14.800008%2C-50.400000', MapyCzService::getLink(-50.4, -14.800008, true));
+	}
+
+	public function testGenerateCollectionLink(): void
+	{
+		$collection = new BetterLocationCollection();
+		$collection->add(BetterLocation::fromLatLon(50.087451, 14.420671));
+		$collection->add(BetterLocation::fromLatLon(50.3, -14.7000009));
+		$this->assertSame('https://mapy.cz/?query=50.087451,14.420671;50.300000,-14.700001', MapyCzService::getCollectionLink($collection));
 	}
 
 	public function testIsValidMap(): void

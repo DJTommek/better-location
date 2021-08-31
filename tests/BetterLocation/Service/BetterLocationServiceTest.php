@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;
@@ -20,6 +22,14 @@ final class BetterLocationServiceTest extends TestCase
 		$this->expectException(NotSupportedException::class);
 		$this->expectExceptionMessage('Drive link is not supported.');
 		BetterLocationService::getLink(50.087451, 14.420671, true);
+	}
+
+	public function testGenerateCollectionLink(): void
+	{
+		$collection = new BetterLocationCollection();
+		$collection->add(BetterLocation::fromLatLon(50.087451, 14.420671));
+		$collection->add(BetterLocation::fromLatLon(50.3, -14.7000009));
+		$this->assertSame('https://better-location.palider.cz/50.087451,14.420671;50.300000,-14.700001', BetterLocationService::getCollectionLink($collection));
 	}
 
 	public function testIsValid(): void

@@ -3,6 +3,7 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
@@ -15,7 +16,7 @@ final class MapyCzService extends AbstractService
 {
 	const ID = 8;
 	const NAME = 'Mapy.cz';
-	const LINK = 'https://mapy.cz/zakladni?y=%1$f&x=%2$f&source=coor&id=%2$f%%2C%1$f';
+	const LINK = 'https://mapy.cz';
 
 	const TYPE_UNKNOWN = 'unknown';
 	const TYPE_MAP = 'Map center';
@@ -87,7 +88,12 @@ final class MapyCzService extends AbstractService
 		// 2021-07-14: Drive link is "kind of" available using planner and on Android device it will open correctly target destination,
 		// but empty deparature, so user has to choose current location manually. That is more clicks, than using classic,
 		// share link.
-		return sprintf(self::LINK, $lat, $lon);
+		return sprintf('%s/zakladni?y=%2$f&x=%3$f&source=coor&id=%3$f%%2C%2$f', self::LINK, $lat, $lon);
+	}
+
+	public static function getCollectionLink(BetterLocationCollection $collection): string
+	{
+		return sprintf('%s/?query=%s', self::LINK, implode(';', $collection->getKeys()));
 	}
 
 	public static function getScreenshotLink(float $lat, float $lon): string

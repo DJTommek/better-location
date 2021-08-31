@@ -3,6 +3,7 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Utils\Coordinates;
@@ -24,6 +25,11 @@ final class BetterLocationService extends AbstractService
 		} else {
 			return sprintf('%s/%F,%F', self::LINK, $lat, $lon);
 		}
+	}
+
+	static public function getCollectionLink(BetterLocationCollection $collection): string
+	{
+		return self::LINK . '/' . implode(';', $collection->getKeys());
 	}
 
 	public function isValid(): bool
