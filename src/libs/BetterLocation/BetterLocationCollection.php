@@ -333,4 +333,10 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		$staticMap->addMarkers($this)->downloadAndCache();
 		return $staticMap->getUrl();
 	}
+
+	public function getKeys(): array {
+		return array_map(function (BetterLocation $location) {
+			return $location->__toString();
+		}, $this->getLocations());
+	}
 }

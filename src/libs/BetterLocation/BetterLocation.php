@@ -309,7 +309,7 @@ class BetterLocation
 
 	public function __toString(): string
 	{
-		return sprintf('%F,%F', $this->getLat(), $this->getLon());
+		return $this->coords->__toString();
 	}
 
 	/**
@@ -447,5 +447,10 @@ class BetterLocation
 	public function getCoordinates(): Coordinates
 	{
 		return $this->coords;
+	}
+
+	public function key(): string
+	{
+		return $this->coords->key();
 	}
 }

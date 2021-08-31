@@ -93,14 +93,19 @@ class Coordinates
 		return [$degreesRound, abs($minutesRound), abs($seconds)];
 	}
 
-	public function __toString(): string
+	public function hash(): string
+	{
+		return md5($this->__toString());
+	}
+
+	public function key(): string
 	{
 		return sprintf('%F,%F', $this->lat, $this->lon);
 	}
 
-	public function hash(): string
+	public function __toString(): string
 	{
-		return md5($this->__toString());
+		return $this->key();
 	}
 
 	/** Get decimal format from degrees-minutes */
