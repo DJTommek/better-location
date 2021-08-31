@@ -5,7 +5,6 @@ namespace App\Web\Locations;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\AbstractService;
-use App\BetterLocation\Service\Exceptions\NotImplementedException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use App\Factory;
@@ -71,15 +70,15 @@ class LocationsPresenter extends MainPresenter
 		$result = [];
 		try {
 			$result['share'] = $service::getLink($lat, $lon);
-		} catch (NotImplementedException | NotSupportedException $exception) {
+		} catch (NotSupportedException $exception) {
 		}
 		try {
 			$result['drive'] = $service::getLink($lat, $lon, true);
-		} catch (NotSupportedException | NotImplementedException $exception) {
+		} catch (NotSupportedException $exception) {
 		}
 		try {
 			$result['text'] = $service::getShareText($lat, $lon);
-		} catch (NotSupportedException | NotImplementedException $exception) {
+		} catch (NotSupportedException $exception) {
 		}
 		if ($result !== []) {
 			$result['name'] = $service::NAME;
