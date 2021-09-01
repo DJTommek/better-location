@@ -78,6 +78,9 @@ class LocationPresenter extends MainPresenter
 				case 'gpx':
 					$this->fileGpx();
 					break;
+				case 'kml':
+					$this->fileKml();
+					break;
 			}
 		} else {
 			Factory::Latte('locationError.latte', $this->template);
@@ -99,6 +102,12 @@ class LocationPresenter extends MainPresenter
 	{
 		header(sprintf('Content-Disposition: attachment; filename="BetterLocation_%s.gpx"', $this->location->__toString()));
 		Factory::Latte('locationGpx.latte', $this->template);
+	}
+
+	public function fileKml(): void
+	{
+		header(sprintf('Content-Disposition: attachment; filename="BetterLocation_%s.kml"', $this->location->__toString()));
+		Factory::Latte('locationKml.latte', $this->template);
 	}
 
 	private function website($service, float $lat, float $lon)

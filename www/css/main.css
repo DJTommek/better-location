@@ -96,15 +96,6 @@ a {
 #content-locations .address,
 #content-locations .telegram,
 #content-location .address,
-#content-location .telegram,
-#content-location .timezone {
-	width: 100%;
-	text-align: center;
-}
-
-#content-locations .address,
-#content-locations .telegram,
-#content-location .address,
 #content-location .telegram {
 	font-size: 1.5em;
 }

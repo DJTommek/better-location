@@ -40,14 +40,16 @@
 		<div class="tab-content">
 			{foreach $collection as $location}
 				<div id="content-locations-{$location->getCoordinates()->hash()}" class="tab-pane fade {$iterator->first ? 'show active'}" role="tabpanel">
-					<div class="address">
-						{$location->getAddress() ?? 'Unknown address'}
-					</div>
-					<div class="telegram">
-						<a href="{App\TelegramCustomWrapper\TelegramHelper::generateStartLocation($location->getLat(), $location->getLon())}" target="_blank" title="Telegram">
-							<i class="fa fa-telegram"></i>
-							@BetterLocationBot
-						</a>
+					<div class="text-center">
+						<div class="address">
+							{$location->getAddress() ?? 'Unknown address'}
+						</div>
+						<div class="telegram">
+							<a href="{App\TelegramCustomWrapper\TelegramHelper::generateStartLocation($location->getLat(), $location->getLon())}" target="_blank" title="Telegram">
+								<i class="fa fa-telegram"></i>
+								@BetterLocationBot
+							</a>
+						</div>
 					</div>
 					<div class="websites table-responsive">
 						<table class="table table-nonfluid table-hover table-striped table-sm">
