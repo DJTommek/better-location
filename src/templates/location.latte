@@ -43,24 +43,27 @@
 				<div id="map-dynamic-leaflet"></div>
 			</div>
 		</div>
-		<div class="downloads">
-			<i class="fa fa-download"></i>
-			<a href="{$basePath}/{$lat},{$lon}?format=gpx">.gpx</a>
-		</div>
-		<div class="address" n:ifcontent>
-			{$betterLocation->getAddress()}
-		</div>
-		<div class="timezone" n:if="$timezoneData">
-			Local time: <b title="YYYY-MM-DD hh:mm:ss. Time might be few minutes out of date due to caching.">{$timezoneData->time->format(\App\Config::DATETIME_FORMAT)}</b>,
-			Timezone: <b>{$timezoneData->timezone->getName()}</b>,
-			UTC Offset: <b>{$timezoneData->formatNowOffset()}</b>,
-			DST: <b>{$timezoneData->isDst() ? 'yes' : 'no'}</b>
-		</div>
-		<div class="telegram">
-			<a href="{$linkTG}" target="_blank" title="Telegram">
-				<i class="fa fa-telegram"></i>
-				@BetterLocationBot
-			</a>
+		<div class="text-center">
+			<div class="address" n:ifcontent>
+				{$betterLocation->getAddress()}
+			</div>
+			<div class="timezone" n:if="$timezoneData">
+				Local time: <b title="YYYY-MM-DD hh:mm:ss. Time might be few minutes out of date due to caching.">{$timezoneData->time->format(\App\Config::DATETIME_FORMAT)}</b>,
+				Timezone: <b>{$timezoneData->timezone->getName()}</b>,
+				UTC Offset: <b>{$timezoneData->formatNowOffset()}</b>,
+				DST: <b>{$timezoneData->isDst() ? 'yes' : 'no'}</b>
+			</div>
+			<div class="downloads">
+				<i class="fa fa-download"></i> Download:
+				<a href="{$basePath}/{$lat},{$lon}?format=gpx">gpx</a> |
+				<a href="{$basePath}/{$lat},{$lon}?format=kml">kml</a>
+			</div>
+			<div class="telegram">
+				<a href="{$linkTG}" target="_blank" title="Telegram">
+					<i class="fa fa-telegram"></i>
+					@BetterLocationBot
+				</a>
+			</div>
 		</div>
 		<div class="websites table-responsive">
 			<table class="table table-nonfluid table-hover table-striped table-sm">

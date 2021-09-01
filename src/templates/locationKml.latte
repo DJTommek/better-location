@@ -1,0 +1,26 @@
+{contentType application/kml}
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+	<Document>
+		<name>BetterLocation</name>
+		<Folder>
+			<name>BetterLocation waypoints</name>
+			<Placemark>
+				<name>BetterLocation {$lat},{$lon}</name>
+				<address>{$betterLocation->getAddress() ?? 'Unknown address'}</address>
+				<description>
+					<![CDATA[
+					Address: {$betterLocation->getAddress() ?? 'Unknown address'}</b><br>
+					Link: <a href="{$baseUrl}/{$lat},{$lon}"><b>{$baseUrl}/{$lat},{$lon}</b></a>
+					]]>
+				</description>
+				<Point>
+					<coordinates>{$lon},{$lat},0</coordinates>
+				</Point>
+				<TimeStamp>
+					<when>{$nowUtcText}</when>
+				</TimeStamp>
+			</Placemark>
+		</Folder>
+	</Document>
+</kml>
