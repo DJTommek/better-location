@@ -6,7 +6,6 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\WazeService;
 use App\Chat;
 use App\Config;
-use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Command\DebugCommand;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Web\LayoutTemplate;
@@ -21,8 +20,6 @@ class ChatTemplate extends LayoutTemplate
 	public $chatResponse;
 	/** @var Chat */
 	public $chat;
-	/** @var BetterLocationMessageSettings */
-	public $messageSettings;
 
 	/** @var float */
 	public $lat;
@@ -44,6 +41,7 @@ class ChatTemplate extends LayoutTemplate
 	public $authorName;
 	/** @var string */
 	public $authorLink;
+
 	// in case of error - end
 
 	private function prepare()

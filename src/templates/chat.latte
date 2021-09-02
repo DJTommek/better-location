@@ -24,7 +24,7 @@
 				<tr>
 					<td>Link services</td>
 					<td>
-						{foreach $messageSettings->getLinkServices() as $linkService}
+						{foreach $chat->getMessageSettings()->getLinkServices() as $linkService}
 							{$linkService::NAME}<br>
 						{/foreach}
 					</td>
@@ -32,7 +32,7 @@
 				<tr>
 					<td>Drive button services</td>
 					<td>
-						{foreach $messageSettings->getButtonServices() as $linkService}
+						{foreach $chat->getMessageSettings()->getButtonServices() as $linkService}
 							{$linkService::NAME}<br>
 						{/foreach}
 					</td>
@@ -40,7 +40,7 @@
 				<tr>
 					<td>Static image service</td>
 					<td>
-						{$messageSettings->getScreenshotLinkService()::NAME}
+						{$chat->getMessageSettings()->getScreenshotLinkService()::NAME}
 					</td>
 				</tr>
 				</tbody>
