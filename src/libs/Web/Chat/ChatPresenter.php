@@ -4,8 +4,6 @@ namespace App\Web\Chat;
 
 use App\Chat;
 use App\Factory;
-use App\TelegramCustomWrapper\BetterLocationMessageSettings;
-use App\TelegramCustomWrapper\TelegramCustomWrapper;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Strict;
 use App\Web\MainPresenter;
@@ -41,7 +39,6 @@ class ChatPresenter extends MainPresenter
 		if ($this->isAdmin()) {
 			$this->template->prepareOk($this->chatResponse);
 			$this->template->chat = new Chat($this->chatTelegramId, $this->chatResponse->type, TelegramHelper::getChatDisplayname($this->chatResponse));
-			$this->template->messageSettings = BetterLocationMessageSettings::loadByChatId($this->template->chat->getId());
 			Factory::Latte('chat.latte', $this->template);
 		} else {
 			$this->template->prepareError();
