@@ -14,7 +14,7 @@ class ChatRepository extends Repository
 	public function insert(int $telegramId, string $telegramChatType, string $displayName): void
 	{
 		$this->db->query('INSERT INTO better_location_chat 
-    			(chat_telegram_id, chat_telegram_name, chat_telegram_type, chat_last_update, chat_registered) 
+    			(chat_telegram_id, chat_telegram_type, chat_telegram_name, chat_last_update, chat_registered) 
     			VALUES 
                 (?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())',
 			$telegramId, $telegramChatType, $displayName
