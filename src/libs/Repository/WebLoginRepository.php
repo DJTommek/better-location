@@ -24,7 +24,7 @@ class WebLoginRepository extends Repository
 		?UrlImmutable $userPhotoUrl = null
 	): void
 	{
-		$sql = 'INSERT INTO better_location_web_login (hash, user_telegram_id, auth_date, user_first_name, user_last_name, user_name, user_photo_url) VALUES (?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT IGNORE INTO better_location_web_login (hash, user_telegram_id, auth_date, user_first_name, user_last_name, user_name, user_photo_url) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$this->db->query($sql, $hash, $userTelegramId, $authDate->getTimestamp(), $userFirstName, $userLastName, $userName, $userPhotoUrl);
 	}
 
