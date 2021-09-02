@@ -10,8 +10,6 @@ CREATE TABLE `better_location_user` (
   `user_location_lat` DOUBLE(10,6) NULL,
   `user_location_lon` DOUBLE(10,6) NULL,
   `user_location_last_update` DATETIME NULL,
-  `settings_preview` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
-  `settings_send_native_location` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_telegram_id` (`user_telegram_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -23,6 +21,8 @@ CREATE TABLE `better_location_chat` (
   `chat_telegram_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `chat_registered` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `chat_last_update` datetime NOT NULL,
+  `chat_settings_preview` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+  `chat_settings_output_type` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`chat_id`),
   UNIQUE KEY `chat_telegram_id` (`chat_telegram_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
