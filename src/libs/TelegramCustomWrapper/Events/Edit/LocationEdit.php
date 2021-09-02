@@ -60,7 +60,7 @@ class LocationEdit extends Edit
 			$editMessage->chat_id = $messageToRefresh->getChatId();
 			$editMessage->message_id = $messageToRefresh->getBotReplyMessageId();
 			$editMessage->parse_mode = 'HTML';
-			$editMessage->disable_web_page_preview = !$this->user->settings()->getPreview();
+			$editMessage->disable_web_page_preview = !$this->chat->settingsPreview();
 			$editMessage->text = $text;
 			$editMessage->reply_markup = $replyMarkup;
 			$this->run($editMessage);
