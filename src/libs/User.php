@@ -108,10 +108,14 @@ class User
 
 	public function getLastKnownLocation(): ?BetterLocation
 	{
-		$location = BetterLocation::fromLatLon($this->userEntity->getLat(), $this->userEntity->getLon());
-		$location->setPrefixMessage(sprintf('%s Last location', Icons::CURRENT_LOCATION));
-		$location->setDescription(sprintf('Last update %s', $this->userEntity->lastLocationUpdate->format(\App\Config::DATETIME_FORMAT_ZONE)));
-		return $location;
+		if ($this->userEntity->lastLocation) {
+			$location = BetterLocation::fromLatLon($this->userEntity->getLat(), $this->userEntity->getLon());
+			$location->setPrefixMessage(sprintf('%s Last location', Icons::CURRENT_LOCATION));
+			$location->setDescription(sprintf('Last update %s', $this->userEntity->lastLocationUpdate->format(\App\Config::DATETIME_FORMAT_ZONE)));
+			return $location;
+		} else {
+			return null;
+		}
 	}
 
 	public function getLastKnownLocationDatetime(): ?\DateTimeImmutable

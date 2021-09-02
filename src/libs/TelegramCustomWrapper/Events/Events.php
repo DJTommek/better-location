@@ -39,6 +39,8 @@ use function Clue\React\Block\await;
 
 abstract class Events
 {
+	const INLINE_MODE_HELP_URL = 'https://t.me/BetterLocation/8';
+
 	protected $update;
 	protected $tgLog;
 	protected $loop;
@@ -262,7 +264,7 @@ abstract class Events
 		$text .= sprintf('- send your current position (on mobile devices only)') . PHP_EOL;
 		$text .= sprintf('- send previously saved favourited locations') . PHP_EOL;
 		$text .= sprintf('- search literally anything via Google search API') . PHP_EOL;
-		$text .= sprintf('%s <a href="%s">See video here</a>', Icons::VIDEO, 'https://t.me/BetterLocation/8') . PHP_EOL;
+		$text .= sprintf('%s <a href="%s">See video here</a>', Icons::VIDEO, self::INLINE_MODE_HELP_URL) . PHP_EOL;
 		$text .= PHP_EOL;
 //		$text .= sprintf('%s <b>Private chat:</b>', Icons::USER) . PHP_EOL;
 //		$text .= sprintf('Just send me some link to or coordinate and I will generate message <b>just</b> for you.') . PHP_EOL;
@@ -399,8 +401,11 @@ abstract class Events
 		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
 		$processedCollection->process();
 
-		$text = sprintf('%s <b>User settings</b> for @%s. Example message:', Icons::SETTINGS, Config::TELEGRAM_BOT_NAME) . PHP_EOL;
-		$text .= PHP_EOL;
+		$text = sprintf('%s <b>Chat settings</b> for @%s. ', Icons::SETTINGS, Config::TELEGRAM_BOT_NAME);
+		if ($this->isPm()) {
+			$text .= PHP_EOL . sprintf('%s This private chat settings will be used while sending messages via <a href="%s">inline mode</a>, overriding chat settings.', Icons::INFO, self::INLINE_MODE_HELP_URL) . PHP_EOL . PHP_EOL;
+		}
+		$text .= 'Example message:' . PHP_EOL;
 		$text .= $processedCollection->getText();
 		$replyMarkup = $processedCollection->getMarkup(1);
 
