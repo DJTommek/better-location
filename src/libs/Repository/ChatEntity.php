@@ -11,6 +11,11 @@ class ChatEntity extends Entity
 	const OUTPUT_TYPE_FILE_GPX = 2;
 	const OUTPUT_TYPE_FILE_KML = 3;
 
+	const CHAT_TYPE_PRIVATE = 'private';
+	const CHAT_TYPE_GROUP = 'group';
+	const CHAT_TYPE_SUPERGROUP = 'supergroup';
+	const CHAT_TYPE_CHANNEL = 'channel';
+
 	/**
 	 * @var int
 	 * @readonly

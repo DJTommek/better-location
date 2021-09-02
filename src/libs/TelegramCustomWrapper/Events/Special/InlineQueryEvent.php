@@ -6,8 +6,10 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\GooglePlaceApi;
 use App\BetterLocation\Service\MapyCzService;
+use App\Chat;
 use App\Config;
 use App\Icons;
+use App\Repository\ChatEntity;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
@@ -28,6 +30,9 @@ class InlineQueryEvent extends Special
 	 */
 	const MAX_FAVOURITES = 10;
 
+	/** @var ?Chat instance of Chat for this user's private chat */
+	private $userPrivateChatEntity;
+
 	public function handleWebhookUpdate()
 	{
 		$answerInlineQuery = new AnswerInlineQuery();
@@ -39,6 +44,8 @@ class InlineQueryEvent extends Special
 		if ($this->update->inline_query->location) {
 			$this->user->setLastKnownLocation($this->update->inline_query->location->latitude, $this->update->inline_query->location->longitude);
 		}
+
+		$this->userPrivateChatEntity = new Chat($this->getFromId(), ChatEntity::CHAT_TYPE_PRIVATE, $this->getFromDisplayname());
 
 		if (empty($queryInput)) {
 			// If user agrees to share location, and is using device, where is possible to get location (typically mobile devices)
@@ -93,9 +100,8 @@ class InlineQueryEvent extends Special
 			$entities = TelegramHelper::generateEntities($queryInput);
 			try {
 				$collection = BetterLocationCollection::fromTelegramMessage($queryInput, $entities);
-				 // There can be only one location if sending native location
-				$sendNativeLocation = false; // @TODO load chat settings for current user
-				if (count($collection->getLocations()) > 1 && $sendNativeLocation === false) {
+				if (count($collection->getLocations()) > 1 && $this->userPrivateChatEntity->getSendNativeLocation() === false) {
+					// There can be only one location if sending native location
 					$answerInlineQuery->addResult($this->getAllLocationsInlineQueryResult($collection));
 				}
 				foreach ($collection->getLocations() as $betterLocation) {
@@ -146,7 +152,7 @@ class InlineQueryEvent extends Special
 	 */
 	private function getInlineQueryResult(BetterLocation $betterLocation, string $inlineTitle = null)
 	{
-		if (false) { // @TODO load chat settings for current user
+		if ($this->userPrivateChatEntity->getSendNativeLocation()) {
 			return $this->getInlineQueryResultNativeLocation($betterLocation, $inlineTitle);
 		} else {
 			return $this->getInlineQueryResultArticle($betterLocation, $inlineTitle);
@@ -172,7 +178,7 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->input_message_content = new Text();
 		$inlineQueryResult->input_message_content->message_text = TelegramHelper::getMessagePrefix($betterLocation->getStaticMapUrl()) . $betterLocation->generateMessage($this->getMessageSettings());
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
-		$inlineQueryResult->input_message_content->disable_web_page_preview = false; // @TODO load chat settings for current user
+		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->userPrivateChatEntity->settingsPreview();
 		return $inlineQueryResult;
 	}
 
@@ -208,7 +214,7 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->input_message_content = new Text();
 		$inlineQueryResult->input_message_content->message_text = $processedCollection->getText();
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
-		$inlineQueryResult->input_message_content->disable_web_page_preview = false; // @TODO load chat settings for current user
+		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->userPrivateChatEntity->settingsPreview();
 		return $inlineQueryResult;
 	}
 }
