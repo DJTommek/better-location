@@ -91,7 +91,7 @@ class RefreshButton extends Button
 			unset($markup->inline_keyboard[count($markup->inline_keyboard)-1]); // refresh buttons are always last row
 			$markup->inline_keyboard[] = BetterLocation::generateRefreshButtons($autorefreshEnabled);
 
-			$this->replyButton($text, $markup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
+			$this->replyButton($text, $markup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
 		} else {
 			$collection = BetterLocationCollection::fromTelegramMessage(
 				$this->telegramUpdateDb->getOriginalUpdateObject()->message->text,
@@ -103,7 +103,7 @@ class RefreshButton extends Button
 			$text = $processedCollection->getText();
 			$text .= sprintf('%s Last refresh: %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
 			if (count($collection->getLocations()) > 0) {
-				$this->replyButton($text, $processedCollection->getMarkup(1), ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
+				$this->replyButton($text, $processedCollection->getMarkup(1), ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
 			} else {
 				// @TODO if returned location would remove refresh buttons (no refreshable location) or returned error, do not update
 				// original message, just send warning that update can't be completed

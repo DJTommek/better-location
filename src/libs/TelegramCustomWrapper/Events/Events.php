@@ -42,7 +42,9 @@ abstract class Events
 	protected $update;
 	protected $tgLog;
 	protected $loop;
+	/** @var User */
 	protected $user;
+	/** @var ?Chat */
 	protected $chat;
 
 	protected $command = null;
@@ -384,10 +386,10 @@ abstract class Events
 		$text .= sprintf('%s To add a location to your favourites, just send any link, coordinates etc. to me via PM and click on the %s button in my response.', Icons::INFO, Icons::FAVOURITE) . PHP_EOL;
 
 		if ($inline) {
-			$this->replyButton($text, $replyMarkup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
+			$this->replyButton($text, $replyMarkup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
 			$this->flash(sprintf('%s List of favourite locations was refreshed.', Icons::REFRESH));
 		} else {
-			$this->reply($text, $replyMarkup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
+			$this->reply($text, $replyMarkup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
 		}
 	}
 
@@ -403,7 +405,7 @@ abstract class Events
 		$replyMarkup = $processedCollection->getMarkup(1);
 
 		$previewButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
-		if ($this->user->settings()->getPreview()) {
+		if ($this->chat->settingsPreview()) {
 			$previewButton->text = sprintf('Map preview: %s', Icons::ENABLED);
 			$previewButton->callback_data = sprintf('%s %s false', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_PREVIEW);
 		} else {
@@ -413,7 +415,7 @@ abstract class Events
 		$buttonRow[] = $previewButton;
 
 		$sendNativeLocationButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
-		if ($this->user->settings()->getSendNativeLocation()) {
+		if ($this->chat->getSendNativeLocation()) {
 			$sendNativeLocationButton->text = sprintf('Send native location: %s', Icons::ENABLED);
 			$sendNativeLocationButton->callback_data = sprintf('%s %s false', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_SEND_NATIVE_LOCATION);
 		} else {
@@ -429,9 +431,9 @@ abstract class Events
 		];
 
 		if ($inline) {
-			$this->replyButton($text, $replyMarkup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
+			$this->replyButton($text, $replyMarkup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
 		} else {
-			$this->reply($text, $replyMarkup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
+			$this->reply($text, $replyMarkup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
 		}
 	}
 

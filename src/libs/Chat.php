@@ -2,105 +2,82 @@
 
 namespace App;
 
+use App\Repository\ChatEntity;
+use App\Repository\ChatRepository;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 
 class Chat
 {
-	private $db;
-
-	private $id;
-	private $telegramChatId;
-	private $telegramChatName;
-	private $telegramChatType;
 	/** @var BetterLocationMessageSettings */
 	private $messageSettings;
 
+	/** @var ChatEntity */
+	private $chatEntity;
+	/** @var ChatRepository */
+	private $chatRepository;
+
 	public function __construct(int $telegramChatId, string $telegramChatType, ?string $telegramChatName = null)
 	{
-		$this->telegramChatId = $telegramChatId;
-		$this->telegramChatName = $telegramChatName;
-		$this->telegramChatType = $telegramChatType;
-		$this->db = Factory::Database();
-		$chatData = $this->register();
-		$this->updateCachedData($chatData);
-	}
-
-	private function updateCachedData($newChatData)
-	{
-		$this->id = $newChatData['chat_id'];
-		$this->telegramChatType = $newChatData['chat_telegram_type'];
-		$this->telegramChatId = $newChatData['chat_telegram_id'];
-		$this->telegramChatName = $newChatData['chat_telegram_name'];
-	}
-
-	private function register()
-	{
-		$this->db->query('INSERT INTO better_location_chat (chat_telegram_id, chat_telegram_type, chat_telegram_name, chat_last_update, chat_registered) VALUES (?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP()) 
-			ON DUPLICATE KEY UPDATE chat_telegram_type = ?, chat_telegram_name = ?, chat_last_update = UTC_TIMESTAMP()',
-			$this->telegramChatId, $this->telegramChatType, $this->telegramChatName,
-			$this->telegramChatType, $this->telegramChatName,
-		);
-		return $this->load();
-	}
-
-	public function load()
-	{
-		return $this->db->query('SELECT * FROM better_location_chat WHERE chat_telegram_id = ?', $this->telegramChatId)->fetch();
-	}
-
-	public function update(?string $telegramChatType = null, ?string $telegramChatName = null): self
-	{
-		$queries = [];
-		$params = [];
-		if (is_string($telegramChatType)) {
-			$queries[] = 'chat_telegram_type = ?';
-			$params[] = $telegramChatType;
+		$db = Factory::Database();
+		$this->chatRepository = new ChatRepository($db);
+		if (($this->chatEntity = $this->chatRepository->fromTelegramId($telegramChatId)) === null) {
+			$this->chatRepository->insert($telegramChatId, $telegramChatType, $telegramChatName);
+			$this->chatEntity = $this->chatRepository->fromTelegramId($telegramChatId);
+		} else {
+			// @TODO update $this->chatEntity->lastUpdate
 		}
-		if (is_string($telegramChatName)) {
-			$queries[] = 'chat_telegram_name = ?';
-			$params[] = $telegramChatName;
+	}
+
+	public function settingsPreview(?bool $value = null): bool
+	{
+		if ($value !== null) {
+			$this->chatEntity->settingsPreview = $value;
+			$this->update();
 		}
-		if (count($params) > 0) {
-			$query = sprintf('UPDATE better_location_chat SET %s WHERE chat_telegram_id = ?', join($queries, ', '));
+		return $this->chatEntity->settingsPreview;
+	}
 
-			$params[] = $this->telegramChatId;
-			call_user_func_array([$this->db, 'query'], array_merge([$query], $params));
-			$newData = $this->load();
-			$this->updateCachedData($newData);
+	public function settingsOutputType(?int $value = null): int
+	{
+		if ($value !== null) {
+			$this->chatEntity->settingsOutputType = $value;
+			$this->update();
 		}
-		return $this->get();
+		return $this->chatEntity->settingsOutputType;
 	}
 
-	public function get(): self
+	private function update(): void
 	{
-		return $this;
-	}
-
-	public function getId()
-	{
-		return $this->id;
-	}
-
-	public function getTelegramChatId(): int
-	{
-		return $this->telegramChatId;
-	}
-
-	public function getTelegramChatType(): string
-	{
-		return $this->telegramChatType;
+		$this->chatRepository->update($this->chatEntity);
+		$this->chatEntity = $this->chatRepository->fromTelegramId($this->chatEntity->telegramId);
 	}
 
 	public function getTelegramChatName(): ?string
 	{
-		return $this->telegramChatName;
+		return $this->chatEntity->telegramName;
 	}
 
 	public function getMessageSettings(): BetterLocationMessageSettings
 	{
 		if ($this->messageSettings === null) {
-			$this->messageSettings = BetterLocationMessageSettings::loadByChatId($this->id);
+			$this->messageSettings = BetterLocationMessageSettings::loadByChatId($this->chatEntity->id);
 		}
 		return $this->messageSettings;
 	}
+
+	/* Backward compatibility methods originally from \App\UserSettings */
+
+	/** @deprecated Use settingsOutputType() */
+	public function setSendNativeLocation(bool $value): bool
+	{
+		$this->settingsOutputType($value ? ChatEntity::OUTPUT_TYPE_LOCATION : ChatEntity::OUTPUT_TYPE_MESSAGE);
+		return $this->getSendNativeLocation();
+	}
+
+	/** @deprecated Use settingsOutputType() */
+	public function getSendNativeLocation(): bool
+	{
+		return $this->settingsOutputType() === ChatEntity::OUTPUT_TYPE_LOCATION;
+	}
+
 }

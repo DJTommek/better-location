@@ -62,12 +62,12 @@ class FileEvent extends Special
 		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
 		$processedCollection->process();
 		if ($collection->count() > 0) {
-			if ($this->user->settings()->getSendNativeLocation()) {
+			if ($this->chat->getSendNativeLocation()) {
 				$this->replyLocation($processedCollection->getCollection()->getFirst(), $processedCollection->getMarkup(1, false));
 			} else {
 				$text = $processedCollection->getText();
 				$markup = $processedCollection->getMarkup(1);
-				$response = $this->reply($text, $markup, ['disable_web_page_preview' => !$this->user->settings()->getPreview()]);
+				$response = $this->reply($text, $markup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
 				if ($response && $collection->hasRefreshableLocation()) {
 					$cron = new TelegramUpdateDb($this->update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
 					$cron->insert();

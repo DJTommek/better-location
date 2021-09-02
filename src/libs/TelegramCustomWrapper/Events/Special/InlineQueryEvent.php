@@ -94,7 +94,8 @@ class InlineQueryEvent extends Special
 			try {
 				$collection = BetterLocationCollection::fromTelegramMessage($queryInput, $entities);
 				 // There can be only one location if sending native location
-				if (count($collection->getLocations()) > 1 && $this->user->settings()->getSendNativeLocation() === false) {
+				$sendNativeLocation = false; // @TODO load chat settings for current user
+				if (count($collection->getLocations()) > 1 && $sendNativeLocation === false) {
 					$answerInlineQuery->addResult($this->getAllLocationsInlineQueryResult($collection));
 				}
 				foreach ($collection->getLocations() as $betterLocation) {
@@ -145,7 +146,7 @@ class InlineQueryEvent extends Special
 	 */
 	private function getInlineQueryResult(BetterLocation $betterLocation, string $inlineTitle = null)
 	{
-		if ($this->user->settings()->getSendNativeLocation()) {
+		if (false) { // @TODO load chat settings for current user
 			return $this->getInlineQueryResultNativeLocation($betterLocation, $inlineTitle);
 		} else {
 			return $this->getInlineQueryResultArticle($betterLocation, $inlineTitle);
@@ -171,7 +172,7 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->input_message_content = new Text();
 		$inlineQueryResult->input_message_content->message_text = TelegramHelper::getMessagePrefix($betterLocation->getStaticMapUrl()) . $betterLocation->generateMessage($this->getMessageSettings());
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
-		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->user->settings()->getPreview();
+		$inlineQueryResult->input_message_content->disable_web_page_preview = false; // @TODO load chat settings for current user
 		return $inlineQueryResult;
 	}
 
@@ -207,7 +208,7 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->input_message_content = new Text();
 		$inlineQueryResult->input_message_content->message_text = $processedCollection->getText();
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
-		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->user->settings()->getPreview();
+		$inlineQueryResult->input_message_content->disable_web_page_preview = false; // @TODO load chat settings for current user
 		return $inlineQueryResult;
 	}
 }

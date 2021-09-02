@@ -4,26 +4,21 @@ namespace App;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
-use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\Repository\FavouritesRepository;
+use App\Repository\UserEntity;
+use App\Repository\UserRepository;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\Utils\Coordinates;
-use Nette\Utils\Strings;
 
 class User
 {
-	private $db;
+	/** @var UserRepository */
+	private $userRepository;
 
-	private $id;
-	private $telegramId;
-	private $telegramDisplayname;
-	private $lastKnownLocation;
-	private $lastKnownLocationDatetime;
+	/** @var UserEntity */
+	private $userEntity;
 
-	/** @var UserSettings */
-	private $settings;
-
-	/** @var BetterLocationCollection */
+	/** @var ?BetterLocationCollection Lazy list of Favourites (should be accessed only via getFavourites()) */
 	private $favourites;
 
 	/** @var ?BetterLocationMessageSettings */
@@ -34,196 +29,100 @@ class User
 
 	public function __construct(int $telegramId, string $telegramDisplayname)
 	{
-		$this->telegramId = $telegramId;
-		$this->telegramDisplayname = $telegramDisplayname;
-		$this->db = Factory::Database();
-		$this->favouritesRepository = new FavouritesRepository($this->db);
-		$this->settings = new UserSettings();
-		$userData = $this->register($telegramId, $telegramDisplayname);
-		$this->updateCachedData($userData);
-		$this->updateFavouritesFromDb();
-	}
+		$db = Factory::Database();
+		$this->userRepository = new UserRepository($db);
+		$this->favouritesRepository = new FavouritesRepository($db);
 
-	private function updateCachedData($newUserData)
-	{
-		$this->id = $newUserData['user_id'];
-		$this->telegramId = $newUserData['user_telegram_id'];
-		$this->telegramDisplayname = $newUserData['user_telegram_name'];
-		if (isset($newUserData['user_location_lat']) and isset($newUserData['user_location_lon']) and isset($newUserData['user_location_last_update'])) {
-			if (is_null($newUserData['user_location_lat']) || is_null($newUserData['user_location_lon']) || is_null($newUserData['user_location_last_update'])) {
-				$this->lastKnownLocation = null;
-				$this->lastKnownLocationDatetime = null;
-			} else {
-				$this->lastKnownLocation = BetterLocation::fromLatLon($newUserData['user_location_lat'], $newUserData['user_location_lon']);
-				$this->lastKnownLocationDatetime = new \DateTimeImmutable($newUserData['user_location_last_update']);
-				$this->lastKnownLocation->setPrefixMessage(sprintf('%s Last location', Icons::CURRENT_LOCATION));
-				$this->lastKnownLocation->setDescription(sprintf('Last update %s', $this->lastKnownLocationDatetime->format(\App\Config::DATETIME_FORMAT_ZONE)));
-			}
-		}
-		foreach ($newUserData as $key => $value) {
-			if (Strings::startsWith($key, 'settings_')) {
-				$this->settings->set($key, $value);
-			}
+		if (($this->userEntity = $this->userRepository->fromTelegramId($telegramId)) === null) {
+			$this->userRepository->insert($telegramId, $telegramDisplayname);
+			$this->userEntity = $this->userRepository->fromTelegramId($telegramId);
+		} else {
+			// @TODO update $this->userEntity->lastUpdate
 		}
 	}
 
-	public function register(int $telegramId, ?string $telegramUsername = null)
+	public function setLastKnownLocation(float $lat, float $lon): void
 	{
-		$this->db->query('INSERT INTO better_location_user (user_telegram_id, user_telegram_name, user_last_update, user_registered) VALUES (?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP()) 
-			ON DUPLICATE KEY UPDATE user_telegram_name = ?, user_last_update = UTC_TIMESTAMP()',
-			$telegramId, $telegramUsername, $telegramUsername
-		);
-		return $this->loadFromDb();
-	}
-
-	/** @throws InvalidLocationException */
-	public function setLastKnownLocation(float $lat, float $lon)
-	{
-		$this->update(null, $lat, $lon);
-	}
-
-	public function setSettingsPreview(bool $value)
-	{
-		$this->update(null, null, null, $value);
-	}
-
-	public function setSettingsSendNativeLocation(bool $value)
-	{
-		$this->update(null, null, null, null, $value);
-	}
-
-	private function loadFromDb()
-	{
-		return $this->db->query('SELECT * FROM better_location_user WHERE user_telegram_id = ?', $this->telegramId)->fetch();
-	}
-
-	public function updateFavouritesFromDb(): BetterLocationCollection
-	{
-		$this->favourites = new BetterLocationCollection();
-		foreach ($this->favouritesRepository->byUserId($this->id) as $favourite) {
-			$location = BetterLocation::fromLatLon($favourite->lat, $favourite->lon);
-			$location->setPrefixMessage(sprintf('%s %s', Icons::FAVOURITE, $favourite->title));
-			$this->favourites->add($location);
-		}
-		return $this->getFavourites();
+		$coords = new Coordinates($lat, $lon);
+		$this->userEntity->setLastLocation($coords);
+		$this->userRepository->update($this->userEntity);
 	}
 
 	public function getFavourite(float $lat, float $lon): ?BetterLocation
 	{
-		return $this->favourites->getByLatLon($lat, $lon);
+		return $this->getFavourites()->getByLatLon($lat, $lon);
 	}
 
 	/**
 	 * @param string|null $title used only if it never existed before
-	 * @throws \Exception
 	 */
 	public function addFavourite(BetterLocation $location, ?string $title = null): BetterLocation
 	{
 		if ($this->getFavourite($location->getLat(), $location->getLon()) === null) { // add only if it is not added already
-			$this->favouritesRepository->add($this->id, $location->getLat(), $location->getLon(), $title);
-			$this->updateFavouritesFromDb();
+			$this->favouritesRepository->add($this->userEntity->id, $location->getLat(), $location->getLon(), $title);
+			$this->favourites = null; // clear cached favourites
 		}
 		return $this->getFavourite($location->getLat(), $location->getLon());
 	}
 
-	/** @throws \Exception */
 	public function deleteFavourite(BetterLocation $location): void
 	{
-		$this->favouritesRepository->removeByUserLatLon($this->id, $location->getLat(), $location->getLon());
-		$this->updateFavouritesFromDb();
+		$this->favouritesRepository->removeByUserLatLon($this->userEntity->id, $location->getLat(), $location->getLon());
+		$this->favourites = null; // clear cached favourites
 	}
 
-	/** @throws \Exception */
 	public function renameFavourite(BetterLocation $location, string $title): BetterLocation
 	{
-		$this->favouritesRepository->renameByUserLatLon($this->id, $location->getLat(), $location->getLon(), $title);
-		$this->updateFavouritesFromDb();
+		$this->favouritesRepository->renameByUserLatLon($this->userEntity->id, $location->getLat(), $location->getLon(), $title);
+		$this->favourites = null; // clear cached favourites
 		return $this->getFavourite($location->getLat(), $location->getLon());
-	}
-
-	/** @throws InvalidLocationException */
-	public function update(
-		?string $telegramUsername = null,
-		?float $locationLat = null,
-		?float $locationLon = null,
-		?bool $settingsPreview = null,
-		?bool $settingsSendNativeLocation = null
-	): self
-	{
-		$queries = [];
-		$params = [];
-		if (is_string($telegramUsername)) {
-			$queries[] = 'user_telegram_name = ?';
-			$params[] = $telegramUsername;
-		}
-		if (is_bool($settingsPreview)) {
-			$queries[] = 'settings_preview = ?';
-			$params[] = $settingsPreview ? Database::TRUE : Database::FALSE;
-		}
-		if (is_bool($settingsSendNativeLocation)) {
-			$queries[] = 'settings_send_native_location = ?';
-			$params[] = $settingsSendNativeLocation ? Database::TRUE : Database::FALSE;
-		}
-		if ($locationLat && $locationLon) {
-			if (Coordinates::isLat($locationLat) === false || Coordinates::isLon($locationLon) === false) {
-				throw new InvalidLocationException('Invalid coordinates');
-			}
-			$queries[] = 'user_location_lat = ?';
-			$params[] = $locationLat;
-			$queries[] = 'user_location_lon = ?';
-			$params[] = $locationLon;
-			$queries[] = 'user_location_last_update = UTC_TIMESTAMP()';
-		}
-		if (count($params) > 0) {
-			$query = sprintf('UPDATE better_location_user SET %s WHERE user_telegram_id = ?', join($queries, ', '));
-
-			$params[] = $this->telegramId;
-			call_user_func_array([$this->db, 'query'], array_merge([$query], $params));
-			$newData = $this->loadFromDb();
-			$this->updateCachedData($newData);
-		}
-		return $this;
 	}
 
 	public function getId(): int
 	{
-		return $this->id;
+		return $this->userEntity->id;
 	}
 
 	public function getTelegramId(): int
 	{
-		return $this->telegramId;
+		return $this->userEntity->telegramId;
 	}
 
 	public function getTelegramDisplayname(): string
 	{
-		return $this->telegramDisplayname;
+		return $this->userEntity->telegramName;
 	}
 
 	public function getFavourites(): BetterLocationCollection
 	{
+		if ($this->favourites === null) {
+			$this->favourites = new BetterLocationCollection();
+			foreach ($this->favouritesRepository->byUserId($this->userEntity->id) as $favourite) {
+				$location = BetterLocation::fromLatLon($favourite->lat, $favourite->lon);
+				$location->setPrefixMessage(sprintf('%s %s', Icons::FAVOURITE, $favourite->title));
+				$this->favourites->add($location);
+			}
+		}
 		return $this->favourites;
 	}
 
 	public function getLastKnownLocation(): ?BetterLocation
 	{
-		return $this->lastKnownLocation;
+		$location = BetterLocation::fromLatLon($this->userEntity->getLat(), $this->userEntity->getLon());
+		$location->setPrefixMessage(sprintf('%s Last location', Icons::CURRENT_LOCATION));
+		$location->setDescription(sprintf('Last update %s', $this->userEntity->lastLocationUpdate->format(\App\Config::DATETIME_FORMAT_ZONE)));
+		return $location;
 	}
 
 	public function getLastKnownLocationDatetime(): ?\DateTimeImmutable
 	{
-		return $this->lastKnownLocationDatetime;
-	}
-
-	public function settings(): UserSettings
-	{
-		return $this->settings;
+		return $this->userEntity->lastLocationUpdate;
 	}
 
 	public function getMessageSettings(): BetterLocationMessageSettings
 	{
 		if ($this->messageSettings === null) {
-			$this->messageSettings = BetterLocationMessageSettings::loadByChatId($this->id);
+			$this->messageSettings = BetterLocationMessageSettings::loadByChatId($this->userEntity->id);
 		}
 		return $this->messageSettings;
 	}

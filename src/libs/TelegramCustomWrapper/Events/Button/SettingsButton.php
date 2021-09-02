@@ -21,12 +21,12 @@ class SettingsButton extends Button
 				switch ($this->params[0]) {
 					case self::ACTION_SETTINGS_PREVIEW:
 						$previewEnabled = Strict::boolval($this->params[1]);
-						$this->user->setSettingsPreview($previewEnabled);
+						$this->chat->settingsPreview($previewEnabled);
 						$this->flash(sprintf('%s Map preview for locations was %s.', Icons::SUCCESS, $previewEnabled ? 'enabled' : 'disabled'));
 						break;
 					case self::ACTION_SETTINGS_SEND_NATIVE_LOCATION:
 						$sendNativeLocation = Strict::boolval($this->params[1]);
-						$this->user->setSettingsSendNativeLocation($sendNativeLocation);
+						$this->chat->setSendNativeLocation($sendNativeLocation);
 						$this->flash(sprintf('%s Sending native Telegram location was %s.', Icons::SUCCESS, $sendNativeLocation ? 'enabled' : 'disabled'));
 						break;
 				}
