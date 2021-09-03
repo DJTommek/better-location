@@ -22,6 +22,27 @@
 					<td>{$chat->getTelegramChatName()}</td>
 				</tr>
 				<tr>
+					<td>Show static map image</td>
+					<td>
+						{$chat->settingsPreview() ? 'yes' : 'no'}
+					</td>
+				</tr>
+				<tr>
+					<td>Message output type</td>
+					<td>
+						{switch $chat->settingsOutputType()}
+							{case App\Repository\ChatEntity::OUTPUT_TYPE_MESSAGE}
+							Message (with text and buttons)
+							{case App\Repository\ChatEntity::OUTPUT_TYPE_LOCATION}
+							Location (without text, with buttons)
+							{case App\Repository\ChatEntity::OUTPUT_TYPE_FILE_GPX}
+							File as GPX (with text and buttons)
+							{case App\Repository\ChatEntity::OUTPUT_TYPE_FILE_KML}
+							File as KML (with text and buttons)
+						{/switch}
+					</td>
+				</tr>
+				<tr>
 					<td>Link services</td>
 					<td>
 						{foreach $chat->getMessageSettings()->getLinkServices() as $linkService}
