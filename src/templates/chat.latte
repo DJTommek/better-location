@@ -1,77 +1,77 @@
 {layout '@layout.latte'}
 {block content}
-<div id="content-chat-settings">
-	<h2 class="text-center">Chat settings</h2>
-	<div class="alert alert-warning text-center">
-		Currently in read-only mode, active development.
-	</div>
-	<div class="row">
-		<div class="col-lg">
-			<table class="table">
-				<tbody>
-				<tr>
-					<td>Chat ID</td>
-					<td>{$chatResponse->id}</td>
-				</tr>
-				<tr>
-					<td>Chat type</td>
-					<td>{$chatResponse->type}</td>
-				</tr>
-				<tr>
-					<td>Chat title</td>
-					<td>{$chat->getTelegramChatName()}</td>
-				</tr>
-				<tr>
-					<td>Show static map image</td>
-					<td>
-						{$chat->settingsPreview() ? 'yes' : 'no'}
-					</td>
-				</tr>
-				<tr>
-					<td>Message output type</td>
-					<td>
-						{switch $chat->settingsOutputType()}
-							{case App\Repository\ChatEntity::OUTPUT_TYPE_MESSAGE}
-							Message (with text and buttons)
-							{case App\Repository\ChatEntity::OUTPUT_TYPE_LOCATION}
-							Location (without text, with buttons)
-							{case App\Repository\ChatEntity::OUTPUT_TYPE_FILE_GPX}
-							File as GPX (with text and buttons)
-							{case App\Repository\ChatEntity::OUTPUT_TYPE_FILE_KML}
-							File as KML (with text and buttons)
-						{/switch}
-					</td>
-				</tr>
-				<tr>
-					<td>Link services</td>
-					<td>
-						{foreach $chat->getMessageSettings()->getLinkServices() as $linkService}
-							{$linkService::NAME}<br>
-						{/foreach}
-					</td>
-				</tr>
-				<tr>
-					<td>Drive button services</td>
-					<td>
-						{foreach $chat->getMessageSettings()->getButtonServices() as $linkService}
-							{$linkService::NAME}<br>
-						{/foreach}
-					</td>
-				</tr>
-				<tr>
-					<td>Static image service</td>
-					<td>
-						{$chat->getMessageSettings()->getScreenshotLinkService()::NAME}
-					</td>
-				</tr>
-				</tbody>
-			</table>
+	<div id="content-chat-settings">
+		<h2 class="text-center">Chat settings</h2>
+		<div class="alert alert-warning text-center">
+			Currently in read-only mode, active development.
 		</div>
-		<div class="col-lg">
-			{include exampleTelegramMessage}
+		<div class="row">
+			<div class="col-lg">
+				<table class="table">
+					<tbody>
+					<tr>
+						<td>Chat ID</td>
+						<td>{$chatResponse->id}</td>
+					</tr>
+					<tr>
+						<td>Chat type</td>
+						<td>{$chatResponse->type}</td>
+					</tr>
+					<tr>
+						<td>Chat title</td>
+						<td>{$chat->getTelegramChatName()}</td>
+					</tr>
+					<tr>
+						<td>Show static map image</td>
+						<td>
+							{$chat->settingsPreview() ? 'yes' : 'no'}
+						</td>
+					</tr>
+					<tr>
+						<td>Message output type</td>
+						<td>
+							{switch $chat->settingsOutputType()}
+								{case App\Repository\ChatEntity::OUTPUT_TYPE_MESSAGE}
+								Message (with text and buttons)
+								{case App\Repository\ChatEntity::OUTPUT_TYPE_LOCATION}
+								Location (without text, with buttons)
+								{case App\Repository\ChatEntity::OUTPUT_TYPE_FILE_GPX}
+								File as GPX (with text and buttons)
+								{case App\Repository\ChatEntity::OUTPUT_TYPE_FILE_KML}
+								File as KML (with text and buttons)
+							{/switch}
+						</td>
+					</tr>
+					<tr>
+						<td>Link services</td>
+						<td>
+							{foreach $chat->getMessageSettings()->getLinkServices() as $linkService}
+								{$linkService::NAME}<br>
+							{/foreach}
+						</td>
+					</tr>
+					<tr>
+						<td>Drive button services</td>
+						<td>
+							{foreach $chat->getMessageSettings()->getButtonServices() as $linkService}
+								{$linkService::NAME}<br>
+							{/foreach}
+						</td>
+					</tr>
+					<tr>
+						<td>Static image service</td>
+						<td>
+							{$chat->getMessageSettings()->getScreenshotLinkService()::NAME}
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-lg">
+				{include exampleTelegramMessage}
+			</div>
 		</div>
 	</div>
-</div>
 {/block}
 
 {block title}
@@ -104,7 +104,6 @@
 						|
 					{/if}
 				{/foreach}
-
 			</div>
 		</div>
 		<a href="https://better-location.palider.cz/api/staticmap.php?id=ad9d66a6c079f762" target="_blank">
