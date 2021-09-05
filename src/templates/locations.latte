@@ -1,3 +1,4 @@
+{templateType App\Web\Locations\LocationsTemplate}
 {layout '@layout.latte'}
 {block content}
 	<div id="content-locations">
@@ -13,7 +14,7 @@
 		<div class="row g-0">
 			<div class="col-12 col-md-4 col-xl-3" id="tab-locations">
 				<div class="list-group" role="tablist">
-					{foreach $collection as $location}
+					{foreach $collection->getLocations() as $location}
 						<button
 								id="list-group-item-location-{$location->getCoordinates()->hash()}"
 								class="list-group-item list-group-item-action {$iterator->first ? 'active'}"
@@ -38,7 +39,7 @@
 		</div>
 
 		<div class="tab-content">
-			{foreach $collection as $location}
+			{foreach $collection->getLocations() as $location}
 				<div id="content-locations-{$location->getCoordinates()->hash()}" class="tab-pane fade {$iterator->first ? 'show active'}" role="tabpanel">
 					<div class="text-center">
 						<div class="address">
