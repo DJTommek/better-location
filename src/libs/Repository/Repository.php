@@ -20,6 +20,8 @@ abstract class Repository
 		self::ORDER_DESC,
 	];
 
+	public const DATETIME_FORMAT = 'Y-m-d H:i:s';
+
 	/** @var Database */
 	public $db;
 

@@ -26,7 +26,9 @@ class UserRepository extends Repository
 		$this->db->query('UPDATE better_location_user 
 				SET user_telegram_name = ?, user_location_lat = ?, user_location_lon = ?, user_location_last_update = ?, user_last_update = UTC_TIMESTAMP() 
 				WHERE user_id = ?',
-			$entity->telegramName, $entity->getLat(), $entity->getLon(), $entity->lastLocationUpdate, $entity->id
+			$entity->telegramName, $entity->getLat(), $entity->getLon(),
+			$entity->lastLocationUpdate ? $entity->lastLocationUpdate->format(self::DATETIME_FORMAT) : null,
+			$entity->id
 		);
 	}
 }
