@@ -36,16 +36,25 @@ class User
 		if (($this->userEntity = $this->userRepository->fromTelegramId($telegramId)) === null) {
 			$this->userRepository->insert($telegramId, $telegramDisplayname);
 			$this->userEntity = $this->userRepository->fromTelegramId($telegramId);
-		} else {
-			// @TODO update $this->userEntity->lastUpdate
 		}
+	}
+
+	public function touchLastUpdate(): void
+	{
+		$this->update();
+	}
+
+	private function update(): void
+	{
+		$this->userRepository->update($this->userEntity);
+		$this->userEntity = $this->userRepository->fromTelegramId($this->userEntity->telegramId);
 	}
 
 	public function setLastKnownLocation(float $lat, float $lon): void
 	{
 		$coords = new Coordinates($lat, $lon);
 		$this->userEntity->setLastLocation($coords);
-		$this->userRepository->update($this->userEntity);
+		$this->update();
 	}
 
 	public function getFavourite(float $lat, float $lon): ?BetterLocation
