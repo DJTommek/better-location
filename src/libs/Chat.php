@@ -23,8 +23,6 @@ class Chat
 		if (($this->chatEntity = $this->chatRepository->fromTelegramId($telegramChatId)) === null) {
 			$this->chatRepository->insert($telegramChatId, $telegramChatType, $telegramChatName);
 			$this->chatEntity = $this->chatRepository->fromTelegramId($telegramChatId);
-		} else {
-			// @TODO update $this->chatEntity->lastUpdate
 		}
 	}
 
@@ -35,6 +33,11 @@ class Chat
 			$this->update();
 		}
 		return $this->chatEntity->settingsPreview;
+	}
+
+	public function touchLastUpdate(): void
+	{
+		$this->update();
 	}
 
 	public function settingsOutputType(?int $value = null): int

@@ -62,12 +62,14 @@ abstract class Events
 		$this->loop = Factory::create();
 		$this->tgLog = new TgLog(Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($this->loop));
 		$this->user = new User($this->getFromId(), $this->getFromDisplayname());
+		$this->user->touchLastUpdate();
 		if ($this->hasMessage()) {
 			$this->chat = new Chat(
 				$this->getChatId(),
 				$this->getChat()->type,
 				$this->getChatDisplayname()
 			);
+			$this->chat->touchLastUpdate();
 		}
 
 		if (TelegramHelper::isInlineQuery($update) === false && TelegramHelper::isEdit($update) === false) {
