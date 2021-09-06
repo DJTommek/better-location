@@ -33,6 +33,8 @@ class Database
 		$this->db->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, false);
 		$this->db->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
 		$this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+		$this->db->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
+		// Return int and float columns as PHP int and float types
 		// Fix if database server don't have enabled STRICT_ALL_TABLES. See https://stackoverflow.com/questions/27880035/what-causes-mysql-not-to-enforce-not-null-constraint
 		$this->db->query('SET SESSION SQL_MODE=STRICT_ALL_TABLES');
 	}
@@ -66,7 +68,6 @@ class Database
 	private function queryReal(string $query, $params)
 	{
 		$sql = $this->db->prepare($query);
-		$sql->setFetchMode(\PDO::FETCH_ASSOC);
 		$sql->execute($params);
 		return $sql;
 	}
