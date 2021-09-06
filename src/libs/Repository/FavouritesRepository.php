@@ -16,7 +16,7 @@ class FavouritesRepository extends Repository
 		}
 		$sql = 'SELECT * FROM better_location_favourites WHERE user_id = ? AND status IN (' . self::inHelper($statuses) . ')';
 		$params = array_merge([$userId], $statuses);
-		$rows = $this->db->queryArray($sql, $params)->fetchAll();
+		$rows = $this->db->query($sql, ...$params)->fetchAll();
 		return FavouritesEntity::fromRows($rows);
 	}
 

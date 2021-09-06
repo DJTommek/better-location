@@ -70,18 +70,4 @@ class Database
 		$sql->execute($params);
 		return $sql;
 	}
-
-
-	/**
-	 * Array shortcut for prepared statement
-	 *
-	 * @return bool|\PDOStatement
-	 */
-	public function queryArray(string $query, array $params)
-	{
-		$sql = $this->db->prepare($query);
-		$sql->setFetchMode(\PDO::FETCH_ASSOC);
-		$sql->execute($params);
-		return $sql;
-	}
 }

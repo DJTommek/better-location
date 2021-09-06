@@ -154,7 +154,7 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 			$sqlQuery .= ' LIMIT ?';
 			$sqlParams[] = $limit;
 		}
-		$rows = Factory::Database()->queryArray($sqlQuery, $sqlParams)->fetchAll();
+		$rows = Factory::Database()->query($sqlQuery, ...$sqlParams)->fetchAll();
 		foreach ($rows as $row) {
 			$results[] = self::parseDbData($row);
 		}
@@ -203,7 +203,7 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 	public static function query(string $query, ...$params): array
 	{
 		$results = [];
-		$rows = Factory::Database()->queryArray($query, $params)->fetchAll();
+		$rows = Factory::Database()->query($query, ...$params)->fetchAll();
 		foreach ($rows as $row) {
 			$results[] = self::parseDbData($row);
 		}
