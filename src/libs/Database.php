@@ -2,8 +2,13 @@
 
 namespace App;
 
+use Tracy\Debugger;
+
 class Database
 {
+	/** @var string Randomly occuring error on WEDOS webhosting */
+	private const PDO_REPREPARED_ERROR = 'SQLSTATE[HY000]: General error: 1615 Prepared statement needs to be re-prepared';
+
 	/** @var \PDO */
 	private $db;
 
@@ -45,11 +50,27 @@ class Database
 	 */
 	public function query(string $query, ...$params)
 	{
+		try {
+			return $this->queryReal($query, $params);
+		} catch (\PDOException $exception) {
+			if ($exception->getMessage() === self::PDO_REPREPARED_ERROR) {
+				Debugger::log('Catched PDO re-prepared error, trying again...', Debugger::WARNING);
+				Debugger::log($exception, Debugger::WARNING);
+				return $this->queryReal($query, $params);
+			} else {
+				throw $exception;
+			}
+		}
+	}
+
+	private function queryReal(string $query, $params)
+	{
 		$sql = $this->db->prepare($query);
 		$sql->setFetchMode(\PDO::FETCH_ASSOC);
 		$sql->execute($params);
 		return $sql;
 	}
+
 
 	/**
 	 * Array shortcut for prepared statement
