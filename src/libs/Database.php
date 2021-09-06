@@ -9,9 +9,6 @@ class Database
 	/** @var string Randomly occuring error on WEDOS webhosting */
 	private const PDO_REPREPARED_ERROR = 'SQLSTATE[HY000]: General error: 1615 Prepared statement needs to be re-prepared';
 
-	/** @var \PDO */
-	private $db;
-
 	public const TRUE = 1;
 	public const FALSE = 0;
 
@@ -26,15 +23,21 @@ class Database
 		self::ORDER_DESC,
 	];
 
-	public function __construct($db_server, $db_schema, $db_user, $db_pass, $db_charset = 'utf8mb4')
+	/** @var \PDO */
+	private $db;
+
+	public function __construct(string $server, string $schema, string $user, string $pass, $charset = 'utf8mb4')
 	{
-		$dsn = 'mysql:host=' . $db_server . ';dbname=' . $db_schema . ';charset=' . $db_charset;
-		$this->db = new \PDO($dsn, $db_user, $db_pass);
-		$this->db->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, false);
-		$this->db->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
-		$this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+		$dsn = sprintf('mysql:host=%s;dbname=%s;charset=%s', $server, $schema, $charset);
+		$this->db = new \PDO($dsn, $user, $pass);
+		// Fetch each row as array indexed by column name
 		$this->db->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
 		// Return int and float columns as PHP int and float types
+		$this->db->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, false);
+		// https://stackoverflow.com/questions/10113562/pdo-mysql-use-pdoattr-emulate-prepares-or-not
+		$this->db->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+		// Throw \PDOException in case of error. See https://www.php.net/manual/en/class.pdoexception.php
+		$this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 		// Fix if database server don't have enabled STRICT_ALL_TABLES. See https://stackoverflow.com/questions/27880035/what-causes-mysql-not-to-enforce-not-null-constraint
 		$this->db->query('SET SESSION SQL_MODE=STRICT_ALL_TABLES');
 	}
@@ -47,7 +50,8 @@ class Database
 	/**
 	 * Shortcut for prepared statement
 	 *
-	 * @param mixed ...$params
+	 * @param string $query SQL query
+	 * @param mixed ...$params Optional parameters for fill prepared statements
 	 * @return bool|\PDOStatement
 	 */
 	public function query(string $query, ...$params)
