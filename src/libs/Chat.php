@@ -10,13 +10,12 @@ class Chat
 {
 	/** @var BetterLocationMessageSettings */
 	private $messageSettings;
-
 	/** @var ChatEntity */
 	private $chatEntity;
 	/** @var ChatRepository */
 	private $chatRepository;
 
-	public function __construct(int $telegramChatId, string $telegramChatType, ?string $telegramChatName = null)
+	public function __construct(int $telegramChatId, string $telegramChatType, string $telegramChatName)
 	{
 		$db = Factory::Database();
 		$this->chatRepository = new ChatRepository($db);
