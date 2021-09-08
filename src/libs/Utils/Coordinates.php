@@ -21,16 +21,20 @@ class Coordinates
 	private $lat;
 	/** @var float */
 	private $lon;
+	/** @var ?float Elevation in meters */
+	private $elevation;
 
 	/**
 	 * @param string|int|float $lat Latitude coordinate in WGS-84 format
 	 * @param string|int|float $lon Longitude coordinate in WGS-84 format
+	 * @param int|float|null $elevation Elevation
 	 * @throws InvalidLocationException
 	 */
-	public function __construct($lat, $lon)
+	public function __construct($lat, $lon, $elevation = null)
 	{
 		$this->setLat($lat);
 		$this->setLon($lon);
+		$this->setElevation($elevation);
 	}
 
 	public function getLat(): float
@@ -41,6 +45,12 @@ class Coordinates
 	public function getLon(): float
 	{
 		return $this->lon;
+	}
+
+	/** @return float|null */
+	public function getElevation(): ?float
+	{
+		return $this->elevation;
 	}
 
 	public function getLatHemisphere(): string
@@ -75,6 +85,21 @@ class Coordinates
 			throw new InvalidLocationException('Longitude coordinate must be numeric between or equal from -180 to 180 degrees.');
 		}
 		$this->lon = Strict::floatval($lon);
+	}
+
+	/**
+	 * @param string|int|float|null $elevation
+	 * @throws InvalidLocationException
+	 */
+	public function setElevation($elevation): void
+	{
+		if (is_null($elevation)) {
+			$this->elevation = null;
+		} else if (Strict::isFloat($elevation)) {
+			$this->elevation = Strict::floatval($elevation);
+		} else {
+			throw new InvalidLocationException('Elevation must be numeric or null.');
+		}
 	}
 
 	public static function wgs84DegreesToDegreesMinutes(float $degrees): array
