@@ -35,6 +35,13 @@ class OpenElevation
 		return $this;
 	}
 
+	/** Fill elevation into provided Coordinates object */
+	public function fill(Coordinates $coordinates): void
+	{
+		$response = $this->request([$coordinates]);
+		$coordinates->setElevation($response->results[0]->elevation);
+	}
+
 	/**
 	 * Get elevation for specific coordinates
 	 *
