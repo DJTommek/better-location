@@ -69,7 +69,7 @@ class OpenElevation
 			throw new \InvalidArgumentException('Must provide at least one location');
 		}
 		$locations = array_map(function ($input) {
-			list($lat, $lon) = $input; // validate, that array has exactly 2 elements
+			list($lat, $lon) = $input;
 			return new Coordinates($lat, $lon);
 		}, $inputs);
 		$response = $this->request($locations);
