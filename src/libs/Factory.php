@@ -142,4 +142,12 @@ class Factory
 		return self::$objects['geonames'];
 	}
 
+	public static function OpenElevation(): \App\OpenElevation\OpenElevation
+	{
+		if (!isset(self::$objects['openelevation'])) {
+			self::$objects['openelevation'] = new \App\OpenElevation\OpenElevation();
+			self::$objects['openelevation']->setCache(Config::CACHE_TTL_OPEN_ELEVATION);
+		}
+		return self::$objects['openelevation'];
+	}
 }
