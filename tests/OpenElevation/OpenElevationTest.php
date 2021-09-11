@@ -50,6 +50,19 @@ final class OpenElevationTest extends TestCase
 		$this->assertSame(206.0, $coords->getElevation());
 	}
 
+	public function testFillBatch(): void
+	{
+		$inputs = [
+			new Coordinates(50.087451, 14.420671),
+			new Coordinates(36.246600, -116.816900),
+		];
+		$this->assertNull($inputs[0]->getElevation());
+		$this->assertNull($inputs[1]->getElevation());
+		self::$api->fillBatch($inputs);
+		$this->assertSame(206.0, $inputs[0]->getElevation());
+		$this->assertSame(-81.0, $inputs[1]->getElevation());
+	}
+
 	public function testLookupInvalidCoords(): void
 	{
 		$this->expectException(InvalidLocationException::class);
