@@ -43,6 +43,23 @@ class OpenElevation
 	}
 
 	/**
+	 * Fill elevation into provided Coordinates objects
+	 *
+	 * @param Coordinates[] $inputs
+	 */
+	public function fillBatch(array $inputs): void
+	{
+		if (count($inputs) === 0) {
+			throw new \InvalidArgumentException('Must provide at least one location');
+		}
+		$response = $this->request($inputs);
+		foreach ($response->results as $key => $result) { // assume, that order of coorinates is equal
+			// Fill elevation to previously created object, to prevent loosing precision
+			$inputs[$key]->setElevation($result->elevation);
+		}
+	}
+
+	/**
 	 * Get elevation for specific coordinates
 	 *
 	 * @param float $lat latitude
