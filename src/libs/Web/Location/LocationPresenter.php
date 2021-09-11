@@ -79,6 +79,9 @@ class LocationPresenter extends MainPresenter
 				case 'gpx':
 					$this->fileGpx();
 					break;
+				case 'json':
+					$this->json();
+					break;
 				case 'kml':
 					$this->fileKml();
 					break;
