@@ -334,9 +334,27 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return $staticMap->getUrl();
 	}
 
-	public function getKeys(): array {
+	public function getKeys(): array
+	{
 		return array_map(function (BetterLocation $location) {
 			return $location->__toString();
 		}, $this->getLocations());
+	}
+
+	/** @return Coordinates[] */
+	public function getCoordinates(): array
+	{
+		return array_map(function (BetterLocation $location) {
+			return $location->getCoordinates();
+		}, $this->getLocations());
+	}
+
+	/**
+	 * Load elevations from API and fill it into all locations
+	 */
+	public function fillElevations(): void
+	{
+		$api = Factory::OpenElevation();
+		$api->fillBatch($this->getCoordinates());
 	}
 }

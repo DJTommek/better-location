@@ -39,6 +39,7 @@ class LocationPresenter extends MainPresenter
 			$this->handleAction();
 			$this->location->generateAddress();
 			$this->location->generateDateTimeZone();
+			$this->location->generateElevation();
 
 			$manager = new ServicesManager();
 			foreach ($manager->getServices() as $service) {
@@ -92,6 +93,7 @@ class LocationPresenter extends MainPresenter
 		$result = new \stdClass();
 		$result->lat = $this->lat;
 		$result->lon = $this->lon;
+		$result->elevation = $this->location->getCoordinates()->getElevation();
 		$result->address = $this->location->getAddress();
 		$result->services = $this->services;
 		header('Content-Type: application/json');

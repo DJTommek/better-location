@@ -59,6 +59,9 @@
 				<a href="{$basePath}/{$lat},{$lon}?format=gpx">gpx</a> |
 				<a href="{$basePath}/{$lat},{$lon}?format=kml">kml</a>
 			</div>
+			<div class="elevation" n:if="$betterLocation->getCoordinates()->getElevation() !== null">
+				<abbr title="Above mean sea level">AMSL</abbr>: {$betterLocation->getCoordinates()->getElevation()} meters
+			</div>
 			<div class="telegram">
 				<a href="{$linkTG}" target="_blank" title="Telegram">
 					<i class="fa fa-telegram"></i>

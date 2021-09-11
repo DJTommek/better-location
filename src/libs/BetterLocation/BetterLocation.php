@@ -147,6 +147,19 @@ class BetterLocation
 		return $this->timezoneData;
 	}
 
+	/** Load and save elevation from API */
+	public function generateElevation(): ?float
+	{
+		if (is_null($this->coords->getElevation())) {
+			try {
+				Factory::OpenElevation()->fill($this->coords);
+			} catch (\Exception $exception) {
+				Debugger::log($exception, Debugger::EXCEPTION);
+			}
+		}
+		return $this->coords->getElevation();
+	}
+
 	public function getTimezoneData(): ?TimezoneType
 	{
 		return $this->timezoneData;
