@@ -67,7 +67,7 @@ class BetterLocationMessageSettings
 		array $shareServices = self::DEFAULT_SHARE_SERVICES,
 		array $buttonServices = self::DEFAULT_DRIVE_SERVICES,
 		string $screenshotLinkService = self::DEFAULT_SCREENSHOT_SERVICE,
-		bool $address = false
+		bool $address = true
 	)
 	{
 		$this->linkServices = $shareServices;
