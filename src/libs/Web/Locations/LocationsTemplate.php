@@ -4,6 +4,7 @@ namespace App\Web\Locations;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
+use App\Utils\DateImmutableUtils;
 use App\Web\LayoutTemplate;
 
 class LocationsTemplate extends LayoutTemplate
@@ -13,6 +14,8 @@ class LocationsTemplate extends LayoutTemplate
 	public $websites = [];
 	public $allCoords = [];
 	public $collectionJs = [];
+	/** @var string Text representation of now in UTC */
+	public $nowUtcText;
 
 	public function prepare(BetterLocationCollection $collection, array $websites)
 	{
@@ -31,6 +34,7 @@ class LocationsTemplate extends LayoutTemplate
 			return [$location->getLat(), $location->getLon()];
 		}, $collection->getLocations());
 		$this->websites = $websites;
+		$this->nowUtcText = DateImmutableUtils::nowUtc()->format(DATE_ISO8601);
 	}
 }
 

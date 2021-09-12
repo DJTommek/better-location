@@ -32,6 +32,11 @@
 						</button>
 					{/foreach}
 				</div>
+				<div class="downloads text-center">
+					<i class="fa fa-download"></i> Download all:
+					<a href="{$basePath}/{$collection->getKeys()|join:';'}?format=gpx">gpx</a> |
+					<a href="{$basePath}/{$collection->getKeys()|join:';'}?format=kml">kml</a>
+				</div>
 			</div>
 			<div class="col-12 col-md-8 col-xl-9" id="map-dynamic">
 				<div id="map-dynamic-leaflet"></div>
@@ -44,6 +49,20 @@
 					<div class="text-center">
 						<div class="address">
 							{$location->getAddress() ?? 'Unknown address'}
+						</div>
+						<div class="timezone" n:if="$location->getTimezoneData()">
+							Local time: <b title="YYYY-MM-DD hh:mm:ss. Time might be few minutes out of date due to caching.">{$location->getTimezoneData()->time->format(\App\Config::DATETIME_FORMAT)}</b>,
+							Timezone: <b>{$location->getTimezoneData()->timezone->getName()}</b>,
+							UTC Offset: <b>{$location->getTimezoneData()->formatNowOffset()}</b>,
+							DST: <b>{$location->getTimezoneData()->isDst() ? 'yes' : 'no'}</b>
+						</div>
+						<div class="downloads">
+							<i class="fa fa-download"></i> Download single:
+							<a href="{$basePath}/{$location->key()}?format=gpx">gpx</a> |
+							<a href="{$basePath}/{$location->key()}?format=kml">kml</a>
+						</div>
+						<div class="elevation" n:if="$location->getCoordinates()->getElevation() !== null">
+							<abbr title="Above mean sea level">AMSL</abbr>: {$location->getCoordinates()->getElevation()} meters
 						</div>
 						<div class="telegram">
 							<a href="{App\TelegramCustomWrapper\TelegramHelper::generateStartLocation($location->getLat(), $location->getLon())}" target="_blank" title="Telegram">

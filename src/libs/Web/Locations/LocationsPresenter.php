@@ -7,10 +7,13 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
+use App\Config;
 use App\Factory;
 use App\Utils\Coordinates;
+use App\Utils\DateImmutableUtils;
 use App\Utils\Strict;
 use App\Web\MainPresenter;
+use Nette\Utils\Json;
 
 class LocationsPresenter extends MainPresenter
 {
@@ -18,11 +21,17 @@ class LocationsPresenter extends MainPresenter
 	private $collection;
 	/** @var array Multidimensional array of all structures, where is possible to generate something (share link, drive link, ...) */
 	private $services = [];
+	/** @var string */
+	private $format = 'html';
+	/** @var string */
+	private $nowFileText;
+
 
 	public function __construct()
 	{
 		$this->template = new LocationsTemplate();
 		$this->collection = new BetterLocationCollection();
+		$this->nowFileText = DateImmutableUtils::nowUtc()->format(Config::DATETIME_FILE_FORMAT);
 		parent::__construct();
 	}
 
@@ -36,11 +45,13 @@ class LocationsPresenter extends MainPresenter
 				if (Coordinates::isLat($lat) && Coordinates::isLon($lon)) {
 					$location = BetterLocation::fromLatLon(Strict::floatval($lat), Strict::floatval($lon));
 					$location->generateAddress();
+					$location->generateDateTimeZone();
 					$this->collection->add($location);
 				}
 			}
 		}
 		$this->collection->deduplicate();
+		$this->collection->fillElevations();
 
 		foreach ($this->collection as $location) {
 			$manager = new ServicesManager();
@@ -49,19 +60,61 @@ class LocationsPresenter extends MainPresenter
 				$services[] = $this->website($service, $location->getLat(), $location->getLon());
 			}
 			$services = array_values(array_filter($services));
-			$key = $location->__toString();
-			$this->services[$key] = $services;
+			$this->services[$location->key()] = $services;
 		}
+		$this->format = mb_strtolower($_GET['format'] ?? 'html');
 	}
 
 	public function render(): void
 	{
 		if (count($this->collection)) {
 			$this->template->prepare($this->collection, $this->services);
-			Factory::Latte('locations.latte', $this->template);
+			switch ($this->format) {
+				case 'html':
+				default;
+					Factory::Latte('locations.latte', $this->template);
+					break;
+				case 'gpx':
+					$this->fileGpx();
+					break;
+				case 'json':
+					$this->json();
+					break;
+				case 'kml':
+					$this->fileKml();
+					break;
+			}
 		} else {
 			Factory::Latte('locationsError.latte', $this->template);
 		}
+	}
+
+	public function json(): void
+	{
+		$result = new \stdClass();
+		$result->locations = array_map(function (BetterLocation $location) {
+			$resultLocation = new \stdClass();
+			$resultLocation->lat = $location->getLat();
+			$resultLocation->lon = $location->getLon();
+			$resultLocation->elevation = $location->getCoordinates()->getElevation();
+			$resultLocation->address = $location->getAddress();
+			$resultLocation->services = $this->services[$location->key()];
+			return $resultLocation;
+		}, $this->collection->getLocations());
+		header('Content-Type: application/json');
+		die(Json::encode($result));
+	}
+
+	public function fileGpx(): void
+	{
+		header(sprintf('Content-Disposition: attachment; filename="BetterLocation_%d_locations_%s.gpx"', count($this->collection), $this->nowFileText));
+		Factory::Latte('locationsGpx.latte', $this->template);
+	}
+
+	public function fileKml(): void
+	{
+		header(sprintf('Content-Disposition: attachment; filename="BetterLocation_%d_locations_%s.kml"', count($this->collection), $this->nowFileText));
+		Factory::Latte('locationsKml.latte', $this->template);
 	}
 
 	private function website($service, float $lat, float $lon)

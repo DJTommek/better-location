@@ -1,0 +1,30 @@
+{templateType App\Web\Locations\LocationsTemplate}
+{contentType application/gpx}
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="BetterLocation https://better-location.palider.cz">
+    <metadata>
+        <name>BetterLocation</name>
+        <desc>BetterLocation points generated from better-location.palider.cz</desc>
+        <author>
+            <name>Tomas Palider (DJTommek)</name>
+            <email>tomas@palider.cz</email>
+            <link>tomas.palider.cz</link>
+        </author>
+        <link href="{$baseUrl}">
+            <text>BetterLocation</text>
+            <type>text/html</type>
+        </link>
+        <time>{$nowUtcText}</time>
+    </metadata>
+{foreach $collection as $location}
+	<wpt lat="{$location->getLat()}" lon="{$location->getLon()}">
+		<time>{$nowUtcText}</time>
+		<name>BetterLocation {$location->key()}</name>
+		<desc>Address: {$location->getAddress() ?? unknown}</desc>
+		<link href="{$baseUrl}/{$location->key()}">
+			<text>BetterLocation {$location->key()}</text>
+			<type>text/html</type>
+		</link>
+	</wpt>
+{/foreach}
+</gpx>

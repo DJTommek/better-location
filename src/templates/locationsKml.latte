@@ -1,0 +1,29 @@
+{templateType App\Web\Locations\LocationsTemplate}
+{contentType application/kml}
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+	<Document>
+		<name>BetterLocation</name>
+		<Folder>
+			<name>BetterLocation waypoints</name>
+			{foreach $collection as $location}
+			<Placemark>
+				<name>BetterLocation {$location->key()}</name>
+				<address>{$location->getAddress() ?? 'Unknown address'}</address>
+				<description>
+					<![CDATA[
+					Address: <b>{$location->getAddress() ?? 'Unknown address'}</b><br>
+					Link: <a href="{$baseUrl}/{$location->key()}"><b>{$baseUrl}/{$location->key()}</b></a>
+					]]>
+				</description>
+				<Point>
+					<coordinates>{$location->getLon()},{$location->getLat()},0</coordinates>
+				</Point>
+				<TimeStamp>
+					<when>{$nowUtcText}</when>
+				</TimeStamp>
+			</Placemark>
+			{/foreach}
+		</Folder>
+	</Document>
+</kml>
