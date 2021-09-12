@@ -168,7 +168,7 @@ class InlineQueryEvent extends Special
 		}
 		$inlineQueryResult->title = strip_tags($inlineTitle);
 		$inlineQueryResult->description = $betterLocation->__toString();
-		if ($betterLocation->getAddress()) {
+		if ($this->getMessageSettings()->showAddress() && $betterLocation->generateAddress()) {
 			$inlineQueryResult->description .= sprintf(' (%s)', $betterLocation->getAddress());
 		}
 		$inlineQueryResult->thumb_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
