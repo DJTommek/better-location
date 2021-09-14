@@ -195,6 +195,7 @@ abstract class Events
 		$locationMessage->chat_id = $this->getChatId();
 		$locationMessage->latitude = $location->getLat();
 		$locationMessage->longitude = $location->getLon();
+		$locationMessage->reply_to_message_id = $this->getMessageId();
 		$locationMessage->reply_markup = $markup;
 		return $this->run($locationMessage);
 	}
