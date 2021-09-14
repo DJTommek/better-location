@@ -1210,16 +1210,16 @@
         },
         {
             "name": "djtommek/mapycz-api",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DJTommek/mapycz-api.git",
-                "reference": "95eacddb149c04016336570b6a71cbdb3fe9f03c"
+                "reference": "2fc39809d5a3c28a2ff94ffbf35984401c592387"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DJTommek/mapycz-api/zipball/95eacddb149c04016336570b6a71cbdb3fe9f03c",
-                "reference": "95eacddb149c04016336570b6a71cbdb3fe9f03c",
+                "url": "https://api.github.com/repos/DJTommek/mapycz-api/zipball/2fc39809d5a3c28a2ff94ffbf35984401c592387",
+                "reference": "2fc39809d5a3c28a2ff94ffbf35984401c592387",
                 "shasum": ""
             },
             "require": {
@@ -1262,9 +1262,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DJTommek/mapycz-api/issues",
-                "source": "https://github.com/DJTommek/mapycz-api/tree/1.1.0"
+                "source": "https://github.com/DJTommek/mapycz-api/tree/1.2.0"
             },
-            "time": "2020-10-26T21:46:55+00:00"
+            "time": "2021-08-18T21:18:54+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -1928,21 +1928,21 @@
         },
         {
             "name": "nette/http",
-            "version": "v3.1.1",
+            "version": "v3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/http.git",
-                "reference": "c903d0f0b793ed2045a442f338e756e1d3954c22"
+                "reference": "5777e50f69566732579bf381d2cbcb2f2695d015"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/http/zipball/c903d0f0b793ed2045a442f338e756e1d3954c22",
-                "reference": "c903d0f0b793ed2045a442f338e756e1d3954c22",
+                "url": "https://api.github.com/repos/nette/http/zipball/5777e50f69566732579bf381d2cbcb2f2695d015",
+                "reference": "5777e50f69566732579bf381d2cbcb2f2695d015",
                 "shasum": ""
             },
             "require": {
                 "nette/utils": "^3.1",
-                "php": ">=7.2 <8.1"
+                "php": ">=7.2 <8.2"
             },
             "conflict": {
                 "nette/di": "<3.0.3",
@@ -2000,22 +2000,22 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/http/issues",
-                "source": "https://github.com/nette/http/tree/v3.1.1"
+                "source": "https://github.com/nette/http/tree/v3.1.2"
             },
-            "time": "2021-01-25T20:15:01+00:00"
+            "time": "2021-08-25T15:26:03+00:00"
         },
         {
             "name": "nette/utils",
-            "version": "v3.2.2",
+            "version": "v3.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "967cfc4f9a1acd5f1058d76715a424c53343c20c"
+                "reference": "5c36cc1ba9bb6abb8a9e425cf054e0c3fd5b9822"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/967cfc4f9a1acd5f1058d76715a424c53343c20c",
-                "reference": "967cfc4f9a1acd5f1058d76715a424c53343c20c",
+                "url": "https://api.github.com/repos/nette/utils/zipball/5c36cc1ba9bb6abb8a9e425cf054e0c3fd5b9822",
+                "reference": "5c36cc1ba9bb6abb8a9e425cf054e0c3fd5b9822",
                 "shasum": ""
             },
             "require": {
@@ -2085,9 +2085,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/utils/issues",
-                "source": "https://github.com/nette/utils/tree/v3.2.2"
+                "source": "https://github.com/nette/utils/tree/v3.2.3"
             },
-            "time": "2021-03-03T22:53:25+00:00"
+            "time": "2021-08-16T21:05:00+00:00"
         },
         {
             "name": "psr/http-client",
@@ -3093,22 +3093,22 @@
         },
         {
             "name": "tracy/tracy",
-            "version": "v2.8.5",
+            "version": "v2.8.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tracy.git",
-                "reference": "b23da41363546aa750d9f698f21e14815bd78913"
+                "reference": "8e708de7c611f626c8792d43f1c78812ea24e6f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tracy/zipball/b23da41363546aa750d9f698f21e14815bd78913",
-                "reference": "b23da41363546aa750d9f698f21e14815bd78913",
+                "url": "https://api.github.com/repos/nette/tracy/zipball/8e708de7c611f626c8792d43f1c78812ea24e6f6",
+                "reference": "8e708de7c611f626c8792d43f1c78812ea24e6f6",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-session": "*",
-                "php": ">=7.2 <8.1"
+                "php": ">=7.2 <8.2"
             },
             "conflict": {
                 "nette/di": "<3.0"
@@ -3161,9 +3161,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/tracy/issues",
-                "source": "https://github.com/nette/tracy/tree/v2.8.5"
+                "source": "https://github.com/nette/tracy/tree/v2.8.7"
             },
-            "time": "2021-06-02T15:42:54+00:00"
+            "time": "2021-08-24T16:26:27+00:00"
         },
         {
             "name": "unreal4u/dummy-logger",
@@ -3211,13 +3211,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/DJTommek/telegram-api.git",
-                "reference": "0f88b6e60972fbf2af45738d584e26cdc4b9d66b"
+                "url": "git@github.com:djtommek/telegram-api.git",
+                "reference": "d816bfd51d687baded6ffc7d2680127405999ff2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DJTommek/telegram-api/zipball/0f88b6e60972fbf2af45738d584e26cdc4b9d66b",
-                "reference": "0f88b6e60972fbf2af45738d584e26cdc4b9d66b",
+                "url": "https://api.github.com/repos/djtommek/telegram-api/zipball/d816bfd51d687baded6ffc7d2680127405999ff2",
+                "reference": "d816bfd51d687baded6ffc7d2680127405999ff2",
                 "shasum": ""
             },
             "require": {
@@ -3268,7 +3268,7 @@
                 "issues": "https://github.com/unreal4u/telegram-api/issues",
                 "source": "https://github.com/unreal4u/telegram-api"
             },
-            "time": "2021-08-09T19:14:56+00:00"
+            "time": "2021-09-14T21:02:21+00:00"
         },
         {
             "name": "what3words/w3w-php-wrapper",
@@ -3880,33 +3880,33 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.13.0",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "be1996ed8adc35c3fd795488a653f4b518be70ea"
+                "reference": "d86dfc2e2a3cd366cee475e52c6bb3bbc371aa0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/be1996ed8adc35c3fd795488a653f4b518be70ea",
-                "reference": "be1996ed8adc35c3fd795488a653f4b518be70ea",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/d86dfc2e2a3cd366cee475e52c6bb3bbc371aa0e",
+                "reference": "d86dfc2e2a3cd366cee475e52c6bb3bbc371aa0e",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.2",
-                "php": "^7.2 || ~8.0, <8.1",
+                "php": "^7.2 || ~8.0, <8.2",
                 "phpdocumentor/reflection-docblock": "^5.2",
                 "sebastian/comparator": "^3.0 || ^4.0",
                 "sebastian/recursion-context": "^3.0 || ^4.0"
             },
             "require-dev": {
-                "phpspec/phpspec": "^6.0",
+                "phpspec/phpspec": "^6.0 || ^7.0",
                 "phpunit/phpunit": "^8.0 || ^9.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.11.x-dev"
+                    "dev-master": "1.x-dev"
                 }
             },
             "autoload": {
@@ -3941,22 +3941,22 @@
             ],
             "support": {
                 "issues": "https://github.com/phpspec/prophecy/issues",
-                "source": "https://github.com/phpspec/prophecy/tree/1.13.0"
+                "source": "https://github.com/phpspec/prophecy/tree/1.14.0"
             },
-            "time": "2021-03-17T13:42:18+00:00"
+            "time": "2021-09-10T09:02:12+00:00"
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.94",
+            "version": "0.12.99",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "3d0ba4c198a24e3c3fc489f3ec6ac9612c4be5d6"
+                "reference": "b4d40f1d759942f523be267a1bab6884f46ca3f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/3d0ba4c198a24e3c3fc489f3ec6ac9612c4be5d6",
-                "reference": "3d0ba4c198a24e3c3fc489f3ec6ac9612c4be5d6",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b4d40f1d759942f523be267a1bab6884f46ca3f7",
+                "reference": "b4d40f1d759942f523be267a1bab6884f46ca3f7",
                 "shasum": ""
             },
             "require": {
@@ -3987,7 +3987,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/0.12.94"
+                "source": "https://github.com/phpstan/phpstan/tree/0.12.99"
             },
             "funding": [
                 {
@@ -4007,7 +4007,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-30T09:05:27+00:00"
+            "time": "2021-09-12T20:09:55+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -4329,16 +4329,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.8",
+            "version": "9.5.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "191768ccd5c85513b4068bdbe99bb6390c7d54fb"
+                "reference": "ea8c2dfb1065eb35a79b3681eee6e6fb0a6f273b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/191768ccd5c85513b4068bdbe99bb6390c7d54fb",
-                "reference": "191768ccd5c85513b4068bdbe99bb6390c7d54fb",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ea8c2dfb1065eb35a79b3681eee6e6fb0a6f273b",
+                "reference": "ea8c2dfb1065eb35a79b3681eee6e6fb0a6f273b",
                 "shasum": ""
             },
             "require": {
@@ -4416,7 +4416,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.8"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.9"
             },
             "funding": [
                 {
@@ -4428,7 +4428,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-07-31T15:17:34+00:00"
+            "time": "2021-08-31T06:47:40+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -5283,6 +5283,7 @@
                     "type": "github"
                 }
             ],
+            "abandoned": true,
             "time": "2020-09-28T06:45:17+00:00"
         },
         {
