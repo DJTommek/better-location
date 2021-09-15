@@ -357,4 +357,14 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		$api = Factory::OpenElevation();
 		$api->fillBatch($this->getCoordinates());
 	}
+
+	public function getLink(string $format = null): UrlImmutable
+	{
+		$keys = $this->getKeys();
+		if (count($keys) === 0) {
+			throw new \Exception(sprintf('Unable to generate getFileLink(%s): Collection is empty.', $format ?? ''));
+		}
+		$result = Config::getAppUrl('/' . implode(';', $keys));
+		return $result->withQueryParameter('format', $format);
+	}
 }

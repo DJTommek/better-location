@@ -7,6 +7,7 @@ use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\MapyCzService;
 use App\BingMaps\StaticMaps;
+use App\Config;
 use App\Factory;
 use App\Geonames\Geonames;
 use App\Geonames\Types\TimezoneType;
@@ -465,5 +466,11 @@ class BetterLocation
 	public function key(): string
 	{
 		return $this->coords->key();
+	}
+
+	public function getLink(string $format = null): UrlImmutable
+	{
+		$result = Config::getAppUrl('/' . $this->key());
+		return $result->withQueryParameter('format', $format);
 	}
 }
