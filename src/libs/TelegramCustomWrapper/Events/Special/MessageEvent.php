@@ -6,9 +6,11 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\GooglePlaceApi;
 use App\Config;
 use App\Icons;
+use App\Repository\ChatEntity;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramUpdateDb;
+use App\Utils\DateImmutableUtils;
 use Tracy\Debugger;
 
 class MessageEvent extends Special
@@ -32,12 +34,29 @@ class MessageEvent extends Special
 		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
 		$processedCollection->process();
 		if ($collection->count() > 0) {
-			if ($this->chat->getSendNativeLocation()) {
+			if ($this->chat->settingsOutputType() === ChatEntity::OUTPUT_TYPE_LOCATION) {
 				$this->replyLocation($processedCollection->getCollection()->getFirst(), $processedCollection->getMarkup(1, false));
 			} else {
 				$text = $processedCollection->getText();
 				$markup = $processedCollection->getMarkup(1);
-				$response = $this->reply($text, $markup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
+				if ($this->chat->settingsOutputType() === ChatEntity::OUTPUT_TYPE_MESSAGE) {
+					$response = $this->reply($text, $markup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
+				} else {
+					if ($this->chat->settingsOutputType() === ChatEntity::OUTPUT_TYPE_FILE_GPX) {
+						$outputFormat = 'gpx';
+					} else if ($this->chat->settingsOutputType() === ChatEntity::OUTPUT_TYPE_FILE_GPX) {
+						$outputFormat = 'kml';
+					} else {
+						throw new \OutOfRangeException('Unhandled message output type.');
+					}
+					$fileDisplayName = sprintf('BetterLocation - %d location%s %s.%s',
+						$collection->count(),
+						$collection->count() > 1 ? 's' : '',
+						DateImmutableUtils::nowUtc()->format(Config::DATETIME_FILE_FORMAT),
+						$outputFormat
+					);
+					$response = $this->replyDocumentUrl($this->getCollection()->getFileLink($outputFormat), $fileDisplayName, $text, $markup);
+				}
 				if ($response && $collection->hasRefreshableLocation()) {
 					$cron = new TelegramUpdateDb($this->update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
 					$cron->insert();
