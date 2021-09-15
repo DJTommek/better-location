@@ -21,7 +21,10 @@ use App\TelegramCustomWrapper\SendMessage;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\User;
 use App\Utils\Coordinates;
+use App\Utils\FileSystemUtils;
 use App\Utils\SimpleLogger;
+use App\Utils\TempFile;
+use Nette\Http\UrlImmutable;
 use React\EventLoop\Factory;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -31,6 +34,7 @@ use unreal4u\TelegramAPI\Exceptions\ClientException;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Methods\SendChatAction;
+use unreal4u\TelegramAPI\Telegram\Types\Custom\InputFile;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
@@ -198,6 +202,31 @@ abstract class Events
 		$locationMessage->reply_to_message_id = $this->getMessageId();
 		$locationMessage->reply_markup = $markup;
 		return $this->run($locationMessage);
+	}
+
+	/** @param string|InputFile */
+	public function replyDocument($document, string $text, ?Markup $markup = null): ?TelegramTypes
+	{
+		$locationMessage = new Telegram\Methods\SendDocument();
+		$locationMessage->chat_id = $this->getChatId();
+		$locationMessage->document = $document;
+		$locationMessage->caption = $text;
+		$locationMessage->reply_to_message_id = $this->getMessageId();
+		$locationMessage->reply_markup = $markup;
+		$locationMessage->parse_mode = 'HTML';
+		$locationMessage->allow_sending_without_reply = true;
+		return $this->run($locationMessage);
+	}
+
+	/**
+	 * @param UrlImmutable $url Content of URL will be downloaded into temporary file, uploaded to Telegram and temporary file deleted.
+	 * @param string $fileDisplayName How file should be displayed in Telegram client.
+	 */
+	public function replyDocumentUrl(UrlImmutable $url, string $fileDisplayName, string $text, ?Markup $markup = null): ?TelegramTypes
+	{
+		$tempFile = new TempFile($fileDisplayName, $url);
+		$document = new Telegram\Types\Custom\InputFile($tempFile->getFilePath());
+		return $this->replyDocument($document, $text, $markup);
 	}
 
 	/**
