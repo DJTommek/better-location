@@ -22,14 +22,17 @@ class TempFile
 
 	/**
 	 * @param string $fileName
-	 * @param string|UrlImmutable|Url $content Content, which should be saved in file. If URL is provided, content is downloaded from that url.
+	 * @param null|string|UrlImmutable|Url $content Content, which should be saved in file. If URL is provided, content is downloaded from that url. Null will create empty file.
 	 */
-	public function __construct(string $fileName, $content)
+	public function __construct(string $fileName, $content = null)
 	{
 		$this->dirPath = self::TEMP_DIR . '/' . uniqid();
 		$this->filePath = $this->dirPath . '/' . $fileName;
 		if ($content instanceof \Nette\Http\UrlImmutable || $content instanceof \Nette\Http\Url) {
 			$content = file_get_contents($content->getAbsoluteUrl());
+		}
+		if (is_null($content)) {
+			$content = '';
 		}
 		FileSystem::write($this->filePath, $content);
 	}
