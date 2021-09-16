@@ -10,7 +10,7 @@ use Nette\Utils\FileSystem;
 use Tracy\Debugger;
 
 /**
- * Create file with specific filename and content. File is automatically deleted once it is not referenced.
+ * Create temporary file with specific filename and content. File is automatically deleted once it is not referenced.
  */
 class TempFile
 {
@@ -23,10 +23,11 @@ class TempFile
 	/**
 	 * @param string $fileName
 	 * @param null|string|UrlImmutable|Url $content Content, which should be saved in file. If URL is provided, content is downloaded from that url. Null will create empty file.
+	 * @throws \Nette\IOException
 	 */
 	public function __construct(string $fileName, $content = null)
 	{
-		if ($content instanceof \Nette\Http\UrlImmutable || $content instanceof \Nette\Http\Url) {
+		if ($content instanceof UrlImmutable || $content instanceof Url) {
 			$content = file_get_contents($content->getAbsoluteUrl());
 		}
 		if (is_null($content)) {
@@ -43,15 +44,13 @@ class TempFile
 
 	}
 
-	/** @return string Full path for file */
+	/** @return string Full path for temporary file */
 	public function getPathname(): string
 	{
 		return $this->splFileInfo->getPathname();
 	}
 
-	/**
-	 * Manually delete temporary file (called automatically on object destructing)
-	 */
+	/** Manually delete temporary file (called automatically on object destructing) */
 	public function delete(): void
 	{
 		try {
@@ -59,7 +58,6 @@ class TempFile
 		} catch (IOException $exception) {
 			Debugger::log($exception, Debugger::ERROR); // Do not throw exception, just save to log
 		}
-
 	}
 
 	public function __destruct()
