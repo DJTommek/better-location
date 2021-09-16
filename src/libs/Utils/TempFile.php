@@ -32,7 +32,7 @@ class TempFile
 		}
 		$pathname = FileSystem::joinPaths(self::TEMP_DIR, uniqid(), $fileName);
 		$this->splFileInfo = new \SplFileInfo($pathname);
-		FileSystem::write($this->getFilePath(), $content);
+		FileSystem::write($this->getPathname(), $content);
 	}
 
 	public function get(): \SplFileInfo
@@ -47,7 +47,7 @@ class TempFile
 	}
 
 	/** @return string Full path for file */
-	public function getFilePath(): string
+	public function getPathname(): string
 	{
 		return $this->splFileInfo->getPathname();
 	}
