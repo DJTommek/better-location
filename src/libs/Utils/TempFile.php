@@ -41,14 +41,22 @@ class TempFile
 
 	}
 
-	public function __destruct()
-	{
-		FileSystem::delete($this->splFileInfo->getPath());
-	}
-
 	/** @return string Full path for file */
 	public function getPathname(): string
 	{
 		return $this->splFileInfo->getPathname();
+	}
+
+	/**
+	 * Manually delete temporary file (called automatically on object destructing)
+	 */
+	public function delete(): void
+	{
+		FileSystem::delete($this->splFileInfo->getPath());
+	}
+
+	public function __destruct()
+	{
+		$this->delete();
 	}
 }
