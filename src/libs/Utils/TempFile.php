@@ -5,7 +5,9 @@ namespace App\Utils;
 use App\Config;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
+use Nette\IOException;
 use Nette\Utils\FileSystem;
+use Tracy\Debugger;
 
 /**
  * Create file with specific filename and content. File is automatically deleted once it is not referenced.
@@ -52,7 +54,12 @@ class TempFile
 	 */
 	public function delete(): void
 	{
-		FileSystem::delete($this->splFileInfo->getPath());
+		try {
+			FileSystem::delete($this->splFileInfo->getPath());
+		} catch (IOException $exception) {
+			Debugger::log($exception, Debugger::ERROR); // Do not throw exception, just save to log
+		}
+
 	}
 
 	public function __destruct()
