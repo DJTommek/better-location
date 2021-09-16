@@ -13,7 +13,7 @@ use Nette\Utils\FileSystem;
 class TempFile
 {
 	/** @var string Temporary directory, where temporary directories and files are created */
-	const TEMP_DIR = Config::FOLDER_TEMP . '/temp-file';
+	const TEMP_DIR = Config::FOLDER_TEMP . DIRECTORY_SEPARATOR . 'temp-file';
 
 	/** @var string */
 	private $filePath;
@@ -26,8 +26,8 @@ class TempFile
 	 */
 	public function __construct(string $fileName, $content = null)
 	{
-		$this->dirPath = self::TEMP_DIR . '/' . uniqid();
-		$this->filePath = $this->dirPath . '/' . $fileName;
+		$this->dirPath = FileSystem::joinPaths(self::TEMP_DIR, uniqid());
+		$this->filePath = FileSystem::joinPaths($this->dirPath, $fileName);
 		if ($content instanceof \Nette\Http\UrlImmutable || $content instanceof \Nette\Http\Url) {
 			$content = file_get_contents($content->getAbsoluteUrl());
 		}
