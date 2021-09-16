@@ -15,10 +15,8 @@ class TempFile
 	/** @var string Temporary directory, where temporary directories and files are created */
 	const TEMP_DIR = Config::FOLDER_TEMP . DIRECTORY_SEPARATOR . 'temp-file';
 
-	/** @var string */
-	private $filePath;
-	/** @var string */
-	private $dirPath;
+	/** @var \SplFileInfo */
+	private $splFileInfo;
 
 	/**
 	 * @param string $fileName
@@ -26,24 +24,31 @@ class TempFile
 	 */
 	public function __construct(string $fileName, $content = null)
 	{
-		$this->dirPath = FileSystem::joinPaths(self::TEMP_DIR, uniqid());
-		$this->filePath = FileSystem::joinPaths($this->dirPath, $fileName);
 		if ($content instanceof \Nette\Http\UrlImmutable || $content instanceof \Nette\Http\Url) {
 			$content = file_get_contents($content->getAbsoluteUrl());
 		}
 		if (is_null($content)) {
 			$content = '';
 		}
-		FileSystem::write($this->filePath, $content);
+		$pathname = FileSystem::joinPaths(self::TEMP_DIR, uniqid(), $fileName);
+		$this->splFileInfo = new \SplFileInfo($pathname);
+		FileSystem::write($this->getFilePath(), $content);
+	}
+
+	public function get(): \SplFileInfo
+	{
+		return $this->splFileInfo;
+
 	}
 
 	public function __destruct()
 	{
-		FileSystem::delete($this->dirPath);
+		FileSystem::delete($this->splFileInfo->getPath());
 	}
 
+	/** @return string Full path for file */
 	public function getFilePath(): string
 	{
-		return $this->filePath;
+		return $this->splFileInfo->getPathname();
 	}
 }
