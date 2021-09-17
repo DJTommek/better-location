@@ -271,9 +271,9 @@ class DefaultConfig
 		return $loginURl;
 	}
 
-	public final static function getStaticImageUrl(): UrlImmutable
+	public final static function getStaticImageUrl(string $id): UrlImmutable
 	{
-		return static::getAppUrl('/api/staticmap.php');
+		return static::getAppUrl('/api/staticmap.php')->withQueryParameter('id', $id);
 	}
 
 	public static function getTimezone(): \DateTimeZone

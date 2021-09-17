@@ -3,151 +3,144 @@
 namespace App\BetterLocation;
 
 use App\Config;
-use App\Database;
 use App\Factory;
+use App\Repository\StaticMapCacheRepository;
+use App\Utils\Coordinates;
 use Nette\Http\UrlImmutable;
+use Nette\Utils\FileSystem;
 
+/**
+ * Handle generating and loading static map image.
+ */
 class StaticMapProxy
 {
 	const CACHE_FOLDER = Config::FOLDER_TEMP . '/staticmap';
 	const HASH_ALGORITHM = 'fnv1a64';
 
-	/** @var BetterLocation[] */
-	private $markers = [];
-	private $markersParams = [];
-	private $lock = false;
+	/** @var StaticMapCacheRepository */
+	private $staticMapCacheRepository;
 
-	private $db;
+	/** @var string */
+	private $privateUrl;
+	/** @var UrlImmutable */
+	private $publicUrl;
 
-	/** @var ?string */
-	private $cacheId = null;
-	/** @var ?string */
-	private $urlOriginal = null;
-	/** @var ?UrlImmutable */
-	private $urlCached = null;
-	/** @var ?string  */
-	private $fileCached = null;
-
-
-	public function __construct(Database $database)
+	private function __construct()
 	{
-		$this->db = $database;
-		if (is_dir(self::CACHE_FOLDER) === false && @mkdir(self::CACHE_FOLDER, 0755, true) === false) {
-			throw new \Exception(sprintf('Error while creating folder for Static map proxy cached responses: "%s"', error_get_last()['message']));
-		}
-	}
+		FileSystem::createDir(self::CACHE_FOLDER);
 
-	private function throwIfLocked(): void
-	{
-		if ($this->lock) {
-			throw new \Exception('Object is already locked, can\'t be updated anymore');
-		}
-	}
-
-	public function addMarker(BetterLocation $marker, array $params = []): self
-	{
-		$this->throwIfLocked();
-		$this->markers[] = $marker;
-		$this->markersParams[] = $params;
-		return $this;
-	}
-
-	public function addMarkers(BetterLocationCollection $markers): self
-	{
-		$this->throwIfLocked();
-		foreach ($markers->getLocations() as $marker) {
-			$this->addMarker($marker);
-		}
-		return $this;
-	}
-
-	public function downloadAndCache(array $mapParams = []): self
-	{
-		$this->lock = true;
-		$this->urlOriginal = $this->generateUrlOriginal($mapParams);
-		$this->cacheId = $this->generateCacheId();
-		$this->fileCached = $this->generateCachePath();
-		if ($this->cacheHit() === false) {
-			$this->downloadImage();
-		}
-		$this->saveToDb();
-		$this->urlCached = $this->generateCacheUrl();
-		return $this;
-	}
-
-	public function loadById(string $id): ?self
-	{
-		$this->lock = true;
-		$this->cacheId = $id;
-		if ($originalUrl = $this->loadFromDb()) {
-			$this->urlOriginal = $originalUrl;
-		} else {
-			return null;
-		}
-		$this->fileCached = $this->generateCachePath();
-		if ($this->cacheHit()) {
-			$this->urlCached = $this->generateCacheUrl();
-			return $this;
-		} else {
-			return null;
-		}
-	}
-
-	public function getUrl(): UrlImmutable
-	{
-		return $this->urlCached;
-	}
-
-	public function cacheHit(): bool
-	{
-		return file_exists($this->fileCached);
+		$db = Factory::Database();
+		$this->staticMapCacheRepository = new StaticMapCacheRepository($db);
 	}
 
 	/**
-	 * @TODO Add check if file was really downloaded and saved
+	 * Load static map image based on previously generated cacheId (saved in database)
+	 *
+	 * If cached file is not available, new file will be generated and saved.
+	 *
+	 * @param string $cacheId
+	 * @return ?self Return null if cacheId does not exists.
 	 */
-	private function downloadImage(): void
+	public static function fromCacheId(string $cacheId): ?self
 	{
-		file_put_contents($this->fileCached, file_get_contents($this->urlOriginal));
+		$self = new self();
+		if ($entity = $self->staticMapCacheRepository->fromId($cacheId)) {
+			$self->privateUrl = $entity->url;
+			$self->process();
+			return $self;
+		} else {
+			return null;
+		}
 	}
 
-	private function loadFromDb(): ?string
+	/**
+	 * Load static map image based on provided input (single or multiple locations).
+	 *
+	 * @param Coordinates|Coordinates[]|BetterLocation|BetterLocationCollection $input
+	 */
+	public static function fromLocations($input): self
 	{
-		$result = $this->db->query('SELECT url FROM better_location_static_map_cache WHERE id = ?', $this->cacheId)->fetchColumn();
-		return $result === false ? null : $result;
+		$self = new self();
+		$markers = [];
+		if (is_iterable($input)) {
+			foreach ($input as $location) {
+				if ($location instanceof Coordinates) {
+					$markers[] = $location;
+				} else if ($location instanceof BetterLocation) {
+					$markers[] = $location->getCoordinates();
+				} else {
+					throw new \InvalidArgumentException('Invalid location in iterable.');
+				}
+			}
+		} else if ($input instanceof Coordinates) {
+			$markers[] = $input;
+		} else if ($input instanceof BetterLocation) {
+			$markers[] = $input->getCoordinates();
+		} else {
+			throw new \InvalidArgumentException('Invalid location.');
+		}
+		$self->privateUrl = self::generatePrivateUrl($markers);
+		$self->process();
+		return $self;
 	}
 
-	private function saveToDb(): void
+	/** Save to database and create cached file, both only if it was not done already. */
+	private function process(): void
 	{
-		// Not using INSERT IGNORE as it ignores ALL errors so run update, see https://stackoverflow.com/a/4920619/3334403
-		$sql = 'INSERT INTO better_location_static_map_cache (id, url) VALUES (?, ?) ON DUPLICATE KEY UPDATE url=url';
-		$this->db->query($sql, $this->cacheId, $this->urlOriginal);
+		$entity = $this->staticMapCacheRepository->fromId($this->cacheId());
+		if ($entity === null) {
+			$this->staticMapCacheRepository->save($this->cacheId(), $this->privateUrl());
+		}
+		if ($this->cacheHit() === false) {
+			$this->cacheSave();
+		}
 	}
 
-	private function generateUrlOriginal(array $mapParams = []): string
+	/** @return UrlImmutable Public URL to generated image which can be shared to public. */
+	public function publicUrl(): UrlImmutable
+	{
+		if (is_null($this->publicUrl)) {
+			$this->publicUrl = Config::getStaticImageUrl($this->cacheId());
+		}
+		return $this->publicUrl;
+	}
+
+	/**
+	 * @see Warning: Nette\Http\Url cant be used, see https://github.com/nette/http/issues/178
+	 * @return string Private URL to generate image leading to external API, which cannot leak to public.
+	 */
+	private function privateUrl(): string
+	{
+		return $this->privateUrl;
+	}
+
+	/** @param Coordinates[] $markers */
+	private static function generatePrivateUrl(array $markers): string
 	{
 		$api = Factory::BingStaticMaps();
-		foreach ($this->markers as $key => $marker) {
-			$markerParams = $this->markersParams[$key] ?? [];
-			$iconStyle =  $markerParams['iconStyle'] ?? null;
-			$label = $markerParams['label'] ?? (string)($key + 1);
-			$api->addPushpin($marker->getLat(), $marker->getLon(), $iconStyle, $label);
+		foreach ($markers as $key => $marker) {
+			$api->addPushpin($marker->getLat(), $marker->getLon(), null, (string)($key + 1));
 		}
-		return $api->generateLink($mapParams);
+		return $api->generateLink();
 	}
 
-	private function generateCacheId(): string
+	private function cacheId(): string
 	{
-		return hash(self::HASH_ALGORITHM, $this->urlOriginal);
+		return hash(self::HASH_ALGORITHM, $this->privateUrl());
 	}
 
-	public function generateCachePath(): string
+	private function cacheHit(): bool
 	{
-		return sprintf('%s/%s.jpg', self::CACHE_FOLDER, $this->cacheId);
+		return file_exists($this->cachePath());
 	}
 
-	private function generateCacheUrl(): UrlImmutable
+	private function cacheSave(): void
 	{
-		return Config::getStaticImageUrl()->withQueryParameter('id', $this->cacheId);
+		FileSystem::write($this->cachePath(), file_get_contents($this->privateUrl()));
+	}
+
+	public function cachePath(): string
+	{
+		return sprintf('%s/%s.jpg', self::CACHE_FOLDER, $this->cacheId());
 	}
 }

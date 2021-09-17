@@ -6,12 +6,12 @@ use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\MapyCzService;
-use App\BingMaps\StaticMaps;
 use App\Config;
 use App\Factory;
 use App\Geonames\Geonames;
 use App\Geonames\Types\TimezoneType;
 use App\Icons;
+use App\StaticMap;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
@@ -52,6 +52,8 @@ class BetterLocation
 	private $refreshable = false;
 	/** @var ?TimezoneType */
 	private $timezoneData;
+	/** @var UrlImmutable */
+	private $staticMapUrl;
 
 	/**
 	 * @param string|\Nette\Http\Url|\Nette\Http\UrlImmutable $input
@@ -344,25 +346,12 @@ class BetterLocation
 		$this->refreshable = $refreshable;
 	}
 
-	public function getStaticMapUrl(array $mapParams = [], array $pinParams = []): UrlImmutable
+	public function getStaticMapUrl(): UrlImmutable
 	{
-		$staticMap = Factory::StaticMapProxy();
-		$staticMap->addMarker($this, $pinParams)->downloadAndCache($mapParams);
-		return $staticMap->getUrl();
-	}
-
-	public function getStaticMapWorldUrl(): UrlImmutable
-	{
-		$mapParams = [
-			'zoomLevel' => 1,
-			'mapSize' => '511,512',
-			'centerPoint' => '0.0000000001,0.0000000001',  // @HACK For some reason it doesn't work if provided 0,0 or 0.0,0.0
-		];
-		$pinParams = [
-			'iconStyle' => StaticMaps::PUSHPIN_RED_DOT_ICON,
-			'label' => '',
-		];
-		return $this->getStaticMapUrl($mapParams, $pinParams);
+		if (is_null($this->staticMapUrl)) {
+			$this->staticMapUrl = StaticMapProxy::fromLocations($this)->publicUrl();
+		}
+		return $this->staticMapUrl;
 	}
 
 	public static function fromLatLon(float $lat, float $lon): self

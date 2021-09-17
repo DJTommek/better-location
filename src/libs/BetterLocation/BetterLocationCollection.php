@@ -34,10 +34,18 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	private $position = 0;
 	/** @var bool */
 	public $filterTooClose = true;
+	/** @var UrlImmutable */
+	private $staticMapUrl;
 
 	public function __invoke(): array
 	{
 		return $this->locations;
+	}
+
+	/** Needs to be called when number or order of locations will change. */
+	private function clearLazyLoad(): void
+	{
+		$this->staticMapUrl = null;
 	}
 
 	/** @param BetterLocation|BetterLocationCollection|\Throwable $input */
@@ -54,6 +62,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		} else {
 			throw new \InvalidArgumentException(sprintf('%s is accepting only "%s", "%s" and "%s" objects.', self::class, BetterLocation::class, BetterLocationCollection::class, \Throwable::class));
 		}
+		$this->clearLazyLoad();
 		return $this;
 	}
 
@@ -82,6 +91,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 				return;
 			}
 		}
+		$this->clearLazyLoad();
 	}
 
 	/**
@@ -125,6 +135,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 				}
 			}
 		}
+		$this->clearLazyLoad();
 	}
 
 	/**
@@ -157,6 +168,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 				$this->locations[$collectionKey]->setCoordinateSuffixMessage(sprintf('(%dx)', $originalCoordinates[$key]));
 			}
 		}
+		$this->clearLazyLoad();
 	}
 
 	public function offsetExists($offset): bool
@@ -186,11 +198,13 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		} else {
 			throw new \InvalidArgumentException('Accepting only BetterLocation or Exception objects.');
 		}
+		$this->clearLazyLoad();
 	}
 
 	public function offsetUnset($offset): void
 	{
 		unset($this->locations[$offset]);
+		$this->clearLazyLoad();
 	}
 
 	public function current(): BetterLocation
@@ -329,9 +343,10 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 
 	public function getStaticMapUrl(): UrlImmutable
 	{
-		$staticMap = Factory::StaticMapProxy();
-		$staticMap->addMarkers($this)->downloadAndCache();
-		return $staticMap->getUrl();
+		if (is_null($this->staticMapUrl)) {
+			$this->staticMapUrl = StaticMapProxy::fromLocations($this)->publicUrl();
+		}
+		return $this->staticMapUrl;
 	}
 
 	public function getKeys(): array

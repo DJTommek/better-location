@@ -80,11 +80,6 @@ class Factory
 		return new \App\BingMaps\StaticMaps(Config::BING_STATIC_MAPS_TOKEN);
 	}
 
-	static function StaticMapProxy(): \App\BetterLocation\StaticMapProxy
-	{
-		return new \App\BetterLocation\StaticMapProxy(self::Database());
-	}
-
 	static function ServicesManager(): \App\BetterLocation\ServicesManager
 	{
 		if (!isset(self::$objects['servicesManager'])) {

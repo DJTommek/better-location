@@ -2,13 +2,13 @@
 
 require_once __DIR__ . '/../../src/bootstrap.php';
 
+use App\BetterLocation\StaticMapProxy;
 use Tracy\Debugger;
 
 if (isset($_GET['id'])) {
 	$id = $_GET['id'];
-	$mapProxy = \App\Factory::StaticMapProxy();
-	if ($mapProxy->loadById($id)) {
-		$file = $mapProxy->generateCachePath();
+	if ($mapProxy = StaticMapProxy::fromCacheId($id)) {
+		$file = $mapProxy->cachePath();
 		Debugger::$showBar = false;
 		header('Content-Description: File Transfer');
 		header('Content-Type: image/jpeg');
