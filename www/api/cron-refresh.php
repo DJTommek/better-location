@@ -66,12 +66,6 @@ if (isset($_GET['password']) && $_GET['password'] === \App\Config::CRON_PASSWORD
 					$msg->reply_markup = $lastAutorefreshMarkup;
 					$messageToRefresh->autorefreshDisable();
 					await($tgLog->performApiRequest($msg), $loop);
-				} else if (count($collection->getErrors()) > 0) {
-					printlog(sprintf('Update %s has %d error(s), disabling autorefresh.', $id, count($collection->getErrors())));
-					$msg->text = $messageToRefresh->getLastResponseText() . sprintf('%s Last autorefresh at %s returned error. Autorefreshing was disabled but you can try to enable it again.', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
-					$msg->reply_markup = $lastAutorefreshMarkup;
-					$messageToRefresh->autorefreshDisable();
-					await($tgLog->performApiRequest($msg), $loop);
 				} else {
 					$replyMarkup = $processedCollection->getMarkup(1);
 					$text = $processedCollection->getText();

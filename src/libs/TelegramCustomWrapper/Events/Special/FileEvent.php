@@ -20,15 +20,16 @@ class FileEvent extends Special
 
 	const MAX_FILE_SIZE_DOWNLOAD = 20 * 1024 * 1024; // in bytes
 
+	/** @var bool */
+	private $fileTooBig = false;
+
 	public function getCollection(): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
 		$document = $this->update->message->document;
 		if ($document->mime_type === self::MIME_TYPE_IMAGE_JPEG) {
 			if ($document->file_size > self::MAX_FILE_SIZE_DOWNLOAD) {
-				if ($this->isPm() === true) { // Send error only if PM
-					$collection->add(new InvalidLocationException(sprintf('%s I can\'t check for location in image\'s EXIF, because file is too big (> 20 MB, Telegram bot API limit).', Icons::ERROR)));
-				}
+				$this->fileTooBig = true;
 			} else {
 				$this->sendAction();
 				try {
@@ -43,9 +44,6 @@ class FileEvent extends Special
 					}
 				} catch (\Throwable $exception) {
 					Debugger::log($exception, ILogger::EXCEPTION);
-					if ($this->isPm() === true) { // Send error only if PM
-						$collection->add(new InvalidLocationException(sprintf('%s Unexpected error occured while searching EXIF in image. Contact Admin for more info.', Icons::ERROR)));
-					}
 				}
 			}
 		}
@@ -76,12 +74,17 @@ class FileEvent extends Special
 			}
 		} else { // No detected locations or occured errors
 			if ($this->isPm() === true) {
-				$message = 'Hi there in PM!' . PHP_EOL;
+				$message = 'Hi there!' . PHP_EOL;
 				$message .= 'Thanks for the ';
 				if ($this->isForward()) {
 					$message .= 'forwarded ';
 				}
-				$message .= 'file but I\'m not sure, what to do... No location in EXIF was found.';
+				$message .= 'file but ';
+				if ($this->fileTooBig) {
+					$message .= 'it is too big (> 20 MB, Telegram bot API limit), so I can\'t process it.';
+				} else {
+					$message .= 'I\'m not sure, what to do... No location in EXIF was found.';
+				}
 				$this->reply($message);
 			} else {
 				// do not send anything to chat

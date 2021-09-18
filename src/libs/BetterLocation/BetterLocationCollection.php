@@ -29,8 +29,6 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 {
 	/** @var BetterLocation[] */
 	private $locations = [];
-	/** @var \Throwable[] */
-	private $errors = [];
 	private $position = 0;
 	/** @var bool */
 	public $filterTooClose = true;
@@ -48,27 +46,21 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		$this->staticMapUrl = null;
 	}
 
-	/** @param BetterLocation|BetterLocationCollection|\Throwable $input */
+	/**
+	 * Add more location(s) into collection
+	 *
+	 * @param BetterLocation|BetterLocationCollection $input
+	 */
 	public function add($input): self
 	{
-		if ($input instanceof BetterLocation) {
-			$this->locations[] = $input;
-		} else if ($input instanceof \Throwable) {
-			$this->errors[] = $input;
-		} else if ($input instanceof BetterLocationCollection) {
-			foreach ($input->getAll() as $betterLocation) {
-				$this->add($betterLocation);
-			}
-		} else {
-			throw new \InvalidArgumentException(sprintf('%s is accepting only "%s", "%s" and "%s" objects.', self::class, BetterLocation::class, BetterLocationCollection::class, \Throwable::class));
-		}
-		$this->clearLazyLoad();
+		$this->offsetSet(null, $input);
 		return $this;
 	}
 
+	/** @deprecated Use getLocations() instead */
 	public function getAll()
 	{
-		return array_merge($this->locations, $this->errors);
+		return $this->locations;
 	}
 
 	public function getByLatLon(float $lat, float $lon): ?BetterLocation
@@ -100,11 +92,6 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	public function getLocations(): array
 	{
 		return $this->locations;
-	}
-
-	public function getErrors(): array
-	{
-		return $this->errors;
 	}
 
 	/** @return BetterLocation|false */
@@ -189,14 +176,15 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 			} else {
 				$this->locations[$offset] = $value;
 			}
-		} else if ($value instanceof \Throwable) {
-			if (is_null($offset)) {
-				$this->errors[] = $value;
-			} else {
-				$this->errors[$offset] = $value;
+		} else if ($value instanceof BetterLocationCollection) {
+			foreach ($value->getLocations() as $betterLocation) {
+				$this->add($betterLocation);
 			}
+		} else if ($value instanceof \Throwable) {
+			Debugger::log('Pushing exceptions to BetterLocationCollection is deprecated.', Debugger::WARNING);
+			Debugger::log($value, Debugger::WARNING);
 		} else {
-			throw new \InvalidArgumentException('Accepting only BetterLocation or Exception objects.');
+			throw new \InvalidArgumentException(sprintf('%s is accepting only "%s" and "%s" objects.', self::class, BetterLocation::class, BetterLocationCollection::class));
 		}
 		$this->clearLazyLoad();
 	}
@@ -234,7 +222,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 
 	public function count(): int
 	{
-		return count($this->locations) + count($this->errors);
+		return count($this->locations);
 	}
 
 	public function hasRefreshableLocation(): bool
@@ -336,7 +324,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 				}
 			}
 		} catch (\Exception $exception) {
-			$collection->add($exception);
+			Debugger::log($exception, Debugger::EXCEPTION);
 		}
 		return $collection;
 	}

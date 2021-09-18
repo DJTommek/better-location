@@ -319,10 +319,5 @@ final class WGS84DegreesServiceTest extends TestCase
 		$this->assertSame([-57.1111, -17.2222], $betterLocations[7]->getLatLon());
 		$this->assertSame([-58.1111, 18.2222], $betterLocations[8]->getLatLon());
 		$this->assertSame([59.1111, -19.2222], $betterLocations[9]->getLatLon());
-
-		$this->assertCount(0, $betterLocations->getErrors());
-//		$errors = $betterLocations->getErrors();
-//		$this->assertInstanceOf(InvalidLocationException::class, $errors[0]);
-//		$this->assertInstanceOf(InvalidLocationException::class, $errors[1]);
 	}
 }

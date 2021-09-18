@@ -43,16 +43,6 @@ class ProcessedMessageResult
 			$this->buttons[] = $betterLocation->generateDriveButtons($this->messageSettings);
 			$this->validLocationsCount++;
 		}
-		foreach ($this->collection->getErrors() as $error) {
-			if ($error instanceof InvalidLocationException) {
-				$this->resultText .= Icons::ERROR . $error->getMessage() . PHP_EOL;
-			} else {
-				if ($printAllErrors) {
-					$this->resultText .= Icons::ERROR . ' Unexpected error occured while proceessing message for locations.' . PHP_EOL;
-				}
-				Debugger::log($error, Debugger::EXCEPTION);
-			}
-		}
 		return $this;
 	}
 

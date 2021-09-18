@@ -107,9 +107,6 @@ class InlineQueryEvent extends Special
 				foreach ($collection->getLocations() as $betterLocation) {
 					$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 				}
-				foreach ($collection->getErrors() as $errors) {
-					Debugger::log($errors, Debugger::EXCEPTION);
-				}
 
 				// only if there is no match from previous processing
 				if (mb_strlen($queryInput) >= Config::GOOGLE_SEARCH_MIN_LENGTH && count($answerInlineQuery->getResults()) === 0 && is_null(Config::GOOGLE_PLACE_API_KEY) === false) {
