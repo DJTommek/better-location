@@ -147,6 +147,18 @@
 			circles: {
 				browserLocationAccuracy: null,
 			},
+			icons: {
+				active: L.icon({
+					iconUrl: {$basePath} +'/img/icons/marker-icon-active.png',
+					iconSize: [25, 41],
+					iconAnchor: [13, 41],
+				}),
+				inactive: L.icon({
+					iconUrl: {$basePath} +'/img/icons/marker-icon-inactive.png',
+					iconSize: [25, 41],
+					iconAnchor: [13, 41],
+				}),
+			},
 			layers: {
 				{syntax off}
 				baseLayers: {
@@ -198,7 +210,12 @@
 
 		mapData.layers.baseLayers['OSM default'].addTo(mapData.map);
 		L.control.layers(mapData.layers.baseLayers, mapData.layers.overlays).addTo(mapData.map);
-		mapData.markers.pageLocation = L.marker([{$lat}, {$lon}]).addTo(mapData.map);
+		mapData.markers.pageLocation = L.marker(
+			[{$lat}, {$lon}],
+			{
+				icon: mapData.icons.active,
+			}
+		).addTo(mapData.map);
 
 		const locateControl = L.control.locate({
 			setView: false,
