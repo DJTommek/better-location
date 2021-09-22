@@ -100,6 +100,7 @@ class LocationPresenter extends MainPresenter
 		$result->address = $this->location->getAddress();
 		$result->services = $this->services;
 		header('Content-Type: application/json');
+		header('Access-Control-Allow-Origin: *');
 		die(Json::encode($result));
 	}
 

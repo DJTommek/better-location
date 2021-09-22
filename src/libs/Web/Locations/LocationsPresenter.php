@@ -102,6 +102,7 @@ class LocationsPresenter extends MainPresenter
 			return $resultLocation;
 		}, $this->collection->getLocations());
 		header('Content-Type: application/json');
+		header('Access-Control-Allow-Origin: *');
 		die(Json::encode($result));
 	}
 
