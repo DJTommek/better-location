@@ -109,7 +109,6 @@ final class OpenElevationTest extends TestCase
 			new Coordinates(36.246600, -116.816900),
 			'aaa',
 		];
-		var_dump($a);
 		self::$api->fillBatch($a);
 	}
 
