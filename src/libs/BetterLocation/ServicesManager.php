@@ -44,6 +44,7 @@ use Tracy\ILogger;
 
 class ServicesManager
 {
+	/** @var AbstractService[] */
 	private $services = [];
 
 	public function __construct()
