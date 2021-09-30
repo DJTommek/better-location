@@ -98,8 +98,8 @@ class ServicesManager
 
 	public function iterate(string $input): BetterLocationCollection
 	{
-		foreach ($this->services as $serviceName) {
-			$service = new $serviceName($input);
+		foreach ($this->services as $serviceClass) {
+			$service = new $serviceClass($input);
 			/** @var $service AbstractService */
 			if ($service->isValid()) {
 				try {
