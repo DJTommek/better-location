@@ -174,4 +174,14 @@ abstract class AbstractService
 		$instance->process();
 		return $instance;
 	}
+
+	/**
+	 * Find locations in provided text.
+	 *
+	 * @throws NotSupportedException
+	 */
+	public static function findInText(string $text): BetterLocationCollection
+	{
+		throw new NotSupportedException(sprintf('%s is not available for "%s"', __METHOD__, static::class));
+	}
 }
