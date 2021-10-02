@@ -113,8 +113,8 @@ abstract class AbstractService
 	/**
 	 * Return link to open multiple locations (same as getShareLink but supports multiple locations)
 	 *
-	 * @see getShareLink()
 	 * @throws NotSupportedException
+	 * @see getShareLink()
 	 */
 	static public function getCollectionLink(BetterLocationCollection $collection): string
 	{
