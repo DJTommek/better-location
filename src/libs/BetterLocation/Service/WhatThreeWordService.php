@@ -4,7 +4,7 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
-use App\WhatThreeWord\Helper;
+use App\WhatThreeWord;
 use Nette\Utils\Arrays;
 
 final class WhatThreeWordService extends AbstractService
@@ -22,7 +22,7 @@ final class WhatThreeWordService extends AbstractService
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
 		} else {
-			return Helper::coordsToWords($lat, $lon)->map;
+			return WhatThreeWord\Helper::coordsToWords($lat, $lon)->map;
 		}
 	}
 
@@ -33,7 +33,7 @@ final class WhatThreeWordService extends AbstractService
 
 	public function process(): void
 	{
-		$data = Helper::wordsToCoords($this->data->words);
+		$data = WhatThreeWord\Helper::wordsToCoords($this->data->words);
 		$betterLocation = new BetterLocation($this->input, $data->coordinates->lat, $data->coordinates->lng, self::class);
 		$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a>: <code>%s</code>', $data->map, self::NAME, $data->words));
 		$this->collection->add($betterLocation);
@@ -45,7 +45,7 @@ final class WhatThreeWordService extends AbstractService
 	 */
 	private function isWords(): bool
 	{
-		if ($words = Helper::validateWords($this->input)) {
+		if ($words = WhatThreeWord\Helper::validateWords($this->input)) {
 			$this->data->words = $words;
 			return true;
 		}
@@ -63,7 +63,7 @@ final class WhatThreeWordService extends AbstractService
 			Arrays::contains(['what3words.com', 'w3w.co'], $this->url->getDomain(2))
 		) {
 			$words = ltrim(urldecode($this->url->getPath()), '/');
-			if ($words = Helper::validateWords($words)) {
+			if ($words = WhatThreeWord\Helper::validateWords($words)) {
 				$this->data->words = $words;
 				return true;
 			}
@@ -73,7 +73,7 @@ final class WhatThreeWordService extends AbstractService
 
 	public static function getShareText(float $lat, float $lon): string
 	{
-		$data = Helper::coordsToWords($lat, $lon);
+		$data = WhatThreeWord\Helper::coordsToWords($lat, $lon);
 		return '///' . $data->words;
 	}
 }
