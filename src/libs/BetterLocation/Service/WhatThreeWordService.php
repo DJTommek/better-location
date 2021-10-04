@@ -3,6 +3,7 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\WhatThreeWord;
 use Nette\Utils\Arrays;
@@ -75,5 +76,16 @@ final class WhatThreeWordService extends AbstractService
 	{
 		$data = WhatThreeWord\Helper::coordsToWords($lat, $lon);
 		return '///' . $data->words;
+	}
+
+	public static function findInText(string $text): BetterLocationCollection
+	{
+		$collection = new BetterLocationCollection();
+		$wordsAddresses = WhatThreeWord\Helper::findInText($text);
+		foreach ($wordsAddresses as $wordsAddress) {
+			// It is ok to use processStatic since words should be already valid
+			$collection->add(self::processStatic($wordsAddress)->getCollection());
+		}
+		return $collection;
 	}
 }
