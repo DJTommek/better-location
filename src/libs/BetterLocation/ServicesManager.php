@@ -13,6 +13,7 @@ use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\DrobnePamatkyCzService;
 use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\EStudankyEuService;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\FacebookService;
 use App\BetterLocation\Service\FevGamesService;
 use App\BetterLocation\Service\FoursquareService;
@@ -23,7 +24,6 @@ use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\HradyCzService;
 use App\BetterLocation\Service\IngressIntelService;
-use App\BetterLocation\Service\IngressMosaicService;
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\OpenStreetMapService;
@@ -114,6 +114,22 @@ class ServicesManager
 			}
 		}
 		return new BetterLocationCollection();
+	}
+
+	/** Process provided text via all services, that have findinText() method */
+	public function iterateText(string $text): BetterLocationCollection
+	{
+		$collection = new BetterLocationCollection();
+		foreach ($this->services as $serviceClass) {
+			try {
+				$collection->add($serviceClass::findInText($text));
+			} catch (NotSupportedException $exception) {
+				// Do nothing
+			} catch (\Throwable $exception) {
+				Debugger::log($exception, Debugger::DEBUG);
+			}
+		}
+		return $collection;
 	}
 
 	/**

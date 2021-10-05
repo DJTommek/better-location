@@ -2,15 +2,6 @@
 
 namespace App\BetterLocation;
 
-use App\BetterLocation\Service\Coordinates\MGRSService;
-use App\BetterLocation\Service\Coordinates\USNGService;
-use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesSecondsService;
-use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesService;
-use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
-use App\BetterLocation\Service\GeocachingService;
-use App\BetterLocation\Service\GeohashService;
-use App\BetterLocation\Service\OpenLocationCodeService;
-use App\BetterLocation\Service\WhatThreeWordService;
 use App\Config;
 use App\Factory;
 use App\Icons;
@@ -20,7 +11,6 @@ use App\Utils\Coordinates;
 use App\Utils\General;
 use App\Utils\Strict;
 use App\Utils\StringUtils;
-use App\WhatThreeWord\Helper;
 use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
@@ -239,6 +229,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	public static function fromTelegramMessage(string $message, array $entities): self
 	{
 		$betterLocationsCollection = new self();
+		$serviceManager = Factory::ServicesManager();
 
 		foreach ($entities as $entity) {
 			if (in_array($entity->type, ['url', 'text_link'])) {
@@ -250,7 +241,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 
 				$url = self::handleShortUrl($url);
 
-				$serviceCollection = Factory::ServicesManager()->iterate($url);
+				$serviceCollection = $serviceManager->iterate($url);
 				if ($serviceCollection->filterTooClose) {
 					$serviceCollection->filterTooClose(Config::DISTANCE_IGNORE);
 				}
@@ -264,28 +255,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 
 		$messageWithoutUrls = TelegramHelper::getMessageWithoutUrls($message, $entities);
 		$messageWithoutUrls = StringUtils::translit($messageWithoutUrls);
-
-		$betterLocationsCollection->add(WGS84DegreesService::findInText($messageWithoutUrls));
-		$betterLocationsCollection->add(WGS84DegreesMinutesService::findInText($messageWithoutUrls));
-		$betterLocationsCollection->add(WGS84DegreesMinutesSecondsService::findInText($messageWithoutUrls));
-		$betterLocationsCollection->add(MGRSService::findInText($messageWithoutUrls));
-		$betterLocationsCollection->add(USNGService::findInText($messageWithoutUrls));
-		$betterLocationsCollection->add(OpenLocationCodeService::findInText($messageWithoutUrls));
-		$betterLocationsCollection->add(GeohashService::findInText($messageWithoutUrls));
-		if (is_null(Config::GEOCACHING_COOKIE) === false) {
-			$betterLocationsCollection->add(GeocachingService::findInText($messageWithoutUrls));
-		}
-
-		// What Three Word
-		if (is_null(Config::W3W_API_KEY) === false && $wordsAddresses = Helper::findInText($messageWithoutUrls)) {
-			foreach ($wordsAddresses as $wordsAddress) {
-				// It is ok to use processStatic since words should be already valid
-				$betterLocationsCollection->add(WhatThreeWordService::processStatic($wordsAddress)->getCollection());
-			}
-		}
-
+		$betterLocationsCollection->add($serviceManager->iterateText($messageWithoutUrls));
 		$betterLocationsCollection->deduplicate();
-
 		return $betterLocationsCollection;
 	}
 
