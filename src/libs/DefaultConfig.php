@@ -132,11 +132,18 @@ class DefaultConfig
 	const REFRESH_CRON_MIN_OLD = 300;
 
 	/**
-	 * @var string URL for requests for Nominatim search engine
+	 * @var string URL for requests for Nominatim search engine.
+	 *
 	 * @link https://nominatim.openstreetmap.org/ui/about.html
+	 * @link https://operations.osmfoundation.org/policies/nominatim/
 	 * @link https://github.com/maxhelias/php-nominatim
 	 */
-	const NOMINATIM_URL = 'https://nominatim.openstreetmap.org/';
+	const NOMINATIM_URL = 'https://nominatim.openstreetmap.org';
+
+	/**
+	 * Identificator to indentify application.
+	 */
+	const NOMINATIM_USER_AGENT = 'BetterLocation';
 
 	/**
 	 * Identificator to requests to Geonames API. Registration is required.

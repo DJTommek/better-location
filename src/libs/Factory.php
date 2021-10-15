@@ -102,7 +102,7 @@ class Factory
 	{
 		if (!isset(self::$objects['nominatim'])) {
 			$headers = [
-				'User-Agent' => 'BetterLocation',
+				'User-Agent' => Config::NOMINATIM_USER_AGENT,
 			];
 			$client = new \GuzzleHttp\Client([
 				'base_uri' => Config::NOMINATIM_URL,
