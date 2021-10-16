@@ -17,8 +17,8 @@ final class OpenLocationCodeService extends AbstractService
 
 	const DEFAULT_CODE_LENGTH = 12;
 
-	const RE = '/^([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,3})$/i';
-	const RE_IN_STRING = '/(^|\s)([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,3})(\s|$)/i';
+	const RE = '/^([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,4})$/i';
+	const RE_IN_STRING = '/(?:^|\s)([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,4})(?:\s|$)/i';
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
@@ -70,11 +70,11 @@ final class OpenLocationCodeService extends AbstractService
 		return false;
 	}
 
-	public static function findInText(string $input): BetterLocationCollection
+	public static function findInText(string $text): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
-		if (preg_match_all(self::RE_IN_STRING, $input, $matches)) {
-			foreach ($matches[2] as $plusCode) {
+		if (preg_match_all(self::RE_IN_STRING, $text, $matches)) {
+			foreach ($matches[1] as $plusCode) {
 				$collection->add(self::processStatic($plusCode)->getCollection());
 			}
 		}
