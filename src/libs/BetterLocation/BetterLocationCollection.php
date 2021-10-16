@@ -18,12 +18,10 @@ use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 {
 	/** @var BetterLocation[] */
-	private $locations = [];
-	private $position = 0;
-	/** @var bool */
-	public $filterTooClose = true;
-	/** @var UrlImmutable */
-	private $staticMapUrl;
+	private array $locations = [];
+	private int $position = 0;
+	public bool $filterTooClose = true;
+	private ?UrlImmutable $staticMapUrl = null;
 
 	public function __invoke(): array
 	{
@@ -36,19 +34,15 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		$this->staticMapUrl = null;
 	}
 
-	/**
-	 * Add more location(s) into collection
-	 *
-	 * @param BetterLocation|BetterLocationCollection $input
-	 */
-	public function add($input): self
+	/** Add more location(s) into collection */
+	public function add(BetterLocationCollection|BetterLocation $input): self
 	{
 		$this->offsetSet(null, $input);
 		return $this;
 	}
 
 	/** @deprecated Use getLocations() instead */
-	public function getAll()
+	public function getAll(): array
 	{
 		return $this->locations;
 	}
@@ -76,16 +70,13 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		$this->clearLazyLoad();
 	}
 
-	/**
-	 * @return BetterLocation[]
-	 */
+	/** @return BetterLocation[] */
 	public function getLocations(): array
 	{
 		return $this->locations;
 	}
 
-	/** @return BetterLocation|false */
-	public function getFirst()
+	public function getFirst(): false|BetterLocation
 	{
 		return reset($this->locations);
 	}
