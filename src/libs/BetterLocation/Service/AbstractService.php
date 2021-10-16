@@ -12,24 +12,17 @@ use Nette\Http\UrlImmutable;
 
 abstract class AbstractService
 {
-	/** @var bool */
-	private $processed = false;
+	private bool $processed = false;
 
 	/**
 	 * Raw input as-is
 	 *
 	 * @readonly
-	 * @var string
 	 */
-	protected $input;
+	protected string $input;
 
-	/**
-	 * URL generated from input (if possible) and after passing constructor it will never change.
-	 *
-	 * @readonly
-	 * @var ?UrlImmutable
-	 */
-	protected $inputUrl;
+	/** URL generated from input (if possible) and after passing constructor it will never change. */
+	protected ?UrlImmutable $inputUrl;
 
 	/**
 	 * URL initially generated from inputUrl, but can be changed, eg. if input URL is alias or redirecting to another URL.
@@ -37,15 +30,13 @@ abstract class AbstractService
 	 *
 	 * Example URL https://www.geocaching.com/seek/cache_details.aspx?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4
 	 * will be replaced with https://www.geocaching.com/geocache/GC85BTR_antivirova-cache?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4
-	 *
-	 * @var ?Url
 	 */
-	protected $url;
-	/** @var BetterLocationCollection */
-	protected $collection;
+	protected ?Url $url;
 
-	/** @var \stdClass Helper to store data between methods, eg. isValid() and process() */
-	protected $data;
+	protected BetterLocationCollection $collection;
+
+	/** Helper to store data between methods, eg. isValid() and process() */
+	protected \stdClass $data;
 
 	public final function __construct(string $input)
 	{
@@ -54,6 +45,8 @@ abstract class AbstractService
 			$this->inputUrl = Strict::urlImmutable($input);
 			$this->url = Strict::url($this->inputUrl);
 			$this->url->setHost(mb_strtolower($this->url->getHost())); // Convert host to lowercase
+		} else {
+			$this->url = null;
 		}
 		$this->collection = new BetterLocationCollection();
 		$this->data = new \stdClass();

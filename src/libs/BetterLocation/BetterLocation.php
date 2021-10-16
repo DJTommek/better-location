@@ -11,57 +11,50 @@ use App\Factory;
 use App\Geonames\Geonames;
 use App\Geonames\Types\TimezoneType;
 use App\Icons;
-use App\StaticMap;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
+use JetBrains\PhpStorm\Pure;
 use maxh\Nominatim\Exceptions\NominatimException;
 use Nette\Http\UrlImmutable;
+use Nette\Http\Url;
 use OpenLocationCode\OpenLocationCode;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types;
 
 class BetterLocation
 {
-	/** @var Coordinates */
-	private $coords;
-	/** @var ?string */
-	private $description;
-	/** @var string */
-	private $prefixMessage;
-	/** @var ?string can be ommited if is the same as $prefixMessage */
-	private $inlinePrefixMessage;
-	/** @var ?string */
-	private $coordinateSuffixMessage;
-	/** @var ?string */
-	private $address;
-	/** @var string string representation of input (including links) */
-	private $input;
-	/** @var ?UrlImmutable input as link, if is possible */
-	private $inputUrl;
-	/** @var string|AbstractService string representation of child classname of AbstractService::class */
-	private $sourceService;
-	/** @var ?string If service class has multiple type of output, source type must be included */
-	private $sourceType;
-	/** @var array pregenerated link for service(s) if available */
-	private $pregeneratedLinks = [];
-	/** @var bool Can location change with same input? */
-	private $refreshable = false;
-	/** @var ?TimezoneType */
-	private $timezoneData;
-	/** @var UrlImmutable */
-	private $staticMapUrl;
+	private Coordinates $coords;
+	private ?string $description = null;
+	private string $prefixMessage;
+	/** Can be ommited if is the same as $prefixMessage */
+	private ?string $inlinePrefixMessage = null;
+	private ?string $coordinateSuffixMessage = null;
+	private ?string $address = null;
+	/** String representation of input (including links) */
+	private string $input;
+	/** Input as link, if is possible */
+	private ?UrlImmutable $inputUrl = null;
+	/** String representation of child classname of AbstractService::class */
+	private AbstractService|string $sourceService;
+	/** If service class has multiple type of output, source type must be included */
+	private ?string $sourceType;
+	/** Pregenerated link for service(s) if available */
+	private array $pregeneratedLinks = [];
+	/** Can location change with same input? */
+	private bool $refreshable = false;
+	private ?TimezoneType $timezoneData = null;
+	private ?UrlImmutable $staticMapUrl = null;
 
 	/**
-	 * @param string|\Nette\Http\Url|\Nette\Http\UrlImmutable $input
 	 * @param string $sourceService has to be name of class extending \BetterLocation\Service\AbstractService
 	 * @param ?string $sourceType if $sourceService class has multiple type of source, this must be included
-	 * @throws InvalidLocationException
+	 * @throws InvalidLocationException|Service\Exceptions\NotSupportedException
 	 */
-	public function __construct($input, float $lat, float $lon, string $sourceService, ?string $sourceType = null)
+	public function __construct(UrlImmutable|Url|string $input, float $lat, float $lon, string $sourceService, ?string $sourceType = null)
 	{
 		$this->validateInput($input);
 		$this->validateCoords($lat, $lon);
@@ -303,17 +296,17 @@ class BetterLocation
 		return $this->coordinateSuffixMessage;
 	}
 
-	public function getLat(): float
+	#[Pure] public function getLat(): float
 	{
 		return $this->coords->getLat();
 	}
 
-	public function getLon(): float
+	#[Pure] public function getLon(): float
 	{
 		return $this->coords->getLon();
 	}
 
-	public function getLatLon(): array
+	#[Pure] public function getLatLon(): array
 	{
 		return [$this->getLat(), $this->getLon()];
 	}
@@ -437,7 +430,7 @@ class BetterLocation
 			} else {
 				return OpenLocationCode::encode($lat, $lon);
 			}
-		} catch (\Exception $exception) {
+		} catch (\Exception) {
 			return OpenLocationCode::encode($lat, $lon);
 		}
 	}
@@ -447,7 +440,7 @@ class BetterLocation
 		return $this->coords;
 	}
 
-	public function key(): string
+	#[Pure] public function key(): string
 	{
 		return $this->coords->key();
 	}
