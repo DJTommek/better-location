@@ -6,6 +6,7 @@
 		"ext-curl": "*",
 		"ext-mbstring": "*",
 		"ext-exif": "*",
+		"php": "8.0.*",
 		"tracy/tracy": "^2.8",
 		"unreal4u/telegram-api": "dev-master",
 		"bogdaan/open-location-code": "dev-master",
