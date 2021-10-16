@@ -46,7 +46,7 @@ final class FirmyCzServiceTest extends TestCase
 		$this->assertSame('49.364246,16.644386', FirmyCzService::processStatic('http://www.firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html')->getFirst()->__toString());
 		$this->assertSame('49.364246,16.644386', FirmyCzService::processStatic('https://firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html')->getFirst()->__toString());
 		$this->assertSame('49.364246,16.644386', FirmyCzService::processStatic('http://firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html')->getFirst()->__toString());
-		$this->assertSame('49.541035,15.361974', FirmyCzService::processStatic('https://www.firmy.cz/detail/13134188-kosmeticky-salon-h2o-humpolec.html')->getFirst()->__toString());
+		$this->assertSame('49.541035,15.361975', FirmyCzService::processStatic('https://www.firmy.cz/detail/13134188-kosmeticky-salon-h2o-humpolec.html')->getFirst()->__toString());
 		$this->assertSame('50.087414,14.469195', FirmyCzService::processStatic('https://www.firmy.cz/detail/13139938-zelva-beers-burgers-praha-zizkov.html')->getFirst()->__toString());
 		$this->assertSame('50.221840,12.190701', FirmyCzService::processStatic('https://www.firmy.cz/detail/207772-penny-market-as.html')->getFirst()->__toString());
 	}
