@@ -767,8 +767,7 @@ class MGRS
 			default:
 				throw new \InvalidArgumentException(sprintf('Parameter $set = "%d" is not valid.', $set));
 		}
-
-		return $l1{$col} . $l2{$row};
+		return $l1[$col] . $l2[$row];
 	}
 
 	/**
