@@ -178,12 +178,7 @@ class BetterLocation
 		if (is_string($input) === false && is_resource($input) === false) {
 			throw new \InvalidArgumentException('Input must be string or resource.');
 		}
-		// Bug on older versions of PHP "Warning: exif_read_data(): Process tag(x010D=DocumentNam): Illegal components(0)" Tested with:
-		// WEDOS Linux 7.3.1 (NOT OK)
-		// WAMP Windows 7.3.5 (NOT OK)
-		// WAMP Windows 7.4.7 (OK)
-		// https://bugs.php.net/bug.php?id=77142
-		$exif = @exif_read_data($input);
+		$exif = exif_read_data($input);
 		if (
 			$exif &&
 			isset($exif['GPSLatitude']) &&
