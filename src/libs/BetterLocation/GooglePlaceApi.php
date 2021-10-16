@@ -168,7 +168,7 @@ class GooglePlaceApi
 				GoogleMapsService::class,
 				GoogleMapsService::TYPE_INLINE_SEARCH,
 			);
-			if ($address = $placeCandidate->formatted_address) {
+			if ($address = $placeCandidate?->formatted_address) {
 				try {
 					$placeDetails = $placeApi->getPlaceDetails($placeCandidate->place_id, ['url', 'website', 'international_phone_number']);
 					$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a>', ($placeDetails->website ?? $placeDetails->url), $placeCandidate->name));
