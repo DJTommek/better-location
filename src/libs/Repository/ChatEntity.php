@@ -17,27 +17,19 @@ class ChatEntity extends Entity
 	const CHAT_TYPE_CHANNEL = 'channel';
 
 	/**
-	 * @var int
 	 * @readonly
 	 */
-	public $id;
+	public int $id;
 	/**
-	 * @var int
 	 * @readonly
 	 */
-	public $telegramId;
-	/** @var string */
-	public $telegramName;
-	/** @var string */
-	public $telegramChatType;
-	/** @var \DateTimeImmutable */
-	public $registered;
-	/** @var \DateTimeImmutable */
-	public $lastUpdate;
-	/** @var bool */
-	public $settingsPreview;
-	/** @var int */
-	public $settingsOutputType;
+	public int $telegramId;
+	public string $telegramName;
+	public string $telegramChatType;
+	public \DateTimeImmutable $registered;
+	public \DateTimeImmutable $lastUpdate;
+	public bool $settingsPreview;
+	public int $settingsOutputType;
 
 	public static function fromRow(array $row): self
 	{

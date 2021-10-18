@@ -327,7 +327,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	{
 		$keys = $this->getKeys();
 		if (count($keys) === 0) {
-			throw new \Exception(sprintf('Unable to generate getFileLink(%s): Collection is empty.', $format ?? ''));
+			throw new \Exception(sprintf('Unable to generate %s(%s): Collection is empty.', __METHOD__, $format ?? ''));
 		}
 		$result = Config::getAppUrl('/' . implode(';', $keys));
 		return $result->withQueryParameter('format', $format);

@@ -225,7 +225,7 @@ abstract class Events
 	public function replyDocumentUrl(UrlImmutable $url, string $fileDisplayName, string $text, ?Markup $markup = null): ?TelegramTypes
 	{
 		$tempFile = new TempFile($fileDisplayName, $url);
-		$document = new Telegram\Types\Custom\InputFile($tempFile->getFilePath());
+		$document = new Telegram\Types\Custom\InputFile($tempFile->getPathname());
 		return $this->replyDocument($document, $text, $markup);
 	}
 

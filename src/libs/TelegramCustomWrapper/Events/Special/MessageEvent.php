@@ -44,7 +44,7 @@ class MessageEvent extends Special
 				} else {
 					if ($this->chat->settingsOutputType() === ChatEntity::OUTPUT_TYPE_FILE_GPX) {
 						$outputFormat = 'gpx';
-					} else if ($this->chat->settingsOutputType() === ChatEntity::OUTPUT_TYPE_FILE_GPX) {
+					} else if ($this->chat->settingsOutputType() === ChatEntity::OUTPUT_TYPE_FILE_KML) {
 						$outputFormat = 'kml';
 					} else {
 						throw new \OutOfRangeException('Unhandled message output type.');
@@ -55,7 +55,7 @@ class MessageEvent extends Special
 						DateImmutableUtils::nowUtc()->format(Config::DATETIME_FILE_FORMAT),
 						$outputFormat
 					);
-					$response = $this->replyDocumentUrl($this->getCollection()->getFileLink($outputFormat), $fileDisplayName, $text, $markup);
+					$response = $this->replyDocumentUrl($this->getCollection()->getLink($outputFormat), $fileDisplayName, $text, $markup);
 				}
 				if ($response && $collection->hasRefreshableLocation()) {
 					$cron = new TelegramUpdateDb($this->update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
