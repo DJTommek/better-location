@@ -4,7 +4,7 @@ namespace App;
 
 class Factory
 {
-	private static $objects = array();
+	private static array $objects = array();
 
 	static function Database(): Database
 	{
