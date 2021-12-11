@@ -6,7 +6,7 @@ Available publicly on [@BetterLocationBot](https://t.me/BetterLocationBot).
 ![@BetterLocationBot example](www/img/better-location-bot-example.png "@BetterLocationBot example")
 
 ## Requirements
-- PHP webserver (written and tested with PHP 7.3)
+- PHP webserver (written and tested with PHP 8.0)
 - Database server (written and tested with MySQL 8 and MariaDB 10)
 - Domain with SSL certificate (might be self-signed). Detailed requirements are described on [Telegram's webhook page](https://core.telegram.org/bots/webhooks).
 
