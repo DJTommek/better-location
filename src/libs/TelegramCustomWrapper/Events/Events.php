@@ -218,6 +218,7 @@ abstract class Events
 				TelegramHelper::TOO_OLD,
 				TelegramHelper::MESSAGE_TO_EDIT_DELETED,
 				TelegramHelper::CHAT_WRITE_FORBIDDEN,
+				TelegramHelper::BOT_BLOCKED_BY_USER,
 			];
 			if (in_array($exception->getMessage(), $ignoredExceptions, true) === false) {
 				Debugger::log(sprintf('TG API Command request error: "%s"', $exception->getMessage()), ILogger::EXCEPTION);
