@@ -60,6 +60,7 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 	public static function findInText(string $text): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
+		$text = str_replace('\'\'', '"', $text); // Replace two quotes as one doublequote
 		if (preg_match_all('/' . self::getRegex() . '/u', $text, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				$coordsRaw = $matches[0][$i];
@@ -81,7 +82,8 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 
 	public function isValid(): bool
 	{
-		if (preg_match('/^' . static::getRegex() . '$/u', $this->input, $matches)) {
+		$input = str_replace('\'\'', '"', $this->input); // Replace two quotes as one doublequote
+		if (preg_match('/^' . static::getRegex() . '$/u', $input, $matches)) {
 			$this->data->matches = $matches;
 			return true;
 		}

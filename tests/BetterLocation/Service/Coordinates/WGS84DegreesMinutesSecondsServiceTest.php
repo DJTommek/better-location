@@ -36,4 +36,17 @@ final class WGS84DegreesMinutesSecondsServiceTest extends TestCase
 
 		$this->assertSame('10.000000,118.833333', WGS84DegreesMinutesSecondsService::processStatic('N 10°0\'0" E 118°50\'0"')->getFirst()->__toString()); // coordinates from La Casa de Papel
 	}
+
+	/**
+	 * Two single-quotes are just like one double-quote: '' -> "
+	 */
+	public function testDoubleQuote(): void
+	{
+		// Coordinates are from https://prazdnedomy.cz/domy/objekty/detail/2732-kasarna-u-sloupu
+		$this->assertSame('49.060194,13.736222', WGS84DegreesMinutesSecondsService::processStatic('49° 3\' 36.7\'\', 13° 44\' 10.4\'\'')->getFirst()->__toString());
+
+		$collection = WGS84DegreesMinutesSecondsService::findInText('You can find me on 49° 3\' 36.7\'\', 13° 44\' 10.4\'\' or somewhere near');
+		$this->assertCount(1, $collection);
+		$this->assertSame('49.060194,13.736222', $collection->getFirst()->__toString());
+	}
 }
