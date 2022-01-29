@@ -24,6 +24,7 @@ use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\HradyCzService;
 use App\BetterLocation\Service\IngressIntelService;
+use App\BetterLocation\Service\IpAddressService;
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\OpenStreetMapService;
@@ -94,6 +95,7 @@ class ServicesManager
 		$this->services[EStudankyEuService::ID] = EStudankyEuService::class;
 		$this->services[HradyCzService::ID] = HradyCzService::class;
 		$this->services[VojenskoCzService::ID] = VojenskoCzService::class;
+		$this->services[IpAddressService::ID] = IpAddressService::class;
 	}
 
 	public function iterate(string $input): BetterLocationCollection
