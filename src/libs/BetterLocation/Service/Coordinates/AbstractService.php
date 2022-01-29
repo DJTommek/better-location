@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service\Coordinates;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\IpAddressService;
 use App\Utils\Coordinates;
 use App\Utils\General;
 use App\Utils\Strict;
@@ -69,8 +70,6 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 					if ($service->isValid()) {
 						$service->process();
 						$collection->add($service->getCollection());
-					} else {
-						Debugger::log(sprintf('Coordinate input "%s" was findInText() but not validated', $coordsRaw), Debugger::ERROR);
 					}
 				} catch (InvalidLocationException $exception) {
 					Debugger::log($exception, ILogger::DEBUG);
@@ -82,6 +81,11 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 
 	public function isValid(): bool
 	{
+		// Mark as invalid, if input is valid IP address
+		if (IpAddressService::isValidStatic($this->input)) {
+			return false;
+		}
+
 		$input = str_replace('\'\'', '"', $this->input); // Replace two quotes as one doublequote
 		if (preg_match('/^' . static::getRegex() . '$/u', $input, $matches)) {
 			$this->data->matches = $matches;
