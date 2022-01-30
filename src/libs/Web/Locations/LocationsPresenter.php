@@ -37,23 +37,41 @@ class LocationsPresenter extends MainPresenter
 
 	public function action()
 	{
-		$regex = '/^' . Coordinates::RE_BASIC . '(;' . Coordinates::RE_BASIC . ')+$/';
+		$regex = '/^' . Coordinates::RE_BASIC . '(;' . Coordinates::RE_BASIC . ')*$/';
 		$input = $_GET['coords'] ?? '';
 		if ($input && preg_match($regex, $input)) {
 			foreach (explode(';', $input) as $coords) {
 				list($lat, $lon) = explode(',', $coords);
 				if (Coordinates::isLat($lat) && Coordinates::isLon($lon)) {
-					$location = BetterLocation::fromLatLon(Strict::floatval($lat), Strict::floatval($lon));
-					$location->generateAddress();
-					$location->generateDateTimeZone();
-					$this->collection->add($location);
+					$this->collection->add(BetterLocation::fromLatLon(Strict::floatval($lat), Strict::floatval($lon)));
 				}
 			}
 		}
 		$this->collection->deduplicate();
+
+		if (isset($_GET['action'])) {
+			if ($this->login->isLogged()) {
+				switch ($_GET['action']) {
+					case 'add':
+						foreach($this->collection as $location) {
+							$this->user->addFavourite($location, BetterLocation::generateFavouriteName($location->getLat(),$location->getLon()));
+						}
+						break;
+					case 'delete':
+						foreach($this->collection as $location) {
+							$this->user->deleteFavourite($location);
+						}
+						break;
+				}
+			}
+			$this->redirect($this->collection->getLink());
+		}
+
 		$this->collection->fillElevations();
 
 		foreach ($this->collection as $location) {
+			$location->generateAddress();
+			$location->generateDateTimeZone();
 			$manager = new ServicesManager();
 			$services = [];
 			foreach ($manager->getServices() as $service) {

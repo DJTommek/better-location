@@ -24,6 +24,18 @@ a {
 	margin: 15px;
 }
 
+/* Show full heart icon if already in favourites or if not and is hovered */
+.icon-heart:before,
+.icon-heart-o:hover:before {
+	content: '\f004'; /* fa-heart */
+}
+
+/* Show empty heart icon if is not in favourites or if it is and is hovered */
+.icon-heart-o:before,
+.icon-heart:hover:before {
+	content: '\f08a'; /* fa-heart-o */
+}
+
 /******************************************************/
 #navbar .navbar-brand img,
 #navbar .login img {
@@ -48,18 +60,6 @@ a {
 #content-location .header-left a,
 #content-location .header-right {
 	font-size: 2em;
-}
-
-/* Show full heart icon if already in favourites or if not and is hovered */
-#content-location .header-right .icon-heart:before,
-#content-location .header-right .icon-heart-o:hover:before {
-	content: '\f004'; /* fa-heart */
-}
-
-/* Show empty heart icon if is not in favourites or if it is and is hovered */
-#content-location .header-right .icon-heart-o:before,
-#content-location .header-right .icon-heart:hover:before {
-	content: '\f08a'; /* fa-heart-o */
 }
 
 #content-location .header-left img {

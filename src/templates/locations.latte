@@ -17,13 +17,24 @@
 					{foreach $collection->getLocations() as $location}
 						<button
 								id="list-group-item-location-{$location->getCoordinates()->hash()}"
-								class="list-group-item list-group-item-action {$iterator->first ? 'active'}"
+								class="list-group-item list-group-item-action list-group-item-light {$iterator->first ? 'active'}"
 								data-bs-toggle="list"
 								data-location="{$location->getCoordinates()->hash()}"
 								href="#content-locations-{$location->getCoordinates()->hash()}"
 								role="tab"
 						>
 							<div class="d-flex justify-content-between">
+								<span n:if="$login->isLogged()" class="favourite">
+									{if $user->getFavourite($location->getLat(), $location->getLon()) !== null}
+										<a href="{$basePath}/{$location->getLat()},{$location->getLon()}?action=delete" title="Remove from favourites" class="text-danger">
+											<i class="fa fa-fw icon-heart"></i>
+										</a>
+									{else}
+										<a href="{$basePath}/{$location->getLat()},{$location->getLon()}?action=add" title="Add to favourites" class="text-danger">
+											<i class="fa fa-fw icon-heart-o"></i>
+										</a>
+									{/if}
+								</span>
 								{$location->__toString()}
 								<a href="{$basePath}/{$location->__toString()}" target="_blank">
 									<i class="fa fa-external-link"></i>
