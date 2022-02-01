@@ -5,9 +5,10 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\Config;
 use App\MiniCurl\MiniCurl;
+use App\MiniCurl\Response;
 use App\Utils\Coordinates;
-use App\Utils\Strict;
 use Nette\Http\Url;
+use Nette\Utils\Arrays;
 
 final class FacebookService extends AbstractService
 {
@@ -28,18 +29,29 @@ final class FacebookService extends AbstractService
 	public function process(): void
 	{
 		$pageHomeUrl = $this->getPageHomeUrl();
-		$response = (new MiniCurl($pageHomeUrl->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_FACEBOOK)->run()->getBody();
-		if (preg_match('/markers=(-?[0-9.]+)%2C(-?[0-9.]+)/', $response, $matches)) {
-			if (Coordinates::isLat($matches[1]) && Coordinates::isLon($matches[2])) {
-				$location = new BetterLocation($this->inputUrl, Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class);
-				$pageData = self::parsePageData($response);
-				$location->setPrefixMessage(sprintf('<a href="%s">%s</a> <a href="%s">%s</a>', $this->inputUrl, self::getName(), $pageHomeUrl, $pageData->name));
-				$location->setAddress($pageData->address->streetAddress . ', ' . $pageData->address->addressLocality);
-				if (isset($pageData->telephone)) {
-					$location->setDescription($pageData->telephone);
+		$response = (new MiniCurl($pageHomeUrl->getAbsoluteUrl()))
+			->allowCache(Config::CACHE_TTL_FACEBOOK)
+			->setHttpHeader('accept', 'text/html')
+			->run();
+
+		if ($coords = $this->findCoordinatesInJson($response) ?? $this->findCoordinatesFromMapMarker($response)) {
+			$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class);
+			if ($pageData = self::parseLdJson($response->getBody())) {
+				switch ($pageData->{'@type'}) {
+					case 'BreadcrumbList':
+						$pageName = Arrays::last($pageData->itemListElement)->name;
+						$location->setPrefixMessage(sprintf('<a href="%s">%s</a> <a href="%s">%s</a>', $this->inputUrl, self::getName(), $pageHomeUrl, $pageName));
+						break;
+					case 'LocalBusiness':
+						$location->setPrefixMessage(sprintf('<a href="%s">%s</a> <a href="%s">%s</a>', $this->inputUrl, self::getName(), $pageHomeUrl, $pageData->name));
+						$location->setAddress($pageData->address->streetAddress . ', ' . $pageData->address->addressLocality);
+						if (isset($pageData->telephone)) {
+							$location->setDescription($pageData->telephone);
+						}
+						break;
 				}
-				$this->collection->add($location);
 			}
+			$this->collection->add($location);
 		}
 	}
 
@@ -59,13 +71,47 @@ final class FacebookService extends AbstractService
 		return $urlToRequest;
 	}
 
-	private static function parsePageData(string $response): \stdClass
+	private static function parseLdJson(string $response): ?\stdClass
 	{
 		$dom = new \DOMDocument();
 		@$dom->loadHTML($response);
 		$finder = new \DOMXPath($dom);
 //		$name = trim($finder->query('//h1[@id="seo_h1_tag"]/span')->item(0)->textContent);
-		$ldJson = $finder->query('//script[@type="application/ld+json"]')->item(0)->textContent;
-		return json_decode($ldJson, false, 512, JSON_THROW_ON_ERROR);
+		$jsonEl = $finder->query('//script[@type="application/ld+json"]')->item(0);
+		return $jsonEl ? json_decode($jsonEl->textContent, false, 512, JSON_THROW_ON_ERROR) : null;
+	}
+
+	/**
+	 * JSON hidden deep in HTML and JSON structure, easier to bruteforce it via regex, example:
+	 * ...true, "latitude": 50.087244375083, "longitude": 14.469230175018, "...
+	 *
+	 * @return ?Coordinates
+	 */
+	private function findCoordinatesInJson(Response $response): ?Coordinates
+	{
+		if (
+			preg_match('/"latitude"\s*:\s*(-?[0-9.]+)/', $response->getBody(), $matchesLat)
+			&&
+			preg_match('/"longitude"\s*:\s*(-?[0-9.]+)/', $response->getBody(), $matchesLon)
+		) {
+			if (Coordinates::isLat($matchesLat[1]) && Coordinates::isLon($matchesLon[1])) {
+				return new Coordinates($matchesLat[1], $matchesLon[1]);
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Try to find coordinates hidden in static map URL, where are defined as marker, example:
+	 * https://external.fprg5-1.fna.fbcdn.net/static_map.php?v=2023&amp;ccb=4-4&amp;size=306x98&amp;zoom=15&amp;markers=50.06179000%2C14.43703000&amp;language=cs_CZ
+	 */
+	private function findCoordinatesFromMapMarker(Response $response): ?Coordinates
+	{
+		if (preg_match('/markers=(-?[0-9.]+)%2C(-?[0-9.]+)/', $response->getBody(), $matches)) {
+			if (Coordinates::isLat($matches[1]) && Coordinates::isLon($matches[2])) {
+				return new Coordinates($matches[1], $matches[2]);
+			}
+		}
+		return null;
 	}
 }
