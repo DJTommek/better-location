@@ -159,14 +159,14 @@ final class OpenLocationCodeServiceTest extends TestCase
 		$this->assertCount(0, $collection);
 
 		$this->assertSame(1, preg_match_all(OpenLocationCodeService::RE_IN_STRING, 'some random text before 8FXP74WG+XHW and after', $matches));
-		$this->assertCount(1, $matches[2]);
-		$this->assertSame('8FXP74WG+XHW', $matches[2][0]);
-		$this->assertTrue(OpenLocationCodeService::isValidStatic($matches[2][0]));
-		$collection = OpenLocationCodeService::processStatic($matches[2][0])->getCollection();
+		$this->assertCount(1, $matches[1]);
+		$this->assertSame('8FXP74WG+XHW', $matches[1][0]);
+		$this->assertTrue(OpenLocationCodeService::isValidStatic($matches[1][0]));
+		$collection = OpenLocationCodeService::processStatic($matches[1][0])->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('49.297487,14.126453', $collection[0]->__toString());
 
 		$this->assertSame(0, preg_match_all(OpenLocationCodeService::RE_IN_STRING, 'Some string without any valid plus code', $matches));
-		$this->assertCount(0, $matches[2]);
+		$this->assertCount(0, $matches[1]);
 	}
 }
