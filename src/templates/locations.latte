@@ -113,9 +113,8 @@
 										</td>
 										<td class="service-share-text text-nowrap">
 											{if isset($service['text'])}
-												<span>
-										{$service['text']}
-									</span>
+												<i class="fa fa-fw fa-clipboard copy-to-clipboard" data-clipboard-text="{$service['text']}" title="Copy text to clipboard"></i>
+												{$service['text']}
 											{/if}
 										</td>
 									</tr>

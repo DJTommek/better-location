@@ -6,6 +6,10 @@ a {
 	width: auto !important;
 }
 
+.copy-to-clipboard {
+	cursor: pointer;
+}
+
 /******************************************************/
 
 #flash-message {
