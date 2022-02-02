@@ -16,6 +16,7 @@ use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
+use App\Utils\CoordinatesInterface;
 use App\Utils\Strict;
 use JetBrains\PhpStorm\Pure;
 use maxh\Nominatim\Exceptions\NominatimException;
@@ -25,7 +26,7 @@ use OpenLocationCode\OpenLocationCode;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types;
 
-class BetterLocation
+class BetterLocation implements CoordinatesInterface
 {
 	private Coordinates $coords;
 	private ?string $description = null;

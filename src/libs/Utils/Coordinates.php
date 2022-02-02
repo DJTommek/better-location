@@ -4,7 +4,7 @@ namespace App\Utils;
 
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 
-class Coordinates
+class Coordinates implements CoordinatesInterface
 {
 	const RE_BASIC_LAT = '-?[0-9]{1,2}\.[0-9]{1,99}';
 	const RE_BASIC_LON = '-?[0-9]{1,3}\.[0-9]{1,99}';
