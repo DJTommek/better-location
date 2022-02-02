@@ -168,4 +168,24 @@ class General
 			return null;
 		}
 	}
+
+	/**
+	 * Access global variable $_GET and return bool if value is truthy/falsey according URL standards.
+	 *
+	 * @param string $key Query key, that will be accessed as $_GET[key]
+	 * @param mixed $default Default value, that will be returned if key is not set or non booleable
+	 * @return mixed True if value is URL Truthy (1, true), False for 0 or false and null if undefined or not able to detect
+	 */
+	public static function globalGetToBool(string $key, mixed $default = null): mixed
+	{
+		if (isset($_GET[$key])) {
+			$value = mb_strtolower($_GET[$key]);
+			if (in_array($value, ['1', 'true', 't'])) {
+				return true;
+			} else if (in_array($value, ['0', 'false', 'f'])) {
+				return false;
+			}
+		}
+		return $default;
+	}
 }

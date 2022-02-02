@@ -11,6 +11,7 @@ use App\Config;
 use App\Factory;
 use App\Utils\Coordinates;
 use App\Utils\DateImmutableUtils;
+use App\Utils\General;
 use App\Utils\Strict;
 use App\Web\MainPresenter;
 use Nette\Utils\Json;
@@ -53,12 +54,12 @@ class LocationsPresenter extends MainPresenter
 			if ($this->login->isLogged()) {
 				switch ($_GET['action']) {
 					case 'add':
-						foreach($this->collection as $location) {
-							$this->user->addFavourite($location, BetterLocation::generateFavouriteName($location->getLat(),$location->getLon()));
+						foreach ($this->collection as $location) {
+							$this->user->addFavourite($location, BetterLocation::generateFavouriteName($location->getLat(), $location->getLon()));
 						}
 						break;
 					case 'delete':
-						foreach($this->collection as $location) {
+						foreach ($this->collection as $location) {
 							$this->user->deleteFavourite($location);
 						}
 						break;
@@ -66,11 +67,16 @@ class LocationsPresenter extends MainPresenter
 			}
 			$this->redirect($this->collection->getLink());
 		}
-		$this->collection->fillAddresses();
-		$this->collection->fillDatetimeZone();
-		$this->collection->fillElevations();
 
-		$this->collection->fillElevations();
+		if (in_array(General::globalGetToBool('address'), [true, null], true)) { // if not set, default is true
+			$this->collection->fillAddresses();
+		}
+		if (General::globalGetToBool('datetimezone') === true) {
+			$this->collection->fillDatetimeZone();
+		}
+		if (General::globalGetToBool('elevation') === true) {
+			$this->collection->fillElevations();
+		}
 
 		foreach ($this->collection as $location) {
 			$manager = new ServicesManager();

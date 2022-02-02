@@ -58,8 +58,8 @@
 			{foreach $collection->getLocations() as $location}
 				<div id="content-locations-{$location->getCoordinates()->hash()}" class="tab-pane fade {$iterator->first ? 'show active'}" role="tabpanel">
 					<div class="text-center">
-						<div class="address">
-							{$location->getAddress() ?? 'Unknown address'}
+						<div class="address" n:ifcontent>
+							{$location->getAddress()}
 						</div>
 						<div class="timezone" n:if="$location->getTimezoneData()">
 							Local time: <b title="YYYY-MM-DD hh:mm:ss. Time might be few minutes out of date due to caching.">{$location->getTimezoneData()->time->format(\App\Config::DATETIME_FORMAT)}</b>,
@@ -68,7 +68,7 @@
 							DST: <b>{$location->getTimezoneData()->isDst() ? 'yes' : 'no'}</b>
 						</div>
 						<div class="downloads">
-							<i class="fa fa-download"></i> Download single:
+							<i class="fa fa-download"></i> Download:
 							<a href="{$basePath}/{$location->key()}?format=gpx">gpx</a> |
 							<a href="{$basePath}/{$location->key()}?format=kml">kml</a>
 						</div>
