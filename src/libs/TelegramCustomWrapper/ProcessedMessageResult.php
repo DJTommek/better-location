@@ -37,8 +37,8 @@ class ProcessedMessageResult
 
 	public function process(bool $printAllErrors = false): self
 	{
+		$this->collection->fillAddresses();
 		foreach ($this->collection->getLocations() as $betterLocation) {
-			$betterLocation->generateAddress();
 			$this->resultText .= $betterLocation->generateMessage($this->messageSettings);
 			$this->buttons[] = $betterLocation->generateDriveButtons($this->messageSettings);
 			$this->validLocationsCount++;

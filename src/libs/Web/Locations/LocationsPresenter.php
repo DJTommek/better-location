@@ -66,12 +66,13 @@ class LocationsPresenter extends MainPresenter
 			}
 			$this->redirect($this->collection->getLink());
 		}
+		$this->collection->fillAddresses();
+		$this->collection->fillDatetimeZone();
+		$this->collection->fillElevations();
 
 		$this->collection->fillElevations();
 
 		foreach ($this->collection as $location) {
-			$location->generateAddress();
-			$location->generateDateTimeZone();
 			$manager = new ServicesManager();
 			$services = [];
 			foreach ($manager->getServices() as $service) {

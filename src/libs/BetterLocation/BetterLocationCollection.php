@@ -323,6 +323,22 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		$api->fillBatch($this->getCoordinates());
 	}
 
+	/** Load addresses from API for all locations in this collection */
+	public function fillAddresses(): void
+	{
+		foreach ($this->getLocations() as $location) {
+			$location->generateAddress();
+		}
+	}
+
+	/** Load datetime zone info for all locations in this collection */
+	public function fillDatetimeZone(): void
+	{
+		foreach ($this->getLocations() as $location) {
+			$location->generateDateTimeZone();
+		}
+	}
+
 	public function getLink(string $format = null): UrlImmutable
 	{
 		$keys = $this->getKeys();
