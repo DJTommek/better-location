@@ -6,12 +6,21 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\ServicesManager;
 use App\Utils\Strict;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
 
 abstract class AbstractService
 {
+	/**
+	 * Tags, that define each service. See TAG_* constants in ServicesManager
+	 * Here are default tags for all services, that can be overriden.
+	 */
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_OFFLINE,
+	];
+
 	private bool $processed = false;
 
 	/**

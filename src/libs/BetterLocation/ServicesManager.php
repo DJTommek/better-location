@@ -44,6 +44,13 @@ use Tracy\ILogger;
 
 class ServicesManager
 {
+	/** Service can generate location without making any requests */
+	public const TAG_GENERATE_OFFLINE = 1;
+	/** Service can generate location only by making request to external service  */
+	public const TAG_GENERATE_ONLINE = 2;
+	/** Service can generate location only by processing via paid service */
+	public const TAG_GENERATE_PAID = 3;
+
 	/** @var AbstractService[] */
 	private $services = [];
 
@@ -133,11 +140,18 @@ class ServicesManager
 	}
 
 	/**
+	 * @param int[] $tags Return only services, that are tagged by tags provided in this array
 	 * @return AbstractService[]
 	 */
-	public function getServices(): array
+	public function getServices(array $tags = []): array
 	{
-		return $this->services;
+		if (empty($tags)) {
+			return $this->services;
+		} else {
+			return array_filter($this->services, function ($service) use ($tags) {
+				return !array_diff($tags, $service::TAGS);
+			});
+		}
 	}
 
 	/** @return int[] */

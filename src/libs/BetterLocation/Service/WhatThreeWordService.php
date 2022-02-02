@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\ServicesManager;
 use App\WhatThreeWord;
 use Nette\Utils\Arrays;
 
@@ -13,6 +14,11 @@ final class WhatThreeWordService extends AbstractService
 	const ID = 30;
 	const NAME = 'What3Words';
 	const NAME_SHORT = 'W3W';
+
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_ONLINE,
+		ServicesManager::TAG_GENERATE_PAID,
+	];
 
 	const LINK = 'https://what3words.com/';
 	const LINK_SHORT = 'https://w3w.co/';
