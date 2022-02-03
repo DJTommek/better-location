@@ -44,7 +44,7 @@
 					{/foreach}
 				</div>
 				<div class="downloads text-center">
-					<i class="fa fa-download"></i> Download all:
+					<i class="fa fa-download"></i> Download all as
 					<a href="{$basePath}/{$collection->getKeys()|join:';'}?format=gpx">gpx</a> |
 					<a href="{$basePath}/{$collection->getKeys()|join:';'}?format=kml">kml</a>
 				</div>
@@ -68,7 +68,7 @@
 							DST: <b>{$location->getTimezoneData()->isDst() ? 'yes' : 'no'}</b>
 						</div>
 						<div class="downloads">
-							<i class="fa fa-download"></i> Download:
+							<i class="fa fa-download"></i> Download as
 							<a href="{$basePath}/{$location->key()}?format=gpx">gpx</a> |
 							<a href="{$basePath}/{$location->key()}?format=kml">kml</a>
 						</div>
