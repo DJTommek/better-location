@@ -223,8 +223,8 @@
 			}
 		}
 		$(function () {
-			mapData.map = L.map('map-dynamic-leaflet');
-			mapData.map.fitBounds(new L.LatLngBounds({$allCoords}));
+			mapData.map = L.map('map-dynamic-leaflet').setView(locations[0]['coords'], 13);
+			mapData.map.fitBounds(new L.LatLngBounds({$allCoords}), {'maxZoom': 13});
 
 			mapData.layers.baseLayers['OSM default'].addTo(mapData.map);
 			L.control.layers(mapData.layers.baseLayers, mapData.layers.overlays).addTo(mapData.map);
