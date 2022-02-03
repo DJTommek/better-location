@@ -130,7 +130,14 @@
 {/block}
 
 {block title}
-	{count($collection)} locations
+	{if count($collection) === 1}
+		{if $collection->getFirst()->getAddress()}
+			{$collection->getFirst()->getAddress()} -
+		{/if}
+		{$collection->getFirst()->key()}
+	{else}
+		{count($collection)} locations
+	{/if}
 {/block}
 {block cssLibs}
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
