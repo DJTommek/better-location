@@ -3,9 +3,12 @@
 namespace App\Dashboard;
 
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\GooglePlaceApi;
+use App\Config;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
+use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 
 class Tester
@@ -40,6 +43,14 @@ class Tester
 	{
 		$entities = TelegramHelper::generateEntities($this->getInput());
 		$collection = BetterLocationCollection::fromTelegramMessage($this->getInput(), $entities);
+		if ($collection->count() === 0 && mb_strlen($this->getInput()) >= Config::GOOGLE_SEARCH_MIN_LENGTH && is_null(Config::GOOGLE_PLACE_API_KEY) === false) {
+			try {
+				$collection->add(GooglePlaceApi::search($this->getInput()));
+			} catch (\Exception $exception) {
+				Debugger::log($exception, Debugger::EXCEPTION);
+			}
+		}
+
 		$processedCollection = new ProcessedMessageResult($collection, new BetterLocationMessageSettings());
 		$processedCollection->process(true);
 		if ($collection->count() > 0) {
