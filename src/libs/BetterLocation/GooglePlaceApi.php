@@ -4,23 +4,27 @@ namespace App\BetterLocation;
 
 use App\BetterLocation\Service\GoogleMapsService;
 use App\Config;
+use App\Icons;
 use App\MiniCurl\MiniCurl;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
 class GooglePlaceApi
 {
-	private $apiKey;
+	private string $apiKey;
 
-	const TEXT_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
-	const PLACE_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json';
-	const PLACE_DETAILS_URL = 'https://maps.googleapis.com/maps/api/place/details/json';
+	private const TEXT_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
+	private const PLACE_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json';
+	private const PLACE_DETAILS_URL = 'https://maps.googleapis.com/maps/api/place/details/json';
 
-	/**
-	 * More responses on https://developers.google.com/places/web-service/search#PlaceSearchStatusCodes
-	 */
-	const RESPONSE_ZERO_RESULTS = 'ZERO_RESULTS';
-	const RESPONSE_OK = 'OK';
+	// https://developers.google.com/maps/documentation/places/web-service/details#Place-business_status
+	public const BUSINESS_STATUS_OPERATIONAL = 'OPERATIONAL';
+	public const BUSINESS_STATUS_CLOSED_TEMPORARILY = 'CLOSED_TEMPORARILY';
+	public const BUSINESS_STATUS_CLOSED_PERMANENTLY = 'CLOSED_PERMANENTLY';
+
+	// More responses on https://developers.google.com/places/web-service/search#PlaceSearchStatusCodes
+	private const RESPONSE_ZERO_RESULTS = 'ZERO_RESULTS';
+	private const RESPONSE_OK = 'OK';
 
 	public function __construct()
 	{
@@ -170,8 +174,13 @@ class GooglePlaceApi
 			);
 			if ($address = $placeCandidate?->formatted_address) {
 				try {
-					$placeDetails = $placeApi->getPlaceDetails($placeCandidate->place_id, ['url', 'website', 'international_phone_number']);
+					$placeDetails = $placeApi->getPlaceDetails($placeCandidate->place_id, ['url', 'website', 'international_phone_number', 'business_status']);
 					$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a>', ($placeDetails->website ?? $placeDetails->url), $placeCandidate->name));
+					if ($placeDetails?->business_status === self::BUSINESS_STATUS_CLOSED_TEMPORARILY) {
+						$betterLocation->setDescription(sprintf('%s Temporarily closed', Icons::WARNING));
+					} else if ($placeDetails?->business_status === self::BUSINESS_STATUS_CLOSED_PERMANENTLY) {
+						$betterLocation->setDescription(sprintf('%s Permanently closed', Icons::WARNING));
+					}
 					if (isset($placeDetails->international_phone_number)) {
 						$address .= sprintf(' (%s)', $placeDetails->international_phone_number);
 					}
