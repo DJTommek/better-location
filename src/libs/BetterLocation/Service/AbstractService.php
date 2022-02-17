@@ -113,6 +113,16 @@ abstract class AbstractService
 	}
 
 	/**
+	 * Return link to generate static image
+	 *
+	 * @throws NotSupportedException
+	 */
+	public static function getScreenshotLink(float $lat, float $lon): string
+	{
+		throw new NotSupportedException('Static image link is not supported.');
+	}
+
+	/**
 	 * Return link to open multiple locations (same as getShareLink but supports multiple locations)
 	 *
 	 * @throws NotSupportedException
