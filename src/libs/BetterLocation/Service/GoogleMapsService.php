@@ -4,6 +4,7 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
@@ -78,7 +79,7 @@ final class GoogleMapsService extends AbstractService
 	public static function getScreenshotLink(float $lat, float $lon): string
 	{
 		if (is_null(Config::GOOGLE_MAPS_STATIC_API_KEY)) {
-			throw new \Exception('Google Maps Static API key is not defined.');
+			throw new NotSupportedException('Google Maps Static API key is not defined.');
 		}
 		$params = [
 			'center' => '',
