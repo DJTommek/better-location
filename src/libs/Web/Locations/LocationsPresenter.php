@@ -156,6 +156,10 @@ class LocationsPresenter extends MainPresenter
 		} catch (NotSupportedException $exception) {
 		}
 		try {
+			$result['static'] = $service::getScreenshotLink($lat, $lon);
+		} catch (NotSupportedException $exception) {
+		}
+		try {
 			$result['text'] = $service::getShareText($lat, $lon);
 		} catch (NotSupportedException $exception) {
 		}
