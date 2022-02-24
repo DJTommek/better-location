@@ -102,6 +102,16 @@ class Coordinates implements CoordinatesInterface
 		}
 	}
 
+	/** Create new instance but return null if lat and/or lon are invalid */
+	public static function safe($lat, $lon, $elevation = null): ?Coordinates
+	{
+		try {
+			return new Coordinates($lat, $lon, $elevation);
+		} catch (InvalidLocationException) {
+			return null;
+		}
+	}
+
 	public static function wgs84DegreesToDegreesMinutes(float $degrees): array
 	{
 		$degreesRound = intval($degrees);
