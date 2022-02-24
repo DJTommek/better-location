@@ -11,13 +11,18 @@ use App\Utils\Coordinates;
 use App\Utils\Strict;
 use Nette\Utils\Strings;
 
+/**
+ * Google has nice documentations related to generating link to their apps.
+ * @link https://developers.google.com/maps/documentation/urls/get-started
+ * @link https://gearside.com/easily-link-to-locations-and-directions-using-the-new-google-maps/
+ */
 final class GoogleMapsService extends AbstractService
 {
 	const ID = 2;
 	const NAME = 'Google';
 
-	const LINK = 'https://www.google.cz/maps/place/%1$f,%2$f?q=%1$f,%2$f';
-	const LINK_DRIVE = 'https://maps.google.cz/?daddr=%1$f,%2$f&travelmode=driving';
+	const LINK = 'https://www.google.com/maps/place/%1$f,%2$f?q=%1$f,%2$f';
+	const LINK_DRIVE = 'https://www.google.com/maps/dir/?api=1&destination=%1$f%%2C%2$f&travelmode=driving&dir_action=navigate';
 
 	const TYPE_UNKNOWN = 'unknown';
 	const TYPE_MAP = 'Map center';
