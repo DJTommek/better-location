@@ -176,10 +176,12 @@ class GooglePlaceApi
 				try {
 					$placeDetails = $placeApi->getPlaceDetails($placeCandidate->place_id, ['url', 'website', 'international_phone_number', 'business_status']);
 					$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a>', ($placeDetails->website ?? $placeDetails->url), $placeCandidate->name));
-					if ($placeDetails?->business_status === self::BUSINESS_STATUS_CLOSED_TEMPORARILY) {
-						$betterLocation->setDescription(sprintf('%s Temporarily closed', Icons::WARNING));
-					} else if ($placeDetails?->business_status === self::BUSINESS_STATUS_CLOSED_PERMANENTLY) {
-						$betterLocation->setDescription(sprintf('%s Permanently closed', Icons::WARNING));
+					if (isset($placeDetails->business_status)) {
+						if ($placeDetails->business_status === self::BUSINESS_STATUS_CLOSED_TEMPORARILY) {
+							$betterLocation->setDescription(sprintf('%s Temporarily closed', Icons::WARNING));
+						} else if ($placeDetails->business_status === self::BUSINESS_STATUS_CLOSED_PERMANENTLY) {
+							$betterLocation->setDescription(sprintf('%s Permanently closed', Icons::WARNING));
+						}
 					}
 					if (isset($placeDetails->international_phone_number)) {
 						$address .= sprintf(' (%s)', $placeDetails->international_phone_number);
