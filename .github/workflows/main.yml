@@ -1,0 +1,45 @@
+on:
+  push:
+    branches:
+      - master
+      - pr/github-action-deployment
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+
+      - name: 🚚 Install Composer Dependencies
+        working-directory: ./
+        run: composer install --no-dev
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ${{ secrets.ftp_server }}
+          username: ${{ secrets.ftp_username }}
+          password: ${{ secrets.ftp_password }}
+          server-dir: ${{ secrets.ftp_server_dir }}
+          dry-run: false
+          exclude: |
+            **/.git*
+            **/.git*/**            
+            data/config.local.example.neon
+            asset/
+            asset/**
+            temp/
+            temp/**
+            tests/
+            tests/**
+            composer.json
+            composer.lock
+            readme.md
+            web.config
+            LICENSE
+            README.md
+            phpstan.neon
+            phpstan-baseline.neon
+            phpunit.xml
