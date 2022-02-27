@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - master
-      - pr/github-action-deployment
 name: 🚀 Deploy website on push
 jobs:
   web-deploy:
