@@ -19,7 +19,7 @@ jobs:
 
       - name: 🚚 Install Composer Dependencies
         working-directory: ./
-        run: composer install --no-dev
+        run: composer install --no-dev --ignore-platform-req=php
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
