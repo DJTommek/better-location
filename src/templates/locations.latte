@@ -247,7 +247,7 @@
 					}
 				);
 				let popupContent = '<p>';
-				popupContent += 'Coordinates: <b><a href="{$basePath|noescape}/' + location.key + '">' + location.key + '</a></b>';
+				popupContent += 'Coordinates: <b><a href="' + {$basePath} + '/' + location.key + '">' + location.key + '</a></b>';
 				popupContent += '<br>';
 				popupContent += 'Address: <b>' + (location.address ?? 'Unknown address') + '</b>';
 				popupContent += '</p>';
@@ -275,7 +275,7 @@
 						const markerLatLng = locateControl._marker.getLatLng();
 						const latLon = markerLatLng.lat.toFixed(6) + ',' + markerLatLng.lng.toFixed(6);
 						let popupContent = '<p>';
-						popupContent += 'Browser location: <b><a href="{$basePath|noescape}/' + latLon + '">' + latLon + '</a></b> (accuracy <b>' + distanceHuman(params.distance) + '</b>)';
+						popupContent += 'Browser location: <b><a href="' + {$basePath} + '/' + latLon + '">' + latLon + '</a></b> (accuracy <b>' + distanceHuman(params.distance) + '</b>)';
 						// popupContent += '<br>Distance to currently opened location: <b>' + distanceHuman(markerLatLng.distanceTo(mapData.markers.pageLocation.getLatLng())) + '</b>';
 						return popupContent;
 					}
