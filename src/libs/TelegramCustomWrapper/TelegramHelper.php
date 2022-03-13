@@ -73,13 +73,13 @@ class TelegramHelper
 	public static function getUserDisplayname($from): string
 	{
 		$displayName = $from->username ? ('@' . $from->username) : ($from->first_name . ' ' . $from->last_name);
-		return trim(htmlentities($displayName));
+		return trim(htmlspecialchars($displayName));
 	}
 
 	public static function getChatDisplayname(Chat $chat): string
 	{
 		if ($chat->title) {
-			return trim(htmlentities($chat->title));
+			return trim(htmlspecialchars($chat->title));
 		} else {
 			return self::getUserDisplayname($chat);
 		}
