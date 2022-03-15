@@ -1,15 +1,102 @@
 {templateType App\Web\LayoutTemplate}
 {layout '@layout.latte'}
 {block content}
+	<h1 class="display-5">
+		<a href="{$basePath}">BetterLocation</a>
+	</h1>
 	<p>
-		Hi there!<br>
-		This is homepage for BetterLocation app. Currently there is no content available, for more info visit these links:
+		BetterLocation is very cool helper for converting various inputs into your favorite services as Google, Waze, Sygic and much more.
 	</p>
+	<h4>Key features</h4>
 	<ul>
-		<li>Telegram bot source code on Github <a href="https://github.com/DJTommek/better-location" target="_blank">DJTommek/better-location</a></li>
+		<li>
+			Parsing and eventually generating
+			<ul>
+				<li>Coordinates:
+					<a href="https://en.wikipedia.org/wiki/World_Geodetic_System" target="_blank">WGS84</a>,
+					<a href="https://en.wikipedia.org/wiki/United_States_National_Grid" target="_blank">USNG</a>,
+					<a href="https://en.wikipedia.org/wiki/Military_Grid_Reference_System" target="_blank">MGRS</a>,
+					<a href="https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system" target="_blank">UTM</a>,
+					...
+				</li>
+				<li>Codes:
+					<a href="https://geocaching.com/" target="_blank">Geocaching GCxxx</a>,
+					<a href="https://what3words.com/" target="_blank">What3Words</a>,
+					<a href="https://plus.codes/" target="_blank">Open Location Codes (Plus Codes)</a>,
+					<a href="https://en.wikipedia.org/wiki/Geohash" target="_blank">Geohash</a>,
+					...
+				</li>
+				<li>Various links:
+					<a href="https://maps.google.com" target="_blank">maps.google.com</a>,
+					<a href="https://glympse.com" target="_blank">Glympse.com</a>,
+					<a href="https://mapy.cz" target="_blank">Mapy.cz</a>,
+					<a href="https://intel.ingress.com" target="_blank">Intel.Ingress.com</a>,
+					<a href="https://foursquare.com/city-guide" target="_blank">Foursquare (city guide)</a>,
+					...
+				</li>
+				<li>Short links:
+					<a href="https://goo.gl" target="_blank">goo.gl</a>,
+					<a href="https://bit.ly" target="_blank">bit.ly</a>,
+					<a href="https://tinyurl.com" target="_blank">tinyurl.com</a>,
+					<a href="https://t.co" target="_blank">t.co</a>,
+					<a href="https://tiny.cc" target="_blank">tiny.cc</a>,
+					...
+				</li>
+				<li>Telegram (live) location and venues</li>
+				<li><a href="https://wikipedia.org/wiki/Exif" target="_blank">EXIF</a> from uncompressed images</li>
+			</ul>
+		</li>
+		<li>
+			Searching and sharing dynamically via
+			<a href="https://core.telegram.org/bots/inline" target="_blank" title="Telegram Inline">Telegram inline</a>
+			searching using Google
+		</li>
+		<li>
+			Displaying various location metadata: address, elevation, timezone, <abbr title="Daylight saving time">DST</abbr>, current time
+		</li>
+	</ul>
+	<h2 class="display-6">
+		<a href="https://t.me/BetterLocationBot" target="_blank">Telegram</a>
+	</h2>
+	<p>
+		Main focus is to have powerful tool in Telegram, as you can see on the screenshot below.
+	</p>
+	<figure class="figure">
+		<img src="{$basePath}/img/better-location-bot-example.png" class="figure-img" alt="Example screenshot from Telegram bot @BetterLocationBot">
+		<figcaption class="figure-caption text-center">
+			Example screenshot from Telegram bot
+			<a href="https://t.me/BetterLocationBot" target="_blank">@BetterLocationBot</a>
+		</figcaption>
+	</figure>
+	<h2 class="display-6">Website</h2>
+	<p>
+		Website has some features too!
+	</p>
+	<p>
+		Any location on Earth can be represented as coordinates in <abbr title="World Geodetic System">WGS 84</abbr>
+		(<a href="https://en.wikipedia.org/wiki/World_Geodetic_System" title="World Geodetic System on Wikipedia.org">wiki</a>).
+		For example center of Prague in Czechia is located at <code>50.087451,14.420671</code>, so URL is simply
+		<a href="{$baseUrl}/50.087451,14.420671" class="text-nowrap">{$baseUrl}/50.087451,14.420671</a>
+		so to get some info about particular location, just open that link.
+	</p>
+	<h2 class="display-6">API</h2>
+	<p>
+		Very simple API is also available by adding <code>?format=json</code> to the url, eg:
+		<a href="{$baseUrl}/50.087451,14.420671?format=json" class="text-nowrap">{$baseUrl}/50.087451,14.420671?format=json</a>
+	</p>
+	<h2 class="display-6">Disclaimer</h2>
+	<p>
+		Although this is hobby project, some parts (bot, website, API) are already helping people and organizations around the world.<br>
+		Anything can change at any time without warning, <b>but I'm doing my best I can</b> to not break anything and keep it running as smooth as possible.
+		But just in case, if you want rocks-steady support, new feature or just ask for something, <b>don't hesitate</b> and
+		<a href="https://t.me/DJTommek" target="_blank">contact me</a>.
+	</p>
+	<h4>More links to study:</h4>
+	<ul>
 		<li>Telegram bot <a href="https://t.me/BetterLocationBot" target="_blank">@BetterLocationBot</a></li>
 		<li>Telegram info channel <a href="https://t.me/BetterLocation" target="_blank">@BetterLocation</a></li>
 		<li>Telegram chat discussion <a href="https://t.me/BetterLocationChat" target="_blank">@BetterLocationChat</a></li>
-		<li>Contact author directly via Telegram on <a href="https://t.me/DJTommek" target="_blank">@DJTommek</a></li>
+		<li>Telegram bot source code on Github <a href="https://github.com/DJTommek/better-location" target="_blank">DJTommek/better-location</a></li>
+		<li>Contact author <a href="https://tomas.palider.cz/">Tomas Palider</a> directly via Telegram on <a href="https://t.me/DJTommek" target="_blank">@DJTommek</a></li>
 	</ul>
 {/block}
