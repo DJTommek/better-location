@@ -46,3 +46,12 @@ jobs:
             phpstan.neon
             phpstan-baseline.neon
             phpunit.xml
+
+      - name: 🧹 Clean temp directory
+        uses: StephanThierry/ftp-delete-action@v2.1
+        with:
+          host: ${{ secrets.ftp_server }}
+          user: ${{ secrets.ftp_username }}
+          password: ${{ secrets.ftp_password }}
+          workingDir: ${{ secrets.ftp_server_dir }}
+          remoteDirectories: temp/latte;temp/nette-cache;temp/mini-curl;temp/staticmap;temp/temp-file
