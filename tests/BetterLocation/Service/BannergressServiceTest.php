@@ -51,6 +51,9 @@ final class BannergressServiceTest extends TestCase
 		$this->assertFalse(BannergressService::isValidStatic('http://www.some-domain.cz/some-path'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testProcessPlace(): void
 	{
 		$this->assertLocation('https://bannergress.com/banner/czech-cubism-and-its-representative-ce4b', 50.087213, 14.425674);
@@ -64,6 +67,7 @@ final class BannergressServiceTest extends TestCase
 
 	/**
 	 * Pages, that do not have any location
+	 * @group request
 	 */
 	public function testInvalid(): void
 	{

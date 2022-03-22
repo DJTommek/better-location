@@ -37,6 +37,9 @@ final class EStudankyEuServiceTest extends TestCase
 		$this->assertFalse(EStudankyEuService::isValidStatic('https://estudanky.eu/zachranme-studanky'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testProcessPlace(): void
 	{
 		$collection = EStudankyEuService::processStatic('https://estudanky.eu/3762-studanka-kinska')->getCollection();
@@ -52,6 +55,9 @@ final class EStudankyEuServiceTest extends TestCase
 		$this->assertSame('49.517083,18.729550', $collection[0]->__toString());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testInvalidId(): void
 	{
 		$this->expectException(InvalidResponseException::class);

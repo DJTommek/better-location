@@ -44,6 +44,9 @@ final class RopikyNetServiceTest extends TestCase
 		$this->assertFalse(RopikyNetService::isValidStatic('some invalid url'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testProcessDBaseObjekt(): void
 	{
 		$collection = RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1183840757')->getCollection();
@@ -67,6 +70,9 @@ final class RopikyNetServiceTest extends TestCase
 		$this->assertSame('47.999410,18.780630', $collection[0]->__toString());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testProcessNeropObjekt(): void
 	{
 		$collection = RopikyNetService::processStatic('http://www.ropiky.net/nerop_objekt.php?id=1296479566')->getCollection();
@@ -82,6 +88,9 @@ final class RopikyNetServiceTest extends TestCase
 		$this->assertSame('50.599950,13.889120', $collection[0]->__toString());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testMissingCoordinates(): void
 	{
 		$this->assertCount(0, RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1121190136')->getCollection());
@@ -89,6 +98,9 @@ final class RopikyNetServiceTest extends TestCase
 		$this->assertCount(0, RopikyNetService::processStatic('http://www.ropiky.net/nerop_objekt.php?id=1249996776')->getCollection());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testInvalidId(): void
 	{
 		$this->assertCount(0, RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=123')->getCollection());

@@ -5,6 +5,9 @@ use App\OpenElevation\OpenElevation;
 use App\Utils\Coordinates;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @group request
+ */
 final class OpenElevationTest extends TestCase
 {
 	/** @var OpenElevation */
@@ -13,7 +16,7 @@ final class OpenElevationTest extends TestCase
 	public static function setUpBeforeClass(): void
 	{
 		self::$api = new OpenElevation();
-		self::markTestSkipped('Elevation API is not timeouting');
+		self::markTestSkipped('Elevation API is not working: https://github.com/Jorl17/open-elevation/issues/58#issuecomment-1038956551');
 	}
 
 	public function testLookup(): void

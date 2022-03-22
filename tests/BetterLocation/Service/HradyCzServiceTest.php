@@ -39,6 +39,9 @@ final class HradyCzServiceTest extends TestCase
 		$this->assertFalse(HradyCzService::isValidStatic('https://www.hrady.cz/search?typ_dop=105'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testProcess(): void
 	{
 		$collection = HradyCzService::processStatic('https://www.hrady.cz/certovy-hlavy-zelizy')->getCollection();
@@ -54,6 +57,9 @@ final class HradyCzServiceTest extends TestCase
 		$this->assertSame('50.305519,14.235415', $collection[0]->__toString());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testInvalidId(): void
 	{
 		$this->expectException(InvalidResponseException::class);

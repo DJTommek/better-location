@@ -63,7 +63,7 @@ final class Ge0CodeTest extends TestCase
 	 */
 	public function testRandom(): void
 	{
-		for ($i = 0; $i < 10000; $i++) {
+		for ($i = 0; $i < 1000; $i++) {
 			$lat = $this->generateRandomLat();
 			$lon = $this->generateRandomLon();
 			$zoom = rand(4, 19);

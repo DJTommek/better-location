@@ -55,7 +55,10 @@ final class UrlTest extends TestCase
 		$this->assertFalse(\App\BetterLocation\Url::isShortUrl('https://mapy.cz'));
 	}
 
-	/** @throws Exception */
+	/**
+	 * @throws Exception
+	 * @group request
+	 */
 	public function testGetRedirectUrl(): void
 	{
 		$this->assertSame('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://bit.ly/3hFN12b'));

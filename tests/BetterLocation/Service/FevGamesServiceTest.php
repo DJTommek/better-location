@@ -39,6 +39,9 @@ final class FevGamesServiceTest extends TestCase
 		$this->assertFalse(FevGamesService::isValidStatic('https://fevgames.net/ifs/event/?event=15677'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testUrl(): void
 	{
 		$this->markTestSkipped('No events are available.');
@@ -52,6 +55,9 @@ final class FevGamesServiceTest extends TestCase
 		$this->assertSame('39.754640,-104.994104', $collection[0]->__toString());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testNoIntelLink(): void
 	{
 		$collection = FevGamesService::processStatic('https://fevgames.net/ifs/event/?e=12342')->getCollection();

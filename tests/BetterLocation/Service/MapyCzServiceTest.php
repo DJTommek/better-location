@@ -135,6 +135,7 @@ final class MapyCzServiceTest extends TestCase
 
 	/**
 	 * ID parameter is in coordinates format
+	 * @group request
 	 */
 	public function testValidCoordinatesMapyCzIdShort(): void
 	{
@@ -182,6 +183,7 @@ final class MapyCzServiceTest extends TestCase
 
 	/**
 	 * Translate MapyCZ panorama ID to coordinates
+	 * @group request
 	 */
 	public function testValidMapyCzPanoramaId(): void
 	{
@@ -194,6 +196,7 @@ final class MapyCzServiceTest extends TestCase
 
 	/**
 	 * Translate MapyCZ INVALID place ID to coordinates
+	 * @group request
 	 */
 	public function testInvalidPanoramaId(): void
 	{
@@ -207,6 +210,7 @@ final class MapyCzServiceTest extends TestCase
 
 	/**
 	 * Translate MapyCZ place ID to coordinates
+	 * @group request
 	 */
 	public function testValidMapyCzId(): void
 	{
@@ -226,6 +230,7 @@ final class MapyCzServiceTest extends TestCase
 
 	/**
 	 * @see MapyCzServiceTest::testValidMapyCzId() exactly the same just shortened links
+	 * @group request
 	 */
 	public function testValidMapyCzIdShortUrl(): void
 	{
@@ -245,6 +250,7 @@ final class MapyCzServiceTest extends TestCase
 
 	/**
 	 * INVALID Place ID
+	 * @group request
 	 */
 	public function testInvalidPlaceId(): void
 	{

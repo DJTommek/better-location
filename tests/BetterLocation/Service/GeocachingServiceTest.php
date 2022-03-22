@@ -123,6 +123,9 @@ final class GeocachingServiceTest extends TestCase
 		$this->assertNull(GeocachingService::getGeocacheIdFromUrl(new \Nette\Http\Url('https://coord.info/GC')));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testGetCoordsFromMapSearchUrl(): void
 	{
 		$this->assertSame([50.087717, 14.42115], GeocachingService::processStatic('https://www.geocaching.com/play/map?lat=50.087717&lng=14.42115&zoom=18&asc=true&sort=distance')->getFirst()->getLatLon());
@@ -131,6 +134,9 @@ final class GeocachingServiceTest extends TestCase
 		$this->assertSame([-51.705545, -57.933311], GeocachingService::processStatic('https://www.geocaching.com/play/map?lat=-51.705545&lng=-57.933311&zoom=12&asc=true&sort=distance&sw=1')->getFirst()->getLatLon());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testGetCoordsFromMapBrowseUrl(): void
 	{
 		$this->assertSame([50.05821, 14.457], GeocachingService::processStatic('https://www.geocaching.com/map/#?ll=50.05821,14.457&z=16')->getFirst()->getLatLon());
@@ -138,6 +144,9 @@ final class GeocachingServiceTest extends TestCase
 		$this->assertSame([-51.705545, -57.933311], GeocachingService::processStatic('https://www.geocaching.com/map/#?z=10&ll=-51.705545,-57.933311')->getFirst()->getLatLon());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testGetCoordsFromMapCoordInfoUrl(): void
 	{
 		$this->assertSame([50.05821, 14.457], GeocachingService::processStatic('http://coord.info/map?ll=50.05821,14.457&z=16')->getFirst()->getLatLon());
@@ -163,6 +172,9 @@ gc12aBd
 11 not matched'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testParseUrl(): void
 	{
 		if (is_null(\App\Config::GEOCACHING_COOKIE)) {
@@ -175,6 +187,9 @@ gc12aBd
 		}
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testParseUrlPremium(): void
 	{
 		if (is_null(\App\Config::GEOCACHING_COOKIE)) {
@@ -186,6 +201,9 @@ gc12aBd
 		}
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testFindInText(): void
 	{
 		if (is_null(\App\Config::GEOCACHING_COOKIE)) {

@@ -29,6 +29,9 @@ final class WazeServiceTest extends TestCase
 		$this->assertTrue(WazeService::isValidStatic('https://waze.com/ul/hu2fk8zezt')); // https://www.waze.com/live-map/directions?to=ll.50.052273%2C14.452407
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testProcessShortUrl(): void
 	{
 		$collection = WazeService::processStatic('https://waze.com/ul/hu2fhzy57j')->getCollection();

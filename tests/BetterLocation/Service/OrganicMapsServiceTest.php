@@ -29,7 +29,7 @@ final class OrganicMapsServiceTest extends TestCase
 	 */
 	public function testGenerateAndParse(): void
 	{
-		for ($i = 0; $i < 10000; $i++) {
+		for ($i = 0; $i < 1000; $i++) {
 			$originalLat = $this->generateRandomLat();
 			$originalLon = $this->generateRandomLon();
 			$generatedLink = OrganicMapsService::getLink($originalLat, $originalLon);

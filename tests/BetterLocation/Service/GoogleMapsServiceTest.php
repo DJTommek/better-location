@@ -39,6 +39,9 @@ final class GoogleMapsServiceTest extends TestCase
 		$this->assertFalse(GoogleMapsService::isValidStatic('https://maps.appgoo.gl/nJqTbFow1HtofApTA'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testShortUrl(): void {
 		$this->markTestSkipped('Disabled due to possibly too many requests to Google servers (recaptcha appearing...)');
 
@@ -84,6 +87,9 @@ final class GoogleMapsServiceTest extends TestCase
 		$this->assertTrue(GoogleMapsService::isValidStatic('https://www.google.com/maps/@50.0873231,14.4208835,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testStreetView(): void
 	{
 		// Gathering coordinates from street view is not precise - it assumes that "@lat,lon" is location of currently loaded street view
@@ -120,6 +126,9 @@ final class GoogleMapsServiceTest extends TestCase
 		$this->assertEquals('50.087323,14.420884', $location->__toString());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testNormalUrl(): void
 	{
 		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/Velk%C3%BD+Meheln%C3%ADk,+397+01+Pisek/@49.2941662,14.2258333,14z/data=!4m2!3m1!1s0x470b5087ca84a6e9:0xfeb1428d8c8334da')->getCollection();
@@ -161,6 +170,7 @@ final class GoogleMapsServiceTest extends TestCase
 
 	/**
 	 * Links generated on phone in Google maps app by clicking on "share" button while opened place
+	 * @group request
 	 */
 	public function testShareUrlPhone(): void
 	{
@@ -191,6 +201,7 @@ final class GoogleMapsServiceTest extends TestCase
 	 * Links generated in browser on Google app by clicking on "share" button
 	 * Opened URL before opening place: https://www.google.com/maps/@50.0543547,14.4763896,16.75z
 	 * Opened URL after opening place: https://www.google.com/maps/place/bauMax/@50.0543547,14.4763896,16.75z/data=!4m5!3m4!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2!8m2!3d50.0560684!4d14.4729532
+	 * @group request
 	 */
 	public function testShareUrlPCBrowser(): void
 	{

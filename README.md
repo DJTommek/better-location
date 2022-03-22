@@ -19,11 +19,21 @@ Available publicly on [@BetterLocationBot](https://t.me/BetterLocationBot).
 1. Register [bot webhook](https://core.telegram.org/bots/api#setwebhook) to your webserver via [set-telegram.php](www/admin/set-telegram.php). For detailed info, open [index.php](www/admin/index.php).
 
 ## Development and testing
-1. Install development depenencies via `composer install --dev`.
-1. Run [PHPStan](https://phpstan.org/) static analysis via `composer phpstan`.
-1. Run [PHPUnit](https://phpunit.de/) tests via `composer test`.
 
-Note: Some tests may be skipped if missing configuration (Glympse or What3Words)
+Install development depenencies via `composer install --dev`.
+
+### Code quality
+	
+Run [PHPStan](https://phpstan.org/) static analysis via `composer phpstan`.
+
+### Tests
+
+Run [PHPUnit](https://phpunit.de/) tests via `composer test` which will run all tests available. For running only tests, that are very quick (great for precommit hook), run `composer test-quick`. 
+
+#### Notes
+
+- All tests, that are doing **ANY** request to external service must be labeled as `@group request` (more in [PHPUnit docs](https://phpunit.readthedocs.io/en/stable/annotations.html#group))
+- Some tests may be skipped if missing configuration (Glympse or What3Words)
 
 ## Deep linking
 

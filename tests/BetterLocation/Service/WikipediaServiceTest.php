@@ -39,6 +39,9 @@ final class WikipediaServiceTest extends TestCase
 		$this->assertFalse(WikipediaService::isValidStatic('some invalid url'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testProcessNormalUrl(): void
 	{
 		$collection = WikipediaService::processStatic('https://cs.wikipedia.org/wiki/City_Tower')->getCollection();
@@ -94,6 +97,9 @@ final class WikipediaServiceTest extends TestCase
 
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testPermanentUrl(): void
 	{
 		// all links leads to same location
@@ -110,7 +116,10 @@ final class WikipediaServiceTest extends TestCase
 		$this->assertSame('49.205194,16.602194', $collection[0]->__toString());
 	}
 
-	/** Same page in different languages */
+	/**
+	 * Same page in different languages
+	 * @group request
+	 */
 	public function testNormalUrlMultipleLanguages(): void
 	{
 		$collection = WikipediaService::processStatic('https://cs.wikipedia.org/wiki/Pankr%C3%A1c_(Praha)')->getCollection();

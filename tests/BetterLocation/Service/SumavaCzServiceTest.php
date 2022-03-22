@@ -56,6 +56,9 @@ final class SumavaCzServiceTest extends TestCase
 		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/tomas/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testProcessPlace(): void
 	{
 		$collection = SumavaCzService::processStatic('http://www.sumava.cz/objekt_az/765-stezka-v-korunch-d/')->getCollection();
@@ -68,6 +71,9 @@ final class SumavaCzServiceTest extends TestCase
 		$this->assertSame('49.121800,13.209300', $collection[0]->__toString());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testProcessAccomodation(): void
 	{
 		$collection = SumavaCzService::processStatic('http://www.sumava.cz/objekt/2/')->getCollection();
@@ -82,6 +88,9 @@ final class SumavaCzServiceTest extends TestCase
 		$this->assertSame('Accomodation', $collection[0]->getName());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testProcessCompanies(): void
 	{
 		$collection = SumavaCzService::processStatic('http://www.sumava.cz/firma/565-aldi-sd-bodenmais-d/')->getCollection();
@@ -97,6 +106,7 @@ final class SumavaCzServiceTest extends TestCase
 
 	/**
 	 * Type is place because gallery is just original source
+	 * @group request
 	 */
 	public function testProcessGallery(): void
 	{
@@ -117,12 +127,16 @@ final class SumavaCzServiceTest extends TestCase
 
 	/**
 	 * Gallery is not linked to any specific place
+	 * @group request
 	 */
 	public function testGalleryNotRelated()
 	{
 		$this->assertCount(0, SumavaCzService::processStatic('http://www.sumava.cz/galerie_sekce/4688-strovsk-skotsk-horalsk-hry-2020/')->getCollection());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testInvalidId(): void
 	{
 		$this->assertCount(0, SumavaCzService::processStatic('https://www.sumava.cz/objekt_az/99999999')->getCollection());

@@ -68,6 +68,9 @@ final class ZanikleObceCzServiceTest extends TestCase
 		$this->assertFalse(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/index.php'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testUrlObec(): void
 	{
 		$collection = ZanikleObceCzService::processStatic('http://www.zanikleobce.cz/index.php?obec=502')->getCollection();
@@ -91,6 +94,9 @@ final class ZanikleObceCzServiceTest extends TestCase
 		$this->assertSame('50.519070,13.644160', $collection[0]->__toString());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testUrlDetail(): void
 	{
 		$collection = ZanikleObceCzService::processStatic('http://www.zanikleobce.cz/index.php?detail=119532')->getCollection();
@@ -110,6 +116,9 @@ final class ZanikleObceCzServiceTest extends TestCase
 		$this->assertSame('49.778330,13.120830', $collection[0]->__toString());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testMissingCoordinates(): void
 	{
 		$this->expectException(InvalidLocationException::class);

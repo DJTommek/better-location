@@ -38,6 +38,9 @@ final class FirmyCzServiceTest extends TestCase
 		$this->assertFalse(FirmyCzService::isValidStatic('https://www.firmy.cz/detail/a13300341'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testValidLinks(): void
 	{
 		$this->assertSame('49.364246,16.644386', FirmyCzService::processStatic('https://www.firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html')->getFirst()->__toString());
@@ -51,6 +54,9 @@ final class FirmyCzServiceTest extends TestCase
 		$this->assertSame('50.221840,12.190701', FirmyCzService::processStatic('https://www.firmy.cz/detail/207772-penny-market-as.html')->getFirst()->__toString());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testInvalid(): void
 	{
 		$this->expectException(\DJTommek\MapyCzApi\MapyCzApiException::class);

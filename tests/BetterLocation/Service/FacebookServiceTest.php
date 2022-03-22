@@ -45,6 +45,9 @@ final class FacebookServiceTest extends TestCase
 		$this->assertFalse(FacebookService::isValidStatic('some invalid url'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testUrl(): void
 	{
 		$collection = FacebookService::processStatic('https://pt-br.facebook.com/burgerzelva/menu/?ref=page_internal')->getCollection();
@@ -72,6 +75,9 @@ final class FacebookServiceTest extends TestCase
 		$this->assertSame('-17.792721,-63.155202', $collection[0]->__toString());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testMissingCoordinates(): void
 	{
 		$collection = FacebookService::processStatic('https://www.facebook.com/ThePokeHaus')->getCollection();

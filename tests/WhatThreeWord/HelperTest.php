@@ -71,6 +71,9 @@ final class HelperTest extends TestCase
 		$this->assertCount(0, $words);
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testCoordsToWords(): void
 	{
 		$data = Helper::coordsToWords(51.521251, -0.203586);
@@ -86,6 +89,9 @@ final class HelperTest extends TestCase
 		$this->assertSame('https://w3w.co/paves.fans.piston', $data->map);
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testWordsToCoords(): void
 	{
 		$data = Helper::wordsToCoords('index.home.raft');

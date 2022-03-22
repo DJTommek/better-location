@@ -2,10 +2,9 @@
 
 use PHPUnit\Framework\TestCase;
 
-
 final class ServiceManagerTest extends TestCase
 {
-	private static $manager;
+	private static \App\BetterLocation\ServicesManager $manager;
 
 	public static function setUpBeforeClass(): void
 	{

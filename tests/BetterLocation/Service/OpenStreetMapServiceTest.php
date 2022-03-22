@@ -104,7 +104,9 @@ final class OpenStreetMapServiceTest extends TestCase
 		$this->assertFalse(OpenStreetMapService::isValidStatic('https://openstreetmap.org/goo/uuU2nmSl--?layers=N&m=')); // invalid path
 	}
 
-
+	/**
+	 * @group request
+	 */
 	public function testProcessShortUrl(): void
 	{
 		// https://www.openstreetmap.org/?mlat=50.05296528339386&mlon=14.45624828338623#map=18/50.05296528339386/14.45624828338623

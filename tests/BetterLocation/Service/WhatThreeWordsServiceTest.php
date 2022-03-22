@@ -8,7 +8,10 @@ use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 
 final class WhatThreeWordsServiceTest extends TestCase
 {
-	/** @noinspection PhpUnhandledExceptionInspection */
+	/**
+	 * @noinspection PhpUnhandledExceptionInspection
+	 * @group request
+	 */
 	public function testGenerateShareLink(): void
 	{
 		if (is_null(\App\Config::W3W_API_KEY)) {
@@ -82,6 +85,9 @@ final class WhatThreeWordsServiceTest extends TestCase
 		$this->assertFalse(WhatThreeWordService::isValidStatic('https://invalid.com/aaaa.bbbb.cccc'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testGeneral(): void
 	{
 		if (is_null(\App\Config::W3W_API_KEY)) {
@@ -103,6 +109,9 @@ final class WhatThreeWordsServiceTest extends TestCase
 		}
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testWords(): void
 	{
 		if (is_null(\App\Config::W3W_API_KEY)) {
@@ -126,6 +135,9 @@ final class WhatThreeWordsServiceTest extends TestCase
 		}
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testShortUrls(): void
 	{
 		if (is_null(\App\Config::W3W_API_KEY)) {
@@ -149,6 +161,9 @@ final class WhatThreeWordsServiceTest extends TestCase
 		}
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testNormalUrls(): void
 	{
 		if (is_null(\App\Config::W3W_API_KEY)) {

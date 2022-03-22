@@ -39,7 +39,9 @@
 		"pre-update-cmd": "@php ./src/tools/CopyLocalConfig.php",
 		"phpstan": "phpstan analyse --memory-limit 512m",
 		"phpstan-baseline": "phpstan analyse --memory-limit 512m --generate-baseline",
-		"test": "phpunit"
+		"test": "phpunit",
+		"test-quick": "phpunit --exclude-group request",
+		"test-request": "phpunit --group request"
 	},
     "repositories": [
         {

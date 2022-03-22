@@ -119,6 +119,9 @@ final class HereWeGoServiceTest extends TestCase
 		$this->assertTrue(HereWeGoService::isValidStatic('https://wego.here.com/saint-helena/sandy-bay/city-town-village/sandy-bay--loc-dmVyc2lvbj0xO3RpdGxlPVNhbmR5K0JheTtsYXQ9LTE1Ljk3ODE2O2xvbj0tNS43MTIwNTtjaXR5PVNhbmR5K0JheTtjb3VudHJ5PVNITjtjb3VudHk9U2FuZHkrQmF5O2NhdGVnb3J5SWQ9Y2l0eS10b3duLXZpbGxhZ2U7c291cmNlU3lzdGVtPWludGVybmFs?map=-15.99429,-5.75681,15,normal&msg=Sandy%20Bay'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testRequestLocUrl(): void
 	{
 		$collection = HereWeGoService::processStatic('https://wego.here.com/czech-republic/prague/street-square/m%C3%A1nes%C5%AFv-most--loc-dmVyc2lvbj0xO3RpdGxlPU0lQzMlQTFuZXMlQzUlQUZ2K21vc3Q7bGF0PTUwLjA4OTM0O2xvbj0xNC40MTM2NDtzdHJlZXQ9TSVDMyVBMW5lcyVDNSVBRnYrbW9zdDtjaXR5PVByYWd1ZTtwb3N0YWxDb2RlPTExOCswMDtjb3VudHJ5PUNaRTtkaXN0cmljdD1QcmFoYSsxO3N0YXRlQ29kZT1QcmFndWU7Y291bnR5PVByYWd1ZTtjYXRlZ29yeUlkPXN0cmVldC1zcXVhcmU7c291cmNlU3lzdGVtPWludGVybmFs?map=50.08963,14.41276,16,satellite_traffic&msg=M%C3%A1nes%C5%AFv%20most')->getCollection();
@@ -150,6 +153,9 @@ final class HereWeGoServiceTest extends TestCase
 		$this->assertTrue(HereWeGoService::isValidStatic('https://her.is/3bEopFZ'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testShortUrl(): void
 	{
 		$collection = HereWeGoService::processStatic('https://her.is/3lZVXD3')->getCollection(); // map center was few kilometers off the shared point when creating share link

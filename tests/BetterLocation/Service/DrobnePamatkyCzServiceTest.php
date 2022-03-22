@@ -40,6 +40,9 @@ final class DrobnePamatkyCzServiceTest extends TestCase
 		$this->assertFalse(DrobnePamatkyCzService::isValidStatic('some invalid url'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testUrl(): void
 	{
 		$this->assertSame('50.067698,14.401455', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/36966')->getFirst()->__toString());
@@ -50,6 +53,9 @@ final class DrobnePamatkyCzServiceTest extends TestCase
 		$this->assertSame('48.974158,14.612296', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/2892')->getFirst()->__toString());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testMissingCoordinates1(): void
 	{
 		$this->expectException(\App\MiniCurl\Exceptions\InvalidResponseException::class);

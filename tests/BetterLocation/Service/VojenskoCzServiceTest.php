@@ -45,6 +45,9 @@ final class VojenskoCzServiceTest extends TestCase
 		$this->assertFalse(VojenskoCzService::isValidStatic('http://www.some-domain.cz/some-path'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testProcessPlace(): void
 	{
 		$this->assertLocation('http://www.vojensko.cz/vu-5849-jachymov-vrsek', 50.375738, 12.863950);
@@ -61,6 +64,7 @@ final class VojenskoCzServiceTest extends TestCase
 
 	/**
 	 * Pages, that do not have any location
+	 * @group request
 	 */
 	public function testInvalid(): void
 	{

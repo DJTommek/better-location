@@ -46,6 +46,9 @@ final class ZniceneKostelyCzServiceTest extends TestCase
 		$this->assertFalse(ZniceneKostelyCzService::isValidStatic('some invalid url'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testUrl(): void
 	{
 		$collection = ZniceneKostelyCzService::processStatic('http://www.znicenekostely.cz/?load=detail&id=18231#obsah')->getCollection();
@@ -70,6 +73,9 @@ final class ZniceneKostelyCzServiceTest extends TestCase
 
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testMissingCoordinates(): void
 	{
 		$collection = ZniceneKostelyCzService::processStatic('http://znicenekostely.cz/index.php?load=detail&id=99999999')->getCollection();
