@@ -192,7 +192,7 @@ final class MosaicTypeTest extends TestCase
 		$this->assertSame('Prague', self::$mosaics[1788]->locationName);
 		$this->assertSame(6, self::$mosaics[1788]->missionsTotal);
 		$this->assertSame('Matrix', self::$mosaics[1788]->name);
-		$this->assertSame(7.6666666667, self::$mosaics[1788]->portalsAvgPerMission);
+		$this->assertEqualsWithDelta(7.6666666667, self::$mosaics[1788]->portalsAvgPerMission, 0.0000001);
 		$this->assertSame(46, self::$mosaics[1788]->portalsTotal);
 		$this->assertSame(44, self::$mosaics[1788]->portalsUnique);
 		$this->assertSame(100, self::$mosaics[1788]->status);
@@ -211,7 +211,7 @@ final class MosaicTypeTest extends TestCase
 		$this->assertSame('Prague', self::$mosaics[6798]->locationName);
 		$this->assertSame(72, self::$mosaics[6798]->missionsTotal);
 		$this->assertSame('Staroměstská radnice s orlojem', self::$mosaics[6798]->name);
-		$this->assertSame(7.5833333333, self::$mosaics[6798]->portalsAvgPerMission);
+		$this->assertEqualsWithDelta(7.5833333333, self::$mosaics[6798]->portalsAvgPerMission, 0.0000001);
 		$this->assertSame(546, self::$mosaics[6798]->portalsTotal);
 		$this->assertSame(451, self::$mosaics[6798]->portalsUnique);
 		$this->assertSame(100, self::$mosaics[6798]->status);
@@ -230,7 +230,7 @@ final class MosaicTypeTest extends TestCase
 		$this->assertSame('Prague', self::$mosaics[7200]->locationName);
 		$this->assertSame(24, self::$mosaics[7200]->missionsTotal);
 		$this->assertSame('Pražská nádraží', self::$mosaics[7200]->name);
-		$this->assertSame(9.54166666666, self::$mosaics[7200]->portalsAvgPerMission);
+		$this->assertEqualsWithDelta(9.54166666666, self::$mosaics[7200]->portalsAvgPerMission, 0.0000001);
 		$this->assertSame(229, self::$mosaics[7200]->portalsTotal);
 		$this->assertSame(226, self::$mosaics[7200]->portalsUnique);
 		$this->assertSame(100, self::$mosaics[7200]->status);
@@ -249,7 +249,7 @@ final class MosaicTypeTest extends TestCase
 		$this->assertSame('Prague', self::$mosaics[9966]->locationName);
 		$this->assertSame(71, self::$mosaics[9966]->missionsTotal);
 		$this->assertSame('Poslkádej si Glyphy', self::$mosaics[9966]->name);
-		$this->assertSame(6.197183098591, self::$mosaics[9966]->portalsAvgPerMission);
+		$this->assertEqualsWithDelta(6.197183098591, self::$mosaics[9966]->portalsAvgPerMission, 0.0000001);
 		$this->assertSame(440, self::$mosaics[9966]->portalsTotal);
 		$this->assertSame(38, self::$mosaics[9966]->portalsUnique);
 		$this->assertSame(100, self::$mosaics[9966]->status);

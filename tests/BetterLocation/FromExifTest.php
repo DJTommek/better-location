@@ -13,14 +13,13 @@ final class FromExifTest extends TestCase
 	 */
 	public function testFromURLPldrGallery(): void {
 		// file as image from https://pldr-gallery.redilap.cz/#/map+from+EXIF/20190811_122938.jpg
+		// uncopressed (default parameter)
 		$this->assertSame('50.695965,15.737657', BetterLocation::fromExif('https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn')->__toString());
+		// uncompressed (forced)
 		$this->assertSame('50.695965,15.737657', BetterLocation::fromExif('https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn&compress=false')->__toString());
-
-		// @TODO compressed images don't have any EXIF data, see https://github.com/DJTommek/pldr-gallery/issues/69
-		$compressedImage = 'https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn&compress=true';
-//		$this->assertSame('50.695965,15.737657', BetterLocation::fromExif($compressedImage)->__toString());
-		$this->assertNull(BetterLocation::fromExif($compressedImage));
-
+		// compressed (forced)
+		$this->assertSame('50.695965,15.737657', BetterLocation::fromExif('https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn&compress=true')->__toString());
+		// uncompressed (via download)
 		$this->assertSame('50.695965,15.737657', BetterLocation::fromExif('https://pldr-gallery.redilap.cz/api/download?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn')->__toString());
 	}
 

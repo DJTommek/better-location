@@ -13,6 +13,7 @@ final class OpenElevationTest extends TestCase
 	public static function setUpBeforeClass(): void
 	{
 		self::$api = new OpenElevation();
+		self::markTestSkipped('Elevation API is not timeouting');
 	}
 
 	public function testLookup(): void

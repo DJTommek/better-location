@@ -7,20 +7,20 @@ final class GoogleMapsServiceTest extends TestCase
 {
 	public function testGenerateShareLink(): void
 	{
-		$this->assertSame('https://www.google.cz/maps/place/50.087451,14.420671?q=50.087451,14.420671', GoogleMapsService::getLink(50.087451, 14.420671));
-		$this->assertSame('https://www.google.cz/maps/place/50.100000,14.500000?q=50.100000,14.500000', GoogleMapsService::getLink(50.1, 14.5));
-		$this->assertSame('https://www.google.cz/maps/place/-50.200000,14.600000?q=-50.200000,14.600000', GoogleMapsService::getLink(-50.2, 14.6000001)); // round down
-		$this->assertSame('https://www.google.cz/maps/place/50.300000,-14.700001?q=50.300000,-14.700001', GoogleMapsService::getLink(50.3, -14.7000009)); // round up
-		$this->assertSame('https://www.google.cz/maps/place/-50.400000,-14.800008?q=-50.400000,-14.800008', GoogleMapsService::getLink(-50.4, -14.800008));
+		$this->assertSame('https://www.google.com/maps/place/50.087451,14.420671?q=50.087451,14.420671', GoogleMapsService::getLink(50.087451, 14.420671));
+		$this->assertSame('https://www.google.com/maps/place/50.100000,14.500000?q=50.100000,14.500000', GoogleMapsService::getLink(50.1, 14.5));
+		$this->assertSame('https://www.google.com/maps/place/-50.200000,14.600000?q=-50.200000,14.600000', GoogleMapsService::getLink(-50.2, 14.6000001)); // round down
+		$this->assertSame('https://www.google.com/maps/place/50.300000,-14.700001?q=50.300000,-14.700001', GoogleMapsService::getLink(50.3, -14.7000009)); // round up
+		$this->assertSame('https://www.google.com/maps/place/-50.400000,-14.800008?q=-50.400000,-14.800008', GoogleMapsService::getLink(-50.4, -14.800008));
 	}
 
 	public function testGenerateDriveLink(): void
 	{
-		$this->assertSame('https://maps.google.cz/?daddr=50.087451,14.420671&travelmode=driving', GoogleMapsService::getLink(50.087451, 14.420671, true));
-		$this->assertSame('https://maps.google.cz/?daddr=50.100000,14.500000&travelmode=driving', GoogleMapsService::getLink(50.1, 14.5, true));
-		$this->assertSame('https://maps.google.cz/?daddr=-50.200000,14.600000&travelmode=driving', GoogleMapsService::getLink(-50.2, 14.6000001, true)); // round down
-		$this->assertSame('https://maps.google.cz/?daddr=50.300000,-14.700001&travelmode=driving', GoogleMapsService::getLink(50.3, -14.7000009, true)); // round up
-		$this->assertSame('https://maps.google.cz/?daddr=-50.400000,-14.800008&travelmode=driving', GoogleMapsService::getLink(-50.4, -14.800008, true));
+		$this->assertSame('https://www.google.com/maps/dir/?api=1&destination=50.087451%2C14.420671&travelmode=driving&dir_action=navigate', GoogleMapsService::getLink(50.087451, 14.420671, true));
+		$this->assertSame('https://www.google.com/maps/dir/?api=1&destination=50.100000%2C14.500000&travelmode=driving&dir_action=navigate', GoogleMapsService::getLink(50.1, 14.5, true));
+		$this->assertSame('https://www.google.com/maps/dir/?api=1&destination=-50.200000%2C14.600000&travelmode=driving&dir_action=navigate', GoogleMapsService::getLink(-50.2, 14.6000001, true)); // round down
+		$this->assertSame('https://www.google.com/maps/dir/?api=1&destination=50.300000%2C-14.700001&travelmode=driving&dir_action=navigate', GoogleMapsService::getLink(50.3, -14.7000009, true)); // round up
+		$this->assertSame('https://www.google.com/maps/dir/?api=1&destination=-50.400000%2C-14.800008&travelmode=driving&dir_action=navigate', GoogleMapsService::getLink(-50.4, -14.800008, true));
 	}
 
 	public function testIsValidShortUrl(): void {
