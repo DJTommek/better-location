@@ -1,13 +1,16 @@
 # BetterLocation
 
-Simple but very smart Telegram bot for processing various types of location format and converting them to user-defined formats.<br>
-Available publicly on [@BetterLocationBot](https://t.me/BetterLocationBot).
+Simple but very smart Telegram bot for processing various types of location format and converting them to user-defined formats.
+
+Available publicly on 
+Telegram as [@BetterLocationBot](https://t.me/BetterLocationBot) 
+and web [better-location.palider.cz](https://better-location.palider.cz/). 
 
 ![@BetterLocationBot example](www/img/better-location-bot-example.png "@BetterLocationBot example")
 
 ## Requirements
 - PHP webserver (written and tested with PHP 8.0)
-- Database server (written and tested with MySQL 8 and MariaDB 10)
+- Database server (written and tested with MariaDB 10)
 - Domain with SSL certificate (might be self-signed). Detailed requirements are described on [Telegram's webhook page](https://core.telegram.org/bots/webhooks).
 
 ## Installation
