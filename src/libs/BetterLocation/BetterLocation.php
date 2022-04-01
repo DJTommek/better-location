@@ -17,6 +17,7 @@ use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
 use App\Utils\CoordinatesInterface;
+use App\Utils\General;
 use App\Utils\Strict;
 use JetBrains\PhpStorm\Pure;
 use maxh\Nominatim\Exceptions\NominatimException;
@@ -172,9 +173,13 @@ class BetterLocation implements CoordinatesInterface
 		if (is_string($input) === false && is_resource($input) === false) {
 			throw new \InvalidArgumentException('Input must be string or resource.');
 		}
-		$exif = exif_read_data($input);
+		try {
+			$exif = General::exifReadData($input);
+		} catch (\RuntimeException $exception) {
+			Debugger::log($exception, Debugger::WARNING);
+			return null;
+		}
 		if (
-			$exif &&
 			isset($exif['GPSLatitude']) &&
 			isset($exif['GPSLongitude']) &&
 			isset($exif['GPSLatitudeRef']) &&
