@@ -61,7 +61,7 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 	{
 		$collection = new BetterLocationCollection();
 		$text = str_replace('\'\'', '"', $text); // Replace two quotes as one doublequote
-		if (preg_match_all('/' . self::getRegex() . '/u', $text, $matches)) {
+		if (preg_match_all('/' . self::getRegex() . '/iu', $text, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				$coordsRaw = $matches[0][$i];
 				$service = new static($coordsRaw);
@@ -83,7 +83,7 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 	public function isValid(): bool
 	{
 		$input = str_replace('\'\'', '"', $this->input); // Replace two quotes as one doublequote
-		if (preg_match('/^' . static::getRegex() . '$/u', $input, $matches)) {
+		if (preg_match('/^' . static::getRegex() . '$/iu', $input, $matches)) {
 			$this->data->matches = $matches;
 			return true;
 		}

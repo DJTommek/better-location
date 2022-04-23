@@ -108,6 +108,13 @@ final class WGS84DegreesServiceTest extends TestCase
 		$this->assertSame('-50.636144,-14.337469', WGS84DegreesService::processStatic('S 50.636144 ° , W ° 14.337469')->getFirst()->__toString());
 	}
 
+	public function testValidCoordinatesCaseSensitivity(): void
+	{
+		$this->assertSame('50.636144,14.337469', WGS84DegreesService::processStatic('50.636144°n, 14.337469°E')->getFirst()->__toString());
+		$this->assertSame('50.636144,14.337469', WGS84DegreesService::processStatic('50.636144 °N, 14.337469 °e')->getFirst()->__toString());
+		$this->assertSame('50.636144,14.337469', WGS84DegreesService::processStatic('50.636144° n, 14.337469° e')->getFirst()->__toString());
+	}
+
 	public function testValidCoordinatesWithoutHemisphereAndDegreeSign1(): void
 	{
 		$this->assertSame('50.636144,14.337469', WGS84DegreesService::processStatic('50.636144°, 14.337469°')->getFirst()->__toString());
