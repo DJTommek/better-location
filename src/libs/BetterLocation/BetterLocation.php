@@ -200,11 +200,7 @@ class BetterLocation implements CoordinatesInterface
 
 	public function generateMessage(BetterLocationMessageSettings $settings): string
 	{
-		$icon = $this->coords->isInPolygon([
-			[50.375073,14.352470], [50.373589,13.959160], [50.173204,13.962662], [50.173094,14.354324]
-			]) ? Icons::ENABLED : Icons::DISABLED;
-		$text = sprintf('%s %s <a href="%s" target="_blank">%s</a> <code>%s</code>',
-			$icon,
+		$text = sprintf('%s <a href="%s" target="_blank">%s</a> <code>%s</code>',
 			$this->prefixMessage,
 			$this->generateScreenshotLink($settings->getScreenshotLinkService()),
 			Icons::MAP_SCREEN,
