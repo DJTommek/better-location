@@ -188,6 +188,8 @@ a {
 	width: 100%;
 	display: block;
 	position: relative;
+	padding-left: 0.1em;
+	padding-right: 0.1em;
 }
 
 .telegram-message .buttons a.btn:after {
