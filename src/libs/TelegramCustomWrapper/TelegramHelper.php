@@ -15,7 +15,9 @@ use unreal4u\TelegramAPI\Telegram\Types\User;
 
 class TelegramHelper
 {
-	const API_URL = 'https://api.telegram.org';
+	public const API_URL = 'https://api.telegram.org';
+
+	public const INLINE_KEYBOARD_MAX_BUTTON_PER_ROW = 8;
 
 	public static function getMessagePrefix(?UrlImmutable $hiddenLink = null): string
 	{

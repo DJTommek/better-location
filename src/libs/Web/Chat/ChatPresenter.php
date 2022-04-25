@@ -86,12 +86,18 @@ class ChatPresenter extends MainPresenter
 		$this->chat->settingsPreview(isset($_POST['map-preview']));
 		$services = Factory::ServicesManager()->getServices();
 
-		$servicesToSave = [];
+		$linkServicesToSave = [];
 		foreach ($_POST['link-services'] ?? [] as $linkserviceId) {
-			$servicesToSave[$linkserviceId] = $services[$linkserviceId];
+			$linkServicesToSave[$linkserviceId] = $services[$linkserviceId];
 		}
+		$this->chat->getMessageSettings()->setLinkServices($linkServicesToSave);
 
-		$this->chat->getMessageSettings()->setLinkServices($servicesToSave);
+		$buttonServicesToSave = [];
+		foreach ($_POST['button-services'] ?? [] as $buttonService) {
+			$buttonServicesToSave[$buttonService] = $services[$buttonService];
+		}
+		$this->chat->getMessageSettings()->setButtonServices($buttonServicesToSave);
+
 		$this->chat->getMessageSettings()->saveToDb($this->chat->getEntity()->id);
 		$this->redirect('/chat/' . $this->chatTelegramId);
 	}

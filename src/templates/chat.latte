@@ -58,10 +58,14 @@
 					<tr>
 						<td>Drive button services</td>
 						<td>
-                            {foreach $chat->getMessageSettings()->getButtonServices() as $linkService}
-                                {$linkService::NAME}
-								<br>
-                            {/foreach}
+							<select name="button-services[]" multiple size="8" class="form-select">
+                                {foreach $services->getServices([\App\BetterLocation\ServicesManager::TAG_GENERATE_LINK_DRIVE]) as $service}
+									<option
+											value="{$service::ID}"
+											n:attr="selected: in_array($service, $chat->getMessageSettings()->getButtonServices(), true)"
+									>{$service::getName()}</option>
+                                {/foreach}
+							</select>
 						</td>
 					</tr>
 					<tr>

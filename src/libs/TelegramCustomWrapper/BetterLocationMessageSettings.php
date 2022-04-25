@@ -122,7 +122,7 @@ class BetterLocationMessageSettings
 		// Ensure, that first service is always BetterLocation, even if it is already set
 		$services = array_unique(array_merge([BetterLocationService::class], $services));
 
-		$services = array_filter($services, function ($service) { // remove services, that can't be used as link service
+		$services = array_filter($services, function ($service) { // remove services, that can't generate share link
 			return in_array(ServicesManager::TAG_GENERATE_LINK_SHARE, $service::TAGS, true);
 		});
 		$this->linkServices = $services;
@@ -131,9 +131,10 @@ class BetterLocationMessageSettings
 	/** @param AbstractService[] $services */
 	public function setButtonServices(array $services): void
 	{
-		$services = array_filter($services, function ($service) { // remove services, that can't be used as link service
+		$services = array_filter($services, function ($service) { // remove services, that can't generate drive link
 			return in_array(ServicesManager::TAG_GENERATE_LINK_DRIVE, $service::TAGS, true);
 		});
+		$services = array_slice($services, 0, TelegramHelper::INLINE_KEYBOARD_MAX_BUTTON_PER_ROW);
 		$this->buttonServices = $services;
 	}
 
