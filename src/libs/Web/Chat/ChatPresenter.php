@@ -15,6 +15,8 @@ class ChatPresenter extends MainPresenter
 	private $chatTelegramId;
 	/** @var ?Telegram\Types\Chat */
 	private $chatResponse;
+	/** @var ?Chat */
+	private $chat;
 	/** @var ?Telegram\Types\ChatMember */
 	private $chatMemberResponse;
 
@@ -31,6 +33,12 @@ class ChatPresenter extends MainPresenter
 			$this->chatTelegramId = Strict::intval($_GET['telegramId']);
 			$this->loadChatData();
 		}
+		if ($this->isAdmin()) {
+			$this->chat = new Chat($this->chatTelegramId, $this->chatResponse->type, TelegramHelper::getChatDisplayname($this->chatResponse));
+			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				$this->handleSettingsForm();
+			}
+		}
 	}
 
 	public function render(): void
@@ -38,7 +46,7 @@ class ChatPresenter extends MainPresenter
 		$this->template->telegramChatId = $this->chatTelegramId;
 		if ($this->isAdmin()) {
 			$this->template->prepareOk($this->chatResponse);
-			$this->template->chat = new Chat($this->chatTelegramId, $this->chatResponse->type, TelegramHelper::getChatDisplayname($this->chatResponse));
+			$this->template->chat = $this->chat;
 			Factory::Latte('chat.latte', $this->template);
 		} else {
 			$this->template->prepareError();
@@ -72,6 +80,20 @@ class ChatPresenter extends MainPresenter
 			return ($this->chatResponse->type === 'private' || TelegramHelper::isAdmin($this->chatMemberResponse));
 		}
 		return false;
+	}
+
+	private function handleSettingsForm() {
+		$this->chat->settingsPreview(isset($_POST['map-preview']));
+		$services = Factory::ServicesManager()->getServices();
+
+		$servicesToSave = [];
+		foreach ($_POST['link-services'] ?? [] as $linkserviceId) {
+			$servicesToSave[$linkserviceId] = $services[$linkserviceId];
+		}
+
+		$this->chat->getMessageSettings()->setLinkServices($servicesToSave);
+		$this->chat->getMessageSettings()->saveToDb($this->chat->getEntity()->id);
+		$this->redirect('/chat/' . $this->chatTelegramId);
 	}
 
 }

@@ -4,8 +4,10 @@ namespace App\Web\Chat;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\WazeService;
+use App\BetterLocation\ServicesManager;
 use App\Chat;
 use App\Config;
+use App\Factory;
 use App\TelegramCustomWrapper\Events\Command\DebugCommand;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Web\LayoutTemplate;
@@ -41,6 +43,7 @@ class ChatTemplate extends LayoutTemplate
 	public $authorName;
 	/** @var string */
 	public $authorLink;
+	public ServicesManager $services;
 
 	// in case of error - end
 
@@ -57,6 +60,7 @@ class ChatTemplate extends LayoutTemplate
 		$this->lat = $this->exampleLocation->getLat();
 		$this->lon = $this->exampleLocation->getLon();
 		$this->chatResponse = $chatResponse;
+		$this->services = Factory::ServicesManager();
 	}
 
 	public function prepareError()

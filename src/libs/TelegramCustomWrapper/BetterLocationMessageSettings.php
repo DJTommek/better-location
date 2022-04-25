@@ -120,21 +120,30 @@ class BetterLocationMessageSettings
 	public function setLinkServices(array $services): void
 	{
 		// Ensure, that first service is always BetterLocation, even if it is already set
-		$services = array_unique([BetterLocationService::class] + $services);
-		ksort($services, SORT_NUMERIC);
+		$services = array_unique(array_merge([BetterLocationService::class], $services));
+
+		$services = array_filter($services, function ($service) { // remove services, that can't be used as link service
+			return in_array(ServicesManager::TAG_GENERATE_LINK_SHARE, $service::TAGS, true);
+		});
 		$this->linkServices = $services;
 	}
 
 	/** @param AbstractService[] $services */
 	public function setButtonServices(array $services): void
 	{
-		ksort($services, SORT_NUMERIC);
+		$services = array_filter($services, function ($service) { // remove services, that can't be used as link service
+			return in_array(ServicesManager::TAG_GENERATE_LINK_DRIVE, $service::TAGS, true);
+		});
 		$this->buttonServices = $services;
 	}
 
 	public function setScreenshotLinkService(string $service): void
 	{
-		$this->screenshotLinkService = $service;
+		if (in_array(ServicesManager::TAG_GENERATE_LINK_IMAGE, $service::TAGS, true)) {
+			$this->screenshotLinkService = $service;
+		} else {
+			throw new \InvalidArgumentException(sprintf('Service "%s" (ID %s) could not be used as screenshot link service.', $service::getName(), $service::ID));
+		}
 	}
 
 	public function setAddress(bool $address): void
@@ -154,6 +163,7 @@ class BetterLocationMessageSettings
 		return $this->buttonServices;
 	}
 
+	/** @return AbstractService */
 	public function getScreenshotLinkService(): string
 	{
 		return $this->screenshotLinkService;
@@ -162,5 +172,38 @@ class BetterLocationMessageSettings
 	public function showAddress(): bool
 	{
 		return $this->address;
+	}
+
+	public function saveToDb(int $chatId): void
+	{
+		$query = 'INSERT INTO better_location_chat_services (`chat_id`, `service_id`, `type`, `order`) VALUES';
+		$params = [];
+
+		$i = 0;
+		foreach ($this->getLinkServices() as $linkService) {
+			$query .= '(?, ?, ?, ?), ';
+			$params = array_merge($params, [$chatId, $linkService::ID, self::TYPE_SHARE, $i++]);
+		}
+
+		$i = 0;
+		foreach ($this->getButtonServices() as $linkService) {
+			$query .= '(?, ?, ?, ?), ';
+			$params = array_merge($params, [$chatId, $linkService::ID, self::TYPE_DRIVE, $i++]);
+		}
+
+		$query .= '(?, ?, ?, ?)';
+		$params = array_merge($params, [$chatId, $this->getScreenshotLinkService()::ID, self::TYPE_SCREENSHOT, 0]);
+
+		$db = Factory::Database();
+		$dbLink = $db->getLink();
+		$dbLink->beginTransaction();
+		try {
+			$db->query('DELETE FROM better_location_chat_services WHERE chat_id = ?', $chatId);
+			$db->query($query, ...$params);
+			$db->getLink()->commit();
+		} catch (\PDOException $exception) {
+			$dbLink->rollBack();
+			throw $exception;
+		}
 	}
 }

@@ -25,10 +25,10 @@ class Chat
 		}
 	}
 
-	public function settingsPreview(?bool $value = null): bool
+	public function settingsPreview(?bool $enable = null): bool
 	{
-		if ($value !== null) {
-			$this->chatEntity->settingsPreview = $value;
+		if ($enable !== null) {
+			$this->chatEntity->settingsPreview = $enable;
 			$this->update();
 		}
 		return $this->chatEntity->settingsPreview;
@@ -80,6 +80,11 @@ class Chat
 	public function getSendNativeLocation(): bool
 	{
 		return $this->settingsOutputType() === ChatEntity::OUTPUT_TYPE_LOCATION;
+	}
+
+	public function getEntity(): ?ChatEntity
+	{
+		return $this->chatEntity;
 	}
 
 }
