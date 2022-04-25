@@ -109,7 +109,9 @@
 				<a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087451%26x%3D14.420671%26source%3Dcoor%26id%3D14.420671%252C50.087451%26p%3D3%26l%3D0" target="_blank">
                     {\App\Icons::MAP_SCREEN}
 				</a>
-				<code>{$exampleLocation->__toString()}</code>
+				<code class="copy-to-clipboard" data-clipboard-text="{$exampleLocation->key()}" title="Click to copy text to clipboard">
+					{$exampleLocation->key()}
+				</code>
 				<br>
                 {foreach $chat->getMessageSettings()->getLinkServices() as $service}
 					<a href="{$service::getLink($lat, $lon)}" target="_blank">
