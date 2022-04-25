@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\ServicesManager;
 use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
@@ -32,6 +33,12 @@ final class GoogleMapsService extends AbstractService
 	const TYPE_INLINE_SEARCH = 'inline search';
 	const TYPE_HIDDEN = 'hidden';
 	const TYPE_DRIVE = 'drive';
+
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_OFFLINE,
+		ServicesManager::TAG_GENERATE_LINK_SHARE,
+		ServicesManager::TAG_GENERATE_LINK_DRIVE,
+	];
 
 	public static function getConstants(): array
 	{

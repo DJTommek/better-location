@@ -4,6 +4,7 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\ServicesManager;
 use App\Factory;
 use App\Foursquare\Client;
 use App\Foursquare\Types\VenueType;
@@ -21,6 +22,11 @@ final class FoursquareService extends AbstractService
 	 * https://foursquare.com/v/typika/5bfe5f9e54b7a90025543a66
 	 */
 	const URL_PATH_VENUE_REGEX = '/^\/v\/[^\/]+\/(' . self::VENUE_ID_REGEX . ')$/i';
+
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_OFFLINE,
+		ServicesManager::TAG_GENERATE_LINK_SHARE,
+	];
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{

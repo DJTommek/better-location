@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\ServicesManager;
 use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Strict;
@@ -17,6 +18,11 @@ final class ZanikleObceCzService extends AbstractService
 	const NAME = 'ZanikleObce.cz';
 
 	const LINK = 'http://zanikleobce.cz';
+
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_OFFLINE,
+		ServicesManager::TAG_GENERATE_LINK_SHARE,
+	];
 
 	/**@throws NotSupportedException */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string

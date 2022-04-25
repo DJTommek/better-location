@@ -6,6 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\ServicesManager;
 use App\Utils\Coordinates;
 
 final class BetterLocationService extends AbstractService
@@ -16,6 +17,11 @@ final class BetterLocationService extends AbstractService
 	const LINK = 'https://better-location.palider.cz';
 
 	const URL_PATH_REGEX = '/^\/(-?[0-9.]+),(-?[0-9.]+)$/';
+
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_OFFLINE,
+		ServicesManager::TAG_GENERATE_LINK_SHARE,
+	];
 
 	/** @throws NotSupportedException */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string

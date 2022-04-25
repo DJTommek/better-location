@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\ServicesManager;
 use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Strict;
@@ -19,6 +20,11 @@ final class DrobnePamatkyCzService extends AbstractService
 	const LINK = 'https://www.drobnepamatky.cz';
 
 	const PATH_REGEX = '/^\/node\/[0-9]+$/';
+
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_OFFLINE,
+		ServicesManager::TAG_GENERATE_LINK_SHARE,
+	];
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{

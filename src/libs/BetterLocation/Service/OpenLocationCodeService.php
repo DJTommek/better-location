@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\ServicesManager;
 use OpenLocationCode\OpenLocationCode;
 
 final class OpenLocationCodeService extends AbstractService
@@ -19,6 +20,11 @@ final class OpenLocationCodeService extends AbstractService
 
 	const RE = '/^([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,4})$/i';
 	const RE_IN_STRING = '/(?:^|\s)([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,4})(?:\s|$)/i';
+
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_OFFLINE,
+		ServicesManager::TAG_GENERATE_LINK_SHARE,
+	];
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{

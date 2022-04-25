@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\ServicesManager;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
@@ -35,6 +36,13 @@ final class MapyCzService extends AbstractService
 			)
 		);
 	}
+
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_OFFLINE,
+		ServicesManager::TAG_GENERATE_LINK_SHARE,
+		ServicesManager::TAG_GENERATE_LINK_DRIVE,
+		ServicesManager::TAG_GENERATE_LINK_IMAGE,
+	];
 
 	private function isShortUrl()
 	{

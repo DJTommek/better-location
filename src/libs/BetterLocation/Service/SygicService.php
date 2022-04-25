@@ -2,6 +2,8 @@
 
 namespace App\BetterLocation\Service;
 
+use App\BetterLocation\ServicesManager;
+
 final class SygicService extends AbstractService
 {
 	const ID = 4;
@@ -10,6 +12,12 @@ final class SygicService extends AbstractService
 	const LINK = 'https://sygic.com';
 	const DRIVE_LINK = 'https://go.sygic.com';
 	const SHARE_LINK = 'https://maps.sygic.com';
+
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_OFFLINE,
+		ServicesManager::TAG_GENERATE_LINK_SHARE,
+		ServicesManager::TAG_GENERATE_LINK_DRIVE,
+	];
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{

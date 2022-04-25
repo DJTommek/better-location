@@ -3,6 +3,7 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\ServicesManager;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
 use Nette\Utils\Arrays;
@@ -13,6 +14,12 @@ final class OsmAndService extends AbstractService
 	const NAME = 'OsmAnd';
 
 	const LINK = 'https://osmand.net';
+
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_OFFLINE,
+		ServicesManager::TAG_GENERATE_LINK_SHARE,
+		ServicesManager::TAG_GENERATE_LINK_DRIVE,
+	];
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{

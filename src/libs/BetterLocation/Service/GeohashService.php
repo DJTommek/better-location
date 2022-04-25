@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\ServicesManager;
 use App\Utils\Coordinates;
 use Lvht\GeoHash;
 
@@ -23,6 +24,11 @@ final class GeohashService extends AbstractService
 	const DEFAULT_PRECISION = 0.000001;  // precision to 6 decimal places in WGS84 format
 	const RE = '[0123456789bcdefghjkmnpqrstuvwxyz]';
 	const RE_IN_STRING = '/(^|\s)(' . self::RE . '{8,})(\s|$)/i';
+
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_OFFLINE,
+		ServicesManager::TAG_GENERATE_LINK_SHARE,
+	];
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{

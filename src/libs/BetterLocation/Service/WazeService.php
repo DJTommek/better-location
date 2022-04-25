@@ -4,6 +4,7 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\ServicesManager;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
@@ -14,6 +15,12 @@ final class WazeService extends AbstractService
 	const NAME = 'Waze';
 
 	const LINK = 'https://www.waze.com';
+
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_OFFLINE,
+		ServicesManager::TAG_GENERATE_LINK_SHARE,
+		ServicesManager::TAG_GENERATE_LINK_DRIVE,
+	];
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{

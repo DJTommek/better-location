@@ -51,6 +51,13 @@ class ServicesManager
 	/** Service can generate location only by processing via paid service */
 	public const TAG_GENERATE_PAID = 3;
 
+	/** Service can generate link to share location */
+	public const TAG_GENERATE_LINK_SHARE = 11;
+	/** Service can generate link for driving to location */
+	public const TAG_GENERATE_LINK_DRIVE = 12;
+	/** Service can generate link for generating static image of that location */
+	public const TAG_GENERATE_LINK_IMAGE = 13;
+
 	/** @var AbstractService[] */
 	private $services = [];
 

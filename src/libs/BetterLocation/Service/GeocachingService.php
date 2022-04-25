@@ -6,6 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\ServicesManager;
 use App\Factory;
 use App\Geocaching\Client;
 use App\Geocaching\Types\GeocachePreviewType;
@@ -59,6 +60,11 @@ final class GeocachingService extends AbstractService
 			self::TYPE_MAP_COORD,
 		];
 	}
+
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_OFFLINE,
+		ServicesManager::TAG_GENERATE_LINK_SHARE,
+	];
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{

@@ -4,6 +4,7 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\ServicesManager;
 use App\Factory;
 use App\Icons;
 use App\Utils\Coordinates;
@@ -19,6 +20,11 @@ final class IngressIntelService extends AbstractService
 	const TYPE_PORTAL = 'portal';
 
 	const LINK = 'https://intel.ingress.com';
+
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_OFFLINE,
+		ServicesManager::TAG_GENERATE_LINK_SHARE,
+	];
 
 	/** @throws NotSupportedException */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string

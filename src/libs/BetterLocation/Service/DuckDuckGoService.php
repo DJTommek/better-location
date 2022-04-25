@@ -3,6 +3,7 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\ServicesManager;
 
 final class DuckDuckGoService extends AbstractService
 {
@@ -11,6 +12,11 @@ final class DuckDuckGoService extends AbstractService
 	const NAME_SHORT = 'DDG';
 
 	const LINK = 'https://duckduckgo.com';
+
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_OFFLINE,
+		ServicesManager::TAG_GENERATE_LINK_SHARE,
+	];
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{

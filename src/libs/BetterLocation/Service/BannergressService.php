@@ -4,6 +4,7 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\ServicesManager;
 use App\Config;
 use App\Icons;
 use App\MiniCurl\MiniCurl;
@@ -12,6 +13,11 @@ final class BannergressService extends AbstractService
 {
 	const ID = 23;
 	const NAME = 'Bannergress';
+
+	public const TAGS = [
+		ServicesManager::TAG_GENERATE_OFFLINE,
+		ServicesManager::TAG_GENERATE_LINK_SHARE,
+	];
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
