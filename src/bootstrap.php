@@ -36,5 +36,7 @@ if (@date_default_timezone_set(App\Config::TIMEZONE) === false) {
 
 \App\Utils\SimpleLogger::$anonymize[] = \App\Config::TELEGRAM_WEBHOOK_PASSWORD;
 
+session_start();
+
 // Note: this might a lot of data to log but it's ok for alpha/beta phase. Probably should be removed in stable or production.
 \App\Utils\SimpleLogger::log(\App\Utils\SimpleLogger::NAME_ALL_REQUESTS, $_SERVER);
