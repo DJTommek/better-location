@@ -61,11 +61,22 @@
 </nav>
 <div class="container">
 	<div id="flash-message">
-		{foreach $flashMessages as $flashMessage}
-			<div class="alert alert-{$flashMessage->type} alert-dismissible fade show" role="alert">
+		{foreach $flashMessages as $key => $flashMessage}
+			<div id="alert-{$key}" class="alert alert-{$flashMessage->type} alert-dismissible fade show" role="alert">
 				{$flashMessage->text|noescape}
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
+			{if $flashMessage->dismiss}
+				<script>
+					setTimeout(function () {
+						const alertEl = document.getElementById('alert-{$key}');
+						alertEl.classList.remove('show');
+						setTimeout(function () { // wait for hide animation is finished, then destroy element
+							alertEl.remove();
+						}, 1_000)
+					}, {$flashMessage->dismiss});
+				</script>
+			{/if}
 		{/foreach}
 	</div>
 	<div id="content">

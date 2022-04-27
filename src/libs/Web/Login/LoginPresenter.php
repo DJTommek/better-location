@@ -5,6 +5,7 @@ namespace App\Web\Login;
 use App\Config;
 use App\Factory;
 use App\Utils\Strict;
+use App\Web\FlashMessage;
 use App\Web\MainPresenter;
 use Nette\Http\UrlImmutable;
 
@@ -29,13 +30,13 @@ class LoginPresenter extends MainPresenter
 		} else if (\App\TelegramCustomWrapper\Login::hasRequiredGetParams($_GET)) {
 			$tgLoginWrapper = new \App\TelegramCustomWrapper\Login($_GET);
 			if ($tgLoginWrapper->isTooOld()) {
-				$this->template->setError('Login URL is no longer valid. Try it again or log in via web.');
+				$this->flashMessage('Login URL is no longer valid. Try it again or log in via web.', FlashMessage::FLASH_ERROR, null);
 			} else if ($tgLoginWrapper->isVerified()) {
 				$this->login->saveToDatabase($tgLoginWrapper);
 				$this->login->setCookie($tgLoginWrapper->hash());
 				$this->redirect($redirectUrl);
 			} else {
-				$this->template->setError('Could not verify Telegram login URL. Try again or log in via web.');
+				$this->flashMessage('Could not verify Telegram login URL. Try again or log in via web.', FlashMessage::FLASH_ERROR, null);
 			}
 		}
 	}

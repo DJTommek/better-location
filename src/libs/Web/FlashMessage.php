@@ -8,6 +8,21 @@ class FlashMessage
 	const FLASH_WARNING = 'warning';
 	const FLASH_ERROR = 'danger';
 
+	public string $text;
+	public string $type;
+	public ?int $dismiss;
+
+	public function __construct(string $text, string $type, ?int $dismiss)
+	{
+		assert(in_array($type, self::flashTypes(), true));
+		if (is_int($dismiss)) {
+			assert($dismiss > 0);
+		}
+		$this->text = $text;
+		$this->type = $type;
+		$this->dismiss = $dismiss;
+	}
+
 	private function flashTypes(): array
 	{
 		return [
@@ -15,16 +30,6 @@ class FlashMessage
 			self::FLASH_WARNING,
 			self::FLASH_ERROR,
 		];
-	}
-
-	public $text;
-	public $type;
-
-	public function __construct(string $text, string $type)
-	{
-		assert(in_array($type, self::flashTypes(), true));
-		$this->text = $text;
-		$this->type = $type;
 	}
 }
 

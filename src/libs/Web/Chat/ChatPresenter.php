@@ -99,6 +99,7 @@ class ChatPresenter extends MainPresenter
 		$this->chat->getMessageSettings()->setButtonServices($buttonServicesToSave);
 
 		$this->chat->getMessageSettings()->saveToDb($this->chat->getEntity()->id);
+		$this->flashMessage('Settings was updated.');
 		$this->redirect('/chat/' . $this->chatTelegramId);
 	}
 

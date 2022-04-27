@@ -25,17 +25,9 @@ class LayoutTemplate
 	 * @example ''
 	 */
 	public $basePath;
-	/** @var FlashMessage[] */
-	public $flashMessages = [];
-
-	public function setError(string $errorText): void
-	{
-		$this->flashMessage($errorText, FlashMessage::FLASH_ERROR);
-	}
-
-	public function flashMessage($text, $type = FlashMessage::FLASH_INFO)
-	{
-		$this->flashMessages[] = new FlashMessage($text, $type);
-	}
+	/**
+	 * @var \Generator<FlashMessage>
+	 */
+	public \Generator $flashMessages;
 }
 

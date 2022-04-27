@@ -40,6 +40,7 @@ abstract class MainPresenter
 		$appUrl = Config::getAppUrl();
 		$this->template->baseUrl = rtrim($appUrl->getAbsoluteUrl(), '/');
 		$this->template->basePath = rtrim($appUrl->getPath(), '/');
+		$this->template->flashMessages = $this->getFlashMessages();
 		$this->action();
 		$this->render();
 	}
@@ -65,6 +66,38 @@ abstract class MainPresenter
 		}
 		header('Location: ' . $url, true, $permanent ? 301 : 302);
 		die(sprintf('Redirecting to <a href="%1$s">%1$s</a> ...', $url));
+	}
+
+	/**
+	 * Store flash message so can be displayed when proper layout is rendered.
+	 *
+	 * @param string $content Text or HTML content to be displayed.
+	 * @param string $type One of FlashMessage::FLASH_* constants.
+	 * @param ?int $dismiss int = milliseconds after message should dissapear, null = user has to close manually
+	 */
+	public final function flashMessage(string $content, string $type = FlashMessage::FLASH_INFO, ?int $dismiss = 4_000): FlashMessage
+	{
+		$flashMessage = new FlashMessage($content, $type, $dismiss);
+		if (!isset($_SESSION['FLASH_MESSAGES']) || !is_array($_SESSION['FLASH_MESSAGES'])) {
+			$_SESSION['FLASH_MESSAGES'] = [];
+		}
+		$_SESSION['FLASH_MESSAGES'][] = $flashMessage;
+		return $flashMessage;
+	}
+
+	/**
+	 * Load stored flash messages from storage. Once message is loaded, it is automatically removed from storage and not
+	 * displayed again.
+	 *
+	 * @return \Generator<FlashMessage>
+	 * @internal Used only to passing into template.
+	 */
+	public final function getFlashMessages(): \Generator
+	{
+		foreach ($_SESSION['FLASH_MESSAGES'] ?? [] as $key => $flashMessage) {
+			yield $flashMessage;
+			unset($_SESSION['FLASH_MESSAGES'][$key]);
+		}
 	}
 }
 
