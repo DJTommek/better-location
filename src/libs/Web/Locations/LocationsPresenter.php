@@ -49,7 +49,7 @@ class LocationsPresenter extends MainPresenter
 		}
 		$this->collection->deduplicate();
 
-		if (isset($_GET['action'])) {
+		if ($this->collection->count() && isset($_GET['action'])) {
 			if ($this->login->isLogged()) {
 				switch ($_GET['action']) {
 					case 'add':
