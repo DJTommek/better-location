@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service\Coordinates;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\ServicesManager;
 use App\Utils\Coordinates;
 use App\Utils\General;
 use App\Utils\Strict;
@@ -36,6 +37,11 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 	const RE_OPTIONAL_SPACE = ' {0,4}';
 
 	const RE_OPTIONAL_SEMICOLON = ':?';
+
+	const TAGS = [
+		ServicesManager::TAG_GENERATE_TEXT,
+		ServicesManager::TAG_GENERATE_TEXT_OFFLINE,
+	];
 
 	public static function getRegex(): string
 	{

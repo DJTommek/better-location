@@ -58,6 +58,15 @@ class ServicesManager
 	/** Service can generate link for generating static image of that location */
 	public const TAG_GENERATE_LINK_IMAGE = 13;
 
+	/** Service can generate text representing location */
+	public const TAG_GENERATE_TEXT = 0;
+	/** Service can generate text representing location without making any requests */
+	public const TAG_GENERATE_TEXT_OFFLINE = 21;
+	/** Service can generate text representing location only by making request to external service */
+	public const TAG_GENERATE_TEXT_ONLINE = 22;
+	/** Service can generate text representing location only by processing via paid service */
+	public const TAG_GENERATE_TEXT_PAID = 23;
+
 	/** @var AbstractService[] */
 	private $services = [];
 

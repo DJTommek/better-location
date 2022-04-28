@@ -24,6 +24,8 @@ final class OpenLocationCodeService extends AbstractService
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
+		ServicesManager::TAG_GENERATE_TEXT,
+		ServicesManager::TAG_GENERATE_TEXT_OFFLINE,
 	];
 
 	public static function getLink(float $lat, float $lon, bool $drive = false): string

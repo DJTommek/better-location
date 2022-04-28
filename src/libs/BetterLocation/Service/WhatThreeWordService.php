@@ -19,6 +19,8 @@ final class WhatThreeWordService extends AbstractService
 		ServicesManager::TAG_GENERATE_ONLINE,
 		ServicesManager::TAG_GENERATE_PAID,
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
+		ServicesManager::TAG_GENERATE_TEXT,
+		ServicesManager::TAG_GENERATE_TEXT_ONLINE,
 	];
 
 	const LINK = 'https://what3words.com/';
