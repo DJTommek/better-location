@@ -4,6 +4,7 @@ namespace App\Web;
 
 class FlashMessage
 {
+	const FLASH_SUCCESS = 'success';
 	const FLASH_INFO = 'info';
 	const FLASH_WARNING = 'warning';
 	const FLASH_ERROR = 'danger';
@@ -26,6 +27,7 @@ class FlashMessage
 	private function flashTypes(): array
 	{
 		return [
+			self::FLASH_SUCCESS,
 			self::FLASH_INFO,
 			self::FLASH_WARNING,
 			self::FLASH_ERROR,
