@@ -224,11 +224,6 @@ class BetterLocation implements CoordinatesInterface
 			);
 		}, $settings->getLinkServices());
 
-		// Add to favourites
-		$textLinks[] = sprintf('<a href="%s" target="_blank">%s</a>',
-			TelegramHelper::generateStart(sprintf('%s %s %s %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_ADD, $this->getLat(), $this->getLon())),
-			Icons::FAVOURITE,
-		);
 		$text .= join(' | ', $textLinks) . PHP_EOL;
 
 		if ($settings->showAddress() && is_null($this->address) === false) {
