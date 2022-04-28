@@ -12,6 +12,7 @@ use App\Utils\Coordinates;
 use App\Utils\DateImmutableUtils;
 use App\Utils\General;
 use App\Utils\Strict;
+use App\Web\FlashMessage;
 use App\Web\MainPresenter;
 use Nette\Utils\Json;
 
@@ -54,12 +55,19 @@ class LocationsPresenter extends MainPresenter
 				switch ($_GET['action']) {
 					case 'add':
 						foreach ($this->collection as $location) {
-							$this->user->addFavourite($location, BetterLocation::generateFavouriteName($location->getLat(), $location->getLon()));
+							$name = BetterLocation::generateFavouriteName($location->getLat(), $location->getLon());
+							$favoriteLocation = $this->user->addFavourite($location, $name);
+							$this->flashMessage(sprintf(
+								'Location <b>%s</b> was saved to favorites as <b>%s</b>.',
+								$favoriteLocation->key(),
+								htmlentities($favoriteLocation->getPrefixMessage()),
+							), FlashMessage::FLASH_SUCCESS);
 						}
 						break;
 					case 'delete':
 						foreach ($this->collection as $location) {
 							$this->user->deleteFavourite($location);
+							$this->flashMessage(sprintf('Location <b>%s</b> was removed from favorites.', $location->key()), FlashMessage::FLASH_INFO);
 						}
 						break;
 				}
