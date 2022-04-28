@@ -43,6 +43,19 @@
 						</td>
 					</tr>
 					<tr>
+						<td>Text services</td>
+						<td>
+							<select name="text-services[]" multiple size="4" class="form-select">
+                                {foreach $services->getServices([\App\BetterLocation\ServicesManager::TAG_GENERATE_TEXT]) as $service}
+									<option
+											value="{$service::ID}"
+											n:attr="selected: in_array($service, $chat->getMessageSettings()->getTextServices(), true)"
+									>{$service::getName()} ({$service::getShareText($lat, $lon)})</option>
+                                {/foreach}
+							</select>
+						</td>
+					</tr>
+					<tr>
 						<td>Link services</td>
 						<td>
 							<select name="link-services[]" multiple size="10" class="form-select">
@@ -109,9 +122,16 @@
 				<a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087451%26x%3D14.420671%26source%3Dcoor%26id%3D14.420671%252C50.087451%26p%3D3%26l%3D0" target="_blank">
                     {\App\Icons::MAP_SCREEN}
 				</a>
-				<code class="copy-to-clipboard" data-clipboard-text="{$exampleLocation->key()}" title="Click to copy text to clipboard">
-					{$exampleLocation->key()}
-				</code>
+                {foreach $chat->getMessageSettings()->getTextServices() as $service}
+					{var $serviceText = $service::getShareText($lat, $lon)}
+					<code class="copy-to-clipboard" data-clipboard-text="{$serviceText}" title="Click to copy text to clipboard">
+						{$serviceText}
+					</code>
+                    {if $iterator->last === false}
+						|
+                    {/if}
+                {/foreach}
+
 				<br>
                 {foreach $chat->getMessageSettings()->getLinkServices() as $service}
 					<a href="{$service::getLink($lat, $lon)}" target="_blank">

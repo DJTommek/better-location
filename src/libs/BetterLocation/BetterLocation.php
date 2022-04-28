@@ -200,12 +200,17 @@ class BetterLocation implements CoordinatesInterface
 
 	public function generateMessage(BetterLocationMessageSettings $settings): string
 	{
-		$text = sprintf('%s <a href="%s" target="_blank">%s</a> <code>%s</code>',
+		$text = sprintf('%s <a href="%s" target="_blank">%s</a> ',
 			$this->prefixMessage,
 			$this->generateScreenshotLink($settings->getScreenshotLinkService()),
 			Icons::MAP_SCREEN,
-			$this->__toString()
 		);
+
+		// Generate copyable text representing location
+		$text .= implode(' | ', array_map(function ($service) {
+			return sprintf('<code>%s</code>', $service::getShareText($this->getLat(), $this->getLon()));
+		}, $settings->getTextServices()));
+
 		if ($this->getCoordinateSuffixMessage()) {
 			$text .= ' ' . $this->getCoordinateSuffixMessage();
 		}
@@ -218,6 +223,7 @@ class BetterLocation implements CoordinatesInterface
 				$service::getName(true),
 			);
 		}, $settings->getLinkServices());
+
 		// Add to favourites
 		$textLinks[] = sprintf('<a href="%s" target="_blank">%s</a>',
 			TelegramHelper::generateStart(sprintf('%s %s %s %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_ADD, $this->getLat(), $this->getLon())),

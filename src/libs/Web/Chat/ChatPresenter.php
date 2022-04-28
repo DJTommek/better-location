@@ -98,6 +98,12 @@ class ChatPresenter extends MainPresenter
 		}
 		$this->chat->getMessageSettings()->setButtonServices($buttonServicesToSave);
 
+		$textServicesToSave = [];
+		foreach ($_POST['text-services'] ?? [] as $textServiceId) {
+			$textServicesToSave[$textServiceId] = $services[$textServiceId];
+		}
+		$this->chat->getMessageSettings()->setTextServices($textServicesToSave);
+
 		$this->chat->getMessageSettings()->saveToDb($this->chat->getEntity()->id);
 		$this->flashMessage('Settings was updated.');
 		$this->redirect('/chat/' . $this->chatTelegramId);

@@ -4,6 +4,7 @@ namespace App\TelegramCustomWrapper;
 
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\Service\BetterLocationService;
+use App\BetterLocation\Service\Coordinates\WGS84DegreeCompactService;
 use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;
@@ -20,11 +21,13 @@ class BetterLocationMessageSettings
 	const TYPE_SHARE = 1;
 	const TYPE_DRIVE = 2;
 	const TYPE_SCREENSHOT = 3;
+	const TYPE_TEXT = 4;
 
 	const TYPES = [
 		self::TYPE_SHARE,
 		self::TYPE_DRIVE,
 		self::TYPE_SCREENSHOT,
+		self::TYPE_TEXT,
 	];
 
 	const DEFAULT_SHARE_SERVICES = [
@@ -43,6 +46,9 @@ class BetterLocationMessageSettings
 		OsmAndService::class,
 	];
 	const DEFAULT_SCREENSHOT_SERVICE = MapyCzService::class;
+	const DEFAULT_TEXT_SERVICES = [
+		WGS84DegreeCompactService::class,
+	];
 
 	/**
 	 * @var array<int,AbstractService> Ordered list of services, to show as links.
@@ -55,6 +61,10 @@ class BetterLocationMessageSettings
 	 */
 	private $buttonServices;
 	/**
+	 * @var array<int,AbstractService> List of services, to show as text representing location.
+	 */
+	private array $textServices;
+	/**
 	 * @var AbstractService Service, which is providing static map image of location
 	 */
 	private $screenshotLinkService;
@@ -64,14 +74,16 @@ class BetterLocationMessageSettings
 	private $address;
 
 	public function __construct(
-		array $shareServices = self::DEFAULT_SHARE_SERVICES,
-		array $buttonServices = self::DEFAULT_DRIVE_SERVICES,
+		array  $shareServices = self::DEFAULT_SHARE_SERVICES,
+		array  $buttonServices = self::DEFAULT_DRIVE_SERVICES,
+		array  $textServices = self::DEFAULT_TEXT_SERVICES,
 		string $screenshotLinkService = self::DEFAULT_SCREENSHOT_SERVICE,
-		bool $address = true
+		bool   $address = true
 	)
 	{
 		$this->linkServices = $shareServices;
 		$this->buttonServices = $buttonServices;
+		$this->textServices = $textServices;
 		$this->screenshotLinkService = $screenshotLinkService;
 		$this->address = $address;
 	}
@@ -90,6 +102,9 @@ class BetterLocationMessageSettings
 		}
 		if ($filtered = self::processRows($services, $rows, self::TYPE_SCREENSHOT)) {
 			$result->setScreenshotLinkService($filtered[0]);
+		}
+		if ($filtered = self::processRows($services, $rows, self::TYPE_TEXT)) {
+			$result->setTextServices($filtered);
 		}
 		return $result;
 	}
@@ -148,6 +163,15 @@ class BetterLocationMessageSettings
 		}
 	}
 
+	/** @param AbstractService[] $services */
+	public function setTextServices(array $services): void
+	{
+		$services = array_filter($services, function ($service) { // remove services, that can't generate text
+			return $service::hasTag(ServicesManager::TAG_GENERATE_TEXT);
+		});
+		$this->textServices = $services;
+	}
+
 	public function setAddress(bool $address): void
 	{
 		$this->address = $address;
@@ -163,6 +187,12 @@ class BetterLocationMessageSettings
 	public function getButtonServices(): array
 	{
 		return $this->buttonServices;
+	}
+
+	/** @return AbstractService[] */
+	public function getTextServices(): array
+	{
+		return $this->textServices;
 	}
 
 	/** @return AbstractService */
@@ -191,6 +221,12 @@ class BetterLocationMessageSettings
 		foreach ($this->getButtonServices() as $linkService) {
 			$query .= '(?, ?, ?, ?), ';
 			$params = array_merge($params, [$chatId, $linkService::ID, self::TYPE_DRIVE, $i++]);
+		}
+
+		$i = 0;
+		foreach ($this->getTextServices() as $linkService) {
+			$query .= '(?, ?, ?, ?), ';
+			$params = array_merge($params, [$chatId, $linkService::ID, self::TYPE_TEXT, $i++]);
 		}
 
 		$query .= '(?, ?, ?, ?)';
