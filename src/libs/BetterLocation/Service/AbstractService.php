@@ -196,4 +196,9 @@ abstract class AbstractService
 	{
 		throw new NotSupportedException(sprintf('%s is not available for "%s"', __METHOD__, static::class));
 	}
+
+	public static function hasTag($tag): bool
+	{
+		return in_array($tag, static::TAGS, true);
+	}
 }

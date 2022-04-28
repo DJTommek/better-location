@@ -5,7 +5,6 @@ namespace App\Web\Locations;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\AbstractService;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use App\Config;
 use App\Factory;
@@ -147,22 +146,19 @@ class LocationsPresenter extends MainPresenter
 	{
 		/** @var $service AbstractService */
 		$result = [];
-		try {
+		if ($service::hasTag(ServicesManager::TAG_GENERATE_LINK_SHARE)) {
 			$result['share'] = $service::getLink($lat, $lon);
-		} catch (NotSupportedException $exception) {
 		}
-		try {
+		if ($service::hasTag(ServicesManager::TAG_GENERATE_LINK_DRIVE)) {
 			$result['drive'] = $service::getLink($lat, $lon, true);
-		} catch (NotSupportedException $exception) {
 		}
-		try {
-			$result['static'] = $service::getScreenshotLink($lat, $lon);
-		} catch (NotSupportedException $exception) {
-		}
-		try {
+		if ($service::hasTag(ServicesManager::TAG_GENERATE_TEXT)) {
 			$result['text'] = $service::getShareText($lat, $lon);
-		} catch (NotSupportedException $exception) {
 		}
+		if ($service::hasTag(ServicesManager::TAG_GENERATE_LINK_IMAGE)) {
+			$result['static'] = $service::getScreenshotLink($lat, $lon);
+		}
+
 		if ($result !== []) {
 			$result['name'] = $service::NAME;
 		}

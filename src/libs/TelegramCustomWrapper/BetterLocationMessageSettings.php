@@ -123,7 +123,7 @@ class BetterLocationMessageSettings
 		$services = array_unique(array_merge([BetterLocationService::class], $services));
 
 		$services = array_filter($services, function ($service) { // remove services, that can't generate share link
-			return in_array(ServicesManager::TAG_GENERATE_LINK_SHARE, $service::TAGS, true);
+			return $service::hasTag(ServicesManager::TAG_GENERATE_LINK_SHARE);
 		});
 		$this->linkServices = $services;
 	}
@@ -132,15 +132,16 @@ class BetterLocationMessageSettings
 	public function setButtonServices(array $services): void
 	{
 		$services = array_filter($services, function ($service) { // remove services, that can't generate drive link
-			return in_array(ServicesManager::TAG_GENERATE_LINK_DRIVE, $service::TAGS, true);
+			return $service::hasTag(ServicesManager::TAG_GENERATE_LINK_DRIVE);
 		});
 		$services = array_slice($services, 0, TelegramHelper::INLINE_KEYBOARD_MAX_BUTTON_PER_ROW);
 		$this->buttonServices = $services;
 	}
 
+	/** @param AbstractService $service */
 	public function setScreenshotLinkService(string $service): void
 	{
-		if (in_array(ServicesManager::TAG_GENERATE_LINK_IMAGE, $service::TAGS, true)) {
+		if ($service::hasTag(ServicesManager::TAG_GENERATE_LINK_IMAGE)) {
 			$this->screenshotLinkService = $service;
 		} else {
 			throw new \InvalidArgumentException(sprintf('Service "%s" (ID %s) could not be used as screenshot link service.', $service::getName(), $service::ID));
