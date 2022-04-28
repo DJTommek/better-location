@@ -7,6 +7,7 @@ use App\BetterLocation\Service\BannergressService;
 use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\Coordinates\MGRSService;
 use App\BetterLocation\Service\Coordinates\USNGService;
+use App\BetterLocation\Service\Coordinates\WGS84DegreeCompactService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesSecondsService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
@@ -73,6 +74,7 @@ class ServicesManager
 	public function __construct()
 	{
 		$this->services[BetterLocationService::ID] = BetterLocationService::class;
+		$this->services[WGS84DegreeCompactService::ID] = WGS84DegreeCompactService::class;
 		$this->services[WGS84DegreesService::ID] = WGS84DegreesService::class;
 		$this->services[WGS84DegreesMinutesService::ID] = WGS84DegreesMinutesService::class;
 		$this->services[WGS84DegreesMinutesSecondsService::ID] = WGS84DegreesMinutesSecondsService::class;
