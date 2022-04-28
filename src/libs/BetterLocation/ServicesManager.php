@@ -7,10 +7,12 @@ use App\BetterLocation\Service\BannergressService;
 use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\Coordinates\MGRSService;
 use App\BetterLocation\Service\Coordinates\USNGService;
-use App\BetterLocation\Service\Coordinates\WGS84DegreeCompactService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesSecondsService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
+use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeCompactService;
+use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeMinutesCompactService;
+use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeMinutesSecondsCompactService;
 use App\BetterLocation\Service\DrobnePamatkyCzService;
 use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\EStudankyEuService;
@@ -74,10 +76,12 @@ class ServicesManager
 	public function __construct()
 	{
 		$this->services[BetterLocationService::ID] = BetterLocationService::class;
-		$this->services[WGS84DegreeCompactService::ID] = WGS84DegreeCompactService::class;
 		$this->services[WGS84DegreesService::ID] = WGS84DegreesService::class;
+		$this->services[WGS84DegreeCompactService::ID] = WGS84DegreeCompactService::class;
 		$this->services[WGS84DegreesMinutesService::ID] = WGS84DegreesMinutesService::class;
+		$this->services[WGS84DegreeMinutesCompactService::ID] = WGS84DegreeMinutesCompactService::class;
 		$this->services[WGS84DegreesMinutesSecondsService::ID] = WGS84DegreesMinutesSecondsService::class;
+		$this->services[WGS84DegreeMinutesSecondsCompactService::ID] = WGS84DegreeMinutesSecondsCompactService::class;
 		$this->services[MGRSService::ID] = MGRSService::class;
 		$this->services[USNGService::ID] = USNGService::class;
 		$this->services[GoogleMapsService::ID] = GoogleMapsService::class;

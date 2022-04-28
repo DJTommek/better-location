@@ -2,6 +2,7 @@
 
 namespace App\BetterLocation\Service\Coordinates;
 
+use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeCompactService;
 use App\Utils\Coordinates;
 
 final class WGS84DegreesMinutesService extends AbstractService

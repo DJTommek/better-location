@@ -4,7 +4,7 @@ namespace App\TelegramCustomWrapper;
 
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\Service\BetterLocationService;
-use App\BetterLocation\Service\Coordinates\WGS84DegreeCompactService;
+use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeCompactService;
 use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\BetterLocation\Service\Coordinates;
+namespace App\BetterLocation\Service\CoordinatesRender;
 
 use App\Utils\Coordinates;
 
