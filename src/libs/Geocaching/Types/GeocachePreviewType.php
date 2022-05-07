@@ -169,16 +169,19 @@ class GeocachePreviewType
 	}
 
 	/**
-	 * Optimalize output info about type and size of cache (remove redundant info)
+	 * Optimalize output info about type and size of cache
 	 *
 	 * @return string
 	 */
 	public function getTypeAndSize(): string
 	{
 		$otherSizes = [self::SIZE_VIRTUAL, self::SIZE_OTHER, self::SIZE_NONE];
+		$eventTypes = [self::TYPE_EVENT, self::TYPE_EVENT_GIGA, self::TYPE_EVENT_MEGA];
 		if ($this->geocacheType === self::TYPE_VIRTUAL && in_array($this->containerType, $otherSizes, true)) {
 			return $this->getType();
 		} else if ($this->geocacheType === self::TYPE_EARTH && in_array($this->containerType, $otherSizes, true)) {
+			return $this->getType();
+		} else if (in_array($this->geocacheType, $eventTypes, true) && in_array($this->containerType, $otherSizes, true)) {
 			return $this->getType();
 		}
 		return $this->getType() . ' ' . $this->getSize();
