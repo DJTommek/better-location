@@ -11,50 +11,46 @@ use Tracy\Debugger;
  */
 class TimezoneType
 {
-	/** @var float */
-	public $lat;
-	/** @var float */
-	public $lng;
+	public float $lat;
+	public float $lng;
 
-	/** @var \DateTimeImmutable the local current time with local timezone */
-	public $time;
-	/** @var \DateTimeImmutable sunset in local time and local timezone */
-	public $sunset;
-	/** @var \DateTimeImmutable sunrise local time and local timezone */
-	public $sunrise;
+	/** The local current time with local timezone */
+	public \DateTimeImmutable $time;
+	/** Sunset in local time and local timezone */
+	public \DateTimeImmutable $sunset;
+	/** Sunrise local time and local timezone */
+	public \DateTimeImmutable $sunrise;
 
-	/** @var string ISO countrycode */
-	public $countryCode;
-	/** @var string name (language can be set with param lang) */
-	public $countryName;
+	/** ISO countrycode */
+	public string $countryCode;
+	/** Name (language can be set with param lang) */
+	public string $countryName;
 
 	/**
-	 * @var int|float offset to GMT at 1. January
+	 * Offset to GMT at 1. January (in hours)
 	 * @deprecated
 	 */
-	public $gmtOffset;
+	public int|float $gmtOffset;
+
 	/**
-	 * @var int|float the amount of time in hours to add to UTC to get standard time in this time zone.
+	 * The amount of time in hours to add to UTC to get standard time in this time zone.
 	 * Because this value is not affected by daylight saving time, it is called raw offset.
 	 */
-	public $rawOffset;
+	public int|float $rawOffset;
+
 	/**
-	 * @var int|float offset to GMT at 1. July
+	 * Offset to GMT at 1. July (in hours)
 	 * @deprecated
 	 */
-	public $dstOffset;
-	/**
-	 * @var int|float GMT or DST offset based if DST is active or not
-	 */
-	public $nowOffset;
+	public int|float $dstOffset;
+	/** GMT or DST offset based if DST is active or not (in hours) */
+	public float|int $nowOffset;
 
-	/** @var string name of the timezone (according to Olson database), this information is sufficient to work with the timezone and defines DST rules */
-	public $timezoneId;
-	/** @var \DateTimeZone created from $timezoneId */
-	public $timezone;
+	/** Name of the timezone (according to Olson database), this information is sufficient to work with the timezone and defines DST rules */
+	public string $timezoneId;
+	public \DateTimeZone $timezone;
 
-	/** @var Coordinates Generated from lat and lon */
-	public $coords;
+	public Coordinates $coords;
 
 	public static function fromResponse(\stdClass $response): ?self
 	{
@@ -63,17 +59,19 @@ class TimezoneType
 			return null;
 		}
 		$result = new self();
+		$result->timezone = new \DateTimeZone($response->timezoneId);
+
 		foreach ($response as $item => $value) {
-			$result->{$item} = $value;
+			$result->{$item} = match($item) {
+				'time' => new \DateTimeImmutable($response->time, $result->timezone),
+				'sunrise' => new \DateTimeImmutable($response->sunrise, $result->timezone),
+				'sunset' => new \DateTimeImmutable($response->sunset, $result->timezone),
+				default => $value,
+			};
 		}
 
-		$result->timezone = new \DateTimeZone($result->timezoneId);
-
-		$result->coords = new Coordinates($result->lat, $result->lng);
-		$result->time = new \DateTimeImmutable($result->time, $result->timezone);
-		$result->sunset = new \DateTimeImmutable($result->sunset, $result->timezone);
-		$result->sunrise = new \DateTimeImmutable($result->sunrise, $result->timezone);
-		$result->nowOffset = $result->isDst() ? $result->dstOffset : $result->gmtOffset;
+		$result->coords = new Coordinates($response->lat, $response->lng);
+		$result->nowOffset = $result->isDst() ? $response->dstOffset : $response->gmtOffset;
 
 		return $result;
 	}
