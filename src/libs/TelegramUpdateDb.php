@@ -19,6 +19,7 @@ class TelegramUpdateDb
 	/** @var int */
 	private $telegramChatId;
 	/** @var int */
+	private int $telegramUserId;
 	private $status;
 	/** @var \DateTimeImmutable */
 	private $lastUpdate;
@@ -34,19 +35,25 @@ class TelegramUpdateDb
 	public function __construct(Telegram\Types\Update $originalUpdate, int $botReplyMessageId, int $status, \DateTimeImmutable $lastUpdate)
 	{
 		$this->db = Factory::Database();
-		$chatId = $originalUpdate->message->chat->id ?? null;
-		if (is_int($chatId) === false || $chatId === 0) {
-			throw new MessageDeletedException(sprintf('Chat ID "%s" in Update object is not valid.', $chatId));
+		$telegramChatId = $originalUpdate->message->chat->id ?? null;
+		if (is_int($telegramChatId) === false || $telegramChatId === 0) {
+			throw new MessageDeletedException(sprintf('Chat ID "%s" in Update object is not valid.', $telegramChatId));
 		}
 
-		$inputMessageId = $originalUpdate->message->message_id ?? null;
-		if (is_int($chatId) === false || $chatId === 0) {
-			throw new MessageDeletedException(sprintf('Message ID "%s" in Update object is not valid.', $inputMessageId));
+		$telegramUserId = $originalUpdate->message->from->id ?? null;
+		if (is_int($telegramUserId) === false || $telegramUserId === 0) {
+			throw new MessageDeletedException(sprintf('User ID "%s" in Update object is not valid.', $telegramUserId));
+		}
+
+		$inputTelegramMessageId = $originalUpdate->message->message_id ?? null;
+		if (is_int($inputTelegramMessageId) === false || $inputTelegramMessageId === 0) {
+			throw new MessageDeletedException(sprintf('Message ID "%s" in Update object is not valid.', $inputTelegramMessageId));
 		}
 
 		$this->botReplyMessageId = $botReplyMessageId;
-		$this->inputMessageId = $inputMessageId;
-		$this->telegramChatId = $chatId;
+		$this->inputMessageId = $inputTelegramMessageId;
+		$this->telegramChatId = $telegramChatId;
+		$this->telegramUserId = $telegramUserId;
 		$this->originalUpdateObject = $originalUpdate;
 		$this->status = $status;
 		$this->lastUpdate = $lastUpdate;
@@ -89,10 +96,28 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 		return self::parseDbData($row);
 	}
 
+	/**
+	 * @param int $chatId
+	 * @return TelegramUpdateDb[]
+	 */
+	public static function findByChatId(int $chatId): array
+	{
+		$rows = Factory::Database()->query('SELECT * FROM better_location_telegram_updates WHERE chat_id = ?',
+			$chatId
+		)->fetchAll();
+		return array_map(function ($row) {
+			return self::parseDbData($row);
+		}, $rows);
+	}
+
 	public function insert(): void
 	{
-		$this->db->query('INSERT INTO better_location_telegram_updates (chat_id, input_message_id, bot_reply_message_id, original_update_object, autorefresh_status, last_update) VALUES (?, ?, ?, ?, ?, UTC_TIMESTAMP())',
-			$this->telegramChatId, $this->inputMessageId, $this->botReplyMessageId, json_encode($this->originalUpdateObject), $this->status
+		$this->db->query(
+			'INSERT INTO better_location_telegram_updates 
+            (chat_id, telegram_user_id, input_message_id, bot_reply_message_id, original_update_object, autorefresh_status, last_update) 
+			VALUES 
+    		(?, ?, ?, ?, ?, ?, UTC_TIMESTAMP())',
+			$this->telegramChatId, $this->telegramUserId, $this->inputMessageId, $this->botReplyMessageId, json_encode($this->originalUpdateObject), $this->status
 		);
 		$this->status = self::STATUS_DISABLED;
 	}

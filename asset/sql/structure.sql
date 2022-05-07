@@ -46,6 +46,7 @@ ALTER TABLE `better_location_favourites` ADD CONSTRAINT `favourites.user_id` FOR
  */
 CREATE TABLE IF NOT EXISTS `better_location_telegram_updates` (
   `chat_id` bigint NOT NULL,
+  `telegram_user_id` bigint NOT NULL,
   `input_message_id` int NOT NULL,
   `bot_reply_message_id` int NOT NULL,
   `original_update_object` LONGTEXT NOT NULL,
