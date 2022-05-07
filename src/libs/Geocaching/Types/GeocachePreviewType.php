@@ -18,10 +18,13 @@ class GeocachePreviewType
 	const TYPE_EVENT = 6;
 	const TYPE_MYSTERY = 8;
 	const TYPE_WEBCAM = 11;
+	const TYPE_LOCATIONLESS = 12;
+	const TYPE_EVENT_CITO = 13;
 	const TYPE_EARTH = 137;
 	const TYPE_EVENT_MEGA = 453;
 	const TYPE_GPS_ADVENTURES_EXHIBIT = 1304;
 	const TYPE_WHERIGO = 1858;
+	const TYPE_EVENT_COMMUNITY_CELEBRATION = 3653;
 	const TYPE_EVENT_GIGA = 7005;
 
 	const SIZE_NONE = 1;
@@ -108,8 +111,12 @@ class GeocachePreviewType
 				return 'Virtual';
 			case self::TYPE_LETTERBOX: // https://www.geocaching.com/geocache/GC7X2M6
 				return 'Letterbox Hybrid';
+			case self::TYPE_LOCATIONLESS: // https://www.geocaching.com/geocache/GC7X2M6
+				return 'Locationless';
 			case self::TYPE_EVENT: // https://www.geocaching.com/geocache/GC90M42
 				return 'Event';
+			case self::TYPE_EVENT_CITO: // https://www.geocaching.com/geocache/GC7WWWP
+				return 'CITO';
 			case self::TYPE_MYSTERY: // https://www.geocaching.com/geocache/GC3DYC4
 				return 'Mystery';
 			case self::TYPE_WEBCAM: // https://www.geocaching.com/geocache/GCPDPE
@@ -124,6 +131,8 @@ class GeocachePreviewType
 				return 'Wherigo';
 			case self::TYPE_EVENT_GIGA: // https://www.geocaching.com/geocache/GC7WWWW
 				return 'Giga-Event';
+			case self::TYPE_EVENT_COMMUNITY_CELEBRATION: // https://www.geocaching.com/geocache/GC8HMX9
+				return 'Community celebration event';
 			default:
 				throw new \InvalidArgumentException(sprintf('Unknown geocache type for geocacheType "%s".', $this->geocacheType));
 		}
@@ -176,10 +185,18 @@ class GeocachePreviewType
 	public function getTypeAndSize(): string
 	{
 		$otherSizes = [self::SIZE_VIRTUAL, self::SIZE_OTHER, self::SIZE_NONE];
-		$eventTypes = [self::TYPE_EVENT, self::TYPE_EVENT_GIGA, self::TYPE_EVENT_MEGA];
+		$eventTypes = [
+			self::TYPE_EVENT,
+			self::TYPE_EVENT_GIGA,
+			self::TYPE_EVENT_MEGA,
+			self::TYPE_EVENT_COMMUNITY_CELEBRATION,
+			self::TYPE_EVENT_CITO,
+		];
 		if ($this->geocacheType === self::TYPE_VIRTUAL && in_array($this->containerType, $otherSizes, true)) {
 			return $this->getType();
 		} else if ($this->geocacheType === self::TYPE_EARTH && in_array($this->containerType, $otherSizes, true)) {
+			return $this->getType();
+		} else if ($this->geocacheType === self::TYPE_LOCATIONLESS && in_array($this->containerType, $otherSizes, true)) {
 			return $this->getType();
 		} else if (in_array($this->geocacheType, $eventTypes, true) && in_array($this->containerType, $otherSizes, true)) {
 			return $this->getType();
