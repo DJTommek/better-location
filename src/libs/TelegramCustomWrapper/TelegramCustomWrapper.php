@@ -19,6 +19,7 @@ use App\TelegramCustomWrapper\Events\Command\UnknownCommand;
 use App\TelegramCustomWrapper\Events\Edit\LocationEdit;
 use App\TelegramCustomWrapper\Events\Events;
 use App\TelegramCustomWrapper\Events\Special\AddedToChatEvent;
+use App\TelegramCustomWrapper\Events\Special\ChannelMessage;
 use App\TelegramCustomWrapper\Events\Special\FileEvent;
 use App\TelegramCustomWrapper\Events\Special\InlineQueryEvent;
 use App\TelegramCustomWrapper\Events\Special\LocationEvent;
@@ -61,7 +62,7 @@ class TelegramCustomWrapper
 				$this->eventNote = 'Edit\'s are ignored';
 			}
 		} else if (TelegramHelper::isChannel($update)) {
-			$this->eventNote = 'Channel messages are ignored';
+			$this->event = new ChannelMessage($update);
 		} else if (TelegramHelper::addedToChat($update, Config::TELEGRAM_BOT_NAME)) {
 			$this->event = new AddedToChatEvent($update);
 		} else if (TelegramHelper::isViaBot($update, Config::TELEGRAM_BOT_NAME)) {

@@ -201,7 +201,9 @@ class TelegramHelper
 				return $update->callback_query->from->id === $update->callback_query->message->chat->id;
 			}
 		} else {
-			return ($update->message->from->id === $update->message->chat->id);
+			$fromId = $update?->message?->from?->id;
+			$chatId = $update?->message?->chat?->id;
+			return ($chatId !== null && $fromId === $chatId);
 		}
 	}
 
@@ -212,7 +214,7 @@ class TelegramHelper
 			$fullCommand = $update->callback_query->data;
 			$command = explode(' ', $fullCommand)[0];
 		} else {
-			foreach ($update->message->entities as $entity) {
+			foreach ($update?->message?->entities ?? [] as $entity) {
 				if ($entity->offset === 0 && $entity->type === 'bot_command') {
 					$command = mb_strcut($update->message->text, $entity->offset, $entity->length);
 					break;
@@ -236,6 +238,8 @@ class TelegramHelper
 	{
 		if (self::isButtonClick($update)) {
 			$text = $update->callback_query->data;
+		} else if (self::isChannel($update)) {
+			$text = $update->channel_post->text;
 		} else {
 			$text = $update->message->text;
 		}
