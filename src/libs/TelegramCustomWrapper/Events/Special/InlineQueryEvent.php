@@ -13,6 +13,8 @@ use App\Repository\ChatEntity;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
+use App\Utils\Coordinates;
+use App\Utils\Formatter;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram;
@@ -156,12 +158,31 @@ class InlineQueryEvent extends Special
 		}
 	}
 
+	/**
+	 * Prepare formatted text showing distance between user's last location and provided location. Returns empty string if
+	 * cannot be calculated (eg. user's location is unknown)
+	 */
+	private function addDistanceText(BetterLocation $betterLocation): string
+	{
+		if ($usersLastLocation = $this->user->getLastKnownLocation()) {
+			return sprintf(' (%s away)', Formatter::distance(Coordinates::distance(
+				$usersLastLocation->getLat(),
+				$usersLastLocation->getLon(),
+				$betterLocation->getLat(),
+				$betterLocation->getLon(),
+			)));
+		} else {
+			return '';
+		}
+	}
+
 	private function getInlineQueryResultArticle(BetterLocation $betterLocation, string $inlineTitle = null): Inline\Query\Result\Article
 	{
 		$inlineQueryResult = new Inline\Query\Result\Article();
 		$inlineQueryResult->id = rand(100000, 999999);
 		if (is_null($inlineTitle)) {
 			$inlineTitle = $betterLocation->getInlinePrefixMessage() ?? $betterLocation->getPrefixMessage();
+			$inlineTitle .= $this->addDistanceText($betterLocation);
 		}
 		$inlineQueryResult->title = strip_tags($inlineTitle);
 		$inlineQueryResult->description = $betterLocation->__toString();
@@ -185,6 +206,7 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->id = rand(100000, 999999);
 		if (is_null($inlineTitle)) {
 			$inlineTitle = $betterLocation->getInlinePrefixMessage() ?? $betterLocation->getPrefixMessage();
+			$inlineTitle .= $this->addDistanceText($betterLocation);
 		}
 		$inlineQueryResult->latitude = $betterLocation->getLat();
 		$inlineQueryResult->longitude = $betterLocation->getLon();
