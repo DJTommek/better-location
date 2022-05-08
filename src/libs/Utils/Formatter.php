@@ -5,6 +5,46 @@ namespace App\Utils;
 class Formatter
 {
 	/**
+	 * Format seconds into human readable format
+	 *
+	 * @return string Human readable formatted string (16d 1h 3m 23s)
+	 * @example 1386203 -> 16d 1h 3m 23s
+	 */
+	public static function seconds(int $input, bool $short = false): string
+	{
+		if ($input < 0) {
+			throw new \InvalidArgumentException('Input must be higher or equal zero.');
+		} else if ($input === 0) {
+			return '0s';
+		}
+
+		$seconds = floor(($input % 60));
+		$minutes = floor(($input / (60)) % 60);
+		$hours = floor(($input / (60 * 60)) % 24);
+		$days = floor(($input / (60 * 60 * 24)));
+
+		$parts = [];
+		if ($days > 0) {
+			$parts[] = $days . 'd';
+		}
+		if ($hours > 0) {
+			$parts[] = $hours . 'h';
+		}
+		if ($minutes > 0) {
+			$parts[] = $minutes . 'm';
+		}
+		if ($seconds > 0) {
+			$parts[] = $seconds . 's';
+		}
+
+		if ($short) {
+			return reset($parts);
+		} else {
+			return join(' ', $parts);
+		}
+	}
+
+	/**
 	 * Format distance to be human readable.
 	 * @TODO add support for imperial units
 	 *

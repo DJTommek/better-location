@@ -9,6 +9,8 @@ class General
 	 *
 	 * @param int $seconds (1386203)
 	 * @return string human readable formatted (16d 1h 3m 23s)
+	 * @deprecated Use Formatter class instead
+	 * @see \App\Utils\Formatter::seconds()
 	 */
 	public static function sToHuman(int $seconds): string
 	{
