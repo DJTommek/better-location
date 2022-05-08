@@ -51,10 +51,11 @@ class InlineQueryEvent extends Special
 
 		if (empty($queryInput)) {
 			// If user agrees to share location, and is using device, where is possible to get location (typically mobile devices)
-			if (empty($this->update->inline_query->location) === false) {
+			if ($this->update->inline_query->location instanceof Telegram\Types\Location) {
 				$betterLocation = BetterLocation::fromLatLon($this->update->inline_query->location->latitude, $this->update->inline_query->location->longitude);
-				$betterLocation->setPrefixMessage(sprintf('%s Current location', Icons::CURRENT_LOCATION));
-				$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
+				$headerMessage = sprintf('%s Current location', Icons::CURRENT_LOCATION);
+				$betterLocation->setPrefixMessage($headerMessage);
+				$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation, $headerMessage));
 			} else if ($this->user->getLastKnownLocation() instanceof BetterLocation) {
 				$lastKnownLocation = clone $this->user->getLastKnownLocation();
 				$now = new \DateTimeImmutable();
