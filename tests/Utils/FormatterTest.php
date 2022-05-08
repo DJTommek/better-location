@@ -70,7 +70,7 @@ final class FormatterTest extends TestCase
 	public final function testDistanceInvalid1(): void
 	{
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Distance must be higher than zero.');
+		$this->expectExceptionMessage('Distance must be higher or equal zero.');
 		Formatter::distance(-1);
 	}
 }

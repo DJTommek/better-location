@@ -25,7 +25,7 @@ class Formatter
 		} else if ($input >= 0) { // 0 - 1 meter
 			return '< 1 m';
 		} else { // 1 meter
-			throw new \InvalidArgumentException('Distance must be higher than zero.');
+			throw new \InvalidArgumentException('Distance must be higher or equal zero.');
 		}
 	}
 }
