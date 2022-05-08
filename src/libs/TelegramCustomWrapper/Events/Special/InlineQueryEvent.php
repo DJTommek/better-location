@@ -61,7 +61,7 @@ class InlineQueryEvent extends Special
 					$lastKnownLocation->setPrefixMessage(sprintf('%s Current location', Icons::CURRENT_LOCATION));
 					$lastKnownLocation->setDescription(null);
 				}
-				$inlineText = sprintf('%s (%s ago)', $lastKnownLocation->getPrefixMessage(), \App\Utils\General::sToHuman($diff));
+				$inlineText = sprintf('%s (%s ago)', $lastKnownLocation->getPrefixMessage(), Formatter::seconds($diff, true));
 				$answerInlineQuery->addResult($this->getInlineQueryResult($lastKnownLocation, $inlineText));
 			}
 
