@@ -182,6 +182,7 @@ class DefaultConfig
 	const CACHE_TTL_ESTUDANKY_EU = 60 * 60 * 24;
 	const CACHE_TTL_HRADY_CZ = 60 * 60 * 24;
 	const CACHE_TTL_OPEN_ELEVATION = 60 * 60 * 24;
+	const CACHE_TTL_PRAZDNE_DOMY = 60 * 60 * 24;
 
 	/** @var string[] */
 	const API_KEYS = [];
