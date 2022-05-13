@@ -1,10 +1,12 @@
 <?php declare(strict_types=1);
 
+namespace BetterLocation\Service\CoordinatesCompact;
+
 use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeCompactService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;
 
-final class WGS84DegreesCompactServiceTest extends TestCase
+final class WGS84DegreesServiceTest extends TestCase
 {
 	public function testGenerateShareLink(): void
 	{
@@ -34,12 +36,13 @@ final class WGS84DegreesCompactServiceTest extends TestCase
 
 	public function testNotProcessing(): void
 	{
-		$this->expectException(InvalidArgumentException::class);
+		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Input is not valid.');
 		WGS84DegreeCompactService::processStatic('any input');
 	}
 
-	public function testRender() {
+	public function testRender()
+	{
 		$this->assertSame('50.087451,14.420671', WGS84DegreeCompactService::getShareText(50.087451, 14.420671));
 		$this->assertSame('-50.087451,14.420671', WGS84DegreeCompactService::getShareText(-50.087451, 14.420671));
 		$this->assertSame('-50.087451,-14.420671', WGS84DegreeCompactService::getShareText(-50.087451, -14.420671));

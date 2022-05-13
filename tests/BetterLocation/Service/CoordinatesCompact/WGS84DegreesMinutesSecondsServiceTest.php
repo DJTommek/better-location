@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace BetterLocation\Service\CoordinatesCompact;
+
 use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeMinutesSecondsCompactService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;
@@ -34,7 +36,7 @@ final class WGS84DegreesMinutesSecondsServiceTest extends TestCase
 
 	public function testNotProcessing(): void
 	{
-		$this->expectException(InvalidArgumentException::class);
+		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Input is not valid.');
 		WGS84DegreeMinutesSecondsCompactService::processStatic('any input');
 	}
