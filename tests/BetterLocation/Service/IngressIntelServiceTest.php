@@ -20,7 +20,6 @@ final class IngressIntelServiceTest extends TestCase
 	public function testGenerateDriveLink(): void
 	{
 		$this->expectException(NotSupportedException::class);
-		$this->expectExceptionMessage('Drive link is not supported.');
 		WikipediaService::getLink(50.087451, 14.420671, true);
 	}
 

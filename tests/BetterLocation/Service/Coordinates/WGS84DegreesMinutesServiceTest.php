@@ -9,14 +9,12 @@ final class WGS84DegreesMinutesServiceTest extends TestCase
 	public function testGenerateShareLink(): void
 	{
 		$this->expectException(NotSupportedException::class);
-		$this->expectExceptionMessage('Share link is not supported.');
 		WGS84DegreesMinutesService::getLink(50.087451, 14.420671);
 	}
 
 	public function testGenerateDriveLink(): void
 	{
 		$this->expectException(NotSupportedException::class);
-		$this->expectExceptionMessage('Drive link is not supported.');
 		WGS84DegreesMinutesService::getLink(50.087451, 14.420671, true);
 	}
 

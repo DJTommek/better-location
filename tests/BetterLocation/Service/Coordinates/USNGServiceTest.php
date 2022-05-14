@@ -9,7 +9,6 @@ final class USNGServiceTest extends TestCase
 	public function testGenerateShareLink(): void
 	{
 		$this->expectException(NotSupportedException::class);
-		$this->expectExceptionMessage('Share link is not supported.');
 		USNGService::getLink(50.087451, 14.420671);
 	}
 

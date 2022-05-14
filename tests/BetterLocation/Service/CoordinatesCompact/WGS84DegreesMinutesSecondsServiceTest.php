@@ -11,21 +11,18 @@ final class WGS84DegreesMinutesSecondsServiceTest extends TestCase
 	public function testGenerateShareLink(): void
 	{
 		$this->expectException(NotSupportedException::class);
-		$this->expectExceptionMessage('WGS84 DMS Compact (ID 38) does not support share link.');
 		WGS84DegreeMinutesSecondsCompactService::getLink(50.087451, 14.420671);
 	}
 
 	public function testGenerateDriveLink(): void
 	{
 		$this->expectException(NotSupportedException::class);
-		$this->expectExceptionMessage('WGS84 DMS Compact (ID 38) does not support drive link.');
 		WGS84DegreeMinutesSecondsCompactService::getLink(50.087451, 14.420671, true);
 	}
 
 	public function testGenerateDriveLinkV2(): void
 	{
 		$this->expectException(NotSupportedException::class);
-		$this->expectExceptionMessage('WGS84 DMS Compact (ID 38) does not support drive link.');
 		WGS84DegreeMinutesSecondsCompactService::getDriveLink(50.087451, 14.420671);
 	}
 
