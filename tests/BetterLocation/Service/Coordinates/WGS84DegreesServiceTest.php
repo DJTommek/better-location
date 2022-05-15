@@ -287,7 +287,7 @@ final class WGS84DegreesServiceTest extends TestCase
 
 	public function testNothingInText(): void
 	{
-		$this->assertSame([], WGS84DegreesService::findInText('Nothing valid')->getAll());
+		$this->assertSame([], WGS84DegreesService::findInText('Nothing valid')->getLocations());
 	}
 
 	public function testCoordinatesInText(): void

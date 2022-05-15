@@ -33,7 +33,7 @@ final class FormatterTest extends TestCase
 
 	public final function testSecondsInvalid1(): void
 	{
-		$this->expectException(InvalidArgumentException::class);
+		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Input must be higher or equal zero.');
 		Formatter::seconds(-1);
 	}
@@ -102,7 +102,7 @@ final class FormatterTest extends TestCase
 
 	public final function testDistanceInvalid1(): void
 	{
-		$this->expectException(InvalidArgumentException::class);
+		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Distance must be higher or equal zero.');
 		Formatter::distance(-1);
 	}

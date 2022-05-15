@@ -31,7 +31,7 @@ final class DuckDuckGoServiceTest extends TestCase
 	public function testProcess(): void
 	{
 		// Processing is not implemented
-		$this->expectException(InvalidArgumentException::class);
+		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Input is not valid.');
 		DuckDuckGoService::processStatic('https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps');
 	}

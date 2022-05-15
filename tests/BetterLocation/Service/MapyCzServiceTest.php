@@ -286,7 +286,7 @@ final class MapyCzServiceTest extends TestCase
 	 */
 	public function testInvalidPlaceCoordinates2(): void
 	{
-		$this->expectException(InvalidArgumentException::class);
+		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Input is not valid.');
 		MapyCzService::processStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.0695244aaa&z=15')->getCollection();
 	}

@@ -209,7 +209,7 @@ gc12aBd
 			$this->markTestSkipped('Missing Geocaching cookie.');
 		} else {
 			$collection = GeocachingService::findInText('GC3DYC4');
-			$this->assertCount(1, $collection->getAll());
+			$this->assertCount(1, $collection->getLocations());
 			$this->assertSame('50.087717,14.421150', $collection[0]->__toString());
 		}
 	}

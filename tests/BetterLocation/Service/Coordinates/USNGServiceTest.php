@@ -15,7 +15,6 @@ final class USNGServiceTest extends TestCase
 	public function testGenerateDriveLink(): void
 	{
 		$this->expectException(NotSupportedException::class);
-		$this->expectExceptionMessage('Drive link is not supported.');
 		USNGService::getLink(50.087451, 14.420671, true);
 	}
 
@@ -29,6 +28,6 @@ final class USNGServiceTest extends TestCase
 
 	public function testNothingInText(): void
 	{
-		$this->assertSame([], USNGService::findInText('Nothing valid')->getAll());
+		$this->assertSame([], USNGService::findInText('Nothing valid')->getLocations());
 	}
 }

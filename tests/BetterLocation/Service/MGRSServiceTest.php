@@ -36,6 +36,6 @@ final class MGRSServiceTest extends TestCase
 
 	public function testNothingInText(): void
 	{
-		$this->assertSame([], MGRSService::findInText('Nothing valid')->getAll());
+		$this->assertSame([], MGRSService::findInText('Nothing valid')->getLocations());
 	}
 }

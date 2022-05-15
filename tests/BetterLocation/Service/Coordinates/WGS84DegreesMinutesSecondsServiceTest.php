@@ -20,7 +20,7 @@ final class WGS84DegreesMinutesSecondsServiceTest extends TestCase
 
 	public function testNothingInText(): void
 	{
-		$this->assertSame([], WGS84DegreesMinutesSecondsService::findInText('Nothing valid')->getAll());
+		$this->assertSame([], WGS84DegreesMinutesSecondsService::findInText('Nothing valid')->getLocations());
 	}
 
 	public function testCoordinates(): void
