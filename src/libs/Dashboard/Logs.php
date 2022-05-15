@@ -4,7 +4,7 @@ namespace App\Dashboard;
 
 use App\Config;
 use App\Utils\SimpleLogger;
-use App\Utils\General;
+use App\Utils\Utils;
 use Tracy\ILogger;
 
 class Logs
@@ -21,7 +21,7 @@ class Logs
 	public static function getTracyLogs(int $maxLines)
 	{
 		$logsContent = [];
-		foreach (General::getClassConstants(ILogger::class) as $logName) {
+		foreach (Utils::getClassConstants(ILogger::class) as $logName) {
 			$logContent = self::getTracyLogContent($logName, $maxLines);
 			if (count($logContent) > 0) {
 				$logsContent[$logName] = $logContent;
@@ -34,7 +34,7 @@ class Logs
 	{
 		$tracyLogPath = Config::FOLDER_DATA . '/tracy-log/' . $logName . '.log';
 		if (file_exists($tracyLogPath)) {
-			$fileContent = General::tail($tracyLogPath, $maxLines);
+			$fileContent = Utils::tail($tracyLogPath, $maxLines);
 			return explode(PHP_EOL, $fileContent);
 		} else {
 			return [];

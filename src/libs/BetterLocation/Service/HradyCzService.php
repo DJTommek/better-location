@@ -5,7 +5,7 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\Config;
 use App\MiniCurl\MiniCurl;
-use App\Utils\General;
+use App\Utils\Utils;
 
 final class HradyCzService extends AbstractService
 {
@@ -29,7 +29,7 @@ final class HradyCzService extends AbstractService
 		$paths = explode('/', $this->url->getPath());
 		$this->url->setPath($paths[1]);
 		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_HRADY_CZ)->run()->getBody();
-		if ($coords = General::findMapyCzApiCoords($response)) {
+		if ($coords = Utils::findMapyCzApiCoords($response)) {
 			$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class);
 			$this->updatePrefixMessage($location, $response);
 			$this->collection->add($location);

@@ -178,7 +178,7 @@ class Ge0Code
 	private static function encodeLatToInt(float $lat, int $maxValue): int
 	{
 		$x = ((($lat + 90) / 180) * $maxValue) + 0.5;
-		return (int)General::clamp($x, 0, $maxValue);
+		return (int)Utils::clamp($x, 0, $maxValue);
 	}
 
 	/**
@@ -187,7 +187,7 @@ class Ge0Code
 	private static function encodeLonToInt(float $lon, int $maxValue): int
 	{
 		$x = ($lon + 180) / 360 * ($maxValue + 1) + 0.5;
-		return (int)General::clamp($x, 0, $maxValue + 1);
+		return (int)Utils::clamp($x, 0, $maxValue + 1);
 	}
 
 	private static function encodeZoom(float $zoom): string

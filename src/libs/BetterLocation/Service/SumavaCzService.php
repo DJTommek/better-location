@@ -5,7 +5,7 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\Config;
 use App\MiniCurl\MiniCurl;
-use App\Utils\General;
+use App\Utils\Utils;
 use App\Utils\StringUtils;
 use Tracy\Debugger;
 
@@ -60,7 +60,7 @@ final class SumavaCzService extends AbstractService
 		if ($this->data->type === self::TYPE_GALLERY) {
 			$this->processGallery($response);
 		} else {
-			if ($coords = General::findMapyCzApiCoords($response)) {
+			if ($coords = Utils::findMapyCzApiCoords($response)) {
 				$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class, $this->data->type);
 				$location->setPrefixMessage(sprintf('<a href="%s">%s</a>', $this->inputUrl, self::NAME));
 				$this->collection->add($location);

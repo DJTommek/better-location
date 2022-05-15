@@ -7,7 +7,7 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\ServicesManager;
 use App\Utils\Coordinates;
-use App\Utils\General;
+use App\Utils\Utils;
 use App\Utils\Strict;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -201,8 +201,8 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 		// Switch lat-lon coordinates if hemisphere is coordinates are set in different order
 		// Exx.x Nyy.y -> Nyy.y Exx.x
 		if ($swap) {
-			General::swap($latHemisphere, $lonHemisphere);
-			General::swap($latCoord, $lonCoord);
+			Utils::swap($latHemisphere, $lonHemisphere);
+			Utils::swap($latCoord, $lonCoord);
 		}
 
 		// Check if final format of hemispheres and coordinates is valid

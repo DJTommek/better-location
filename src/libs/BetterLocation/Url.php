@@ -2,7 +2,7 @@
 
 namespace App\BetterLocation;
 
-use App\Utils\General;
+use App\Utils\Utils;
 
 class Url
 {
@@ -35,7 +35,7 @@ class Url
 
 	public static function isShortUrl($url)
 	{
-		$parsedUrl = General::parseUrl($url);
+		$parsedUrl = Utils::parseUrl($url);
 		if ($parsedUrl && isset($parsedUrl['host'])) {
 			$host = mb_strtolower($parsedUrl['host']);
 			if (in_array($host, self::SHORT_URL_DOMAINS)) {

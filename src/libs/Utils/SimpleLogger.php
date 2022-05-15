@@ -56,12 +56,12 @@ class SimpleLogger
 
 	public static function getLogNames()
 	{
-		return General::getClassConstants(self::class, 'NAME_');
+		return Utils::getClassConstants(self::class, 'NAME_');
 	}
 
 	private static function isLogNameValid(string $name)
 	{
-		$constants = General::getClassConstants(self::class, 'NAME_');
+		$constants = Utils::getClassConstants(self::class, 'NAME_');
 		return in_array($name, $constants, true);
 	}
 
@@ -72,7 +72,7 @@ class SimpleLogger
 		}
 		$fileName = self::getFilePath($name, $date);
 		if (file_exists($fileName)) {
-			$fileContent = General::tail($fileName, $numberOfLines);
+			$fileContent = Utils::tail($fileName, $numberOfLines);
 			$lines = explode(self::LINE_SEPARATOR, $fileContent);
 			return array_map(function ($line) {
 				return json_decode($line, false, 512, JSON_THROW_ON_ERROR);

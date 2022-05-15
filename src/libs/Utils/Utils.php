@@ -2,7 +2,7 @@
 
 namespace App\Utils;
 
-class General
+class Utils
 {
 	/**
 	 * Format seconds into human readable format

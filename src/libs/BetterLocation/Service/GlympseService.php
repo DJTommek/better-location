@@ -7,7 +7,7 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\Config;
 use App\Factory;
 use App\Icons;
-use App\Utils\General;
+use App\Utils\Utils;
 use DJTommek\GlympseApi\GlympseApiException;
 use DJTommek\GlympseApi\Types\TicketInvite;
 use Tracy\Debugger;
@@ -76,7 +76,7 @@ final class GlympseService extends AbstractService
 			$currentLocationDescriptions[] = sprintf('%s Glympse expired at %s (%s ago)',
 				Icons::WARNING,
 				$invite->properties->endTime->format(Config::DATETIME_FORMAT_ZONE),
-				preg_replace('/ [0-9]+s$/', '', General::sToHuman($diff * -1))
+				preg_replace('/ [0-9]+s$/', '', Utils::sToHuman($diff * -1))
 			);
 		} else if ($invite->properties->endTime < ((clone $now)->add($willExpireWarningInterval))) {
 			$currentLocationDescriptions[] = sprintf('%s Glympse will expire soon, at %s', Icons::WARNING, $invite->properties->endTime->format(Config::TIME_FORMAT_ZONE));
@@ -92,7 +92,7 @@ final class GlympseService extends AbstractService
 			$lastUpdateText = sprintf('%s Last location update: %s (%s ago)',
 				Icons::WARNING,
 				$lastLocation->timestamp->format(Config::DATETIME_FORMAT_ZONE),
-				preg_replace('/ [0-9]+s$/', '', General::sToHuman($diff))
+				preg_replace('/ [0-9]+s$/', '', Utils::sToHuman($diff))
 			);
 			$currentLocationDescriptions[] = $lastUpdateText;
 		}
@@ -138,12 +138,12 @@ final class GlympseService extends AbstractService
 
 			$etaInfo = sprintf('Distance: %s, ETA: %s (%s)',
 				$distanceString,
-				General::sToHuman(intval($invite->properties->eta->eta->format('%s'))),
+				Utils::sToHuman(intval($invite->properties->eta->eta->format('%s'))),
 				$invite->properties->eta->etaTs->add($invite->properties->eta->eta)->format(Config::TIME_FORMAT_ZONE),
 			);
 			$diff = $now->getTimestamp() - $invite->properties->eta->etaTs->getTimestamp();
 			if ($diff > 600) {
-				$etaInfo .= sprintf(' %s Calculated %s ago', Icons::WARNING, preg_replace('/ [0-9]+s$/', '', General::sToHuman($diff)));
+				$etaInfo .= sprintf(' %s Calculated %s ago', Icons::WARNING, preg_replace('/ [0-9]+s$/', '', Utils::sToHuman($diff)));
 			}
 			$destinationDescriptions[] = $etaInfo;
 		}
@@ -196,7 +196,7 @@ final class GlympseService extends AbstractService
 
 	public static function getInviteIdFromUrl(string $url): ?string
 	{
-		$parsedUrl = General::parseUrl($url);
+		$parsedUrl = Utils::parseUrl($url);
 		// no need to check domain and path, it already has been done earlier
 		if (preg_match(GlympseService::PATH_INVITE_ID_REGEX, $parsedUrl['path'])) {
 			return mb_substr($parsedUrl['path'], 1); // remove "/"
@@ -206,7 +206,7 @@ final class GlympseService extends AbstractService
 
 	public static function getGroupIdFromUrl(string $url): ?string
 	{
-		$parsedUrl = General::parseUrl($url);
+		$parsedUrl = Utils::parseUrl($url);
 		// no need to check domain and path, it already has been done earlier
 		if (preg_match(GlympseService::PATH_GROUP_REGEX, $parsedUrl['path'])) {
 			return urldecode(mb_substr($parsedUrl['path'], 2)); // remove "/!"

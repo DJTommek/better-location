@@ -178,7 +178,7 @@ class Status
 						$responseFormatted->{$key} = sprintf('%d<br>%s<br>%s ago',
 							$lastErrorDate->getTimestamp(),
 							$lastErrorDate->format(DATE_ISO8601),
-							\App\Utils\General::sToHuman($diff),
+							\App\Utils\Utils::sToHuman($diff),
 						);
 					}
 				} else if (is_bool($value)) {

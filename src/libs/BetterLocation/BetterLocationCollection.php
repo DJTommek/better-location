@@ -8,7 +8,7 @@ use App\Icons;
 use App\MiniCurl\MiniCurl;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
-use App\Utils\General;
+use App\Utils\Utils;
 use App\Utils\Strict;
 use App\Utils\StringUtils;
 use Nette\Http\UrlImmutable;
@@ -278,7 +278,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 			} catch (\Throwable $exception) {
 				Debugger::log(sprintf('Error while loading headers for URL "%s": %s', $url, $exception->getMessage()));
 			}
-			if ($headers && isset($headers['content-type']) && General::checkIfValueInHeaderMatchArray($headers['content-type'], Url::CONTENT_TYPE_IMAGE_EXIF)) {
+			if ($headers && isset($headers['content-type']) && Utils::checkIfValueInHeaderMatchArray($headers['content-type'], Url::CONTENT_TYPE_IMAGE_EXIF)) {
 				$betterLocationExif = BetterLocation::fromExif($url);
 				if ($betterLocationExif instanceof BetterLocation) {
 					$betterLocationExif->setPrefixMessage(sprintf('<a href="%s">EXIF</a>', $url));

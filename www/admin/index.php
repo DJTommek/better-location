@@ -154,16 +154,16 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 						$newestRefresh = $autorefreshAll[count($autorefreshAll) - 1];
 						$diffNowOldRefresh = $now->getTimestamp() - $oldestRefresh->getLastUpdate()->getTimestamp();
 						print(($diffNowOldRefresh > 3600) ? \App\Icons::WARNING : \App\Icons::SUCCESS); // @TODO move to config
-						printf(' Oldest refresh was at <b>%s</b> (<b>%s</b> ago)', $now->format(\App\Config::DATETIME_FORMAT), \App\Utils\General::sToHuman($diffNowOldRefresh));
+						printf(' Oldest refresh was at <b>%s</b> (<b>%s</b> ago)', $now->format(\App\Config::DATETIME_FORMAT), \App\Utils\Utils::sToHuman($diffNowOldRefresh));
 						// @TODO solve this
 						print('<br><small>Note: might not be true - refresh is actually just last update which will change everytime user will use "Refresh" button or send refreshable location and enable autorefresh.</small>');
 					}
 					?>
 				</li>
-				<li>Google Place API: <?= \App\Config::GOOGLE_PLACE_API_KEY ? sprintf('%s Enabled (cache set to %s)', \App\Icons::SUCCESS, \App\Utils\General::sToHuman(\App\Config::CACHE_TTL_GOOGLE_PLACE_API)) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
+				<li>Google Place API: <?= \App\Config::GOOGLE_PLACE_API_KEY ? sprintf('%s Enabled (cache set to %s)', \App\Icons::SUCCESS, \App\Utils\Utils::sToHuman(\App\Config::CACHE_TTL_GOOGLE_PLACE_API)) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
 				<li>What3Words API: <?= \App\Config::W3W_API_KEY ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
 				<li>Glympse API: <?= \App\Config::isGlympse() ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
-				<li>Foursquare API: <?= \App\Config::isFoursquare() ? sprintf('%s Enabled (cache set to %s)', \App\Icons::SUCCESS, \App\Utils\General::sToHuman(\App\Config::CACHE_TTL_FOURSQUARE_API)) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
+				<li>Foursquare API: <?= \App\Config::isFoursquare() ? sprintf('%s Enabled (cache set to %s)', \App\Icons::SUCCESS, \App\Utils\Utils::sToHuman(\App\Config::CACHE_TTL_FOURSQUARE_API)) : sprintf('%s Disabled', \App\Icons::ERROR) ?></li>
 			</ol>
 
 		</div>
@@ -246,9 +246,9 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 							$newestUser['user_telegram_id'],
 							$newestUserUsername ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $newestUserUsername) : sprintf('<i>%s</i>', $newestUser['user_telegram_name']),
 							$newestUser['user_registered']->format(DateTimeInterface::W3C),
-							\App\Utils\General::sToHuman($now->getTimestamp() - $newestUser['user_registered']->getTimestamp()),
+							\App\Utils\Utils::sToHuman($now->getTimestamp() - $newestUser['user_registered']->getTimestamp()),
 							$newestUser['user_last_update']->format(DateTimeInterface::W3C),
-							\App\Utils\General::sToHuman($now->getTimestamp() - $newestUser['user_last_update']->getTimestamp()),
+							\App\Utils\Utils::sToHuman($now->getTimestamp() - $newestUser['user_last_update']->getTimestamp()),
 						);
 					}
 
@@ -261,9 +261,9 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 							$lastChangedUser['user_telegram_id'],
 							$lastChangedUserUsername ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $lastChangedUserUsername) : sprintf('<i>%s</i>', $lastChangedUser['user_telegram_name']),
 							$lastChangedUser['user_registered']->format(DateTimeInterface::W3C),
-							\App\Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_registered']->getTimestamp()),
+							\App\Utils\Utils::sToHuman($now->getTimestamp() - $lastChangedUser['user_registered']->getTimestamp()),
 							$lastChangedUser['user_last_update']->format(DateTimeInterface::W3C),
-							\App\Utils\General::sToHuman($now->getTimestamp() - $lastChangedUser['user_last_update']->getTimestamp()),
+							\App\Utils\Utils::sToHuman($now->getTimestamp() - $lastChangedUser['user_last_update']->getTimestamp()),
 						);
 					}
 
@@ -277,13 +277,13 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 
 						printf('<li>Oldest autorefresh: <b>%s</b> (%s ago)</li>',
 							$oldestRefresh->getLastUpdate()->format(\App\Config::DATETIME_FORMAT),
-							\App\Utils\General::sToHuman($diffNowOldRefresh),
+							\App\Utils\Utils::sToHuman($diffNowOldRefresh),
 						);
 						printf('<li>Newest autorefresh: <b>%s</b> (%s ago)</li>',
 							$newestRefresh->getLastUpdate()->format(\App\Config::DATETIME_FORMAT),
-							\App\Utils\General::sToHuman($diffNowNewRefresh),
+							\App\Utils\Utils::sToHuman($diffNowNewRefresh),
 						);
-						printf('<li>Diff between newest and oldest autorefresh: <b>%s</b></li>', $diffOldNewRefresh > 0 ? \App\Utils\General::sToHuman($diffOldNewRefresh) : 'none');
+						printf('<li>Diff between newest and oldest autorefresh: <b>%s</b></li>', $diffOldNewRefresh > 0 ? \App\Utils\Utils::sToHuman($diffOldNewRefresh) : 'none');
 					}
 
 					printf('</ul>');

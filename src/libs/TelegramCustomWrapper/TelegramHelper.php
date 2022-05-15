@@ -302,7 +302,7 @@ class TelegramHelper
 	{
 		$message16 = mb_convert_encoding($message, 'UTF-16', 'UTF-8');
 		$entities = [];
-		foreach (\App\Utils\General::getUrls($message) as $url) {
+		foreach (\App\Utils\Utils::getUrls($message) as $url) {
 			$url16 = mb_convert_encoding($url, 'UTF-16', 'UTF-8');
 			$entity = new MessageEntity();
 			$entity->type = 'url';

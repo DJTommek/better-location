@@ -10,7 +10,7 @@ use App\Config;
 use App\Factory;
 use App\Utils\Coordinates;
 use App\Utils\DateImmutableUtils;
-use App\Utils\General;
+use App\Utils\Utils;
 use App\Utils\Strict;
 use App\Web\FlashMessage;
 use App\Web\MainPresenter;
@@ -75,13 +75,13 @@ class LocationsPresenter extends MainPresenter
 			$this->redirect($this->collection->getLink());
 		}
 
-		if (in_array(General::globalGetToBool('address'), [true, null], true)) { // if not set, default is true
+		if (in_array(Utils::globalGetToBool('address'), [true, null], true)) { // if not set, default is true
 			$this->collection->fillAddresses();
 		}
-		if (General::globalGetToBool('datetimezone') === true) {
+		if (Utils::globalGetToBool('datetimezone') === true) {
 			$this->collection->fillDatetimeZone();
 		}
-		if (General::globalGetToBool('elevation') === true) {
+		if (Utils::globalGetToBool('elevation') === true) {
 			$this->collection->fillElevations();
 		}
 
