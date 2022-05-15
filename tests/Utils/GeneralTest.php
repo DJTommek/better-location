@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\Utils;
+
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\Utils\General;
 use PHPUnit\Framework\TestCase;

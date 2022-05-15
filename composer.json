@@ -31,7 +31,8 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"App\\": "src/libs/"
+			"App\\": "src/libs/",
+			"Tests\\": "tests/"
 		}
 	},
 	"scripts": {

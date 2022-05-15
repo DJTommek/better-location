@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\IngressLanchedRu\Types;
+
 use App\IngressLanchedRu\Types\PortalType;
 use PHPUnit\Framework\TestCase;
 

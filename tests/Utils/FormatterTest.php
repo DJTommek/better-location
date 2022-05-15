@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\Utils;
+
 use App\Utils\Formatter;
 use PHPUnit\Framework\TestCase;
 

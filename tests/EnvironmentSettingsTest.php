@@ -1,8 +1,9 @@
 <?php declare(strict_types=1);
 
+namespace Tests;
+
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use PHPUnit\Framework\TestCase;
-
 
 final class EnvironmentSettingsTest extends TestCase
 {

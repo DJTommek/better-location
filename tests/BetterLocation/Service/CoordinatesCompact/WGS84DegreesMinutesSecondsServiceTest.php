@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace BetterLocation\Service\CoordinatesCompact;
+namespace Tests\BetterLocation\Service\CoordinatesCompact;
 
 use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeMinutesSecondsCompactService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;

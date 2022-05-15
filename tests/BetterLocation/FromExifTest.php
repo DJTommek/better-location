@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\BetterLocation;
+
 use App\BetterLocation\BetterLocation;
 use PHPUnit\Framework\TestCase;
 

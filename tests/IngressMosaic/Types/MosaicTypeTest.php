@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\IngressMosaic\Types;
+
 use App\IngressMosaic\Types\ActionsType;
 use App\IngressMosaic\Types\MosaicType;
 use PHPUnit\Framework\TestCase;
@@ -28,10 +30,10 @@ final class MosaicTypeTest extends TestCase
 			$this->assertInstanceOf(MosaicType::class, $mosaic);
 			$this->assertInstanceOf(ActionsType::class, $mosaic->actions, $message);
 			$this->assertIsArray($mosaic->attributesRaw, $message);
-			$this->assertInstanceOf(DateInterval::class, $mosaic->byBicycleAvg, $message);
-			$this->assertInstanceOf(DateInterval::class, $mosaic->byBicycleTotal, $message);
-			$this->assertInstanceOf(DateInterval::class, $mosaic->byFootAvg, $message);
-			$this->assertInstanceOf(DateInterval::class, $mosaic->byFootTotal, $message);
+			$this->assertInstanceOf(\DateInterval::class, $mosaic->byBicycleAvg, $message);
+			$this->assertInstanceOf(\DateInterval::class, $mosaic->byBicycleTotal, $message);
+			$this->assertInstanceOf(\DateInterval::class, $mosaic->byFootAvg, $message);
+			$this->assertInstanceOf(\DateInterval::class, $mosaic->byFootTotal, $message);
 			$this->assertIsInt($mosaic->distanceStartEndPortal, $message);
 			$this->assertGreaterThanOrEqual(0, $mosaic->distanceStartEndPortal);
 			$this->assertIsInt($mosaic->distanceTotal, $message);
@@ -39,7 +41,7 @@ final class MosaicTypeTest extends TestCase
 			$this->assertIsInt($mosaic->id, $message);
 			$this->assertGreaterThanOrEqual(1, $mosaic->id, $message);
 			$this->assertIsString($mosaic->image, $message);
-			$this->assertInstanceOf(DateTimeImmutable::class, $mosaic->lastCheck, $message);
+			$this->assertInstanceOf(\DateTimeImmutable::class, $mosaic->lastCheck, $message);
 			$this->assertIsString($mosaic->locationName, $message);
 			$this->assertIsInt($mosaic->missionsTotal, $message);
 			$this->assertGreaterThanOrEqual(1, $mosaic->missionsTotal, $message);

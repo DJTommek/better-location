@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\TelegramCustomWrapper;
+
 use App\Config;
 use App\TelegramCustomWrapper\TelegramHelper;
 use PHPUnit\Framework\TestCase;

@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\Geonames\Types;
+
 use App\Geonames\Types\TimezoneType;
 use App\Utils\Coordinates;
 use PHPUnit\Framework\TestCase;
@@ -35,13 +37,13 @@ final class TimezoneTypeTest extends TestCase
 		$this->assertSame(50.087451, self::$prague->coords->getLat());
 		$this->assertSame(14.420671, self::$prague->coords->getLon());
 
-		$this->assertInstanceOf(DateTimeImmutable::class, self::$prague->time);
-		$this->assertInstanceOf(DateTimeImmutable::class, self::$prague->sunrise);
-		$this->assertInstanceOf(DateTimeImmutable::class, self::$prague->sunset);
+		$this->assertInstanceOf(\DateTimeImmutable::class, self::$prague->time);
+		$this->assertInstanceOf(\DateTimeImmutable::class, self::$prague->sunrise);
+		$this->assertInstanceOf(\DateTimeImmutable::class, self::$prague->sunset);
 
-		$this->assertSame('2021-08-22T22:32:00+02:00', self::$prague->time->format(DateTime::W3C));
-		$this->assertSame('2021-08-22T06:01:00+02:00', self::$prague->sunrise->format(DateTime::W3C));
-		$this->assertSame('2021-08-22T20:08:00+02:00', self::$prague->sunset->format(DateTime::W3C));
+		$this->assertSame('2021-08-22T22:32:00+02:00', self::$prague->time->format(\DateTime::W3C));
+		$this->assertSame('2021-08-22T06:01:00+02:00', self::$prague->sunrise->format(\DateTime::W3C));
+		$this->assertSame('2021-08-22T20:08:00+02:00', self::$prague->sunset->format(\DateTime::W3C));
 
 		$this->assertSame('CZ', self::$prague->countryCode);
 		$this->assertSame('Czechia', self::$prague->countryName);
@@ -59,7 +61,7 @@ final class TimezoneTypeTest extends TestCase
 		$this->assertTrue(self::$prague->isDst());
 
 		$this->assertSame('Europe/Prague', self::$prague->timezoneId);
-		$this->assertInstanceOf(DateTimeZone::class, self::$prague->timezone);
+		$this->assertInstanceOf(\DateTimeZone::class, self::$prague->timezone);
 		$this->assertSame('Europe/Prague', self::$prague->timezone->getName());
 	}
 
@@ -73,13 +75,13 @@ final class TimezoneTypeTest extends TestCase
 		$this->assertSame(40.7113025, self::$newYork->coords->getLat());
 		$this->assertSame(-74.0091831, self::$newYork->coords->getLon());
 
-		$this->assertInstanceOf(DateTimeImmutable::class, self::$newYork->time);
-		$this->assertInstanceOf(DateTimeImmutable::class, self::$newYork->sunrise);
-		$this->assertInstanceOf(DateTimeImmutable::class, self::$newYork->sunset);
+		$this->assertInstanceOf(\DateTimeImmutable::class, self::$newYork->time);
+		$this->assertInstanceOf(\DateTimeImmutable::class, self::$newYork->sunrise);
+		$this->assertInstanceOf(\DateTimeImmutable::class, self::$newYork->sunset);
 
-		$this->assertSame('2021-08-22T16:42:00-04:00', self::$newYork->time->format(DateTime::W3C));
-		$this->assertSame('2021-08-22T06:12:00-04:00', self::$newYork->sunrise->format(DateTime::W3C));
-		$this->assertSame('2021-08-22T19:44:00-04:00', self::$newYork->sunset->format(DateTime::W3C));
+		$this->assertSame('2021-08-22T16:42:00-04:00', self::$newYork->time->format(\DateTime::W3C));
+		$this->assertSame('2021-08-22T06:12:00-04:00', self::$newYork->sunrise->format(\DateTime::W3C));
+		$this->assertSame('2021-08-22T19:44:00-04:00', self::$newYork->sunset->format(\DateTime::W3C));
 
 		$this->assertSame('US', self::$newYork->countryCode);
 		$this->assertSame('United States', self::$newYork->countryName);
@@ -97,7 +99,7 @@ final class TimezoneTypeTest extends TestCase
 		$this->assertTrue(self::$newYork->isDst());
 
 		$this->assertSame('America/New_York', self::$newYork->timezoneId);
-		$this->assertInstanceOf(DateTimeZone::class, self::$newYork->timezone);
+		$this->assertInstanceOf(\DateTimeZone::class, self::$newYork->timezone);
 		$this->assertSame('America/New_York', self::$newYork->timezone->getName());
 	}
 
@@ -111,13 +113,13 @@ final class TimezoneTypeTest extends TestCase
 		$this->assertSame(35.6931492, self::$tehran->coords->getLat());
 		$this->assertSame(51.3226672, self::$tehran->coords->getLon());
 
-		$this->assertInstanceOf(DateTimeImmutable::class, self::$tehran->time);
-		$this->assertInstanceOf(DateTimeImmutable::class, self::$tehran->sunrise);
-		$this->assertInstanceOf(DateTimeImmutable::class, self::$tehran->sunset);
+		$this->assertInstanceOf(\DateTimeImmutable::class, self::$tehran->time);
+		$this->assertInstanceOf(\DateTimeImmutable::class, self::$tehran->sunrise);
+		$this->assertInstanceOf(\DateTimeImmutable::class, self::$tehran->sunset);
 
-		$this->assertSame('2021-08-23T01:17:00+04:30', self::$tehran->time->format(DateTime::W3C));
-		$this->assertSame('2021-08-22T06:28:00+04:30', self::$tehran->sunrise->format(DateTime::W3C)); // possible bug in API data? Should be 2021-08-23
-		$this->assertSame('2021-08-22T19:46:00+04:30', self::$tehran->sunset->format(DateTime::W3C)); // possible bug in API data? Should be 2021-08-23
+		$this->assertSame('2021-08-23T01:17:00+04:30', self::$tehran->time->format(\DateTime::W3C));
+		$this->assertSame('2021-08-22T06:28:00+04:30', self::$tehran->sunrise->format(\DateTime::W3C)); // possible bug in API data? Should be 2021-08-23
+		$this->assertSame('2021-08-22T19:46:00+04:30', self::$tehran->sunset->format(\DateTime::W3C)); // possible bug in API data? Should be 2021-08-23
 
 		$this->assertSame('IR', self::$tehran->countryCode);
 		$this->assertSame('Iran', self::$tehran->countryName);
@@ -135,7 +137,7 @@ final class TimezoneTypeTest extends TestCase
 		$this->assertTrue(self::$tehran->isDst());
 
 		$this->assertSame('Asia/Tehran', self::$tehran->timezoneId);
-		$this->assertInstanceOf(DateTimeZone::class, self::$tehran->timezone);
+		$this->assertInstanceOf(\DateTimeZone::class, self::$tehran->timezone);
 		$this->assertSame('Asia/Tehran', self::$tehran->timezone->getName());
 	}
 

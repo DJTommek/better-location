@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\BetterLocation\Service;
+
 use App\BetterLocation\Service\Coordinates\MGRSService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;

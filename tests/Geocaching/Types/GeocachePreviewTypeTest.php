@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\Geocaching\Types;
+
 use App\Geocaching\Types\GeocachePreviewType;
 use PHPUnit\Framework\TestCase;
 
@@ -68,13 +70,13 @@ final class GeocachePreviewTypeTest extends TestCase
 
 	public function testUpdated(): void
 	{
-		$this->assertInstanceOf(DateTimeImmutable::class, self::$GC3DYC4->placedDate);
+		$this->assertInstanceOf(\DateTimeImmutable::class, self::$GC3DYC4->placedDate);
 		$this->assertSame('2012.03.05 00:00:00', self::$GC3DYC4->placedDate->format('Y.m.d H:i:s'));
 
-		$this->assertInstanceOf(DateTimeImmutable::class, self::$GC7X2M6->placedDate);
+		$this->assertInstanceOf(\DateTimeImmutable::class, self::$GC7X2M6->placedDate);
 		$this->assertSame('2018.08.31 00:00:00', self::$GC7X2M6->placedDate->format('Y.m.d H:i:s'));
 
-		$this->assertInstanceOf(DateTimeImmutable::class, self::$GC7B7HB->placedDate);
+		$this->assertInstanceOf(\DateTimeImmutable::class, self::$GC7B7HB->placedDate);
 		$this->assertSame('2017.08.30 00:00:00', self::$GC7B7HB->placedDate->format('Y.m.d H:i:s'));
 	}
 

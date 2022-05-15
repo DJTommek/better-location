@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\OpenElevation;
+
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\OpenElevation\OpenElevation;
 use App\Utils\Coordinates;

@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\Utils;
+
 use App\Utils\TempFile;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
@@ -28,7 +30,7 @@ final class TempFileTest extends TestCase
 		$tempDirFullPath = $tempfile->get()->getPath();
 
 		$this->assertInstanceOf(TempFile::class, $tempfile);
-		$this->assertInstanceOf(SplFileInfo::class, $tempfile->get());
+		$this->assertInstanceOf(\SplFileInfo::class, $tempfile->get());
 
 		$this->assertSame('auto-destruct.txt', $tempfile->get()->getBasename());
 		$this->assertTrue(Strings::startsWith($tempFileFullPath, self::$tempDir));

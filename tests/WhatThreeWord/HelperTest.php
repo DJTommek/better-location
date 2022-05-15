@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\WhatThreeWord;
+
 use App\WhatThreeWord\Helper;
 use PHPUnit\Framework\TestCase;
 

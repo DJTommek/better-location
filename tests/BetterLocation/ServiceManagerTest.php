@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\BetterLocation;
+
 use PHPUnit\Framework\TestCase;
 
 final class ServiceManagerTest extends TestCase
@@ -18,7 +20,7 @@ final class ServiceManagerTest extends TestCase
 	{
 		$ids = [];
 		foreach(self::$manager->getServices() as $service) {
-			$reflection = new ReflectionClass($service);
+			$reflection = new \ReflectionClass($service);
 			$constantName = 'ID';
 			$this->assertTrue($reflection->hasConstant('NAME'), sprintf('Service class "%s" does not have required constant "NAME"', $service));
 			$this->assertTrue($reflection->hasConstant($constantName), sprintf('Service class "%s" does not have required constant "%s"', $service, $constantName));

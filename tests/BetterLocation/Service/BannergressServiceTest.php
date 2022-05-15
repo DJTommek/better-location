@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\BetterLocation\Service;
+
 use App\BetterLocation\Service\BannergressService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\MiniCurl\Exceptions\InvalidResponseException;

@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\BetterLocation\Service;
+
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\GlympseService;
 use PHPUnit\Framework\TestCase;

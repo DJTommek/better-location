@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\BetterLocation\Service;
+
 use App\BetterLocation\Service\OpenStreetMapService;
 use PHPUnit\Framework\TestCase;
 
