@@ -31,7 +31,11 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"App\\": "src/libs/",
+			"App\\": "src/libs/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
 			"Tests\\": "tests/"
 		}
 	},
