@@ -11,6 +11,7 @@ use App\Utils\Coordinates;
 use App\Utils\Utils;
 use App\Utils\Strict;
 use App\Utils\StringUtils;
+use App\Utils\Utils;
 use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
@@ -89,12 +90,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 				continue;
 			} else {
 				// @TODO possible optimalization to skip calculating distance: if 0, check if coordinates are same
-				$distance = Coordinates::distance(
-					$mostImportantLocation->getLat(),
-					$mostImportantLocation->getLon(),
-					$location->getLat(),
-					$location->getLon(),
-				);
+				$distance = $mostImportantLocation->getCoordinates()->distance($location->getCoordinates());
 				if ($distance < $ignoreDistance) {
 					// Remove locations that are too close to main location
 					unset($this->locations[$key]);

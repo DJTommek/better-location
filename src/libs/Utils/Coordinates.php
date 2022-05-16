@@ -206,28 +206,30 @@ class Coordinates implements CoordinatesInterface
 	/**
 	 * Calculates the great-circle distance between two points, with the Vincenty formula.
 	 *
-	 * @param float $latitudeFrom Latitude of start point in [deg decimal]
-	 * @param float $longitudeFrom Longitude of start point in [deg decimal]
-	 * @param float $latitudeTo Latitude of target point in [deg decimal]
-	 * @param float $longitudeTo Longitude of target point in [deg decimal]
-	 * @param float $earthRadius Mean earth radius in [m]
-	 * @return float Distance between points in [m] (same as earthRadius)
+	 * @return float Distance between points in meters (same unit as self::EARTH_RADIUS)
 	 * @author https://stackoverflow.com/a/10054282/3334403
 	 */
-	public static function distance(float $latitudeFrom, float $longitudeFrom, float $latitudeTo, float $longitudeTo, float $earthRadius = self::EARTH_RADIUS): float
-	{
+	public function distance(self $coords): float {
 		// convert from degrees to radians
-		$latFrom = deg2rad($latitudeFrom);
-		$lonFrom = deg2rad($longitudeFrom);
-		$latTo = deg2rad($latitudeTo);
-		$lonTo = deg2rad($longitudeTo);
+		$latFrom = deg2rad($this->lat);
+		$lonFrom = deg2rad($this->lon);
+		$latTo = deg2rad($coords->lat);
+		$lonTo = deg2rad($coords->lon);
 
 		$lonDelta = $lonTo - $lonFrom;
 		$a = pow(cos($latTo) * sin($lonDelta), 2) + pow(cos($latFrom) * sin($latTo) - sin($latFrom) * cos($latTo) * cos($lonDelta), 2);
 		$b = sin($latFrom) * sin($latTo) + cos($latFrom) * cos($latTo) * cos($lonDelta);
 
 		$angle = atan2(sqrt($a), $b);
-		return $angle * $earthRadius;
+		return $angle * self::EARTH_RADIUS;
+	}
+
+	public static function distanceLatLon(float $lat1, float $lon1, float $lat2, float $lon2): float
+	{
+		$location1 = new Coordinates($lat1, $lon1);
+		$location2 = new Coordinates($lat2, $lon2);
+
+		return $location1->distance($location2);
 	}
 
 	/** @param string|int|float $lat */

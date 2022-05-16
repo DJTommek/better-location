@@ -13,7 +13,6 @@ use App\Repository\ChatEntity;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
-use App\Utils\Coordinates;
 use App\Utils\Formatter;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -166,12 +165,10 @@ class InlineQueryEvent extends Special
 	private function addDistanceText(BetterLocation $betterLocation): string
 	{
 		if ($usersLastLocation = $this->user->getLastKnownLocation()) {
-			return sprintf(' (%s away)', Formatter::distance(Coordinates::distance(
-				$usersLastLocation->getLat(),
-				$usersLastLocation->getLon(),
-				$betterLocation->getLat(),
-				$betterLocation->getLon(),
-			)));
+			return sprintf(
+				' (%s away)',
+				Formatter::distance($usersLastLocation->getCoordinates()->distance($betterLocation->getCoordinates()))
+			);
 		} else {
 			return '';
 		}

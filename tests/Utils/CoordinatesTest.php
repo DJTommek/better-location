@@ -122,23 +122,64 @@ final class CoordinatesTest extends TestCase
 
 	public function testDistance(): void
 	{
-		$this->assertSame(0.0, Coordinates::distance(50.087725, 14.4211267, 50.087725, 14.4211267));
-		$this->assertSame(42.16747601866312, Coordinates::distance(50.087725, 14.4211267, 50.0873667, 14.4213203));
-		$this->assertSame(1_825.0239867033586, Coordinates::distance(36.6323425, -121.9340617, 36.6219297, -121.9182533));
+		$this->assertSame(0.0, (new Coordinates(50.087725, 14.4211267))->distance(new Coordinates(50.087725, 14.4211267)));
+		$this->assertSame(42.16747601866312, (new Coordinates(50.087725, 14.4211267))->distance(new Coordinates(50.0873667, 14.4213203)));
+		$this->assertSame(1_825.0239867033586, (new Coordinates(36.6323425, -121.9340617))->distance(new Coordinates(36.6219297, -121.9182533)));
+
+		$coord1 = new Coordinates(50, 14);
+		$coord2 = new Coordinates(51, 15);
 
 		$this->assertEqualsWithDelta( // same coordinates, just switched
-			Coordinates::distance(50, 14, 51, 15),
-			Coordinates::distance(51, 15, 50, 14),
+			$coord1->distance($coord2),
+			$coord2->distance($coord1),
 			0.000_000_01
 		);
-		$this->assertSame(4_532.050463078125, Coordinates::distance(50.08904, 14.42890, 50.07406, 14.48797));
-		$this->assertSame(11_471_646.428581407, Coordinates::distance(-50.08904,14.42890, 50.07406,-14.48797));
+		$this->assertSame(4_532.050463078125, (new Coordinates(50.08904, 14.42890))->distance(new Coordinates(50.07406, 14.48797)));
+		$this->assertSame(11_471_646.428581407, (new Coordinates(-50.08904, 14.42890))->distance(new Coordinates(50.07406, -14.48797)));
 	}
 
 	/**
 	 * Generate random coordinates and compare distance between by using first and second set of method argument.
 	 */
 	public function testDistanceGenerated(): void
+	{
+		for ($i = 0; $i < 10_000; $i++) {
+			$coords1 = new Coordinates(
+				rand(-89_999_999, 89_999_999) / 1_000_000,
+				rand(-179_999_999, 179_999_999) / 1_000_000,
+			);
+			$coords2 = new Coordinates(
+				rand(-89_999_999, 89_999_999) / 1_000_000,
+				rand(-179_999_999, 179_999_999) / 1_000_000,
+			);
+
+			$this->assertEqualsWithDelta(
+				$coords1->distance($coords2),
+				$coords2->distance($coords1),
+				0.000_000_01,
+			);
+		}
+	}
+
+	public function testDistanceStatic(): void
+	{
+		$this->assertSame(0.0, Coordinates::distanceLatLon(50.087725, 14.4211267, 50.087725, 14.4211267));
+		$this->assertSame(42.16747601866312, Coordinates::distanceLatLon(50.087725, 14.4211267, 50.0873667, 14.4213203));
+		$this->assertSame(1_825.0239867033586, Coordinates::distanceLatLon(36.6323425, -121.9340617, 36.6219297, -121.9182533));
+
+		$this->assertEqualsWithDelta( // same coordinates, just switched
+			Coordinates::distanceLatLon(50, 14, 51, 15),
+			Coordinates::distanceLatLon(51, 15, 50, 14),
+			0.000_000_01
+		);
+		$this->assertSame(4_532.050463078125, Coordinates::distanceLatLon(50.08904, 14.42890, 50.07406, 14.48797));
+		$this->assertSame(11_471_646.428581407, Coordinates::distanceLatLon(-50.08904, 14.42890, 50.07406, -14.48797));
+	}
+
+	/**
+	 * Generate random coordinates and compare distance between by using first and second set of method argument.
+	 */
+	public function testDistanceStaticGenerated(): void
 	{
 		for ($i = 0; $i < 10_000; $i++) {
 			$lat1 = rand(-89_999_999, 89_999_999) / 1_000_000;
@@ -148,8 +189,8 @@ final class CoordinatesTest extends TestCase
 			$lon2 = rand(-179_999_999, 179_999_999) / 1_000_000;
 
 			$this->assertEqualsWithDelta(
-				Coordinates::distance($lat1, $lon1, $lat2, $lon2),
-				Coordinates::distance($lat2, $lon2, $lat1, $lon1),
+				Coordinates::distanceLatLon($lat1, $lon1, $lat2, $lon2),
+				Coordinates::distanceLatLon($lat2, $lon2, $lat1, $lon1),
 				0.000_000_01,
 			);
 		}
