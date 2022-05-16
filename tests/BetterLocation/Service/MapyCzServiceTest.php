@@ -144,23 +144,23 @@ final class MapyCzServiceTest extends TestCase
 		$collection = MapyCzService::processStatic('https://mapy.cz/s/cekahebefu')->getCollection();
 		$this->assertCount(2, $collection);
 		$this->assertSame('48.873288,14.578971', $collection[0]->__toString());
-		$this->assertSame('Place coords', $collection[0]->getName());
+		$this->assertSame('Place coords', $collection[0]->getSourceType());
 		$this->assertSame('48.873486,14.570216', $collection[1]->__toString());
-		$this->assertSame('Map center', $collection[1]->getName());
+		$this->assertSame('Map center', $collection[1]->getSourceType());
 
 		$collection = MapyCzService::processStatic('https://en.mapy.cz/s/gacegelola')->getCollection(); // same as above just generated later by different user and on different IP and PC
 		$this->assertCount(2, $collection);
 		$this->assertSame('48.873288,14.578971', $collection[0]->__toString());
-		$this->assertSame('Place coords', $collection[0]->getName());
+		$this->assertSame('Place coords', $collection[0]->getSourceType());
 		$this->assertSame('48.873486,14.570216', $collection[1]->__toString());
-		$this->assertSame('Map center', $collection[1]->getName());
+		$this->assertSame('Map center', $collection[1]->getSourceType());
 
 		$collection = MapyCzService::processStatic('https://en.mapy.cz/s/bosafonabo')->getCollection();
 		$this->assertCount(2, $collection);
 		$this->assertSame('50.077886,14.371990', $collection[0]->__toString());
-		$this->assertSame('Place coords', $collection[0]->getName());
+		$this->assertSame('Place coords', $collection[0]->getSourceType());
 		$this->assertSame('50.069678,14.398511', $collection[1]->__toString());
-		$this->assertSame('Map center', $collection[1]->getName());
+		$this->assertSame('Map center', $collection[1]->getSourceType());
 
 		$this->assertSame('7.731071,-80.551001', MapyCzService::processStatic('https://en.mapy.cz/s/godumokefu')->getFirst()->__toString());
 		$this->assertSame('65.608884,-168.088871', MapyCzService::processStatic('https://en.mapy.cz/s/nopovehuhu')->getFirst()->__toString());
@@ -259,7 +259,7 @@ final class MapyCzServiceTest extends TestCase
 		$collection = MapyCzService::processStatic('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=1234')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('50.069524,14.450824', $collection[0]->__toString());
-		$this->assertSame('Map center', $collection[0]->getName());
+		$this->assertSame('Map center', $collection[0]->getSourceType());
 
 		$collection = MapyCzService::processStatic('https://en.mapy.cz/zakladni?source=base&id=1234')->getCollection();
 		$this->assertCount(0, $collection);
@@ -269,7 +269,7 @@ final class MapyCzServiceTest extends TestCase
 		$collection = MapyCzService::processStatic('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=2111676a')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('50.069524,14.450824', $collection[0]->__toString());
-		$this->assertSame('Map center', $collection[0]->getName());
+		$this->assertSame('Map center', $collection[0]->getSourceType());
 	}
 
 	/**
@@ -280,7 +280,7 @@ final class MapyCzServiceTest extends TestCase
 		$collection = MapyCzService::processStatic('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&source=coor&id=14.4508239,50.0695244aaa&z=15')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('50.069524,14.450824', $collection[0]->__toString());
-		$this->assertSame('Map center', $collection[0]->getName());
+		$this->assertSame('Map center', $collection[0]->getSourceType());
 	}
 
 	/**

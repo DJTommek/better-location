@@ -99,32 +99,32 @@ final class GoogleMapsServiceTest extends TestCase
 		$service = GoogleMapsService::processStatic('https://www.google.com/maps/@50.0873231,14.4208835,3a,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656');
 		$this->assertCount(1, $service->getCollection());
 		$location = $service->getCollection()->getFirst();
-		$this->assertEquals('Street view', $location->getName());
+		$this->assertEquals('Street view', $location->getSourceType());
 		$this->assertEquals('50.087323,14.420884', $location->__toString());
 
 		$service = GoogleMapsService::processStatic('https://www.google.com/maps/@5.0873231,-14.4208835,3a,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656');
 		$this->assertCount(1, $service->getCollection());
 		$location = $service->getCollection()->getFirst();
-		$this->assertEquals('Street view', $location->getName());
+		$this->assertEquals('Street view', $location->getSourceType());
 		$this->assertEquals('5.087323,-14.420884', $location->__toString());
 
 		$service = GoogleMapsService::processStatic('https://www.google.com/maps/@-50.0873231,144.4208835,3a,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656');
 		$this->assertCount(1, $service->getCollection());
 		$location = $service->getCollection()->getFirst();
-		$this->assertEquals('Street view', $location->getName());
+		$this->assertEquals('Street view', $location->getSourceType());
 		$this->assertEquals('-50.087323,144.420884', $location->__toString());
 
 		$service = GoogleMapsService::processStatic('https://www.google.com/maps/@-50.0873231,-14.4208835,3a,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656');
 		$this->assertCount(1, $service->getCollection());
 		$location = $service->getCollection()->getFirst();
-		$this->assertEquals('Street view', $location->getName());
+		$this->assertEquals('Street view', $location->getSourceType());
 		$this->assertEquals('-50.087323,-14.420884', $location->__toString());
 
 		// Valid location, but not street view - missing "3a" parameter so it fallback to general Map center
 		$service = GoogleMapsService::processStatic('https://www.google.com/maps/@50.0873231,14.4208835,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656');
 		$this->assertCount(1, $service->getCollection());
 		$location = $service->getCollection()->getFirst();
-		$this->assertEquals('Map center', $location->getName());
+		$this->assertEquals('Map center', $location->getSourceType());
 		$this->assertEquals('50.087323,14.420884', $location->__toString());
 	}
 
@@ -135,14 +135,14 @@ final class GoogleMapsServiceTest extends TestCase
 	{
 		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/Velk%C3%BD+Meheln%C3%ADk,+397+01+Pisek/@49.2941662,14.2258333,14z/data=!4m2!3m1!1s0x470b5087ca84a6e9:0xfeb1428d8c8334da')->getCollection();
 		$this->assertCount(1, $collection);
-		$this->assertSame('Map center', $collection[0]->getName());
+		$this->assertSame('Map center', $collection[0]->getSourceType());
 		$this->assertSame('49.294166,14.225833', $collection[0]->__toString());
 
 		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/Zelend%C3%A1rky/@49.2069545,14.2495123,15z/data=!4m5!3m4!1s0x0:0x3ad3965c4ecb9e51!8m2!3d49.2113282!4d14.2553488')->getCollection();
 		$this->assertCount(2, $collection);
-		$this->assertSame('Place', $collection[0]->getName());
+		$this->assertSame('Place', $collection[0]->getSourceType());
 		$this->assertSame('49.211328,14.255349', $collection[0]->__toString());
-		$this->assertSame('Map center', $collection[1]->getName());
+		$this->assertSame('Map center', $collection[1]->getSourceType());
 		$this->assertSame('49.206955,14.249512', $collection[1]->__toString());
 
 		$this->assertSame('36.826460,22.528715', GoogleMapsService::processStatic('https://www.google.cz/maps/@36.8264601,22.5287146,9.33z')->getFirst()->__toString());
@@ -152,9 +152,9 @@ final class GoogleMapsServiceTest extends TestCase
 		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/50%C2%B006\'04.6%22N+14%C2%B031\'44.0%22E/@50.101271,14.5281082,18z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d50.1012711!4d14.5288824?shorturl=1')->getCollection();
 		$this->assertCount(2, $collection);
 		$this->assertSame('50.101271,14.528882', $collection[0]->__toString());
-		$this->assertSame('Place', $collection[0]->getName());
+		$this->assertSame('Place', $collection[0]->getSourceType());
 		$this->assertSame('50.101271,14.528108', $collection[1]->__toString());
-		$this->assertSame('Map center', $collection[1]->getName());
+		$this->assertSame('Map center', $collection[1]->getSourceType());
 
 		$this->assertSame('49.367523,14.514022', GoogleMapsService::processStatic('https://maps.google.com/maps?ll=49.367523,14.514022&q=49.367523,14.514022')->getFirst()->__toString());
 		$this->assertSame('49.367523,14.514022', GoogleMapsService::processStatic('https://maps.google.com/maps?ll=49.367523,14.514022&q=49.367523,14.514022')->getFirst()->__toString());
@@ -179,23 +179,23 @@ final class GoogleMapsServiceTest extends TestCase
 		// Baumax Michle
 		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/bauMax,+Chodovsk%C3%A1+1549%2F18,+101+00+Praha+10/data=!4m2!3m1!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2?utm_source=mstt_1&entry=gps')->getCollection();
 		$this->assertCount(1, $collection);
-		$this->assertSame('hidden', $collection[0]->getName());
+		$this->assertSame('hidden', $collection[0]->getSourceType());
 		$this->assertSame('50.056068,14.472953', $collection[0]->__toString());
 		// same as above but short URL
 		$collection = GoogleMapsService::processStatic('https://maps.app.goo.gl/X5bZDTSFfdRzchGY6')->getCollection();
 		$this->assertCount(1, $collection);
-		$this->assertSame('hidden', $collection[0]->getName());
+		$this->assertSame('hidden', $collection[0]->getSourceType());
 		$this->assertSame('50.056068,14.472953', $collection[0]->__toString());
 
 		// Lemour Sušice
 		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/Caf%C3%A9+Lamour,+n%C3%A1b%C5%99.+Karla+Houry+180,+342+01+Su%C5%A1ice/data=!4m2!3m1!1s0x470b2b2fad7dd1c3:0x6c66c5beca8a4117?utm_source=mstt_1&entry=gps')->getCollection();
 		$this->assertCount(1, $collection);
-		$this->assertSame('hidden', $collection[0]->getName());
+		$this->assertSame('hidden', $collection[0]->getSourceType());
 		$this->assertSame('49.231830,13.521600', $collection[0]->__toString());
 		// same as above but short URL
 		$collection = GoogleMapsService::processStatic('https://maps.app.goo.gl/C4FjaU9CXsHuMrobA')->getCollection();
 		$this->assertCount(1, $collection);
-		$this->assertSame('hidden', $collection[0]->getName());
+		$this->assertSame('hidden', $collection[0]->getSourceType());
 		$this->assertSame('49.231830,13.521600', $collection[0]->__toString());
 	}
 
@@ -210,16 +210,16 @@ final class GoogleMapsServiceTest extends TestCase
 		// Baumax Michle
 		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/bauMax/@50.0543547,14.4763896,16.75z/data=!4m5!3m4!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2!8m2!3d50.0560684!4d14.4729532?shorturl=1')->getCollection();
 		$this->assertCount(2, $collection);
-		$this->assertSame('Place', $collection[0]->getName());
+		$this->assertSame('Place', $collection[0]->getSourceType());
 		$this->assertSame('50.056068,14.472953', $collection[0]->__toString());
-		$this->assertSame('Map center', $collection[1]->getName());
+		$this->assertSame('Map center', $collection[1]->getSourceType());
 		$this->assertSame('50.054355,14.476390', $collection[1]->__toString());
 		// same as above but short URL
 		$collection = GoogleMapsService::processStatic('https://goo.gl/maps/AK13hVJLjnveWZqJA')->getCollection();
 		$this->assertCount(2, $collection);
-		$this->assertSame('Place', $collection[0]->getName());
+		$this->assertSame('Place', $collection[0]->getSourceType());
 		$this->assertSame('50.056068,14.472953', $collection[0]->__toString());
-		$this->assertSame('Map center', $collection[1]->getName());
+		$this->assertSame('Map center', $collection[1]->getSourceType());
 		$this->assertSame('50.054355,14.476390', $collection[1]->__toString());
 	}
 

@@ -76,7 +76,7 @@ class BetterLocation implements CoordinatesInterface
 		}
 	}
 
-	public function getName(): string
+	public function getSourceType(): ?string
 	{
 		return $this->sourceType;
 	}
