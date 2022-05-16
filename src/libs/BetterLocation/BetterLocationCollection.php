@@ -8,7 +8,7 @@ use App\Icons;
 use App\MiniCurl\MiniCurl;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
-use App\Utils\Utils;
+use App\Utils\Formatter;
 use App\Utils\Strict;
 use App\Utils\StringUtils;
 use App\Utils\Utils;
@@ -95,7 +95,14 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 					// Remove locations that are too close to main location
 					unset($this->locations[$key]);
 				} else {
-					$location->setDescription(sprintf('%s Location is %d meters away from %s %s.', Icons::WARNING, $distance, $mostImportantLocation->getName(), Icons::ARROW_UP));
+					$location->setDescription(
+						sprintf('%s Location is %s away from %s %s.',
+							Icons::WARNING,
+							Formatter::distance($distance),
+							$mostImportantLocation->getSourceType() ?? 'previous location',
+							Icons::ARROW_UP
+						)
+					);
 				}
 			}
 		}
