@@ -5,10 +5,12 @@ namespace App\TelegramCustomWrapper\Events\Edit;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\Config;
+use App\Geonames\Geonames;
 use App\Icons;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\TelegramUpdateDb;
+use App\Utils\DateImmutableUtils;
 use unreal4u\TelegramAPI\Telegram;
 
 class LocationEdit extends Edit
@@ -47,7 +49,12 @@ class LocationEdit extends Edit
 			$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
 			$processedCollection->process();
 			$text = $processedCollection->getText();
-			$text .= sprintf('%s Last live location from %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
+
+			// Show datetime of last location update in local timezone based on timezone on that location itself
+			$geonames = Geonames::timezone($collection->getFirst()->getLat(), $collection->getFirst()->getLon());
+			$lastUpdate = DateImmutableUtils::fromTimestamp($this->getMessage()->edit_date, $geonames->timezone);
+			$text .= sprintf('%s Last live location from %s', Icons::REFRESH, $lastUpdate->format(Config::DATETIME_FORMAT));
+
 			if ($this->live === false) {
 				// If user cancel sharing, edit event is fired but it's not live location anymore.
 				// But if sharing is expired (automatically), TG server is not sending any edit event.
