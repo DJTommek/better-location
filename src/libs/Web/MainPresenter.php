@@ -8,6 +8,7 @@ use App\Factory;
 use App\User;
 use App\Utils\Strict;
 use App\Web\Login\LoginFacade;
+use Nette\Utils\Json;
 use Nette\Utils\Strings;
 
 abstract class MainPresenter
@@ -98,6 +99,23 @@ abstract class MainPresenter
 			yield $flashMessage;
 			unset($_SESSION['FLASH_MESSAGES'][$key]);
 		}
+	}
+
+	public function apiResponse(\stdClass|array $result, string $message = '', bool $error = false): void
+	{
+		header('Content-Type: application/json');
+		header('Access-Control-Allow-Origin: *');
+		die(Json::encode([
+			'datetime' => time(),
+			'error' => $error,
+			'message' => $message,
+			'result' => $result,
+		], JSON_PRETTY_PRINT));
+	}
+
+	public function apiError(string $message = ''): void
+	{
+		$this->apiResponse([], $message, true);
 	}
 }
 
