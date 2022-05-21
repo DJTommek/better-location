@@ -8,24 +8,25 @@ use App\Factory;
 use App\User;
 use App\Utils\Strict;
 use App\Web\Login\LoginFacade;
+use Nette\Http\Request;
+use Nette\Http\RequestFactory;
 use Nette\Utils\Strings;
 
 abstract class MainPresenter
 {
-	/** @var Database */
-	protected $db;
-	/** @var LoginFacade */
-	protected $login;
-	/** @var User */
-	protected $user;
-	/** @var LayoutTemplate */
-	public $template;
+	protected Request $request;
+	protected Database $db;
+	protected LoginFacade $login;
+	protected ?User $user = null;
+	public LayoutTemplate $template;
 
 	/**
 	 * Set template and basic variables
 	 */
 	public function __construct()
 	{
+		$requestFactory = new RequestFactory();
+		$this->request = $requestFactory->fromGlobals();
 		if ($this->template === null) { // load default template if any was provided
 			$this->template = new LayoutTemplate();
 		}
