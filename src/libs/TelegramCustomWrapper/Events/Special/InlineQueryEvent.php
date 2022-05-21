@@ -184,7 +184,7 @@ class InlineQueryEvent extends Special
 		}
 		$inlineQueryResult->title = strip_tags($inlineTitle);
 		$inlineQueryResult->description = $betterLocation->__toString();
-		if ($this->getMessageSettings()->showAddress()) {
+		if ($this->showAddress()) {
 			$betterLocation->generateAddress();
 			if ($betterLocation->hasAddress()) {
 				$inlineQueryResult->description .= sprintf(' (%s)', $betterLocation->getAddress());
@@ -236,5 +236,9 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
 		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->userPrivateChatEntity->settingsPreview();
 		return $inlineQueryResult;
+	}
+
+	private function showAddress(): bool {
+		return $this->userPrivateChatEntity->settingsShowAddress();
 	}
 }

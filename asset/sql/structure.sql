@@ -23,6 +23,7 @@ CREATE TABLE `better_location_chat` (
   `chat_last_update` datetime NOT NULL,
   `chat_settings_preview` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
   `chat_settings_output_type` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+  `chat_settings_show_address` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
   PRIMARY KEY (`chat_id`),
   UNIQUE KEY `chat_telegram_id` (`chat_telegram_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;

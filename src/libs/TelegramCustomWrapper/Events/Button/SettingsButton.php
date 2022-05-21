@@ -11,8 +11,8 @@ class SettingsButton extends Button
 	const CMD = SettingsCommand::CMD;
 
 	const ACTION_SETTINGS_PREVIEW = 'preview';
-
 	const ACTION_SETTINGS_SEND_NATIVE_LOCATION = 'send_native_location';
+	const ACTION_SETTINGS_SHOW_ADDRESS = 'show_address';
 
 	public function handleWebhookUpdate()
 	{
@@ -23,6 +23,11 @@ class SettingsButton extends Button
 						$previewEnabled = Strict::boolval($this->params[1]);
 						$this->chat->settingsPreview($previewEnabled);
 						$this->flash(sprintf('%s Map preview for locations was %s.', Icons::SUCCESS, $previewEnabled ? 'enabled' : 'disabled'));
+						break;
+					case self::ACTION_SETTINGS_SHOW_ADDRESS:
+						$showAddress = Strict::boolval($this->params[1]);
+						$this->chat->settingsShowAddress($showAddress);
+						$this->flash(sprintf('%s Showing address locations was %s.', Icons::SUCCESS, $showAddress ? 'enabled' : 'disabled'));
 						break;
 					case self::ACTION_SETTINGS_SEND_NATIVE_LOCATION:
 						$sendNativeLocation = Strict::boolval($this->params[1]);

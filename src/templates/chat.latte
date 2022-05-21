@@ -28,6 +28,14 @@
 						</td>
 					</tr>
 					<tr>
+						<td><label class="form-check-label" for="settings-address">Show address</label></td>
+						<td>
+							<div class="form-check form-switch">
+								<input class="form-check-input" type="checkbox" role="switch" id="settings-show-address" name="show-address" n:attr="checked: $chat->settingsShowAddress()">
+							</div>
+						</td>
+					</tr>
+					<tr>
 						<td>Message output type</td>
 						<td>
 							{switch $chat->settingsOutputType()}
@@ -143,6 +151,13 @@
 						|
 					{/if}
 				{/foreach}
+
+                {if $chat->settingsShowAddress()}
+					<br>
+					{$exampleLocation->generateAddress()}
+					{$exampleLocation->getAddress()}
+				{/if}
+
 			</div>
 		</div>
 		<a n:if="$chat->settingsPreview()" href="https://better-location.palider.cz/api/staticmap.php?id=ad9d66a6c079f762" target="_blank">

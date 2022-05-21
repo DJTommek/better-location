@@ -69,9 +69,9 @@ class BetterLocationMessageSettings
 	 */
 	private $screenshotLinkService;
 	/**
-	 * @var bool Should be address displayed
+	 * If address for locations should be generated and displayed in Better Location message
 	 */
-	private $address;
+	private bool $showAddress;
 
 	public function __construct(
 		array  $shareServices = self::DEFAULT_SHARE_SERVICES,
@@ -85,7 +85,7 @@ class BetterLocationMessageSettings
 		$this->buttonServices = $buttonServices;
 		$this->textServices = $textServices;
 		$this->screenshotLinkService = $screenshotLinkService;
-		$this->address = $address;
+		$this->showAddress = $address;
 	}
 
 	public static function loadByChatId(int $chatId): self
@@ -172,11 +172,6 @@ class BetterLocationMessageSettings
 		$this->textServices = $services;
 	}
 
-	public function setAddress(bool $address): void
-	{
-		$this->address = $address;
-	}
-
 	/** @return AbstractService[] */
 	public function getLinkServices(): array
 	{
@@ -201,9 +196,12 @@ class BetterLocationMessageSettings
 		return $this->screenshotLinkService;
 	}
 
-	public function showAddress(): bool
+	public function showAddress(?bool $showAddress = null): bool
 	{
-		return $this->address;
+		if ($showAddress !== null) {
+			$this->showAddress = $showAddress;
+		}
+		return $this->showAddress;
 	}
 
 	public function saveToDb(int $chatId): void

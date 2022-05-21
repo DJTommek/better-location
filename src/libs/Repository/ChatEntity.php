@@ -26,6 +26,7 @@ class ChatEntity extends Entity
 	public \DateTimeImmutable $lastUpdate;
 	public bool $settingsPreview;
 	public int $settingsOutputType;
+	public bool $settingsShowAddress;
 
 	public static function fromRow(array $row): self
 	{
@@ -38,6 +39,7 @@ class ChatEntity extends Entity
 		$entity->lastUpdate = new \DateTimeImmutable($row['chat_last_update']);
 		$entity->settingsPreview = Strict::boolval($row['chat_settings_preview']);
 		$entity->settingsOutputType = $row['chat_settings_output_type'];
+		$entity->settingsShowAddress = Strict::boolval($row['chat_settings_show_address']);
 		return $entity;
 	}
 }

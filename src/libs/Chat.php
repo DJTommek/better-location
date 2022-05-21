@@ -34,6 +34,15 @@ class Chat
 		return $this->chatEntity->settingsPreview;
 	}
 
+	public function settingsShowAddress(?bool $enable = null): bool
+	{
+		if ($enable !== null) {
+			$this->chatEntity->settingsShowAddress = $enable;
+			$this->update();
+		}
+		return $this->chatEntity->settingsShowAddress;
+	}
+
 	public function touchLastUpdate(): void
 	{
 		$this->update();
@@ -63,6 +72,7 @@ class Chat
 	{
 		if ($this->messageSettings === null) {
 			$this->messageSettings = BetterLocationMessageSettings::loadByChatId($this->chatEntity->id);
+			$this->messageSettings->showAddress($this->settingsShowAddress());
 		}
 		return $this->messageSettings;
 	}

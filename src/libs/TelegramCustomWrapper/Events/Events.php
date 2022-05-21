@@ -413,20 +413,30 @@ abstract class Events
 
 		$previewButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
 		if ($this->chat->settingsPreview()) {
-			$previewButton->text = sprintf('Map preview: %s', Icons::ENABLED);
+			$previewButton->text = sprintf('%s Map preview', Icons::ENABLED);
 			$previewButton->callback_data = sprintf('%s %s false', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_PREVIEW);
 		} else {
-			$previewButton->text = sprintf('Map preview: %s', Icons::DISABLED);
+			$previewButton->text = sprintf('%s Map preview', Icons::DISABLED);
 			$previewButton->callback_data = sprintf('%s %s true', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_PREVIEW);
 		}
 		$buttonRow[] = $previewButton;
 
+		$showAddressButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
+		if ($this->chat->settingsShowAddress()) {
+			$showAddressButton->text = sprintf('%s Address', Icons::ENABLED);
+			$showAddressButton->callback_data = sprintf('%s %s false', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_SHOW_ADDRESS);
+		} else {
+			$showAddressButton->text = sprintf('%s Address', Icons::DISABLED);
+			$showAddressButton->callback_data = sprintf('%s %s true', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_SHOW_ADDRESS);
+		}
+		$buttonRow[] = $showAddressButton;
+
 		$sendNativeLocationButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
 		if ($this->chat->getSendNativeLocation()) {
-			$sendNativeLocationButton->text = sprintf('Send native location: %s', Icons::ENABLED);
+			$sendNativeLocationButton->text = sprintf('%s Native location', Icons::ENABLED);
 			$sendNativeLocationButton->callback_data = sprintf('%s %s false', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_SEND_NATIVE_LOCATION);
 		} else {
-			$sendNativeLocationButton->text = sprintf('Send native location: %s', Icons::DISABLED);
+			$sendNativeLocationButton->text = sprintf('%s Native location', Icons::DISABLED);
 			$sendNativeLocationButton->callback_data = sprintf('%s %s true', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_SEND_NATIVE_LOCATION);
 		}
 		$buttonRow[] = $sendNativeLocationButton;

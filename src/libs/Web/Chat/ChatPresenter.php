@@ -84,6 +84,7 @@ class ChatPresenter extends MainPresenter
 
 	private function handleSettingsForm() {
 		$this->chat->settingsPreview(isset($_POST['map-preview']));
+		$this->chat->settingsShowAddress(isset($_POST['show-address']));
 		$services = Factory::ServicesManager()->getServices();
 
 		$linkServicesToSave = [];
