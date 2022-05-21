@@ -184,8 +184,11 @@ class InlineQueryEvent extends Special
 		}
 		$inlineQueryResult->title = strip_tags($inlineTitle);
 		$inlineQueryResult->description = $betterLocation->__toString();
-		if ($this->getMessageSettings()->showAddress() && $betterLocation->generateAddress()) {
-			$inlineQueryResult->description .= sprintf(' (%s)', $betterLocation->getAddress());
+		if ($this->getMessageSettings()->showAddress()) {
+			$betterLocation->generateAddress();
+			if ($betterLocation->hasAddress()) {
+				$inlineQueryResult->description .= sprintf(' (%s)', $betterLocation->getAddress());
+			}
 		}
 		$inlineQueryResult->thumb_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
 		$inlineQueryResult->reply_markup = new Markup();
