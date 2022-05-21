@@ -18,7 +18,7 @@ abstract class MainPresenter
 	protected Database $db;
 	protected LoginFacade $login;
 	protected ?User $user = null;
-	public LayoutTemplate $template;
+	public ?LayoutTemplate $template = null;
 
 	/**
 	 * Set template and basic variables
