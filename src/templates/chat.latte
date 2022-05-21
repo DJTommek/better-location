@@ -30,28 +30,30 @@
 					<tr>
 						<td>Message output type</td>
 						<td>
-                            {switch $chat->settingsOutputType()}
-                            {case App\Repository\ChatEntity::OUTPUT_TYPE_MESSAGE}
+							{switch $chat->settingsOutputType()}
+								{case App\Repository\ChatEntity::OUTPUT_TYPE_MESSAGE}
 								Message (with text and buttons)
-                            {case App\Repository\ChatEntity::OUTPUT_TYPE_LOCATION}
+								{case App\Repository\ChatEntity::OUTPUT_TYPE_LOCATION}
 								Location (without text, with buttons)
-                            {case App\Repository\ChatEntity::OUTPUT_TYPE_FILE_GPX}
+								{case App\Repository\ChatEntity::OUTPUT_TYPE_FILE_GPX}
 								File as GPX (with text and buttons)
-                            {case App\Repository\ChatEntity::OUTPUT_TYPE_FILE_KML}
+								{case App\Repository\ChatEntity::OUTPUT_TYPE_FILE_KML}
 								File as KML (with text and buttons)
-                            {/switch}
+							{/switch}
 						</td>
 					</tr>
 					<tr>
 						<td>Text services</td>
 						<td>
 							<select name="text-services[]" multiple size="4" class="form-select">
-                                {foreach $services->getServices([\App\BetterLocation\ServicesManager::TAG_GENERATE_TEXT]) as $service}
+								{foreach $services->getServices([\App\BetterLocation\ServicesManager::TAG_GENERATE_TEXT]) as $service}
 									<option
 											value="{$service::ID}"
 											n:attr="selected: in_array($service, $chat->getMessageSettings()->getTextServices(), true)"
-									>{$service::getName()} ({$service::getShareText($lat, $lon)})</option>
-                                {/foreach}
+									>
+										{$service::getName()} ({$service::getShareText($lat, $lon)})
+									</option>
+								{/foreach}
 							</select>
 						</td>
 					</tr>
@@ -59,12 +61,12 @@
 						<td>Link services</td>
 						<td>
 							<select name="link-services[]" multiple size="10" class="form-select">
-                                {foreach $services->getServices([\App\BetterLocation\ServicesManager::TAG_GENERATE_LINK_SHARE]) as $service}
+								{foreach $services->getServices([\App\BetterLocation\ServicesManager::TAG_GENERATE_LINK_SHARE]) as $service}
 									<option
 											value="{$service::ID}"
 											n:attr="selected: in_array($service, $chat->getMessageSettings()->getLinkServices(), true)"
 									>{$service::getName()}</option>
-                                {/foreach}
+								{/foreach}
 							</select>
 						</td>
 					</tr>
@@ -72,19 +74,19 @@
 						<td>Drive button services</td>
 						<td>
 							<select name="button-services[]" multiple size="8" class="form-select">
-                                {foreach $services->getServices([\App\BetterLocation\ServicesManager::TAG_GENERATE_LINK_DRIVE]) as $service}
+								{foreach $services->getServices([\App\BetterLocation\ServicesManager::TAG_GENERATE_LINK_DRIVE]) as $service}
 									<option
 											value="{$service::ID}"
 											n:attr="selected: in_array($service, $chat->getMessageSettings()->getButtonServices(), true)"
 									>{$service::getName()}</option>
-                                {/foreach}
+								{/foreach}
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<td>Static image service</td>
 						<td>
-                            {$chat->getMessageSettings()->getScreenshotLinkService()::NAME}
+							{$chat->getMessageSettings()->getScreenshotLinkService()::NAME}
 						</td>
 					</tr>
 					<tr>
@@ -96,7 +98,7 @@
 				</table>
 			</div>
 			<div class="col-lg">
-                {include exampleTelegramMessage}
+				{include exampleTelegramMessage}
 			</div>
 		</form>
 	</div>
@@ -114,33 +116,33 @@
 		<div class="card-body">
 			<div class="card-text">
 				<a href="https://better-location.palider.cz/api/staticmap.php?id=ad9d66a6c079f762" target="_blank">
-                    {\App\Icons::LOCATION}
+					{\App\Icons::LOCATION}
 				</a>
 				Better location by <a href="{$botLink}" target="_blank">@{$botName}</a>:
 				<br>
 				<a href="{$exampleInput}" target="_blank">Waze</a>
 				<a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087451%26x%3D14.420671%26source%3Dcoor%26id%3D14.420671%252C50.087451%26p%3D3%26l%3D0" target="_blank">
-                    {\App\Icons::MAP_SCREEN}
+					{\App\Icons::MAP_SCREEN}
 				</a>
-                {foreach $chat->getMessageSettings()->getTextServices() as $service}
+				{foreach $chat->getMessageSettings()->getTextServices() as $service}
 					{var $serviceText = $service::getShareText($lat, $lon)}
 					<code class="copy-to-clipboard" data-clipboard-text="{$serviceText}" title="Click to copy text to clipboard">
 						{$serviceText}
 					</code>
-                    {if $iterator->last === false}
+					{if $iterator->last === false}
 						|
-                    {/if}
-                {/foreach}
+					{/if}
+				{/foreach}
 
 				<br>
                 {foreach $chat->getMessageSettings()->getLinkServices() as $service}
 					<a href="{$service::getLink($lat, $lon)}" target="_blank">
-                        {$service::getName(true)}
+						{$service::getName(true)}
 					</a>
-                    {if $iterator->last === false}
+					{if $iterator->last === false}
 						|
-                    {/if}
-                {/foreach}
+					{/if}
+				{/foreach}
 			</div>
 		</div>
 		<a n:if="$chat->settingsPreview()" href="https://better-location.palider.cz/api/staticmap.php?id=ad9d66a6c079f762" target="_blank">
@@ -148,14 +150,14 @@
 		</a>
 		<div class="card-footer">
 			<div class="row telegram-message">
-                {foreach $chat->getMessageSettings()->getButtonServices() as $service}
+				{foreach $chat->getMessageSettings()->getButtonServices() as $service}
 					<div class="col buttons">
-                        {var $driveLink = $service::getLink($lat, $lon, true)}
+						{var $driveLink = $service::getLink($lat, $lon, true)}
 						<a href="{$driveLink}" class="btn btn-secondary" target="_blank" data-toggle="tooltip" title="{$driveLink}">
-                            {$service::getName(true)} {\App\Icons::CAR}
+							{$service::getName(true)} {\App\Icons::CAR}
 						</a>
 					</div>
-                {/foreach}
+				{/foreach}
 			</div>
 		</div>
 	</div>
