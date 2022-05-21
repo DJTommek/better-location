@@ -4,6 +4,7 @@ namespace App;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
+use App\Geonames\Geonames;
 use App\Repository\FavouritesRepository;
 use App\Repository\UserEntity;
 use App\Repository\UserRepository;
@@ -120,7 +121,12 @@ class User
 		if ($this->userEntity->lastLocation) {
 			$location = BetterLocation::fromLatLon($this->userEntity->getLat(), $this->userEntity->getLon());
 			$location->setPrefixMessage(sprintf('%s Last location', Icons::CURRENT_LOCATION));
-			$location->setDescription(sprintf('Last update %s', $this->userEntity->lastLocationUpdate->format(\App\Config::DATETIME_FORMAT_ZONE)));
+
+			// Show datetime of last location update in local timezone based on timezone on that location itself
+			$geonames = Geonames::timezone($location->getLat(), $location->getLon());
+			$lastUpdate = $this->userEntity->lastLocationUpdate->setTimezone($geonames->timezone);
+
+			$location->setDescription(sprintf('Last update %s', $lastUpdate->format(\App\Config::DATETIME_FORMAT_ZONE)));
 			return $location;
 		} else {
 			return null;
