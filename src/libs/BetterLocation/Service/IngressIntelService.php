@@ -39,7 +39,7 @@ final class IngressIntelService extends AbstractService
 	public function isValid(): bool
 	{
 		$result = false;
-		if ($this->url) {
+		if ($this->url && $this->url->getDomain(2) === 'ingress.com') {
 			if ($param = $this->inputUrl->getQueryParameter('pll')) { // map coordinates
 				$coords = explode(',', $param);
 				if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {

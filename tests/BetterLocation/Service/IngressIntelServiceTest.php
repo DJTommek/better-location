@@ -149,4 +149,23 @@ final class IngressIntelServiceTest extends TestCase
 		$this->assertSame('-0.110000,14.987654', $collection[0]->__toString());
 		$this->assertSame('89.123457,12.987654', $collection[1]->__toString());
 	}
+
+	/**
+	 * Old format without subdomain "intel." but with path "/intel".
+	 * As of 2022-05-22 "/intel" redirects to "intel.ingress.com/intel"
+	 */
+	public function testIsValidOldFormat(): void
+	{
+		$this->assertTrue(IngressIntelService::isValidStatic('https://ingress.com/intel?ll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::isValidStatic('https://ingress.com/intel?pll=50.087451,14.420671&ll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::isValidStatic('https://ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
+		$this->assertTrue(IngressIntelService::isValidStatic('http://ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
+		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
+		$this->assertTrue(IngressIntelService::isValidStatic('http://intel.ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
+
+		// As of 2022-05-22 links are not valid, but process them as ok
+		$this->assertTrue(IngressIntelService::isValidStatic('https://ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::isValidStatic('https://ingress.com/?ll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::isValidStatic('https://ingress.com/?pll=50.087451,14.420671'));
+	}
 }
