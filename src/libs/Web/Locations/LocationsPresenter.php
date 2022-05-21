@@ -76,13 +76,16 @@ class LocationsPresenter extends MainPresenter
 		}
 
 		if (in_array(Utils::globalGetToBool('address'), [true, null], true)) { // if not set, default is true
+			$this->template->showingAddress = true;
 			$this->collection->fillAddresses();
 		}
 		if (Utils::globalGetToBool('datetimezone') === true) {
 			$this->collection->fillDatetimeZone();
+			$this->template->showingTimezoneData = true;
 		}
 		if (Utils::globalGetToBool('elevation') === true) {
 			$this->collection->fillElevations();
+			$this->template->showingElevation = true;
 		}
 
 		foreach ($this->collection as $location) {

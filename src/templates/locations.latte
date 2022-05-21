@@ -61,11 +61,20 @@
 						<div class="address" n:ifcontent>
 							{$location->getAddress()}
 						</div>
-						<div class="timezone" n:if="$location->getTimezoneData()">
-							Local time: <b title="YYYY-MM-DD hh:mm:ss. Time might be few minutes out of date due to caching.">{$location->getTimezoneData()->time->format(\App\Config::DATETIME_FORMAT)}</b>,
-							Timezone: <b>{$location->getTimezoneData()->timezone->getName()}</b>,
-							<abbr title="Coordinated Universal Time">UTC</abbr> Offset: <b>{$location->getTimezoneData()->formatNowOffset()}</b>,
-							<abbr title="Daylight saving time">DST</abbr>: <b>{$location->getTimezoneData()->isDst() ? 'yes' : 'no'}</b>
+
+						<div class="timezone">
+							{if $showingTimezoneData}
+								{if $location->getTimezoneData()}
+									Local time: <b title="YYYY-MM-DD hh:mm:ss. Time might be few minutes out of date due to caching.">{$location->getTimezoneData()->time->format(\App\Config::DATETIME_FORMAT)}</b>,
+																																																					Timezone: <b>{$location->getTimezoneData()->timezone->getName()}</b>,
+									<abbr title="Coordinated Universal Time">UTC</abbr> Offset: <b>{$location->getTimezoneData()->formatNowOffset()}</b>,
+									<abbr title="Daylight saving time">DST</abbr>: <b>{$location->getTimezoneData()->isDst() ? 'yes' : 'no'}</b>
+								{else}
+									DateTimezone data are not available.
+								{/if}
+							{else}
+								<a href="{$basePath}/{$location->key()}?datetimezone=true">Load timezone data</a>
+							{/if}
 						</div>
 						<div class="downloads">
 							<i class="fa fa-download"></i> Download as

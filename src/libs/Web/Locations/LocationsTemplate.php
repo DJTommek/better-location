@@ -17,6 +17,10 @@ class LocationsTemplate extends LayoutTemplate
 	/** @var string Text representation of now in UTC */
 	public $nowUtcText;
 
+	public bool $showingTimezoneData = false;
+	public bool $showingAddress = false;
+	public bool $showingElevation = false;
+
 	public function prepare(BetterLocationCollection $collection, array $websites)
 	{
 		$this->collection = $collection;
