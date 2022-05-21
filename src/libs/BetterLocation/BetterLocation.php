@@ -119,7 +119,7 @@ class BetterLocation implements CoordinatesInterface
 		return !is_null($this->address);
 	}
 
-	public function generateAddress(): ?string
+	public function generateAddress(): void
 	{
 		if (is_null($this->address)) {
 			try {
@@ -130,7 +130,6 @@ class BetterLocation implements CoordinatesInterface
 				Debugger::log($exception, Debugger::EXCEPTION);
 			}
 		}
-		return $this->address;
 	}
 
 	public function generateDateTimeZone(): ?TimezoneType
