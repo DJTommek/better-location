@@ -163,7 +163,7 @@
 		<a n:if="$chat->settingsPreview()" href="https://better-location.palider.cz/api/staticmap.php?id=ad9d66a6c079f762" target="_blank">
 			<img src="https://better-location.palider.cz/api/staticmap.php?id=ad9d66a6c079f762" class="card-img-bottom">
 		</a>
-		<div class="card-footer">
+		<div n:if="$chat->getMessageSettings()->getButtonServices()" class="card-footer">
 			<div class="row telegram-message">
 				{foreach $chat->getMessageSettings()->getButtonServices() as $service}
 					<div class="col buttons">

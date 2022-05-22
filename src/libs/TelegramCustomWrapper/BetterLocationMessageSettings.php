@@ -97,14 +97,18 @@ class BetterLocationMessageSettings
 		if ($filtered = self::processRows($services, $rows, self::TYPE_SHARE)) {
 			$result->setLinkServices($filtered);
 		}
-		if ($filtered = self::processRows($services, $rows, self::TYPE_DRIVE)) {
-			$result->setButtonServices($filtered);
-		}
 		if ($filtered = self::processRows($services, $rows, self::TYPE_SCREENSHOT)) {
 			$result->setScreenshotLinkService($filtered[0]);
 		}
 		if ($filtered = self::processRows($services, $rows, self::TYPE_TEXT)) {
 			$result->setTextServices($filtered);
+		}
+
+		// Allow having 0 button services
+		if (count($rows)) {
+			// if user has previously saved settings it means, that he do not want to have buttons
+			// otherwise, if user does not have any settings, default list of buttons will be used
+			$result->setButtonServices(self::processRows($services, $rows, self::TYPE_DRIVE));
 		}
 		return $result;
 	}
