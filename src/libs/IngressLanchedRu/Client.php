@@ -77,14 +77,17 @@ class Client
 	/**
 	 * Script allows searching portal near selected point
 	 *
-	 * @param float $lat latitude of selected point
-	 * @param float $lng longitude of selected point
-	 * @param string $query search string. Search string can be - portal GUID, Intel link, full name, part of name or part of name\full name with part of address of that portal.
+	 * @param ?float $lat latitude of selected point
+	 * @param ?float $lng longitude of selected point
+	 * @param ?string $query search string. Search string can be - portal GUID, Intel link, full name, part of name or part of name\full name with part of address of that portal.
 	 * @param int $offset search offset
 	 * @return PortalType[]
 	 */
-	public function searchPortals(float $lat, float $lng, string $query, int $offset = 0): array
+	public function searchPortals(?float $lat, ?float $lng, ?string $query = null, int $offset = 0): array
 	{
+		if (is_null($lat) && is_null($lng) && is_null($query)) {
+			throw new \InvalidArgumentException('At least coordinates or query must be filled');
+		}
 		if ($offset < 0) {
 			throw new \InvalidArgumentException(sprintf('Parameter "offset" must be higher or equal to zero (%d)', $offset));
 		}
@@ -108,6 +111,17 @@ class Client
 	{
 		$query = sprintf('%F,%F', $lat, $lng);
 		$portals = $this->searchPortals($lat, $lng, $query);
+		if (count($portals) === 0) {
+			return null;
+		} else {
+			return $portals[0];
+		}
+	}
+
+	/** Shortcut to searchPortals() */
+	public function getPortalByGUID(string $guid): ?PortalType
+	{
+		$portals = $this->searchPortals(null, null, $guid);
 		if (count($portals) === 0) {
 			return null;
 		} else {
