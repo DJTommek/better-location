@@ -83,7 +83,7 @@ abstract class Events
 		return $this->getMessage()->chat;
 	}
 
-	public final function getMessageSettings(): BetterLocationMessageSettings
+	public function getMessageSettings(): BetterLocationMessageSettings
 	{
 		if ($this->chat) {
 			return $this->chat->getMessageSettings();

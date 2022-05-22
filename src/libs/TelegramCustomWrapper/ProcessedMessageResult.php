@@ -4,9 +4,6 @@ namespace App\TelegramCustomWrapper;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
-use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\Icons;
-use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types;
 
 class ProcessedMessageResult
@@ -37,7 +34,9 @@ class ProcessedMessageResult
 
 	public function process(bool $printAllErrors = false): self
 	{
-		$this->collection->fillAddresses();
+		if ($this->messageSettings->showAddress()) {
+			$this->collection->fillAddresses();
+		}
 		foreach ($this->collection->getLocations() as $betterLocation) {
 			$this->resultText .= $betterLocation->generateMessage($this->messageSettings);
 			$this->buttons[] = $betterLocation->generateDriveButtons($this->messageSettings);
@@ -66,16 +65,11 @@ class ProcessedMessageResult
 		return $markup;
 	}
 
-	public function getText(bool $withPrefix = true, bool $withStaticMapsLink = true): string
+	public function getText(): string
 	{
 		$result = '';
-		if ($withPrefix) {
-			if ($withStaticMapsLink && (count($this->collection->getLocations()) > 0)) {
-				$staticMapsLink = $this->collection->getStaticMapUrl();
-			} else {
-				$staticMapsLink = null;
-			}
-			$result .= TelegramHelper::getMessagePrefix($staticMapsLink);
+		if ($this->collection->count()) {
+			$result = TelegramHelper::invisibleLink($this->collection->getStaticMapUrl());
 		}
 		return $result . $this->resultText;
 	}

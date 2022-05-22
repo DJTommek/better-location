@@ -10,6 +10,7 @@ use App\Chat;
 use App\Config;
 use App\Icons;
 use App\Repository\ChatEntity;
+use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
@@ -19,7 +20,6 @@ use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Methods\AnswerInlineQuery;
 use unreal4u\TelegramAPI\Telegram\Types\Inline;
-use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 use unreal4u\TelegramAPI\Telegram\Types\InputMessageContent\Text;
 
 class InlineQueryEvent extends Special
@@ -31,8 +31,28 @@ class InlineQueryEvent extends Special
 	 */
 	const MAX_FAVOURITES = 10;
 
-	/** @var ?Chat instance of Chat for this user's private chat */
-	private $userPrivateChatEntity;
+	/**
+	 * Instance of Chat for this user's private chat (only for lazy load)
+	 *
+	 * @internal Only for lazy load, use $this->getMessageSettings() instead
+	 * @see getMessageSettings()
+	 */
+	private ?Chat $_userPrivateChatEntity = null;
+
+	public function getMessageSettings(): BetterLocationMessageSettings
+	{
+		$messageSettings = parent::getMessageSettings();
+		$messageSettings->showAddress($this->getUserPrivateChatEntity()->settingsShowAddress());
+		return $messageSettings;
+	}
+
+	private function getUserPrivateChatEntity(): Chat
+	{
+		if ($this->_userPrivateChatEntity === null) {
+			$this->_userPrivateChatEntity = new Chat($this->getFromId(), ChatEntity::CHAT_TYPE_PRIVATE, $this->getFromDisplayname());
+		}
+		return $this->_userPrivateChatEntity;
+	}
 
 	public function handleWebhookUpdate()
 	{
@@ -45,8 +65,6 @@ class InlineQueryEvent extends Special
 		if ($this->update->inline_query->location) {
 			$this->user->setLastKnownLocation($this->update->inline_query->location->latitude, $this->update->inline_query->location->longitude);
 		}
-
-		$this->userPrivateChatEntity = new Chat($this->getFromId(), ChatEntity::CHAT_TYPE_PRIVATE, $this->getFromDisplayname());
 
 		if (empty($queryInput)) {
 			// If user agrees to share location, and is using device, where is possible to get location (typically mobile devices)
@@ -102,7 +120,7 @@ class InlineQueryEvent extends Special
 			$entities = TelegramHelper::generateEntities($queryInput);
 			try {
 				$collection = BetterLocationCollection::fromTelegramMessage($queryInput, $entities);
-				if (count($collection->getLocations()) > 1 && $this->userPrivateChatEntity->getSendNativeLocation() === false) {
+				if ($collection->count() > 1 && $this->getUserPrivateChatEntity()->getSendNativeLocation() === false) {
 					// There can be only one location if sending native location
 					$answerInlineQuery->addResult($this->getAllLocationsInlineQueryResult($collection));
 				}
@@ -146,12 +164,9 @@ class InlineQueryEvent extends Special
 		return $this->update->inline_query->from;
 	}
 
-	/**
-	 * @return Inline\Query\Result\Article|Inline\Query\Result\Location
-	 */
-	private function getInlineQueryResult(BetterLocation $betterLocation, string $inlineTitle = null)
+	private function getInlineQueryResult(BetterLocation $betterLocation, string $inlineTitle = null): Inline\Query\Result\Location|Inline\Query\Result\Article
 	{
-		if ($this->userPrivateChatEntity->getSendNativeLocation()) {
+		if ($this->getUserPrivateChatEntity()->getSendNativeLocation()) {
 			return $this->getInlineQueryResultNativeLocation($betterLocation, $inlineTitle);
 		} else {
 			return $this->getInlineQueryResultArticle($betterLocation, $inlineTitle);
@@ -183,21 +198,23 @@ class InlineQueryEvent extends Special
 			$inlineTitle .= $this->addDistanceText($betterLocation);
 		}
 		$inlineQueryResult->title = strip_tags($inlineTitle);
-		$inlineQueryResult->description = $betterLocation->__toString();
+		$inlineQueryResult->description = $betterLocation->key();
+
 		if ($this->showAddress()) {
 			$betterLocation->generateAddress();
 			if ($betterLocation->hasAddress()) {
 				$inlineQueryResult->description .= sprintf(' (%s)', $betterLocation->getAddress());
 			}
 		}
-		$inlineQueryResult->thumb_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
-		$inlineQueryResult->reply_markup = new Markup();
 
-		$inlineQueryResult->reply_markup->inline_keyboard = [$betterLocation->generateDriveButtons($this->getMessageSettings())];
+		$processedCollection = $this->singleLocationToMessageResult($betterLocation);
+
+		$inlineQueryResult->thumb_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
+		$inlineQueryResult->reply_markup = $processedCollection->getMarkup(1);
 		$inlineQueryResult->input_message_content = new Text();
-		$inlineQueryResult->input_message_content->message_text = TelegramHelper::getMessagePrefix($betterLocation->getStaticMapUrl()) . $betterLocation->generateMessage($this->getMessageSettings());
+		$inlineQueryResult->input_message_content->message_text = $processedCollection->getText();
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
-		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->userPrivateChatEntity->settingsPreview();
+		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->getUserPrivateChatEntity()->settingsPreview();
 		return $inlineQueryResult;
 	}
 
@@ -209,12 +226,14 @@ class InlineQueryEvent extends Special
 			$inlineTitle = $betterLocation->getInlinePrefixMessage() ?? $betterLocation->getPrefixMessage();
 			$inlineTitle .= $this->addDistanceText($betterLocation);
 		}
+
+		$processedCollection = $this->singleLocationToMessageResult($betterLocation);
+
 		$inlineQueryResult->latitude = $betterLocation->getLat();
 		$inlineQueryResult->longitude = $betterLocation->getLon();
 		$inlineQueryResult->title = strip_tags($inlineTitle);
 		$inlineQueryResult->thumb_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
-		$inlineQueryResult->reply_markup = new Markup();
-		$inlineQueryResult->reply_markup->inline_keyboard = [$betterLocation->generateDriveButtons($this->getMessageSettings())];
+		$inlineQueryResult->reply_markup = $processedCollection->getMarkup(1);
 		return $inlineQueryResult;
 	}
 
@@ -234,11 +253,22 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->input_message_content = new Text();
 		$inlineQueryResult->input_message_content->message_text = $processedCollection->getText();
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
-		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->userPrivateChatEntity->settingsPreview();
+		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->getUserPrivateChatEntity()->settingsPreview();
 		return $inlineQueryResult;
 	}
 
-	private function showAddress(): bool {
-		return $this->userPrivateChatEntity->settingsShowAddress();
+	private function showAddress(): bool
+	{
+		return $this->getUserPrivateChatEntity()->settingsShowAddress();
+	}
+
+	private function singleLocationToMessageResult(BetterLocation $betterLocation): ProcessedMessageResult
+	{
+		$singleLocationCollection = new BetterLocationCollection();
+		$singleLocationCollection->add($betterLocation);
+
+		$processedCollection = new ProcessedMessageResult($singleLocationCollection, $this->getMessageSettings());
+		$processedCollection->process();
+		return $processedCollection;
 	}
 }

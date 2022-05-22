@@ -5,6 +5,7 @@ namespace App\TelegramCustomWrapper;
 use App\Config;
 use App\Icons;
 use App\Utils\Strict;
+use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
 use Nette\Utils\Strings;
 use unreal4u\TelegramAPI\Telegram;
@@ -16,18 +17,20 @@ use unreal4u\TelegramAPI\Telegram\Types\User;
 class TelegramHelper
 {
 	public const API_URL = 'https://api.telegram.org';
-
 	public const INLINE_KEYBOARD_MAX_BUTTON_PER_ROW = 8;
+	/**
+	 * (Almost) invisible character, see usage for more info.
+	 *
+	 * @author https://emptycharacter.com/
+	 */
+	public const INVISIBLE_CHARACTER = '&#8202';
 
-	public static function getMessagePrefix(?UrlImmutable $hiddenLink = null): string
+	/**
+	 * Generate (almost) invisible link, that is still valid - useful for Telegram's automatic generating preview from links
+	 */
+	public static function invisibleLink(UrlImmutable|Url|string $url): string
 	{
-		$result = '';
-		if ($hiddenLink) {
-			$result .= sprintf('<a href="%s" target="_blank">%s</a>', $hiddenLink, Icons::LOCATION);
-		} else {
-			$result .= Icons::LOCATION;
-		}
-		return $result . ' <b>Better location</b> by @' . Config::TELEGRAM_BOT_NAME . ':' . PHP_EOL;
+		return sprintf('<a href="%s" target="_blank">%s</a>', $url, self::INVISIBLE_CHARACTER);
 	}
 
 	/**
