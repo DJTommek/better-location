@@ -5,11 +5,9 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
-use App\Factory;
-use App\Icons;
 use App\Utils\Coordinates;
+use App\Utils\Ingress;
 use App\Utils\Strict;
-use Tracy\Debugger;
 
 final class IngressIntelService extends AbstractService
 {
@@ -67,29 +65,11 @@ final class IngressIntelService extends AbstractService
 	{
 		if ($this->data->portalCoord ?? false) {
 			$location = new BetterLocation($this->input, $this->data->portalCoordLat, $this->data->portalCoordLon, self::class, self::TYPE_PORTAL);
-			$this->addPortalData($location);
+			Ingress::addPortalData($location);
 			$this->collection->add($location);
 		}
 		if ($this->data->mapCoord ?? false) {
 			$this->collection->add(new BetterLocation($this->input, $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP));
-		}
-	}
-
-	private function addPortalData(BetterLocation $location): void
-	{
-		try {
-			if ($portal = Factory::IngressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon())) {
-				$prefix = $location->getPrefixMessage();
-				$prefix .= sprintf(' <a href="%s">%s</a>', $portal->getIntelLink(), htmlspecialchars($portal->name));
-				$location->setInlinePrefixMessage($prefix);
-				$prefix .= sprintf(' <a href="%s">%s</a>', $portal->image, Icons::PICTURE);
-				$location->setPrefixMessage($prefix);
-				if (in_array($portal->address, ['', 'undefined', '[Unknown Location]'], true) === false) { // show portal address only if it makes sense
-					$location->setAddress(htmlspecialchars($portal->address));
-				}
-			}
-		} catch (\Throwable $exception) {
-			Debugger::log($exception, Debugger::EXCEPTION);
 		}
 	}
 
