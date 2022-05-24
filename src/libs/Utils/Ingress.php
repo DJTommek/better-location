@@ -5,14 +5,17 @@ namespace App\Utils;
 use App\BetterLocation\BetterLocation;
 use App\Factory;
 use App\Icons;
+use App\IngressLanchedRu\Types\PortalType;
 use Tracy\Debugger;
 
 class Ingress
 {
-	public static function addPortalData(BetterLocation $location): void
+	public static function addPortalData(BetterLocation $location, ?PortalType $portal = null): void
 	{
 		try {
-			$portal = Factory::IngressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon());
+			if ($portal === null) {
+				$portal = Factory::IngressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon());
+			}
 			if ($portal === null) {
 				return;
 			}
