@@ -27,6 +27,7 @@ use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\HradyCzService;
 use App\BetterLocation\Service\IngressIntelService;
+use App\BetterLocation\Service\IngressPrimeService;
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\OpenStreetMapService;
@@ -93,6 +94,7 @@ class ServicesManager
 		$this->services[FacebookService::ID] = FacebookService::class;
 		$this->services[MapyCzService::ID] = MapyCzService::class;
 		$this->services[IngressIntelService::ID] = IngressIntelService::class;
+		$this->services[IngressPrimeService::ID] = IngressPrimeService::class;
 		$this->services[OsmAndService::ID] = OsmAndService::class;
 		$this->services[DrobnePamatkyCzService::ID] = DrobnePamatkyCzService::class;
 		$this->services[OpenLocationCodeService::ID] = OpenLocationCodeService::class;
