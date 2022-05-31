@@ -4,7 +4,6 @@ namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\IngressIntelService;
-use App\BetterLocation\Service\WikipediaService;
 use PHPUnit\Framework\TestCase;
 
 final class IngressIntelServiceTest extends TestCase
@@ -22,7 +21,7 @@ final class IngressIntelServiceTest extends TestCase
 	public function testGenerateDriveLink(): void
 	{
 		$this->expectException(NotSupportedException::class);
-		WikipediaService::getLink(50.087451, 14.420671, true);
+		IngressIntelService::getLink(50.087451, 14.420671, true);
 	}
 
 	public function testIsValidMap(): void
