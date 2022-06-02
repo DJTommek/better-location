@@ -17,6 +17,9 @@ final class IngressPrimeService extends AbstractService
 	const ID = 40;
 	const NAME = 'Ingress';
 
+	const TYPE_PORTAL = 'portal';
+	const TYPE_MISSION = 'mission';
+
 	/** @throws NotSupportedException */
 	public static function getLink(float $lat, float $lon, bool $drive = false): string
 	{
@@ -53,12 +56,20 @@ final class IngressPrimeService extends AbstractService
 	{
 		$lanchedApi = Factory::IngressLanchedRu();
 		if (isset($this->data->portalGuid) && $portal = $lanchedApi->getPortalByGUID($this->data->portalGuid)) {
-			$location = new BetterLocation($this->input, $portal->lat, $portal->lng, self::class);
+			$location = new BetterLocation($this->input, $portal->lat, $portal->lng, self::class, self::TYPE_PORTAL);
 			Ingress::addPortalData($location, $portal);
 			$this->collection->add($location);
 		}
 		if (isset($this->data->missionGuid)) {
 			// @TODO load mission info and probably generate BetterLocation for mission start (first portal)
 		}
+	}
+
+	public static function getConstants(): array
+	{
+		return [
+			self::TYPE_PORTAL,
+			self::TYPE_MISSION,
+		];
 	}
 }
