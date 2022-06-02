@@ -36,12 +36,14 @@ final class IngressPrimeService extends AbstractService
 			&& Strict::isUrl($this->url->getQueryParameter('link'))
 		) {
 			$realPortalLink = new UrlImmutable($this->url->getQueryParameter('link'));
-			if (
-				$realPortalLink->getDomain(0) === 'intel.ingress.com'
-				&& preg_match('/^\/portal\/([0-9a-z]{32}\.[0-9a-f]{1,2})$/', $realPortalLink->getPath(0), $matches)
-			) {
-				$this->data->portalGuid = $matches[1];
-				return true;
+			if ($realPortalLink->getDomain(0) === 'intel.ingress.com') {
+				if (preg_match('/^\/portal\/([0-9a-z]{32}\.[0-9a-f]{1,2})$/', $realPortalLink->getPath(), $matches)) {
+					$this->data->portalGuid = $matches[1];
+					return true;
+				} elseif (preg_match('/^\/mission\/([0-9a-z]{32}\.[0-9a-f]{1,2})$/', $realPortalLink->getPath(), $matches)) {
+					$this->data->missionGuid = $matches[1];
+					return true;
+				}
 			}
 		}
 		return false;
@@ -50,10 +52,13 @@ final class IngressPrimeService extends AbstractService
 	public function process(): void
 	{
 		$lanchedApi = Factory::IngressLanchedRu();
-		if ($portal = $lanchedApi->getPortalByGUID($this->data->portalGuid)) {
+		if (isset($this->data->portalGuid) && $portal = $lanchedApi->getPortalByGUID($this->data->portalGuid)) {
 			$location = new BetterLocation($this->input, $portal->lat, $portal->lng, self::class);
 			Ingress::addPortalData($location, $portal);
 			$this->collection->add($location);
+		}
+		if (isset($this->data->missionGuid)) {
+			// @TODO load mission info and probably generate BetterLocation for mission start (first portal)
 		}
 	}
 }
