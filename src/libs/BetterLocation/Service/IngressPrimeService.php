@@ -21,7 +21,7 @@ final class IngressPrimeService extends AbstractService
 	const TYPE_MISSION = 'mission';
 
 	/** @throws NotSupportedException */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');

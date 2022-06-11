@@ -83,7 +83,7 @@ abstract class AbstractService
 	 * @throws NotSupportedException
 	 * @deprecated use GetShareLink() or getDriveLink()
 	 */
-	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): string
 	{
 		if ($drive) {
 			throw new NotSupportedException(sprintf('%s (ID %d) does not support drive link.', static::getName(), static::ID));
@@ -97,9 +97,9 @@ abstract class AbstractService
 	 *
 	 * @throws NotSupportedException
 	 */
-	public static function getShareLink(float $lat, float $lon): string
+	public static function getShareLink(float $lat, float $lon, array $options = []): string
 	{
-		return static::getLink($lat, $lon, false);
+		return static::getLink($lat, $lon, false, $options);
 	}
 
 	/**
@@ -107,9 +107,9 @@ abstract class AbstractService
 	 *
 	 * @throws NotSupportedException
 	 */
-	public static function getDriveLink(float $lat, float $lon): string
+	public static function getDriveLink(float $lat, float $lon, array $options = []): string
 	{
-		return static::getLink($lat, $lon, true);
+		return static::getLink($lat, $lon, true, $options);
 	}
 
 	/**
@@ -117,7 +117,7 @@ abstract class AbstractService
 	 *
 	 * @throws NotSupportedException
 	 */
-	public static function getScreenshotLink(float $lat, float $lon): string
+	public static function getScreenshotLink(float $lat, float $lon, array $options = []): string
 	{
 		throw new NotSupportedException('Static image link is not supported.');
 	}
