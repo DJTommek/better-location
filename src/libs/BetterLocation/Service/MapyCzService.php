@@ -91,7 +91,7 @@ final class MapyCzService extends AbstractService
 		];
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): string
 	{
 		// 2021-07-14: Drive link is "kind of" available using planner and on Android device it will open correctly target destination,
 		// but empty deparature, so user has to choose current location manually. That is more clicks, than using classic,
@@ -104,7 +104,7 @@ final class MapyCzService extends AbstractService
 		return sprintf('%s/?query=%s', self::LINK, implode(';', $collection->getKeys()));
 	}
 
-	public static function getScreenshotLink(float $lat, float $lon): string
+	public static function getScreenshotLink(float $lat, float $lon, array $options = []): string
 	{
 		// URL Parameters to screenshoter (Mapy.cz website is using it with p=3 and l=0):
 		// l=0 hide right panel (can be opened via arrow icon)

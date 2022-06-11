@@ -21,7 +21,7 @@ final class OsmAndService extends AbstractService
 		ServicesManager::TAG_GENERATE_LINK_DRIVE,
 	];
 
-	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): string
 	{
 		return self::LINK . sprintf('/go.html?lat=%1$f&lon=%2$f', $lat, $lon);
 	}

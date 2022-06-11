@@ -22,7 +22,7 @@ final class WazeService extends AbstractService
 		ServicesManager::TAG_GENERATE_LINK_DRIVE,
 	];
 
-	public static function getLink(float $lat, float $lon, bool $drive = false): string
+	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): string
 	{
 		$link = sprintf(self::LINK . '/ul?ll=%1$f,%2$f', $lat, $lon);
 		if ($drive) {
