@@ -230,7 +230,9 @@ class BetterLocation implements CoordinatesInterface
 		}
 
 		foreach ($this->descriptions as $description) {
-			$text .= $description . PHP_EOL;
+			if ($description !== '') {
+				$text .= $description . PHP_EOL;
+			}
 		}
 
 		return $text . PHP_EOL;
