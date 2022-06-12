@@ -44,15 +44,13 @@ final class FevGamesServiceTest extends TestCase
 	 */
 	public function testUrl(): void
 	{
-		$this->markTestSkipped('No events are available.');
-
-		$collection = FevGamesService::processStatic('https://fevgames.net/ifs/event/?e=15677')->getCollection();
+		$collection = FevGamesService::processStatic('https://fevgames.net/ifs/event/?e=23415')->getCollection();
 		$this->assertCount(1, $collection);
-		$this->assertSame('56.144046,10.198955', $collection[0]->__toString());
+		$this->assertSame('49.963966,14.073212', (string)$collection->getFirst());
 
-		$collection = FevGamesService::processStatic('https://fevgames.net/ifs/event/?e=17739')->getCollection();
+		$collection = FevGamesService::processStatic('https://fevgames.net/ifs/event/?e=23448')->getCollection();
 		$this->assertCount(1, $collection);
-		$this->assertSame('39.754640,-104.994104', $collection[0]->__toString());
+		$this->assertSame('-37.815226,144.963781', (string)$collection->getFirst());
 	}
 
 	/**
