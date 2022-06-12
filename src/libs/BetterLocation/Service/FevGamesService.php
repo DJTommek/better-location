@@ -5,8 +5,8 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\Config;
 use App\Factory;
-use App\Icons;
 use App\MiniCurl\MiniCurl;
+use App\Utils\Ingress;
 use App\Utils\Strict;
 use Tracy\Debugger;
 
@@ -57,7 +57,11 @@ final class FevGamesService extends AbstractService
 			return;
 		}
 		if ($portal) {
-			$location->setDescription(sprintf('Registration portal: <a href="%s">%s</a> <a href="%s">%s</a>', $portal->getIntelLink(), htmlspecialchars($portal->name), $portal->image, Icons::PICTURE));
+			$location->addDescription(
+				'Registration portal: ' . Ingress::generatePortalLinkMessage($portal),
+				Ingress::BETTER_LOCATION_KEY_PORTAL
+			);
+
 			if (in_array($portal->address, ['', 'undefined', '[Unknown Location]'], true) === false) { // show portal address only if it makes sense
 				$location->setAddress(htmlspecialchars($portal->address));
 			}

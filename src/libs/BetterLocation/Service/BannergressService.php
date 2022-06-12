@@ -8,6 +8,7 @@ use App\BetterLocation\ServicesManager;
 use App\Config;
 use App\Icons;
 use App\MiniCurl\MiniCurl;
+use App\Utils\Ingress;
 
 final class BannergressService extends AbstractService
 {
@@ -48,8 +49,40 @@ final class BannergressService extends AbstractService
 		$mosaicPicture = 'https://api.bannergress.com' . $mosaic->picture;
 		$location = new BetterLocation($this->inputUrl, $mosaic->startLatitude, $mosaic->startLongitude, self::class);
 		$location->setInlinePrefixMessage(sprintf('%s %s', self::NAME, $mosaic->title));
-		$location->setPrefixMessage(sprintf('<a href="%s">%s %s</a> <a href="%s">%s</a>', $mosaicUrl, self::NAME, $mosaic->title, $mosaicPicture, Icons::PICTURE));
-		$location->setDescription(sprintf('%d missions, %.1F km', $mosaic->numberOfMissions, $mosaic->lengthMeters / 1000));
+		$location->setPrefixMessage(sprintf(
+			'<a href="%s">%s %s</a> <a href="%s">%s</a>',
+			$mosaicUrl,
+			self::NAME,
+			$mosaic->title,
+			$mosaicPicture,
+			Icons::PICTURE
+		));
+
+		$location->addDescription(sprintf('%d missions, %.1F km', $mosaic->numberOfMissions, $mosaic->lengthMeters / 1000));
+
+		$location->addDescription(sprintf(
+			'First mission: <a href="%s">%s %s</a> <a href="%s">%s</a> <a href="%s">%s</a>',
+			Ingress::generatePrimeMissionLink($mosaic->missions->{0}->id),
+			htmlspecialchars($mosaic->missions->{0}->title),
+			Icons::INGRESS_PRIME,
+			Ingress::generateIntelMissionLink($mosaic->missions->{0}->id),
+			Icons::INGRESS_INTEL,
+			$mosaic->missions->{0}->picture,
+			Icons::PICTURE,
+		));
+
+
+		$firstPortal = $mosaic->missions->{0}->steps[0]->poi;
+		if ($firstPortal->type === 'portal') {
+			$location->addDescription(sprintf(
+				'First portal: <a href="%s">%s %s</a> <a href="%s">%s</a>',
+				Ingress::generatePrimePortalLink($firstPortal->id, $firstPortal->latitude, $firstPortal->longitude),
+				htmlspecialchars($firstPortal->title),
+				Icons::INGRESS_PRIME,
+				Ingress::generateIntelPortalLink($firstPortal->latitude, $firstPortal->longitude),
+				Icons::INGRESS_INTEL,
+			), Ingress::BETTER_LOCATION_KEY_PORTAL);
+		}
 		$this->collection->add($location);
 	}
 

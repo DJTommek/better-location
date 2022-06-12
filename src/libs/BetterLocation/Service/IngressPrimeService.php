@@ -15,7 +15,7 @@ use Nette\Http\UrlImmutable;
 final class IngressPrimeService extends AbstractService
 {
 	const ID = 40;
-	const NAME = 'Ingress';
+	const NAME = 'Ingress Prime';
 
 	const TYPE_PORTAL = 'portal';
 	const TYPE_MISSION = 'mission';
@@ -57,7 +57,8 @@ final class IngressPrimeService extends AbstractService
 		$lanchedApi = Factory::IngressLanchedRu();
 		if (isset($this->data->portalGuid) && $portal = $lanchedApi->getPortalByGUID($this->data->portalGuid)) {
 			$location = new BetterLocation($this->input, $portal->lat, $portal->lng, self::class, self::TYPE_PORTAL);
-			Ingress::addPortalData($location, $portal);
+			Ingress::rewritePrefixes($location, $portal);
+			$location->addDescription('', Ingress::BETTER_LOCATION_KEY_PORTAL); // Prevent generating Ingress description
 			$this->collection->add($location);
 		}
 		if (isset($this->data->missionGuid)) {
