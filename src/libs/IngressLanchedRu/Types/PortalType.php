@@ -2,7 +2,7 @@
 
 namespace App\IngressLanchedRu\Types;
 
-use App\IngressLanchedRu\Client;
+use App\Utils\Ingress;
 use Tracy\Debugger;
 
 class PortalType
@@ -19,6 +19,10 @@ class PortalType
 	public $image;
 	/** @var ?string */
 	public $address;
+	/** Filled on for lazy load */
+	private ?string $intelLink = null;
+	/** Filled on for lazy load */
+	private ?string $primeLink = null;
 
 	public static function createFromVariable(\stdClass $variables): self
 	{
@@ -40,6 +44,17 @@ class PortalType
 
 	public function getIntelLink(): string
 	{
-		return Client::LINK_INGRESS_INTEL . sprintf('/?ll=%1$f,%2$f&pll=%1$f,%2$f', $this->lat, $this->lng);
+		if ($this->intelLink === null) {
+			$this->intelLink = Ingress::generateIntelPortalLink($this->lat, $this->lng);
+		}
+		return $this->intelLink;
+	}
+
+	public function getPrimeLink(): string
+	{
+		if ($this->primeLink === null) {
+			$this->primeLink = (string)Ingress::generatePrimePortalLink($this->guid, $this->lat, $this->lng);
+		}
+		return $this->primeLink;
 	}
 }
