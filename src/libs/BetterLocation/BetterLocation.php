@@ -334,9 +334,18 @@ class BetterLocation implements CoordinatesInterface
 	}
 
 	/** @param string $description */
-	public function addDescription(string $description): void
+	public function addDescription(string $description, ?string $key = null): void
 	{
-		$this->descriptions[] = $description;
+		if ($key) {
+			$this->descriptions[$key] = $description;
+		} else {
+			$this->descriptions[] = $description;
+		}
+	}
+
+	public function hasDescription(string $key): bool
+	{
+		return isset($this->descriptions[$key]);
 	}
 
 	public function isRefreshable(): bool
