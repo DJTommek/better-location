@@ -30,7 +30,7 @@ use unreal4u\TelegramAPI\Telegram\Types;
 class BetterLocation implements CoordinatesInterface
 {
 	private Coordinates $coords;
-	private ?string $description = null;
+	private array $descriptions = [];
 	private string $prefixMessage;
 	/** Can be ommited if is the same as $prefixMessage */
 	private ?string $inlinePrefixMessage = null;
@@ -229,8 +229,8 @@ class BetterLocation implements CoordinatesInterface
 			$text .= $this->getAddress() . PHP_EOL;
 		}
 
-		if ($this->description) {
-			$text .= $this->description . PHP_EOL;
+		foreach ($this->descriptions as $description) {
+			$text .= $description . PHP_EOL;
 		}
 
 		return $text . PHP_EOL;
@@ -324,10 +324,19 @@ class BetterLocation implements CoordinatesInterface
 
 	/**
 	 * @param string|null $description
+	 * @deprecated use ->addDescription() instead
 	 */
 	public function setDescription(?string $description): void
 	{
-		$this->description = $description;
+		if ($description !== null) {
+			$this->addDescription($description);
+		}
+	}
+
+	/** @param string $description */
+	public function addDescription(string $description): void
+	{
+		$this->descriptions[] = $description;
 	}
 
 	public function isRefreshable(): bool
