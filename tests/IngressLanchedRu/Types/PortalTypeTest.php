@@ -73,10 +73,10 @@ final class PortalTypeTest extends TestCase
 
 	public function testMethods(): void
 	{
-		$this->assertSame('https://intel.ingress.com/?ll=50.042149,1.412214&pll=50.042149,1.412214', self::$getPortalsExample[0]->getIntelLink());
-		$this->assertSame('https://intel.ingress.com/?ll=50.042174,1.418436&pll=50.042174,1.418436', self::$getPortalsExample[1]->getIntelLink());
-		$this->assertSame('https://intel.ingress.com/?ll=50.048514,1.418256&pll=50.048514,1.418256', self::$getPortalsExample[28]->getIntelLink());
-		$this->assertSame('https://intel.ingress.com/?ll=50.048833,1.415113&pll=50.048833,1.415113', self::$getPortalsExample[39]->getIntelLink());
-		$this->assertSame('https://intel.ingress.com/?ll=50.087451,14.420671&pll=50.087451,14.420671', self::$portalPrague->getIntelLink());
+		$this->assertSame('https://intel.ingress.com/intel?pll=50.042149,1.412214', self::$getPortalsExample[0]->getIntelLink());
+		$this->assertSame('https://intel.ingress.com/intel?pll=50.042174,1.418436', self::$getPortalsExample[1]->getIntelLink());
+		$this->assertSame('https://intel.ingress.com/intel?pll=50.048514,1.418256', self::$getPortalsExample[28]->getIntelLink());
+		$this->assertSame('https://intel.ingress.com/intel?pll=50.048833,1.415113', self::$getPortalsExample[39]->getIntelLink());
+		$this->assertSame('https://intel.ingress.com/intel?pll=50.087451,14.420671', self::$portalPrague->getIntelLink());
 	}
 }

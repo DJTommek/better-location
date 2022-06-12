@@ -33,7 +33,10 @@ class Icons
 	public const CAR = "\u{1F697}"; // https://emojipedia.org/automobile/
 	public const PICTURE = "\u{1F5BC}"; // https://emojipedia.org/framed-picture/
 	public const MAP_SCREEN = "\u{1F5FA}"; // https://emojipedia.org/world-map/
-	public const MOBILE_PHONE = "\u{1F4F1}"; // https://emojipedia.org/mobile-phone/
+
+	public const INGRESS_PORTAL = "\u{1F5BC}"; // https://emojipedia.org/framed-picture/
+	public const INGRESS_PRIME = "\u{1F4F1}"; // https://emojipedia.org/mobile-phone/
+	public const INGRESS_INTEL = "\u{1F5A5}"; // https://emojipedia.org/desktop-computer/
 
 	public const ARROW_RIGHT = "\u{27A1}"; // https://emojipedia.org/right-arrow/
 	public const ARROW_UP = "\u{2B06}"; // https://emojipedia.org/up-arrow/
