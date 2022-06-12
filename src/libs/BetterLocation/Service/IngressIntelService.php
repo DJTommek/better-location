@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
+use App\Factory;
 use App\Utils\Coordinates;
 use App\Utils\Ingress;
 use App\Utils\Strict;
@@ -65,11 +66,19 @@ final class IngressIntelService extends AbstractService
 	{
 		if ($this->data->portalCoord ?? false) {
 			$location = new BetterLocation($this->input, $this->data->portalCoordLat, $this->data->portalCoordLon, self::class, self::TYPE_PORTAL);
-			Ingress::addPortalData($location);
+			if ($portal = Factory::IngressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon())) {
+				Ingress::rewritePrefixes($location, $portal);
+				$location->addDescription('', Ingress::BETTER_LOCATION_KEY_PORTAL); // Prevent generating Ingress description
+			}
 			$this->collection->add($location);
 		}
 		if ($this->data->mapCoord ?? false) {
-			$this->collection->add(new BetterLocation($this->input, $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP));
+			$location = new BetterLocation($this->input, $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP);
+			if ($portal = Factory::IngressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon())) {
+				Ingress::rewritePrefixes($location, $portal);
+				$location->addDescription('', Ingress::BETTER_LOCATION_KEY_PORTAL); // Prevent generating Ingress description
+			}
+			$this->collection->add($location);
 		}
 	}
 
