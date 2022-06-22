@@ -6,8 +6,6 @@ use App\BetterLocation\BetterLocation;
 use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Utils;
-use App\Utils\StringUtils;
-use Tracy\Debugger;
 
 final class SumavaCzService extends AbstractService
 {
@@ -37,16 +35,28 @@ final class SumavaCzService extends AbstractService
 			$this->url &&
 			$this->url->getDomain(2) === 'sumava.cz'
 		) {
-			if (preg_match('/^\/objekt\/([0-9]+)/', $this->url->getPath(), $matches)) {
+			if (
+				preg_match('/^\/objekt\/[0-9]+/', $this->url->getPath())
+				|| preg_match(self::getUrlPathRegex('ubytovani', 1), $this->url->getPath())
+			) {
 				$this->data->type = self::TYPE_ACCOMODATION;
 				return true;
-			} else if (preg_match('/^\/objekt_az\/([0-9]+)/', $this->url->getPath(), $matches)) {
+			} else if (
+				preg_match('/^\/objekt_az\/[0-9]+/', $this->url->getPath())
+				|| preg_match(self::getUrlPathRegex('rozcestnik'), $this->url->getPath())
+			) {
 				$this->data->type = self::TYPE_PLACE;
 				return true;
-			} else if (preg_match('/^\/firma\/([0-9]+)/', $this->url->getPath(), $matches)) {
+			} else if (
+				preg_match('/^\/firma\/[0-9]+/', $this->url->getPath())
+				|| preg_match(self::getUrlPathRegex('firmy'), $this->url->getPath())
+			) {
 				$this->data->type = self::TYPE_COMPANY;
 				return true;
-			} else if (preg_match('/^\/galerie_sekce\/([0-9]+)/', $this->url->getPath(), $matches)) {
+			} else if (
+				preg_match('/^\/galerie_sekce\/[0-9]+/', $this->url->getPath())
+				|| preg_match(self::getUrlPathRegex('galerie'), $this->url->getPath())
+			) {
 				$this->data->type = self::TYPE_GALLERY;
 				return true;
 			}
@@ -74,29 +84,41 @@ final class SumavaCzService extends AbstractService
 	private function processGallery(string $response)
 	{
 		$doc = new \DOMDocument();
-		$doc->loadHTML($response);
+		// Intentional @ to fix warnings from site errors, eg "DOMDocument::loadHTML(): htmlParseEntityRef: expecting ';' in Entity, line: 27"
+		@$doc->loadHTML($response);
 
 		$xpath = new \DOMXPath($doc);
-		foreach ($xpath->query('//div[@id=\'item_1\']//h3/a') as $linkElement) {
+		foreach ($xpath->query('//div[@id=\'section-attractions\']//h3/a') as $linkElement) {
 			assert($linkElement instanceof \DOMElement);
 			$linkPath = $linkElement->getAttribute('href');
-			if (StringUtils::startWith($linkPath, '/objekt_az/')) {
-				$fullLink = self::LINK . $linkPath;
-				$service = new SumavaCzService($fullLink);
-				if ($service->isValid()) {
-					$service->process();
-					$collection = $service->getCollection();
-					assert(count($collection) === 1);
-					$location = $collection->getFirst();
-					$prefix = sprintf('<a href="%s">%s gallery</a> - <a href="%s">%s</a>', $this->url->getAbsoluteUrl(), self::NAME, $fullLink, $linkElement->textContent);
-					$location->setPrefixMessage($prefix);
-					$this->collection->add($location);
-				}
-			} else {
-				// mostly advertisement for random accomodation, not really related to this gallery
-				Debugger::log(sprintf('Ignoring path "%s" (text: "%s")', $linkPath, $linkElement->textContent), Debugger::DEBUG);
+			$fullLink = self::LINK . $linkPath;
+			$service = new SumavaCzService($fullLink);
+			if ($service->isValid()) {
+				$service->process();
+				$collection = $service->getCollection();
+				assert(count($collection) === 1);
+				$location = $collection->getFirst();
+				$prefix = sprintf('<a href="%s">%s gallery</a> - <a href="%s">%s</a>', $this->url->getAbsoluteUrl(), self::NAME, $fullLink, $linkElement->textContent);
+				$location->setPrefixMessage($prefix);
+				$this->collection->add($location);
 			}
 		}
 		$this->collection->filterTooClose = false;
+	}
+
+	/**
+	 * URL contains multiple segments, eg: http://www.sumava.cz/rozcestnik/kultura-a-pamatky/zricenina/zricenina-vitkuv-kamen/
+	 * Prefix:              /rozcestnik/
+	 * Category 1:          /kultura-a-pamatky/
+	 * Category 2:          /zricenina/
+	 * Object slug:         /zricenina-vitkuv-kamen/
+	 *
+	 * There might be different number of sub segments, eg in case of accomodation: http://www.sumava.cz/ubytovani/apartmany-stara-posta-hartmanice/
+	 * Prefix:              /ubytovani/
+	 * Object slug:         /apartmany-stara-posta-hartmanice/
+	 */
+	private static function getUrlPathRegex(string $prefix, int $sectionCount = 3): string
+	{
+		return '/^\/' . $prefix . str_repeat('\/[^\/]+', $sectionCount) . '/';
 	}
 }
