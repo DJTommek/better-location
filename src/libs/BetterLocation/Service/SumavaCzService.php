@@ -87,10 +87,23 @@ final class SumavaCzService extends AbstractService
 		// Intentional @ to fix warnings from site errors, eg "DOMDocument::loadHTML(): htmlParseEntityRef: expecting ';' in Entity, line: 27"
 		@$doc->loadHTML($response);
 
+		$processedLinks = [];
+
 		$xpath = new \DOMXPath($doc);
-		foreach ($xpath->query('//div[@id=\'section-attractions\']//h3/a') as $linkElement) {
+		$xpathSelectors = [
+			'//div[@id=\'section-attractions\']//h3/a', // big 'card' with place image, name, coords etc.
+			'//div[@id=\'section-attractions\']//ul/li/a', // separate 'card' with list of other places. Not always available.
+		];
+
+		foreach ($xpath->query(implode('|', $xpathSelectors)) as $linkElement) {
 			assert($linkElement instanceof \DOMElement);
 			$linkPath = $linkElement->getAttribute('href');
+
+			if (in_array($linkPath, $processedLinks)) {
+				continue; // Do not process same link again
+			}
+			$processedLinks[] = $linkPath;
+
 			$fullLink = self::LINK . $linkPath;
 			$service = new SumavaCzService($fullLink);
 			if ($service->isValid()) {
@@ -98,7 +111,7 @@ final class SumavaCzService extends AbstractService
 				$collection = $service->getCollection();
 				assert(count($collection) === 1);
 				$location = $collection->getFirst();
-				$prefix = sprintf('<a href="%s">%s gallery</a> - <a href="%s">%s</a>', $this->url->getAbsoluteUrl(), self::NAME, $fullLink, $linkElement->textContent);
+				$prefix = sprintf('<a href="%s">%s gallery</a> - <a href="%s">%s</a>', $this->url->getAbsoluteUrl(), self::NAME, $fullLink, trim($linkElement->textContent));
 				$location->setPrefixMessage($prefix);
 				$this->collection->add($location);
 			}
