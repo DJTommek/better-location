@@ -205,13 +205,13 @@ final class SumavaCzServiceTest extends TestCase
 		$this->assertSame('Place', $collection->getFirst()->getSourceType());
 
 		$collection = SumavaCzService::processStatic('http://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice/')->getCollection();
-		$this->assertCount(2, $collection);
+		$this->assertCount(3, $collection);
 		$this->assertSame('49.261300,13.498500', $collection->getFirst()->key());
 		$this->assertSame('Place', $collection->getFirst()->getSourceType());
 		$this->assertSame('49.261100,13.498100', $collection[1]->key());
 		$this->assertSame('Place', $collection[1]->getSourceType());
-//		$this->assertSame('49.261300,13.498500', $collection[2]->key());
-//		$this->assertSame('Place', $collection[2]->getSourceType());
+		$this->assertSame('49.260500,13.497900', $collection[2]->key());
+		$this->assertSame('Place', $collection[2]->getSourceType());
 	}
 
 	/**
@@ -228,11 +228,13 @@ final class SumavaCzServiceTest extends TestCase
 		$this->assertSame('Place', $collection->getFirst()->getSourceType());
 
 		$collection = SumavaCzService::processStatic('http://www.sumava.cz/galerie/zabava/odpocinek/zamecky-park-hradek-u-susice/')->getCollection();
-		$this->assertCount(2, $collection);
+		$this->assertCount(3, $collection);
 		$this->assertSame('49.261300,13.498500', $collection->getFirst()->key());
 		$this->assertSame('Place', $collection->getFirst()->getSourceType());
 		$this->assertSame('49.261100,13.498100', $collection[1]->key());
 		$this->assertSame('Place', $collection[1]->getSourceType());
+		$this->assertSame('49.260500,13.497900', $collection[2]->key());
+		$this->assertSame('Place', $collection[2]->getSourceType());
 	}
 
 	/**
