@@ -172,6 +172,20 @@ class Utils
 	}
 
 	/**
+	 * Search initialization of Leaflet library to get location
+	 *
+	 * @example map = L.map('map_canvas', { attributionControl: false }).setView([47.648967, -122.348117], 13);
+	 */
+	public static function findLeafletApiCoords(string $html): ?Coordinates
+	{
+		if (preg_match('/\.setView\(\[\s*(-?[0-9.]+),\s*(-?[0-9.]+)]/', $html, $matches)) {
+			return new Coordinates($matches[1], $matches[2]);
+		} else {
+			return null;
+		}
+	}
+
+	/**
 	 * Access global variable $_GET and return bool if value is truthy/falsey according URL standards.
 	 *
 	 * @param string $key Query key, that will be accessed as $_GET[key]
