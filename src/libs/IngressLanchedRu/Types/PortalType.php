@@ -29,7 +29,8 @@ class PortalType
 		$class = new self();
 		foreach ($variables as $key => $value) {
 			if (in_array($key, ['name', 'address'], true)) {
-				$value = trim($value);
+				// @BUG in external API: if portal name contains only numbers, it is type int instead of string
+				$value = trim((string)$value);
 			}
 			$class->{$key} = $value;
 		}
