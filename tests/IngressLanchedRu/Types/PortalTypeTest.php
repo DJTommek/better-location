@@ -7,9 +7,11 @@ use PHPUnit\Framework\TestCase;
 
 final class PortalTypeTest extends TestCase
 {
-	private static $getPortalsExample = [];
+	/** @var PortalType[] */
+	private static array $getPortalsExample = [];
 
-	private static $portalPrague;
+	private static PortalType $portalPrague;
+	private static PortalType $portalNameAsInt;
 
 	public static function setUpBeforeClass(): void
 	{
@@ -18,13 +20,18 @@ final class PortalTypeTest extends TestCase
 		$portals = $json->portalData;
 		self::assertCount(62, $portals);
 		foreach ($portals as $portal) {
-		self::$getPortalsExample[] = PortalType::createFromVariable($portal);
+			self::$getPortalsExample[] = PortalType::createFromVariable($portal);
 		}
 
 		$content = file_get_contents(__DIR__ . '/../fixtures/portalPrague.json');
 		$portals = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
 		self::assertCount(1, $portals);
 		self::$portalPrague = PortalType::createFromVariable($portals[0]);
+
+		$content = file_get_contents(__DIR__ . '/../fixtures/portalNameAsInt.json');
+		$portals = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+		self::assertCount(1, $portals);
+		self::$portalNameAsInt = PortalType::createFromVariable($portals[0]);
 	}
 
 	public function testInitial(): void
@@ -60,8 +67,10 @@ final class PortalTypeTest extends TestCase
 		$this->assertSame(1.415113, self::$getPortalsExample[39]->lng);
 		$this->assertNull(self::$getPortalsExample[39]->address);
 		$this->assertNull(self::$getPortalsExample[39]->image);
+	}
 
-
+	public function testPortalPrague()
+	{
 		$this->assertInstanceOf(PortalType::class, self::$portalPrague);
 		$this->assertSame('0bd94fac5de84105b6eef6e7e1639ad9.12', self::$portalPrague->guid);
 		$this->assertSame('Staroměstské náměstí', self::$portalPrague->name);
@@ -71,6 +80,17 @@ final class PortalTypeTest extends TestCase
 		$this->assertSame('https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm', self::$portalPrague->image);
 	}
 
+	public function testPortalNameAsInt()
+	{
+		$this->assertInstanceOf(PortalType::class, self::$portalNameAsInt);
+		$this->assertSame('470292c1672441d18585709d871f27d7.16', self::$portalNameAsInt->guid);
+		$this->assertSame('1737', self::$portalNameAsInt->name); // in JSON it is int
+		$this->assertSame(49.456762, self::$portalNameAsInt->lat);
+		$this->assertSame(13.784239, self::$portalNameAsInt->lng);
+		$this->assertSame('Lnáře 177, 387 42 Lnáře, Czechia', self::$portalNameAsInt->address);
+		$this->assertSame('https://lh3.googleusercontent.com/_OKdqcvDYCBJAXpN5_vud7KaQ_7jsmpc1Fm5kBWB7fv-CzWNB63b7eI-QNr2WQ3jEqJUNOeRU4Dtm1TYx5q38NbomQE', self::$portalNameAsInt->image);
+	}
+
 	public function testMethods(): void
 	{
 		$this->assertSame('https://intel.ingress.com/intel?pll=50.042149,1.412214', self::$getPortalsExample[0]->getIntelLink());
@@ -78,5 +98,6 @@ final class PortalTypeTest extends TestCase
 		$this->assertSame('https://intel.ingress.com/intel?pll=50.048514,1.418256', self::$getPortalsExample[28]->getIntelLink());
 		$this->assertSame('https://intel.ingress.com/intel?pll=50.048833,1.415113', self::$getPortalsExample[39]->getIntelLink());
 		$this->assertSame('https://intel.ingress.com/intel?pll=50.087451,14.420671', self::$portalPrague->getIntelLink());
+		$this->assertSame('https://intel.ingress.com/intel?pll=49.456762,13.784239', self::$portalNameAsInt->getIntelLink());
 	}
 }
