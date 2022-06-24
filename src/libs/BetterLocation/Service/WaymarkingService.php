@@ -3,12 +3,12 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\StringUtils;
-use App\Utils\Utils;
 use Nette\Http\Url;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -94,14 +94,17 @@ final class WaymarkingService extends AbstractService
 	private function processWaymark(): void
 	{
 		$waymarkPage = $this->loadWaymark($this->data->waymarkId);
-		$coords = Utils::findLeafletApiCoords($waymarkPage);
-		$location = new BetterLocation($this->input, $coords->getLat(), $coords->getLon(), self::class);
 
 		$dom = new \DOMDocument();
 		// @HACK to force UTF-8 encoding. Page itself is in UTF-8 encoding but it is not saying explicitely so parser is confused.
 		// @Author: https://stackoverflow.com/a/18721144/3334403
 		@$dom->loadHTML('<?xml encoding="utf-8"?>' . $waymarkPage);
 		$xpath = new \DOMXPath($dom);
+
+		$coordsRaw = trim($xpath->query('//div[@id="wm_coordinates"]')->item(0)->textContent);
+		$coords = WGS84DegreesMinutesService::processStatic($coordsRaw)->getFirst()->getCoordinates();
+
+		$location = new BetterLocation($this->input, $coords->getLat(), $coords->getLon(), self::class);
 		$location->setPrefixMessage(sprintf(
 			'<a href="%s">Waymark %s %s</a>',
 			$this->inputUrl,
