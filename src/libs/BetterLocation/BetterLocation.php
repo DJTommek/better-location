@@ -175,6 +175,9 @@ class BetterLocation implements CoordinatesInterface
 		try {
 			$exif = Utils::exifReadData($input);
 		} catch (\RuntimeException $exception) {
+			if (str_contains($exception->getMessage(), 'File not supported')) {
+				return null; // Do not log as error
+			}
 			Debugger::log($exception, Debugger::WARNING);
 			return null;
 		}
