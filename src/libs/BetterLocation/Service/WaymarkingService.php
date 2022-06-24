@@ -7,6 +7,7 @@ use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use App\Config;
 use App\MiniCurl\MiniCurl;
+use App\Utils\StringUtils;
 use App\Utils\Utils;
 use Nette\Http\Url;
 use Tracy\Debugger;
@@ -46,16 +47,31 @@ final class WaymarkingService extends AbstractService
 
 	public function isUrl(): bool
 	{
-		return $this->isUrlWaymark();
+		return (
+			$this->url
+			&& $this->url->getDomain(2) === 'waymarking.com'
+			&& ($this->isUrlWaymark() || $this->isUrlImage())
+		);
 	}
 
 	public function isUrlWaymark(): bool
 	{
-		if (
-			$this->url
-			&& preg_match(self::URL_PATH_WAYMARK_REGEX, $this->url->getPath(), $matches)
-		) {
+		if (preg_match(self::URL_PATH_WAYMARK_REGEX, $this->url->getPath(), $matches)) {
 			$this->data->waymarkId = mb_strtoupper($matches[1]);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function isUrlImage(): bool
+	{
+		if (
+			$this->url->getPath() === '/gallery/image.aspx'
+			&& $this->url->getQueryParameter('f') === '1'
+			&& StringUtils::isGuid($this->url->getQueryParameter('guid'))
+		) {
+			$this->data->waymarkIsImage = true;
 			return true;
 		} else {
 			return false;
@@ -64,27 +80,51 @@ final class WaymarkingService extends AbstractService
 
 	public function process(): void
 	{
-		if ($this->data?->waymarkId) {
-			$waymarkPage = $this->loadWaymark($this->data->waymarkId);
-			$coords = Utils::findLeafletApiCoords($waymarkPage);
-			$location = new BetterLocation($this->input, $coords->getLat(), $coords->getLon(), self::class);
+		if ($this->data->waymarkIsImage ?? false) {
+			$this->processImage();
+		}
 
-			$dom = new \DOMDocument();
-			// @HACK to force UTF-8 encoding. Page itself is in UTF-8 encoding but it is not saying explicitely so parser is confused.
-			// @Author: https://stackoverflow.com/a/18721144/3334403
-			@$dom->loadHTML('<?xml encoding="utf-8"?>' . $waymarkPage);
-			$xpath = new \DOMXPath($dom);
-			$location->setPrefixMessage(sprintf(
-				'<a href="%s">Waymark %s %s</a>',
-				$this->inputUrl,
-				$this->data->waymarkId,
-				$xpath->query('//div[@id="wm_name"]/text()')->item(0)->textContent,
-			));
-
-			$this->collection->add($location);
-
+		if ($this->data->waymarkId ?? null) {
+			$this->processWaymark();
 		} else {
 			Debugger::log(sprintf('Unprocessable input: "%s"', $this->input), ILogger::ERROR);
+		}
+	}
+
+	private function processWaymark(): void
+	{
+		$waymarkPage = $this->loadWaymark($this->data->waymarkId);
+		$coords = Utils::findLeafletApiCoords($waymarkPage);
+		$location = new BetterLocation($this->input, $coords->getLat(), $coords->getLon(), self::class);
+
+		$dom = new \DOMDocument();
+		// @HACK to force UTF-8 encoding. Page itself is in UTF-8 encoding but it is not saying explicitely so parser is confused.
+		// @Author: https://stackoverflow.com/a/18721144/3334403
+		@$dom->loadHTML('<?xml encoding="utf-8"?>' . $waymarkPage);
+		$xpath = new \DOMXPath($dom);
+		$location->setPrefixMessage(sprintf(
+			'<a href="%s">Waymark %s %s</a>',
+			$this->inputUrl,
+			$this->data->waymarkId,
+			$xpath->query('//div[@id="wm_name"]/text()')->item(0)->textContent,
+		));
+
+		$this->collection->add($location);
+	}
+
+	private function processImage(): void
+	{
+		$imagePage = (new MiniCurl($this->url))->allowCache(Config::CACHE_TTL_WAYMARKING)->run()->getBody();
+		$dom = new \DOMDocument();
+		// @HACK to force UTF-8 encoding. Page itself is in UTF-8 encoding but it is not saying explicitely so parser is confused.
+		// @Author: https://stackoverflow.com/a/18721144/3334403
+		@$dom->loadHTML('<?xml encoding="utf-8"?>' . $imagePage);
+		$xpath = new \DOMXPath($dom);
+		$urlPath = $xpath->query('//a[@id="ctl00_ContentBody_LargePhotoControl1_lnkWaymark"]/@href')->item(0)->textContent;
+		$this->url = new Url($this->url->getHostUrl());
+		$this->url->setPath($urlPath);
+		if ($this->isUrlWaymark() === false) {
+			Debugger::log(sprintf('Invalid Waymark path "%s" on image page.', $urlPath));
 		}
 	}
 
