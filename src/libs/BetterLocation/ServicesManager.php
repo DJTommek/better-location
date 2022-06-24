@@ -38,6 +38,7 @@ use App\BetterLocation\Service\RopikyNetService;
 use App\BetterLocation\Service\SumavaCzService;
 use App\BetterLocation\Service\SygicService;
 use App\BetterLocation\Service\VojenskoCzService;
+use App\BetterLocation\Service\WaymarkingService;
 use App\BetterLocation\Service\WazeService;
 use App\BetterLocation\Service\WhatThreeWordService;
 use App\BetterLocation\Service\WikipediaService;
@@ -112,6 +113,7 @@ class ServicesManager
 		if (is_null(Config::GEOCACHING_COOKIE) === false) {
 			$this->services[GeocachingService::ID] = GeocachingService::class;
 		}
+		$this->services[WaymarkingService::ID] = WaymarkingService::class;
 		if (is_null(Config::W3W_API_KEY) === false) {
 			$this->services[WhatThreeWordService::ID] = WhatThreeWordService::class;
 		}
