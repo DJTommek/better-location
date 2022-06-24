@@ -6,6 +6,8 @@ use App\Config;
 use App\MiniCurl\Exceptions\ExecException;
 use App\MiniCurl\Exceptions\InitException;
 use App\MiniCurl\Exceptions\InvalidResponseException;
+use Nette\Http\Url;
+use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
 
 class MiniCurl
@@ -60,10 +62,10 @@ class MiniCurl
 	private $httpHeaders = [];
 	private $httpCookies = [];
 
-	public function __construct(string $url)
+	public function __construct(string|Url|UrlImmutable $url)
 	{
-		$this->url = $url;
-		$this->curl = curl_init($url);
+		$this->url = (string)$url;
+		$this->curl = curl_init($this->url);
 		if ($this->curl === false) {
 			throw new InitException('CURL can\'t be initialited.');
 		}
