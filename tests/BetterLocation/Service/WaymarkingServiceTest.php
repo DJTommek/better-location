@@ -32,7 +32,7 @@ final class WaymarkingServiceTest extends TestCase
 		WaymarkingService::getLink(50.087451, 14.420671, true);
 	}
 
-	public function testIsUrl(): void
+	public function testIsWaymarkUrl(): void
 	{
 		$this->assertTrue(WaymarkingService::isValidStatic('https://www.waymarking.com/waymarks/WMDPMB_Erb_Leopolda_Laanskho_Moravsk_nm_Brno_Czech_Republic'));
 		$this->assertTrue(WaymarkingService::isValidStatic('https://waymarking.com/waymarks/WMDPMB_Erb_Leopolda_Laanskho_Moravsk_nm_Brno_Czech_Republic'));
@@ -45,6 +45,26 @@ final class WaymarkingServiceTest extends TestCase
 		$this->assertFalse(WaymarkingService::isValidStatic('https://www.waymarking.com'));
 		$this->assertFalse(WaymarkingService::isValidStatic('https://www.waymarking.com/waymarks/'));
 		$this->assertFalse(WaymarkingService::isValidStatic('https://www.waymarking.com/waymarks/AADPMB'));
+	}
+
+	public function testIsImageUrl(): void
+	{
+		$this->assertTrue(WaymarkingService::isValidStatic('https://www.waymarking.com/gallery/image.aspx?f=1&guid=14f4cb4b-1c0a-4b35-834a-b42e6baf2816&gid=3'));
+		$this->assertTrue(WaymarkingService::isValidStatic('https://www.waymarking.com/gallery/image.aspx?f=1&guid=14f4cb4b-1c0a-4b35-834a-b42e6baf2816'));
+
+		$this->assertFalse(WaymarkingService::isValidStatic('not valid url'));
+	}
+
+	public function testIsGalleryUrl(): void
+	{
+		$this->assertTrue(WaymarkingService::isValidStatic('https://www.waymarking.com/gallery/default.aspx?f=1&guid=9cc31753-8cfb-4b44-9c57-c2b303fd1a9b&gid=2'));
+		$this->assertTrue(WaymarkingService::isValidStatic('https://www.waymarking.com/gallery/default.aspx?f=1&guid=01645b8d-404c-41f1-a951-190032f55215&gid=2'));
+
+		$this->assertFalse(WaymarkingService::isValidStatic('not valid url'));
+		$this->assertFalse(WaymarkingService::isValidStatic('https://www.waymarking.com/gallery/default.aspx?f=1&guid=9cc31753-8cfb-4b44-9c57-c2b303fd1a9b'));
+		$this->assertFalse(WaymarkingService::isValidStatic('https://www.waymarking.com/gallery/default.aspx?f=1&guid=9cc31753-8cfb-4b44-9c57-c2b303fd1a9baaaaa&gid=2'));
+		$this->assertFalse(WaymarkingService::isValidStatic('https://www.waymarking.com/gallery/default.aspx?f=2&guid=9cc31753-8cfb-4b44-9c57-c2b303fd1a9b&gid=2'));
+		$this->assertFalse(WaymarkingService::isValidStatic('https://www.waymarking.com/gallery/default.aspx?f=1&guid=9cc31753-8cfb-4b44-9c57-c2b303fd1a9b&gid=3'));
 	}
 
 	/**
@@ -65,5 +85,14 @@ final class WaymarkingServiceTest extends TestCase
 	{
 		$this->assertLocation(49.198050, 16.607533, 'https://www.waymarking.com/gallery/image.aspx?f=1&guid=14f4cb4b-1c0a-4b35-834a-b42e6baf2816&gid=3');
 		$this->assertLocation(42.618700, -82.477967, 'https://www.waymarking.com/gallery/image.aspx?f=1&guid=e1afc7aa-1dea-4110-9ae9-4d2b2c6deb68');
+	}
+
+	/**
+	 * @group request
+	 */
+	public function testGallery(): void
+	{
+		$this->assertLocation(49.198050, 16.607533, 'https://www.waymarking.com/gallery/default.aspx?f=1&guid=9cc31753-8cfb-4b44-9c57-c2b303fd1a9b&gid=2');
+		$this->assertLocation(42.618700, -82.477967, 'https://www.waymarking.com/gallery/default.aspx?f=1&guid=01645b8d-404c-41f1-a951-190032f55215&gid=2');
 	}
 }
