@@ -50,7 +50,7 @@ final class WaymarkingService extends AbstractService
 		return (
 			$this->url
 			&& $this->url->getDomain(2) === 'waymarking.com'
-			&& ($this->isUrlWaymark() || $this->isUrlImage())
+			&& ($this->isUrlWaymark() || $this->isUrlImage() || $this->isUrlGallery())
 		);
 	}
 
@@ -78,10 +78,26 @@ final class WaymarkingService extends AbstractService
 		}
 	}
 
+	public function isUrlGallery(): bool
+	{
+		if (
+			$this->url->getPath() === '/gallery/default.aspx'
+			&& $this->url->getQueryParameter('f') === '1'
+			&& StringUtils::isGuid($this->url->getQueryParameter('guid'))
+		) {
+			$this->data->waymarkIsGallery = true;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public function process(): void
 	{
 		if ($this->data->waymarkIsImage ?? false) {
 			$this->processImage();
+		} else if ($this->data->waymarkIsGallery ?? false) {
+			$this->processGallery();
 		}
 
 		if ($this->data->waymarkId ?? null) {
@@ -129,6 +145,30 @@ final class WaymarkingService extends AbstractService
 		if ($this->isUrlWaymark() === false) {
 			Debugger::log(sprintf('Invalid Waymark path "%s" on image page.', $urlPath));
 		}
+	}
+
+	private function processGallery(): void
+	{
+		$galleryUrl = $this->url;
+		$imagePage = (new MiniCurl($galleryUrl))->allowCache(Config::CACHE_TTL_WAYMARKING)->run()->getBody();
+		$dom = new \DOMDocument();
+		// @HACK to force UTF-8 encoding. Page itself is in UTF-8 encoding but it is not saying explicitely so parser is confused.
+		// @Author: https://stackoverflow.com/a/18721144/3334403
+		@$dom->loadHTML('<?xml encoding="utf-8"?>' . $imagePage);
+		$xpath = new \DOMXPath($dom);
+		$urlsPathDom = $xpath->query('//p[@id="breadcrumb"]/a/@href');
+		foreach ($urlsPathDom as $urlPathDom) {
+			$urlPath = $urlPathDom->textContent;
+			if (str_starts_with(mb_strtolower($urlPath), '/waymarks/wm')) {
+				$this->url = new Url($galleryUrl->getHostUrl());
+				$this->url->setPath($urlPath);
+				if ($this->isUrlWaymark() === false) {
+					Debugger::log(sprintf('Invalid Waymark path "%s" on gallery page.', $urlPath), Debugger::ERROR);
+				}
+				return;
+			}
+		}
+		Debugger::log(sprintf('Unable to link gallery URL "%s" to Waymark.', $galleryUrl), Debugger::ERROR);
 	}
 
 	private function buildWaymarkUrl(string $waymarkId): Url
