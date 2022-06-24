@@ -83,6 +83,7 @@ final class WaymarkingService extends AbstractService
 		if (
 			$this->url->getPath() === '/gallery/default.aspx'
 			&& $this->url->getQueryParameter('f') === '1'
+			&& $this->url->getQueryParameter('gid') === '2'
 			&& StringUtils::isGuid($this->url->getQueryParameter('guid'))
 		) {
 			$this->data->waymarkIsGallery = true;
