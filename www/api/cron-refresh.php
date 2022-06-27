@@ -5,6 +5,7 @@ use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
+use App\Utils\Formatter;
 use function Clue\React\Block\await;
 
 require_once __DIR__ . '/../../src/bootstrap.php';
@@ -39,7 +40,7 @@ if (isset($_GET['password']) && $_GET['password'] === \App\Config::CRON_PASSWORD
 				printlog(sprintf('Processing %s with last refresh at %s (%s ago)',
 					$id,
 					$messageToRefresh->getLastUpdate()->format(DATE_W3C),
-					App\Utils\Utils::sToHuman(time() - $messageToRefresh->getLastUpdate()->getTimestamp()),
+					Formatter::seconds(time() - $messageToRefresh->getLastUpdate()->getTimestamp()),
 				));
 				/** @var \App\BetterLocation\BetterLocationCollection $collection */
 				$collection = $event->getCollection();
