@@ -33,7 +33,12 @@ class Factory
 	static function Glympse(): \DJTommek\GlympseApi\GlympseApi
 	{
 		if (!isset(self::$objects['glympse'])) {
-			self::$objects['glympse'] = new \DJTommek\GlympseApi\GlympseApi(Config::GLYMPSE_API_USERNAME, Config::GLYMPSE_API_PASSWORD, Config::GLYMPSE_API_KEY);
+			$client = new \DJTommek\GlympseApi\GlympseApi(Config::GLYMPSE_API_KEY);
+			$client->setUsername(Config::GLYMPSE_API_USERNAME);
+			$client->setPassword(Config::GLYMPSE_API_PASSWORD);
+			$accessToken = $client->accountLogin();
+			$client->setAccessToken($accessToken);
+			self::$objects['glympse'] = $client;
 		}
 		return self::$objects['glympse'];
 	}

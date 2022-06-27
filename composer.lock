@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b0b7a11ccd14979e6b9d2aae559abcbd",
+    "content-hash": "845bf0a7579bbd2292e921277e80c2b3",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1168,16 +1168,16 @@
         },
         {
             "name": "djtommek/glympse-api",
-            "version": "0.1.0",
+            "version": "0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DJTommek/glympse-api.git",
-                "reference": "a8dd3e301bc9b575497bc6facdc7e7c495ca8865"
+                "reference": "29f7bcb3d2440f75124d2a8169b407608641e709"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DJTommek/glympse-api/zipball/a8dd3e301bc9b575497bc6facdc7e7c495ca8865",
-                "reference": "a8dd3e301bc9b575497bc6facdc7e7c495ca8865",
+                "url": "https://api.github.com/repos/DJTommek/glympse-api/zipball/29f7bcb3d2440f75124d2a8169b407608641e709",
+                "reference": "29f7bcb3d2440f75124d2a8169b407608641e709",
                 "shasum": ""
             },
             "require": {
@@ -1216,9 +1216,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DJTommek/glympse-api/issues",
-                "source": "https://github.com/DJTommek/glympse-api/tree/0.1.0"
+                "source": "https://github.com/DJTommek/glympse-api/tree/0.4.0"
             },
-            "time": "2020-10-28T19:42:13+00:00"
+            "time": "2022-06-27T19:11:17+00:00"
         },
         {
             "name": "djtommek/mapycz-api",
