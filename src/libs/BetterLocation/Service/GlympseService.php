@@ -162,8 +162,15 @@ final class GlympseService extends AbstractService
 				$this->collection->add($this->processInviteDestinationLocation($inviteResponse));
 			}
 		} catch (GlympseApiException $exception) {
-			Debugger::log($exception, ILogger::DEBUG);
-			throw new InvalidLocationException(sprintf('Error while processing %s invite code %s: %s', self::NAME, htmlentities($this->data->inviteId), $exception->getMessage()));
+			if ($this->isExceptionWhitelisted($exception) === false) {
+				Debugger::log($exception, ILogger::DEBUG);
+				throw new InvalidLocationException(sprintf(
+					'Error while processing %s invite code "%s": "%s"',
+					self::NAME,
+					htmlentities($this->data->inviteId),
+					$exception->getMessage()
+				));
+			}
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
 			throw new InvalidLocationException(sprintf('Coordinates on %s page are missing.', self::NAME));
@@ -176,16 +183,27 @@ final class GlympseService extends AbstractService
 		try {
 			$groupsResponse = $glympseApi->groups($this->data->groupName);
 			foreach ($groupsResponse->members as $member) {
-				$inviteResponse = $glympseApi->invites($member->invite, null, null, null, true);
-				$inviteLocation = $this->processInviteLocation(self::TYPE_GROUP, $inviteResponse);
-				$this->collection->add($inviteLocation);
-				if ($inviteResponse->properties->destination) {
-					$this->collection->add($this->processInviteDestinationLocation($inviteResponse));
+				try {
+					$inviteResponse = $glympseApi->invites($member->invite, null, null, null, true);
+					$inviteLocation = $this->processInviteLocation(self::TYPE_GROUP, $inviteResponse);
+					$this->collection->add($inviteLocation);
+					if ($inviteResponse->properties->destination) {
+						$this->collection->add($this->processInviteDestinationLocation($inviteResponse));
+					}
+				} catch (GlympseApiException $exception) {
+					if ($this->isExceptionWhitelisted($exception) === false) {
+						Debugger::log($exception, ILogger::DEBUG);
+					}
 				}
 			}
 		} catch (GlympseApiException $exception) {
 			Debugger::log($exception, ILogger::DEBUG);
-			throw new InvalidLocationException(sprintf('Error while processing %s tag !%s: %s', self::NAME, htmlentities($this->data->groupName), $exception->getMessage()));
+			throw new InvalidLocationException(sprintf(
+				'Error while processing %s tag "!%s": "%s"',
+				self::NAME,
+				htmlentities($this->data->groupName),
+				$exception->getMessage()
+			));
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
 			throw new InvalidLocationException(sprintf('Coordinates on %s page are missing.', self::NAME));
@@ -210,5 +228,13 @@ final class GlympseService extends AbstractService
 			return urldecode(mb_substr($parsedUrl['path'], 2)); // remove "/!"
 		}
 		return null;
+	}
+
+	private function isExceptionWhitelisted(\Exception $exception): bool
+	{
+		return (
+			$exception instanceof GlympseApiException
+			&& str_contains($exception->getMessage(), 'The specified invite code is no longer available')
+		);
 	}
 }
