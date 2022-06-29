@@ -45,6 +45,20 @@ class Formatter
 	}
 
 	/**
+	 * Calculate number of seconds between provided date and now, then format it to human readable.
+	 *
+	 * @see self::seconds()
+	 */
+	public static function ago(\DateTimeInterface $input, bool $short = false): string
+	{
+		$diffAgo = time() - $input->getTimestamp();
+		if ($diffAgo < 0) {
+			throw new \InvalidArgumentException('Date must not be in the past.');
+		}
+		return self::seconds($diffAgo, $short);
+	}
+
+	/**
 	 * Format distance to be human readable.
 	 * @TODO add support for imperial units
 	 *

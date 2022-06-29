@@ -40,7 +40,7 @@ if (isset($_GET['password']) && $_GET['password'] === \App\Config::CRON_PASSWORD
 				printlog(sprintf('Processing %s with last refresh at %s (%s ago)',
 					$id,
 					$messageToRefresh->getLastUpdate()->format(DATE_W3C),
-					Formatter::seconds(time() - $messageToRefresh->getLastUpdate()->getTimestamp()),
+					Formatter::ago($messageToRefresh->getLastUpdate()),
 				));
 				/** @var \App\BetterLocation\BetterLocationCollection $collection */
 				$collection = $event->getCollection();
