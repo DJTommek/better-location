@@ -45,20 +45,29 @@ final class WGS84DegreesMinutesServiceTest extends TestCase
 		$text .= '54°59.72333\'N, 14°31.36987\'E' . PHP_EOL;    // +/+
 		$text .= '55°4.34702\'N, 15°46.32372\'E' . PHP_EOL;     // +/+
 		$text .= PHP_EOL;
+		$text .= 'Dynamic hemisphere:' . PHP_EOL;
+		$text .= 'N56°18.11425\'S, 160°46.79265\' E' . PHP_EOL;     // Second coordinate has hemisphere only after number so let's use it for first coordinate
+		$text .= 'S56°18.11425\'S, 160°46.79265\' E' . PHP_EOL;     // Second coordinate has hemisphere only after number so let's use it for first coordinate
+		$text .= 'S56°18.11425\'N, 160°46.79265\' E' . PHP_EOL;     // Second coordinate has hemisphere only after number so let's use it for first coordinate
+		$text .= '57°37.66440\'S, E17°13.32803\'W' . PHP_EOL;       // First coordinate has only after text, use after from second coordinate too
+		$text .= PHP_EOL;
 		$text .= 'Invalid:';
-		$text .= 'N56°18.11425\'S, 160°46.79265\' E' . PHP_EOL;     // Both coordinates are north-south hemisphere
-		$text .= 'S56°18.11425\'S, 160°46.79265\' E' . PHP_EOL;     // Both coordinates are north-south hemisphere
-		$text .= 'N56°18.11425\'S, E160°46.79265\' E' . PHP_EOL;    // Both coordinates are east-west hemisphere
-		$text .= '57°37.66440\'S, E17°13.32803\'W' . PHP_EOL;       // Both coordinates are east-west hemisphere
+		$text .= 'N56°18.11425\'S, E160°46.79265\' E' . PHP_EOL;    // Both coordinates have defined hemisphere before and after numbers
 
 		$betterLocations = WGS84DegreesMinutesService::findInText($text);
-		$this->assertCount(6, $betterLocations);
+		$this->assertCount(10, $betterLocations);
 		$this->assertSame([50.99538883333334, 10.522831166666666], $betterLocations[0]->getLatLon());
 		$this->assertSame([51.072450333333336, 11.772062], $betterLocations[1]->getLatLon());
 		$this->assertSame([-52.30190416666667, 120.7798775], $betterLocations[2]->getLatLon());
 		$this->assertSame([-53.62774, -13.222133833333332], $betterLocations[3]->getLatLon());
+
 		$this->assertSame([54.99538883333334, 14.522831166666666], $betterLocations[4]->getLatLon());
 		$this->assertSame([55.072450333333336, 15.772062], $betterLocations[5]->getLatLon());
+
+		$this->assertSame([-56.30190416666667, 160.7798775], $betterLocations[6]->getLatLon());
+		$this->assertSame([-56.30190416666667, 160.7798775], $betterLocations[7]->getLatLon());
+		$this->assertSame([56.30190416666667, 160.7798775], $betterLocations[8]->getLatLon());
+		$this->assertSame([-57.62774, -17.222133833333334], $betterLocations[9]->getLatLon());
 	}
 
 	/**

@@ -146,11 +146,38 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 			$latHemisphere2 = '';
 		}
 
+		/**
+		 * First coordinate has detected hemispere symbols before and after text
+		 *
+		 * @see \Tests\BetterLocation\Service\Coordinates\WGS84DegreesServiceTest::testDynamicHemispherePositionFirst()
+		 */
 		if ($latHemisphere1 && $latHemisphere2) {
-			throw new InvalidLocationException(sprintf('Invalid format of coordinates "%s" - hemisphere is defined twice for first coordinate', $input));
+			if ($lonHemisphere1 === '' && $lonHemisphere2 !== '') {
+				// Hemisphere for second coordinate is defined only after coordinate number so for let's use after for first coordinate too
+				$latHemisphere1 = '';
+			} else if ($lonHemisphere1 !== '' && $lonHemisphere2 === '') {
+				// Hemisphere for second coordinate is defined only before coordinate number so for let's use after for first coordinate too
+				$latHemisphere2 = '';
+			} else {
+				throw new InvalidLocationException(sprintf('Invalid format of coordinates "%s" - hemisphere is defined twice for first coordinate', $input));
+			}
 		}
+
+		/**
+		 * Second coordinate has detected hemispere symbols before and after text
+		 *
+		 * @see \Tests\BetterLocation\Service\Coordinates\WGS84DegreesServiceTest::testDynamicHemispherePositionSecond()
+		 */
 		if ($lonHemisphere1 && $lonHemisphere2) {
-			throw new InvalidLocationException(sprintf('Invalid format of coordinates "%s" - hemisphere is defined twice for second coordinate', $input));
+			if ($latHemisphere1 === '' && $latHemisphere2 !== '') {
+				// Hemisphere for first coordinate is defined only after coordinate number so for let's use after for second coordinate too
+				$lonHemisphere1 = '';
+			} else if ($latHemisphere1 !== '' && $latHemisphere2 === '') {
+				// Hemisphere for first coordinate is defined only before coordinate number so for let's use after for second coordinate too
+				$lonHemisphere2 = '';
+			} else {
+				throw new InvalidLocationException(sprintf('Invalid format of coordinates "%s" - hemisphere is defined twice for second coordinate', $input));
+			}
 		}
 
 		// Get hemisphere for first coordinate
