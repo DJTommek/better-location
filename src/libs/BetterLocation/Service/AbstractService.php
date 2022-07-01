@@ -97,7 +97,7 @@ abstract class AbstractService
 	 *
 	 * @throws NotSupportedException
 	 */
-	public static function getShareLink(float $lat, float $lon, array $options = []): string
+	public static function getShareLink(float $lat, float $lon, array $options = []): ?string
 	{
 		return static::getLink($lat, $lon, false, $options);
 	}
