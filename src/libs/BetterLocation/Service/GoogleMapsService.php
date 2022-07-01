@@ -88,7 +88,7 @@ final class GoogleMapsService extends AbstractService
 			));
 	}
 
-	public static function getScreenshotLink(float $lat, float $lon, array $options = []): string
+	public static function getScreenshotLink(float $lat, float $lon, array $options = []): ?string
 	{
 		if (is_null(Config::GOOGLE_MAPS_STATIC_API_KEY)) {
 			throw new NotSupportedException('Google Maps Static API key is not defined.');

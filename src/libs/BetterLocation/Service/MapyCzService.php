@@ -104,7 +104,7 @@ final class MapyCzService extends AbstractService
 		return sprintf('%s/?query=%s', self::LINK, implode(';', $collection->getKeys()));
 	}
 
-	public static function getScreenshotLink(float $lat, float $lon, array $options = []): string
+	public static function getScreenshotLink(float $lat, float $lon, array $options = []): ?string
 	{
 		// URL Parameters to screenshoter (Mapy.cz website is using it with p=3 and l=0):
 		// l=0 hide right panel (can be opened via arrow icon)
