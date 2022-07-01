@@ -28,7 +28,7 @@ final class FoursquareService extends AbstractService
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
 	];
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): string
+	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');

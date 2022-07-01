@@ -91,7 +91,7 @@ final class MapyCzService extends AbstractService
 		];
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): string
+	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		// 2021-07-14: Drive link is "kind of" available using planner and on Android device it will open correctly target destination,
 		// but empty deparature, so user has to choose current location manually. That is more clicks, than using classic,

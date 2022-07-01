@@ -83,7 +83,7 @@ abstract class AbstractService
 	 * @throws NotSupportedException
 	 * @deprecated use GetShareLink() or getDriveLink()
 	 */
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): string
+	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException(sprintf('%s (ID %d) does not support drive link.', static::getName(), static::ID));

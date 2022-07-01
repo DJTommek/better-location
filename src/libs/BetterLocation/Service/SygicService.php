@@ -19,7 +19,7 @@ final class SygicService extends AbstractService
 		ServicesManager::TAG_GENERATE_LINK_DRIVE,
 	];
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): string
+	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			return sprintf('%s/navi/directions?to=%F,%F', self::DRIVE_LINK, $lat, $lon);
