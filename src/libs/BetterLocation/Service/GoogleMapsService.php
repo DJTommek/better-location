@@ -54,7 +54,7 @@ final class GoogleMapsService extends AbstractService
 		];
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): string
+	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		return sprintf($drive ? self::LINK_DRIVE : self::LINK, $lat, $lon);
 	}

@@ -27,7 +27,7 @@ final class WhatThreeWordService extends AbstractService
 	const LINK_SHORT = 'https://w3w.co/';
 
 	/** @throws NotSupportedException|\Exception */
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): string
+	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');

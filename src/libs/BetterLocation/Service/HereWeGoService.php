@@ -44,7 +44,7 @@ final class HereWeGoService extends AbstractService
 	}
 
 	/** @see https://developer.here.com/documentation/deeplink-web/dev_guide/topics/key-concepts.html */
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): string
+	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) { // https://developer.here.com/documentation/deeplink-web/dev_guide/topics/share-route.html
 			return self::LINK_SHARE . sprintf('/r/%1$f,%2$f', $lat, $lon);

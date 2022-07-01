@@ -28,7 +28,7 @@ final class OpenStreetMapService extends AbstractService
 		ServicesManager::TAG_GENERATE_LINK_DRIVE,
 	];
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): string
+	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			return self::LINK . sprintf('/directions?from=&to=%1$f,%2$f', $lat, $lon);
