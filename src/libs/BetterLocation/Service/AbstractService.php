@@ -107,7 +107,7 @@ abstract class AbstractService
 	 *
 	 * @throws NotSupportedException
 	 */
-	public static function getDriveLink(float $lat, float $lon, array $options = []): string
+	public static function getDriveLink(float $lat, float $lon, array $options = []): ?string
 	{
 		return static::getLink($lat, $lon, true, $options);
 	}
