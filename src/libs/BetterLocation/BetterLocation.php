@@ -13,16 +13,14 @@ use App\Geonames\Types\TimezoneType;
 use App\Icons;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Button\RefreshButton;
-use App\TelegramCustomWrapper\Events\Command\StartCommand;
-use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
 use App\Utils\CoordinatesInterface;
-use App\Utils\Utils;
 use App\Utils\Strict;
+use App\Utils\Utils;
 use JetBrains\PhpStorm\Pure;
 use maxh\Nominatim\Exceptions\NominatimException;
-use Nette\Http\UrlImmutable;
 use Nette\Http\Url;
+use Nette\Http\UrlImmutable;
 use OpenLocationCode\OpenLocationCode;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types;
@@ -90,20 +88,6 @@ class BetterLocation implements CoordinatesInterface
 		];
 	}
 
-	public function generateScreenshotLink(string $serviceClass): string
-	{
-		if (class_exists($serviceClass) === false) {
-			throw new \InvalidArgumentException(sprintf('Invalid location service: "%s".', $serviceClass));
-		}
-		if (is_subclass_of($serviceClass, AbstractService::class) === false && is_subclass_of($serviceClass, AbstractService::class) === false) {
-			throw new \InvalidArgumentException(sprintf('Source service has to be subclass of "%s".', AbstractService::class));
-		}
-		if (method_exists($serviceClass, 'getScreenshotLink') === false) {
-			throw new \InvalidArgumentException(sprintf('Source service "%s" does not supports screenshot links.', $serviceClass));
-		}
-		return $serviceClass::getScreenshotLink($this->getLat(), $this->getLon());
-	}
-
 	public function setAddress(string $address): void
 	{
 		$this->address = $address;
@@ -126,7 +110,7 @@ class BetterLocation implements CoordinatesInterface
 				if ($result = \App\Nominatim\Nominatim::reverse($this->getLat(), $this->getLon())) {
 					$this->address = $result['display_name'];
 				}
-			} catch (NominatimException | \GuzzleHttp\Exception\GuzzleException $exception) {
+			} catch (NominatimException|\GuzzleHttp\Exception\GuzzleException $exception) {
 				Debugger::log($exception, Debugger::EXCEPTION);
 			}
 		}
@@ -202,11 +186,18 @@ class BetterLocation implements CoordinatesInterface
 
 	public function generateMessage(BetterLocationMessageSettings $settings): string
 	{
-		$text = sprintf('%s <a href="%s" target="_blank">%s</a> ',
-			$this->prefixMessage,
-			$this->generateScreenshotLink($settings->getScreenshotLinkService()),
-			Icons::MAP_SCREEN,
-		);
+		$text = '';
+
+		// Generate screenshot link
+		$screenshotLink = $settings->getScreenshotLinkService()::getScreenshotLink($this->getLat(), $this->getLon());
+		if ($screenshotLink) {
+			$text .= sprintf(
+				'%s <a href="%s" target="_blank">%s</a> ',
+				$this->prefixMessage,
+				$screenshotLink,
+				Icons::MAP_SCREEN,
+			);
+		}
 
 		// Generate copyable text representing location
 		$text .= implode(' | ', array_map(function ($service) {
@@ -218,14 +209,14 @@ class BetterLocation implements CoordinatesInterface
 		}
 		$text .= PHP_EOL;
 
-		// Generate links
-		$textLinks = \array_map(function (string $service) {
-			return sprintf('<a href="%s" target="_blank">%s</a>',
-				$this->pregeneratedLinks[$service] ?? $service::getShareLink($this->getLat(), $this->getLon()),
-				$service::getName(true),
-			);
-		}, $settings->getLinkServices());
-
+		// Generate share links
+		$textLinks = [];
+		foreach ($settings->getLinkServices() as $service) {
+			$link = $this->pregeneratedLinks[$service] ?? $service::getShareLink($this->getLat(), $this->getLon());
+			if ($link !== null) {
+				$textLinks[] = sprintf('<a href="%s" target="_blank">%s</a>', $link, $service::getName(true));
+			}
+		}
 		$text .= join(' | ', $textLinks) . PHP_EOL;
 
 		if ($settings->showAddress() && is_null($this->address) === false) {
@@ -246,10 +237,13 @@ class BetterLocation implements CoordinatesInterface
 	{
 		$buttons = [];
 		foreach ($settings->getButtonServices() as $service) {
-			$button = new Types\Inline\Keyboard\Button();
-			$button->text = sprintf('%s %s', $service::getName(true), Icons::CAR);
-			$button->url = $service::getDriveLink($this->getLat(), $this->getLon());
-			$buttons[] = $button;
+			$driveLink = $service::getDriveLink($this->getLat(), $this->getLon());
+			if ($driveLink !== null) {
+				$button = new Types\Inline\Keyboard\Button();
+				$button->text = sprintf('%s %s', $service::getName(true), Icons::CAR);
+				$button->url = $service::getDriveLink($this->getLat(), $this->getLon());
+				$buttons[] = $button;
+			}
 		}
 		return $buttons;
 	}
