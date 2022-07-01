@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "807b37d07b7741b243e73e4d10992583",
+    "content-hash": "c90f1a35ba25e23597918e9edaa752f5",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1222,16 +1222,16 @@
         },
         {
             "name": "djtommek/mapycz-api",
-            "version": "1.3.0",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DJTommek/mapycz-api.git",
-                "reference": "6a9a497e66b23088199937ec16e5b536f1972c3c"
+                "reference": "c024b560034b12fe6d5d2dae54f9f92b1b441e08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DJTommek/mapycz-api/zipball/6a9a497e66b23088199937ec16e5b536f1972c3c",
-                "reference": "6a9a497e66b23088199937ec16e5b536f1972c3c",
+                "url": "https://api.github.com/repos/DJTommek/mapycz-api/zipball/c024b560034b12fe6d5d2dae54f9f92b1b441e08",
+                "reference": "c024b560034b12fe6d5d2dae54f9f92b1b441e08",
                 "shasum": ""
             },
             "require": {
@@ -1274,9 +1274,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DJTommek/mapycz-api/issues",
-                "source": "https://github.com/DJTommek/mapycz-api/tree/1.3.0"
+                "source": "https://github.com/DJTommek/mapycz-api/tree/1.3.2"
             },
-            "time": "2022-05-10T22:15:18+00:00"
+            "time": "2022-07-01T19:10:27+00:00"
         },
         {
             "name": "doctrine/inflector",
