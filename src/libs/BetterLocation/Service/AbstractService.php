@@ -117,7 +117,7 @@ abstract class AbstractService
 	 *
 	 * @throws NotSupportedException
 	 */
-	public static function getScreenshotLink(float $lat, float $lon, array $options = []): string
+	public static function getScreenshotLink(float $lat, float $lon, array $options = []): ?string
 	{
 		throw new NotSupportedException('Static image link is not supported.');
 	}
