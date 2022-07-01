@@ -194,7 +194,7 @@ class BetterLocationMessageSettings
 		return $this->textServices;
 	}
 
-	/** @return AbstractService */
+	/** @return class-string<AbstractService> */
 	public function getScreenshotLinkService(): string
 	{
 		return $this->screenshotLinkService;

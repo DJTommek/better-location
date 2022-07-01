@@ -10,8 +10,8 @@ use App\Config;
 use App\Factory;
 use App\Utils\Coordinates;
 use App\Utils\DateImmutableUtils;
-use App\Utils\Utils;
 use App\Utils\Strict;
+use App\Utils\Utils;
 use App\Web\FlashMessage;
 use App\Web\MainPresenter;
 use Nette\Utils\Json;
@@ -157,17 +157,29 @@ class LocationsPresenter extends MainPresenter
 	{
 		/** @var $service AbstractService */
 		$result = [];
-		if ($service::hasTag(ServicesManager::TAG_GENERATE_LINK_SHARE)) {
-			$result['share'] = $service::getLink($lat, $lon);
+		if (
+			$service::hasTag(ServicesManager::TAG_GENERATE_LINK_SHARE)
+			&& $output = $service::getShareLink($lat, $lon)
+		) {
+			$result['share'] = $output;
 		}
-		if ($service::hasTag(ServicesManager::TAG_GENERATE_LINK_DRIVE)) {
-			$result['drive'] = $service::getLink($lat, $lon, true);
+		if (
+			$service::hasTag(ServicesManager::TAG_GENERATE_LINK_DRIVE)
+			&& $output = $service::getDriveLink($lat, $lon)
+		) {
+			$result['drive'] = $output;
 		}
-		if ($service::hasTag(ServicesManager::TAG_GENERATE_TEXT)) {
-			$result['text'] = $service::getShareText($lat, $lon);
+		if (
+			$service::hasTag(ServicesManager::TAG_GENERATE_TEXT)
+			&& $output = $service::getShareText($lat, $lon)
+		) {
+			$result['text'] = $output;
 		}
-		if ($service::hasTag(ServicesManager::TAG_GENERATE_LINK_IMAGE)) {
-			$result['static'] = $service::getScreenshotLink($lat, $lon);
+		if (
+			$service::hasTag(ServicesManager::TAG_GENERATE_LINK_IMAGE)
+			&& $output = $service::getScreenshotLink($lat, $lon)
+		) {
+			$result['static'] = $output;
 		}
 
 		if ($result !== []) {
