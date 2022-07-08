@@ -107,6 +107,43 @@ final class MapyCzServiceTest extends TestCase
 		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239'));
 	}
 
+
+	public function testIsValidSourceP(): void
+	{
+		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/fotografie?sourcep=foto&idp=3255831'));
+		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/fotografie?x=14.4569172&y=49.2930016&z=16&q=bo%C5%BE%C3%AD%20muka&source=base&id=2273700&ds=2&sourcep=foto&idp=3255831'));
+
+		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/fotografie?sourcep=foto'));
+		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/fotografie?idp=3255831'));
+		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/fotografie?sourcep=foto&idp=aabc'));
+	}
+
+	/**
+	 * @group request
+	 */
+	public function testProcessSourceP(): void
+	{
+		$collection = MapyCzService::processStatic('https://en.mapy.cz/fotografie?sourcep=foto&idp=3255831')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('49.295782,14.447919', $collection->getFirst()->key());
+
+		$collection = MapyCzService::processStatic('https://en.mapy.cz/fotografie?x=14.4569172&y=49.2930016&z=16&q=bo%C5%BE%C3%AD%20muka&source=base&id=2273700&ds=2&sourcep=foto&idp=3255831')->getCollection();
+		$this->assertCount(3, $collection);
+		$this->assertSame('49.295782,14.447919', $collection[0]->key());
+		$this->assertSame('49.292865,14.466637', $collection[1]->key());
+		$this->assertSame('49.293002,14.456917', $collection[2]->key());
+
+		$collection = MapyCzService::processStatic('https://en.mapy.cz/fotografie?sourcep=foto&idp=4769603')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('50.209226,15.832547', $collection->getFirst()->key());
+
+		$collection = MapyCzService::processStatic('https://en.mapy.cz/fotografie?x=15.8324297&y=50.2090275&z=19&q=49.295782%2C14.447919&source=coor&id=14.447919%2C49.295782&ds=1&sourcep=foto&idp=4769603')->getCollection();
+		$this->assertCount(3, $collection);
+		$this->assertSame('50.209226,15.832547', $collection[0]->key());
+		$this->assertSame('49.295782,14.447919', $collection[1]->key());
+		$this->assertSame('50.209027,15.832430', $collection[2]->key());
+	}
+
 	/**
 	 * ID parameter is in coordinates format
 	 */
