@@ -150,9 +150,10 @@ final class MapyCzServiceTest extends TestCase
 	public function testValidCoordinatesMapyCzId(): void
 	{
 		$collection = MapyCzService::processStatic('https://en.mapy.cz/zemepisna?x=14.6666666666&y=48.222&z=16&source=coor&id=14.33333333333333%2C48.77777777777')->getCollection();
-		$this->assertCount(2, $collection);
+		$this->assertCount(1, $collection);
 		$this->assertSame('48.777778,14.333333', $collection[0]->__toString());
-		$this->assertSame('48.222000,14.666667', $collection[1]->__toString());
+		// @EXPERIMENTAL Process map center only if no valid location was detected (place, photo, panorama..)
+		// $this->assertSame('48.222000,14.666667', $collection[1]->__toString());
 
 		$collection = MapyCzService::processStatic('https://en.mapy.cz/zemepisna?source=coor&id=14.33333333333333%2C48.77777777777')->getCollection();
 		$this->assertCount(1, $collection);

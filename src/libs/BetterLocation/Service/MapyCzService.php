@@ -183,12 +183,18 @@ final class MapyCzService extends AbstractService
 			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->placeIdCoordLat, $this->data->placeIdCoordLon, self::class, self::TYPE_PLACE_COORDS));
 		}
 
-		if (Strict::isFloat($this->url->getQueryParameter('ma_x')) && Strict::isFloat($this->url->getQueryParameter('ma_y'))) {
-			$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($this->url->getQueryParameter('ma_y')), Strict::floatval($this->url->getQueryParameter('ma_x')), self::class, self::TYPE_UNKNOWN));
+		// @EXPERIMENTAL Process map center only if no valid location was detected (place, photo, panorama..)
+		if ($this->collection->isEmpty()) {
+			if (Strict::isFloat($this->url->getQueryParameter('ma_x')) && Strict::isFloat($this->url->getQueryParameter('ma_y'))) {
+				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($this->url->getQueryParameter('ma_y')), Strict::floatval($this->url->getQueryParameter('ma_x')), self::class, self::TYPE_UNKNOWN));
+			}
 		}
 
-		if (Coordinates::isLon($this->url->getQueryParameter('x')) && Coordinates::isLat($this->url->getQueryParameter('y'))) {
-			$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($this->url->getQueryParameter('y')), Strict::floatval($this->url->getQueryParameter('x')), self::class, self::TYPE_MAP));
+		// @EXPERIMENTAL Process map center only if no valid location was detected (place, photo, panorama..)
+		if ($this->collection->isEmpty()) {
+			if (Coordinates::isLon($this->url->getQueryParameter('x')) && Coordinates::isLat($this->url->getQueryParameter('y'))) {
+				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($this->url->getQueryParameter('y')), Strict::floatval($this->url->getQueryParameter('x')), self::class, self::TYPE_MAP));
+			}
 		}
 	}
 
