@@ -209,6 +209,11 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return count($this->locations);
 	}
 
+	public function isEmpty(): bool
+	{
+		return $this->locations === [];
+	}
+
 	public function hasRefreshableLocation(): bool
 	{
 		foreach ($this->locations as $location) {
