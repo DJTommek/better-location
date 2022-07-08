@@ -12,6 +12,7 @@ use App\Utils\Coordinates;
 use App\Utils\Strict;
 use DJTommek\MapyCzApi\MapyCzApi;
 use DJTommek\MapyCzApi\MapyCzApiException;
+use Nette\Http\Url;
 use Tracy\Debugger;
 
 final class MapyCzService extends AbstractService
@@ -130,12 +131,19 @@ final class MapyCzService extends AbstractService
 			try {
 				$mapyCzResponse = $mapyCzApi->loadPoiDetails($this->url->getQueryParameter('sourcep'), Strict::intval($this->url->getQueryParameter('idp')));
 				$betterLocation = new BetterLocation($this->inputUrl, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PHOTO);
+
+				// Query 'fl' parameter contains info, what should be resolution of requested image. If this parameter
+				// is removed, original uploaded image is requested including original EXIF metadata.
+				// Example of fl parameter: ?fl=res,400,,3
+				$highestQualityPhotoUrl = new Url($mapyCzResponse->extend->photo->src);
+				$highestQualityPhotoUrl->setQueryParameter('fl', null);
+
 				$betterLocation->setPrefixMessage(sprintf(
 					'<a href="%s">%s %s</a><a href="%s">%s</a>',
 					$this->url,
 					self::NAME,
 					$mapyCzResponse->title,
-					$mapyCzResponse->extend->photo->src,
+					$highestQualityPhotoUrl,
 					Icons::PICTURE
 				));
 				$this->collection->add($betterLocation);
