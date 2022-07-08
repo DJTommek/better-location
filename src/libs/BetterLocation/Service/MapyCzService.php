@@ -6,6 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\ServicesManager;
+use App\Icons;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
@@ -24,6 +25,7 @@ final class MapyCzService extends AbstractService
 	const TYPE_PLACE_ID = 'Place';
 	const TYPE_PLACE_COORDS = 'Place coords';
 	const TYPE_PANORAMA = 'Panorama';
+	const TYPE_PHOTO = 'Photo';
 
 	public function isValid(): bool
 	{
@@ -74,6 +76,7 @@ final class MapyCzService extends AbstractService
 
 		return (
 			Coordinates::isLat($this->url->getQueryParameter('x')) && Coordinates::isLon($this->url->getQueryParameter('y')) || // map position
+			($this->url->getQueryParameter('sourcep') && Strict::isPositiveInt($this->url->getQueryParameter('idp'))) || // photo ID
 			Strict::isPositiveInt($this->url->getQueryParameter('id')) && $this->url->getQueryParameter('source') || // place ID
 			Strict::isPositiveInt($this->url->getQueryParameter('pid')) || // panorama ID
 			Coordinates::isLat($this->url->getQueryParameter('ma_x')) && Coordinates::isLon($this->url->getQueryParameter('ma_y')) // not sure what is this...
@@ -88,6 +91,7 @@ final class MapyCzService extends AbstractService
 			self::TYPE_PLACE_COORDS,
 			self::TYPE_MAP,
 			self::TYPE_UNKNOWN,
+			self::TYPE_PHOTO,
 		];
 	}
 
@@ -120,6 +124,25 @@ final class MapyCzService extends AbstractService
 			$this->processShortUrl();
 		}
 		$mapyCzApi = new MapyCzApi();
+
+		// URL with Photo ID
+		if ($this->url->getQueryParameter('sourcep') && Strict::isPositiveInt($this->url->getQueryParameter('idp'))) {
+			try {
+				$mapyCzResponse = $mapyCzApi->loadPoiDetails($this->url->getQueryParameter('sourcep'), Strict::intval($this->url->getQueryParameter('idp')));
+				$betterLocation = new BetterLocation($this->inputUrl, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PHOTO);
+				$betterLocation->setPrefixMessage(sprintf(
+					'<a href="%s">%s %s</a><a href="%s">%s</a>',
+					$this->url,
+					self::NAME,
+					$mapyCzResponse->title,
+					$mapyCzResponse->extend->photo->src,
+					Icons::PICTURE
+				));
+				$this->collection->add($betterLocation);
+			} catch (MapyCzApiException $exception) {
+				Debugger::log(sprintf('MapyCz Place API response: "%s"', $exception->getMessage()), Debugger::ERROR);
+			}
+		}
 
 		// URL with Panorama ID
 		if (Strict::isPositiveInt($this->url->getQueryParameter('pid'))) {
