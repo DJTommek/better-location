@@ -138,14 +138,15 @@ final class MapyCzService extends AbstractService
 				$highestQualityPhotoUrl = new Url($mapyCzResponse->extend->photo->src);
 				$highestQualityPhotoUrl->setQueryParameter('fl', null);
 
-				$betterLocation->setPrefixMessage(sprintf(
-					'<a href="%s">%s %s</a><a href="%s">%s</a>',
-					$this->url,
-					self::NAME,
-					$mapyCzResponse->title,
-					$highestQualityPhotoUrl,
-					Icons::PICTURE
-				));
+				$prefix = $betterLocation->getPrefixMessage();
+				$photoTitle = trim($mapyCzResponse->title);
+				$prefix .= sprintf(' <a href="%s">', $highestQualityPhotoUrl);
+				if ($photoTitle !== '') {
+					$prefix .= htmlentities($photoTitle) . ' ';
+				}
+				$prefix .= sprintf('%s</a>', Icons::PICTURE);
+
+				$betterLocation->setPrefixMessage($prefix);
 				$this->collection->add($betterLocation);
 			} catch (MapyCzApiException $exception) {
 				Debugger::log(sprintf('MapyCz Place API response: "%s"', $exception->getMessage()), Debugger::ERROR);
