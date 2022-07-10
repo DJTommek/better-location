@@ -186,21 +186,16 @@ class BetterLocation implements CoordinatesInterface
 
 	public function generateMessage(BetterLocationMessageSettings $settings): string
 	{
-		$text = '';
+		$text = $this->prefixMessage;
 
 		// Generate screenshot link
 		$screenshotLink = $settings->getScreenshotLinkService()::getScreenshotLink($this->getLat(), $this->getLon());
 		if ($screenshotLink) {
-			$text .= sprintf(
-				'%s <a href="%s" target="_blank">%s</a> ',
-				$this->prefixMessage,
-				$screenshotLink,
-				Icons::MAP_SCREEN,
-			);
+			$text .= sprintf(' <a href="%s" target="_blank">%s</a> ', $screenshotLink, Icons::MAP_SCREEN);
 		}
 
 		// Generate copyable text representing location
-		$text .= implode(' | ', array_map(function ($service) {
+		$text .= ' ' . implode(' | ', array_map(function ($service) {
 			return sprintf('<code>%s</code>', $service::getShareText($this->getLat(), $this->getLon()));
 		}, $settings->getTextServices()));
 
