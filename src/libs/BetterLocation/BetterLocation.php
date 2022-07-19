@@ -186,15 +186,7 @@ class BetterLocation implements CoordinatesInterface
 
 	public function generateMessage(BetterLocationMessageSettings $settings): string
 	{
-		$text = '';
-
-		$isInIquest2022Map = $this->getCoordinates()->isInPolygon([
-			// iQuest 2022
-			[49.437992, 14.007446], [49.384382, 13.936035], [49.354424, 13.970367], [49.315049, 13.987534], [49.283257, 13.963501], [49.249204, 13.951828], [49.197183, 13.950455], [49.164418, 13.975861], [49.132978, 14.045212], [49.125340, 14.080231], [49.122644, 14.124863], [49.106913, 14.144089], [49.108262, 14.157135], [49.124442, 14.174988], [49.125789, 14.203827], [49.129833, 14.249146], [49.147353, 14.305450], [49.165764, 14.330856], [49.191350, 14.350082], [49.243825, 14.351456], [49.279674, 14.340469], [49.313258, 14.315064], [49.340557, 14.319870], [49.373200, 14.335662], [49.390639, 14.352142], [49.439777, 14.292404], [49.422361, 14.205887], [49.437992, 14.007446], [49.425935, 14.046585], [49.426381, 14.074738], [49.434866, 14.150955], [49.422361, 14.205887]
-		]);
-		$text .= $isInIquest2022Map ? Icons::ENABLED : Icons::DISABLED;
-
-		$text .= ' ' . $this->prefixMessage;
+		$text = $this->prefixMessage;
 
 		// Generate screenshot link
 		$screenshotLink = $settings->getScreenshotLinkService()::getScreenshotLink($this->getLat(), $this->getLon());
