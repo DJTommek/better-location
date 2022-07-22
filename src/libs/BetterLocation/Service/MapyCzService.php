@@ -10,9 +10,10 @@ use App\Icons;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
-use DJTommek\MapyCzApi\MapyCzApi;
+use DJTommek\MapyCzApi;
 use DJTommek\MapyCzApi\MapyCzApiException;
 use Nette\Http\Url;
+use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
 
 final class MapyCzService extends AbstractService
@@ -27,6 +28,7 @@ final class MapyCzService extends AbstractService
 	const TYPE_PLACE_COORDS = 'Place coords';
 	const TYPE_PANORAMA = 'Panorama';
 	const TYPE_PHOTO = 'Photo';
+	const TYPE_CUSTOM_POINT = 'Custom point';
 
 	public function isValid(): bool
 	{
@@ -80,6 +82,7 @@ final class MapyCzService extends AbstractService
 			($this->url->getQueryParameter('sourcep') && Strict::isPositiveInt($this->url->getQueryParameter('idp'))) || // photo ID
 			Strict::isPositiveInt($this->url->getQueryParameter('id')) && $this->url->getQueryParameter('source') || // place ID
 			Strict::isPositiveInt($this->url->getQueryParameter('pid')) || // panorama ID
+			($this->url->getQueryParameter('vlastni-body') !== null && $this->url->getQueryParameter('uc')) || // custom points
 			Coordinates::isLat($this->url->getQueryParameter('ma_x')) && Coordinates::isLon($this->url->getQueryParameter('ma_y')) // not sure what is this...
 		);
 	}
@@ -93,6 +96,7 @@ final class MapyCzService extends AbstractService
 			self::TYPE_MAP,
 			self::TYPE_UNKNOWN,
 			self::TYPE_PHOTO,
+			self::TYPE_CUSTOM_POINT,
 		];
 	}
 
@@ -124,7 +128,7 @@ final class MapyCzService extends AbstractService
 		if ($this->data->isShortUrl) {
 			$this->processShortUrl();
 		}
-		$mapyCzApi = new MapyCzApi();
+		$mapyCzApi = new MapyCzApi\MapyCzApi();
 
 		// URL with Photo ID
 		if ($this->url->getQueryParameter('sourcep') && Strict::isPositiveInt($this->url->getQueryParameter('idp'))) {
@@ -183,6 +187,11 @@ final class MapyCzService extends AbstractService
 			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->placeIdCoordLat, $this->data->placeIdCoordLon, self::class, self::TYPE_PLACE_COORDS));
 		}
 
+		// Custom points
+		if ($this->url->getQueryParameter('vlastni-body') !== null && $this->url->getQueryParameter('uc')) {
+			$this->processCustomPointsUrl();
+		}
+
 		// @EXPERIMENTAL Process map center only if no valid location was detected (place, photo, panorama..)
 		if ($this->collection->isEmpty()) {
 			if (Strict::isFloat($this->url->getQueryParameter('ma_x')) && Strict::isFloat($this->url->getQueryParameter('ma_y'))) {
@@ -205,5 +214,51 @@ final class MapyCzService extends AbstractService
 		if ($this->isValid() === false) {
 			throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url, $this->inputUrl));
 		}
+	}
+
+	private function processCustomPointsUrl(): void
+	{
+		$encodedCoords = $this->url->getQueryParameter('uc');
+		try {
+			$decodedCoords = MapyCzApi\JAK\Coords::stringToCoords($encodedCoords);
+		} catch (\InvalidArgumentException) {
+			return; // URL contains non-valid encoded coordinates, ignore
+		}
+
+		$properUrl = $this->getProperCustomPointsUrl();
+		$customPlaceTitles = $properUrl->getQueryParameter('ut');
+		foreach ($decodedCoords as $key => $decodedCoord) {
+			$location = new BetterLocation($this->inputUrl, $decodedCoord['y'], $decodedCoord['x'], self::class, self::TYPE_CUSTOM_POINT);
+			$location->setPrefixMessage(sprintf(
+				'<a href="%s">%s - %s</a>',
+				$this->inputUrl,
+				self::NAME,
+				$this->getCustomPointTitle($key, $customPlaceTitles[$key] ?? ''),
+			));
+			$this->collection->add($location);
+		}
+	}
+
+	/**
+	 * Return updated and valid URL from mapy.cz.
+	 *
+	 * Replacing multiple query parameters with array representation, example:
+	 * ...&ut=blabla1&ut=blabla2... ->  ...&ut[]=blabla1&ut[]=blabla2...
+	 */
+	private function getProperCustomPointsUrl(): UrlImmutable
+	{
+		$result = $this->rawUrl;
+		$result = str_replace('&ut=', '&ut[]=', $result);
+		$result = str_replace('&ud=', '&ud[]=', $result);
+		return new UrlImmutable($result);
+	}
+
+	private function getCustomPointTitle(int $key, string $titleFromUrl): string
+	{
+		$result = $key + 1 . '.';
+		if (!in_array($titleFromUrl, ['', 'New POI', 'Nový bod'], true)) {
+			$result .= ' ' . htmlentities($titleFromUrl);
+		}
+		return $result;
 	}
 }
