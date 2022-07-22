@@ -288,6 +288,44 @@ final class MapyCzServiceTest extends TestCase
 		$this->assertSame('-45.870289,-67.507777', MapyCzService::processStatic('https://en.mapy.cz/s/robelevuja')->getFirst()->__toString());
 	}
 
+	public function testIsValidMapyCzCustomPointsUrl(): void
+	{
+		// shortest custom points url possible
+		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/turisticka?vlastni-body&uc=9fJgGxW.Hq'));
+		$this->assertTrue(MapyCzService::isValidStatic('https://mapy.cz/letecka?vlastni-body&uc=9fJgGxW.Hq'));
+
+		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/turisticka?vlastni-body&x=13.9183152&y=49.9501554&z=11&ut=New%20%20POI&ut=New%20%20POI&ut=New%20%20POI&ut=New%20%20POI&uc=9fJgGxW.HqkQ0xWn3F9fWDGxX0wGlQ0xW9oq&ud=49%C2%B055%2710.378%22N%2C%2013%C2%B046%2749.078%22E&ud=13%C2%B048%2734.135%22E%2049%C2%B052%2746.280%22N&ud=Broumy%2C%20Beroun&ud=B%C5%99ezov%C3%A1%2C%20Beroun'));
+
+		// valid according validator, but invalid according parser
+		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/turisticka?vlastni-body&uc=aa'));
+
+		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/turisticka?aaaa&uc=9fJgGxW.Hq'));
+		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/turisticka?vlastni-body&uc='));
+	}
+
+	public function testValidMapyCzCustomPointsUrl(): void
+	{
+		// shortest custom points url possible
+		$locations = MapyCzService::processStatic('https://mapy.cz/letecka?vlastni-body&uc=9fJgGxW.Hq')->getCollection();
+		$this->assertCount(1, $locations);
+		$this->assertSame('49.919550,13.780299', $locations->getFirst()->key());
+
+		$locations = MapyCzService::processStatic('https://en.mapy.cz/turisticka?vlastni-body&x=13.9183152&y=49.9501554&z=11&ut=New%20%20POI&ut=New%20%20POI&ut=New%20%20POI&ut=New%20%20POI&uc=9fJgGxW.HqkQ0xWn3F9fWDGxX0wGlQ0xW9oq&ud=49%C2%B055%2710.378%22N%2C%2013%C2%B046%2749.078%22E&ud=13%C2%B048%2734.135%22E%2049%C2%B052%2746.280%22N&ud=Broumy%2C%20Beroun&ud=B%C5%99ezov%C3%A1%2C%20Beroun')->getCollection();
+		$this->assertCount(4, $locations);
+		$this->assertSame('49.919550,13.780299', $locations[0]->key());
+		$this->assertSame('49.879522,13.809482', $locations[1]->key());
+		$this->assertSame('49.924412,13.859607', $locations[2]->key());
+		$this->assertSame('49.902083,13.894283', $locations[3]->key());
+
+		$locations = MapyCzService::processStatic('https://en.mapy.cz/letecka?vlastni-body&x=-76.8527877&y=20.8861373&z=4&ut=New%20%20POI&ut=New%20%20POI&uc=9fJgGxW.Hqq9U8G9AbhW&ud=49%C2%B055%2710.378%22N%2C%2013%C2%B046%2749.078%22E&ud=Kolumbie')->getCollection();
+		$this->assertCount(2, $locations);
+		$this->assertSame('49.919550,13.780299', $locations[0]->key());
+		$this->assertSame('0.270943,-70.173100', $locations[1]->key());
+
+		// Invalid encoded coordinates
+		$this->assertCount(0, MapyCzService::processStatic('https://en.mapy.cz/turisticka?vlastni-body&uc=1')->getCollection());
+	}
+
 	/**
 	 * INVALID Place ID
 	 * @group request
