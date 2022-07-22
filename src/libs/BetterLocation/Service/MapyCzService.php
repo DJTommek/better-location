@@ -200,7 +200,8 @@ final class MapyCzService extends AbstractService
 
 	private function processShortUrl()
 	{
-		$this->url = Strict::url(MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl()));
+		$this->rawUrl = MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl());
+		$this->url = Strict::url($this->rawUrl);
 		if ($this->isValid() === false) {
 			throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url, $this->inputUrl));
 		}

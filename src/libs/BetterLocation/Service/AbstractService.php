@@ -30,17 +30,30 @@ abstract class AbstractService
 	 */
 	protected string $input;
 
-	/** URL generated from input (if possible) and after passing constructor it will never change. */
+	/**
+	 * URL generated from input (if possible) and after passing constructor it will never change.
+	 *
+	 * @readonly
+	 */
 	protected ?UrlImmutable $inputUrl;
 
 	/**
 	 * URL initially generated from inputUrl, but can be changed, eg. if input URL is alias or redirecting to another URL.
-	 * Hostname part of URL is lowercased
 	 *
 	 * Example URL https://www.geocaching.com/seek/cache_details.aspx?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4
 	 * will be replaced with https://www.geocaching.com/geocache/GC85BTR_antivirova-cache?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4
+	 *
+	 * Note: this is string representation of URL before passing it into Url() object. This is helpful if URL contains
+	 * non-standard representation of data which would be dropped when parsed, eg. multiple query parameters with the same name,
+	 * Example ('ut' and 'ud' are used multiple times): https://en.mapy.cz/turisticka?vlastni-body&x=13.9183152&y=49.9501554&z=11&ut=New%20%20POI&ut=New%20%20POI&ut=New%20%20POI&ut=New%20%20POI&uc=9fJgGxW.HqkQ0xWn3F9fWDGxX0wGlQ0xW9oq&ud=49%C2%B055%2710.378%22N%2C%2013%C2%B046%2749.078%22E&ud=13%C2%B048%2734.135%22E%2049%C2%B052%2746.280%22N&ud=Broumy%2C%20Beroun&ud=B%C5%99ezov%C3%A1%2C%20Beroun
 	 */
-	protected ?Url $url;
+	protected ?string $rawUrl = null;
+
+	/**
+	 * Parsed version of $rawUrl
+	 * Hostname part of URL is lowercased
+	 */
+	protected ?Url $url = null;
 
 	protected BetterLocationCollection $collection;
 
@@ -52,10 +65,9 @@ abstract class AbstractService
 		$this->input = $input;
 		if (Strict::isUrl($input)) {
 			$this->inputUrl = Strict::urlImmutable($input);
+			$this->rawUrl = $this->input;
 			$this->url = Strict::url($this->inputUrl);
 			$this->url->setHost(mb_strtolower($this->url->getHost())); // Convert host to lowercase
-		} else {
-			$this->url = null;
 		}
 		$this->collection = new BetterLocationCollection();
 		$this->data = new \stdClass();
