@@ -34,14 +34,9 @@ final class BetterLocationService extends AbstractService implements ShareCollec
 		}
 	}
 
-	static public function getCollectionLink(BetterLocationCollection $collection): string
-	{
-		return self::LINK . '/' . implode(';', $collection->getKeys());
-	}
-
 	static public function getShareCollectionLink(BetterLocationCollection $collection): ?string
 	{
-		return self::getCollectionLink($collection);
+		return self::LINK . '/' . implode(';', $collection->getKeys());
 	}
 
 	public function isValid(): bool

@@ -135,17 +135,6 @@ abstract class AbstractService
 	}
 
 	/**
-	 * Return link to open multiple locations (same as getShareLink but supports multiple locations)
-	 *
-	 * @throws NotSupportedException
-	 * @see getShareLink()
-	 */
-	static public function getCollectionLink(BetterLocationCollection $collection): string
-	{
-		throw new NotSupportedException('Collection link is not supported.');
-	}
-
-	/**
 	 * @throws NotSupportedException
 	 */
 	static public function getShareText(float $lat, float $lon): string

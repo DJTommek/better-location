@@ -33,7 +33,7 @@ final class MapyCzServiceTest extends TestCase
 		$collection = new BetterLocationCollection();
 		$collection->add(BetterLocation::fromLatLon(50.087451, 14.420671));
 		$collection->add(BetterLocation::fromLatLon(50.3, -14.7000009));
-		$this->assertSame('https://mapy.cz/?query=50.087451,14.420671;50.300000,-14.700001', MapyCzService::getCollectionLink($collection));
+		$this->assertSame('https://mapy.cz/zakladni?vlastni-body&uc=9hAK0xXxOKtSIx3xZH5y', MapyCzService::getShareCollectionLink($collection));
 	}
 
 	public function testIsValidMap(): void

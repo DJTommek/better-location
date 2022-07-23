@@ -30,7 +30,7 @@ final class BetterLocationServiceTest extends TestCase
 		$collection = new BetterLocationCollection();
 		$collection->add(BetterLocation::fromLatLon(50.087451, 14.420671));
 		$collection->add(BetterLocation::fromLatLon(50.3, -14.7000009));
-		$this->assertSame('https://better-location.palider.cz/50.087451,14.420671;50.300000,-14.700001', BetterLocationService::getCollectionLink($collection));
+		$this->assertSame('https://better-location.palider.cz/50.087451,14.420671;50.300000,-14.700001', BetterLocationService::getShareCollectionLink($collection));
 	}
 
 	public function testIsValid(): void

@@ -109,11 +109,6 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		return sprintf('%s/zakladni?y=%2$f&x=%3$f&source=coor&id=%3$f%%2C%2$f', self::LINK, $lat, $lon);
 	}
 
-	public static function getCollectionLink(BetterLocationCollection $collection): string
-	{
-		return sprintf('%s/?query=%s', self::LINK, implode(';', $collection->getKeys()));
-	}
-
 	public static function getShareCollectionLink(BetterLocationCollection $collection): ?string
 	{
 		$coordsReformatted = array_map(fn($coords) => [$coords->getLon(), $coords->getLat()], $collection->getCoordinates());
