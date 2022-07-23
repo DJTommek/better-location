@@ -256,7 +256,7 @@ final class MapyCzService extends AbstractService
 	private function getCustomPointTitle(int $key, string $titleFromUrl): string
 	{
 		$result = $key + 1 . '.';
-		if (!in_array($titleFromUrl, ['', 'New POI', 'Nový bod'], true)) {
+		if (!in_array($titleFromUrl, ['', 'New  POI', 'Nový bod'], true)) {
 			$result .= ' ' . htmlentities($titleFromUrl);
 		}
 		return $result;
