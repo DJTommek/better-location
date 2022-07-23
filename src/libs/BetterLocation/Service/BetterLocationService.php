@@ -6,10 +6,11 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\Service\Interfaces\ShareCollectionLinkInterface;
 use App\BetterLocation\ServicesManager;
 use App\Utils\Coordinates;
 
-final class BetterLocationService extends AbstractService
+final class BetterLocationService extends AbstractService implements ShareCollectionLinkInterface
 {
 	const ID = 1;
 	const NAME = 'BetterLocation';
@@ -36,6 +37,11 @@ final class BetterLocationService extends AbstractService
 	static public function getCollectionLink(BetterLocationCollection $collection): string
 	{
 		return self::LINK . '/' . implode(';', $collection->getKeys());
+	}
+
+	static public function getShareCollectionLink(BetterLocationCollection $collection): ?string
+	{
+		return self::getCollectionLink($collection);
 	}
 
 	public function isValid(): bool

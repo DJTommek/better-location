@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\Interfaces\ShareCollectionLinkInterface;
 use App\BetterLocation\ServicesManager;
 use App\Icons;
 use App\MiniCurl\MiniCurl;
@@ -16,7 +17,7 @@ use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
 
-final class MapyCzService extends AbstractService
+final class MapyCzService extends AbstractService implements ShareCollectionLinkInterface
 {
 	const ID = 8;
 	const NAME = 'Mapy.cz';
@@ -112,6 +113,14 @@ final class MapyCzService extends AbstractService
 	{
 		return sprintf('%s/?query=%s', self::LINK, implode(';', $collection->getKeys()));
 	}
+
+	public static function getShareCollectionLink(BetterLocationCollection $collection): ?string
+	{
+		$coordsReformatted = array_map(fn($coords) => [$coords->getLon(), $coords->getLat()], $collection->getCoordinates());
+		$coordsEncoded = MapyCzApi\JAK\Coords::coordsToString($coordsReformatted);
+		return sprintf('%s/zakladni?vlastni-body&uc=%s', self::LINK, $coordsEncoded);
+	}
+
 
 	public static function getScreenshotLink(float $lat, float $lon, array $options = []): ?string
 	{
