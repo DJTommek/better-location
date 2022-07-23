@@ -39,6 +39,10 @@ class BetterLocationMessageSettings
 		HereWeGoService::class,
 		OpenStreetMapService::class,
 	];
+	const DEFAULT_BULK_SHARE_SERVICES = [
+		BetterLocationService::class,
+		MapyCzService::class,
+	];
 	const DEFAULT_DRIVE_SERVICES = [
 		GoogleMapsService::class,
 		WazeService::class,
@@ -55,6 +59,11 @@ class BetterLocationMessageSettings
 	 * There will be always at least one item which is BetterLocationService, reserved as 0
 	 */
 	private $linkServices;
+	/**
+	 * @var array<int,AbstractService> Ordered list of services, to show multiple locations at once
+	 * There will be always at least one item which is BetterLocationService, reserved as index 0
+	 */
+	private $bulkLinkServices;
 	/**
 	 * @var array<int,AbstractService> Ordered list of services, to show as buttons.
 	 * Might be empty
@@ -75,6 +84,7 @@ class BetterLocationMessageSettings
 
 	public function __construct(
 		array  $shareServices = self::DEFAULT_SHARE_SERVICES,
+		array  $bulkLinkServices = self::DEFAULT_BULK_SHARE_SERVICES,
 		array  $buttonServices = self::DEFAULT_DRIVE_SERVICES,
 		array  $textServices = self::DEFAULT_TEXT_SERVICES,
 		string $screenshotLinkService = self::DEFAULT_SCREENSHOT_SERVICE,
@@ -82,6 +92,7 @@ class BetterLocationMessageSettings
 	)
 	{
 		$this->linkServices = $shareServices;
+		$this->bulkLinkServices = $bulkLinkServices;
 		$this->buttonServices = $buttonServices;
 		$this->textServices = $textServices;
 		$this->screenshotLinkService = $screenshotLinkService;
@@ -180,6 +191,12 @@ class BetterLocationMessageSettings
 	public function getLinkServices(): array
 	{
 		return $this->linkServices;
+	}
+
+	/** @return AbstractService[] */
+	public function getBulkLinkServices(): array
+	{
+		return $this->bulkLinkServices;
 	}
 
 	/** @return AbstractService[] */
