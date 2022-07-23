@@ -256,7 +256,14 @@ final class MapyCzService extends AbstractService
 	private function getCustomPointTitle(int $key, string $titleFromUrl): string
 	{
 		$result = $key + 1 . '.';
-		if (!in_array($titleFromUrl, ['', 'New  POI', 'Nový bod'], true)) {
+		// Default names when creating custom point
+		if (!in_array($titleFromUrl, [
+			'', // Missing title
+			'New  POI', // English has two spaces
+			'Neuer Punkt', // Deutsch
+			'Nowy punkt', // Polski
+			'Nový bod', // Czech and Slovenčina
+		], true)) {
 			$result .= ' ' . htmlentities($titleFromUrl);
 		}
 		return $result;
