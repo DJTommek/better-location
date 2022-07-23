@@ -38,6 +38,25 @@ class ProcessedMessageResult
 		if ($this->messageSettings->showAddress()) {
 			$this->collection->fillAddresses();
 		}
+
+		// If multiple locations are available, generate share bulk links
+		if ($this->collection->count() > 1) {
+			$bulkLinks = [];
+			foreach ($this->messageSettings->getBulkLinkServices() as $bulkLinkService) {
+				$bulkLinks[] = sprintf(
+					'<a href="%s" target="_blank">%s</a>',
+					$bulkLinkService::getShareCollectionLink($this->collection),
+					$bulkLinkService::getName(true),
+				);
+			}
+
+			$this->resultText .= sprintf(
+				'%d locations: %s' . PHP_EOL . PHP_EOL,
+				$this->collection->count(),
+				implode(' | ', $bulkLinks)
+			);
+		}
+
 		foreach ($this->collection->getLocations() as $betterLocation) {
 
 			if ($betterLocation->hasDescription(Ingress::BETTER_LOCATION_KEY_PORTAL) === false) {
