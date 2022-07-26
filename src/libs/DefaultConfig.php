@@ -53,6 +53,9 @@ class DefaultConfig
 	/** @var int Enforce BotUsername in command, eg. /command@BetterLocationBot */
 	const TELEGRAM_COMMAND_STRICT = false;
 
+	/** @var int Limit how many locations can be sent as Telegram message */
+	const TELEGRAM_MAXIMUM_LOCATIONS = 10;
+
 	/** @var array<string, array<Command>> */
 	const TELEGRAM_COMMANDS = [
 		'all_private_chats' => [

@@ -4,6 +4,7 @@ namespace App\TelegramCustomWrapper;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
+use App\Config;
 use App\Utils\Ingress;
 use unreal4u\TelegramAPI\Telegram\Types;
 
@@ -66,6 +67,15 @@ class ProcessedMessageResult
 			$this->resultText .= $betterLocation->generateMessage($this->messageSettings);
 			$this->buttons[] = $betterLocation->generateDriveButtons($this->messageSettings);
 			$this->validLocationsCount++;
+
+			if ($this->validLocationsCount >= Config::TELEGRAM_MAXIMUM_LOCATIONS) {
+				$this->resultText .= sprintf(
+					'Showing only first %d of %d detected locations. All at once can be opened with links on top of the message.',
+					$this->validLocationsCount,
+					$this->collection->count(),
+				);
+				break;
+			}
 		}
 		return $this;
 	}
