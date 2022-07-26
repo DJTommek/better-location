@@ -69,6 +69,7 @@ class TelegramHelper
 	const TOO_OLD = 'Bad Request: query is too old and response timeout expired or query ID is invalid';
 	const MESSAGE_TO_EDIT_DELETED = 'Bad Request: message to edit not found';
 	const CHAT_WRITE_FORBIDDEN = 'Bad Request: CHAT_WRITE_FORBIDDEN';
+	const REPLIED_MESSAGE_NOT_FOUND = 'Bad Request: replied message not found';
 	const BOT_BLOCKED_BY_USER = 'Forbidden: bot was blocked by the user';
 
 	/**

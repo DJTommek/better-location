@@ -218,6 +218,7 @@ abstract class Events
 				TelegramHelper::TOO_OLD,
 				TelegramHelper::MESSAGE_TO_EDIT_DELETED,
 				TelegramHelper::CHAT_WRITE_FORBIDDEN,
+				TelegramHelper::REPLIED_MESSAGE_NOT_FOUND,
 				TelegramHelper::BOT_BLOCKED_BY_USER,
 			];
 			if (in_array($exception->getMessage(), $ignoredExceptions, true) === false) {
