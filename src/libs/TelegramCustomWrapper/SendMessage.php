@@ -16,6 +16,7 @@ class SendMessage
 		}
 		$this->msg->text = $text;
 		$this->msg->chat_id = $chatId;
+		$this->msg->allow_sending_without_reply = true;
 		$this->setReplyToMessageId($replyMessageId);
 		$this->setReplyMarkup($replyMarkup);
 		$this->setParseMode('HTML');
