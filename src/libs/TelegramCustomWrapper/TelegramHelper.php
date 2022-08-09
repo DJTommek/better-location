@@ -17,6 +17,7 @@ use unreal4u\TelegramAPI\Telegram\Types\User;
 class TelegramHelper
 {
 	public const API_URL = 'https://api.telegram.org';
+	public const WEBHOOK_SECRET_TOKEN_HEADER_KEY = 'X-Telegram-Bot-Api-Secret-Token';
 	public const INLINE_KEYBOARD_MAX_BUTTON_PER_ROW = 8;
 	/**
 	 * (Almost) invisible character, see usage for more info.
