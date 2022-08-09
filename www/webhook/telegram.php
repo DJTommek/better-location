@@ -8,7 +8,6 @@ use App\Utils\SimpleLogger;
 use Nette\Utils\Json;
 
 $request = (new \Nette\Http\RequestFactory())->fromGlobals();
-$request->getHeader(TelegramHelper::WEBHOOK_SECRET_TOKEN_HEADER_KEY);
 
 if (Config::isTelegramWebhookPassword() === false) {
 	http_response_code(500);
