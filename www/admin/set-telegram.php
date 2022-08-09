@@ -34,7 +34,10 @@ if (Config::isTelegram()) {
 	$setWebhook->url = Config::getTelegramWebhookUrl()->getAbsoluteUrl();
 	$setWebhook->max_connections = Config::TELEGRAM_MAX_CONNECTIONS;
 	$setWebhook->secret_token = Config::TELEGRAM_WEBHOOK_PASSWORD;
-	$setWebhook->drop_pending_updates = false;
+	if (App\Utils\Utils::globalGetToBool('drop_pending_updates')) {
+		printf('%s All pending updates will be dropped.<br>', Icons::INFO);
+		$setWebhook->drop_pending_updates = true;
+	}
 	try {
 		await($tgLog->performApiRequest($setWebhook), $loop);
 		printf('%1$s Telegram webhook URL successfully set to <a href="%2$s" target="_blank">%2$s</a> with secret password as HTTP header.<br>', Icons::SUCCESS, $setWebhook->url);
