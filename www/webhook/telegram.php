@@ -5,6 +5,7 @@ require_once __DIR__ . '/../../src/bootstrap.php';
 use App\Config;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\SimpleLogger;
+use Nette\Utils\Json;
 
 $request = (new \Nette\Http\RequestFactory())->fromGlobals();
 $request->getHeader(TelegramHelper::WEBHOOK_SECRET_TOKEN_HEADER_KEY);
@@ -20,7 +21,7 @@ if (Config::isTelegramWebhookPassword() === false) {
 	printf('Error: Telegram webhook API data are missing! This page should be requested only from Telegram servers via webhook.');
 } else {
 	try {
-		$updateData = json_decode($input, true, 512, JSON_THROW_ON_ERROR);
+		$updateData = Json::decode($input, Json::FORCE_ARRAY);
 		SimpleLogger::log(SimpleLogger::NAME_TELEGRAM_INPUT, $updateData);
 
 		\App\Factory::Database(); // Just check if database connection is valid, otherwise throw Exception and end script now.
@@ -35,7 +36,7 @@ if (Config::isTelegramWebhookPassword() === false) {
 		}
 		printf('OK.');
 	} catch (\Throwable $exception) {
-		if (isset($_GET['exception']) && $_GET['exception'] === '0') {
+		if ($request->getQuery('exception') === '0') {
 			printf('Error: "%s".', $exception->getMessage());
 		} else {
 			/** @noinspection PhpUnhandledExceptionInspection */
