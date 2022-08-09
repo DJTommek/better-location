@@ -19,7 +19,9 @@ if (empty(\App\Config::ADMIN_PASSWORD)) {
 	die('Set ADMIN_PASSWORD in your local config file first');
 }
 
-if (isset($_GET['password']) === false || $_GET['password'] !== \App\Config::ADMIN_PASSWORD) {
+$request = (new \Nette\Http\RequestFactory())->fromGlobals();
+
+if ($request->getQuery('password') !== \App\Config::ADMIN_PASSWORD) {
 	die('You don\'t have access without password.');
 }
 
@@ -32,6 +34,7 @@ if (Config::isTelegram()) {
 	$setWebhook->url = Config::getTelegramWebhookUrl()->getAbsoluteUrl();
 	$setWebhook->max_connections = Config::TELEGRAM_MAX_CONNECTIONS;
 	$setWebhook->secret_token = Config::TELEGRAM_WEBHOOK_PASSWORD;
+	$setWebhook->drop_pending_updates = false;
 	try {
 		await($tgLog->performApiRequest($setWebhook), $loop);
 		printf('%1$s Telegram webhook URL successfully set to <a href="%2$s" target="_blank">%2$s</a> with secret password as HTTP header.<br>', Icons::SUCCESS, $setWebhook->url);
