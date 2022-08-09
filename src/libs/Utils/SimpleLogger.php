@@ -15,7 +15,7 @@ class SimpleLogger
 	const LINE_SEPARATOR = "\n"; // not PHP_EOL because it is \r\n on Windows
 
 	/** @var string[] strings that should not be logged will be automatically anonymized */
-	public static $anonymize = [];
+	public static array $anonymize = [];
 
 	public static function log(string $name, $content): void
 	{
