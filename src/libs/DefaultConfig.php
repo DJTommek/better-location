@@ -246,14 +246,9 @@ class DefaultConfig
 		return (Config::TELEGRAM_BOT_NAME !== DefaultConfig::TELEGRAM_BOT_NAME && is_string(Config::TELEGRAM_BOT_NAME));
 	}
 
-	public static function getTelegramWebhookUrl(bool $withPassword = false): UrlImmutable
+	public static function getTelegramWebhookUrl(): UrlImmutable
 	{
-		$telegramWebhookUrl = static::getAppUrl('/webhook/telegram.php');
-		if ($withPassword) {
-			return $telegramWebhookUrl->withQueryParameter('password', static::TELEGRAM_WEBHOOK_PASSWORD);
-		} else {
-			return $telegramWebhookUrl;
-		}
+		return static::getAppUrl('/webhook/telegram.php');
 	}
 
 	public static function isIngressMosaic(): bool

@@ -226,4 +226,19 @@ class Utils
 			return $result;
 		}
 	}
+
+	/**
+	 * Get all HTTP headers for current HTTP request if possible.
+	 *
+	 * @return array<string,string> Indexed list of HTTP headers, keys are lowercased.
+	 */
+	public static function getAllHeaders(): array {
+		$result = [];
+		$serverHeaders = array_change_key_case($_SERVER, CASE_LOWER);
+		foreach($serverHeaders as $serverHeaderName => $serverHeaderValue) {
+			if (str_starts_with($serverHeaderName, 'http_')) {
+//				$res
+			}
+		}
+	}
 }

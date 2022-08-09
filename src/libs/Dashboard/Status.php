@@ -137,21 +137,15 @@ class Status
 						$responseFormatted->{$key} = sprintf('%s According to Telegram API response, webhook URL is not set. Did you run <a href="set-telegram.php" target="_blank">set-telegram.php</a>?', Icons::ERROR);
 						$webhookOk = false;
 					} else {
-						$valueUrlWithPassword = new UrlImmutable($value);
-						$valueUrlWithoutPassword = $valueUrlWithPassword->withQueryParameter('password', null);
-						$configWithPassword = Config::getTelegramWebhookUrl(true);
-						$configWithoutPassword = Config::getTelegramWebhookUrl(false);
+						$webhookUrlFromApi = new UrlImmutable($value);
+						$webhookUrlFromConfig = Config::getTelegramWebhookUrl();
 
-						if ($configWithPassword->isEqual($valueUrlWithPassword)) {
-							$responseFormatted->{$key} = sprintf('%s <a href="%2$s" target="_blank">%2$s</a> (matching with Config)', Icons::SUCCESS, $configWithoutPassword);
+						if ($webhookUrlFromConfig->isEqual($webhookUrlFromApi)) {
+							$responseFormatted->{$key} = sprintf('%s <a href="%2$s" target="_blank">%2$s</a> (matching with Config)', Icons::SUCCESS, $webhookUrlFromConfig);
 						} else {
-							if ($valueUrlWithPassword->getQueryParameter('password') !== $configWithPassword->getQueryParameter('password')) {
-								$stringValue = sprintf('%s Webhook URL is set according to webhook response but password is different than in Config. Check local config and manually run Telegram\'s API getWebhookInfo.<br>', Icons::WARNING);
-							} else {
-								$stringValue = sprintf('%s Webhook URL is set according to webhook response but it\'s different than in Config:<br>', Icons::WARNING);
-								$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Webhook response)<br>', $valueUrlWithoutPassword);
-							}
-							$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Config)', $configWithoutPassword);
+							$stringValue = sprintf('%s Webhook URL is set according to webhook response but it\'s different than in Config:<br>', Icons::WARNING);
+							$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Webhook response)<br>', $webhookUrlFromApi);
+							$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Config)', $webhookUrlFromConfig);
 							$responseFormatted->{$key} = $stringValue;
 							$webhookOk = false;
 						}

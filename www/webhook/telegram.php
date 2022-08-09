@@ -3,13 +3,16 @@
 require_once __DIR__ . '/../../src/bootstrap.php';
 
 use App\Config;
-use App\TelegramCustomWrapper\TelegramCustomWrapper;
-use \App\Utils\SimpleLogger;
+use App\TelegramCustomWrapper\TelegramHelper;
+use App\Utils\SimpleLogger;
+
+$request = (new \Nette\Http\RequestFactory())->fromGlobals();
+$request->getHeader(TelegramHelper::WEBHOOK_SECRET_TOKEN_HEADER_KEY);
 
 if (Config::isTelegramWebhookPassword() === false) {
 	printf('Error: Telegram password in local config is not set.');
-} else if (isset($_GET['password']) === false || $_GET['password'] !== Config::TELEGRAM_WEBHOOK_PASSWORD) {
-	printf('Error: Provided password is not valid.');
+} else if ($request->getHeader(TelegramHelper::WEBHOOK_SECRET_TOKEN_HEADER_KEY) !== Config::TELEGRAM_WEBHOOK_PASSWORD) {
+	printf('Error: Secret HTTP token is not valid.');
 } else if (empty($input = file_get_contents('php://input'))) {
 	printf('Error: Telegram webhook API data are missing! This page should be requested only from Telegram servers via webhook.');
 } else {

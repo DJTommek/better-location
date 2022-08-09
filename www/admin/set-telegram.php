@@ -29,13 +29,14 @@ if (Config::isTelegram()) {
 
 	printf('<h2>Setting up webhook...</h2>');
 	$setWebhook = new \unreal4u\TelegramAPI\Telegram\Methods\SetWebhook();
-	$setWebhook->url = Config::getTelegramWebhookUrl(true)->getAbsoluteUrl();
+	$setWebhook->url = Config::getTelegramWebhookUrl()->getAbsoluteUrl();
 	$setWebhook->max_connections = Config::TELEGRAM_MAX_CONNECTIONS;
+	$setWebhook->secret_token = Config::TELEGRAM_WEBHOOK_PASSWORD;
 	try {
 		await($tgLog->performApiRequest($setWebhook), $loop);
-		printf('%1$s Telegram webhook URL successfully set to <a href="%2$s" target="_blank">%2$s</a> with secret password.<br>', Icons::SUCCESS, Config::getTelegramWebhookUrl());
+		printf('%1$s Telegram webhook URL successfully set to <a href="%2$s" target="_blank">%2$s</a> with secret password as HTTP header.<br>', Icons::SUCCESS, $setWebhook->url);
 	} catch (Exception $exception) {
-		printf('%1$s Failed to set Telegram webhook URL to <a href="%2$s" target="_blank">%2$s</a>:<br><b>%3$s</b>. See logs for more info.<br>.', Icons::ERROR, Config::getTelegramWebhookUrl(), $exception->getMessage());
+		printf('%1$s Failed to set Telegram webhook URL to <a href="%2$s" target="_blank">%2$s</a>:<br><b>%3$s</b>. See logs for more info.<br>.', Icons::ERROR, $setWebhook->url, $exception->getMessage());
 		Debugger::log($exception, ILogger::EXCEPTION);
 	}
 
