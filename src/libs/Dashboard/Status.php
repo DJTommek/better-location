@@ -159,6 +159,14 @@ class Status
 					}
 				} else if ($key === 'last_error_message' && $value === '') {
 					$responseFormatted->{$key} = Icons::SUCCESS . ' None';
+				} else if ($key === 'max_connections' && $value !== Config::TELEGRAM_MAX_CONNECTIONS) {
+					$webhookOk = false;
+					$responseFormatted->{$key} = sprintf(
+						'%s <b>%d</b> - number is different than in Config (<b>%d</b>), run <a href="set-telegram.php" target="_blank">set-telegram.php</a> to fix.',
+						Icons::WARNING,
+						$value,
+						Config::TELEGRAM_MAX_CONNECTIONS
+					);
 				} else if ($key === 'ip_address') {
 					$responseFormatted->{$key} = sprintf('<a href="http://%1$s/" target="_blank">%1$s</a>', $value);
 				} else if ($key === 'last_error_date') {
