@@ -10,10 +10,13 @@ $request = (new \Nette\Http\RequestFactory())->fromGlobals();
 $request->getHeader(TelegramHelper::WEBHOOK_SECRET_TOKEN_HEADER_KEY);
 
 if (Config::isTelegramWebhookPassword() === false) {
+	http_response_code(500);
 	printf('Error: Telegram password in local config is not set.');
 } else if ($request->getHeader(TelegramHelper::WEBHOOK_SECRET_TOKEN_HEADER_KEY) !== Config::TELEGRAM_WEBHOOK_PASSWORD) {
+	http_response_code(403);
 	printf('Error: Secret HTTP token is not valid.');
 } else if (empty($input = file_get_contents('php://input'))) {
+	http_response_code(400);
 	printf('Error: Telegram webhook API data are missing! This page should be requested only from Telegram servers via webhook.');
 } else {
 	try {
