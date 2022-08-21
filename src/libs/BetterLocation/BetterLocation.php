@@ -186,26 +186,7 @@ class BetterLocation implements CoordinatesInterface
 
 	public function generateMessage(BetterLocationMessageSettings $settings): string
 	{
-		$text = '';
-
-		$isInViribusUnitis2022Map = $this->getCoordinates()->isInPolygon([
-			// Viribus Unitis 2022
-			[50.382144, 15.337429],
-			[50.498142, 15.719547],
-			[50.515064, 16.005707],
-			[50.605380, 16.0137094],
-			[50.714865, 16.0492702],
-			[50.782388, 16.093082],
-			[50.999065, 15.173492],
-			[50.954799, 15.1592445],
-			[50.878609, 15.1139259],
-			[50.807502, 15.0301551],
-			[50.723198, 14.8572917],
-			[50.382144, 15.337429],
-		]);
-		$text .= $isInViribusUnitis2022Map ? Icons::ENABLED : Icons::DISABLED;
-
-		$text .= ' ' . $this->prefixMessage;
+		$text = $this->prefixMessage;
 
 		// Generate screenshot link
 		$screenshotLink = $settings->getScreenshotLinkService()::getScreenshotLink($this->getLat(), $this->getLon());
@@ -215,8 +196,8 @@ class BetterLocation implements CoordinatesInterface
 
 		// Generate copyable text representing location
 		$text .= ' ' . implode(' | ', array_map(function ($service) {
-				return sprintf('<code>%s</code>', $service::getShareText($this->getLat(), $this->getLon()));
-			}, $settings->getTextServices()));
+			return sprintf('<code>%s</code>', $service::getShareText($this->getLat(), $this->getLon()));
+		}, $settings->getTextServices()));
 
 		if ($this->getCoordinateSuffixMessage()) {
 			$text .= ' ' . $this->getCoordinateSuffixMessage();
