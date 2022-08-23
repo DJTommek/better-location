@@ -248,6 +248,19 @@
 
 			mapData.map.on('baselayerchange', function (event) {
 				Settings.save('dynamicMapBaseLayer', event.name);
+			}).on('click', function (event) {
+				const locationKey = event.latlng.lat.toFixed(6) + ',' + event.latlng.lng.toFixed(6);
+
+				const marker = L.marker(event.latlng);
+				let popupContent = '<p>';
+				popupContent += 'Coordinates: <b><a href="' + {$basePath} +'/' + locationKey + '">' + locationKey + '</a></b>';
+				popupContent += ' <i class="fa fa-fw fa-clipboard copy-to-clipboard" data-clipboard-text="' + locationKey + '" title="Copy coordinates to clipboard"></i>';
+				popupContent += '<br>';
+				popupContent += '<a href="' + {$basePath} +'/' + {$collection->getKeys()|join:';'} +';' + locationKey + '">Add this point to list</a>';
+				popupContent += '</p>';
+				marker.bindPopup(popupContent)
+					.addTo(mapData.map)
+					.openPopup();
 			});
 
 			locations.forEach(function (location, index) {
@@ -291,7 +304,7 @@
 						const markerLatLng = locateControl._marker.getLatLng();
 						const latLon = markerLatLng.lat.toFixed(6) + ',' + markerLatLng.lng.toFixed(6);
 						let popupContent = '<p>';
-						popupContent += 'Browser location: <b><a href="' + {$basePath} + '/' + latLon + '">' + latLon + '</a></b> (accuracy <b>' + distanceHuman(params.distance) + '</b>)';
+						popupContent += 'Browser location: <b><a href="' + {$basePath} +'/' + latLon + '">' + latLon + '</a></b> (accuracy <b>' + distanceHuman(params.distance) + '</b>)';
 						// popupContent += '<br>Distance to currently opened location: <b>' + distanceHuman(markerLatLng.distanceTo(mapData.markers.pageLocation.getLatLng())) + '</b>';
 						return popupContent;
 					}
