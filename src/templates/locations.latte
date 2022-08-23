@@ -242,8 +242,14 @@
 			mapData.map = L.map('map-dynamic-leaflet').setView(locations[0]['coords'], 13);
 			mapData.map.fitBounds(new L.LatLngBounds({$allCoords}), {'maxZoom': 13});
 
-			mapData.layers.baseLayers['OSM default'].addTo(mapData.map);
+			const baseLayer = Settings.load('dynamicMapBaseLayer');
+			mapData.layers.baseLayers[baseLayer].addTo(mapData.map);
 			L.control.layers(mapData.layers.baseLayers, mapData.layers.overlays).addTo(mapData.map);
+
+			mapData.map.on('baselayerchange', function (event) {
+				Settings.save('dynamicMapBaseLayer', event.name);
+			});
+
 			locations.forEach(function (location, index) {
 				const isFirst = (index === 0);
 
