@@ -262,7 +262,8 @@
 					}
 				);
 				let popupContent = '<p>';
-				popupContent += 'Coordinates: <b><a href="' + {$basePath} + '/' + location.key + '">' + location.key + '</a></b>';
+				popupContent += 'Coordinates: <b><a href="' + {$basePath} +'/' + location.key + '">' + location.key + '</a></b>';
+				popupContent += ' <i class="fa fa-fw fa-clipboard copy-to-clipboard" data-clipboard-text="' + location.key + '" title="Copy coordinates to clipboard"></i>';
 				popupContent += '<br>';
 				popupContent += 'Address: <b>' + (location.address ?? 'Unknown address') + '</b>';
 				popupContent += '</p>';
