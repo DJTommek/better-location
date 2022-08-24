@@ -116,6 +116,16 @@ a {
 }
 
 
+#content-locations .accordion-location-distances {
+	margin: 0 auto;
+	width: auto; /* Disable 100% width set by Bootstrap */
+}
+#content-locations .accordion-location-distances th {
+	font-weight: bold;
+	text-align: center;
+	cursor: help;
+}
+
 #content-locations .websites h3,
 #content-location .websites h3 {
 	text-align: center;

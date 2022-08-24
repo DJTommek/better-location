@@ -11,6 +11,51 @@
 			</div>
 		</div>
 
+		<div class="accordion" id="accordionLocations" n:if="$collection->count() > 1">
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="headingDistance">
+					<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false">
+						Table of distances
+					</button>
+				</h2>
+				<div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionLocations">
+					<div class="accordion-body">
+						<table class="table table-hover table-smm accordion-location-distances">
+							{foreach $collection->getLocations() as $locationVertical}
+								<tr>
+									{if $iterator->first}
+										{* Render full first row containing locations *}
+										<td>&nbsp;</td>
+										{foreach $collection->getLocations() as $locationHorizontal}
+											<th title="{$locationHorizontal->key()}: {$locationHorizontal->getAddress() ?? 'Unknown address'}">
+												{$iterator->counter}.
+											</th>
+										{/foreach}
+									{/if}
+								</tr>
+
+								<tr>
+									{foreach $collection->getLocations() as $locationHorizontal}
+										{if $iterator->first}
+											{* Render full first column containing locations *}
+											<th title="{$locationHorizontal->key()}: {$locationHorizontal->getAddress() ?? 'Unknown address'}">
+												{$iterator->parent->counter}.
+											</th>
+										{/if}
+										{if $iterator->parent->counter === $iterator->counter}
+											<td class="text-center">/</td> {* No point to calculate, it will be always 0 *}
+										{else}
+											<td>{\App\Utils\Formatter::distance($locationVertical->getCoordinates()->distance($locationHorizontal->getCoordinates()))}</td>
+										{/if}
+									{/foreach}
+								</tr>
+							{/foreach}
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="row g-0">
 			<div class="col-12 col-md-4 col-xl-3" id="tab-locations">
 				<div class="list-group" role="tablist">
