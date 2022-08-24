@@ -120,6 +120,11 @@ a {
 	margin: 0 auto;
 	width: auto; /* Disable 100% width set by Bootstrap */
 }
+#content-locations .accordion-location-distances th,
+#content-locations .accordion-location-distances td {
+	vertical-align: middle;
+	white-space: nowrap;
+}
 #content-locations .accordion-location-distances th {
 	font-weight: bold;
 	text-align: center;
