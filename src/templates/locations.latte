@@ -22,6 +22,7 @@
 								data-location="{$location->getCoordinates()->hash()}"
 								href="#content-locations-{$location->getCoordinates()->hash()}"
 								role="tab"
+								title="{$location->getAddress() ?? 'Unknown address'}"
 						>
 							<div class="d-flex justify-content-between">
 								<span n:if="$login->isLogged()" class="favourite">
