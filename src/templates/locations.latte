@@ -35,6 +35,9 @@
 										</a>
 									{/if}
 								</span>
+								{if $iterator->count() > 1}
+									{$iterator->counter}:
+								{/if}
 								{$location->__toString()}
 								<a href="{$basePath}/{$location->__toString()}" target="_blank">
 									<i class="fa fa-external-link"></i>
