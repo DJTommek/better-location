@@ -17,6 +17,9 @@ class LocationsTemplate extends LayoutTemplate
 
 	/** @var array<array<float>> Calculated distances between all points */
 	public $distances = [];
+	/** @TODO maybe INF constant should be used instead of PHP_FLOAT_MAX */
+	public float $distanceSmallest = PHP_FLOAT_MAX;
+	public float $distanceGreatest = 0;
 
 	public array $collectionJs = [];
 	/** @var string Text representation of now in UTC */
@@ -54,6 +57,8 @@ class LocationsTemplate extends LayoutTemplate
 			$this->distances[$keyVertical] = [];
 			foreach ($this->locations as $keyHorizontal => $locationHorizontal) {
 				$distance = $locationVertical->getCoordinates()->distance($locationHorizontal->getCoordinates());
+				$this->distanceGreatest = max($distance, $this->distanceGreatest);
+				$this->distanceSmallest = min($distance, $this->distanceSmallest);
 				$this->distances[$keyVertical][$keyHorizontal] = $distance;
 			}
 		}

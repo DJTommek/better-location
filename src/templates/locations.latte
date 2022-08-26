@@ -37,7 +37,8 @@
 											{($indexHorizontal+1)}.
 									</th>
 									{foreach $distancesHorizontal as $indexVertical => $distance}
-										<td class="text-center">
+										{var $distanceColor = 120 - \App\Utils\Utils::recalculateRangeOne($distance, $distanceSmallest, $distanceGreatest, 0, 120)}
+										<td class="text-center" style="background-color: hsl({$distanceColor|noescape}deg 100% 80%);">
 											{if $indexHorizontal === $indexVertical}
 												/
 											{else}
