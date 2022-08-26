@@ -52,4 +52,22 @@ final class UtilsTest extends TestCase
 		$this->expectExceptionMessage('Latitude coordinate must be numeric between or equal from -90 to 90 degrees.');
 		Utils::findMapyCzApiCoords('some text blabla SMap.Coords.fromWGS84(13.4854, 98.8909)');
 	}
+
+	public final function testRecalculateRangeOne()
+	{
+		$this->assertSame(50.0, Utils::recalculateRangeOne(500, 0, 1000));
+		$this->assertSame(100.0, Utils::recalculateRangeOne(1000, 0, 1000));
+		$this->assertSame(25.0, Utils::recalculateRangeOne(25, 0, 100));
+		$this->assertSame(1.0, Utils::recalculateRangeOne(25, 0, 100, 0, 4));
+		$this->assertSame(74.09731113956467, Utils::recalculateRangeOne(123_456, 64, 200_000, 0, 120));
+	}
+
+	public final function testRecalculateRange()
+	{
+		$this->assertSame([0.0, 50.0, 100.0], Utils::recalculateRange([0, 50, 100]));
+		$this->assertSame([0.0, 50.0, 100.0], Utils::recalculateRange([0, 500, 1000]));
+		$this->assertSame([50.0, 100.0, 0.0], Utils::recalculateRange([500, 1000, 0]));
+		$this->assertSame([0.0, 2.0, 4.0], Utils::recalculateRange([0, 50, 100], 0, 4));
+		$this->assertSame([120.03841229193341, 74.09731113956467, 0.03841229193341869], Utils::recalculateRange([200_000, 123_456, 64], 0, 120));
+	}
 }
