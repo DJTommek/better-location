@@ -56,9 +56,13 @@ class LocationsTemplate extends LayoutTemplate
 		foreach ($this->locations as $keyVertical => $locationVertical) {
 			$this->distances[$keyVertical] = [];
 			foreach ($this->locations as $keyHorizontal => $locationHorizontal) {
-				$distance = $locationVertical->getCoordinates()->distance($locationHorizontal->getCoordinates());
-				$this->distanceGreatest = max($distance, $this->distanceGreatest);
-				$this->distanceSmallest = min($distance, $this->distanceSmallest);
+				if ($keyVertical === $keyHorizontal) {
+					$distance = null;
+				} else {
+					$distance = round($locationVertical->getCoordinates()->distance($locationHorizontal->getCoordinates()), 6);
+					$this->distanceGreatest = max($distance, $this->distanceGreatest);
+					$this->distanceSmallest = min($distance, $this->distanceSmallest);
+				}
 				$this->distances[$keyVertical][$keyHorizontal] = $distance;
 			}
 		}
