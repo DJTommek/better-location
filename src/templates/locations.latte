@@ -20,33 +20,30 @@
 				</h2>
 				<div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionLocations">
 					<div class="accordion-body">
-						<table class="table table-hover table-smm accordion-location-distances">
-							{foreach $collection->getLocations() as $locationVertical}
-								<tr>
-									{if $iterator->first}
-										{* Render full first row containing locations *}
-										<td>&nbsp;</td>
-										{foreach $collection->getLocations() as $locationHorizontal}
-											<th title="{$locationHorizontal->key()}: {$locationHorizontal->getAddress() ?? 'Unknown address'}">
-												{$iterator->counter}.
-											</th>
-										{/foreach}
-									{/if}
-								</tr>
+						<table class="table table-hover table-responsive accordion-location-distances">
+							<tr>
+								<td>&nbsp;</td>
+								{foreach $locations as $i => $location}
+									<th title="{$location->key()}: {$location->getAddress() ?? 'Unknown address'}">
+										{($i+1)}.
+									</th>
+								{/foreach}
+							</tr>
 
+							{foreach $distances as $indexHorizontal => $distancesHorizontal}
 								<tr>
-									{foreach $collection->getLocations() as $locationHorizontal}
-										{if $iterator->first}
-											{* Render full first column containing locations *}
-											<th title="{$locationHorizontal->key()}: {$locationHorizontal->getAddress() ?? 'Unknown address'}">
-												{$iterator->parent->counter}.
-											</th>
-										{/if}
-										{if $iterator->parent->counter === $iterator->counter}
-											<td class="text-center">/</td> {* No point to calculate, it will be always 0 *}
-										{else}
-											<td>{\App\Utils\Formatter::distance($locationVertical->getCoordinates()->distance($locationHorizontal->getCoordinates()))}</td>
-										{/if}
+									{var $location = $locations[$indexHorizontal]}
+									<th title="{$location->key()}: {$location->getAddress() ?? 'Unknown address'}">
+											{($indexHorizontal+1)}.
+									</th>
+									{foreach $distancesHorizontal as $indexVertical => $distance}
+										<td class="text-center">
+											{if $indexHorizontal === $indexVertical}
+												/
+											{else}
+												{\App\Utils\Formatter::distance($distance)}
+											{/if}
+										</td>
 									{/foreach}
 								</tr>
 							{/foreach}
