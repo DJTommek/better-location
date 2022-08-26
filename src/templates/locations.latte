@@ -38,10 +38,10 @@
 									</th>
 									{foreach $distancesHorizontal as $indexVertical => $distance}
 										{if $indexHorizontal === $indexVertical}
-											<td class="text-center">/</td>
+											<td>/</td>
 										{else}
 											{var $distanceColor = 120 - \App\Utils\Utils::recalculateRangeOne($distance, $distanceSmallest, $distanceGreatest, 0, 120)}
-											<td class="text-center" style="background-color: hsl({$distanceColor|noescape}deg 100% 80%);">
+											<td style="background-color: hsl({$distanceColor|noescape}deg 100% 80%);">
 												<b n:tag-if="$distance === $distanceGreatest || $distance === $distanceSmallest">
 													{\App\Utils\Formatter::distance($distance)}
 												</b>

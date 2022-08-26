@@ -122,12 +122,12 @@ a {
 }
 #content-locations .accordion-location-distances th,
 #content-locations .accordion-location-distances td {
+	text-align: center;
 	vertical-align: middle;
 	white-space: nowrap;
 }
 #content-locations .accordion-location-distances th {
 	font-weight: bold;
-	text-align: center;
 	cursor: help;
 }
 
