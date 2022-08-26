@@ -256,6 +256,11 @@ class Utils
 		float $newMax = 100,
 	): float
 	{
-		return ((($number - $newMin) * ($newMin - $newMax)) / ($oldMin - $oldMax)) + $newMin;
+		if ($oldMin === $oldMax) { // prevent division by zero
+			return ($newMax + $newMin) / 2;
+		}
+		$newMinMax = ($newMin - $newMax);
+		$oldMinMax = ($oldMin - $oldMax);
+		return ((($number - $newMin) * $newMinMax) / $oldMinMax) + $newMin;
 	}
 }
