@@ -226,4 +226,36 @@ class Utils
 			return $result;
 		}
 	}
+
+	/**
+	 * Recalculate all values in array to fit between provided minimum and maximum while keeping ratio.
+	 * See tests for example usages.
+	 *
+	 * @param array<int|float> $range
+	 * @return  array<int|float>
+	 */
+	public static function recalculateRange(array $range, float $newMin = 0, float $newMax = 100): array
+	{
+		$oldMax = max($range);
+		$oldMin = min($range);
+		array_walk($range, function (&$number) use ($oldMax, $oldMin, $newMin, $newMax) {
+			$number = self::recalculateRangeOne($number, $oldMin, $oldMax, $newMin, $newMax);
+		});
+		return $range;
+	}
+
+	/**
+	 * Recalculate one provided number into scale between $newMin and $newMax.
+	 * See tests for example usages.
+	 */
+	public static function recalculateRangeOne(
+		float $number,
+		float $oldMin,
+		float $oldMax,
+		float $newMin = 0,
+		float $newMax = 100,
+	): float
+	{
+		return ((($number - $newMin) * ($newMin - $newMax)) / ($oldMin - $oldMax)) + $newMin;
+	}
 }
