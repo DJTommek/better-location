@@ -9,11 +9,13 @@ if (empty(\App\Config::ADMIN_PASSWORD)) {
 	die('Set ADMIN_PASSWORD in your local config file first');
 }
 
-if (isset($_GET['password']) === false || $_GET['password'] !== \App\Config::ADMIN_PASSWORD) {
+$request = (new \Nette\Http\RequestFactory())->fromGlobals();
+
+if ($request->getQuery('password') !== \App\Config::ADMIN_PASSWORD) {
 	die('You don\'t have access without password.');
 }
 
-if (isset($_GET['delete-tracy-email-sent'])) {
+if ($request->getQuery('delete-tracy-email-sent')) {
 	if (@unlink(\App\Dashboard\Status::getTracyEmailSentFilePath())) {
 		printf('<p>%s Tracy\'s "email-sent" file was deleted.</p>', \App\Icons::SUCCESS);
 	} else {
@@ -299,7 +301,7 @@ if (isset($_GET['delete-tracy-email-sent'])) {
 			<h2>Tester</h2>
 			<div id="tester">
 				<?php
-				$tester = new \App\Dashboard\Tester($_POST['input'] ?? null);
+				$tester = new \App\Dashboard\Tester($request->getPost('input'));
 				?>
 				<form method="POST">
 					<textarea name="input" class="form-control" placeholder="Type something..."><?= $tester->getTextareaInput() ?></textarea>
