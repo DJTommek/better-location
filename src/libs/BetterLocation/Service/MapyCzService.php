@@ -268,7 +268,7 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 			'Nowy punkt', // Polski
 			'Nový bod', // Czech and Slovenčina
 		], true)) {
-			$result .= ' ' . htmlentities($titleFromUrl);
+			$result .= ' ' . htmlspecialchars($titleFromUrl);
 		}
 		return $result;
 	}
