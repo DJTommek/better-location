@@ -107,7 +107,7 @@ class BetterLocation implements CoordinatesInterface
 	{
 		if (is_null($this->address)) {
 			try {
-				if ($result = \App\Nominatim\Nominatim::reverse($this->getLat(), $this->getLon())) {
+				if ($result = \App\Nominatim\Nominatim::reverse($this->getCoordinates())) {
 					$this->address = $result['display_name'];
 				}
 			} catch (NominatimException|\GuzzleHttp\Exception\GuzzleException $exception) {
