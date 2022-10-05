@@ -15,7 +15,7 @@ if ($request->getQuery('password') !== \App\Config::ADMIN_PASSWORD && $request->
 	die('You don\'t have access without password.');
 }
 
-if ($request->getQuery('delete-tracy-email-sent')) {
+if ($request->getQuery('delete-tracy-email-sent') !== null) {
 	if (@unlink(\App\Dashboard\Status::getTracyEmailSentFilePath())) {
 		printf('<p>%s Tracy\'s "email-sent" file was deleted.</p>', \App\Icons::SUCCESS);
 	} else {
