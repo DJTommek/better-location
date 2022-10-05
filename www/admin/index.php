@@ -16,11 +16,11 @@ if ($request->getQuery('password') !== \App\Config::ADMIN_PASSWORD && $request->
 }
 
 if ($request->getQuery('delete-tracy-email-sent') !== null) {
-	if (@unlink(\App\Dashboard\Status::getTracyEmailSentFilePath())) {
+	try {
+		\Nette\Utils\FileSystem::delete(\App\Dashboard\Status::getTracyEmailSentFilePath());
 		printf('<p>%s Tracy\'s "email-sent" file was deleted.</p>', \App\Icons::SUCCESS);
-	} else {
-		$lastPhpError = error_get_last();
-		printf('<p>%s Error while deleting Tracy\'s "email-sent" file: <b>%s</b></p>', \App\Icons::ERROR, $lastPhpError ? $lastPhpError['message'] : 'unknown error');
+	} catch (\Nette\IOException $exception) {
+		printf('<p>%s Error while deleting Tracy\'s "email-sent" file: <b>%s</b></p>', \App\Icons::ERROR, $exception->getMessage());
 	}
 	die('<p>Go back to <a href="./index.php">index.php</a></p>');
 }
