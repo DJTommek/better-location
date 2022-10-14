@@ -255,6 +255,18 @@ class Coordinates implements CoordinatesInterface
 	}
 
 	/**
+	 * Safely create Coordinates object from format 'latitude,longitude' or return null
+	 */
+	public static function fromString(string $input, string $separator = ','): ?self
+	{
+		$coords = explode($separator, $input);
+		if (count($coords) === 2) {
+			return self::safe($coords[0], $coords[1]);
+		}
+		return null;
+	}
+
+	/**
 	 * Check if point is inside of polygon
 	 *
 	 * @param array $polygon multi-array of coordinates, example: [[50.5,16.5], [51.5,16.5], [51.5,17.5], [50.5,17.5]]
