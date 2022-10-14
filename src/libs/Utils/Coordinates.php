@@ -55,12 +55,12 @@ class Coordinates implements CoordinatesInterface
 
 	public function getLatHemisphere(): string
 	{
-		return $this->lat >= 0 ? Coordinates::NORTH : Coordinates::SOUTH;
+		return $this->lat >= 0 ? self::NORTH : self::SOUTH;
 	}
 
 	public function getLonHemisphere(): string
 	{
-		return $this->lon >= 0 ? Coordinates::EAST : Coordinates::WEST;
+		return $this->lon >= 0 ? self::EAST : self::WEST;
 	}
 
 	/**
@@ -209,7 +209,8 @@ class Coordinates implements CoordinatesInterface
 	 * @return float Distance between points in meters (same unit as self::EARTH_RADIUS)
 	 * @author https://stackoverflow.com/a/10054282/3334403
 	 */
-	public function distance(self $coords): float {
+	public function distance(self $coords): float
+	{
 		// convert from degrees to radians
 		$latFrom = deg2rad($this->lat);
 		$lonFrom = deg2rad($this->lon);
