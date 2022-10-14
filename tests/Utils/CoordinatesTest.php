@@ -46,6 +46,32 @@ final class CoordinatesTest extends TestCase
 		$this->assertNull($fixture['GPSLongitudeRef']);
 	}
 
+	public function testFromString(): void
+	{
+		$this->assertSame('49.885617,14.044381', Coordinates::fromString('49.885617,14.044381')->key());
+		$this->assertSame('-49.885617,14.044381', Coordinates::fromString('-49.885617,14.044381')->key());
+		$this->assertSame('49.885617,-14.044381', Coordinates::fromString('49.885617,-14.044381')->key());
+		$this->assertSame('-49.885617,-14.044381', Coordinates::fromString('-49.885617,-14.044381')->key());
+		$this->assertSame('1.234567,0.123456', Coordinates::fromString('1.234567,0.123456')->key());
+		$this->assertSame('0.000000,0.000000', Coordinates::fromString('0,0')->key());
+
+		// different separator
+		$this->assertSame('1.234567,0.123456', Coordinates::fromString('1.234567_0.123456', '_')->key());
+		$this->assertNull(Coordinates::fromString('1.234567,0.123456', '_'));
+
+		// multi-character separator separator
+		$this->assertSame('1.234567,0.123456', Coordinates::fromString('1.234567___0.123456', '___')->key());
+		$this->assertNull(Coordinates::fromString('1.234567__0.123456', '___'));
+		$this->assertSame('1.234567,0.123456', Coordinates::fromString('1.234567_abcd_0.123456', '_abcd_')->key());
+		$this->assertNull(Coordinates::fromString('1.234567__0.123456', '___'));
+		$this->assertNull(Coordinates::fromString('1.234567___0.123456', '_'));
+
+		$this->assertNull(Coordinates::fromString('some random text'));
+		$this->assertNull(Coordinates::fromString('valid coords (49.885617,14.044381) but inside text'));
+		$this->assertNull(Coordinates::fromString('95.885617,14.044381')); // lat out of bounds
+		$this->assertNull(Coordinates::fromString('1.885617,180.044381')); // lon out of bounds
+	}
+
 	public function testExifJson(): void
 	{
 		$fixture = self::$jsonFixtures['oneplus5t-snezka1.json'];
