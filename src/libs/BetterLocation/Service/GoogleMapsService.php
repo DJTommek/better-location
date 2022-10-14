@@ -22,8 +22,8 @@ final class GoogleMapsService extends AbstractService
 	const ID = 2;
 	const NAME = 'Google';
 
-	const LINK = 'https://www.google.com/maps/place/%1$f,%2$f?q=%1$f,%2$f';
-	const LINK_DRIVE = 'https://www.google.com/maps/dir/?api=1&destination=%1$f%%2C%2$f&travelmode=driving&dir_action=navigate';
+	const LINK = 'https://www.google.com/maps/place/%1$F,%2$F?q=%1$F,%2$F';
+	const LINK_DRIVE = 'https://www.google.com/maps/dir/?api=1&destination=%1$F%%2C%2$F&travelmode=driving&dir_action=navigate';
 
 	const TYPE_UNKNOWN = 'unknown';
 	const TYPE_MAP = 'Map center';

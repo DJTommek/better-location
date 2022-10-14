@@ -31,7 +31,7 @@ final class IngressIntelService extends AbstractService
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
 		} else {
-			return self::LINK . sprintf('/?ll=%1$f,%2$f&pll=%1$f,%2$f', $lat, $lon);
+			return self::LINK . sprintf('/?ll=%1$F,%2$F&pll=%1$F,%2$F', $lat, $lon);
 		}
 	}
 

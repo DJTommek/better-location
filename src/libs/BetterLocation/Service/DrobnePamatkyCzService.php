@@ -31,7 +31,7 @@ final class DrobnePamatkyCzService extends AbstractService
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
 		} else {
-			return self::LINK . sprintf('/blizko?km[latitude]=%1$f&km[longitude]=%2$f&km[search_distance]=5&km[search_units]=km', $lat, $lon);
+			return self::LINK . sprintf('/blizko?km[latitude]=%1$F&km[longitude]=%2$F&km[search_distance]=5&km[search_units]=km', $lat, $lon);
 		}
 	}
 

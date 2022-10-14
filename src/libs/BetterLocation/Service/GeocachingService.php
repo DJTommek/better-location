@@ -71,7 +71,7 @@ final class GeocachingService extends AbstractService
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
 		} else {
-			return self::LINK . sprintf('/play/map?lat=%1$f&lng=%2$f', $lat, $lon);
+			return self::LINK . sprintf('/play/map?lat=%1$F&lng=%2$F', $lat, $lon);
 		}
 	}
 

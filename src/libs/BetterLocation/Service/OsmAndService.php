@@ -23,7 +23,7 @@ final class OsmAndService extends AbstractService
 
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
-		return self::LINK . sprintf('/go.html?lat=%1$f&lon=%2$f', $lat, $lon);
+		return self::LINK . sprintf('/go.html?lat=%1$F&lon=%2$F', $lat, $lon);
 	}
 
 	public function isValid(): bool

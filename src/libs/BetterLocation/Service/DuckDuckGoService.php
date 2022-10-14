@@ -23,7 +23,7 @@ final class DuckDuckGoService extends AbstractService
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
 		} else {
-			return self::LINK . sprintf('/?q=%1$f,%2$f&iaxm=maps', $lat, $lon);
+			return self::LINK . sprintf('/?q=%1$F,%2$F&iaxm=maps', $lat, $lon);
 		}
 	}
 

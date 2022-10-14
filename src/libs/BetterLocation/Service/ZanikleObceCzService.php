@@ -31,7 +31,7 @@ final class ZanikleObceCzService extends AbstractService
 			throw new NotSupportedException('Drive link is not supported.');
 		} else {
 			// http://www.zanikleobce.cz/index.php?menu=222&mpx=14.23444&mpy=48.59027
-			return self::LINK . sprintf('/index.php?menu=222&mpx=%2$f&mpy=%1$f', $lat, $lon);
+			return self::LINK . sprintf('/index.php?menu=222&mpx=%2$F&mpy=%1$F', $lat, $lon);
 		}
 	}
 

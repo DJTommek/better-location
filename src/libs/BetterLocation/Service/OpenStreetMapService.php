@@ -31,9 +31,9 @@ final class OpenStreetMapService extends AbstractService
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
-			return self::LINK . sprintf('/directions?from=&to=%1$f,%2$f', $lat, $lon);
+			return self::LINK . sprintf('/directions?from=&to=%1$F,%2$F', $lat, $lon);
 		} else {
-			return self::LINK . sprintf('/search?whereami=1&query=%1$f,%2$f&mlat=%1$f&mlon=%2$f#map=17/%1$f/%2$f', $lat, $lon);
+			return self::LINK . sprintf('/search?whereami=1&query=%1$F,%2$F&mlat=%1$F&mlon=%2$F#map=17/%1$F/%2$F', $lat, $lon);
 		}
 	}
 

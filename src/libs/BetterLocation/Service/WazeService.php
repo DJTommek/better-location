@@ -24,7 +24,7 @@ final class WazeService extends AbstractService
 
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
-		$link = sprintf(self::LINK . '/ul?ll=%1$f,%2$f', $lat, $lon);
+		$link = sprintf(self::LINK . '/ul?ll=%1$F,%2$F', $lat, $lon);
 		if ($drive) {
 			$link .= '&navigate=yes';
 		}

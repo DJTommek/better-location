@@ -106,7 +106,7 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		// 2021-07-14: Drive link is "kind of" available using planner and on Android device it will open correctly target destination,
 		// but empty deparature, so user has to choose current location manually. That is more clicks, than using classic,
 		// share link.
-		return sprintf('%s/zakladni?y=%2$f&x=%3$f&source=coor&id=%3$f%%2C%2$f', self::LINK, $lat, $lon);
+		return sprintf('%s/zakladni?y=%2$F&x=%3$f&source=coor&id=%3$f%%2C%2$F', self::LINK, $lat, $lon);
 	}
 
 	public static function getShareCollectionLink(BetterLocationCollection $collection): ?string
