@@ -56,6 +56,7 @@ final class WazeServiceTest extends TestCase
 		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/cs/livemap/directions?utm_expid=.K6QI8s_pTz6FfRdYRPpI3A.0&utm_referrer=&to=ll.50.07734439%2C14.43475842'));
 		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/cs/livemap/directions?to=ll.50.07734439%2C14.43475842'));
 		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/cs/livemap/directions?to=ll.49.8770796%2C18.430363'));
+		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/live-map/directions?from=ll.50.093652%2C14.412417'));
 
 		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/livemap/?zoom=11&lat=50.093652&lon=14.412417'));
 		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/livemap/?zoom=11&lat=-50.093652&lon=14.412417'));
@@ -106,6 +107,10 @@ final class WazeServiceTest extends TestCase
 		$collection = WazeService::processStatic('https://www.waze.com/cs/livemap/directions?to=ll.49.8770796%2C18.430363')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('49.877080,18.430363', $collection[0]->__toString());
+
+		$collection = WazeService::processStatic('https://www.waze.com/live-map/directions?from=ll.50.093652%2C14.412417')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('50.093652,14.412417', $collection[0]->__toString());
 
 		$collection = WazeService::processStatic('https://www.waze.com/livemap/?zoom=11&lat=50.093652&lon=14.412417')->getCollection();
 		$this->assertCount(1, $collection);
