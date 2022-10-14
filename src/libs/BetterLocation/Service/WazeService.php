@@ -36,7 +36,7 @@ final class WazeService extends AbstractService
 		return $this->isShortUrl() || $this->isNormalUrl();
 	}
 
-	public function isShortUrl(): bool
+	private function isShortUrl(): bool
 	{
 		if (
 			$this->url &&
@@ -50,49 +50,37 @@ final class WazeService extends AbstractService
 		return false;
 	}
 
-	public function isNormalUrl(): bool
+	private function isNormalUrl(): bool
 	{
-		$result = false;
 		if ($this->url && $this->url->getDomain(2) === 'waze.com') {
-			if ($coords = Coordinates::getLatLon($this->url->getQueryParameter('ll') ?? '')) {
-				$this->data->ll = true;
-				$this->data->llLat = $coords[0];
-				$this->data->llLon = $coords[1];
-				$result = true;
-			}
-			if ($coords = Coordinates::getLatLon($this->url->getQueryParameter('latlng') ?? '')) {
-				$this->data->latLng = true;
-				$this->data->latLngLat = $coords[0];
-				$this->data->latLngLon = $coords[1];
-				$result = true;
-			}
+
+			// Example: https://www.waze.com/ul?ll=50.06300713%2C14.43964005
+			$this->data->ll = Coordinates::fromString($this->url->getQueryParameter('ll') ?? '');
+
+			// Example: https://www.waze.com/cs/livemap/directions?latlng=50.063007132127616%2C14.439640045166016
+			$this->data->latLng = Coordinates::fromString($this->url->getQueryParameter('latlng') ?? '');
+
+			// Example: https://www.waze.com/cs/livemap/directions?to=ll.50.07734439%2C14.43475842
 			if ($this->url->getQueryParameter('to')) {
 				$param = ltrim($this->url->getQueryParameter('to'), 'l.');
-				if ($coords = Coordinates::getLatLon($param)) {
-					$this->data->to = true;
-					$this->data->toLat = $coords[0];
-					$this->data->toLon = $coords[1];
-					$result = true;
-				}
+				$this->data->to = Coordinates::fromString($param);
 			}
+
+			// Example: https://www.waze.com/live-map/directions?from=ll.50.093652%2C14.412417
 			if ($this->url->getQueryParameter('from')) {
 				$param = ltrim($this->url->getQueryParameter('from'), 'l.');
-				if ($coords = Coordinates::getLatLon($param)) {
-					$this->data->from = true;
-					$this->data->fromLat = $coords[0];
-					$this->data->fromLon = $coords[1];
-					$result = true;
-				}
+				$this->data->from = Coordinates::fromString($param);
 			}
-			// This URL is from Wikipedia's Geohack, eg. https://geohack.toolforge.org/geohack.php?params=050.093652_N_0014.412417_E
-			if (Coordinates::isLat($this->url->getQueryParameter('lat')) && Coordinates::isLon($this->url->getQueryParameter('lon'))) {
-				$this->data->queryLatLon = true;
-				$this->data->queryLatLonLat = Strict::floatval($this->url->getQueryParameter('lat'));
-				$this->data->queryLatLonLon = Strict::floatval($this->url->getQueryParameter('lon'));
-				$result = true;
-			}
+
+			// This URL is from Wikipedia's Geohack (https://geohack.toolforge.org/geohack.php?params=050.093652_N_0014.412417_E)
+			// Example: https://www.waze.com/livemap/?zoom=11&lat=50.093652&lon=14.412417
+			$this->data->queryLatLon = Coordinates::safe(
+				$this->url->getQueryParameter('lat'),
+				$this->url->getQueryParameter('lon')
+			);
 		}
-		return $result;
+
+		return ($this->data->ll || $this->data->latLng || $this->data->to || $this->data->from || $this->data->queryLatLon);
 	}
 
 	public function process(): void
@@ -105,19 +93,19 @@ final class WazeService extends AbstractService
 		}
 
 		if ($this->data->ll ?? false) {
-			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->llLat, $this->data->llLon, self::class));
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->ll->getLat(), $this->data->ll->getLon(), self::class));
 		}
 		if ($this->data->latLng ?? false) {
-			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->latLngLat, $this->data->latLngLon, self::class));
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->latLng->getLat(), $this->data->latLng->getLon(), self::class));
 		}
 		if ($this->data->to ?? false) {
-			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->toLat, $this->data->toLon, self::class));
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->to->getLat(), $this->data->to->getLon(), self::class));
 		}
 		if ($this->data->from ?? false) {
-			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->fromLat, $this->data->fromLon, self::class));
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->from->getLat(), $this->data->from->getLon(), self::class));
 		}
 		if ($this->data->queryLatLon ?? false) {
-			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->queryLatLonLat, $this->data->queryLatLonLon, self::class));
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->queryLatLon->getLat(), $this->data->queryLatLon->getLon(), self::class));
 		}
 	}
 
