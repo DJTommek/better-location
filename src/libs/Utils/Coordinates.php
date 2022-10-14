@@ -17,12 +17,9 @@ class Coordinates implements CoordinatesInterface
 
 	const EARTH_RADIUS = 6371000; // in meters
 
-	/** @var float */
-	private $lat;
-	/** @var float */
-	private $lon;
-	/** @var ?float Elevation in meters */
-	private $elevation;
+	private float $lat;
+	private float $lon;
+	private ?float $elevation; // in meters
 
 	/**
 	 * @param string|int|float $lat Latitude coordinate in WGS-84 format
