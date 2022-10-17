@@ -107,6 +107,15 @@ class BetterLocation implements CoordinatesInterface
 	{
 		if (is_null($this->address)) {
 			try {
+				$googleGeocoding = Factory::GoogleGeocodingApi();
+				$addressResponse = $googleGeocoding->reverse($this->coords);
+				$this->address = $addressResponse?->results[0]->formatted_address;
+				return;
+			} catch (\GuzzleHttp\Exception\GuzzleException $exception) {
+				Debugger::log($exception, Debugger::EXCEPTION);
+			}
+
+			try {
 				if ($result = \App\Nominatim\Nominatim::reverse($this->getCoordinates())) {
 					$this->address = $result['display_name'];
 				}
