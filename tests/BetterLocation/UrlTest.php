@@ -82,8 +82,8 @@ final class UrlTest extends TestCase
 		$this->assertSame('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://rb.gy/yjoqrj'));
 		$this->assertSame('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://rb.gy/yjoqrj'));
 
-		$this->assertSame('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://tiny.cc/ji2ysz'));
-		$this->assertSame('https://tiny.cc/ji2ysz', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://tiny.cc/ji2ysz'));
+		$this->assertSame('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://tiny.cc/v050vz'));
+		$this->assertSame('https://tiny.cc/v050vz', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://tiny.cc/v050vz'));
 		$this->assertSame('https://en.wikipedia.org/wiki/Prague', \App\MiniCurl\MiniCurl::loadRedirectUrl('https://tiny.cc/BetterLocationTest')); // custom URL
 		$this->assertSame('https://tiny.cc/BetterLocationTest', \App\MiniCurl\MiniCurl::loadRedirectUrl('http://tiny.cc/BetterLocationTest')); // custom URL
 

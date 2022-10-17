@@ -25,9 +25,9 @@ final class StaticApiTest extends TestCase
 	{
 		$result = self::$api->loadPanoaramaMetadataByCoords(50.087451, 14.420671);
 		$this->assertInstanceOf(\stdClass::class, $result);
-		$this->assertSame('CAoSLEFGMVFpcE9EVG1OWDFQRmVXT2NiN2lEZFY4bjktaXg5aXREd2lQWUYtNS1T', $result->pano_id);
-		$this->assertSame(50.0892720720654, $result->location->lat);
-		$this->assertSame(14.41848820220551, $result->location->lng);
+		$this->assertSame('CAoSLEFGMVFpcE04SXAyM09fVmlDTHZXSk9MX29oWFNtU3ZGRVFpZ1hvN0VSR3Z0', $result->pano_id);
+		$this->assertSame(50.0874665, $result->location->lat);
+		$this->assertSame(14.4206834, $result->location->lng);
 
 		$result = self::$api->loadPanoaramaMetadataByCoords(-34.570368, -58.415685);
 		$this->assertInstanceOf(\stdClass::class, $result);
