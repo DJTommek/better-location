@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 final class IngressIntelServiceTest extends TestCase
 {
-	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testGenerateShareLink(): void
 	{
 		$this->assertSame('https://intel.ingress.com/?ll=50.087451,14.420671&pll=50.087451,14.420671', IngressIntelService::getLink(50.087451, 14.420671));
@@ -114,6 +113,9 @@ final class IngressIntelServiceTest extends TestCase
 		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50.087451,14.420671&pll=50.087451----14.420671'));
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testProcessMap()
 	{
 		$collection = IngressIntelService::processStatic('https://intel.ingress.com/?ll=50.087451,14.420671')->getCollection();
@@ -125,6 +127,9 @@ final class IngressIntelServiceTest extends TestCase
 		$this->assertSame('50.123457,14.987654', $collection[0]->__toString());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testProcessCoords()
 	{
 		$collection = IngressIntelService::processStatic('https://intel.ingress.com/?pll=50.087451,14.420671')->getCollection();
@@ -136,6 +141,9 @@ final class IngressIntelServiceTest extends TestCase
 		$this->assertSame('50.123457,14.987654', $collection[0]->__toString());
 	}
 
+	/**
+	 * @group request
+	 */
 	public function testProcessMapAndCoords()
 	{
 		$collection = IngressIntelService::processStatic('https://intel.ingress.com/?ll=50.123456789,14.987654321&pll=43.123456789,12.987654321')->getCollection();
