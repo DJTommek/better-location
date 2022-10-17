@@ -78,9 +78,11 @@ final class WazeService extends AbstractService
 				$this->url->getQueryParameter('lat'),
 				$this->url->getQueryParameter('lon')
 			);
+
+			return ($this->data->ll || $this->data->latLng || $this->data->to || $this->data->from || $this->data->queryLatLon);
 		}
 
-		return ($this->data->ll || $this->data->latLng || $this->data->to || $this->data->from || $this->data->queryLatLon);
+		return false;
 	}
 
 	public function process(): void
