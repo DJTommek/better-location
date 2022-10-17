@@ -43,10 +43,6 @@ final class StaticApiTest extends TestCase
 		$this->assertSame('7C7Q+FPC Richmond TAS, Australia', $result->plus_code->compound_code);
 
 		// No valid address
-		$result = self::$api->reverse(new Coordinates(0.123, 0.123));
-		$this->assertInstanceOf(\stdClass::class, $result);
-		$this->assertNull($result->results[0]->formatted_address);
-		$this->assertNull($result->plus_code->global_code);
-		$this->assertNull($result->plus_code->compound_code);
+		$this->assertNull(self::$api->reverse(new Coordinates(0.123, 0.123)));
 	}
 }
