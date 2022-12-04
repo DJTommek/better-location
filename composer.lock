@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "223079b0c6197409a03bdb6fca363e29",
+    "content-hash": "26fde37cc0c0b080f15f12a4b90d714d",
     "packages": [
         {
             "name": "amphp/amp",
@@ -941,67 +941,6 @@
                 }
             ],
             "time": "2020-07-10T16:13:29+00:00"
-        },
-        {
-            "name": "aternus/geonames-client",
-            "version": "2.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Aternus/geonames-client.git",
-                "reference": "fb5c26c62aadff39118a18c4fbadd322aab1602f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Aternus/geonames-client/zipball/fb5c26c62aadff39118a18c4fbadd322aab1602f",
-                "reference": "fb5c26c62aadff39118a18c4fbadd322aab1602f",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "ext-json": "*",
-                "ext-xml": "*",
-                "guzzlehttp/guzzle": "7.*",
-                "php": ">=7.2.0"
-            },
-            "require-dev": {
-                "ext-xdebug": "*",
-                "phpunit/phpunit": "8.*",
-                "squizlabs/php_codesniffer": "3.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "GeoNames\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kiril Reznik",
-                    "email": "kiril@atern.us",
-                    "homepage": "https://atern.us/"
-                }
-            ],
-            "description": "GeoNames API Client",
-            "homepage": "https://github.com/Aternus/geonames-client",
-            "keywords": [
-                "ISO-639-1",
-                "api",
-                "countries",
-                "database",
-                "geographical",
-                "geonames",
-                "iso-3166",
-                "languages"
-            ],
-            "support": {
-                "issues": "https://github.com/Aternus/geonames-client/issues",
-                "source": "https://github.com/Aternus/geonames-client"
-            },
-            "time": "2021-11-27T14:28:45+00:00"
         },
         {
             "name": "bogdaan/open-location-code",
@@ -6863,5 +6802,5 @@
         "ext-dom": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.1.0"
 }
