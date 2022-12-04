@@ -134,10 +134,10 @@ class Factory
 		return new \Nette\Caching\Cache(self::CacheStorage(), $namespace);
 	}
 
-	static function Geonames(): \GeoNames\Client
+	static function Geonames(): \App\Geonames\Geonames
 	{
 		if (!isset(self::$objects['geonames'])) {
-			self::$objects['geonames'] = new \GeoNames\Client(Config::GEONAMES_USERNAME);
+			self::$objects['geonames'] = new \App\Geonames\Geonames(Config::GEONAMES_USERNAME);
 		}
 		return self::$objects['geonames'];
 	}

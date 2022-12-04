@@ -8,7 +8,7 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\MapyCzService;
 use App\Config;
 use App\Factory;
-use App\Geonames\Geonames;
+use App\Geonames\GeonamesApiException;
 use App\Geonames\Types\TimezoneType;
 use App\Icons;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
@@ -129,8 +129,8 @@ class BetterLocation implements CoordinatesInterface
 	{
 		if (is_null($this->timezoneData)) {
 			try {
-				$this->timezoneData = Geonames::timezone($this->getLat(), $this->getLon());
-			} catch (\GuzzleHttp\Exception\GuzzleException $exception) {
+				$this->timezoneData = Factory::Geonames()->timezone($this->getLat(), $this->getLon());
+			} catch (GeonamesApiException $exception) {
 				Debugger::log($exception, Debugger::EXCEPTION);
 			}
 		}

@@ -5,7 +5,7 @@ namespace App\TelegramCustomWrapper\Events\Edit;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\Config;
-use App\Geonames\Geonames;
+use App\Factory;
 use App\Icons;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
@@ -51,7 +51,7 @@ class LocationEdit extends Edit
 			$text = $processedCollection->getText();
 
 			// Show datetime of last location update in local timezone based on timezone on that location itself
-			$geonames = Geonames::timezone($collection->getFirst()->getLat(), $collection->getFirst()->getLon());
+			$geonames = Factory::Geonames()->timezone($collection->getFirst()->getLat(), $collection->getFirst()->getLon());
 			$lastUpdate = DateImmutableUtils::fromTimestamp($this->getMessage()->edit_date, $geonames->timezone);
 			$text .= sprintf('%s Last live location from %s', Icons::REFRESH, $lastUpdate->format(Config::DATETIME_FORMAT));
 
