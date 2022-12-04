@@ -29,7 +29,15 @@ if (Config::isTelegramWebhookPassword() === false) {
 		$update = new \unreal4u\TelegramAPI\Telegram\Types\Update($updateData);
 		$telegramCustomWrapper->getUpdateEvent($update);
 		if ($event = $telegramCustomWrapper->getEvent()) {
+			$timerName = 'eventHandling';
+			\Tracy\Debugger::timer($timerName);
 			$telegramCustomWrapper->handle();
+			\Tracy\Debugger::log(sprintf(
+				'Handling event %s took %F seconds. Log ID = %d',
+				$event::class,
+				\Tracy\Debugger::timer($timerName),
+				LOG_ID
+			), \Tracy\Debugger::DEBUG);
 		} else {
 			printf('<p>%s</p>', $telegramCustomWrapper->getEventNote());
 		}
