@@ -18,10 +18,10 @@ class Formatter
 			return '0s';
 		}
 
-		$seconds = floor(($input % 60));
-		$minutes = floor(($input / (60)) % 60);
-		$hours = floor(($input / (60 * 60)) % 24);
-		$days = floor(($input / (60 * 60 * 24)));
+		$seconds = $input % 60;
+		$minutes = (int)($input / 60) % 60;
+		$hours = (int)($input / (60 * 60)) % 24;
+		$days = (int)($input / (60 * 60 * 24));
 
 		$parts = [];
 		if ($days > 0) {

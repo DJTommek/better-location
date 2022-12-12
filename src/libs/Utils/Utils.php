@@ -14,10 +14,10 @@ class Utils
 	 */
 	public static function sToHuman(int $seconds): string
 	{
-		$s = floor(($seconds % 60));
-		$m = floor(($seconds / (60)) % 60);
-		$h = floor(($seconds / (60 * 60)) % 24);
-		$d = floor(($seconds / (60 * 60 * 24)));
+		$s = $seconds % 60;
+		$m = (int)($seconds / 60) % 60;
+		$h = (int)($seconds / (60 * 60)) % 24;
+		$d = (int)($seconds / (60 * 60 * 24));
 
 		$result = '';
 		$result .= ($d > 0 ? ' ' . $d . 'd' : '');
