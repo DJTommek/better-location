@@ -19,6 +19,7 @@ use App\BetterLocation\Service\EStudankyEuService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\FacebookService;
 use App\BetterLocation\Service\FevGamesService;
+use App\BetterLocation\Service\FirmyCzService;
 use App\BetterLocation\Service\FoursquareService;
 use App\BetterLocation\Service\GeocachingService;
 use App\BetterLocation\Service\GeohashService;
@@ -98,6 +99,7 @@ class ServicesManager
 		$this->services[FacebookService::ID] = FacebookService::class;
 		$this->services[MapyCzService::ID] = MapyCzService::class;
 		$this->services[MapyCzPanoramaGeneratorService::ID] = MapyCzPanoramaGeneratorService::class;
+		$this->services[FirmyCzService::ID] = FirmyCzService::class;
 		$this->services[IngressIntelService::ID] = IngressIntelService::class;
 		$this->services[IngressPrimeService::ID] = IngressPrimeService::class;
 		$this->services[OsmAndService::ID] = OsmAndService::class;
