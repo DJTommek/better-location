@@ -58,4 +58,16 @@ class PortalType
 		}
 		return $this->primeLink;
 	}
+
+	/**
+	 * @param ?int $size Append size parameter to image URL. See https://developers.google.com/people/image-sizing
+	 */
+	public function getImageLink(?int $size = null): ?string
+	{
+		$result = $this->image;
+		if ($result !== null && $size !== null) {
+			$result .= '=s' . $size;
+		}
+		return $result;
+	}
 }

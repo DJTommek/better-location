@@ -21,7 +21,7 @@ class Ingress
 			Icons::INGRESS_PRIME,
 			$portal->getIntelLink(),
 			Icons::INGRESS_INTEL,
-			$portal->image,
+			$portal->getImageLink(10_000),
 			Icons::INGRESS_PORTAL,
 		);
 	}

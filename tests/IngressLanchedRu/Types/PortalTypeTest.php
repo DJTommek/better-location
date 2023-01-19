@@ -43,6 +43,9 @@ final class PortalTypeTest extends TestCase
 		$this->assertSame(1.412214, self::$getPortalsExample[0]->lng);
 		$this->assertNull(self::$getPortalsExample[0]->address);
 		$this->assertNull(self::$getPortalsExample[0]->image);
+		$this->assertNull(self::$getPortalsExample[0]->getImageLink());
+		$this->assertNull(self::$getPortalsExample[0]->getImageLink(1234));
+		$this->assertSame(self::$getPortalsExample[0]->getImageLink(), self::$getPortalsExample[0]->image);
 
 		$this->assertInstanceOf(PortalType::class, self::$getPortalsExample[1]);
 		$this->assertSame('b28e82feac574ad4ad747975eaaeb219.16', self::$getPortalsExample[1]->guid);
@@ -78,6 +81,9 @@ final class PortalTypeTest extends TestCase
 		$this->assertSame(14.420671, self::$portalPrague->lng);
 		$this->assertSame('Old Town Square 1/4, 110 00 Prague-Prague 1, Czech Republic', self::$portalPrague->address);
 		$this->assertSame('https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm', self::$portalPrague->image);
+		$this->assertSame('https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm', self::$portalPrague->getImageLink());
+		$this->assertSame('https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm=s1234', self::$portalPrague->getImageLink(1234));
+		$this->assertSame(self::$portalPrague->getImageLink(), self::$portalPrague->image);
 	}
 
 	public function testPortalNameAsInt()
