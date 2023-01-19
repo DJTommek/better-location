@@ -6,6 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\Factory;
 use App\Icons;
 use App\IngressMosaic\Client;
+use App\Utils\Ingress;
 use App\Utils\Strict;
 use Nette\Utils\Arrays;
 
@@ -56,9 +57,11 @@ final class IngressMosaicService extends AbstractService
 		$ingressApi = Factory::IngressLanchedRu();
 		if ($portal = $ingressApi->getPortalByCoords($mosaic->startLat, $mosaic->startLon)) {
 			$location->setAddress($portal->address);
-			$description .= PHP_EOL . sprintf('Start portal: <a href="%s">%s</a> <a href="%s">%s</a>', $portal->getIntelLink(), htmlspecialchars($portal->name), $portal->image, Icons::PICTURE);
+			$location->addDescription(
+				'Start  portal: ' . Ingress::generatePortalLinkMessage($portal),
+				Ingress::BETTER_LOCATION_KEY_PORTAL
+			);
 		}
-		$location->setDescription($description);
 
 		$this->collection->add($location);
 	}
