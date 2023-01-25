@@ -58,6 +58,8 @@ final class FevGamesServiceTest extends TestCase
 	 */
 	public function testNoIntelLink(): void
 	{
+		$this->markTestSkipped('Unable to find event, that does not have filled Intel link');
+
 		$collection = FevGamesService::processStatic('https://fevgames.net/ifs/event/?e=12342')->getCollection();
 		$this->assertCount(0, $collection);
 	}

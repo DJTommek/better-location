@@ -50,6 +50,8 @@ final class FacebookServiceTest extends TestCase
 	 */
 	public function testUrl(): void
 	{
+		$this->markTestSkipped('Disabled due to possibly too many requests to Facebook servers');
+
 		$collection = FacebookService::processStatic('https://pt-br.facebook.com/burgerzelva/menu/?ref=page_internal')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('50.087244,14.469230', $collection[0]->__toString());

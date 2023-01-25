@@ -75,6 +75,8 @@ final class RopikyNetServiceTest extends TestCase
 	 */
 	public function testProcessNeropObjekt(): void
 	{
+		$this->markTestSkipped('Page nerop_objekt.php was probably cancelled.');
+
 		$collection = RopikyNetService::processStatic('http://www.ropiky.net/nerop_objekt.php?id=1296479566')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('49.728630,13.558510', $collection[0]->__toString());
@@ -95,7 +97,9 @@ final class RopikyNetServiceTest extends TestCase
 	{
 		$this->assertCount(0, RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1121190136')->getCollection());
 		$this->assertCount(0, RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1121190152')->getCollection());
-		$this->assertCount(0, RopikyNetService::processStatic('http://www.ropiky.net/nerop_objekt.php?id=1249996776')->getCollection());
+
+		// page nerop_objekt.php was probably cancelled
+		// $this->assertCount(0, RopikyNetService::processStatic('http://www.ropiky.net/nerop_objekt.php?id=1249996776')->getCollection());
 	}
 
 	/**
