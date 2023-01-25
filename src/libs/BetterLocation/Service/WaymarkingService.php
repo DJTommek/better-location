@@ -180,6 +180,10 @@ final class WaymarkingService extends AbstractService
 	private function loadWaymark($waymarkId): string
 	{
 		$waymarkUrl = (string)$this->buildWaymarkUrl($waymarkId);
-		return (new MiniCurl($waymarkUrl))->allowCache(Config::CACHE_TTL_WAYMARKING)->run()->getBody();
+		return (new MiniCurl($waymarkUrl))
+			->allowCache(Config::CACHE_TTL_WAYMARKING)
+			->allowAutoConvertEncoding(false)
+			->run()
+			->getBody();
 	}
 }
