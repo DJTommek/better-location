@@ -184,12 +184,12 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return $this->locations[$this->position];
 	}
 
-	public function next()
+	public function next(): void
 	{
-		++$this->position;
+		$this->position++;
 	}
 
-	public function key()
+	public function key(): int
 	{
 		return $this->position;
 	}
@@ -199,7 +199,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return isset($this->locations[$this->position]);
 	}
 
-	public function rewind()
+	public function rewind(): void
 	{
 		$this->position = 0;
 	}
