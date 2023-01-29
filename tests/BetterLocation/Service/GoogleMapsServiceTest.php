@@ -2,8 +2,8 @@
 
 namespace Tests\BetterLocation\Service;
 
-use PHPUnit\Framework\TestCase;
 use App\BetterLocation\Service\GoogleMapsService;
+use PHPUnit\Framework\TestCase;
 
 final class GoogleMapsServiceTest extends TestCase
 {
@@ -25,7 +25,8 @@ final class GoogleMapsServiceTest extends TestCase
 		$this->assertSame('https://www.google.com/maps/dir/?api=1&destination=-50.400000%2C-14.800008&travelmode=driving&dir_action=navigate', GoogleMapsService::getLink(-50.4, -14.800008, true));
 	}
 
-	public function testIsValidShortUrl(): void {
+	public function testIsValidShortUrl(): void
+	{
 		$this->assertTrue(GoogleMapsService::isValidStatic('https://goo.gl/maps/rgZZt125tpvf2rnCA'));
 		$this->assertTrue(GoogleMapsService::isValidStatic('http://goo.gl/maps/rgZZt125tpvf2rnCA'));
 		$this->assertTrue(GoogleMapsService::isValidStatic('https://goo.gl/maps/eUYMwABdpv9NNSDX7'));
@@ -44,7 +45,8 @@ final class GoogleMapsServiceTest extends TestCase
 	/**
 	 * @group request
 	 */
-	public function testShortUrl(): void {
+	public function testShortUrl(): void
+	{
 		$this->markTestSkipped('Disabled due to possibly too many requests to Google servers (recaptcha appearing...)');
 
 		$this->assertSame('49.982825,14.571417', GoogleMapsService::processStatic('https://goo.gl/maps/rgZZt125tpvf2rnCA')->getFirst()->__toString());
@@ -174,7 +176,7 @@ final class GoogleMapsServiceTest extends TestCase
 	 * Links generated on phone in Google maps app by clicking on "share" button while opened place
 	 * @group request
 	 */
-	public function testShareUrlPhone(): void
+	public function testShareUrlPhone1(): void
 	{
 		// Baumax Michle
 		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/bauMax,+Chodovsk%C3%A1+1549%2F18,+101+00+Praha+10/data=!4m2!3m1!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2?utm_source=mstt_1&entry=gps')->getCollection();
@@ -197,6 +199,27 @@ final class GoogleMapsServiceTest extends TestCase
 		$this->assertCount(1, $collection);
 		$this->assertSame('hidden', $collection[0]->getSourceType());
 		$this->assertSame('49.231827,13.521617', $collection[0]->__toString());
+	}
+
+	/**
+	 * Links generated on phone in Google maps app by clicking on "share" button while opened place (different way of extracting coordinates)
+	 * @group request
+	 */
+	public function testShareUrlPhone2(): void
+	{
+		// Dacia Průhonice
+		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/Dacia+Pr%C5%AFhonice+-+Pyramida+Pr%C5%AFhonice,+u+Prahy,+U+Pyramidy+721,+252+43+Pr%C5%AFhonice/data=!4m2!3m1!1s0x470b8f7265f22517:0xd2786b5c9cd599cd?utm_source=mstt_1&entry=gps&g_ep=CAESCTExLjYzLjcwNBgAIIgnKgBCAkNa')->getCollection();
+		$this->assertCount(1, $collection);
+		$location = $collection->getFirst();
+		$this->assertSame('hidden', $location->getSourceType());
+		$this->assertSame('50.002966,14.569240', $location->__toString());
+
+		// same as above but short URL (coordinates saved differently)
+		$collection = GoogleMapsService::processStatic('https://maps.app.goo.gl/NM78pUenb1hVA3nX8')->getCollection();
+		$this->assertCount(1, $collection);
+		$location = $collection->getFirst();
+		$this->assertSame('hidden', $location->getSourceType());
+		$this->assertSame('50.002966,14.569240', $location->__toString());
 	}
 
 	/**

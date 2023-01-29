@@ -194,10 +194,18 @@ final class GoogleMapsService extends AbstractService
 		if ($this->collection->count() === 0) {
 			// URL don't have any coordinates or place-id to translate so load content and there are some coordinates hidden in page in some of brutal multi-array
 			$content = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_GOOGLE_MAPS)->run()->getBody();
-			// Regex is searching for something like this: ',"",null,[null,null,50.0641584,14.468139599999999]';
-			// Warning: Not exact position
+			$coords = null;
 			if (preg_match('/",null,\[null,null,(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)]/', $content, $matches)) {
-				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, self::TYPE_HIDDEN));
+				// Example: ',"",null,[null,null,50.0641584,14.468139599999999]';
+				$coords = Coordinates::safe($matches[1], $matches[2]);
+			} else if (preg_match('/window\.APP_INITIALIZATION_STATE=\[\[\[[0-9.+]+,([-0-9.+]+),([-0-9.+]+)],\[/', $content, $matches)) {
+				// example: '...wvRvJsOMw"]];window.APP_INITIALIZATION_STATE=[[[2564.4475005591294,14.569239800000005,50.002965700000004],[0,0,0],[1024,768],13.1],[[["m...'
+				$coords = Coordinates::safe($matches[2], $matches[1]);
+			}
+
+			if ($coords) {
+				$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class, self::TYPE_HIDDEN);
+				$this->collection->add($location);
 			}
 		}
 	}
