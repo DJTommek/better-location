@@ -134,7 +134,10 @@ class GooglePlaceApi
 
 	private function runGoogleApiRequest(string $url): \stdClass
 	{
-		$response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_GOOGLE_PLACE_API)->run();
+		$response = (new MiniCurl($url))
+			->allowCache(Config::CACHE_TTL_GOOGLE_PLACE_API)
+			->allowAutoConvertEncoding(false)
+			->run();
 		$content = $response->getBodyAsJson();
 		if (in_array($content->status, [self::RESPONSE_OK, self::RESPONSE_ZERO_RESULTS], true)) {
 			return $content;
