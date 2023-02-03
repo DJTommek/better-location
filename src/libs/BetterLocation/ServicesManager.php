@@ -32,6 +32,7 @@ use App\BetterLocation\Service\IngressIntelService;
 use App\BetterLocation\Service\IngressPrimeService;
 use App\BetterLocation\Service\MapyCzPanoramaGeneratorService;
 use App\BetterLocation\Service\MapyCzService;
+use App\BetterLocation\Service\NeshanOrgService;
 use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\OpenStreetMapService;
 use App\BetterLocation\Service\OrganicMapsService;
@@ -96,6 +97,7 @@ class ServicesManager
 		$this->services[SygicService::ID] = SygicService::class;
 		$this->services[HereWeGoService::ID] = HereWeGoService::class;
 		$this->services[OpenStreetMapService::ID] = OpenStreetMapService::class;
+		$this->services[NeshanOrgService::ID] = NeshanOrgService::class;
 		$this->services[FacebookService::ID] = FacebookService::class;
 		$this->services[MapyCzService::ID] = MapyCzService::class;
 		$this->services[MapyCzPanoramaGeneratorService::ID] = MapyCzPanoramaGeneratorService::class;
