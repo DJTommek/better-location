@@ -6,16 +6,16 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 
 class Coordinates implements CoordinatesInterface
 {
-	const RE_BASIC_LAT = '-?[0-9]{1,2}\.[0-9]{1,99}';
-	const RE_BASIC_LON = '-?[0-9]{1,3}\.[0-9]{1,99}';
-	const RE_BASIC = '-?[0-9]{1,2}\.[0-9]{1,99},-?[0-9]{1,3}\.[0-9]{1,99}';
+	public const RE_BASIC_LAT = '-?[0-9]{1,2}\.[0-9]{1,99}';
+	public const RE_BASIC_LON = '-?[0-9]{1,3}\.[0-9]{1,99}';
+	public const RE_BASIC = self::RE_BASIC_LAT . ',' . self::RE_BASIC_LON;
 
-	const NORTH = 'N';
-	const SOUTH = 'S';
-	const EAST = 'E';
-	const WEST = 'W';
+	public const NORTH = 'N';
+	public const SOUTH = 'S';
+	public const EAST = 'E';
+	public const WEST = 'W';
 
-	const EARTH_RADIUS = 6371000; // in meters
+	public const EARTH_RADIUS = 6_371_000; // in meters
 
 	private float $lat;
 	private float $lon;
