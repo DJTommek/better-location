@@ -14,7 +14,7 @@
 		"unreal4u/telegram-api": "dev-master",
 		"bogdaan/open-location-code": "dev-master",
 		"what3words/w3w-php-wrapper": "^3.3",
-		"djtommek/mapycz-api": "^1.4.0",
+		"djtommek/mapycz-api": "^1.4",
 		"djtommek/glympse-api": "^0.4.1",
 		"nette/http": "^3.1",
 		"latte/latte": "^2.10",
