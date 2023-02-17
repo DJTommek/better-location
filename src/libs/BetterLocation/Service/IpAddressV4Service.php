@@ -36,7 +36,7 @@ final class IpAddressV4Service extends AbstractService
 
     private static function loadApi(string $ipAddress): \stdClass
     {
-        $response = (new MiniCurl('http://ip-api.com/json/' . $ipAddress)) // 24.48.0.1
+        $response = (new MiniCurl('http://ip-api.com/json/' . $ipAddress))
             ->allowCache(Config::CACHE_TTL_BANNERGRESS)
             ->run()
             ->getBody();
