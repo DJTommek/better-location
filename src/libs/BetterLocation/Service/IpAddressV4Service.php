@@ -9,8 +9,8 @@ use App\MiniCurl\MiniCurl;
 
 final class IpAddressV4Service extends AbstractService
 {
-    const ID = 44;
-    const NAME = 'ipaddress';
+    public const ID = 45;
+    public const NAME = 'IP address';
     private const SEPARATOR = [' ', "\t", PHP_EOL, ',', ';', '=', '-'];
     private const IP_V4_MASK = '/(?:^|_)(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?:$|_)/';
 
