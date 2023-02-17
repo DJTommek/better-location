@@ -207,8 +207,8 @@ class BetterLocation implements CoordinatesInterface
 
 		// Generate copyable text representing location
 		$text .= ' ' . implode(' | ', array_map(function ($service) {
-			return sprintf('<code>%s</code>', $service::getShareText($this->getLat(), $this->getLon()));
-		}, $settings->getTextServices()));
+				return sprintf('<code>%s</code>', $service::getShareText($this->getLat(), $this->getLon()));
+			}, $settings->getTextServices()));
 
 		if ($this->getCoordinateSuffixMessage()) {
 			$text .= ' ' . $this->getCoordinateSuffixMessage();

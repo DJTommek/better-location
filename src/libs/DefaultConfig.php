@@ -50,11 +50,11 @@ class DefaultConfig
 	const TELEGRAM_WEBHOOK_PASSWORD = 'someRandomPassword';
 	/** @var int Telegram webhook URL, which will automatically receive all events from bot (in this application it should lead to webhook.php) */
 	const TELEGRAM_INLINE_CACHE = 300; // https://core.telegram.org/bots/api#answerinlinequery cache_time attribute (default 300)
-    /**
-     * Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery.
-     * Use lower values to limit the load on your bot‘s server, and higher values to increase your bot’s throughput.
-     * @var int 1-100, Defauts to 40
-     */
+	/**
+	 * Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery.
+	 * Use lower values to limit the load on your bot‘s server, and higher values to increase your bot’s throughput.
+	 * @var int 1-100, Defauts to 40
+	 */
 	const TELEGRAM_MAX_CONNECTIONS = 40;
 	/** @var int Enforce BotUsername in command, eg. /command@BetterLocationBot */
 	const TELEGRAM_COMMAND_STRICT = false;
