@@ -158,4 +158,12 @@ class Factory
 		}
 		return self::$objects[__METHOD__];
 	}
+
+	public static function GoogleStreetViewApi(): \App\Google\StreetView\StaticApi
+	{
+		if (!isset(self::$objects[__METHOD__])) {
+			self::$objects[__METHOD__] = new \App\Google\StreetView\StaticApi(Config::GOOGLE_PLACE_API_KEY);
+		}
+		return self::$objects[__METHOD__];
+	}
 }

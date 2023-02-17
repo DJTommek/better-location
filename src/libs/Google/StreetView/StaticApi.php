@@ -17,9 +17,9 @@ class StaticApi
 	private const RESPONSE_ZERO_RESULTS = 'ZERO_RESULTS';
 	private const RESPONSE_OK = 'OK';
 
-	public function __construct()
+	public function __construct(string $apiKey)
 	{
-		$this->apiKey = Config::GOOGLE_PLACE_API_KEY;
+		$this->apiKey = $apiKey;
 	}
 
 	/**

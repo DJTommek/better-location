@@ -4,7 +4,8 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
-use App\Google\StreetView\StaticApi;
+use App\Config;
+use App\Factory;
 use Nette\Http\Url;
 
 final class GoogleMapsStreetViewGeneratorService extends AbstractService
@@ -23,19 +24,24 @@ final class GoogleMapsStreetViewGeneratorService extends AbstractService
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
-		} else {
-			$api = new StaticApi();
-			$panoramaMetadata = $api->loadPanoaramaMetadataByCoords($lat, $lon);
-			if ($panoramaMetadata) {
-				// URL generator based on https://developers.google.com/maps/documentation/urls/get-started#street-view-action
-				$url = new Url('https://www.google.com/maps/@');
-				$url->setQueryParameter('api', 1);
-				$url->setQueryParameter('map_action', 'pano');
-				$url->setQueryParameter('pano', $panoramaMetadata->pano_id);
-				$url->setQueryParameter('viewpoint', $lat . ',' . $lon);
-				return (string)$url;
-			}
+		}
+
+		if (!Config::isGoogleStreetViewStaticApi()) {
 			return null;
 		}
+
+		$api = Factory::GoogleStreetViewApi();
+		$panoramaMetadata = $api->loadPanoaramaMetadataByCoords($lat, $lon);
+		if ($panoramaMetadata === null) {
+			return null;
+		}
+
+		// URL generator based on https://developers.google.com/maps/documentation/urls/get-started#street-view-action
+		$url = new Url('https://www.google.com/maps/@');
+		$url->setQueryParameter('api', 1);
+		$url->setQueryParameter('map_action', 'pano');
+		$url->setQueryParameter('pano', $panoramaMetadata->pano_id);
+		$url->setQueryParameter('viewpoint', $lat . ',' . $lon);
+		return (string)$url;
 	}
 }
