@@ -150,7 +150,7 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 				$photoTitle = trim($mapyCzResponse->title);
 				$prefix .= sprintf(' <a href="%s">', $highestQualityPhotoUrl);
 				if ($photoTitle !== '') {
-					$prefix .= htmlentities($photoTitle) . ' ';
+					$prefix .= htmlspecialchars($photoTitle) . ' ';
 				}
 				$prefix .= sprintf('%s</a>', Icons::PICTURE);
 
