@@ -106,13 +106,15 @@ class BetterLocation implements CoordinatesInterface
 	public function generateAddress(): void
 	{
 		if (is_null($this->address)) {
-			try {
-				$googleGeocoding = Factory::GoogleGeocodingApi();
-				$addressResponse = $googleGeocoding->reverse($this->coords);
-				$this->address = $addressResponse?->results[0]->formatted_address;
-				return;
-			} catch (\GuzzleHttp\Exception\GuzzleException $exception) {
-				Debugger::log($exception, Debugger::EXCEPTION);
+			if (Config::isGoogleGeocodingApi()) {
+				try {
+					$googleGeocoding = Factory::GoogleGeocodingApi();
+					$addressResponse = $googleGeocoding->reverse($this->coords);
+					$this->address = $addressResponse?->results[0]->formatted_address;
+					return;
+				} catch (\GuzzleHttp\Exception\GuzzleException $exception) {
+					Debugger::log($exception, Debugger::EXCEPTION);
+				}
 			}
 
 			try {
