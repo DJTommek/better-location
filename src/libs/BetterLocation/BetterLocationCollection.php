@@ -299,10 +299,13 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return $collection;
 	}
 
-	public function getStaticMapUrl(): UrlImmutable
+	public function getStaticMapUrl(): ?UrlImmutable
 	{
 		if (is_null($this->staticMapUrl)) {
-			$this->staticMapUrl = StaticMapProxy::fromLocations($this)->publicUrl();
+			$staticMapProxy = StaticMapProxy::fromLocations($this);
+			if ($staticMapProxy !== null) {
+				$this->staticMapUrl = $staticMapProxy->publicUrl();
+			}
 		}
 		return $this->staticMapUrl;
 	}

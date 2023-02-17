@@ -104,7 +104,10 @@ class ProcessedMessageResult
 	{
 		$result = '';
 		if ($this->collection->count()) {
-			$result = TelegramHelper::invisibleLink($this->collection->getStaticMapUrl());
+			$staticMapUrl = $this->collection->getStaticMapUrl();
+			if ($staticMapUrl !== null) {
+				$result = TelegramHelper::invisibleLink($staticMapUrl);
+			}
 		}
 		return $result . $this->resultText;
 	}

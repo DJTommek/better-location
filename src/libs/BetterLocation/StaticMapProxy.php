@@ -58,8 +58,12 @@ class StaticMapProxy
 	 *
 	 * @param Coordinates|Coordinates[]|BetterLocation|BetterLocationCollection $input
 	 */
-	public static function fromLocations($input): self
+	public static function fromLocations($input): ?self
 	{
+		if (!Config::isBingStaticMaps()) {
+			return null;
+		}
+
 		$self = new self();
 		$markers = [];
 		if (is_iterable($input)) {

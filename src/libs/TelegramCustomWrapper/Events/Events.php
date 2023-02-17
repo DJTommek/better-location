@@ -354,11 +354,13 @@ abstract class Events
 		if (count($this->user->getFavourites()) === 0) {
 			$text .= sprintf('%s Sadly, you don\'t have any favourite locations saved yet.', Icons::INFO) . PHP_EOL;
 		} else {
-			$text .= sprintf('<a href="%s">%s</a> You have %d favourite location(s):',
-					$this->user->getFavourites()->getStaticMapUrl(),
-					Icons::INFO,
-					count($this->user->getFavourites())
-				) . PHP_EOL;
+			$staticMapUrl = $this->user->getFavourites()->getStaticMapUrl();
+			if ($staticMapUrl === null) {
+				$text = Icons::INFO;
+			} else {
+				$text .= sprintf('<a href="%s">%s</a>', (string)$staticMapUrl, Icons::INFO);
+			}
+			$text .= sprintf(' You have %d favourite location(s):', count($this->user->getFavourites())) . PHP_EOL;
 			foreach ($this->user->getFavourites() as $favourite) {
 				$text .= $favourite->generateMessage($this->getMessageSettings());
 
