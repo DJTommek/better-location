@@ -29,7 +29,7 @@ class GooglePlaceApi
 
 	public function __construct(string $apiKey)
 	{
-		$this->apiKey = $this->apiKey;
+		$this->apiKey = $apiKey;
 	}
 
 	/**
