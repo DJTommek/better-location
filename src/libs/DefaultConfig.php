@@ -278,6 +278,11 @@ class DefaultConfig
 		return is_null(static::GOOGLE_PLACE_API_KEY) === false;
 	}
 
+	public static function isGooglePlaceApi(): bool
+	{
+		return is_null(static::GOOGLE_PLACE_API_KEY) === false;
+	}
+
 	public final static function getAppUrl(string $path = null): UrlImmutable
 	{
 		$appUrl = new UrlImmutable(static::APP_URL);

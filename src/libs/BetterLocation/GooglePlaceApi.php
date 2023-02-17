@@ -4,6 +4,7 @@ namespace App\BetterLocation;
 
 use App\BetterLocation\Service\GoogleMapsService;
 use App\Config;
+use App\Factory;
 use App\Icons;
 use App\MiniCurl\MiniCurl;
 use Tracy\Debugger;
@@ -26,9 +27,9 @@ class GooglePlaceApi
 	private const RESPONSE_ZERO_RESULTS = 'ZERO_RESULTS';
 	private const RESPONSE_OK = 'OK';
 
-	public function __construct()
+	public function __construct(string $apiKey)
 	{
-		$this->apiKey = Config::GOOGLE_PLACE_API_KEY;
+		$this->apiKey = $this->apiKey;
 	}
 
 	/**
@@ -159,7 +160,7 @@ class GooglePlaceApi
 	public static function search(string $queryInput, ?string $languageCode = null, ?BetterLocation $location = null): BetterLocationCollection
 	{
 		$queryInput = self::normalizeInput($queryInput);
-		$placeApi = new self();
+		$placeApi = Factory::GooglePlaceApi();
 		$placeCandidates = $placeApi->runPlaceSearch(
 			$queryInput,
 			['formatted_address', 'name', 'geometry', 'place_id'],

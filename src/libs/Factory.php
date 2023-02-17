@@ -166,4 +166,12 @@ class Factory
 		}
 		return self::$objects[__METHOD__];
 	}
+
+	public static function GooglePlaceApi(): \App\BetterLocation\GooglePlaceApi
+	{
+		if (!isset(self::$objects[__METHOD__])) {
+			self::$objects[__METHOD__] = new \App\BetterLocation\GooglePlaceApi(Config::GOOGLE_PLACE_API_KEY);
+		}
+		return self::$objects[__METHOD__];
+	}
 }

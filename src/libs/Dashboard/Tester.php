@@ -43,7 +43,7 @@ class Tester
 	{
 		$entities = TelegramHelper::generateEntities($this->getInput());
 		$collection = BetterLocationCollection::fromTelegramMessage($this->getInput(), $entities);
-		if ($collection->count() === 0 && mb_strlen($this->getInput()) >= Config::GOOGLE_SEARCH_MIN_LENGTH && is_null(Config::GOOGLE_PLACE_API_KEY) === false) {
+		if ($collection->count() === 0 && mb_strlen($this->getInput()) >= Config::GOOGLE_SEARCH_MIN_LENGTH && Config::isGooglePlaceApi()) {
 			try {
 				$collection->add(GooglePlaceApi::search($this->getInput()));
 			} catch (\Exception $exception) {
