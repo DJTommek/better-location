@@ -27,7 +27,7 @@ final class IpAddressV4Service extends AbstractService
             foreach ($matches[1] as $ipAddress) {
                 if (filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false) {
                     $response = self::loadApi($ipAddress);
-                    $collection->add(new BetterLocation('$this->inputUrl', $response->lat, $response->lon, self::class));
+                    $collection->add(new BetterLocation($ipAddress, $response->lat, $response->lon, self::class));
                 }
             }
         }
