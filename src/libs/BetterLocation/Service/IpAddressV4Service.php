@@ -6,6 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\Config;
 use App\MiniCurl\MiniCurl;
+use stdClass;
 
 final class IpAddressV4Service extends AbstractService
 {
@@ -34,10 +35,10 @@ final class IpAddressV4Service extends AbstractService
         return $collection;
     }
 
-    private static function loadApi(string $ipAddress): \stdClass
+    private static function loadApi(string $ipAddress): stdClass
     {
         $response = (new MiniCurl('http://ip-api.com/json/' . $ipAddress))
-            ->allowCache(Config::CACHE_TTL_BANNERGRESS)
+            ->allowCache(Config::CACHE_TTL_IP_API)
             ->run()
             ->getBody();
         return json_decode($response);
