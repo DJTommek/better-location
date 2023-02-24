@@ -4,7 +4,7 @@ namespace App\Utils;
 
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 
-class Coordinates implements CoordinatesInterface
+class Coordinates implements CoordinatesInterface, \JsonSerializable
 {
 	public const RE_BASIC_LAT = '-?[0-9]{1,2}\.[0-9]{1,99}';
 	public const RE_BASIC_LON = '-?[0-9]{1,3}\.[0-9]{1,99}';
@@ -293,5 +293,20 @@ class Coordinates implements CoordinatesInterface
 		}
 		// if the number of edges we passed through is even, then it's not in the poly.
 		return $c % 2 != 0;
+	}
+
+	/**
+	 * @return array{lat: float, lon: float, elevation?: float}
+	 */
+	public function jsonSerialize(): array
+	{
+		$result = [
+			'lat' => $this->getLat(),
+			'lon' => $this->getLon(),
+		];
+		if ($this->getElevation() !== null) {
+			$result['elevation'] = $this->getElevation();
+		}
+		return $result;
 	}
 }
