@@ -2,27 +2,29 @@
 
 namespace App;
 
+use App\BetterLocation\BetterLocationCollection;
 use App\Repository\ChatEntity;
 use App\Repository\ChatRepository;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 
 class Chat
 {
-	/** @var BetterLocationMessageSettings */
-	private $messageSettings;
-	/** @var ChatEntity */
-	private $chatEntity;
-	/** @var ChatRepository */
-	private $chatRepository;
+	private BetterLocationMessageSettings $messageSettings;
+	private ChatEntity $chatEntity;
+	private ChatRepository $chatRepository;
 
 	public function __construct(int $telegramChatId, string $telegramChatType, string $telegramChatName)
 	{
 		$db = Factory::Database();
 		$this->chatRepository = new ChatRepository($db);
-		if (($this->chatEntity = $this->chatRepository->fromTelegramId($telegramChatId)) === null) {
+
+		$chatEntity = $this->chatRepository->fromTelegramId($telegramChatId);
+		if ($chatEntity === null) {
 			$this->chatRepository->insert($telegramChatId, $telegramChatType, $telegramChatName);
-			$this->chatEntity = $this->chatRepository->fromTelegramId($telegramChatId);
+			$chatEntity = $this->chatRepository->fromTelegramId($telegramChatId);
 		}
+		assert($chatEntity instanceof ChatEntity);
+		$this->chatEntity = $chatEntity;
 	}
 
 	public function settingsPreview(?bool $enable = null): bool

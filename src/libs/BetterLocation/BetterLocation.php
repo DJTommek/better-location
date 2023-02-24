@@ -74,6 +74,11 @@ class BetterLocation implements CoordinatesInterface
 		}
 	}
 
+	public function getInput(): string
+	{
+		return $this->input;
+	}
+
 	public function getSourceType(): ?string
 	{
 		return $this->sourceType;
@@ -279,7 +284,7 @@ class BetterLocation implements CoordinatesInterface
 		$this->prefixMessage = $prefixMessage;
 	}
 
-	public function getPrefixMessage(): ?string
+	public function getPrefixMessage(): string
 	{
 		return $this->prefixMessage;
 	}

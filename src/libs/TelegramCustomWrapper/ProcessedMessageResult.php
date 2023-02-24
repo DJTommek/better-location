@@ -121,5 +121,4 @@ class ProcessedMessageResult
 	{
 		return $this->collection;
 	}
-
 }
