@@ -9,7 +9,7 @@ use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 
 class Chat
 {
-	private BetterLocationMessageSettings $messageSettings;
+	private ?BetterLocationMessageSettings $messageSettings = null;
 	private ChatEntity $chatEntity;
 	private ChatRepository $chatRepository;
 
