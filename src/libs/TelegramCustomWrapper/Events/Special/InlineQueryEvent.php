@@ -180,9 +180,10 @@ class InlineQueryEvent extends Special
 	private function addDistanceText(BetterLocation $betterLocation): string
 	{
 		if ($usersLastLocation = $this->user->getLastKnownLocation()) {
+			$distance = $usersLastLocation->getCoordinates()->distance($betterLocation->getCoordinates());
 			return sprintf(
 				' (%s away)',
-				Formatter::distance($usersLastLocation->getCoordinates()->distance($betterLocation->getCoordinates()))
+				htmlspecialchars(Formatter::distance($distance))
 			);
 		} else {
 			return '';

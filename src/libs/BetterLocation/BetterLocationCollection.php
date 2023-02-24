@@ -98,7 +98,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 					$location->setDescription(
 						sprintf('%s Location is %s away from %s %s.',
 							Icons::WARNING,
-							Formatter::distance($distance),
+							htmlspecialchars(Formatter::distance($distance)),
 							$mostImportantLocation->getSourceType() ?? 'previous location',
 							Icons::ARROW_UP
 						)
