@@ -3,6 +3,7 @@
 namespace App\Web\Login;
 
 use App\Config;
+use App\Database;
 use App\Factory;
 use App\Repository\WebLoginEntity;
 use App\Repository\WebLoginRepository;
@@ -11,17 +12,13 @@ use Nette\Http\UrlImmutable;
 
 class LoginFacade
 {
-	const COOKIE_NAME = 'blb_login';
-	const COOKIE_EXPIRES = 1209600; // 14 days
+	private const COOKIE_NAME = Config::WEB_COOKIES_PREFIX . 'login';
 
-	private $db;
-	/** @var WebLoginRepository */
-	private $webLoginRepository;
+	private Database $db;
+	private WebLoginRepository $webLoginRepository;
 
-	/** @var bool */
-	private $isLogged = false;
-	/** @var ?WebLoginEntity */
-	private $entity;
+	private bool $isLogged = false;
+	private ?WebLoginEntity $entity = null;
 
 	public function __construct()
 	{
@@ -34,21 +31,30 @@ class LoginFacade
 		}
 	}
 
-	public function setCookie(string $hash)
+	private function getCookieOptions(\DateTimeInterface $expires): array
 	{
-		setcookie(self::COOKIE_NAME, $hash, [
-				'expires' => time() + self::COOKIE_EXPIRES,
-				'domain' => Config::getAppUrl()->getDomain(0),
-				'secure' => true,
-				'httponly' => true,
-				'samesite' => 'Strict',
-			]
-		);
+		return [
+			'domain' => Config::getAppUrl()->getDomain(0),
+			'expires' => $expires->getTimestamp(),
+			'secure' => true,
+			'httponly' => true,
+			'path' => '/',
+			// @TODO If samesite is set to Strict, cookies are 'delayed' and not set properly on page load. See #118 for more info
+			// 'samesite' => 'Strict',
+		];
 	}
 
-	public function deleteCookie()
+	public function setCookie(string $hash): void
 	{
-		setcookie(self::COOKIE_NAME, '', 1);
+		$expires = (new \DateTime())->add(new \DateInterval(Config::WEB_COOKIES_LOGIN_EXPIRATION));
+		$options = $this->getCookieOptions($expires);
+		setcookie(self::COOKIE_NAME, $hash, $options);
+	}
+
+	public function deleteCookie(): void
+	{
+		$expires = (new \DateTime())->sub(new \DateInterval('P14D'));
+		setcookie(self::COOKIE_NAME, '', $this->getCookieOptions($expires));
 	}
 
 	private function getCookie(): ?string
@@ -62,7 +68,7 @@ class LoginFacade
 		$this->webLoginRepository->deleteByHash($this->entity->hash);
 	}
 
-	public function saveToDatabase(Login $tgLogin)
+	public function saveToDatabase(Login $tgLogin): void
 	{
 		$this->webLoginRepository->saveFromTelegramLogin($tgLogin);
 	}

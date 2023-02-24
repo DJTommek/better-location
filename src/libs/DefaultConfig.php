@@ -36,6 +36,9 @@ class DefaultConfig
 	const TRACY_DEBUGGER_EMAIL = null;  // null to disable
 	// const TRACY_DEBUGGER_EMAIL = 'admin@your-domain.com';
 
+	const WEB_COOKIES_PREFIX = 'blb-';
+	const WEB_COOKIES_LOGIN_EXPIRATION = 'P14D'; // 14 days
+
 	/** @var string Telegram bot token generated from BotFather: https://t.me/BotFather */
 	const TELEGRAM_BOT_TOKEN = '123456789:abcdefghijklmnopqrstuvwxyzabcdefghi';
 	/** @var string Telegram bot name without @ prefix. */
