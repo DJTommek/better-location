@@ -400,7 +400,7 @@ abstract class Events
 		}
 	}
 
-	protected function processSettings(bool $inline = false)
+	protected function processSettings(bool $inline = false): void
 	{
 		$collection = WazeService::processStatic(WazeService::getShareLink(50.087451, 14.420671))->getCollection();
 		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
@@ -447,7 +447,7 @@ abstract class Events
 		$replyMarkup->inline_keyboard[] = $buttonRow;
 		$chatSettingsUrl = Config::getAppUrl('/chat/' . $this->getChatId());
 		$replyMarkup->inline_keyboard[] = [
-			TelegramHelper::loginUrlButton('Settings in browser', $chatSettingsUrl)
+			TelegramHelper::loginUrlButton('More settings', $chatSettingsUrl)
 		];
 
 		if ($inline) {
