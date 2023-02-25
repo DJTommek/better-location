@@ -6,8 +6,8 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 
 class Coordinates implements CoordinatesInterface, \JsonSerializable
 {
-	public const RE_BASIC_LAT = '-?[0-9]{1,2}\.[0-9]{1,99}';
-	public const RE_BASIC_LON = '-?[0-9]{1,3}\.[0-9]{1,99}';
+	public const RE_BASIC_LAT = '-?[0-9]{1,2}(?:\.[0-9]{1,99})?';
+	public const RE_BASIC_LON = '-?[0-9]{1,3}(?:\.[0-9]{1,99})?';
 	public const RE_BASIC = self::RE_BASIC_LAT . ',' . self::RE_BASIC_LON;
 
 	public const NORTH = 'N';
