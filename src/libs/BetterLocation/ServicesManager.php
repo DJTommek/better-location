@@ -3,6 +3,7 @@
 namespace App\BetterLocation;
 
 use App\BetterLocation\Service\AbstractService;
+use App\BetterLocation\Service\BaladIrService;
 use App\BetterLocation\Service\BannergressService;
 use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\Coordinates\MGRSService;
@@ -98,6 +99,7 @@ class ServicesManager
 		$this->services[HereWeGoService::ID] = HereWeGoService::class;
 		$this->services[OpenStreetMapService::ID] = OpenStreetMapService::class;
 		$this->services[NeshanOrgService::ID] = NeshanOrgService::class;
+		$this->services[BaladIrService::ID] = BaladIrService::class;
 		$this->services[FacebookService::ID] = FacebookService::class;
 		$this->services[MapyCzService::ID] = MapyCzService::class;
 		$this->services[MapyCzPanoramaGeneratorService::ID] = MapyCzPanoramaGeneratorService::class;
