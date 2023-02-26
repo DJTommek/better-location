@@ -89,3 +89,34 @@ CREATE TABLE IF NOT EXISTS better_location_web_login
         unique (hash)
 );
 
+CREATE TABLE IF NOT EXISTS better_location_chat_location_history
+(
+    `id`                 int auto_increment primary key,
+    `telegram_update_id` bigint           not null,
+    `chat_id`            int(11)          not null,
+    `user_id`            int(11)          not null,
+    `timestamp`          bigint           not null,
+    `latitude`           double(10, 6)    not null,
+    `longitude`          double(10, 6)    not null,
+    `input`              varchar(255)     not null
+) engine = InnoDB;
+
+create index better_location_chat_location_history_chat_id
+    on better_location_chat_location_history (`chat_id`);
+
+create index better_location_chat_location_history_user_id
+    on better_location_chat_location_history (`user_id`);
+
+ALTER TABLE `better_location_chat_location_history`
+	ADD CONSTRAINT `better_location_chat_location_history_chat_id_fk`
+	FOREIGN KEY (`chat_id`)
+	REFERENCES `better_location_chat`(`chat_id`)
+	ON DELETE RESTRICT
+	ON UPDATE RESTRICT;
+
+ALTER TABLE `better_location_chat_location_history`
+	ADD CONSTRAINT `better_location_chat_location_history_user_id_fk`
+	FOREIGN KEY (`user_id`)
+	REFERENCES `better_location_user`(`user_id`)
+	ON DELETE RESTRICT
+	ON UPDATE RESTRICT;
