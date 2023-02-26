@@ -97,7 +97,7 @@ class RefreshButton extends Button
 				$this->telegramUpdateDb->getOriginalUpdateObject()->message->text,
 				$this->telegramUpdateDb->getOriginalUpdateObject()->message->entities,
 			);
-			$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
+			$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginUrl());
 			$processedCollection->setAutorefresh($autorefreshEnabled);
 			$processedCollection->process();
 			$text = $processedCollection->getText();

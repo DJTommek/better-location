@@ -23,6 +23,7 @@ use App\TelegramCustomWrapper\TelegramHelper;
 use App\User;
 use App\Utils\Coordinates;
 use App\Utils\SimpleLogger;
+use Nette\Http\UrlImmutable;
 use React\EventLoop\Factory;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -100,6 +101,14 @@ abstract class Events
 		} else {
 			return $this->user->getMessageSettings();
 		}
+	}
+
+	/**
+	 * @TODO If chat entity is not accessible, try to load plugin URL from private chat entity
+	 */
+	public function getPluginUrl(): ?UrlImmutable
+	{
+		return $this->chat?->getEntity()->pluginUrl;
 	}
 
 	public function getTgFrom(): Telegram\Types\User
@@ -430,7 +439,7 @@ abstract class Events
 	protected function processSettings(bool $inline = false): void
 	{
 		$collection = WazeService::processStatic(WazeService::getShareLink(50.087451, 14.420671))->getCollection();
-		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
+		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginUrl());
 		$processedCollection->process();
 
 		$text = sprintf('%s <b>Chat settings</b> for @%s. ', Icons::SETTINGS, Config::TELEGRAM_BOT_NAME);

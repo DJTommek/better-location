@@ -37,7 +37,7 @@ class MessageEvent extends Special
 				Debugger::log($exception, Debugger::EXCEPTION);
 			}
 		}
-		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
+		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginUrl());
 		$processedCollection->process();
 		if ($collection->count() > 0) {
 			if ($this->chat->getSendNativeLocation()) {

@@ -240,7 +240,7 @@ class InlineQueryEvent extends Special
 
 	private function getAllLocationsInlineQueryResult(BetterLocationCollection $collection): Inline\Query\Result\Article
 	{
-		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
+		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginUrl());
 		$processedCollection->process(true);
 
 		$inlineQueryResult = new Inline\Query\Result\Article();
@@ -268,7 +268,7 @@ class InlineQueryEvent extends Special
 		$singleLocationCollection = new BetterLocationCollection();
 		$singleLocationCollection->add($betterLocation);
 
-		$processedCollection = new ProcessedMessageResult($singleLocationCollection, $this->getMessageSettings());
+		$processedCollection = new ProcessedMessageResult($singleLocationCollection, $this->getMessageSettings(), $this->getPluginUrl());
 		$processedCollection->process();
 		return $processedCollection;
 	}
