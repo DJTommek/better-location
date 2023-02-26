@@ -155,7 +155,7 @@ class TelegramCustomWrapper
 	private function saveToChatHistory(): void
 	{
 		$collections = $this->event->getCollection();
-		if ($collections === null || $collections->isEmpty()) {
+		if ($collections === null || $collections->isEmpty() || $this->event->getChat() !== null) {
 			return;
 		}
 
@@ -166,8 +166,8 @@ class TelegramCustomWrapper
 		foreach ($collections as $location) {
 			$chatLocationHistory->insert(
 				$this->event->getTgUpdateId(),
-				$this->event->getTgChatId(),
-				$this->event->getTgFromId(),
+				$this->event->getChat()->getEntity()->id,
+				$this->event->getUser()->getEntity()->id,
 				$messageSentDatetime,
 				$location->getCoordinates(),
 				$location->getInput()
