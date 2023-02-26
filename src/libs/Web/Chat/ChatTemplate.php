@@ -66,7 +66,7 @@ class ChatTemplate extends LayoutTemplate
 	public function prepareError()
 	{
 		$this->prepare();
-		$this->debugCommand = DebugCommand::getCmd(true);
+		$this->debugCommand = DebugCommand::getTgCmd(true);
 		$this->authorName = 'DJTommek';
 		$this->authorLink = TelegramHelper::userLink($this->authorName);
 	}

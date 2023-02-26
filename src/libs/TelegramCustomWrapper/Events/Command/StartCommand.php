@@ -52,7 +52,7 @@ class StartCommand extends Command
 					break;
 				default:
 					// Bot indexers can add their own start parameters, so if no valid parameter is detected, continue just like /start without parameter
-					Debugger::log(sprintf('Hidden start parameter "%s" is unknown.', $this->getText()), ILogger::DEBUG);
+					Debugger::log(sprintf('Hidden start parameter "%s" is unknown.', $this->getTgText()), ILogger::DEBUG);
 					$this->processHelp();
 					break;
 			}

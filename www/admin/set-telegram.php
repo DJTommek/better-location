@@ -56,7 +56,7 @@ if (Config::isTelegram()) {
 		foreach ($classStrings as $classString) {
 			/** @var Command $classString */
 			$result = new BotCommand();
-			$result->command = ltrim($classString::getCmd(), '/');
+			$result->command = ltrim($classString::getTgCmd(), '/');
 			$result->description = sprintf('%s %s', $classString::ICON, $classString::DESCRIPTION);
 			$setCommands->commands[] = $result;
 		}

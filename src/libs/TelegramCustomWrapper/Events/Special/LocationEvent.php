@@ -28,19 +28,19 @@ class LocationEvent extends Special
 			$this->collection = new BetterLocationCollection();
 
 			$betterLocation = BetterLocation::fromLatLon(
-				$this->getMessage()->location->latitude,
-				$this->getMessage()->location->longitude
+				$this->getTgMessage()->location->latitude,
+				$this->getTgMessage()->location->longitude
 			);
 
 			if ($this->isLive) {
-				$this->user->setLastKnownLocation($this->getMessage()->location->latitude, $this->getMessage()->location->longitude);
+				$this->user->setLastKnownLocation($this->getTgMessage()->location->latitude, $this->getTgMessage()->location->longitude);
 				$betterLocation->setPrefixMessage('Live location');
 				$betterLocation->setRefreshable(true);
 			} else if (TelegramHelper::isVenue($this->update)) {
-				$venue = $this->getMessage()->venue;
+				$venue = $this->getTgMessage()->venue;
 				$title = $venue->foursquare_id ? $this->venueHrefLink($venue) : $venue->title;
 				$betterLocation->setPrefixMessage('Venue ' . $title);
-				$betterLocation->setDescription($this->getMessage()->venue->address);
+				$betterLocation->setDescription($this->getTgMessage()->venue->address);
 			} else {
 				$betterLocation->setPrefixMessage('Location');
 			}
@@ -53,7 +53,7 @@ class LocationEvent extends Special
 	public function handleWebhookUpdate()
 	{
 		if ($this->isLive) {
-			$this->user->setLastKnownLocation($this->getMessage()->location->latitude, $this->getMessage()->location->longitude);
+			$this->user->setLastKnownLocation($this->getTgMessage()->location->latitude, $this->getTgMessage()->location->longitude);
 		}
 
 		$collection = $this->getCollection();
@@ -73,7 +73,7 @@ class LocationEvent extends Special
 				}
 			}
 		} else { // No detected locations or occured errors
-			if ($this->isPm() === true) {
+			if ($this->isTgPm() === true) {
 				$this->reply(sprintf('%s Unexpected error occured while processing location. Contact Admin for more info.', Icons::ERROR));
 			} else {
 				// do not send anything to group chat

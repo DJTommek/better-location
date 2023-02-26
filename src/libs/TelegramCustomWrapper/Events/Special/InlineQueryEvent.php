@@ -49,7 +49,7 @@ class InlineQueryEvent extends Special
 	private function getUserPrivateChatEntity(): Chat
 	{
 		if ($this->_userPrivateChatEntity === null) {
-			$this->_userPrivateChatEntity = new Chat($this->getFromId(), ChatEntity::CHAT_TYPE_PRIVATE, $this->getFromDisplayname());
+			$this->_userPrivateChatEntity = new Chat($this->getTgFromId(), ChatEntity::CHAT_TYPE_PRIVATE, $this->getTgFromDisplayname());
 		}
 		return $this->_userPrivateChatEntity;
 	}
@@ -130,7 +130,7 @@ class InlineQueryEvent extends Special
 
 				// only if there is no match from previous processing
 				if (mb_strlen($queryInput) >= Config::GOOGLE_SEARCH_MIN_LENGTH && count($answerInlineQuery->getResults()) === 0 && Config::isGooglePlaceApi()) {
-					$googleCollection = GooglePlaceApi::search($queryInput, $this->getFrom()->language_code, $this->user->getLastKnownLocation());
+					$googleCollection = GooglePlaceApi::search($queryInput, $this->getTgFrom()->language_code, $this->user->getLastKnownLocation());
 					foreach ($googleCollection as $betterLocation) {
 						$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 					}
@@ -149,17 +149,17 @@ class InlineQueryEvent extends Special
 		$this->run($answerInlineQuery);
 	}
 
-	public function hasMessage(): bool
+	public function hasTgMessage(): bool
 	{
 		return false;
 	}
 
-	public function getMessage(): Telegram\Types\Message
+	public function getTgMessage(): Telegram\Types\Message
 	{
 		throw new \Exception(sprintf('Type %s doesn\'t support getMessage().', static::class));
 	}
 
-	public function getFrom(): Telegram\Types\User
+	public function getTgFrom(): Telegram\Types\User
 	{
 		return $this->update->inline_query->from;
 	}

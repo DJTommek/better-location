@@ -37,8 +37,8 @@ class FeedbackCommand extends Command
 		} else {
 			$text = $messagePrefix;
 			$text .= sprintf('Literally <b>Any</b> feedback will be appreciated, especially bad ones!') . PHP_EOL;
-			$text .= sprintf('- "<code>%s Thanks for the bot!</code>" to increase morale of authors.', FeedbackCommand::getCmd(!$this->isPm())) . PHP_EOL;
-			$text .= sprintf('- "<code>%s I hate this bot, it can\'t do the dishes!</code>" to request more features.', FeedbackCommand::getCmd(!$this->isPm())) . PHP_EOL;
+			$text .= sprintf('- "<code>%s Thanks for the bot!</code>" to increase morale of authors.', FeedbackCommand::getTgCmd(!$this->isTgPm())) . PHP_EOL;
+			$text .= sprintf('- "<code>%s I hate this bot, it can\'t do the dishes!</code>" to request more features.', FeedbackCommand::getTgCmd(!$this->isTgPm())) . PHP_EOL;
 			$text .= PHP_EOL;
 			$text .= sprintf('%s Tip: Use reply to any message if you want to authors that specific message why it should (not) be location.', Icons::INFO);
 			$this->reply($text);

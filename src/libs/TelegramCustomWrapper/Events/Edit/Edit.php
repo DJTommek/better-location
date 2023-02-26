@@ -8,7 +8,7 @@ use unreal4u\TelegramAPI\Telegram\Methods\EditMessageText;
 
 abstract class Edit extends \App\TelegramCustomWrapper\Events\Events
 {
-	public function getMessage(): Telegram\Types\Message
+	public function getTgMessage(): Telegram\Types\Message
 	{
 		return $this->update->edited_message;
 	}
@@ -17,7 +17,7 @@ abstract class Edit extends \App\TelegramCustomWrapper\Events\Events
 	{
 		$editMessage = new EditMessageText();
 		$editMessage->text = $text;
-		$editMessage->chat_id = $this->getChatId();
+		$editMessage->chat_id = $this->getTgChatId();
 		$editMessage->message_id = $messageIdToEdit;
 		$editMessage->parse_mode = 'HTML';
 		if ($options['reply_markup']) {

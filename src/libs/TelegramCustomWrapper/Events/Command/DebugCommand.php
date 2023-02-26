@@ -12,11 +12,11 @@ class DebugCommand extends Command
 	public function handleWebhookUpdate()
 	{
 		$text = sprintf('%s <b>Debug</b> for @%s.', Icons::COMMAND, Config::TELEGRAM_BOT_NAME) . PHP_EOL;
-		$text .= sprintf('This chat ID <code>%s</code>!', $this->getChatId()) . PHP_EOL;
-		if ($this->isTopicMessage()) {
-			$text .= sprintf('This topic ID: <code>%s</code>', $this->getTopicId()) . PHP_EOL;
+		$text .= sprintf('This chat ID <code>%s</code>!', $this->getTgChatId()) . PHP_EOL;
+		if ($this->isTgTopicMessage()) {
+			$text .= sprintf('This topic ID: <code>%s</code>', $this->getTgTopicId()) . PHP_EOL;
 		}
-		$text .= sprintf('Your user ID <code>%s</code>!', $this->getFromId()) . PHP_EOL;
+		$text .= sprintf('Your user ID <code>%s</code>!', $this->getTgFromId()) . PHP_EOL;
 		$this->reply($text);
 	}
 }

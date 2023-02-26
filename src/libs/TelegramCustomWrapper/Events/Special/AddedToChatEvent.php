@@ -24,8 +24,8 @@ class AddedToChatEvent extends Special
 		$markup = new Markup();
 		$markup->inline_keyboard = [$betterLocationWaze->generateDriveButtons($this->getMessageSettings())];
 
-		$text = sprintf('%s Hi <b>%s</b>, @%s here!', Icons::LOCATION, $this->getChatDisplayname(), Config::TELEGRAM_BOT_NAME) . PHP_EOL;
-		$text .= sprintf('Thanks for adding me to this chat. I will be checking every message here if it contains any form of location (coordinates, links, photos with EXIF...) and send a nicely formatted message. More info in %s.', HelpCommand::getCmd(!$this->isPm())) . PHP_EOL;
+		$text = sprintf('%s Hi <b>%s</b>, @%s here!', Icons::LOCATION, $this->getTgChatDisplayname(), Config::TELEGRAM_BOT_NAME) . PHP_EOL;
+		$text .= sprintf('Thanks for adding me to this chat. I will be checking every message here if it contains any form of location (coordinates, links, photos with EXIF...) and send a nicely formatted message. More info in %s.', HelpCommand::getTgCmd(!$this->isTgPm())) . PHP_EOL;
 		$text .= sprintf('For example if you send %s I will respond with this:', $wazeLink) . PHP_EOL;
 		$text .= $betterLocationWaze->generateMessage($this->getMessageSettings());
 		if ($betterLocationLocalGroup = $this->getChatLocation()) {
@@ -44,7 +44,7 @@ class AddedToChatEvent extends Special
 		$betterLocation = null;
 		try {
 			$getChatRequest = new Telegram\Methods\GetChat();
-			$getChatRequest->chat_id = $this->getChatId();
+			$getChatRequest->chat_id = $this->getTgChatId();
 			$getChatResponse = $this->run($getChatRequest);
 			/** @var Telegram\Types\Chat $getChatResponse */
 			if (empty($getChatResponse->location) === false) {

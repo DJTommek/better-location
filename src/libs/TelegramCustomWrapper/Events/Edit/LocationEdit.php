@@ -29,7 +29,7 @@ class LocationEdit extends Edit
 		if ($this->collection === null) {
 			$this->collection = new BetterLocationCollection();
 
-			$betterLocation = BetterLocation::fromLatLon($this->getMessage()->location->latitude, $this->getMessage()->location->longitude);
+			$betterLocation = BetterLocation::fromLatLon($this->getTgMessage()->location->latitude, $this->getTgMessage()->location->longitude);
 			if ($this->isLive) {
 				$betterLocation->setPrefixMessage('Live location');
 				$betterLocation->setRefreshable(true);
@@ -44,18 +44,18 @@ class LocationEdit extends Edit
 	public function handleWebhookUpdate()
 	{
 		if ($this->isLive) {
-			$this->user->setLastKnownLocation($this->getMessage()->location->latitude, $this->getMessage()->location->longitude);
+			$this->user->setLastKnownLocation($this->getTgMessage()->location->latitude, $this->getTgMessage()->location->longitude);
 		}
 
 		$collection = $this->getCollection();
-		if ($messageToRefresh = TelegramUpdateDb::loadByOriginalMessageId($this->getChatId(), $this->getMessageId())) {
+		if ($messageToRefresh = TelegramUpdateDb::loadByOriginalMessageId($this->getTgChatId(), $this->getTgMessageId())) {
 			$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
 			$processedCollection->process();
 			$text = $processedCollection->getText();
 
 			// Show datetime of last location update in local timezone based on timezone on that location itself
 			$geonames = Factory::Geonames()->timezone($collection->getFirst()->getLat(), $collection->getFirst()->getLon());
-			$lastUpdate = DateImmutableUtils::fromTimestamp($this->getMessage()->edit_date, $geonames->timezone);
+			$lastUpdate = DateImmutableUtils::fromTimestamp($this->getTgMessage()->edit_date, $geonames->timezone);
 			$text .= sprintf('%s Last live location from %s', Icons::REFRESH, $lastUpdate->format(Config::DATETIME_FORMAT));
 
 			if ($this->isLive === false) {

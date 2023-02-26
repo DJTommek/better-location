@@ -6,7 +6,7 @@ use unreal4u\TelegramAPI\Telegram;
 
 abstract class Special extends \App\TelegramCustomWrapper\Events\Events
 {
-	public function getMessage(): Telegram\Types\Message
+	public function getTgMessage(): Telegram\Types\Message
 	{
 		return $this->update->message;
 	}

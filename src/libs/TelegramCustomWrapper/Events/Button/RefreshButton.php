@@ -29,8 +29,8 @@ class RefreshButton extends Button
 			$params = TelegramHelper::getParams($this->update);
 			$action = array_shift($params);
 			$this->telegramUpdateDb = TelegramUpdateDb::fromDb(
-				$this->getChatId(),
-				$this->getMessageId(),
+				$this->getTgChatId(),
+				$this->getTgMessageId(),
 			);
 
 			switch ($action) {
@@ -39,7 +39,7 @@ class RefreshButton extends Button
 						$this->processRefresh(true, true);
 						$this->flash(sprintf('%s Autorefresh was already enabled.', Icons::SUCCESS), true);
 					} else {
-						$autorefreshList = TelegramUpdateDb::loadAll(TelegramUpdateDb::STATUS_ENABLED, $this->getChatId());
+						$autorefreshList = TelegramUpdateDb::loadAll(TelegramUpdateDb::STATUS_ENABLED, $this->getTgChatId());
 						if (count($autorefreshList) >= Config::REFRESH_AUTO_MAX_PER_CHAT) {
 							$this->flash(sprintf('%s You already have %d autorefresh enabled, which is maximum per one chat.', Icons::ERROR, count($autorefreshList)), true);
 						} else {

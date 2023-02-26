@@ -30,7 +30,7 @@ class SettingsCommand extends Command
 				],
 			];
 			$this->reply(sprintf('%s Command <code>%s</code> is available only in private message (open @%s) or to chat admins.',
-				Icons::ERROR, self::getCmd(), Config::TELEGRAM_BOT_NAME
+				Icons::ERROR, self::getTgCmd(), Config::TELEGRAM_BOT_NAME
 			), $replyMarkup);
 		}
 	}

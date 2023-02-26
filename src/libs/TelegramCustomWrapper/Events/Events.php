@@ -62,13 +62,13 @@ abstract class Events
 
 		$this->loop = Factory::create();
 		$this->tgLog = new TgLog(Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($this->loop));
-		$this->user = new User($this->getFromId(), $this->getFromDisplayname());
+		$this->user = new User($this->getTgFromId(), $this->getTgFromDisplayname());
 		$this->user->touchLastUpdate();
-		if ($this->hasMessage()) {
+		if ($this->hasTgMessage()) {
 			$this->chat = new Chat(
-				$this->getChatId(),
-				$this->getChat()->type,
-				$this->getChatDisplayname()
+				$this->getTgChatId(),
+				$this->getTgChat()->type,
+				$this->getTgChatDisplayname()
 			);
 			$this->chat->touchLastUpdate();
 		}
@@ -79,13 +79,13 @@ abstract class Events
 		}
 	}
 
-	public function getUpdateId(): int {
+	public function getTgUpdateId(): int {
 		return $this->update->update_id;
 	}
 
-	public function getChat(): Telegram\Types\Chat
+	public function getTgChat(): Telegram\Types\Chat
 	{
-		return $this->getMessage()->chat;
+		return $this->getTgMessage()->chat;
 	}
 
 	public function getMessageSettings(): BetterLocationMessageSettings
@@ -97,67 +97,67 @@ abstract class Events
 		}
 	}
 
-	public function getFrom(): Telegram\Types\User
+	public function getTgFrom(): Telegram\Types\User
 	{
-		return $this->getMessage()->from;
+		return $this->getTgMessage()->from;
 	}
 
-	public function getChatId(): int
+	public function getTgChatId(): int
 	{
-		return $this->getChat()->id;
+		return $this->getTgChat()->id;
 	}
 
-	public function getTopicId(): ?int
+	public function getTgTopicId(): ?int
 	{
-		if ($this->isTopicMessage() === false) {
+		if ($this->isTgTopicMessage() === false) {
 			return null;
 		}
-		return $this->getMessage()?->reply_to_message?->message_thread_id;
+		return $this->getTgMessage()?->reply_to_message?->message_thread_id;
 	}
 
-	public function isTopicMessage(): bool
+	public function isTgTopicMessage(): bool
 	{
-		if ($this->hasMessage() === false) {
+		if ($this->hasTgMessage() === false) {
 			return false;
 		}
 
-		return $this->getMessage()->is_topic_message === true;
+		return $this->getTgMessage()->is_topic_message === true;
 	}
 
-	public function getFromId(): int
+	public function getTgFromId(): int
 	{
-		return $this->getFrom()->id;
+		return $this->getTgFrom()->id;
 	}
 
-	public function getFromDisplayname(): string
+	public function getTgFromDisplayname(): string
 	{
-		return TelegramHelper::getUserDisplayname($this->getFrom());
+		return TelegramHelper::getUserDisplayname($this->getTgFrom());
 	}
 
-	public function getChatDisplayname(): string
+	public function getTgChatDisplayname(): string
 	{
-		return TelegramHelper::getChatDisplayname($this->getChat());
+		return TelegramHelper::getChatDisplayname($this->getTgChat());
 	}
 
-	public function getMessageId(): int
+	public function getTgMessageId(): int
 	{
-		return $this->getMessage()->message_id;
+		return $this->getTgMessage()->message_id;
 	}
 
-	public function getText(): string
+	public function getTgText(): string
 	{
-		return $this->getMessage()->text;
+		return $this->getTgMessage()->text;
 	}
 
-	abstract public function getMessage(): Telegram\Types\Message;
+	abstract public function getTgMessage(): Telegram\Types\Message;
 
 	/** @return bool overridden with false, where Telegram\Types\Message is not available */
-	public function hasMessage(): bool
+	public function hasTgMessage(): bool
 	{
 		return true;
 	}
 
-	public static function getCmd(bool $withSuffix = false): string
+	public static function getTgCmd(bool $withSuffix = false): string
 	{
 		if ($withSuffix) {
 			return sprintf('%s@%s', static::CMD, Config::TELEGRAM_BOT_NAME);
@@ -167,12 +167,12 @@ abstract class Events
 	}
 
 	/** @return bool|null null if unknown (eg. clicked on button in via_bot message) */
-	public function isPm(): ?bool
+	public function isTgPm(): ?bool
 	{
 		return TelegramHelper::isPM($this->update);
 	}
 
-	public function isForward()
+	public function isTgForward()
 	{
 		return TelegramHelper::isForward($this->update);
 	}
@@ -186,7 +186,7 @@ abstract class Events
 	public function sendAction(string $action = TelegramHelper::CHAT_ACTION_TYPING)
 	{
 		$chatAction = new SendChatAction();
-		$chatAction->chat_id = $this->getChatId();
+		$chatAction->chat_id = $this->getTgChatId();
 		$chatAction->action = $action;
 		$this->run($chatAction);
 	}
@@ -194,7 +194,7 @@ abstract class Events
 	/** Send message as reply to recieved message */
 	public function reply(string $text, ?Markup $markup = null, array $options = []): ?Telegram\Types\Message
 	{
-		$msg = new SendMessage($this->getChatId(), $text, $this->getMessageId());
+		$msg = new SendMessage($this->getTgChatId(), $text, $this->getTgMessageId());
 		if ($markup) {
 			$msg->setReplyMarkup($markup);
 		}
@@ -214,10 +214,10 @@ abstract class Events
 		}
 
 		$locationMessage = new Telegram\Methods\SendLocation();
-		$locationMessage->chat_id = $this->getChatId();
+		$locationMessage->chat_id = $this->getTgChatId();
 		$locationMessage->latitude = $location->getLat();
 		$locationMessage->longitude = $location->getLon();
-		$locationMessage->reply_to_message_id = $this->getMessageId();
+		$locationMessage->reply_to_message_id = $this->getTgMessageId();
 		$locationMessage->reply_markup = $markup;
 		return $this->run($locationMessage);
 	}
@@ -302,10 +302,10 @@ abstract class Events
 //		$text .= sprintf('Currently not supported. Don\'t hesitate to ping author if you are interested in this feature.') . PHP_EOL;
 //		$text .= PHP_EOL;
 		$text .= sprintf('%s <b>Commands:</b>', Icons::COMMAND) . PHP_EOL;
-		$text .= sprintf('%s - %s Learn more about me (this text)', HelpCommand::getCmd(!$this->isPm()), Icons::INFO) . PHP_EOL;
-		$text .= sprintf('%s - %s Report invalid location or just contact the author', FeedbackCommand::getCmd(!$this->isPm()), Icons::FEEDBACK) . PHP_EOL;
-		$text .= sprintf('%s - %s Manage your saved favourite locations (works only in PM)', FavouritesCommand::getCmd(!$this->isPm()), Icons::FAVOURITE) . PHP_EOL;
-		$text .= sprintf('%s - %s Adjust your settings (works only in PM)', SettingsCommand::getCmd(!$this->isPm()), Icons::SETTINGS) . PHP_EOL;
+		$text .= sprintf('%s - %s Learn more about me (this text)', HelpCommand::getTgCmd(!$this->isTgPm()), Icons::INFO) . PHP_EOL;
+		$text .= sprintf('%s - %s Report invalid location or just contact the author', FeedbackCommand::getTgCmd(!$this->isTgPm()), Icons::FEEDBACK) . PHP_EOL;
+		$text .= sprintf('%s - %s Manage your saved favourite locations (works only in PM)', FavouritesCommand::getTgCmd(!$this->isTgPm()), Icons::FAVOURITE) . PHP_EOL;
+		$text .= sprintf('%s - %s Adjust your settings (works only in PM)', SettingsCommand::getTgCmd(!$this->isTgPm()), Icons::SETTINGS) . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= sprintf('%s For more info check out the <a href="%s">@BetterLocation</a> channel.', Icons::INFO, 'https://t.me/BetterLocation/3') . PHP_EOL;
 		$text .= PHP_EOL;
@@ -343,7 +343,7 @@ abstract class Events
 			],
 		];
 
-		if ($this->isPm() === true) {
+		if ($this->isTgPm() === true) {
 			// add buton into first row
 			$replyMarkup->inline_keyboard[0][] = new Button([
 				'text' => sprintf('%s Favourites', Icons::FAVOURITE),
@@ -429,7 +429,7 @@ abstract class Events
 		$processedCollection->process();
 
 		$text = sprintf('%s <b>Chat settings</b> for @%s. ', Icons::SETTINGS, Config::TELEGRAM_BOT_NAME);
-		if ($this->isPm()) {
+		if ($this->isTgPm()) {
 			$text .= PHP_EOL . sprintf('%s This private chat settings will be used while sending messages via inline mode, overriding chat settings.', Icons::INFO) . PHP_EOL . PHP_EOL;
 		}
 		$text .= 'Example message:' . PHP_EOL;
@@ -467,7 +467,7 @@ abstract class Events
 		$buttonRow[] = $sendNativeLocationButton;
 
 		$replyMarkup->inline_keyboard[] = $buttonRow;
-		$chatSettingsUrl = Config::getAppUrl('/chat/' . $this->getChatId());
+		$chatSettingsUrl = Config::getAppUrl('/chat/' . $this->getTgChatId());
 		$replyMarkup->inline_keyboard[] = [
 			TelegramHelper::loginUrlButton('More settings', $chatSettingsUrl)
 		];
@@ -481,7 +481,7 @@ abstract class Events
 
 	protected function processLogin()
 	{
-		if ($this->isPm()) {
+		if ($this->isTgPm()) {
 			$appUrl = Config::getAppUrl();
 			$text = sprintf('%s <b>Login</b> for <a href="%s">%s</a>.', Icons::LOGIN, $appUrl->getAbsoluteUrl(), $appUrl->getDomain(0)) . PHP_EOL;
 			$text .= sprintf('Click on button below to login to access your settings, favourites, etc. on %s website', $appUrl->getDomain(0));
@@ -494,7 +494,7 @@ abstract class Events
 			$this->reply($text, $replyMarkup);
 		} else {
 			$this->reply(sprintf('%s Command <code>%s</code> is available only in private message, open @%s.',
-				Icons::ERROR, self::getCmd(), Config::TELEGRAM_BOT_NAME
+				Icons::ERROR, self::getTgCmd(), Config::TELEGRAM_BOT_NAME
 			));
 		}
 	}
@@ -502,16 +502,16 @@ abstract class Events
 	protected function isAdmin(): bool
 	{
 		if ($this->isAdmin === null) {
-			if ($this->isPm()) {
+			if ($this->isTgPm()) {
 				$this->isAdmin = true;
 			} else {
 				$getChatMember = new Telegram\Methods\GetChatMember();
-				$getChatMember->user_id = $this->getFromId();
-				$getChatMember->chat_id = $this->getChatId();
+				$getChatMember->user_id = $this->getTgFromId();
+				$getChatMember->chat_id = $this->getTgChatId();
 				$chatMember = $this->run($getChatMember);
 				if ($chatMember instanceof Telegram\Types\ChatMember === false) {
 					throw new \LogicException(sprintf('Unexpected type "%s" returned from getChatMember(), chat_id = "%s", user_id = "%s"',
-							get_class($chatMember), $this->getChatId(), $this->getFromId())
+							get_class($chatMember), $this->getTgChatId(), $this->getTgFromId())
 					);
 				}
 				$this->isAdmin = TelegramHelper::isAdmin($chatMember);

@@ -80,10 +80,10 @@ class FileEvent extends Special
 				}
 			}
 		} else { // No detected locations or occured errors
-			if ($this->isPm() === true) {
+			if ($this->isTgPm() === true) {
 				$message = 'Hi there!' . PHP_EOL;
 				$message .= 'Thanks for the ';
-				if ($this->isForward()) {
+				if ($this->isTgForward()) {
 					$message .= 'forwarded ';
 				}
 				$message .= 'file but ';

@@ -41,10 +41,10 @@ class PhotoEvent extends Special
 				}
 			}
 		} else { // No detected locations or occured errors
-			if ($this->isPm() === true) {
+			if ($this->isTgPm() === true) {
 				$message = 'Hi there in PM!' . PHP_EOL;
 				$message .= 'Thanks for the ';
-				if ($this->isForward()) {
+				if ($this->isTgForward()) {
 					$message .= 'forwarded ';
 				}
 				$message .= 'photo but I\'m not sure, what to do... If you want to process location from EXIF, you have to send <b>uncompressed</b> photo (send as file).';

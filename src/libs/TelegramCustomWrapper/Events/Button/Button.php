@@ -9,14 +9,14 @@ use unreal4u\TelegramAPI\Telegram\Methods\AnswerCallbackQuery;
 abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 {
 	/** @return bool False if clicked on button in shared in message created from inline (in "via @BotName") */
-	public function hasMessage(): bool
+	public function hasTgMessage(): bool
 	{
 		return isset($this->update->callback_query->message);
 	}
 
-	public function getMessage(): Telegram\Types\Message
+	public function getTgMessage(): Telegram\Types\Message
 	{
-		if ($this->hasMessage()) {
+		if ($this->hasTgMessage()) {
 			return $this->update->callback_query->message;
 		} else {
 			throw new \Exception(sprintf('Type %s doesn\'t support getMessage().', static::class));
@@ -26,7 +26,7 @@ abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 	/**
 	 * Can't use from in getMessage, because that's message where was clicked on button which is message from bot.
 	 */
-	public function getFrom(): Telegram\Types\User
+	public function getTgFrom(): Telegram\Types\User
 	{
 		return $this->update->callback_query->from;
 	}
@@ -38,7 +38,7 @@ abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 	{
 		$msg = new \unreal4u\TelegramAPI\Telegram\Methods\EditMessageText();
 		$msg->text = $text;
-		$msg->chat_id = $this->getChatId();
+		$msg->chat_id = $this->getTgChatId();
 		$msg->parse_mode = 'HTML';
 		if ($markup) {
 			$msg->reply_markup = $markup;
@@ -48,7 +48,7 @@ abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 		} else {
 			$msg->disable_web_page_preview = true;
 		}
-		$msg->message_id = $this->getMessageId();
+		$msg->message_id = $this->getTgMessageId();
 		return $this->run($msg);
 	}
 

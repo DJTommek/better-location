@@ -16,7 +16,7 @@ class FavouritesCommand extends Command
 
 	public function handleWebhookUpdate()
 	{
-		if ($this->isPm() === true) {
+		if ($this->isTgPm() === true) {
 			$this->processFavouritesList(false);
 		} else {
 			$replyMarkup = new Markup();
@@ -29,7 +29,7 @@ class FavouritesCommand extends Command
 				],
 			];
 
-			$this->reply(sprintf('%s Command <code>%s</code> is available only in private message, open @%s.', Icons::ERROR, HelpCommand::getCmd(), Config::TELEGRAM_BOT_NAME), $replyMarkup);
+			$this->reply(sprintf('%s Command <code>%s</code> is available only in private message, open @%s.', Icons::ERROR, HelpCommand::getTgCmd(), Config::TELEGRAM_BOT_NAME), $replyMarkup);
 		}
 	}
 }
