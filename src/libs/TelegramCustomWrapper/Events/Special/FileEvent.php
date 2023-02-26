@@ -4,9 +4,7 @@ namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
-use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\Config;
-use App\Icons;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\TelegramUpdateDb;
@@ -16,16 +14,30 @@ use unreal4u\TelegramAPI\Telegram;
 
 class FileEvent extends Special
 {
-	const MIME_TYPE_IMAGE_JPEG = 'image/jpeg';
+	private const MIME_TYPE_IMAGE_JPEG = 'image/jpeg';
+	private const MAX_FILE_SIZE_DOWNLOAD = 20 * 1024 * 1024; // in bytes
 
-	const MAX_FILE_SIZE_DOWNLOAD = 20 * 1024 * 1024; // in bytes
-
-	/** @var bool */
-	private $fileTooBig = false;
+	private bool $fileTooBig = false;
 
 	public function getCollection(): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
+
+		$locationFromFile = $this->getLocationFromFile();
+		if ($locationFromFile !== null) {
+			$collection->add($locationFromFile);
+		}
+
+		$collection->add(BetterLocationCollection::fromTelegramMessage(
+			$this->update->message->caption,
+			$this->update->message->caption_entities
+		));
+
+		return $collection;
+	}
+
+	private function getLocationFromFile(): ?BetterLocation
+	{
 		$document = $this->update->message->document;
 		if ($document->mime_type === self::MIME_TYPE_IMAGE_JPEG) {
 			if ($document->file_size > self::MAX_FILE_SIZE_DOWNLOAD) {
@@ -35,23 +47,15 @@ class FileEvent extends Special
 				try {
 					$getFile = new Telegram\Methods\GetFile();
 					$getFile->file_id = $document->file_id;
-					/** @var Telegram\Types\File $response */
 					$response = $this->run($getFile);
+					assert($response instanceof Telegram\Types\File);
 					$fileLink = TelegramHelper::getFileUrl(Config::TELEGRAM_BOT_TOKEN, $response->file_path);
-					$betterLocationExif = BetterLocation::fromExif($fileLink);
-					if ($betterLocationExif instanceof BetterLocation) {
-						$collection->add($betterLocationExif);
-					}
+					return BetterLocation::fromExif($fileLink);
 				} catch (\Throwable $exception) {
 					Debugger::log($exception, ILogger::EXCEPTION);
 				}
 			}
 		}
-		$collection->add(BetterLocationCollection::fromTelegramMessage(
-			$this->update->message->caption,
-			$this->update->message->caption_entities
-		));
-		return $collection;
 	}
 
 	public function handleWebhookUpdate()
