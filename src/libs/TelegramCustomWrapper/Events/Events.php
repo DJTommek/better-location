@@ -514,4 +514,12 @@ abstract class Events
 		}
 		return $this->isAdmin;
 	}
+
+	/**
+	 * If event detected some location, it is saved here into collection.
+	 * If event is not supporting location output, it will return null
+	 */
+	public function getCollection(): ?BetterLocationCollection {
+		return null;
+	}
 }

@@ -42,8 +42,19 @@ if (isset($_GET['password']) && $_GET['password'] === \App\Config::CRON_PASSWORD
 					$messageToRefresh->getLastUpdate()->format(DATE_W3C),
 					Formatter::ago($messageToRefresh->getLastUpdate()),
 				));
-				/** @var \App\BetterLocation\BetterLocationCollection $collection */
 				$collection = $event->getCollection();
+
+				if ($collection === null) {
+					$errorMessage = sprintf(
+						'Event "%s" does not have support for processing collections, skipping update %s.',
+						$event::class,
+						$id
+					);
+					printlog($errorMessage);
+					\Tracy\Debugger::log($errorMessage, \Tracy\Debugger::WARNING);
+					continue;
+				}
+
 				$processedCollection = new ProcessedMessageResult($collection, $event->getMessageSettings());
 				$processedCollection->setAutorefresh(true);
 				$processedCollection->process();
