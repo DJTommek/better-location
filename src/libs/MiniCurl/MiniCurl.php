@@ -9,6 +9,7 @@ use App\MiniCurl\Exceptions\InvalidResponseException;
 use App\MiniCurl\Exceptions\TimeoutException;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
+use Nette\Utils\Json;
 use Tracy\Debugger;
 
 class MiniCurl
@@ -77,6 +78,7 @@ class MiniCurl
 	 *
 	 * @see self::setHttpCookie() to nicer way to set cookies
 	 * @see self::setHttpHeader() to nicer way to set HTTP header
+	 * @see self::setPostJson() to nicer way to set POST HTTP request as JSON
 	 */
 	public function setCurlOption(int $optionKey, $optionValue): self
 	{
@@ -113,6 +115,14 @@ class MiniCurl
 			throw new \RuntimeException('setHttpCookie() cant be used since CURLOPT_COOKIE is already defined.');
 		}
 		$this->httpCookies[$name] = $value;
+		return $this;
+	}
+
+	public function setPostJson(array|\stdClass|\JsonSerializable $payload): self
+	{
+		$this->setCurlOption(CURLOPT_POST, true);
+		$this->setCurlOption(CURLOPT_POSTFIELDS, Json::encode($payload));
+		$this->setHttpHeader('Content-Type', 'application/json');
 		return $this;
 	}
 
