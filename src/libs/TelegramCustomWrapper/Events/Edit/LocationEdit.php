@@ -15,32 +15,35 @@ use unreal4u\TelegramAPI\Telegram;
 
 class LocationEdit extends Edit
 {
-	/** @var bool is sended location live location */
-	private $live;
+	private bool $isLive;
+	private ?BetterLocationCollection $collection = null;
 
 	public function __construct(Telegram\Types\Update $update)
 	{
 		parent::__construct($update);
-		$this->live = TelegramHelper::isLocation($update, true);
+		$this->isLive = TelegramHelper::isLocation($update, true);
 	}
 
 	public function getCollection(): BetterLocationCollection
 	{
-		$collection = new BetterLocationCollection();
-		$betterLocation = BetterLocation::fromLatLon($this->getMessage()->location->latitude, $this->getMessage()->location->longitude);
-		if ($this->live) {
-			$betterLocation->setPrefixMessage('Live location');
-			$betterLocation->setRefreshable(true);
-		} else {
-			$betterLocation->setPrefixMessage('Location');
+		if ($this->collection === null) {
+			$this->collection = new BetterLocationCollection();
+
+			$betterLocation = BetterLocation::fromLatLon($this->getMessage()->location->latitude, $this->getMessage()->location->longitude);
+			if ($this->isLive) {
+				$betterLocation->setPrefixMessage('Live location');
+				$betterLocation->setRefreshable(true);
+			} else {
+				$betterLocation->setPrefixMessage('Location');
+			}
+			$this->collection->add($betterLocation);
 		}
-		$collection->add($betterLocation);
-		return $collection;
+		return $this->collection;
 	}
 
 	public function handleWebhookUpdate()
 	{
-		if ($this->live) {
+		if ($this->isLive) {
 			$this->user->setLastKnownLocation($this->getMessage()->location->latitude, $this->getMessage()->location->longitude);
 		}
 
@@ -55,7 +58,7 @@ class LocationEdit extends Edit
 			$lastUpdate = DateImmutableUtils::fromTimestamp($this->getMessage()->edit_date, $geonames->timezone);
 			$text .= sprintf('%s Last live location from %s', Icons::REFRESH, $lastUpdate->format(Config::DATETIME_FORMAT));
 
-			if ($this->live === false) {
+			if ($this->isLive === false) {
 				// If user cancel sharing, edit event is fired but it's not live location anymore.
 				// But if sharing is expired (automatically), TG server is not sending any edit event.
 				$text .= ' (sharing has stopped)';

@@ -13,38 +13,46 @@ use unreal4u\TelegramAPI\Telegram\Types\Update;
 
 class LocationEvent extends Special
 {
-	/** @var bool is sended location live location */
-	private $live;
+	private bool $isLive;
+	private ?BetterLocationCollection $collection = null;
 
 	public function __construct(Update $update)
 	{
 		parent::__construct($update);
-		$this->live = TelegramHelper::isLocation($this->update, true);
+		$this->isLive = TelegramHelper::isLocation($this->update, true);
 	}
 
 	public function getCollection(): BetterLocationCollection
 	{
-		$collection = new BetterLocationCollection();
-		$betterLocation = BetterLocation::fromLatLon($this->getMessage()->location->latitude, $this->getMessage()->location->longitude);
-		if ($this->live) {
-			$this->user->setLastKnownLocation($this->getMessage()->location->latitude, $this->getMessage()->location->longitude);
-			$betterLocation->setPrefixMessage('Live location');
-			$betterLocation->setRefreshable(true);
-		} else if (TelegramHelper::isVenue($this->update)) {
-			$venue = $this->getMessage()->venue;
-			$title = $venue->foursquare_id ? $this->venueHrefLink($venue) : $venue->title;
-			$betterLocation->setPrefixMessage('Venue ' . $title);
-			$betterLocation->setDescription($this->getMessage()->venue->address);
-		} else {
-			$betterLocation->setPrefixMessage('Location');
+		if ($this->collection === null) {
+			$this->collection = new BetterLocationCollection();
+
+			$betterLocation = BetterLocation::fromLatLon(
+				$this->getMessage()->location->latitude,
+				$this->getMessage()->location->longitude
+			);
+
+			if ($this->isLive) {
+				$this->user->setLastKnownLocation($this->getMessage()->location->latitude, $this->getMessage()->location->longitude);
+				$betterLocation->setPrefixMessage('Live location');
+				$betterLocation->setRefreshable(true);
+			} else if (TelegramHelper::isVenue($this->update)) {
+				$venue = $this->getMessage()->venue;
+				$title = $venue->foursquare_id ? $this->venueHrefLink($venue) : $venue->title;
+				$betterLocation->setPrefixMessage('Venue ' . $title);
+				$betterLocation->setDescription($this->getMessage()->venue->address);
+			} else {
+				$betterLocation->setPrefixMessage('Location');
+			}
+
+			$this->collection->add($betterLocation);
 		}
-		$collection->add($betterLocation);
-		return $collection;
+		return $this->collection;
 	}
 
 	public function handleWebhookUpdate()
 	{
-		if ($this->live) {
+		if ($this->isLive) {
 			$this->user->setLastKnownLocation($this->getMessage()->location->latitude, $this->getMessage()->location->longitude);
 		}
 

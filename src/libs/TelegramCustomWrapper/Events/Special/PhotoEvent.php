@@ -8,12 +8,18 @@ use App\TelegramUpdateDb;
 
 class PhotoEvent extends Special
 {
+	private ?BetterLocationCollection $collection = null;
+
 	public function getCollection(): BetterLocationCollection
 	{
-		return BetterLocationCollection::fromTelegramMessage(
-			$this->update->message->caption,
-			$this->update->message->caption_entities,
-		);
+		if ($this->collection === null) {
+			$this->collection = BetterLocationCollection::fromTelegramMessage(
+				$this->update->message->caption,
+				$this->update->message->caption_entities,
+			);
+		}
+
+		return $this->collection;
 	}
 
 	public function handleWebhookUpdate()

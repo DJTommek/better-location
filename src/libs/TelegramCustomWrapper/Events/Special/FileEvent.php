@@ -18,22 +18,25 @@ class FileEvent extends Special
 	private const MAX_FILE_SIZE_DOWNLOAD = 20 * 1024 * 1024; // in bytes
 
 	private bool $fileTooBig = false;
+	private ?BetterLocationCollection $collection = null;
 
 	public function getCollection(): BetterLocationCollection
 	{
-		$collection = new BetterLocationCollection();
+		if ($this->collection === null) {
+			$this->collection = new BetterLocationCollection();
 
-		$locationFromFile = $this->getLocationFromFile();
-		if ($locationFromFile !== null) {
-			$collection->add($locationFromFile);
+			$locationFromFile = $this->getLocationFromFile();
+			if ($locationFromFile !== null) {
+				$this->collection->add($locationFromFile);
+			}
+
+			$this->collection->add(BetterLocationCollection::fromTelegramMessage(
+				$this->update->message->caption,
+				$this->update->message->caption_entities
+			));
 		}
 
-		$collection->add(BetterLocationCollection::fromTelegramMessage(
-			$this->update->message->caption,
-			$this->update->message->caption_entities
-		));
-
-		return $collection;
+		return $this->collection;
 	}
 
 	private function getLocationFromFile(): ?BetterLocation

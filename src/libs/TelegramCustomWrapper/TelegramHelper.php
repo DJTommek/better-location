@@ -112,12 +112,12 @@ class TelegramHelper
 		return (!empty($update->chosen_inline_result));
 	}
 
-	/** @param bool $live is location live */
-	public static function isLocation(Update $update, bool $live = false): bool
+	/** @param bool $isLive Additionally check if this is live location */
+	public static function isLocation(Update $update, bool $isLive = false): bool
 	{
 		$location = $update->message->location ?? $update->edited_message->location ?? null;
 		if ($location) {
-			if ($live === true && empty($location->live_period)) {
+			if ($isLive === true && empty($location->live_period)) {
 				return false;
 			} else {
 				return true;

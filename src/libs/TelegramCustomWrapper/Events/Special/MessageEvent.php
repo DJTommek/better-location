@@ -13,9 +13,17 @@ use Tracy\Debugger;
 
 class MessageEvent extends Special
 {
+	private ?BetterLocationCollection $collection = null;
+
 	public function getCollection(): BetterLocationCollection
 	{
-		return BetterLocationCollection::fromTelegramMessage($this->getText(), $this->update->message->entities);
+		if ($this->collection === null) {
+			$this->collection = BetterLocationCollection::fromTelegramMessage(
+				$this->getText(),
+				$this->update->message->entities
+			);
+		}
+		return $this->collection;
 	}
 
 	public function handleWebhookUpdate(): void
