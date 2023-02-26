@@ -79,6 +79,10 @@ abstract class Events
 		}
 	}
 
+	public function getUpdateId(): int {
+		return $this->update->update_id;
+	}
+
 	public function getChat(): Telegram\Types\Chat
 	{
 		return $this->getMessage()->chat;

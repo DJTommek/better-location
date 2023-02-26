@@ -3,6 +3,8 @@
 namespace App\TelegramCustomWrapper;
 
 use App\Config;
+use App\Factory;
+use App\Repository\ChatLocationHistory;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\Button\HelpButton;
 use App\TelegramCustomWrapper\Events\Button\InvalidButton;
@@ -143,9 +145,34 @@ class TelegramCustomWrapper
 		return $this->eventNote;
 	}
 
-	public function handle()
+	public function handle(): void
 	{
 		$this->event->handleWebhookUpdate();
+
+		$this->saveToChatHistory();
+	}
+
+	private function saveToChatHistory(): void
+	{
+		$collections = $this->event->getCollection();
+		if ($collections === null || $collections->isEmpty()) {
+			return;
+		}
+
+		$db = Factory::Database();
+		$chatLocationHistory = new ChatLocationHistory($db);
+		$messageSentDatetime = (new \DateTime())->setTimestamp($this->event->getMessage()->date);
+
+		foreach ($collections as $location) {
+			$chatLocationHistory->insert(
+				$this->event->getUpdateId(),
+				$this->event->getChatId(),
+				$this->event->getFromId(),
+				$messageSentDatetime,
+				$location->getCoordinates(),
+				$location->getInput()
+			);
+		}
 	}
 
 	/**
