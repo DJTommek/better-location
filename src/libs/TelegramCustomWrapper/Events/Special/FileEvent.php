@@ -68,7 +68,7 @@ class FileEvent extends Special
 	public function handleWebhookUpdate()
 	{
 		$collection = $this->getCollection();
-		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings());
+		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginUrl());
 		$processedCollection->process();
 		if ($collection->count() > 0) {
 			if ($this->chat->getSendNativeLocation()) {

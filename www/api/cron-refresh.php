@@ -55,7 +55,7 @@ if (isset($_GET['password']) && $_GET['password'] === \App\Config::CRON_PASSWORD
 					continue;
 				}
 
-				$processedCollection = new ProcessedMessageResult($collection, $event->getMessageSettings());
+				$processedCollection = new ProcessedMessageResult($collection, $event->getMessageSettings(), $event->getPluginUrl());
 				$processedCollection->setAutorefresh(true);
 				$processedCollection->process();
 

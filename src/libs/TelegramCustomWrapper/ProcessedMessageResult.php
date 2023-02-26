@@ -5,36 +5,42 @@ namespace App\TelegramCustomWrapper;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\Config;
+use App\Pluginer\Pluginer;
+use Nette\Http\UrlImmutable;
 use unreal4u\TelegramAPI\Telegram\Types;
 
 class ProcessedMessageResult
 {
-	/** @var BetterLocationCollection */
-	private $collection;
+	private ?Pluginer $pluginer = null;
 
-	private $resultText = '';
+	private string $resultText = '';
 	/** @var array<array<Types\Inline\Keyboard\Button>> */
-	private $buttons = [];
-	private $autorefreshEnabled = false;
+	private array $buttons = [];
+	private bool $autorefreshEnabled = false;
 
-	private $validLocationsCount = 0;
+	private int $validLocationsCount = 0;
 
-	/** @var BetterLocationMessageSettings */
-	private $messageSettings;
 
-	public function __construct(BetterLocationCollection $collection, BetterLocationMessageSettings $messageSettings)
+	public function __construct(
+		private BetterLocationCollection      $collection,
+		private BetterLocationMessageSettings $messageSettings,
+		?UrlImmutable                         $pluginUrl = null
+	)
 	{
-		$this->collection = $collection;
-		$this->messageSettings = $messageSettings;
+		if ($pluginUrl !== null) {
+			$this->pluginer = new Pluginer($pluginUrl);
+		}
 	}
 
-	public function setAutorefresh(bool $enabled): void
+	public function setAutorefresh(bool $enabled = true): void
 	{
 		$this->autorefreshEnabled = $enabled;
 	}
 
 	public function process(bool $printAllErrors = false): self
 	{
+		$this->pluginer?->process($this->collection);
+
 		if ($this->messageSettings->showAddress()) {
 			$this->collection->fillAddresses();
 		}
