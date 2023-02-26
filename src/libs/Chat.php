@@ -94,7 +94,7 @@ class Chat
 		return $this->settingsOutputType() === ChatEntity::OUTPUT_TYPE_LOCATION;
 	}
 
-	public function getEntity(): ?ChatEntity
+	public function getEntity(): ChatEntity
 	{
 		return $this->chatEntity;
 	}

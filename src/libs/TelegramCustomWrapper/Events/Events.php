@@ -40,19 +40,23 @@ use function Clue\React\Block\await;
 
 abstract class Events
 {
-	protected $update;
-	protected $tgLog;
+	protected Update $update;
+	private TgLog $tgLog;
 	protected $loop;
-	/** @var User */
-	protected $user;
-	/** @var ?Chat */
-	protected $chat;
+	protected User $user;
+	/**
+	 * Might not be accessible for some situations (send via Telegram inline)
+	 */
+	protected ?Chat $chat = null;
 
-	protected $command = null;
-	protected $params = [];
+	protected ?string $command = null;
+	/**
+	 * @var string[]
+	 */
+	protected array $params = [];
 
-	/** @var bool Caching for method isAdmin() */
-	private $isAdmin;
+	/** Caching for method isAdmin() */
+	private ?bool $isAdmin;
 
 	abstract public function handleWebhookUpdate();
 
@@ -79,7 +83,8 @@ abstract class Events
 		}
 	}
 
-	public function getTgUpdateId(): int {
+	public function getTgUpdateId(): int
+	{
 		return $this->update->update_id;
 	}
 
@@ -524,7 +529,18 @@ abstract class Events
 	 * If event detected some location, it is saved here into collection.
 	 * If event is not supporting location output, it will return null
 	 */
-	public function getCollection(): ?BetterLocationCollection {
+	public function getCollection(): ?BetterLocationCollection
+	{
 		return null;
+	}
+
+	public function getChat(): ?Chat
+	{
+		return $this->chat;
+	}
+
+	public function getUser(): User
+	{
+		return $this->user;
 	}
 }

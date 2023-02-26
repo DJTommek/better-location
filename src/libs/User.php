@@ -4,7 +4,6 @@ namespace App;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
-use App\Geonames\Geonames;
 use App\Repository\FavouritesRepository;
 use App\Repository\UserEntity;
 use App\Repository\UserRepository;
@@ -13,20 +12,15 @@ use App\Utils\Coordinates;
 
 class User
 {
-	/** @var UserRepository */
-	private $userRepository;
+	private FavouritesRepository $favouritesRepository;
+	private UserRepository $userRepository;
 
-	/** @var UserEntity */
-	private $userEntity;
+	private UserEntity $userEntity;
 
-	/** @var ?BetterLocationCollection Lazy list of Favourites (should be accessed only via getFavourites()) */
-	private $favourites;
-
-	/** @var ?BetterLocationMessageSettings */
-	private $messageSettings;
-
-	/** @var FavouritesRepository */
-	private $favouritesRepository;
+	/** Lazy list of Favourites (should be accessed only via getFavourites()) */
+	private ?BetterLocationCollection $favourites;
+	/** Lazy (should be accessed only via getMessageSettings()) */
+	private ?BetterLocationMessageSettings $messageSettings;
 
 	public function __construct(int $telegramId, string $telegramDisplayname)
 	{
@@ -34,10 +28,16 @@ class User
 		$this->userRepository = new UserRepository($db);
 		$this->favouritesRepository = new FavouritesRepository($db);
 
-		if (($this->userEntity = $this->userRepository->fromTelegramId($telegramId)) === null) {
+		$userEntity = $this->userRepository->fromTelegramId($telegramId);
+
+		if ($userEntity === null) {
+			// Does not exists, yet, create new
 			$this->userRepository->insert($telegramId, $telegramDisplayname);
-			$this->userEntity = $this->userRepository->fromTelegramId($telegramId);
+			$userEntity = $this->userRepository->fromTelegramId($telegramId);
 		}
+
+		assert($userEntity instanceof UserEntity);
+		$this->userEntity = $userEntity;
 	}
 
 	public function touchLastUpdate(): void
@@ -144,5 +144,10 @@ class User
 			$this->messageSettings = BetterLocationMessageSettings::loadByChatId($this->userEntity->id);
 		}
 		return $this->messageSettings;
+	}
+
+	public function getEntity(): UserEntity
+	{
+		return $this->userEntity;
 	}
 }
