@@ -160,7 +160,7 @@ class TelegramCustomWrapper
 	private function saveToChatHistory(): void
 	{
 		$collections = $this->event->getCollection();
-		if ($collections === null || $collections->isEmpty() || $this->event->getChat() !== null) {
+		if ($collections === null || $collections->isEmpty() || $this->event->getChat() === null) {
 			return;
 		}
 
