@@ -18,9 +18,9 @@ class User
 	private UserEntity $userEntity;
 
 	/** Lazy list of Favourites (should be accessed only via getFavourites()) */
-	private ?BetterLocationCollection $favourites;
+	private ?BetterLocationCollection $favourites = null;
 	/** Lazy (should be accessed only via getMessageSettings()) */
-	private ?BetterLocationMessageSettings $messageSettings;
+	private ?BetterLocationMessageSettings $messageSettings = null;
 
 	public function __construct(int $telegramId, string $telegramDisplayname)
 	{

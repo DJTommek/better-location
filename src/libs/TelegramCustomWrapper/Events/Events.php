@@ -56,7 +56,7 @@ abstract class Events
 	protected array $params = [];
 
 	/** Caching for method isAdmin() */
-	private ?bool $isAdmin;
+	private ?bool $isAdmin = null;
 
 	abstract public function handleWebhookUpdate();
 
