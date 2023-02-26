@@ -3,6 +3,7 @@
 namespace App\TelegramCustomWrapper\Events;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\WazeService;
 use App\Chat;
 use App\Config;
