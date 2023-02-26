@@ -6,6 +6,7 @@ use App\Config;
 use App\MiniCurl\Exceptions\ExecException;
 use App\MiniCurl\Exceptions\InitException;
 use App\MiniCurl\Exceptions\InvalidResponseException;
+use App\MiniCurl\Exceptions\TimeoutException;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
@@ -195,7 +196,10 @@ class MiniCurl
 		$curlResponse = curl_exec($this->curl);
 		if ($curlResponse === false) {
 			$curlErrno = curl_errno($this->curl);
-			throw new ExecException(sprintf('CURL request error %s: "%s"', $curlErrno, curl_error($this->curl)));
+			$exceptionText = sprintf('CURL request error %s: "%s"', $curlErrno, curl_error($this->curl));
+			$curlErrno === CURLE_OPERATION_TIMEOUTED
+				? throw new TimeoutException($exceptionText)
+				: throw new ExecException($exceptionText);
 		}
 
 		if ($this->autoConvertEncoding) {
