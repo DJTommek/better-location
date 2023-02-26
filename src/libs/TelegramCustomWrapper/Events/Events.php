@@ -102,6 +102,23 @@ abstract class Events
 		return $this->getChat()->id;
 	}
 
+	public function getTopicId(): ?int
+	{
+		if ($this->isTopicMessage() === false) {
+			return null;
+		}
+		return $this->getMessage()?->reply_to_message?->message_thread_id;
+	}
+
+	public function isTopicMessage(): bool
+	{
+		if ($this->hasMessage() === false) {
+			return false;
+		}
+
+		return $this->getMessage()->is_topic_message === true;
+	}
+
 	public function getFromId(): int
 	{
 		return $this->getFrom()->id;
