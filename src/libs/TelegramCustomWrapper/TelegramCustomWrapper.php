@@ -26,6 +26,7 @@ use App\TelegramCustomWrapper\Events\Special\InlineQueryEvent;
 use App\TelegramCustomWrapper\Events\Special\LocationEvent;
 use App\TelegramCustomWrapper\Events\Special\MessageEvent;
 use App\TelegramCustomWrapper\Events\Special\PhotoEvent;
+use Tracy\Debugger;
 use unreal4u\TelegramAPI\Abstracts\TelegramMethods;
 use unreal4u\TelegramAPI\Abstracts\TelegramTypes;
 use unreal4u\TelegramAPI\Exceptions\ClientException;
@@ -149,7 +150,11 @@ class TelegramCustomWrapper
 	{
 		$this->event->handleWebhookUpdate();
 
-		$this->saveToChatHistory();
+		try {
+			$this->saveToChatHistory();
+		} catch (\Exception $exception) {
+			Debugger::log($exception, Debugger::EXCEPTION);
+		}
 	}
 
 	private function saveToChatHistory(): void
