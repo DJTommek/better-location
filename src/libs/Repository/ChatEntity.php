@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Utils\Strict;
+use Nette\Http\UrlImmutable;
 
 class ChatEntity extends Entity
 {
@@ -27,6 +28,7 @@ class ChatEntity extends Entity
 	public bool $settingsPreview;
 	public int $settingsOutputType;
 	public bool $settingsShowAddress;
+	public UrlImmutable $pluginUrl;
 
 	public static function fromRow(array $row): self
 	{
@@ -40,6 +42,7 @@ class ChatEntity extends Entity
 		$entity->settingsPreview = Strict::boolval($row['chat_settings_preview']);
 		$entity->settingsOutputType = $row['chat_settings_output_type'];
 		$entity->settingsShowAddress = Strict::boolval($row['chat_settings_show_address']);
+		$entity->pluginUrl = $row['chat_plugin_url'] === null ? null : Strict::urlImmutable($row['chat_plugin_url']);
 		return $entity;
 	}
 }
