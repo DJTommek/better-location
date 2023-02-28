@@ -25,7 +25,7 @@ class PhotoEvent extends Special
 	public function handleWebhookUpdate()
 	{
 		$collection = $this->getCollection();
-		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginUrl());
+		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
 		$processedCollection->process();
 		if ($collection->count() > 0) {
 			if ($this->chat->getSendNativeLocation()) {
