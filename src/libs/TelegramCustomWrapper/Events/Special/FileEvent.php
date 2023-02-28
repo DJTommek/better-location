@@ -42,23 +42,27 @@ class FileEvent extends Special
 	private function getLocationFromFile(): ?BetterLocation
 	{
 		$document = $this->update->message->document;
-		if ($document->mime_type === self::MIME_TYPE_IMAGE_JPEG) {
-			if ($document->file_size > self::MAX_FILE_SIZE_DOWNLOAD) {
-				$this->fileTooBig = true;
-			} else {
-				$this->sendAction();
-				try {
-					$getFile = new Telegram\Methods\GetFile();
-					$getFile->file_id = $document->file_id;
-					$response = $this->run($getFile);
-					assert($response instanceof Telegram\Types\File);
-					$fileLink = TelegramHelper::getFileUrl(Config::TELEGRAM_BOT_TOKEN, $response->file_path);
-					return BetterLocation::fromExif($fileLink);
-				} catch (\Throwable $exception) {
-					Debugger::log($exception, ILogger::EXCEPTION);
-				}
-			}
+		if ($document->mime_type !== self::MIME_TYPE_IMAGE_JPEG) {
+			return null;
 		}
+
+		if ($document->file_size > self::MAX_FILE_SIZE_DOWNLOAD) {
+			$this->fileTooBig = true;
+			return null;
+		}
+		$this->sendAction();
+		try {
+			$getFile = new Telegram\Methods\GetFile();
+			$getFile->file_id = $document->file_id;
+			$response = $this->run($getFile);
+			assert($response instanceof Telegram\Types\File);
+			$fileLink = TelegramHelper::getFileUrl(Config::TELEGRAM_BOT_TOKEN, $response->file_path);
+			return BetterLocation::fromExif($fileLink);
+		} catch (\Throwable $exception) {
+			Debugger::log($exception, ILogger::EXCEPTION);
+		}
+
+		return null;
 	}
 
 	public function handleWebhookUpdate()
