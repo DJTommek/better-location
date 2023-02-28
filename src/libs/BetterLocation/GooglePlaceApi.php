@@ -25,6 +25,7 @@ class GooglePlaceApi
 
 	// More responses on https://developers.google.com/places/web-service/search#PlaceSearchStatusCodes
 	private const RESPONSE_ZERO_RESULTS = 'ZERO_RESULTS';
+	private const RESPONSE_NOT_FOUND = 'NOT_FOUND';
 	private const RESPONSE_OK = 'OK';
 
 	public function __construct(string $apiKey)
@@ -97,7 +98,7 @@ class GooglePlaceApi
 	{
 		$url = $this->gePlaceSearchUrl($input, $outputFields, $language, ($locationBias ? $this->generateLocationBias($locationBias) : null));
 		$content = $this->runGoogleApiRequest($url);
-		if ($content->status === self::RESPONSE_ZERO_RESULTS) {
+		if (in_array($content->status, [self::RESPONSE_ZERO_RESULTS, self::RESPONSE_NOT_FOUND], true)) {
 			return [];
 		}
 		return $content->candidates;
@@ -113,10 +114,12 @@ class GooglePlaceApi
 	public function runTextSearch(string $input, string $language, ?BetterLocation $location = null): array
 	{
 		$url = $this->geTextSearchUrl($input, $language, ($location ? $location->__toString() : null));
+
 		$content = $this->runGoogleApiRequest($url);
-		if ($content->status === self::RESPONSE_ZERO_RESULTS) {
+		if (in_array($content->status, [self::RESPONSE_ZERO_RESULTS, self::RESPONSE_NOT_FOUND], true)) {
 			return [];
 		}
+
 		return $content->results;
 	}
 
@@ -126,11 +129,17 @@ class GooglePlaceApi
 	 * @return \stdClass
 	 * @throws \JsonException|\Exception
 	 */
-	public function getPlaceDetails(string $placeId, array $outputFields): \stdClass
+	public function getPlaceDetails(string $placeId, array $outputFields): ?\stdClass
 	{
 		$url = $this->gePlaceDetailsUrl($placeId, $outputFields);
-		$content = $this->runGoogleApiRequest($url);
-		return $content->result;
+		$response = $this->runGoogleApiRequest($url);
+
+		if (in_array($response->status, [self::RESPONSE_ZERO_RESULTS, self::RESPONSE_NOT_FOUND], true)) {
+			return null;
+		}
+
+		return $response->result;
+
 	}
 
 	private function runGoogleApiRequest(string $url): \stdClass
@@ -140,13 +149,14 @@ class GooglePlaceApi
 			->allowAutoConvertEncoding(false)
 			->run();
 		$content = $response->getBodyAsJson();
-		if (in_array($content->status, [self::RESPONSE_OK, self::RESPONSE_ZERO_RESULTS], true)) {
+
+		if (in_array($content->status, [self::RESPONSE_OK, self::RESPONSE_ZERO_RESULTS, self::RESPONSE_NOT_FOUND], true)) {
 			return $content;
-		} else {
-			Debugger::log('Request URL: ' . $url, ILogger::DEBUG);
-			Debugger::log('Response content: ' . $response->getBody(), ILogger::DEBUG);
-			throw new \Exception(sprintf('Invalid status "%s" from Google Place API. Error: "%s". See debug.log for more info.', $content->status, $content->error_message ?? 'Not provided'));
 		}
+
+		Debugger::log('Request URL: ' . $url, ILogger::DEBUG);
+		Debugger::log('Response content: ' . $response->getBody(), ILogger::DEBUG);
+		throw new \Exception(sprintf('Invalid status "%s" from Google Place API. Error: "%s". See debug.log for more info.', $content->status, $content->error_message ?? 'Not provided'));
 	}
 
 	private function generateLocationBias(BetterLocation $betterLocation)
@@ -176,26 +186,39 @@ class GooglePlaceApi
 				GoogleMapsService::class,
 				GoogleMapsService::TYPE_INLINE_SEARCH,
 			);
-			if ($address = $placeCandidate?->formatted_address) {
-				try {
-					$placeDetails = $placeApi->getPlaceDetails($placeCandidate->place_id, ['url', 'website', 'international_phone_number', 'business_status']);
-					$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a>', ($placeDetails->website ?? $placeDetails->url), $placeCandidate->name));
-					if (isset($placeDetails->business_status)) {
-						if ($placeDetails->business_status === self::BUSINESS_STATUS_CLOSED_TEMPORARILY) {
-							$betterLocation->setDescription(sprintf('%s Temporarily closed', Icons::WARNING));
-						} else if ($placeDetails->business_status === self::BUSINESS_STATUS_CLOSED_PERMANENTLY) {
-							$betterLocation->setDescription(sprintf('%s Permanently closed', Icons::WARNING));
-						}
-					}
-					if (isset($placeDetails->international_phone_number)) {
-						$address .= sprintf(' (%s)', $placeDetails->international_phone_number);
-					}
-				} catch (\Throwable $exception) {
-					Debugger::log($exception, ILogger::EXCEPTION);
-					if ($placeCandidate->name) { // might be empty string
+
+			$address = $placeCandidate->formatted_address ?? null;
+
+			try {
+				$placeDetails = $placeApi->getPlaceDetails($placeCandidate->place_id, ['url', 'website', 'international_phone_number', 'business_status']);
+				if ($placeDetails === null) {
+					if ($placeCandidate->name !== '') {
 						$betterLocation->setPrefixMessage($placeCandidate->name);
 					}
+				} else {
+					$betterLocation->setPrefixMessage(sprintf(
+						'<a href="%s">%s</a>',
+						($placeDetails->website ?? $placeDetails->url),
+						$placeCandidate->name
+					));
+
+					if (isset($placeDetails->business_status)) {
+						if ($placeDetails->business_status === self::BUSINESS_STATUS_CLOSED_TEMPORARILY) {
+							$betterLocation->addDescription(Icons::WARNING . ' Temporarily closed');
+						} else if ($placeDetails->business_status === self::BUSINESS_STATUS_CLOSED_PERMANENTLY) {
+							$betterLocation->addDescription(Icons::WARNING . ' Permanently closed');
+						}
+					}
+
+					if ($address !== null && isset($placeDetails->international_phone_number)) {
+						$address .= sprintf(' (%s)', $placeDetails->international_phone_number);
+					}
 				}
+			} catch (\Throwable $exception) {
+				Debugger::log($exception, ILogger::EXCEPTION);
+			}
+
+			if ($address !== null) {
 				$betterLocation->setAddress($address);
 			}
 			$collection->add($betterLocation);
