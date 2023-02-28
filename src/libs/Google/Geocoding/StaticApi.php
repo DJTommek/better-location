@@ -16,6 +16,7 @@ class StaticApi
 
 	// More responses on https://developers.google.com/maps/documentation/streetview/metadata#status-codes
 	private const RESPONSE_ZERO_RESULTS = 'ZERO_RESULTS';
+	private const RESPONSE_NOT_FOUND = 'NOT_FOUND';
 	private const RESPONSE_OK = 'OK';
 
 	public function __construct(string $apiKey)
@@ -38,7 +39,7 @@ class StaticApi
 		$response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_GOOGLE_GEOCODE_API)->run();
 		$content = $response->getBodyAsJson();
 
-		if ($content->status === self::RESPONSE_ZERO_RESULTS) {
+		if (in_array($content->status, [self::RESPONSE_ZERO_RESULTS, self::RESPONSE_NOT_FOUND], true)) {
 			return null;
 		}
 

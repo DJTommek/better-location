@@ -15,6 +15,7 @@ class StaticApi
 
 	// More responses on https://developers.google.com/maps/documentation/streetview/metadata#status-codes
 	private const RESPONSE_ZERO_RESULTS = 'ZERO_RESULTS';
+	private const RESPONSE_NOT_FOUND = 'NOT_FOUND';
 	private const RESPONSE_OK = 'OK';
 
 	public function __construct(string $apiKey)
@@ -45,14 +46,18 @@ class StaticApi
 		$input = $lat . ',' . $lon;
 		$url = $this->getMetadataUrl($input);
 		$content = $this->runGoogleApiRequest($url);
-		return ($content->status === self::RESPONSE_ZERO_RESULTS) ? null : $content;
+		if (in_array($content->status, [self::RESPONSE_ZERO_RESULTS, self::RESPONSE_NOT_FOUND], true)) {
+			return null;
+		}
+
+		return $content;
 	}
 
 	private function runGoogleApiRequest(string $url): \stdClass
 	{
 		$response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_GOOGLE_STREETVIEW_API)->run();
 		$content = $response->getBodyAsJson();
-		if (in_array($content->status, [self::RESPONSE_OK, self::RESPONSE_ZERO_RESULTS], true)) {
+		if (in_array($content->status, [self::RESPONSE_OK, self::RESPONSE_ZERO_RESULTS, self::RESPONSE_NOT_FOUND], true)) {
 			return $content;
 		} else {
 			Debugger::log('Request URL: ' . $url, ILogger::DEBUG);
