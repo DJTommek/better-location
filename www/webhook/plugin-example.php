@@ -25,13 +25,17 @@ $data = Json::decode($input, Json::FORCE_ARRAY);
 // little offset of usually example coordinates so calculated distance is not 0 meters for default example
 $mapCenterPrague = new Coordinates(50.0874, 14.4206);
 // random emojis that will be prefixed to the message
-$emojis = ['🙂', '☀️', '💪', '😜', '🐶', '🐱', '❄️', '🍎', '🍓', '🍌', '🚦', '🔋', '🇨🇿'];
+$emojis = [
+	'🙂', '☀️', '💪', '😜', '🐶', '🐱', '❄️', '🍎', '🍓', '🍌', '🚦', '🔋',
+	// This safer way how to store emojis in code to prevent breaking if this file is saved as non multibyte UTF-8
+	"\u{1f1e8}\u{1f1ff}" // https://emojipedia.org/flag-czechia/
+];
 
 foreach ($data['locations'] as $key => &$location) {
-	$coords = new Coordinates($location['coordinates']['lat'], $location['coordinates']['lon']);
+	$coords = new Coordinates($location['latitude'], $location['longitude']);
 
 	$location['prefix'] = sprintf(
-		'%s %s (%s from Prague)',
+		'%s %s (<b>%s</b> from Prague)',
 		$emojis[array_rand($emojis)],
 		$location['prefix'],
 		htmlspecialchars(Formatter::distance($mapCenterPrague->distance($coords)))

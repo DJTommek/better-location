@@ -8,6 +8,7 @@ use App\BetterLocation\Service\WazeService;
 use App\Chat;
 use App\Config;
 use App\Icons;
+use App\Pluginer\Pluginer;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\Button\HelpButton;
@@ -109,6 +110,23 @@ abstract class Events
 	public function getPluginUrl(): ?UrlImmutable
 	{
 		return $this->chat?->getEntity()->pluginUrl;
+	}
+
+	public function getPluginer(): ?Pluginer
+	{
+		$pluginUrl = $this->getPluginUrl();
+		if ($pluginUrl === null) {
+			return null;
+		}
+
+		return new Pluginer(
+			$pluginUrl,
+			$this->getTgUpdateId(),
+			$this->getTgMessageId(),
+			$this->getTgMessage()->date,
+			$this->getTgChat(),
+			$this->getTgFrom(),
+		);
 	}
 
 	public function getTgFrom(): Telegram\Types\User
@@ -439,7 +457,7 @@ abstract class Events
 	protected function processSettings(bool $inline = false): void
 	{
 		$collection = WazeService::processStatic(WazeService::getShareLink(50.087451, 14.420671))->getCollection();
-		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginUrl());
+		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
 		$processedCollection->process();
 
 		$text = sprintf('%s <b>Chat settings</b> for @%s. ', Icons::SETTINGS, Config::TELEGRAM_BOT_NAME);

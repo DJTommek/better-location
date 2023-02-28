@@ -6,13 +6,10 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\Config;
 use App\Pluginer\Pluginer;
-use Nette\Http\UrlImmutable;
 use unreal4u\TelegramAPI\Telegram\Types;
 
 class ProcessedMessageResult
 {
-	private ?Pluginer $pluginer = null;
-
 	private string $resultText = '';
 	/** @var array<array<Types\Inline\Keyboard\Button>> */
 	private array $buttons = [];
@@ -24,12 +21,9 @@ class ProcessedMessageResult
 	public function __construct(
 		private BetterLocationCollection      $collection,
 		private BetterLocationMessageSettings $messageSettings,
-		?UrlImmutable                         $pluginUrl = null
+		private ?Pluginer                     $pluginer = null,
 	)
 	{
-		if ($pluginUrl !== null) {
-			$this->pluginer = new Pluginer($pluginUrl);
-		}
 	}
 
 	public function setAutorefresh(bool $enabled = true): void
@@ -39,7 +33,9 @@ class ProcessedMessageResult
 
 	public function process(bool $printAllErrors = false): self
 	{
-		$this->pluginer?->process($this->collection);
+		if ($this->pluginer !== null && $this->collection->isEmpty() === false) {
+			$this->pluginer->process($this->collection);
+		}
 
 		if ($this->messageSettings->showAddress()) {
 			$this->collection->fillAddresses();

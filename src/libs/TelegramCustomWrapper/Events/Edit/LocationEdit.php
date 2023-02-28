@@ -49,7 +49,7 @@ class LocationEdit extends Edit
 
 		$collection = $this->getCollection();
 		if ($messageToRefresh = TelegramUpdateDb::loadByOriginalMessageId($this->getTgChatId(), $this->getTgMessageId())) {
-			$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginUrl());
+			$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
 			$processedCollection->process();
 			$text = $processedCollection->getText();
 
