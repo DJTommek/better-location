@@ -42,7 +42,7 @@ class ChatEntity extends Entity
 		$entity->settingsPreview = Strict::boolval($row['chat_settings_preview']);
 		$entity->settingsOutputType = $row['chat_settings_output_type'];
 		$entity->settingsShowAddress = Strict::boolval($row['chat_settings_show_address']);
-		$entity->pluginUrl = $row['chat_plugin_url'] === null ? null : Strict::urlImmutable($row['chat_plugin_url']);
+		$entity->pluginUrl = $row['chat_plugin_url'] === null ? null : new UrlImmutable($row['chat_plugin_url']);
 		return $entity;
 	}
 }
