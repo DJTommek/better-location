@@ -14,12 +14,11 @@ use unreal4u\TelegramAPI\Telegram;
 class Pluginer
 {
 	public function __construct(
-		private UrlImmutable        $pluginUrl,
-		private int                 $updateId,
-		private int                 $messageId,
-		private int                 $messageDate,
-		private Telegram\Types\Chat $chat,
-		private Telegram\Types\User $user,
+		private UrlImmutable         $pluginUrl,
+		private int                  $updateId,
+		private ?int                 $messageId,
+		private ?Telegram\Types\Chat $chat,
+		private Telegram\Types\User  $user,
 	)
 	{
 	}
@@ -33,10 +32,9 @@ class Pluginer
 			'telegram' => [
 				'update_id' => $this->updateId,
 				'message_id' => $this->messageId,
-				'date' => $this->messageDate,
 				'chat' => [
-					'id' => $this->chat->id,
-					'type' => $this->chat->type,
+					'id' => $this->chat->id ?? null,
+					'type' => $this->chat->type ?? null,
 				],
 				'from' => [
 					'id' => $this->user->id,

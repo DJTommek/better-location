@@ -104,12 +104,14 @@ abstract class Events
 		}
 	}
 
-	/**
-	 * @TODO If chat entity is not accessible, try to load plugin URL from private chat entity
-	 */
 	public function getPluginUrl(): ?UrlImmutable
 	{
-		return $this->chat?->getEntity()->pluginUrl;
+		if ($this->chat !== null) {
+			return $this->chat->getEntity()->pluginUrl;
+		}
+
+		// Fallback, try to load user's private chat entity
+		return $this->user->getPrivateChatEntity()->pluginUrl;
 	}
 
 	public function getPluginer(): ?Pluginer
@@ -120,12 +122,11 @@ abstract class Events
 		}
 
 		return new Pluginer(
-			$pluginUrl,
-			$this->getTgUpdateId(),
-			$this->getTgMessageId(),
-			$this->getTgMessage()->date,
-			$this->getTgChat(),
-			$this->getTgFrom(),
+			pluginUrl: $pluginUrl,
+			updateId: $this->getTgUpdateId(),
+			messageId: $this->hasTgMessage() ? $this->getTgMessageId() : null,
+			chat: $this->hasTgMessage() ? $this->getTgChat() : null,
+			user: $this->getTgFrom(),
 		);
 	}
 
