@@ -4,6 +4,8 @@ namespace App;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
+use App\Repository\ChatEntity;
+use App\Repository\ChatRepository;
 use App\Repository\FavouritesRepository;
 use App\Repository\UserEntity;
 use App\Repository\UserRepository;
@@ -14,6 +16,7 @@ class User
 {
 	private FavouritesRepository $favouritesRepository;
 	private UserRepository $userRepository;
+	private ChatRepository $chatRepository;
 
 	private UserEntity $userEntity;
 
@@ -26,6 +29,7 @@ class User
 	{
 		$db = Factory::Database();
 		$this->userRepository = new UserRepository($db);
+		$this->chatRepository = new ChatRepository($db);
 		$this->favouritesRepository = new FavouritesRepository($db);
 
 		$userEntity = $this->userRepository->fromTelegramId($telegramId);
@@ -38,6 +42,11 @@ class User
 
 		assert($userEntity instanceof UserEntity);
 		$this->userEntity = $userEntity;
+	}
+
+	public function getPrivateChatEntity(): ?ChatEntity
+	{
+		return $this->chatRepository->fromTelegramId($this->getTelegramId());
 	}
 
 	public function touchLastUpdate(): void
