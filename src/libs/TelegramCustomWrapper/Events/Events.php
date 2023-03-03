@@ -90,9 +90,9 @@ abstract class Events
 		return $this->update->update_id;
 	}
 
-	public function getTgChat(): Telegram\Types\Chat
+	public function getTgChat(): ?Telegram\Types\Chat
 	{
-		return $this->getTgMessage()->chat;
+		return $this->getTgMessage()?->chat;
 	}
 
 	public function getMessageSettings(): BetterLocationMessageSettings
