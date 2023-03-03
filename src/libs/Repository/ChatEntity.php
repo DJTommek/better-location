@@ -28,7 +28,7 @@ class ChatEntity extends Entity
 	public bool $settingsPreview;
 	public int $settingsOutputType;
 	public bool $settingsShowAddress;
-	public UrlImmutable $pluginUrl;
+	public ?UrlImmutable $pluginUrl;
 
 	public static function fromRow(array $row): self
 	{
