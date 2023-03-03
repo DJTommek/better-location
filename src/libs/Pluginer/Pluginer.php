@@ -3,6 +3,7 @@
 namespace App\Pluginer;
 
 use App\BetterLocation\BetterLocationCollection;
+use App\Config;
 use App\MiniCurl\Exceptions\TimeoutException;
 use App\MiniCurl\MiniCurl;
 use Nette\Http\UrlImmutable;
@@ -12,8 +13,6 @@ use unreal4u\TelegramAPI\Telegram;
 
 class Pluginer
 {
-	private const CACHE_TTL = 5; // in seconds
-
 	public function __construct(
 		private UrlImmutable        $pluginUrl,
 		private int                 $updateId,
@@ -69,7 +68,7 @@ class Pluginer
 	private function callApi(array|\stdClass|\JsonSerializable $requestBody): array
 	{
 		$miniCurl = new MiniCurl($this->pluginUrl);
-		$miniCurl->allowCache(self::CACHE_TTL);
+		$miniCurl->allowCache(Config::PLUGINER_CACHE_TTL);
 		$miniCurl->allowAutoConvertEncoding(false);
 		$miniCurl->setPostJson($requestBody);
 		$response = $miniCurl->run();
