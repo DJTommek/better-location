@@ -298,8 +298,7 @@
 			mapData.map.on('baselayerchange', function (event) {
 				Settings.save('dynamicMapBaseLayer', event.name);
 			}).on('click', function (event) {
-				const locationKey = event.latlng.lat.toFixed(6) + ',' + event.latlng.lng.toFixed(6);
-
+				const locationKey = BlbUtils.locationKey(event.latlng);
 				const marker = L.marker(event.latlng);
 				let popupContent = '<p>';
 				popupContent += 'Coordinates: <b><a href="' + {$basePath} +'/' + locationKey + '">' + locationKey + '</a></b>';

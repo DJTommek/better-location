@@ -1,3 +1,24 @@
+class BlbUtils {
+	/**
+	 * Universal helper to get location key based on latitude and longitude.
+	 * Tested for:
+	 * - default BetterLocation format
+	 * - various Leaflet objects
+	 *
+	 * @param {JSON} location
+	 * @return {string|null}
+	 */
+	static locationKey = function (location) {
+		const lat = location?.lat ?? location?.latitude ?? null;
+		const lon = location?.lon ?? location?.lng ?? location?.longitude ?? null;
+		if (typeof lat !== 'number' || typeof lon !== 'number') {
+			console.debug({location: location, lat: lat, lon: lon});
+			throw new Error('Unable to generate key, invalid or missing latitude or longitude.');
+		}
+		return lat.toFixed(6) + ',' + lon.toFixed();
+	}
+}
+
 window.onload = function () {
 	if (ClipboardJS.isSupported()) {
 		const clipboard = new ClipboardJS('.copy-to-clipboard');
