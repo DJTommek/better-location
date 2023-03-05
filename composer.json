@@ -17,11 +17,11 @@
 		"djtommek/mapycz-api": "^1.4",
 		"djtommek/glympse-api": "^0.4.1",
 		"nette/http": "^3.1",
-		"latte/latte": "^2.10",
+		"latte/latte": "^2.11",
 		"maxh/php-nominatim": "^2.3",
 		"lvht/geohash": "^1.1",
-		"guzzlehttp/guzzle": "^7.4",
-		"nette/caching": "^3.1",
+		"guzzlehttp/guzzle": "^7.5",
+		"nette/caching": "^3.2",
 		"sammyjo20/saloon": "^0.6.0"
 	},
 	"require-dev": {
