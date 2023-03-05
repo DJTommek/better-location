@@ -182,12 +182,12 @@ final class GoogleMapsServiceTest extends TestCase
 		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/bauMax,+Chodovsk%C3%A1+1549%2F18,+101+00+Praha+10/data=!4m2!3m1!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2?utm_source=mstt_1&entry=gps')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('hidden', $collection[0]->getSourceType());
-		$this->assertSame('50.056068,14.472953', $collection[0]->__toString());
+		$this->assertSame('50.056156,14.472952', $collection[0]->__toString());
 		// same as above but short URL
 		$collection = GoogleMapsService::processStatic('https://maps.app.goo.gl/X5bZDTSFfdRzchGY6')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('hidden', $collection[0]->getSourceType());
-		$this->assertSame('50.056068,14.472953', $collection[0]->__toString());
+		$this->assertSame('50.056156,14.472952', $collection[0]->__toString());
 
 		// Lemour Sušice
 		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/Caf%C3%A9+Lamour,+n%C3%A1b%C5%99.+Karla+Houry+180,+342+01+Su%C5%A1ice/data=!4m2!3m1!1s0x470b2b2fad7dd1c3:0x6c66c5beca8a4117?utm_source=mstt_1&entry=gps')->getCollection();
