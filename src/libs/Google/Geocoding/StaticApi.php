@@ -36,7 +36,10 @@ class StaticApi
 
 	private function runGoogleApiRequest(string $url): ?\stdClass
 	{
-		$response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_GOOGLE_GEOCODE_API)->run();
+		$response = (new MiniCurl($url))
+			->allowAutoConvertEncoding(false)
+			->allowCache(Config::CACHE_TTL_GOOGLE_GEOCODE_API)
+			->run();
 		$content = $response->getBodyAsJson();
 
 		if (in_array($content->status, [self::RESPONSE_ZERO_RESULTS, self::RESPONSE_NOT_FOUND], true)) {
