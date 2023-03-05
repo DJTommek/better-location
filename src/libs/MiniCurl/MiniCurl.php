@@ -270,7 +270,14 @@ class MiniCurl
 	public static function loadHeaders(string $url, ?string $key = null)
 	{
 		$client = new self($url);
-		$client->allowRandomUseragent(false);
+
+		// @HACK some domains require to have valid http user agent
+		$allowRandomUserAgents = false;
+		if ((new Url($url))->getDomain() === 'rb.gy') {
+			$allowRandomUserAgents = true;
+		}
+
+		$client->allowRandomUseragent($allowRandomUserAgents);
 		$client->setCurlOption(CURLOPT_FOLLOWLOCATION, false);
 		// $client->setCurlOption(CURLOPT_NOBODY, true); // @HACK temporary disabled, see https://github.com/DJTommek/better-location/issues/74
 		$client->setCurlOption(CURLOPT_FRESH_CONNECT, true);
