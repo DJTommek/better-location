@@ -5,6 +5,7 @@ namespace App\BetterLocation;
 use App\Config;
 use App\Factory;
 use App\Icons;
+use App\MiniCurl\Exceptions\TimeoutException;
 use App\MiniCurl\MiniCurl;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
@@ -330,8 +331,14 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	 */
 	public function fillElevations(): void
 	{
-		$api = Factory::OpenElevation();
-		$api->fillBatch($this->getCoordinates());
+		try {
+			$api = Factory::OpenElevation();
+			$api->fillBatch($this->getCoordinates());
+		} catch (TimeoutException) {
+			Debugger::log('Unable to batch-fill coordinates elevation, request timeouted.', Debugger::WARNING);
+		} catch (\Exception $exception) {
+			Debugger::log($exception, Debugger::EXCEPTION);
+		}
 	}
 
 	/** Load addresses from API for all locations in this collection */

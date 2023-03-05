@@ -11,6 +11,7 @@ use App\Factory;
 use App\Geonames\GeonamesApiException;
 use App\Geonames\Types\TimezoneType;
 use App\Icons;
+use App\MiniCurl\Exceptions\TimeoutException;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\Utils\Coordinates;
@@ -150,6 +151,8 @@ class BetterLocation implements CoordinatesInterface
 		if (is_null($this->coords->getElevation())) {
 			try {
 				Factory::OpenElevation()->fill($this->coords);
+			} catch (TimeoutException) {
+				Debugger::log('Unable to fill coordinates elevation, request timeouted.', Debugger::WARNING);
 			} catch (\Exception $exception) {
 				Debugger::log($exception, Debugger::EXCEPTION);
 			}
