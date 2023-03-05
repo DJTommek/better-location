@@ -134,6 +134,7 @@ class LocationsPresenter extends MainPresenter
 			$resultLocation->lon = $location->getLon();
 			$resultLocation->hash = $location->getCoordinates()->hash();
 			$resultLocation->elevation = $location->getCoordinates()->getElevation();
+			$resultLocation->timezoneId = $location->getTimezoneData()?->timezoneId;
 			$resultLocation->address = $location->getAddress();
 			$resultLocation->services = $this->services[$location->key()];
 			return $resultLocation;
