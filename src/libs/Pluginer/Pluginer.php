@@ -58,8 +58,12 @@ class Pluginer
 
 		// @TODO add JSON incoming JSON schema validation
 		// @TODO save original prefix so can be restored (eg if new prefix is too long, has invalid HTML, etc)
-		foreach ($dataNew['locations'] as $key => $location) {
-			$collection[$key]->setPrefixMessage($location['prefix']);
+		foreach ($dataNew['locations'] as $locationKey => $locationNew) {
+			$locationOld = $collection[$locationKey];
+			$collection[$locationKey]->setPrefixMessage($locationNew['prefix']);
+			foreach ($locationNew['descriptions'] as $descriptionKey => $description) {
+				$locationOld->addDescription($description, $descriptionKey);
+			}
 		}
 	}
 
@@ -82,6 +86,7 @@ class Pluginer
 				'longitude' => $location->getLon(),
 				'address' => $location->getAddress(),
 				'prefix' => $location->getPrefixMessage(),
+				'descriptions' => $location->getDescriptions(),
 			];
 		}
 		return $result;

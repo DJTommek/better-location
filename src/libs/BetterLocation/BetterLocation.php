@@ -358,6 +358,13 @@ class BetterLocation implements CoordinatesInterface
 		return isset($this->descriptions[$key]);
 	}
 
+	/**
+	 * @return string[]
+	 */
+	public function getDescriptions(): array {
+		return $this->descriptions;
+	}
+
 	public function isRefreshable(): bool
 	{
 		return $this->refreshable;
