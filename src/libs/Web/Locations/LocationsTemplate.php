@@ -26,7 +26,6 @@ class LocationsTemplate extends LayoutTemplate
 	public $nowUtcText;
 
 	public bool $showingTimezoneData = false;
-	public bool $showingAddress = false;
 	public bool $showingElevation = false;
 
 	public function prepare(BetterLocationCollection $collection, array $websites)

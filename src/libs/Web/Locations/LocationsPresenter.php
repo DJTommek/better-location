@@ -75,8 +75,7 @@ class LocationsPresenter extends MainPresenter
 			$this->redirect($this->collection->getLink());
 		}
 
-		if (in_array(Utils::globalGetToBool('address'), [true, null], true)) { // if not set, default is true
-			$this->template->showingAddress = true;
+		if (Utils::globalGetToBool('address') === true) {
 			$this->collection->fillAddresses();
 		}
 		if (Utils::globalGetToBool('datetimezone') === true) {
@@ -102,35 +101,38 @@ class LocationsPresenter extends MainPresenter
 
 	public function render(): void
 	{
-		if (count($this->collection)) {
-			$this->template->prepare($this->collection, $this->services);
-			switch ($this->format) {
-				case 'html':
-				default;
-					Factory::Latte('locations.latte', $this->template);
-					break;
-				case 'gpx':
-					$this->fileGpx();
-					break;
-				case 'json':
-					$this->json();
-					break;
-				case 'kml':
-					$this->fileKml();
-					break;
-			}
-		} else {
-			Factory::Latte('locationsError.latte', $this->template);
+		if ($this->collection->isEmpty()) {
+			Factory::Latte('locations.latte', $this->template);
 		}
+
+		$this->template->prepare($this->collection, $this->services);
+		match ($this->format) {
+			'json' => $this->renderJson(),
+			'gpx' => $this->renderFileGpx(),
+			'kml' => $this->renderFileKml(),
+			default => $this->renderHtml()
+		};
 	}
 
-	public function json(): void
+	public function renderHtml(): void
+	{
+		Factory::Latte('locations.latte', $this->template);
+	}
+
+	public function renderJson(): void
 	{
 		$result = new \stdClass();
+
+		// For backward compatbitility, loading address in JSON is enabled by default
+		if (in_array(Utils::globalGetToBool('address'), [true, null], true)) {
+			$this->collection->fillAddresses();
+		}
+
 		$result->locations = array_map(function (BetterLocation $location) {
 			$resultLocation = new \stdClass();
 			$resultLocation->lat = $location->getLat();
 			$resultLocation->lon = $location->getLon();
+			$resultLocation->hash = $location->getCoordinates()->hash();
 			$resultLocation->elevation = $location->getCoordinates()->getElevation();
 			$resultLocation->address = $location->getAddress();
 			$resultLocation->services = $this->services[$location->key()];
@@ -141,13 +143,13 @@ class LocationsPresenter extends MainPresenter
 		die(Json::encode($result));
 	}
 
-	public function fileGpx(): void
+	public function renderFileGpx(): void
 	{
 		header(sprintf('Content-Disposition: attachment; filename="BetterLocation_%d_locations_%s.gpx"', count($this->collection), $this->nowFileText));
 		Factory::Latte('locationsGpx.latte', $this->template);
 	}
 
-	public function fileKml(): void
+	public function renderFileKml(): void
 	{
 		header(sprintf('Content-Disposition: attachment; filename="BetterLocation_%d_locations_%s.kml"', count($this->collection), $this->nowFileText));
 		Factory::Latte('locationsKml.latte', $this->template);

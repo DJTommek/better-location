@@ -107,8 +107,12 @@
 			{foreach $collection->getLocations() as $location}
 				<div id="content-locations-{$location->getCoordinates()->hash()}" class="tab-pane fade {$iterator->first ? 'show active'}" role="tabpanel">
 					<div class="text-center">
-						<div class="address" n:ifcontent>
-							{$location->getAddress()}
+						<div class="address address-to-fill address-to-fill-{$location->getCoordinates()->hash()}">
+							{if $location->hasAddress()}
+								{$location->getAddress() ?? 'Unknown address'}
+							{else}
+								<i class="fa fa-circle-o-notch fa-spin"></i> Loading address...
+							{/if}
 						</div>
 
 						<div class="timezone">
@@ -372,6 +376,26 @@
 				const locationHash = $(this).data('location');
 				console.log('Opening popup for location ' + locationHash);
 				mapData.markers.locations[locationHash].openPopup();
+			});
+
+			// Load more info after page is loaded, so page can be loaded quickly.
+			// Some data from third-party APIs takes noticeable time to load (eg address)
+			const currentUrl = new URL(window.location.href);
+			currentUrl.searchParams.set('format', 'json');
+			currentUrl.searchParams.set('address', 'true');
+			$.ajax({
+				url: currentUrl,
+				success: function (response) {
+					for (const location of response.locations) {
+						const addressToFindClass = 'address-to-fill';
+						const addressHtmlKey = addressToFindClass + '-' + location.hash;
+						console.log(addressHtmlKey);
+						$('.' + addressHtmlKey)
+							.text(location.address ?? 'Unknown address...')
+							.removeClass(addressToFindClass)
+							.removeClass(addressHtmlKey);
+					}
+				}
 			});
 		});
 	</script>
