@@ -58,23 +58,23 @@ class Pluginer
 
 		// @TODO add JSON incoming JSON schema validation
 		// @TODO save original prefix so can be restored (eg if new prefix is too long, has invalid HTML, etc)
-		foreach ($dataNew['locations'] as $locationKey => $locationNew) {
+		foreach ($dataNew->locations as $locationKey => $locationNew) {
 			$locationOld = $collection[$locationKey];
-			$collection[$locationKey]->setPrefixMessage($locationNew['prefix']);
-			foreach ($locationNew['descriptions'] as $descriptionKey => $description) {
+			$collection[$locationKey]->setPrefixMessage($locationNew->prefix);
+			foreach ($locationNew->descriptions as $descriptionKey => $description) {
 				$locationOld->addDescription($description, $descriptionKey);
 			}
 		}
 	}
 
-	private function callApi(array|\stdClass|\JsonSerializable $requestBody): array
+	private function callApi(array|\stdClass|\JsonSerializable $requestBody): \stdClass
 	{
 		$miniCurl = new MiniCurl($this->pluginUrl);
 		$miniCurl->allowCache(Config::PLUGINER_CACHE_TTL);
 		$miniCurl->allowAutoConvertEncoding(false);
 		$miniCurl->setPostJson($requestBody);
 		$response = $miniCurl->run();
-		return Json::decode($response->getBody(), Json::FORCE_ARRAY);
+		return Json::decode($response->getBody());
 	}
 
 	private function collectionToData(BetterLocationCollection $collection): array
