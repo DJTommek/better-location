@@ -1,0 +1,109 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"properties": {
+		"meta": {
+			"type": "object",
+			"properties": {
+				"date": {
+					"type": "integer"
+				}
+			},
+			"required": [
+				"date"
+			]
+		},
+		"telegram": {
+			"type": "object",
+			"properties": {
+				"update_id": {
+					"type": "integer"
+				},
+				"message_id": {
+					"type": [
+						"null",
+						"integer"
+					]
+				},
+				"chat": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": [
+								"null",
+								"integer"
+							]
+						},
+						"type": {
+							"type": [
+								"null",
+								"string"
+							]
+						}
+					},
+					"required": [
+						"id",
+						"type"
+					]
+				},
+				"from": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "integer"
+						}
+					},
+					"required": [
+						"id"
+					]
+				}
+			},
+			"required": [
+				"update_id",
+				"message_id",
+				"chat",
+				"from"
+			]
+		},
+		"locations": {
+			"type": "array",
+			"items": [
+				{
+					"type": "object",
+					"properties": {
+						"latitude": {
+							"type": "number"
+						},
+						"longitude": {
+							"type": "number"
+						},
+						"address": {
+							"type": [
+								"null",
+								"string"
+							]
+						},
+						"prefix": {
+							"type": "string"
+						},
+						"descriptions": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					"required": [
+						"latitude",
+						"longitude",
+						"prefix"
+					]
+				}
+			]
+		}
+	},
+	"required": [
+		"meta",
+		"locations"
+	]
+}

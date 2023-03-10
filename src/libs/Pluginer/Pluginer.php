@@ -56,7 +56,19 @@ class Pluginer
 			return;
 		}
 
-		// @TODO add JSON incoming JSON schema validation
+		$validator = new Validator();
+		$validator->validate($dataNew);
+		if ($validator->isValid() === false) {
+			Debugger::log(sprintf(
+				'Plugin API url "%s" returned invalid JSON, total %d errors: "%s"',
+				$this->pluginUrl->getDomain(),
+				count($validator->getErrors()),
+				implode('", "', $validator->getErrors())
+			), Debugger::WARNING);
+			// @TODO warn chat admin(s)
+			return;
+		}
+
 		// @TODO save original prefix so can be restored (eg if new prefix is too long, has invalid HTML, etc)
 		foreach ($dataNew->locations as $locationKey => $locationNew) {
 			$locationOld = $collection[$locationKey];
