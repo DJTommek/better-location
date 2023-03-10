@@ -1,0 +1,22 @@
+{
+	"meta": {
+		"date": 1234567890
+	},
+	"telegram": {
+		"update_id": 123456789,
+		"message_id": null,
+		"chat": {
+			"id": null,
+			"type": null
+		},
+		"from": {
+			"id": 123456789
+		}
+	},
+	"locations": [
+		{
+			"latitude": 50.051381,
+			"longitude": 14.295504
+		}
+	]
+}

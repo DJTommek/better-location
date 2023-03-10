@@ -1,0 +1,25 @@
+{
+	"meta": {
+		"date": 1234567890
+	},
+	"telegram": {
+		"update_id": 123456789,
+		"message_id": 1234,
+		"chat": {
+			"id": -1001234567890,
+			"type": "supergroup"
+		},
+		"from": {
+			"id": 123456789
+		}
+	},
+	"locations": [
+		{
+			"latitude": 50.087451,
+			"longitude": 14.420671,
+			"address": null,
+			"prefix": "<a href=\"https:\/\/www.waze.com\/ul?ll=50.087451%2C14.420671\">Waze<\/a>",
+			"descriptions": []
+		}
+	]
+}

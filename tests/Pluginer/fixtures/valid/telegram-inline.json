@@ -1,0 +1,27 @@
+{
+	"meta": {
+		"date": 1234567890
+	},
+	"telegram": {
+		"update_id": 123456789,
+		"message_id": null,
+		"chat": {
+			"id": null,
+			"type": null
+		},
+		"from": {
+			"id": 123456789
+		}
+	},
+	"locations": [
+		{
+			"latitude": 50.051381,
+			"longitude": 14.295504,
+			"address": "Skandin\u00e1vsk\u00e1 15a, 155 00 Praha 13, Czechia",
+			"prefix": "\ud83c\udfaf Last location",
+			"descriptions": [
+				"Last update 2023-01-20 19:07:37 CET"
+			]
+		}
+	]
+}
