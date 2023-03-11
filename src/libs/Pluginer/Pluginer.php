@@ -8,7 +8,6 @@ use App\MiniCurl\Exceptions\TimeoutException;
 use App\MiniCurl\MiniCurl;
 use Nette\Http\UrlImmutable;
 use Nette\Utils\Json;
-use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram;
 
 class Pluginer
@@ -46,27 +45,21 @@ class Pluginer
 		// call external API to process these values and return updated data
 		try {
 			$dataNew = $this->callApi($dataOriginal);
-		} catch (TimeoutException $exception) {
-			Debugger::log('Plugin API url "%s" timeouted', Debugger::INFO);
-			// @TODO warn chat admin(s)
-			return;
+		} catch (TimeoutException) {
+			throw new PluginerException('Request timeouted');
+		} catch (\JsonException $exception) {
+			throw new PluginerException(sprintf('Unable to parse response as JSON, error: "%s"', $exception->getMessage()));
 		} catch (\Exception $exception) {
-			Debugger::log('Error on plugin API url "%s": ' . $exception->getMessage(), Debugger::WARNING);
-			// @TODO warn chat admin(s)
-			return;
+			throw new PluginerException(sprintf('General error "%s"', $exception->getMessage()));
 		}
 
 		$validator = new Validator();
 		$validator->validate($dataNew);
 		if ($validator->isValid() === false) {
-			Debugger::log(sprintf(
-				'Plugin API url "%s" returned invalid JSON, total %d errors: "%s"',
-				$this->pluginUrl->getDomain(),
-				count($validator->getErrors()),
+			throw new PluginerException(sprintf(
+				'Response JSON has some validation errors: "%s"',
 				implode('", "', $validator->getErrors())
-			), Debugger::WARNING);
-			// @TODO warn chat admin(s)
-			return;
+			));
 		}
 
 		// @TODO save original prefix so can be restored (eg if new prefix is too long, has invalid HTML, etc)

@@ -6,6 +6,8 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\Config;
 use App\Pluginer\Pluginer;
+use App\Pluginer\PluginerException;
+use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types;
 
 class ProcessedMessageResult
@@ -34,7 +36,14 @@ class ProcessedMessageResult
 	public function process(bool $printAllErrors = false): self
 	{
 		if ($this->pluginer !== null && $this->collection->isEmpty() === false) {
-			$this->pluginer->process($this->collection);
+			try {
+				$this->pluginer->process($this->collection);
+			} catch (PluginerException $exception) {
+				Debugger::log(sprintf('Error while processing pluginer: "%s"', $exception->getMessage()), Debugger::WARNING);
+				// @TODO warn chat admin(s)
+			} catch (\Exception $exception) {
+				Debugger::log($exception, Debugger::EXCEPTION);
+			}
 		}
 
 		if ($this->messageSettings->showAddress()) {
