@@ -62,7 +62,7 @@ class ChatPresenter extends MainPresenter
 					$pluginer->process($exampleCollection);
 				} catch (PluginerException $exception) {
 					$this->flashMessage(
-						'Error while processing your Pluginer URL, check if your server is online and responding correctly.<br>' . $exception->getMessage(),
+						'Error while processing your Pluginer URL, check if your server is online and responding correctly.<br>' . htmlspecialchars($exception->getMessage()),
 						FlashMessage::FLASH_ERROR,
 						null
 					);
@@ -133,7 +133,7 @@ class ChatPresenter extends MainPresenter
 				} catch (PluginerException $exception) {
 					$this->flashMessage(sprintf(
 						'Pluginer URL is valid but error occured while testing it: "%s"',
-						$exception->getMessage()
+						htmlspecialchars($exception->getMessage())
 					), FlashMessage::FLASH_ERROR, null);
 					return;
 				} catch (\Exception $exception) {
