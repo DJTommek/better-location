@@ -98,6 +98,29 @@
 						</td>
 					</tr>
 					<tr>
+						<td>Pluginer webhook URL</td>
+						<td>
+							<input type="url" name="pluginer-url" class="form-control" value="{$formPluginerUrl}" placeholder="{\App\Config::getAppUrl('/webhook/pluginer-example.php')}">
+							<div class="form-text">
+								<p>
+									When location in this chat is detected, it will send POST request with JSON to this URL, where you can update some of attributes such as location prefix.<br>
+									Example of such script:
+									<a href="https://github.com/DJTommek/better-location/blob/master/www/webhook/pluginer-example.php" title="Pluginer example source code Github DJTommek/better-location" target="_blank">source code</a>
+									|
+									<a href="{\App\Config::getAppUrl('/webhook/pluginer-example.php')}" title="Pluginer example URL" target="_blank">public URL to test</a>
+								</p>
+								<p class="font-weight-bold">
+									<i class="fa fa-exclamation-triangle"></i>
+									This is experimental feature currently public beta testing, anything can change without further notice. See
+									<a href="https://github.com/DJTommek/better-location/issues/117" target="_blank" title="Github issue #117: Pluginer - allow edit location messages">Github issue #117</a>
+									for more info or ask in
+									<a href="https://t.me/BetterLocationChat" target="_blank" title="Telegram group @BetterLocationChat">@BetterLocationChat</a>.
+									Feedback is very much appreciated.
+								</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
 						<td colspan="2" class="text-center">
 							<button type="submit" class="btn btn-primary">Save</button>
 						</td>

@@ -3,7 +3,6 @@
 namespace App\Web\Chat;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\Service\WazeService;
 use App\BetterLocation\ServicesManager;
 use App\Chat;
 use App\Config;
@@ -27,10 +26,8 @@ class ChatTemplate extends LayoutTemplate
 	public $lat;
 	/** @var float */
 	public $lon;
-	/** @var BetterLocation */
-	public $exampleInput = 'https://www.waze.com/ul?ll=50.087451%2C14.420671';
-	/** @var BetterLocation */
-	public $exampleLocation;
+	public string $exampleInput;
+	public BetterLocation $exampleLocation;
 	// in case of ok - end
 	// in case of error - start
 	/** @var string */
@@ -44,6 +41,7 @@ class ChatTemplate extends LayoutTemplate
 	/** @var string */
 	public $authorLink;
 	public ServicesManager $services;
+	public string $formPluginerUrl = '';
 
 	// in case of error - end
 
@@ -56,7 +54,6 @@ class ChatTemplate extends LayoutTemplate
 	public function prepareOk(Telegram\Types\Chat $chatResponse)
 	{
 		$this->prepare();
-		$this->exampleLocation = WazeService::processStatic($this->exampleInput)->getFirst();
 		$this->lat = $this->exampleLocation->getLat();
 		$this->lon = $this->exampleLocation->getLon();
 		$this->chatResponse = $chatResponse;
