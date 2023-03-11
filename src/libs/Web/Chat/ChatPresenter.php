@@ -35,7 +35,7 @@ class ChatPresenter extends MainPresenter
 		}
 		if ($this->isAdmin()) {
 			$this->chat = new Chat($this->chatTelegramId, $this->chatResponse->type, TelegramHelper::getChatDisplayname($this->chatResponse));
-			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			if ($this->isPostRequest()) {
 				$this->handleSettingsForm();
 			}
 		}

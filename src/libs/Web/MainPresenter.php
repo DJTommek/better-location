@@ -100,5 +100,9 @@ abstract class MainPresenter
 			unset($_SESSION['FLASH_MESSAGES'][$key]);
 		}
 	}
+
+	protected function isPostRequest(): bool {
+		return $_SERVER['REQUEST_METHOD'] === 'POST';
+	}
 }
 
