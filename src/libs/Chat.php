@@ -2,10 +2,10 @@
 
 namespace App;
 
-use App\BetterLocation\BetterLocationCollection;
 use App\Repository\ChatEntity;
 use App\Repository\ChatRepository;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
+use Nette\Http\UrlImmutable;
 
 class Chat
 {
@@ -68,6 +68,17 @@ class Chat
 	public function getTelegramChatName(): ?string
 	{
 		return $this->chatEntity->telegramName;
+	}
+
+	public function getPluginerUrl(): ?UrlImmutable
+	{
+		return $this->chatEntity->pluginUrl;
+	}
+
+	public function setPluginerUrl(?UrlImmutable $url): void
+	{
+		$this->chatEntity->pluginUrl = $url;
+		$this->update();
 	}
 
 	public function getMessageSettings(): BetterLocationMessageSettings
