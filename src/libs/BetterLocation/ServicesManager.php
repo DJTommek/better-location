@@ -31,6 +31,7 @@ use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\HradyCzService;
 use App\BetterLocation\Service\IngressIntelService;
 use App\BetterLocation\Service\IngressPrimeService;
+use App\BetterLocation\Service\IpAddressV4Service;
 use App\BetterLocation\Service\MapyCzPanoramaGeneratorService;
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\NeshanOrgService;
@@ -83,6 +84,7 @@ class ServicesManager
 
 	public function __construct()
 	{
+		$this->services[IpAddressV4Service::ID] = IpAddressV4Service::class;
 		$this->services[BetterLocationService::ID] = BetterLocationService::class;
 		$this->services[WGS84DegreesService::ID] = WGS84DegreesService::class;
 		$this->services[WGS84DegreeCompactService::ID] = WGS84DegreeCompactService::class;

@@ -198,6 +198,7 @@ class DefaultConfig
 	const CACHE_TTL_HRADY_CZ = 60 * 60 * 24;
 	const CACHE_TTL_OPEN_ELEVATION = 60 * 60 * 24;
 	const CACHE_TTL_PRAZDNE_DOMY = 60 * 60 * 24;
+    const CACHE_TTL_IP_API = 60 * 60 * 24;
 
 	const PLUGINER_CACHE_TTL = 60 * 10;
 
