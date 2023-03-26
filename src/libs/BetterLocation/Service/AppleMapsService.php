@@ -26,6 +26,7 @@ final class AppleMapsService extends AbstractService
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
+		ServicesManager::TAG_GENERATE_LINK_DRIVE,
 	];
 
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
