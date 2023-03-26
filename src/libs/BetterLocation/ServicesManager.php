@@ -3,6 +3,7 @@
 namespace App\BetterLocation;
 
 use App\BetterLocation\Service\AbstractService;
+use App\BetterLocation\Service\AppleMapsService;
 use App\BetterLocation\Service\BaladIrService;
 use App\BetterLocation\Service\BannergressService;
 use App\BetterLocation\Service\BetterLocationService;
@@ -113,6 +114,7 @@ class ServicesManager
 		$this->services[OrganicMapsService::ID] = OrganicMapsService::class;
 		$this->services[WikipediaService::ID] = WikipediaService::class;
 		$this->services[DuckDuckGoService::ID] = DuckDuckGoService::class;
+		$this->services[AppleMapsService::ID] = AppleMapsService::class;
 		if (Config::isFoursquare()) {
 			$this->services[FoursquareService::ID] = FoursquareService::class;
 		}
