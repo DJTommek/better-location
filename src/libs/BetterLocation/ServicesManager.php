@@ -79,7 +79,7 @@ class ServicesManager
 	/** Service can generate text representing location only by processing via paid service */
 	public const TAG_GENERATE_TEXT_PAID = 23;
 
-	/** @var AbstractService[] */
+	/** @var array<class-string<AbstractService>> */
 	private $services = [];
 
 	public function __construct()
