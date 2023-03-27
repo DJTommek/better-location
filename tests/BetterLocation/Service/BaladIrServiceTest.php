@@ -3,7 +3,6 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\BaladIrService;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 
 final class BaladIrServiceTest extends AbstractServiceTestCase
 {
@@ -27,12 +26,6 @@ final class BaladIrServiceTest extends AbstractServiceTestCase
 	protected function getDriveLinks(): array
 	{
 		return [];
-	}
-
-	public function testGenerateDriveLinkAndValidate(): void
-	{
-		$this->expectException(NotSupportedException::class);
-		parent::testGenerateDriveLinkAndValidate();
 	}
 
 	public function testIsValid(): void
@@ -66,11 +59,38 @@ final class BaladIrServiceTest extends AbstractServiceTestCase
 	}
 
 	/**
+	 * @group request
+	 */
+	public function testProcessPlaceId(): void
+	{
+		$collection = BaladIrService::processStatic('https://balad.ir/p/3j08MFNHbCGvnu?preview=true')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('27.192955,56.290765', (string)$collection->getFirst());
+
+		$collection = BaladIrService::processStatic('https://balad.ir/p/%DA%A9%D9%88%DB%8C-%D8%A2%DB%8C%D8%AA-%D8%A7%D9%84%D9%84%D9%87-%D8%BA%D9%81%D8%A7%D8%B1%DB%8C-bandar-abbas_residential-complex-3j08MFNHbCGvnu?preview=true')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('27.192955,56.290765', (string)$collection->getFirst());
+
+		$collection = BaladIrService::processStatic('https://balad.ir/p/%DA%A9%D9%88%DB%8C-%D8%A2%DB%8C%D8%AA-%D8%A7%D9%84%D9%84%D9%87-%D8%BA%D9%81%D8%A7%D8%B1%DB%8C-bandar-abbas_residential-complex-3j08MFNHbCGvnu?preview=true#16.01/27.19771/56.287317')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('27.192955,56.290765', (string)$collection->getFirst());
+
+		$collection = BaladIrService::processStatic('https://balad.ir/p/blah-blah-abcd?preview=true#16.01/27.19771/56.287317')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('27.197710,56.287317', (string)$collection->getFirst());
+
+		$collection = BaladIrService::processStatic('https://balad.ir/p/405uvqx6JfALrs?preview=true')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('35.699738,51.338060', (string)$collection->getFirst());
+	}
+
+	/**
 	 * @dataProvider isValidProvider
 	 */
 	public function testIsValidUsingProvider(bool $expectedIsValid, string $link): void
 	{
-		$this->assertSame($expectedIsValid, BaladIrService::isValidStatic($link));
+		$isValid = BaladIrService::isValidStatic($link);
+		$this->assertSame($expectedIsValid, $isValid, $link);
 	}
 
 	/**
@@ -88,6 +108,10 @@ final class BaladIrServiceTest extends AbstractServiceTestCase
 			[true, 'https://balad.ir/#6.04/29.513/53.574'],
 			[true, 'https://balad.ir/#6.04/29/53'],
 			[true, 'https://balad.ir/#6/29.513/53.574'],
+			// Place ID
+			[true, 'https://balad.ir/p/405uvqx6JfALrs'],
+			[true, 'https://balad.ir/p/3j08MFNHbCGvnu?preview=true'],
+			[true, 'https://balad.ir/p/%DA%A9%D9%88%DB%8C-%D8%A2%DB%8C%D8%AA-%D8%A7%D9%84%D9%84%D9%87-%D8%BA%D9%81%D8%A7%D8%B1%DB%8C-bandar-abbas_residential-complex-3j08MFNHbCGvnu?preview=true'],
 
 			[false, 'https://balad.ir/location?longitude=-14.420671'],
 			[false, 'https://balad.ir/location?latitude=-99.087451&longitude=-14.420671'],
@@ -95,6 +119,11 @@ final class BaladIrServiceTest extends AbstractServiceTestCase
 			[false, 'https://different-domain.ir/location?latitude=-99.087451&longitude=-14.420671'],
 			[false, 'https://balad.ir/location?latitude=99.826644&longitude=50.968268&zoom=16.500000#15/999.83347/50.95417'],
 			[false, 'non url'],
+
+			// @TODO add support for processing areas (/maps/xyz)
+			[false, 'https://balad.ir/maps/qazvin?preview=true'],
+			[false, 'https://balad.ir/maps/mashhad?preview=true'],
+			[true, 'https://balad.ir/maps/mashhad?preview=true#11.03/36.3084/59.6476'], // map center is valid
 		];
 	}
 }
