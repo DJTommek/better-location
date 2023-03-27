@@ -3,6 +3,7 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\AbstractService;
+use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractServiceTestCase extends TestCase
@@ -20,25 +21,33 @@ abstract class AbstractServiceTestCase extends TestCase
 	 */
 	abstract protected function getServiceClass(): string;
 
+	/**
+	 * Return array of share link as strings generated from coordinates from self::EXAMPLE_COORDS
+	 * If generating share links is not supported, return empty array instead.
+	 *
+	 * @return string[]
+	 */
 	abstract protected function getShareLinks(): array;
 
+	/**
+	 * Return array of drive link as strings generated from coordinates from self::EXAMPLE_COORDS
+	 * If generating drive links is not supported, return empty array instead.
+	 *
+	 * @return string[]
+	 */
 	abstract protected function getDriveLinks(): array;
-
-	public function generateLinkDataProvider(): array
-	{
-		return [
-			[50.087451, 14.420671],
-			[50.1, 14.5],
-			[-50.2, 14.6000001], // round down
-			[50.3, -14.7000009], // round up
-			[-50.4, -14.800008],
-		];
-	}
 
 	public function testGenerateShareLinkAndValidate(): void
 	{
 		$service = $this->getServiceClass();
 		$expectedShareLinks = $this->getShareLinks();
+
+		if ($expectedShareLinks === []) {
+			$this->expectException(NotSupportedException::class);
+			[$lat, $lon] = self::EXAMPLE_COORDS[0];
+			$link = $service::getShareLink($lat, $lon);
+			$this->fail(sprintf('[%s] Generating share link returned "%s" but should fail.', $service, $link));
+		}
 
 		foreach (self::EXAMPLE_COORDS as $i => [$lat, $lon]) {
 			$link = $service::getShareLink($lat, $lon);
@@ -51,6 +60,13 @@ abstract class AbstractServiceTestCase extends TestCase
 	{
 		$service = $this->getServiceClass();
 		$expectedShareLinks = $this->getDriveLinks();
+
+		if ($expectedShareLinks === []) {
+			$this->expectException(NotSupportedException::class);
+			[$lat, $lon] = self::EXAMPLE_COORDS[0];
+			$link = $service::getDriveLink($lat, $lon);
+			$this->fail(sprintf('[%s] Generating drive link returned "%s" but should fail.', $service, $link));
+		}
 
 		foreach (self::EXAMPLE_COORDS as $i => [$lat, $lon]) {
 			$link = $service::getDriveLink($lat, $lon);
