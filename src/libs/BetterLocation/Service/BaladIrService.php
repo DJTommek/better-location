@@ -5,6 +5,9 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
+use App\Config;
+use App\MiniCurl\Exceptions\InvalidResponseException;
+use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\CoordinatesInterface;
 use Nette\Http\Url;
@@ -17,6 +20,7 @@ final class BaladIrService extends AbstractService
 
 	public const TYPE_MAP_CENTER = 'Map center';
 	public const TYPE_PLACE_COORDS = 'Place coords';
+	public const TYPE_PLACE = 'Place';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,
@@ -28,6 +32,7 @@ final class BaladIrService extends AbstractService
 		return [
 			self::TYPE_MAP_CENTER,
 			self::TYPE_PLACE_COORDS,
+			self::TYPE_PLACE,
 		];
 	}
 
@@ -68,7 +73,29 @@ final class BaladIrService extends AbstractService
 			}
 		}
 
+		// Map place with ID
+		if ($this->isPlaceIdUrl()) {
+			$valid = true;
+		}
+
 		return $valid;
+	}
+
+	private function isPlaceIdUrl(): bool
+	{
+		// https://balad.ir/p/3j08MFNHbCGvnu
+		if (preg_match('/^\/p\/([a-zA-Z0-9]{3,})$/', $this->url->getPath(), $matches)) {
+			$this->data->placeId = $matches[1];
+			return true;
+		}
+
+		// https://balad.ir/p/%DA%A9%D9%88%DB%8C-%D8%A2%DB%8C%D8%AA-%D8%A7%D9%84%D9%84%D9%87-%D8%BA%D9%81%D8%A7%D8%B1%DB%8C-bandar-abbas_residential-complex-3j08MFNHbCGvnu?preview=true
+		if (preg_match('/^\/p\/.+-([a-zA-Z0-9]{3,})$/', $this->url->getPath(), $matches)) {
+			$this->data->placeId = $matches[1];
+			return true;
+		}
+
+		return false;
 	}
 
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
@@ -93,12 +120,52 @@ final class BaladIrService extends AbstractService
 			$this->collection->add($location);
 		}
 
+		if (isset($this->data->placeId)) {
+			$place = $this->loadPlaceId($this->data->placeId);
+			$coords = Coordinates::safe($place->geometry->coordinates[1] ?? null, $place->geometry->coordinates[0] ?? null);
+			if ($coords !== null) {
+				$location = new BetterLocation(
+					$this->input,
+					$coords->getLat(),
+					$coords->getLon(),
+					self::class,
+					self::TYPE_PLACE
+				);
+				if (isset($place->name)) {
+					$location->setPrefixMessage(sprintf(
+						'<a href="%s">%s %s</a>',
+						$this->input,
+						self::NAME,
+						htmlentities($place->name),
+					));
+				}
+
+				$this->collection->add($location);
+			}
+		}
+
 		// process map center only if there are no other locations
 		if (isset($this->data->mapCenterCoords) && $this->collection->isEmpty()) {
 			$coords = $this->data->mapCenterCoords;
 			$location = new BetterLocation($this->input, $coords->getLat(), $coords->getLon(), self::class, self::TYPE_MAP_CENTER);
 			$this->collection->add($location);
 		}
+	}
 
+	private function loadPlaceId(string $placeId): ?\stdClass
+	{
+		try {
+			$url = sprintf('https://poi.raah.ir/web/v4/%s?format=json', $placeId);
+			$response = (new MiniCurl($url))
+				->allowAutoConvertEncoding(false)
+				->allowCache(Config::CACHE_TTL_RAAH_IR)
+				->run();
+			return $response->getBodyAsJson();
+		} catch (InvalidResponseException $exception) {
+			if ($exception->getCode() === 404) {
+				return null;
+			}
+			throw $exception;
+		}
 	}
 }
