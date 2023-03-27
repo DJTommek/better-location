@@ -4,46 +4,49 @@ namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\BaladIrService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
-use PHPUnit\Framework\TestCase;
 
-final class BaladIrServiceTest extends TestCase
+final class BaladIrServiceTest extends AbstractServiceTestCase
 {
-	public function testGenerateShareLink(): void
+
+	protected function getServiceClass(): string
 	{
-		$this->assertSame('https://balad.ir/location?latitude=50.087451&longitude=14.420671', BaladIrService::getLink(50.087451, 14.420671));
-		$this->assertSame('https://balad.ir/location?latitude=50.1&longitude=14.5', BaladIrService::getLink(50.1, 14.5));
-		$this->assertSame('https://balad.ir/location?latitude=-50.2&longitude=14.6000001', BaladIrService::getLink(-50.2, 14.6000001)); // round down
-		$this->assertSame('https://balad.ir/location?latitude=50.3&longitude=-14.7000009', BaladIrService::getLink(50.3, -14.7000009)); // round up
-		$this->assertSame('https://balad.ir/location?latitude=-50.4&longitude=-14.800008', BaladIrService::getLink(-50.4, -14.800008));
+		return BaladIrService::class;
 	}
 
-	public function testGenerateDriveLink(): void
+	public function getShareLinks(): array
+	{
+		return [
+			'https://balad.ir/location?latitude=50.087451&longitude=14.420671',
+			'https://balad.ir/location?latitude=50.1&longitude=14.5',
+			'https://balad.ir/location?latitude=-50.2&longitude=14.6000001',
+			'https://balad.ir/location?latitude=50.3&longitude=-14.7000009',
+			'https://balad.ir/location?latitude=-50.4&longitude=-14.800008',
+		];
+	}
+
+	protected function getDriveLinks(): array
+	{
+		return [];
+	}
+
+	public function testGenerateDriveLinkAndValidate(): void
 	{
 		$this->expectException(NotSupportedException::class);
-		BaladIrService::getLink(50.087451, 14.420671, true);
+		parent::testGenerateDriveLinkAndValidate();
 	}
 
-	public function testIsValidMap(): void
+	public function testIsValid(): void
 	{
 		$this->assertTrue(BaladIrService::isValidStatic('https://balad.ir/location?latitude=50.087451&longitude=14.420671'));
-		$this->assertTrue(BaladIrService::isValidStatic('https://balad.ir/location?latitude=50&longitude=14'));
-		$this->assertTrue(BaladIrService::isValidStatic('https://balad.ir/location?latitude=-50.087451&longitude=-14.420671'));
 		$this->assertTrue(BaladIrService::isValidStatic('https://balad.ir/location?latitude=35.826644&longitude=50.968268&zoom=16.500000#15/35.83347/50.95417'));
-		$this->assertTrue(BaladIrService::isValidStatic('https://balad.ir/location?latitude=9999.826644&longitude=50.968268&zoom=16.500000#15/35.83347/50.95417'));
-		$this->assertTrue(BaladIrService::isValidStatic('https://balad.ir/location?latitude=35.826644&longitude=50.968268&zoom=16.500000#15/999.83347/50.95417'));
-		$this->assertTrue(BaladIrService::isValidStatic('https://balad.ir/#6.04/29.513/53.574'));
-		$this->assertTrue(BaladIrService::isValidStatic('https://balad.ir/#6.04/29/53'));
 		$this->assertTrue(BaladIrService::isValidStatic('https://balad.ir/#6/29.513/53.574'));
 
 		$this->assertFalse(BaladIrService::isValidStatic('https://balad.ir/location?longitude=-14.420671'));
-		$this->assertFalse(BaladIrService::isValidStatic('https://balad.ir/location?latitude=-99.087451&longitude=-14.420671'));
-		$this->assertFalse(BaladIrService::isValidStatic('https://balad.ir/#6/99.513/53.574'));
 		$this->assertFalse(BaladIrService::isValidStatic('https://different-domain.ir/location?latitude=-99.087451&longitude=-14.420671'));
-		$this->assertFalse(BaladIrService::isValidStatic('https://balad.ir/location?latitude=99.826644&longitude=50.968268&zoom=16.500000#15/999.83347/50.95417'));
 		$this->assertFalse(BaladIrService::isValidStatic('non url'));
 	}
 
-	public function testProcessSourceP(): void
+	public function testProcess(): void
 	{
 		$collection = BaladIrService::processStatic('https://balad.ir/location?latitude=35.826644&longitude=50.968268&zoom=16.500000#15/35.83347/50.95417')->getCollection();
 		$this->assertCount(1, $collection);
@@ -60,5 +63,38 @@ final class BaladIrServiceTest extends TestCase
 		$collection = BaladIrService::processStatic('https://balad.ir/#15/35.826644/50.968268')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('35.826644,50.968268', (string)$collection->getFirst());
+	}
+
+	/**
+	 * @dataProvider isValidProvider
+	 */
+	public function testIsValidUsingProvider(bool $expectedIsValid, string $link): void
+	{
+		$this->assertSame($expectedIsValid, BaladIrService::isValidStatic($link));
+	}
+
+	/**
+	 * @return array<array{bool, string}>
+	 */
+	public function isValidProvider(): array
+	{
+		return [
+			[true, 'https://balad.ir/location?latitude=50.087451&longitude=14.420671'],
+			[true, 'https://balad.ir/location?latitude=50&longitude=14'],
+			[true, 'https://balad.ir/location?latitude=-50.087451&longitude=-14.420671'],
+			[true, 'https://balad.ir/location?latitude=35.826644&longitude=50.968268&zoom=16.500000#15/35.83347/50.95417'],
+			[true, 'https://balad.ir/location?latitude=9999.826644&longitude=50.968268&zoom=16.500000#15/35.83347/50.95417'],
+			[true, 'https://balad.ir/location?latitude=35.826644&longitude=50.968268&zoom=16.500000#15/999.83347/50.95417'],
+			[true, 'https://balad.ir/#6.04/29.513/53.574'],
+			[true, 'https://balad.ir/#6.04/29/53'],
+			[true, 'https://balad.ir/#6/29.513/53.574'],
+
+			[false, 'https://balad.ir/location?longitude=-14.420671'],
+			[false, 'https://balad.ir/location?latitude=-99.087451&longitude=-14.420671'],
+			[false, 'https://balad.ir/#6/99.513/53.574'],
+			[false, 'https://different-domain.ir/location?latitude=-99.087451&longitude=-14.420671'],
+			[false, 'https://balad.ir/location?latitude=99.826644&longitude=50.968268&zoom=16.500000#15/999.83347/50.95417'],
+			[false, 'non url'],
+		];
 	}
 }
