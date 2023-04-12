@@ -4,6 +4,7 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\Config;
+use App\Http\HttpClientFactory;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use Nette\Utils\Strings;
@@ -39,13 +40,17 @@ final class WikipediaService extends AbstractService
 
 	private function requestLocationFromWikipediaPage(): \stdClass
 	{
-		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_WIKIPEDIA)->run()->getBody();
+		$httpClient = new HttpClientFactory();
+		$httpClient->allowCache(Config::CACHE_TTL_WIKIPEDIA);
+		$httpClient->setHttpHeader('a', 'b');
+		$body = (string)$httpClient->get($this->url)->getBody();
+
 		$startString = ';RLCONF=';
 		$endString = ';RLSTATE=';
-		$posStart = mb_strpos($response, $startString);
-		$posEnd = mb_strpos($response, $endString);
+		$posStart = mb_strpos($body, $startString);
+		$posEnd = mb_strpos($body, $endString);
 		$jsonText = mb_substr(
-			$response,
+			$body,
 			mb_strlen($startString) + $posStart,
 			$posEnd - $posStart - mb_strlen($startString),
 		);

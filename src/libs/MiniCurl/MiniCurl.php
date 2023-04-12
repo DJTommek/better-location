@@ -72,8 +72,8 @@ class MiniCurl
 
 	public function __construct(string|Url|UrlImmutable $url)
 	{
-		$this->url = (string)$url;
-		$this->curl = curl_init($this->url);
+		$this->url = new Url($url);
+		$this->curl = curl_init((string)$this->url);
 		if ($this->curl === false) {
 			throw new InitException('CURL can\'t be initialited.');
 		}
@@ -188,6 +188,8 @@ class MiniCurl
 	 */
 	public function run(?int $requireResponseCode = 200): Response
 	{
+		\Tracy\Debugger::timer(self::class);
+
 		if ($this->allowRandomUseragent) {
 			$randomUseragent = self::USERAGENTS[array_rand(self::USERAGENTS)];
 			$this->setHttpHeader('user-agent', $randomUseragent);
@@ -256,17 +258,21 @@ class MiniCurl
 		$curlInfo = curl_getinfo($this->curl);
 		$response = new Response($curlResponse, $curlInfo);
 		if (is_null($requireResponseCode) === false && $response->getCode() !== $requireResponseCode) {
-			throw new InvalidResponseException(sprintf('Invalid response code "%d" but required "%d" for URL "%s".', $response->getCode(), $requireResponseCode, $this->url), $response->getCode());
+			throw new InvalidResponseException(sprintf('Invalid response code "%d" but required "%d" for URL "%s".', $response->getCode(), $requireResponseCode, $this->url->getDomain(0)), $response->getCode());
 		}
 		if (isset($cacheId)) {
 			$this->saveToCache($cacheId, $curlResponse, $curlInfo);
 		}
+		Debugger::log(sprintf(
+			'Request to %s took %F seconds', $this->url->getDomain(0),
+			\Tracy\Debugger::timer(self::class),
+		), Debugger::DEBUG);
 		return $response;
 	}
 
 	private function generateCacheId(): string
 	{
-		return Cache::generateId($this->url, $this->options);
+		return Cache::generateId((string)$this->url, $this->options);
 	}
 
 	private function getCachePath(string $cacheId)
