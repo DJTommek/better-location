@@ -2,11 +2,12 @@
 
 namespace App\Http;
 
-use GuzzleHttp\Client;
+use App\Factory;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Request;
+use Nette\Caching\Cache;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
 class HttpClientFactory
@@ -16,32 +17,49 @@ class HttpClientFactory
 		'read_timeout' => 5,
 		'timeout' => 5,
 	];
-	private ?Client $client = null;
+	private ?\GuzzleHttp\Client $client = null;
+	/**
+	 * @var int
+	 */
+	private int $cacheTtl = 0;
+
+	private ?Cache $cacheStorage = null;
 
 	/**
 	 * @var array<string,string>
 	 */
-	private array $cookies = [];
+	private array $httpCookies = [];
+
+	/**
+	 * @var array<string,string>
+	 */
+	private array $httpHeaders = [];
 
 	public function __construct($config = [])
 	{
 		$this->config = array_merge($config, $this->config);
 	}
 
-	public function allowCache(): self
+	/**
+	 * Allow caching.
+	 *
+	 * @param int $ttl TTL in seconds. Set 0 to disable caching.
+	 */
+	public function allowCache(int $ttl): self
 	{
+		$this->cacheTtl = $ttl;
 		return $this;
 	}
 
 	public function setHttpCookie(string $name, string $value): self
 	{
-		$this->cookies[$name] = $value;
+		$this->httpCookies[$name] = $value;
 		return $this;
 	}
 
 	public function setHttpHeader(string $name, string $value): self
 	{
-		$this->cookies[mb_strtolower($name)] = $value;
+		$this->httpHeaders[mb_strtolower($name)] = $value;
 		return $this;
 	}
 
@@ -55,10 +73,9 @@ class HttpClientFactory
 	 * @param string|UriInterface|Url|UrlImmutable $uri URI object or string.
 	 * @param array $options Request options to apply.
 	 *
-	 * @return ResponseInterface
 	 * @throws GuzzleException
 	 */
-	public function get(string|UriInterface|Url|UrlImmutable $uri, array $options = []): ResponseInterface
+	public function get(string|UriInterface|Url|UrlImmutable $uri, array $options = []): Response
 	{
 		$this->createClient();
 
@@ -66,16 +83,59 @@ class HttpClientFactory
 			$uri = (string)$uri;
 		}
 
+		$request = new Request(
+			method: 'GET',
+			uri: $uri,
+			headers: $this->httpHeaders,
+		);
+
 		// @TODO set cookies
 		// @TODO set http headers
 
-		$this->client->get($uri, $options);
+		if ($this->cacheTtl > 0) {
+			$cacheKey = $this->getCacheKey($request);
+			$cache = $this->getCacheStorage();
+
+			$cachedResponse = $cache->load($cacheKey);
+			if ($cachedResponse !== null) {
+				return $cachedResponse;
+			}
+		}
+
+		$responseOriginal = $this->client->send($request, $options);
+		$responseUtils = new Response(
+			status: $responseOriginal->getStatusCode(),
+			headers: $responseOriginal->getHeaders(),
+			body: (string)$responseOriginal->getBody(),
+			version: $responseOriginal->getProtocolVersion(),
+			reason: $responseOriginal->getReasonPhrase(),
+		);
+
+		if (isset($cacheKey) && isset($cache)) {
+			$cache->save($cacheKey, $responseUtils);
+		}
+
+		return $responseUtils;
+
 	}
 
 	private function createClient(): void
 	{
 		if ($this->client === null) {
-			$this->client = new Client($this->config);
+			$this->client = new \GuzzleHttp\Client($this->config);
 		}
+	}
+
+	private function getCacheStorage(): Cache
+	{
+		return Factory::Cache(__CLASS__);
+	}
+
+	private function getCacheKey(Request $request): string
+	{
+		$keyRaw = serialize($request);
+		$keyRaw = serialize($this->httpHeaders);
+		$keyRaw .= serialize($this->httpCookies);
+		return md5($keyRaw);
 	}
 }
