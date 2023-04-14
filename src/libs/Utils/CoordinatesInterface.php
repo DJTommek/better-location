@@ -5,7 +5,7 @@ namespace App\Utils;
 /**
  * @deprecated Use \DJTommek\Coordinates\CoordinatesInterface
  */
-interface CoordinatesInterface
+interface CoordinatesInterface extends \DJTommek\Coordinates\CoordinatesInterface
 {
 	/**
 	 * Returns latitude in range from -90 to 90
