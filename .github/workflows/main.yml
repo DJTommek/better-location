@@ -12,6 +12,7 @@ jobs:
         uses: shivammathur/setup-php@2.17.0
         with:
           php-version: 8.0
+          extensions: mbstring, exif
 
       - name: 🚚 Install Composer Dependencies
         working-directory: ./
@@ -24,3 +25,4 @@ jobs:
           bootstrap: src/bootstrap.php
           configuration: phpunit.xml
           exclude_group: request
+          php_extensions: mbstring exif
