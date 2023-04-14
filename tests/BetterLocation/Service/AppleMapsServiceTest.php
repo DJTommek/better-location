@@ -52,7 +52,7 @@ final class AppleMapsServiceTest extends AbstractServiceTestCase
 	/**
 	 * @return array<array{bool, string}>
 	 */
-	public function isValidProvider(): array
+	public static function isValidProvider(): array
 	{
 		return [
 			[true, 'https://maps.apple.com/?daddr=50.087451,14.420671&dirflg=d'],

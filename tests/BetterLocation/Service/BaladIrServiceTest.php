@@ -96,7 +96,7 @@ final class BaladIrServiceTest extends AbstractServiceTestCase
 	/**
 	 * @return array<array{bool, string}>
 	 */
-	public function isValidProvider(): array
+	public static function isValidProvider(): array
 	{
 		return [
 			[true, 'https://balad.ir/location?latitude=50.087451&longitude=14.420671'],
