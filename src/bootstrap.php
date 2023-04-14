@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-DEFINE('LOG_ID', rand(10000, 99999));
+define('LOG_ID', rand(10000, 99999));
 
 $vendorAutoloadFilePath = __DIR__ . '/../vendor/autoload.php';
 if (file_exists($vendorAutoloadFilePath)) {
