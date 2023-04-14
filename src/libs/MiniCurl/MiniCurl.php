@@ -66,7 +66,7 @@ class MiniCurl
 	private $httpCookies = [];
 
 	/**
-	 * Maximum size, that can be downloaded. Set null to disable.
+	 * Maximum size in bytes, that can be downloaded. Set null to disable.
 	 */
 	private ?int $maxSizeToDownload = null;
 
@@ -315,6 +315,7 @@ class MiniCurl
 		$client->setCurlOption(CURLOPT_FOLLOWLOCATION, false);
 		// $client->setCurlOption(CURLOPT_NOBODY, true); // @HACK temporary disabled, see https://github.com/DJTommek/better-location/issues/74
 		$client->setCurlOption(CURLOPT_FRESH_CONNECT, true);
+		$client->setMaxSizeToDownload(5 * 1024 * 1024);
 		$response = $client->run(null);
 		return $response->getHeaders($key);
 	}
