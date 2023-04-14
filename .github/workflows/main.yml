@@ -1,15 +1,12 @@
-on:
-  push:
-    branches:
-      - master
+on: [push]
+
 name: 🚀 Deploy website on push
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
+  phpunit:
+    name: 🔧 Unit tests
     runs-on: ubuntu-latest
     steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup PHP Action
         uses: shivammathur/setup-php@2.17.0
@@ -18,40 +15,12 @@ jobs:
 
       - name: 🚚 Install Composer Dependencies
         working-directory: ./
-        run: composer install --no-dev --ignore-platform-req=php
+        run: composer install --dev --ignore-platform-req=php
 
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      - name: PHPUnit tests (without requests)
+        uses: php-actions/phpunit@v3
         with:
-          server: ${{ secrets.ftp_server }}
-          username: ${{ secrets.ftp_username }}
-          password: ${{ secrets.ftp_password }}
-          server-dir: ${{ secrets.ftp_server_dir }}
-          dry-run: false
-          exclude: |
-            **/.git*
-            **/.git*/**            
-            data/config.local.example.neon
-            asset/
-            asset/**
-            temp/**
-            tests/
-            tests/**
-            composer.json
-            composer.lock
-            readme.md
-            web.config
-            LICENSE
-            README.md
-            phpstan.neon
-            phpstan-baseline.neon
-            phpunit.xml
-
-      - name: 🧹 Clean temp directory
-        uses: StephanThierry/ftp-delete-action@v2.1
-        with:
-          host: ${{ secrets.ftp_server }}
-          user: ${{ secrets.ftp_username }}
-          password: ${{ secrets.ftp_password }}
-          workingDir: ${{ secrets.ftp_server_dir }}
-          remoteDirectories: temp/latte;temp/nette-cache;temp/mini-curl;temp/staticmap;temp/temp-file
+          php-version: 8.0
+          bootstrap: src/bootstrap.php
+          configuration: phpunit.xml
+          exclude_group: request
