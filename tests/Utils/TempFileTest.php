@@ -112,7 +112,7 @@ final class TempFileTest extends TestCase
 		$this->assertFileExists($tempFileFullPath);
 		$this->assertDirectoryExists($tempDirFullPath);
 
-		chmod($tempFileFullPath, 0000); // no one has permission for this file
+		chmod($tempFileFullPath, 0444); // no one has write permission for this file
 		unset($tempfile); // normally it would throw "Unable to delete '/full/path/to/file/random-dir-name/unable-to-delete.txt'. Permission denied"
 
 		$this->assertFileExists($tempFileFullPath);
@@ -134,7 +134,7 @@ final class TempFileTest extends TestCase
 		$this->assertFileExists($tempFileFullPath);
 		$this->assertDirectoryExists($tempDirFullPath);
 
-		chmod($tempDirFullPath, 0000); // no one has permission for this directory
+		chmod($tempDirFullPath, 0444); // no one has write permission for this directory
 		unset($tempfile); // normally it would throw "Unable to delete directory '/full/path/to/file/random-dir-name/'. Permission denied"
 
 		// File was deleted but directory not
