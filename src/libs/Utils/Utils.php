@@ -216,7 +216,7 @@ class Utils
 	 */
 	public static function exifReadData(string $input): array
 	{
-		$result = @exif_read_data($input); // @ is escalated to exception
+		$result = @\exif_read_data($input); // @ is escalated to exception
 		if ($result === false) {
 			$lastError = error_get_last();
 			throw new \RuntimeException(sprintf('Unable to read exif data: "%s"',
