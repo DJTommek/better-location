@@ -57,19 +57,19 @@ final class ValidatorTest extends TestCase
 		$validator->getErrors();
 	}
 
-	private function validJsonProvider(): \Iterator
+	private static function validJsonProvider(): \Iterator
 	{
 		$pattern = self::FIXTURES_VALID_PATH . '/*.json';
-		yield from $this->jsonProvider($pattern);
+		yield from self::jsonProvider($pattern);
 	}
 
-	private function invalidJsonProvider(): \Iterator
+	private static function invalidJsonProvider(): \Iterator
 	{
 		$pattern = self::FIXTURES_INVALID_PATH . '/*.json';
-		yield from $this->jsonProvider($pattern);
+		yield from self::jsonProvider($pattern);
 	}
 
-	private function jsonProvider(string $pattern): \Iterator
+	private static function jsonProvider(string $pattern): \Iterator
 	{
 		$files = glob($pattern);
 		foreach ($files as $file) {
