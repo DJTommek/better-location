@@ -2,6 +2,9 @@
 
 namespace App\Utils;
 
+/**
+ * @deprecated Use \DJTommek\Coordinates\CoordinatesInterface
+ */
 interface CoordinatesInterface
 {
 	/**

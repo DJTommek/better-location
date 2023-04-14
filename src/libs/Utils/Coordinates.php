@@ -4,6 +4,10 @@ namespace App\Utils;
 
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 
+/**
+ * @deprecated Use \DJTommek\Coordinates\Coordinates
+ * @deprecated Use \DJTommek\Coordinates\CoordinatesImmutable
+ */
 class Coordinates implements CoordinatesInterface, \JsonSerializable
 {
 	public const RE_BASIC_LAT = '-?[0-9]{1,2}(?:\.[0-9]{1,99})?';
