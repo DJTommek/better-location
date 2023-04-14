@@ -72,22 +72,24 @@ final class OsmAndService extends AbstractService
 
 	public function process(): void
 	{
-		if (($coords = $this->data->goCoords) !== null) {
-			assert($coords instanceof CoordinatesInterface);
+		$coords = $this->data->goCoords ?? null;
+		if ($coords instanceof CoordinatesInterface) {
 			$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class, self::TYPE_GO);
 			$this->collection->add($location);
 		}
 
-		if (($coords = $this->data->pinCoords) !== null) {
-			assert($coords instanceof CoordinatesInterface);
+		$coords = $this->data->pinCoords ?? null;
+		if ($coords instanceof CoordinatesInterface) {
 			$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class, self::TYPE_PIN);
 			$this->collection->add($location);
 		}
 
-		if ($this->collection->isEmpty() && ($coords = $this->data->mapCenter) !== null) {
-			assert($coords instanceof CoordinatesInterface);
-			$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class, self::TYPE_MAP_CENTER);
-			$this->collection->add($location);
+		if ($this->collection->isEmpty()) {
+			$coords = $this->data->mapCenter ?? null;
+			if ($coords instanceof CoordinatesInterface) {
+				$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class, self::TYPE_MAP_CENTER);
+				$this->collection->add($location);
+			}
 		}
 	}
 
