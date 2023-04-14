@@ -159,9 +159,9 @@ class GooglePlaceApi
 		throw new \Exception(sprintf('Invalid status "%s" from Google Place API. Error: "%s". See debug.log for more info.', $content->status, $content->error_message ?? 'Not provided'));
 	}
 
-	private function generateLocationBias(BetterLocation $betterLocation)
+	private function generateLocationBias(BetterLocation $betterLocation): string
 	{
-		return 'point:' . $betterLocation->__toString();
+		return 'point:' . $betterLocation->key();
 	}
 
 	/**
