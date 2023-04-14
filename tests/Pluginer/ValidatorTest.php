@@ -57,13 +57,13 @@ final class ValidatorTest extends TestCase
 		$validator->getErrors();
 	}
 
-	private static function validJsonProvider(): \Iterator
+	public static function validJsonProvider(): \Iterator
 	{
 		$pattern = self::FIXTURES_VALID_PATH . '/*.json';
 		yield from self::jsonProvider($pattern);
 	}
 
-	private static function invalidJsonProvider(): \Iterator
+	public static function invalidJsonProvider(): \Iterator
 	{
 		$pattern = self::FIXTURES_INVALID_PATH . '/*.json';
 		yield from self::jsonProvider($pattern);
