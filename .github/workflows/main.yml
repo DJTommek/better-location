@@ -1,6 +1,9 @@
-on: [ push ]
+on:
+  push:
+    branches:
+      - master
 
-name: 🚀 Test and deploy website
+name: 🚀 Test and deploy to production
 
 jobs:
   phpunit:
@@ -30,7 +33,7 @@ jobs:
           php_extensions: mbstring exif
 
   web-deploy:
-    name: 🎉 Deploy on production webserver
+    name: 🎉 Deploy on production
     needs: [ phpunit ]
     runs-on: ubuntu-latest
     steps:
