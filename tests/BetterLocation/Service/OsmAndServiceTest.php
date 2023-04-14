@@ -41,6 +41,13 @@ final class OsmAndServiceTest extends TestCase
 		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=50.087451&lon=-14.420671'));
 		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=-50.087451&lon=14.420671'));
 		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=-50.087451&lon=-14.420671'));
+
+		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/map?pin=35.82665,50.96827#17/35.82665/50.96827'));
+		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/map?pin=35.82665,50.96827'));
+		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/map#17/35.82665/50.96827'));
+		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/map?pin=35.82665,50.96827blabla#17/35.82665/50.96827'));
+		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/map?pin=35.82665,50.96827blabla#17/35.82665/50.96827blabla'));
+
 		// lat or lon out of range
 		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=91.087451&lon=14.420671'));
 		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=-91.087451&lon=14.420671'));
@@ -106,6 +113,14 @@ final class OsmAndServiceTest extends TestCase
 		$collection = OsmAndService::processStatic('https://osmand.net/go.html?lat=-50.087451&lon=-14.420671')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('-50.087451,-14.420671', $collection[0]->__toString());
+
+		$collection = OsmAndService::processStatic('https://osmand.net/map?pin=36.82665,51.96827#17/35.82665/50.96827')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('36.826650,51.968270', (string)$collection->getFirst());
+
+		$collection = OsmAndService::processStatic('https://osmand.net/map?pin=36.82665blabla,50.96827#17/35.82665/50.96827')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('35.826650,50.968270', (string)$collection->getFirst());
 	}
 
 }
