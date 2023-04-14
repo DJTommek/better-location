@@ -7,6 +7,7 @@ use App\MiniCurl\Exceptions\ExecException;
 use App\MiniCurl\Exceptions\InitException;
 use App\MiniCurl\Exceptions\InvalidResponseException;
 use App\MiniCurl\Exceptions\TimeoutException;
+use App\MiniCurl\Exceptions\TooBigResponseException;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
 use Nette\Utils\Json;
@@ -64,6 +65,11 @@ class MiniCurl
 	private $httpHeaders = [];
 	private $httpCookies = [];
 
+	/**
+	 * Maximum size, that can be downloaded. Set null to disable.
+	 */
+	private ?int $maxSizeToDownload = null;
+
 	public function __construct(string|Url|UrlImmutable $url)
 	{
 		$this->url = (string)$url;
@@ -71,6 +77,15 @@ class MiniCurl
 		if ($this->curl === false) {
 			throw new InitException('CURL can\'t be initialited.');
 		}
+	}
+
+	/**
+	 * Maximum size, that can be downloaded. Set null to disable.
+	 */
+	public function setMaxSizeToDownload(?int $bytes): self
+	{
+		$this->maxSizeToDownload = $bytes;
+		return $this;
 	}
 
 	/**
@@ -202,14 +217,33 @@ class MiniCurl
 			Debugger::log(sprintf('Cache ID "%s" miss.', $cacheId), Debugger::DEBUG);
 		}
 
+		// Skip responses, that are too big to process
+		// @author https://stackoverflow.com/a/17642638
+		if ($this->maxSizeToDownload !== null) {
+			if (isset($this->options[CURLOPT_BUFFERSIZE]) === false) {
+				$this->options[CURLOPT_BUFFERSIZE] = 128;
+			}
+			$this->options[CURLOPT_NOPROGRESS] = false;
+
+			$this->options[CURLOPT_PROGRESSFUNCTION] = function (\CurlHandle $curlHandle, int $expectedDownload, int $downloaded, int $expectedUploaded, int $uploaded) {
+				return ($downloaded > $this->maxSizeToDownload || $expectedDownload > $this->maxSizeToDownload) ? 1 : 0;
+			};
+		}
+
 		curl_setopt_array($this->curl, $this->options);
 		$curlResponse = curl_exec($this->curl);
 		if ($curlResponse === false) {
 			$curlErrno = curl_errno($this->curl);
 			$exceptionText = sprintf('CURL request error %s: "%s"', $curlErrno, curl_error($this->curl));
-			$curlErrno === CURLE_OPERATION_TIMEOUTED
-				? throw new TimeoutException($exceptionText)
-				: throw new ExecException($exceptionText);
+
+			if ($curlErrno === CURLE_OPERATION_TIMEOUTED) {
+				throw new TimeoutException($exceptionText);
+			}
+			if ($curlErrno === CURLE_ABORTED_BY_CALLBACK && $this->maxSizeToDownload !== null) {
+				$exceptionText .= sprintf(' - response is expected to be bigger than %d bytes', $this->maxSizeToDownload);
+				throw new TooBigResponseException($exceptionText);
+			}
+			throw new ExecException($exceptionText);
 		}
 
 		if ($this->autoConvertEncoding) {
