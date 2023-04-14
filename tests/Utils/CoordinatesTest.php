@@ -18,7 +18,7 @@ final class CoordinatesTest extends TestCase
 		$path = __DIR__ . '/fixtures/files/';
 		$files = array_diff(scandir($path), array('.', '..'));
 		foreach ($files as $file) {
-			$exifData = @exif_read_data($path . $file);
+			$exifData = @\exif_read_data($path . $file);
 			self::assertNotNull($exifData);
 			self::$fileFixtures[$file] = $exifData;
 		}
