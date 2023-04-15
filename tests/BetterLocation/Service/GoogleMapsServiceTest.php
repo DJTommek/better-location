@@ -223,12 +223,12 @@ final class GoogleMapsServiceTest extends TestCase
 		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/Caf%C3%A9+Lamour,+n%C3%A1b%C5%99.+Karla+Houry+180,+342+01+Su%C5%A1ice/data=!4m2!3m1!1s0x470b2b2fad7dd1c3:0x6c66c5beca8a4117?utm_source=mstt_1&entry=gps')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('hidden', $collection[0]->getSourceType());
-		$this->assertSame('49.231827,13.521617', $collection[0]->__toString());
+		$this->assertSame('49.231830,13.521600', $collection[0]->__toString());
 		// same as above but short URL
 		$collection = GoogleMapsService::processStatic('https://maps.app.goo.gl/C4FjaU9CXsHuMrobA')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('hidden', $collection[0]->getSourceType());
-		$this->assertSame('49.231827,13.521617', $collection[0]->__toString());
+		$this->assertSame('49.231830,13.521600', $collection[0]->__toString());
 	}
 
 	/**
