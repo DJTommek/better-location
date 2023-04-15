@@ -7,6 +7,15 @@ use PHPUnit\Framework\TestCase;
 
 final class GoogleMapsServiceTest extends TestCase
 {
+	private function assertLocation(string $url, float $expectedLat, float $expectedLon): void
+	{
+		$collection = GoogleMapsService::processStatic($url)->getCollection();
+		$this->assertCount(1, $collection);
+		$location = $collection->getFirst();
+		$this->assertEqualsWithDelta($expectedLat, $location->getLat(), 0.000001);
+		$this->assertEqualsWithDelta($expectedLon, $location->getLon(), 0.000001);
+	}
+
 	public function testGenerateShareLink(): void
 	{
 		$this->assertSame('https://www.google.com/maps/place/50.087451,14.420671?q=50.087451,14.420671', GoogleMapsService::getLink(50.087451, 14.420671));
@@ -79,6 +88,16 @@ final class GoogleMapsServiceTest extends TestCase
 		$this->assertTrue(GoogleMapsService::isValidStatic('https://maps.google.com/?daddr=-50.052098,-14.451968')); // same as above, just https
 		$this->assertTrue(GoogleMapsService::isValidStatic('https://www.google.cz/maps/place/50.02261,14.525433'));
 		$this->assertTrue(GoogleMapsService::isValidStatic('https://www.google.cz/maps/place/-50.02261,-14.525433'));
+		$this->assertTrue(GoogleMapsService::isValidStatic('https://www.google.com/maps/place/50.0821019,14.4494197'));
+
+		$this->assertTrue(GoogleMapsService::isValidStatic('https://www.google.com/maps/place/50.0821019,14.4494197'));
+		$this->assertTrue(GoogleMapsService::isValidStatic('https://google.com/maps/place/50.0821019,14.4494197'));
+		$this->assertTrue(GoogleMapsService::isValidStatic('https://www.google.cz/maps/place/50.02261,14.525433'));
+		$this->assertTrue(GoogleMapsService::isValidStatic('https://google.cz/maps/place/50.02261,14.525433'));
+		$this->assertTrue(GoogleMapsService::isValidStatic('https://google.com/maps?q=49.417361,14.652640'));
+		$this->assertTrue(GoogleMapsService::isValidStatic('https://maps.google.com/?q=49.417361,14.652640'));
+		$this->assertTrue(GoogleMapsService::isValidStatic('https://maps.google.cz/?q=49.417361,14.652640'));
+		$this->assertTrue(GoogleMapsService::isValidStatic('https://www.maps.google.cz/?q=49.417361,14.652640'));
 	}
 
 	public function testIsValidStreetView(): void
@@ -170,6 +189,17 @@ final class GoogleMapsServiceTest extends TestCase
 		$this->assertSame('-50.052098,-14.451968', GoogleMapsService::processStatic('https://maps.google.com/?daddr=-50.052098,-14.451968')->getFirst()->__toString()); // same as above, just https
 		$this->assertSame('50.022610,14.525433', GoogleMapsService::processStatic('https://www.google.cz/maps/place/50.02261,14.525433')->getFirst()->__toString());
 		$this->assertSame('-50.022610,-14.525433', GoogleMapsService::processStatic('https://www.google.cz/maps/place/-50.02261,-14.525433')->getFirst()->__toString());
+
+		$this->assertLocation('https://www.google.com/maps/place/50.0821019,14.4494197', 50.0821019, 14.4494197);
+		$this->assertLocation('https://www.google.com/maps/place/50.0821019,14.4494197', 50.0821019, 14.4494197);
+		$this->assertLocation('https://google.com/maps/place/50.0821019,14.4494197', 50.0821019, 14.4494197);
+		$this->assertLocation('https://www.google.cz/maps/place/50.02261,14.525433', 50.02261, 14.525433);
+		$this->assertLocation('https://google.cz/maps/place/50.02261,14.525433', 50.02261, 14.525433);
+		$this->assertLocation('https://google.com/maps?q=49.417361,14.652640', 49.417361, 14.652640);
+		$this->assertLocation('https://maps.google.com/?q=49.417361,14.652640', 49.417361, 14.652640);
+		$this->assertLocation('https://maps.google.cz/?q=49.417361,14.652640', 49.417361, 14.652640);
+		$this->assertLocation('https://www.maps.google.cz/?q=49.417361,14.652640', 49.417361, 14.652640);
+
 	}
 
 	/**

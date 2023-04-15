@@ -10,7 +10,6 @@ use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
-use Nette\Utils\Strings;
 
 /**
  * Google has nice documentations related to generating link to their apps.
@@ -61,17 +60,20 @@ final class GoogleMapsService extends AbstractService
 
 	public function isValid(): bool
 	{
+		if ($this->url === null) {
+			return false;
+		}
+
 		return $this->isShortUrl() || $this->isNormalUrl();
 	}
 
 	public function isShortUrl(): bool
 	{
-		if ($this->url && (
-				$this->url->getDomain(0) === 'goo.gl' &&
-				Strings::startsWith($this->url->getPath(), '/maps/')
-			) || (
-				$this->url->getDomain(0) === 'maps.app.goo.gl'
-			)) {
+
+		if (
+			($this->url->getDomain(0) === 'goo.gl' && str_starts_with($this->url->getPath(), '/maps/'))
+			|| ($this->url->getDomain(0) === 'maps.app.goo.gl')
+		) {
 			$this->data->isShort = true;
 			return true;
 		}
@@ -80,12 +82,23 @@ final class GoogleMapsService extends AbstractService
 
 	public function isNormalUrl(): bool
 	{
-		return ($this->url && (
-				$this->url->getDomain(-1) === 'www.google' &&
-				Strings::startsWith($this->url->getPath(), '/maps/')
-			) || (
-				$this->url->getDomain(-1) === 'maps.google'
-			));
+		if ($this->url === null) {
+			return false;
+		}
+
+		if (str_starts_with($this->url->getDomain(3), 'maps.google.')) {
+			return true;
+		}
+
+		// maps.google.com
+		// www.maps.google.com
+		// maps.google.cz
+		// www.maps.google.cz
+		if (str_starts_with($this->url->getDomain(2), 'google.') && str_starts_with($this->url->getPath(), '/maps')) {
+			return true;
+		}
+
+		return false;
 	}
 
 	public static function getScreenshotLink(float $lat, float $lon, array $options = []): ?string
