@@ -3,35 +3,34 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\GoogleMapsService;
-use PHPUnit\Framework\TestCase;
 
-final class GoogleMapsServiceTest extends TestCase
+final class GoogleMapsServiceTest extends AbstractServiceTestCase
 {
-	private function assertLocation(string $url, float $expectedLat, float $expectedLon): void
+	protected function getServiceClass(): string
 	{
-		$collection = GoogleMapsService::processStatic($url)->getCollection();
-		$this->assertCount(1, $collection);
-		$location = $collection->getFirst();
-		$this->assertEqualsWithDelta($expectedLat, $location->getLat(), 0.000001);
-		$this->assertEqualsWithDelta($expectedLon, $location->getLon(), 0.000001);
+		return GoogleMapsService::class;
 	}
 
-	public function testGenerateShareLink(): void
+	protected function getShareLinks(): array
 	{
-		$this->assertSame('https://www.google.com/maps/place/50.087451,14.420671?q=50.087451,14.420671', GoogleMapsService::getLink(50.087451, 14.420671));
-		$this->assertSame('https://www.google.com/maps/place/50.100000,14.500000?q=50.100000,14.500000', GoogleMapsService::getLink(50.1, 14.5));
-		$this->assertSame('https://www.google.com/maps/place/-50.200000,14.600000?q=-50.200000,14.600000', GoogleMapsService::getLink(-50.2, 14.6000001)); // round down
-		$this->assertSame('https://www.google.com/maps/place/50.300000,-14.700001?q=50.300000,-14.700001', GoogleMapsService::getLink(50.3, -14.7000009)); // round up
-		$this->assertSame('https://www.google.com/maps/place/-50.400000,-14.800008?q=-50.400000,-14.800008', GoogleMapsService::getLink(-50.4, -14.800008));
+		return [
+			'https://www.google.com/maps/place/50.087451,14.420671?q=50.087451,14.420671',
+			'https://www.google.com/maps/place/50.100000,14.500000?q=50.100000,14.500000',
+			'https://www.google.com/maps/place/-50.200000,14.600000?q=-50.200000,14.600000',
+			'https://www.google.com/maps/place/50.300000,-14.700001?q=50.300000,-14.700001',
+			'https://www.google.com/maps/place/-50.400000,-14.800008?q=-50.400000,-14.800008',
+		];
 	}
 
-	public function testGenerateDriveLink(): void
+	protected function getDriveLinks(): array
 	{
-		$this->assertSame('https://www.google.com/maps/dir/?api=1&destination=50.087451%2C14.420671&travelmode=driving&dir_action=navigate', GoogleMapsService::getLink(50.087451, 14.420671, true));
-		$this->assertSame('https://www.google.com/maps/dir/?api=1&destination=50.100000%2C14.500000&travelmode=driving&dir_action=navigate', GoogleMapsService::getLink(50.1, 14.5, true));
-		$this->assertSame('https://www.google.com/maps/dir/?api=1&destination=-50.200000%2C14.600000&travelmode=driving&dir_action=navigate', GoogleMapsService::getLink(-50.2, 14.6000001, true)); // round down
-		$this->assertSame('https://www.google.com/maps/dir/?api=1&destination=50.300000%2C-14.700001&travelmode=driving&dir_action=navigate', GoogleMapsService::getLink(50.3, -14.7000009, true)); // round up
-		$this->assertSame('https://www.google.com/maps/dir/?api=1&destination=-50.400000%2C-14.800008&travelmode=driving&dir_action=navigate', GoogleMapsService::getLink(-50.4, -14.800008, true));
+		return [
+			'https://www.google.com/maps/dir/?api=1&destination=50.087451%2C14.420671&travelmode=driving&dir_action=navigate',
+			'https://www.google.com/maps/dir/?api=1&destination=50.100000%2C14.500000&travelmode=driving&dir_action=navigate',
+			'https://www.google.com/maps/dir/?api=1&destination=-50.200000%2C14.600000&travelmode=driving&dir_action=navigate',
+			'https://www.google.com/maps/dir/?api=1&destination=50.300000%2C-14.700001&travelmode=driving&dir_action=navigate',
+			'https://www.google.com/maps/dir/?api=1&destination=-50.400000%2C-14.800008&travelmode=driving&dir_action=navigate',
+		];
 	}
 
 	public function testIsValidShortUrl(): void
@@ -149,6 +148,24 @@ final class GoogleMapsServiceTest extends TestCase
 		$this->assertEquals('50.087323,14.420884', $location->__toString());
 	}
 
+	public function testProcess(): void
+	{
+		$this->assertLocation('https://www.google.cz/maps/@36.8264601,22.5287146,9.33z', 36.826460, 22.528715, 'Map center');
+		$this->assertLocation('http://maps.google.com/?q=49.417361,14.652640', 49.417361, 14.652640, 'search'); // http link from @ingressportalbot
+		$this->assertLocation('http://maps.google.com/?q=-49.417361,-14.652640', -49.417361, -14.652640, 'search'); // http link from @ingressportalbot
+		$this->assertLocation('http://maps.google.com/?daddr=50.052098,14.451968', 50.052098, 14.451968, 'drive'); // http drive link from @ingressportalbot
+
+		$this->assertLocation('https://www.google.com/maps/place/50.0821019,14.4494197', 50.0821019, 14.4494197, 'Place');
+		$this->assertLocation('https://google.com/maps/place/50.0821019,14.4494197', 50.0821019, 14.4494197, 'Place');
+		$this->assertLocation('https://www.google.cz/maps/place/50.02261,14.525433', 50.02261, 14.525433, 'Place');
+		$this->assertLocation('https://google.cz/maps/place/50.02261,14.525433', 50.02261, 14.525433, 'Place');
+		$this->assertLocation('https://google.com/maps?q=49.417361,14.652640', 49.417361, 14.652640, 'search');
+		$this->assertLocation('https://maps.google.com/?q=49.417361,14.652640', 49.417361, 14.652640, 'search');
+		$this->assertLocation('https://maps.google.cz/?q=49.417361,14.652640', 49.417361, 14.652640, 'search');
+		$this->assertLocation('https://www.maps.google.cz/?q=49.417361,14.652640', 49.417361, 14.652640, 'search');
+
+	}
+
 	/**
 	 * @group request
 	 */
@@ -189,17 +206,6 @@ final class GoogleMapsServiceTest extends TestCase
 		$this->assertSame('-50.052098,-14.451968', GoogleMapsService::processStatic('https://maps.google.com/?daddr=-50.052098,-14.451968')->getFirst()->__toString()); // same as above, just https
 		$this->assertSame('50.022610,14.525433', GoogleMapsService::processStatic('https://www.google.cz/maps/place/50.02261,14.525433')->getFirst()->__toString());
 		$this->assertSame('-50.022610,-14.525433', GoogleMapsService::processStatic('https://www.google.cz/maps/place/-50.02261,-14.525433')->getFirst()->__toString());
-
-		$this->assertLocation('https://www.google.com/maps/place/50.0821019,14.4494197', 50.0821019, 14.4494197);
-		$this->assertLocation('https://www.google.com/maps/place/50.0821019,14.4494197', 50.0821019, 14.4494197);
-		$this->assertLocation('https://google.com/maps/place/50.0821019,14.4494197', 50.0821019, 14.4494197);
-		$this->assertLocation('https://www.google.cz/maps/place/50.02261,14.525433', 50.02261, 14.525433);
-		$this->assertLocation('https://google.cz/maps/place/50.02261,14.525433', 50.02261, 14.525433);
-		$this->assertLocation('https://google.com/maps?q=49.417361,14.652640', 49.417361, 14.652640);
-		$this->assertLocation('https://maps.google.com/?q=49.417361,14.652640', 49.417361, 14.652640);
-		$this->assertLocation('https://maps.google.cz/?q=49.417361,14.652640', 49.417361, 14.652640);
-		$this->assertLocation('https://www.maps.google.cz/?q=49.417361,14.652640', 49.417361, 14.652640);
-
 	}
 
 	/**
@@ -275,5 +281,4 @@ final class GoogleMapsServiceTest extends TestCase
 		$this->assertSame('Map center', $collection[1]->getSourceType());
 		$this->assertSame('50.054355,14.476390', $collection[1]->__toString());
 	}
-
 }
