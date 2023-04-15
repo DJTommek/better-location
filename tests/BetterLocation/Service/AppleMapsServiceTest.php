@@ -61,6 +61,7 @@ final class AppleMapsServiceTest extends AbstractServiceTestCase
 			[true, 'https://maps.apple.com/?ll=50.087451,14.420671'],
 			[true, 'https://maps.apple.com/?ll=-50.087451,-0.420671'],
 			[true, 'https://maps.apple.com/?ll=35.825322,50.966627&q=Dropped%20Pin&_ext=EiYpXh/UKxXpQUAxKWoz8wZ7SUA53PT5hzvqQUBBibo9/3F8SUBQBA%3D%3D&t=m'],
+			[true, 'https://maps.apple.com/?address=Samota%201331,%20594%2001%20Velk%C3%A9%20Mezi%C5%99%C3%AD%C4%8D%C3%AD,%20%C4%8Cesk%C3%A1%20republika&auid=8134755443791322339&ll=49.354211,16.032766&lsp=9902&q=McDonald\'s&_ext=ChkKBAgEEG8KBAgFEAMKBQgGENEBCgQIChAAEiQpjxYMUwCkSEAxIH/EChKuL0A5I2sNpfa2SEBBLT9wlScoMEA%3D&t=m'],
 
 			[false, 'non url'],
 			[false, 'https://example.com/?ll=50.087451,14.420671'],
@@ -104,5 +105,11 @@ final class AppleMapsServiceTest extends AbstractServiceTestCase
 		$location = $collection->getFirst();
 		$this->assertSame('Place', $location->getSourceType());
 		$this->assertSame('35.825322,50.966627', (string)$location);
+
+		$collection = AppleMapsService::processStatic('https://maps.apple.com/?address=Samota%201331,%20594%2001%20Velk%C3%A9%20Mezi%C5%99%C3%AD%C4%8D%C3%AD,%20%C4%8Cesk%C3%A1%20republika&auid=8134755443791322339&ll=49.354211,16.032766&lsp=9902&q=McDonald\'s&_ext=ChkKBAgEEG8KBAgFEAMKBQgGENEBCgQIChAAEiQpjxYMUwCkSEAxIH/EChKuL0A5I2sNpfa2SEBBLT9wlScoMEA%3D&t=m')->getCollection();
+		$this->assertCount(1, $collection);
+		$location = $collection->getFirst();
+		$this->assertSame('Place', $location->getSourceType());
+		$this->assertSame('49.354211,16.032766', (string)$location);
 	}
 }
