@@ -4549,12 +4549,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/DJTommek/telegram-api.git",
-                "reference": "70f478d211237dac769b690af45c72da4b2bf8a6"
+                "reference": "192e9f4194998bc4acfa2cc6bbdea49081e3563e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DJTommek/telegram-api/zipball/70f478d211237dac769b690af45c72da4b2bf8a6",
-                "reference": "70f478d211237dac769b690af45c72da4b2bf8a6",
+                "url": "https://api.github.com/repos/DJTommek/telegram-api/zipball/192e9f4194998bc4acfa2cc6bbdea49081e3563e",
+                "reference": "192e9f4194998bc4acfa2cc6bbdea49081e3563e",
                 "shasum": ""
             },
             "require": {
@@ -4562,7 +4562,7 @@
                 "clue/block-react": "^1.3",
                 "ext-json": "*",
                 "lucadevelop/telegram-entities-decoder": "^1.2.1",
-                "php": ">=7.0.0",
+                "php": ">=7.1",
                 "react/http": "^1.1",
                 "react/promise": "^2.7",
                 "unreal4u/dummy-logger": "^1.0",
@@ -4570,9 +4570,9 @@
             },
             "require-dev": {
                 "monolog/monolog": "^1.17",
-                "phpunit/php-code-coverage": "^5.2",
-                "phpunit/phpunit": "^6.2",
-                "squizlabs/php_codesniffer": "^3.5"
+                "phpunit/php-code-coverage": "^10.0",
+                "phpunit/phpunit": "^10.0",
+                "squizlabs/php_codesniffer": "^3.7"
             },
             "default-branch": true,
             "type": "library",
@@ -4606,7 +4606,7 @@
                 "issues": "https://github.com/unreal4u/telegram-api/issues",
                 "source": "https://github.com/unreal4u/telegram-api"
             },
-            "time": "2022-07-28T21:30:01+00:00"
+            "time": "2023-04-16T07:17:14+00:00"
         },
         {
             "name": "voku/portable-ascii",
