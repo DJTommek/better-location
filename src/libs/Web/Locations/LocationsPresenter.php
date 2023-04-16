@@ -156,9 +156,12 @@ class LocationsPresenter extends MainPresenter
 		Factory::latte('locationsKml.latte', $this->template);
 	}
 
-	private function website($service, float $lat, float $lon)
+	/**
+	 * @param class-string<AbstractService> $service
+	 * @return array{share?: string, drive?: string, text?: string, 'static'?: string, name?: string}
+	 */
+	private function website(string $service, float $lat, float $lon): array
 	{
-		/** @var $service AbstractService */
 		$result = [];
 		if (
 			$service::hasTag(ServicesManager::TAG_GENERATE_LINK_SHARE)
@@ -166,18 +169,21 @@ class LocationsPresenter extends MainPresenter
 		) {
 			$result['share'] = $output;
 		}
+
 		if (
 			$service::hasTag(ServicesManager::TAG_GENERATE_LINK_DRIVE)
 			&& $output = $service::getDriveLink($lat, $lon)
 		) {
 			$result['drive'] = $output;
 		}
+
 		if (
 			$service::hasTag(ServicesManager::TAG_GENERATE_TEXT)
 			&& $output = $service::getShareText($lat, $lon)
 		) {
 			$result['text'] = $output;
 		}
+
 		if (
 			$service::hasTag(ServicesManager::TAG_GENERATE_LINK_IMAGE)
 			&& $output = $service::getScreenshotLink($lat, $lon)

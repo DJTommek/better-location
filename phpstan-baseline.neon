@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$service AbstractService\\)\\: Unexpected token \"\\$service\", expected type at offset 9$#"
-			count: 1
-			path: src/libs/Web/Locations/LocationsPresenter.php
-
-		-
 			message: "#^PHPDoc tag @throws with type Tests\\\\BetterLocation\\\\Exception is not subtype of Throwable$#"
 			count: 1
 			path: tests/BetterLocation/UrlTest.php
