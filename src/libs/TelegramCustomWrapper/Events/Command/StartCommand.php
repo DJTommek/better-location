@@ -9,6 +9,7 @@ use App\Icons;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\FavouritesTrait;
 use App\TelegramCustomWrapper\Events\HelpTrait;
+use App\TelegramCustomWrapper\Events\LoginTrait;
 use App\TelegramCustomWrapper\Events\SettingsTrait;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
@@ -23,6 +24,7 @@ class StartCommand extends Command
 	use HelpTrait;
 	use FavouritesTrait;
 	use SettingsTrait;
+	use LoginTrait;
 
 	const CMD = '/start';
 
@@ -57,7 +59,8 @@ class StartCommand extends Command
 					$this->reply($text, $markup, $options);
 					break;
 				case self::LOGIN;
-					$this->processLogin();
+					[$text, $markup, $options] = $this->processLogin2();
+					$this->reply($text, $markup, $options);
 					break;
 				default:
 					// Bot indexers can add their own start parameters, so if no valid parameter is detected, continue just like /start without parameter
