@@ -86,7 +86,7 @@ class GeocachePreviewType
 	public static function createFromVariable(\stdClass $variables): self
 	{
 		$class = new self();
-		foreach ($variables as $key => $value) {
+		foreach ((array)$variables as $key => $value) {
 			if ($key === 'placedDate') {
 				$value = \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s', $value);
 			}
@@ -102,74 +102,47 @@ class GeocachePreviewType
 
 	public function getType(): string
 	{
-		switch ($this->geocacheType) {
-			case self::TYPE_TRADITIONAL: // https://www.geocaching.com/geocache/GC24GCV
-				return 'Traditional';
-			case self::TYPE_MULTI: // https://www.geocaching.com/geocache/GC3HK7M
-				return 'Multi';
-			case self::TYPE_VIRTUAL: // https://www.geocaching.com/geocache/GC88ZPV
-				return 'Virtual';
-			case self::TYPE_LETTERBOX: // https://www.geocaching.com/geocache/GC7X2M6
-				return 'Letterbox Hybrid';
-			case self::TYPE_LOCATIONLESS: // https://www.geocaching.com/geocache/GC7X2M6
-				return 'Locationless';
-			case self::TYPE_EVENT: // https://www.geocaching.com/geocache/GC90M42
-				return 'Event';
-			case self::TYPE_EVENT_CITO: // https://www.geocaching.com/geocache/GC7WWWP
-				return 'CITO';
-			case self::TYPE_MYSTERY: // https://www.geocaching.com/geocache/GC3DYC4
-				return 'Mystery';
-			case self::TYPE_WEBCAM: // https://www.geocaching.com/geocache/GCPDPE
-				return 'Webcam';
-			case self::TYPE_EARTH: // https://www.geocaching.com/geocache/GC1PPBR
-				return 'Earth';
-			case self::TYPE_EVENT_MEGA: // https://www.geocaching.com/geocache/GC8MCKP
-				return 'Mega-Event';
-			case self::TYPE_GPS_ADVENTURES_EXHIBIT: // https://www.geocaching.com/geocache/GC7WWW0
-				return 'GPS Adventures Exhibit';
-			case self::TYPE_WHERIGO: // https://www.geocaching.com/geocache/GC6NTQV
-				return 'Wherigo';
-			case self::TYPE_EVENT_GIGA: // https://www.geocaching.com/geocache/GC7WWWW
-				return 'Giga-Event';
-			case self::TYPE_EVENT_COMMUNITY_CELEBRATION: // https://www.geocaching.com/geocache/GC8HMX9
-				return 'Community celebration event';
-			default:
-				throw new \InvalidArgumentException(sprintf('Unknown geocache type for geocacheType "%s".', $this->geocacheType));
-		}
+		return match ($this->geocacheType) {
+			self::TYPE_TRADITIONAL => 'Traditional', // https://www.geocaching.com/geocache/GC24GCV
+			self::TYPE_MULTI => 'Multi', // https://www.geocaching.com/geocache/GC3HK7M
+			self::TYPE_VIRTUAL => 'Virtual', // https://www.geocaching.com/geocache/GC88ZPV
+			self::TYPE_LETTERBOX => 'Letterbox Hybrid', // https://www.geocaching.com/geocache/GC7X2M6
+			self::TYPE_LOCATIONLESS => 'Locationless', // https://www.geocaching.com/geocache/GC7X2M6
+			self::TYPE_EVENT => 'Event', // https://www.geocaching.com/geocache/GC90M42
+			self::TYPE_EVENT_CITO => 'CITO', // https://www.geocaching.com/geocache/GC7WWWP
+			self::TYPE_MYSTERY => 'Mystery', // https://www.geocaching.com/geocache/GC3DYC4
+			self::TYPE_WEBCAM => 'Webcam', // https://www.geocaching.com/geocache/GCPDPE
+			self::TYPE_EARTH => 'Earth', // https://www.geocaching.com/geocache/GC1PPBR
+			self::TYPE_EVENT_MEGA => 'Mega-Event', // https://www.geocaching.com/geocache/GC8MCKP
+			self::TYPE_GPS_ADVENTURES_EXHIBIT => 'GPS Adventures Exhibit', // https://www.geocaching.com/geocache/GC7WWW0
+			self::TYPE_WHERIGO => 'Wherigo', // https://www.geocaching.com/geocache/GC6NTQV
+			self::TYPE_EVENT_GIGA => 'Giga-Event', // https://www.geocaching.com/geocache/GC7WWWW
+			self::TYPE_EVENT_COMMUNITY_CELEBRATION => 'Community celebration event', // https://www.geocaching.com/geocache/GC8HMX9
+			default => throw new \InvalidArgumentException(sprintf('Unknown geocache type for geocacheType "%s".', $this->geocacheType)),
+		};
 	}
 
 	public function getSize(): string
 	{
-		switch ($this->containerType) {
-			case self::SIZE_NONE: // https://www.geocaching.com/geocache/GC1PPBR
-				return 'none';
-			case self::SIZE_MICRO:
-				return 'micro';
-			case self::SIZE_REGULAR:
-				return 'regular';
-			case self::SIZE_LARGE: // https://www.geocaching.com/geocache/GC7X2M6
-				return 'large';
-			case self::SIZE_VIRTUAL: // https://www.geocaching.com/geocache/GC88ZPV
-				return 'virtual';
-			case self::SIZE_OTHER: // https://www.geocaching.com/geocache/GC825XA
-				return 'other';
-			case self::SIZE_SMALL: // https://www.geocaching.com/geocache/GC24GCV
-				return 'small';
-			default:
-				throw new \InvalidArgumentException(sprintf('Unknown container size for containerType "%s".', $this->geocacheType));
-		}
+		return match ($this->containerType) {
+			self::SIZE_NONE => 'none', // https://www.geocaching.com/geocache/GC1PPBR
+			self::SIZE_MICRO => 'micro',
+			self::SIZE_REGULAR => 'regular',
+			self::SIZE_LARGE => 'large', // https://www.geocaching.com/geocache/GC7X2M6
+			self::SIZE_VIRTUAL => 'virtual', // https://www.geocaching.com/geocache/GC88ZPV
+			self::SIZE_OTHER => 'other', // https://www.geocaching.com/geocache/GC825XA
+			self::SIZE_SMALL => 'small', // https://www.geocaching.com/geocache/GC24GCV
+			default => throw new \InvalidArgumentException(sprintf('Unknown container size for containerType "%s".', $this->geocacheType)),
+		};
 	}
 
 	public function getStatus(): string
 	{
-		switch ($this->cacheStatus) {
-			case self::STATUS_ACTIVE:
-				return 'active';
-			case self::STATUS_DISABLED: // https://www.geocaching.com/geocache/GC8ZFK8
-				return 'disabled';
-			default:
-				throw new \InvalidArgumentException(sprintf('Unknown geocache status for cacheStatus "%s".', $this->geocacheType));
-		}
+		return match ($this->cacheStatus) {
+			self::STATUS_ACTIVE => 'active',
+			self::STATUS_DISABLED => 'disabled', // https://www.geocaching.com/geocache/GC8ZFK8
+			default => throw new \InvalidArgumentException(sprintf('Unknown geocache status for cacheStatus "%s".', $this->geocacheType)),
+		};
 	}
 
 	public function isDisabled(): bool
