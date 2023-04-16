@@ -1,27 +1,37 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined static method App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:getScreenshotLink\\(\\)\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/BetterLocation.php
-
-		-
 			message: "#^Access to undefined constant App\\\\BetterLocation\\\\Service\\\\AbstractService\\|string\\:\\:NAME\\.$#"
 			count: 1
 			path: src/libs/BetterLocation/BetterLocation.php
 
 		-
-			message: "#^Access to undefined constant App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:NAME_SHORT\\.$#"
+			message: "#^Attribute class JetBrains\\\\PhpStorm\\\\Pure does not exist\\.$#"
+			count: 4
+			path: src/libs/BetterLocation/BetterLocation.php
+
+		-
+			message: "#^Invalid array key type App\\\\BetterLocation\\\\Service\\\\AbstractService\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/BetterLocation.php
+
+		-
+			message: "#^Access to undefined constant static\\(App\\\\BetterLocation\\\\Service\\\\AbstractService\\)\\:\\:ID\\.$#"
+			count: 2
+			path: src/libs/BetterLocation/Service/AbstractService.php
+
+		-
+			message: "#^Access to undefined constant static\\(App\\\\BetterLocation\\\\Service\\\\AbstractService\\)\\:\\:NAME\\.$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/AbstractService.php
 
 		-
-			message: "#^Access to undefined constant App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:NAME\\.$#"
+			message: "#^Access to undefined constant static\\(App\\\\BetterLocation\\\\Service\\\\AbstractService\\)\\:\\:NAME_SHORT\\.$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/AbstractService.php
 
 		-
-			message: "#^Access to undefined constant App\\\\BetterLocation\\\\Service\\\\Coordinates\\\\AbstractService\\:\\:RE_COORD\\.$#"
+			message: "#^Access to undefined constant static\\(App\\\\BetterLocation\\\\Service\\\\Coordinates\\\\AbstractService\\)\\:\\:RE_COORD\\.$#"
 			count: 2
 			path: src/libs/BetterLocation/Service/Coordinates/AbstractService.php
 
@@ -36,14 +46,39 @@ parameters:
 			path: src/libs/BetterLocation/Service/FirmyCzService.php
 
 		-
-			message: "#^Access to an undefined property DJTommek\\\\MapyCzApi\\\\Types\\\\PlaceType\\:\\:\\$title\\.$#"
+			message: "#^Access to an undefined property DJTommek\\\\MapyCzApi\\\\Types\\\\PlaceType\\:\\:\\$extend\\.$#"
 			count: 1
+			path: src/libs/BetterLocation/Service/MapyCzService.php
+
+		-
+			message: "#^Access to an undefined property DJTommek\\\\MapyCzApi\\\\Types\\\\PlaceType\\:\\:\\$title\\.$#"
+			count: 2
 			path: src/libs/BetterLocation/Service/MapyCzService.php
 
 		-
 			message: "#^Access to an undefined property DJTommek\\\\MapyCzApi\\\\Types\\\\PlaceType\\:\\:\\$titleVars\\.$#"
 			count: 2
 			path: src/libs/BetterLocation/Service/MapyCzService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\ServicesManager\\:\\:getServices\\(\\) should return array\\<App\\\\BetterLocation\\\\Service\\\\AbstractService\\> but returns array\\<class\\-string\\<App\\\\BetterLocation\\\\Service\\\\AbstractService\\>\\>\\.$#"
+			count: 2
+			path: src/libs/BetterLocation/ServicesManager.php
+
+		-
+			message: "#^Variable \\$label on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/libs/BingMaps/StaticMaps.php
+
+		-
+			message: "#^PHPDoc tag @var for constant App\\\\DefaultConfig\\:\\:TELEGRAM_COMMANDS with type array\\<string, array\\<App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\Command\\>\\> is incompatible with value array\\{all_private_chats\\: array\\{'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\HelpCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\FeedbackCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\FavouritesCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\SettingsCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\LoginCommand'\\}, all_group_chats\\: array\\{'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\HelpCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\FeedbackCommand'\\}, all_chat_administrators\\: array\\{'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\HelpCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\FeedbackCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\SettingsCommand'\\}\\}\\.$#"
+			count: 1
+			path: src/libs/DefaultConfig.php
+
+		-
+			message: "#^PHPDoc tag @var for constant App\\\\DefaultConfig\\:\\:TELEGRAM_COMMAND_STRICT with type int is incompatible with value false\\.$#"
+			count: 1
+			path: src/libs/DefaultConfig.php
 
 		-
 			message: "#^Argument of an invalid type stdClass supplied for foreach, only iterables are supported\\.$#"
@@ -56,19 +91,49 @@ parameters:
 			path: src/libs/Geocaching/Types/GeocachePreviewType.php
 
 		-
+			message: "#^Call to an undefined method Psr\\\\Http\\\\Client\\\\ClientInterface\\:\\:get\\(\\)\\.$#"
+			count: 1
+			path: src/libs/Geonames/Geonames.php
+
+		-
+			message: "#^Argument of an invalid type stdClass supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/libs/Geonames/Types/TimezoneType.php
+
+		-
 			message: "#^Argument of an invalid type stdClass supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: src/libs/IngressLanchedRu/Types/PortalType.php
 
 		-
+			message: "#^PHPDoc tag @param has invalid value \\(array\\[array\\[string\\|int\\|float, string\\|int\\|float\\]\\] \\$inputs List of coorinates mapped as \\[\\[\\$lat1, \\$lon1\\],  \\[\\$lat2, \\$lon2\\], \\.\\.\\.\\]\\)\\: Unexpected token \"\\[\", expected variable at offset 67$#"
+			count: 1
+			path: src/libs/OpenElevation/OpenElevation.php
+
+		-
+			message: "#^Access to undefined constant App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:ID\\.$#"
+			count: 3
+			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\BetterLocationMessageSettings\\:\\:getScreenshotLinkService\\(\\) should return class\\-string\\<App\\\\BetterLocation\\\\Service\\\\AbstractService\\> but returns App\\\\BetterLocation\\\\Service\\\\AbstractService\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$service with type App\\\\BetterLocation\\\\Service\\\\AbstractService is incompatible with native type string\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
+
+		-
+			message: "#^Property App\\\\TelegramCustomWrapper\\\\BetterLocationMessageSettings\\:\\:\\$screenshotLinkService \\(App\\\\BetterLocation\\\\Service\\\\AbstractService\\) does not accept string\\.$#"
+			count: 2
+			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
+
+		-
 			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\EditMessageText\\:\\:\\$chat_id \\(string\\) does not accept int\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Button/Button.php
-
-		-
-			message: "#^Array \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Button/FavouritesButton.php
 
 		-
 			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Markup\\:\\:\\$inline_keyboard \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, array\\<int, unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\>\\.$#"
@@ -81,11 +146,6 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Command/SettingsCommand.php
 
 		-
-			message: "#^Array \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\.$#"
-			count: 2
-			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
-
-		-
 			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\EditMessageText\\:\\:\\$chat_id \\(string\\) does not accept int\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Edit/Edit.php
@@ -96,17 +156,32 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Edit/LocationEdit.php
 
 		-
-			message: "#^Access to undefined constant App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:CMD\\.$#"
+			message: "#^Access to undefined constant static\\(App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\)\\:\\:CMD\\.$#"
 			count: 2
 			path: src/libs/TelegramCustomWrapper/Events/Events.php
 
 		-
-			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\SendChatAction\\:\\:\\$chat_id \\(string\\) does not accept int\\.$#"
-			count: 1
+			message: "#^Call to an undefined method App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:flash\\(\\)\\.$#"
+			count: 2
+			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
+		-
+			message: "#^Call to an undefined method App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:replyButton\\(\\)\\.$#"
+			count: 3
 			path: src/libs/TelegramCustomWrapper/Events/Events.php
 
 		-
 			message: "#^PHPDoc tag @param has invalid value \\(BetterLocation\\|Coordinates\\)\\: Unexpected token \"\\*/\", expected variable at offset 38$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\GetChatMember\\:\\:\\$chat_id \\(string\\) does not accept int\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\SendChatAction\\:\\:\\$chat_id \\(string\\) does not accept int\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Events.php
 
@@ -121,34 +196,9 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Events.php
 
 		-
-			message: "#^Call to an undefined method App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:replyButton\\(\\)\\.$#"
-			count: 3
-			path: src/libs/TelegramCustomWrapper/Events/Events.php
-
-		-
-			message: "#^Call to an undefined method App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:flash\\(\\)\\.$#"
-			count: 2
-			path: src/libs/TelegramCustomWrapper/Events/Events.php
-
-		-
 			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Markup\\:\\:\\$inline_keyboard \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, array\\<int, unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\>\\.$#"
 			count: 2
 			path: src/libs/TelegramCustomWrapper/Events/Events.php
-
-		-
-			message: "#^Array \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\.$#"
-			count: 3
-			path: src/libs/TelegramCustomWrapper/Events/Events.php
-
-		-
-			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Markup\\:\\:\\$inline_keyboard \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\>\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Special/AddedToChatEvent.php
-
-		-
-			message: "#^Array \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Special/AddedToChatEvent.php
 
 		-
 			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\GetChat\\:\\:\\$chat_id \\(string\\) does not accept int\\.$#"
@@ -156,14 +206,24 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Special/AddedToChatEvent.php
 
 		-
-			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Query\\\\Result\\:\\:\\$id \\(string\\) does not accept int\\.$#"
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Chat\\:\\:\\$location \\(unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\ChatLocation\\) does not accept stdClass\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Special/AddedToChatEvent.php
+
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Markup\\:\\:\\$inline_keyboard \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\>\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Special/AddedToChatEvent.php
+
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Query\\\\Result\\:\\:\\$id \\(string\\) does not accept int\\<100000, 999999\\>\\.$#"
 			count: 3
 			path: src/libs/TelegramCustomWrapper/Events/Special/InlineQueryEvent.php
 
 		-
-			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Markup\\:\\:\\$inline_keyboard \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<int, array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\>\\.$#"
-			count: 2
-			path: src/libs/TelegramCustomWrapper/Events/Special/InlineQueryEvent.php
+			message: "#^Call to an undefined static method App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:getShareCollectionLink\\(\\)\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/ProcessedMessageResult.php
 
 		-
 			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Markup\\:\\:\\$inline_keyboard \\(array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\) does not accept array\\<array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Inline\\\\Keyboard\\\\Button\\>\\>\\.$#"
@@ -171,7 +231,91 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/ProcessedMessageResult.php
 
 		-
+			message: "#^Access to an undefined property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\EditMessageText\\|unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\SendMessage\\:\\:\\$allow_sending_without_reply\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/SendMessage.php
+
+		-
 			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\EditMessageText\\:\\:\\$chat_id \\(string\\) does not accept int\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/SendMessage.php
 
+		-
+			message: "#^PHPDoc tag @param for parameter \\$zoom with type float\\|int is not subtype of native type float\\.$#"
+			count: 1
+			path: src/libs/Utils/Ge0Code.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:\\$chat\\.$#"
+			count: 1
+			path: src/libs/Web/Chat/ChatPresenter.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:\\$exampleInput\\.$#"
+			count: 1
+			path: src/libs/Web/Chat/ChatPresenter.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:\\$exampleLocation\\.$#"
+			count: 1
+			path: src/libs/Web/Chat/ChatPresenter.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:\\$formPluginerUrl\\.$#"
+			count: 2
+			path: src/libs/Web/Chat/ChatPresenter.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:\\$telegramChatId\\.$#"
+			count: 1
+			path: src/libs/Web/Chat/ChatPresenter.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Web\\\\LayoutTemplate\\:\\:prepareError\\(\\)\\.$#"
+			count: 1
+			path: src/libs/Web/Chat/ChatPresenter.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Web\\\\LayoutTemplate\\:\\:prepareOk\\(\\)\\.$#"
+			count: 1
+			path: src/libs/Web/Chat/ChatPresenter.php
+
+		-
+			message: "#^Property App\\\\Web\\\\Chat\\\\ChatPresenter\\:\\:\\$chatMemberResponse \\(unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\ChatMember\\|null\\) does not accept unreal4u\\\\TelegramAPI\\\\Abstracts\\\\TelegramTypes\\|null\\.$#"
+			count: 1
+			path: src/libs/Web/Chat/ChatPresenter.php
+
+		-
+			message: "#^Property App\\\\Web\\\\Chat\\\\ChatPresenter\\:\\:\\$chatResponse \\(unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Chat\\|null\\) does not accept unreal4u\\\\TelegramAPI\\\\Abstracts\\\\TelegramTypes\\|null\\.$#"
+			count: 1
+			path: src/libs/Web/Chat/ChatPresenter.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:\\$showingElevation\\.$#"
+			count: 1
+			path: src/libs/Web/Locations/LocationsPresenter.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:\\$showingTimezoneData\\.$#"
+			count: 1
+			path: src/libs/Web/Locations/LocationsPresenter.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Web\\\\LayoutTemplate\\:\\:prepare\\(\\)\\.$#"
+			count: 1
+			path: src/libs/Web/Locations/LocationsPresenter.php
+
+		-
+			message: "#^PHPDoc tag @var has invalid value \\(\\$service AbstractService\\)\\: Unexpected token \"\\$service\", expected type at offset 9$#"
+			count: 1
+			path: src/libs/Web/Locations/LocationsPresenter.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Web\\\\LayoutTemplate\\:\\:prepare\\(\\)\\.$#"
+			count: 1
+			path: src/libs/Web/Login/LoginPresenter.php
+
+		-
+			message: "#^PHPDoc tag @throws with type Tests\\\\BetterLocation\\\\Exception is not subtype of Throwable$#"
+			count: 1
+			path: tests/BetterLocation/UrlTest.php
