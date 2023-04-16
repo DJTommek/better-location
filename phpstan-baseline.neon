@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Variable \\$label on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 1
-			path: src/libs/BingMaps/StaticMaps.php
-
-		-
 			message: "#^PHPDoc tag @var for constant App\\\\DefaultConfig\\:\\:TELEGRAM_COMMANDS with type array\\<string, array\\<App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\Command\\>\\> is incompatible with value array\\{all_private_chats\\: array\\{'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\HelpCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\FeedbackCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\FavouritesCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\SettingsCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\LoginCommand'\\}, all_group_chats\\: array\\{'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\HelpCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\FeedbackCommand'\\}, all_chat_administrators\\: array\\{'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\HelpCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\FeedbackCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\SettingsCommand'\\}\\}\\.$#"
 			count: 1
 			path: src/libs/DefaultConfig.php

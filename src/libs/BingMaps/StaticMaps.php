@@ -35,7 +35,7 @@ class StaticMaps
 		if (is_null($iconStyle)) {
 			$iconStyle = self::PUSHPIN_DEFAULT_ICON;
 		}
-		$this->pushPinsStr[] = sprintf('%F,%F;%d;%s', $lat, $lon, $iconStyle, $label ?? '');
+		$this->pushPinsStr[] = sprintf('%F,%F;%d;%s', $lat, $lon, $iconStyle, $label);
 		return $this;
 	}
 
