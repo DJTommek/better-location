@@ -17,6 +17,10 @@ parameters:
 			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\.+ does not accept .+\\.$#"
 		-
 			message: "#^Access to an undefined property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\.+\\.$#"
+		-
+			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:.+\\.$#"
+		-
+			message: "#^Call to an undefined method App\\\\Web\\\\LayoutTemplate\\:\\:.+\\.$#"
 
 includes:
 	- phpstan-baseline.neon

@@ -1,41 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:\\$chat\\.$#"
-			count: 1
-			path: src/libs/Web/Chat/ChatPresenter.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:\\$exampleInput\\.$#"
-			count: 1
-			path: src/libs/Web/Chat/ChatPresenter.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:\\$exampleLocation\\.$#"
-			count: 1
-			path: src/libs/Web/Chat/ChatPresenter.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:\\$formPluginerUrl\\.$#"
-			count: 2
-			path: src/libs/Web/Chat/ChatPresenter.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:\\$telegramChatId\\.$#"
-			count: 1
-			path: src/libs/Web/Chat/ChatPresenter.php
-
-		-
-			message: "#^Call to an undefined method App\\\\Web\\\\LayoutTemplate\\:\\:prepareError\\(\\)\\.$#"
-			count: 1
-			path: src/libs/Web/Chat/ChatPresenter.php
-
-		-
-			message: "#^Call to an undefined method App\\\\Web\\\\LayoutTemplate\\:\\:prepareOk\\(\\)\\.$#"
-			count: 1
-			path: src/libs/Web/Chat/ChatPresenter.php
-
-		-
 			message: "#^Property App\\\\Web\\\\Chat\\\\ChatPresenter\\:\\:\\$chatMemberResponse \\(unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\ChatMember\\|null\\) does not accept unreal4u\\\\TelegramAPI\\\\Abstracts\\\\TelegramTypes\\|null\\.$#"
 			count: 1
 			path: src/libs/Web/Chat/ChatPresenter.php
@@ -46,29 +11,9 @@ parameters:
 			path: src/libs/Web/Chat/ChatPresenter.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:\\$showingElevation\\.$#"
-			count: 1
-			path: src/libs/Web/Locations/LocationsPresenter.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:\\$showingTimezoneData\\.$#"
-			count: 1
-			path: src/libs/Web/Locations/LocationsPresenter.php
-
-		-
-			message: "#^Call to an undefined method App\\\\Web\\\\LayoutTemplate\\:\\:prepare\\(\\)\\.$#"
-			count: 1
-			path: src/libs/Web/Locations/LocationsPresenter.php
-
-		-
 			message: "#^PHPDoc tag @var has invalid value \\(\\$service AbstractService\\)\\: Unexpected token \"\\$service\", expected type at offset 9$#"
 			count: 1
 			path: src/libs/Web/Locations/LocationsPresenter.php
-
-		-
-			message: "#^Call to an undefined method App\\\\Web\\\\LayoutTemplate\\:\\:prepare\\(\\)\\.$#"
-			count: 1
-			path: src/libs/Web/Login/LoginPresenter.php
 
 		-
 			message: "#^PHPDoc tag @throws with type Tests\\\\BetterLocation\\\\Exception is not subtype of Throwable$#"
