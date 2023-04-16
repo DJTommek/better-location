@@ -7,6 +7,7 @@ use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
+use App\TelegramCustomWrapper\Events\HelpTrait;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
@@ -17,6 +18,8 @@ use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class StartCommand extends Command
 {
+	use HelpTrait;
+
 	const CMD = '/start';
 
 	const FAVOURITE = 'f';
@@ -34,7 +37,8 @@ class StartCommand extends Command
 	{
 		$encodedParams = TelegramHelper::getParams($this->update);
 		if (count($encodedParams) === 0) {
-			$this->processHelp();
+			[$text, $markup, $options] = $this->processHelp();
+			$this->reply($text, $markup, $options);
 		} else if (count($encodedParams) === 1 && preg_match('/^(-?[0-9]{1,8})_(-?[0-9]{1,9})$/', $encodedParams[0], $matches)) {
 			$this->processStartCoordinates($matches);
 		} else {
@@ -53,7 +57,8 @@ class StartCommand extends Command
 				default:
 					// Bot indexers can add their own start parameters, so if no valid parameter is detected, continue just like /start without parameter
 					Debugger::log(sprintf('Hidden start parameter "%s" is unknown.', $this->getTgText()), ILogger::DEBUG);
-					$this->processHelp();
+					[$text, $markup, $options] = $this->processHelp();
+					$this->reply($text, $markup, $options);
 					break;
 			}
 		}
@@ -115,9 +120,12 @@ class StartCommand extends Command
 						$location = BetterLocation::fromLatLon($lat, $lon);
 						$favourite = $this->user->addFavourite($location, BetterLocation::generateFavouriteName($lat, $lon));
 
-						$text = sprintf('%s Location <code>%s</code> was successfully saved to favourites as %s.',
-							Icons::SUCCESS, $favourite->__toString(), $favourite->getPrefixMessage()
-						) . PHP_EOL;
+						$text = sprintf(
+								'%s Location <code>%s</code> was successfully saved to favourites as %s.',
+								Icons::SUCCESS,
+								$favourite->__toString(),
+								$favourite->getPrefixMessage()
+							) . PHP_EOL;
 						$text .= sprintf('You can now use it inline in any chat by typing @%s.', Config::TELEGRAM_BOT_NAME);
 						$this->reply($text, $replyMarkup);
 					}

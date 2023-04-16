@@ -2,14 +2,20 @@
 
 namespace App\TelegramCustomWrapper\Events\Button;
 
+use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
+use App\TelegramCustomWrapper\Events\HelpTrait;
 
 class HelpButton extends Button
 {
+	use HelpTrait;
+
 	const CMD = HelpCommand::CMD;
 
 	public function handleWebhookUpdate()
 	{
-		$this->processHelp(true);
+		[$text, $markup, $options] = $this->processHelp();
+		$this->replyButton($text, $markup, $options);
+		$this->flash(sprintf('%s Help was refreshed.', Icons::REFRESH));
 	}
 }
