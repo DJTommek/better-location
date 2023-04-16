@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined static method App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:getShareCollectionLink\\(\\)\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/ProcessedMessageResult.php
-
-		-
 			message: "#^PHPDoc tag @param for parameter \\$zoom with type float\\|int is not subtype of native type float\\.$#"
 			count: 1
 			path: src/libs/Utils/Ge0Code.php

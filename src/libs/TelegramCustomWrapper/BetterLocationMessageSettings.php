@@ -8,6 +8,7 @@ use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeCompactService;
 use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\HereWeGoService;
+use App\BetterLocation\Service\Interfaces\ShareCollectionLinkInterface;
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\OpenStreetMapService;
 use App\BetterLocation\Service\OsmAndService;
@@ -61,7 +62,7 @@ class BetterLocationMessageSettings
 	 */
 	private array $linkServices;
 	/**
-	 * @var array<int,class-string<AbstractService>> Ordered list of services, to show multiple locations at once
+	 * @var array<int,class-string<AbstractService&ShareCollectionLinkInterface>> Ordered list of services, to show multiple locations at once
 	 * There will be always at least one item which is BetterLocationService, reserved as index 0
 	 */
 	private array $bulkLinkServices;
@@ -194,7 +195,7 @@ class BetterLocationMessageSettings
 		return $this->linkServices;
 	}
 
-	/** @return array<class-string<AbstractService>> */
+	/** @return array<class-string<AbstractService&ShareCollectionLinkInterface>> */
 	public function getBulkLinkServices(): array
 	{
 		return $this->bulkLinkServices;
