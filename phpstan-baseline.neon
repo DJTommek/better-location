@@ -1,16 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^PHPDoc tag @var for constant App\\\\DefaultConfig\\:\\:TELEGRAM_COMMANDS with type array\\<string, array\\<App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\Command\\>\\> is incompatible with value array\\{all_private_chats\\: array\\{'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\HelpCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\FeedbackCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\FavouritesCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\SettingsCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\LoginCommand'\\}, all_group_chats\\: array\\{'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\HelpCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\FeedbackCommand'\\}, all_chat_administrators\\: array\\{'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\HelpCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\FeedbackCommand', 'App\\\\\\\\TelegramCustomWrapper\\\\\\\\Events\\\\\\\\Command\\\\\\\\SettingsCommand'\\}\\}\\.$#"
-			count: 1
-			path: src/libs/DefaultConfig.php
-
-		-
-			message: "#^PHPDoc tag @var for constant App\\\\DefaultConfig\\:\\:TELEGRAM_COMMAND_STRICT with type int is incompatible with value false\\.$#"
-			count: 1
-			path: src/libs/DefaultConfig.php
-
-		-
 			message: "#^Argument of an invalid type stdClass supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: src/libs/Foursquare/Types/Type.php

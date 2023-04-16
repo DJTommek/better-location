@@ -59,13 +59,13 @@ class DefaultConfig
 	 * @var int 1-100, Defauts to 40
 	 */
 	const TELEGRAM_MAX_CONNECTIONS = 40;
-	/** @var int Enforce BotUsername in command, eg. /command@BetterLocationBot */
+	/** @var bool Enforce BotUsername in command, eg. /command@BetterLocationBot */
 	const TELEGRAM_COMMAND_STRICT = false;
 
 	/** @var int Limit how many locations can be sent as Telegram message */
 	const TELEGRAM_MAXIMUM_LOCATIONS = 10;
 
-	/** @var array<string, array<Command>> */
+	/** @var array<string, array<class-string<Command>>> */
 	const TELEGRAM_COMMANDS = [
 		'all_private_chats' => [
 			HelpCommand::class,
