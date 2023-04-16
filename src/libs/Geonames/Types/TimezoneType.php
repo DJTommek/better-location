@@ -61,7 +61,7 @@ class TimezoneType
 		$result = new self();
 		$result->timezone = new \DateTimeZone($response->timezoneId);
 
-		foreach ($response as $item => $value) {
+		foreach ((array)$response as $item => $value) {
 			$result->{$item} = match($item) {
 				'time' => new \DateTimeImmutable($response->time, $result->timezone),
 				'sunrise' => new \DateTimeImmutable($response->sunrise, $result->timezone),
