@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb11d3d74872f567ce7951f126b62926",
+    "content-hash": "2970958ed793a6c81a1802b64bacea3a",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1221,25 +1221,27 @@
         },
         {
             "name": "djtommek/mapycz-api",
-            "version": "1.4.1",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DJTommek/mapycz-api.git",
-                "reference": "d0a903e952946febdc24761685c27d907362f761"
+                "reference": "9335d4d04da3c1879f0bea5307e50e91c4432ec3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DJTommek/mapycz-api/zipball/d0a903e952946febdc24761685c27d907362f761",
-                "reference": "d0a903e952946febdc24761685c27d907362f761",
+                "url": "https://api.github.com/repos/DJTommek/mapycz-api/zipball/9335d4d04da3c1879f0bea5307e50e91c4432ec3",
+                "reference": "9335d4d04da3c1879f0bea5307e50e91c4432ec3",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "ext-simplexml": "*",
-                "php": ">=7.3.0"
+                "guzzlehttp/guzzle": "^7.0",
+                "php": ">=8.0",
+                "psr/http-client": "^1.0"
             },
             "require-dev": {
-                "phpstan/phpstan": "^0.12.52",
+                "phpstan/phpstan": "^1.10",
                 "phpunit/phpunit": "^9"
             },
             "type": "library",
@@ -1259,7 +1261,7 @@
                     "homepage": "https://tomas.palider.cz/"
                 }
             ],
-            "description": "Unofficial PHP 7 API wrapper for making requests to Mapy.cz",
+            "description": "Unofficial PHP 8 API wrapper for making requests to Mapy.cz",
             "homepage": "https://github.com/DJTommek/mapycz-api",
             "keywords": [
                 "api",
@@ -1273,9 +1275,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DJTommek/mapycz-api/issues",
-                "source": "https://github.com/DJTommek/mapycz-api/tree/1.4.1"
+                "source": "https://github.com/DJTommek/mapycz-api/tree/2.0.1"
             },
-            "time": "2023-02-03T14:04:50+00:00"
+            "time": "2023-04-16T19:04:10+00:00"
         },
         {
             "name": "doctrine/inflector",
