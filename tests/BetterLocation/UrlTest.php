@@ -58,7 +58,6 @@ final class UrlTest extends TestCase
 	}
 
 	/**
-	 * @throws Exception
 	 * @group request
 	 */
 	public function testGetRedirectUrl(): void

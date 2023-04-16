@@ -1,6 +1,2 @@
 parameters:
 	ignoreErrors:
-		-
-			message: "#^PHPDoc tag @throws with type Tests\\\\BetterLocation\\\\Exception is not subtype of Throwable$#"
-			count: 1
-			path: tests/BetterLocation/UrlTest.php
