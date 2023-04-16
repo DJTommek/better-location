@@ -11,5 +11,12 @@ parameters:
 	ignoreErrors:
 		-
 			message: "#^Access to an undefined property DJTommek\\\\MapyCzApi\\\\Types\\\\.+$#"
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\.+ does not accept .+\\.$#"
+		-
+			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\.+ does not accept .+\\.$#"
+		-
+			message: "#^Access to an undefined property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\.+\\.$#"
+
 includes:
 	- phpstan-baseline.neon
