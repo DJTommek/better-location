@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Access to undefined constant static\\(App\\\\BetterLocation\\\\Service\\\\Coordinates\\\\AbstractService\\)\\:\\:RE_COORD\\.$#"
-			count: 2
-			path: src/libs/BetterLocation/Service/Coordinates/AbstractService.php
-
-		-
 			message: "#^Method App\\\\BetterLocation\\\\ServicesManager\\:\\:getServices\\(\\) should return array\\<App\\\\BetterLocation\\\\Service\\\\AbstractService\\> but returns array\\<class\\-string\\<App\\\\BetterLocation\\\\Service\\\\AbstractService\\>\\>\\.$#"
 			count: 2
 			path: src/libs/BetterLocation/ServicesManager.php

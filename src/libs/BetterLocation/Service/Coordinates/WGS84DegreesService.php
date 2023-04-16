@@ -4,11 +4,10 @@ namespace App\BetterLocation\Service\Coordinates;
 
 use App\Utils\Coordinates;
 
-final class WGS84DegreesService extends AbstractService
+final class WGS84DegreesService extends WGS84AbstractService
 {
 	const ID = 10;
 	const NAME = 'WGS84';
-	const RE_COORD = '([0-9]{1,3}\.[0-9]{1,20})';
 
 	public function process(): void
 	{
@@ -23,5 +22,10 @@ final class WGS84DegreesService extends AbstractService
 			$coords->getLatHemisphere(), abs($lat),
 			$coords->getLonHemisphere(), abs($lon)
 		);
+	}
+
+	protected static function getReCoords(): string
+	{
+		return '([0-9]{1,3}\.[0-9]{1,20})';
 	}
 }

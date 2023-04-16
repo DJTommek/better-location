@@ -2,14 +2,12 @@
 
 namespace App\BetterLocation\Service\Coordinates;
 
-use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeCompactService;
 use App\Utils\Coordinates;
 
-final class WGS84DegreesMinutesService extends AbstractService
+final class WGS84DegreesMinutesService extends WGS84AbstractService
 {
 	const ID = 11;
 	const NAME = 'WGS84 DM';
-	const RE_COORD = '([0-9]{1,3})[° ]{1,3}([0-9]{1,3}\.[0-9]{1,20}) ?\'?';
 
 	public function process(): void
 	{
@@ -26,5 +24,10 @@ final class WGS84DegreesMinutesService extends AbstractService
 			$coords->getLatHemisphere(), abs($degreesLat), $minutesLat,
 			$coords->getLonHemisphere(), abs($degreesLon), $minutesLon
 		);
+	}
+
+	protected static function getReCoords(): string
+	{
+		return '([0-9]{1,3})[° ]{1,3}([0-9]{1,3}\.[0-9]{1,20}) ?\'?';
 	}
 }

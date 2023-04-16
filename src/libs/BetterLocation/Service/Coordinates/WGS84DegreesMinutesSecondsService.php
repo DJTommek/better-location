@@ -4,10 +4,9 @@ namespace App\BetterLocation\Service\Coordinates;
 
 use App\Utils\Coordinates;
 
-final class WGS84DegreesMinutesSecondsService extends AbstractService
+final class WGS84DegreesMinutesSecondsService extends WGS84AbstractService
 {
 	const ID = 12;
-	const RE_COORD = '([0-9]{1,3})[° ]{1,3}([0-9]{1,2})[\' ]{1,3}([0-9]{1,3}(?:\.[0-9]{1,20})?)[\" ]{0,2}';
 	const NAME = 'WGS84 DMS';
 
 	public function process(): void
@@ -25,5 +24,10 @@ final class WGS84DegreesMinutesSecondsService extends AbstractService
 			$coords->getLatHemisphere(), abs($degreesLat), $minutesLat, $secondsLat,
 			$coords->getLonHemisphere(), abs($degreesLon), $minutesLon, $secondsLon
 		);
+	}
+
+	protected static function getReCoords(): string
+	{
+		return '([0-9]{1,3})[° ]{1,3}([0-9]{1,2})[\' ]{1,3}([0-9]{1,3}(?:\.[0-9]{1,20})?)[\" ]{0,2}';
 	}
 }
