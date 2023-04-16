@@ -27,7 +27,7 @@ class PortalType
 	public static function createFromVariable(\stdClass $variables): self
 	{
 		$class = new self();
-		foreach ($variables as $key => $value) {
+		foreach ((array)$variables as $key => $value) {
 			if (in_array($key, ['name', 'address'], true)) {
 				// @BUG in external API: if portal name contains only numbers, it is type int instead of string
 				$value = trim((string)$value);

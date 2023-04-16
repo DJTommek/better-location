@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Argument of an invalid type stdClass supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/libs/IngressLanchedRu/Types/PortalType.php
-
-		-
 			message: "#^PHPDoc tag @param has invalid value \\(array\\[array\\[string\\|int\\|float, string\\|int\\|float\\]\\] \\$inputs List of coorinates mapped as \\[\\[\\$lat1, \\$lon1\\],  \\[\\$lat2, \\$lon2\\], \\.\\.\\.\\]\\)\\: Unexpected token \"\\[\", expected variable at offset 67$#"
 			count: 1
 			path: src/libs/OpenElevation/OpenElevation.php
