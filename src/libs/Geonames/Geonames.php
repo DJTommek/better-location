@@ -33,7 +33,7 @@ class Geonames
 	{
 		$cacheKey = sprintf('timezone2-%F-%F', $lat, $lon);
 		return Factory::cache('geonames')->load($cacheKey, function (&$dependencies) use ($lat, $lon) {
-			$dependencies[Cache::EXPIRE] = '5 minutes';
+			$dependencies[Cache::Expire] = '5 minutes';
 			return $this->timezoneReal($lat, $lon);
 		});
 	}
@@ -43,13 +43,18 @@ class Geonames
 	 */
 	private function timezoneReal(float $lat, float $lon): ?TimezoneType
 	{
-		$response = $this->client->get('timezoneJSON', [
-			'query' => [
-				'username' => $this->username,
-				'lat' => $lat,
-				'lng' => $lon,
-			],
-		]);
+		$queryParams = [
+			'username' => $this->username,
+			'lat' => $lat,
+			'lng' => $lon,
+		];
+
+		$request = new \GuzzleHttp\Psr7\Request(
+			method: 'GET',
+			uri: 'timezoneJSON?' . http_build_query($queryParams),
+		);
+
+		$response = $this->client->sendRequest($request);
 		$jsonResponse = Json::decode((string)$response->getBody());
 		if (isset($jsonResponse->status)) {
 			throw new GeonamesApiException($jsonResponse->status->message, $jsonResponse->status->value);
