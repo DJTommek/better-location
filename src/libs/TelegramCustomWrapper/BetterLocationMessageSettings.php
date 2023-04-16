@@ -59,17 +59,17 @@ class BetterLocationMessageSettings
 	 * @var array<int,class-string<AbstractService>> Ordered list of services, to show as links.
 	 * There will be always at least one item which is BetterLocationService, reserved as 0
 	 */
-	private $linkServices;
+	private array $linkServices;
 	/**
 	 * @var array<int,class-string<AbstractService>> Ordered list of services, to show multiple locations at once
 	 * There will be always at least one item which is BetterLocationService, reserved as index 0
 	 */
-	private $bulkLinkServices;
+	private array $bulkLinkServices;
 	/**
 	 * @var array<int,class-string<AbstractService>> Ordered list of services, to show as buttons.
 	 * Might be empty
 	 */
-	private $buttonServices;
+	private array $buttonServices;
 	/**
 	 * @var array<int,class-string<AbstractService>> List of services, to show as text representing location.
 	 */
@@ -77,7 +77,7 @@ class BetterLocationMessageSettings
 	/**
 	 * @var class-string<AbstractService> Service, which is providing static map image of location
 	 */
-	private $screenshotLinkService;
+	private string $screenshotLinkService;
 	/**
 	 * If address for locations should be generated and displayed in Better Location message
 	 */
