@@ -229,7 +229,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	public static function fromTelegramMessage(string $message, array $entities): self
 	{
 		$betterLocationsCollection = new self();
-		$serviceManager = Factory::ServicesManager();
+		$serviceManager = Factory::servicesManager();
 
 		foreach ($entities as $entity) {
 			if (in_array($entity->type, ['url', 'text_link'])) {
@@ -332,7 +332,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	public function fillElevations(): void
 	{
 		try {
-			$api = Factory::OpenElevation();
+			$api = Factory::openElevation();
 			$api->fillBatch($this->getCoordinates());
 		} catch (TimeoutException) {
 			Debugger::log('Unable to batch-fill coordinates elevation, request timeouted.', Debugger::WARNING);

@@ -30,7 +30,7 @@ final class GoogleMapsStreetViewGeneratorService extends AbstractService
 			return null;
 		}
 
-		$api = Factory::GoogleStreetViewApi();
+		$api = Factory::googleStreetViewApi();
 		$panoramaMetadata = $api->loadPanoaramaMetadataByCoords($lat, $lon);
 		if ($panoramaMetadata === null) {
 			return null;

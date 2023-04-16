@@ -51,7 +51,7 @@ final class FevGamesService extends AbstractService
 	private static function addPortalData(BetterLocation $location): void
 	{
 		try {
-			$portal = Factory::IngressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon());
+			$portal = Factory::ingressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon());
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, Debugger::EXCEPTION);
 			return;

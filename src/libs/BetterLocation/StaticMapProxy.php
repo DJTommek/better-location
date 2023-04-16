@@ -29,7 +29,7 @@ class StaticMapProxy
 	{
 		FileSystem::createDir(self::CACHE_FOLDER);
 
-		$db = Factory::Database();
+		$db = Factory::database();
 		$this->staticMapCacheRepository = new StaticMapCacheRepository($db);
 	}
 
@@ -121,7 +121,7 @@ class StaticMapProxy
 	/** @param Coordinates[] $markers */
 	private static function generatePrivateUrl(array $markers): string
 	{
-		$api = Factory::BingStaticMaps();
+		$api = Factory::bingStaticMaps();
 		foreach ($markers as $key => $marker) {
 			$api->addPushpin($marker->getLat(), $marker->getLon(), null, (string)($key + 1));
 		}

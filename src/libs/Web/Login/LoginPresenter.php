@@ -44,7 +44,7 @@ class LoginPresenter extends MainPresenter
 	public function render(): void
 	{
 		$this->template->prepare();
-		Factory::Latte('login.latte', $this->template);
+		Factory::latte('login.latte', $this->template);
 	}
 }
 

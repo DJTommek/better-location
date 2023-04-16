@@ -30,7 +30,7 @@ abstract class MainPresenter
 		if ($this->template === null) { // load default template if any was provided
 			$this->template = new LayoutTemplate();
 		}
-		$this->db = Factory::Database();
+		$this->db = Factory::database();
 		$this->login = new LoginFacade();
 		if ($this->login->isLogged()) {
 			$this->user = new User($this->login->getTelegramId(), $this->login->getDisplayName());

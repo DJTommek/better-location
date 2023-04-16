@@ -22,7 +22,7 @@ class LoginFacade
 
 	public function __construct()
 	{
-		$this->db = Factory::Database();
+		$this->db = Factory::database();
 		$this->webLoginRepository = new WebLoginRepository($this->db);
 		if ($cookie = $this->getCookie()) {
 			if ($this->entity = $this->webLoginRepository->fromHash($cookie)) {

@@ -75,17 +75,17 @@ class ChatPresenter extends MainPresenter
 			$this->template->exampleLocation = $exampleCollection->getFirst();
 			$this->template->prepareOk($this->chatResponse);
 			$this->template->chat = $this->chat;
-			Factory::Latte('chat.latte', $this->template);
+			Factory::latte('chat.latte', $this->template);
 		} else {
 			$this->template->prepareError();
-			Factory::Latte('chatError.latte', $this->template);
+			Factory::latte('chatError.latte', $this->template);
 		}
 	}
 
 	private function loadChatData(): void
 	{
 		try {
-			$telegramWrapper = Factory::Telegram();
+			$telegramWrapper = Factory::telegram();
 
 			$getChat = new Telegram\Methods\GetChat();
 			$getChat->chat_id = $this->chatTelegramId;
@@ -147,7 +147,7 @@ class ChatPresenter extends MainPresenter
 		}
 		// Validate Pluginer URL - END
 
-		$services = Factory::ServicesManager()->getServices();
+		$services = Factory::servicesManager()->getServices();
 
 		$linkServicesToSave = [];
 		foreach ($_POST['link-services'] ?? [] as $linkserviceId) {

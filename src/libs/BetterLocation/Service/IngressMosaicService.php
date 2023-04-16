@@ -32,7 +32,7 @@ final class IngressMosaicService extends AbstractService
 
 	public function process(): void
 	{
-		$mosaic = Factory::IngressMosaic()->loadMosaic($this->data->mosaicId);
+		$mosaic = Factory::ingressMosaic()->loadMosaic($this->data->mosaicId);
 		$location = new BetterLocation($this->inputUrl, $mosaic->startLat, $mosaic->startLon, self::class);
 
 		$prefix = $location->getPrefixMessage();
@@ -54,7 +54,7 @@ final class IngressMosaicService extends AbstractService
 			$description = sprintf('%s %d%% online, %s', Icons::WARNING, $mosaic->status, $description);
 		}
 
-		$ingressApi = Factory::IngressLanchedRu();
+		$ingressApi = Factory::ingressLanchedRu();
 		if ($portal = $ingressApi->getPortalByCoords($mosaic->startLat, $mosaic->startLon)) {
 			$location->setAddress($portal->address);
 			$location->addDescription(

@@ -164,7 +164,7 @@ class TelegramCustomWrapper
 			return;
 		}
 
-		$db = Factory::Database();
+		$db = Factory::database();
 		$chatLocationHistory = new ChatLocationHistory($db);
 		$messageSentDatetime = (new \DateTime())->setTimestamp($this->event->getTgMessage()->date);
 

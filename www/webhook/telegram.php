@@ -23,9 +23,9 @@ if (Config::isTelegramWebhookPassword() === false) {
 		$updateData = Json::decode($input, Json::FORCE_ARRAY);
 		SimpleLogger::log(SimpleLogger::NAME_TELEGRAM_INPUT, $updateData);
 
-		\App\Factory::Database(); // Just check if database connection is valid, otherwise throw Exception and end script now.
+		\App\Factory::database(); // Just check if database connection is valid, otherwise throw Exception and end script now.
 
-		$telegramCustomWrapper = \App\Factory::Telegram();
+		$telegramCustomWrapper = \App\Factory::telegram();
 		$update = new \unreal4u\TelegramAPI\Telegram\Types\Update($updateData);
 		$telegramCustomWrapper->getUpdateEvent($update);
 		if ($event = $telegramCustomWrapper->getEvent()) {

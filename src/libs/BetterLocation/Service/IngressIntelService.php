@@ -66,7 +66,7 @@ final class IngressIntelService extends AbstractService
 	{
 		if ($this->data->portalCoord ?? false) {
 			$location = new BetterLocation($this->input, $this->data->portalCoordLat, $this->data->portalCoordLon, self::class, self::TYPE_PORTAL);
-			if ($portal = Factory::IngressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon())) {
+			if ($portal = Factory::ingressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon())) {
 				Ingress::rewritePrefixes($location, $portal);
 				$location->addDescription('', Ingress::BETTER_LOCATION_KEY_PORTAL); // Prevent generating Ingress description
 			}
@@ -74,7 +74,7 @@ final class IngressIntelService extends AbstractService
 		}
 		if ($this->data->mapCoord ?? false) {
 			$location = new BetterLocation($this->input, $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP);
-			if ($portal = Factory::IngressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon())) {
+			if ($portal = Factory::ingressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon())) {
 				Ingress::rewritePrefixes($location, $portal);
 				$location->addDescription('', Ingress::BETTER_LOCATION_KEY_PORTAL); // Prevent generating Ingress description
 			}

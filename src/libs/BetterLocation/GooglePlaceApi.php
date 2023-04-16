@@ -170,7 +170,7 @@ class GooglePlaceApi
 	public static function search(string $queryInput, ?string $languageCode = null, ?BetterLocation $location = null): BetterLocationCollection
 	{
 		$queryInput = self::normalizeInput($queryInput);
-		$placeApi = Factory::GooglePlaceApi();
+		$placeApi = Factory::googlePlaceApi();
 		$placeCandidates = $placeApi->runPlaceSearch(
 			$queryInput,
 			['formatted_address', 'name', 'geometry', 'place_id'],

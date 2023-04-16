@@ -102,7 +102,7 @@ class LocationsPresenter extends MainPresenter
 	public function render(): void
 	{
 		if ($this->collection->isEmpty()) {
-			Factory::Latte('locations.latte', $this->template);
+			Factory::latte('locations.latte', $this->template);
 		}
 
 		$this->template->prepare($this->collection, $this->services);
@@ -116,7 +116,7 @@ class LocationsPresenter extends MainPresenter
 
 	public function renderHtml(): void
 	{
-		Factory::Latte('locations.latte', $this->template);
+		Factory::latte('locations.latte', $this->template);
 	}
 
 	public function renderJson(): void
@@ -147,13 +147,13 @@ class LocationsPresenter extends MainPresenter
 	public function renderFileGpx(): void
 	{
 		header(sprintf('Content-Disposition: attachment; filename="BetterLocation_%d_locations_%s.gpx"', count($this->collection), $this->nowFileText));
-		Factory::Latte('locationsGpx.latte', $this->template);
+		Factory::latte('locationsGpx.latte', $this->template);
 	}
 
 	public function renderFileKml(): void
 	{
 		header(sprintf('Content-Disposition: attachment; filename="BetterLocation_%d_locations_%s.kml"', count($this->collection), $this->nowFileText));
-		Factory::Latte('locationsKml.latte', $this->template);
+		Factory::latte('locationsKml.latte', $this->template);
 	}
 
 	private function website($service, float $lat, float $lon)

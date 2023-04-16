@@ -42,7 +42,7 @@ class Ingress
 	public static function setPortalDataDescription(BetterLocation $location): void
 	{
 		try {
-			if ($portal = Factory::IngressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon())) {
+			if ($portal = Factory::ingressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon())) {
 				$location->addDescription(
 					'Ingress portal: ' . self::generatePortalLinkMessage($portal),
 					self::BETTER_LOCATION_KEY_PORTAL

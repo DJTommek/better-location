@@ -9,7 +9,7 @@ class HomepagePresenter extends MainPresenter
 {
 	public function render(): void
 	{
-		Factory::Latte('homepage.latte', $this->template);
+		Factory::latte('homepage.latte', $this->template);
 	}
 }
 

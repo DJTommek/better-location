@@ -66,7 +66,7 @@ final class IngressPrimeService extends AbstractService
 
 	public function process(): void
 	{
-		$lanchedApi = Factory::IngressLanchedRu();
+		$lanchedApi = Factory::ingressLanchedRu();
 		$mainCoords = null;
 
 		if (isset($this->data->portalGuid) && $portal = $lanchedApi->getPortalByGUID($this->data->portalGuid)) {

@@ -33,7 +33,7 @@ class TelegramUpdateDb
 
 	public function __construct(Telegram\Types\Update $originalUpdate, int $botReplyMessageId, int $status, \DateTimeImmutable $lastUpdate)
 	{
-		$this->db = Factory::Database();
+		$this->db = Factory::database();
 		$chatId = $originalUpdate->message->chat->id ?? null;
 		if (is_int($chatId) === false || $chatId === 0) {
 			throw new MessageDeletedException(sprintf('Chat ID "%s" in Update object is not valid.', $chatId));
@@ -83,7 +83,7 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 
 	public static function fromDb(int $chatId, int $botReplyMessageId): self
 	{
-		$row = Factory::Database()->query('SELECT * FROM better_location_telegram_updates WHERE chat_id = ? AND bot_reply_message_id = ?',
+		$row = Factory::database()->query('SELECT * FROM better_location_telegram_updates WHERE chat_id = ? AND bot_reply_message_id = ?',
 			$chatId, $botReplyMessageId
 		)->fetch();
 		return self::parseDbData($row);
@@ -154,7 +154,7 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 			$sqlQuery .= ' LIMIT ?';
 			$sqlParams[] = $limit;
 		}
-		$rows = Factory::Database()->query($sqlQuery, ...$sqlParams)->fetchAll();
+		$rows = Factory::database()->query($sqlQuery, ...$sqlParams)->fetchAll();
 		foreach ($rows as $row) {
 			$results[] = self::parseDbData($row);
 		}
@@ -164,7 +164,7 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 	public static function loadByOriginalMessageId(int $chatId, int $originalMessageId): ?self
 	{
 		$sqlQuery = 'SELECT * FROM better_location_telegram_updates WHERE chat_id = ? AND input_message_id = ?';
-		if ($row = Factory::Database()->query($sqlQuery, $chatId, $originalMessageId)->fetch()) {
+		if ($row = Factory::database()->query($sqlQuery, $chatId, $originalMessageId)->fetch()) {
 			return self::parseDbData($row);
 		} else {
 			return null;
@@ -203,7 +203,7 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 	public static function query(string $query, ...$params): array
 	{
 		$results = [];
-		$rows = Factory::Database()->query($query, ...$params)->fetchAll();
+		$rows = Factory::database()->query($query, ...$params)->fetchAll();
 		foreach ($rows as $row) {
 			$results[] = self::parseDbData($row);
 		}

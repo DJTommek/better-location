@@ -31,7 +31,7 @@ if (isset($_GET['password']) && $_GET['password'] === \App\Config::CRON_PASSWORD
 		printlog('No message need refresh');
 	} else {
 		printlog(sprintf('Loaded %s updates to refresh.', count($messagesToRefresh)));
-		$telegramCustomWrapper = \App\Factory::Telegram();
+		$telegramCustomWrapper = \App\Factory::telegram();
 		foreach ($messagesToRefresh as $messageToRefresh) {
 			$id = sprintf('%d-%d', $messageToRefresh->getChatId(), $messageToRefresh->getBotReplyMessageId());
 			try {

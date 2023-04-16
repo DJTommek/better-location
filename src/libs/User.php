@@ -27,7 +27,7 @@ class User
 
 	public function __construct(int $telegramId, string $telegramDisplayname)
 	{
-		$db = Factory::Database();
+		$db = Factory::database();
 		$this->userRepository = new UserRepository($db);
 		$this->chatRepository = new ChatRepository($db);
 		$this->favouritesRepository = new FavouritesRepository($db);
@@ -132,7 +132,7 @@ class User
 			$location->setPrefixMessage(sprintf('%s Last location', Icons::CURRENT_LOCATION));
 
 			// Show datetime of last location update in local timezone based on timezone on that location itself
-			$geonames = Factory::Geonames()->timezone($location->getLat(), $location->getLon());
+			$geonames = Factory::geonames()->timezone($location->getLat(), $location->getLon());
 			$lastUpdate = $this->userEntity->lastLocationUpdate->setTimezone($geonames->timezone);
 
 			$location->setDescription(sprintf('Last update %s', $lastUpdate->format(\App\Config::DATETIME_FORMAT_ZONE)));

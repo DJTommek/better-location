@@ -15,14 +15,14 @@ class Nominatim
 	public static function reverse(CoordinatesInterface $coordinates): ?array
 	{
 		$cacheKey = sprintf('reverse-%F-%F', $coordinates->getLat(), $coordinates->getLon());
-		return Factory::Cache('nominatim')->load($cacheKey, function () use ($coordinates) {
+		return Factory::cache('nominatim')->load($cacheKey, function () use ($coordinates) {
 			return self::reverseReal($coordinates);
 		});
 	}
 
 	private static function reverseReal(CoordinatesInterface $coordinates)
 	{
-		$nominatimApi = Factory::Nominatim();
+		$nominatimApi = Factory::nominatim();
 		$query = $nominatimApi->newReverse()->latlon($coordinates->getLat(), $coordinates->getLon());
 		$result = $nominatimApi->find($query);
 		if (isset($result['error'])) {

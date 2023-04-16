@@ -54,7 +54,7 @@ class LocationEdit extends Edit
 			$text = $processedCollection->getText();
 
 			// Show datetime of last location update in local timezone based on timezone on that location itself
-			$geonames = Factory::Geonames()->timezone($collection->getFirst()->getLat(), $collection->getFirst()->getLon());
+			$geonames = Factory::geonames()->timezone($collection->getFirst()->getLat(), $collection->getFirst()->getLon());
 			$lastUpdate = DateImmutableUtils::fromTimestamp($this->getTgMessage()->edit_date, $geonames->timezone);
 			$text .= sprintf('%s Last live location from %s', Icons::REFRESH, $lastUpdate->format(Config::DATETIME_FORMAT));
 

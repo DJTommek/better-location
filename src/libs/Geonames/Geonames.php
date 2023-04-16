@@ -32,7 +32,7 @@ class Geonames
 	public function timezone(float $lat, float $lon): ?TimezoneType
 	{
 		$cacheKey = sprintf('timezone2-%F-%F', $lat, $lon);
-		return Factory::Cache('geonames')->load($cacheKey, function (&$dependencies) use ($lat, $lon) {
+		return Factory::cache('geonames')->load($cacheKey, function (&$dependencies) use ($lat, $lon) {
 			$dependencies[Cache::EXPIRE] = '5 minutes';
 			return $this->timezoneReal($lat, $lon);
 		});

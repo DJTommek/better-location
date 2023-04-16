@@ -114,7 +114,7 @@ class BetterLocation implements CoordinatesInterface
 		if (is_null($this->address)) {
 			if (Config::isGoogleGeocodingApi()) {
 				try {
-					$googleGeocoding = Factory::GoogleGeocodingApi();
+					$googleGeocoding = Factory::googleGeocodingApi();
 					$addressResponse = $googleGeocoding->reverse($this->coords);
 					$this->address = $addressResponse?->results[0]->formatted_address;
 					return;
@@ -137,7 +137,7 @@ class BetterLocation implements CoordinatesInterface
 	{
 		if (is_null($this->timezoneData)) {
 			try {
-				$this->timezoneData = Factory::Geonames()->timezone($this->getLat(), $this->getLon());
+				$this->timezoneData = Factory::geonames()->timezone($this->getLat(), $this->getLon());
 			} catch (GeonamesApiException $exception) {
 				Debugger::log($exception, Debugger::EXCEPTION);
 			}
@@ -150,7 +150,7 @@ class BetterLocation implements CoordinatesInterface
 	{
 		if (is_null($this->coords->getElevation())) {
 			try {
-				Factory::OpenElevation()->fill($this->coords);
+				Factory::openElevation()->fill($this->coords);
 			} catch (TimeoutException) {
 				Debugger::log('Unable to fill coordinates elevation, request timeouted.', Debugger::WARNING);
 			} catch (\Exception $exception) {
@@ -471,7 +471,7 @@ class BetterLocation implements CoordinatesInterface
 	public static function generateFavouriteName(float $lat, float $lon): string
 	{
 		try {
-			$result = Factory::WhatThreeWords()->convertTo3wa($lat, $lon);
+			$result = Factory::whatThreeWords()->convertTo3wa($lat, $lon);
 			if ($result) {
 				return sprintf('///%s', $result['words']);
 			} else {

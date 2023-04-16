@@ -59,7 +59,7 @@ class Status
 	public static function isDatabaseConnectionSet(): bool
 	{
 		try {
-			self::$db = \App\Factory::Database();
+			self::$db = \App\Factory::database();
 			return true;
 		} catch (\PDOException $exception) {
 			self::$dbError = $exception;

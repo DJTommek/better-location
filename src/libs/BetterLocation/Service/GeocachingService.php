@@ -92,7 +92,7 @@ final class GeocachingService extends AbstractService
 		$collection = new BetterLocationCollection();
 		foreach (self::getGeocachesIdFromText($text) as $geocacheId) {
 			try {
-				$geocache = Factory::Geocaching()->loadGeocachePreview($geocacheId);
+				$geocache = Factory::geocaching()->loadGeocachePreview($geocacheId);
 				$collection->add(self::formatApiResponse($geocache, $geocacheId));
 			} catch (\Throwable $exception) {
 				Debugger::log($exception, ILogger::DEBUG);
@@ -273,7 +273,7 @@ final class GeocachingService extends AbstractService
 		}
 
 		if ($this->data->geocacheId ?? null) {
-			$geocache = Factory::Geocaching()->loadGeocachePreview($this->data->geocacheId);
+			$geocache = Factory::geocaching()->loadGeocachePreview($this->data->geocacheId);
 			$this->collection->add(self::formatApiResponse($geocache, $this->input));
 		} else if ($this->data->mapCoord ?? false) {
 			$this->collection->add(new BetterLocation($this->input, $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP_SEARCH));

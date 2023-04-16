@@ -4,9 +4,12 @@ namespace App;
 
 class Factory
 {
-	private static array $objects = array();
+	/**
+	 * @var array<string,object>
+	 */
+	private static array $objects = [];
 
-	static function Database(): Database
+	public static function database(): Database
 	{
 		if (!isset(self::$objects['database'])) {
 			self::$objects['database'] = new Database(Config::DB_SERVER, Config::DB_NAME, Config::DB_USER, Config::DB_PASS);
@@ -14,7 +17,7 @@ class Factory
 		return self::$objects['database'];
 	}
 
-	static function Telegram(): \App\TelegramCustomWrapper\TelegramCustomWrapper
+	public static function telegram(): \App\TelegramCustomWrapper\TelegramCustomWrapper
 	{
 		if (!isset(self::$objects['telegram'])) {
 			self::$objects['telegram'] = new \App\TelegramCustomWrapper\TelegramCustomWrapper();
@@ -22,7 +25,7 @@ class Factory
 		return self::$objects['telegram'];
 	}
 
-	static function WhatThreeWords(): \What3words\Geocoder\Geocoder
+	public static function whatThreeWords(): \What3words\Geocoder\Geocoder
 	{
 		if (!isset(self::$objects['w3w'])) {
 			self::$objects['w3w'] = new \What3words\Geocoder\Geocoder(Config::W3W_API_KEY);
@@ -30,7 +33,7 @@ class Factory
 		return self::$objects['w3w'];
 	}
 
-	static function Glympse(): \DJTommek\GlympseApi\GlympseApi
+	public static function glympse(): \DJTommek\GlympseApi\GlympseApi
 	{
 		if (!isset(self::$objects['glympse'])) {
 			$client = new \DJTommek\GlympseApi\GlympseApi(Config::GLYMPSE_API_KEY);
@@ -43,7 +46,7 @@ class Factory
 		return self::$objects['glympse'];
 	}
 
-	static function Geocaching(): \App\Geocaching\Client
+	public static function geocaching(): \App\Geocaching\Client
 	{
 		if (!isset(self::$objects['geocaching'])) {
 			self::$objects['geocaching'] = new \App\Geocaching\Client(Config::GEOCACHING_COOKIE);
@@ -52,7 +55,7 @@ class Factory
 		return self::$objects['geocaching'];
 	}
 
-	static function Foursquare(): \App\Foursquare\Client
+	public static function foursquare(): \App\Foursquare\Client
 	{
 		if (!isset(self::$objects['foursquare'])) {
 			self::$objects['foursquare'] = new \App\Foursquare\Client(Config::FOURSQUARE_CLIENT_ID, Config::FOURSQUARE_CLIENT_SECRET);
@@ -61,7 +64,7 @@ class Factory
 		return self::$objects['foursquare'];
 	}
 
-	static function IngressLanchedRu(): \App\IngressLanchedRu\Client
+	public static function ingressLanchedRu(): \App\IngressLanchedRu\Client
 	{
 		if (!isset(self::$objects['ingressLanchedRu'])) {
 			self::$objects['ingressLanchedRu'] = new \App\IngressLanchedRu\Client();
@@ -70,7 +73,7 @@ class Factory
 		return self::$objects['ingressLanchedRu'];
 	}
 
-	static function IngressMosaic(): \App\IngressMosaic\Client
+	public static function ingressMosaic(): \App\IngressMosaic\Client
 	{
 		if (!isset(self::$objects['ingressMosaic'])) {
 			self::$objects['ingressMosaic'] = new \App\IngressMosaic\Client(Config::INGRESS_MOSAIC_COOKIE_XSRF, Config::INGRESS_MOSAIC_COOKIE_SESSION);
@@ -80,12 +83,12 @@ class Factory
 	}
 
 	/** Not cached */
-	static function BingStaticMaps(): \App\BingMaps\StaticMaps
+	public static function bingStaticMaps(): \App\BingMaps\StaticMaps
 	{
 		return new \App\BingMaps\StaticMaps(Config::BING_STATIC_MAPS_TOKEN);
 	}
 
-	static function ServicesManager(): \App\BetterLocation\ServicesManager
+	public static function servicesManager(): \App\BetterLocation\ServicesManager
 	{
 		if (!isset(self::$objects['servicesManager'])) {
 			self::$objects['servicesManager'] = new \App\BetterLocation\ServicesManager();
@@ -93,7 +96,7 @@ class Factory
 		return self::$objects['servicesManager'];
 	}
 
-	static function Latte(string $template = null, $params = []): \Latte\Engine
+	public static function latte(string $template = null, $params = []): \Latte\Engine
 	{
 		$latte = new \Latte\Engine();
 		$latte->setTempDirectory(Config::FOLDER_TEMP . '/latte');
@@ -103,7 +106,7 @@ class Factory
 		return $latte;
 	}
 
-	static function Nominatim(): \maxh\Nominatim\Nominatim
+	public static function nominatim(): \maxh\Nominatim\Nominatim
 	{
 		if (!isset(self::$objects['nominatim'])) {
 			$headers = [
@@ -119,7 +122,7 @@ class Factory
 		return self::$objects['nominatim'];
 	}
 
-	private static function CacheStorage(): \Nette\Caching\Storage
+	private static function cacheStorage(): \Nette\Caching\Storage
 	{
 		if (!isset(self::$objects['cacheStorage'])) {
 			$dir = Config::FOLDER_TEMP . '/nette-cache';
@@ -129,12 +132,12 @@ class Factory
 		return self::$objects['cacheStorage'];
 	}
 
-	public static function Cache(string $namespace): \Nette\Caching\Cache
+	public static function cache(string $namespace): \Nette\Caching\Cache
 	{
-		return new \Nette\Caching\Cache(self::CacheStorage(), $namespace);
+		return new \Nette\Caching\Cache(self::cacheStorage(), $namespace);
 	}
 
-	static function Geonames(): \App\Geonames\Geonames
+	public static function geonames(): \App\Geonames\Geonames
 	{
 		if (!isset(self::$objects['geonames'])) {
 			self::$objects['geonames'] = new \App\Geonames\Geonames(Config::GEONAMES_USERNAME);
@@ -142,7 +145,7 @@ class Factory
 		return self::$objects['geonames'];
 	}
 
-	public static function OpenElevation(): \App\OpenElevation\OpenElevation
+	public static function openElevation(): \App\OpenElevation\OpenElevation
 	{
 		if (!isset(self::$objects['openelevation'])) {
 			self::$objects['openelevation'] = new \App\OpenElevation\OpenElevation();
@@ -151,7 +154,7 @@ class Factory
 		return self::$objects['openelevation'];
 	}
 
-	public static function GoogleGeocodingApi(): \App\Google\Geocoding\StaticApi
+	public static function googleGeocodingApi(): \App\Google\Geocoding\StaticApi
 	{
 		if (!isset(self::$objects[__METHOD__])) {
 			self::$objects[__METHOD__] = new \App\Google\Geocoding\StaticApi(Config::GOOGLE_PLACE_API_KEY);
@@ -159,7 +162,7 @@ class Factory
 		return self::$objects[__METHOD__];
 	}
 
-	public static function GoogleStreetViewApi(): \App\Google\StreetView\StaticApi
+	public static function googleStreetViewApi(): \App\Google\StreetView\StaticApi
 	{
 		if (!isset(self::$objects[__METHOD__])) {
 			self::$objects[__METHOD__] = new \App\Google\StreetView\StaticApi(Config::GOOGLE_PLACE_API_KEY);
@@ -167,7 +170,7 @@ class Factory
 		return self::$objects[__METHOD__];
 	}
 
-	public static function GooglePlaceApi(): \App\BetterLocation\GooglePlaceApi
+	public static function googlePlaceApi(): \App\BetterLocation\GooglePlaceApi
 	{
 		if (!isset(self::$objects[__METHOD__])) {
 			self::$objects[__METHOD__] = new \App\BetterLocation\GooglePlaceApi(Config::GOOGLE_PLACE_API_KEY);

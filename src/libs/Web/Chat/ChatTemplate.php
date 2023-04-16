@@ -57,7 +57,7 @@ class ChatTemplate extends LayoutTemplate
 		$this->lat = $this->exampleLocation->getLat();
 		$this->lon = $this->exampleLocation->getLon();
 		$this->chatResponse = $chatResponse;
-		$this->services = Factory::ServicesManager();
+		$this->services = Factory::servicesManager();
 	}
 
 	public function prepareError()

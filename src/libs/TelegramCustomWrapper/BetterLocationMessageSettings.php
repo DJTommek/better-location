@@ -101,7 +101,7 @@ class BetterLocationMessageSettings
 
 	public static function loadByChatId(int $chatId): self
 	{
-		$db = Factory::Database();
+		$db = Factory::database();
 		$rows = $db->query('SELECT * FROM better_location_chat_services WHERE chat_id = ? ORDER BY type, service_id DESC', $chatId)->fetchAll();
 		$result = new self();
 		$services = (new ServicesManager())->getServices();
@@ -251,7 +251,7 @@ class BetterLocationMessageSettings
 		$query .= '(?, ?, ?, ?)';
 		$params = array_merge($params, [$chatId, $this->getScreenshotLinkService()::ID, self::TYPE_SCREENSHOT, 0]);
 
-		$db = Factory::Database();
+		$db = Factory::database();
 		$dbLink = $db->getLink();
 		$dbLink->beginTransaction();
 		try {

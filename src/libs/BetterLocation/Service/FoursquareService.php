@@ -52,7 +52,7 @@ final class FoursquareService extends AbstractService
 
 	public function process(): void
 	{
-		$client = Factory::Foursquare();
+		$client = Factory::foursquare();
 		$venue = $client->loadVenue($this->data->venueId);
 		$this->collection->add($this->venueToBetterLocation($venue));
 	}

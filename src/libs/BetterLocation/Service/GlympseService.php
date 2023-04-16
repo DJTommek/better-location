@@ -153,7 +153,7 @@ final class GlympseService extends AbstractService
 
 	public function processInvite(): void
 	{
-		$glympseApi = Factory::Glympse();
+		$glympseApi = Factory::glympse();
 		try {
 			$inviteResponse = $glympseApi->invites($this->data->inviteId, null, null, null, true);
 			$inviteLocation = $this->processInviteLocation(self::TYPE_INVITE, $inviteResponse);
@@ -179,7 +179,7 @@ final class GlympseService extends AbstractService
 
 	public function processGroup(): void
 	{
-		$glympseApi = Factory::Glympse();
+		$glympseApi = Factory::glympse();
 		try {
 			$groupsResponse = $glympseApi->groups($this->data->groupName);
 			foreach ($groupsResponse->members as $member) {

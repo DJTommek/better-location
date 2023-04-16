@@ -15,7 +15,7 @@ class Chat
 
 	public function __construct(int $telegramChatId, string $telegramChatType, string $telegramChatName)
 	{
-		$db = Factory::Database();
+		$db = Factory::database();
 		$this->chatRepository = new ChatRepository($db);
 
 		$chatEntity = $this->chatRepository->fromTelegramId($telegramChatId);
