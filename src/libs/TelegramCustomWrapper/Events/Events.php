@@ -178,15 +178,6 @@ abstract class Events
 		return true;
 	}
 
-	public static function getTgCmd(bool $withSuffix = false): string
-	{
-		if ($withSuffix) {
-			return sprintf('%s@%s', static::CMD, Config::TELEGRAM_BOT_NAME);
-		} else {
-			return static::CMD;
-		}
-	}
-
 	/** @return bool|null null if unknown (eg. clicked on button in via_bot message) */
 	public function isTgPm(): ?bool
 	{
