@@ -4,14 +4,11 @@ namespace App\TelegramCustomWrapper\Events;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
-use App\BetterLocation\Service\WazeService;
 use App\Chat;
 use App\Config;
 use App\Icons;
 use App\Pluginer\Pluginer;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
-use App\TelegramCustomWrapper\Events\Button\SettingsButton;
-use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\SendMessage;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\User;
@@ -275,63 +272,6 @@ abstract class Events
 			}
 		}
 		return null;
-	}
-
-	protected function processSettings(bool $inline = false): void
-	{
-		$collection = WazeService::processStatic(WazeService::getShareLink(50.087451, 14.420671))->getCollection();
-		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
-		$processedCollection->process();
-
-		$text = sprintf('%s <b>Chat settings</b> for @%s. ', Icons::SETTINGS, Config::TELEGRAM_BOT_NAME);
-		if ($this->isTgPm()) {
-			$text .= PHP_EOL . sprintf('%s This private chat settings will be used while sending messages via inline mode, overriding chat settings.', Icons::INFO) . PHP_EOL . PHP_EOL;
-		}
-		$text .= 'Example message:' . PHP_EOL;
-		$text .= $processedCollection->getText();
-		$replyMarkup = $processedCollection->getMarkup(1);
-
-		$previewButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
-		if ($this->chat->settingsPreview()) {
-			$previewButton->text = sprintf('%s Map preview', Icons::ENABLED);
-			$previewButton->callback_data = sprintf('%s %s false', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_PREVIEW);
-		} else {
-			$previewButton->text = sprintf('%s Map preview', Icons::DISABLED);
-			$previewButton->callback_data = sprintf('%s %s true', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_PREVIEW);
-		}
-		$buttonRow[] = $previewButton;
-
-		$showAddressButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
-		if ($this->chat->settingsShowAddress()) {
-			$showAddressButton->text = sprintf('%s Address', Icons::ENABLED);
-			$showAddressButton->callback_data = sprintf('%s %s false', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_SHOW_ADDRESS);
-		} else {
-			$showAddressButton->text = sprintf('%s Address', Icons::DISABLED);
-			$showAddressButton->callback_data = sprintf('%s %s true', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_SHOW_ADDRESS);
-		}
-		$buttonRow[] = $showAddressButton;
-
-		$sendNativeLocationButton = new \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button();
-		if ($this->chat->getSendNativeLocation()) {
-			$sendNativeLocationButton->text = sprintf('%s Native location', Icons::ENABLED);
-			$sendNativeLocationButton->callback_data = sprintf('%s %s false', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_SEND_NATIVE_LOCATION);
-		} else {
-			$sendNativeLocationButton->text = sprintf('%s Native location', Icons::DISABLED);
-			$sendNativeLocationButton->callback_data = sprintf('%s %s true', SettingsButton::CMD, SettingsButton::ACTION_SETTINGS_SEND_NATIVE_LOCATION);
-		}
-		$buttonRow[] = $sendNativeLocationButton;
-
-		$replyMarkup->inline_keyboard[] = $buttonRow;
-		$chatSettingsUrl = Config::getAppUrl('/chat/' . $this->getTgChatId());
-		$replyMarkup->inline_keyboard[] = [
-			TelegramHelper::loginUrlButton('More settings', $chatSettingsUrl)
-		];
-
-		if ($inline) {
-			$this->replyButton($text, $replyMarkup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
-		} else {
-			$this->reply($text, $replyMarkup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
-		}
 	}
 
 	protected function processLogin()

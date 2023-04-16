@@ -9,6 +9,7 @@ use App\Icons;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\FavouritesTrait;
 use App\TelegramCustomWrapper\Events\HelpTrait;
+use App\TelegramCustomWrapper\Events\SettingsTrait;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
@@ -21,6 +22,7 @@ class StartCommand extends Command
 {
 	use HelpTrait;
 	use FavouritesTrait;
+	use SettingsTrait;
 
 	const CMD = '/start';
 
@@ -51,7 +53,8 @@ class StartCommand extends Command
 					$this->processFavourites($params);
 					break;
 				case self::SETTINGS;
-					$this->processSettings();
+					[$text, $markup, $options] = $this->processSettings();
+					$this->reply($text, $markup, $options);
 					break;
 				case self::LOGIN;
 					$this->processLogin();

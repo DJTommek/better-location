@@ -4,10 +4,13 @@ namespace App\TelegramCustomWrapper\Events\Button;
 
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
+use App\TelegramCustomWrapper\Events\SettingsTrait;
 use App\Utils\Strict;
 
 class SettingsButton extends Button
 {
+	use SettingsTrait;
+
 	const CMD = SettingsCommand::CMD;
 
 	const ACTION_SETTINGS_PREVIEW = 'preview';
@@ -36,7 +39,9 @@ class SettingsButton extends Button
 						break;
 				}
 			}
-			$this->processSettings(true);
+
+			[$text, $markup, $options] = $this->processSettings();
+			$this->replyButton($text, $markup, $options);
 		} else {
 			$this->flash(sprintf('%s You are not admin of this chat.', Icons::ERROR), true);
 		}

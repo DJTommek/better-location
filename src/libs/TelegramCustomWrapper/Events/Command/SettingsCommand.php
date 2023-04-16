@@ -4,6 +4,7 @@ namespace App\TelegramCustomWrapper\Events\Command;
 
 use App\Config;
 use App\Icons;
+use App\TelegramCustomWrapper\Events\SettingsTrait;
 use App\TelegramCustomWrapper\TelegramHelper;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
@@ -11,6 +12,8 @@ use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class SettingsCommand extends Command
 {
+	use SettingsTrait;
+
 	const CMD = '/settings';
 	const ICON = Icons::SETTINGS;
 	const DESCRIPTION = 'Adjust your settings';
@@ -18,7 +21,8 @@ class SettingsCommand extends Command
 	public function handleWebhookUpdate()
 	{
 		if ($this->isAdmin()) {
-			$this->processSettings(false);
+			[$text, $markup, $options] = $this->processSettings();
+			$this->reply($text, $markup, $options);
 		} else {
 			$replyMarkup = new Markup();
 			$replyMarkup->inline_keyboard = [
