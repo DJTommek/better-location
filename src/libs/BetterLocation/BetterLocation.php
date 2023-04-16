@@ -18,7 +18,6 @@ use App\Utils\Coordinates;
 use App\Utils\CoordinatesInterface;
 use App\Utils\Strict;
 use App\Utils\Utils;
-use JetBrains\PhpStorm\Pure;
 use maxh\Nominatim\Exceptions\NominatimException;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
@@ -315,17 +314,17 @@ class BetterLocation implements CoordinatesInterface
 		return $this->coordinateSuffixMessage;
 	}
 
-	#[Pure] public function getLat(): float
+	public function getLat(): float
 	{
 		return $this->coords->getLat();
 	}
 
-	#[Pure] public function getLon(): float
+	public function getLon(): float
 	{
 		return $this->coords->getLon();
 	}
 
-	#[Pure] public function getLatLon(): array
+	public function getLatLon(): array
 	{
 		return [$this->getLat(), $this->getLon()];
 	}
@@ -336,7 +335,6 @@ class BetterLocation implements CoordinatesInterface
 	}
 
 	/**
-	 * @param string|null $description
 	 * @deprecated use ->addDescription() instead
 	 */
 	public function setDescription(?string $description): void
@@ -364,7 +362,8 @@ class BetterLocation implements CoordinatesInterface
 	/**
 	 * @return string[]
 	 */
-	public function getDescriptions(): array {
+	public function getDescriptions(): array
+	{
 		return $this->descriptions;
 	}
 
@@ -487,7 +486,7 @@ class BetterLocation implements CoordinatesInterface
 		return $this->coords;
 	}
 
-	#[Pure] public function key(): string
+	public function key(): string
 	{
 		return $this->coords->key();
 	}
