@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Access to undefined constant App\\\\BetterLocation\\\\Service\\\\AbstractService\\|string\\:\\:NAME\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/BetterLocation.php
-
-		-
 			message: "#^Access to undefined constant static\\(App\\\\BetterLocation\\\\Service\\\\Coordinates\\\\AbstractService\\)\\:\\:RE_COORD\\.$#"
 			count: 2
 			path: src/libs/BetterLocation/Service/Coordinates/AbstractService.php

@@ -449,7 +449,7 @@ class BetterLocation implements CoordinatesInterface
 
 	private function generateDefaultPrefix(): void
 	{
-		$generatedPrefix = $this->sourceService::NAME;
+		$generatedPrefix = $this->sourceService::getName();
 		if ($this->sourceType) {
 			$generatedPrefix .= ' ' . $this->sourceType;
 		}
