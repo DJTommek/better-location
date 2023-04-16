@@ -4,17 +4,18 @@ namespace App\TelegramCustomWrapper\Events\Button;
 
 use App\BetterLocation\BetterLocation;
 use App\Config;
-use App\Factory;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
+use App\TelegramCustomWrapper\Events\FavouritesTrait;
 use App\TelegramCustomWrapper\TelegramHelper;
-use OpenLocationCode\OpenLocationCode;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class FavouritesButton extends Button
 {
+	use FavouritesTrait;
+
 	const CMD = FavouritesCommand::CMD;
 
 	const ACTION_ADD = 'add';
@@ -36,10 +37,16 @@ class FavouritesButton extends Button
 				$lat = floatval($params[0]);
 				$lon = floatval($params[1]);
 				$this->deleteFavourite($lat, $lon);
-				$this->processFavouritesList(true);
+
+				[$text, $markup, $options] = $this->processFavouritesList();
+				$this->replyButton($text, $markup, $options);
+				$this->flash(sprintf('%s List of favourite locations was refreshed.', Icons::REFRESH));
+
 				break;
 			case self::ACTION_REFRESH:
-				$this->processFavouritesList(true);
+				[$text, $markup, $options] = $this->processFavouritesList();
+				$this->replyButton($text, $markup, $options);
+				$this->flash(sprintf('%s List of favourite locations was refreshed.', Icons::REFRESH));
 				break;
 			default:
 				$this->flash(sprintf('%s This button (favourite) is invalid.%sIf you believe that this is error, please contact admin', Icons::ERROR, PHP_EOL), true);

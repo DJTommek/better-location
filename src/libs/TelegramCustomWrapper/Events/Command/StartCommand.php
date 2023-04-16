@@ -7,6 +7,7 @@ use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
+use App\TelegramCustomWrapper\Events\FavouritesTrait;
 use App\TelegramCustomWrapper\Events\HelpTrait;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
@@ -19,6 +20,7 @@ use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 class StartCommand extends Command
 {
 	use HelpTrait;
+	use FavouritesTrait;
 
 	const CMD = '/start';
 
@@ -92,7 +94,8 @@ class StartCommand extends Command
 		$action = array_shift($params);
 		switch ($action) {
 			case self::FAVOURITE_LIST:
-				$this->processFavouritesList(false);
+				[$text, $markup, $options] = $this->processFavouritesList();
+				$this->reply($text, $markup, $options);
 				break;
 			case self::FAVOURITE_ADD:
 				$replyMarkup = new Markup();

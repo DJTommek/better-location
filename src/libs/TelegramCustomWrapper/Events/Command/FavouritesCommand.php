@@ -4,12 +4,15 @@ namespace App\TelegramCustomWrapper\Events\Command;
 
 use App\Config;
 use App\Icons;
+use App\TelegramCustomWrapper\Events\FavouritesTrait;
 use App\TelegramCustomWrapper\TelegramHelper;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class FavouritesCommand extends Command
 {
+	use FavouritesTrait;
+
 	const CMD = '/favourites';
 	const ICON = Icons::FAVOURITE;
 	const DESCRIPTION = 'Manage your saved favourite locations';
@@ -17,7 +20,8 @@ class FavouritesCommand extends Command
 	public function handleWebhookUpdate()
 	{
 		if ($this->isTgPm() === true) {
-			$this->processFavouritesList(false);
+			[$text, $markup, $options] = $this->processFavouritesList();
+			$this->reply($text, $markup, $options);
 		} else {
 			$replyMarkup = new Markup();
 			$replyMarkup->inline_keyboard = [
