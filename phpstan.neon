@@ -6,7 +6,7 @@ parameters:
 	bootstrapFiles:
 		- src/bootstrap.php
 	tmpDir: temp/phpstan
-	excludes_analyse:
+	excludePaths:
 		- 'src\libs\Utils\MGRS.php' # Not my class
 includes:
 	- phpstan-baseline.neon
