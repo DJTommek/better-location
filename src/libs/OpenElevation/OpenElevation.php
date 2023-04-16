@@ -23,10 +23,10 @@ use App\Utils\Coordinates;
  */
 class OpenElevation
 {
-	const LINK = 'https://api.open-elevation.com/api/v1';
-	const LINK_LOOKUP = self::LINK . '/lookup';
+	public const LINK = 'https://api.open-elevation.com/api/v1';
+	public const LINK_LOOKUP = self::LINK . '/lookup';
 
-	public $cacheTtl = 0;
+	public int $cacheTtl = 0;
 
 	/** @param int $ttl Number of seconds to store results in cache or 0 to disable. */
 	public function setCache(int $ttl): self
@@ -76,7 +76,7 @@ class OpenElevation
 	/**
 	 * Get elevation for multiple coordinates
 	 *
-	 * @param array[array[string|int|float, string|int|float]] $inputs List of coorinates mapped as [[$lat1, $lon1],  [$lat2, $lon2], ...]
+	 * @param array<array<string|int|float, string|int|float>> $inputs List of coorinates mapped as [[$lat1, $lon1],  [$lat2, $lon2], ...]
 	 * @return Coordinates[]
 	 */
 	public function lookupBatch(array $inputs): array
