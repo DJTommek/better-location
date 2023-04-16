@@ -80,7 +80,7 @@ class Ge0Code
 	 *
 	 * @param float $lat Latitude between -90 and 90
 	 * @param float $lon Longitude between -180 and 180
-	 * @param float|int $zoom Zoom between 4 and 19.75
+	 * @param float $zoom Zoom between 4 and 19.75
 	 */
 	public static function encode(float $lat, float $lon, float $zoom = 15): self
 	{
