@@ -16,11 +16,9 @@ class ChatTemplate extends LayoutTemplate
 {
 
 	// in case of ok - start
-	public $telegramChatId;
-	/** @var Telegram\Types\Chat */
-	public $chatResponse;
-	/** @var Chat */
-	public $chat;
+	public int $telegramChatId;
+	public Telegram\Types\Chat $chatResponse;
+	public Chat $chat;
 
 	/** @var float */
 	public $lat;

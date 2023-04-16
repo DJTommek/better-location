@@ -1,16 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Property App\\\\Web\\\\Chat\\\\ChatPresenter\\:\\:\\$chatMemberResponse \\(unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\ChatMember\\|null\\) does not accept unreal4u\\\\TelegramAPI\\\\Abstracts\\\\TelegramTypes\\|null\\.$#"
-			count: 1
-			path: src/libs/Web/Chat/ChatPresenter.php
-
-		-
-			message: "#^Property App\\\\Web\\\\Chat\\\\ChatPresenter\\:\\:\\$chatResponse \\(unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Chat\\|null\\) does not accept unreal4u\\\\TelegramAPI\\\\Abstracts\\\\TelegramTypes\\|null\\.$#"
-			count: 1
-			path: src/libs/Web/Chat/ChatPresenter.php
-
-		-
 			message: "#^PHPDoc tag @var has invalid value \\(\\$service AbstractService\\)\\: Unexpected token \"\\$service\", expected type at offset 9$#"
 			count: 1
 			path: src/libs/Web/Locations/LocationsPresenter.php

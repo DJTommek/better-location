@@ -18,13 +18,10 @@ use unreal4u\TelegramAPI\Telegram;
 
 class ChatPresenter extends MainPresenter
 {
-	private $chatTelegramId;
-	/** @var ?Telegram\Types\Chat */
-	private $chatResponse;
-	/** @var ?Chat */
-	private $chat;
-	/** @var ?Telegram\Types\ChatMember */
-	private $chatMemberResponse;
+	private int $chatTelegramId;
+	private ?Telegram\Types\Chat $chatResponse = null;
+	private ?Chat $chat = null;
+	private ?Telegram\Types\ChatMember $chatMemberResponse = null;
 	public string $exampleInput = 'https://www.waze.com/ul?ll=50.087451%2C14.420671';
 
 	public function __construct()
@@ -89,12 +86,16 @@ class ChatPresenter extends MainPresenter
 
 			$getChat = new Telegram\Methods\GetChat();
 			$getChat->chat_id = $this->chatTelegramId;
-			$this->chatResponse = $telegramWrapper->run($getChat);
+			$response = $telegramWrapper->run($getChat);
+			assert($response instanceof Telegram\Types\Chat);
+			$this->chatResponse = $response;
 
 			$getChatMember = new Telegram\Methods\GetChatMember();
 			$getChatMember->chat_id = $this->chatTelegramId;
 			$getChatMember->user_id = $this->user->getTelegramId();
-			$this->chatMemberResponse = $telegramWrapper->run($getChatMember);
+			$response = $telegramWrapper->run($getChatMember);
+			assert($response instanceof Telegram\Types\ChatMember);
+			$this->chatMemberResponse = $response;
 		} catch (ClientException $exception) {
 			// do nothing, user probable just does not have permission
 		}
