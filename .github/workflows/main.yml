@@ -6,8 +6,35 @@ on:
 name: 🚀 Test and deploy to production
 
 jobs:
+  phpstan:
+    name: 🔧 Run PHPStan analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Download latest code
+        uses: actions/checkout@v3
+
+      - name: 🚚 Prepare PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          extensions: mbstring, exif
+
+      - name: 🚚 Install Composer development dependencies
+        working-directory: ./
+        run: composer install --dev
+
+      - name: 🚀 Run PHPStan analysis
+        uses: php-actions/phpstan@v3
+        with:
+          php_version: 8.1
+          autoload_file: src/bootstrap.php
+          configuration: phpstan.neon
+          memory_limit: 512m
+          php_extensions: mbstring exif
+
   phpunit:
     name: 🔧 Run unit tests
+    needs: [ phpstan ]
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Download latest code
