@@ -11,31 +11,6 @@ parameters:
 			path: src/libs/BetterLocation/Service/Coordinates/AbstractService.php
 
 		-
-			message: "#^Access to an undefined property DJTommek\\\\MapyCzApi\\\\Types\\\\PlaceType\\:\\:\\$title\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/FirmyCzService.php
-
-		-
-			message: "#^Access to an undefined property DJTommek\\\\MapyCzApi\\\\Types\\\\PlaceType\\:\\:\\$titleVars\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/FirmyCzService.php
-
-		-
-			message: "#^Access to an undefined property DJTommek\\\\MapyCzApi\\\\Types\\\\PlaceType\\:\\:\\$extend\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/MapyCzService.php
-
-		-
-			message: "#^Access to an undefined property DJTommek\\\\MapyCzApi\\\\Types\\\\PlaceType\\:\\:\\$title\\.$#"
-			count: 2
-			path: src/libs/BetterLocation/Service/MapyCzService.php
-
-		-
-			message: "#^Access to an undefined property DJTommek\\\\MapyCzApi\\\\Types\\\\PlaceType\\:\\:\\$titleVars\\.$#"
-			count: 2
-			path: src/libs/BetterLocation/Service/MapyCzService.php
-
-		-
 			message: "#^Method App\\\\BetterLocation\\\\ServicesManager\\:\\:getServices\\(\\) should return array\\<App\\\\BetterLocation\\\\Service\\\\AbstractService\\> but returns array\\<class\\-string\\<App\\\\BetterLocation\\\\Service\\\\AbstractService\\>\\>\\.$#"
 			count: 2
 			path: src/libs/BetterLocation/ServicesManager.php
