@@ -79,8 +79,8 @@ class ServicesManager
 	/** Service can generate text representing location only by processing via paid service */
 	public const TAG_GENERATE_TEXT_PAID = 23;
 
-	/** @var array<class-string<AbstractService>> */
-	private $services = [];
+	/** @var array<int,class-string<AbstractService>> */
+	private array $services = [];
 
 	public function __construct()
 	{
@@ -181,7 +181,7 @@ class ServicesManager
 
 	/**
 	 * @param int[] $tags Return only services, that are tagged by tags provided in this array
-	 * @return AbstractService[]
+	 * @return array<int,class-string<AbstractService>>
 	 */
 	public function getServices(array $tags = []): array
 	{

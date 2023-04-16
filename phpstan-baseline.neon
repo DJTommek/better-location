@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method App\\\\BetterLocation\\\\ServicesManager\\:\\:getServices\\(\\) should return array\\<App\\\\BetterLocation\\\\Service\\\\AbstractService\\> but returns array\\<class\\-string\\<App\\\\BetterLocation\\\\Service\\\\AbstractService\\>\\>\\.$#"
-			count: 2
-			path: src/libs/BetterLocation/ServicesManager.php
-
-		-
 			message: "#^Variable \\$label on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/libs/BingMaps/StaticMaps.php
