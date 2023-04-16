@@ -98,9 +98,9 @@ abstract class AbstractService
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
-			throw new NotSupportedException(sprintf('%s (ID %d) does not support drive link.', static::getName(), static::ID));
+			throw new NotSupportedException(sprintf('%s (ID %d) does not support drive link.', static::getName(), static::getId()));
 		} else {
-			throw new NotSupportedException(sprintf('%s (ID %d) does not support share link.', static::getName(), static::ID));
+			throw new NotSupportedException(sprintf('%s (ID %d) does not support share link.', static::getName(), static::getId()));
 		}
 	}
 
@@ -160,11 +160,24 @@ abstract class AbstractService
 
 	public static function getName(bool $short = false): string
 	{
-		if ($short && defined(sprintf('%s::%s', static::class, 'NAME_SHORT'))) {
+		if ($short && defined('static::NAME_SHORT')) {
 			return static::NAME_SHORT;
-		} else {
-			return static::NAME;
 		}
+
+		if (defined('static::NAME') === false) {
+			throw new \RuntimeException(sprintf('%s is missing class constant NAME', static::class));
+		}
+
+		return static::NAME;
+	}
+
+	public static function getId(): int
+	{
+		if (defined('static::ID') === false) {
+			throw new \RuntimeException(sprintf('%s is missing class constant ID', static::class));
+		}
+
+		return static::ID;
 	}
 
 	public function getData(): \stdClass

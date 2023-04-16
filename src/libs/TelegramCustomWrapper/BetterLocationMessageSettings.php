@@ -55,26 +55,27 @@ class BetterLocationMessageSettings
 	];
 
 	/**
-	 * @var array<int,AbstractService> Ordered list of services, to show as links.
+	 *
+	 * @var array<int,class-string<AbstractService>> Ordered list of services, to show as links.
 	 * There will be always at least one item which is BetterLocationService, reserved as 0
 	 */
 	private $linkServices;
 	/**
-	 * @var array<int,AbstractService> Ordered list of services, to show multiple locations at once
+	 * @var array<int,class-string<AbstractService>> Ordered list of services, to show multiple locations at once
 	 * There will be always at least one item which is BetterLocationService, reserved as index 0
 	 */
 	private $bulkLinkServices;
 	/**
-	 * @var array<int,AbstractService> Ordered list of services, to show as buttons.
+	 * @var array<int,class-string<AbstractService>> Ordered list of services, to show as buttons.
 	 * Might be empty
 	 */
 	private $buttonServices;
 	/**
-	 * @var array<int,AbstractService> List of services, to show as text representing location.
+	 * @var array<int,class-string<AbstractService>> List of services, to show as text representing location.
 	 */
 	private array $textServices;
 	/**
-	 * @var AbstractService Service, which is providing static map image of location
+	 * @var class-string<AbstractService> Service, which is providing static map image of location
 	 */
 	private $screenshotLinkService;
 	/**
@@ -127,10 +128,10 @@ class BetterLocationMessageSettings
 	/**
 	 * Process rows from database to return ordered services by serviceType (link, button, ...)
 	 *
-	 * @param array<int,AbstractService> $services List of all available services
+	 * @param array<int,class-string<AbstractService>> $services List of all available services
 	 * @param array $rows Raw rows loaded from from database
 	 * @param int $serviceType What type of services will be returned
-	 * @return array<int,AbstractService> Ordered list of services
+	 * @return array<int,class-string<AbstractService>> Ordered list of services
 	 */
 	private static function processRows(array $services, array $rows, int $serviceType): array
 	{
@@ -146,7 +147,7 @@ class BetterLocationMessageSettings
 		return $result;
 	}
 
-	/** @param AbstractService[] $services */
+	/** @param array<class-string<AbstractService>> $services */
 	public function setLinkServices(array $services): void
 	{
 		// Ensure, that first service is always BetterLocation, even if it is already set
@@ -158,7 +159,7 @@ class BetterLocationMessageSettings
 		$this->linkServices = $services;
 	}
 
-	/** @param AbstractService[] $services */
+	/** @param array<class-string<AbstractService>> $services */
 	public function setButtonServices(array $services): void
 	{
 		$services = array_filter($services, function ($service) { // remove services, that can't generate drive link
@@ -168,7 +169,7 @@ class BetterLocationMessageSettings
 		$this->buttonServices = $services;
 	}
 
-	/** @param AbstractService $service */
+	/** @param class-string<AbstractService> $service */
 	public function setScreenshotLinkService(string $service): void
 	{
 		if ($service::hasTag(ServicesManager::TAG_GENERATE_LINK_IMAGE)) {
@@ -178,7 +179,7 @@ class BetterLocationMessageSettings
 		}
 	}
 
-	/** @param AbstractService[] $services */
+	/** @param array<class-string<AbstractService>> $services */
 	public function setTextServices(array $services): void
 	{
 		$services = array_filter($services, function ($service) { // remove services, that can't generate text
@@ -187,25 +188,25 @@ class BetterLocationMessageSettings
 		$this->textServices = $services;
 	}
 
-	/** @return AbstractService[] */
+	/** @return array<class-string<AbstractService>> */
 	public function getLinkServices(): array
 	{
 		return $this->linkServices;
 	}
 
-	/** @return AbstractService[] */
+	/** @return array<class-string<AbstractService>> */
 	public function getBulkLinkServices(): array
 	{
 		return $this->bulkLinkServices;
 	}
 
-	/** @return AbstractService[] */
+	/** @return array<class-string<AbstractService>> */
 	public function getButtonServices(): array
 	{
 		return $this->buttonServices;
 	}
 
-	/** @return AbstractService[] */
+	/** @return array<class-string<AbstractService>> */
 	public function getTextServices(): array
 	{
 		return $this->textServices;

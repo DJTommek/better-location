@@ -6,31 +6,6 @@ parameters:
 			path: src/libs/BetterLocation/BetterLocation.php
 
 		-
-			message: "#^Attribute class JetBrains\\\\PhpStorm\\\\Pure does not exist\\.$#"
-			count: 4
-			path: src/libs/BetterLocation/BetterLocation.php
-
-		-
-			message: "#^Invalid array key type App\\\\BetterLocation\\\\Service\\\\AbstractService\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/BetterLocation.php
-
-		-
-			message: "#^Access to undefined constant static\\(App\\\\BetterLocation\\\\Service\\\\AbstractService\\)\\:\\:ID\\.$#"
-			count: 2
-			path: src/libs/BetterLocation/Service/AbstractService.php
-
-		-
-			message: "#^Access to undefined constant static\\(App\\\\BetterLocation\\\\Service\\\\AbstractService\\)\\:\\:NAME\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/AbstractService.php
-
-		-
-			message: "#^Access to undefined constant static\\(App\\\\BetterLocation\\\\Service\\\\AbstractService\\)\\:\\:NAME_SHORT\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/AbstractService.php
-
-		-
 			message: "#^Access to undefined constant static\\(App\\\\BetterLocation\\\\Service\\\\Coordinates\\\\AbstractService\\)\\:\\:RE_COORD\\.$#"
 			count: 2
 			path: src/libs/BetterLocation/Service/Coordinates/AbstractService.php
@@ -109,26 +84,6 @@ parameters:
 			message: "#^PHPDoc tag @param has invalid value \\(array\\[array\\[string\\|int\\|float, string\\|int\\|float\\]\\] \\$inputs List of coorinates mapped as \\[\\[\\$lat1, \\$lon1\\],  \\[\\$lat2, \\$lon2\\], \\.\\.\\.\\]\\)\\: Unexpected token \"\\[\", expected variable at offset 67$#"
 			count: 1
 			path: src/libs/OpenElevation/OpenElevation.php
-
-		-
-			message: "#^Access to undefined constant App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:ID\\.$#"
-			count: 3
-			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
-
-		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\BetterLocationMessageSettings\\:\\:getScreenshotLinkService\\(\\) should return class\\-string\\<App\\\\BetterLocation\\\\Service\\\\AbstractService\\> but returns App\\\\BetterLocation\\\\Service\\\\AbstractService\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
-
-		-
-			message: "#^PHPDoc tag @param for parameter \\$service with type App\\\\BetterLocation\\\\Service\\\\AbstractService is incompatible with native type string\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
-
-		-
-			message: "#^Property App\\\\TelegramCustomWrapper\\\\BetterLocationMessageSettings\\:\\:\\$screenshotLinkService \\(App\\\\BetterLocation\\\\Service\\\\AbstractService\\) does not accept string\\.$#"
-			count: 2
-			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
 
 		-
 			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\EditMessageText\\:\\:\\$chat_id \\(string\\) does not accept int\\.$#"
