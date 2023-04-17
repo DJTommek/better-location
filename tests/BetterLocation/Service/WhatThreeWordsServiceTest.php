@@ -16,7 +16,7 @@ final class WhatThreeWordsServiceTest extends TestCase
 	 */
 	public function testGenerateShareLink(): void
 	{
-		if (is_null(\App\Config::W3W_API_KEY)) {
+		if (\App\Config::W3W_API_KEY === null) {
 			$this->markTestSkipped('Missing What3Words API Key.');
 		} else {
 			$this->assertSame('https://w3w.co/paves.fans.piston', WhatThreeWordService::getLink(50.087451, 14.420671));
@@ -91,7 +91,7 @@ final class WhatThreeWordsServiceTest extends TestCase
 	 */
 	public function testGeneral(): void
 	{
-		if (is_null(\App\Config::W3W_API_KEY)) {
+		if (\App\Config::W3W_API_KEY === null) {
 			$this->markTestSkipped('Missing What3Words API Key.');
 		} else {
 			$entity = new MessageEntity();
@@ -115,7 +115,7 @@ final class WhatThreeWordsServiceTest extends TestCase
 	 */
 	public function testWords(): void
 	{
-		if (is_null(\App\Config::W3W_API_KEY)) {
+		if (\App\Config::W3W_API_KEY === null) {
 			$this->markTestSkipped('Missing What3Words API Key.');
 		} else {
 			$collection = WhatThreeWordService::processStatic('///define.readings.cucumber')->getCollection();
@@ -141,7 +141,7 @@ final class WhatThreeWordsServiceTest extends TestCase
 	 */
 	public function testShortUrls(): void
 	{
-		if (is_null(\App\Config::W3W_API_KEY)) {
+		if (\App\Config::W3W_API_KEY === null) {
 			$this->markTestSkipped('Missing What3Words API Key.');
 		} else {
 			$collection = WhatThreeWordService::processStatic('https://w3w.co/define.readings.cucumber')->getCollection();
@@ -167,7 +167,7 @@ final class WhatThreeWordsServiceTest extends TestCase
 	 */
 	public function testNormalUrls(): void
 	{
-		if (is_null(\App\Config::W3W_API_KEY)) {
+		if (\App\Config::W3W_API_KEY === null) {
 			$this->markTestSkipped('Missing What3Words API Key.');
 		} else {
 			$collection = WhatThreeWordService::processStatic('https://what3words.com/define.readings.cucumber')->getCollection();

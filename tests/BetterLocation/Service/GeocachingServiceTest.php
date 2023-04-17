@@ -178,7 +178,7 @@ gc12aBd
 	 */
 	public function testParseUrl(): void
 	{
-		if (is_null(\App\Config::GEOCACHING_COOKIE)) {
+		if (\App\Config::GEOCACHING_COOKIE === null) {
 			$this->markTestSkipped('Missing Geocaching cookie.');
 		} else {
 			$this->assertSame('50.087717,14.421150', GeocachingService::processStatic('https://www.geocaching.com/geocache/GC3DYC4')->getFirst()->__toString());
@@ -193,7 +193,7 @@ gc12aBd
 	 */
 	public function testParseUrlPremium(): void
 	{
-		if (is_null(\App\Config::GEOCACHING_COOKIE)) {
+		if (\App\Config::GEOCACHING_COOKIE === null) {
 			$this->markTestSkipped('Missing Geocaching cookie.');
 		} else {
 			$this->expectException(InvalidLocationException::class);
@@ -207,7 +207,7 @@ gc12aBd
 	 */
 	public function testFindInText(): void
 	{
-		if (is_null(\App\Config::GEOCACHING_COOKIE)) {
+		if (\App\Config::GEOCACHING_COOKIE === null) {
 			$this->markTestSkipped('Missing Geocaching cookie.');
 		} else {
 			$collection = GeocachingService::findInText('GC3DYC4');

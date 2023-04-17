@@ -122,11 +122,11 @@ class ServicesManager
 //			$this->services[IngressMosaicService::ID] = IngressMosaicService::class;
 //		}
 		$this->services[BannergressService::ID] = BannergressService::class;
-		if (is_null(Config::GEOCACHING_COOKIE) === false) {
+		if (Config::GEOCACHING_COOKIE !== null) {
 			$this->services[GeocachingService::ID] = GeocachingService::class;
 		}
 		$this->services[WaymarkingService::ID] = WaymarkingService::class;
-		if (is_null(Config::W3W_API_KEY) === false) {
+		if (Config::W3W_API_KEY !== null) {
 			$this->services[WhatThreeWordService::ID] = WhatThreeWordService::class;
 		}
 		if (Config::isGlympse()) {
