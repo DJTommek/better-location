@@ -250,17 +250,23 @@ class DefaultConfig
 
 	public static function isTelegramWebhookPassword(): bool
 	{
-		return (Config::TELEGRAM_WEBHOOK_PASSWORD !== DefaultConfig::TELEGRAM_WEBHOOK_PASSWORD && is_string(Config::TELEGRAM_WEBHOOK_PASSWORD));
+		$local = static::TELEGRAM_WEBHOOK_PASSWORD;
+		$default = self::TELEGRAM_WEBHOOK_PASSWORD;
+		return $local !== $default;
 	}
 
 	public static function isTelegramBotToken(): bool
 	{
-		return (Config::TELEGRAM_BOT_TOKEN !== DefaultConfig::TELEGRAM_BOT_TOKEN && is_string(Config::TELEGRAM_BOT_TOKEN));
+		$local = static::TELEGRAM_BOT_TOKEN;
+		$default = self::TELEGRAM_BOT_TOKEN;
+		return $local !== $default;
 	}
 
 	public static function isTelegramBotName(): bool
 	{
-		return (Config::TELEGRAM_BOT_NAME !== DefaultConfig::TELEGRAM_BOT_NAME && is_string(Config::TELEGRAM_BOT_NAME));
+		$local = static::TELEGRAM_BOT_NAME;
+		$default = self::TELEGRAM_BOT_NAME;
+		return $local !== $default;
 	}
 
 	public static function getTelegramWebhookUrl(): UrlImmutable
