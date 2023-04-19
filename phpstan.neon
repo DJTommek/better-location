@@ -1,5 +1,5 @@
 parameters:
-	level: 4
+	level: 5
 	paths:
 		- src
 		- tests
@@ -35,6 +35,14 @@ parameters:
 			message: "#^Property App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:\\$processed is never read, only written\\.$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/AbstractService.php
+		-
+			# Intentionally wrong input type parameter to test method if it behaves as it should
+			message: "#^Parameter \\#1 \\$inputs of method App\\\\OpenElevation\\\\OpenElevation\\:\\:fillBatch\\(\\) expects array\\<App\\\\Utils\\\\Coordinates\\>, array\\<int, string\\> given\\.$#"
+			count: 1
+			path: tests/OpenElevation/OpenElevationTest.php
+		-
+			# Real value is different than described in PHPDocs
+			message: "#^Parameter \\#2 \\$entities of static method App\\\\BetterLocation\\\\BetterLocationCollection\\:\\:fromTelegramMessage\\(\\) expects array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\MessageEntity\\>, unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Custom\\\\MessageEntityArray given\\.$#"
 
 includes:
 	- phpstan-baseline.neon
