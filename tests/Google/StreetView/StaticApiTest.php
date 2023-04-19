@@ -3,6 +3,7 @@
 namespace Tests\Google\StreetView;
 
 use App\Config;
+use App\Factory;
 use App\Google\StreetView\StaticApi;
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +20,7 @@ final class StaticApiTest extends TestCase
 			self::markTestSkipped('Missing Google API key');
 		}
 
-		self::$api = new StaticApi(Config::GOOGLE_PLACE_API_KEY);
+		self::$api = Factory::googleStreetViewApi();
 	}
 
 	public function testLookup(): void
