@@ -14,7 +14,7 @@ use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class AddedToChatEvent extends Special
 {
-	public function handleWebhookUpdate()
+	public function handleWebhookUpdate(): void
 	{
 		$lat = 50.087451;
 		$lon = 14.420671;
@@ -45,19 +45,19 @@ class AddedToChatEvent extends Special
 		try {
 			$getChatRequest = new Telegram\Methods\GetChat();
 			$getChatRequest->chat_id = $this->getTgChatId();
-			$getChatResponse = $this->run($getChatRequest);
-			/** @var Telegram\Types\Chat $getChatResponse */
-			if (empty($getChatResponse->location) === false) {
-				if (is_array($getChatResponse->location)) { // @TODO workaround until unreal4u/telegram-api is updated, then this block should be removed
-					$location = new \stdClass();
-					$location->address = $getChatResponse->location['address'];
-					$location->location = new Telegram\Types\Location($getChatResponse->location['location']);
-					$getChatResponse->location = $location;
-				}
-				$betterLocation = BetterLocation::fromLatLon($getChatResponse->location->location->latitude, $getChatResponse->location->location->longitude);
-				$betterLocation->setAddress($getChatResponse->location->address);
-				$betterLocation->setPrefixMessage('Local group');
+			$chat = $this->run($getChatRequest);
+			if ($chat === null) {
+				return null;
 			}
+
+			assert($chat instanceof Telegram\Types\Chat);
+			if ($chat?->location === null) {
+				return null;
+			}
+
+			$betterLocation = BetterLocation::fromLatLon($chat->location->location->latitude, $chat->location->location->longitude);
+			$betterLocation->setAddress($chat->location->address);
+			$betterLocation->setPrefixMessage('Local group');
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
 		}
