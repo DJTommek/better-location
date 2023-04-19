@@ -34,13 +34,13 @@ class TelegramUpdateDb
 	public function __construct(Telegram\Types\Update $originalUpdate, int $botReplyMessageId, int $status, \DateTimeImmutable $lastUpdate)
 	{
 		$this->db = Factory::database();
-		$chatId = $originalUpdate->message->chat->id ?? null;
+		$chatId = $originalUpdate?->message?->chat?->id ?? null;
 		if (is_int($chatId) === false || $chatId === 0) {
 			throw new MessageDeletedException(sprintf('Chat ID "%s" in Update object is not valid.', $chatId));
 		}
 
-		$inputMessageId = $originalUpdate->message->message_id ?? null;
-		if (is_int($chatId) === false || $chatId === 0) {
+		$inputMessageId = $originalUpdate?->message?->message_id ?? null;
+		if (is_int($inputMessageId) === false || $inputMessageId === 0) {
 			throw new MessageDeletedException(sprintf('Message ID "%s" in Update object is not valid.', $inputMessageId));
 		}
 
