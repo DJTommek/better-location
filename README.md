@@ -1,4 +1,4 @@
-# BetterLocation
+# [BetterLocation]([https://github.com/DJTommek/better-location])
 
 Simple but very smart Telegram bot for processing various types of location format and converting them to user-defined formats.
 
