@@ -86,7 +86,9 @@ final class GeohashService extends AbstractService
 	public static function findInText(string $input): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
-		return $collection;  // searching in string is currently disabled, because codes are too similar to normal words
+
+		return $collection;  // @TODO searching in string is currently disabled, because codes are too similar to normal words
+		// @phpstan-ignore-next-line
 		if (preg_match_all(self::RE_IN_STRING, $input, $matches)) {
 			foreach ($matches[2] as $plusCode) {
 				$collection->add(self::processStatic($plusCode)->getCollection());
