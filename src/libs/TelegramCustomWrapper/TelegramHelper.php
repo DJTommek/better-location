@@ -71,6 +71,7 @@ class TelegramHelper
 	const CHAT_WRITE_FORBIDDEN = 'Bad Request: CHAT_WRITE_FORBIDDEN';
 	const REPLIED_MESSAGE_NOT_FOUND = 'Bad Request: replied message not found';
 	const BOT_BLOCKED_BY_USER = 'Forbidden: bot was blocked by the user';
+	const NOT_ENOUGH_RIGHTS_SEND_TEXT = 'Bad Request: not enough rights to send text messages to the chat';
 
 	/**
 	 * @param User|Chat $from If chat is private, User and Chat have similar properties

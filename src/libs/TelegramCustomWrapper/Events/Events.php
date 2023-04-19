@@ -248,6 +248,7 @@ abstract class Events
 				TelegramHelper::CHAT_WRITE_FORBIDDEN,
 				TelegramHelper::REPLIED_MESSAGE_NOT_FOUND,
 				TelegramHelper::BOT_BLOCKED_BY_USER,
+				TelegramHelper::NOT_ENOUGH_RIGHTS_SEND_TEXT,
 			];
 			if (in_array($exception->getMessage(), $ignoredExceptions, true) === false) {
 				Debugger::log(sprintf('TG API Command request error: "%s"', $exception->getMessage()), ILogger::EXCEPTION);
