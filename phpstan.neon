@@ -1,10 +1,12 @@
 parameters:
-	level: 3
+	level: 4
 	paths:
 		- src
 		- tests
+		- data/config.local.php
 	bootstrapFiles:
 		- src/bootstrap.php
+	treatPhpDocTypesAsCertain: false
 	tmpDir: temp/phpstan
 	excludePaths:
 		- 'src\libs\Utils\MGRS.php' # Not my class
@@ -18,9 +20,21 @@ parameters:
 		-
 			message: "#^Access to an undefined property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\.+\\.$#"
 		-
+			message: "#^Using nullsafe property access on non-nullable type unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\.+\\. Use -> instead\\.$#"
+		-
 			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:.+\\.$#"
 		-
 			message: "#^Call to an undefined method App\\\\Web\\\\LayoutTemplate\\:\\:.+\\.$#"
+		-
+			# Ignore markTestSkipped
+			# @author https://github.com/phpstan/phpstan-phpunit/issues/52#issuecomment-1075564035
+			message: "#^Unreachable statement - code above always terminates.$#"
+			path: tests
+		-
+			# Variable $processed is ready for future use
+			message: "#^Property App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:\\$processed is never read, only written\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/AbstractService.php
 
 includes:
 	- phpstan-baseline.neon
