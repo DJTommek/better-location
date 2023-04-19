@@ -97,6 +97,14 @@ class TelegramHelper
 		return $update?->callback_query !== null;
 	}
 
+	/**
+	 * @return bool False if clicked on button in shared in message created from inline (in "via @BotName")
+	 */
+	public static function hasButtonMessage(Update $update): bool
+	{
+		return $update?->callback_query?->message !== null;
+	}
+
 	public static function isForward(Update $update): bool
 	{
 		return $update?->message?->forward_from !== null;

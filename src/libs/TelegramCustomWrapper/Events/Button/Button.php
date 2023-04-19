@@ -2,6 +2,7 @@
 
 namespace App\TelegramCustomWrapper\Events\Button;
 
+use App\TelegramCustomWrapper\TelegramHelper;
 use unreal4u\TelegramAPI\Abstracts\TelegramTypes;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Methods\AnswerCallbackQuery;
@@ -11,7 +12,7 @@ abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 	/** @return bool False if clicked on button in shared in message created from inline (in "via @BotName") */
 	public function hasTgMessage(): bool
 	{
-		return isset($this->update->callback_query->message);
+		return TelegramHelper::hasButtonMessage($this->update);
 	}
 
 	public function getTgMessage(): Telegram\Types\Message
