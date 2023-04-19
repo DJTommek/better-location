@@ -6,6 +6,8 @@ Available publicly on
 Telegram as [@BetterLocationBot](https://t.me/BetterLocationBot)
 and web [better-location.palider.cz](https://better-location.palider.cz/).
 
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/DJTommek/better-location/main.yml?label=Website%20deployment)](https://better-location.palider.cz/) 
+
 ![@BetterLocationBot example](www/img/better-location-bot-example.png "@BetterLocationBot example")
 
 ## Requirements
@@ -24,6 +26,9 @@ and web [better-location.palider.cz](https://better-location.palider.cz/).
 1. Register [bot webhook](https://core.telegram.org/bots/api#setwebhook) to your webserver via [set-telegram.php](www/admin/set-telegram.php). For detailed info, open [index.php](www/admin/index.php).
 
 ## Development and testing
+
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/DJTommek/better-location?color=%234c1)
+![GitHub last commit](https://img.shields.io/github/last-commit/DJTommek/better-location)
 
 Install development depenencies via `composer install --dev`.
 
