@@ -39,7 +39,7 @@ final class HradyCzService extends AbstractService
 	private function updatePrefixMessage(BetterLocation $location, string $response): void
 	{
 		$place = self::getPlaceName($response);
-		if ($this->url->isEqual($this->inputUrl)) {
+		if ($this->inputUrl->isEqual($this->url)) {
 			$prefix = sprintf('<a href="%s">%s %s</a>', $this->inputUrl, self::NAME, $place);
 		} else {
 			$prefix = sprintf('<a href="%s">%s</a> <a href="%s">%s</a>', $this->inputUrl, self::NAME, $this->url, $place);
