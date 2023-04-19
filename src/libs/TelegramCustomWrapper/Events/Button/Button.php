@@ -20,7 +20,7 @@ abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 		if ($this->hasTgMessage()) {
 			return $this->update->callback_query->message;
 		} else {
-			throw new \Exception(sprintf('Type %s doesn\'t support getMessage().', static::class));
+			throw new \RuntimeException(sprintf('Type %s doesn\'t support getMessage().', static::class));
 		}
 	}
 
