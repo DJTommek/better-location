@@ -229,6 +229,16 @@ class DefaultConfig
 		);
 	}
 
+	public static function isW3W(): bool
+	{
+		return static::W3W_API_KEY !== null;
+	}
+
+	public static function isGeocaching(): bool
+	{
+		return static::GEOCACHING_COOKIE !== null;
+	}
+
 	public static function isTelegram(): bool
 	{
 		return (

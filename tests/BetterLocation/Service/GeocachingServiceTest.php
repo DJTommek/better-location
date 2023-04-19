@@ -5,6 +5,7 @@ namespace Tests\BetterLocation\Service;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\GeocachingService;
+use App\Config;
 use PHPUnit\Framework\TestCase;
 
 final class GeocachingServiceTest extends TestCase
@@ -178,7 +179,7 @@ gc12aBd
 	 */
 	public function testParseUrl(): void
 	{
-		if (\App\Config::GEOCACHING_COOKIE === null) {
+		if (Config::isGeocaching() === false) {
 			$this->markTestSkipped('Missing Geocaching cookie.');
 		} else {
 			$this->assertSame('50.087717,14.421150', GeocachingService::processStatic('https://www.geocaching.com/geocache/GC3DYC4')->getFirst()->__toString());
@@ -193,7 +194,7 @@ gc12aBd
 	 */
 	public function testParseUrlPremium(): void
 	{
-		if (\App\Config::GEOCACHING_COOKIE === null) {
+		if (Config::isGeocaching() === false) {
 			$this->markTestSkipped('Missing Geocaching cookie.');
 		} else {
 			$this->expectException(InvalidLocationException::class);
@@ -207,7 +208,7 @@ gc12aBd
 	 */
 	public function testFindInText(): void
 	{
-		if (\App\Config::GEOCACHING_COOKIE === null) {
+		if (Config::isGeocaching() === false) {
 			$this->markTestSkipped('Missing Geocaching cookie.');
 		} else {
 			$collection = GeocachingService::findInText('GC3DYC4');

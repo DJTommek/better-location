@@ -16,7 +16,7 @@ final class StaticApiTest extends TestCase
 
 	public static function setUpBeforeClass(): void
 	{
-		if (Config::GOOGLE_PLACE_API_KEY === null) {
+		if (!Config::isGooglePlaceApi()) {
 			self::markTestSkipped('Missing Google API key');
 		}
 		self::$api = new StaticApi(Config::GOOGLE_PLACE_API_KEY);
