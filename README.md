@@ -31,6 +31,8 @@ Install development depenencies via `composer install --dev`.
 
 Run [PHPStan](https://phpstan.org/) static analysis via `composer phpstan`.
 
+Baseline can be re-generated via composer `phpstan-baseline`
+
 ### Tests
 
 Run [PHPUnit](https://phpunit.de/) tests via `composer test` which will run all tests available. For running only tests, that are very quick (great for precommit hook), run `composer test-quick`.
