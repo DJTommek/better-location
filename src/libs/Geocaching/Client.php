@@ -2,7 +2,6 @@
 
 namespace App\Geocaching;
 
-use App\Config;
 use App\Geocaching\Types\GeocachePreviewType;
 use App\MiniCurl\MiniCurl;
 
@@ -43,7 +42,7 @@ class Client
 	private function makeJsonRequest(string $url): \stdClass
 	{
 		return (new MiniCurl($url))
-			->setHttpCookie(self::COOKIE_NAME, Config::GEOCACHING_COOKIE)
+			->setHttpCookie(self::COOKIE_NAME, $this->cookieToken)
 			->allowCache($this->cacheTtl)
 			->run()
 			->getBodyAsJson();
