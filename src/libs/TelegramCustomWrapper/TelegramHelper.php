@@ -3,7 +3,6 @@
 namespace App\TelegramCustomWrapper;
 
 use App\Config;
-use App\Icons;
 use App\Utils\Strict;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
@@ -92,30 +91,30 @@ class TelegramHelper
 		}
 	}
 
-	public static function isButtonClick($update): bool
+	public static function isButtonClick(Update $update): bool
 	{
-		return (!empty($update->callback_query));
+		return $update?->callback_query !== null;
 	}
 
 	public static function isForward(Update $update): bool
 	{
-		return (!empty($update->message->forward_from));
+		return $update?->message?->forward_from !== null;
 	}
 
 	public static function isInlineQuery(Update $update): bool
 	{
-		return (!empty($update->inline_query));
+		return $update?->inline_query !== null;
 	}
 
 	public static function isChosenInlineQuery(Update $update): bool
 	{
-		return (!empty($update->chosen_inline_result));
+		return $update?->chosen_inline_result !== null;
 	}
 
 	/** @param bool $isLive Additionally check if this is live location */
 	public static function isLocation(Update $update, bool $isLive = false): bool
 	{
-		$location = $update->message->location ?? $update->edited_message->location ?? null;
+		$location = $update?->message?->location ?? $update?->edited_message?->location ?? null;
 		if ($location) {
 			if ($isLive === true && empty($location->live_period)) {
 				return false;
@@ -129,61 +128,78 @@ class TelegramHelper
 
 	public static function isVenue(Update $update): bool
 	{
-		return !empty($update->message->venue);
+		return $update?->message?->venue !== null;
 	}
 
 	public static function isEdit(Update $update): bool
 	{
-		return ($update->edited_channel_post || $update->edited_message);
+		return ($update?->edited_channel_post ?? $update?->edited_message) !== null;
 	}
 
 	public static function isChannel(Update $update): bool
 	{
-		return !empty($update->channel_post);
+		return $update?->channel_post !== null;
 	}
 
-	public static function hasDocument($update): bool
+	public static function hasDocument(Update $update): bool
 	{
-		return (!empty($update->message->document));
+		return $update?->message?->document !== null;
 	}
 
-	public static function hasPhoto($update): bool
+	public static function hasPhoto(Update $update): bool
 	{
-		return (!empty($update->message->photo));
+		return ($update?->message?->photo ?? []) !== [];
 	}
 
+	/**
+	 * @param string|null $botUsername Message sender must match this username
+	 */
 	public static function isViaBot(Update $update, ?string $botUsername = null): bool
 	{
-		if (empty($update->message->via_bot) === false) {
-			if (is_null($botUsername)) {
-				return true;
-			} else if (mb_strtolower($update->message->via_bot->username) === mb_strtolower($botUsername)) {
-				return true;
-			} else {
-				return false;
-			}
+		$viaBot = $update?->message?->via_bot;
+		if ($viaBot === null) {
+			return false;
 		}
+
+		if ($botUsername === null) {
+			return true;
+		}
+
+		assert($viaBot instanceof User);
+		if (mb_strtolower($viaBot->username) === mb_strtolower($botUsername)) {
+			return true;
+		}
+
 		return false;
 	}
 
 	public static function chatCreated(Update $update): bool
 	{
-		return ($update->message && $update->message->group_chat_created);
+		return ($update?->message?->group_chat_created ?? false) === true;
 	}
 
+	/**
+	 * @param string|null $username Added user must match this username
+	 */
 	public static function addedToChat(Update $update, ?string $username = null): bool
 	{
 		if (self::chatCreated($update)) {
 			return true; // User added while creating group
-		} else if (count($update->message->new_chat_members ?? []) > 0) {
-			if (is_null($username)) {
-				return true; // Any user was added to already group
-			} else {
-				foreach ($update->message->new_chat_members as $newChatMember) {
-					if (mb_strtolower($newChatMember->username) === mb_strtolower($username)) {
-						return true; // Specific user added to already created group
-					}
-				}
+		}
+
+		$newChatMembersList = $update?->message?->new_chat_members ?? [];
+		if ($newChatMembersList === []) {
+			return false;
+		}
+
+		if ($username === null) {
+			return true; // Any user was added to already group
+		}
+
+		foreach ($newChatMembersList as $newChatMember) {
+			assert($newChatMember instanceof User);
+			if (mb_strtolower($newChatMember->username) === mb_strtolower($username)) {
+				return true; // Specific user added to already created group
 			}
 		}
 		return false;
