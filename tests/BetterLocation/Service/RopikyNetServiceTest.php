@@ -73,33 +73,10 @@ final class RopikyNetServiceTest extends TestCase
 	/**
 	 * @group request
 	 */
-	public function testProcessNeropObjekt(): void
-	{
-		$this->markTestSkipped('Page nerop_objekt.php was probably cancelled.');
-
-		$collection = RopikyNetService::processStatic('http://www.ropiky.net/nerop_objekt.php?id=1296479566')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.728630,13.558510', $collection[0]->__toString());
-
-		$collection = RopikyNetService::processStatic('http://www.ropiky.net/nerop_objekt.php?id=1397407312')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.182180,13.470280', $collection[0]->__toString());
-
-		$collection = RopikyNetService::processStatic('http://www.ropiky.net/nerop_objekt.php?id=1396538830')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.599950,13.889120', $collection[0]->__toString());
-	}
-
-	/**
-	 * @group request
-	 */
 	public function testMissingCoordinates(): void
 	{
 		$this->assertCount(0, RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1121190136')->getCollection());
 		$this->assertCount(0, RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1121190152')->getCollection());
-
-		// page nerop_objekt.php was probably cancelled
-		// $this->assertCount(0, RopikyNetService::processStatic('http://www.ropiky.net/nerop_objekt.php?id=1249996776')->getCollection());
 	}
 
 	/**
