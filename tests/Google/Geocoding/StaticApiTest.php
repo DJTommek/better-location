@@ -3,6 +3,7 @@
 namespace Tests\Google\Geocoding;
 
 use App\Config;
+use App\Factory;
 use App\Google\Geocoding\StaticApi;
 use App\Utils\Coordinates;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +20,8 @@ final class StaticApiTest extends TestCase
 		if (!Config::isGooglePlaceApi()) {
 			self::markTestSkipped('Missing Google API key');
 		}
-		self::$api = new StaticApi(Config::GOOGLE_PLACE_API_KEY);
+
+		self::$api = Factory::googleGeocodingApi();
 	}
 
 	public function testReverse(): void
