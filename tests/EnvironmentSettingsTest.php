@@ -12,7 +12,7 @@ final class EnvironmentSettingsTest extends TestCase
 	 */
 	public function testLocale(): void
 	{
-		$localeOriginal = setlocale(LC_NUMERIC, 0); // do not change anything, just save original location to restore it later
+		$localeOriginal = setlocale(LC_NUMERIC, '0'); // do not change anything, just save original location to restore it later
 		$betterLocationPositive = WGS84DegreesService::processStatic('50.123456,10.123456')->getFirst();
 		$betterLocationPositiveNegative = WGS84DegreesService::processStatic('50.123456,-10.123456')->getFirst();
 		$betterLocationNegativePositive = WGS84DegreesService::processStatic('-50.123456,10.123456')->getFirst();
