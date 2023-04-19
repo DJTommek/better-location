@@ -59,7 +59,7 @@ class MessageEvent extends Special
 				if ($this->isTgForward()) {
 					$message .= 'forwarded ';
 				}
-				$message .= sprintf('message, but I didn\'t detected any location in that message. Use %s command to get info how to use me.', HelpCommand::getTgCmd(!$this->isTgPm())) . PHP_EOL;
+				$message .= sprintf('message, but I didn\'t detected any location in that message. Use %s command to get info how to use me.', HelpCommand::getTgCmd()) . PHP_EOL;
 				$message .= sprintf('%s Most used tips: ', Icons::INFO) . PHP_EOL;
 				$message .= '- send me any message with location data (coords, links, Telegram location...)' . PHP_EOL;
 				$message .= '- send me Telegram location' . PHP_EOL;
