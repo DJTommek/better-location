@@ -5,7 +5,6 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\Config;
 use App\MiniCurl\MiniCurl;
-use Nette\Utils\Strings;
 
 final class EStudankyEuService extends AbstractService
 {
@@ -19,7 +18,7 @@ final class EStudankyEuService extends AbstractService
 		return (
 			$this->url &&
 			$this->url->getDomain(2) === 'estudanky.eu' &&
-			preg_match('/^\/([0-9]+)/', $this->url->getPath(), $matches)
+			preg_match('/^\/([0-9]+)/', $this->url->getPath())
 		);
 	}
 
@@ -38,10 +37,10 @@ final class EStudankyEuService extends AbstractService
 		$this->collection->add($location);
 	}
 
-	private static function getPlaceName($finder): ?string
+	private static function getPlaceName(\DOMXPath $finder): ?string
 	{
 		$placeNameRaw = $finder->query('//h1/text()')->item(0)->textContent;
-		if (Strings::startsWith($placeNameRaw, 'studna bez jména (') || Strings::startsWith($placeNameRaw, 'jiný vodní zdroj bez jména (')) {
+		if (str_starts_with($placeNameRaw, 'studna bez jména (') || str_starts_with($placeNameRaw, 'jiný vodní zdroj bez jména (')) {
 			return null;
 		} else {
 			return preg_replace('/ \([0-9]+\)$/', '', $placeNameRaw);

@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\EStudankyEuService\\:\\:getPlaceName\\(\\) has parameter \\$finder with no type specified\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/EStudankyEuService.php
-
-		-
 			message: "#^Unable to resolve the template type T in call to method static method Nette\\\\Utils\\\\Arrays\\:\\:last\\(\\)$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/FacebookService.php
