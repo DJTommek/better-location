@@ -28,6 +28,9 @@ use unreal4u\TelegramAPI\Telegram\Types;
 class BetterLocation implements CoordinatesInterface
 {
 	private Coordinates $coords;
+	/**
+	 * @var array<string>
+	 */
 	private array $descriptions = [];
 	private string $prefixMessage;
 	/** Can be ommited if is the same as $prefixMessage */
@@ -38,11 +41,16 @@ class BetterLocation implements CoordinatesInterface
 	private string $input;
 	/** Input as link, if is possible */
 	private ?UrlImmutable $inputUrl = null;
-	/** String representation of child classname of AbstractService::class */
-	private AbstractService|string $sourceService;
+	/**
+	 * @var class-string<AbstractService>
+	 */
+	private string $sourceService;
 	/** If service class has multiple type of output, source type must be included */
 	private ?string $sourceType;
-	/** Pregenerated link for service(s) if available */
+	/**
+	 * Pregenerated link for service(s) if available
+	 * @var array<class-string<AbstractService>,string>
+	 */
 	private array $pregeneratedLinks = [];
 	/** Can location change with same input? */
 	private bool $refreshable = false;
@@ -84,6 +92,9 @@ class BetterLocation implements CoordinatesInterface
 		return $this->sourceType;
 	}
 
+	/**
+	 * @return array{lat: float, lon: float, service: string}
+	 */
 	public function export(): array
 	{
 		return [
@@ -324,6 +335,9 @@ class BetterLocation implements CoordinatesInterface
 		return $this->coords->getLon();
 	}
 
+	/**
+	 * @return array{float, float}
+	 */
 	public function getLatLon(): array
 	{
 		return [$this->getLat(), $this->getLon()];
@@ -393,7 +407,7 @@ class BetterLocation implements CoordinatesInterface
 		return new BetterLocation(sprintf('%F,%F', $lat, $lon), $lat, $lon, WGS84DegreesService::class);
 	}
 
-	private function validateInput($input): void
+	private function validateInput(UrlImmutable|Url|string $input): void
 	{
 		if ($input instanceof \Nette\Http\UrlImmutable) {
 			$this->input = $input->getAbsoluteUrl();

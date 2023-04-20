@@ -1,31 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method App\\\\BetterLocation\\\\BetterLocation\\:\\:export\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/BetterLocation.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\BetterLocation\\:\\:getLatLon\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/BetterLocation.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\BetterLocation\\:\\:validateInput\\(\\) has parameter \\$input with no type specified\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/BetterLocation.php
-
-		-
-			message: "#^Property App\\\\BetterLocation\\\\BetterLocation\\:\\:\\$descriptions type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/BetterLocation.php
-
-		-
-			message: "#^Property App\\\\BetterLocation\\\\BetterLocation\\:\\:\\$pregeneratedLinks type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/BetterLocation.php
-
-		-
 			message: "#^Class App\\\\BetterLocation\\\\BetterLocationCollection implements generic interface ArrayAccess but does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: src/libs/BetterLocation/BetterLocationCollection.php
