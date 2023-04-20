@@ -1,36 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Class App\\\\BetterLocation\\\\BetterLocationCollection implements generic interface ArrayAccess but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: src/libs/BetterLocation/BetterLocationCollection.php
-
-		-
-			message: "#^Class App\\\\BetterLocation\\\\BetterLocationCollection implements generic interface Iterator but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: src/libs/BetterLocation/BetterLocationCollection.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\BetterLocationCollection\\:\\:__invoke\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/BetterLocationCollection.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\BetterLocationCollection\\:\\:getAll\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/BetterLocationCollection.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\BetterLocationCollection\\:\\:getKeys\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/BetterLocationCollection.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\BetterLocationCollection\\:\\:processHttpHeaders\\(\\) has parameter \\$url with no type specified\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/BetterLocationCollection.php
-
-		-
 			message: "#^Method App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:getDriveLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/AbstractService.php

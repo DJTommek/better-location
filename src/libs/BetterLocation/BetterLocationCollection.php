@@ -17,6 +17,10 @@ use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 
+/**
+ * @implements \ArrayAccess<int,BetterLocation>
+ * @implements \Iterator<int,BetterLocation>
+ */
 class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 {
 	/** @var BetterLocation[] */
@@ -25,6 +29,9 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	public bool $filterTooClose = true;
 	private ?UrlImmutable $staticMapUrl = null;
 
+	/**
+	 * @return BetterLocation[]
+	 */
 	public function __invoke(): array
 	{
 		return $this->locations;
@@ -306,6 +313,9 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return $this->staticMapUrl;
 	}
 
+	/**
+	 * @return array<string>
+	 */
 	public function getKeys(): array
 	{
 		return array_map(function (BetterLocation $location) {
