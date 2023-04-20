@@ -267,6 +267,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		while (is_null($url) === false && Url::isShortUrl($url)) {
 			if ($tries >= 5) {
 				Debugger::log(sprintf('Too many tries (%d) for translating original URL "%s"', $tries, $originalUrl));
+				break;
 			}
 			$url = MiniCurl::loadRedirectUrl($url);
 			$tries++;
