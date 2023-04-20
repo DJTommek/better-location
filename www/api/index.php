@@ -22,7 +22,7 @@ if (isset($_GET['api_key']) && in_array($_GET['api_key'], \App\Config::API_KEYS,
 			$betterLocations = BetterLocationCollection::fromTelegramMessage($input, $entities);
 			if (count($betterLocations)) {
 				$response->error = false;
-				foreach ($betterLocations->getAll() as $betterLocation) {
+				foreach ($betterLocations->getLocations() as $betterLocation) {
 					if ($betterLocation instanceof BetterLocation) {
 						$response->result[] = $betterLocation->export();
 					} else if ($betterLocation instanceof \App\BetterLocation\Service\Exceptions\InvalidLocationException) {

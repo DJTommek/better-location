@@ -43,12 +43,6 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return $this;
 	}
 
-	/** @deprecated Use getLocations() instead */
-	public function getAll(): array
-	{
-		return $this->locations;
-	}
-
 	public function getByLatLon(float $lat, float $lon): ?BetterLocation
 	{
 		$key = sprintf('%F,%F', $lat, $lon);
