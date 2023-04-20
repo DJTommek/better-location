@@ -92,6 +92,7 @@ abstract class AbstractService
 	}
 
 	/**
+	 * @param array<mixed,mixed> $options
 	 * @throws NotSupportedException
 	 * @deprecated use GetShareLink() or getDriveLink()
 	 */
@@ -107,6 +108,7 @@ abstract class AbstractService
 	/**
 	 * Return link to open location in specific app with highlighted location if possible
 	 *
+	 * @param array<mixed,mixed> $options
 	 * @throws NotSupportedException
 	 */
 	public static function getShareLink(float $lat, float $lon, array $options = []): ?string
@@ -117,6 +119,7 @@ abstract class AbstractService
 	/**
 	 * Return link to open location optimized for quicker navigation (eg. autostart)
 	 *
+	 * @param array<mixed,mixed> $options
 	 * @throws NotSupportedException
 	 */
 	public static function getDriveLink(float $lat, float $lon, array $options = []): ?string
@@ -127,6 +130,7 @@ abstract class AbstractService
 	/**
 	 * Return link to generate static image
 	 *
+	 * @param array<mixed,mixed> $options
 	 * @throws NotSupportedException
 	 */
 	public static function getScreenshotLink(float $lat, float $lon, array $options = []): ?string
@@ -211,7 +215,10 @@ abstract class AbstractService
 		throw new NotSupportedException(sprintf('%s is not available for "%s"', __METHOD__, static::class));
 	}
 
-	public static function hasTag($tag): bool
+	/**
+	 * @param int-mask-of<ServicesManager::TAG_*> $tag
+	 */
+	public static function hasTag(int $tag): bool
 	{
 		return in_array($tag, static::TAGS, true);
 	}

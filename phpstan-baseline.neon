@@ -1,61 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:getDriveLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/AbstractService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/AbstractService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:getScreenshotLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/AbstractService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:getShareLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/AbstractService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:hasTag\\(\\) has parameter \\$tag with no type specified\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/AbstractService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\AppleMapsService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/AppleMapsService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\BaladIrService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/BaladIrService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\BannergressService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/BannergressService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\BetterLocationService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/BetterLocationService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\DrobnePamatkyCzService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/DrobnePamatkyCzService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\DuckDuckGoService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/DuckDuckGoService.php
-
-		-
 			message: "#^Method App\\\\BetterLocation\\\\Service\\\\EStudankyEuService\\:\\:getPlaceName\\(\\) has parameter \\$finder with no type specified\\.$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/EStudankyEuService.php
@@ -66,74 +11,14 @@ parameters:
 			path: src/libs/BetterLocation/Service/FacebookService.php
 
 		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\FoursquareService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/FoursquareService.php
-
-		-
 			message: "#^Method App\\\\BetterLocation\\\\Service\\\\GeocachingService\\:\\:getGeocachesIdFromText\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/GeocachingService.php
 
 		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\GeocachingService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/GeocachingService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\GeohashService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/GeohashService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\GoogleMapsService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/GoogleMapsService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\GoogleMapsService\\:\\:getScreenshotLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/GoogleMapsService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\GoogleMapsStreetViewGeneratorService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/GoogleMapsStreetViewGeneratorService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\HereWeGoService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/HereWeGoService.php
-
-		-
 			message: "#^Method App\\\\BetterLocation\\\\Service\\\\HradyCzService\\:\\:getPlaceName\\(\\) has parameter \\$response with no type specified\\.$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/HradyCzService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\IngressIntelService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/IngressIntelService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\IngressPrimeService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/IngressPrimeService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\MapyCzPanoramaGeneratorService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/MapyCzPanoramaGeneratorService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\MapyCzService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/MapyCzService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\MapyCzService\\:\\:getScreenshotLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/MapyCzService.php
 
 		-
 			message: "#^Method App\\\\BetterLocation\\\\Service\\\\MapyCzService\\:\\:isShortUrl\\(\\) has no return type specified\\.$#"
@@ -146,32 +31,7 @@ parameters:
 			path: src/libs/BetterLocation/Service/MapyCzService.php
 
 		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\NeshanOrgService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/NeshanOrgService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\OpenLocationCodeService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/OpenLocationCodeService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\OpenStreetMapService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/OpenStreetMapService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\OrganicMapsService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/OrganicMapsService.php
-
-		-
 			message: "#^Method App\\\\BetterLocation\\\\Service\\\\OsmAndService\\:\\:getCoordsFromUrlFragment\\(\\) has parameter \\$fragment with no type specified\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/OsmAndService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\OsmAndService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/OsmAndService.php
 
@@ -181,34 +41,9 @@ parameters:
 			path: src/libs/BetterLocation/Service/SumavaCzService.php
 
 		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\SygicService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/SygicService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\WaymarkingService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/WaymarkingService.php
-
-		-
 			message: "#^Method App\\\\BetterLocation\\\\Service\\\\WaymarkingService\\:\\:loadWaymark\\(\\) has parameter \\$waymarkId with no type specified\\.$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/WaymarkingService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\WazeService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/WazeService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\WhatThreeWordService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/WhatThreeWordService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\ZanikleObceCzService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/ZanikleObceCzService.php
 
 		-
 			message: "#^Method App\\\\BetterLocation\\\\Url\\:\\:isShortUrl\\(\\) has no return type specified\\.$#"
