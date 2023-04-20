@@ -300,8 +300,8 @@ class MiniCurl
 		return $cache;
 	}
 
-	/** @return array<string,string>|string|null */
-	public static function loadHeaders(string $url, ?string $key = null)
+	/** @return array<string,string> */
+	public static function loadHeaders(string $url): array
 	{
 		$client = new self($url);
 
@@ -317,11 +317,18 @@ class MiniCurl
 		$client->setCurlOption(CURLOPT_FRESH_CONNECT, true);
 		$client->setMaxSizeToDownload(5 * 1024 * 1024);
 		$response = $client->run(null);
-		return $response->getHeaders($key);
+		return $response->getHeaders();
+	}
+
+	public static function loadHeader(string $url, string $key): ?string
+	{
+		$headers = self::loadHeaders($url);
+		$keyLower = mb_strtolower($key);
+		return $headers[$keyLower] ?? null;
 	}
 
 	public static function loadRedirectUrl(string $url): ?string
 	{
-		return self::loadHeaders($url, 'location');
+		return self::loadHeader($url, 'location');
 	}
 }

@@ -79,19 +79,16 @@ class Response
 	}
 
 	/**
-	 * Get all headers or one specific header (if not exists, return null)
-	 *
-	 * @param ?string $key Get value of specific key or set null to get all headers as array
-	 * @return array<string,string>|string|null
+	 * @return array<string,string>
 	 */
-	public function getHeaders(?string $key = null)
+	public function getHeaders(): array
 	{
-		if (is_null($key)) {
-			return $this->headers;
-		} else if (isset($this->headers[$key])) {
-			return $this->headers[$key];
-		} else {
-			return null;
-		}
+		return $this->headers;
+	}
+
+	public function getHeader(string $key): ?string
+	{
+		$keyLower = mb_strtolower($key);
+		return $this->headers[$keyLower] ?? null;
 	}
 }
