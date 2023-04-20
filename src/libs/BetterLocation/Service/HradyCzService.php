@@ -47,7 +47,7 @@ final class HradyCzService extends AbstractService
 		$location->setPrefixMessage($prefix);
 	}
 
-	private static function getPlaceName($response): string
+	private static function getPlaceName(string $response): string
 	{
 		$dom = new \DOMDocument();
 		@$dom->loadHTML($response);

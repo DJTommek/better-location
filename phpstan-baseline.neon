@@ -11,11 +11,6 @@ parameters:
 			path: src/libs/BetterLocation/Service/GeocachingService.php
 
 		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\HradyCzService\\:\\:getPlaceName\\(\\) has parameter \\$response with no type specified\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/HradyCzService.php
-
-		-
 			message: "#^Method App\\\\BetterLocation\\\\Service\\\\MapyCzService\\:\\:isShortUrl\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/MapyCzService.php
