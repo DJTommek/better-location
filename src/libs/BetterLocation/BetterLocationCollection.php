@@ -272,17 +272,17 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return $url;
 	}
 
-	private static function processHttpHeaders($url): BetterLocationCollection
+	private static function processHttpHeaders(string $url): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
 		try {
-			$headers = null;
+			$contentType = null;
 			try {
-				$headers = MiniCurl::loadHeaders($url);
+				$contentType = MiniCurl::loadHeader($url, 'content-type');
 			} catch (\Throwable $exception) {
 				Debugger::log(sprintf('Error while loading headers for URL "%s": %s', $url, $exception->getMessage()));
 			}
-			if ($headers && isset($headers['content-type']) && Utils::checkIfValueInHeaderMatchArray($headers['content-type'], Url::CONTENT_TYPE_IMAGE_EXIF)) {
+			if ($contentType !== null && Utils::checkIfValueInHeaderMatchArray($contentType, Url::CONTENT_TYPE_IMAGE_EXIF)) {
 				$betterLocationExif = BetterLocation::fromExif($url);
 				if ($betterLocationExif instanceof BetterLocation) {
 					$betterLocationExif->setPrefixMessage(sprintf('<a href="%s">EXIF</a>', $url));
