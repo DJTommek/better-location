@@ -1,2 +1,1426 @@
 parameters:
 	ignoreErrors:
+		-
+			message: "#^Method App\\\\BetterLocation\\\\BetterLocation\\:\\:export\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/BetterLocation.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\BetterLocation\\:\\:getLatLon\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/BetterLocation.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\BetterLocation\\:\\:validateInput\\(\\) has parameter \\$input with no type specified\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/BetterLocation.php
+
+		-
+			message: "#^Property App\\\\BetterLocation\\\\BetterLocation\\:\\:\\$descriptions type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/BetterLocation.php
+
+		-
+			message: "#^Property App\\\\BetterLocation\\\\BetterLocation\\:\\:\\$pregeneratedLinks type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/BetterLocation.php
+
+		-
+			message: "#^Class App\\\\BetterLocation\\\\BetterLocationCollection implements generic interface ArrayAccess but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/libs/BetterLocation/BetterLocationCollection.php
+
+		-
+			message: "#^Class App\\\\BetterLocation\\\\BetterLocationCollection implements generic interface Iterator but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/libs/BetterLocation/BetterLocationCollection.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\BetterLocationCollection\\:\\:__invoke\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/BetterLocationCollection.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\BetterLocationCollection\\:\\:getAll\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/BetterLocationCollection.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\BetterLocationCollection\\:\\:getKeys\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/BetterLocationCollection.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\BetterLocationCollection\\:\\:processHttpHeaders\\(\\) has parameter \\$url with no type specified\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/BetterLocationCollection.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:getDriveLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/AbstractService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/AbstractService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:getScreenshotLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/AbstractService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:getShareLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/AbstractService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:hasTag\\(\\) has parameter \\$tag with no type specified\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/AbstractService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\AppleMapsService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/AppleMapsService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\BaladIrService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/BaladIrService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\BannergressService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/BannergressService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\BetterLocationService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/BetterLocationService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\DrobnePamatkyCzService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/DrobnePamatkyCzService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\DuckDuckGoService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/DuckDuckGoService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\EStudankyEuService\\:\\:getPlaceName\\(\\) has parameter \\$finder with no type specified\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/EStudankyEuService.php
+
+		-
+			message: "#^Unable to resolve the template type T in call to method static method Nette\\\\Utils\\\\Arrays\\:\\:last\\(\\)$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/FacebookService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\FoursquareService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/FoursquareService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\GeocachingService\\:\\:getGeocachesIdFromText\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/GeocachingService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\GeocachingService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/GeocachingService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\GeohashService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/GeohashService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\GoogleMapsService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/GoogleMapsService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\GoogleMapsService\\:\\:getScreenshotLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/GoogleMapsService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\GoogleMapsStreetViewGeneratorService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/GoogleMapsStreetViewGeneratorService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\HereWeGoService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/HereWeGoService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\HradyCzService\\:\\:getPlaceName\\(\\) has parameter \\$response with no type specified\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/HradyCzService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\IngressIntelService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/IngressIntelService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\IngressPrimeService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/IngressPrimeService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\MapyCzPanoramaGeneratorService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/MapyCzPanoramaGeneratorService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\MapyCzService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/MapyCzService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\MapyCzService\\:\\:getScreenshotLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/MapyCzService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\MapyCzService\\:\\:isShortUrl\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/MapyCzService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\MapyCzService\\:\\:processShortUrl\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/MapyCzService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\NeshanOrgService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/NeshanOrgService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\OpenLocationCodeService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/OpenLocationCodeService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\OpenStreetMapService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/OpenStreetMapService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\OrganicMapsService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/OrganicMapsService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\OsmAndService\\:\\:getCoordsFromUrlFragment\\(\\) has parameter \\$fragment with no type specified\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/OsmAndService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\OsmAndService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/OsmAndService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\SumavaCzService\\:\\:processGallery\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/SumavaCzService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\SygicService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/SygicService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\WaymarkingService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/WaymarkingService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\WaymarkingService\\:\\:loadWaymark\\(\\) has parameter \\$waymarkId with no type specified\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/WaymarkingService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\WazeService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/WazeService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\WhatThreeWordService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/WhatThreeWordService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Service\\\\ZanikleObceCzService\\:\\:getLink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/ZanikleObceCzService.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Url\\:\\:isShortUrl\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Url.php
+
+		-
+			message: "#^Method App\\\\BetterLocation\\\\Url\\:\\:isShortUrl\\(\\) has parameter \\$url with no type specified\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Url.php
+
+		-
+			message: "#^Method App\\\\BingMaps\\\\StaticMaps\\:\\:generateLink\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/BingMaps/StaticMaps.php
+
+		-
+			message: "#^Property App\\\\BingMaps\\\\StaticMaps\\:\\:\\$pushPinsStr has no type specified\\.$#"
+			count: 1
+			path: src/libs/BingMaps/StaticMaps.php
+
+		-
+			message: "#^Method App\\\\Dashboard\\\\Logs\\:\\:getLogs\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Dashboard/Logs.php
+
+		-
+			message: "#^Method App\\\\Dashboard\\\\Logs\\:\\:getTracyLogContent\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Dashboard/Logs.php
+
+		-
+			message: "#^Method App\\\\Dashboard\\\\Logs\\:\\:getTracyLogs\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Dashboard/Logs.php
+
+		-
+			message: "#^Method App\\\\Dashboard\\\\Status\\:\\:getChatsStats\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Dashboard/Status.php
+
+		-
+			message: "#^Method App\\\\Dashboard\\\\Status\\:\\:getLatestChangedUser\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Dashboard/Status.php
+
+		-
+			message: "#^Method App\\\\Dashboard\\\\Status\\:\\:getNewestUser\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Dashboard/Status.php
+
+		-
+			message: "#^Method App\\\\Dashboard\\\\Status\\:\\:getTracyEmailIcon\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Dashboard/Status.php
+
+		-
+			message: "#^Method App\\\\Dashboard\\\\Status\\:\\:getTracyEmailSentFilePath\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Dashboard/Status.php
+
+		-
+			message: "#^Method App\\\\Dashboard\\\\Status\\:\\:runGetWebhookStatus\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Dashboard/Status.php
+
+		-
+			message: "#^Method App\\\\Dashboard\\\\Tester\\:\\:isInput\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Dashboard/Tester.php
+
+		-
+			message: "#^Property App\\\\Dashboard\\\\Tester\\:\\:\\$outputButtons has no type specified\\.$#"
+			count: 1
+			path: src/libs/Dashboard/Tester.php
+
+		-
+			message: "#^Property App\\\\Dashboard\\\\Tester\\:\\:\\$outputText has no type specified\\.$#"
+			count: 1
+			path: src/libs/Dashboard/Tester.php
+
+		-
+			message: "#^Method App\\\\Database\\:\\:__construct\\(\\) has parameter \\$charset with no type specified\\.$#"
+			count: 1
+			path: src/libs/Database.php
+
+		-
+			message: "#^Method App\\\\Database\\:\\:queryReal\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Database.php
+
+		-
+			message: "#^Method App\\\\Database\\:\\:queryReal\\(\\) has parameter \\$params with no type specified\\.$#"
+			count: 1
+			path: src/libs/Database.php
+
+		-
+			message: "#^Method App\\\\DummyLogger\\:\\:log\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/DummyLogger.php
+
+		-
+			message: "#^Method App\\\\DummyLogger\\:\\:log\\(\\) has parameter \\$level with no type specified\\.$#"
+			count: 1
+			path: src/libs/DummyLogger.php
+
+		-
+			message: "#^Method App\\\\DummyLogger\\:\\:log\\(\\) has parameter \\$value with no type specified\\.$#"
+			count: 1
+			path: src/libs/DummyLogger.php
+
+		-
+			message: "#^Method App\\\\Factory\\:\\:latte\\(\\) has parameter \\$params with no type specified\\.$#"
+			count: 1
+			path: src/libs/Factory.php
+
+		-
+			message: "#^Method App\\\\Foursquare\\\\Client\\:\\:loadVenue\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Foursquare/Client.php
+
+		-
+			message: "#^Method App\\\\Foursquare\\\\Types\\\\VenueLocationType\\:\\:getFormattedAddress\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Foursquare/Types/VenueLocationType.php
+
+		-
+			message: "#^Property App\\\\Geocaching\\\\Types\\\\GeocachePreviewType\\:\\:\\$recentActivities type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Geocaching/Types/GeocachePreviewType.php
+
+		-
+			message: "#^Property App\\\\IngressMosaic\\\\Types\\\\ActionsType\\:\\:\\$captures has no type specified\\.$#"
+			count: 1
+			path: src/libs/IngressMosaic/Types/ActionsType.php
+
+		-
+			message: "#^Property App\\\\IngressMosaic\\\\Types\\\\ActionsType\\:\\:\\$deployMods has no type specified\\.$#"
+			count: 1
+			path: src/libs/IngressMosaic/Types/ActionsType.php
+
+		-
+			message: "#^Property App\\\\IngressMosaic\\\\Types\\\\ActionsType\\:\\:\\$fields has no type specified\\.$#"
+			count: 1
+			path: src/libs/IngressMosaic/Types/ActionsType.php
+
+		-
+			message: "#^Property App\\\\IngressMosaic\\\\Types\\\\ActionsType\\:\\:\\$hacks has no type specified\\.$#"
+			count: 1
+			path: src/libs/IngressMosaic/Types/ActionsType.php
+
+		-
+			message: "#^Property App\\\\IngressMosaic\\\\Types\\\\ActionsType\\:\\:\\$links has no type specified\\.$#"
+			count: 1
+			path: src/libs/IngressMosaic/Types/ActionsType.php
+
+		-
+			message: "#^Property App\\\\IngressMosaic\\\\Types\\\\ActionsType\\:\\:\\$passhrases has no type specified\\.$#"
+			count: 1
+			path: src/libs/IngressMosaic/Types/ActionsType.php
+
+		-
+			message: "#^Property App\\\\IngressMosaic\\\\Types\\\\ActionsType\\:\\:\\$waypoints has no type specified\\.$#"
+			count: 1
+			path: src/libs/IngressMosaic/Types/ActionsType.php
+
+		-
+			message: "#^Method App\\\\IngressMosaic\\\\Types\\\\MosaicType\\:\\:mapAttributes\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/IngressMosaic/Types/MosaicType.php
+
+		-
+			message: "#^Method App\\\\IngressMosaic\\\\Types\\\\MosaicType\\:\\:parseMissionsJson\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/IngressMosaic/Types/MosaicType.php
+
+		-
+			message: "#^Property App\\\\IngressMosaic\\\\Types\\\\MosaicType\\:\\:\\$attributesRaw type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/IngressMosaic/Types/MosaicType.php
+
+		-
+			message: "#^Property App\\\\IngressMosaic\\\\Types\\\\MosaicType\\:\\:\\$mosaicInfoVariableRaw type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/IngressMosaic/Types/MosaicType.php
+
+		-
+			message: "#^Property App\\\\IngressMosaic\\\\Types\\\\MosaicType\\:\\:\\$type has no type specified\\.$#"
+			count: 1
+			path: src/libs/IngressMosaic/Types/MosaicType.php
+
+		-
+			message: "#^Method App\\\\IpApiCom\\\\Connector\\:\\:defaultConfig\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/IpApiCom/Connector.php
+
+		-
+			message: "#^Method App\\\\IpApiCom\\\\Request\\:\\:defaultQuery\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/IpApiCom/Request.php
+
+		-
+			message: "#^Method App\\\\MiniCurl\\\\Cache\\:\\:__construct\\(\\) has parameter \\$curlInfo with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/Cache.php
+
+		-
+			message: "#^Method App\\\\MiniCurl\\\\Cache\\:\\:generateId\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/Cache.php
+
+		-
+			message: "#^Property App\\\\MiniCurl\\\\Cache\\:\\:\\$curlInfo has no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/Cache.php
+
+		-
+			message: "#^Property App\\\\MiniCurl\\\\Cache\\:\\:\\$datetime has no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/Cache.php
+
+		-
+			message: "#^Property App\\\\MiniCurl\\\\Cache\\:\\:\\$id has no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/Cache.php
+
+		-
+			message: "#^Property App\\\\MiniCurl\\\\Cache\\:\\:\\$rawResponse has no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/Cache.php
+
+		-
+			message: "#^Method App\\\\MiniCurl\\\\MiniCurl\\:\\:getCachePath\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/MiniCurl.php
+
+		-
+			message: "#^Method App\\\\MiniCurl\\\\MiniCurl\\:\\:saveToCache\\(\\) has parameter \\$curlInfo with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/MiniCurl.php
+
+		-
+			message: "#^Method App\\\\MiniCurl\\\\MiniCurl\\:\\:setCurlOption\\(\\) has parameter \\$optionValue with no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/MiniCurl.php
+
+		-
+			message: "#^Method App\\\\MiniCurl\\\\MiniCurl\\:\\:setCurlOptions\\(\\) has parameter \\$curlOpts with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/MiniCurl.php
+
+		-
+			message: "#^Method App\\\\MiniCurl\\\\MiniCurl\\:\\:setPostJson\\(\\) has parameter \\$payload with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/MiniCurl.php
+
+		-
+			message: "#^Property App\\\\MiniCurl\\\\MiniCurl\\:\\:\\$allowRandomUseragent has no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/MiniCurl.php
+
+		-
+			message: "#^Property App\\\\MiniCurl\\\\MiniCurl\\:\\:\\$autoConvertEncoding has no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/MiniCurl.php
+
+		-
+			message: "#^Property App\\\\MiniCurl\\\\MiniCurl\\:\\:\\$cacheAllowed has no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/MiniCurl.php
+
+		-
+			message: "#^Property App\\\\MiniCurl\\\\MiniCurl\\:\\:\\$cacheTtl has no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/MiniCurl.php
+
+		-
+			message: "#^Property App\\\\MiniCurl\\\\MiniCurl\\:\\:\\$curl has no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/MiniCurl.php
+
+		-
+			message: "#^Property App\\\\MiniCurl\\\\MiniCurl\\:\\:\\$httpCookies has no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/MiniCurl.php
+
+		-
+			message: "#^Property App\\\\MiniCurl\\\\MiniCurl\\:\\:\\$httpHeaders has no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/MiniCurl.php
+
+		-
+			message: "#^Property App\\\\MiniCurl\\\\MiniCurl\\:\\:\\$url has no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/MiniCurl.php
+
+		-
+			message: "#^Method App\\\\MiniCurl\\\\Response\\:\\:__construct\\(\\) has parameter \\$cacheHit with no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/Response.php
+
+		-
+			message: "#^Method App\\\\MiniCurl\\\\Response\\:\\:__construct\\(\\) has parameter \\$curlInfo with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/Response.php
+
+		-
+			message: "#^Method App\\\\MiniCurl\\\\Response\\:\\:getBodyAsJson\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/Response.php
+
+		-
+			message: "#^Property App\\\\MiniCurl\\\\Response\\:\\:\\$body has no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/Response.php
+
+		-
+			message: "#^Property App\\\\MiniCurl\\\\Response\\:\\:\\$headers has no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/Response.php
+
+		-
+			message: "#^Property App\\\\MiniCurl\\\\Response\\:\\:\\$info has no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/Response.php
+
+		-
+			message: "#^Property App\\\\MiniCurl\\\\Response\\:\\:\\$raw has no type specified\\.$#"
+			count: 1
+			path: src/libs/MiniCurl/Response.php
+
+		-
+			message: "#^Method App\\\\Nominatim\\\\Nominatim\\:\\:reverse\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Nominatim/Nominatim.php
+
+		-
+			message: "#^Method App\\\\Nominatim\\\\Nominatim\\:\\:reverseReal\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Nominatim/Nominatim.php
+
+		-
+			message: "#^Method App\\\\OpenElevation\\\\OpenElevation\\:\\:request\\(\\) has parameter \\$coordinates with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/OpenElevation/OpenElevation.php
+
+		-
+			message: "#^Method App\\\\Pluginer\\\\Pluginer\\:\\:callApi\\(\\) has parameter \\$requestBody with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Pluginer/Pluginer.php
+
+		-
+			message: "#^Method App\\\\Pluginer\\\\Pluginer\\:\\:collectionToData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Pluginer/Pluginer.php
+
+		-
+			message: "#^Method App\\\\Pluginer\\\\Validator\\:\\:mapJsonErrors\\(\\) has parameter \\$error with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Pluginer/Validator.php
+
+		-
+			message: "#^Method App\\\\Repository\\\\ChatEntity\\:\\:fromRow\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Repository/ChatEntity.php
+
+		-
+			message: "#^Method App\\\\Repository\\\\Entity\\:\\:fromRow\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Repository/Entity.php
+
+		-
+			message: "#^Method App\\\\Repository\\\\Entity\\:\\:fromRow\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Repository/Entity.php
+
+		-
+			message: "#^Method App\\\\Repository\\\\Entity\\:\\:fromRows\\(\\) has parameter \\$rows with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Repository/Entity.php
+
+		-
+			message: "#^Method App\\\\Repository\\\\Entity\\:\\:fromRows\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Repository/Entity.php
+
+		-
+			message: "#^Method App\\\\Repository\\\\FavouritesEntity\\:\\:fromRow\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Repository/FavouritesEntity.php
+
+		-
+			message: "#^Method App\\\\Repository\\\\FavouritesRepository\\:\\:renameByUserLatLon\\(\\) has parameter \\$title with no type specified\\.$#"
+			count: 1
+			path: src/libs/Repository/FavouritesRepository.php
+
+		-
+			message: "#^Method App\\\\Repository\\\\Repository\\:\\:inHelper\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Repository/Repository.php
+
+		-
+			message: "#^Method App\\\\Repository\\\\StaticMapCacheEntity\\:\\:fromRow\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Repository/StaticMapCacheEntity.php
+
+		-
+			message: "#^Method App\\\\Repository\\\\UserEntity\\:\\:fromRow\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Repository/UserEntity.php
+
+		-
+			message: "#^Method App\\\\Repository\\\\WebLoginEntity\\:\\:fromRow\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Repository/WebLoginEntity.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\BetterLocationMessageSettings\\:\\:__construct\\(\\) has parameter \\$bulkLinkServices with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\BetterLocationMessageSettings\\:\\:__construct\\(\\) has parameter \\$buttonServices with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\BetterLocationMessageSettings\\:\\:__construct\\(\\) has parameter \\$shareServices with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\BetterLocationMessageSettings\\:\\:__construct\\(\\) has parameter \\$textServices with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\BetterLocationMessageSettings\\:\\:processRows\\(\\) has parameter \\$rows with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\Button\\:\\:flash\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Button/Button.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\Button\\:\\:replyButton\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Button/Button.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\FavouritesButton\\:\\:deleteFavourite\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Button/FavouritesButton.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\FavouritesButton\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Button/FavouritesButton.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\FavouritesButton\\:\\:processFavouritesList\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Button/FavouritesButton.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\HelpButton\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Button/HelpButton.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\HelpButton\\:\\:processHelp\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Button/HelpButton.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\InvalidButton\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Button/InvalidButton.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\RefreshButton\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Button/RefreshButton.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\RefreshButton\\:\\:processRefresh\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Button/RefreshButton.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\SettingsButton\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Button/SettingsButton.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\SettingsButton\\:\\:processSettings\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Button/SettingsButton.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\DebugCommand\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/DebugCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\FavouritesCommand\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/FavouritesCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\FavouritesCommand\\:\\:processFavouritesList\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/FavouritesCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\FeedbackCommand\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/FeedbackCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\FeedbackCommand\\:\\:logFeedback\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/FeedbackCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\HelpCommand\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/HelpCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\HelpCommand\\:\\:processHelp\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/HelpCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\LoginCommand\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/LoginCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\LoginCommand\\:\\:processLogin2\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/LoginCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\SettingsCommand\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/SettingsCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\SettingsCommand\\:\\:processSettings\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/SettingsCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processFavourites\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processFavourites\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processFavouritesList\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processHelp\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processLogin2\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processSettings\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processStartCoordinates\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processStartCoordinates\\(\\) has parameter \\$matches with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\UnknownCommand\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Command/UnknownCommand.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Edit\\\\Edit\\:\\:editMessage\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Edit/Edit.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Edit\\\\LocationEdit\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Edit/LocationEdit.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:isTgForward\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:reply\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:sendAction\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
+		-
+			message: "#^Property App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:\\$loop has no type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Special\\\\FileEvent\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Special/FileEvent.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Special\\\\InlineQueryEvent\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Special/InlineQueryEvent.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Special\\\\LocationEvent\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Special/LocationEvent.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Special\\\\LocationEvent\\:\\:venueHrefLink\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Special/LocationEvent.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Special\\\\PhotoEvent\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Special/PhotoEvent.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Login\\:\\:__construct\\(\\) has parameter \\$raw with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Login.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Login\\:\\:getRawFiltered\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Login.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\Login\\:\\:hasRequiredGetParams\\(\\) has parameter \\$getParams with no type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Login.php
+
+		-
+			message: "#^Property App\\\\TelegramCustomWrapper\\\\Login\\:\\:\\$raw type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Login.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:__construct\\(\\) has parameter \\$messageId with no type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/SendMessage.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:__construct\\(\\) has parameter \\$replyMarkup with no type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/SendMessage.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:__construct\\(\\) has parameter \\$replyMessageId with no type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/SendMessage.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:disableWebPagePreview\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/SendMessage.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:setParseMode\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/SendMessage.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:setParseMode\\(\\) has parameter \\$parseMode with no type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/SendMessage.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:setReplyMarkup\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/SendMessage.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:setReplyMarkup\\(\\) has parameter \\$replyMarkup with no type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/SendMessage.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:setReplyToMessageId\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/SendMessage.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:setReplyToMessageId\\(\\) has parameter \\$replyMessageId with no type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/SendMessage.php
+
+		-
+			message: "#^Property App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:\\$msg has no type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/SendMessage.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\TelegramCustomWrapper\\:\\:getUpdateEvent\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/TelegramCustomWrapper.php
+
+		-
+			message: "#^Property App\\\\TelegramCustomWrapper\\\\TelegramCustomWrapper\\:\\:\\$loop has no type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/TelegramCustomWrapper.php
+
+		-
+			message: "#^Property App\\\\TelegramCustomWrapper\\\\TelegramCustomWrapper\\:\\:\\$tgLog has no type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/TelegramCustomWrapper.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\TelegramHelper\\:\\:getParams\\(\\) has parameter \\$update with no type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
+
+		-
+			message: "#^Method App\\\\TelegramCustomWrapper\\\\TelegramHelper\\:\\:getParams\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
+
+		-
+			message: "#^Method App\\\\TelegramUpdateDb\\:\\:autorefreshDisable\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramUpdateDb.php
+
+		-
+			message: "#^Method App\\\\TelegramUpdateDb\\:\\:autorefreshEnable\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramUpdateDb.php
+
+		-
+			message: "#^Method App\\\\TelegramUpdateDb\\:\\:isAutorefreshEnabled\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramUpdateDb.php
+
+		-
+			message: "#^Method App\\\\TelegramUpdateDb\\:\\:parseDbData\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramUpdateDb.php
+
+		-
+			message: "#^Method App\\\\TelegramUpdateDb\\:\\:query\\(\\) has parameter \\$params with no type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramUpdateDb.php
+
+		-
+			message: "#^Method App\\\\TelegramUpdateDb\\:\\:query\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/TelegramUpdateDb.php
+
+		-
+			message: "#^Method App\\\\TelegramUpdateDb\\:\\:setLastSendData\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/TelegramUpdateDb.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Coordinates\\:\\:getLatLon\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Utils/Coordinates.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Coordinates\\:\\:isInPolygon\\(\\) has parameter \\$polygon with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Utils/Coordinates.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Coordinates\\:\\:safe\\(\\) has parameter \\$elevation with no type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/Coordinates.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Coordinates\\:\\:safe\\(\\) has parameter \\$lat with no type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/Coordinates.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Coordinates\\:\\:safe\\(\\) has parameter \\$lon with no type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/Coordinates.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Coordinates\\:\\:wgs84DegreesToDegreesMinutes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Utils/Coordinates.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Coordinates\\:\\:wgs84DegreesToDegreesMinutesSeconds\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Utils/Coordinates.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\DateImmutableUtils\\:\\:fromTimestampMs\\(\\) has parameter \\$timestampMs with no type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/DateImmutableUtils.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Ge0Code\\:\\:base64reversed\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Utils/Ge0Code.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Ge0Code\\:\\:decodeLatLon\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Utils/Ge0Code.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Ge0Code\\:\\:maxPointBits\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/Ge0Code.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\SimpleLogger\\:\\:getLogContent\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/SimpleLogger.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\SimpleLogger\\:\\:getLogNames\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/SimpleLogger.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\SimpleLogger\\:\\:isLogNameValid\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/SimpleLogger.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\SimpleLogger\\:\\:log\\(\\) has parameter \\$content with no type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/SimpleLogger.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Strict\\:\\:boolval\\(\\) has parameter \\$input with no type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/Strict.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Strict\\:\\:floatval\\(\\) has parameter \\$input with no type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/Strict.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Strict\\:\\:intval\\(\\) has parameter \\$input with no type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/Strict.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Strict\\:\\:isBool\\(\\) has parameter \\$input with no type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/Strict.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Strict\\:\\:isFloat\\(\\) has parameter \\$input with no type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/Strict.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Strict\\:\\:isInt\\(\\) has parameter \\$input with no type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/Strict.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Strict\\:\\:isPositiveFloat\\(\\) has parameter \\$input with no type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/Strict.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Strict\\:\\:isPositiveInt\\(\\) has parameter \\$input with no type specified\\.$#"
+			count: 1
+			path: src/libs/Utils/Strict.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Utils\\:\\:checkIfValueInHeaderMatchArray\\(\\) has parameter \\$haystack with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Utils/Utils.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Utils\\:\\:exifReadData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Utils/Utils.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Utils\\:\\:getClassConstants\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Utils/Utils.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Utils\\:\\:getUrls\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Utils/Utils.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Utils\\:\\:parseUrl\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Utils/Utils.php
+
+		-
+			message: "#^Method App\\\\Web\\\\Chat\\\\ChatPresenter\\:\\:action\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Web/Chat/ChatPresenter.php
+
+		-
+			message: "#^Method App\\\\Web\\\\Chat\\\\ChatPresenter\\:\\:handleSettingsForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Web/Chat/ChatPresenter.php
+
+		-
+			message: "#^Method App\\\\Web\\\\Chat\\\\ChatTemplate\\:\\:prepare\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Web/Chat/ChatTemplate.php
+
+		-
+			message: "#^Method App\\\\Web\\\\Chat\\\\ChatTemplate\\:\\:prepareError\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Web/Chat/ChatTemplate.php
+
+		-
+			message: "#^Method App\\\\Web\\\\Chat\\\\ChatTemplate\\:\\:prepareOk\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Web/Chat/ChatTemplate.php
+
+		-
+			message: "#^Method App\\\\Web\\\\FlashMessage\\:\\:flashTypes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Web/FlashMessage.php
+
+		-
+			message: "#^Method App\\\\Web\\\\Locations\\\\LocationsPresenter\\:\\:action\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Web/Locations/LocationsPresenter.php
+
+		-
+			message: "#^Property App\\\\Web\\\\Locations\\\\LocationsPresenter\\:\\:\\$services type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Web/Locations/LocationsPresenter.php
+
+		-
+			message: "#^Method App\\\\Web\\\\Locations\\\\LocationsTemplate\\:\\:prepare\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Web/Locations/LocationsTemplate.php
+
+		-
+			message: "#^Method App\\\\Web\\\\Locations\\\\LocationsTemplate\\:\\:prepare\\(\\) has parameter \\$websites with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Web/Locations/LocationsTemplate.php
+
+		-
+			message: "#^Property App\\\\Web\\\\Locations\\\\LocationsTemplate\\:\\:\\$allCoords has no type specified\\.$#"
+			count: 1
+			path: src/libs/Web/Locations/LocationsTemplate.php
+
+		-
+			message: "#^Property App\\\\Web\\\\Locations\\\\LocationsTemplate\\:\\:\\$collectionJs type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Web/Locations/LocationsTemplate.php
+
+		-
+			message: "#^Property App\\\\Web\\\\Locations\\\\LocationsTemplate\\:\\:\\$locations type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Web/Locations/LocationsTemplate.php
+
+		-
+			message: "#^Property App\\\\Web\\\\Locations\\\\LocationsTemplate\\:\\:\\$websites has no type specified\\.$#"
+			count: 1
+			path: src/libs/Web/Locations/LocationsTemplate.php
+
+		-
+			message: "#^Method App\\\\Web\\\\Login\\\\LoginFacade\\:\\:getCookieOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/Web/Login/LoginFacade.php
+
+		-
+			message: "#^Method App\\\\Web\\\\Login\\\\LoginPresenter\\:\\:action\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Web/Login/LoginPresenter.php
+
+		-
+			message: "#^Method App\\\\Web\\\\Login\\\\LoginTemplate\\:\\:prepare\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Web/Login/LoginTemplate.php
+
+		-
+			message: "#^Method App\\\\Web\\\\Logout\\\\LogoutPresenter\\:\\:action\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Web/Logout/LogoutPresenter.php
+
+		-
+			message: "#^Method App\\\\Web\\\\MainPresenter\\:\\:action\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Web/MainPresenter.php
+
+		-
+			message: "#^Method App\\\\Web\\\\MainPresenter\\:\\:redirect\\(\\) has parameter \\$permanent with no type specified\\.$#"
+			count: 1
+			path: src/libs/Web/MainPresenter.php
+
+		-
+			message: "#^Method App\\\\Web\\\\MainPresenter\\:\\:redirect\\(\\) has parameter \\$url with no type specified\\.$#"
+			count: 1
+			path: src/libs/Web/MainPresenter.php
+
+		-
+			message: "#^Method App\\\\Web\\\\MainPresenter\\:\\:render\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/libs/Web/MainPresenter.php
+
+		-
+			message: "#^Method App\\\\WhatThreeWord\\\\Helper\\:\\:findInText\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/libs/WhatThreeWord/Helper.php
+
+		-
+			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\BetterLocationServiceTest\\:\\:testParseUrl\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/BetterLocation/Service/BetterLocationServiceTest.php
+
+		-
+			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\CoordinatesCompact\\\\WGS84DegreesMinutesSecondsServiceTest\\:\\:testRender\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/BetterLocation/Service/CoordinatesCompact/WGS84DegreesMinutesSecondsServiceTest.php
+
+		-
+			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\CoordinatesCompact\\\\WGS84DegreesMinutesServiceTest\\:\\:testRender\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/BetterLocation/Service/CoordinatesCompact/WGS84DegreesMinutesServiceTest.php
+
+		-
+			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\CoordinatesCompact\\\\WGS84DegreesServiceTest\\:\\:testRender\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/BetterLocation/Service/CoordinatesCompact/WGS84DegreesServiceTest.php
+
+		-
+			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\IngressIntelServiceTest\\:\\:testProcessCoords\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/BetterLocation/Service/IngressIntelServiceTest.php
+
+		-
+			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\IngressIntelServiceTest\\:\\:testProcessMap\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/BetterLocation/Service/IngressIntelServiceTest.php
+
+		-
+			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\IngressIntelServiceTest\\:\\:testProcessMapAndCoords\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/BetterLocation/Service/IngressIntelServiceTest.php
+
+		-
+			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\OsmAndServiceTest\\:\\:testParseUrl\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/BetterLocation/Service/OsmAndServiceTest.php
+
+		-
+			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\SumavaCzServiceTest\\:\\:testGalleryNotRelatedNew\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/BetterLocation/Service/SumavaCzServiceTest.php
+
+		-
+			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\SumavaCzServiceTest\\:\\:testGalleryNotRelatedOriginal\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/BetterLocation/Service/SumavaCzServiceTest.php
+
+		-
+			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\WaymarkingServiceTest\\:\\:assertLocation\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/BetterLocation/Service/WaymarkingServiceTest.php
+
+		-
+			message: "#^Property Tests\\\\Geocaching\\\\Types\\\\GeocachePreviewTypeTest\\:\\:\\$GC3DYC4 has no type specified\\.$#"
+			count: 1
+			path: tests/Geocaching/Types/GeocachePreviewTypeTest.php
+
+		-
+			message: "#^Property Tests\\\\Geocaching\\\\Types\\\\GeocachePreviewTypeTest\\:\\:\\$GC7B7HB has no type specified\\.$#"
+			count: 1
+			path: tests/Geocaching/Types/GeocachePreviewTypeTest.php
+
+		-
+			message: "#^Property Tests\\\\Geocaching\\\\Types\\\\GeocachePreviewTypeTest\\:\\:\\$GC7X2M6 has no type specified\\.$#"
+			count: 1
+			path: tests/Geocaching/Types/GeocachePreviewTypeTest.php
+
+		-
+			message: "#^Property Tests\\\\Geonames\\\\Types\\\\TimezoneTypeTest\\:\\:\\$newYork has no type specified\\.$#"
+			count: 1
+			path: tests/Geonames/Types/TimezoneTypeTest.php
+
+		-
+			message: "#^Property Tests\\\\Geonames\\\\Types\\\\TimezoneTypeTest\\:\\:\\$prague has no type specified\\.$#"
+			count: 1
+			path: tests/Geonames/Types/TimezoneTypeTest.php
+
+		-
+			message: "#^Property Tests\\\\Geonames\\\\Types\\\\TimezoneTypeTest\\:\\:\\$tehran has no type specified\\.$#"
+			count: 1
+			path: tests/Geonames/Types/TimezoneTypeTest.php
+
+		-
+			message: "#^Method Tests\\\\IngressLanchedRu\\\\Types\\\\PortalTypeTest\\:\\:testPortalNameAsInt\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/IngressLanchedRu/Types/PortalTypeTest.php
+
+		-
+			message: "#^Method Tests\\\\IngressLanchedRu\\\\Types\\\\PortalTypeTest\\:\\:testPortalPrague\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/IngressLanchedRu/Types/PortalTypeTest.php
+
+		-
+			message: "#^Method Tests\\\\Utils\\\\UtilsTest\\:\\:testRecalculateRange\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/Utils/UtilsTest.php
+
+		-
+			message: "#^Method Tests\\\\Utils\\\\UtilsTest\\:\\:testRecalculateRangeOne\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/Utils/UtilsTest.php
