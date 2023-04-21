@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class WaymarkingServiceTest extends TestCase
 {
-	private function assertLocation(float $expectedLat, float $expectedLon, string $input)
+	private function assertLocation(float $expectedLat, float $expectedLon, string $input): void
 	{
 		$locations = WaymarkingService::processStatic($input)->getCollection();
 		$this->assertCount(1, $locations);

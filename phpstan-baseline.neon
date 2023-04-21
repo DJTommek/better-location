@@ -6,11 +6,6 @@ parameters:
 			path: src/libs/BetterLocation/Service/FacebookService.php
 
 		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\WaymarkingService\\:\\:loadWaymark\\(\\) has parameter \\$waymarkId with no type specified\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/WaymarkingService.php
-
-		-
 			message: "#^Method App\\\\BingMaps\\\\StaticMaps\\:\\:generateLink\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/BingMaps/StaticMaps.php
@@ -1094,11 +1089,6 @@ parameters:
 			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\OsmAndServiceTest\\:\\:testParseUrl\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/BetterLocation/Service/OsmAndServiceTest.php
-
-		-
-			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\WaymarkingServiceTest\\:\\:assertLocation\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/BetterLocation/Service/WaymarkingServiceTest.php
 
 		-
 			message: "#^Property Tests\\\\Geocaching\\\\Types\\\\GeocachePreviewTypeTest\\:\\:\\$GC3DYC4 has no type specified\\.$#"

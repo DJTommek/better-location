@@ -101,16 +101,16 @@ final class WaymarkingService extends AbstractService
 			$this->processGallery();
 		}
 
-		if ($this->data->waymarkId ?? null) {
-			$this->processWaymark();
-		} else {
-			Debugger::log(sprintf('Unprocessable input: "%s"', $this->input), ILogger::ERROR);
+		if ($this->data->waymarkId ?? false) {
+			$this->processWaymark($this->data->waymarkId);
 		}
+
+		Debugger::log(sprintf('Unprocessable input: "%s"', $this->input), ILogger::ERROR);
 	}
 
-	private function processWaymark(): void
+	private function processWaymark(string $waymarkId): void
 	{
-		$waymarkPage = $this->loadWaymark($this->data->waymarkId);
+		$waymarkPage = $this->loadWaymark($waymarkId);
 
 		$dom = new \DOMDocument();
 		// @HACK to force UTF-8 encoding. Page itself is in UTF-8 encoding but it is not saying explicitely so parser is confused.
@@ -125,7 +125,7 @@ final class WaymarkingService extends AbstractService
 		$location->setPrefixMessage(sprintf(
 			'<a href="%s">Waymark %s %s</a>',
 			$this->inputUrl,
-			$this->data->waymarkId,
+			$waymarkId,
 			$xpath->query('//div[@id="wm_name"]/text()')->item(0)->textContent,
 		));
 
@@ -177,7 +177,7 @@ final class WaymarkingService extends AbstractService
 		return new Url('https://www.waymarking.com/waymarks/' . $waymarkId);
 	}
 
-	private function loadWaymark($waymarkId): string
+	private function loadWaymark(string $waymarkId): string
 	{
 		$waymarkUrl = (string)$this->buildWaymarkUrl($waymarkId);
 		return (new MiniCurl($waymarkUrl))
