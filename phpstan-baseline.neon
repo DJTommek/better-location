@@ -16,16 +16,6 @@ parameters:
 			path: src/libs/BetterLocation/Service/WaymarkingService.php
 
 		-
-			message: "#^Method App\\\\BetterLocation\\\\Url\\:\\:isShortUrl\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Url.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Url\\:\\:isShortUrl\\(\\) has parameter \\$url with no type specified\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Url.php
-
-		-
 			message: "#^Method App\\\\BingMaps\\\\StaticMaps\\:\\:generateLink\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/BingMaps/StaticMaps.php

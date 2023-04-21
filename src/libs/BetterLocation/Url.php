@@ -2,7 +2,8 @@
 
 namespace App\BetterLocation;
 
-use App\Utils\Utils;
+use App\Utils\Strict;
+use Nette\Http\UrlImmutable;
 
 class Url
 {
@@ -33,15 +34,13 @@ class Url
 		'cutt.ly', // https://cutt.ly/
 	];
 
-	public static function isShortUrl($url)
+	public static function isShortUrl(string|\Nette\Http\Url|UrlImmutable $url): bool
 	{
-		$parsedUrl = Utils::parseUrl($url);
-		if ($parsedUrl && isset($parsedUrl['host'])) {
-			$host = mb_strtolower($parsedUrl['host']);
-			if (in_array($host, self::SHORT_URL_DOMAINS)) {
-				return true;
-			}
+		if (Strict::isUrl($url) === false) {
+			return false;
 		}
-		return false;
+		$parsedUrl = Strict::url($url);
+		$domainLower = mb_strtolower($parsedUrl->getDomain());
+		return in_array($domainLower, self::SHORT_URL_DOMAINS, true);
 	}
 }
