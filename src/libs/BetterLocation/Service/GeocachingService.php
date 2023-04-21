@@ -75,6 +75,9 @@ final class GeocachingService extends AbstractService
 		}
 	}
 
+	/**
+	 * @return array<string>
+	 */
 	public static function getGeocachesIdFromText(string $text): array
 	{
 		$geocaches = [];
