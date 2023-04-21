@@ -81,7 +81,7 @@ final class SumavaCzService extends AbstractService
 	/**
 	 * Gallery doesn't have specific location but it is paired with one or more locations, process them all.
 	 */
-	private function processGallery(string $response)
+	private function processGallery(string $response): void
 	{
 		$doc = new \DOMDocument();
 		// Intentional @ to fix warnings from site errors, eg "DOMDocument::loadHTML(): htmlParseEntityRef: expecting ';' in Entity, line: 27"

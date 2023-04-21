@@ -6,11 +6,6 @@ parameters:
 			path: src/libs/BetterLocation/Service/FacebookService.php
 
 		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\SumavaCzService\\:\\:processGallery\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/SumavaCzService.php
-
-		-
 			message: "#^Method App\\\\BetterLocation\\\\Service\\\\WaymarkingService\\:\\:loadWaymark\\(\\) has parameter \\$waymarkId with no type specified\\.$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/WaymarkingService.php
@@ -1099,16 +1094,6 @@ parameters:
 			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\OsmAndServiceTest\\:\\:testParseUrl\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/BetterLocation/Service/OsmAndServiceTest.php
-
-		-
-			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\SumavaCzServiceTest\\:\\:testGalleryNotRelatedNew\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/BetterLocation/Service/SumavaCzServiceTest.php
-
-		-
-			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\SumavaCzServiceTest\\:\\:testGalleryNotRelatedOriginal\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/BetterLocation/Service/SumavaCzServiceTest.php
 
 		-
 			message: "#^Method Tests\\\\BetterLocation\\\\Service\\\\WaymarkingServiceTest\\:\\:assertLocation\\(\\) has no return type specified\\.$#"

@@ -243,7 +243,7 @@ final class SumavaCzServiceTest extends TestCase
 	 * Gallery is not linked to any specific place
 	 * @group request
 	 */
-	public function testGalleryNotRelatedOriginal()
+	public function testGalleryNotRelatedOriginal(): void
 	{
 		$this->assertCount(0, SumavaCzService::processStatic('http://www.sumava.cz/galerie_sekce/4688-strovsk-skotsk-horalsk-hry-2020/')->getCollection());
 	}
@@ -254,7 +254,7 @@ final class SumavaCzServiceTest extends TestCase
 	 * Gallery is not linked to any specific place
 	 * @group request
 	 */
-	public function testGalleryNotRelatedNew()
+	public function testGalleryNotRelatedNew(): void
 	{
 		$this->assertCount(0, SumavaCzService::processStatic('http://www.sumava.cz/galerie/kultura-a-pamatky/akce/strazovske-skotske-horalske-hry-2020/')->getCollection());
 	}
