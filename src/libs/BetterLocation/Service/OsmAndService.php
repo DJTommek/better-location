@@ -93,7 +93,7 @@ final class OsmAndService extends AbstractService
 		}
 	}
 
-	private function getCoordsFromUrlFragment($fragment): ?CoordinatesInterface
+	private function getCoordsFromUrlFragment(string $fragment): ?CoordinatesInterface
 	{
 		$regex = sprintf('/^\d+\/(%s)\/(%s)$/', Coordinates::RE_BASIC_LAT, Coordinates::RE_BASIC_LON);
 		if (preg_match($regex, $fragment, $matches)) {

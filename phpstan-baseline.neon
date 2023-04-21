@@ -11,11 +11,6 @@ parameters:
 			path: src/libs/BetterLocation/Service/GeocachingService.php
 
 		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\OsmAndService\\:\\:getCoordsFromUrlFragment\\(\\) has parameter \\$fragment with no type specified\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/OsmAndService.php
-
-		-
 			message: "#^Method App\\\\BetterLocation\\\\Service\\\\SumavaCzService\\:\\:processGallery\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/SumavaCzService.php
