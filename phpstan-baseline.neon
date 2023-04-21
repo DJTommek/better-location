@@ -11,16 +11,6 @@ parameters:
 			path: src/libs/BetterLocation/Service/GeocachingService.php
 
 		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\MapyCzService\\:\\:isShortUrl\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/MapyCzService.php
-
-		-
-			message: "#^Method App\\\\BetterLocation\\\\Service\\\\MapyCzService\\:\\:processShortUrl\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/BetterLocation/Service/MapyCzService.php
-
-		-
 			message: "#^Method App\\\\BetterLocation\\\\Service\\\\OsmAndService\\:\\:getCoordsFromUrlFragment\\(\\) has parameter \\$fragment with no type specified\\.$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/OsmAndService.php

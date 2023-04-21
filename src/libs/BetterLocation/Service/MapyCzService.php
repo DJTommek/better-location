@@ -50,14 +50,17 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		ServicesManager::TAG_GENERATE_LINK_IMAGE,
 	];
 
-	private function isShortUrl()
+	private function isShortUrl(): bool
 	{
 		// Mapy.cz short link:
 		// https://mapy.cz/s/porumejene
 		// https://en.mapy.cz/s/porumejene
 		// https://en.mapy.cz/s/3ql7u
 		// https://en.mapy.cz/s/faretabotu
-		return $this->data->isShortUrl = (preg_match('/^\/s\/[a-zA-Z0-9]+$/', $this->url->getPath()));
+		return $this->data->isShortUrl = (bool)preg_match(
+			'/^\/s\/[a-zA-Z0-9]+$/',
+			$this->url->getPath()
+		);
 	}
 
 	public function isNormalUrl(): bool
@@ -211,7 +214,7 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		}
 	}
 
-	private function processShortUrl()
+	private function processShortUrl(): void
 	{
 		$this->rawUrl = MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl());
 		$this->url = Strict::url($this->rawUrl);
