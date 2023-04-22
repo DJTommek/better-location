@@ -17,7 +17,7 @@ class LoginPresenter extends MainPresenter
 		parent::__construct();
 	}
 
-	public function action()
+	public function action(): void
 	{
 		if (Strict::isUrl($_GET['redirect'] ?? null)) {
 			$redirectUrl = new UrlImmutable($_GET['redirect']);

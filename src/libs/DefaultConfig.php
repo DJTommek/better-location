@@ -313,7 +313,7 @@ class DefaultConfig
 	public final static function getAppUrl(string $path = null): UrlImmutable
 	{
 		$appUrl = new UrlImmutable(static::APP_URL);
-		if ($path !== null && Strings::startsWith($path, '/')) {
+		if ($path !== null && str_starts_with($path, '/')) {
 			$appUrl = $appUrl->withPath(rtrim($appUrl->getPath(), '/') . $path);
 		}
 		return $appUrl;

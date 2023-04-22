@@ -36,7 +36,7 @@ class LocationsPresenter extends MainPresenter
 		parent::__construct();
 	}
 
-	public function action()
+	public function action(): void
 	{
 		$regex = '/^' . Coordinates::RE_BASIC . '(;' . Coordinates::RE_BASIC . ')*$/';
 		$input = $_GET['coords'] ?? '';

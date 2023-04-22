@@ -30,7 +30,7 @@ class ChatPresenter extends MainPresenter
 		parent::__construct();
 	}
 
-	public function action()
+	public function action(): void
 	{
 		if ($this->login->isLogged() && Strict::isInt($_GET['telegramId'] ?? null)) {
 			$this->chatTelegramId = Strict::intval($_GET['telegramId']);

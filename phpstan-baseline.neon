@@ -936,11 +936,6 @@ parameters:
 			path: src/libs/Utils/Utils.php
 
 		-
-			message: "#^Method App\\\\Web\\\\Chat\\\\ChatPresenter\\:\\:action\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Web/Chat/ChatPresenter.php
-
-		-
 			message: "#^Method App\\\\Web\\\\Chat\\\\ChatPresenter\\:\\:handleSettingsForm\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/Web/Chat/ChatPresenter.php
@@ -964,11 +959,6 @@ parameters:
 			message: "#^Method App\\\\Web\\\\FlashMessage\\:\\:flashTypes\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/Web/FlashMessage.php
-
-		-
-			message: "#^Method App\\\\Web\\\\Locations\\\\LocationsPresenter\\:\\:action\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Web/Locations/LocationsPresenter.php
 
 		-
 			message: "#^Property App\\\\Web\\\\Locations\\\\LocationsPresenter\\:\\:\\$services type has no value type specified in iterable type array\\.$#"
@@ -1011,39 +1001,9 @@ parameters:
 			path: src/libs/Web/Login/LoginFacade.php
 
 		-
-			message: "#^Method App\\\\Web\\\\Login\\\\LoginPresenter\\:\\:action\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Web/Login/LoginPresenter.php
-
-		-
 			message: "#^Method App\\\\Web\\\\Login\\\\LoginTemplate\\:\\:prepare\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/Web/Login/LoginTemplate.php
-
-		-
-			message: "#^Method App\\\\Web\\\\Logout\\\\LogoutPresenter\\:\\:action\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Web/Logout/LogoutPresenter.php
-
-		-
-			message: "#^Method App\\\\Web\\\\MainPresenter\\:\\:action\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Web/MainPresenter.php
-
-		-
-			message: "#^Method App\\\\Web\\\\MainPresenter\\:\\:redirect\\(\\) has parameter \\$permanent with no type specified\\.$#"
-			count: 1
-			path: src/libs/Web/MainPresenter.php
-
-		-
-			message: "#^Method App\\\\Web\\\\MainPresenter\\:\\:redirect\\(\\) has parameter \\$url with no type specified\\.$#"
-			count: 1
-			path: src/libs/Web/MainPresenter.php
-
-		-
-			message: "#^Method App\\\\Web\\\\MainPresenter\\:\\:render\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Web/MainPresenter.php
 
 		-
 			message: "#^Method App\\\\WhatThreeWord\\\\Helper\\:\\:findInText\\(\\) return type has no value type specified in iterable type array\\.$#"

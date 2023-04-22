@@ -7,7 +7,7 @@ use App\Web\MainPresenter;
 
 class LogoutPresenter extends MainPresenter
 {
-	public function action()
+	public function action(): void
 	{
 		if ($this->login->isLogged()) {
 			$this->login->logout();

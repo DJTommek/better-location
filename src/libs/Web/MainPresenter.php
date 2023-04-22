@@ -10,7 +10,8 @@ use App\Utils\Strict;
 use App\Web\Login\LoginFacade;
 use Nette\Http\Request;
 use Nette\Http\RequestFactory;
-use Nette\Utils\Strings;
+use Nette\Http\Url;
+use Nette\Http\UrlImmutable;
 
 abstract class MainPresenter
 {
@@ -46,20 +47,25 @@ abstract class MainPresenter
 		$this->render();
 	}
 
-	public function action()
+	public function action(): void
 	{
 		// can be overriden
 	}
 
-	public function render()
+	public function render(): void
 	{
 		// Should be overriden
 		throw new \LogicException(sprintf('No render method was provided for %s', static::class));
 	}
 
-	public final function redirect($url, $permanent = false): void
+	/**
+	 * Where user will be redirected to:
+	 * - absolute example: 'http://tomas.palider.cz/something'
+	 * - relative path example: '/something' will append to URL defined in config and make it absolute
+	 */
+	public final function redirect(string|Url|UrlImmutable $url, bool $permanent = false): void
 	{
-		if (is_string($url) && Strings::startsWith($url, '/')) { // dynamic path, eg '/login.php'
+		if (is_string($url) && str_starts_with($url, '/')) { // dynamic path, eg '/login.php'
 			$url = Config::getAppUrl($url);
 		}
 		if (Strict::isUrl($url) === false) {
@@ -101,7 +107,8 @@ abstract class MainPresenter
 		}
 	}
 
-	protected function isPostRequest(): bool {
+	protected function isPostRequest(): bool
+	{
 		return $_SERVER['REQUEST_METHOD'] === 'POST';
 	}
 }
