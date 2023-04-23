@@ -24,6 +24,15 @@ class TelegramHelper
 	 * @author https://emptycharacter.com/
 	 */
 	public const INVISIBLE_CHARACTER = '&#8202';
+	/**
+	 * Newline character
+	 */
+	public const NEW_LINE = "\n";
+
+	/**
+	 * Newline character (shortcut alias)
+	 */
+	public const NL = self::NEW_LINE;
 
 	/**
 	 * Generate (almost) invisible link, that is still valid - useful for Telegram's automatic generating preview from links

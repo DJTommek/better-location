@@ -24,6 +24,7 @@ use Nette\Http\UrlImmutable;
 use OpenLocationCode\OpenLocationCode;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types;
+use App\TelegramCustomWrapper\TelegramHelper as TG;
 
 class BetterLocation implements CoordinatesInterface
 {
@@ -231,7 +232,7 @@ class BetterLocation implements CoordinatesInterface
 		if ($this->getCoordinateSuffixMessage()) {
 			$text .= ' ' . $this->getCoordinateSuffixMessage();
 		}
-		$text .= PHP_EOL;
+		$text .= TG::NL;
 
 		// Generate share links
 		$textLinks = [];
@@ -241,19 +242,19 @@ class BetterLocation implements CoordinatesInterface
 				$textLinks[] = sprintf('<a href="%s" target="_blank">%s</a>', $link, $service::getName(true));
 			}
 		}
-		$text .= join(' | ', $textLinks) . PHP_EOL;
+		$text .= join(' | ', $textLinks) . TG::NL;
 
 		if ($settings->showAddress() && is_null($this->address) === false) {
-			$text .= $this->getAddress() . PHP_EOL;
+			$text .= $this->getAddress() . TG::NL;
 		}
 
 		foreach ($this->descriptions as $description) {
 			if ($description !== '') {
-				$text .= $description . PHP_EOL;
+				$text .= $description . TG::NL;
 			}
 		}
 
-		return $text . PHP_EOL;
+		return $text . TG::NL;
 	}
 
 	/** @return Types\Inline\Keyboard\Button[] */
