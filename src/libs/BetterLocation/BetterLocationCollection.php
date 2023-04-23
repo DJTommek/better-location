@@ -233,24 +233,26 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		$serviceManager = Factory::servicesManager();
 
 		foreach ($entities as $entity) {
-			if (in_array($entity->type, ['url', 'text_link'])) {
-				$url = TelegramHelper::getEntityContent($message, $entity);
+			if (in_array($entity->type, ['url', 'text_link'], true) === false) {
+				continue;
+			}
 
-				if (Strict::isUrl($url) === false) {
-					continue;
-				}
+			$url = TelegramHelper::getEntityContent($message, $entity);
 
-				$url = self::handleShortUrl($url);
+			if (Strict::isUrl($url) === false) {
+				continue;
+			}
 
-				$serviceCollection = $serviceManager->iterate($url);
-				if ($serviceCollection->filterTooClose) {
-					$serviceCollection->filterTooClose(Config::DISTANCE_IGNORE);
-				}
-				$betterLocationsCollection->add($serviceCollection);
+			$url = self::handleShortUrl($url);
 
-				if (count($serviceCollection) === 0) { // process HTTP headers only if no location was found via iteration
-					$betterLocationsCollection->add(self::processHttpHeaders($url));
-				}
+			$serviceCollection = $serviceManager->iterate($url);
+			if ($serviceCollection->filterTooClose) {
+				$serviceCollection->filterTooClose(Config::DISTANCE_IGNORE);
+			}
+			$betterLocationsCollection->add($serviceCollection);
+
+			if ($serviceCollection->isEmpty()) { // process HTTP headers only if no location was found via iteration
+				$betterLocationsCollection->add(self::processHttpHeaders($url));
 			}
 		}
 
