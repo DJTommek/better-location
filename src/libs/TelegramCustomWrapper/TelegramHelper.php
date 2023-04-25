@@ -164,6 +164,11 @@ class TelegramHelper
 		return $update?->message?->document !== null;
 	}
 
+	public static function hasContact(Update $update): bool
+	{
+		return $update?->message?->contact !== null;
+	}
+
 	public static function hasPhoto(Update $update): bool
 	{
 		return ($update?->message?->photo ?? []) !== [];

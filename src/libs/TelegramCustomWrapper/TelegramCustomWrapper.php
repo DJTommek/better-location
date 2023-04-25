@@ -21,6 +21,7 @@ use App\TelegramCustomWrapper\Events\Command\UnknownCommand;
 use App\TelegramCustomWrapper\Events\Edit\LocationEdit;
 use App\TelegramCustomWrapper\Events\Events;
 use App\TelegramCustomWrapper\Events\Special\AddedToChatEvent;
+use App\TelegramCustomWrapper\Events\Special\ContactEvent;
 use App\TelegramCustomWrapper\Events\Special\FileEvent;
 use App\TelegramCustomWrapper\Events\Special\InlineQueryEvent;
 use App\TelegramCustomWrapper\Events\Special\LocationEvent;
@@ -99,6 +100,8 @@ class TelegramCustomWrapper
 					$this->event = new LocationEvent($update);
 				} elseif (TelegramHelper::hasDocument($update)) {
 					$this->event = new FileEvent($update);
+				} elseif (TelegramHelper::hasContact($update)) {
+					$this->event = new ContactEvent($update);
 				} elseif (TelegramHelper::hasPhoto($update)) {
 					$this->event = new PhotoEvent($update);
 				} else {
