@@ -18,8 +18,6 @@ parameters:
 		-
 			message: "#^Property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\.+ does not accept .+\\.$#"
 		-
-			message: "#^Access to an undefined property unreal4u\\\\TelegramAPI\\\\Telegram\\\\Methods\\\\.+\\.$#"
-		-
 			message: "#^Using nullsafe property access on non-nullable type unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\.+\\. Use -> instead\\.$#"
 		-
 			message: "#^Access to an undefined property App\\\\Web\\\\LayoutTemplate\\:\\:.+\\.$#"
