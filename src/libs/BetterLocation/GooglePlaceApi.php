@@ -7,6 +7,7 @@ use App\Config;
 use App\Factory;
 use App\Icons;
 use App\MiniCurl\MiniCurl;
+use DJTommek\Coordinates\CoordinatesInterface;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
@@ -90,13 +91,13 @@ class GooglePlaceApi
 	 * @param string $input What should be searched
 	 * @param string[] $outputFields @see https://developers.google.com/places/web-service/search#Fields
 	 * @param string $language @see https://developers.google.com/maps/faq#languagesupport
-	 * @param BetterLocation|null $locationBias @see https://developers.google.com/places/web-service/search#FindPlaceRequests -> Optional parameters
+	 * @param CoordinatesInterface|null $locationBias @see https://developers.google.com/places/web-service/search#FindPlaceRequests -> Optional parameters
 	 * @return \stdClass[]
 	 * @throws \JsonException|\Exception
 	 */
-	public function runPlaceSearch(string $input, array $outputFields, string $language, ?BetterLocation $locationBias = null): array
+	public function runPlaceSearch(string $input, array $outputFields, string $language, ?CoordinatesInterface $locationBias = null): array
 	{
-		$url = $this->gePlaceSearchUrl($input, $outputFields, $language, ($locationBias ? $this->generateLocationBias($locationBias) : null));
+		$url = $this->gePlaceSearchUrl($input, $outputFields, $language, ($locationBias === null ? null : $this->generateLocationBias($locationBias)));
 		$content = $this->runGoogleApiRequest($url);
 		if (in_array($content->status, [self::RESPONSE_ZERO_RESULTS, self::RESPONSE_NOT_FOUND], true)) {
 			return [];
@@ -107,13 +108,13 @@ class GooglePlaceApi
 	/**
 	 * @param string $input What should be searched
 	 * @param string $language @see https://developers.google.com/maps/faq#languagesupport
-	 * @param BetterLocation|null $location @see https://developers.google.com/places/web-service/search#FindPlaceRequests -> Optional parameters
+	 * @param CoordinatesInterface|null $location @see https://developers.google.com/places/web-service/search#FindPlaceRequests -> Optional parameters
 	 * @return \stdClass[]
 	 * @throws \JsonException|\Exception
 	 */
-	public function runTextSearch(string $input, string $language, ?BetterLocation $location = null): array
+	public function runTextSearch(string $input, string $language, ?CoordinatesInterface $location = null): array
 	{
-		$url = $this->geTextSearchUrl($input, $language, ($location ? $location->__toString() : null));
+		$url = $this->geTextSearchUrl($input, $language, $location?->key());
 
 		$content = $this->runGoogleApiRequest($url);
 		if (in_array($content->status, [self::RESPONSE_ZERO_RESULTS, self::RESPONSE_NOT_FOUND], true)) {
@@ -159,19 +160,18 @@ class GooglePlaceApi
 		throw new \Exception(sprintf('Invalid status "%s" from Google Place API. Error: "%s". See debug.log for more info.', $content->status, $content->error_message ?? 'Not provided'));
 	}
 
-	private function generateLocationBias(BetterLocation $betterLocation): string
+	private function generateLocationBias(CoordinatesInterface $location): string
 	{
-		return 'point:' . $betterLocation->key();
+		return 'point:' . $location->key();
 	}
 
 	/**
 	 * Helper method to do all logic and return collection of locations
 	 */
-	public static function search(string $queryInput, ?string $languageCode = null, ?BetterLocation $location = null): BetterLocationCollection
+	public function searchPlace(string $queryInput, ?string $languageCode = null, ?CoordinatesInterface $location = null, bool $loadPlaceDetails = true): BetterLocationCollection
 	{
 		$queryInput = self::normalizeInput($queryInput);
-		$placeApi = Factory::googlePlaceApi();
-		$placeCandidates = $placeApi->runPlaceSearch(
+		$placeCandidates = $this->runPlaceSearch(
 			$queryInput,
 			['formatted_address', 'name', 'geometry', 'place_id'],
 			$languageCode ?? 'en',
@@ -189,33 +189,35 @@ class GooglePlaceApi
 
 			$address = $placeCandidate->formatted_address ?? null;
 
-			try {
-				$placeDetails = $placeApi->getPlaceDetails($placeCandidate->place_id, ['url', 'website', 'international_phone_number', 'business_status']);
-				if ($placeDetails === null) {
-					if ($placeCandidate->name !== '') {
-						$betterLocation->setPrefixMessage($placeCandidate->name);
-					}
-				} else {
-					$betterLocation->setPrefixMessage(sprintf(
-						'<a href="%s">%s</a>',
-						($placeDetails->website ?? $placeDetails->url),
-						$placeCandidate->name
-					));
+			if ($loadPlaceDetails) {
+				try {
+					$placeDetails = $this->getPlaceDetails($placeCandidate->place_id, ['url', 'website', 'international_phone_number', 'business_status']);
+					if ($placeDetails === null) {
+						if ($placeCandidate->name !== '') {
+							$betterLocation->setPrefixMessage($placeCandidate->name);
+						}
+					} else {
+						$betterLocation->setPrefixMessage(sprintf(
+							'<a href="%s">%s</a>',
+							($placeDetails->website ?? $placeDetails->url),
+							$placeCandidate->name
+						));
 
-					if (isset($placeDetails->business_status)) {
-						if ($placeDetails->business_status === self::BUSINESS_STATUS_CLOSED_TEMPORARILY) {
-							$betterLocation->addDescription(Icons::WARNING . ' Temporarily closed');
-						} else if ($placeDetails->business_status === self::BUSINESS_STATUS_CLOSED_PERMANENTLY) {
-							$betterLocation->addDescription(Icons::WARNING . ' Permanently closed');
+						if (isset($placeDetails->business_status)) {
+							if ($placeDetails->business_status === self::BUSINESS_STATUS_CLOSED_TEMPORARILY) {
+								$betterLocation->addDescription(Icons::WARNING . ' Temporarily closed');
+							} else if ($placeDetails->business_status === self::BUSINESS_STATUS_CLOSED_PERMANENTLY) {
+								$betterLocation->addDescription(Icons::WARNING . ' Permanently closed');
+							}
+						}
+
+						if ($address !== null && isset($placeDetails->international_phone_number)) {
+							$address .= sprintf(' (%s)', $placeDetails->international_phone_number);
 						}
 					}
-
-					if ($address !== null && isset($placeDetails->international_phone_number)) {
-						$address .= sprintf(' (%s)', $placeDetails->international_phone_number);
-					}
+				} catch (\Throwable $exception) {
+					Debugger::log($exception, ILogger::EXCEPTION);
 				}
-			} catch (\Throwable $exception) {
-				Debugger::log($exception, ILogger::EXCEPTION);
 			}
 
 			if ($address !== null) {
@@ -224,6 +226,16 @@ class GooglePlaceApi
 			$collection->add($betterLocation);
 		}
 		return $collection;
+	}
+
+	/**
+	 * Helper method to do all logic and return collection of locations
+	 * @deprecated Create instance via new or using Factory and call searchPlace()
+	 */
+	public static function search(string $queryInput, ?string $languageCode = null, ?CoordinatesInterface $location = null): BetterLocationCollection
+	{
+		$placeApi = Factory::googlePlaceApi();
+		return $placeApi->searchPlace($queryInput, $languageCode, $location);
 	}
 
 	/**
