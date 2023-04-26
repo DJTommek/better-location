@@ -2,7 +2,9 @@
 
 namespace App\WhatThreeWord;
 
+use App\Config;
 use App\Factory;
+use Nette\Caching\Cache;
 
 class Helper
 {
@@ -10,6 +12,8 @@ class Helper
 	const REGEX_PREFIX = '(?:\/{3})';
 	const REGEX_WORD = '(?:\p{L}\p{M}*){1,}';
 	const REGEX_WORD_DIVIDER = '[・.。]';
+
+	private const LANG = 'en';
 
 	const REGEX_WORDS = '(' . self::REGEX_WORD . self::REGEX_WORD_DIVIDER . self::REGEX_WORD . self::REGEX_WORD_DIVIDER . self::REGEX_WORD . ')';
 	const REGEX_WORDS_PREFIX_REQUIRED = self::REGEX_PREFIX . self::REGEX_WORDS;
@@ -47,14 +51,15 @@ class Helper
 
 	public static function wordsToCoords(string $words): \stdClass
 	{
-		if ($words = self::validateWords($words)) {
-			$cacheKey = sprintf('words-to-coords-%s', $words);
-			return Factory::cache('w3w')->load($cacheKey, function () use ($words) {
-				return self::wordsToCoordsReal($words);
-			});
-		} else {
+		$words = self::validateWords($words);
+		if ($words === null) {
 			throw new \InvalidArgumentException('Words are invalid according REGEX.');
 		}
+
+		$cacheKey = sprintf('words-to-coords-%s', $words);
+		return self::cache()->load($cacheKey, function () use ($words) {
+			return self::wordsToCoordsReal($words);
+		});
 	}
 
 	public static function wordsToCoordsReal(string $words): \stdClass
@@ -75,21 +80,26 @@ class Helper
 		}
 	}
 
-	public static function coordsToWords(float $lat, float $lon): \stdClass
+	public static function coordsToWords(float $lat, float $lon, string $lang = self::LANG): \stdClass
 	{
-		$cacheKey = sprintf('coords-to-words-%F-%F', $lat, $lon);
-		return Factory::cache('w3w')->load($cacheKey, function () use ($lat, $lon) {
-			return self::coordsToWordsReal($lat, $lon);
+		$cacheKey = sprintf('coords-to-words-%F-%F-%s', $lat, $lon, $lang);
+		return self::cache()->load($cacheKey, function () use ($lat, $lon, $lang) {
+			return self::coordsToWordsReal($lat, $lon, $lang);
 		});
 	}
 
-	private static function coordsToWordsReal(float $lat, float $lon): \stdClass
+	private static function coordsToWordsReal(float $lat, float $lon, string $lang): \stdClass
 	{
 		$w3wApi = Factory::whatThreeWords();
-		$response = $w3wApi->convertTo3wa($lat, $lon);
+		$response = $w3wApi->convertTo3wa($lat, $lon, $lang);
 		if ($error = $w3wApi->getError()) {
 			throw new ResponseException(sprintf('Unable to get W3W from coordinates: %s', $error['message']));
 		}
 		return json_decode(json_encode($response)); // @TODO dirty hack to get stdclass instead of associated array
+	}
+
+	private static function cache(): Cache
+	{
+		return Factory::permaCache(Config::CACHE_NAMESPACE_W3W);
 	}
 }

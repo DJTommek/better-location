@@ -9,7 +9,6 @@ use App\TelegramCustomWrapper\Events\Command\HelpCommand;
 use App\TelegramCustomWrapper\Events\Command\LoginCommand;
 use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
 use Nette\Http\UrlImmutable;
-use Nette\Utils\Strings;
 
 /**
  * Warning: Never update this file directly, always update config.local.php in data folder!
@@ -20,6 +19,7 @@ class DefaultConfig
 {
 	const FOLDER_DATA = __DIR__;
 	const FOLDER_TEMP = __DIR__ . '/../../temp';
+	const FOLDER_TEMPLATES = __DIR__ . '/../templates';
 
 	/** @var string Basic URL used across application (web, webhook, static image, ...) */
 	protected const APP_URL = 'https://your-domain.com/some/path';
@@ -218,7 +218,18 @@ class DefaultConfig
 	 */
 	const TIMEZONE = 'UTC';
 
-	const FOLDER_TEMPLATES = __DIR__ . '/../templates';
+	/**
+	 * Internal configuration, do not change or overwrite.
+	 */
+	public final const CACHE_NAMESPACE_W3W = 'w3w';
+	public final const CACHE_NAMESPACE_GEONAMES = 'geonames';
+	public final const CACHE_NAMESPACE_NOMINATIM = 'nominatim';
+
+	public final const CACHE_NAMESPACES = [
+		self::CACHE_NAMESPACE_W3W,
+		self::CACHE_NAMESPACE_GEONAMES,
+		self::CACHE_NAMESPACE_NOMINATIM,
+	];
 
 	public static function isGlympse(): bool
 	{

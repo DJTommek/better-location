@@ -122,19 +122,42 @@ class Factory
 		return self::$objects['nominatim'];
 	}
 
-	private static function cacheStorage(): \Nette\Caching\Storage
+	/**
+	 * Storing for short-term (it will be cleared on each deploy on production)
+	 */
+	private static function tempCacheStorage(): \Nette\Caching\Storage
 	{
-		if (!isset(self::$objects['cacheStorage'])) {
+		if (!isset(self::$objects[__METHOD__])) {
 			$dir = Config::FOLDER_TEMP . '/nette-cache';
 			\Nette\Utils\FileSystem::createDir($dir);
-			self::$objects['cacheStorage'] = new \Nette\Caching\Storages\FileStorage($dir);
+			self::$objects[__METHOD__] = new \Nette\Caching\Storages\FileStorage($dir);
 		}
-		return self::$objects['cacheStorage'];
+		return self::$objects[__METHOD__];
+	}
+
+	/**
+	 * Storing data for longer-term (it will NOT be cleared on each deploy on production)
+	 */
+	private static function permaCacheStorage(): \Nette\Caching\Storage
+	{
+		if (!isset(self::$objects[__METHOD__])) {
+			$dir = Config::FOLDER_DATA . '/nette-perma-cache';
+			\Nette\Utils\FileSystem::createDir($dir);
+			self::$objects[__METHOD__] = new \Nette\Caching\Storages\FileStorage($dir);
+		}
+		return self::$objects[__METHOD__];
 	}
 
 	public static function cache(string $namespace): \Nette\Caching\Cache
 	{
-		return new \Nette\Caching\Cache(self::cacheStorage(), $namespace);
+		assert(in_array($namespace, Config::CACHE_NAMESPACES, true));
+		return new \Nette\Caching\Cache(self::tempCacheStorage(), $namespace);
+	}
+
+	public static function permaCache(string $namespace): \Nette\Caching\Cache
+	{
+		assert(in_array($namespace, Config::CACHE_NAMESPACES, true));
+		return new \Nette\Caching\Cache(self::permaCacheStorage(), $namespace);
 	}
 
 	public static function geonames(): \App\Geonames\Geonames

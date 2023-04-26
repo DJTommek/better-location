@@ -2,6 +2,7 @@
 
 namespace App\Geonames;
 
+use App\Config;
 use App\Factory;
 use App\Geonames\Types\TimezoneType;
 use GuzzleHttp\Client;
@@ -32,7 +33,7 @@ class Geonames
 	public function timezone(float $lat, float $lon): ?TimezoneType
 	{
 		$cacheKey = sprintf('timezone2-%F-%F', $lat, $lon);
-		return Factory::cache('geonames')->load($cacheKey, function (&$dependencies) use ($lat, $lon) {
+		return Factory::cache(Config::CACHE_NAMESPACE_GEONAMES)->load($cacheKey, function (&$dependencies) use ($lat, $lon) {
 			$dependencies[Cache::Expire] = '5 minutes';
 			return $this->timezoneReal($lat, $lon);
 		});

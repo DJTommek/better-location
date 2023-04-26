@@ -2,6 +2,7 @@
 
 namespace App\Nominatim;
 
+use App\Config;
 use App\Factory;
 use App\Utils\CoordinatesInterface;
 use maxh\Nominatim\Exceptions\NominatimException;
@@ -15,7 +16,7 @@ class Nominatim
 	public static function reverse(CoordinatesInterface $coordinates): ?array
 	{
 		$cacheKey = sprintf('reverse-%F-%F', $coordinates->getLat(), $coordinates->getLon());
-		return Factory::cache('nominatim')->load($cacheKey, function () use ($coordinates) {
+		return Factory::cache(Config::CACHE_NAMESPACE_NOMINATIM)->load($cacheKey, function () use ($coordinates) {
 			return self::reverseReal($coordinates);
 		});
 	}
