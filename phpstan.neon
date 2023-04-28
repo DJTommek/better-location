@@ -46,6 +46,7 @@ parameters:
 			# @see https://github.com/phpstan/phpstan/issues/9218
 			message: "#^Parameter .+ of .+ expects .+, .+ given\\.$#"
 			path: src/libs/Factory.php
+			reportUnmatched: false
 
 includes:
 	- phpstan-baseline.neon
