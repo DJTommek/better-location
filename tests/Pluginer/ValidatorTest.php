@@ -74,7 +74,8 @@ final class ValidatorTest extends TestCase
 		$files = glob($pattern);
 		foreach ($files as $file) {
 			$json = json_decode(file_get_contents($file), flags: JSON_THROW_ON_ERROR);
-			yield [basename($file), $json];
+			$basename = basename($file);
+			yield $basename => [$basename, $json];
 		}
 	}
 }
