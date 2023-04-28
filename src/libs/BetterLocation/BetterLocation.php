@@ -30,7 +30,7 @@ class BetterLocation implements CoordinatesInterface
 {
 	private Coordinates $coords;
 	/**
-	 * @var array<string>
+	 * @var array<int|string,string>
 	 */
 	private array $descriptions = [];
 	private string $prefixMessage;
@@ -359,23 +359,27 @@ class BetterLocation implements CoordinatesInterface
 		}
 	}
 
-	/** @param string $description */
-	public function addDescription(string $description, ?string $key = null): void
+	/**
+	 * Set or append description.
+	 * @param string|int|null $key Set null to add new description.
+	 *    If type is int or string is used, it will store on specific position. If already exists, will be overwritten.
+	 */
+	public function addDescription(string $description, string|int|null $key = null): void
 	{
-		if ($key) {
-			$this->descriptions[$key] = $description;
-		} else {
+		if ($key === null) {
 			$this->descriptions[] = $description;
+		} else {
+			$this->descriptions[$key] = $description;
 		}
 	}
 
-	public function hasDescription(string $key): bool
+	public function hasDescription(string|int $key): bool
 	{
 		return isset($this->descriptions[$key]);
 	}
 
 	/**
-	 * @return string[]
+	 * @return array<string|int,string>
 	 */
 	public function getDescriptions(): array
 	{
