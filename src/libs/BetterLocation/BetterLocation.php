@@ -14,6 +14,7 @@ use App\Icons;
 use App\MiniCurl\Exceptions\TimeoutException;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Button\RefreshButton;
+use App\TelegramCustomWrapper\TelegramHelper as TG;
 use App\Utils\Coordinates;
 use App\Utils\CoordinatesInterface;
 use App\Utils\Strict;
@@ -24,7 +25,6 @@ use Nette\Http\UrlImmutable;
 use OpenLocationCode\OpenLocationCode;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types;
-use App\TelegramCustomWrapper\TelegramHelper as TG;
 
 class BetterLocation implements CoordinatesInterface
 {
