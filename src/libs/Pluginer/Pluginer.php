@@ -2,10 +2,12 @@
 
 namespace App\Pluginer;
 
+use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\Config;
 use App\MiniCurl\Exceptions\TimeoutException;
 use App\MiniCurl\MiniCurl;
+use App\Utils\Strict;
 use Nette\Http\UrlImmutable;
 use Nette\Utils\Json;
 use unreal4u\TelegramAPI\Telegram;
@@ -67,6 +69,7 @@ class Pluginer
 			$locationOld = $collection[$locationKey];
 			$collection[$locationKey]->setPrefixMessage($locationNew->prefix);
 			foreach ($locationNew->descriptions as $descriptionKey => $description) {
+				$descriptionKey = Strict::isInt($descriptionKey) ? (int)$descriptionKey : $descriptionKey;
 				$locationOld->addDescription($description, $descriptionKey);
 			}
 		}
@@ -91,8 +94,24 @@ class Pluginer
 				'longitude' => $location->getLon(),
 				'address' => $location->getAddress(),
 				'prefix' => $location->getPrefixMessage(),
-				'descriptions' => $location->getDescriptions(),
+				'descriptions' => $this->descriptionToData($location),
 			];
+		}
+		return $result;
+	}
+
+	/**
+	 * Stringify all keys
+	 */
+	/**
+	 * @param BetterLocation $location
+	 * @return array<string,string>
+	 */
+	private function descriptionToData(BetterLocation $location): array
+	{
+		$result = [];
+		foreach ($location->getDescriptions() as $key => $description) {
+			$result[(string)$key] = $description;
 		}
 		return $result;
 	}

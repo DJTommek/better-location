@@ -87,9 +87,12 @@
 							"type": "string"
 						},
 						"descriptions": {
-							"type": "array",
-							"items": {
-								"type": "string"
+							"type": "object",
+							"additionalProperties": false,
+							"patternProperties": {
+								"^[0-9a-zA-Z]+$": {
+									"type": "string"
+								}
 							}
 						}
 					},

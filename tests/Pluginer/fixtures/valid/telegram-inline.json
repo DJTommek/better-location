@@ -19,9 +19,9 @@
 			"longitude": 14.295504,
 			"address": "Skandin\u00e1vsk\u00e1 15a, 155 00 Praha 13, Czechia",
 			"prefix": "\ud83c\udfaf Last location",
-			"descriptions": [
-				"Last update 2023-01-20 19:07:37 CET"
-			]
+			"descriptions": {
+				"0": "Last update 2023-01-20 19:07:37 CET"
+			}
 		}
 	]
 }
