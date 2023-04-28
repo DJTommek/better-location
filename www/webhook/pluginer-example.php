@@ -40,6 +40,10 @@ foreach ($data['locations'] as $key => &$location) {
 		$location['prefix'],
 		htmlspecialchars(Formatter::distance($mapCenterPrague->distance($coords)))
 	);
+
+	foreach ($location['descriptions'] as &$description) {
+		$description .= '!';
+	}
 }
 
 die(Json::encode($data));
