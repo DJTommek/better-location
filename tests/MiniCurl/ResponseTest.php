@@ -16,6 +16,10 @@ final class ResponseTest extends TestCase
 	public function testValid(string $dataName, string $rawResponse): void
 	{
 		$response = new Response($rawResponse, []);
+
+		$this->assertNotSame([], $response->getHeaders(), sprintf('Check if line ending in "%s" fixture are CRLF', $dataName));
+		$this->assertNotSame('', $response->getBody(), sprintf('Check if line ending in "%s" fixture are CRLF', $dataName));
+
 		$this->assertSame('Apache', $response->getHeader('server'));
 		$this->assertSame('application/json; charset=utf-8', $response->getHeader('Content-Type'));
 
