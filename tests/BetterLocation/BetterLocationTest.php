@@ -3,6 +3,7 @@
 namespace Tests\BetterLocation;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\Description;
 use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeCompactService;
 use App\BetterLocation\Service\GeohashService;
@@ -98,5 +99,56 @@ final class BetterLocationTest extends TestCase
 			MapyCzService::class,
 			false,
 		);
+	}
+
+	private function assertDescription(Description $description, string $expectedContent, ?string $expectedKey = null): void
+	{
+		$this->assertInstanceOf(Description::class, $description);
+		$this->assertSame($expectedKey, $description->key);
+		$this->assertSame($expectedContent, $description->content);
+	}
+
+	public function testDescription(): void
+	{
+		$location = BetterLocation::fromLatLon(34.151600, -118.076700);
+		$this->assertSame([], $location->getDescriptions());
+		$location->addDescription('first description');
+
+		$this->assertDescription($location->getDescriptions()[0], 'first description');
+
+		$location->addDescription('second description');
+
+		$this->assertDescription($location->getDescriptions()[0], 'first description');
+		$this->assertDescription($location->getDescriptions()[1], 'second description');
+
+		$this->assertNull($location->getDescription('three'));
+		$this->assertFalse($location->hasDescription('three'));
+
+		$location->addDescription('third keyed description', 'three');
+
+		$this->assertDescription($location->getDescriptions()[0], 'first description');
+		$this->assertDescription($location->getDescriptions()[1], 'second description');
+		$this->assertDescription($location->getDescriptions()[2], 'third keyed description', 'three');
+		$this->assertTrue($location->hasDescription('three'));
+		$this->assertSame($location->getDescription('three'), $location->getDescriptions()[2]);
+
+		$location->addDescription('description #4');
+
+		$this->assertDescription($location->getDescriptions()[0], 'first description');
+		$this->assertDescription($location->getDescriptions()[1], 'second description');
+		$this->assertDescription($location->getDescriptions()[2], 'third keyed description', 'three');
+		$this->assertTrue($location->hasDescription('three'));
+		$this->assertSame($location->getDescription('three'), $location->getDescriptions()[2]);
+		$this->assertDescription($location->getDescriptions()[3], 'description #4');
+
+		// overwrite description
+		$this->assertCount(4, $location->getDescriptions());
+		$location->addDescription('updated third keyed description', 'three');
+		$this->assertSame($location->getDescription('three'), $location->getDescriptions()[2]);
+		$this->assertDescription($location->getDescriptions()[2], 'updated third keyed description', 'three');
+
+		$this->assertCount(4, $location->getDescriptions());
+		$location->clearDescriptions();
+		$this->assertCount(0, $location->getDescriptions());
 	}
 }

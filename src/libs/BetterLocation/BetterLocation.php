@@ -30,7 +30,7 @@ class BetterLocation implements CoordinatesInterface
 {
 	private Coordinates $coords;
 	/**
-	 * @var array<int|string,string>
+	 * @var list<Description>
 	 */
 	private array $descriptions = [];
 	private string $prefixMessage;
@@ -249,9 +249,7 @@ class BetterLocation implements CoordinatesInterface
 		}
 
 		foreach ($this->descriptions as $description) {
-			if ($description !== '') {
-				$text .= $description . TG::NL;
-			}
+			$text .= $description . TG::NL;
 		}
 
 		return $text . TG::NL;
@@ -367,19 +365,41 @@ class BetterLocation implements CoordinatesInterface
 	public function addDescription(string $description, string|int|null $key = null): void
 	{
 		if ($key === null) {
-			$this->descriptions[] = $description;
-		} else {
-			$this->descriptions[$key] = $description;
+			$this->descriptions[] = new Description($description);
+			return;
 		}
+
+		$storedDescription = $this->getDescription($key);
+		if ($storedDescription === null) {
+			$this->descriptions[] = new Description($description, $key);
+			return;
+		}
+
+		$storedDescription->content = $description;
 	}
 
-	public function hasDescription(string|int $key): bool
+	public function hasDescription(string $key): bool
 	{
-		return isset($this->descriptions[$key]);
+		return $this->getDescription($key) !== null;
+	}
+
+	public function clearDescriptions(): void {
+		$this->descriptions = [];
+	}
+
+	public function getDescription(string $key): ?Description
+	{
+		foreach ($this->descriptions as $description) {
+			assert($description instanceof Description);
+			if ($description->key === $key) {
+				return $description;
+			}
+		}
+		return null;
 	}
 
 	/**
-	 * @return array<string|int,string>
+	 * @return list<Description>
 	 */
 	public function getDescriptions(): array
 	{

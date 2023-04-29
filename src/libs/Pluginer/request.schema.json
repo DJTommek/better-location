@@ -87,11 +87,20 @@
 							"type": "string"
 						},
 						"descriptions": {
-							"type": "object",
-							"additionalProperties": false,
-							"patternProperties": {
-								"^[0-9a-zA-Z]+$": {
-									"type": "string"
+							"type": "array",
+							"items": {
+								"type": "object",
+								"additionalProperties": false,
+								"properties": {
+									"content": {
+										"type": "string"
+									},
+									"key": {
+										"type": [
+											"null",
+											"string"
+										]
+									}
 								}
 							}
 						}

@@ -20,7 +20,7 @@ if (trim($input) === '') {
 	die('Error: Structure data is missing! This page should be requested only using POST with correct JSON structure as request body.');
 }
 
-$data = Json::decode($input, Json::FORCE_ARRAY);
+$data = Json::decode($input);
 
 // little offset of usually example coordinates so calculated distance is not 0 meters for default example
 $mapCenterPrague = new Coordinates(50.0874, 14.4206);
@@ -31,18 +31,18 @@ $emojis = [
 	"\u{1f1e8}\u{1f1ff}" // https://emojipedia.org/flag-czechia/
 ];
 
-foreach ($data['locations'] as $key => &$location) {
-	$coords = new Coordinates($location['latitude'], $location['longitude']);
+foreach ($data->locations as $key => &$location) {
+	$coords = new Coordinates($location->latitude, $location->longitude);
 
-	$location['prefix'] = sprintf(
+	$location->prefix = sprintf(
 		'%s %s (<b>%s</b> from Prague)',
 		$emojis[array_rand($emojis)],
-		$location['prefix'],
+		$location->prefix,
 		htmlspecialchars(Formatter::distance($mapCenterPrague->distance($coords)))
 	);
 
-	foreach ($location['descriptions'] as &$description) {
-		$description .= '!';
+	foreach ($location->descriptions as $description) {
+		$description->content .= '!';
 	}
 }
 
