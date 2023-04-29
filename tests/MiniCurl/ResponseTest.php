@@ -1,0 +1,39 @@
+<?php declare(strict_types=1);
+
+namespace Tests\MiniCurl;
+
+use App\MiniCurl\Response;
+use PHPUnit\Framework\TestCase;
+
+final class ResponseTest extends TestCase
+{
+	private const FIXTURES_PATH = __DIR__ . '/fixtures';
+	private const FIXTURES_VALID_PATH = self::FIXTURES_PATH . '/valid';
+
+	/**
+	 * @dataProvider responseProvider
+	 */
+	public function testValid(string $dataName, string $rawResponse): void
+	{
+		$response = new Response($rawResponse, []);
+		$this->assertSame('Apache', $response->getHeader('server'));
+		$this->assertSame('application/json; charset=utf-8', $response->getHeader('Content-Type'));
+
+		$body = $response->getBody();
+		$this->assertTrue(str_starts_with($body, '{"meta":{"date":1234567890}'));
+		$json = $response->getBodyAsJson();
+		$this->assertSame(1234567890, $json->meta->date);
+		$this->assertSame('ingressPortal', $json->locations[0]->descriptions[2]->key);
+	}
+
+	public static function responseProvider(): \Iterator
+	{
+		$pattern = self::FIXTURES_VALID_PATH . '/*.txt';
+		$files = glob($pattern);
+		foreach ($files as $file) {
+			$basename = basename($file);
+			$rawResponse = file_get_contents($file);
+			yield $basename => [$basename, $rawResponse];
+		}
+	}
+}

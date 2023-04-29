@@ -18,9 +18,7 @@ class Response
 		}
 		$this->cacheHit = $cacheHit;
 		$this->raw = $rawResponse;
-		list($headerString, $body) = explode("\r\n\r\n", $rawResponse, 2);
-		$this->body = $body;
-		$this->processHeaderString($headerString);
+		$this->processRawResponse($rawResponse);
 		$this->info = $curlInfo;
 	}
 
@@ -32,6 +30,34 @@ class Response
 			list($headerName, $headerValue) = explode(': ', $header, 2);
 			$this->headers[mb_strtolower($headerName)] = $headerValue;
 		}
+	}
+
+	/**
+	 * @HACK this is temporary workaround, how to properly parse HTTP headers, if there are multiple blocks, instead of
+	 * usual one. There might be some caveats, eg if request has body that begins with 'HTTP/'.
+	 * Rewriting to Guzzle (or some alternative library) is highly advised, {@see https://github.com/DJTommek/better-location/issues/122}
+	 *
+	 * @author https://stackoverflow.com/questions/9183178/can-php-curl-retrieve-response-headers-and-body-in-a-single-request
+	 */
+	private function processRawResponse(string $rawResponse): void {
+		$parts = explode("\r\n\r\n", $rawResponse);
+		$headerString = null;
+		$body = '';
+		// There might be multiple HTTP header blocks, so search for last valid HTTP header block
+		foreach($parts as $part) {
+			if (str_starts_with($part, 'HTTP/')) {
+				$headerString = $part;
+			} else {
+				$body = $part;
+			}
+		}
+
+		if ($headerString === null) {
+			throw new \RuntimeException('Unable to parse HTTP header from response.');
+		}
+
+		$this->body = $body;
+		$this->processHeaderString($headerString);
 	}
 
 	public function getRaw(): string
