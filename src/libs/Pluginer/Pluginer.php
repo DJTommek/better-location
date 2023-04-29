@@ -2,11 +2,11 @@
 
 namespace App\Pluginer;
 
-use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\Config;
 use App\MiniCurl\Exceptions\TimeoutException;
 use App\MiniCurl\MiniCurl;
+use App\Utils\SimpleLogger;
 use Nette\Http\UrlImmutable;
 use Nette\Utils\Json;
 use unreal4u\TelegramAPI\Telegram;
@@ -92,7 +92,10 @@ class Pluginer
 		$miniCurl->allowAutoConvertEncoding(false);
 		$miniCurl->setPostJson($requestBody);
 		$response = $miniCurl->run();
-		return Json::decode($response->getBody());
+		SimpleLogger::log(SimpleLogger::NAME_PLUGINER_REQUEST, $requestBody);
+		$response = Json::decode($response->getBody());
+		SimpleLogger::log(SimpleLogger::NAME_PLUGINER_RESPONSE, $response);
+		return $response;
 	}
 
 	private function collectionToData(BetterLocationCollection $collection): array
