@@ -2,6 +2,7 @@
 
 # Never modify line endings
 tests/MiniCurl/fixtures/*/*.txt -crlf
+tests/MiniCurl/fixtures/*/*.txt eol=crlf
 
 # Ignore fixtures files to properly count repository language stats
 # @see https://github.com/github/linguist#vendored-code
