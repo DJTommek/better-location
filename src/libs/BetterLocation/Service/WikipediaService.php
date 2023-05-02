@@ -4,10 +4,9 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\Config;
-use App\Http\HttpClientFactory;
-use App\MiniCurl\MiniCurl;
-use App\Utils\Coordinates;
-use Nette\Utils\Strings;
+use App\Http\HttpClient;
+use DJTommek\Coordinates\Coordinates;
+use Nette\Utils\Json;
 
 final class WikipediaService extends AbstractService
 {
@@ -22,8 +21,8 @@ final class WikipediaService extends AbstractService
 			$this->url &&
 			$this->url->getDomain(2) === 'wikipedia.org' &&
 			(
-				Strings::startsWith($this->url->getPath(), '/wiki/') ||
-				Strings::startsWith($this->url->getPath(), '/w/')
+				str_starts_with($this->url->getPath(), '/wiki/') ||
+				str_starts_with($this->url->getPath(), '/w/')
 			)
 		);
 	}
@@ -31,16 +30,23 @@ final class WikipediaService extends AbstractService
 	public function process(): void
 	{
 		$response = $this->requestLocationFromWikipediaPage();
-		if (isset($response->wgCoordinates) && Coordinates::isLat($response->wgCoordinates->lat) && Coordinates::isLon($response->wgCoordinates->lon)) {
-			$location = new BetterLocation($this->inputUrl, $response->wgCoordinates->lat, $response->wgCoordinates->lon, self::class);
-			$location->setPrefixMessage(sprintf('<a href="%s">Wikipedia %s</a>', $this->inputUrl, htmlspecialchars($response->wgTitle, ENT_NOQUOTES)));
-			$this->collection->add($location);
+		if (isset($response->wgCoordinates) === false) {
+			return;
 		}
+
+		$coords = Coordinates::safe($response->wgCoordinates->lat, $response->wgCoordinates->lon);
+		if ($coords === null) {
+			return;
+		}
+
+		$location = new BetterLocation($this->inputUrl, $coords->lat, $coords->lon, self::class);
+		$location->setPrefixMessage(sprintf('<a href="%s">Wikipedia %s</a>', $this->inputUrl, htmlspecialchars($response->wgTitle, ENT_NOQUOTES)));
+		$this->collection->add($location);
 	}
 
 	private function requestLocationFromWikipediaPage(): \stdClass
 	{
-		$httpClient = new HttpClientFactory();
+		$httpClient = new HttpClient();
 		$httpClient->allowCache(Config::CACHE_TTL_WIKIPEDIA);
 		$httpClient->setHttpHeader('a', 'b');
 		$body = (string)$httpClient->get($this->url)->getBody();
@@ -57,6 +63,6 @@ final class WikipediaService extends AbstractService
 		$jsonText = rtrim($jsonText, " \t\n\r\0\x0B;"); // default whitespace trim and ;
 		$jsonText = preg_replace('/:\s?!0/', ':false', $jsonText); // replace !0 with false
 		$jsonText = preg_replace('/:\s?!1/', ':true', $jsonText); // replace !1 with true
-		return json_decode($jsonText, false, 512, JSON_THROW_ON_ERROR);
+		return Json::decode($jsonText);
 	}
 }

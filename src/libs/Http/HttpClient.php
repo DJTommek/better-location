@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Config;
 use App\Factory;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
@@ -10,17 +11,17 @@ use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
 use Psr\Http\Message\UriInterface;
 
-class HttpClientFactory
+class HttpClient
 {
+	/**
+	 * @var array<string,mixed>
+	 */
 	private array $config = [
 		'connect_timeout' => 5,
 		'read_timeout' => 5,
 		'timeout' => 5,
 	];
 	private ?\GuzzleHttp\Client $client = null;
-	/**
-	 * @var int
-	 */
 	private int $cacheTtl = 0;
 
 	private ?Cache $cacheStorage = null;
@@ -35,7 +36,10 @@ class HttpClientFactory
 	 */
 	private array $httpHeaders = [];
 
-	public function __construct($config = [])
+	/**
+	 * @param array<string,mixed> $config
+	 */
+	public function __construct(array $config = [])
 	{
 		$this->config = array_merge($config, $this->config);
 	}
@@ -71,7 +75,7 @@ class HttpClientFactory
 	 * contain the query string as well.
 	 *
 	 * @param string|UriInterface|Url|UrlImmutable $uri URI object or string.
-	 * @param array $options Request options to apply.
+	 * @param array<string,mixed> $options Request options to apply.
 	 *
 	 * @throws GuzzleException
 	 */
@@ -128,13 +132,22 @@ class HttpClientFactory
 
 	private function getCacheStorage(): Cache
 	{
-		return Factory::Cache(__CLASS__);
+		if ($this->cacheStorage === null) {
+			$cacheStorage = Factory::cache(Config::CACHE_NAMESPACE_HTTP_CLIENT); // Default cache storage
+			$this->setCacheStorage($cacheStorage);
+		}
+		return $this->cacheStorage;
+	}
+
+	private function setCacheStorage(Cache $cacheStorage): void
+	{
+		$this->cacheStorage = $cacheStorage;
 	}
 
 	private function getCacheKey(Request $request): string
 	{
 		$keyRaw = serialize($request);
-		$keyRaw = serialize($this->httpHeaders);
+		$keyRaw .= serialize($this->httpHeaders);
 		$keyRaw .= serialize($this->httpCookies);
 		return md5($keyRaw);
 	}
