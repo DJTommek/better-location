@@ -4,9 +4,13 @@ namespace Tests\Utils;
 
 use App\Utils\Coordinates;
 use PHPUnit\Framework\TestCase;
+use Tests\IteratorTrait;
+use Tests\TestUtils;
 
 final class CoordinatesTest extends TestCase
 {
+	use IteratorTrait;
+
 	/** @var mixed[] */
 	private static $fileFixtures = [];
 	/** @var mixed[] */
@@ -178,24 +182,24 @@ final class CoordinatesTest extends TestCase
 
 	/**
 	 * Generate random coordinates and compare distance between by using first and second set of method argument.
+	 * @deprecated use {@see \DJTommek\Coordinates\Coordinates}
+	 * @dataProvider iterator100Provider
 	 */
 	public function testDistanceGenerated(): void
 	{
-		for ($i = 0; $i < 10_000; $i++) {
-			$coords1 = new Coordinates(
-				rand(-89_999_999, 89_999_999) / 1_000_000,
-				rand(-179_999_999, 179_999_999) / 1_000_000,
-			);
-			$coords2 = new Coordinates(
-				rand(-89_999_999, 89_999_999) / 1_000_000,
-				rand(-179_999_999, 179_999_999) / 1_000_000,
-			);
+		$coords1 = new Coordinates(
+			TestUtils::randomLat(),
+			TestUtils::randomLon(),
+		);
+		$coords2 = new Coordinates(
+			TestUtils::randomLat(),
+			TestUtils::randomLon(),
+		);
 
-			$this->assertDistance(
-				$coords1->distance($coords2),
-				$coords2->distance($coords1)
-			);
-		}
+		$this->assertDistance(
+			$coords1->distance($coords2),
+			$coords2->distance($coords1)
+		);
 	}
 
 	public function testDistanceStatic(): void
@@ -214,20 +218,20 @@ final class CoordinatesTest extends TestCase
 
 	/**
 	 * Generate random coordinates and compare distance between by using first and second set of method argument.
+	 * @deprecated use {@see \DJTommek\Coordinates\Coordinates}
+	 * @dataProvider iterator100Provider
 	 */
 	public function testDistanceStaticGenerated(): void
 	{
-		for ($i = 0; $i < 10_000; $i++) {
-			$lat1 = rand(-89_999_999, 89_999_999) / 1_000_000;
-			$lon1 = rand(-179_999_999, 179_999_999) / 1_000_000;
+		$lat1 = TestUtils::randomLat();
+		$lon1 = TestUtils::randomLon();
 
-			$lat2 = rand(-89_999_999, 89_999_999) / 1_000_000;
-			$lon2 = rand(-179_999_999, 179_999_999) / 1_000_000;
+		$lat2 = TestUtils::randomLat();
+		$lon2 = TestUtils::randomLon();
 
-			$this->assertDistance(
-				Coordinates::distanceLatLon($lat1, $lon1, $lat2, $lon2),
-				Coordinates::distanceLatLon($lat2, $lon2, $lat1, $lon1)
-			);
-		}
+		$this->assertDistance(
+			Coordinates::distanceLatLon($lat1, $lon1, $lat2, $lon2),
+			Coordinates::distanceLatLon($lat2, $lon2, $lat1, $lon1)
+		);
 	}
 }
