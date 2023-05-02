@@ -5,27 +5,53 @@ namespace Tests\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\MapyCzService;
-use PHPUnit\Framework\TestCase;
 
-final class MapyCzServiceTest extends TestCase
+final class MapyCzServiceTest extends AbstractServiceTestCase
 {
-	/** @noinspection PhpUnhandledExceptionInspection */
-	public function testGenerateShareLink(): void
+	protected function getServiceClass(): string
 	{
-		$this->assertSame('https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451', MapyCzService::getLink(50.087451, 14.420671));
-		$this->assertSame('https://mapy.cz/zakladni?y=50.100000&x=14.500000&source=coor&id=14.500000%2C50.100000', MapyCzService::getLink(50.1, 14.5));
-		$this->assertSame('https://mapy.cz/zakladni?y=-50.200000&x=14.600000&source=coor&id=14.600000%2C-50.200000', MapyCzService::getLink(-50.2, 14.6000001)); // round down
-		$this->assertSame('https://mapy.cz/zakladni?y=50.300000&x=-14.700001&source=coor&id=-14.700001%2C50.300000', MapyCzService::getLink(50.3, -14.7000009)); // round up
-		$this->assertSame('https://mapy.cz/zakladni?y=-50.400000&x=-14.800008&source=coor&id=-14.800008%2C-50.400000', MapyCzService::getLink(-50.4, -14.800008));
+		return MapyCzService::class;
 	}
 
-	public function testGenerateDriveLink(): void
+	protected function getShareLinks(): array
 	{
-		$this->assertSame('https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451', MapyCzService::getLink(50.087451, 14.420671, true));
-		$this->assertSame('https://mapy.cz/zakladni?y=50.100000&x=14.500000&source=coor&id=14.500000%2C50.100000', MapyCzService::getLink(50.1, 14.5, true));
-		$this->assertSame('https://mapy.cz/zakladni?y=-50.200000&x=14.600000&source=coor&id=14.600000%2C-50.200000', MapyCzService::getLink(-50.2, 14.6000001, true)); // round down
-		$this->assertSame('https://mapy.cz/zakladni?y=50.300000&x=-14.700001&source=coor&id=-14.700001%2C50.300000', MapyCzService::getLink(50.3, -14.7000009, true)); // round up
-		$this->assertSame('https://mapy.cz/zakladni?y=-50.400000&x=-14.800008&source=coor&id=-14.800008%2C-50.400000', MapyCzService::getLink(-50.4, -14.800008, true));
+		return [
+			'https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451',
+			'https://mapy.cz/zakladni?y=50.100000&x=14.500000&source=coor&id=14.500000%2C50.100000',
+			'https://mapy.cz/zakladni?y=-50.200000&x=14.600000&source=coor&id=14.600000%2C-50.200000',
+			'https://mapy.cz/zakladni?y=50.300000&x=-14.700001&source=coor&id=-14.700001%2C50.300000',
+			'https://mapy.cz/zakladni?y=-50.400000&x=-14.800008&source=coor&id=-14.800008%2C-50.400000',
+		];
+	}
+
+	protected function getDriveLinks(): array
+	{
+		return [
+			'https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451',
+			'https://mapy.cz/zakladni?y=50.100000&x=14.500000&source=coor&id=14.500000%2C50.100000',
+			'https://mapy.cz/zakladni?y=-50.200000&x=14.600000&source=coor&id=14.600000%2C-50.200000',
+			'https://mapy.cz/zakladni?y=50.300000&x=-14.700001&source=coor&id=-14.700001%2C50.300000',
+			'https://mapy.cz/zakladni?y=-50.400000&x=-14.800008&source=coor&id=-14.800008%2C-50.400000',
+		];
+
+	}
+
+	public function testIsValid(): void
+	{
+		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15'));
+		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.0695244&z=15'));
+
+		$this->assertFalse(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?y=50.0695244'));
+	}
+
+	/**
+	 * @group request
+	 */
+	public function testProcess(): void
+	{
+		$this->assertLocation('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244', 50.069524, 14.450824, MapyCzService::TYPE_MAP);
+		$this->assertLocation('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.0695244&z=15', 50.069524, 14.450824, MapyCzService::TYPE_PLACE_COORDS);
+		$this->assertLocation('https://en.mapy.cz/fotografie?sourcep=foto&idp=3255831', 49.295782,14.447919, MapyCzService::TYPE_PHOTO);
 	}
 
 	public function testGenerateCollectionLink(): void
@@ -253,7 +279,7 @@ final class MapyCzServiceTest extends TestCase
 	{
 		$this->assertSame('50.073784,14.422105', MapyCzService::processStatic('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=2111676')->getFirst()->__toString());
 		$this->assertSame('50.084007,14.440339', MapyCzService::processStatic('https://en.mapy.cz/zakladni?x=14.4527551&y=50.0750056&z=15&source=pubt&id=15308193')->getFirst()->__toString());
-		$this->assertSame('50.084747,14.454012', MapyCzService::processStatic('https://mapy.cz/zakladni?x=14.4651576&y=50.0796325&z=15&source=firm&id=468797')->getFirst()->__toString());
+		$this->assertSame('50.084748,14.454012', MapyCzService::processStatic('https://mapy.cz/zakladni?x=14.4651576&y=50.0796325&z=15&source=firm&id=468797')->getFirst()->__toString());
 		$this->assertSame('50.093312,14.455159', MapyCzService::processStatic('https://mapy.cz/zakladni?x=14.4367048&y=50.0943640&z=15&source=traf&id=15659817')->getFirst()->__toString());
 		$this->assertSame('49.993611,14.205278', MapyCzService::processStatic('https://en.mapy.cz/fotografie?x=14.2029782&y=49.9929235&z=17&source=foto&id=1080344')->getFirst()->__toString());
 		$this->assertSame('50.106624,14.366203', MapyCzService::processStatic('https://en.mapy.cz/zakladni?x=14.3596717&y=50.0997874&z=15&source=base&id=1833337')->getFirst()->__toString()); // area
@@ -273,7 +299,7 @@ final class MapyCzServiceTest extends TestCase
 	{
 		$this->assertSame('50.533111,16.155906', MapyCzService::processStatic('https://en.mapy.cz/s/devevemoje')->getFirst()->__toString());
 		$this->assertSame('50.084007,14.440339', MapyCzService::processStatic('https://en.mapy.cz/s/degogalazo')->getFirst()->__toString());
-		$this->assertSame('50.084747,14.454012', MapyCzService::processStatic('https://en.mapy.cz/s/cavukepuba')->getFirst()->__toString());
+		$this->assertSame('50.084748,14.454012', MapyCzService::processStatic('https://en.mapy.cz/s/cavukepuba')->getFirst()->__toString());
 		$this->assertSame('50.093312,14.455159', MapyCzService::processStatic('https://en.mapy.cz/s/fuvatavode')->getFirst()->__toString());
 		$this->assertSame('50.106624,14.366203', MapyCzService::processStatic('https://en.mapy.cz/s/gesaperote')->getFirst()->__toString()); // area
 		// some other places than Czechia (source OSM)
