@@ -4,6 +4,9 @@ namespace App\MiniCurl;
 
 class Response
 {
+	public const LINE_SEPARATORS = "\r\n";
+	public const HEADERS_BODY_SEPARATOR = self::LINE_SEPARATORS . self::LINE_SEPARATORS;
+
 	private $raw;
 	private $body;
 	private $headers = [];
@@ -24,7 +27,7 @@ class Response
 
 	public function processHeaderString(string $headerString): void
 	{
-		$headers = explode("\r\n", $headerString);
+		$headers = explode(self::LINE_SEPARATORS, $headerString);
 		array_shift($headers);
 		foreach ($headers as $header) {
 			list($headerName, $headerValue) = explode(': ', $header, 2);
@@ -40,7 +43,7 @@ class Response
 	 * @author https://stackoverflow.com/questions/9183178/can-php-curl-retrieve-response-headers-and-body-in-a-single-request
 	 */
 	private function processRawResponse(string $rawResponse): void {
-		$parts = explode("\r\n\r\n", $rawResponse);
+		$parts = explode(self::HEADERS_BODY_SEPARATOR, $rawResponse);
 		$headerString = null;
 		$body = '';
 		// There might be multiple HTTP header blocks, so search for last valid HTTP header block

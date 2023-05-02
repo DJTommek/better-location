@@ -17,8 +17,8 @@ final class ResponseTest extends TestCase
 	{
 		$response = new Response($rawResponse, []);
 
-		$this->assertNotSame([], $response->getHeaders(), sprintf('Check if line ending in "%s" fixture are CRLF', $dataName));
-		$this->assertNotSame('', $response->getBody(), sprintf('Check if line ending in "%s" fixture are CRLF', $dataName));
+		$this->assertNotSame([], $response->getHeaders(), sprintf('Check if line ending in "%s" fixture are LF', $dataName));
+		$this->assertNotSame('', $response->getBody(), sprintf('Check if line ending in "%s" fixture are LF', $dataName));
 
 		$this->assertSame('Apache', $response->getHeader('server'));
 		$this->assertSame('application/json; charset=utf-8', $response->getHeader('Content-Type'));
@@ -37,7 +37,9 @@ final class ResponseTest extends TestCase
 		foreach ($files as $file) {
 			$basename = basename($file);
 			$rawResponse = file_get_contents($file);
-			yield $basename => [$basename, $rawResponse];
+			// @HACK Unable to properly save files, to have CRLF line ends (\r\n), so it must be converted manually here
+			$rawResponse2 = str_replace("\n", Response::LINE_SEPARATORS, $rawResponse);
+			yield $basename => [$basename, $rawResponse2];
 		}
 	}
 }
