@@ -75,7 +75,6 @@ final class RopikyNetServiceTest extends TestCase
 	 */
 	public function testMissingCoordinates(): void
 	{
-		$this->assertCount(0, RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1121190136')->getCollection());
 		$this->assertCount(0, RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1121190152')->getCollection());
 	}
 

@@ -78,7 +78,7 @@ final class VojenskoCzServiceTest extends TestCase
 		// general web pages
 		$this->assertCount(0, VojenskoCzService::processStatic('http://www.vojensko.cz/mapa-stranek')->getCollection());
 		$this->assertCount(0, VojenskoCzService::processStatic('http://www.vojensko.cz/rss')->getCollection());
-		$this->assertCount(0, VojenskoCzService::processStatic('http://www.vojensko.cz/feed/rss/novinky.php')->getCollection());
+		$this->assertCount(0, VojenskoCzService::processStatic('https://www.vojensko.cz/feed/rss/aktuality.php')->getCollection());
 		$this->assertCount(0, VojenskoCzService::processStatic('http://www.vojensko.cz/kontakt')->getCollection());
 	}
 }
