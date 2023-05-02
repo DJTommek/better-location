@@ -5,9 +5,12 @@ namespace Tests\BetterLocation\Service;
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;
+use Tests\LocationTrait;
 
 abstract class AbstractServiceTestCase extends TestCase
 {
+	use LocationTrait;
+
 	public const EXAMPLE_COORDS = [
 		[50.087451, 14.420671],
 		[50.1, 14.5],
@@ -75,7 +78,7 @@ abstract class AbstractServiceTestCase extends TestCase
 		}
 	}
 
-	protected function assertLocation(string $input, float $expectedLat, float $expectedLon, ?string $expectedSourceType = null): void
+	protected function assertLocation(string $input, float $expectedLat, float $expectedLon, ?string $expectedSourceType = null, float $delta = 0.000_001): void
 	{
 		$serviceName = $this->getServiceClass();
 		$service = new $serviceName($input);
@@ -88,8 +91,7 @@ abstract class AbstractServiceTestCase extends TestCase
 		$this->assertCount(1, $collection);
 
 		$location = $collection->getFirst();
-		$this->assertEqualsWithDelta($expectedLat, $location->getLat(), 0.000_001);
-		$this->assertEqualsWithDelta($expectedLon, $location->getLon(), 0.000_001);
+		$this->assertCoordsWithDelta($expectedLat, $expectedLon, $location, $delta);
 
 		$this->assertSame($expectedSourceType, $location->getSourceType());
 	}

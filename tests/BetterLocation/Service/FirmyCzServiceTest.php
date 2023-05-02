@@ -2,25 +2,38 @@
 
 namespace Tests\BetterLocation\Service;
 
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\FirmyCzService;
-use PHPUnit\Framework\TestCase;
 
-final class FirmyCzServiceTest extends TestCase
+final class FirmyCzServiceTest extends AbstractServiceTestCase
 {
-	public function testGenerateShareLink(): void
+
+	protected function getServiceClass(): string
 	{
-		$this->expectException(NotSupportedException::class);
-		FirmyCzService::getLink(50.087451, 14.420671);
+		return FirmyCzService::class;
 	}
 
-	public function testGenerateDriveLink(): void
+	protected function getShareLinks(): array
 	{
-		$this->expectException(NotSupportedException::class);
-		FirmyCzService::getLink(50.087451, 14.420671, true);
+		return [];
 	}
 
-	public function testIfValidLinks(): void
+	protected function getDriveLinks(): array
+	{
+		return [];
+	}
+
+	/**
+	 * @group request
+	 */
+	public function testInvalid(): void
+	{
+		$this->expectException(\DJTommek\MapyCzApi\MapyCzApiException::class);
+		$this->expectExceptionCode(404);
+		$this->expectExceptionMessage('Not Found');
+		$this->assertSame('50.077886,14.371990', FirmyCzService::processStatic('https://www.firmy.cz/detail/9999999-restaurace-a-pivnice-u-slunce-blansko.html')->getFirst()->__toString());
+	}
+
+	public function testIsValid(): void
 	{
 		$this->assertTrue(FirmyCzService::isValidStatic('https://www.firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html'));
 		$this->assertTrue(FirmyCzService::isValidStatic('https://www.firmy.cz/detail/13300341-blablabla'));
@@ -41,27 +54,18 @@ final class FirmyCzServiceTest extends TestCase
 	/**
 	 * @group request
 	 */
-	public function testValidLinks(): void
+	public function testProcess(): void
 	{
-		$this->assertSame('49.364246,16.644386', FirmyCzService::processStatic('https://www.firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html')->getFirst()->__toString());
-		$this->assertSame('49.364246,16.644386', FirmyCzService::processStatic('https://www.firmy.cz/detail/13300341-blablabla')->getFirst()->__toString());
-		$this->assertSame('49.364246,16.644386', FirmyCzService::processStatic('https://www.firmy.cz/detail/13300341')->getFirst()->__toString());
-		$this->assertSame('49.364246,16.644386', FirmyCzService::processStatic('http://www.firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html')->getFirst()->__toString());
-		$this->assertSame('49.364246,16.644386', FirmyCzService::processStatic('https://firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html')->getFirst()->__toString());
-		$this->assertSame('49.364246,16.644386', FirmyCzService::processStatic('http://firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html')->getFirst()->__toString());
-		$this->assertSame('49.541035,15.361975', FirmyCzService::processStatic('https://www.firmy.cz/detail/13134188-kosmeticky-salon-h2o-humpolec.html')->getFirst()->__toString());
-		$this->assertSame('50.087414,14.469195', FirmyCzService::processStatic('https://www.firmy.cz/detail/13139938-zelva-beers-burgers-praha-zizkov.html')->getFirst()->__toString());
-		$this->assertSame('50.221840,12.190701', FirmyCzService::processStatic('https://www.firmy.cz/detail/207772-penny-market-as.html')->getFirst()->__toString());
-	}
+		$delta = 0.000_01;
+		$this->assertLocation('https://www.firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html', 49.364247, 16.644386, delta: $delta);
+		$this->assertLocation('https://www.firmy.cz/detail/13300341-blablabla', 49.364246, 16.644386, delta: $delta);
+		$this->assertLocation('https://www.firmy.cz/detail/13300341', 49.364246, 16.644386, delta: $delta);
+		$this->assertLocation('http://www.firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html', 49.364246, 16.644386, delta: $delta);
+		$this->assertLocation('https://firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html', 49.364246, 16.644386, delta: $delta);
+		$this->assertLocation('http://firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html', 49.364246, 16.644386, delta: $delta);
 
-	/**
-	 * @group request
-	 */
-	public function testInvalid(): void
-	{
-		$this->expectException(\DJTommek\MapyCzApi\MapyCzApiException::class);
-		$this->expectExceptionCode(404);
-		$this->expectExceptionMessage('Not Found');
-		$this->assertSame('50.077886,14.371990', FirmyCzService::processStatic('https://www.firmy.cz/detail/9999999-restaurace-a-pivnice-u-slunce-blansko.html')->getFirst()->__toString());
+		$this->assertLocation('https://www.firmy.cz/detail/13134188-kosmeticky-salon-h2o-humpolec.html', 49.541035, 15.361975, delta: $delta);
+		$this->assertLocation('https://www.firmy.cz/detail/13139938-zelva-beers-burgers-praha-zizkov.html', 50.087414, 14.469195, delta: $delta);
+		$this->assertLocation('https://www.firmy.cz/detail/207772-penny-market-as.html', 50.221840, 12.190701, delta: $delta);
 	}
 }
