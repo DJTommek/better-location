@@ -226,11 +226,13 @@ class DefaultConfig
 	public final const CACHE_NAMESPACE_W3W = 'w3w';
 	public final const CACHE_NAMESPACE_GEONAMES = 'geonames';
 	public final const CACHE_NAMESPACE_NOMINATIM = 'nominatim';
+	public final const CACHE_NAMESPACE_HTTP_CLIENT = 'http-client';
 
 	public final const CACHE_NAMESPACES = [
 		self::CACHE_NAMESPACE_W3W,
 		self::CACHE_NAMESPACE_GEONAMES,
 		self::CACHE_NAMESPACE_NOMINATIM,
+		self::CACHE_NAMESPACE_HTTP_CLIENT,
 	];
 
 	public static function getDataTempDir(): string
