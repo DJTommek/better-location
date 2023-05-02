@@ -1,7 +1,7 @@
 HTTP/1.1 100 Continue
 
 HTTP/1.1 200 OK
-Date: Sat, 29 Apr 2023 12:06:20 GMT
+Date: Sat, 29 Apr 2023 12:06:19 GMT
 Server: Apache
 X-Powered-By: Nette Framework 3
 X-Frame-Options: SAMEORIGIN
