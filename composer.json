@@ -10,6 +10,7 @@
 		"ext-pdo": "*",
 		"ext-simplexml": "*",
 		"ext-dom": "*",
+		"ext-zip": "*",
 		"tracy/tracy": "^2.9",
 		"unreal4u/telegram-api": "dev-master",
 		"bogdaan/open-location-code": "dev-master",
