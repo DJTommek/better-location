@@ -82,4 +82,16 @@ class Formatter
 			throw new \InvalidArgumentException('Distance must be higher or equal zero.');
 		}
 	}
+
+	/*
+	 * Edit given size in bytes to human-read
+	 * @author http://stackoverflow.com/a/5502088/3334403
+	 */
+	public static function size(int $bytes): string
+	{
+		$units = array('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+		$power = $bytes > 0 ? floor(log($bytes, 1024)) : 0;
+		return number_format($bytes / pow(1024, $power), 2, '.', ' ') . ' ' . $units[$power];
+	}
+
 }
