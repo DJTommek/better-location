@@ -127,6 +127,7 @@ abstract class MainPresenter
 	 */
 	protected function sendJson(array|\stdClass $data, int $httpCode = self::HTTP_OK): void
 	{
+		http_response_code($httpCode);
 		header('Content-Type: application/json');
 		die(Json::encode($data));
 	}
