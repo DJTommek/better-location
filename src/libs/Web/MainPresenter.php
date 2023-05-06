@@ -12,9 +12,19 @@ use Nette\Http\Request;
 use Nette\Http\RequestFactory;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
+use Nette\Utils\Json;
 
 abstract class MainPresenter
 {
+	public const HTTP_OK = 200;
+
+	public const HTTP_BAD_REQUEST = 400;
+	public const HTTP_UNAUTHORIZED = 401;
+	public const HTTP_FORBIDDEN = 403;
+	public const HTTP_NOT_FOUND = 404;
+
+	public const HTTP_INTERNAL_SERVER_ERROR = 500;
+
 	protected Request $request;
 	protected Database $db;
 	protected LoginFacade $login;
@@ -110,6 +120,26 @@ abstract class MainPresenter
 	protected function isPostRequest(): bool
 	{
 		return $_SERVER['REQUEST_METHOD'] === 'POST';
+	}
+
+	/**
+	 * @param array<mixed,mixed>|\stdClass $data
+	 */
+	protected function sendJson(array|\stdClass $data, int $httpCode = self::HTTP_OK): void
+	{
+		header('Content-Type: application/json');
+		die(Json::encode($data));
+	}
+
+	protected function apiResponse(bool $error, ?string $message = null, \stdClass|null $result = null, int $httpCode = self::HTTP_OK): void
+	{
+		$data = [
+			'error' => $error,
+			'datetime' => time(),
+			'message' => $message === null ? '' : $message,
+			'result' => $result === null ? new \stdClass() : $result,
+		];
+		$this->sendJson($data, $httpCode);
 	}
 }
 
