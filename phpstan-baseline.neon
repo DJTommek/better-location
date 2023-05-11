@@ -641,11 +641,6 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Special/FileEvent.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Special\\\\InlineQueryEvent\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Special/InlineQueryEvent.php
-
-		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Special\\\\LocationEvent\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Special/LocationEvent.php

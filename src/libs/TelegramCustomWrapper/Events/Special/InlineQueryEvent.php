@@ -34,10 +34,10 @@ class InlineQueryEvent extends Special
 	/**
 	 * Instance of Chat for this user's private chat (only for lazy load)
 	 *
-	 * @internal Only for lazy load, use $this->getMessageSettings() instead
+	 * @internal Only for lazy load, do not use directly. Use $this->getUserPrivateChatEntity() instead
 	 * @see getMessageSettings()
 	 */
-	private ?Chat $_userPrivateChatEntity = null;
+	private ?Chat $userPrivateChatEntity = null;
 
 	public function getMessageSettings(): BetterLocationMessageSettings
 	{
@@ -48,13 +48,13 @@ class InlineQueryEvent extends Special
 
 	private function getUserPrivateChatEntity(): Chat
 	{
-		if ($this->_userPrivateChatEntity === null) {
-			$this->_userPrivateChatEntity = new Chat($this->getTgFromId(), ChatEntity::CHAT_TYPE_PRIVATE, $this->getTgFromDisplayname());
+		if ($this->userPrivateChatEntity === null) {
+			$this->userPrivateChatEntity = new Chat($this->getTgFromId(), ChatEntity::CHAT_TYPE_PRIVATE, $this->getTgFromDisplayname());
 		}
-		return $this->_userPrivateChatEntity;
+		return $this->userPrivateChatEntity;
 	}
 
-	public function handleWebhookUpdate()
+	public function handleWebhookUpdate(): void
 	{
 		$answerInlineQuery = new AnswerInlineQuery();
 		$answerInlineQuery->inline_query_id = $this->update->inline_query->id;
@@ -62,18 +62,15 @@ class InlineQueryEvent extends Special
 
 		$queryInput = GooglePlaceApi::normalizeInput($this->update->inline_query->query);
 
-		if ($this->update->inline_query->location) {
-			$this->user->setLastKnownLocation($this->update->inline_query->location->latitude, $this->update->inline_query->location->longitude);
+		// If user agrees to share location, and is using device, where is possible to get location (typically mobile devices)
+		$inlineLocation = $this->update->inline_query->location;
+		$hasInlineLocation = $inlineLocation !== null;
+		if ($hasInlineLocation) {
+			$this->user->setLastKnownLocation($inlineLocation->latitude, $inlineLocation->longitude);
 		}
 
 		if (empty($queryInput)) {
-			// If user agrees to share location, and is using device, where is possible to get location (typically mobile devices)
-			if ($this->update->inline_query->location instanceof Telegram\Types\Location) {
-				$betterLocation = BetterLocation::fromLatLon($this->update->inline_query->location->latitude, $this->update->inline_query->location->longitude);
-				$headerMessage = sprintf('%s Current location', Icons::CURRENT_LOCATION);
-				$betterLocation->setPrefixMessage($headerMessage);
-				$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation, $headerMessage));
-			} else if ($this->user->getLastKnownLocation() instanceof BetterLocation) {
+			if ($this->user->getLastKnownLocation() !== null) {
 				$lastKnownLocation = clone $this->user->getLastKnownLocation();
 				$now = new \DateTimeImmutable();
 				$diff = $now->getTimestamp() - $this->user->getLastKnownLocationDatetime()->getTimestamp();
