@@ -47,7 +47,7 @@ abstract class Events
 	/** Caching for method isAdmin() */
 	private ?bool $isAdmin = null;
 
-	abstract public function handleWebhookUpdate();
+	abstract public function handleWebhookUpdate(): void;
 
 	public function __construct(Update $update)
 	{

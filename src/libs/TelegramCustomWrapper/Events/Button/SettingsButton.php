@@ -17,7 +17,7 @@ class SettingsButton extends Button
 	const ACTION_SETTINGS_SEND_NATIVE_LOCATION = 'send_native_location';
 	const ACTION_SETTINGS_SHOW_ADDRESS = 'show_address';
 
-	public function handleWebhookUpdate()
+	public function handleWebhookUpdate(): void
 	{
 		if ($this->isAdmin()) {
 			if (count($this->params) > 1) {

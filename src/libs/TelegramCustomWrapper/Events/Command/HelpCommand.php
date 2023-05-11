@@ -14,7 +14,7 @@ class HelpCommand extends Command
 	const ICON = Icons::INFO;
 	const DESCRIPTION = 'Learn more about me, ' . Config::TELEGRAM_BOT_NAME;
 
-	public function handleWebhookUpdate()
+	public function handleWebhookUpdate(): void
 	{
 		[$text, $markup, $options] = $this->processHelp();
 		$this->reply($text, $markup, $options);

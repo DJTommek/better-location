@@ -451,19 +451,9 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Button/FavouritesButton.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\FavouritesButton\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Button/FavouritesButton.php
-
-		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\FavouritesButton\\:\\:processFavouritesList\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Button/FavouritesButton.php
-
-		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\HelpButton\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Button/HelpButton.php
 
 		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\HelpButton\\:\\:processHelp\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -471,24 +461,9 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Button/HelpButton.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\InvalidButton\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Button/InvalidButton.php
-
-		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\RefreshButton\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Button/RefreshButton.php
-
-		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\RefreshButton\\:\\:processRefresh\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Button/RefreshButton.php
-
-		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\SettingsButton\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Button/SettingsButton.php
 
 		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\SettingsButton\\:\\:processSettings\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -496,24 +471,9 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Button/SettingsButton.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\DebugCommand\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Command/DebugCommand.php
-
-		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\FavouritesCommand\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Command/FavouritesCommand.php
-
-		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\FavouritesCommand\\:\\:processFavouritesList\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Command/FavouritesCommand.php
-
-		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\FeedbackCommand\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Command/FeedbackCommand.php
 
 		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\FeedbackCommand\\:\\:logFeedback\\(\\) has no return type specified\\.$#"
@@ -521,19 +481,9 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Command/FeedbackCommand.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\HelpCommand\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Command/HelpCommand.php
-
-		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\HelpCommand\\:\\:processHelp\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Command/HelpCommand.php
-
-		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\LoginCommand\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Command/LoginCommand.php
 
 		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\LoginCommand\\:\\:processLogin2\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -541,19 +491,9 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Command/LoginCommand.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\SettingsCommand\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Command/SettingsCommand.php
-
-		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\SettingsCommand\\:\\:processSettings\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Command/SettingsCommand.php
-
-		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
 
 		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processFavourites\\(\\) has no return type specified\\.$#"
@@ -596,24 +536,9 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\UnknownCommand\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Command/UnknownCommand.php
-
-		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Edit\\\\Edit\\:\\:editMessage\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Edit/Edit.php
-
-		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Edit\\\\LocationEdit\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Edit/LocationEdit.php
-
-		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Events.php
 
 		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:isTgForward\\(\\) has no return type specified\\.$#"
@@ -636,24 +561,9 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Events.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Special\\\\FileEvent\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Special/FileEvent.php
-
-		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Special\\\\LocationEvent\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Special/LocationEvent.php
-
-		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Special\\\\LocationEvent\\:\\:venueHrefLink\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Special/LocationEvent.php
-
-		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Special\\\\PhotoEvent\\:\\:handleWebhookUpdate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Special/PhotoEvent.php
 
 		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Login\\:\\:__construct\\(\\) has parameter \\$raw with no value type specified in iterable type array\\.$#"

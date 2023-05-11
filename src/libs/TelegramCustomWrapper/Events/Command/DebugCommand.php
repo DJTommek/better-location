@@ -9,7 +9,7 @@ class DebugCommand extends Command
 {
 	const CMD = '/debug';
 
-	public function handleWebhookUpdate()
+	public function handleWebhookUpdate(): void
 	{
 		$text = sprintf('%s <b>Debug</b> for @%s.', Icons::COMMAND, Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('This chat ID <code>%s</code>!', $this->getTgChatId()) . PHP_EOL;

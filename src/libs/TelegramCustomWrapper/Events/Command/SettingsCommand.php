@@ -18,7 +18,7 @@ class SettingsCommand extends Command
 	const ICON = Icons::SETTINGS;
 	const DESCRIPTION = 'Adjust your settings';
 
-	public function handleWebhookUpdate()
+	public function handleWebhookUpdate(): void
 	{
 		if ($this->isAdmin()) {
 			[$text, $markup, $options] = $this->processSettings();

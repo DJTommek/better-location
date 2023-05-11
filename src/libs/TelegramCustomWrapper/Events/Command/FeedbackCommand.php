@@ -13,7 +13,7 @@ class FeedbackCommand extends Command
 	const ICON = Icons::FEEDBACK;
 	const DESCRIPTION = 'Report invalid location or just contact the author @DJTommek';
 
-	public function handleWebhookUpdate()
+	public function handleWebhookUpdate(): void
 	{
 		$messagePrefix = sprintf('%s <b>Feedback</b> for @%s.', Icons::FEEDBACK, Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$params = TelegramHelper::getParams($this->update);

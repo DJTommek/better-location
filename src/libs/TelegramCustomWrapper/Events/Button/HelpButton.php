@@ -12,7 +12,7 @@ class HelpButton extends Button
 
 	const CMD = HelpCommand::CMD;
 
-	public function handleWebhookUpdate()
+	public function handleWebhookUpdate(): void
 	{
 		[$text, $markup, $options] = $this->processHelp();
 		$this->replyButton($text, $markup, $options);

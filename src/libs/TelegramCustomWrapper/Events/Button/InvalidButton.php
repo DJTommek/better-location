@@ -8,7 +8,7 @@ use Tracy\ILogger;
 
 class InvalidButton extends Button
 {
-	public function handleWebhookUpdate()
+	public function handleWebhookUpdate(): void
 	{
 		Debugger::log(sprintf('Invalid button detected, check update ID %s ', $this->update->update_id), ILogger::WARNING);
 		$this->flash(sprintf('%s This button is invalid.%sIf you believe that this is error, please contact admin.', Icons::ERROR, PHP_EOL), true);

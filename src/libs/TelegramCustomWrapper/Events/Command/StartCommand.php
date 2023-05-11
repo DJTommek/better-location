@@ -39,7 +39,7 @@ class StartCommand extends Command
 	const SETTINGS = SettingsCommand::CMD;
 	const LOGIN = LoginCommand::CMD;
 
-	public function handleWebhookUpdate()
+	public function handleWebhookUpdate(): void
 	{
 		$encodedParams = TelegramHelper::getParams($this->update);
 		if (count($encodedParams) === 0) {

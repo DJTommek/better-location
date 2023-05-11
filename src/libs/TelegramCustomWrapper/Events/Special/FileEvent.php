@@ -65,7 +65,7 @@ class FileEvent extends Special
 		return null;
 	}
 
-	public function handleWebhookUpdate()
+	public function handleWebhookUpdate(): void
 	{
 		$collection = $this->getCollection();
 		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
