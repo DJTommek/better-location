@@ -866,41 +866,6 @@ parameters:
 			path: src/libs/Web/FlashMessage.php
 
 		-
-			message: "#^Property App\\\\Web\\\\Locations\\\\LocationsPresenter\\:\\:\\$services type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/Web/Locations/LocationsPresenter.php
-
-		-
-			message: "#^Method App\\\\Web\\\\Locations\\\\LocationsTemplate\\:\\:prepare\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Web/Locations/LocationsTemplate.php
-
-		-
-			message: "#^Method App\\\\Web\\\\Locations\\\\LocationsTemplate\\:\\:prepare\\(\\) has parameter \\$websites with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/Web/Locations/LocationsTemplate.php
-
-		-
-			message: "#^Property App\\\\Web\\\\Locations\\\\LocationsTemplate\\:\\:\\$allCoords has no type specified\\.$#"
-			count: 1
-			path: src/libs/Web/Locations/LocationsTemplate.php
-
-		-
-			message: "#^Property App\\\\Web\\\\Locations\\\\LocationsTemplate\\:\\:\\$collectionJs type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/Web/Locations/LocationsTemplate.php
-
-		-
-			message: "#^Property App\\\\Web\\\\Locations\\\\LocationsTemplate\\:\\:\\$locations type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/Web/Locations/LocationsTemplate.php
-
-		-
-			message: "#^Property App\\\\Web\\\\Locations\\\\LocationsTemplate\\:\\:\\$websites has no type specified\\.$#"
-			count: 1
-			path: src/libs/Web/Locations/LocationsTemplate.php
-
-		-
 			message: "#^Method App\\\\Web\\\\Login\\\\LoginFacade\\:\\:getCookieOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/Web/Login/LoginFacade.php

@@ -18,15 +18,15 @@ use Nette\Utils\Json;
 
 class LocationsPresenter extends MainPresenter
 {
-	/** @var BetterLocationCollection */
-	private $collection;
-	/** @var array Multidimensional array of all structures, where is possible to generate something (share link, drive link, ...) */
-	private $services = [];
-	/** @var string */
-	private $format = 'html';
-	/** @var string */
-	private $nowFileText;
-
+	private BetterLocationCollection $collection;
+	/**
+	 * Multidimensional array of all structures, where is possible to generate something (share link, drive link, ...)
+	 *
+	 * @var array<string,array<array{name: string, share?: string, drive?: string, text?: string, static?: string}>>
+	 */
+	private array $services = [];
+	private string $format = 'html';
+	private string $nowFileText;
 
 	public function __construct()
 	{

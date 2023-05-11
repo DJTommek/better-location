@@ -10,25 +10,31 @@ use App\Web\LayoutTemplate;
 class LocationsTemplate extends LayoutTemplate
 {
 	public BetterLocationCollection $collection;
-	/** array<BetterLocation> */
+	/** @var array<BetterLocation> */
 	public array $locations;
-	public $websites = [];
-	public $allCoords = [];
+	/** @var array<string,array<array{name: string, share?: string, drive?: string, text?: string, static?: string}>> */
+	public array $websites = [];
+	/** @var array<array{float, float}> */
+	public array $allCoords = [];
 
 	/** @var array<array<float>> Calculated distances between all points */
-	public $distances = [];
+	public array $distances = [];
 	/** @TODO maybe INF constant should be used instead of PHP_FLOAT_MAX */
 	public float $distanceSmallest = PHP_FLOAT_MAX;
 	public float $distanceGreatest = 0;
 
+	/** @var array<array{lat: float, lon: float, coords: array{float, float}, hash: string, key: string, address: ?string}> */
 	public array $collectionJs = [];
 	/** @var string Text representation of now in UTC */
-	public $nowUtcText;
+	public string $nowUtcText;
 
 	public bool $showingTimezoneData = false;
 	public bool $showingElevation = false;
 
-	public function prepare(BetterLocationCollection $collection, array $websites)
+	/**
+	 * @param array<string,array<array{name: string, share?: string, drive?: string, text?: string, static?: string}>> $websites
+	 */
+	public function prepare(BetterLocationCollection $collection, array $websites): void
 	{
 		$this->collection = $collection;
 		$this->locations = $collection->getLocations();
