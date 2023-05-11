@@ -116,7 +116,7 @@ final class IngressIntelServiceTest extends TestCase
 	/**
 	 * @group request
 	 */
-	public function testProcessMap()
+	public function testProcessMap(): void
 	{
 		$collection = IngressIntelService::processStatic('https://intel.ingress.com/?ll=50.087451,14.420671')->getCollection();
 		$this->assertCount(1, $collection);
@@ -130,7 +130,7 @@ final class IngressIntelServiceTest extends TestCase
 	/**
 	 * @group request
 	 */
-	public function testProcessCoords()
+	public function testProcessCoords(): void
 	{
 		$collection = IngressIntelService::processStatic('https://intel.ingress.com/?pll=50.087451,14.420671')->getCollection();
 		$this->assertCount(1, $collection);
@@ -144,7 +144,7 @@ final class IngressIntelServiceTest extends TestCase
 	/**
 	 * @group request
 	 */
-	public function testProcessMapAndCoords()
+	public function testProcessMapAndCoords(): void
 	{
 		$collection = IngressIntelService::processStatic('https://intel.ingress.com/?ll=50.123456789,14.987654321&pll=43.123456789,12.987654321')->getCollection();
 		$this->assertCount(2, $collection);

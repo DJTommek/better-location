@@ -53,7 +53,7 @@ final class UtilsTest extends TestCase
 		Utils::findMapyCzApiCoords('some text blabla SMap.Coords.fromWGS84(13.4854, 98.8909)');
 	}
 
-	public final function testRecalculateRangeOne()
+	public final function testRecalculateRangeOne(): void
 	{
 		$this->assertSame(50.0, Utils::recalculateRangeOne(500, 0, 1000));
 		$this->assertSame(100.0, Utils::recalculateRangeOne(1000, 0, 1000));
@@ -63,7 +63,7 @@ final class UtilsTest extends TestCase
 		$this->assertSame(5.0, Utils::recalculateRangeOne(5, 5, 5, 0, 10));
 	}
 
-	public final function testRecalculateRange()
+	public final function testRecalculateRange(): void
 	{
 		$this->assertSame([0.0, 50.0, 100.0], Utils::recalculateRange([0, 50, 100]));
 		$this->assertSame([0.0, 50.0, 100.0], Utils::recalculateRange([0, 500, 1000]));

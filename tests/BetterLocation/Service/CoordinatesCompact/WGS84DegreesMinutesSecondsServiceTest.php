@@ -38,7 +38,8 @@ final class WGS84DegreesMinutesSecondsServiceTest extends TestCase
 		WGS84DegreeMinutesSecondsCompactService::processStatic('any input');
 	}
 
-	public function testRender() {
+	public function testRender(): void
+	{
 		$this->assertSame('50°5\'14.824,14°25\'14.416', WGS84DegreeMinutesSecondsCompactService::getShareText(50.087451, 14.420671));
 		$this->assertSame('-50°5\'14.824,14°25\'14.416', WGS84DegreeMinutesSecondsCompactService::getShareText(-50.087451, 14.420671));
 		$this->assertSame('-50°5\'14.824,-14°25\'14.416', WGS84DegreeMinutesSecondsCompactService::getShareText(-50.087451, -14.420671));

@@ -7,9 +7,9 @@ use PHPUnit\Framework\TestCase;
 
 final class GeocachePreviewTypeTest extends TestCase
 {
-	private static $GC3DYC4;
-	private static $GC7X2M6;
-	private static $GC7B7HB;
+	private static GeocachePreviewType $GC3DYC4;
+	private static GeocachePreviewType $GC7X2M6;
+	private static GeocachePreviewType $GC7B7HB;
 
 	public static function setUpBeforeClass(): void
 	{

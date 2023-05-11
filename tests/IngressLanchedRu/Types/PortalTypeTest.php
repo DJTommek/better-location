@@ -72,7 +72,7 @@ final class PortalTypeTest extends TestCase
 		$this->assertNull(self::$getPortalsExample[39]->image);
 	}
 
-	public function testPortalPrague()
+	public function testPortalPrague(): void
 	{
 		$this->assertInstanceOf(PortalType::class, self::$portalPrague);
 		$this->assertSame('0bd94fac5de84105b6eef6e7e1639ad9.12', self::$portalPrague->guid);
@@ -86,7 +86,7 @@ final class PortalTypeTest extends TestCase
 		$this->assertSame(self::$portalPrague->getImageLink(), self::$portalPrague->image);
 	}
 
-	public function testPortalNameAsInt()
+	public function testPortalNameAsInt(): void
 	{
 		$this->assertInstanceOf(PortalType::class, self::$portalNameAsInt);
 		$this->assertSame('470292c1672441d18585709d871f27d7.16', self::$portalNameAsInt->guid);

@@ -56,7 +56,7 @@ final class BetterLocationServiceTest extends TestCase
 		$this->assertFalse(BetterLocationService::isValidStatic('https://better-location.palider.cz/go.php?lat=50.087451,14.420671'));
 	}
 
-	public function testParseUrl()
+	public function testParseUrl(): void
 	{
 		$collection = BetterLocationService::processStatic('https://better-location.palider.cz/50.087451,14.420671')->getCollection();
 		$this->assertCount(1, $collection);

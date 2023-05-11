@@ -67,7 +67,7 @@ final class OsmAndServiceTest extends TestCase
 		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.org/go.html?lat=50.087451&lon=14.420671'));
 	}
 
-	public function testParseUrl()
+	public function testParseUrl(): void
 	{
 		$collection = OsmAndService::processStatic('https://osmand.net/go.html?lat=50.087451&lon=14.420671&z=17')->getCollection();
 		$this->assertCount(1, $collection);

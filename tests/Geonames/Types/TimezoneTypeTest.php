@@ -8,9 +8,9 @@ use PHPUnit\Framework\TestCase;
 
 final class TimezoneTypeTest extends TestCase
 {
-	private static $prague;
-	private static $newYork;
-	private static $tehran;
+	private static TimezoneType $prague;
+	private static TimezoneType $newYork;
+	private static TimezoneType $tehran;
 
 	public static function setUpBeforeClass(): void
 	{
