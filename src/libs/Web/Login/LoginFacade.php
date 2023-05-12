@@ -31,6 +31,9 @@ class LoginFacade
 		}
 	}
 
+	/**
+	 * @return array{domain: string, expires: int, secure: bool, httponly: bool, path: string, samesite?: string}
+	 */
 	private function getCookieOptions(\DateTimeInterface $expires): array
 	{
 		return [
@@ -85,26 +88,17 @@ class LoginFacade
 
 	public function getDisplayName(): ?string
 	{
-		if ($this->entity) {
-			return $this->entity->displayName();
-		}
-		return null;
+		return $this->entity?->displayname();
 	}
 
 	public function getTelegramId(): ?int
 	{
-		if ($this->entity) {
-			return $this->entity->userTelegramId;
-		}
-		return null;
+		return $this->entity?->userTelegramId;
 	}
 
 	public function getPhotoUrl(): ?UrlImmutable
 	{
-		if ($this->entity) {
-			return $this->entity->userPhotoUrl;
-		}
-		return null;
+		return $this->entity?->userPhotoUrl;
 	}
 }
 

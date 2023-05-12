@@ -861,16 +861,6 @@ parameters:
 			path: src/libs/Web/Chat/ChatTemplate.php
 
 		-
-			message: "#^Method App\\\\Web\\\\Login\\\\LoginFacade\\:\\:getCookieOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/Web/Login/LoginFacade.php
-
-		-
-			message: "#^Method App\\\\Web\\\\Login\\\\LoginTemplate\\:\\:prepare\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Web/Login/LoginTemplate.php
-
-		-
 			message: "#^Method App\\\\WhatThreeWord\\\\Helper\\:\\:findInText\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/WhatThreeWord/Helper.php

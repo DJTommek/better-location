@@ -10,16 +10,12 @@ use App\Web\LayoutTemplate;
 
 class LoginTemplate extends LayoutTemplate
 {
-	/** @var string */
-	public $loginCommand = LoginCommand::CMD;
-	/** @var string */
-	public $botUsername = Config::TELEGRAM_BOT_NAME;
-	/** @var string */
-	public $botLink;
-	/** @var string */
-	public $botLinkLogin;
+	public string $loginCommand = LoginCommand::CMD;
+	public string $botUsername = Config::TELEGRAM_BOT_NAME;
+	public string $botLink;
+	public string $botLinkLogin;
 
-	public function prepare()
+	public function prepare(): void
 	{
 		$this->botLink = TelegramHelper::userLink($this->botUsername);
 		$this->botLinkLogin = TelegramHelper::generateStart(StartCommand::LOGIN);
