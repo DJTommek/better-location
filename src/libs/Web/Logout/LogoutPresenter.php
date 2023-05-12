@@ -12,6 +12,7 @@ class LogoutPresenter extends MainPresenter
 		if ($this->login->isLogged()) {
 			$this->login->logout();
 		}
+		$this->flashMessage(sprintf('You were logged out. <a href="%s">Log back in</a>.', Config::getLoginUrl()));
 		$this->redirect(Config::getAppUrl());
 	}
 }
