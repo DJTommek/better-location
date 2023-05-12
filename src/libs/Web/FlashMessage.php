@@ -9,21 +9,26 @@ class FlashMessage
 	const FLASH_WARNING = 'warning';
 	const FLASH_ERROR = 'danger';
 
-	public string $text;
-	public string $type;
-	public ?int $dismiss;
-
-	public function __construct(string $text, string $type, ?int $dismiss)
+	/**
+	 * @param string $content Content to be displayed.
+	 * @param string $type One of FlashMessage::FLASH_* constants.
+	 * @param ?int $dismiss int = milliseconds after message should dissapear, null = user has to close manually
+	 */
+	public function __construct(
+		public string $content,
+		public string $type = self::FLASH_INFO,
+		public ?int   $dismiss = 4_000
+	)
 	{
 		assert(in_array($type, self::flashTypes(), true));
 		if (is_int($dismiss)) {
 			assert($dismiss > 0);
 		}
-		$this->text = $text;
-		$this->type = $type;
-		$this->dismiss = $dismiss;
 	}
 
+	/**
+	 * @return array<string>
+	 */
 	private function flashTypes(): array
 	{
 		return [

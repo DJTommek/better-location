@@ -861,11 +861,6 @@ parameters:
 			path: src/libs/Web/Chat/ChatTemplate.php
 
 		-
-			message: "#^Method App\\\\Web\\\\FlashMessage\\:\\:flashTypes\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/Web/FlashMessage.php
-
-		-
 			message: "#^Method App\\\\Web\\\\Login\\\\LoginFacade\\:\\:getCookieOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/Web/Login/LoginFacade.php

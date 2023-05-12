@@ -88,7 +88,7 @@ abstract class MainPresenter
 	/**
 	 * Store flash message so can be displayed when proper layout is rendered.
 	 *
-	 * @param string $content Text or HTML content to be displayed.
+	 * @param string $content HTML content to be displayed.
 	 * @param string $type One of FlashMessage::FLASH_* constants.
 	 * @param ?int $dismiss int = milliseconds after message should dissapear, null = user has to close manually
 	 */

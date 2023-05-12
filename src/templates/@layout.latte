@@ -63,10 +63,10 @@
 	<div id="flash-message">
 		{foreach $flashMessages as $key => $flashMessage}
 			<div id="alert-{$key}" class="alert alert-{$flashMessage->type} alert-dismissible fade show" role="alert">
-				{$flashMessage->text|noescape}
+				{$flashMessage->content|noescape}
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
-			{if $flashMessage->dismiss}
+			{if $flashMessage->dismiss !== null}
 				<script>
 					setTimeout(function () {
 						const alertEl = document.getElementById('alert-{$key}');
