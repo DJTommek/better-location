@@ -859,8 +859,3 @@ parameters:
 			message: "#^Method App\\\\Web\\\\Chat\\\\ChatTemplate\\:\\:prepareOk\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/Web/Chat/ChatTemplate.php
-
-		-
-			message: "#^Method App\\\\WhatThreeWord\\\\Helper\\:\\:findInText\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/WhatThreeWord/Helper.php

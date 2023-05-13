@@ -7,7 +7,6 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use App\WhatThreeWord;
-use Nette\Utils\Arrays;
 
 final class WhatThreeWordService extends AbstractService
 {
@@ -55,11 +54,13 @@ final class WhatThreeWordService extends AbstractService
 	 */
 	private function isWords(): bool
 	{
-		if ($words = WhatThreeWord\Helper::validateWords($this->input)) {
-			$this->data->words = $words;
-			return true;
+		$words = WhatThreeWord\Helper::validateWords($this->input);
+		if ($words === null) {
+			return false;
 		}
-		return false;
+
+		$this->data->words = $words;
+		return true;
 	}
 
 	/**
@@ -70,11 +71,12 @@ final class WhatThreeWordService extends AbstractService
 	{
 		if (
 			$this->url &&
-			Arrays::contains(['what3words.com', 'w3w.co'], $this->url->getDomain(2))
+			in_array($this->url->getDomain(2), ['what3words.com', 'w3w.co'], true)
 		) {
 			$words = ltrim(urldecode($this->url->getPath()), '/');
-			if ($words = WhatThreeWord\Helper::validateWords($words)) {
-				$this->data->words = $words;
+			$validatedWords = WhatThreeWord\Helper::validateWords($words);
+			if ($validatedWords !== null) {
+				$this->data->words = $validatedWords;
 				return true;
 			}
 		}

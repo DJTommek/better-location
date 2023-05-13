@@ -9,20 +9,20 @@ use Nette\Caching\Cache;
 class Helper
 {
 	// https://developer.what3words.com/tutorial/detecting-if-text-is-in-the-format-of-a-3-word-address/
-	const REGEX_PREFIX = '(?:\/{3})';
-	const REGEX_WORD = '(?:\p{L}\p{M}*){1,}';
-	const REGEX_WORD_DIVIDER = '[・.。]';
+	private const REGEX_PREFIX = '(?:\/{3})';
+	private const REGEX_WORD = '(?:\p{L}\p{M}*){1,}';
+	private const REGEX_WORD_DIVIDER = '[・.。]';
 
 	private const LANG = 'en';
 
-	const REGEX_WORDS = '(' . self::REGEX_WORD . self::REGEX_WORD_DIVIDER . self::REGEX_WORD . self::REGEX_WORD_DIVIDER . self::REGEX_WORD . ')';
-	const REGEX_WORDS_PREFIX_REQUIRED = self::REGEX_PREFIX . self::REGEX_WORDS;
-	const REGEX_WORDS_PREFIX_OPTIONAL = self::REGEX_PREFIX . '?' . self::REGEX_WORDS;
+	private const REGEX_WORDS = '(' . self::REGEX_WORD . self::REGEX_WORD_DIVIDER . self::REGEX_WORD . self::REGEX_WORD_DIVIDER . self::REGEX_WORD . ')';
+	private const REGEX_WORDS_PREFIX_REQUIRED = self::REGEX_PREFIX . self::REGEX_WORDS;
+	private const REGEX_WORDS_PREFIX_OPTIONAL = self::REGEX_PREFIX . '?' . self::REGEX_WORDS;
 
 	/**
 	 * @return string|null Validate words and return updated string ready to use in API or null if invalid
 	 * @example paves.fans.piston -> paves.fans.piston
-	 * @example ///paves.fans.piston -> paves.fans.piston
+	 * @example ///paves.FANS.piston -> paves.fans.piston
 	 * @example \\\paves.fans.piston -> paves.fans.piston
 	 */
 	public static function validateWords(string $input): ?string
@@ -35,6 +35,8 @@ class Helper
 
 	/**
 	 * Find ///words and return array of them, ready to use for API request (without ///)
+	 *
+	 * @return array<string>
 	 */
 	public static function findInText(string $input): array
 	{
@@ -92,7 +94,9 @@ class Helper
 	{
 		$w3wApi = Factory::whatThreeWords();
 		$response = $w3wApi->convertTo3wa($lat, $lon, $lang);
-		if ($error = $w3wApi->getError()) {
+		$error = $w3wApi->getError();
+		if ($error !== false) {
+			assert(is_array($error));
 			throw new ResponseException(sprintf('Unable to get W3W from coordinates: %s', $error['message']));
 		}
 		return json_decode(json_encode($response)); // @TODO dirty hack to get stdclass instead of associated array

@@ -42,7 +42,9 @@ final class WhatThreeWordsServiceTest extends TestCase
 	public function testIsValidWords(): void
 	{
 		$this->assertTrue(WhatThreeWordService::isValidStatic('///aaaa.bbbb.cccc'));
+		$this->assertTrue(WhatThreeWordService::isValidStatic('///aaaa.BBBB.cccc'));
 		$this->assertTrue(WhatThreeWordService::isValidStatic('///a.b.c'));
+		$this->assertTrue(WhatThreeWordService::isValidStatic('///a.B.c'));
 		$this->assertTrue(WhatThreeWordService::isValidStatic('///stampedes.foresees.prow'));
 		$this->assertTrue(WhatThreeWordService::isValidStatic('stampedes.foresees.prow'));
 		$this->assertTrue(WhatThreeWordService::isValidStatic('///chladná.naopak.vložit'));
@@ -124,6 +126,14 @@ final class WhatThreeWordsServiceTest extends TestCase
 		$collection = WhatThreeWordService::processStatic('///define.readings.cucumber')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('49.297286,14.126510', $collection[0]->__toString());
+
+		$collection = WhatThreeWordService::processStatic('///define.READINGS.cucumber')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('49.297286,14.126510', $collection[0]->__toString());
+
+		$collection = WhatThreeWordService::processStatic('///define.reading.cucumber')->getCollection();
+		$this->assertCount(1, $collection);
+		$this->assertSame('57.224356,65.452627', $collection[0]->__toString());
 
 		$collection = WhatThreeWordService::processStatic('///chladná.naopak.vložit')->getCollection();
 		$this->assertCount(1, $collection);
