@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a3c00b4357b9c3db0af92c3ee1370b7",
+    "content-hash": "144f2c6f317e8ce7758a5239260dab6e",
     "packages": [
         {
             "name": "amphp/amp",
@@ -4563,12 +4563,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/DJTommek/telegram-api.git",
-                "reference": "6736a22bba01587b90118af3b7a2b497737999ca"
+                "reference": "843745b4230d90c29fe83911e4bb825fb473ada7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DJTommek/telegram-api/zipball/6736a22bba01587b90118af3b7a2b497737999ca",
-                "reference": "6736a22bba01587b90118af3b7a2b497737999ca",
+                "url": "https://api.github.com/repos/DJTommek/telegram-api/zipball/843745b4230d90c29fe83911e4bb825fb473ada7",
+                "reference": "843745b4230d90c29fe83911e4bb825fb473ada7",
                 "shasum": ""
             },
             "require": {
@@ -4620,7 +4620,7 @@
                 "issues": "https://github.com/unreal4u/telegram-api/issues",
                 "source": "https://github.com/unreal4u/telegram-api"
             },
-            "time": "2023-04-29T07:59:34+00:00"
+            "time": "2023-05-13T09:22:58+00:00"
         },
         {
             "name": "voku/portable-ascii",
@@ -6662,7 +6662,8 @@
         "ext-exif": "*",
         "ext-pdo": "*",
         "ext-simplexml": "*",
-        "ext-dom": "*"
+        "ext-dom": "*",
+        "ext-zip": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
