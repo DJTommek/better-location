@@ -29,7 +29,9 @@ class Database
 	public function __construct(string $server, string $schema, string $user, string $pass, $charset = 'utf8mb4')
 	{
 		$dsn = sprintf('mysql:host=%s;dbname=%s;charset=%s', $server, $schema, $charset);
-		$this->db = new \PDO($dsn, $user, $pass);
+		$this->db = new \PDO($dsn, $user, $pass, [
+			\PDO::ATTR_PERSISTENT => true,
+		]);
 		// Fetch each row as array indexed by column name
 		$this->db->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
 		// Return int and float columns as PHP int and float types
