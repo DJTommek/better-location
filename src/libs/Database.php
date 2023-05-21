@@ -23,10 +23,9 @@ class Database
 		self::ORDER_DESC,
 	];
 
-	/** @var \PDO */
-	private $db;
+	private \PDO $db;
 
-	public function __construct(string $server, string $schema, string $user, string $pass, $charset = 'utf8mb4')
+	public function __construct(string $server, string $schema, string $user, string $pass, string $charset = 'utf8mb4')
 	{
 		$dsn = sprintf('mysql:host=%s;dbname=%s;charset=%s', $server, $schema, $charset);
 		$this->db = new \PDO($dsn, $user, $pass, [
@@ -54,9 +53,8 @@ class Database
 	 *
 	 * @param string $query SQL query
 	 * @param mixed ...$params Optional parameters for fill prepared statements
-	 * @return bool|\PDOStatement
 	 */
-	public function query(string $query, ...$params)
+	public function query(string $query, mixed ...$params): \PDOStatement
 	{
 		try {
 			return $this->queryReal($query, $params);
@@ -71,7 +69,10 @@ class Database
 		}
 	}
 
-	private function queryReal(string $query, $params)
+	/**
+	 * @param array<mixed> $params
+	 */
+	private function queryReal(string $query, array $params): \PDOStatement
 	{
 		$sql = $this->db->prepare($query);
 		$sql->execute($params);

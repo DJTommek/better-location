@@ -76,21 +76,6 @@ parameters:
 			path: src/libs/Dashboard/Tester.php
 
 		-
-			message: "#^Method App\\\\Database\\:\\:__construct\\(\\) has parameter \\$charset with no type specified\\.$#"
-			count: 1
-			path: src/libs/Database.php
-
-		-
-			message: "#^Method App\\\\Database\\:\\:queryReal\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Database.php
-
-		-
-			message: "#^Method App\\\\Database\\:\\:queryReal\\(\\) has parameter \\$params with no type specified\\.$#"
-			count: 1
-			path: src/libs/Database.php
-
-		-
 			message: "#^Method App\\\\DummyLogger\\:\\:log\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/DummyLogger.php
