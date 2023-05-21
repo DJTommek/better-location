@@ -15,6 +15,7 @@ use App\Utils\Utils;
 use App\Web\FlashMessage;
 use App\Web\MainPresenter;
 use Nette\Utils\Json;
+use Tracy\Debugger;
 
 class LocationsPresenter extends MainPresenter
 {
@@ -91,7 +92,11 @@ class LocationsPresenter extends MainPresenter
 			$manager = new ServicesManager();
 			$services = [];
 			foreach ($manager->getServices() as $service) {
-				$services[] = $this->website($service, $location->getLat(), $location->getLon());
+				try {
+					$services[] = $this->website($service, $location->getLat(), $location->getLon());
+				} catch (\Throwable $exception) {
+					Debugger::log($exception, Debugger::EXCEPTION);
+				}
 			}
 			$services = array_values(array_filter($services));
 			$this->services[$location->key()] = $services;
