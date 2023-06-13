@@ -263,4 +263,19 @@ class Utils
 		$oldMinMax = ($oldMin - $oldMax);
 		return ((($number - $newMin) * $newMinMax) / $oldMinMax) + $newMin;
 	}
+
+	public static function domFromUTF8(string $data): \DOMDocument {
+		$dom = new \DOMDocument();
+		// @HACK to force UTF-8 encoding. Page itself is in UTF-8 encoding but it is not saying explicitely so parser is confused.
+		// @Author: https://stackoverflow.com/a/18721144/3334403
+		@$dom->loadHTML('<?xml encoding="utf-8"?>' . $data);
+		return $dom;
+	}
+
+	public static function parseLdJson(\DOMDocument $document): ?\stdClass
+	{
+		$finder = new \DOMXPath($document);
+		$jsonEl = $finder->query('//script[@type="application/ld+json"]')->item(0);
+		return $jsonEl ? json_decode($jsonEl->textContent) : null;
+	}
 }
