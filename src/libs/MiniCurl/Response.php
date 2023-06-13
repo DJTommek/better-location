@@ -50,8 +50,9 @@ class Response
 		foreach($parts as $part) {
 			if (str_starts_with($part, 'HTTP/')) {
 				$headerString = $part;
+				$body = '';
 			} else {
-				$body = $part;
+				$body .= $part;
 			}
 		}
 
