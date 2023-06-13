@@ -32,6 +32,7 @@ use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\HradyCzService;
 use App\BetterLocation\Service\IngressIntelService;
 use App\BetterLocation\Service\IngressPrimeService;
+use App\BetterLocation\Service\KudyZNudyCzService;
 use App\BetterLocation\Service\MapyCzPanoramaGeneratorService;
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\NeshanOrgService;
@@ -141,6 +142,7 @@ class ServicesManager
 		$this->services[HradyCzService::ID] = HradyCzService::class;
 		$this->services[VojenskoCzService::ID] = VojenskoCzService::class;
 		$this->services[PrazdneDomyCzService::ID] = PrazdneDomyCzService::class;
+		$this->services[KudyZNudyCzService::ID] = KudyZNudyCzService::class;
 	}
 
 	public function iterate(string $input): BetterLocationCollection
