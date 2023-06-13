@@ -63,11 +63,11 @@ final class KudyZNudyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcess(): void
 	{
-		$this->assertLocation('https://www.kudyznudy.cz/aktivity/vyhlidka-maj-jeden-z-nejkrasnejsich-rozhledu-na', 49.831093, 14.455982);
-		$this->assertLocation('https://www.kudyznudy.cz/aktivity/kostel-sv-jiri-v-lukove-se-sadrovymi-duchy-verici', 50.016474, 13.160622);
-		$this->assertLocation('https://www.kudyznudy.cz/aktivity/prirodni-biotop-v-laskove', 49.584091, 17.000861);
+		$this->assertLocation('https://www.kudyznudy.cz/aktivity/vyhlidka-maj-jeden-z-nejkrasnejsich-rozhledu-na', 49.831093, 14.455982, KudyZNudyCzService::TYPE_ACTIVITY);
+		$this->assertLocation('https://www.kudyznudy.cz/aktivity/kostel-sv-jiri-v-lukove-se-sadrovymi-duchy-verici', 50.016474, 13.160622, KudyZNudyCzService::TYPE_ACTIVITY);
+		$this->assertLocation('https://www.kudyznudy.cz/aktivity/prirodni-biotop-v-laskove', 49.584091, 17.000861, KudyZNudyCzService::TYPE_ACTIVITY);
 
-		$this->assertLocation('https://www.kudyznudy.cz/akce/veteran-rallye-z-lazni-do-lazni-1', 49.562374, 17.096406);
-		$this->assertLocation('https://www.kudyznudy.cz/akce/koniny-2', 49.644920, 17.139199);
+		$this->assertLocation('https://www.kudyznudy.cz/akce/veteran-rallye-z-lazni-do-lazni-1', 49.562374, 17.096406, KudyZNudyCzService::TYPE_EVENT);
+		$this->assertLocation('https://www.kudyznudy.cz/akce/koniny-2', 49.644920, 17.139199, KudyZNudyCzService::TYPE_EVENT);
 	}
 }

@@ -15,13 +15,26 @@ final class KudyZNudyCzService extends AbstractService
 
 	const LINK = 'https://kudyznudy.cz';
 
+	const TYPE_ACTIVITY = 'activity';
+	const TYPE_EVENT = 'event';
+
 	public function isValid(): bool
 	{
-		return (
+		if (
 			$this->url
 			&& $this->url->getDomain(2) === 'kudyznudy.cz'
-			&& (str_starts_with($this->url->getPath(), '/aktivity/') || str_starts_with($this->url->getPath(), '/akce/'))
-		);
+		) {
+			$path = $this->url->getPath();
+			if (str_starts_with($path, '/aktivity/')) {
+				$this->data->type = self::TYPE_ACTIVITY;
+				return true;
+			}
+			if (str_starts_with($path, '/akce/')) {
+				$this->data->type = self::TYPE_EVENT;
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public function process(): void
@@ -43,7 +56,7 @@ final class KudyZNudyCzService extends AbstractService
 			return;
 		}
 
-		$location = new BetterLocation($this->inputUrl, $coords->lat, $coords->lon, self::class);
+		$location = new BetterLocation($this->inputUrl, $coords->lat, $coords->lon, self::class, $this->data->type);
 
 		$ldJson = Utils::parseLdJson($dom);
 
@@ -64,5 +77,13 @@ final class KudyZNudyCzService extends AbstractService
 			$address->addressLocality,
 			$address->addressCountry,
 		);
+	}
+
+	public static function getConstants(): array
+	{
+		return [
+			self::TYPE_ACTIVITY,
+			self::TYPE_EVENT,
+		];
 	}
 }
