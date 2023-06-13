@@ -18,9 +18,9 @@ final class KudyZNudyCzService extends AbstractService
 	public function isValid(): bool
 	{
 		return (
-			$this->url &&
-			$this->url->getDomain(2) === 'kudyznudy.cz' &&
-			str_starts_with($this->url->getPath(), '/aktivity/')
+			$this->url
+			&& $this->url->getDomain(2) === 'kudyznudy.cz'
+			&& (str_starts_with($this->url->getPath(), '/aktivity/') || str_starts_with($this->url->getPath(), '/akce/'))
 		);
 	}
 
