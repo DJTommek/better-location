@@ -24,14 +24,15 @@ class StaticApi
 		$this->apiKey = $apiKey;
 	}
 
-	public function reverse(CoordinatesInterface $coordinates): ?\stdClass
+	public function reverse(CoordinatesInterface $coordinates): ?GeocodeResponse
 	{
 		$queryParams = [
 			'key' => $this->apiKey,
 			'latlng' => $coordinates->key(),
 		];
 		$url = self::API_URL . '?' . http_build_query($queryParams);
-		return $this->runGoogleApiRequest($url);
+		$response = $this->runGoogleApiRequest($url);
+		return $response === null ? null : GeocodeResponse::cast($response);
 	}
 
 	private function runGoogleApiRequest(string $url): ?\stdClass

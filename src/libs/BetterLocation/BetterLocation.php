@@ -128,7 +128,7 @@ class BetterLocation implements CoordinatesInterface
 				try {
 					$googleGeocoding = Factory::googleGeocodingApi();
 					$addressResponse = $googleGeocoding->reverse($this->coords);
-					$this->address = $addressResponse?->results[0]->formatted_address;
+					$this->address = $addressResponse?->getAddress();
 					return;
 				} catch (\GuzzleHttp\Exception\GuzzleException $exception) {
 					Debugger::log($exception, Debugger::EXCEPTION);
