@@ -73,4 +73,55 @@ final class UtilsTest extends TestCase
 		$this->assertSame([50.0], Utils::recalculateRange([50]));
 		$this->assertSame([50.0, 50.0,], Utils::recalculateRange([50, 50]));
 	}
+
+	/**
+	 * @return array<array{string, string}>
+	 */
+	public function flagEmojiProvider(): array
+	{
+		return [
+			['🇨🇿', 'CZ'],
+			['🇨🇿', 'cz'],
+			['🇨🇿', 'cZ'],
+			['🇳🇱', 'nl'],
+			['🇺🇸', 'Us'],
+			['🇨🇭', 'CH'],
+		];
+	}
+
+	/**
+	 * @return array<array{mixed}>
+	 */
+	public function flagEmojiInvalidProvider(): array
+	{
+		return [
+			['czcz'],
+			['Czechia'],
+			[''],
+			['c'],
+			['čr'],
+			['ČR'],
+			[' cz '],
+			['1'],
+			['23'],
+		];
+	}
+
+	/**
+	 * @dataProvider flagEmojiProvider
+	 */
+	public final function testFlagEmojiFromCountryCode(string $expectedEmoji, string $countryCode): void
+	{
+		$flag = Utils::flagEmojiFromCountryCode($countryCode);
+		$this->assertSame($expectedEmoji, $flag);
+	}
+
+	/**
+	 * @dataProvider flagEmojiInvalidProvider
+	 */
+	public final function testFlagEmojiFromCountryCodeInvalid(string $input): void
+	{
+		$this->expectException(\InvalidArgumentException::class);
+		Utils::flagEmojiFromCountryCode($input);
+	}
 }

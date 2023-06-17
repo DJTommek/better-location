@@ -4,6 +4,8 @@ namespace App\Utils;
 
 class Utils
 {
+	private const EMOJI_COUNTRY_CODE_OFFSET = 127397;
+
 	/**
 	 * Format seconds into human readable format
 	 *
@@ -277,5 +279,34 @@ class Utils
 		$finder = new \DOMXPath($document);
 		$jsonEl = $finder->query('//script[@type="application/ld+json"]')->item(0);
 		return $jsonEl ? json_decode($jsonEl->textContent) : null;
+	}
+
+	/**
+	 * Convert country code to emoji representing flag of that country
+	 *
+	 * @example 'CZ' => 🇨🇿 (https://emojipedia.org/flag-czechia/)
+	 * @author https://dev.to/jorik/country-code-to-flag-emoji-a21 (in Javascript)
+	 *
+	 * @param string $countryCode in Alpha-2 code - two characters, for example CZ (Czechia), US (United States of America), CH (Switzerland)
+	 * @return string Multi-byte string representing flag, eg 🇨🇿
+	 */
+	public static function flagEmojiFromCountryCode(string $countryCode): string
+	{
+		if (!preg_match('/^[a-z]{2}$/i', $countryCode)) {
+			throw new \InvalidArgumentException('Country code must be two characters within A-Z range.');
+		}
+		$chars = str_split(strtoupper($countryCode));
+
+		$codesForFlag = array_map(
+			fn($char) => ord($char) + self::EMOJI_COUNTRY_CODE_OFFSET,
+			$chars,
+		);
+
+		$flagBytes = array_map(
+			fn($charCode) => mb_chr($charCode),
+			$codesForFlag,
+		);
+
+		return join('', $flagBytes);
 	}
 }
