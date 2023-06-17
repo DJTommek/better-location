@@ -6,7 +6,8 @@ use App\Utils\Utils;
 
 class GeocodeResponse
 {
-	private const ADDRESS_COMPONENT_COUNTRY = 'country';
+	public const ADDRESS_COMPONENT_COUNTRY = 'country';
+
 	public \stdClass $plus_code;
 	/**
 	 * @var array<mixed>

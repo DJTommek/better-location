@@ -5,8 +5,10 @@ namespace App\BetterLocation;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\Config;
 use App\Factory;
+use App\Google\Geocoding\GeocodeResponse;
 use App\Icons;
 use App\MiniCurl\MiniCurl;
+use App\Utils\Utils;
 use DJTommek\Coordinates\CoordinatesInterface;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -14,16 +16,13 @@ use Tracy\ILogger;
 class GooglePlaceApi
 {
 	private string $apiKey;
-
 	private const TEXT_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
 	private const PLACE_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json';
 	private const PLACE_DETAILS_URL = 'https://maps.googleapis.com/maps/api/place/details/json';
-
 	// https://developers.google.com/maps/documentation/places/web-service/details#Place-business_status
 	public const BUSINESS_STATUS_OPERATIONAL = 'OPERATIONAL';
 	public const BUSINESS_STATUS_CLOSED_TEMPORARILY = 'CLOSED_TEMPORARILY';
 	public const BUSINESS_STATUS_CLOSED_PERMANENTLY = 'CLOSED_PERMANENTLY';
-
 	// More responses on https://developers.google.com/places/web-service/search#PlaceSearchStatusCodes
 	private const RESPONSE_ZERO_RESULTS = 'ZERO_RESULTS';
 	private const RESPONSE_NOT_FOUND = 'NOT_FOUND';
@@ -140,7 +139,6 @@ class GooglePlaceApi
 		}
 
 		return $response->result;
-
 	}
 
 	private function runGoogleApiRequest(string $url): \stdClass
@@ -191,17 +189,19 @@ class GooglePlaceApi
 
 			if ($loadPlaceDetails) {
 				try {
-					$placeDetails = $this->getPlaceDetails($placeCandidate->place_id, ['url', 'website', 'international_phone_number', 'business_status']);
+					$placeDetails = $this->getPlaceDetails($placeCandidate->place_id, ['url', 'website', 'international_phone_number', 'business_status', 'address_components']);
 					if ($placeDetails === null) {
 						if ($placeCandidate->name !== '') {
 							$betterLocation->setPrefixMessage($placeCandidate->name);
 						}
 					} else {
-						$betterLocation->setPrefixMessage(sprintf(
-							'<a href="%s">%s</a>',
-							($placeDetails->website ?? $placeDetails->url),
-							$placeCandidate->name
-						));
+						$betterLocation->setPrefixMessage(
+							sprintf(
+								'<a href="%s">%s</a>',
+								($placeDetails->website ?? $placeDetails->url),
+								$placeCandidate->name,
+							),
+						);
 
 						if (isset($placeDetails->business_status)) {
 							if ($placeDetails->business_status === self::BUSINESS_STATUS_CLOSED_TEMPORARILY) {
@@ -211,8 +211,15 @@ class GooglePlaceApi
 							}
 						}
 
-						if ($address !== null && isset($placeDetails->international_phone_number)) {
-							$address .= sprintf(' (%s)', $placeDetails->international_phone_number);
+						if ($address !== null) {
+							if (isset($placeDetails->international_phone_number)) {
+								$address .= sprintf(' (%s)', $placeDetails->international_phone_number);
+							}
+
+							$countryCode = $this->getCountryCodeFromAddressComponents($placeDetails->address_components);
+							if ($countryCode !== null) {
+								$address = Utils::flagEmojiFromCountryCode($countryCode) . ' ' . $address;
+							}
 						}
 					}
 				} catch (\Throwable $exception) {
@@ -230,6 +237,7 @@ class GooglePlaceApi
 
 	/**
 	 * Helper method to do all logic and return collection of locations
+	 *
 	 * @deprecated Create instance via new or using Factory and call searchPlace()
 	 */
 	public static function search(string $queryInput, ?string $languageCode = null, ?CoordinatesInterface $location = null): BetterLocationCollection
@@ -244,5 +252,18 @@ class GooglePlaceApi
 	public static function normalizeInput(string $input): string
 	{
 		return preg_replace('/\s+/', ' ', $input);
+	}
+
+	/**
+	 * @param array<object{long_name: string, short_name: string, types: array<string>}> $addressComponents
+	 */
+	private function getCountryCodeFromAddressComponents(array $addressComponents): ?string
+	{
+		foreach ($addressComponents as $addressComponent) {
+			if (in_array(GeocodeResponse::ADDRESS_COMPONENT_COUNTRY, $addressComponent->types, true)) {
+				return $addressComponent->short_name;
+			}
+		}
+		return null;
 	}
 }
