@@ -50,6 +50,7 @@ class BetterLocation implements CoordinatesInterface
 	private ?string $sourceType;
 	/**
 	 * Pregenerated link for service(s) if available
+	 *
 	 * @var array<class-string<AbstractService>,string>
 	 */
 	private array $pregeneratedLinks = [];
@@ -225,9 +226,10 @@ class BetterLocation implements CoordinatesInterface
 		}
 
 		// Generate copyable text representing location
-		$text .= ' ' . implode(' | ', array_map(function ($service) {
-				return sprintf('<code>%s</code>', $service::getShareText($this->getLat(), $this->getLon()));
-			}, $settings->getTextServices()));
+		$copyableTexts = array_map(function ($service) {
+			return sprintf('<code>%s</code>', $service::getShareText($this->getLat(), $this->getLon()));
+		}, $settings->getTextServices());
+		$text .= ' ' . implode(' | ', $copyableTexts);
 
 		if ($this->getCoordinateSuffixMessage()) {
 			$text .= ' ' . $this->getCoordinateSuffixMessage();
@@ -359,6 +361,7 @@ class BetterLocation implements CoordinatesInterface
 
 	/**
 	 * Set or append description.
+	 *
 	 * @param string|int|null $key Set null to add new description.
 	 *    If type is int or string is used, it will store on specific position. If already exists, will be overwritten.
 	 */
@@ -383,7 +386,8 @@ class BetterLocation implements CoordinatesInterface
 		return $this->getDescription($key) !== null;
 	}
 
-	public function clearDescriptions(): void {
+	public function clearDescriptions(): void
+	{
 		$this->descriptions = [];
 	}
 

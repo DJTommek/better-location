@@ -4,7 +4,7 @@ namespace App\Google\Geocoding;
 
 use App\Config;
 use App\MiniCurl\MiniCurl;
-use App\Utils\CoordinatesInterface;
+use DJTommek\Coordinates\CoordinatesInterface;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
