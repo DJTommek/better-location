@@ -2,9 +2,10 @@
 
 namespace App\Google\Geocoding;
 
+use App\Dto\AbstractDto;
 use App\Utils\Utils;
 
-class GeocodeResponse
+class GeocodeResponse extends AbstractDto
 {
 	public const ADDRESS_COMPONENT_COUNTRY = 'country';
 
@@ -14,18 +15,6 @@ class GeocodeResponse
 	 */
 	public array $results;
 	public string $status;
-
-	/**
-	 * @param \stdClass|array<mixed> $raw
-	 */
-	public static function cast(\stdClass|array $raw): self
-	{
-		$result = new self();
-		foreach ((array)$raw as $name => $value) {
-			$result->{$name} = $value;
-		}
-		return $result;
-	}
 
 	public function getAddress(): ?string
 	{

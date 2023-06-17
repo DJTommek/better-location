@@ -41,16 +41,16 @@ class StaticApi
 		return self::METADATA_URL . '?' . http_build_query($queryParams);
 	}
 
-	public function loadPanoaramaMetadataByCoords(float $lat, float $lon): ?\stdClass
+	public function loadPanoaramaMetadataByCoords(float $lat, float $lon): ?StreetViewResponse
 	{
 		$input = $lat . ',' . $lon;
 		$url = $this->getMetadataUrl($input);
-		$content = $this->runGoogleApiRequest($url);
-		if (in_array($content->status, [self::RESPONSE_ZERO_RESULTS, self::RESPONSE_NOT_FOUND], true)) {
+		$response = $this->runGoogleApiRequest($url);
+		if (in_array($response->status, [self::RESPONSE_ZERO_RESULTS, self::RESPONSE_NOT_FOUND], true)) {
 			return null;
 		}
 
-		return $content;
+		return StreetViewResponse::cast($response);
 	}
 
 	private function runGoogleApiRequest(string $url): \stdClass
