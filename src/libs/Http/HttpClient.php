@@ -13,13 +13,15 @@ use Psr\Http\Message\UriInterface;
 
 class HttpClient
 {
+	private const DEFAULT_TIMEOUT = 5;
+
 	/**
 	 * @var array<string,mixed>
 	 */
 	private array $config = [
-		'connect_timeout' => 5,
-		'read_timeout' => 5,
-		'timeout' => 5,
+		'connect_timeout' => self::DEFAULT_TIMEOUT,
+		'read_timeout' => self::DEFAULT_TIMEOUT,
+		'timeout' => self::DEFAULT_TIMEOUT,
 	];
 	private ?\GuzzleHttp\Client $client = null;
 	private int $cacheTtl = 0;
@@ -83,13 +85,11 @@ class HttpClient
 	{
 		$this->createClient();
 
-		if ($uri instanceof Url || $uri instanceof UrlImmutable) {
-			$uri = (string)$uri;
-		}
+		$url = new UrlImmutable($uri);
 
 		$request = new Request(
 			method: 'GET',
-			uri: $uri,
+			uri: (string)$url,
 			headers: $this->httpHeaders,
 		);
 
