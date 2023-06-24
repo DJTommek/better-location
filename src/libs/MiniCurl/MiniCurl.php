@@ -13,6 +13,10 @@ use Nette\Http\UrlImmutable;
 use Nette\Utils\Json;
 use Tracy\Debugger;
 
+/**
+ * @deprecated Use \App\Http\HttpClient instead. If some feature is missing which is already in MiniCurl it should be
+ * also implemented into HttpClient
+ */
 class MiniCurl
 {
 	private const CACHE_FOLDER = Config::FOLDER_TEMP . '/mini-curl/cached-responses';

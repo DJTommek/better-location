@@ -11,6 +11,12 @@ use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
 use Psr\Http\Message\UriInterface;
 
+/**
+ * Disclaimer 2023-06-18: This handler is still in active development:
+ * - More features are planned to be implemented from MiniCurl, such as: partial download, download only HTTP headers,
+ *      random useragents, automatic encoding conversion, POST requests
+ * - Signature of classes, attributes and methods might be completely changed
+ */
 class HttpClient
 {
 	private const DEFAULT_TIMEOUT = 5;
