@@ -55,11 +55,11 @@ class HttpClient
 	/**
 	 * Allow caching.
 	 *
-	 * @param int $ttl TTL in seconds. Set 0 to disable caching.
+	 * @param int|false|null $ttl TTL in seconds. Set 0 to disable caching.
 	 */
-	public function allowCache(int $ttl): self
+	public function allowCache(int|false|null $ttl): self
 	{
-		$this->cacheTtl = $ttl;
+		$this->cacheTtl = (int)$ttl;
 		return $this;
 	}
 
