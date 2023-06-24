@@ -2,6 +2,6 @@
 
 namespace App\Http;
 
-class NotSupportedException extends \HttpException
+class NotSupportedException extends HttpException
 {
 }
