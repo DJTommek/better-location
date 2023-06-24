@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Config;
 use App\Factory;
+use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 use Nette\Caching\Cache;
@@ -99,8 +100,10 @@ class HttpClient
 			headers: $this->httpHeaders,
 		);
 
-		// @TODO set cookies
-		// @TODO set http headers
+		if ($this->httpCookies !== []) {
+			$cookieJar = CookieJar::fromArray($this->httpCookies, $url->getDomain());
+			$options['cookies'] = $cookieJar;
+		}
 
 		if ($this->cacheTtl > 0) {
 			$cacheKey = $this->getCacheKey($request);
