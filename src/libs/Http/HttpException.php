@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
-class HttpException extends \Exception
+use GuzzleHttp\Exception\GuzzleException;
+
+class HttpException extends \Exception implements GuzzleException
 {
 }

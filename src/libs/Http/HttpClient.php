@@ -5,7 +5,6 @@ namespace App\Http;
 use App\Config;
 use App\Factory;
 use GuzzleHttp\Cookie\CookieJar;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 use Nette\Caching\Cache;
 use Nette\Http\Url;
@@ -79,14 +78,10 @@ class HttpClient
 	/**
 	 * Create and send an HTTP GET request.
 	 *
-	 * Use an absolute path to override the base path of the client, or a
-	 * relative path to append to the base path of the client. The URL can
-	 * contain the query string as well.
+	 * @param string|UriInterface|Url|UrlImmutable $uri Absolute URL should be used for request
+	 * @param array<string, mixed> $options Request options to apply.
 	 *
-	 * @param string|UriInterface|Url|UrlImmutable $uri URI object or string.
-	 * @param array<string,mixed> $options Request options to apply.
-	 *
-	 * @throws GuzzleException
+	 * @throws HttpException
 	 */
 	public function get(string|UriInterface|Url|UrlImmutable $uri, array $options = []): Response
 	{
@@ -105,7 +100,7 @@ class HttpClient
 			$options['cookies'] = $cookieJar;
 		}
 
-		if ($this->cacheTtl > 0) {
+		if ($this->canUseCache()) {
 			$cacheKey = $this->getCacheKey($request);
 			$cache = $this->getCacheStorage();
 
@@ -124,12 +119,16 @@ class HttpClient
 			reason: $responseOriginal->getReasonPhrase(),
 		);
 
-		if (isset($cacheKey) && isset($cache)) {
+		if ($this->canUseCache()) {
 			$cache->save($cacheKey, $responseUtils);
 		}
 
 		return $responseUtils;
+	}
 
+	private function canUseCache(): bool
+	{
+		return $this->cacheTtl > 0;
 	}
 
 	private function createClient(): void
