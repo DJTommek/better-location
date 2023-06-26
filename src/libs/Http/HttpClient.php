@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Config;
 use App\Factory;
+use App\Utils\Strict;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Psr7\Request;
@@ -82,7 +83,7 @@ class HttpClient
 	 */
 	public function get(string|UriInterface|Url|UrlImmutable $uri, array $options = []): Response
 	{
-		$url = new UrlImmutable($uri);
+		$url = Strict::urlImmutable($uri);
 
 		$request = new Request(
 			method: 'GET',
