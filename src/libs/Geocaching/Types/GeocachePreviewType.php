@@ -45,7 +45,7 @@ class GeocachePreviewType
 	/** @var bool */
 	public $premiumOnly;
 	/** @var int */
-	public $favouritePoints;
+	public $favoritePoints;
 	/** @var int */
 	public $geocacheType;
 	/** @var int */
