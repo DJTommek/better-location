@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Config;
 use App\Factory;
+use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Psr7\Request;
 use Nette\Caching\Cache;
@@ -20,7 +21,6 @@ use Psr\Http\Message\UriInterface;
 class HttpClient
 {
 	private const DEFAULT_TIMEOUT = 5;
-
 	/**
 	 * @var array<string,mixed>
 	 */
@@ -29,16 +29,13 @@ class HttpClient
 		'read_timeout' => self::DEFAULT_TIMEOUT,
 		'timeout' => self::DEFAULT_TIMEOUT,
 	];
-	private ?\GuzzleHttp\Client $client = null;
+	private ?GuzzleClient $client = null;
 	private int $cacheTtl = 0;
-
 	private ?Cache $cacheStorage = null;
-
 	/**
 	 * @var array<string,string>
 	 */
 	private array $httpCookies = [];
-
 	/**
 	 * @var array<string,string>
 	 */
@@ -85,8 +82,6 @@ class HttpClient
 	 */
 	public function get(string|UriInterface|Url|UrlImmutable $uri, array $options = []): Response
 	{
-		$this->createClient();
-
 		$url = new UrlImmutable($uri);
 
 		$request = new Request(
@@ -100,6 +95,16 @@ class HttpClient
 			$options['cookies'] = $cookieJar;
 		}
 
+		return $this->send($request, $options);
+	}
+
+	/**
+	 * Send an HTTP request.
+	 *
+	 * @param array<string, mixed> $options Request options to apply.
+	 */
+	public function send(Request $request, array $options = []): Response
+	{
 		if ($this->canUseCache()) {
 			$cacheKey = $this->getCacheKey($request);
 			$cache = $this->getCacheStorage();
@@ -110,7 +115,7 @@ class HttpClient
 			}
 		}
 
-		$responseOriginal = $this->client->send($request, $options);
+		$responseOriginal = $this->getClient()->send($request, $options);
 		$responseUtils = new Response(
 			status: $responseOriginal->getStatusCode(),
 			headers: $responseOriginal->getHeaders(),
@@ -131,11 +136,20 @@ class HttpClient
 		return $this->cacheTtl > 0;
 	}
 
-	private function createClient(): void
+	private function getClient(): GuzzleClient
 	{
 		if ($this->client === null) {
-			$this->client = new \GuzzleHttp\Client($this->config);
+			$this->client = new GuzzleClient($this->config);
 		}
+
+		return $this->client;
+	}
+
+	public function setClient(GuzzleClient $client): self
+	{
+		$this->client = $client;
+
+		return $this;
 	}
 
 	private function getCacheStorage(): Cache
