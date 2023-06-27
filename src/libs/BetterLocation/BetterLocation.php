@@ -17,6 +17,7 @@ use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\TelegramCustomWrapper\TelegramHelper as TG;
 use App\Utils\Coordinates;
 use App\Utils\CoordinatesInterface;
+use App\Utils\Formatter;
 use App\Utils\Strict;
 use App\Utils\Utils;
 use maxh\Nominatim\Exceptions\NominatimException;
@@ -298,6 +299,18 @@ class BetterLocation implements CoordinatesInterface
 		$this->prefixMessage = $prefixMessage;
 	}
 
+	public function appendToPrefixMessage(string $suffix): self
+	{
+		$this->prefixMessage .= $suffix;
+		return $this;
+	}
+
+	public function prependToPrefixMessage(string $prefix): self
+	{
+		$this->prefixMessage = $prefix . $this->prefixMessage;
+		return $this;
+	}
+
 	public function getPrefixMessage(): string
 	{
 		return $this->prefixMessage;
@@ -492,14 +505,28 @@ class BetterLocation implements CoordinatesInterface
 
 	private function generateDefaultPrefix(): void
 	{
-		$generatedPrefix = $this->sourceService::getName();
-		if ($this->sourceType) {
-			$generatedPrefix .= ' ' . $this->sourceType;
+		$this->setPrefixTextInLink('', true, true);
+	}
+
+	/**
+	 * Override prefix by generating default link (inputUrl) by providing custom text.
+	 * Optionally prepend with service name and service type
+	 */
+	public function setPrefixTextInLink(string $text, bool $usePrefixServiceName = true, bool $usePrefixServiceType = false): self
+	{
+		$texts = [];
+		if ($usePrefixServiceName === true) {
+			$texts[] = $this->sourceService::getName();
 		}
-		if ($this->inputUrl) {
-			$generatedPrefix = sprintf('<a href="%s">%s</a>', $this->inputUrl, $generatedPrefix);
+		if ($this->sourceType !== null && $usePrefixServiceType === true) {
+			$texts[] = $this->sourceType;
 		}
-		$this->setPrefixMessage($generatedPrefix);
+		$texts[] = $text;
+		$htmlText = trim(implode(' ', array_filter($texts)));
+		assert($htmlText !== '');
+		$htmlTag = Formatter::htmlLink((string)$this->inputUrl, $htmlText);
+		$this->setPrefixMessage($htmlTag);
+		return $this;
 	}
 
 	/**
