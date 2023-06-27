@@ -108,4 +108,36 @@ final class FormatterTest extends TestCase
 		$this->expectExceptionMessage('Distance must be higher or equal zero.');
 		Formatter::distance(-1);
 	}
+
+	/**
+	 * @return array<mixed>
+	 */
+	public function htmlLinkProvider(): array
+	{
+		return [
+			['<a href="https://tomas.palider.cz/">https://tomas.palider.cz/</a>', 'https://tomas.palider.cz/'],
+			['<a href="https://tomas.palider.cz/">tomas.palider</a>', 'https://tomas.palider.cz/', 'tomas.palider'],
+			['<a href="https://tomas.palider.cz/" title="Tomas">tomas.palider</a>', 'https://tomas.palider.cz/', 'tomas.palider', 'Tomas'],
+			['<a href="https://tomas.palider.cz/" title="Tomas" target="random-target">tomas.palider</a>', 'https://tomas.palider.cz/', 'tomas.palider', 'Tomas', 'random-target'],
+			['<a href="https://tomas.palider.cz/" title="Tomas">https://tomas.palider.cz/</a>', 'https://tomas.palider.cz/', null, 'Tomas'],
+			['<a href="https://tomas.palider.cz/" title="Tomas">https://tomas.palider.cz/</a>', 'https://tomas.palider.cz/', null, 'Tomas', false],
+			['<a href="https://tomas.palider.cz/" title="Tomas" target="_blank">https://tomas.palider.cz/</a>', 'https://tomas.palider.cz/', null, 'Tomas', null],
+			['<a href="https://tomas.palider.cz/" title="https://tomas.palider.cz/" target="other">https://tomas.palider.cz/</a>', 'https://tomas.palider.cz/', null, null, 'other'],
+		];
+	}
+
+	/**
+	 * @dataProvider htmlLinkProvider
+	 */
+	public final function testHtmlLink(
+		string $expected,
+		string $link,
+		string|null $text = null,
+		string|null|false $title = false,
+		string|null|false $target = false,
+		): void
+	{
+		$result = Formatter::htmlLink($link, $text, $title, $target);
+		$this->assertSame($expected, $result);
+	}
 }

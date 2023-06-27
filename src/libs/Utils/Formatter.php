@@ -94,4 +94,41 @@ class Formatter
 		return number_format($bytes / pow(1024, $power), 2, '.', ' ') . ' ' . $units[$power];
 	}
 
+	/**
+	 * Build HTML tag <a>
+	 *
+	 * @TODO escape special characters
+	 *
+	 * @param string $link Target URL (required)
+	 * @param string|null $text Visible text (null to use $link)
+	 * @param string|false|null $title Title text attribute (null to use $text, false to not use at all)
+	 * @param string|false|null $target Click target attribute (null to use "_blank", false to not use at all)
+	 */
+	public static function htmlLink(
+		string $link,
+		string|null $text = null,
+		string|null|false $title = false,
+		string|null|false $target = false,
+	): string {
+		$text = $text ?? $link;
+
+		$result = sprintf('<a href="%s"', $link);
+
+		if ($title === null) {
+			$title = $text;
+		}
+		if ($title !== false) {
+			$result .= sprintf(' title="%s"', $title);
+		}
+
+		if ($target === null) {
+			$target = '_blank';
+		}
+		if ($target !== false) {
+			$result .= sprintf(' target="%s"', $target);
+		}
+
+		$result .= sprintf('>%s</a>', $text);
+		return $result;
+	}
 }
