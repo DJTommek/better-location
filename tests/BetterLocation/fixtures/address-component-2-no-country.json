@@ -1,0 +1,10 @@
+[
+	{
+		"long_name": "Atlantic Ocean",
+		"short_name": "Atlantic Ocean",
+		"types": [
+			"natural_feature",
+			"establishment"
+		]
+	}
+]

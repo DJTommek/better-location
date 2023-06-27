@@ -267,6 +267,7 @@ class GooglePlaceApi
 
 	/**
 	 * @param array<object{long_name: string, short_name: string, types: array<string>}> $addressComponents
+	 * @internal For tests
 	 */
 	public static function getCountryCodeFromAddressComponents(array $addressComponents): ?string
 	{

@@ -1,0 +1,49 @@
+[
+	{
+		"long_name": "Lookout Road",
+		"short_name": "Lookout Rd",
+		"types": [
+			"route"
+		]
+	},
+	{
+		"long_name": "Hataitai",
+		"short_name": "Hataitai",
+		"types": [
+			"sublocality_level_1",
+			"sublocality",
+			"political"
+		]
+	},
+	{
+		"long_name": "Wellington",
+		"short_name": "Wellington",
+		"types": [
+			"locality",
+			"political"
+		]
+	},
+	{
+		"long_name": "Wellington",
+		"short_name": "Wellington",
+		"types": [
+			"administrative_area_level_1",
+			"political"
+		]
+	},
+	{
+		"long_name": "New Zealand",
+		"short_name": "NZ",
+		"types": [
+			"country",
+			"political"
+		]
+	},
+	{
+		"long_name": "6021",
+		"short_name": "6021",
+		"types": [
+			"postal_code"
+		]
+	}
+]

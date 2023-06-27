@@ -1,0 +1,34 @@
+[
+	{
+		"long_name": "Prague",
+		"short_name": "Prague",
+		"types": [
+			"locality",
+			"political"
+		]
+	},
+	{
+		"long_name": "Hlavní město Praha",
+		"short_name": "Hlavní město Praha",
+		"types": [
+			"administrative_area_level_2",
+			"political"
+		]
+	},
+	{
+		"long_name": "Prague",
+		"short_name": "Prague",
+		"types": [
+			"administrative_area_level_1",
+			"political"
+		]
+	},
+	{
+		"long_name": "Czechia",
+		"short_name": "CZ",
+		"types": [
+			"country",
+			"political"
+		]
+	}
+]
