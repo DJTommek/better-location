@@ -210,52 +210,62 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 
 	/**
 	 * Links generated on phone in Google maps app by clicking on "share" button while opened place
-	 * @group request
+	 *
+	 * @return array<mixed>
 	 */
-	public function testShareUrlPhone1(): void
-	{
-		// Baumax Michle
-		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/bauMax,+Chodovsk%C3%A1+1549%2F18,+101+00+Praha+10/data=!4m2!3m1!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2?utm_source=mstt_1&entry=gps')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('hidden', $collection[0]->getSourceType());
-		$this->assertSame('50.056156,14.472952', $collection[0]->__toString());
-		// same as above but short URL
-		$collection = GoogleMapsService::processStatic('https://maps.app.goo.gl/X5bZDTSFfdRzchGY6')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('hidden', $collection[0]->getSourceType());
-		$this->assertSame('50.056156,14.472952', $collection[0]->__toString());
-
-		// Lemour Sušice
-		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/Caf%C3%A9+Lamour,+n%C3%A1b%C5%99.+Karla+Houry+180,+342+01+Su%C5%A1ice/data=!4m2!3m1!1s0x470b2b2fad7dd1c3:0x6c66c5beca8a4117?utm_source=mstt_1&entry=gps')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('hidden', $collection[0]->getSourceType());
-		$this->assertSame('49.231830,13.521600', $collection[0]->__toString());
-		// same as above but short URL
-		$collection = GoogleMapsService::processStatic('https://maps.app.goo.gl/C4FjaU9CXsHuMrobA')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('hidden', $collection[0]->getSourceType());
-		$this->assertSame('49.231830,13.521600', $collection[0]->__toString());
+	public function shareUrlPhoneProvider(): array {
+		return [
+			'Baumax (long)' => [
+				'https://www.google.com/maps/place/bauMax,+Chodovsk%C3%A1+1549%2F18,+101+00+Praha+10/data=!4m2!3m1!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2?utm_source=mstt_1&entry=gps',
+				'50.056156,14.472952',
+				'<a href="https://www.baumax.cz/">bauMax</a>',
+			],
+			'Baumax (short)' => [ // same as previous but short URL
+				'https://maps.app.goo.gl/X5bZDTSFfdRzchGY6',
+				'50.056156,14.472952',
+				'<a href="https://www.baumax.cz/">bauMax</a>',
+			],
+			'Lemour Sušice (long)' => [
+				'https://www.google.com/maps/place/Caf%C3%A9+Lamour,+n%C3%A1b%C5%99.+Karla+Houry+180,+342+01+Su%C5%A1ice/data=!4m2!3m1!1s0x470b2b2fad7dd1c3:0x6c66c5beca8a4117?utm_source=mstt_1&entry=gps',
+				'49.231830,13.521600',
+				'<a href="https://www.facebook.com/pages/Café-LAmour/632972443431373?fref=ts">Café L\'Amour</a>',
+			],
+			'Lemour Sušice (short)' => [ // same as previous but short URL
+				'https://maps.app.goo.gl/C4FjaU9CXsHuMrobA',
+				'49.231830,13.521600',
+				'<a href="https://www.facebook.com/pages/Café-LAmour/632972443431373?fref=ts">Café L\'Amour</a>',
+			],
+			'Dacia Průhonice (long)' => [
+				'https://www.google.com/maps/place/Dacia+Pr%C5%AFhonice+-+Pyramida+Pr%C5%AFhonice,+u+Prahy,+U+Pyramidy+721,+252+43+Pr%C5%AFhonice/data=!4m2!3m1!1s0x470b8f7265f22517:0xd2786b5c9cd599cd?utm_source=mstt_1&entry=gps&g_ep=CAESCTExLjYzLjcwNBgAIIgnKgBCAkNa',
+				'50.002966,14.569240',
+				'<a href="https://www.daciapruhonice.cz/">Dacia Průhonice - Pyramida Průhonice</a>',
+			],
+			'Dacia Průhonice (short)' => [
+				'https://maps.app.goo.gl/NM78pUenb1hVA3nX8',
+				'50.002966,14.569240',
+				'<a href="https://www.daciapruhonice.cz/">Dacia Průhonice - Pyramida Průhonice</a>',
+			],
+			'Mount Victoria Lookout (short)' => [
+				'https://maps.app.goo.gl/PRwZr2cHQLfqxbNw9',
+				'-41.296057,174.794310',
+				'<a href="http://www.wellingtonnz.com/discover/things-to-do/sights-activities/mount-victoria-lookout/">Mount Victoria Lookout</a>',
+			],
+		];
 	}
 
 	/**
-	 * Links generated on phone in Google maps app by clicking on "share" button while opened place (different way of extracting coordinates)
+	 * @dataProvider shareUrlPhoneProvider
 	 * @group request
 	 */
-	public function testShareUrlPhone2(): void
+	public function testShareUrlPhone(string $sourceUrl, string $expectedCoords, string $expectedPrefixPart): void
 	{
-		// Dacia Průhonice
-		$collection = GoogleMapsService::processStatic('https://www.google.com/maps/place/Dacia+Pr%C5%AFhonice+-+Pyramida+Pr%C5%AFhonice,+u+Prahy,+U+Pyramidy+721,+252+43+Pr%C5%AFhonice/data=!4m2!3m1!1s0x470b8f7265f22517:0xd2786b5c9cd599cd?utm_source=mstt_1&entry=gps&g_ep=CAESCTExLjYzLjcwNBgAIIgnKgBCAkNa')->getCollection();
+		$collection = GoogleMapsService::processStatic($sourceUrl)->getCollection();
 		$this->assertCount(1, $collection);
 		$location = $collection->getFirst();
-		$this->assertSame('hidden', $location->getSourceType());
-		$this->assertSame('50.002966,14.569240', $location->__toString());
-
-		// same as above but short URL (coordinates saved differently)
-		$collection = GoogleMapsService::processStatic('https://maps.app.goo.gl/NM78pUenb1hVA3nX8')->getCollection();
-		$this->assertCount(1, $collection);
-		$location = $collection->getFirst();
-		$this->assertSame('hidden', $location->getSourceType());
-		$this->assertSame('50.002966,14.569240', $location->__toString());
+		$this->assertSame('Place', $location->getSourceType());
+		$this->assertSame($expectedCoords, (string)$location->getCoordinates());
+		$expectedPrefix = sprintf('<a href="%s">Google</a>: %s', $sourceUrl, $expectedPrefixPart);
+		$this->assertSame($expectedPrefix, $location->getPrefixMessage());
 	}
 
 	/**

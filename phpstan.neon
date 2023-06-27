@@ -47,6 +47,11 @@ parameters:
 			message: "#^Parameter .+ of .+ expects .+, .+ given\\.$#"
 			path: src/libs/Factory.php
 			reportUnmatched: false
+		-
+			# False-negative. One method is called twice and PHPStan does not know, that output might be different
+			message: "#^Strict comparison using \\=\\=\\= between true and false will always evaluate to false\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/Service/GoogleMapsService.php
 
 includes:
 	- phpstan-baseline.neon

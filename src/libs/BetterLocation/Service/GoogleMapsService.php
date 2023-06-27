@@ -3,12 +3,15 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\GooglePlaceApi;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use App\Config;
+use App\Factory;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
+use App\Utils\Formatter;
 use App\Utils\Strict;
 
 /**
@@ -69,7 +72,6 @@ final class GoogleMapsService extends AbstractService
 
 	public function isShortUrl(): bool
 	{
-
 		if (
 			($this->url->getDomain(0) === 'goo.gl' && str_starts_with($this->url->getPath(), '/maps/'))
 			|| ($this->url->getDomain(0) === 'maps.app.goo.gl')
@@ -203,23 +205,61 @@ final class GoogleMapsService extends AbstractService
 		// This might happen if clicked on "Share" button from phone app Google maps:
 		// https://maps.app.goo.gl/X5bZDTSFfdRzchGY6
 		// -> https://www.google.com/maps/place/bauMax,+Chodovsk%C3%A1+1549%2F18,+101+00+Praha+10/data=!4m2!3m1!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2?utm_source=mstt_1&entry=gps
-		//                                                                                                      \__@TODO this might be some place ID__/
-		if ($this->collection->count() === 0) {
-			// URL don't have any coordinates or place-id to translate so load content and there are some coordinates hidden in page in some of brutal multi-array
-			$content = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_GOOGLE_MAPS)->run()->getBody();
-			$coords = null;
-			if (preg_match('/",null,\[null,null,(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)]/', $content, $matches)) {
-				// Example: ',"",null,[null,null,50.0641584,14.468139599999999]';
-				$coords = Coordinates::safe($matches[1], $matches[2]);
-			} else if (preg_match('/window\.APP_INITIALIZATION_STATE=\[\[\[[0-9.+]+,([-0-9.+]+),([-0-9.+]+)],\[/', $content, $matches)) {
-				// example: '...wvRvJsOMw"]];window.APP_INITIALIZATION_STATE=[[[2564.4475005591294,14.569239800000005,50.002965700000004],[0,0,0],[1024,768],13.1],[[["m...'
-				$coords = Coordinates::safe($matches[2], $matches[1]);
-			}
+		if ($this->collection->isEmpty() === false) {
+			return;
+		}
 
-			if ($coords) {
-				$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class, self::TYPE_HIDDEN);
+		// URL don't have any coordinates or place-id to translate so load content for more in-depth analysis
+		$content = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_GOOGLE_MAPS)->run()->getBody();
+		$coords = null;
+		// Searching for multi-byte encoded URL containing place ID
+		// https://search.google.com/local/reviews?placeid\u003dChIJKe0_A-3sC0cREMjaVtfpgdE\u0026q\u003d...
+		//                                                      \___ This is place id  ___/
+		// Decoded format for this URL:
+		// https://search.google.com/local/reviews?placeid=ChIJKe0_A-3sC0cREMjaVtfpgdE&=...
+		$a = str_contains($content, 'https://search.google.com/local/reviews?placeid\\\\u003dChIJKe0_A-3sC0cREMjaVtfpgdE\\\\u0026q\\\\u003dV%C3%BDstava+stan%C5%AF,+spac');
+		$contentForRegex = str_replace('\\\\u003d', '=', $content);
+		$contentForRegex = str_replace('\\\\u0026q', '&', $contentForRegex);
+		$b = str_contains($contentForRegex, 'https://search.google.com/local/reviews?placeid=ChIJKe0_A-3sC0cREMjaVtfpgdE&=V%C3%BDstava+stan%C5%AF,+spac');
+		if (preg_match('/reviews\?placeid=([a-zA-Z0-9_-]+)&=/', $contentForRegex, $matches)) {
+			$placeId = $matches[1];
+			$placeApi = Factory::googlePlaceApi();
+			$placeDetails = $placeApi->getPlaceDetails($placeId, ['name', 'formatted_address', 'geometry', 'url', 'website', 'international_phone_number', 'business_status', 'address_components']);
+			if ($placeDetails !== null) {
+				$location = new BetterLocation(
+					$this->inputUrl,
+					$placeDetails->geometry->location->lat,
+					$placeDetails->geometry->location->lng,
+					self::class,
+					self::TYPE_PLACE,
+				);
+				GooglePlaceApi::populateLocationFromPlaceDetails($location, $placeDetails);
+
+				$location->prependToPrefixMessage(
+					Formatter::htmlLink((string)$this->inputUrl, self::getName()) . ': ',
+				);
+
 				$this->collection->add($location);
 			}
+		}
+
+		if ($this->collection->isEmpty() === false) {
+			return;
+		}
+
+		// search for coordinates hidden in page in some of brutal multi-array
+		if (preg_match('/",null,\[null,null,(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)]/', $content, $matches)) {
+			// Example: ',"",null,[null,null,50.0641584,14.468139599999999]';
+			$coords = Coordinates::safe($matches[1], $matches[2]);
+		} else if (preg_match('/window\.APP_INITIALIZATION_STATE=\[\[\[[0-9.+]+,([-0-9.+]+),([-0-9.+]+)],\[/', $content, $matches)) {
+			// example: '...wvRvJsOMw"]];window.APP_INITIALIZATION_STATE=[[[2564.4475005591294,14.569239800000005,50.002965700000004],[0,0,0],[1024,768],13.1],[[["m...'
+			$coords = Coordinates::safe($matches[2], $matches[1]);
+		}
+
+		if ($coords) {
+			$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class, self::TYPE_HIDDEN);
+			$location->setPrefixTextInLink('', true, false);
+			$this->collection->add($location);
 		}
 	}
 }
