@@ -155,6 +155,10 @@ class ServicesManager
 					$service->process();
 				} catch (\Throwable $exception) {
 					Debugger::log($exception, Debugger::DEBUG);
+				} catch (\Throwable $exception) {
+					// @phpstan-ignore-next-line
+					assert(false, 'Investigate and fix this error: ' . $exception->getMessage());
+					Debugger::log($exception, Debugger::ERROR);
 				}
 				if (count($service->getCollection()) === 0) {
 					Debugger::log(sprintf('Input "%s" was validated for "%s", but it was unable to get any valid location.', $input, get_class($service)), ILogger::WARNING);
