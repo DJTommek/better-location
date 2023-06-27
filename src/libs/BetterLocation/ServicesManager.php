@@ -5,7 +5,8 @@ namespace App\BetterLocation;
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\Service\AppleMapsService;
 use App\BetterLocation\Service\BaladIrService;
-use App\BetterLocation\Service\BannergressService;
+use App\BetterLocation\Service\Bannergress\BannergressService;
+use App\BetterLocation\Service\Bannergress\OpenBannersService;
 use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\Coordinates\MGRSService;
 use App\BetterLocation\Service\Coordinates\USNGService;
@@ -123,6 +124,7 @@ class ServicesManager
 //			$this->services[IngressMosaicService::ID] = IngressMosaicService::class;
 //		}
 		$this->services[BannergressService::ID] = BannergressService::class;
+		$this->services[OpenBannersService::ID] = OpenBannersService::class;
 		if (Config::isGeocaching()) {
 			$this->services[GeocachingService::ID] = GeocachingService::class;
 		}
