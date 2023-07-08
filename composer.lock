@@ -1270,16 +1270,16 @@
         },
         {
             "name": "djtommek/mapycz-api",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DJTommek/mapycz-api.git",
-                "reference": "9335d4d04da3c1879f0bea5307e50e91c4432ec3"
+                "reference": "315ed71502d0a582c3d3cef8ea13a02b376aa7f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DJTommek/mapycz-api/zipball/9335d4d04da3c1879f0bea5307e50e91c4432ec3",
-                "reference": "9335d4d04da3c1879f0bea5307e50e91c4432ec3",
+                "url": "https://api.github.com/repos/DJTommek/mapycz-api/zipball/315ed71502d0a582c3d3cef8ea13a02b376aa7f4",
+                "reference": "315ed71502d0a582c3d3cef8ea13a02b376aa7f4",
                 "shasum": ""
             },
             "require": {
@@ -1324,9 +1324,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DJTommek/mapycz-api/issues",
-                "source": "https://github.com/DJTommek/mapycz-api/tree/2.0.1"
+                "source": "https://github.com/DJTommek/mapycz-api/tree/2.0.2"
             },
-            "time": "2023-04-16T19:04:10+00:00"
+            "time": "2023-07-08T07:18:13+00:00"
         },
         {
             "name": "doctrine/inflector",
