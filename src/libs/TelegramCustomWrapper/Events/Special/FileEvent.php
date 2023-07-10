@@ -57,7 +57,9 @@ class FileEvent extends Special
 			$response = $this->run($getFile);
 			assert($response instanceof Telegram\Types\File);
 			$fileLink = TelegramHelper::getFileUrl(Config::TELEGRAM_BOT_TOKEN, $response->file_path);
-			return BetterLocation::fromExif($fileLink);
+			$location =  BetterLocation::fromExif($fileLink);
+			$location->setPrefixMessage(sprintf('EXIF %s', htmlentities($document->file_name)));
+			return $location;
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
 		}
