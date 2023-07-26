@@ -8,7 +8,6 @@ use App\Utils\Utils;
 class GeocodeResponse extends AbstractDto
 {
 	public const ADDRESS_COMPONENT_COUNTRY = 'country';
-
 	public \stdClass $plus_code;
 	/**
 	 * @var array<mixed>
@@ -24,6 +23,21 @@ class GeocodeResponse extends AbstractDto
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Global code: full plus code consisting of alphanumeric characters, completely resolvable offline
+	 * Compound code: code consisting of two parts: first is shorter plus code, second is closest big city
+	 *
+	 * @param bool $compound Return compound code. If not available, returns full plus code instead
+	 */
+	public function getPlusCode(bool $compound = false): string
+	{
+		$codes = $this->plus_code;
+		if ($compound === true && $codes->compound_code !== null) {
+			return $codes->compound_code;
+		}
+		return $codes->global_code;
 	}
 
 	public function getAddressWithFlag(): ?string
