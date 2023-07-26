@@ -173,7 +173,8 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		// URL with Panorama ID
 		if (Strict::isPositiveInt($this->url->getQueryParameter('pid'))) {
 			try {
-				$mapyCzResponse = $mapyCzApi->loadPanoramaDetails(Strict::intval($this->url->getQueryParameter('pid')));
+                $panoramaId = Strict::intval($this->url->getQueryParameter('pid'));
+				$mapyCzResponse = $mapyCzApi->loadPanoramaDetails($panoramaId);
 				$this->collection->add(new BetterLocation($this->inputUrl, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PANORAMA));
 			} catch (MapyCzApiException $exception) {
 				if ($exception->getCode() === self::CODE_NOT_FOUND) {
