@@ -1,4 +1,4 @@
-# Tempporary folder
+# Temporary folder
 
 Temporary folder exists to improve application speed eg. caching response for requests. 
 
