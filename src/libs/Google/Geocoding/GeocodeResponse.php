@@ -43,7 +43,7 @@ class GeocodeResponse extends AbstractDto
 
 	public function getCountryCode(): ?string
 	{
-		return $this->getCountry()->short_name;
+		return $this->getCountry()?->short_name;
 	}
 
 	private function getCountry(): ?\stdClass
