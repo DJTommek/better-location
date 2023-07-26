@@ -31,6 +31,8 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 	const TYPE_PHOTO = 'Photo';
 	const TYPE_CUSTOM_POINT = 'Custom point';
 
+	private const CODE_NOT_FOUND = 404;
+
 	public function isValid(): bool
 	{
 		return (
@@ -160,7 +162,11 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 				$betterLocation->setPrefixMessage($prefix);
 				$this->collection->add($betterLocation);
 			} catch (MapyCzApiException $exception) {
-				Debugger::log(sprintf('MapyCz Place API response: "%s"', $exception->getMessage()), Debugger::ERROR);
+				if ($exception->getCode() === self::CODE_NOT_FOUND) {
+					// not found, swallow
+				} else {
+					Debugger::log(sprintf('MapyCz Place API response: "%s"', $exception->getMessage()), Debugger::ERROR);
+				}
 			}
 		}
 
@@ -170,7 +176,11 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 				$mapyCzResponse = $mapyCzApi->loadPanoramaDetails(Strict::intval($this->url->getQueryParameter('pid')));
 				$this->collection->add(new BetterLocation($this->inputUrl, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PANORAMA));
 			} catch (MapyCzApiException $exception) {
-				Debugger::log(sprintf('MapyCz Panorama API response: "%s"', $exception->getMessage()), Debugger::ERROR);
+				if ($exception->getCode() === self::CODE_NOT_FOUND) {
+					// not found, swallow
+				} else {
+					Debugger::log(sprintf('MapyCz Panorama API response: "%s"', $exception->getMessage()), Debugger::ERROR);
+				}
 			}
 		}
 
@@ -185,7 +195,11 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 				}
 				$this->collection->add($betterLocation);
 			} catch (MapyCzApiException $exception) {
-				Debugger::log(sprintf('MapyCz Place API response: "%s"', $exception->getMessage()), Debugger::ERROR);
+				if ($exception->getCode() === self::CODE_NOT_FOUND) {
+					// not found, swallow
+				} else {
+					Debugger::log(sprintf('MapyCz Place API response: "%s"', $exception->getMessage()), Debugger::ERROR);
+				}
 			}
 		}
 
