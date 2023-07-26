@@ -15,7 +15,7 @@ class BlbUtils {
 			console.debug({location: location, lat: lat, lon: lon});
 			throw new Error('Unable to generate key, invalid or missing latitude or longitude.');
 		}
-		return lat.toFixed(6) + ',' + lon.toFixed();
+		return lat.toFixed(6) + ',' + lon.toFixed(6);
 	}
 }
 
