@@ -4,6 +4,7 @@ namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Telegram\LocationService;
 use App\Icons;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
@@ -27,9 +28,10 @@ class LocationEvent extends Special
 		if ($this->collection === null) {
 			$this->collection = new BetterLocationCollection();
 
-			$lat = $this->getTgMessage()->location->latitude;
-			$lon = $this->getTgMessage()->location->longitude;
-			$betterLocation = BetterLocation::fromLatLon($lat, $lon);
+			$location = $this->getTgMessage()->location;
+
+			$type = $this->isLive ? LocationService::TYPE_LIVE : LocationService::TYPE_CLASSIC;
+			$betterLocation = BetterLocation::fromLatLon($location->latitude, $location->longitude, LocationService::class, $type);
 
 			if ($this->isLive) {
 				$betterLocation->setPrefixMessage('Live location');

@@ -4,6 +4,7 @@ namespace App\TelegramCustomWrapper\Events\Edit;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\Telegram\LocationService;
 use App\Config;
 use App\Factory;
 use App\Icons;
@@ -28,7 +29,10 @@ class LocationEdit extends Edit
 		if ($this->collection === null) {
 			$this->collection = new BetterLocationCollection();
 
-			$betterLocation = BetterLocation::fromLatLon($this->getTgMessage()->location->latitude, $this->getTgMessage()->location->longitude);
+			$location = $this->getTgMessage()->location;
+
+			$type = $this->isLive ? LocationService::TYPE_LIVE : LocationService::TYPE_CLASSIC;
+			$betterLocation = BetterLocation::fromLatLon($location->latitude, $location->longitude, LocationService::class, $type);
 			if ($this->isLive) {
 				$betterLocation->setPrefixMessage('Live location');
 				$betterLocation->setRefreshable(true);
