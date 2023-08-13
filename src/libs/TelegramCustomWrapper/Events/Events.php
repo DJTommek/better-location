@@ -10,6 +10,7 @@ use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\SendMessage;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\User;
+use App\Utils\DateImmutableUtils;
 use App\Utils\SimpleLogger;
 use DJTommek\Coordinates\CoordinatesInterface;
 use Nette\Http\UrlImmutable;
@@ -25,6 +26,7 @@ use unreal4u\TelegramAPI\Telegram\Methods\SendChatAction;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 use unreal4u\TelegramAPI\TgLog;
+
 use function Clue\React\Block\await;
 
 abstract class Events
@@ -169,6 +171,14 @@ abstract class Events
 		return $this->getTgMessage()->text;
 	}
 
+	public function getTgMessageSentDate(): \DateTimeImmutable
+	{
+		$tgMessage = $this->getTgMessage();
+		assert($tgMessage->date !== null);
+		assert($tgMessage->date !== 0);
+		return DateImmutableUtils::fromTimestamp($tgMessage->date);
+	}
+
 	abstract public function getTgMessage(): Telegram\Types\Message;
 
 	/** @return bool overridden with false, where Telegram\Types\Message is not available */
@@ -271,7 +281,9 @@ abstract class Events
 				$chatMember = $this->run($getChatMember);
 				if ($chatMember instanceof Telegram\Types\ChatMember === false) {
 					throw new \LogicException(sprintf('Unexpected type "%s" returned from getChatMember(), chat_id = "%s", user_id = "%s"',
-							get_class($chatMember), $this->getTgChatId(), $this->getTgFromId())
+							get_class($chatMember),
+							$this->getTgChatId(),
+							$this->getTgFromId())
 					);
 				}
 				$this->isAdmin = TelegramHelper::isAdmin($chatMember);
