@@ -66,6 +66,7 @@ class InlineQueryEvent extends Special
 		$inlineLocation = $this->update->inline_query->location;
 		$hasInlineLocation = $inlineLocation !== null;
 		if ($hasInlineLocation) {
+			// Telegram API does not provide datetime, when user is searching
 			$this->user->setLastKnownLocation($inlineLocation->latitude, $inlineLocation->longitude);
 		}
 

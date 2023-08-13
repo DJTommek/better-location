@@ -52,7 +52,11 @@ class LocationEvent extends Special
 	{
 		if ($this->isLive) {
 			$location = $this->getTgMessage()->location;
-			$this->user->setLastKnownLocation($location->latitude, $location->longitude);
+			$this->user->setLastKnownLocation(
+				$location->latitude,
+				$location->longitude,
+				$this->getTgMessageSentDate(),
+			);
 		}
 
 		$collection = $this->getCollection();

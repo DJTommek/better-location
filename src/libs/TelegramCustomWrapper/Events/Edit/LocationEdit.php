@@ -10,7 +10,6 @@ use App\Icons;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\TelegramUpdateDb;
-use App\Utils\DateImmutableUtils;
 use unreal4u\TelegramAPI\Telegram;
 
 class LocationEdit extends Edit
@@ -44,8 +43,14 @@ class LocationEdit extends Edit
 	public function handleWebhookUpdate(): void
 	{
 		$tgMessage = $this->getTgMessage();
+		$messageEditDate = $this->getTgMessageEditDate();
+
 		if ($this->isLive) {
-			$this->user->setLastKnownLocation($tgMessage->location->latitude, $tgMessage->location->longitude);
+			$this->user->setLastKnownLocation(
+				$tgMessage->location->latitude,
+				$tgMessage->location->longitude,
+				$messageEditDate,
+			);
 		}
 
 		$collection = $this->getCollection();
@@ -56,8 +61,11 @@ class LocationEdit extends Edit
 
 			// Show datetime of last location update in local timezone based on timezone on that location itself
 			$geonames = Factory::geonames()->timezone($collection->getFirst()->getLat(), $collection->getFirst()->getLon());
-			$lastUpdate = DateImmutableUtils::fromTimestamp($tgMessage->edit_date, $geonames->timezone);
-			$text .= sprintf('%s Last live location from %s', Icons::REFRESH, $lastUpdate->format(Config::DATETIME_FORMAT));
+			$text .= sprintf(
+				'%s Last update %s',
+				Icons::REFRESH,
+				$messageEditDate->setTimezone($geonames->timezone)->format(Config::DATETIME_FORMAT),
+			);
 
 			if ($this->isLive === false) {
 				// If user cancel sharing, edit event is fired but it's not live location anymore.
