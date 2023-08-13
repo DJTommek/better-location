@@ -449,6 +449,11 @@ class BetterLocation implements CoordinatesInterface
 		return new BetterLocation(sprintf('%F,%F', $lat, $lon), $lat, $lon, WGS84DegreesService::class);
 	}
 
+	public static function fromCoords(\DJTommek\Coordinates\CoordinatesInterface $coordinates): self
+	{
+		return self::fromLatLon($coordinates->getLat(), $coordinates->getLon());
+	}
+
 	private function validateInput(UrlImmutable|Url|string $input): void
 	{
 		if ($input instanceof \Nette\Http\UrlImmutable) {
