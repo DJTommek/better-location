@@ -35,8 +35,7 @@ if (isset($_GET['password']) && $_GET['password'] === \App\Config::CRON_PASSWORD
 		foreach ($messagesToRefresh as $messageToRefresh) {
 			$id = sprintf('%d-%d', $messageToRefresh->getChatId(), $messageToRefresh->getBotReplyMessageId());
 			try {
-				$telegramCustomWrapper->getUpdateEvent($messageToRefresh->getOriginalUpdateObject());
-				$event = $telegramCustomWrapper->getEvent();
+				$event = $telegramCustomWrapper->analyze($messageToRefresh->getOriginalUpdateObject());
 				printlog(sprintf('Processing %s with last refresh at %s (%s ago)',
 					$id,
 					$messageToRefresh->getLastUpdate()->format(DATE_W3C),

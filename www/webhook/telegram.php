@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../../src/bootstrap.php';
 
 use App\Config;
+use App\TelegramCustomWrapper\Exceptions\EventNotSupportedException;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\SimpleLogger;
 use Nette\Utils\Json;
@@ -27,21 +28,19 @@ if (Config::isTelegramWebhookPassword() === false) {
 
 		$telegramCustomWrapper = \App\Factory::telegram();
 		$update = new \unreal4u\TelegramAPI\Telegram\Types\Update($updateData);
-		$telegramCustomWrapper->getUpdateEvent($update);
-		if ($event = $telegramCustomWrapper->getEvent()) {
-			$timerName = 'eventHandling';
-			\Tracy\Debugger::timer($timerName);
-			$telegramCustomWrapper->handle();
-			\Tracy\Debugger::log(sprintf(
-				'Handling event %s took %F seconds. Log ID = %d',
-				$event::class,
-				\Tracy\Debugger::timer($timerName),
-				LOG_ID
-			), \Tracy\Debugger::DEBUG);
-		} else {
-			printf('<p>%s</p>', $telegramCustomWrapper->getEventNote());
-		}
+		$event = $telegramCustomWrapper->analyze($update);
+		$timerName = 'eventHandling';
+		\Tracy\Debugger::timer($timerName);
+		$telegramCustomWrapper->executeEventHandler($event);
+		\Tracy\Debugger::log(sprintf(
+			'Handling event %s took %F seconds. Log ID = %d',
+			$event::class,
+			\Tracy\Debugger::timer($timerName),
+			LOG_ID
+		), \Tracy\Debugger::DEBUG);
 		printf('OK.');
+	} catch (EventNotSupportedException $exception) {
+		printf('<p>%s</p>', $exception->getMessage());
 	} catch (\Throwable $exception) {
 		if ($request->getQuery('exception') === '0') {
 			printf('Error: "%s".', $exception->getMessage());

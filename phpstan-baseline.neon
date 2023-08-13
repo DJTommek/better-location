@@ -621,21 +621,6 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/SendMessage.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\TelegramCustomWrapper\\:\\:getUpdateEvent\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/TelegramCustomWrapper.php
-
-		-
-			message: "#^Property App\\\\TelegramCustomWrapper\\\\TelegramCustomWrapper\\:\\:\\$loop has no type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/TelegramCustomWrapper.php
-
-		-
-			message: "#^Property App\\\\TelegramCustomWrapper\\\\TelegramCustomWrapper\\:\\:\\$tgLog has no type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/TelegramCustomWrapper.php
-
-		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\TelegramHelper\\:\\:getParams\\(\\) has parameter \\$update with no type specified\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/TelegramHelper.php

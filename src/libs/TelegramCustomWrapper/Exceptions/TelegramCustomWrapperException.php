@@ -2,6 +2,6 @@
 
 namespace App\TelegramCustomWrapper\Exceptions;
 
-class MessageDeletedException extends TelegramCustomWrapperException
+class TelegramCustomWrapperException extends \Exception
 {
 }

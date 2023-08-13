@@ -27,6 +27,9 @@ use App\TelegramCustomWrapper\Events\Special\InlineQueryEvent;
 use App\TelegramCustomWrapper\Events\Special\LocationEvent;
 use App\TelegramCustomWrapper\Events\Special\MessageEvent;
 use App\TelegramCustomWrapper\Events\Special\PhotoEvent;
+use App\TelegramCustomWrapper\Exceptions\EventNotSupportedException;
+use App\TelegramCustomWrapper\Exceptions\TelegramCustomWrapperException;
+use React\EventLoop\LoopInterface;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Abstracts\TelegramMethods;
 use unreal4u\TelegramAPI\Abstracts\TelegramTypes;
@@ -34,17 +37,13 @@ use unreal4u\TelegramAPI\Exceptions\ClientException;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\TgLog;
+
 use function Clue\React\Block\await;
 
 class TelegramCustomWrapper
 {
-	private $tgLog;
-	private $loop;
-
-	/** @var Events */
-	private $event;
-	/** @var string */
-	private $eventNote;
+	private readonly TgLog $tgLog;
+	private readonly LoopInterface $loop;
 
 	public function __construct()
 	{
@@ -52,133 +51,126 @@ class TelegramCustomWrapper
 		$this->tgLog = new TgLog(Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($this->loop));
 	}
 
-	public function getUpdateEvent(Telegram\Types\Update $update)
+	/**
+	 * Analyze Telegram API update object and return event type if there is one.
+	 * @throws EventNotSupportedException When event is not have its specific handler
+	 */
+	public function analyze(Telegram\Types\Update $update): Events
 	{
 		if ($update->update_id === 0) { // default value
-			throw new \Exception('Telegram webhook API data are missing!');
-		} else if (isset($update->my_chat_member)) {
-			$this->eventNote = '$update->my_chat_member is ignored';
-		} else if (TelegramHelper::isEdit($update)) {
+			throw new TelegramCustomWrapperException('Telegram webhook API data are missing!');
+		}
+
+		if (isset($update->my_chat_member)) {
+			throw new EventNotSupportedException('$update->my_chat_member is ignored');
+		}
+
+		if (TelegramHelper::isEdit($update)) {
 			if (TelegramHelper::isLocation($update)) {
-				$this->event = new LocationEdit($update);
+				return new LocationEdit($update);
 			} else {
-				$this->eventNote = 'Edit\'s are ignored';
-			}
-		} else if (TelegramHelper::isChannel($update)) {
-			$this->eventNote = 'Channel messages are ignored';
-		} else if (TelegramHelper::addedToChat($update, Config::TELEGRAM_BOT_NAME)) {
-			$this->event = new AddedToChatEvent($update);
-		} else if (TelegramHelper::isViaBot($update, Config::TELEGRAM_BOT_NAME)) {
-			$this->eventNote = 'I will ignore my own via_bot (from inline) messages.';
-		} else if (TelegramHelper::isChosenInlineQuery($update)) {
-			// @TODO implement ChosenInlineQuery handler
-			$this->eventNote = 'ChosenInlineQuery handler is not implemented';
-		} else if (TelegramHelper::isInlineQuery($update)) {
-			$this->event = new InlineQueryEvent($update);
-		} else {
-			$command = TelegramHelper::getCommand($update, Config::TELEGRAM_COMMAND_STRICT);
-			if (TelegramHelper::isButtonClick($update)) {
-				switch ($command) {
-					case HelpButton::CMD:
-						$this->event = new HelpButton($update);
-						break;
-					case FavouritesButton::CMD:
-						$this->event = new FavouritesButton($update);
-						break;
-					case RefreshButton::CMD:
-						$this->event = new RefreshButton($update);
-						break;
-					case SettingsButton::CMD:
-						$this->event = new SettingsButton($update);
-						break;
-					default: // unknown: malicious request or button command has changed
-						$this->event = new InvalidButton($update);
-						break;
-				}
-			} else {
-				if (TelegramHelper::isLocation($update)) {
-					$this->event = new LocationEvent($update);
-				} elseif (TelegramHelper::hasDocument($update)) {
-					$this->event = new FileEvent($update);
-				} elseif (TelegramHelper::hasContact($update)) {
-					$this->event = new ContactEvent($update);
-				} elseif (TelegramHelper::hasPhoto($update)) {
-					$this->event = new PhotoEvent($update);
-				} else {
-					switch ($command) {
-						case StartCommand::CMD:
-							$this->event = new StartCommand($update);
-							break;
-						case HelpCommand::CMD:
-							$this->event = new HelpCommand($update);
-							break;
-						case DebugCommand::CMD:
-							$this->event = new DebugCommand($update);
-							break;
-						case SettingsCommand::CMD:
-							$this->event = new SettingsCommand($update);
-							break;
-						case FavouritesCommand::CMD:
-							$this->event = new FavouritesCommand($update);
-							break;
-						case FeedbackCommand::CMD:
-							$this->event = new FeedbackCommand($update);
-							break;
-						case LoginCommand::CMD:
-							$this->event = new LoginCommand($update);
-							break;
-						case null: // message without command
-							$this->event = new MessageEvent($update);
-							break;
-						default: // unknown command
-							$this->event = new UnknownCommand($update);
-							break;
-					}
-				}
+				throw new EventNotSupportedException('Edit\'s are ignored');
 			}
 		}
+
+		if (TelegramHelper::isChannel($update)) {
+			throw new EventNotSupportedException('Channel messages are ignored');
+		}
+
+		if (TelegramHelper::addedToChat($update, Config::TELEGRAM_BOT_NAME)) {
+			return new AddedToChatEvent($update);
+
+		}
+
+		if (TelegramHelper::isViaBot($update, Config::TELEGRAM_BOT_NAME)) {
+			throw new EventNotSupportedException('I will ignore my own via_bot (from inline) messages.');
+		}
+
+		if (TelegramHelper::isChosenInlineQuery($update)) {
+			throw new EventNotSupportedException('ChosenInlineQuery handler is not implemented');
+		}
+
+		if (TelegramHelper::isInlineQuery($update)) {
+			return new InlineQueryEvent($update);
+		}
+
+		$command = TelegramHelper::getCommand($update, Config::TELEGRAM_COMMAND_STRICT);
+
+		if (TelegramHelper::isButtonClick($update)) {
+			return match ($command) {
+				HelpButton::CMD => new HelpButton($update),
+				FavouritesButton::CMD => new FavouritesButton($update),
+				RefreshButton::CMD => new RefreshButton($update),
+				SettingsButton::CMD => new SettingsButton($update),
+				default => new InvalidButton($update),
+			};
+		}
+
+		if (TelegramHelper::isLocation($update)) {
+			return new LocationEvent($update);
+		}
+
+		if (TelegramHelper::hasDocument($update)) {
+			return new FileEvent($update);
+		}
+
+		if (TelegramHelper::hasContact($update)) {
+			return new ContactEvent($update);
+		}
+
+		if (TelegramHelper::hasPhoto($update)) {
+			return new PhotoEvent($update);
+		}
+
+		if ($command === null) {
+			if ($update->message->text !== '') {
+				return new MessageEvent($update);
+			}
+			throw new EventNotSupportedException('Telegram event type was not recognized.');
+		}
+
+		return match ($command) {
+			StartCommand::CMD => new StartCommand($update),
+			HelpCommand::CMD => new HelpCommand($update),
+			DebugCommand::CMD => new DebugCommand($update),
+			SettingsCommand::CMD => new SettingsCommand($update),
+			FavouritesCommand::CMD => new FavouritesCommand($update),
+			FeedbackCommand::CMD => new FeedbackCommand($update),
+			LoginCommand::CMD => new LoginCommand($update),
+			default => new UnknownCommand($update),
+		};
 	}
 
-	public function getEvent(): ?Events
+	public function executeEventHandler(Events $event): void
 	{
-		return $this->event;
-	}
-
-	public function getEventNote(): string
-	{
-		return $this->eventNote;
-	}
-
-	public function handle(): void
-	{
-		$this->event->handleWebhookUpdate();
+		$event->handleWebhookUpdate();
 
 		try {
-			$this->saveToChatHistory();
+			$this->saveToChatHistory($event);
 		} catch (\Exception $exception) {
 			Debugger::log($exception, Debugger::EXCEPTION);
 		}
 	}
 
-	private function saveToChatHistory(): void
+	private function saveToChatHistory(Events $event): void
 	{
-		$collections = $this->event->getCollection();
-		if ($collections === null || $collections->isEmpty() || $this->event->getChat() === null) {
+		$collections = $event->getCollection();
+		if ($collections === null || $collections->isEmpty() || $event->getChat() === null) {
 			return;
 		}
 
 		$db = Factory::database();
 		$chatLocationHistory = new ChatLocationHistory($db);
-		$messageSentDatetime = (new \DateTime())->setTimestamp($this->event->getTgMessage()->date);
+		$messageSentDatetime = (new \DateTime())->setTimestamp($event->getTgMessage()->date);
 
 		foreach ($collections as $location) {
 			$chatLocationHistory->insert(
-				$this->event->getTgUpdateId(),
-				$this->event->getChat()->getEntity()->id,
-				$this->event->getUser()->getEntity()->id,
+				$event->getTgUpdateId(),
+				$event->getChat()->getEntity()->id,
+				$event->getUser()->getEntity()->id,
 				$messageSentDatetime,
 				$location->getCoordinates(),
-				$location->getInput()
+				$location->getInput(),
 			);
 		}
 	}
