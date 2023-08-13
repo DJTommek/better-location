@@ -62,25 +62,28 @@ class LocationEvent extends Special
 		$collection = $this->getCollection();
 		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
 		$processedCollection->process();
-		if ($collection->count() > 0) {
-			$markup = $processedCollection->getMarkup(1, false);
-			if ($this->chat->getSendNativeLocation()) {
-				$this->replyLocation($processedCollection->getCollection()->getFirst(), $markup);
-			} else {
-				$text = $processedCollection->getText();
-				$response = $this->reply($text, $markup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
-				if ($response && $collection->hasRefreshableLocation()) {
-					$cron = new TelegramUpdateDb($this->update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
-					$cron->insert();
-					$cron->setLastSendData($text, $markup, true);
-				}
-			}
-		} else { // No detected locations or occured errors
-			if ($this->isTgPm() === true) {
+
+		if ($collection->isEmpty()) { // No detected locations or occured errors
+			if ($this->isTgPm()) {
 				$this->reply(sprintf('%s Unexpected error occured while processing location. Contact Admin for more info.', Icons::ERROR));
 			} else {
 				// do not send anything to group chat
 			}
+			return;
+		}
+
+		$markup = $processedCollection->getMarkup(1, false);
+		if ($this->chat->getSendNativeLocation()) {
+			$this->replyLocation($processedCollection->getCollection()->getFirst(), $markup);
+			return;
+		}
+
+		$text = $processedCollection->getText();
+		$response = $this->reply($text, $markup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
+		if ($response && $collection->hasRefreshableLocation()) {
+			$cron = new TelegramUpdateDb($this->update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
+			$cron->insert();
+			$cron->setLastSendData($text, $markup, true);
 		}
 	}
 
