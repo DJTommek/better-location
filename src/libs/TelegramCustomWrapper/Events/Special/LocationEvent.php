@@ -32,7 +32,6 @@ class LocationEvent extends Special
 			$betterLocation = BetterLocation::fromLatLon($lat, $lon);
 
 			if ($this->isLive) {
-				$this->user->setLastKnownLocation($this->getTgMessage()->location->latitude, $this->getTgMessage()->location->longitude);
 				$betterLocation->setPrefixMessage('Live location');
 				$betterLocation->setRefreshable(true);
 			} else if (TelegramHelper::isVenue($this->update)) {
