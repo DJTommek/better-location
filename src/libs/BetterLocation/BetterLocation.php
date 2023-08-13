@@ -95,6 +95,11 @@ class BetterLocation implements CoordinatesInterface
 		return $this->sourceType;
 	}
 
+	public function getSourceService(): string
+	{
+		return $this->sourceService;
+	}
+
 	/**
 	 * @return array{lat: float, lon: float, service: string}
 	 */
