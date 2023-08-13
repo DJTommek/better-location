@@ -2,30 +2,24 @@
 
 namespace App\Repository;
 
-use App\Utils\Coordinates;
+use DJTommek\Coordinates\CoordinatesImmutable;
+use DJTommek\Coordinates\CoordinatesInterface;
 
 class UserEntity extends Entity
 {
 	/**
-	 * @var int
 	 * @readonly
 	 */
-	public $id;
+	public int $id;
 	/**
-	 * @var int
 	 * @readonly
 	 */
-	public $telegramId;
-	/** @var string */
-	public $telegramName;
-	/** @var \DateTimeImmutable */
-	public $registered;
-	/** @var \DateTimeImmutable */
-	public $lastUpdate;
-	/** @var ?\DateTimeImmutable */
-	public $lastLocationUpdate;
-	/** @var ?Coordinates */
-	public $lastLocation;
+	public int $telegramId;
+	public string $telegramName;
+	public \DateTimeImmutable $registered;
+	public \DateTimeImmutable $lastUpdate;
+	public ?\DateTimeImmutable $lastLocationUpdate;
+	public ?CoordinatesImmutable $lastLocation;
 
 	public static function fromRow(array $row): self
 	{
@@ -36,24 +30,17 @@ class UserEntity extends Entity
 		$entity->registered = new \DateTimeImmutable($row['user_registered']);
 		$entity->lastUpdate = new \DateTimeImmutable($row['user_last_update']);
 		if ($row['user_location_lat'] !== null && $row['user_location_lon'] !== null && $row['user_location_last_update'] !== null) {
-			$entity->lastLocation = new Coordinates($row['user_location_lat'], $row['user_location_lon']);
+			$entity->lastLocation = new CoordinatesImmutable($row['user_location_lat'], $row['user_location_lon']);
 			$entity->lastLocationUpdate = new \DateTimeImmutable($row['user_location_last_update']);
 		}
 		return $entity;
 	}
 
-	public function getLat(): ?float
+	public function setLastLocation(CoordinatesInterface $coords): void
 	{
-		return $this->lastLocation ? $this->lastLocation->getLat() : null;
-	}
-
-	public function getLon(): ?float
-	{
-		return $this->lastLocation ? $this->lastLocation->getLon() : null;
-	}
-
-	public function setLastLocation(Coordinates $coords): void
-	{
+		if ($coords instanceof CoordinatesImmutable === false) {
+			$coords = new CoordinatesImmutable($coords->getLat(), $coords->getLon());
+		}
 		$this->lastLocation = $coords;
 		$this->lastLocationUpdate = new \DateTimeImmutable();
 	}

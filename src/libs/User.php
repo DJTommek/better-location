@@ -10,7 +10,7 @@ use App\Repository\FavouritesRepository;
 use App\Repository\UserEntity;
 use App\Repository\UserRepository;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
-use App\Utils\Coordinates;
+use DJTommek\Coordinates\CoordinatesImmutable;
 
 class User
 {
@@ -62,7 +62,7 @@ class User
 
 	public function setLastKnownLocation(float $lat, float $lon): void
 	{
-		$coords = new Coordinates($lat, $lon);
+		$coords = new CoordinatesImmutable($lat, $lon);
 		$this->userEntity->setLastLocation($coords);
 		$this->update();
 	}
@@ -128,7 +128,7 @@ class User
 	public function getLastKnownLocation(): ?BetterLocation
 	{
 		if ($this->userEntity->lastLocation) {
-			$location = BetterLocation::fromLatLon($this->userEntity->getLat(), $this->userEntity->getLon());
+			$location = BetterLocation::fromCoords($this->userEntity->lastLocation);
 			$location->setPrefixMessage(sprintf('%s Last location', Icons::CURRENT_LOCATION));
 
 			// Show datetime of last location update in local timezone based on timezone on that location itself
