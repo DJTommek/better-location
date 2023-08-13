@@ -8,12 +8,11 @@ use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\ServicesManager;
 use App\Config;
 use App\Factory;
-use App\Utils\Coordinates;
 use App\Utils\DateImmutableUtils;
-use App\Utils\Strict;
 use App\Utils\Utils;
 use App\Web\FlashMessage;
 use App\Web\MainPresenter;
+use DJTommek\Coordinates\Coordinates;
 use Nette\Utils\Json;
 use Tracy\Debugger;
 
@@ -43,10 +42,11 @@ class LocationsPresenter extends MainPresenter
 		$input = $_GET['coords'] ?? '';
 		if ($input && preg_match($regex, $input)) {
 			foreach (explode(';', $input) as $coords) {
-				list($lat, $lon) = explode(',', $coords);
-				if (Coordinates::isLat($lat) && Coordinates::isLon($lon)) {
-					$this->collection->add(BetterLocation::fromLatLon(Strict::floatval($lat), Strict::floatval($lon)));
+				$coords = Coordinates::fromString($coords, ',');
+				if ($coords === null) {
+					continue;
 				}
+				$this->collection->add(BetterLocation::fromLatLon($coords->lat, $coords->lon));
 			}
 		}
 		$this->collection->deduplicate();
