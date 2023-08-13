@@ -27,10 +27,9 @@ class LocationEvent extends Special
 		if ($this->collection === null) {
 			$this->collection = new BetterLocationCollection();
 
-			$betterLocation = BetterLocation::fromLatLon(
-				$this->getTgMessage()->location->latitude,
-				$this->getTgMessage()->location->longitude
-			);
+			$lat = $this->getTgMessage()->location->latitude;
+			$lon = $this->getTgMessage()->location->longitude;
+			$betterLocation = BetterLocation::fromLatLon($lat, $lon);
 
 			if ($this->isLive) {
 				$this->user->setLastKnownLocation($this->getTgMessage()->location->latitude, $this->getTgMessage()->location->longitude);
@@ -53,7 +52,8 @@ class LocationEvent extends Special
 	public function handleWebhookUpdate(): void
 	{
 		if ($this->isLive) {
-			$this->user->setLastKnownLocation($this->getTgMessage()->location->latitude, $this->getTgMessage()->location->longitude);
+			$location = $this->getTgMessage()->location;
+			$this->user->setLastKnownLocation($location->latitude, $location->longitude);
 		}
 
 		$collection = $this->getCollection();

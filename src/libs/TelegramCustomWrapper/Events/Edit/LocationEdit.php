@@ -43,8 +43,9 @@ class LocationEdit extends Edit
 
 	public function handleWebhookUpdate(): void
 	{
+		$tgMessage = $this->getTgMessage();
 		if ($this->isLive) {
-			$this->user->setLastKnownLocation($this->getTgMessage()->location->latitude, $this->getTgMessage()->location->longitude);
+			$this->user->setLastKnownLocation($tgMessage->location->latitude, $tgMessage->location->longitude);
 		}
 
 		$collection = $this->getCollection();
@@ -55,7 +56,7 @@ class LocationEdit extends Edit
 
 			// Show datetime of last location update in local timezone based on timezone on that location itself
 			$geonames = Factory::geonames()->timezone($collection->getFirst()->getLat(), $collection->getFirst()->getLon());
-			$lastUpdate = DateImmutableUtils::fromTimestamp($this->getTgMessage()->edit_date, $geonames->timezone);
+			$lastUpdate = DateImmutableUtils::fromTimestamp($tgMessage->edit_date, $geonames->timezone);
 			$text .= sprintf('%s Last live location from %s', Icons::REFRESH, $lastUpdate->format(Config::DATETIME_FORMAT));
 
 			if ($this->isLive === false) {
