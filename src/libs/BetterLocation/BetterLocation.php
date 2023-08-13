@@ -449,14 +449,24 @@ class BetterLocation implements CoordinatesInterface
 		return $this->staticMapUrl;
 	}
 
-	public static function fromLatLon(float $lat, float $lon): self
-	{
-		return new BetterLocation(sprintf('%F,%F', $lat, $lon), $lat, $lon, WGS84DegreesService::class);
+	/**
+	 * @param class-string<AbstractService> $service
+	 */
+	public static function fromLatLon(
+		float $lat,
+		float $lon,
+		string $service = WGS84DegreesService::class,
+		?string $type = null,
+	): self {
+		return new BetterLocation(sprintf('%F,%F', $lat, $lon), $lat, $lon, $service, $type);
 	}
 
-	public static function fromCoords(\DJTommek\Coordinates\CoordinatesInterface $coordinates): self
-	{
-		return self::fromLatLon($coordinates->getLat(), $coordinates->getLon());
+	public static function fromCoords(
+		\DJTommek\Coordinates\CoordinatesInterface $coordinates,
+		string $service = WGS84DegreesService::class,
+		?string $type = null,
+	): self {
+		return self::fromLatLon($coordinates->getLat(), $coordinates->getLon(), $service, $type);
 	}
 
 	private function validateInput(UrlImmutable|Url|string $input): void
