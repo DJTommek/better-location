@@ -38,7 +38,10 @@ class LocationEvent extends Special
 				$venue = $this->getTgMessage()->venue;
 				$title = $venue->foursquare_id ? $this->venueHrefLink($venue) : $venue->title;
 				$betterLocation->setPrefixMessage('Venue ' . $title);
-				$betterLocation->setDescription($this->getTgMessage()->venue->address);
+
+				// Venue address is mostly very inaccurate, so it cannot be used instead as real address.
+				// Examples 'Prague', 'Köln', 'Želetavská', 'Holandská 1052/52', 'Siegburgerstr. 229', ...
+				$betterLocation->addDescription($this->getTgMessage()->venue->address);
 			} else {
 				$betterLocation->setPrefixMessage('Location');
 			}
@@ -87,9 +90,13 @@ class LocationEvent extends Special
 		}
 	}
 
-	private function venueHrefLink(Telegram\Types\Venue $venue)
+	private function venueHrefLink(Telegram\Types\Venue $venue): string
 	{
-		return sprintf('<a href="https://foursquare.com/v/%s">%s</a>', $venue->foursquare_id, $venue->title);
+		return sprintf(
+			'<a href="https://foursquare.com/v/%s">%s</a>',
+			$venue->foursquare_id,
+			htmlspecialchars($venue->title),
+		);
 	}
 }
 

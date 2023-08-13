@@ -546,11 +546,6 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Events.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Special\\\\LocationEvent\\:\\:venueHrefLink\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Special/LocationEvent.php
-
-		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Login\\:\\:__construct\\(\\) has parameter \\$raw with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Login.php
