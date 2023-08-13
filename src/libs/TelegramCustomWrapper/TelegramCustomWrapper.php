@@ -161,14 +161,13 @@ class TelegramCustomWrapper
 
 		$db = Factory::database();
 		$chatLocationHistory = new ChatLocationHistory($db);
-		$messageSentDatetime = (new \DateTime())->setTimestamp($event->getTgMessage()->date);
 
 		foreach ($collections as $location) {
 			$chatLocationHistory->insert(
 				$event->getTgUpdateId(),
 				$event->getChat()->getEntity()->id,
 				$event->getUser()->getEntity()->id,
-				$messageSentDatetime,
+				$event->getTgMessageSentDate(),
 				$location->getCoordinates(),
 				$location->getInput(),
 			);
