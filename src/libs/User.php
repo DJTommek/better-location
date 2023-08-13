@@ -60,10 +60,10 @@ class User
 		$this->userEntity = $this->userRepository->fromTelegramId($this->userEntity->telegramId);
 	}
 
-	public function setLastKnownLocation(float $lat, float $lon): void
+	public function setLastKnownLocation(float $lat, float $lon, \DateTimeInterface $datetime = null): void
 	{
 		$coords = new CoordinatesImmutable($lat, $lon);
-		$this->userEntity->setLastLocation($coords);
+		$this->userEntity->setLastLocation($coords, $datetime);
 		$this->update();
 	}
 

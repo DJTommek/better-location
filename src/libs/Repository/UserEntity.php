@@ -36,12 +36,18 @@ class UserEntity extends Entity
 		return $entity;
 	}
 
-	public function setLastLocation(CoordinatesInterface $coords): void
+	public function setLastLocation(CoordinatesInterface $coords, \DateTimeInterface $datetime = null): void
 	{
 		if ($coords instanceof CoordinatesImmutable === false) {
 			$coords = new CoordinatesImmutable($coords->getLat(), $coords->getLon());
 		}
 		$this->lastLocation = $coords;
-		$this->lastLocationUpdate = new \DateTimeImmutable();
+
+		if ($datetime === null) {
+			$datetime = new \DateTimeImmutable();
+		} else if ($datetime instanceof \DateTimeImmutable === false) {
+			$datetime = \DateTimeImmutable::createFromInterface($datetime);
+		}
+		$this->lastLocationUpdate = $datetime;
 	}
 }
