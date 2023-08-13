@@ -18,8 +18,8 @@ class UserEntity extends Entity
 	public string $telegramName;
 	public \DateTimeImmutable $registered;
 	public \DateTimeImmutable $lastUpdate;
-	public ?\DateTimeImmutable $lastLocationUpdate;
-	public ?CoordinatesImmutable $lastLocation;
+	public ?\DateTimeImmutable $lastLocationUpdate = null;
+	public ?CoordinatesImmutable $lastLocation = null;
 
 	public static function fromRow(array $row): self
 	{
