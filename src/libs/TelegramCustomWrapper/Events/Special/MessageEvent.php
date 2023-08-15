@@ -52,7 +52,7 @@ class MessageEvent extends Special
 		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
 		$processedCollection->process();
 
-		if ($collection->isEmpty()) {
+		if ($collection->isEmpty() === false) {
 			if ($this->chat->getSendNativeLocation()) {
 				$this->replyLocation($processedCollection->getCollection()->getFirst(), $processedCollection->getMarkup(1, false));
 			} else {
