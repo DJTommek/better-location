@@ -3,8 +3,8 @@
 namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocationCollection;
-use App\BetterLocation\GooglePlaceApi;
 use App\Config;
+use App\Factory;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
@@ -20,7 +20,7 @@ class MessageEvent extends Special
 		if ($this->collection === null) {
 			$this->collection = BetterLocationCollection::fromTelegramMessage(
 				$this->getTgText(),
-				$this->update->message->entities
+				$this->update->message->entities,
 			);
 		}
 		return $this->collection;
@@ -29,16 +29,29 @@ class MessageEvent extends Special
 	public function handleWebhookUpdate(): void
 	{
 		$collection = $this->getCollection();
-		if ($this->isTgPm() && $collection->isEmpty() && mb_strlen($this->getTgText()) >= Config::GOOGLE_SEARCH_MIN_LENGTH && Config::isGooglePlaceApi()) {
+
+		if (
+			$this->isTgPm()
+			&& $collection->isEmpty()
+			&& mb_strlen($this->getTgText()) >= Config::GOOGLE_SEARCH_MIN_LENGTH
+			&& Config::isGooglePlaceApi()
+		) {
 			try {
-				$googleCollection = GooglePlaceApi::search($this->getTgText(), $this->getTgFrom()->language_code, $this->user->getLastKnownLocation());
+				$placeApi = Factory::googlePlaceApi();
+				$googleCollection = $placeApi->searchPlace(
+					$this->getTgText(),
+					$this->getTgFrom()->language_code,
+					$this->user->getLastKnownLocation(),
+				);
 				$collection->add($googleCollection);
 			} catch (\Exception $exception) {
 				Debugger::log($exception, Debugger::EXCEPTION);
 			}
 		}
+
 		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
 		$processedCollection->process();
+
 		if ($collection->isEmpty()) {
 			if ($this->chat->getSendNativeLocation()) {
 				$this->replyLocation($processedCollection->getCollection()->getFirst(), $processedCollection->getMarkup(1, false));
