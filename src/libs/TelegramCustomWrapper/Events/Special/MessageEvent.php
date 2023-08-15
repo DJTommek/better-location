@@ -29,7 +29,7 @@ class MessageEvent extends Special
 	public function handleWebhookUpdate(): void
 	{
 		$collection = $this->getCollection();
-		if ($this->isTgPm() && $collection->count() === 0 && mb_strlen($this->getTgText()) >= Config::GOOGLE_SEARCH_MIN_LENGTH && Config::isGooglePlaceApi()) {
+		if ($this->isTgPm() && $collection->isEmpty() && mb_strlen($this->getTgText()) >= Config::GOOGLE_SEARCH_MIN_LENGTH && Config::isGooglePlaceApi()) {
 			try {
 				$googleCollection = GooglePlaceApi::search($this->getTgText(), $this->getTgFrom()->language_code, $this->user->getLastKnownLocation());
 				$collection->add($googleCollection);
@@ -39,7 +39,7 @@ class MessageEvent extends Special
 		}
 		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
 		$processedCollection->process();
-		if ($collection->count() > 0) {
+		if ($collection->isEmpty()) {
 			if ($this->chat->getSendNativeLocation()) {
 				$this->replyLocation($processedCollection->getCollection()->getFirst(), $processedCollection->getMarkup(1, false));
 			} else {
