@@ -29,10 +29,11 @@ class FileEvent extends Special
 			if ($locationFromFile !== null) {
 				$this->collection->add($locationFromFile);
 			}
+			$tgMessage = $this->getTgMessage();
 
 			$this->collection->add(BetterLocationCollection::fromTelegramMessage(
-				$this->update->message->caption,
-				$this->update->message->caption_entities
+				$tgMessage->caption,
+				$tgMessage->caption_entities
 			));
 		}
 
@@ -41,7 +42,7 @@ class FileEvent extends Special
 
 	private function getLocationFromFile(): ?BetterLocation
 	{
-		$document = $this->update->message->document;
+		$document = $this->getTgMessage()->document;
 		if ($document->mime_type !== self::MIME_TYPE_IMAGE_JPEG) {
 			return null;
 		}
@@ -57,7 +58,7 @@ class FileEvent extends Special
 			$response = $this->run($getFile);
 			assert($response instanceof Telegram\Types\File);
 			$fileLink = TelegramHelper::getFileUrl(Config::TELEGRAM_BOT_TOKEN, $response->file_path);
-			$location =  BetterLocation::fromExif($fileLink);
+			$location = BetterLocation::fromExif($fileLink);
 			if ($location === null) {
 				return null;
 			}

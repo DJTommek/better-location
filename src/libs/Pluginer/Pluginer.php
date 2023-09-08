@@ -18,7 +18,7 @@ class Pluginer
 		private int                  $updateId,
 		private ?int                 $messageId,
 		private ?Telegram\Types\Chat $chat,
-		private Telegram\Types\User  $user,
+		private Telegram\Types\User|Telegram\Types\Chat $user,
 	)
 	{
 	}

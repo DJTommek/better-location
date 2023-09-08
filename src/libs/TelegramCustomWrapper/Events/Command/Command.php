@@ -3,6 +3,7 @@
 namespace App\TelegramCustomWrapper\Events\Command;
 
 use App\Config;
+use App\TelegramCustomWrapper\TelegramHelper;
 use unreal4u\TelegramAPI\Telegram;
 
 abstract class Command extends \App\TelegramCustomWrapper\Events\Events
@@ -22,6 +23,6 @@ abstract class Command extends \App\TelegramCustomWrapper\Events\Events
 
 	public function getTgMessage(): Telegram\Types\Message
 	{
-		return $this->update->message;
+		return TelegramHelper::getMessage($this->update);
 	}
 }

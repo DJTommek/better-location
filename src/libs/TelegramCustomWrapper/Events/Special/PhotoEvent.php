@@ -14,8 +14,8 @@ class PhotoEvent extends Special
 	{
 		if ($this->collection === null) {
 			$this->collection = BetterLocationCollection::fromTelegramMessage(
-				$this->update->message->caption,
-				$this->update->message->caption_entities,
+				$this->getTgMessage()->caption,
+				$this->getTgMessage()->caption_entities,
 			);
 		}
 

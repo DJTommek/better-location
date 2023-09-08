@@ -42,7 +42,7 @@ class ContactEvent extends Special
 
 	public function handleWebhookUpdate(): void
 	{
-		$contact = $this->update->message->contact;
+		$contact = $this->getTgMessage()->contact;
 		assert($contact !== null);
 
 		if ($this->getCollection()->isEmpty()) {

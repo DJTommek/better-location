@@ -128,7 +128,7 @@ class InlineQueryEvent extends Special
 
 				// only if there is no match from previous processing
 				if (mb_strlen($queryInput) >= Config::GOOGLE_SEARCH_MIN_LENGTH && count($answerInlineQuery->getResults()) === 0 && Config::isGooglePlaceApi()) {
-					$googleCollection = GooglePlaceApi::search($queryInput, $this->getTgFrom()->language_code, $this->user->getLastKnownLocation());
+					$googleCollection = GooglePlaceApi::search($queryInput, $this->getTgFrom()->language_code ?? null, $this->user->getLastKnownLocation());
 					foreach ($googleCollection as $betterLocation) {
 						$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 					}

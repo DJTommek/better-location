@@ -461,11 +461,6 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Command/FavouritesCommand.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\FeedbackCommand\\:\\:logFeedback\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Command/FeedbackCommand.php
-
-		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\HelpCommand\\:\\:processHelp\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Command/HelpCommand.php
@@ -524,11 +519,6 @@ parameters:
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Edit\\\\Edit\\:\\:editMessage\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Edit/Edit.php
-
-		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:isTgForward\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Events.php
 
 		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:reply\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"

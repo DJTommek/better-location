@@ -20,7 +20,7 @@ class MessageEvent extends Special
 		if ($this->collection === null) {
 			$this->collection = BetterLocationCollection::fromTelegramMessage(
 				$this->getTgText(),
-				$this->update->message->entities,
+				$this->getTgMessage()->entities,
 			);
 		}
 		return $this->collection;
@@ -40,7 +40,7 @@ class MessageEvent extends Special
 				$placeApi = Factory::googlePlaceApi();
 				$googleCollection = $placeApi->searchPlace(
 					$this->getTgText(),
-					$this->getTgFrom()->language_code,
+					$this->getTgFrom()->language_code ?? null,
 					$this->user->getLastKnownLocation(),
 				);
 				$collection->add($googleCollection);

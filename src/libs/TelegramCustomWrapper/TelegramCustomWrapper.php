@@ -73,13 +73,12 @@ class TelegramCustomWrapper
 			}
 		}
 
-		if (TelegramHelper::isChannel($update)) {
+		if (TelegramHelper::isChannelPost($update)) {
 			throw new EventNotSupportedException('Channel messages are ignored');
 		}
 
 		if (TelegramHelper::addedToChat($update, Config::TELEGRAM_BOT_NAME)) {
 			return new AddedToChatEvent($update);
-
 		}
 
 		if (TelegramHelper::isViaBot($update, Config::TELEGRAM_BOT_NAME)) {
@@ -123,7 +122,7 @@ class TelegramCustomWrapper
 		}
 
 		if ($command === null) {
-			if ($update->message->text !== '') {
+			if (TelegramHelper::isMessage($update)) {
 				return new MessageEvent($update);
 			}
 			throw new EventNotSupportedException('Telegram event type was not recognized.');

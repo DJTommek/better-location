@@ -119,9 +119,10 @@ abstract class Events
 		);
 	}
 
-	public function getTgFrom(): Telegram\Types\User
+	public function getTgFrom(): Telegram\Types\User|Telegram\Types\Chat
 	{
-		return $this->getTgMessage()->from;
+		$tgMessage = $this->getTgMessage();
+		return $tgMessage->from ?? $tgMessage->sender_chat;
 	}
 
 	public function getTgChatId(): int
@@ -146,6 +147,16 @@ abstract class Events
 		return $this->getTgMessage()->is_topic_message === true;
 	}
 
+	public function isTgMessageReply(): bool
+	{
+		$reply = $this->getTgMessage()->reply_to_message;
+		if ($reply !== null) {
+			assert($reply instanceof Telegram\Types\Message);
+			return true;
+		}
+		return false;
+	}
+
 	public function getTgFromId(): int
 	{
 		return $this->getTgFrom()->id;
@@ -153,7 +164,13 @@ abstract class Events
 
 	public function getTgFromDisplayname(): string
 	{
-		return TelegramHelper::getUserDisplayname($this->getTgFrom());
+		$tgFrom = $this->getTgFrom();
+		if ($tgFrom instanceof Telegram\Types\User) {
+			return TelegramHelper::getUserDisplayname($tgFrom);
+		}
+		if ($tgFrom instanceof Telegram\Types\Chat) {
+			return TelegramHelper::getChatDisplayname($tgFrom);
+		}
 	}
 
 	public function getTgChatDisplayname(): string
@@ -193,7 +210,12 @@ abstract class Events
 		return TelegramHelper::isPM($this->update);
 	}
 
-	public function isTgForward()
+	public function isTgChannelPost(): bool
+	{
+		return TelegramHelper::isChannelPost($this->update);
+	}
+
+	public function isTgForward(): bool
 	{
 		return TelegramHelper::isForward($this->update);
 	}
@@ -272,7 +294,7 @@ abstract class Events
 	protected function isAdmin(): bool
 	{
 		if ($this->isAdmin === null) {
-			if ($this->isTgPm()) {
+			if ($this->isTgPm() || $this->isTgChannelPost()) {
 				$this->isAdmin = true;
 			} else {
 				$getChatMember = new Telegram\Methods\GetChatMember();

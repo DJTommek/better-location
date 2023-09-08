@@ -101,9 +101,34 @@ class TelegramHelper
 		}
 	}
 
+	public static function getMessage(Update $update, bool $allowEdits = false): ?Telegram\Types\Message
+	{
+		if (self::isMessage($update)) {
+			assert($update->message !== null);
+			return $update->message;
+		}
+
+		if (self::isChannelPost($update)) {
+			assert($update->channel_post !== null);
+			return $update->channel_post;
+		}
+
+		if ($allowEdits && self::isMessageEdit($update)) {
+			assert($update->edited_message !== null);
+			return $update->edited_message;
+		}
+
+		if ($allowEdits && self::isChannelPostEdit($update)) {
+			assert($update->edited_channel_post !== null);
+			return $update->edited_channel_post;
+		}
+
+		return null;
+	}
+
 	public static function isButtonClick(Update $update): bool
 	{
-		return $update?->callback_query !== null;
+		return $update->callback_query !== null;
 	}
 
 	/**
@@ -111,67 +136,82 @@ class TelegramHelper
 	 */
 	public static function hasButtonMessage(Update $update): bool
 	{
-		return $update?->callback_query?->message !== null;
+		return $update->callback_query?->message !== null;
 	}
 
 	public static function isForward(Update $update): bool
 	{
-		return $update?->message?->forward_from !== null;
+		return self::getMessage($update)?->forward_from !== null;
 	}
 
 	public static function isInlineQuery(Update $update): bool
 	{
-		return $update?->inline_query !== null;
+		return $update->inline_query !== null;
 	}
 
 	public static function isChosenInlineQuery(Update $update): bool
 	{
-		return $update?->chosen_inline_result !== null;
+		return $update->chosen_inline_result !== null;
 	}
 
 	/** @param bool $isLive Additionally check if this is live location */
 	public static function isLocation(Update $update, bool $isLive = false): bool
 	{
-		$location = $update?->message?->location ?? $update?->edited_message?->location ?? null;
-		if ($location) {
-			if ($isLive === true && empty($location->live_period)) {
-				return false;
-			} else {
-				return true;
-			}
-		} else {
+		$location = self::getMessage($update)->location ?? null;
+		if ($location === null) {
 			return false;
+		}
+
+		if ($isLive === true && empty($location->live_period)) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 
 	public static function isVenue(Update $update): bool
 	{
-		return $update?->message?->venue !== null;
+		return self::getMessage($update)?->venue !== null;
 	}
 
 	public static function isEdit(Update $update): bool
 	{
-		return ($update?->edited_channel_post ?? $update?->edited_message) !== null;
+		return self::isMessageEdit($update) || self::isChannelPostEdit($update);
 	}
 
-	public static function isChannel(Update $update): bool
+	public static function isMessage(Update $update): bool
 	{
-		return $update?->channel_post !== null;
+		return $update->message !== null;
+	}
+
+	public static function isMessageEdit(Update $update): bool
+	{
+		return $update->edited_message !== null;
+	}
+
+	public static function isChannelPost(Update $update): bool
+	{
+		return $update->channel_post !== null;
+	}
+
+	public static function isChannelPostEdit(Update $update): bool
+	{
+		return $update->edited_channel_post !== null;
 	}
 
 	public static function hasDocument(Update $update): bool
 	{
-		return $update?->message?->document !== null;
+		return self::getMessage($update)?->document !== null;
 	}
 
 	public static function hasContact(Update $update): bool
 	{
-		return $update?->message?->contact !== null;
+		return self::getMessage($update)?->contact !== null;
 	}
 
 	public static function hasPhoto(Update $update): bool
 	{
-		return ($update?->message?->photo ?? []) !== [];
+		return (self::getMessage($update)?->photo ?? []) !== [];
 	}
 
 	/**
@@ -179,7 +219,7 @@ class TelegramHelper
 	 */
 	public static function isViaBot(Update $update, ?string $botUsername = null): bool
 	{
-		$viaBot = $update?->message?->via_bot;
+		$viaBot = self::getMessage($update)?->via_bot;
 		if ($viaBot === null) {
 			return false;
 		}
@@ -198,7 +238,7 @@ class TelegramHelper
 
 	public static function chatCreated(Update $update): bool
 	{
-		return ($update?->message?->group_chat_created ?? false) === true;
+		return ($update->message?->group_chat_created ?? false) === true;
 	}
 
 	/**
@@ -210,7 +250,7 @@ class TelegramHelper
 			return true; // User added while creating group
 		}
 
-		$newChatMembersList = $update?->message?->new_chat_members ?? [];
+		$newChatMembersList = $update->message?->new_chat_members ?? [];
 		if ($newChatMembersList === []) {
 			return false;
 		}
@@ -236,6 +276,10 @@ class TelegramHelper
 	/** @return bool|null null if unknown (eg. clicked on button in via_bot message) */
 	public static function isPM(Update $update): ?bool
 	{
+		if (self::isChannelPost($update)) {
+			return false;
+		}
+
 		if (self::isButtonClick($update)) {
 			// If the button was attached to a message sent via the bot (in inline mode),
 			// the field inline_message_id will be present. (https://core.telegram.org/bots/api#callbackquery)
@@ -244,9 +288,9 @@ class TelegramHelper
 			} else {
 				return $update->callback_query->from->id === $update->callback_query->message->chat->id;
 			}
-		} else {
-			return ($update->message->from->id === $update->message->chat->id);
 		}
+
+		return ($update->message->from->id === $update->message->chat->id);
 	}
 
 	public static function getCommand(Update $update, bool $strict = false): ?string
@@ -256,9 +300,12 @@ class TelegramHelper
 			$fullCommand = $update->callback_query->data;
 			$command = explode(' ', $fullCommand)[0];
 		} else {
-			foreach ($update->message->entities as $entity) {
+			$entities = $update->message?->entities ?? $update->channel_post?->entities ?? [];
+			$text = $update->message?->text ?? $update->channel_post?->text ?? null;
+			assert($text !== null);
+			foreach ($entities as $entity) {
 				if ($entity->offset === 0 && $entity->type === 'bot_command') {
-					$command = mb_strcut($update->message->text, $entity->offset, $entity->length);
+					$command = mb_strcut($text, $entity->offset, $entity->length);
 					break;
 				}
 			}
@@ -281,8 +328,9 @@ class TelegramHelper
 		if (self::isButtonClick($update)) {
 			$text = $update->callback_query->data;
 		} else {
-			$text = $update->message->text;
+			$text = self::getMessage($update)->text;
 		}
+		assert($text !== null);
 		$params = explode(' ', $text);
 		array_shift($params);
 		return $params;
