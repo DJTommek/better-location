@@ -156,9 +156,13 @@ class TelegramHelper
 	}
 
 	/** @param bool $isLive Additionally check if this is live location */
-	public static function isLocation(Update $update, bool $isLive = false): bool
+	public static function isLocation(
+		Update $update,
+		bool $isLive = false,
+		bool $allowEdits = true
+	): bool
 	{
-		$location = self::getMessage($update)->location ?? null;
+		$location = self::getMessage($update, $allowEdits)->location ?? null;
 		if ($location === null) {
 			return false;
 		}
