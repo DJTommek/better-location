@@ -12,7 +12,7 @@ and web [better-location.palider.cz](https://better-location.palider.cz/).
 
 ## Requirements
 
-- PHP webserver (written and tested with PHP 8.1)
+- PHP webserver (written and tested with PHP 8.2)
 - Database server (written and tested with MariaDB 10)
 - Domain with SSL certificate (might be self-signed). Detailed requirements are described on [Telegram's webhook page](https://core.telegram.org/bots/webhooks).
 
