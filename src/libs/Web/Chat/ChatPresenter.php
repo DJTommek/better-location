@@ -47,36 +47,37 @@ class ChatPresenter extends MainPresenter
 
 	public function render(): void
 	{
-		$this->template->telegramChatId = $this->chatTelegramId;
-		if ($this->isAdmin()) {
-			$this->template->exampleInput = $this->exampleInput;
-			$exampleCollection = WazeService::processStatic($this->exampleInput)->getCollection();
-
-			// Do not process Pluginer if it's POST request (form is being saved), validation is done there
-			if ($this->isPostRequest() === false && $this->chat->getPluginerUrl() !== null) {
-				$pluginer = $this->pluginerFactory($this->chat->getPluginerUrl());
-				try {
-					$pluginer->process($exampleCollection);
-				} catch (PluginerException $exception) {
-					$this->flashMessage(
-						'Error while processing your Pluginer URL, check if your server is online and responding correctly.<br>' . htmlspecialchars($exception->getMessage()),
-						FlashMessage::FLASH_ERROR,
-						null
-					);
-				} catch (\Exception $exception) {
-					$this->flashMessage('BetterLocation server general error while processing your Pluginer URL, try again later.', FlashMessage::FLASH_ERROR, null);
-					Debugger::log($exception, Debugger::EXCEPTION);
-				}
-			}
-
-			$this->template->exampleLocation = $exampleCollection->getFirst();
-			$this->template->prepareOk($this->chatResponse);
-			$this->template->chat = $this->chat;
-			Factory::latte('chat.latte', $this->template);
-		} else {
+		if ($this->isAdmin() === false) {
 			$this->template->prepareError();
 			Factory::latte('chatError.latte', $this->template);
+			return;
 		}
+
+		$this->template->telegramChatId = $this->chatTelegramId;
+		$this->template->exampleInput = $this->exampleInput;
+		$exampleCollection = WazeService::processStatic($this->exampleInput)->getCollection();
+
+		// Do not process Pluginer if it's POST request (form is being saved), validation is done there
+		if ($this->isPostRequest() === false && $this->chat->getPluginerUrl() !== null) {
+			$pluginer = $this->pluginerFactory($this->chat->getPluginerUrl());
+			try {
+				$pluginer->process($exampleCollection);
+			} catch (PluginerException $exception) {
+				$this->flashMessage(
+					'Error while processing your Pluginer URL, check if your server is online and responding correctly.<br>' . htmlspecialchars($exception->getMessage()),
+					FlashMessage::FLASH_ERROR,
+					null
+				);
+			} catch (\Exception $exception) {
+				$this->flashMessage('BetterLocation server general error while processing your Pluginer URL, try again later.', FlashMessage::FLASH_ERROR, null);
+				Debugger::log($exception, Debugger::EXCEPTION);
+			}
+		}
+
+		$this->template->exampleLocation = $exampleCollection->getFirst();
+		$this->template->prepareOk($this->chatResponse);
+		$this->template->chat = $this->chat;
+		Factory::latte('chat.latte', $this->template);
 	}
 
 	private function loadChatData(): void
