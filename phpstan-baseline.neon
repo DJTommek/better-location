@@ -526,11 +526,6 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Events.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:sendAction\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Events.php
-
-		-
 			message: "#^Property App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:\\$loop has no type specified\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Events.php

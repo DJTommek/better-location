@@ -221,17 +221,24 @@ abstract class Events
 	}
 
 	/**
-	 * @param string $action
-	 * @throws \Exception
-	 * @noinspection PhpUnused
+	 * @return true|null
+	 *  - true: if action was successfully send
+	 *  - null: if is unable to send action but error is whitelisted
+	 * @throws ClientException if is unable to send action and error is NOT whitelisted
 	 * @TODO Check if action string is valid
 	 */
-	public function sendAction(string $action = TelegramHelper::CHAT_ACTION_TYPING)
+	public function sendAction(string $action = TelegramHelper::CHAT_ACTION_TYPING): ?true
 	{
 		$chatAction = new SendChatAction();
 		$chatAction->chat_id = $this->getTgChatId();
 		$chatAction->action = $action;
-		$this->run($chatAction);
+		$result = $this->run($chatAction);
+		if ($result === null) {
+			return null;
+		}
+		assert($result instanceof Telegram\Types\Custom\ResultBoolean);
+		assert($result->data === true);
+		return $result->data;
 	}
 
 	/** Send message as reply to recieved message */
