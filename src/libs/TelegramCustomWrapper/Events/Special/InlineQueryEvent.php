@@ -208,7 +208,7 @@ class InlineQueryEvent extends Special
 
 		$processedCollection = $this->singleLocationToMessageResult($betterLocation);
 
-		$inlineQueryResult->thumb_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
+		$inlineQueryResult->thumbnail_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
 		$inlineQueryResult->reply_markup = $processedCollection->getMarkup(1);
 		$inlineQueryResult->input_message_content = new Text();
 		$inlineQueryResult->input_message_content->message_text = $processedCollection->getText();
@@ -231,7 +231,7 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->latitude = $betterLocation->getLat();
 		$inlineQueryResult->longitude = $betterLocation->getLon();
 		$inlineQueryResult->title = strip_tags($inlineTitle);
-		$inlineQueryResult->thumb_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
+		$inlineQueryResult->thumbnail_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
 		$inlineQueryResult->reply_markup = $processedCollection->getMarkup(1);
 		return $inlineQueryResult;
 	}
@@ -247,7 +247,7 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->description = sprintf('Send all %d locations listed below as one message', count($collection->getLocations()));
 		$inlineQueryResult->reply_markup = $processedCollection->getMarkup(1);
 		// @TODO workaround until resolving https://github.com/DJTommek/better-location/issues/2 (Secure public access)
-		$inlineQueryResult->thumb_url = 'https://raw.githubusercontent.com/DJTommek/better-location/master/asset/map-icon-bot%20v1.png';
+		$inlineQueryResult->thumbnail_url = 'https://raw.githubusercontent.com/DJTommek/better-location/master/asset/map-icon-bot%20v1.png';
 
 		$inlineQueryResult->input_message_content = new Text();
 		$inlineQueryResult->input_message_content->message_text = $processedCollection->getText();
