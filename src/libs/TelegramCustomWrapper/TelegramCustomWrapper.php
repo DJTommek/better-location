@@ -21,6 +21,7 @@ use App\TelegramCustomWrapper\Events\Command\UnknownCommand;
 use App\TelegramCustomWrapper\Events\Edit\LocationEdit;
 use App\TelegramCustomWrapper\Events\Events;
 use App\TelegramCustomWrapper\Events\Special\AddedToChatEvent;
+use App\TelegramCustomWrapper\Events\Special\ChannelPostEvent;
 use App\TelegramCustomWrapper\Events\Special\ContactEvent;
 use App\TelegramCustomWrapper\Events\Special\FileEvent;
 use App\TelegramCustomWrapper\Events\Special\InlineQueryEvent;
@@ -73,10 +74,6 @@ class TelegramCustomWrapper
 			}
 		}
 
-		if (TelegramHelper::isChannelPost($update)) {
-			throw new EventNotSupportedException('Channel messages are ignored');
-		}
-
 		if (TelegramHelper::addedToChat($update, Config::TELEGRAM_BOT_NAME)) {
 			return new AddedToChatEvent($update);
 		}
@@ -93,7 +90,12 @@ class TelegramCustomWrapper
 			return new InlineQueryEvent($update);
 		}
 
-		$command = TelegramHelper::getCommand($update, Config::TELEGRAM_COMMAND_STRICT);
+		$isChannelPost = TelegramHelper::isChannelPost($update);
+
+		$command = null;
+		if ($isChannelPost === false) { // Messages in channels are never commands
+			$command = TelegramHelper::getCommand($update, Config::TELEGRAM_COMMAND_STRICT);
+		}
 
 		if (TelegramHelper::isButtonClick($update)) {
 			return match ($command) {
@@ -119,6 +121,10 @@ class TelegramCustomWrapper
 
 		if (TelegramHelper::hasPhoto($update)) {
 			return new PhotoEvent($update);
+		}
+
+		if ($isChannelPost) {
+			return new ChannelPostEvent($update);
 		}
 
 		if ($command === null) {
