@@ -63,7 +63,7 @@ abstract class Events
 			$this->chat = new Chat(
 				$this->getTgChatId(),
 				$this->getTgChat()->type,
-				$this->getTgChatDisplayname()
+				$this->getTgChatDisplayname(),
 			);
 			$this->chat->touchLastUpdate();
 		}
@@ -311,9 +311,9 @@ abstract class Events
 				$chatMember = $this->run($getChatMember);
 				if ($chatMember instanceof Telegram\Types\ChatMember === false) {
 					throw new \LogicException(sprintf('Unexpected type "%s" returned from getChatMember(), chat_id = "%s", user_id = "%s"',
-							get_class($chatMember),
-							$this->getTgChatId(),
-							$this->getTgFromId())
+						get_class($chatMember),
+						$this->getTgChatId(),
+						$this->getTgFromId()),
 					);
 				}
 				$this->isAdmin = TelegramHelper::isAdmin($chatMember);
