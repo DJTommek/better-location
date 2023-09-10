@@ -16,7 +16,7 @@ jobs:
       - name: 🚚 Prepare PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.2
           extensions: mbstring, exif
 
       - name: 🚚 Install Composer development dependencies
@@ -26,7 +26,7 @@ jobs:
       - name: 🚀 Run PHPStan analysis
         uses: php-actions/phpstan@v3
         with:
-          php_version: 8.1
+          php_version: 8.2
           autoload_file: src/bootstrap.php
           configuration: phpstan.neon
           memory_limit: 512m
@@ -43,7 +43,7 @@ jobs:
       - name: 🚚 Prepare PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.2
           extensions: mbstring, exif
 
       - name: 🚚 Install Composer development dependencies
@@ -53,7 +53,7 @@ jobs:
       - name: 🚀 Run PHPUnit tests (without requests)
         uses: php-actions/phpunit@v3
         with:
-          php_version: 8.1
+          php_version: 8.2
           bootstrap: src/bootstrap.php
           configuration: phpunit.xml
           exclude_group: request
@@ -70,7 +70,7 @@ jobs:
       - name: 🚚 Prepare PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.2
           extensions: mbstring, exif
 
       - name: 🚚 Install Composer production dependencies
