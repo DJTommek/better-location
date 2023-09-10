@@ -227,7 +227,7 @@ abstract class Events
 	 * @throws ClientException if is unable to send action and error is NOT whitelisted
 	 * @TODO Check if action string is valid
 	 */
-	public function sendAction(string $action = TelegramHelper::CHAT_ACTION_TYPING): ?true
+	public function sendAction(string $action = TelegramHelper::CHAT_ACTION_TYPING): ?bool
 	{
 		$chatAction = new SendChatAction();
 		$chatAction->chat_id = $this->getTgChatId();
