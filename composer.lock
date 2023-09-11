@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7bfebaf2103ab29de9b0d8f2d181f2d9",
+    "content-hash": "76ed3659048701fa77e7b81345b17992",
     "packages": [
         {
             "name": "amphp/amp",
@@ -4578,16 +4578,16 @@
         },
         {
             "name": "unreal4u/telegram-api",
-            "version": "dev-master",
+            "version": "dev-production",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DJTommek/telegram-api.git",
-                "reference": "899bcb3f7e820d1d5b121f16cbacdb2e3c452149"
+                "reference": "65dd90aae2cb10726bd4650d16b69c6ff1ffe0e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DJTommek/telegram-api/zipball/899bcb3f7e820d1d5b121f16cbacdb2e3c452149",
-                "reference": "899bcb3f7e820d1d5b121f16cbacdb2e3c452149",
+                "url": "https://api.github.com/repos/DJTommek/telegram-api/zipball/65dd90aae2cb10726bd4650d16b69c6ff1ffe0e5",
+                "reference": "65dd90aae2cb10726bd4650d16b69c6ff1ffe0e5",
                 "shasum": ""
             },
             "require": {
@@ -4607,7 +4607,6 @@
                 "phpunit/phpunit": "^10.0",
                 "squizlabs/php_codesniffer": "^3.7"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -4639,7 +4638,7 @@
                 "issues": "https://github.com/unreal4u/telegram-api/issues",
                 "source": "https://github.com/unreal4u/telegram-api"
             },
-            "time": "2023-09-10T12:15:12+00:00"
+            "time": "2023-09-11T21:11:54+00:00"
         },
         {
             "name": "voku/portable-ascii",

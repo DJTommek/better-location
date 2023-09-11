@@ -12,7 +12,7 @@
 		"ext-dom": "*",
 		"ext-zip": "*",
 		"tracy/tracy": "^2.9",
-		"unreal4u/telegram-api": "dev-master",
+		"unreal4u/telegram-api": "dev-production",
 		"bogdaan/open-location-code": "dev-master",
 		"what3words/w3w-php-wrapper": "^3.3",
 		"djtommek/mapycz-api": "^2.0",
