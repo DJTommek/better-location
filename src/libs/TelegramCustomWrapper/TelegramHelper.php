@@ -305,9 +305,12 @@ class TelegramHelper
 			$fullCommand = $update->callback_query->data;
 			$command = explode(' ', $fullCommand)[0];
 		} else {
+			// @TODO add support for captions ($update->message?->caption and $update->message?->caption_entities)
 			$entities = $update->message?->entities ?? $update->channel_post?->entities ?? [];
-			$text = $update->message?->text ?? $update->channel_post?->text ?? null;
-			assert($text !== null);
+			$text = $update->message?->text ?? $update->channel_post?->text ?? '';
+			if ($text === null || $text === '') {
+				return null;
+			}
 			foreach ($entities as $entity) {
 				if ($entity->offset === 0 && $entity->type === 'bot_command') {
 					$command = mb_strcut($text, $entity->offset, $entity->length);
