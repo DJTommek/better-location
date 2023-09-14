@@ -68,7 +68,11 @@ abstract class Events
 			$this->chat->touchLastUpdate();
 		}
 
-		if (TelegramHelper::isInlineQuery($update) === false && TelegramHelper::isEdit($update) === false) {
+		if (
+			TelegramHelper::myChatMember($update) === null
+			&& TelegramHelper::isInlineQuery($update) === false
+			&& TelegramHelper::isEdit($update) === false
+		) {
 			$this->command = TelegramHelper::getCommand($update);
 			$this->params = TelegramHelper::getParams($update);
 		}
