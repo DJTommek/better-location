@@ -27,6 +27,7 @@ use App\TelegramCustomWrapper\Events\Special\FileEvent;
 use App\TelegramCustomWrapper\Events\Special\InlineQueryEvent;
 use App\TelegramCustomWrapper\Events\Special\LocationEvent;
 use App\TelegramCustomWrapper\Events\Special\MessageEvent;
+use App\TelegramCustomWrapper\Events\Special\MyChatMemberEvent;
 use App\TelegramCustomWrapper\Events\Special\PhotoEvent;
 use App\TelegramCustomWrapper\Exceptions\EventNotSupportedException;
 use App\TelegramCustomWrapper\Exceptions\TelegramCustomWrapperException;
@@ -69,6 +70,10 @@ class TelegramCustomWrapper
 				throw new EventNotSupportedException('Edit\'s are ignored');
 			}
 		}
+
+		if (TelegramHelper::myChatMember($update) !== null) {
+			return new MyChatMemberEvent($update);
+		};
 
 		if (TelegramHelper::addedToChat($update, Config::TELEGRAM_BOT_NAME)) {
 			return new AddedToChatEvent($update);
