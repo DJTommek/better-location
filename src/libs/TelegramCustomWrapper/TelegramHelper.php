@@ -159,9 +159,8 @@ class TelegramHelper
 	public static function isLocation(
 		Update $update,
 		bool $isLive = false,
-		bool $allowEdits = true
-	): bool
-	{
+		bool $allowEdits = true,
+	): bool {
 		$location = self::getMessage($update, $allowEdits)->location ?? null;
 		if ($location === null) {
 			return false;
@@ -342,6 +341,11 @@ class TelegramHelper
 		$params = explode(' ', $text);
 		array_shift($params);
 		return $params;
+	}
+
+	public static function myChatMember(Update $update): ?Telegram\Types\ChatMemberUpdated
+	{
+		return $update->my_chat_member;
 	}
 
 	public static function generateStart(string $params): string
