@@ -4582,12 +4582,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/DJTommek/telegram-api.git",
-                "reference": "c8bb7732f073d7f7f928b42f177036b7e205b5eb"
+                "reference": "0817ae5d76ebcb35c7bac052fd02bbd26985f792"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DJTommek/telegram-api/zipball/c8bb7732f073d7f7f928b42f177036b7e205b5eb",
-                "reference": "c8bb7732f073d7f7f928b42f177036b7e205b5eb",
+                "url": "https://api.github.com/repos/DJTommek/telegram-api/zipball/0817ae5d76ebcb35c7bac052fd02bbd26985f792",
+                "reference": "0817ae5d76ebcb35c7bac052fd02bbd26985f792",
                 "shasum": ""
             },
             "require": {
@@ -4638,7 +4638,7 @@
                 "issues": "https://github.com/unreal4u/telegram-api/issues",
                 "source": "https://github.com/unreal4u/telegram-api"
             },
-            "time": "2023-09-14T17:30:02+00:00"
+            "time": "2023-09-14T19:42:06+00:00"
         },
         {
             "name": "voku/portable-ascii",
