@@ -56,7 +56,7 @@ trait HelpTrait
 		$text .= sprintf('- send your current position (on mobile devices only)') . PHP_EOL;
 		$text .= sprintf('- send previously saved favourited locations') . PHP_EOL;
 		$text .= sprintf('- search literally anything via Google search API') . PHP_EOL;
-		$text .= sprintf('%s <a href="https://t.me/BetterLocation/8">See video here</a>', Icons::VIDEO) . PHP_EOL;
+		$text .= sprintf('%s <a href="https://t.me/BetterLocationInfo/8">See video here</a>', Icons::VIDEO) . PHP_EOL;
 		$text .= PHP_EOL;
 //		$text .= sprintf('%s <b>Private chat:</b>', Icons::USER) . PHP_EOL;
 //		$text .= sprintf('Just send me some link to or coordinate and I will generate message <b>just</b> for you.') . PHP_EOL;
@@ -74,7 +74,7 @@ trait HelpTrait
 		$text .= sprintf('%s - %s Manage your saved favourite locations (works only in PM)', FavouritesCommand::getTgCmd(!$this->isTgPm()), Icons::FAVOURITE) . PHP_EOL;
 		$text .= sprintf('%s - %s Adjust your settings (works only in PM)', SettingsCommand::getTgCmd(!$this->isTgPm()), Icons::SETTINGS) . PHP_EOL;
 		$text .= PHP_EOL;
-		$text .= sprintf('%s For more info check out the <a href="%s">@BetterLocation</a> channel.', Icons::INFO, 'https://t.me/BetterLocation/3') . PHP_EOL;
+		$text .= sprintf('%s For more info check out the <a href="%s">@BetterLocationInfo</a> channel.', Icons::INFO, 'https://t.me/BetterLocationInfo/3') . PHP_EOL;
 		$text .= PHP_EOL;
 
 //		$text .= sprintf(Icons::WARNING . ' <b>Warning</b>: Bot is currently in active development so there is no guarantee that it will work at all times. Check Github for more info.') . PHP_EOL;
