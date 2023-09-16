@@ -32,16 +32,25 @@ class ChatPresenter extends MainPresenter
 
 	public function action(): void
 	{
-		if ($this->login->isLogged() && Strict::isInt($_GET['telegramId'] ?? null)) {
-			$this->chatTelegramId = Strict::intval($_GET['telegramId']);
-			$this->loadChatData();
+		if ($this->login->isLogged() === false) {
+			return;
 		}
-		if ($this->isAdmin()) {
-			$this->chat = new Chat($this->chatTelegramId, $this->chatResponse->type, TelegramHelper::getChatDisplayname($this->chatResponse));
-			$this->template->formPluginerUrl = $this->chat->getPluginerUrl()?->getAbsoluteUrl() ?? '';
-			if ($this->isPostRequest()) {
-				$this->handleSettingsForm();
-			}
+
+		if (Strict::isInt($_GET['telegramId'] ?? null) === false) {
+			return;
+		}
+
+		$this->chatTelegramId = Strict::intval($_GET['telegramId']);
+		$this->loadChatData();
+
+		if ($this->isAdmin() === false) {
+			return;
+		}
+
+		$this->chat = new Chat($this->chatTelegramId, $this->chatResponse->type, TelegramHelper::getChatDisplayname($this->chatResponse));
+		$this->template->formPluginerUrl = $this->chat->getPluginerUrl()?->getAbsoluteUrl() ?? '';
+		if ($this->isPostRequest()) {
+			$this->handleSettingsForm();
 		}
 	}
 
@@ -66,7 +75,7 @@ class ChatPresenter extends MainPresenter
 				$this->flashMessage(
 					'Error while processing your Pluginer URL, check if your server is online and responding correctly.<br>' . htmlspecialchars($exception->getMessage()),
 					FlashMessage::FLASH_ERROR,
-					null
+					null,
 				);
 			} catch (\Exception $exception) {
 				$this->flashMessage('BetterLocation server general error while processing your Pluginer URL, try again later.', FlashMessage::FLASH_ERROR, null);
@@ -181,7 +190,7 @@ class ChatPresenter extends MainPresenter
 			updateId: random_int(1_000_000, 9_999_999),
 			messageId: random_int(1_000_000, 9_999_999),
 			chat: $this->chatResponse,
-			user: $this->chatMemberResponse->user
+			user: $this->chatMemberResponse->user,
 		);
 	}
 }
