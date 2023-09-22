@@ -28,7 +28,7 @@ class ChatRepository extends Repository
 				WHERE chat_id = ?',
 			$entity->telegramName,
 			$entity->settingsPreview ? 1 : 0,
-			$entity->settingsOutputType,
+			$entity->getSettingsOutputType(),
 			$entity->settingsShowAddress ? 1 : 0,
 			$entity->pluginUrl?->getAbsoluteUrl(),
 			$entity->id

@@ -53,10 +53,10 @@ class Chat
 	public function settingsOutputType(?int $value = null): int
 	{
 		if ($value !== null) {
-			$this->chatEntity->settingsOutputType = $value;
+			$this->chatEntity->setSettingsOutputType($value);
 			$this->update();
 		}
-		return $this->chatEntity->settingsOutputType;
+		return $this->chatEntity->getSettingsOutputType();
 	}
 
 	private function update(): void
