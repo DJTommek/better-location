@@ -7,13 +7,15 @@ use App\BetterLocation\BetterLocationCollection;
 use App\Config;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
-use App\TelegramUpdateDb;
+use App\TelegramCustomWrapper\UniversalHandleLocationTrait;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram;
 
 class FileEvent extends Special
 {
+	use UniversalHandleLocationTrait;
+
 	private const MIME_TYPE_IMAGE_JPEG = 'image/jpeg';
 	private const MAX_FILE_SIZE_DOWNLOAD = 20 * 1024 * 1024; // in bytes
 
@@ -36,7 +38,7 @@ class FileEvent extends Special
 
 			$this->collection->add(BetterLocationCollection::fromTelegramMessage(
 				$tgMessage->caption,
-				$tgMessage->caption_entities
+				$tgMessage->caption_entities,
 			));
 		}
 
@@ -89,30 +91,19 @@ class FileEvent extends Special
 		$processedCollection->process();
 
 		if ($collection->isEmpty()) {
-			if ($this->isTgPm() === true) {
-				$this->noLocationReply();
-			} else {
-				// do not send anything to chat
-			}
+			$this->replyEmpty();
 			return;
 		}
 
-		if ($this->chat->getSendNativeLocation()) {
-			$this->replyLocation($processedCollection->getCollection()->getFirst(), $processedCollection->getMarkup(1, false));
-			return;
-		}
-
-		$text = $processedCollection->getText();
-		$markup = $processedCollection->getMarkup(1);
-		$response = $this->reply($text, $markup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
-		if ($response && $collection->hasRefreshableLocation()) {
-			$cron = new TelegramUpdateDb($this->update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
-			$cron->insert();
-			$cron->setLastSendData($text, $markup, true);
-		}
+		$this->universalHandle();
 	}
 
-	private function noLocationReply(): void {
+	private function replyEmpty(): void
+	{
+		if ($this->isTgPm() !== true) {
+			return;
+		}
+
 		$message = 'Hi there!' . PHP_EOL;
 		$message .= 'Thanks for the ';
 		if ($this->isTgForward()) {

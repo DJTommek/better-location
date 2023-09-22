@@ -94,8 +94,8 @@ class RefreshButton extends Button
 			$this->replyButton($text, $markup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
 		} else {
 			$collection = BetterLocationCollection::fromTelegramMessage(
-				$this->telegramUpdateDb->getOriginalUpdateObject()->message->text,
-				$this->telegramUpdateDb->getOriginalUpdateObject()->message->entities,
+				$this->telegramUpdateDb->originalUpdateObject->message->text,
+				$this->telegramUpdateDb->originalUpdateObject->message->entities,
 			);
 			$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
 			$processedCollection->setAutorefresh($autorefreshEnabled);

@@ -2,67 +2,51 @@
 
 namespace App;
 
-use App\TelegramCustomWrapper\Exceptions\MessageDeletedException;
+use App\Repository\Repository;
+use Nette\Utils\Json;
 use unreal4u\TelegramAPI\Telegram;
 
 class TelegramUpdateDb
 {
-	const STATUS_DISABLED = 0;
-	const STATUS_ENABLED = 1;
-	const STATUS_DELETED = 2;
+	public const STATUS_DISABLED = Repository::DISABLED;
+	public const STATUS_ENABLED = Repository::ENABLED;
+	public const STATUS_DELETED = Repository::DELETED;
 
-	/** @var Database */
-	private $db;
+	private readonly Database $db;
 
-	/** @var Telegram\Types\Update */
-	private $originalUpdateObject;
-	/** @var int */
-	private $telegramChatId;
-	/** @var int */
-	private $status;
-	/** @var \DateTimeImmutable */
-	private $lastUpdate;
-	/** @var int */
-	private $botReplyMessageId;
-	/** @var int */
-	private $inputMessageId;
-	/** @var ?string */
-	private $lastResponseText;
-	/** @var ?Telegram\Types\Inline\Keyboard\Markup */
-	private $lastResponseReplyMarkup;
+	private ?string $lastResponseText;
+	private ?Telegram\Types\Inline\Keyboard\Markup $lastResponseReplyMarkup;
 
-	public function __construct(Telegram\Types\Update $originalUpdate, int $botReplyMessageId, int $status, \DateTimeImmutable $lastUpdate)
-	{
+	public function __construct(
+		public readonly Telegram\Types\Update $originalUpdateObject,
+		public readonly int $telegramChatId,
+		private readonly int $inputMessageId,
+		public readonly int $messageIdToEdit,
+		private int $status,
+		private \DateTimeImmutable $lastUpdate,
+	) {
 		$this->db = Factory::database();
-		$chatId = $originalUpdate?->message?->chat?->id ?? null;
-		if (is_int($chatId) === false || $chatId === 0) {
-			throw new MessageDeletedException(sprintf('Chat ID "%s" in Update object is not valid.', $chatId));
-		}
-
-		$inputMessageId = $originalUpdate?->message?->message_id ?? null;
-		if (is_int($inputMessageId) === false || $inputMessageId === 0) {
-			throw new MessageDeletedException(sprintf('Message ID "%s" in Update object is not valid.', $inputMessageId));
-		}
-
-		$this->botReplyMessageId = $botReplyMessageId;
-		$this->inputMessageId = $inputMessageId;
-		$this->telegramChatId = $chatId;
-		$this->originalUpdateObject = $originalUpdate;
-		$this->status = $status;
-		$this->lastUpdate = $lastUpdate;
 	}
 
-	public function setLastSendData(?string $text, ?Telegram\Types\Inline\Keyboard\Markup $replyMarkup, bool $updateInDb = false)
-	{
-		if (is_null($text) === false || is_null($replyMarkup) === false) {
+	public function setLastSendData(
+		?string $text,
+		?Telegram\Types\Inline\Keyboard\Markup $replyMarkup,
+		bool $updateInDb = false,
+	): void {
+		if ($text !== null) {
 			$this->lastResponseText = $text;
+		}
+		if ($replyMarkup !== null) {
 			$this->lastResponseReplyMarkup = $replyMarkup;
 		}
 		if ($updateInDb) {
 			$this->db->query('UPDATE better_location_telegram_updates 
 SET last_response_text = ?, last_response_reply_markup = ?
 WHERE chat_id = ? AND bot_reply_message_id = ?',
-				$this->lastResponseText, json_encode($this->lastResponseReplyMarkup), $this->telegramChatId, $this->botReplyMessageId
+				$this->lastResponseText,
+				Json::encode($this->lastResponseReplyMarkup),
+				$this->telegramChatId,
+				$this->messageIdToEdit,
 			);
 		}
 	}
@@ -84,30 +68,35 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 	public static function fromDb(int $chatId, int $botReplyMessageId): self
 	{
 		$row = Factory::database()->query('SELECT * FROM better_location_telegram_updates WHERE chat_id = ? AND bot_reply_message_id = ?',
-			$chatId, $botReplyMessageId
+			$chatId,
+			$botReplyMessageId,
 		)->fetch();
-		return self::parseDbData($row);
+		return self::fromRow($row);
 	}
 
 	public function insert(): void
 	{
 		$this->db->query('INSERT INTO better_location_telegram_updates (chat_id, input_message_id, bot_reply_message_id, original_update_object, autorefresh_status, last_update) VALUES (?, ?, ?, ?, ?, UTC_TIMESTAMP())',
-			$this->telegramChatId, $this->inputMessageId, $this->botReplyMessageId, json_encode($this->originalUpdateObject), $this->status
+			$this->telegramChatId,
+			$this->inputMessageId,
+			$this->messageIdToEdit,
+			Json::encode($this->originalUpdateObject),
+			$this->status,
 		);
 		$this->status = self::STATUS_DISABLED;
 	}
 
-	public function autorefreshEnable()
+	public function autorefreshEnable(): void
 	{
 		$this->setAutorefresh(self::STATUS_ENABLED);
 	}
 
-	public function isAutorefreshEnabled()
+	public function isAutorefreshEnabled(): bool
 	{
 		return $this->status === self::STATUS_ENABLED;
 	}
 
-	public function autorefreshDisable()
+	public function autorefreshDisable(): void
 	{
 		$this->setAutorefresh(self::STATUS_DISABLED);
 	}
@@ -115,7 +104,9 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 	private function setAutorefresh(int $status): void
 	{
 		$this->db->query('UPDATE better_location_telegram_updates SET autorefresh_status = ? WHERE chat_id = ? AND bot_reply_message_id = ?',
-			$status, $this->telegramChatId, $this->botReplyMessageId
+			$status,
+			$this->telegramChatId,
+			$this->messageIdToEdit,
 		);
 		$this->status = $status;
 	}
@@ -128,7 +119,8 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 	public function touchLastUpdate(): void
 	{
 		$this->db->query('UPDATE better_location_telegram_updates SET last_update = UTC_TIMESTAMP() WHERE chat_id = ? AND bot_reply_message_id = ?',
-			$this->telegramChatId, $this->botReplyMessageId
+			$this->telegramChatId,
+			$this->messageIdToEdit,
 		);
 		$this->lastUpdate = new \DateTimeImmutable();
 	}
@@ -156,7 +148,7 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 		}
 		$rows = Factory::database()->query($sqlQuery, ...$sqlParams)->fetchAll();
 		foreach ($rows as $row) {
-			$results[] = self::parseDbData($row);
+			$results[] = self::fromRow($row);
 		}
 		return $results;
 	}
@@ -165,48 +157,34 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 	{
 		$sqlQuery = 'SELECT * FROM better_location_telegram_updates WHERE chat_id = ? AND input_message_id = ?';
 		if ($row = Factory::database()->query($sqlQuery, $chatId, $originalMessageId)->fetch()) {
-			return self::parseDbData($row);
+			return self::fromRow($row);
 		} else {
 			return null;
 		}
 	}
 
-	public function getOriginalUpdateObject(): Telegram\Types\Update
+	/**
+	 * @param array<string, mixed> $row
+	 */
+	private static function fromRow(array $row): self
 	{
-		return $this->originalUpdateObject;
-	}
+		$dataJson = Json::decode($row['original_update_object'], true);
+		$update = new Telegram\Types\Update($dataJson);
 
-	public function getChatId(): int
-	{
-		return $this->telegramChatId;
-	}
+		$self = new self(
+			originalUpdateObject: $update,
+			telegramChatId: $row['chat_id'],
+			inputMessageId: $row['input_message_id'],
+			messageIdToEdit: $row['bot_reply_message_id'],
+			status: $row['autorefresh_status'],
+			lastUpdate: new \DateTimeImmutable($row['last_update']),
+		);
 
-	public function getBotReplyMessageId(): int
-	{
-		return $this->botReplyMessageId;
-	}
-
-	private static function parseDbData(array $row): self
-	{
-		$dataJson = json_decode($row['original_update_object'], true, 512, JSON_THROW_ON_ERROR);
-		$self = new self(new Telegram\Types\Update($dataJson), intval($row['bot_reply_message_id']), intval($row['autorefresh_status']), new \DateTimeImmutable($row['last_update']));
 		if ($row['last_response_text'] && $row['last_response_reply_markup']) {
-			$self->setLastSendData(
-				$row['last_response_text'],
-				new Telegram\Types\Inline\Keyboard\Markup(json_decode($row['last_response_reply_markup'], true, 512, JSON_THROW_ON_ERROR))
-			);
+			$lastResponseMarkupRaw = Json::decode($row['last_response_reply_markup'], true);
+			$lastResponseMarkup = new Telegram\Types\Inline\Keyboard\Markup($lastResponseMarkupRaw);
+			$self->setLastSendData($row['last_response_text'], $lastResponseMarkup);
 		}
 		return $self;
-	}
-
-	/** self[] */
-	public static function query(string $query, ...$params): array
-	{
-		$results = [];
-		$rows = Factory::database()->query($query, ...$params)->fetchAll();
-		foreach ($rows as $row) {
-			$results[] = self::parseDbData($row);
-		}
-		return $results;
 	}
 }
