@@ -4,15 +4,15 @@ namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
-use App\Icons;
-use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
-use App\TelegramUpdateDb;
+use App\TelegramCustomWrapper\UniversalHandleLocationTrait;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 
 class LocationEvent extends Special
 {
+	use UniversalHandleLocationTrait;
+
 	private bool $isLive;
 	private ?BetterLocationCollection $collection = null;
 
@@ -51,6 +51,19 @@ class LocationEvent extends Special
 		return $this->collection;
 	}
 
+	private function includeRefreshRow(): bool
+	{
+		return false;
+	}
+
+	private function allowSneakyButtons(): bool
+	{
+		if ($this->isLive) {
+			return false;
+		}
+		return true;
+	}
+
 	public function handleWebhookUpdate(): void
 	{
 		if ($this->isLive) {
@@ -62,32 +75,9 @@ class LocationEvent extends Special
 			);
 		}
 
-		$collection = $this->getCollection();
-		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
-		$processedCollection->process();
+		assert($this->getCollection()->isEmpty() === false);
 
-		if ($collection->isEmpty()) { // No detected locations or occured errors
-			if ($this->isTgPm()) {
-				$this->reply(sprintf('%s Unexpected error occured while processing location. Contact Admin for more info.', Icons::ERROR));
-			} else {
-				// do not send anything to group chat
-			}
-			return;
-		}
-
-		$markup = $processedCollection->getMarkup(1, false);
-		if ($this->chat->getSendNativeLocation()) {
-			$this->replyLocation($processedCollection->getCollection()->getFirst(), $markup);
-			return;
-		}
-
-		$text = $processedCollection->getText();
-		$response = $this->reply($text, $markup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
-		if ($response && $collection->hasRefreshableLocation()) {
-			$cron = new TelegramUpdateDb($this->update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
-			$cron->insert();
-			$cron->setLastSendData($text, $markup, true);
-		}
+		$this->universalHandle();
 	}
 
 	private function venueHrefLink(Telegram\Types\Venue $venue): string

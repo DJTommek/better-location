@@ -7,12 +7,13 @@ use App\Config;
 use App\Factory;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
-use App\TelegramCustomWrapper\ProcessedMessageResult;
-use App\TelegramUpdateDb;
+use App\TelegramCustomWrapper\UniversalHandleLocationTrait;
 use Tracy\Debugger;
 
 class MessageEvent extends Special
 {
+	use UniversalHandleLocationTrait;
+
 	private ?BetterLocationCollection $collection = null;
 
 	public function getCollection(): BetterLocationCollection
@@ -49,40 +50,32 @@ class MessageEvent extends Special
 			}
 		}
 
-		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
-		$processedCollection->process();
-
-		if ($collection->isEmpty() === false) {
-			if ($this->chat->getSendNativeLocation()) {
-				$this->replyLocation($processedCollection->getCollection()->getFirst(), $processedCollection->getMarkup(1, false));
-			} else {
-				$text = $processedCollection->getText();
-				$markup = $processedCollection->getMarkup(1);
-				$response = $this->reply($text, $markup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
-				if ($response && $collection->hasRefreshableLocation()) {
-					$cron = new TelegramUpdateDb($this->update, $response->message_id, TelegramUpdateDb::STATUS_DISABLED, new \DateTimeImmutable());
-					$cron->insert();
-					$cron->setLastSendData($text, $markup, true);
-				}
-			}
-		} else { // No detected locations or occured errors
-			if ($this->isTgPm() === true) {
-				$message = 'Hi there in PM!' . PHP_EOL;
-				$message .= 'Thanks for the ';
-				if ($this->isTgForward()) {
-					$message .= 'forwarded ';
-				}
-				$message .= sprintf('message, but I didn\'t detected any location in that message. Use %s command to get info how to use me.', HelpCommand::getTgCmd()) . PHP_EOL;
-				$message .= sprintf('%s Most used tips: ', Icons::INFO) . PHP_EOL;
-				$message .= '- send me any message with location data (coords, links, Telegram location...)' . PHP_EOL;
-				$message .= '- send me Telegram location' . PHP_EOL;
-				$message .= '- send me <b>uncompressed</b> photos (as file) to process location from EXIF' . PHP_EOL;
-				$message .= '- forward me any of above' . PHP_EOL;
-				$this->reply($message);
-			} else {
-				// do not send anything to group chat
-			}
+		if ($this->getCollection()->isEmpty()) {
+			$this->replyEmpty();
+			return;
 		}
+
+		$this->universalHandle();
+	}
+
+	private function replyEmpty(): void
+	{
+		if ($this->isTgPm() !== true) {
+			return;
+		}
+
+		$message = 'Hi there in PM!' . PHP_EOL;
+		$message .= 'Thanks for the ';
+		if ($this->isTgForward()) {
+			$message .= 'forwarded ';
+		}
+		$message .= sprintf('message, but I didn\'t detected any location in that message. Use %s command to get info how to use me.', HelpCommand::getTgCmd()) . PHP_EOL;
+		$message .= sprintf('%s Most used tips: ', Icons::INFO) . PHP_EOL;
+		$message .= '- send me any message with location data (coords, links, Telegram location...)' . PHP_EOL;
+		$message .= '- send me Telegram location' . PHP_EOL;
+		$message .= '- send me <b>uncompressed</b> photos (as file) to process location from EXIF' . PHP_EOL;
+		$message .= '- forward me any of above' . PHP_EOL;
+		$this->reply($message);
 	}
 }
 

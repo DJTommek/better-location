@@ -33,9 +33,9 @@ if (isset($_GET['password']) && $_GET['password'] === \App\Config::CRON_PASSWORD
 		printlog(sprintf('Loaded %s updates to refresh.', count($messagesToRefresh)));
 		$telegramCustomWrapper = \App\Factory::telegram();
 		foreach ($messagesToRefresh as $messageToRefresh) {
-			$id = sprintf('%d-%d', $messageToRefresh->getChatId(), $messageToRefresh->getBotReplyMessageId());
+			$id = sprintf('%d-%d', $messageToRefresh->telegramChatId, $messageToRefresh->messageIdToEdit);
 			try {
-				$event = $telegramCustomWrapper->analyze($messageToRefresh->getOriginalUpdateObject());
+				$event = $telegramCustomWrapper->analyze($messageToRefresh->originalUpdateObject);
 				printlog(sprintf('Processing %s with last refresh at %s (%s ago)',
 					$id,
 					$messageToRefresh->getLastUpdate()->format(DATE_W3C),
@@ -59,8 +59,8 @@ if (isset($_GET['password']) && $_GET['password'] === \App\Config::CRON_PASSWORD
 				$processedCollection->process();
 
 				$msg = new \unreal4u\TelegramAPI\Telegram\Methods\EditMessageText();
-				$msg->chat_id = $messageToRefresh->getChatId();
-				$msg->message_id = $messageToRefresh->getBotReplyMessageId();
+				$msg->chat_id = $messageToRefresh->telegramChatId;
+				$msg->message_id = $messageToRefresh->messageIdToEdit;
 				$msg->parse_mode = 'HTML';
 				$msg->disable_web_page_preview = true;
 

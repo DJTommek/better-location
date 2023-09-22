@@ -616,41 +616,6 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
 
 		-
-			message: "#^Method App\\\\TelegramUpdateDb\\:\\:autorefreshDisable\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramUpdateDb.php
-
-		-
-			message: "#^Method App\\\\TelegramUpdateDb\\:\\:autorefreshEnable\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramUpdateDb.php
-
-		-
-			message: "#^Method App\\\\TelegramUpdateDb\\:\\:isAutorefreshEnabled\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramUpdateDb.php
-
-		-
-			message: "#^Method App\\\\TelegramUpdateDb\\:\\:parseDbData\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/TelegramUpdateDb.php
-
-		-
-			message: "#^Method App\\\\TelegramUpdateDb\\:\\:query\\(\\) has parameter \\$params with no type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramUpdateDb.php
-
-		-
-			message: "#^Method App\\\\TelegramUpdateDb\\:\\:query\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/TelegramUpdateDb.php
-
-		-
-			message: "#^Method App\\\\TelegramUpdateDb\\:\\:setLastSendData\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramUpdateDb.php
-
-		-
 			message: "#^Method App\\\\Utils\\\\Coordinates\\:\\:getLatLon\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/Utils/Coordinates.php
