@@ -87,7 +87,17 @@
 							<div class="form-check">
 								{var $outputTypeKey = App\Repository\ChatEntity::OUTPUT_TYPE_SNEAK_BUTTONS}
 								{var $elementId = 'output-type-' . $outputTypeKey}
-								<input class="form-check-input" type="radio" name="output-type" value="{$outputTypeKey}" id="{$elementId}" n:attr="checked: $outputTypeKey === $chat->settingsOutputType()">
+								<input
+										class="form-check-input"
+										type="radio"
+										name="output-type"
+										value="{$outputTypeKey}"
+										id="{$elementId}"
+										n:attr="
+											checked: $outputTypeKey === $chat->settingsOutputType(),
+											disabled: $chatResponse->type !== App\Repository\ChatEntity::CHAT_TYPE_CHANNEL
+										"
+								>
 								<label class="form-check-label" for="{$elementId}">
 									Sneaky buttons
 									<span class="form-text">
