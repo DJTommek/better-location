@@ -12,6 +12,13 @@ class ChatEntity extends Entity
 	const OUTPUT_TYPE_FILE_GPX = 2;
 	const OUTPUT_TYPE_FILE_KML = 3;
 
+	public const OUTPUT_TYPES = [
+		self::OUTPUT_TYPE_MESSAGE,
+		self::OUTPUT_TYPE_LOCATION,
+		self::OUTPUT_TYPE_FILE_GPX,
+		self::OUTPUT_TYPE_FILE_KML,
+	];
+
 	const CHAT_TYPE_PRIVATE = 'private';
 	const CHAT_TYPE_GROUP = 'group';
 	const CHAT_TYPE_SUPERGROUP = 'supergroup';
@@ -26,7 +33,7 @@ class ChatEntity extends Entity
 	public \DateTimeImmutable $registered;
 	public \DateTimeImmutable $lastUpdate;
 	public bool $settingsPreview;
-	public int $settingsOutputType;
+	private int $settingsOutputType;
 	public bool $settingsShowAddress;
 	public ?UrlImmutable $pluginUrl;
 
@@ -40,9 +47,23 @@ class ChatEntity extends Entity
 		$entity->registered = new \DateTimeImmutable($row['chat_registered']);
 		$entity->lastUpdate = new \DateTimeImmutable($row['chat_last_update']);
 		$entity->settingsPreview = Strict::boolval($row['chat_settings_preview']);
-		$entity->settingsOutputType = $row['chat_settings_output_type'];
+		$entity->setSettingsOutputType($row['chat_settings_output_type']);
 		$entity->settingsShowAddress = Strict::boolval($row['chat_settings_show_address']);
 		$entity->pluginUrl = $row['chat_plugin_url'] === null ? null : new UrlImmutable($row['chat_plugin_url']);
 		return $entity;
+	}
+
+	public function getSettingsOutputType(): int
+	{
+		return $this->settingsOutputType;
+	}
+
+	public function setSettingsOutputType(int $newValue): void
+	{
+		if (in_array($newValue, self::OUTPUT_TYPES, true) === false) {
+			throw new \InvalidArgumentException('Invalid output type key');
+		}
+
+		$this->settingsOutputType = $newValue;
 	}
 }
