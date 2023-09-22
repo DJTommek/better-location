@@ -346,4 +346,9 @@ abstract class Events
 	{
 		return $this->user;
 	}
+
+	public function getUpdate(): Update
+	{
+		return $this->update;
+	}
 }
