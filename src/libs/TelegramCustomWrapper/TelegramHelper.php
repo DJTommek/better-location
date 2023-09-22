@@ -469,4 +469,9 @@ class TelegramHelper
 	{
 		return in_array($chatMember->status, ['creator', 'administrator'], true);
 	}
+
+	public static function isMarkupEmpty(Telegram\Types\Inline\Keyboard\Markup $markup): bool
+	{
+		return ($markup->inline_keyboard[0] ?? []) === [];
+	}
 }

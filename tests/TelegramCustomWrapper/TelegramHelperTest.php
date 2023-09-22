@@ -5,6 +5,7 @@ namespace Tests\TelegramCustomWrapper;
 use App\Config;
 use App\TelegramCustomWrapper\TelegramHelper;
 use PHPUnit\Framework\TestCase;
+use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 final class TelegramHelperTest extends TestCase
 {
@@ -17,5 +18,37 @@ final class TelegramHelperTest extends TestCase
 		$this->assertSame(TelegramHelper::generateStartLocation(-50.4, -14.800008), sprintf('https://t.me/%s?start=-50400000_-14800008', Config::TELEGRAM_BOT_NAME));
 		$this->assertSame(TelegramHelper::generateStartLocation(1, -2), sprintf('https://t.me/%s?start=1000000_-2000000', Config::TELEGRAM_BOT_NAME));
 		$this->assertSame(TelegramHelper::generateStartLocation(-79.56789, 113.123456789), sprintf('https://t.me/%s?start=-79567890_113123456', Config::TELEGRAM_BOT_NAME));
+	}
+
+	/**
+	 * @return array<string,array{bool, array<mixed>}>
+	 */
+	public static function isMarkupEmptyProvider(): array
+	{
+		$button = ['text' => 'hello!'];
+
+		return [
+			'completely-empty' => [true, []],
+			'keyboard-empty' => [true, ['inline_keyboard' => []]],
+			'keyboard-empty-row-empty-button' => [true, ['inline_keyboard' => [[]]]],
+			'keyboard-empty-row-empty-buttons' => [true, ['inline_keyboard' => [[], []]]],
+
+			'keyboard-row-button' => [false, ['inline_keyboard' => [[$button]]]],
+			'keyboard-row-buttons' => [false, ['inline_keyboard' => [[$button, $button]]]],
+			'keyboard-rows-button' => [false, ['inline_keyboard' => [[$button], [$button]]]],
+			'keyboard-rows-buttons' => [false, ['inline_keyboard' => [[$button], [$button, $button]]]],
+		];
+	}
+
+	/**
+	 * @dataProvider isMarkupEmptyProvider
+	 * @param array<mixed> $markupRaw
+	 */
+	public function testIsMarkupEmpty(bool $expect, array $markupRaw): void
+	{
+		$markup = new Markup($markupRaw);
+		$result = TelegramHelper::isMarkupEmpty($markup);
+
+		$this->assertSame($expect, $result);
 	}
 }
