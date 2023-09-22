@@ -83,7 +83,10 @@ class ChannelPostEvent extends Special
 			if ($error === TelegramHelper::MESSAGE_CANNOT_BE_EDITED) {
 				// Message was sent by some other bot, that already contains some buttons
 				// Bot does not have permissions to edit messages of other users
-				Debugger::log(sprintf('Unable to append Sneaky Buttons into channel post: "%s"', $error), Debugger::WARNING);
+				Debugger::log(sprintf(
+					'Unable to append Sneaky Buttons into channel post. Chat ID: "%s", message ID: "%s", error: "%s"',
+					$this->getTgChatId(), $this->getTgMessageId(), $error,
+				), Debugger::WARNING);
 			} else {
 				throw $exception;
 			}
