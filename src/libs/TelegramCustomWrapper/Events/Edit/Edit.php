@@ -2,6 +2,7 @@
 
 namespace App\TelegramCustomWrapper\Events\Edit;
 
+use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\DateImmutableUtils;
 use unreal4u\TelegramAPI\Abstracts\TelegramTypes;
 use unreal4u\TelegramAPI\Telegram;
@@ -11,7 +12,7 @@ abstract class Edit extends \App\TelegramCustomWrapper\Events\Events
 {
 	public function getTgMessage(): Telegram\Types\Message
 	{
-		return $this->update->edited_message;
+		return TelegramHelper::getMessage($this->update, true);
 	}
 
 	public function getTgMessageEditDate(): \DateTimeImmutable
