@@ -11,12 +11,14 @@ class ChatEntity extends Entity
 	const OUTPUT_TYPE_LOCATION = 1;
 	const OUTPUT_TYPE_FILE_GPX = 2;
 	const OUTPUT_TYPE_FILE_KML = 3;
+	const OUTPUT_TYPE_SNEAK_BUTTONS = 4;
 
 	public const OUTPUT_TYPES = [
 		self::OUTPUT_TYPE_MESSAGE,
 		self::OUTPUT_TYPE_LOCATION,
 		self::OUTPUT_TYPE_FILE_GPX,
 		self::OUTPUT_TYPE_FILE_KML,
+		self::OUTPUT_TYPE_SNEAK_BUTTONS,
 	];
 
 	const CHAT_TYPE_PRIVATE = 'private';
@@ -62,6 +64,12 @@ class ChatEntity extends Entity
 	{
 		if (in_array($newValue, self::OUTPUT_TYPES, true) === false) {
 			throw new \InvalidArgumentException('Invalid output type key');
+		}
+		if (
+			$newValue === self::OUTPUT_TYPE_SNEAK_BUTTONS
+			&& $this->telegramChatType !== self::CHAT_TYPE_CHANNEL
+		) {
+			throw new \InvalidArgumentException('Sneak buttons can be used only for channels');
 		}
 
 		$this->settingsOutputType = $newValue;
