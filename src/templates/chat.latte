@@ -44,7 +44,9 @@
 								<input class="form-check-input" type="radio" name="output-type" id="{$elementId}" n:attr="checked: $outputTypeKey === $chat->settingsOutputType()">
 								<label class="form-check-label" for="{$elementId}">
 									Message
-									<small>(Rich text and buttons, default recommended)</small>
+									<span class="form-text">
+										(Rich text and buttons, default recommended)
+									</span>
 								</label>
 							</div>
 							<div class="form-check">
@@ -53,7 +55,9 @@
 								<input class="form-check-input" type="radio" name="output-type" value="{$outputTypeKey}" id="{$elementId}" n:attr="checked: $outputTypeKey === $chat->settingsOutputType()">
 								<label class="form-check-label" for="{$elementId}">
 									Native location
-									<small>(Clean location with buttons, no text)</small>
+									<span class="form-text">
+										(Clean location with buttons, no text)
+									</span>
 								</label>
 							</div>
 							{* @TODO Currently only internal values
@@ -63,7 +67,9 @@
 								<input class="form-check-input" type="radio" name="output-type" value="{$outputTypeKey}" id="{$elementId}" n:attr="checked: $outputTypeKey === $chat->settingsOutputType()">
 								<label class="form-check-label" for="{$elementId}">
 									File as GPX
-									<small>(File attachment with text and buttons)</small>
+									<span class="form-text">
+										(File attachment with text and buttons)
+									</span>
 								</label>
 							</div>
 							<div class="form-check">
@@ -72,7 +78,9 @@
 								<input class="form-check-input" type="radio" name="output-type" value="{$outputTypeKey}" id="{$elementId}" n:attr="checked: $outputTypeKey === $chat->settingsOutputType()">
 								<label class="form-check-label" for="{$elementId}">
 									File as KML
-									<small>(File attachment with text and buttons)</small>
+									<span class="form-text">
+										(File attachment with text and buttons)
+									</span>
 								</label>
 							</div>
 							*}
