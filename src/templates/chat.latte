@@ -103,6 +103,15 @@
 									<span class="form-text">
 										(Edit original message by appending buttons to message)
 										Available to channels only
+										{if $chatResponse->type === App\Repository\ChatEntity::CHAT_TYPE_CHANNEL}
+											<p class="font-weight-bold">
+												<i class="fa fa-exclamation-triangle"></i>
+												Refreshable location messages (such as live locations) cannot be edited. See
+												<a href="https://github.com/DJTommek/better-location/issues/134" target="_blank" title="Github issue #134: Telegram channel - SneakyButtons for refreshable locations">Github issue #134</a>
+												for more info or ask in
+												<a href="https://t.me/BetterLocationChat" target="_blank" title="Telegram group @BetterLocationChat">@BetterLocationChat</a>.
+											</p>
+										{/if}
 									</span>
 								</label>
 							</div>
