@@ -260,7 +260,7 @@ abstract class Events
 		return $response;
 	}
 
-	public function replyLocation(CoordinatesInterface $location, ?Markup $markup = null): ?TelegramTypes
+	public function replyLocation(CoordinatesInterface $location, ?Markup $markup = null): ?Telegram\Types\Message
 	{
 		$locationMessage = new Telegram\Methods\SendLocation();
 		$locationMessage->chat_id = $this->getTgChatId();
@@ -268,7 +268,9 @@ abstract class Events
 		$locationMessage->longitude = $location->getLon();
 		$locationMessage->reply_to_message_id = $this->getTgMessageId();
 		$locationMessage->reply_markup = $markup;
-		return $this->run($locationMessage);
+		$response = $this->run($locationMessage);
+		assert($response === null || $response instanceof Telegram\Types\Message);
+		return $response;
 	}
 
 	/**
