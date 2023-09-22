@@ -126,6 +126,18 @@ class ChatPresenter extends MainPresenter
 		$this->chat->settingsPreview(isset($_POST['map-preview']));
 		$this->chat->settingsShowAddress(isset($_POST['show-address']));
 
+		if (isset($_POST['output-type'])) {
+			try {
+				$this->chat->settingsOutputType((int)$_POST['output-type']);
+			} catch (\InvalidArgumentException $exception) {
+				$this->flashMessage(sprintf(
+					'Message output type is not valid: "%s"',
+					htmlspecialchars($exception->getMessage()),
+				), FlashMessage::FLASH_ERROR, null);
+				return;
+			}
+		}
+
 		// Validate Pluginer URL
 		if (isset($_POST['pluginer-url'])) {
 			$this->template->formPluginerUrl = $_POST['pluginer-url'];
