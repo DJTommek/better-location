@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS better_location_chat_location_history
     `timestamp`          bigint           not null,
     `latitude`           double(10, 6)    not null,
     `longitude`          double(10, 6)    not null,
-    `input`              varchar(255)     not null
+    `input`              varchar(2048)    not null
 ) engine = InnoDB;
 
 create index better_location_chat_location_history_chat_id
