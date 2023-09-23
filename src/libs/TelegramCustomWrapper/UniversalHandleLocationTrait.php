@@ -35,6 +35,8 @@ trait UniversalHandleLocationTrait
 
 	abstract function getChat(): ?Chat;
 
+	abstract function isTgForward(): bool;
+
 	abstract function run(TelegramMethods $objectToSend): ?TelegramTypes;
 
 	/**
@@ -90,6 +92,10 @@ trait UniversalHandleLocationTrait
 	private function outputSneakyButtons(ProcessedMessageResult $processedCollection): void
 	{
 		if ($this->allowSneakyButtons() === false) {
+			return;
+		}
+
+		if ($this->isTgForward()) {
 			return;
 		}
 
