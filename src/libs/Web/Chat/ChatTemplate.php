@@ -26,6 +26,7 @@ class ChatTemplate extends LayoutTemplate
 	public $lon;
 	public string $exampleInput;
 	public BetterLocation $exampleLocation;
+	public bool $canBotEditMessagesOfOthers = false;
 	// in case of ok - end
 	// in case of error - start
 	/** @var string */
