@@ -85,8 +85,6 @@ trait UniversalHandleLocationTrait
 		$location = $processedCollection->getCollection()->getFirst();
 		$markup = $processedCollection->getMarkup(1, false);
 		$response = $this->replyLocation($location, $markup,);
-
-		$this->addToUpdateDb($processedCollection, $response, null, $markup);
 	}
 
 	private function outputSneakyButtons(ProcessedMessageResult $processedCollection): void
@@ -123,8 +121,12 @@ trait UniversalHandleLocationTrait
 
 	}
 
-	private function addToUpdateDb(ProcessedMessageResult $processedCollection, ?Telegram\Types\Message $response, ?string $text, Markup $markup): void
-	{
+	private function addToUpdateDb(
+		ProcessedMessageResult $processedCollection,
+		?Telegram\Types\Message $response,
+		string $text,
+		Markup $markup,
+	): void {
 		if ($response === null) {
 			return;
 		}
