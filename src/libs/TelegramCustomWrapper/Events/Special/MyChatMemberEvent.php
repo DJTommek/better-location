@@ -5,6 +5,8 @@ namespace App\TelegramCustomWrapper\Events\Special;
 use App\Config;
 use App\TelegramCustomWrapper\SendMessage;
 use App\TelegramCustomWrapper\TelegramHelper as TH;
+use Tracy\Debugger;
+use unreal4u\TelegramAPI\Exceptions\ClientException;
 use unreal4u\TelegramAPI\Telegram;
 
 /**
@@ -58,21 +60,27 @@ class MyChatMemberEvent extends Special
 		$text .= 'I will be checking every post if it contains any form of location (coordinates, links, photos with EXIF...) and send a nicely formatted message.' . TH::NL;
 		$text .= TH::NL;
 		$text .= sprintf(
-				'To update settings use <a href="%s" target="_blank">website</a> (commands in channels are ignored).',
-				$chatSettingsUrl,
-			);
+			'To update settings use <a href="%s" target="_blank">website</a> (commands in channels are ignored).',
+			$chatSettingsUrl,
+		);
 
 		$replyMarkup = new Telegram\Types\Inline\Keyboard\Markup();
 		$replyMarkup->inline_keyboard[] = [
 			TH::loginUrlButton('Open settings', $chatSettingsUrl),
 		];
 
-		$sendMessage = new SendMessage(
-			chatId: $admin->id,
-			text: $text,
-			replyMarkup: $replyMarkup,
-		);
-		$this->run($sendMessage->msg);
+		try {
+			$sendMessage = new SendMessage(
+				chatId: $admin->id,
+				text: $text,
+				replyMarkup: $replyMarkup,
+			);
+			$this->run($sendMessage->msg);
+		} catch (ClientException $exception) {
+			$severity = ($exception->getMessage() === TH::BOT_CANNOT_INITIATE_PM) ? Debugger::WARNING : Debugger::EXCEPTION;
+			Debugger::log($exception, $severity);
+			return;
+		}
 	}
 }
 
