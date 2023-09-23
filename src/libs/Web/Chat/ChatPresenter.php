@@ -4,9 +4,11 @@ namespace App\Web\Chat;
 
 use App\BetterLocation\Service\WazeService;
 use App\Chat;
+use App\Config;
 use App\Factory;
 use App\Pluginer\Pluginer;
 use App\Pluginer\PluginerException;
+use App\Repository\ChatEntity;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Strict;
 use App\Web\FlashMessage;
@@ -21,8 +23,9 @@ class ChatPresenter extends MainPresenter
 	private int $chatTelegramId;
 	private ?Telegram\Types\Chat $chatResponse = null;
 	private ?Chat $chat = null;
-	private ?Telegram\Types\ChatMember $chatMemberResponse = null;
+	private ?Telegram\Types\ChatMember $chatMemberUser = null;
 	public string $exampleInput = 'https://www.waze.com/ul?ll=50.087451%2C14.420671';
+	private bool $isUserAdmin = false;
 
 	public function __construct()
 	{
@@ -43,7 +46,7 @@ class ChatPresenter extends MainPresenter
 		$this->chatTelegramId = Strict::intval($_GET['telegramId']);
 		$this->loadChatData();
 
-		if ($this->isAdmin() === false) {
+		if ($this->isUserAdmin === false) {
 			return;
 		}
 
@@ -56,7 +59,7 @@ class ChatPresenter extends MainPresenter
 
 	public function render(): void
 	{
-		if ($this->isAdmin() === false) {
+		if ($this->isUserAdmin === false) {
 			$this->template->prepareError();
 			Factory::latte('chatError.latte', $this->template);
 			return;
@@ -94,31 +97,49 @@ class ChatPresenter extends MainPresenter
 		try {
 			$telegramWrapper = Factory::telegram();
 
+			$userTgId = $this->user->getTelegramId();
+
 			$getChat = new Telegram\Methods\GetChat();
 			$getChat->chat_id = $this->chatTelegramId;
 			$response = $telegramWrapper->run($getChat);
 			assert($response instanceof Telegram\Types\Chat);
 			$this->chatResponse = $response;
 
-			$getChatMember = new Telegram\Methods\GetChatMember();
-			$getChatMember->chat_id = $this->chatTelegramId;
-			$getChatMember->user_id = $this->user->getTelegramId();
-			$response = $telegramWrapper->run($getChatMember);
-			assert($response instanceof Telegram\Types\ChatMember);
-			$this->chatMemberResponse = $response;
+			if ($response->type === ChatEntity::CHAT_TYPE_PRIVATE) {
+				$getChatMember = new Telegram\Methods\GetChatMember();
+				$getChatMember->chat_id = $this->chatTelegramId;
+				$getChatMember->user_id = $userTgId;
+				$chatMember = $telegramWrapper->run($getChatMember);
+				assert($chatMember instanceof Telegram\Types\ChatMember);
+				if ($chatMember->user->id !== $userTgId) {
+					throw new \RuntimeException('Invalid state - Telegram ID ID of logged user must match');
+				}
+				$this->isUserAdmin = true;
+				$this->chatMemberUser = $chatMember;
+			} else {
+				$getchatAdmins = new Telegram\Methods\GetChatAdministrators();
+				$getchatAdmins->chat_id = $this->chatTelegramId;
+				$response = $telegramWrapper->run($getchatAdmins);
+				assert($response instanceof Telegram\Types\Custom\ChatMembersArray);
+				foreach ($response as $admin) {
+					assert($admin instanceof Telegram\Types\ChatMember);
+					if ($admin->user->id === $userTgId) {
+						$this->isUserAdmin = true;
+						$this->chatMemberUser = $admin;
+					}
+					if (
+						$admin->user->username === Config::TELEGRAM_BOT_NAME
+						&& $admin instanceof Telegram\Types\ChatMember\ChatMemberAdministrator
+						&& $admin->can_edit_messages
+					) {
+						$this->template->canBotEditMessagesOfOthers = true;
+					}
+				}
+			}
+
 		} catch (ClientException $exception) {
 			// do nothing, user probable just does not have permission
 		}
-	}
-
-	/** Is administrator or it is PM chat */
-	private function isAdmin(): bool
-	{
-		if ($this->chatResponse && $this->chatMemberResponse) {
-			// @TODO optimize by not loading getChatMember, if chat type is private
-			return ($this->chatResponse->type === 'private' || TelegramHelper::isAdmin($this->chatMemberResponse));
-		}
-		return false;
 	}
 
 	private function handleSettingsForm()
@@ -202,7 +223,7 @@ class ChatPresenter extends MainPresenter
 			updateId: random_int(1_000_000, 9_999_999),
 			messageId: random_int(1_000_000, 9_999_999),
 			chat: $this->chatResponse,
-			user: $this->chatMemberResponse->user,
+			user: $this->chatMemberUser->user,
 		);
 	}
 }
