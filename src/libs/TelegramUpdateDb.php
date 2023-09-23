@@ -29,16 +29,13 @@ class TelegramUpdateDb
 	}
 
 	public function setLastSendData(
-		?string $text,
-		?Telegram\Types\Inline\Keyboard\Markup $replyMarkup,
+		string $text,
+		Telegram\Types\Inline\Keyboard\Markup $replyMarkup,
 		bool $updateInDb = false,
 	): void {
-		if ($text !== null) {
-			$this->lastResponseText = $text;
-		}
-		if ($replyMarkup !== null) {
-			$this->lastResponseReplyMarkup = $replyMarkup;
-		}
+		$this->lastResponseText = $text;
+		$this->lastResponseReplyMarkup = $replyMarkup;
+
 		if ($updateInDb) {
 			$this->db->query('UPDATE better_location_telegram_updates 
 SET last_response_text = ?, last_response_reply_markup = ?
