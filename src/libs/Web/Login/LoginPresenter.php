@@ -27,26 +27,43 @@ class LoginPresenter extends MainPresenter
 			$customRedirectUrl = false;
 		}
 
+		if (\App\TelegramCustomWrapper\Login::hasRequiredGetParams($_GET)) {
+			$this->handleLogin();
+			$this->redirect($redirectUrl);
+		}
+
 		if ($this->login->isLogged()) {
 			if ($customRedirectUrl === false) {
 				$this->flashMessage(sprintf('You are already logged in as <b>%s</b>.', $this->login->getDisplayName()));
 			}
 			$this->redirect($redirectUrl);
 		}
+	}
 
-		if (\App\TelegramCustomWrapper\Login::hasRequiredGetParams($_GET)) {
-			$tgLoginWrapper = new \App\TelegramCustomWrapper\Login($_GET);
-			if ($tgLoginWrapper->isTooOld()) {
-				$this->flashMessage('Login URL is no longer valid. Try it again or log in via web.', FlashMessage::FLASH_ERROR, null);
-			} else if ($tgLoginWrapper->isVerified()) {
-				$this->login->saveToDatabase($tgLoginWrapper);
-				$this->login->setCookie($tgLoginWrapper->hash());
-				$this->flashMessage(sprintf('You were logged in as <b>%s</b>.', $tgLoginWrapper->displayname()), FlashMessage::FLASH_SUCCESS);
-				$this->redirect($redirectUrl);
-			} else {
-				$this->flashMessage('Could not verify Telegram login URL. Try again or log in via web.', FlashMessage::FLASH_ERROR, null);
-			}
+	private function handleLogin(): void
+	{
+		$tgLoginWrapper = new \App\TelegramCustomWrapper\Login($_GET);
+		if ($tgLoginWrapper->isTooOld()) {
+			$this->flashMessage('Login URL is no longer valid. Try it again or log in via web.', FlashMessage::FLASH_ERROR, null);
+			return;
 		}
+
+		if ($tgLoginWrapper->isVerified() === false) {
+			$this->flashMessage('Could not verify Telegram login URL. Try again or log in via web.', FlashMessage::FLASH_ERROR, null);
+			return;
+		}
+
+		$userTgIdOld = $this->login->getTelegramId(); // null is non-logged-in user
+		$userTgIdNew = $tgLoginWrapper->userTelegramId();
+
+		if ($userTgIdOld === $userTgIdNew) {
+			return;
+		}
+
+		$this->login->saveToDatabase($tgLoginWrapper);
+		$this->login->setCookie($tgLoginWrapper->hash());
+
+		$this->flashMessage(sprintf('You were logged in as <b>%s</b>.', $tgLoginWrapper->displayname()), FlashMessage::FLASH_SUCCESS);
 	}
 
 	public function render(): void
