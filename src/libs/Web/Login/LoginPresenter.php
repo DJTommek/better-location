@@ -21,12 +21,16 @@ class LoginPresenter extends MainPresenter
 	{
 		if (Strict::isUrl($_GET['redirect'] ?? null)) {
 			$redirectUrl = new UrlImmutable($_GET['redirect']);
+			$customRedirectUrl = true;
 		} else {
 			$redirectUrl = Config::getAppUrl();
+			$customRedirectUrl = false;
 		}
 
 		if ($this->login->isLogged()) {
-			$this->flashMessage(sprintf('You are already logged in as <b>%s</b>.', $this->login->getDisplayName()));
+			if ($customRedirectUrl === false) {
+				$this->flashMessage(sprintf('You are already logged in as <b>%s</b>.', $this->login->getDisplayName()));
+			}
 			$this->redirect($redirectUrl);
 		}
 
