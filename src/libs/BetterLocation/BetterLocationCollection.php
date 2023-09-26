@@ -23,7 +23,7 @@ use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
  */
 class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 {
-	/** @var BetterLocation[] */
+	/** @var list<BetterLocation> */
 	private array $locations = [];
 	private int $position = 0;
 	public bool $filterTooClose = true;
@@ -40,6 +40,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	/** Needs to be called when number or order of locations will change. */
 	private function clearLazyLoad(): void
 	{
+        // Recalculate keys to have list <0,inf>
+        $this->locations = array_values($this->locations);
 		$this->staticMapUrl = null;
 	}
 
