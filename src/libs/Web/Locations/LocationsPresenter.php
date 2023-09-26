@@ -10,7 +10,7 @@ use App\Config;
 use App\Factory;
 use App\Utils\DateImmutableUtils;
 use App\Utils\Utils;
-use App\Web\FlashMessage;
+use App\Web\Flash;
 use App\Web\MainPresenter;
 use DJTommek\Coordinates\Coordinates;
 use Nette\Utils\Json;
@@ -62,13 +62,13 @@ class LocationsPresenter extends MainPresenter
 								'Location <b>%s</b> was saved to favorites as <b>%s</b>.',
 								$favoriteLocation->key(),
 								htmlentities($favoriteLocation->getPrefixMessage()),
-							), FlashMessage::FLASH_SUCCESS);
+							), Flash::SUCCESS);
 						}
 						break;
 					case 'delete':
 						foreach ($this->collection as $location) {
 							$this->user->deleteFavourite($location);
-							$this->flashMessage(sprintf('Location <b>%s</b> was removed from favorites.', $location->key()), FlashMessage::FLASH_INFO);
+							$this->flashMessage(sprintf('Location <b>%s</b> was removed from favorites.', $location->key()), Flash::INFO);
 						}
 						break;
 				}

@@ -5,7 +5,7 @@ namespace App\Web\Login;
 use App\Config;
 use App\Factory;
 use App\Utils\Strict;
-use App\Web\FlashMessage;
+use App\Web\Flash;
 use App\Web\MainPresenter;
 use Nette\Http\UrlImmutable;
 
@@ -44,12 +44,12 @@ class LoginPresenter extends MainPresenter
 	{
 		$tgLoginWrapper = new \App\TelegramCustomWrapper\Login($_GET);
 		if ($tgLoginWrapper->isTooOld()) {
-			$this->flashMessage('Login URL is no longer valid. Try it again or log in via web.', FlashMessage::FLASH_ERROR, null);
+			$this->flashMessage('Login URL is no longer valid. Try it again or log in via web.', Flash::ERROR, null);
 			return;
 		}
 
 		if ($tgLoginWrapper->isVerified() === false) {
-			$this->flashMessage('Could not verify Telegram login URL. Try again or log in via web.', FlashMessage::FLASH_ERROR, null);
+			$this->flashMessage('Could not verify Telegram login URL. Try again or log in via web.', Flash::ERROR, null);
 			return;
 		}
 
@@ -63,7 +63,7 @@ class LoginPresenter extends MainPresenter
 		$this->login->saveToDatabase($tgLoginWrapper);
 		$this->login->setCookie($tgLoginWrapper->hash());
 
-		$this->flashMessage(sprintf('You were logged in as <b>%s</b>.', $tgLoginWrapper->displayname()), FlashMessage::FLASH_SUCCESS);
+		$this->flashMessage(sprintf('You were logged in as <b>%s</b>.', $tgLoginWrapper->displayname()), Flash::SUCCESS);
 	}
 
 	public function render(): void

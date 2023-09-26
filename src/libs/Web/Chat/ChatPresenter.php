@@ -11,7 +11,7 @@ use App\Pluginer\PluginerException;
 use App\Repository\ChatEntity;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Strict;
-use App\Web\FlashMessage;
+use App\Web\Flash;
 use App\Web\MainPresenter;
 use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
@@ -77,11 +77,11 @@ class ChatPresenter extends MainPresenter
 			} catch (PluginerException $exception) {
 				$this->flashMessage(
 					'Error while processing your Pluginer URL, check if your server is online and responding correctly.<br>' . htmlspecialchars($exception->getMessage()),
-					FlashMessage::FLASH_ERROR,
+					Flash::ERROR,
 					null,
 				);
 			} catch (\Exception $exception) {
-				$this->flashMessage('BetterLocation server general error while processing your Pluginer URL, try again later.', FlashMessage::FLASH_ERROR, null);
+				$this->flashMessage('BetterLocation server general error while processing your Pluginer URL, try again later.', Flash::ERROR, null);
 				Debugger::log($exception, Debugger::EXCEPTION);
 			}
 		}
@@ -154,7 +154,7 @@ class ChatPresenter extends MainPresenter
 				$this->flashMessage(sprintf(
 					'Message output type is not valid: "%s"',
 					htmlspecialchars($exception->getMessage()),
-				), FlashMessage::FLASH_ERROR, null);
+				), Flash::ERROR, null);
 				return;
 			}
 		}
@@ -165,7 +165,7 @@ class ChatPresenter extends MainPresenter
 			try {
 				$url = trim($_POST['pluginer-url']) === '' ? null : Strict::urlImmutable($_POST['pluginer-url']);
 			} catch (\InvalidArgumentException $exception) {
-				$this->flashMessage('Pluginer URL is not valid.', FlashMessage::FLASH_ERROR, null);
+				$this->flashMessage('Pluginer URL is not valid.', Flash::ERROR, null);
 				return;
 			}
 
@@ -177,12 +177,12 @@ class ChatPresenter extends MainPresenter
 				} catch (PluginerException $exception) {
 					$this->flashMessage(sprintf(
 						'Pluginer URL is valid but error occured while testing it: "%s"',
-						htmlspecialchars($exception->getMessage())
-					), FlashMessage::FLASH_ERROR, null);
+						htmlspecialchars($exception->getMessage()),
+					), Flash::ERROR, null);
 					return;
 				} catch (\Exception $exception) {
 					Debugger::log($exception, Debugger::EXCEPTION);
-					$this->flashMessage('Pluginer URL is probably valid but BetterLocation server general error occured while testing it. Try again later.', FlashMessage::FLASH_ERROR, null);
+					$this->flashMessage('Pluginer URL is probably valid but BetterLocation server general error occured while testing it. Try again later.', Flash::ERROR, null);
 					return;
 				}
 			}

@@ -62,7 +62,7 @@
 <div class="container">
 	<div id="flash-message">
 		{foreach $flashMessages as $key => $flashMessage}
-			<div id="alert-{$key}" class="alert alert-{$flashMessage->type} alert-dismissible fade show" role="alert">
+			<div id="alert-{$key}" class="alert alert-{$flashMessage->type->value} alert-dismissible fade show" role="alert">
 				{$flashMessage->content|noescape}
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>

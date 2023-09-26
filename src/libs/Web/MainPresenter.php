@@ -89,10 +89,9 @@ abstract class MainPresenter
 	 * Store flash message so can be displayed when proper layout is rendered.
 	 *
 	 * @param string $content HTML content to be displayed.
-	 * @param string $type One of FlashMessage::FLASH_* constants.
 	 * @param ?int $dismiss int = milliseconds after message should dissapear, null = user has to close manually
 	 */
-	public final function flashMessage(string $content, string $type = FlashMessage::FLASH_INFO, ?int $dismiss = 4_000): FlashMessage
+	public final function flashMessage(string $content, Flash $type = Flash::INFO, ?int $dismiss = 4_000): FlashMessage
 	{
 		$flashMessage = new FlashMessage($content, $type, $dismiss);
 		if (!isset($_SESSION['FLASH_MESSAGES']) || !is_array($_SESSION['FLASH_MESSAGES'])) {
