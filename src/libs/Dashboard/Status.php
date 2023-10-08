@@ -58,6 +58,14 @@ class Status
 
 	public static function isDatabaseConnectionSet(): bool
 	{
+		if (self::$db !== null) {
+			return true;
+		}
+
+		if (self::$dbError !== null) {
+			return false;
+		}
+
 		try {
 			self::$db = \App\Factory::database();
 			return true;
