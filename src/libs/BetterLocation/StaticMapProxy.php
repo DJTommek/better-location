@@ -20,6 +20,7 @@ class StaticMapProxy
 	private StaticMapCacheRepository $staticMapCacheRepository;
 
 	private string $privateUrl;
+	private string $cacheId;
 	private UrlImmutable $publicUrl;
 
 	private function __construct()
@@ -48,7 +49,7 @@ class StaticMapProxy
 		}
 
 		$self->privateUrl = $entity->url;
-		$self->process();
+		$self->cacheId = $entity->id;
 		return $self;
 	}
 
@@ -82,27 +83,30 @@ class StaticMapProxy
 
 		$self = new self();
 		$self->privateUrl = self::generatePrivateUrl($markers);
-		$self->process();
+		$self->cacheId = hash(self::HASH_ALGORITHM, $self->privateUrl());
+
+		// If does not exists in database, yet, create new
+		$entity = $self->staticMapCacheRepository->fromId($self->cacheId);
+		if ($entity === null) {
+			$self->staticMapCacheRepository->save($self->cacheId, $self->privateUrl());
+		}
+
 		return $self;
 	}
 
-	/** Save to database and create cached file, both only if it was not done already. */
-	private function process(): void
+	public function download(): void
 	{
-		$entity = $this->staticMapCacheRepository->fromId($this->cacheId());
-		if ($entity === null) {
-			$this->staticMapCacheRepository->save($this->cacheId(), $this->privateUrl());
+		if ($this->isCached()) {
+			return;
 		}
-		if ($this->cacheHit() === false) {
-			$this->cacheSave();
-		}
+		$this->saveToCache();
 	}
 
 	/** @return UrlImmutable Public URL to generated image which can be shared to public. */
 	public function publicUrl(): UrlImmutable
 	{
 		if (!isset($this->publicUrl)) {
-			$this->publicUrl = Config::getStaticImageUrl($this->cacheId());
+			$this->publicUrl = Config::getStaticImageUrl($this->cacheId);
 		}
 		return $this->publicUrl;
 	}
@@ -126,23 +130,18 @@ class StaticMapProxy
 		return $api->generateLink();
 	}
 
-	private function cacheId(): string
-	{
-		return hash(self::HASH_ALGORITHM, $this->privateUrl());
-	}
-
-	private function cacheHit(): bool
+	public function isCached(): bool
 	{
 		return file_exists($this->cachePath());
 	}
 
-	private function cacheSave(): void
+	private function saveToCache(): void
 	{
 		FileSystem::write($this->cachePath(), file_get_contents($this->privateUrl()));
 	}
 
 	public function cachePath(): string
 	{
-		return sprintf('%s/%s.jpg', self::CACHE_FOLDER, $this->cacheId());
+		return sprintf('%s/%s.jpg', self::CACHE_FOLDER, $this->cacheId);
 	}
 }
