@@ -4,17 +4,11 @@ namespace App\Repository;
 
 class StaticMapCacheEntity extends Entity
 {
+	public readonly string $id;
 	/**
-	 * @var int
-	 * @readonly
-	 */
-	public $id;
-	/**
-	 * @var string
 	 * @see Warning: Nette\Http\Url cant be used, see https://github.com/nette/http/issues/178
-	 * @readonly
 	 */
-	public $url;
+	public readonly string $url;
 
 	public static function fromRow(array $row): self
 	{

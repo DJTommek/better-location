@@ -54,6 +54,13 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between true and false will always evaluate to false\\.$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/GoogleMapsService.php
+		-
+			# False-positive. Property is assigned within given class
+			message: "#^Class App\\\\Repository\\\\.+Entity has an uninitialized readonly property \\$.+\\. Assign it in the constructor\\.$#"
+		-
+			# False-positive. Property is assigned within given class
+			message: "#^Readonly property App\\\\Repository\\\\.+Entity::\\$.+ is assigned outside of the constructor\\.$#"
+
 
 includes:
 	- phpstan-baseline.neon

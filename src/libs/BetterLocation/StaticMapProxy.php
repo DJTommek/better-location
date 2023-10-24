@@ -5,7 +5,7 @@ namespace App\BetterLocation;
 use App\Config;
 use App\Factory;
 use App\Repository\StaticMapCacheRepository;
-use App\Utils\Coordinates;
+use DJTommek\Coordinates\CoordinatesInterface;
 use Nette\Http\UrlImmutable;
 use Nette\Utils\FileSystem;
 
@@ -14,16 +14,13 @@ use Nette\Utils\FileSystem;
  */
 class StaticMapProxy
 {
-	const CACHE_FOLDER = Config::FOLDER_TEMP . '/staticmap';
-	const HASH_ALGORITHM = 'fnv1a64';
+	private const CACHE_FOLDER = Config::FOLDER_TEMP . '/staticmap';
+	private const HASH_ALGORITHM = 'fnv1a64';
 
-	/** @var StaticMapCacheRepository */
-	private $staticMapCacheRepository;
+	private StaticMapCacheRepository $staticMapCacheRepository;
 
-	/** @var string */
-	private $privateUrl;
-	/** @var UrlImmutable */
-	private $publicUrl;
+	private string $privateUrl;
+	private UrlImmutable $publicUrl;
 
 	private function __construct()
 	{
@@ -44,45 +41,46 @@ class StaticMapProxy
 	public static function fromCacheId(string $cacheId): ?self
 	{
 		$self = new self();
-		if ($entity = $self->staticMapCacheRepository->fromId($cacheId)) {
-			$self->privateUrl = $entity->url;
-			$self->process();
-			return $self;
-		} else {
+		$entity = $self->staticMapCacheRepository->fromId($cacheId);
+
+		if ($entity === null) {
 			return null;
 		}
+
+		$self->privateUrl = $entity->url;
+		$self->process();
+		return $self;
+	}
+
+	/**
+	 * Load static map image based on provided single location.
+	 */
+	public static function fromLocation(CoordinatesInterface $input): ?self
+	{
+		return self::fromLocations([$input]);
 	}
 
 	/**
 	 * Load static map image based on provided input (single or multiple locations).
 	 *
-	 * @param Coordinates|Coordinates[]|BetterLocation|BetterLocationCollection $input
+	 * @param array<CoordinatesInterface>|BetterLocationCollection $locations
 	 */
-	public static function fromLocations($input): ?self
+	public static function fromLocations(array|BetterLocationCollection $locations): ?self
 	{
 		if (!Config::isBingStaticMaps()) {
 			return null;
 		}
 
-		$self = new self();
 		$markers = [];
-		if (is_iterable($input)) {
-			foreach ($input as $location) {
-				if ($location instanceof Coordinates) {
-					$markers[] = $location;
-				} else if ($location instanceof BetterLocation) {
-					$markers[] = $location->getCoordinates();
-				} else {
-					throw new \InvalidArgumentException('Invalid location in iterable.');
-				}
+		foreach ($locations as $location) {
+			if (!$location instanceof CoordinatesInterface) {
+				throw new \InvalidArgumentException('Invalid location.');
 			}
-		} else if ($input instanceof Coordinates) {
-			$markers[] = $input;
-		} else if ($input instanceof BetterLocation) {
-			$markers[] = $input->getCoordinates();
-		} else {
-			throw new \InvalidArgumentException('Invalid location.');
+
+			$markers[] = $location;
 		}
+
+		$self = new self();
 		$self->privateUrl = self::generatePrivateUrl($markers);
 		$self->process();
 		return $self;
@@ -103,7 +101,7 @@ class StaticMapProxy
 	/** @return UrlImmutable Public URL to generated image which can be shared to public. */
 	public function publicUrl(): UrlImmutable
 	{
-		if (is_null($this->publicUrl)) {
+		if (!isset($this->publicUrl)) {
 			$this->publicUrl = Config::getStaticImageUrl($this->cacheId());
 		}
 		return $this->publicUrl;
@@ -118,7 +116,7 @@ class StaticMapProxy
 		return $this->privateUrl;
 	}
 
-	/** @param Coordinates[] $markers */
+	/** @param CoordinatesInterface[] $markers */
 	private static function generatePrivateUrl(array $markers): string
 	{
 		$api = Factory::bingStaticMaps();
