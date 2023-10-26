@@ -2,7 +2,7 @@
 
 Temporary folder exists to improve application speed eg. caching response for requests. 
 
-Content of this directory **will be deleted** on each deployment.
+Content of this directory **is not deleted** after new deployment.
 
 ## Developer info
 
