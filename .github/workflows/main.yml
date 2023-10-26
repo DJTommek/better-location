@@ -16,7 +16,7 @@ jobs:
       COMPOSER_NO_DEV: 0
     steps:
       - name: 🚚 Download latest code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🚚 Prepare PHP
         uses: shivammathur/setup-php@v2
@@ -45,7 +45,7 @@ jobs:
       COMPOSER_NO_DEV: 0
     steps:
       - name: 🚚 Download latest code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🚚 Prepare PHP
         uses: shivammathur/setup-php@v2
