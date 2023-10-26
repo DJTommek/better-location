@@ -12,6 +12,8 @@ jobs:
   phpstan:
     name: 🔧 Run PHPStan analysis
     runs-on: ubuntu-latest
+    env:
+      COMPOSER_NO_DEV: 0
     steps:
       - name: 🚚 Download latest code
         uses: actions/checkout@v3
@@ -24,7 +26,7 @@ jobs:
 
       - name: 🚚 Install Composer development dependencies
         working-directory: ./
-        run: composer install --dev
+        run: composer install
 
       - name: 🚀 Run PHPStan analysis
         uses: php-actions/phpstan@v3
@@ -39,6 +41,8 @@ jobs:
     name: 🔧 Run unit tests
     needs: [ phpstan ]
     runs-on: ubuntu-latest
+    env:
+      COMPOSER_NO_DEV: 0
     steps:
       - name: 🚚 Download latest code
         uses: actions/checkout@v3
@@ -51,7 +55,7 @@ jobs:
 
       - name: 🚚 Install Composer development dependencies
         working-directory: ./
-        run: composer install --dev
+        run: composer install
 
       - name: 🚀 Run PHPUnit tests (without requests)
         uses: php-actions/phpunit@v3
@@ -66,6 +70,8 @@ jobs:
     name: 🎉 Deploy on production
     needs: [ phpunit ]
     runs-on: ubuntu-latest
+    env:
+      COMPOSER_NO_DEV: 1
     steps:
       - name: 🚚 Download latest code
         uses: actions/checkout@v3
@@ -78,7 +84,7 @@ jobs:
 
       - name: 🚚 Install Composer production dependencies
         working-directory: ./
-        run: composer install --no-dev
+        run: composer install
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
