@@ -233,6 +233,11 @@ class DefaultConfig
 		self::CACHE_NAMESPACE_NOMINATIM,
 	];
 
+	public static function getDataTempDir(): string
+	{
+		return static::FOLDER_DATA . '/perma-cache';
+	}
+
 	public static function isGlympse(): bool
 	{
 		return (
