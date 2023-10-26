@@ -4,24 +4,32 @@ namespace App\Utils;
 
 class Formatter
 {
+
 	/**
 	 * Format seconds into human readable format
 	 *
+	 * @param float|int $input In seconds. If float with non-zero decimal it might return milliseconds too.
+	 * @param bool $short Set to true to return only the largest part of formatted number.
 	 * @return string Human readable formatted string (16d 1h 3m 23s)
 	 * @example 1386203 -> 16d 1h 3m 23s
+	 * @example 1386203, true -> 16d
 	 */
-	public static function seconds(int $input, bool $short = false): string
+	public static function seconds(float|int $input, bool $short = false): string
 	{
 		if ($input < 0) {
 			throw new \InvalidArgumentException('Input must be higher or equal zero.');
-		} else if ($input === 0) {
+		}
+		if ($input === 0 || $input === 0.0) {
 			return '0s';
 		}
 
-		$seconds = $input % 60;
-		$minutes = (int)($input / 60) % 60;
-		$hours = (int)($input / (60 * 60)) % 24;
-		$days = (int)($input / (60 * 60 * 24));
+		$totalSeconds = $input;
+
+		$milliseconds = (int)($totalSeconds * 1000) % 1000;
+		$seconds = (int)$totalSeconds % 60;
+		$minutes = (int)($totalSeconds / 60) % 60;
+		$hours = (int)($totalSeconds / (60 * 60)) % 24;
+		$days = (int)($totalSeconds / (60 * 60 * 24));
 
 		$parts = [];
 		if ($days > 0) {
@@ -35,6 +43,13 @@ class Formatter
 		}
 		if ($seconds > 0) {
 			$parts[] = $seconds . 's';
+		}
+		if ($milliseconds > 0) {
+			$parts[] = $milliseconds . 'ms';
+		}
+
+		if ($parts === []) {
+			return '0ms'; // Input is in float with three zeros in decimal place (0.000xxxxx)
 		}
 
 		if ($short) {

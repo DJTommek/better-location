@@ -10,27 +10,43 @@ final class FormatterTest extends TestCase
 	public function testSeconds(): void
 	{
 		$this->assertSame('0s', Formatter::seconds(0));
+		$this->assertSame('0s', Formatter::seconds(0.0));
+
+		$this->assertSame('0ms', Formatter::seconds(0.0001));
+		$this->assertSame('1ms', Formatter::seconds(0.001));
+		$this->assertSame('10ms', Formatter::seconds(0.01));
+		$this->assertSame('100ms', Formatter::seconds(0.1));
+
+		$this->assertSame('0s', Formatter::seconds(0.0));
 		$this->assertSame('1s', Formatter::seconds(1));
+		$this->assertSame('1s 987ms', Formatter::seconds(1.987));
 		$this->assertSame('9s', Formatter::seconds(9));
 		$this->assertSame('10s', Formatter::seconds(10));
 		$this->assertSame('59s', Formatter::seconds(59));
 		$this->assertSame('1m', Formatter::seconds(60));
 		$this->assertSame('1m 1s', Formatter::seconds(61));
+		$this->assertSame('1m 1s 1ms', Formatter::seconds(61.001));
 
 		$this->assertSame('16d 1h 23s', Formatter::seconds(1386023));
 		$this->assertSame('16d 1h 3m 23s', Formatter::seconds(1386203));
 		$this->assertSame('32d 2h 6m 46s', Formatter::seconds(2772406));
+		$this->assertSame('32d 2h 6m 46s 10ms', Formatter::seconds(2772406.01));
 	}
 
 	public function testSecondsShort(): void
 	{
 		$this->assertSame('0s', Formatter::seconds(0, true));
+		$this->assertSame('0s', Formatter::seconds(0.0, true));
+		$this->assertSame('1s', Formatter::seconds(1, true));
+		$this->assertSame('1s', Formatter::seconds(1.1, true));
 		$this->assertSame('1m', Formatter::seconds(60, true));
+		$this->assertSame('1m', Formatter::seconds(60.1, true));
 		$this->assertSame('1m', Formatter::seconds(61, true));
 
 		$this->assertSame('16d', Formatter::seconds(1386023, true));
 		$this->assertSame('16d', Formatter::seconds(1386203, true));
 		$this->assertSame('32d', Formatter::seconds(2772406, true));
+		$this->assertSame('32d', Formatter::seconds(2772406.1, true));
 	}
 
 	public final function testSecondsInvalid1(): void
