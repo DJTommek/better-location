@@ -22,7 +22,7 @@ if (defined('PHPUNIT_RUNNING') && PHPUNIT_RUNNING === true) {
 	Tracy\Debugger::$strictMode = true;
 	Tracy\Debugger::setLogger(new App\DummyLogger());
 } else {
-	Tracy\Debugger::enable(App\Config::TRACY_DEVELOPMENT_IPS, App\Config::FOLDER_DATA . '/tracy-log/');
+	Tracy\Debugger::enable(App\Config::TRACY_DEVELOPMENT_IPS, App\Config::getTracyPath());
 	Tracy\Debugger::$strictMode = true;
 	Tracy\Debugger::$logSeverity = E_NOTICE | E_WARNING;
 	if (is_null(App\Config::TRACY_DEBUGGER_EMAIL) === false) {

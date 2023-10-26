@@ -32,7 +32,7 @@ class Logs
 
 	private static function getTracyLogContent(string $logName, int $maxLines): array
 	{
-		$tracyLogPath = Config::FOLDER_DATA . '/tracy-log/' . $logName . '.log';
+		$tracyLogPath = Config::getTracyPath() . '/' . $logName . '.log';
 		if (file_exists($tracyLogPath)) {
 			$fileContent = Utils::tail($tracyLogPath, $maxLines);
 			return explode(PHP_EOL, $fileContent);

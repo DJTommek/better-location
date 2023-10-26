@@ -355,4 +355,14 @@ class DefaultConfig
 	{
 		return new \DateTimeZone(static::TIMEZONE);
 	}
+
+	public static function getTracyPath(): string
+	{
+		return static::FOLDER_DATA . '/tracy-log';
+	}
+
+	public static function getTracyEmailPath(): string
+	{
+		return static::getTracyPath() . '/email-sent';
+	}
 }

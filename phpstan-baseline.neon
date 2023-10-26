@@ -51,11 +51,6 @@ parameters:
 			path: src/libs/Dashboard/Status.php
 
 		-
-			message: "#^Method App\\\\Dashboard\\\\Status\\:\\:getTracyEmailSentFilePath\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Dashboard/Status.php
-
-		-
 			message: "#^Method App\\\\Dashboard\\\\Status\\:\\:runGetWebhookStatus\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/Dashboard/Status.php

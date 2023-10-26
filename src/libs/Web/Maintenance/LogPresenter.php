@@ -67,7 +67,7 @@ class LogPresenter extends MainPresenter
 	private function pathsToBackup(): array
 	{
 		return [
-			'tracy-log' => FileSystem::unixSlashes(Config::FOLDER_DATA . '/tracy-log'),
+			'tracy-log' => FileSystem::unixSlashes(Config::getTracyPath()),
 			'log' => FileSystem::unixSlashes(Config::FOLDER_DATA . '/log'),
 		];
 	}

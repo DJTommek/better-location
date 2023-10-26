@@ -17,7 +17,7 @@ if ($request->getQuery('password') !== \App\Config::ADMIN_PASSWORD && $request->
 
 if ($request->getQuery('delete-tracy-email-sent') !== null) {
 	try {
-		\Nette\Utils\FileSystem::delete(\App\Dashboard\Status::getTracyEmailSentFilePath());
+		\Nette\Utils\FileSystem::delete(Config::getTracyEmailPath());
 		printf('<p>%s Tracy\'s "email-sent" file was deleted.</p>', \App\Icons::SUCCESS);
 	} catch (\Nette\IOException $exception) {
 		printf('<p>%s Error while deleting Tracy\'s "email-sent" file: <b>%s</b></p>', \App\Icons::ERROR, $exception->getMessage());
@@ -180,7 +180,7 @@ if ($request->getQuery('delete-tracy-email-sent') !== null) {
 			} else {
 				printf('<p>%s Email reporting is enabled and set to <a href="mailto:%2$s">%2$s</a>.</p>', \App\Icons::SUCCESS, \App\Config::TRACY_DEBUGGER_EMAIL);
 				$tracyEmailHelpPrefix = 'Tracy\'s "email-sent" file ';
-				if (file_exists(\App\Dashboard\Status::getTracyEmailSentFilePath()) === true) {
+				if (file_exists(Config::getTracyEmailPath()) === true) {
 					printf('%s %s detected - no futher emails will be sent unless this file is removed. <a href="?delete-tracy-email-sent" onclick="return confirm(\'Are you sure, you want to delete Tracy\\\'s \\\'email-sent\\\' file?\')">Delete</a>', \App\Icons::WARNING, $tracyEmailHelpPrefix);
 				} else {
 					printf('%s %s not detected - in case of error, email will be sent.', \App\Icons::SUCCESS, $tracyEmailHelpPrefix);

@@ -40,16 +40,11 @@ class Status
 		}
 	}
 
-	public static function getTracyEmailSentFilePath()
-	{
-		return Config::FOLDER_DATA . '/tracy-log/email-sent';
-	}
-
 	public static function getTracyEmailIcon()
 	{
 		if (is_null(Config::TRACY_DEBUGGER_EMAIL)) {
 			return Icons::SUCCESS;
-		} else if (file_exists(self::getTracyEmailSentFilePath()) === true) {
+		} else if (file_exists(Config::getTracyEmailPath()) === true) {
 			return Icons::WARNING;
 		} else {
 			return Icons::SUCCESS;
