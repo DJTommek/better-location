@@ -14,10 +14,10 @@ use Nette\Utils\FileSystem;
  */
 class StaticMapProxy
 {
-	private const CACHE_FOLDER = Config::FOLDER_TEMP . '/staticmap';
 	private const HASH_ALGORITHM = 'fnv1a64';
 
 	private StaticMapCacheRepository $staticMapCacheRepository;
+	private string $dir;
 
 	private string $privateUrl;
 	private string $cacheId;
@@ -25,7 +25,8 @@ class StaticMapProxy
 
 	private function __construct()
 	{
-		FileSystem::createDir(self::CACHE_FOLDER);
+		$this->dir = Config::getDataTempDir() . '/staticmap';
+		FileSystem::createDir($this->dir);
 
 		$db = Factory::database();
 		$this->staticMapCacheRepository = new StaticMapCacheRepository($db);
@@ -142,6 +143,6 @@ class StaticMapProxy
 
 	public function cachePath(): string
 	{
-		return sprintf('%s/%s.jpg', self::CACHE_FOLDER, $this->cacheId);
+		return sprintf('%s/%s.jpg', $this->dir, $this->cacheId);
 	}
 }
