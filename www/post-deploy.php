@@ -4,6 +4,11 @@ require_once __DIR__ . '/../src/bootstrap.php';
 
 header('Content-Type: text/plain');
 
+if (($_GET['password'] ?? null) !== \App\Config::CRON_PASSWORD) {
+	http_response_code(\App\Web\MainPresenter::HTTP_FORBIDDEN);
+	die('Invalid password');
+}
+
 $tracyEmailSent = \App\Config::getTracyEmailPath();
 
 printf('Cleaning temporary directory...' . PHP_EOL);
