@@ -92,11 +92,15 @@ jobs:
             phpstan.neon
             phpstan-baseline.neon
             phpunit.xml
-      - name: 🧹 Clean temp directory
-        uses: StephanThierry/ftp-delete-action@v2.1
+
+      - name: 🧹 Post deploy script - run
+        id: postdeployscript
+        uses: fjogeleit/http-request-action@v1
         with:
-          host: ${{ secrets.ftp_server }}
-          user: ${{ secrets.ftp_username }}
-          password: ${{ secrets.ftp_password }}
-          workingDir: ${{ secrets.ftp_server_dir }}
-          remoteDirectories: temp/latte;temp/nette-cache;temp/mini-curl;temp/staticmap;temp/temp-file
+          url: 'https://palider.cz/post-deploy.php?password=${{ secrets.SCRIPT_PASSWORD }}'
+          method: 'DELETE'
+
+      - name: 🧹 Post deploy script - show output
+        run: |
+          echo ${{ steps.postdeployscript.outputs.headers }}
+          echo ${{ steps.postdeployscript.outputs.response }}
