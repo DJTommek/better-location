@@ -142,9 +142,12 @@ class BetterLocation implements CoordinatesInterface
 			}
 
 			try {
-				if ($result = \App\Nominatim\Nominatim::reverse($this->getCoordinates())) {
-					$this->address = $result['display_name'];
+				$result = \App\Nominatim\Nominatim::reverse($this);
+				if ($result === null) {
+					return;
 				}
+
+				$this->address = $result->getAddress()->toString(true);
 			} catch (NominatimException|\GuzzleHttp\Exception\GuzzleException $exception) {
 				Debugger::log($exception, Debugger::EXCEPTION);
 			}

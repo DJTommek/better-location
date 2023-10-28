@@ -4,7 +4,7 @@ namespace App\Nominatim;
 
 use App\Config;
 use App\Factory;
-use App\Utils\CoordinatesInterface;
+use DJTommek\Coordinates\CoordinatesInterface;
 use maxh\Nominatim\Exceptions\NominatimException;
 
 class Nominatim
@@ -13,7 +13,7 @@ class Nominatim
 		'Unable to geocode',
 	];
 
-	public static function reverse(CoordinatesInterface $coordinates): ?array
+	public static function reverse(CoordinatesInterface $coordinates): ?ReverseResponseDto
 	{
 		$cacheKey = sprintf('reverse-%F-%F', $coordinates->getLat(), $coordinates->getLon());
 		return Factory::cache(Config::CACHE_NAMESPACE_NOMINATIM)->load($cacheKey, function () use ($coordinates) {
@@ -21,7 +21,7 @@ class Nominatim
 		});
 	}
 
-	private static function reverseReal(CoordinatesInterface $coordinates)
+	private static function reverseReal(CoordinatesInterface $coordinates): ?ReverseResponseDto
 	{
 		$nominatimApi = Factory::nominatim();
 		$query = $nominatimApi->newReverse()->latlon($coordinates->getLat(), $coordinates->getLon());
@@ -29,11 +29,10 @@ class Nominatim
 		if (isset($result['error'])) {
 			if (in_array($result['error'], self::ERRORS_WHITELIST, true)) {
 				return null;
-			} else {
-				throw new NominatimException(sprintf('Nominatim API returned error: "%s"', $result['error']));
 			}
-		} else {
-			return $result;
+			throw new NominatimException(sprintf('Nominatim API returned error: "%s"', $result['error']));
 		}
+
+		return ReverseResponseDto::cast($result);
 	}
 }

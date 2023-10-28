@@ -306,16 +306,6 @@ parameters:
 			path: src/libs/MiniCurl/Response.php
 
 		-
-			message: "#^Method App\\\\Nominatim\\\\Nominatim\\:\\:reverse\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/Nominatim/Nominatim.php
-
-		-
-			message: "#^Method App\\\\Nominatim\\\\Nominatim\\:\\:reverseReal\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Nominatim/Nominatim.php
-
-		-
 			message: "#^Method App\\\\OpenElevation\\\\OpenElevation\\:\\:request\\(\\) has parameter \\$coordinates with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/OpenElevation/OpenElevation.php
