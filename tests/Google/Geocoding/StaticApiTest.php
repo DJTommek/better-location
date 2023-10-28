@@ -31,7 +31,7 @@ final class StaticApiTest extends TestCase
 	{
 		return [
 			['Mikulášská 22, 110 00 Praha 1-Staré Město, Czechia', '9F2P3CPC+X7M', '3CPC+X7M Prague, Czechia', '🇨🇿', 50.087451, 14.420671],
-			['2PFM+75 Doubek, Czechia', '9F2P2PFM+75C', '2PFM+75C Doubek, Czechia', '🇨🇿', 50.023194, 14.732896],
+			['2PFM+75 Doubek-Říčany u Prahy, Czechia', '9F2P2PFM+75C', '2PFM+75C Doubek-Říčany u Prahy, Czechia', '🇨🇿', 50.023194, 14.732896],
 			['35 Bathurst St, Richmond TAS 7025, Australia', '4R997C7Q+FPC', '7C7Q+FPC Richmond TAS, Australia', '🇦🇺', -42.7363111, 147.4392722],
 			['8FMP7C9C+77', '8FMP7C9C+773', '8FMP7C9C+773', null, 43.268148, 14.420671], // in the sea near Italy
 		];
