@@ -4,6 +4,9 @@ namespace App\Address;
 
 readonly class Address implements AddressInterface, \Stringable
 {
+	/**
+	 * @var non-empty-string
+	 */
 	public string $address;
 
 	public function __construct(
@@ -11,14 +14,24 @@ readonly class Address implements AddressInterface, \Stringable
 		public ?Country $country = null,
 	)
 	{
-		$this->address = trim($address);
+		$addressTrim = trim($address);
+		if ($addressTrim === '') {
+			throw new \InvalidArgumentException('Empty address is not allowed');
+		}
+		$this->address = $addressTrim;
 	}
 
+	/**
+	 * @return non-empty-string
+	 */
 	public function __toString(): string
 	{
 		return $this->toString();
 	}
 
+	/**
+	 * @return non-empty-string
+	 */
 	public function toString(bool $withCountryEmoji = false): string
 	{
 		$result = $this->address;

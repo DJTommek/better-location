@@ -49,6 +49,26 @@ final class AddressTest extends TestCase
 	}
 
 	/**
+	 * @return array<array{string}>
+	 */
+	public function invalidProvider(): array
+	{
+		return [
+			[''],
+			['    '],
+		];
+	}
+
+	/**
+	 * @dataProvider invalidProvider
+	 */
+	public final function testInvalid(string $input): void
+	{
+		$this->expectException(\InvalidArgumentException::class);
+		new Address($input);
+	}
+
+	/**
 	 * @return array<array{string, string, string, string}>
 	 */
 	public function basicCountryProvider(): array
