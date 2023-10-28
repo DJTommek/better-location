@@ -133,8 +133,10 @@ class BetterLocation implements CoordinatesInterface
 			if (Config::isGoogleGeocodingApi()) {
 				try {
 					$googleGeocoding = Factory::googleGeocodingApi();
-					$addressResponse = $googleGeocoding->reverse($this->coords);
-					$this->address = $addressResponse?->getAddressWithFlag();
+					$this->address = $googleGeocoding
+						->reverse($this->coords)
+						?->getAddress()
+						?->toString(true);
 					return;
 				} catch (\GuzzleHttp\Exception\GuzzleException $exception) {
 					Debugger::log($exception, Debugger::EXCEPTION);
@@ -147,7 +149,9 @@ class BetterLocation implements CoordinatesInterface
 					return;
 				}
 
-				$this->address = $result->getAddress()->toString(true);
+				$this->address = $result
+					->getAddress()
+					?->toString(true);
 			} catch (NominatimException|\GuzzleHttp\Exception\GuzzleException $exception) {
 				Debugger::log($exception, Debugger::EXCEPTION);
 			}

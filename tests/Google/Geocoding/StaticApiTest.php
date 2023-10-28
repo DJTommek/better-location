@@ -65,10 +65,10 @@ final class StaticApiTest extends TestCase
 		$this->assertSame($expectedPlusCode, $response->getPlusCode(false));
 		$this->assertSame($expectedPlusCodeCompound, $response->getPlusCode(true));
 
-		$this->assertSame($expectedAddress, $response->getAddress());
+		$this->assertSame($expectedAddress, (string)$response->getAddress());
 		$expectedAddressWithFlag = trim($expectedCountryFlag . ' ' . $expectedAddress);
-		$this->assertSame($expectedCountryFlag, $response->getCountryFlagEmoji());
-		$this->assertSame($expectedAddressWithFlag, $response->getAddressWithFlag());
+		$this->assertSame($expectedCountryFlag, $response->getAddress()->country?->flagEmoji());
+		$this->assertSame($expectedAddressWithFlag, $response->getAddress()->toString(true));
 	}
 
 	/**

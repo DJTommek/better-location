@@ -2,10 +2,12 @@
 
 namespace App\Google\Geocoding;
 
+use App\Address\Address;
+use App\Address\AddressInterface;
+use App\Address\Country;
 use App\Dto\AbstractDto;
-use App\Utils\Utils;
 
-class GeocodeResponse extends AbstractDto
+class GeocodeResponse extends AbstractDto implements AddressInterface
 {
 	public const ADDRESS_COMPONENT_COUNTRY = 'country';
 	public \stdClass $plus_code;
@@ -15,14 +17,15 @@ class GeocodeResponse extends AbstractDto
 	public array $results;
 	public string $status;
 
-	public function getAddress(): ?string
+	public function getAddress(): ?Address
 	{
-		foreach ($this->results as $result) {
-			if (isset($result->formatted_address)) {
-				return $result->formatted_address;
-			}
+		$address = $this->findFormattedAddress();
+		if ($address === null) {
+			return null;
 		}
-		return null;
+		$country = $this->findCountry();
+
+		return new Address($address, $country);
 	}
 
 	/**
@@ -40,50 +43,31 @@ class GeocodeResponse extends AbstractDto
 		return $codes->global_code;
 	}
 
-	public function getAddressWithFlag(): ?string
-	{
-		$address = $this->getAddress();
-		if ($address === null) {
-			return null;
-		}
-
-		$flag = $this->getCountryFlagEmoji();
-		if ($flag === null) {
-			return $address;
-		}
-
-		return $flag . ' ' . $address;
-	}
-
-	public function getCountryCode(): ?string
-	{
-		return $this->getCountry()?->short_name;
-	}
-
-	private function getCountry(): ?\stdClass
+	/**
+	 * Search within response for most precise location.
+	 */
+	private function findFormattedAddress(): ?string
 	{
 		foreach ($this->results as $result) {
-			foreach ($result->address_components as $addressComponent) {
-				if (in_array(self::ADDRESS_COMPONENT_COUNTRY, $addressComponent->types, true)) {
-					return $addressComponent;
-				}
+			if (isset($result->formatted_address)) {
+				return $result->formatted_address;
 			}
 		}
 		return null;
 	}
 
-	public function getCountryFlagEmoji(): ?string
+	/**
+	 * Search within response to find country attribute
+	 */
+	private function findCountry(): ?Country
 	{
-		$countryCode = $this->getCountryCode();
-		if ($countryCode === null) {
-			return null;
+		foreach ($this->results as $result) {
+			foreach ($result->address_components as $addressComponent) {
+				if (in_array(self::ADDRESS_COMPONENT_COUNTRY, $addressComponent->types, true)) {
+					return new Country($addressComponent->short_name, $addressComponent->long_name);
+				}
+			}
 		}
-
-		return Utils::flagEmojiFromCountryCode($countryCode);
-	}
-
-	public function __toString(): string
-	{
-		return $this->getAddress();
+		return null;
 	}
 }
