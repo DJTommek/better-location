@@ -151,8 +151,8 @@ class BetterLocation implements CoordinatesInterface
 				$result = $googleGeocoding->reverse($this);
 				if ($result->getAddress() !== null) {
 					$this->setAddress($result);
+					return;
 				}
-				return;
 			} catch (\GuzzleHttp\Exception\GuzzleException $exception) {
 				Debugger::log($exception, Debugger::EXCEPTION);
 			}
@@ -162,8 +162,8 @@ class BetterLocation implements CoordinatesInterface
 			$result = \App\Nominatim\Nominatim::reverse($this);
 			if ($result->getAddress() !== null) {
 				$this->setAddress($result);
+				return;
 			}
-			return;
 		} catch (NominatimException|\GuzzleHttp\Exception\GuzzleException $exception) {
 			Debugger::log($exception, Debugger::EXCEPTION);
 		}
