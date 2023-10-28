@@ -2,6 +2,8 @@
 
 namespace App\BetterLocation\Service;
 
+use App\Address\Address;
+use App\Address\Country;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
@@ -191,8 +193,11 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 				$mapyCzResponse = $mapyCzApi->loadPoiDetails($this->url->getQueryParameter('source'), Strict::intval($this->url->getQueryParameter('id')));
 				$betterLocation = new BetterLocation($this->inputUrl, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PLACE_ID);
 				$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s %s</a>', $this->url, self::NAME, $mapyCzResponse->title));
-				if ($mapyCzResponse->titleVars->locationMain1) {
-					$betterLocation->setAddress($mapyCzResponse->titleVars->locationMain1);
+				if (isset($mapyCzResponse->titleVars->locationMain1)) {
+					$countryIsoCode = $mapyCzResponse->extend?->address?->country_iso ?? null;
+					$country = $countryIsoCode === null ? null : Country::fromNumericCode($countryIsoCode);
+					$address = new Address($mapyCzResponse->titleVars->locationMain1, $country);
+					$betterLocation->setAddress($address);
 				}
 				$this->collection->add($betterLocation);
 			} catch (MapyCzApiException $exception) {
