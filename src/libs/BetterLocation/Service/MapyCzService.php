@@ -15,6 +15,7 @@ use App\Utils\Coordinates;
 use App\Utils\Strict;
 use DJTommek\MapyCzApi;
 use DJTommek\MapyCzApi\MapyCzApiException;
+use DJTommek\MapyCzApi\Types\PlaceType;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
@@ -193,12 +194,12 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 				$mapyCzResponse = $mapyCzApi->loadPoiDetails($this->url->getQueryParameter('source'), Strict::intval($this->url->getQueryParameter('id')));
 				$betterLocation = new BetterLocation($this->inputUrl, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PLACE_ID);
 				$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s %s</a>', $this->url, self::NAME, $mapyCzResponse->title));
-				if (isset($mapyCzResponse->titleVars->locationMain1)) {
-					$countryIsoCode = $mapyCzResponse->extend?->address?->country_iso ?? null;
-					$country = $countryIsoCode === null ? null : Country::fromNumericCode($countryIsoCode);
-					$address = new Address($mapyCzResponse->titleVars->locationMain1, $country);
+
+				$address = $this->addressFromMapyCzPlace($mapyCzResponse);
+				if ($address !== null) {
 					$betterLocation->setAddress($address);
 				}
+
 				$this->collection->add($betterLocation);
 			} catch (MapyCzApiException $exception) {
 				if ($exception->getCode() === self::CODE_NOT_FOUND) {
@@ -294,5 +295,18 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 			$result .= ' ' . htmlspecialchars($titleFromUrl);
 		}
 		return $result;
+	}
+
+	private function addressFromMapyCzPlace(PlaceType $place): ?Address
+	{
+		$addressText = trim($mapyCzResponse?->titleVars?->locationMain1 ?? '');
+		if ($addressText === '') {
+			return null;
+		}
+
+		$countryIsoCode = $mapyCzResponse->extend?->address?->country_iso ?? null;
+		$country = $countryIsoCode === null ? null : Country::fromNumericCode($countryIsoCode);
+
+		return new Address($addressText, $country);
 	}
 }

@@ -40,6 +40,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 	{
 		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15'));
 		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.0695244&z=15'));
+		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/turisticka?source=osm&id=1112754271&x=-60.5596310&y=-63.0001012&z=15')); // Mapycz does not known address and country
 
 		$this->assertFalse(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?y=50.0695244'));
 	}
@@ -52,6 +53,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 		$this->assertLocation('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244', 50.069524, 14.450824, MapyCzService::TYPE_MAP);
 		$this->assertLocation('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.0695244&z=15', 50.069524, 14.450824, MapyCzService::TYPE_PLACE_COORDS);
 		$this->assertLocation('https://en.mapy.cz/fotografie?sourcep=foto&idp=3255831', 49.295782,14.447919, MapyCzService::TYPE_PHOTO);
+		$this->assertLocation('https://en.mapy.cz/turisticka?source=osm&id=1112754271&x=-60.5596310&y=-63.0001012&z=15', -62.995680,-60.558285, MapyCzService::TYPE_PLACE_ID);
 	}
 
 	public function testGenerateCollectionLink(): void
