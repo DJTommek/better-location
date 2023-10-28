@@ -60,6 +60,9 @@ parameters:
 		-
 			# False-positive. Property is assigned within given class
 			message: "#^Readonly property App\\\\Repository\\\\.+Entity::\\$.+ is assigned outside of the constructor\\.$#"
+		-
+			# Values are added using internal method 'cast()' and setters
+			message: "#^Class App\\\\.+Dto has an uninitialized readonly property \\$.+\\. Assign it in the constructor\\.$#"
 
 
 includes:
