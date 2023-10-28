@@ -42,7 +42,7 @@ readonly class Address implements AddressInterface, \Stringable
 		return $result;
 	}
 
-	public function getAddress(): ?Address
+	public function getAddress(): Address
 	{
 		return $this;
 	}
