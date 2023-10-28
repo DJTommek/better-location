@@ -2,6 +2,8 @@
 
 namespace App\BetterLocation;
 
+use App\Address\Address;
+use App\Address\AddressInterface;
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
@@ -38,7 +40,7 @@ class BetterLocation implements CoordinatesInterface
 	/** Can be ommited if is the same as $prefixMessage */
 	private ?string $inlinePrefixMessage = null;
 	private ?string $coordinateSuffixMessage = null;
-	private ?string $address = null;
+	private ?Address $address = null;
 	/** String representation of input (including links) */
 	private string $input;
 	/** Input as link, if is possible */
@@ -112,49 +114,58 @@ class BetterLocation implements CoordinatesInterface
 		];
 	}
 
-	public function setAddress(string $address): void
+	public function setAddress(string|AddressInterface|null $address): void
 	{
-		$this->address = $address;
+		if ($address === null) {
+			$this->address = null;
+			return;
+		}
+
+		if (is_string($address)) {
+			$this->address = new Address($address);
+			return;
+		}
+
+		$this->address = $address->getAddress();
 	}
 
 	public function getAddress(): ?string
 	{
-		return $this->address;
+		return $this->address?->toString(true);
 	}
 
 	public function hasAddress(): bool
 	{
-		return !is_null($this->address);
+		return $this->address?->getAddress() !== null;
 	}
 
 	public function generateAddress(): void
 	{
-		if (is_null($this->address)) {
-			if (Config::isGoogleGeocodingApi()) {
-				try {
-					$googleGeocoding = Factory::googleGeocodingApi();
-					$this->address = $googleGeocoding
-						->reverse($this->coords)
-						?->getAddress()
-						?->toString(true);
-					return;
-				} catch (\GuzzleHttp\Exception\GuzzleException $exception) {
-					Debugger::log($exception, Debugger::EXCEPTION);
-				}
-			}
+		if ($this->hasAddress()) {
+			return;
+		}
 
+		if (Config::isGoogleGeocodingApi()) {
 			try {
-				$result = \App\Nominatim\Nominatim::reverse($this);
-				if ($result === null) {
-					return;
+				$googleGeocoding = Factory::googleGeocodingApi();
+				$result = $googleGeocoding->reverse($this);
+				if ($result->getAddress() !== null) {
+					$this->setAddress($result);
 				}
-
-				$this->address = $result
-					->getAddress()
-					?->toString(true);
-			} catch (NominatimException|\GuzzleHttp\Exception\GuzzleException $exception) {
+				return;
+			} catch (\GuzzleHttp\Exception\GuzzleException $exception) {
 				Debugger::log($exception, Debugger::EXCEPTION);
 			}
+		}
+
+		try {
+			$result = \App\Nominatim\Nominatim::reverse($this);
+			if ($result->getAddress() !== null) {
+				$this->setAddress($result);
+			}
+			return;
+		} catch (NominatimException|\GuzzleHttp\Exception\GuzzleException $exception) {
+			Debugger::log($exception, Debugger::EXCEPTION);
 		}
 	}
 
@@ -259,7 +270,7 @@ class BetterLocation implements CoordinatesInterface
 		}
 		$text .= join(' | ', $textLinks) . TG::NL;
 
-		if ($settings->showAddress() && is_null($this->address) === false) {
+		if ($settings->showAddress() && $this->hasAddress()) {
 			$text .= $this->getAddress() . TG::NL;
 		}
 
