@@ -2,6 +2,8 @@
 
 namespace App\Address;
 
+use League\ISO3166\ISO3166;
+
 class Country implements \Stringable
 {
 	private const EMOJI_COUNTRY_CODE_OFFSET = 127397;
@@ -54,4 +56,21 @@ class Country implements \Stringable
 		return join('', $flagBytes);
 	}
 
+	public static function fromNumericCode(string|int $code): self
+	{
+		$data = (new ISO3166())->numeric((string)$code);
+		return new self($data['alpha2'], $data['name']);
+	}
+
+	public static function fromAlpha2Code(string $code): self
+	{
+		$data = (new ISO3166())->alpha2($code);
+		return new self($data['alpha2'], $data['name']);
+	}
+
+	public static function fromAlpha3Code(string $code): self
+	{
+		$data = (new ISO3166())->alpha3($code);
+		return new self($data['alpha2'], $data['name']);
+	}
 }
