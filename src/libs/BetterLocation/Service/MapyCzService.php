@@ -299,12 +299,12 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 
 	private function addressFromMapyCzPlace(PlaceType $place): ?Address
 	{
-		$addressText = trim($mapyCzResponse?->titleVars?->locationMain1 ?? '');
+		$addressText = trim($place->titleVars?->locationMain1 ?? '');
 		if ($addressText === '') {
 			return null;
 		}
 
-		$countryIsoCode = $mapyCzResponse->extend?->address?->country_iso ?? null;
+		$countryIsoCode = $place->extend?->address?->country_iso ?? null;
 		$country = $countryIsoCode === null ? null : Country::fromNumericCode($countryIsoCode);
 
 		return new Address($addressText, $country);
