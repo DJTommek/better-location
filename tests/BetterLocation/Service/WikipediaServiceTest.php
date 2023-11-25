@@ -124,7 +124,7 @@ final class WikipediaServiceTest extends TestCase
 	{
 		$collection = WikipediaService::processStatic('https://cs.wikipedia.org/wiki/Pankr%C3%A1c_(Praha)')->getCollection();
 		$this->assertCount(1, $collection);
-		$this->assertSame('50.057888,14.430914', $collection[0]->__toString());
+		$this->assertSame('50.056400,14.434900', $collection[0]->__toString());
 
 		// different location
 		$collection = WikipediaService::processStatic('https://en.wikipedia.org/wiki/Pankr%C3%A1c')->getCollection();
