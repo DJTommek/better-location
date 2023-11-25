@@ -48,8 +48,8 @@ final class WikipediaService extends AbstractService
 	{
 		$httpClient = new HttpClient();
 		$httpClient->allowCache(Config::CACHE_TTL_WIKIPEDIA);
-		$httpClient->setHttpHeader('a', 'b');
-		$body = (string)$httpClient->get($this->url)->getBody();
+		$response = $httpClient->get($this->url);
+		$body = $response->body();
 
 		$startString = ';RLCONF=';
 		$endString = ';RLSTATE=';
