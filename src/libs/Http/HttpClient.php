@@ -162,7 +162,7 @@ class HttpClient
 		return $this->cacheStorage;
 	}
 
-	private function setCacheStorage(Cache $cacheStorage): void
+	public function setCacheStorage(Cache $cacheStorage): void
 	{
 		$this->cacheStorage = $cacheStorage;
 	}
