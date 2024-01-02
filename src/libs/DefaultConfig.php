@@ -210,6 +210,7 @@ class DefaultConfig
 	const CRON_PASSWORD = null;
 	/** @var ?string */
 	const ADMIN_PASSWORD = null;
+	const ADMIN_PASSWORD_COOKIE = 'bl-admin-password';
 
 	/** @var int How long input text must be to start Google API searching */
 	const GOOGLE_SEARCH_MIN_LENGTH = 3;
