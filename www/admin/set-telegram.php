@@ -21,7 +21,7 @@ if (empty(\App\Config::ADMIN_PASSWORD)) {
 
 $request = (new \Nette\Http\RequestFactory())->fromGlobals();
 
-if ($request->getQuery('password') !== \App\Config::ADMIN_PASSWORD && $request->getCookie('bl-admin-password') !== \App\Config::ADMIN_PASSWORD) {
+if ($request->getCookie('bl-admin-password') !== \App\Config::ADMIN_PASSWORD) {
 	die('You don\'t have access without password.');
 }
 

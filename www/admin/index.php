@@ -11,8 +11,16 @@ if (empty(\App\Config::ADMIN_PASSWORD)) {
 
 $request = (new \Nette\Http\RequestFactory())->fromGlobals();
 
-if ($request->getQuery('password') !== \App\Config::ADMIN_PASSWORD && $request->getCookie('bl-admin-password') !== \App\Config::ADMIN_PASSWORD) {
-	die('Missing or invalid password. <form>Password: <input type="password" name="password"><button type="submit">Sign in</button></form>');
+if ($request->getPost('password') === \App\Config::ADMIN_PASSWORD) {
+	$response = new \Nette\Http\Response();
+	$response->setCookie('bl-admin-password', \App\Config::ADMIN_PASSWORD, '1 year');
+	$url = Config::getAppUrl('/admin');
+	$response->redirect((string)$url);
+	die();
+}
+
+if ($request->getCookie('bl-admin-password') !== \App\Config::ADMIN_PASSWORD) {
+	die('Missing or invalid password. <form method="POST">Password: <input type="password" name="password"><button type="submit">Sign in</button></form>');
 }
 
 if ($request->getQuery('delete-tracy-email-sent') !== null) {
