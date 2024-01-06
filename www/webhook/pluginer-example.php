@@ -42,7 +42,7 @@ foreach ($data->locations as $key => &$location) {
 	);
 
 	// Override address with custom text
-	$location->address = 'Hello world! I\' some custom address';
+	$location->address = 'Hello world! I\'m some custom address';
 
 	foreach ($location->descriptions as $description) {
 		$description->content .= '!';
