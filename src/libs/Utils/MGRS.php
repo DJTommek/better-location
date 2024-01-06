@@ -277,19 +277,10 @@ class MGRS
 	 *      utmcoords[1] = northing (NEGATIVE value in southern hemisphere)
 	 *      utmcoords[2] = zone
 	 *
-	 * @param $lat
-	 * @param $lon
-	 * @param $utmcoords
-	 * @param bool $zone
-	 * @return null|void
+	 * @return ?array{int, int, ?int}
 	 */
-	public function LLtoUTM($lat, $lon, &$utmcoords, $zone = false)
+	public function LLtoUTM(float $lat, float $lon, bool $zone = false): ?array
 	{
-
-		// ! 'utmcords' pass by reference
-		$lat = floatval($lat);
-		$lon = floatval($lon);
-
 		// Constrain reporting MGRS coords to the $latitude range [80S .. 84N]
 		if ($lat > 84 || $lat < -80) {
 			return null;
@@ -342,9 +333,11 @@ class MGRS
 					+ (61 - 58 * $T + $T * $T + 600 * $C - 330 * self::ECC_PRIME_SQUARED)
 					* ($A * $A * $A * $A * $A * $A) / 720)));
 
-		$utmcoords[0] = $UTMEasting;
-		$utmcoords[1] = $UTMNorthing;
-		$utmcoords[2] = $this->zoneNumber;
+		return [
+			$UTMEasting,
+			$UTMNorthing,
+			$this->zoneNumber
+		];
 	}
 
 	/**
@@ -360,29 +353,28 @@ class MGRS
 	 * @param $lat
 	 * @param $lon
 	 * @param $precision
-	 * @return string
 	 */
-	public function LLtoUSNG($lat, $lon, $precision)
+	public function LLtoUSNG($lat, $lon, $precision): ?string
 	{
-
 		$lat = floatval($lat);
 		$lon = floatval($lon);
 
 		// convert lat/lon to UTM coordinates
-		$coords = [];
-		self::LLtoUTM($lat, $lon, $coords);
-		$UTMEasting = $coords[0];
-		$UTMNorthing = $coords[1];
+		$utmCoords = self::LLtoUTM($lat, $lon);
+		if ($utmCoords === null) {
+			return null;
+		}
+		[$utmEasting, $utmNorthing, $utmZone] = $utmCoords;
 
 		// ...then convert UTM to USNG
 		// southern hemispher case
 		if ($lat < 0) {
-			$UTMNorthing += self::NORTHING_OFFSET;
+			$utmNorthing += self::NORTHING_OFFSET;
 		}
 
-		$USNGLetters = self::findGridLetters($this->zoneNumber, $UTMNorthing, $UTMEasting);
-		$USNGNorthing = round($UTMNorthing) % self::BLOCK_SIZE;
-		$USNGEasting = round($UTMEasting) % self::BLOCK_SIZE;
+		$USNGLetters = self::findGridLetters($this->zoneNumber, $utmNorthing, $utmEasting);
+		$USNGNorthing = round($utmNorthing) % self::BLOCK_SIZE;
+		$USNGEasting = round($utmEasting) % self::BLOCK_SIZE;
 
 		// added... truncate digits to achieve specified precision
 		$USNGNorthing = floor($USNGNorthing / pow(10, (5 - $precision)));
@@ -522,12 +514,12 @@ class MGRS
 			throw new \LogicException('Invalid format of MGRS string which should be catched by self::isMGRS().');
 		}
 
-		list(, $zone, $letter, $sqr1, $sqr2, $eastingNorthingString) = $matches;
+		[, $zone, $letter, $sqr1, $sqr2, $eastingNorthingString] = $matches;
 
 		$self = new self();
 		$self->setGridZone($zone, $letter);
 		$self->setGridSquareId($sqr1, $sqr2);
-		list($easting, $northing) = str_split($eastingNorthingString, strlen($eastingNorthingString) / 2);
+		[$easting, $northing] = str_split($eastingNorthingString, strlen($eastingNorthingString) / 2);
 		$self->setNumericalIng($easting, $northing);
 
 		$UTM = $self->MGRStoUTM($self->getZoneNumber(), $self->getZoneBand(), $self->getGridSquareId1(), $self->getGridSquareId2(), $self->getEasting(), $self->getNorthing());
@@ -548,7 +540,7 @@ class MGRS
 			throw new \LogicException('Invalid format of MGRS string which should be catched by self::isUTM().');
 		}
 
-		list(, $zone, $hemisphere, $easting, $northing) = $matches;
+		[, $zone, $hemisphere, $easting, $northing] = $matches;
 
 		// southern hemisphere case
 		if ($hemisphere === 'S') {
@@ -561,16 +553,14 @@ class MGRS
 
 	/**
 	 * LatLng --> MGRS
-	 *
-	 * @param $lat
-	 * @param $lon
-	 * @param $precision
-	 * @return string|string[]|null
-	 * @noinspection PhpUnused
 	 */
-	public function LLtoMGRS($lat, $lon, $precision)
+	public function LLtoMGRS($lat, $lon, $precision): ?string
 	{
-		return preg_replace('/\s/', '', self::LLtoUSNG($lat, $lon, $precision));
+		$result = self::LLtoUSNG($lat, $lon, $precision);
+		if ($result === null) {
+			return null;
+		}
+		return preg_replace('/\s/', '', $result);
 	}
 
 	/**
@@ -788,7 +778,7 @@ class MGRS
 			throw new \LogicException('Invalid format of MGRS string which should be catched by self::isMGRS().');
 		}
 
-		list(, $zone, $letter, $sqr1, $sqr2, $eastingNorthingString) = $matches;
+		[, $zone, $letter, $sqr1, $sqr2, $eastingNorthingString] = $matches;
 
 		$MGRS = new \stdClass();
 		$MGRS->zone = $zone;
@@ -797,7 +787,7 @@ class MGRS
 		$MGRS->sq2 = $sqr2;
 		$MGRS->precision = strlen($eastingNorthingString) / 2;
 
-		list($easting, $northing) = str_split($eastingNorthingString, $MGRS->precision);
+		[$easting, $northing] = str_split($eastingNorthingString, $MGRS->precision);
 
 		$MGRS->east = $easting;
 		$MGRS->north = $northing;

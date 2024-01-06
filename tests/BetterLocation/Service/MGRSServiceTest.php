@@ -11,13 +11,22 @@ final class MGRSServiceTest extends TestCase
 	public function testGenerateShareLink(): void
 	{
 		$this->expectException(NotSupportedException::class);
-		MGRSService::getLink(50.087451, 14.420671);
+		MGRSService::getShareLink(50.087451, 14.420671);
 	}
 
 	public function testGenerateDriveLink(): void
 	{
 		$this->expectException(NotSupportedException::class);
-		MGRSService::getLink(50.087451, 14.420671, true);
+		MGRSService::getDriveLink(50.087451, 14.420671);
+	}
+
+	public function testGenerateShareText(): void
+	{
+		$this->assertSame('33UVR5855748515', MGRSService::getShareText(50.087451, 14.420671));
+		$this->assertSame('49RGK1217767738', MGRSService::getShareText(26.815085, 113.134776));
+		$this->assertSame('2EMS6007970914', MGRSService::getShareText(-61.593128, -171.752183));
+
+		$this->assertNull(MGRSService::getShareText(-86.744805, -44.77887)); // Out of calculable range
 	}
 
 	public function testValidLocation(): void
