@@ -6,8 +6,8 @@ use App\BetterLocation\Service\GoogleMapsService;
 use App\Config;
 use App\Factory;
 use App\Google\Geocoding\GeocodeResponse;
+use App\Google\RunGoogleApiRequestTrait;
 use App\Icons;
-use App\MiniCurl\MiniCurl;
 use App\Utils\Utils;
 use DJTommek\Coordinates\CoordinatesInterface;
 use Tracy\Debugger;
@@ -15,23 +15,16 @@ use Tracy\ILogger;
 
 class GooglePlaceApi
 {
-	private string $apiKey;
+	use RunGoogleApiRequestTrait;
+
 	private const TEXT_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
 	private const PLACE_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json';
 	private const PLACE_DETAILS_URL = 'https://maps.googleapis.com/maps/api/place/details/json';
+
 	// https://developers.google.com/maps/documentation/places/web-service/details#Place-business_status
 	public const BUSINESS_STATUS_OPERATIONAL = 'OPERATIONAL';
 	public const BUSINESS_STATUS_CLOSED_TEMPORARILY = 'CLOSED_TEMPORARILY';
 	public const BUSINESS_STATUS_CLOSED_PERMANENTLY = 'CLOSED_PERMANENTLY';
-	// More responses on https://developers.google.com/places/web-service/search#PlaceSearchStatusCodes
-	private const RESPONSE_ZERO_RESULTS = 'ZERO_RESULTS';
-	private const RESPONSE_NOT_FOUND = 'NOT_FOUND';
-	private const RESPONSE_OK = 'OK';
-
-	public function __construct(string $apiKey)
-	{
-		$this->apiKey = $apiKey;
-	}
 
 	/**
 	 * @param string $input What should be searched
@@ -98,9 +91,10 @@ class GooglePlaceApi
 	{
 		$url = $this->gePlaceSearchUrl($input, $outputFields, $language, ($locationBias === null ? null : $this->generateLocationBias($locationBias)));
 		$content = $this->runGoogleApiRequest($url);
-		if (in_array($content->status, [self::RESPONSE_ZERO_RESULTS, self::RESPONSE_NOT_FOUND], true)) {
+		if ($content === null) {
 			return [];
 		}
+
 		return $content->candidates;
 	}
 
@@ -116,7 +110,7 @@ class GooglePlaceApi
 		$url = $this->geTextSearchUrl($input, $language, $location?->key());
 
 		$content = $this->runGoogleApiRequest($url);
-		if (in_array($content->status, [self::RESPONSE_ZERO_RESULTS, self::RESPONSE_NOT_FOUND], true)) {
+		if ($content === null) {
 			return [];
 		}
 
@@ -133,29 +127,7 @@ class GooglePlaceApi
 	{
 		$url = $this->gePlaceDetailsUrl($placeId, $outputFields);
 		$response = $this->runGoogleApiRequest($url);
-
-		if (in_array($response->status, [self::RESPONSE_ZERO_RESULTS, self::RESPONSE_NOT_FOUND], true)) {
-			return null;
-		}
-
-		return $response->result;
-	}
-
-	private function runGoogleApiRequest(string $url): \stdClass
-	{
-		$response = (new MiniCurl($url))
-			->allowCache(Config::CACHE_TTL_GOOGLE_PLACE_API)
-			->allowAutoConvertEncoding(false)
-			->run();
-		$content = $response->getBodyAsJson();
-
-		if (in_array($content->status, [self::RESPONSE_OK, self::RESPONSE_ZERO_RESULTS, self::RESPONSE_NOT_FOUND], true)) {
-			return $content;
-		}
-
-		Debugger::log('Request URL: ' . $url, ILogger::DEBUG);
-		Debugger::log('Response content: ' . $response->getBody(), ILogger::DEBUG);
-		throw new \Exception(sprintf('Invalid status "%s" from Google Place API. Error: "%s". See debug.log for more info.', $content->status, $content->error_message ?? 'Not provided'));
+		return $response?->result;
 	}
 
 	private function generateLocationBias(CoordinatesInterface $location): string
@@ -213,7 +185,8 @@ class GooglePlaceApi
 	/**
 	 * Load data from placeDetails and insert it into provided BetterLocation
 	 */
-	public static function populateLocationFromPlaceDetails(BetterLocation $location, \stdClass $placeDetails): void {
+	public static function populateLocationFromPlaceDetails(BetterLocation $location, \stdClass $placeDetails): void
+	{
 		$location->setPrefixMessage(
 			sprintf(
 				'<a href="%s">%s</a>',
@@ -277,5 +250,10 @@ class GooglePlaceApi
 			}
 		}
 		return null;
+	}
+
+	private function cacheTtl(): int
+	{
+		return Config::CACHE_TTL_GOOGLE_PLACE_API;
 	}
 }
