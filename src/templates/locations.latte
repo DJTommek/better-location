@@ -62,7 +62,7 @@
 					{foreach $collection->getLocations() as $location}
 						<button
 								id="list-group-item-location-{$location->getCoordinates()->hash()}"
-								class="list-group-item list-group-item-action list-group-item-light {$iterator->first ? 'active'}"
+								class="list-group-item list-group-item-action {$iterator->first ? 'active'}"
 								data-bs-toggle="list"
 								data-location="{$location->getCoordinates()->hash()}"
 								href="#content-locations-{$location->getCoordinates()->hash()}"

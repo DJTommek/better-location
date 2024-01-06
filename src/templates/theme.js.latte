@@ -1,0 +1,75 @@
+{contentType application/javascript}
+(() => {
+	'use strict'
+	// Inspired from example on Bootstrap: https://getbootstrap.com/docs/5.3/customize/color-modes/#dark-mode
+	// set user-saved theme as soon as possible to prevent blink of default theme
+
+	const localStorageKey = 'better-location-theme';
+
+	function setThemeBasic(theme) {
+		// Save theme into local storage
+		localStorage.setItem(localStorageKey, theme);
+
+		// Set theme to HTML
+		let themeReal = theme;
+		if (theme === 'auto') {
+			themeReal = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+		}
+		document.documentElement.setAttribute('data-bs-theme', themeReal);
+	}
+
+	// Set theme as soon as possible to prevent blinking
+	setThemeBasic(localStorage.getItem(localStorageKey) ?? 'auto');
+
+	document.addEventListener('DOMContentLoaded', function() {
+		const selector = document.getElementById('theme-selector')
+		if (selector === null) { // eg. page is in headless mode
+			return;
+		}
+		const selectorButtons = selector.querySelectorAll('a')
+
+		const themeIconMap = {
+			auto: 'bi-circle-half',
+			light: 'bi-sun-fill',
+			dark: 'bi-moon-stars-fill',
+		}
+
+		function setTheme(theme) {
+			setThemeBasic(theme)
+
+			// Hide / show checkmark next to selected theme
+			const newIcon = null;
+			for (const selectorButton of selectorButtons) {
+				const check = selectorButton.querySelector('.bi-check');
+				check.classList.add('d-none');
+				if (theme === selectorButton.dataset.theme) {
+					check.classList.remove('d-none');
+				}
+			}
+
+			// Change main icon in selector
+			const themeSelectorClassList = document
+				.getElementById('theme-selector')
+				.querySelector('span.dropdown-toggle .bi')
+				.classList;
+
+			for (const themeName of Object.keys(themeIconMap)) {
+				themeSelectorClassList.remove(themeIconMap[themeName]);
+			}
+			themeSelectorClassList.add(themeIconMap[theme]);
+		}
+
+		// Add listeners on manual theme change
+		for (const selectorButton of selectorButtons) {
+			selectorButton.addEventListener('click', function (event) {
+				event.preventDefault();
+				setTheme(selectorButton.dataset.theme);
+			});
+		}
+
+		setTheme(localStorage.getItem(localStorageKey) ?? 'auto');
+	});
+})();
+
+
+
