@@ -48,7 +48,7 @@ final class USNGService extends AbstractService
 		$this->collection->add(new BetterLocation($this->input, $usng->getLat(), $usng->getLon(), get_called_class()));
 	}
 
-	public static function getShareText(float $lat, float $lon): string
+	public static function getShareText(float $lat, float $lon): ?string
 	{
 		$mgrs = new MGRS();
 		return $mgrs->LLtoUSNG($lat, $lon, 5);

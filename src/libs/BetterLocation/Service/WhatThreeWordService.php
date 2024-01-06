@@ -83,7 +83,7 @@ final class WhatThreeWordService extends AbstractService
 		return false;
 	}
 
-	public static function getShareText(float $lat, float $lon): string
+	public static function getShareText(float $lat, float $lon): ?string
 	{
 		$data = WhatThreeWord\Helper::coordsToWords($lat, $lon);
 		return '///' . $data->words;

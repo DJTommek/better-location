@@ -139,9 +139,11 @@ abstract class AbstractService
 	}
 
 	/**
+	 * Text representation of location in given format.
+	 *
 	 * @throws NotSupportedException
 	 */
-	static public function getShareText(float $lat, float $lon): string
+	static public function getShareText(float $lat, float $lon): ?string
 	{
 		throw new NotSupportedException('Share text is not supported.');
 	}

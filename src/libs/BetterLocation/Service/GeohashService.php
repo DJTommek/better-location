@@ -97,7 +97,7 @@ final class GeohashService extends AbstractService
 		return $collection;
 	}
 
-	public static function getShareText(float $lat, float $lon): string
+	public static function getShareText(float $lat, float $lon): ?string
 	{
 		return GeoHash::encode($lon, $lat, self::DEFAULT_PRECISION);
 	}

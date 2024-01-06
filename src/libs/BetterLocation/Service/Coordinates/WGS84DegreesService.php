@@ -15,7 +15,7 @@ final class WGS84DegreesService extends WGS84AbstractService
 		$this->collection->add($location);
 	}
 
-	public static function getShareText(float $lat, float $lon): string
+	public static function getShareText(float $lat, float $lon): ?string
 	{
 		$coords = new Coordinates($lat, $lon);
 		return sprintf('%s %F°, %s %F°',

@@ -15,11 +15,11 @@ final class WGS84DegreesMinutesSecondsService extends WGS84AbstractService
 		$this->collection->add($location);
 	}
 
-	public static function getShareText(float $lat, float $lon): string
+	public static function getShareText(float $lat, float $lon): ?string
 	{
 		$coords = new Coordinates($lat, $lon);
-		list($degreesLat, $minutesLat, $secondsLat) = Coordinates::wgs84DegreesToDegreesMinutesSeconds($lat);
-		list($degreesLon, $minutesLon, $secondsLon) = Coordinates::wgs84DegreesToDegreesMinutesSeconds($lon);
+		[$degreesLat, $minutesLat, $secondsLat] = Coordinates::wgs84DegreesToDegreesMinutesSeconds($lat);
+		[$degreesLon, $minutesLon, $secondsLon] = Coordinates::wgs84DegreesToDegreesMinutesSeconds($lon);
 		return sprintf('%s %d° %d\' %.3F", %s %d° %d\' %.3F"',
 			$coords->getLatHemisphere(), abs($degreesLat), $minutesLat, $secondsLat,
 			$coords->getLonHemisphere(), abs($degreesLon), $minutesLon, $secondsLon
