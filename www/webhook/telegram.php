@@ -10,6 +10,8 @@ use Nette\Utils\Json;
 
 $request = (new \Nette\Http\RequestFactory())->fromGlobals();
 
+\Tracy\Debugger::enable(\Tracy\Debugger::Production, App\Config::getTracyPath());
+
 if (Config::isTelegramWebhookPassword() === false) {
 	http_response_code(500);
 	printf('Error: Telegram password in local config is not set.');
