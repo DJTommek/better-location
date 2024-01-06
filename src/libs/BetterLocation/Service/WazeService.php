@@ -61,12 +61,14 @@ final class WazeService extends AbstractService
 			$this->data->latLng = Coordinates::fromString($this->url->getQueryParameter('latlng') ?? '');
 
 			// Example: https://www.waze.com/cs/livemap/directions?to=ll.50.07734439%2C14.43475842
+			$this->data->to = null;
 			if ($this->url->getQueryParameter('to')) {
 				$param = ltrim($this->url->getQueryParameter('to'), 'l.');
 				$this->data->to = Coordinates::fromString($param);
 			}
 
 			// Example: https://www.waze.com/live-map/directions?from=ll.50.093652%2C14.412417
+			$this->data->from = null;
 			if ($this->url->getQueryParameter('from')) {
 				$param = ltrim($this->url->getQueryParameter('from'), 'l.');
 				$this->data->from = Coordinates::fromString($param);
