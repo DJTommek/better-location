@@ -56,7 +56,11 @@ abstract class Events
 		$this->update = $update;
 
 		$this->loop = Factory::create();
-		$this->tgLog = new TgLog(Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($this->loop));
+		$this->tgLog = new TgLog(
+			Config::TELEGRAM_BOT_TOKEN,
+			new HttpClientRequestHandler($this->loop),
+			\App\Factory::telegramCustomLogger(),
+		);
 		$this->user = new User($this->getTgFromId(), $this->getTgFromDisplayname());
 		$this->user->touchLastUpdate();
 		if ($this->hasTgMessage()) {

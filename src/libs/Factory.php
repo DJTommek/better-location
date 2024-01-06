@@ -25,6 +25,22 @@ class Factory
 		return self::$objects['telegram'];
 	}
 
+	public static function telegramCustomLogger(): \Psr\Log\LoggerInterface
+	{
+		if (!isset(self::$objects[__FUNCTION__])) {
+			self::$objects[__FUNCTION__] = new \App\Logger\CustomTelegramLogger();
+		}
+		return self::$objects[__FUNCTION__];
+	}
+
+	public static function tracyPsrLogger(): \Psr\Log\LoggerInterface
+	{
+		if (!isset(self::$objects[__FUNCTION__])) {
+			self::$objects[__FUNCTION__] = new \Tracy\Bridges\Psr\TracyToPsrLoggerAdapter(\Tracy\Debugger::getLogger());
+		}
+		return self::$objects[__FUNCTION__];
+	}
+
 	public static function whatThreeWords(): \What3words\Geocoder\Geocoder
 	{
 		if (!isset(self::$objects['w3w'])) {

@@ -50,11 +50,16 @@ class TelegramCustomWrapper
 	public function __construct()
 	{
 		$this->loop = \React\EventLoop\Factory::create();
-		$this->tgLog = new TgLog(Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($this->loop));
+		$this->tgLog = new TgLog(
+			Config::TELEGRAM_BOT_TOKEN,
+			new HttpClientRequestHandler($this->loop),
+			Factory::telegramCustomLogger(),
+		);
 	}
 
 	/**
 	 * Analyze Telegram API update object and return event type if there is one.
+	 *
 	 * @throws EventNotSupportedException When event is not have its specific handler
 	 */
 	public function analyze(Telegram\Types\Update $update): Events

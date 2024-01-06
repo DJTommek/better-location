@@ -9,6 +9,7 @@ class SimpleLogger
 	const NAME_TELEGRAM_INPUT = 'telegram_input';
 	const NAME_TELEGRAM_OUTPUT = 'telegram_output';
 	const NAME_TELEGRAM_OUTPUT_RESPONSE = 'telegram_output_response';
+	const NAME_TELEGRAM_LOGGER = 'telegram_logger';
 	const NAME_CRON_AUTOREFRESH = 'cron_autorefresh';
 	const NAME_PLUGINER_REQUEST = 'pluginer_request';
 	const NAME_PLUGINER_RESPONSE = 'pluginer_response';
