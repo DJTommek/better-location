@@ -27,7 +27,8 @@
 		"justinrainbow/json-schema": "^5.2",
 		"djtommek/coordinates": "^1.1",
 		"jeroendesloovere/vcard": "^1.7",
-		"league/iso3166": "^4.3"
+		"league/iso3166": "^4.3",
+		"psr/log": "^1.1"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^9",
