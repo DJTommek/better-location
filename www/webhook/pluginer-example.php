@@ -41,6 +41,9 @@ foreach ($data->locations as $key => &$location) {
 		htmlspecialchars(Formatter::distance($mapCenterPrague->distance($coords)))
 	);
 
+	// Override address with custom text
+	$location->address = 'Hello world! I\' some custom address';
+
 	foreach ($location->descriptions as $description) {
 		$description->content .= '!';
 	}

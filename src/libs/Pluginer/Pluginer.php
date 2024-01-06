@@ -76,6 +76,10 @@ class Pluginer
 		foreach ($dataNew->locations as $locationKey => $locationNew) {
 			$locationOld = $collection[$locationKey];
 			$collection[$locationKey]->setPrefixMessage($locationNew->prefix);
+			if (isset($locationNew->address)) {
+				$locationOld->setAddress($locationNew->address);
+			}
+
 			if (isset($locationNew->descriptions)) {
 				$locationOld->clearDescriptions();
 				foreach ($locationNew->descriptions as $description) {
