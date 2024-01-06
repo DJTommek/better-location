@@ -59,6 +59,12 @@ class DefaultConfig
 	 * @var int 1-100, Defauts to 40
 	 */
 	const TELEGRAM_MAX_CONNECTIONS = 40;
+	/**
+	 * How many characters can be the BetterLocation message without optional suffix. See usage of this constant for more info.
+	 * This limit is preventing Telegram error ENTITIES_TOO_LONG
+	 * Should be lower then actual maximum limit (as of 2024-01-06 limit is 9500 characters)
+	 */
+	const TELEGRAM_BETTER_LOCATION_MESSAGE_LIMIT = 8000;
 	/** @var bool Enforce BotUsername in command, eg. /command@BetterLocationBot */
 	const TELEGRAM_COMMAND_STRICT = false;
 

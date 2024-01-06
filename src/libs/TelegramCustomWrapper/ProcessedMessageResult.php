@@ -64,7 +64,7 @@ class ProcessedMessageResult
 			$this->resultText .= sprintf(
 				'%d locations: %s' . PHP_EOL . PHP_EOL,
 				$this->collection->count(),
-				implode(' | ', $bulkLinks)
+				implode(' | ', $bulkLinks),
 			);
 		}
 
@@ -79,7 +79,10 @@ class ProcessedMessageResult
 			$this->buttons[] = $betterLocation->generateDriveButtons($this->messageSettings);
 			$this->validLocationsCount++;
 
-			if ($this->validLocationsCount >= Config::TELEGRAM_MAXIMUM_LOCATIONS) {
+			if (
+				strlen($this->resultText) >= Config::TELEGRAM_BETTER_LOCATION_MESSAGE_LIMIT
+				|| $this->validLocationsCount >= Config::TELEGRAM_MAXIMUM_LOCATIONS
+			) {
 				$this->resultText .= sprintf(
 					'Showing only first %d of %d detected locations. All at once can be opened with links on top of the message.',
 					$this->validLocationsCount,
