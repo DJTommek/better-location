@@ -27,6 +27,7 @@ use App\BetterLocation\Service\FoursquareService;
 use App\BetterLocation\Service\GeocachingService;
 use App\BetterLocation\Service\GeohashService;
 use App\BetterLocation\Service\GlympseService;
+use App\BetterLocation\Service\GoogleEarthService;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\GoogleMapsStreetViewGeneratorService;
 use App\BetterLocation\Service\HereWeGoService;
@@ -97,6 +98,7 @@ class ServicesManager
 		$this->services[MGRSService::ID] = MGRSService::class;
 		$this->services[USNGService::ID] = USNGService::class;
 		$this->services[GoogleMapsService::ID] = GoogleMapsService::class;
+		$this->services[GoogleEarthService::ID] = GoogleEarthService::class;
 		$this->services[GoogleMapsStreetViewGeneratorService::ID] = GoogleMapsStreetViewGeneratorService::class;
 		$this->services[WazeService::ID] = WazeService::class;
 		$this->services[SygicService::ID] = SygicService::class;
