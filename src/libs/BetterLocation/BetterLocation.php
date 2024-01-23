@@ -149,7 +149,7 @@ class BetterLocation implements CoordinatesInterface
 			try {
 				$googleGeocoding = Factory::googleGeocodingApi();
 				$result = $googleGeocoding->reverse($this);
-				if ($result->getAddress() !== null) {
+				if ($result?->getAddress() !== null) {
 					$this->setAddress($result);
 					return;
 				}
