@@ -160,7 +160,7 @@ class BetterLocation implements CoordinatesInterface
 
 		try {
 			$result = \App\Nominatim\Nominatim::reverse($this);
-			if ($result->getAddress() !== null) {
+			if ($result?->getAddress() !== null) {
 				$this->setAddress($result);
 				return;
 			}
