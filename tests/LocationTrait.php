@@ -11,6 +11,7 @@ trait LocationTrait
 
 	public abstract static function assertEqualsWithDelta($expected, $actual, float $delta, string $message = ''): void;
 
+	/** @param \Countable|iterable $haystack */
 	public abstract static function assertCount(int $expectedCount, $haystack, string $message = ''): void;
 
 	protected function assertCoords(float $expectedLat, float $expectedLon, CoordinatesInterface $location): void
