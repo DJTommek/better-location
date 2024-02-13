@@ -19,6 +19,8 @@ class User
 	private ChatRepository $chatRepository;
 
 	private UserEntity $userEntity;
+	/** Lazy (should be accessed only via getPrivateChatEntity()) */
+	private ChatEntity $userPrivateChatEntity;
 
 	/** Lazy list of Favourites (should be accessed only via getFavourites()) */
 	private ?BetterLocationCollection $favourites = null;
@@ -44,9 +46,18 @@ class User
 		$this->userEntity = $userEntity;
 	}
 
-	public function getPrivateChatEntity(): ?ChatEntity
+	public function getPrivateChatEntity(): ChatEntity
 	{
-		return $this->chatRepository->fromTelegramId($this->getTelegramId());
+		if (!isset($this->userPrivateChatEntity)) {
+			$userTgId = $this->getTelegramId();
+			$chatEntity = $this->chatRepository->fromTelegramId($userTgId);
+			if ($chatEntity === null) {
+				throw new \RuntimeException(sprintf('User ID %d (TG ID = %d) does not has private chat settings, yet.', $this->getId(), $userTgId));
+			}
+			$this->userPrivateChatEntity = $chatEntity;
+		}
+		return $this->userPrivateChatEntity;
+
 	}
 
 	public function touchLastUpdate(): void
@@ -150,7 +161,8 @@ class User
 	public function getMessageSettings(): BetterLocationMessageSettings
 	{
 		if ($this->messageSettings === null) {
-			$this->messageSettings = BetterLocationMessageSettings::loadByChatId($this->userEntity->id);
+			$chatEntity = $this->getPrivateChatEntity();
+			$this->messageSettings = BetterLocationMessageSettings::loadByChatId($chatEntity->id);
 		}
 		return $this->messageSettings;
 	}
