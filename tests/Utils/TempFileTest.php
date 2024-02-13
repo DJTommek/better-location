@@ -7,6 +7,9 @@ use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @group no-github-action
+ */
 final class TempFileTest extends TestCase
 {
 	/** @var string Normalized path based on running operating system (forward or back slashes) to base temporary directory */
