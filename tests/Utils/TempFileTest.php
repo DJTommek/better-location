@@ -12,14 +12,23 @@ use PHPUnit\Framework\TestCase;
  */
 final class TempFileTest extends TestCase
 {
-	/** @var string Normalized path based on running operating system (forward or back slashes) to base temporary directory */
-	private static $tempDir;
-	/** @var string[] Files and directories in this array are expected, that will not be deleted after all tests are completed */
-	private static $expectedNonDeletedItems = [];
+	/**
+	 * Normalized path based on running operating system (forward or back slashes) to base temporary directory
+	 */
+	private static string $tempDir;
+
+	/**
+	 * Files and directories in this array are expected, that will not be deleted after all tests are completed
+	 *
+	 * @var list<string>
+	 */
+	private static array $expectedNonDeletedItems = [];
 
 	public static function setUpBeforeClass(): void
 	{
 		self::$tempDir = FileSystem::normalizePath(TempFile::TEMP_DIR);
+
+		FileSystem::makeWritable(self::$tempDir); // Fix potentially non-deleted files that has wrong permissions
 		FileSystem::delete(self::$tempDir);  // Directory should to be empty on start for checking final status
 	}
 
@@ -118,8 +127,8 @@ final class TempFileTest extends TestCase
 		chmod($tempFileFullPath, 0444); // no one has write permission for this file
 		unset($tempfile); // normally it would throw "Unable to delete '/full/path/to/file/random-dir-name/unable-to-delete.txt'. Permission denied"
 
-//		$this->assertFileExists($tempFileFullPath);
-//		$this->assertDirectoryExists($tempDirFullPath);
+		$this->assertFileExists($tempFileFullPath);
+		$this->assertDirectoryExists($tempDirFullPath);
 
 		self::$expectedNonDeletedItems[] = $tempFileFullPath;
 		self::$expectedNonDeletedItems[] = $tempDirFullPath;
@@ -141,8 +150,8 @@ final class TempFileTest extends TestCase
 		unset($tempfile); // normally it would throw "Unable to delete directory '/full/path/to/file/random-dir-name/'. Permission denied"
 
 		// File was deleted but directory not
-//		$this->assertFileDoesNotExist($tempFileFullPath);
-//		$this->assertDirectoryExists($tempDirFullPath);
+		$this->assertFileDoesNotExist($tempFileFullPath);
+		$this->assertDirectoryExists($tempDirFullPath);
 
 		self::$expectedNonDeletedItems[] = $tempDirFullPath;
 	}
