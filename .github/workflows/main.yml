@@ -44,7 +44,7 @@ jobs:
           php_version: ${{ env.PHP_VERSION_REQUIRED }}
           bootstrap: src/bootstrap.php
           configuration: phpunit.xml
-          exclude_group: request no-github-action
+          exclude_group: request,no-github-action
           php_extensions: mbstring exif
 
   web-deploy:
