@@ -47,19 +47,28 @@ final class AirbnbServiceTest extends AbstractServiceTestCase
 	{
 		return [
 			[true, 'https://www.airbnb.cz/rooms/16958918'],
-			[true, 'https://airbnb.cz/rooms/16958918'],
+			[true, 'https://airbnb.com/rooms/16958918'],
 			[true, 'https://www.airbnb.com/rooms/123'],
 			[true, 'https://www.airbnb.com/rooms/123/abc'],
 			[true, 'https://www.airbnb.com/rooms/123?something'],
-			[true, 'https://www.airbnb.cz/rooms/16958918?adults=8&check_in=2024-03-14&check_out=2024-03-17&source_impression_id=p3_1707752790_J1JOXEiZQ5zIywtZ&previous_page_section_name=1000&federated_search_id=db0802cc-b8b1-4e05-8df3-4874a286c728'],
+			// Real example
+			[true, 'https://www.airbnb.com/rooms/16958918?adults=8&check_in=2024-03-14&check_out=2024-03-17&source_impression_id=p3_1707752790_J1JOXEiZQ5zIywtZ&previous_page_section_name=1000&federated_search_id=db0802cc-b8b1-4e05-8df3-4874a286c728'],
+			// Various domains
+			[true, 'https://www.airbnb.cz/rooms/16958918'],
+			[true, 'https://www.airbnb.si/rooms/16958918'],
+			[true, 'https://www.airbnb.com.py/rooms/16958918'],
+			[true, 'https://www.airbnb.co.nz/rooms/16958918'],
+			[true, 'https://www.airbnb.co.za/rooms/16958918'],
 
 			[false, 'non url'],
-			[false, 'https://www.airbnb.cz/'],
-			[false, 'https://www.airbnb.cz/rooms'],
-			[false, 'https://www.airbnb.cz/rooms/123abcd'],
-			[false, 'https://www.airbnb.cz/rooms/abcd123'],
-			[false, 'https://www.airbnb.cz/rooms/abcd'],
-			[false, 'https://www.airbnb.cz/rooms/-5693'],
+			[false, 'https://www.airbnb.com/'],
+			[false, 'https://www.airbnb.com/rooms'],
+			[false, 'https://www.airbnb.com/rooms/123abcd'],
+			[false, 'https://www.airbnb.com/rooms/abcd123'],
+			[false, 'https://www.airbnb.com/rooms/abcd'],
+			[false, 'https://www.airbnb.com/rooms/-5693'],
+			// Invalid domains
+			[false, 'https://www.airbnb.bla.co/rooms/5693'],
 		];
 	}
 

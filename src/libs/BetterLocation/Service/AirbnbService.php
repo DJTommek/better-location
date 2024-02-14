@@ -22,9 +22,14 @@ final class AirbnbService extends AbstractService
 		if ($this->url === null) {
 			return false;
 		}
-		$domain = $this->url->getDomain(2);
 
-		if (!str_starts_with($domain, 'airbnb.')) {
+		$domain2 = $this->url->getDomain(2);
+		$domain3 = $this->url->getDomain(3);
+		if (
+			!str_starts_with($domain2, 'airbnb.') // airbnb.com, airbnb.cz
+			&& !str_starts_with($domain3, 'airbnb.com') // airbnb.com.ar, airbnb.com.hk
+			&& !str_starts_with($domain3, 'airbnb.co') // airbnb.co.kr, airbnb.co.id
+		) {
 			return false;
 		}
 
