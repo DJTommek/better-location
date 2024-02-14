@@ -107,7 +107,7 @@ class HttpClient
 	public function send(Request $request, array $options = []): Response
 	{
 		if ($this->canUseCache()) {
-			$cacheKey = $this->getCacheKey($request);
+			$cacheKey = $this->getCacheKey($request, $options);
 			$cache = $this->getCacheStorage();
 
 			$cachedResponse = $cache->load($cacheKey);
@@ -167,10 +167,15 @@ class HttpClient
 		$this->cacheStorage = $cacheStorage;
 	}
 
-	private function getCacheKey(Request $request): string
+	/**
+	 * @param Request $request
+	 * @param array<string, mixed> $options
+	 * @return string
+	 */
+	private function getCacheKey(Request $request, array $options): string
 	{
 		$keyRaw = serialize($request);
-		$keyRaw .= serialize($this->httpHeaders);
+		$keyRaw .= serialize($options);
 		$keyRaw .= serialize($this->httpCookies);
 		return md5($keyRaw);
 	}
