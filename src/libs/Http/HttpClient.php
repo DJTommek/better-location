@@ -174,7 +174,10 @@ class HttpClient
 	 */
 	private function getCacheKey(Request $request, array $options): string
 	{
-		$keyRaw = serialize($request);
+		// User-Agent in HTTP headers is sometimes randomized, ignore it from cache key
+		$clonedRequest = $request->withoutHeader('user-agent');
+
+		$keyRaw = serialize($clonedRequest);
 		$keyRaw .= serialize($options);
 		$keyRaw .= serialize($this->httpCookies);
 		return md5($keyRaw);
