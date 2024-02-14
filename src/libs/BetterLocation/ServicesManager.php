@@ -3,6 +3,7 @@
 namespace App\BetterLocation;
 
 use App\BetterLocation\Service\AbstractService;
+use App\BetterLocation\Service\AirbnbService;
 use App\BetterLocation\Service\AppleMapsService;
 use App\BetterLocation\Service\BaladIrService;
 use App\BetterLocation\Service\Bannergress\BannergressService;
@@ -118,6 +119,7 @@ class ServicesManager
 		$this->services[GeohashService::ID] = GeohashService::class;
 		$this->services[OrganicMapsService::ID] = OrganicMapsService::class;
 		$this->services[WikipediaService::ID] = WikipediaService::class;
+		$this->services[AirbnbService::ID] = AirbnbService::class;
 		$this->services[DuckDuckGoService::ID] = DuckDuckGoService::class;
 		$this->services[AppleMapsService::ID] = AppleMapsService::class;
 		if (Config::isFoursquare()) {

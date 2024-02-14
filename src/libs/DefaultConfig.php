@@ -207,6 +207,7 @@ class DefaultConfig
 	const CACHE_TTL_PRAZDNE_DOMY = 60 * 60 * 24;
 	const CACHE_TTL_RAAH_IR = 60 * 60 * 24;
 	const CACHE_TTL_VODNIMLYNY_CZ = 60 * 60 * 24;
+	const CACHE_TTL_AIRBNB = 60 * 60 * 24;
 
 	const PLUGINER_CACHE_TTL = 60 * 10;
 
