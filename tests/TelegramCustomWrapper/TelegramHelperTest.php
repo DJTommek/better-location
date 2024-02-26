@@ -6,6 +6,7 @@ use App\Config;
 use App\TelegramCustomWrapper\TelegramHelper;
 use PHPUnit\Framework\TestCase;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
+use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 
 final class TelegramHelperTest extends TestCase
 {
@@ -51,4 +52,28 @@ final class TelegramHelperTest extends TestCase
 
 		$this->assertSame($expect, $result);
 	}
+
+	public function messageUrlEntitiesProvider(): array
+	{
+		return [
+			['Hello ||||||||||||| here!', 'Hello https://t.me/ here!', [['offset' => 6, 'length' => 13, 'type' => 'url']]],
+			// URL is not marked as URL via entities
+			['Hello https://t.me/ here!', 'Hello https://t.me/ here!', []],
+			// Valid IP address
+			['||||||||||||||||||||||', 'http://123.123.222.111', [['offset' => 0, 'length' => 22, 'type' => 'url']]],
+		];
+
+	}
+
+	/**
+	 * @dataProvider messageUrlEntitiesProvider
+	 */
+	public function testGetMessageWithoutUrls(string $expectedMessage, string $inputMessage, array $inputEntitiesRaw): void
+	{
+		$inputEntities = array_map(fn(array $entityRaw) => new MessageEntity($entityRaw), $inputEntitiesRaw);
+		$result = TelegramHelper::getMessageWithoutUrls($inputMessage, $inputEntities);
+		$this->assertSame($expectedMessage, $result);
+	}
+
+
 }

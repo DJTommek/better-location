@@ -435,7 +435,7 @@ class TelegramHelper
 		foreach (array_reverse($entities) as $entity) {
 			if ($entity->type === 'url') {
 				$entityContent = TelegramHelper::getEntityContent($text, $entity);
-				if (Strict::isUrl($entityContent)) {
+				if (Strict::isUrl($entityContent, true)) {
 					$text = str_replace($entityContent, str_repeat('|', $entity->length), $text);
 				}
 			}
