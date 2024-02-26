@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 
-use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
+use App\Config;
+use App\Factory;
 use Tracy\Debugger;
 
 require_once __DIR__ . '/../../src/bootstrap.php';
@@ -11,34 +12,44 @@ Debugger::$showBar = false;
 $response = new \stdClass();
 $response->datetime = (new \DateTimeImmutable())->format(DateTimeInterface::W3C);
 $response->result = [];
-$response->error = true;
+$response->error = false;
 $response->message = null;
 
-if (isset($_GET['api_key']) && in_array($_GET['api_key'], \App\Config::API_KEYS, true)) {
+$apiKey = $_POST['api_key'] ?? $_GET['api_key'] ?? null;
+if (in_array($apiKey, \App\Config::API_KEYS, true)) {
 	try {
-		if (isset($_POST['input'])) {
-			$input = $_POST['input'];
+		$input = $_POST['input'] ?? $_GET['input'] ?? null;
+
+		$fulltextSearchRaw = $_POST['fulltextsearch'] ?? $_GET['fulltextsearch'] ?? null;
+		$fulltextSearch = $fulltextSearchRaw !== null;
+
+		if ($input !== null) {
 			$entities = \App\TelegramCustomWrapper\TelegramHelper::generateEntities($input);
 			$betterLocations = BetterLocationCollection::fromTelegramMessage($input, $entities);
-			if (count($betterLocations)) {
-				$response->error = false;
-				foreach ($betterLocations->getLocations() as $betterLocation) {
-					if ($betterLocation instanceof BetterLocation) {
-						$response->result[] = $betterLocation->export();
-					} else if ($betterLocation instanceof \App\BetterLocation\Service\Exceptions\InvalidLocationException) {
-						$response->message = htmlentities($betterLocation->getMessage());
-					} else {
-						Debugger::log($betterLocation, \Tracy\ILogger::EXCEPTION);
-						$response->result = [];
-						$response->message = 'Unhandled exception, try again later.';
-						$response->error = true;
-					}
+			if (
+				$fulltextSearch === true
+				&& $betterLocations->isEmpty()
+				&& mb_strlen($input) >= Config::GOOGLE_SEARCH_MIN_LENGTH
+				&& Config::isGooglePlaceApi()
+			) {
+				try {
+					$placeApi = Factory::googlePlaceApi();
+					$googleCollection = $placeApi->searchPlace($input);
+					$betterLocations->add($googleCollection);
+				} catch (\Exception $exception) {
+					Debugger::log($exception, Debugger::EXCEPTION);
 				}
-			} else {
+			}
+
+			if ($betterLocations->isEmpty()) {
 				$response->message = 'No location(s) was detected in text.';
+			} else {
+				foreach ($betterLocations->getLocations() as $betterLocation) {
+					$response->result[] = $betterLocation->export();
+				}
 			}
 		} else {
-			$response->message = 'POST "input" is missing.';
+			$response->message = 'POST/GET "input" is missing.';
 		}
 	} catch (\Exception $exception) {
 		$response->error = true;
