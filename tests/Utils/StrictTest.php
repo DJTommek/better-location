@@ -205,57 +205,70 @@ final class StrictTest extends TestCase
 			['https://www.waze.com/ul?ll=50.087451,14.420671'],
 			['https://www.google.cz/maps/place/50.087451,14.420671?q=50.087451,14.420671'],
 			['https://pldr-gallery.redilap.cz/#/special-characters/'],
+
+			['http://192.168.1.1', true], // ip address
+			['http://192.168.1.1/', true], // ip address
+			['http://192.168.1.1/some path', true], // ip address
+			['192.168.1.1', true], // IPv4 address
+			['2001:0db8:0000:0000:0000:ff00:0042:8329', true], // IPv6 address
+			['2001:db8:0:0:0:ff00:42:8329', true], // IPv6 address
+			['2001:db8::ff00:42:8329', true], // IPv6 address
+			['0000:0000:0000:0000:0000:0000:0000:0001', true], // IPv6 address
+			['::1', true], // IPv6 address
 		];
 	}
 
 	/**
 	 * @dataProvider isUrlTrueProvider
 	 */
-	public function testIsUrlTrue(string $url): void
+	public function testIsUrlTrue(?string $url, bool $allowIpaddress = false): void
 	{
-		$this->assertTrue(Strict::isUrl($url));
+		$this->assertTrue(Strict::isUrl($url, $allowIpaddress));
 	}
 
 	public static function isUrlFalseProvider(): array
 	{
 		return [
-		[''],
-		['/'],
-		['http://a'],
-		['random text'],
-		['http://'], // missing domain
-		['http://localhost'], // missing domain
-		['github.com'], // missing scheme
-		['//github.com'], // missing scheme
-		['ftp://github.com/'], // invalid scheme
+			[''],
+			[null],
+			['/'],
+			['http://a'],
+			['random text'],
+			['nějaký text.to je super'], // 'text.to' is marked as URL according to Telegram
+			['http://'], // missing domain
+			['http://localhost'], // missing domain
+			['github.com'], // missing scheme
+			['//github.com'], // missing scheme
+			['ftp://github.com/'], // invalid scheme
 
-		['http://192.168.1.1'], // ip address
-		['http://192.168.1.1/'], // ip address
-		['http://192.168.1.1/some path'], // ip address
-		['http://localhost'], // missing domain
-		['localhost'], // missing domain and scheme
-		['192.168.1.1'], // IPv4 address
-		['192.168.1.1/'], // IPv4 address
-		['2001:0db8:0000:0000:0000:ff00:0042:8329'], // IPv6 address
-		['2001:db8:0:0:0:ff00:42:8329'], // IPv6 address
-		['2001:db8::ff00:42:8329'], // IPv6 address
-		['0000:0000:0000:0000:0000:0000:0000:0001'], // IPv6 address
-		['::1'], // IPv6 address
+			['http://192.168.1.1'], // ip address
+			['http://192.168.1.1/'], // ip address
+			['http://192.168.1.1/some path'], // ip address
+			['http://localhost'], // missing domain
+			['localhost'], // missing domain and scheme
+			['192.168.1.1'], // IPv4 address
+			['192.168.1.1/'], // IPv4 address
+			['192.168.1.1/', true], // IPv4 address
+			['2001:0db8:0000:0000:0000:ff00:0042:8329'], // IPv6 address
+			['2001:db8:0:0:0:ff00:42:8329'], // IPv6 address
+			['2001:db8::ff00:42:8329'], // IPv6 address
+			['0000:0000:0000:0000:0000:0000:0000:0001'], // IPv6 address
+			['::1'], // IPv6 address
 
-		['///vynikat.vyrábět.poctivá'],
-		['///slang.ground.markets'],
+			['///vynikat.vyrábět.poctivá'],
+			['///slang.ground.markets'],
 
-		['   http://github.com'], // not trimmed
-		// @TODO this appears to be valid according parse_url() but should it?
-		//		['http://github.com   '], // not trimmed
+			['   http://github.com'], // not trimmed
+			// @TODO this appears to be valid according parse_url() but should it?
+			//		['http://github.com   '], // not trimmed
 		];
 	}
 
 	/**
 	 * @dataProvider isUrlFalseProvider
 	 */
-	public function testIsUrlFalse(string $url): void
+	public function testIsUrlFalse(?string $url, bool $allowIpaddress = false): void
 	{
-		$this->assertFalse(Strict::isUrl($url));
+		$this->assertFalse(Strict::isUrl($url, $allowIpaddress));
 	}
 }

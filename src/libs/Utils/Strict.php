@@ -145,24 +145,35 @@ class Strict
 	 * - requiring at least second-level domain ("palider.cz", "tomas.palider.cz", "foo.tomas.palider.cz" but not "cz")
 	 * - requiring http or https scheme
 	 * - not allowing IP address
-	 *
-	 * @param string|Nette\Http\UrlImmutable|Nette\Http\Url $input
 	 */
-	public static function isUrl($input): bool
+	public static function isUrl(
+		string|Nette\Http\UrlImmutable|Nette\Http\Url|null $input,
+		bool $allowIpAddress = false
+	): bool
 	{
+		if ($input === null) {
+			return false;
+		}
+
 		if (is_string($input)) {
+			if ($allowIpAddress && filter_var($input, FILTER_VALIDATE_IP) !== false) {
+				return true;
+			}
+
 			try {
 				$input = new Nette\Http\Url($input);
 			} catch (\Nette\InvalidArgumentException $exception) {
 				return false;
 			}
 		}
-		if ($input instanceof \Nette\Http\UrlImmutable || $input instanceof \Nette\Http\Url) {
-			return (
-				$input->getDomain(-1) && // filtering out IP adresses and first-level domains
-				in_array($input->getScheme(), ['https', 'http'], true) === true
-			);
+
+		if ($allowIpAddress && filter_var($input->getDomain(), FILTER_VALIDATE_IP) !== false) {
+			return true;
 		}
-		return false;
+
+		return (
+			$input->getDomain(-1) && // filtering out IP adresses and first-level domains
+			in_array($input->getScheme(), ['https', 'http'], true) === true
+		);
 	}
 }
