@@ -16,7 +16,6 @@ use App\Icons;
 use App\MiniCurl\Exceptions\TimeoutException;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Button\RefreshButton;
-use App\TelegramCustomWrapper\TelegramHelper as TG;
 use App\Utils\Coordinates;
 use App\Utils\CoordinatesInterface;
 use App\Utils\Formatter;
@@ -241,44 +240,16 @@ class BetterLocation implements CoordinatesInterface
 
 	public function generateMessage(BetterLocationMessageSettings $settings): string
 	{
-		$text = $this->prefixMessage;
-
-		// Generate screenshot link
-		$screenshotLink = $settings->getScreenshotLinkService()::getScreenshotLink($this->getLat(), $this->getLon());
-		if ($screenshotLink) {
-			$text .= sprintf(' <a href="%s" target="_blank">%s</a> ', $screenshotLink, Icons::MAP_SCREEN);
-		}
-
-		// Generate copyable text representing location
-		$copyableTexts = array_map(function ($service) {
-			return sprintf('<code>%s</code>', $service::getShareText($this->getLat(), $this->getLon()));
-		}, $settings->getTextServices());
-		$text .= ' ' . implode(' | ', $copyableTexts);
-
-		if ($this->getCoordinateSuffixMessage()) {
-			$text .= ' ' . $this->getCoordinateSuffixMessage();
-		}
-		$text .= TG::NL;
-
-		// Generate share links
-		$textLinks = [];
-		foreach ($settings->getLinkServices() as $service) {
-			$link = $this->pregeneratedLinks[$service] ?? $service::getShareLink($this->getLat(), $this->getLon());
-			if ($link !== null) {
-				$textLinks[] = sprintf('<a href="%s" target="_blank">%s</a>', $link, $service::getName(true));
-			}
-		}
-		$text .= join(' | ', $textLinks) . TG::NL;
-
-		if ($settings->showAddress() && $this->hasAddress()) {
-			$text .= $this->getAddress() . TG::NL;
-		}
-
-		foreach ($this->descriptions as $description) {
-			$text .= $description . TG::NL;
-		}
-
-		return $text . TG::NL;
+		$generator = new MessageGenerator();
+		return $generator->generate(
+			$this->coords,
+			$settings,
+			$this->prefixMessage,
+			$this->coordinateSuffixMessage,
+			$this->pregeneratedLinks,
+			$this->descriptions,
+			$this->address,
+		);
 	}
 
 	/** @return Types\Inline\Keyboard\Button[] */

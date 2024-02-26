@@ -61,7 +61,7 @@ final class BetterLocationTest extends TestCase
 
 	private function checkMessage(string $message): void
 	{
-		$expectedMessage = '<a href="https://www.waze.com/ul?ll=50.087451123456789%2C14.420671123456789">Waze</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087451%26x%3D14.420671%26source%3Dcoor%26id%3D14.420671%252C50.087451%26p%3D3%26l%3D0" target="_blank">🗺</a>  <code>50.087451,14.420671</code> | <code>u2fkbnhu9cxs</code>
+		$expectedMessage = '<a href="https://www.waze.com/ul?ll=50.087451123456789%2C14.420671123456789">Waze</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087451%26x%3D14.420671%26source%3Dcoor%26id%3D14.420671%252C50.087451%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>50.087451,14.420671</code> | <code>u2fkbnhu9cxs</code>
 <a href="https://better-location.palider.cz/50.087451,14.420671" target="_blank">BetterLocation</a> | <a href="https://www.waze.com/ul?ll=50.087451,14.420671" target="_blank">Waze</a>
 
 ';
