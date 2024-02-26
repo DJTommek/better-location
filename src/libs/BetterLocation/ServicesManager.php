@@ -20,6 +20,7 @@ use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeMinutesSecondsCompac
 use App\BetterLocation\Service\DrobnePamatkyCzService;
 use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\EStudankyEuService;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\FacebookService;
 use App\BetterLocation\Service\FevGamesService;
@@ -161,12 +162,12 @@ class ServicesManager
 			if ($service->isValid()) {
 				try {
 					$service->process();
+				} catch (NotSupportedException | InvalidLocationException) {
+					// Do nothing
 				} catch (\Throwable $exception) {
-					Debugger::log($exception, Debugger::DEBUG);
-				} catch (\Throwable $exception) {
+					Debugger::log($exception, Debugger::ERROR);
 					// @phpstan-ignore-next-line
 					assert(false, 'Investigate and fix this error: ' . $exception->getMessage());
-					Debugger::log($exception, Debugger::ERROR);
 				}
 				if (count($service->getCollection()) === 0) {
 					Debugger::log(sprintf('Input "%s" was validated for "%s", but it was unable to get any valid location.', $input, get_class($service)), ILogger::WARNING);
@@ -182,9 +183,11 @@ class ServicesManager
 	{
 		$collection = new BetterLocationCollection();
 		foreach ($this->services as $serviceClass) {
+			/** @var class-string<AbstractService> $serviceClass */
 			try {
-				$collection->add($serviceClass::findInText($text));
-			} catch (NotSupportedException $exception) {
+				$subCollection = $serviceClass::findInText($text);
+				$collection->add($subCollection);
+			} catch (NotSupportedException | InvalidLocationException) {
 				// Do nothing
 			} catch (\Throwable $exception) {
 				Debugger::log($exception, Debugger::DEBUG);
