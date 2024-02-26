@@ -31,6 +31,10 @@ parameters:
 			message: "#^Unreachable statement - code above always terminates.$#"
 			path: tests
 		-
+			# Ignore missing description of array in tests (typically for data providers)
+			message: "#^Method .+ return type has no value type specified in iterable type array\\.$#"
+			path: tests
+		-
 			# Variable $processed is ready for future use
 			message: "#^Property App\\\\BetterLocation\\\\Service\\\\AbstractService\\:\\:\\$processed is never read, only written\\.$#"
 			count: 1
