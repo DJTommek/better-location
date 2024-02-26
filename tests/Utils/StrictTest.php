@@ -188,54 +188,74 @@ final class StrictTest extends TestCase
 		Strict::boolval('f');
 	}
 
-	public function testIsUrlTrue(): void
+	public static function isUrlTrueProvider(): array
 	{
-		$this->assertFalse(Strict::isUrl('http://a'));
-		$this->assertTrue(Strict::isUrl('http://a.b'));
-		$this->assertTrue(Strict::isUrl('http://a.b.c'));
-		$this->assertTrue(Strict::isUrl('http://a.b.c.d'));
+		return [
+			['http://a.b'],
+			['http://a.b.c'],
+			['http://a.b.c.d'],
 
-		$this->assertTrue(Strict::isUrl('https://github.com/'));
-		$this->assertTrue(Strict::isUrl('https://github.com'));
-		$this->assertTrue(Strict::isUrl('http://github.com'));
-		$this->assertTrue(Strict::isUrl('http://github.com/'));
-		$this->assertTrue(Strict::isUrl('http://github.com/path'));
-		$this->assertTrue(Strict::isUrl('http://github.com/path with spaces'));
-		$this->assertTrue(Strict::isUrl('https://github.com/DJTommek/better-location'));
-		$this->assertTrue(Strict::isUrl('https://www.waze.com/ul?ll=50.087451,14.420671'));
-		$this->assertTrue(Strict::isUrl('https://www.google.cz/maps/place/50.087451,14.420671?q=50.087451,14.420671'));
-		$this->assertTrue(Strict::isUrl('https://pldr-gallery.redilap.cz/#/special-characters/'));
+			['https://github.com/'],
+			['https://github.com'],
+			['http://github.com'],
+			['http://github.com/'],
+			['http://github.com/path'],
+			['http://github.com/path with spaces'],
+			['https://github.com/DJTommek/better-location'],
+			['https://www.waze.com/ul?ll=50.087451,14.420671'],
+			['https://www.google.cz/maps/place/50.087451,14.420671?q=50.087451,14.420671'],
+			['https://pldr-gallery.redilap.cz/#/special-characters/'],
+		];
 	}
 
-	public function testIsUrlFalse(): void
+	/**
+	 * @dataProvider isUrlTrueProvider
+	 */
+	public function testIsUrlTrue(string $url): void
 	{
-		$this->assertFalse(Strict::isUrl(''));
-		$this->assertFalse(Strict::isUrl('/'));
-		$this->assertFalse(Strict::isUrl('random text'));
-		$this->assertFalse(Strict::isUrl('http://')); // missing domain
-		$this->assertFalse(Strict::isUrl('http://localhost')); // missing domain
-		$this->assertFalse(Strict::isUrl('github.com')); // missing scheme
-		$this->assertFalse(Strict::isUrl('//github.com')); // missing scheme
-		$this->assertFalse(Strict::isUrl('ftp://github.com/')); // invalid scheme
+		$this->assertTrue(Strict::isUrl($url));
+	}
 
-		$this->assertFalse(Strict::isUrl('http://192.168.1.1')); // ip address
-		$this->assertFalse(Strict::isUrl('http://192.168.1.1/')); // ip address
-		$this->assertFalse(Strict::isUrl('http://192.168.1.1/some path')); // ip address
-		$this->assertFalse(Strict::isUrl('http://localhost')); // missing domain
-		$this->assertFalse(Strict::isUrl('localhost')); // missing domain and scheme
-		$this->assertFalse(Strict::isUrl('192.168.1.1')); // IPv4 address
-		$this->assertFalse(Strict::isUrl('192.168.1.1/')); // IPv4 address
-		$this->assertFalse(Strict::isUrl('2001:0db8:0000:0000:0000:ff00:0042:8329')); // IPv6 address
-		$this->assertFalse(Strict::isUrl('2001:db8:0:0:0:ff00:42:8329')); // IPv6 address
-		$this->assertFalse(Strict::isUrl('2001:db8::ff00:42:8329')); // IPv6 address
-		$this->assertFalse(Strict::isUrl('0000:0000:0000:0000:0000:0000:0000:0001')); // IPv6 address
-		$this->assertFalse(Strict::isUrl('::1')); // IPv6 address
+	public static function isUrlFalseProvider(): array
+	{
+		return [
+		[''],
+		['/'],
+		['http://a'],
+		['random text'],
+		['http://'], // missing domain
+		['http://localhost'], // missing domain
+		['github.com'], // missing scheme
+		['//github.com'], // missing scheme
+		['ftp://github.com/'], // invalid scheme
 
-		$this->assertFalse(Strict::isUrl('///vynikat.vyrábět.poctivá'));
-		$this->assertFalse(Strict::isUrl('///slang.ground.markets'));
+		['http://192.168.1.1'], // ip address
+		['http://192.168.1.1/'], // ip address
+		['http://192.168.1.1/some path'], // ip address
+		['http://localhost'], // missing domain
+		['localhost'], // missing domain and scheme
+		['192.168.1.1'], // IPv4 address
+		['192.168.1.1/'], // IPv4 address
+		['2001:0db8:0000:0000:0000:ff00:0042:8329'], // IPv6 address
+		['2001:db8:0:0:0:ff00:42:8329'], // IPv6 address
+		['2001:db8::ff00:42:8329'], // IPv6 address
+		['0000:0000:0000:0000:0000:0000:0000:0001'], // IPv6 address
+		['::1'], // IPv6 address
 
-		$this->assertFalse(Strict::isUrl('   http://github.com')); // not trimmed
+		['///vynikat.vyrábět.poctivá'],
+		['///slang.ground.markets'],
+
+		['   http://github.com'], // not trimmed
 		// @TODO this appears to be valid according parse_url() but should it?
-//		$this->assertFalse(Strict::isUrl('http://github.com   ')); // not trimmed
+		//		['http://github.com   '], // not trimmed
+		];
+	}
+
+	/**
+	 * @dataProvider isUrlFalseProvider
+	 */
+	public function testIsUrlFalse(string $url): void
+	{
+		$this->assertFalse(Strict::isUrl($url));
 	}
 }
