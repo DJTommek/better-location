@@ -2,10 +2,13 @@
 
 namespace App\BetterLocation;
 
+use App\BingMaps\StaticMaps;
 use App\Config;
 use App\Factory;
 use App\Repository\StaticMapCacheRepository;
 use DJTommek\Coordinates\CoordinatesInterface;
+use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
 use Nette\Http\UrlImmutable;
 use Nette\Utils\FileSystem;
 
@@ -22,6 +25,7 @@ class StaticMapProxy
 	private string $privateUrl;
 	private string $cacheId;
 	private UrlImmutable $publicUrl;
+	private readonly \GuzzleHttp\Client $httpClient;
 
 	private function __construct()
 	{
@@ -30,6 +34,11 @@ class StaticMapProxy
 
 		$db = Factory::database();
 		$this->staticMapCacheRepository = new StaticMapCacheRepository($db);
+		$this->httpClient = new \GuzzleHttp\Client([
+			'base_uri' => StaticMaps::LINK,
+			'timeout' => 5,
+			'connection_timeout' => 5,
+		]);
 	}
 
 	/**
@@ -138,7 +147,12 @@ class StaticMapProxy
 
 	private function saveToCache(): void
 	{
-		FileSystem::write($this->cachePath(), file_get_contents($this->privateUrl()));
+		$requestUrl = $this->privateUrl();
+		$saveTo = $this->cachePath();
+		$options = [
+			RequestOptions::SINK => $saveTo,
+		];
+		$this->httpClient->get($requestUrl, $options);
 	}
 
 	public function cachePath(): string
