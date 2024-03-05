@@ -2,6 +2,7 @@
 
 namespace Tests\BetterLocation\Service;
 
+use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use PHPUnit\Framework\TestCase;
@@ -78,7 +79,7 @@ abstract class AbstractServiceTestCase extends TestCase
 		}
 	}
 
-	protected function assertLocation(string $input, float $expectedLat, float $expectedLon, ?string $expectedSourceType = null, float $delta = 0.000_001): void
+	protected function assertLocation(string $input, float $expectedLat, float $expectedLon, ?string $expectedSourceType = null, float $delta = 0.000_001): BetterLocation
 	{
 		$serviceName = $this->getServiceClass();
 		$service = new $serviceName($input);
@@ -94,6 +95,8 @@ abstract class AbstractServiceTestCase extends TestCase
 		$this->assertCoordsWithDelta($expectedLat, $expectedLon, $location, $delta);
 
 		$this->assertSame($expectedSourceType, $location->getSourceType());
+
+		return $location;
 	}
 
 	abstract public function testIsValid(): void;
