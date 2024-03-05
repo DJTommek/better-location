@@ -9,6 +9,7 @@ use App\BetterLocation\Service\BaladIrService;
 use App\BetterLocation\Service\Bannergress\BannergressService;
 use App\BetterLocation\Service\Bannergress\OpenBannersService;
 use App\BetterLocation\Service\BetterLocationService;
+use App\BetterLocation\Service\BookingService;
 use App\BetterLocation\Service\Coordinates\MGRSService;
 use App\BetterLocation\Service\Coordinates\USNGService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesSecondsService;
@@ -121,6 +122,7 @@ class ServicesManager
 		$this->services[OrganicMapsService::ID] = OrganicMapsService::class;
 		$this->services[WikipediaService::ID] = WikipediaService::class;
 		$this->services[AirbnbService::ID] = AirbnbService::class;
+		$this->services[BookingService::ID] = BookingService::class;
 		$this->services[DuckDuckGoService::ID] = DuckDuckGoService::class;
 		$this->services[AppleMapsService::ID] = AppleMapsService::class;
 		if (Config::isFoursquare()) {
