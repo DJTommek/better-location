@@ -142,10 +142,10 @@ final class WGS84DegreesServiceTest extends AbstractServiceTestCase
 
 	public function testValidCoordinatesWithoutHemisphereAndDegreeSign3(): void
 	{
-		$this->assertSame('50.636144,-14.337469', WGS84DegreesService::processStatic('50.636144°, 14.337469°-')->getFirst()->__toString());
-		$this->assertSame('50.636144,-14.337469', WGS84DegreesService::processStatic('50.636144 °, 14.337469 °-')->getFirst()->__toString());
-		$this->assertSame('50.636144,-14.337469', WGS84DegreesService::processStatic('50.636144° , 14.337469° -')->getFirst()->__toString());
-		$this->assertSame('50.636144,-14.337469', WGS84DegreesService::processStatic('50.636144 ° , 14.337469 ° -')->getFirst()->__toString());
+		$this->assertSame('50.636144,14.337469', WGS84DegreesService::processStatic('50.636144°, 14.337469°-')->getFirst()->__toString());
+		$this->assertSame('50.636144,14.337469', WGS84DegreesService::processStatic('50.636144 °, 14.337469 °-')->getFirst()->__toString());
+		$this->assertSame('50.636144,14.337469', WGS84DegreesService::processStatic('50.636144° , 14.337469° -')->getFirst()->__toString());
+		$this->assertSame('50.636144,14.337469', WGS84DegreesService::processStatic('50.636144 ° , 14.337469 ° -')->getFirst()->__toString());
 
 		$this->assertSame('50.636144,-14.337469', WGS84DegreesService::processStatic('°50.636144, -°14.337469')->getFirst()->__toString());
 		$this->assertSame('50.636144,-14.337469', WGS84DegreesService::processStatic('° 50.636144, - °14.337469')->getFirst()->__toString());
@@ -164,10 +164,10 @@ final class WGS84DegreesServiceTest extends AbstractServiceTestCase
 
 	public function testValidCoordinatesWithoutHemisphereAndDegreeSign4(): void
 	{
-		$this->assertSame('-50.636144,-14.337469', WGS84DegreesService::processStatic('50.636144°-, 14.337469°-')->getFirst()->__toString());
-		$this->assertSame('-50.636144,-14.337469', WGS84DegreesService::processStatic('50.636144 °-, 14.337469 °-')->getFirst()->__toString());
-		$this->assertSame('-50.636144,-14.337469', WGS84DegreesService::processStatic('50.636144° -, 14.337469° -')->getFirst()->__toString());
-		$this->assertSame('-50.636144,-14.337469', WGS84DegreesService::processStatic('50.636144 ° -, 14.337469 ° -')->getFirst()->__toString());
+		$this->assertSame('50.636144,14.337469', WGS84DegreesService::processStatic('50.636144°-, 14.337469°-')->getFirst()->__toString());
+		$this->assertSame('50.636144,14.337469', WGS84DegreesService::processStatic('50.636144 °-, 14.337469 °-')->getFirst()->__toString());
+		$this->assertSame('50.636144,14.337469', WGS84DegreesService::processStatic('50.636144° -, 14.337469° -')->getFirst()->__toString());
+		$this->assertSame('50.636144,14.337469', WGS84DegreesService::processStatic('50.636144 ° -, 14.337469 ° -')->getFirst()->__toString());
 
 		$this->assertSame('-50.636144,-14.337469', WGS84DegreesService::processStatic('-°50.636144, -°14.337469')->getFirst()->__toString());
 		$this->assertSame('-50.636144,-14.337469', WGS84DegreesService::processStatic('-° 50.636144, - °14.337469')->getFirst()->__toString());

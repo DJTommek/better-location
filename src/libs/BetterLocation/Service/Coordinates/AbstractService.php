@@ -60,6 +60,15 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 				throw new \InvalidArgumentException(sprintf('"%s" is invalid service class name', static::class));
 		}
 
+		// '50.087451-,13.420671' is nonsense, fix to '50.087451,13.420671'
+		if (trim($latHemisphere2) === '-') {
+			$latHemisphere2 = '';
+		}
+		// '50.087451,13.420671-' is nonsense, fix to '50.087451,13.420671'
+		if (trim($lonHemisphere2) === '-') {
+			$lonHemisphere2 = '';
+		}
+
 		// regex wrongly detected two hemisphere for first coordinate
 		if ($latHemisphere1 && $latHemisphere2 && !$lonHemisphere1 && !$lonHemisphere2) {
 			$lonHemisphere1 = $latHemisphere2;
