@@ -69,6 +69,12 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 			$lonHemisphere2 = '';
 		}
 
+		// '- 50.087451,13.420671' do not allow spaces between hyphen and coordinate
+		// @TODO do this also for longitude
+		if (trim($latHemisphere1) === '-' && preg_match('/^-\s+/', trim($input))) {
+			$latHemisphere1 = '';
+		}
+
 		// regex wrongly detected two hemisphere for first coordinate
 		if ($latHemisphere1 && $latHemisphere2 && !$lonHemisphere1 && !$lonHemisphere2) {
 			$lonHemisphere1 = $latHemisphere2;
