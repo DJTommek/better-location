@@ -86,11 +86,7 @@ class FileEvent extends Special
 			$this->sendAction();
 		}
 
-		$collection = $this->getCollection();
-		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
-		$processedCollection->process();
-
-		if ($collection->isEmpty()) {
+		if ($this->getCollection()->isEmpty()) {
 			$this->replyEmpty();
 			return;
 		}
