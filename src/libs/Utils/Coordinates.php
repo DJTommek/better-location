@@ -19,6 +19,9 @@ class Coordinates implements CoordinatesInterface, \JsonSerializable
 	public const EAST = 'E';
 	public const WEST = 'W';
 
+	public const HEMISPHERES_NS = [1 => self::NORTH, -1 => self::SOUTH];
+	public const HEMISPHERES_EW = [1 => self::EAST, -1 => self::WEST];
+
 	public const EARTH_RADIUS = 6_371_000; // in meters
 
 	private float $lat;
