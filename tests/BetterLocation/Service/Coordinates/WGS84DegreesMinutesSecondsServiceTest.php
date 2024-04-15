@@ -35,6 +35,17 @@ final class WGS84DegreesMinutesSecondsServiceTest extends TestCase
 //		$this->assertSame('50.093653,14.412417', WGS84DegreesMinutesSecondsService::parseCoords('50° 5\' 37.15" 14° 24\' 44.70"')->__toString()); // @TODO add this format
 
 		$this->assertSame('10.000000,118.833333', WGS84DegreesMinutesSecondsService::processStatic('N 10°0\'0" E 118°50\'0"')->getFirst()->__toString()); // coordinates from La Casa de Papel
+
+		// Coordinates formatted in exiftool output, eg 'exiftool photo.jpg -GPSPosition'
+		$expectedCoords = '50.736192,15.739292';
+		$this->assertSame($expectedCoords, WGS84DegreesMinutesSecondsService::processStatic('50 deg 44\' 10.29" N, 15 deg 44\' 21.45" E')->getFirst()->__toString());
+		$text = <<<TEXT
+exiftool 20190811_142950.jpg -GPSPosition
+GPS Position                    : 50 deg 44' 10.29" N, 15 deg 44' 21.45" E
+TEXT;
+		$this->assertSame($expectedCoords, WGS84DegreesMinutesSecondsService::findInText($text)->getFirst()->__toString());
+		$exiftoolOutput = file_get_contents(__DIR__ . '/fixtures/exiftool-output1.txt');
+		$this->assertSame($expectedCoords, WGS84DegreesMinutesSecondsService::findInText($exiftoolOutput)->getFirst()->__toString());
 	}
 
 	/**

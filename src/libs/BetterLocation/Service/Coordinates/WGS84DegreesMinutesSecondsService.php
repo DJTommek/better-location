@@ -28,6 +28,10 @@ final class WGS84DegreesMinutesSecondsService extends WGS84AbstractService
 
 	protected static function getReCoords(): string
 	{
-		return '([0-9]{1,3})[° ]{1,3}([0-9]{1,2})[\' ]{1,3}([0-9]{1,3}(?:\.[0-9]{1,20})?)[\" ]{0,2}';
+		$degSymbol = '(?: ?° ?)';
+		$degText = '(?: ?deg ?)';
+		$deg = sprintf('(?:(?:%s)|(?:%s))', $degSymbol, $degText);
+
+		return '([0-9]{1,3})' . $deg . '([0-9]{1,2})[\' ]{1,3}([0-9]{1,3}(?:\.[0-9]{1,20})?)[\" ]{0,2}';
 	}
 }

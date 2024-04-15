@@ -1,0 +1,89 @@
+ExifTool Version Number         : 12.82
+File Name                       : 20190811_142950.jpg
+Directory                       : .
+File Size                       : 4.9 MB
+File Modification Date/Time     : 2020:02:05 20:55:27+01:00
+File Access Date/Time           : 2024:04:15 21:44:02+02:00
+File Creation Date/Time         : 2023:09:20 19:33:38+02:00
+File Permissions                : -rw-rw-rw-
+File Type                       : JPEG
+File Type Extension             : jpg
+MIME Type                       : image/jpeg
+Exif Byte Order                 : Big-endian (Motorola, MM)
+Make                            : OnePlus
+Orientation                     : Horizontal (normal)
+Modify Date                     : 2019:08:11 14:29:50
+GPS Latitude Ref                : North
+GPS Altitude Ref                : Above Sea Level
+GPS Longitude Ref               : East
+GPS Time Stamp                  : 12:29:50
+GPS Date Stamp                  : 2019:08:11
+Y Resolution                    : 72
+X Resolution                    : 72
+Camera Model Name               : ONEPLUS A5010
+Software                        : OnePlus5T-user 8.1.0 OPM1.171019.011 1811051726 release-keys
+Y Cb Cr Positioning             : Centered
+Exif Version                    : 0220
+Aperture Value                  : 1.7
+Scene Type                      : Directly photographed
+Exposure Program                : Not Defined
+Color Space                     : sRGB
+Exif Image Height               : 3456
+Brightness Value                : 6.15
+Date/Time Original              : 2019:08:11 14:29:50
+Flashpix Version                : 0100
+Sub Sec Time Original           : 801501
+White Balance                   : Auto
+Interoperability Index          : R98 - DCF basic file (sRGB)
+Exposure Mode                   : Auto
+Exposure Time                   : 1/1692
+Flash                           : Off, Did not fire
+Sub Sec Time                    : 801501
+F Number                        : 1.7
+ISO                             : 200
+Exif Image Width                : 4608
+Components Configuration        : Y, Cb, Cr, -
+Focal Length In 35mm Format     : 24 mm
+Sub Sec Time Digitized          : 801501
+Create Date                     : 2019:08:11 14:29:50
+Shutter Speed Value             : 1/1691
+Metering Mode                   : Unknown
+Focal Length                    : 4.1 mm
+Scene Capture Type              : Standard
+Light Source                    : Unknown
+Sensing Method                  : One-chip color area
+Resolution Unit                 : inches
+Compression                     : JPEG (old-style)
+Thumbnail Offset                : 1302
+Thumbnail Length                : 15138
+XMP Toolkit                     : Adobe XMP Core 5.1.0-jc003
+Capture Mode                    : Photo
+Scene                           : AutoHDR
+Is HDR Active                   : False
+Is Night Mode Active            : False
+Lens Facing                     : Back
+Image Width                     : 4608
+Image Height                    : 3456
+Encoding Process                : Baseline DCT, Huffman coding
+Bits Per Sample                 : 8
+Color Components                : 3
+Y Cb Cr Sub Sampling            : YCbCr4:2:0 (2 2)
+Aperture                        : 1.7
+Image Size                      : 4608x3456
+Megapixels                      : 15.9
+Scale Factor To 35 mm Equivalent: 5.8
+Shutter Speed                   : 1/1692
+Create Date                     : 2019:08:11 14:29:50.801501
+Date/Time Original              : 2019:08:11 14:29:50.801501
+Modify Date                     : 2019:08:11 14:29:50.801501
+Thumbnail Image                 : (Binary data 15138 bytes, use -b option to extract)
+GPS Altitude                    : 1647.3 m Above Sea Level
+GPS Date/Time                   : 2019:08:11 12:29:50Z
+GPS Latitude                    : 50 deg 44' 10.29" N
+GPS Longitude                   : 15 deg 44' 21.45" E
+Circle Of Confusion             : 0.005 mm
+Field Of View                   : 73.7 deg
+Focal Length                    : 4.1 mm (35 mm equivalent: 24.0 mm)
+GPS Position                    : 50 deg 44' 10.29" N, 15 deg 44' 21.45" E
+Hyperfocal Distance             : 1.93 m
+Light Value                     : 11.3
