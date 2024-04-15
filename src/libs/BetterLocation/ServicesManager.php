@@ -87,73 +87,90 @@ class ServicesManager
 	public const TAG_GENERATE_TEXT_PAID = 23;
 
 	/** @var array<int,class-string<AbstractService>> */
-	private array $services = [];
+	private readonly array $services;
 
 	public function __construct()
 	{
-		$this->services[BetterLocationService::ID] = BetterLocationService::class;
-		$this->services[WGS84DegreesService::ID] = WGS84DegreesService::class;
-		$this->services[WGS84DegreeCompactService::ID] = WGS84DegreeCompactService::class;
-		$this->services[WGS84DegreesMinutesService::ID] = WGS84DegreesMinutesService::class;
-		$this->services[WGS84DegreeMinutesCompactService::ID] = WGS84DegreeMinutesCompactService::class;
-		$this->services[WGS84DegreesMinutesSecondsService::ID] = WGS84DegreesMinutesSecondsService::class;
-		$this->services[WGS84DegreeMinutesSecondsCompactService::ID] = WGS84DegreeMinutesSecondsCompactService::class;
-		$this->services[MGRSService::ID] = MGRSService::class;
-		$this->services[USNGService::ID] = USNGService::class;
-		$this->services[GoogleMapsService::ID] = GoogleMapsService::class;
-		$this->services[GoogleEarthService::ID] = GoogleEarthService::class;
-		$this->services[GoogleMapsStreetViewGeneratorService::ID] = GoogleMapsStreetViewGeneratorService::class;
-		$this->services[WazeService::ID] = WazeService::class;
-		$this->services[SygicService::ID] = SygicService::class;
-		$this->services[HereWeGoService::ID] = HereWeGoService::class;
-		$this->services[OpenStreetMapService::ID] = OpenStreetMapService::class;
-		$this->services[NeshanOrgService::ID] = NeshanOrgService::class;
-		$this->services[BaladIrService::ID] = BaladIrService::class;
-		$this->services[FacebookService::ID] = FacebookService::class;
-		$this->services[MapyCzService::ID] = MapyCzService::class;
-		$this->services[MapyCzPanoramaGeneratorService::ID] = MapyCzPanoramaGeneratorService::class;
-		$this->services[FirmyCzService::ID] = FirmyCzService::class;
-		$this->services[IngressIntelService::ID] = IngressIntelService::class;
-		$this->services[IngressPrimeService::ID] = IngressPrimeService::class;
-		$this->services[OsmAndService::ID] = OsmAndService::class;
-		$this->services[DrobnePamatkyCzService::ID] = DrobnePamatkyCzService::class;
-		$this->services[OpenLocationCodeService::ID] = OpenLocationCodeService::class;
-		$this->services[GeohashService::ID] = GeohashService::class;
-		$this->services[OrganicMapsService::ID] = OrganicMapsService::class;
-		$this->services[WikipediaService::ID] = WikipediaService::class;
-		$this->services[AirbnbService::ID] = AirbnbService::class;
-		$this->services[BookingService::ID] = BookingService::class;
-		$this->services[DuckDuckGoService::ID] = DuckDuckGoService::class;
-		$this->services[AppleMapsService::ID] = AppleMapsService::class;
+		$nonIndexedServices = $this->getNonIndexedServices();
+		$indexedServices = [];
+		foreach ($nonIndexedServices as $nonIndexedService) {
+			$indexedServices[$nonIndexedService::ID] = $nonIndexedService;
+		}
+		$this->services = $indexedServices;
+	}
+
+	/**
+	 * @return list<class-string<AbstractService>>
+	 */
+	public function getNonIndexedServices(): array
+	{
+		$services = [];
+
+		$services[] = BetterLocationService::class;
+		$services[] = WGS84DegreesService::class;
+		$services[] = WGS84DegreeCompactService::class;
+		$services[] = WGS84DegreesMinutesService::class;
+		$services[] = WGS84DegreeMinutesCompactService::class;
+		$services[] = WGS84DegreesMinutesSecondsService::class;
+		$services[] = WGS84DegreeMinutesSecondsCompactService::class;
+		$services[] = MGRSService::class;
+		$services[] = USNGService::class;
+		$services[] = GoogleMapsService::class;
+		$services[] = GoogleEarthService::class;
+		$services[] = GoogleMapsStreetViewGeneratorService::class;
+		$services[] = WazeService::class;
+		$services[] = SygicService::class;
+		$services[] = HereWeGoService::class;
+		$services[] = OpenStreetMapService::class;
+		$services[] = NeshanOrgService::class;
+		$services[] = BaladIrService::class;
+		$services[] = FacebookService::class;
+		$services[] = MapyCzService::class;
+		$services[] = MapyCzPanoramaGeneratorService::class;
+		$services[] = FirmyCzService::class;
+		$services[] = IngressIntelService::class;
+		$services[] = IngressPrimeService::class;
+		$services[] = OsmAndService::class;
+		$services[] = DrobnePamatkyCzService::class;
+		$services[] = OpenLocationCodeService::class;
+		$services[] = GeohashService::class;
+		$services[] = OrganicMapsService::class;
+		$services[] = WikipediaService::class;
+		$services[] = AirbnbService::class;
+		$services[] = BookingService::class;
+		$services[] = DuckDuckGoService::class;
+		$services[] = AppleMapsService::class;
 		if (Config::isFoursquare()) {
-			$this->services[FoursquareService::ID] = FoursquareService::class;
+			$services[] = FoursquareService::class;
 		}
 //		if (Config::isIngressMosaic()) {
-//			$this->services[IngressMosaicService::ID] = IngressMosaicService::class;
+//			$services[] = IngressMosaicService::class;
 //		}
-		$this->services[BannergressService::ID] = BannergressService::class;
-		$this->services[OpenBannersService::ID] = OpenBannersService::class;
+		$services[] = BannergressService::class;
+		$services[] = OpenBannersService::class;
 		if (Config::isGeocaching()) {
-			$this->services[GeocachingService::ID] = GeocachingService::class;
+			$services[] = GeocachingService::class;
 		}
-		$this->services[WaymarkingService::ID] = WaymarkingService::class;
+		$services[] = WaymarkingService::class;
 		if (Config::isW3W()) {
-			$this->services[WhatThreeWordService::ID] = WhatThreeWordService::class;
+			$services[] = WhatThreeWordService::class;
 		}
 		if (Config::isGlympse()) {
-			$this->services[GlympseService::ID] = GlympseService::class;
+			$services[] = GlympseService::class;
 		}
-		$this->services[RopikyNetService::ID] = RopikyNetService::class;
-		$this->services[ZanikleObceCzService::ID] = ZanikleObceCzService::class;
-		$this->services[ZniceneKostelyCzService::ID] = ZniceneKostelyCzService::class;
-		$this->services[SumavaCzService::ID] = SumavaCzService::class;
-		$this->services[FevGamesService::ID] = FevGamesService::class;
-		$this->services[EStudankyEuService::ID] = EStudankyEuService::class;
-		$this->services[HradyCzService::ID] = HradyCzService::class;
-		$this->services[VojenskoCzService::ID] = VojenskoCzService::class;
-		$this->services[PrazdneDomyCzService::ID] = PrazdneDomyCzService::class;
-		$this->services[KudyZNudyCzService::ID] = KudyZNudyCzService::class;
-		$this->services[VodniMlynyCzService::ID] = VodniMlynyCzService::class;
+		$services[] = RopikyNetService::class;
+		$services[] = ZanikleObceCzService::class;
+		$services[] = ZniceneKostelyCzService::class;
+		$services[] = SumavaCzService::class;
+		$services[] = FevGamesService::class;
+		$services[] = EStudankyEuService::class;
+		$services[] = HradyCzService::class;
+		$services[] = VojenskoCzService::class;
+		$services[] = PrazdneDomyCzService::class;
+		$services[] = KudyZNudyCzService::class;
+		$services[] = VodniMlynyCzService::class;
+
+		return $services;
 	}
 
 	public function iterate(string $input): BetterLocationCollection

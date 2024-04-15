@@ -18,8 +18,7 @@ final class ServiceManagerTest extends TestCase
 	 */
 	public function testRequiredDataInServices(): void
 	{
-		$ids = [];
-		foreach(self::$manager->getServices() as $service) {
+		foreach (self::$manager->getServices() as $service) {
 			$reflection = new \ReflectionClass($service);
 			$constantName = 'ID';
 			$this->assertTrue($reflection->hasConstant('NAME'), sprintf('Service class "%s" does not have required constant "NAME"', $service));
@@ -27,9 +26,17 @@ final class ServiceManagerTest extends TestCase
 			$id = $reflection->getConstant($constantName);
 			$this->assertIsInt($id, sprintf('Service class "%s" has invalid constant %s "%s", must be int.', $service, $constantName, $id));
 			$this->assertGreaterThan(0, $id, sprintf('Service class "%s" has invalid constant %s "%s", must be positive int.', $service, $constantName, $id));
-			$duplicatedServiceName = $ids[$id] ?? null;
-			$this->assertNull($duplicatedServiceName, sprintf('ID %d is assigned to multiple services: "%s" and "%s"', $id, $duplicatedServiceName, $service));
-			$ids[$id] = $service;
+		}
+	}
+
+	public function testUniqueIds(): void
+	{
+		$services = self::$manager->getNonIndexedServices();
+		$ids = [];
+		foreach ($services as $service) {
+			$serviceId = $service::ID;
+			$this->assertFalse(in_array($serviceId, $ids, true), sprintf('Key %s is registered for more than one service.', $serviceId));
+			$ids[] = $serviceId;
 		}
 	}
 }
