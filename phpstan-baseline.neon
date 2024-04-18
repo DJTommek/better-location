@@ -721,11 +721,6 @@ parameters:
 			path: src/libs/Utils/Utils.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Utils\\:\\:exifReadData\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/Utils/Utils.php
-
-		-
 			message: "#^Method App\\\\Utils\\\\Utils\\:\\:getClassConstants\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/Utils/Utils.php

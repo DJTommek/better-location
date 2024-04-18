@@ -208,28 +208,6 @@ class Utils
 	}
 
 	/**
-	 * Read the EXIF headers from and image file. Works similarly as native exif_read_data()
-	 * but throws exception if notice or warning occure.
-	 *
-	 * @param string $input Path or URL
-	 *
-	 * @throws \RuntimeException No file, unsupported file, ...
-	 * @see https://www.php.net/manual/en/function.exif-read-data.php
-	 */
-	public static function exifReadData(string $input): array
-	{
-		$result = @\exif_read_data($input); // @ is escalated to exception
-		if ($result === false) {
-			$lastError = error_get_last();
-			throw new \RuntimeException(sprintf('Unable to read exif data: "%s"',
-				$lastError['message'] ?? 'unknown error'),
-			);
-		} else {
-			return $result;
-		}
-	}
-
-	/**
 	 * Recalculate all values in array to fit between provided minimum and maximum while keeping ratio.
 	 * See tests for example usages.
 	 *

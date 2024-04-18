@@ -9,6 +9,8 @@ use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\MapyCzService;
 use App\Config;
+use App\Exif\Exif;
+use App\Exif\ExifException;
 use App\Factory;
 use App\Geonames\GeonamesApiException;
 use App\Geonames\Types\TimezoneType;
@@ -20,7 +22,6 @@ use App\Utils\Coordinates;
 use App\Utils\CoordinatesInterface;
 use App\Utils\Formatter;
 use App\Utils\Strict;
-use App\Utils\Utils;
 use maxh\Nominatim\Exceptions\NominatimException;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
@@ -202,40 +203,37 @@ class BetterLocation implements CoordinatesInterface
 
 	/**
 	 * @param string|resource $input Path or URL link to file or resource (see https://php.net/manual/en/function.exif-read-data.php)
-	 * @return BetterLocation|null
+	 * @return self|null
 	 * @throws InvalidLocationException
 	 */
-	public static function fromExif($input): ?BetterLocation
+	public static function fromExif($input): ?self
 	{
 		if (is_string($input) === false && is_resource($input) === false) {
 			throw new \InvalidArgumentException('Input must be string or resource.');
 		}
 		try {
-			$exif = Utils::exifReadData($input);
-		} catch (\RuntimeException $exception) {
+			$exif = new Exif($input);
+		} catch (ExifException $exception) {
 			if (str_contains($exception->getMessage(), 'File not supported')) {
 				return null; // Do not log as error
 			}
 			Debugger::log($exception, Debugger::WARNING);
 			return null;
 		}
-		if (
-			isset($exif['GPSLatitude']) &&
-			isset($exif['GPSLongitude']) &&
-			isset($exif['GPSLatitudeRef']) &&
-			isset($exif['GPSLongitudeRef'])
-		) {
-			$betterLocationExif = new BetterLocation(
-				json_encode([$exif['GPSLatitude'], $exif['GPSLatitudeRef'], $exif['GPSLongitude'], $exif['GPSLongitudeRef']]),
-				Coordinates::exifToDecimal($exif['GPSLatitude'], $exif['GPSLatitudeRef']),
-				Coordinates::exifToDecimal($exif['GPSLongitude'], $exif['GPSLongitudeRef']),
-				WGS84DegreesService::class,
-			);
-			$betterLocationExif->setPrefixMessage('EXIF');
-			return $betterLocationExif;
-		} else {
+
+		$coords = $exif->getCoordinates();
+		if ($coords === null) {
 			return null;
 		}
+
+		$betterLocationExif = new BetterLocation(
+			'EXIF ' . $coords->key(),
+			$coords->getLat(),
+			$coords->getLon(),
+			WGS84DegreesService::class,
+		);
+		$betterLocationExif->setPrefixMessage('EXIF');
+		return $betterLocationExif;
 	}
 
 	public function generateMessage(BetterLocationMessageSettings $settings): string
