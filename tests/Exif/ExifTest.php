@@ -88,11 +88,23 @@ final class ExifTest extends TestCase
 	): void {
 		$exif = new Exif($inputPath);
 
+		$this->assertNotSame($exif->getAll(), []);
+
 		if ($expectedJsonDataPath !== null) {
-			$this->assertJsonStringEqualsJsonFile($expectedJsonDataPath, json_encode($exif));
+
+			// Ignore FileDateTime which is not real EXIF information but rather information from filesystem.
+			$realJson = (object)$exif->getAll();
+			$expectedJson = json_decode(file_get_contents($expectedJsonDataPath));
+
+			unset($realJson->FileDateTime);
+			unset($expectedJson->FileDateTime);
+
+			$this->assertJsonStringEqualsJsonString(
+				json_encode($expectedJson),
+				json_encode($realJson),
+			);
 		}
 
-		$this->assertNotSame($exif->getAll(), []);
 
 		if ($expectedCoordinates === null) {
 			$this->assertFalse($exif->hasCoordinates());
