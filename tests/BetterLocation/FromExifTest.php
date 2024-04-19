@@ -12,29 +12,51 @@ final class FromExifTest extends TestCase
 {
 	/**
 	 * Images from public image gallery https://github.com/DJTommek/pldr-gallery
-	 *
-	 * @noinspection PhpUnhandledExceptionInspection
 	 */
-	public function testFromURLPldrGallery(): void
+	public static function urlPldrGalleryProvider(): array
 	{
 		// file as image from https://pldr-gallery.redilap.cz/#/map+from+EXIF/20190811_122938.jpg
-		// uncopressed (default parameter)
-		$this->assertSame('50.695965,15.737657', BetterLocation::fromExif('https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn')->__toString());
-		// uncompressed (forced)
-		$this->assertSame('50.695965,15.737657', BetterLocation::fromExif('https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn&compress=false')->__toString());
-		// compressed (forced)
-		$this->assertSame('50.695965,15.737657', BetterLocation::fromExif('https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn&compress=true')->__toString());
-		// uncompressed (via download)
-		$this->assertSame('50.695965,15.737657', BetterLocation::fromExif('https://pldr-gallery.redilap.cz/api/download?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn')->__toString());
+		return [
+			'Uncopressed (default parameter)' => ['50.695965,15.737657', 'https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn'],
+			'Uncompressed (forced)' => ['50.695965,15.737657', 'https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn&compress=false'],
+			'Compressed (forced)' => ['50.695965,15.737657', 'https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn&compress=true'],
+			'Uncompressed (via download)' => ['50.695965,15.737657', 'https://pldr-gallery.redilap.cz/api/download?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn'],
+		];
 	}
 
 	/** Images from Github repository Exif Samples: https://github.com/ianare/exif-samples/ */
-	public function testFromURLGithub(): void
+	public static function urlGithubProvider(): array
 	{
-		$this->assertSame('43.467082,11.884538', BetterLocation::fromExif('https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/gps/DSCN0021.jpg')->__toString());
-		$this->assertSame('43.464455,11.881478', BetterLocation::fromExif('https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/gps/DSCN0042.jpg')->__toString());
-		// No location available
-		$this->assertNull(BetterLocation::fromExif('https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/hdr/canon_hdr_YES.jpg'));
+		return [
+			'DSCN0021.jpg' => ['43.467082,11.884538', 'https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/gps/DSCN0021.jpg'],
+			'DSCN0042.jpg' => ['43.464455,11.881478', 'https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/gps/DSCN0042.jpg'],
+			'No location' => [null, 'https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/hdr/canon_hdr_YES.jpg'],
+		];
+	}
+
+	public static function urlInvalidProvider(): array
+	{
+		return [
+			'URL does not exists' => [null, 'https://some-invalid.url'],
+			'Url exists but it is not image' => [null, 'https://tomas.palider.cz/'],
+		];
+	}
+
+	/**
+	 * @dataProvider urlPldrGalleryProvider
+	 * @dataProvider urlGithubProvider
+	 * @dataProvider urlInvalidProvider
+	 */
+	public function testBasic(?string $expectedCoordsKey, string $url): void
+	{
+		$location = BetterLocation::fromExif($url);
+		if ($expectedCoordsKey === null) {
+			$this->assertNull($location);
+			return;
+		}
+
+		$coords = $location->getCoordinates();
+		$this->assertSame($expectedCoordsKey, (string)$coords);
 	}
 
 	/**
@@ -51,11 +73,4 @@ final class FromExifTest extends TestCase
 		// no EXIF data
 		$this->assertNull(BetterLocation::fromExif('https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Praga_0003.JPG/800px-Praga_0003.JPG')); // https://cs.wikipedia.org/wiki/Praha#/media/Soubor:Praga_0003.JPG
 	}
-
-	/** @noinspection PhpUnhandledExceptionInspection */
-	public function testFromURLInvalid(): void
-	{
-		$this->assertNull(BetterLocation::fromExif('https://some-invalid.url'));
-	}
-
 }
