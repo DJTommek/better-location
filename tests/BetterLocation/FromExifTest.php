@@ -42,7 +42,17 @@ final class FromExifTest extends TestCase
 		];
 	}
 
+	public static function fileValidProvider(): array
+	{
+		return [
+			'DSCN0010.jpg' => ['43.467448,11.885127', __DIR__ . '/../Exif/fixtures/files/DSCN0010.jpg'],
+			'gps-including-accuracy-good-local.jpg' => ['28.000428,-82.449653', __DIR__ . '/../Exif/fixtures/files/gps-including-accuracy-good-local.jpg'],
+			'pixel-with-gps.jpg' => ['50.087451,14.420671', __DIR__ . '/../Exif/fixtures/files/pixel-with-gps.jpg'],
+		];
+	}
+
 	/**
+	 * @dataProvider fileValidProvider
 	 * @dataProvider urlPldrGalleryProvider
 	 * @dataProvider urlGithubProvider
 	 * @dataProvider urlInvalidProvider
