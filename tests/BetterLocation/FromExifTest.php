@@ -8,9 +8,6 @@ use App\Icons;
 use App\Utils\Formatter;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group request
- */
 final class FromExifTest extends TestCase
 {
 	/**
@@ -55,14 +52,27 @@ final class FromExifTest extends TestCase
 	}
 
 	/**
-	 * @dataProvider fileValidProvider
+	 * @group request
 	 * @dataProvider urlPldrGalleryProvider
 	 * @dataProvider urlGithubProvider
 	 * @dataProvider urlInvalidProvider
 	 */
-	public function testBasic(?string $expectedCoordsKey, ?float $expectedPrecision, string $url): void
+	public function testBasicUrl(?string $expectedCoordsKey, ?float $expectedPrecision, string $url): void
 	{
-		$location = BetterLocation::fromExif($url);
+		$this->testBasic($expectedCoordsKey, $expectedPrecision, $url);
+	}
+
+	/**
+	 * @dataProvider fileValidProvider
+	 */
+	public function testBasicFile(?string $expectedCoordsKey, ?float $expectedPrecision, string $url): void
+	{
+		$this->testBasic($expectedCoordsKey, $expectedPrecision, $url);
+	}
+
+	private function testBasic(?string $expectedCoordsKey, ?float $expectedPrecision, string $input): void
+	{
+		$location = BetterLocation::fromExif($input);
 		if ($expectedCoordsKey === null) {
 			$this->assertNull($location);
 			return;
@@ -87,8 +97,6 @@ final class FromExifTest extends TestCase
 
 	/**
 	 * Example images from https://wikipedia.org/
-	 *
-	 * @noinspection PhpUnhandledExceptionInspection
 	 */
 	public function testFromURLWikipedia(): void
 	{

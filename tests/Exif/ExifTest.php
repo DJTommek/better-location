@@ -10,13 +10,13 @@ use PHPUnit\Framework\TestCase;
 
 final class ExifTest extends TestCase
 {
-	public static function filesValidProvider(): \Generator
+	public static function validFilesProvider(): \Generator
 	{
 		$data = [
 			['DSCN0010', new CoordinatesImmutable(43.46744833333334, 11.885126666663888), null],
 			['gps-including-accuracy-good-local', new CoordinatesImmutable(28.000427777777777, -82.44965277777779), 4.7388521666142065],
 			['fujifilm-no-gps', null, null],
-			['pixel-with-gps', new CoordinatesImmutable(50.087451,14.420670999999999), 1234.5670103092784],
+			['pixel-with-gps', new CoordinatesImmutable(50.087451, 14.420670999999999), 1234.5670103092784],
 		];
 
 		foreach ($data as $item) {
@@ -33,18 +33,14 @@ final class ExifTest extends TestCase
 		}
 	}
 
-	public static function invalidProvider(): array
+	public static function invalidFilesProvider(): array
 	{
 		return [
 			['/some/non/existin/path.jpg'],
-			['https://some-invalid.url'],
 		];
 	}
 
-	/**
-	 * @group request
-	 */
-	public static function urlValidProvider(): \Generator
+	public static function validUrlsProvider(): \Generator
 	{
 		$data = [
 			// Images from public image gallery https://github.com/DJTommek/pldr-gallery
@@ -56,7 +52,7 @@ final class ExifTest extends TestCase
 			],
 			[
 				'DSCN0021',
-				new CoordinatesImmutable(43.467081666663894, 11.884538333330555 ),
+				new CoordinatesImmutable(43.467081666663894, 11.884538333330555),
 				null,
 				'https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/gps/DSCN0021.jpg',
 			],
@@ -93,11 +89,40 @@ final class ExifTest extends TestCase
 		}
 	}
 
+	public static function invalidUrlsProvider(): array
+	{
+		return [
+			'URL does not exists' => ['https://some-invalid.url'],
+			'Url exists but it is not image' => ['https://tomas.palider.cz/'],
+		];
+	}
+
 	/**
-	 * @dataProvider filesValidProvider
-	 * @dataProvider urlValidProvider
+	 * @group request
+	 * @dataProvider validUrlsProvider
 	 */
-	public function testValid(
+	public function testValidUrl(
+		?string $expectedJsonDataPath,
+		?CoordinatesInterface $expectedCoordinates,
+		?float $expectedCoordinatesPrecision,
+		string $inputPath,
+	): void {
+		$this->innerTestValid($expectedJsonDataPath, $expectedCoordinates, $expectedCoordinatesPrecision, $inputPath);
+	}
+
+	/**
+	 * @dataProvider validFilesProvider
+	 */
+	public function testValidFile(
+		?string $expectedJsonDataPath,
+		?CoordinatesInterface $expectedCoordinates,
+		?float $expectedCoordinatesPrecision,
+		string $inputPath,
+	): void {
+		$this->innerTestValid($expectedJsonDataPath, $expectedCoordinates, $expectedCoordinatesPrecision, $inputPath);
+	}
+
+	private function innerTestValid(
 		?string $expectedJsonDataPath,
 		?CoordinatesInterface $expectedCoordinates,
 		?float $expectedCoordinatesPrecision,
@@ -137,12 +162,21 @@ final class ExifTest extends TestCase
 	}
 
 	/**
-	 * @dataProvider invalidProvider
+	 * @group request
+	 * @dataProvider invalidUrlsProvider
 	 */
-	public function testInvalid(
-		string $invalidInput,
-	): void {
+	public function testInvalidUrls(string $invalidInput): void
+	{
 		$this->expectException(ExifException::class);
-		$exif = new Exif($invalidInput);
+		new Exif($invalidInput);
+	}
+
+	/**
+	 * @dataProvider invalidFilesProvider
+	 */
+	public function testInvalidFiles(string $invalidInput): void
+	{
+		$this->expectException(ExifException::class);
+		new Exif($invalidInput);
 	}
 }
