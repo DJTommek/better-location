@@ -1,0 +1,37 @@
+{
+	"FileName": "pixel-with-gps.jpg",
+	"FileDateTime": 1713535506,
+	"FileSize": 773,
+	"FileType": 2,
+	"MimeType": "image\/jpeg",
+	"SectionsFound": "ANY_TAG, IFD0, COMMENT, GPS",
+	"COMPUTED": {
+		"html": "width=\"1\" height=\"1\"",
+		"Height": 1,
+		"Width": 1,
+		"IsColor": 1,
+		"ByteOrderMotorola": 1
+	},
+	"XResolution": "300\/1",
+	"YResolution": "300\/1",
+	"ResolutionUnit": 2,
+	"YCbCrPositioning": 1,
+	"GPS_IFD_Pointer": 90,
+	"COMMENT": [
+		"Created with GIMP"
+	],
+	"GPSVersion": "\u0002\u0003\u0000\u0000",
+	"GPSLatitudeRef": "N",
+	"GPSLatitude": [
+		"50\/1",
+		"5\/1",
+		"37059\/2500"
+	],
+	"GPSLongitudeRef": "E",
+	"GPSLongitude": [
+		"14\/1",
+		"25\/1",
+		"36039\/2500"
+	],
+	"UndefinedTag:0x001F": "119753\/97"
+}

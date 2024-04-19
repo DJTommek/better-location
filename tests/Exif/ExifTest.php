@@ -16,6 +16,7 @@ final class ExifTest extends TestCase
 			['DSCN0010', new CoordinatesImmutable(43.46744833333334, 11.885126666663888), null],
 			['gps-including-accuracy-good-local', new CoordinatesImmutable(28.000427777777777, -82.44965277777779), 4.7388521666142065],
 			['fujifilm-no-gps', null, null],
+			['pixel-with-gps', new CoordinatesImmutable(50.087451,14.420670999999999), 1234.5670103092784],
 		];
 
 		foreach ($data as $item) {
