@@ -66,30 +66,30 @@ final class ExifUtilsTest extends TestCase
 	}
 
 
-	public function testGpsSubIFDToFloat(): void
+	public function testFloatConvert(): void
 	{
 		// values from oneplus5t-snezka1
-		$this->assertSame(50.0, ExifUtils::gpsSubIFDToFloat('50/1'));
-		$this->assertSame(41.0, ExifUtils::gpsSubIFDToFloat('41/1'));
-		$this->assertSame(54.0644, ExifUtils::gpsSubIFDToFloat('540644/10000'));
-		$this->assertSame(15.0, ExifUtils::gpsSubIFDToFloat('15/1'));
-		$this->assertSame(44.0, ExifUtils::gpsSubIFDToFloat('44/1'));
-		$this->assertSame(12.2187, ExifUtils::gpsSubIFDToFloat('122187/10000'));
+		$this->assertSame(50.0, ExifUtils::floatConvert('50/1'));
+		$this->assertSame(41.0, ExifUtils::floatConvert('41/1'));
+		$this->assertSame(54.0644, ExifUtils::floatConvert('540644/10000'));
+		$this->assertSame(15.0, ExifUtils::floatConvert('15/1'));
+		$this->assertSame(44.0, ExifUtils::floatConvert('44/1'));
+		$this->assertSame(12.2187, ExifUtils::floatConvert('122187/10000'));
 
 		// values from oneplus5t-snezka2
-		$this->assertSame(50.0, ExifUtils::gpsSubIFDToFloat('50/1'));
-		$this->assertSame(41.0, ExifUtils::gpsSubIFDToFloat('41/1'));
-		$this->assertSame(45.4754, ExifUtils::gpsSubIFDToFloat('454754/10000'));
-		$this->assertSame(15.0, ExifUtils::gpsSubIFDToFloat('15/1'));
-		$this->assertSame(44.0, ExifUtils::gpsSubIFDToFloat('44/1'));
-		$this->assertSame(15.5659, ExifUtils::gpsSubIFDToFloat('155659/10000'));
+		$this->assertSame(50.0, ExifUtils::floatConvert('50/1'));
+		$this->assertSame(41.0, ExifUtils::floatConvert('41/1'));
+		$this->assertSame(45.4754, ExifUtils::floatConvert('454754/10000'));
+		$this->assertSame(15.0, ExifUtils::floatConvert('15/1'));
+		$this->assertSame(44.0, ExifUtils::floatConvert('44/1'));
+		$this->assertSame(15.5659, ExifUtils::floatConvert('155659/10000'));
 
 		// values from DSCN0010
-		$this->assertSame(43.0, ExifUtils::gpsSubIFDToFloat('43/1'));
-		$this->assertSame(28.0, ExifUtils::gpsSubIFDToFloat('28/1'));
-		$this->assertSame(2.814, ExifUtils::gpsSubIFDToFloat('281400000/100000000'));
-		$this->assertSame(11.0, ExifUtils::gpsSubIFDToFloat('11/1'));
-		$this->assertSame(53.0, ExifUtils::gpsSubIFDToFloat('53/1'));
-		$this->assertSame(6.45599999, ExifUtils::gpsSubIFDToFloat('645599999/100000000'));
+		$this->assertSame(43.0, ExifUtils::floatConvert('43/1'));
+		$this->assertSame(28.0, ExifUtils::floatConvert('28/1'));
+		$this->assertSame(2.814, ExifUtils::floatConvert('281400000/100000000'));
+		$this->assertSame(11.0, ExifUtils::floatConvert('11/1'));
+		$this->assertSame(53.0, ExifUtils::floatConvert('53/1'));
+		$this->assertSame(6.45599999, ExifUtils::floatConvert('645599999/100000000'));
 	}
 }
