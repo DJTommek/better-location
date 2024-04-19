@@ -31,6 +31,11 @@ use unreal4u\TelegramAPI\Telegram\Types;
 
 class BetterLocation implements CoordinatesInterface
 {
+	/**
+	 * What is the limit if location is still considered accurate in meters.
+	 */
+	private const PRECISION_THRESHOLD = 50;
+
 	private Coordinates $coords;
 	/**
 	 * @var list<Description>
@@ -233,6 +238,15 @@ class BetterLocation implements CoordinatesInterface
 			WGS84DegreesService::class,
 		);
 		$betterLocationExif->setPrefixMessage('EXIF');
+
+		$locationPrecision = $exif->getCoordinatesPrecision();
+		if ($locationPrecision !== null && $locationPrecision > self::PRECISION_THRESHOLD) {
+			$betterLocationExif->addDescription(
+				sprintf('%s Location accuracy is %s.', Icons::WARNING, Formatter::distance($locationPrecision)),
+				Description::KEY_PRECISION
+			);
+		}
+
 		return $betterLocationExif;
 	}
 

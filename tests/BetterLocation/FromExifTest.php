@@ -3,6 +3,9 @@
 namespace Tests\BetterLocation;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\Description;
+use App\Icons;
+use App\Utils\Formatter;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -17,10 +20,10 @@ final class FromExifTest extends TestCase
 	{
 		// file as image from https://pldr-gallery.redilap.cz/#/map+from+EXIF/20190811_122938.jpg
 		return [
-			'Uncopressed (default parameter)' => ['50.695965,15.737657', 'https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn'],
-			'Uncompressed (forced)' => ['50.695965,15.737657', 'https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn&compress=false'],
-			'Compressed (forced)' => ['50.695965,15.737657', 'https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn&compress=true'],
-			'Uncompressed (via download)' => ['50.695965,15.737657', 'https://pldr-gallery.redilap.cz/api/download?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn'],
+			'Uncopressed (default parameter)' => ['50.695965,15.737657', null, 'https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn'],
+			'Uncompressed (forced)' => ['50.695965,15.737657', null, 'https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn&compress=false'],
+			'Compressed (forced)' => ['50.695965,15.737657', null, 'https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn&compress=true'],
+			'Uncompressed (via download)' => ['50.695965,15.737657', null, 'https://pldr-gallery.redilap.cz/api/download?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn'],
 		];
 	}
 
@@ -28,26 +31,26 @@ final class FromExifTest extends TestCase
 	public static function urlGithubProvider(): array
 	{
 		return [
-			'DSCN0021.jpg' => ['43.467082,11.884538', 'https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/gps/DSCN0021.jpg'],
-			'DSCN0042.jpg' => ['43.464455,11.881478', 'https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/gps/DSCN0042.jpg'],
-			'No location' => [null, 'https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/hdr/canon_hdr_YES.jpg'],
+			'DSCN0021.jpg' => ['43.467082,11.884538', null, 'https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/gps/DSCN0021.jpg'],
+			'DSCN0042.jpg' => ['43.464455,11.881478', null, 'https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/gps/DSCN0042.jpg'],
+			'No location' => [null, null, 'https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/hdr/canon_hdr_YES.jpg'],
 		];
 	}
 
 	public static function urlInvalidProvider(): array
 	{
 		return [
-			'URL does not exists' => [null, 'https://some-invalid.url'],
-			'Url exists but it is not image' => [null, 'https://tomas.palider.cz/'],
+			'URL does not exists' => [null, null, 'https://some-invalid.url'],
+			'Url exists but it is not image' => [null, null, 'https://tomas.palider.cz/'],
 		];
 	}
 
 	public static function fileValidProvider(): array
 	{
 		return [
-			'DSCN0010.jpg' => ['43.467448,11.885127', __DIR__ . '/../Exif/fixtures/files/DSCN0010.jpg'],
-			'gps-including-accuracy-good-local.jpg' => ['28.000428,-82.449653', __DIR__ . '/../Exif/fixtures/files/gps-including-accuracy-good-local.jpg'],
-			'pixel-with-gps.jpg' => ['50.087451,14.420671', __DIR__ . '/../Exif/fixtures/files/pixel-with-gps.jpg'],
+			'DSCN0010.jpg' => ['43.467448,11.885127', null, __DIR__ . '/../Exif/fixtures/files/DSCN0010.jpg'],
+			'gps-including-accuracy-good-local.jpg' => ['28.000428,-82.449653', null, __DIR__ . '/../Exif/fixtures/files/gps-including-accuracy-good-local.jpg'],
+			'pixel-with-gps.jpg' => ['50.087451,14.420671', 1234.567, __DIR__ . '/../Exif/fixtures/files/pixel-with-gps.jpg'],
 		];
 	}
 
@@ -57,7 +60,7 @@ final class FromExifTest extends TestCase
 	 * @dataProvider urlGithubProvider
 	 * @dataProvider urlInvalidProvider
 	 */
-	public function testBasic(?string $expectedCoordsKey, string $url): void
+	public function testBasic(?string $expectedCoordsKey, ?float $expectedPrecision, string $url): void
 	{
 		$location = BetterLocation::fromExif($url);
 		if ($expectedCoordsKey === null) {
@@ -67,6 +70,19 @@ final class FromExifTest extends TestCase
 
 		$coords = $location->getCoordinates();
 		$this->assertSame($expectedCoordsKey, (string)$coords);
+
+		$descriptionPrecision = $location->getDescription(Description::KEY_PRECISION);
+		if ($expectedPrecision === null) {
+			$this->assertNull($descriptionPrecision);
+			return;
+		}
+
+		if ($expectedPrecision) {
+			$this->assertSame(
+				sprintf('%s Location accuracy is %s.', Icons::WARNING, Formatter::distance($expectedPrecision)),
+				$descriptionPrecision->content,
+			);
+		}
 	}
 
 	/**
