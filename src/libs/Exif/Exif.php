@@ -10,6 +10,12 @@ use DJTommek\Coordinates\CoordinatesImmutable;
 class Exif implements \JsonSerializable
 {
 	/**
+	 * Also called as 'GPSHPositioningError' or 'GPS Horizontal Positioning Error' (in exiftool)
+	 * @link https://exiftool.org/TagNames/GPS.html
+	 */
+	private const TAG_GPS_HORIZONZAL_POSITIONING_ERROR = 'UndefinedTag:0x001F';
+
+	/**
 	 * @var ExifData
 	 */
 	private readonly array $raw;
@@ -23,6 +29,8 @@ class Exif implements \JsonSerializable
 
 	/**
 	 * Return true, if if all provided keys are available in EXIF data, false otherwise.
+	 *
+	 * @param self::TAG_*|string ...$keys
 	 */
 	public function has(string ...$keys): bool
 	{
@@ -34,6 +42,9 @@ class Exif implements \JsonSerializable
 		return true;
 	}
 
+	/**
+	 * @param self::TAG_*|string $key
+	 */
 	public function get(string $key): mixed
 	{
 		return $this->raw[$key] ?? null;
@@ -60,6 +71,24 @@ class Exif implements \JsonSerializable
 		}
 
 		return $this->coordinates;
+	}
+
+	/**
+	 * Returns GPS coordinates precision in meters if available, null otherwise.
+	 */
+	public function getCoordinatesPrecision(): ?float
+	{
+		$precisionRaw = $this->get(self::TAG_GPS_HORIZONZAL_POSITIONING_ERROR);
+		if ($precisionRaw === null) {
+			return null;
+		}
+
+		try {
+			return ExifUtils::floatConvert($precisionRaw);
+		} catch (\Throwable) {
+			// Swallow, no valid information is available
+		}
+		return null;
 	}
 
 	private function processCoordinates(): ?CoordinatesImmutable
