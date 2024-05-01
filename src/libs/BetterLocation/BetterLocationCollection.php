@@ -282,10 +282,10 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 				Debugger::log(sprintf('Error while loading headers for URL "%s": %s', $url, $exception->getMessage()));
 			}
 			if ($contentType !== null && Utils::checkIfValueInHeaderMatchArray($contentType, Url::CONTENT_TYPE_IMAGE_EXIF)) {
-				$betterLocationExif = BetterLocation::fromExif($url);
-				if ($betterLocationExif instanceof BetterLocation) {
-					$betterLocationExif->setPrefixMessage(sprintf('<a href="%s">EXIF</a>', $url));
-					$collection->add($betterLocationExif);
+				$fromExif = new FromExif($url);
+				$fromExif->run(true);
+				if ($fromExif->location !== null) {
+					$collection->add($fromExif->location);
 				}
 			}
 		} catch (\Exception $exception) {

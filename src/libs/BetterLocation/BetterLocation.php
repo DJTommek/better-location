@@ -9,8 +9,6 @@ use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\MapyCzService;
 use App\Config;
-use App\Exif\Exif;
-use App\Exif\ExifException;
 use App\Factory;
 use App\Geonames\GeonamesApiException;
 use App\Geonames\Types\TimezoneType;
@@ -31,11 +29,6 @@ use unreal4u\TelegramAPI\Telegram\Types;
 
 class BetterLocation implements CoordinatesInterface
 {
-	/**
-	 * What is the limit if location is still considered accurate in meters.
-	 */
-	private const PRECISION_THRESHOLD = 50;
-
 	private Coordinates $coords;
 	/**
 	 * @var list<Description>
@@ -204,50 +197,6 @@ class BetterLocation implements CoordinatesInterface
 	public function getTimezoneData(): ?TimezoneType
 	{
 		return $this->timezoneData;
-	}
-
-	/**
-	 * @param string|resource $input Path or URL link to file or resource (see https://php.net/manual/en/function.exif-read-data.php)
-	 * @return self|null
-	 * @throws InvalidLocationException
-	 */
-	public static function fromExif($input): ?self
-	{
-		if (is_string($input) === false && is_resource($input) === false) {
-			throw new \InvalidArgumentException('Input must be string or resource.');
-		}
-		try {
-			$exif = new Exif($input);
-		} catch (ExifException $exception) {
-			if (str_contains($exception->getMessage(), 'File not supported')) {
-				return null; // Do not log as error
-			}
-			Debugger::log($exception, Debugger::WARNING);
-			return null;
-		}
-
-		$coords = $exif->getCoordinates();
-		if ($coords === null) {
-			return null;
-		}
-
-		$betterLocationExif = new BetterLocation(
-			'EXIF ' . $coords->key(),
-			$coords->getLat(),
-			$coords->getLon(),
-			WGS84DegreesService::class,
-		);
-		$betterLocationExif->setPrefixMessage('EXIF');
-
-		$locationPrecision = $exif->getCoordinatesPrecision();
-		if ($locationPrecision !== null && $locationPrecision > self::PRECISION_THRESHOLD) {
-			$betterLocationExif->addDescription(
-				sprintf('%s Location accuracy is %s.', Icons::WARNING, Formatter::distance($locationPrecision)),
-				Description::KEY_PRECISION
-			);
-		}
-
-		return $betterLocationExif;
 	}
 
 	public function generateMessage(BetterLocationMessageSettings $settings): string

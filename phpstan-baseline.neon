@@ -1,6 +1,21 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Method App\\\\BetterLocation\\\\FromExif\\:\\:run\\(\\) return type with generic class App\\\\BetterLocation\\\\FromExif does not specify its types\\: Input$#"
+			count: 1
+			path: src/libs/BetterLocation/FromExif.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$input with type Input of resource\\|string is not subtype of native type string\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/FromExif.php
+
+		-
+			message: "#^Property App\\\\BetterLocation\\\\FromExif\\:\\:\\$exif with generic class App\\\\Exif\\\\Exif does not specify its types\\: ExifData$#"
+			count: 1
+			path: src/libs/BetterLocation/FromExif.php
+
+		-
 			message: "#^Unable to resolve the template type T in call to method static method Nette\\\\Utils\\\\Arrays\\:\\:last\\(\\)$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/FacebookService.php

@@ -4,8 +4,8 @@ namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\FromExif;
 use App\Config;
-use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\TelegramCustomWrapper\UniversalHandleLocationTrait;
 use Tracy\Debugger;
@@ -67,12 +67,9 @@ class FileEvent extends Special
 			$response = $this->run($getFile);
 			assert($response instanceof Telegram\Types\File);
 			$fileLink = TelegramHelper::getFileUrl(Config::TELEGRAM_BOT_TOKEN, $response->file_path);
-			$location = BetterLocation::fromExif($fileLink);
-			if ($location === null) {
-				return null;
-			}
-			$location->setPrefixMessage(sprintf('EXIF %s', htmlentities($document->file_name)));
-			return $location;
+			$fromExif = new FromExif($fileLink);
+			$fromExif->run(false);
+			return $fromExif->location;
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
 		}

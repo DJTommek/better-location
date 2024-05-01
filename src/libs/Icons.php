@@ -50,4 +50,8 @@ class Icons
 	public const FAVOURITE_REMOVE = "\u{1F494}"; // https://emojipedia.org/broken-heart/
 
 	public const SETTINGS = "\u{2699}"; // https://emojipedia.org/gear/
+
+	public const LOCATION_GPS = "\u{1F6F0}"; // https://emojipedia.org/satellite
+	public const LOCATION_CELL_ID = "\u{1F5FC}"; // https://emojipedia.org/tokyo-tower
+	public const LOCATION_WLAN = "\u{1F6DC}"; // https://emojipedia.org/wireless
 }
