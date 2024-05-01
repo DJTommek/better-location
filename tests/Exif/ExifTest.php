@@ -142,7 +142,7 @@ final class ExifTest extends TestCase
 	): void {
 		$exif = new Exif($inputPath);
 
-		$this->assertNotSame($exif->getAll(), []);
+		$this->assertNotSame([], $exif->getAll());
 
 		if ($expectedJsonDataPath !== null) {
 
