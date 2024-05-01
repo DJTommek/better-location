@@ -16,6 +16,11 @@ class Exif implements \JsonSerializable
 	private const TAG_GPS_HORIZONZAL_POSITIONING_ERROR = 'UndefinedTag:0x001F';
 
 	/**
+	 * According EXIF specification it is 'GPSProcessingMethod' but in PHP parser it is called 'GPSProcessingMode'
+	 */
+	private const TAG_GPS_PROCESSING_METHOD = 'GPSProcessingMode';
+
+	/**
 	 * @var ExifData
 	 */
 	private readonly array $raw;
@@ -89,6 +94,26 @@ class Exif implements \JsonSerializable
 			// Swallow, no valid information is available
 		}
 		return null;
+	}
+
+	/**
+	 *
+	 * GPS Processing method should return one of these values according EXIF specifications, but it can be anything.
+	 * Raw format contains ASCII prefix, which is removed in this method. Use ->get() method if you want raw value.
+	 * Expected values: 'GPS', 'CELLID', 'WLAN' or 'MANUAL'
+	 *
+	 * @link https://exiftool.org/TagNames/GPS.html
+	 */
+	public function getGpsProcessingMethod(): ?string
+	{
+		$value = $this->raw[self::TAG_GPS_PROCESSING_METHOD] ?? null;
+		if ($value === null) {
+			return null;
+		}
+
+		return str_starts_with($value, "ASCII\u{0000}\u{0000}\u{0000}")
+			? mb_substr($value, 8)
+			: $value;
 	}
 
 	private function processCoordinates(): ?CoordinatesImmutable

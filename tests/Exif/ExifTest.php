@@ -13,21 +13,24 @@ final class ExifTest extends TestCase
 	public static function validFilesProvider(): \Generator
 	{
 		$data = [
-			['DSCN0010', new CoordinatesImmutable(43.46744833333334, 11.885126666663888), null],
-			['gps-including-accuracy-good-local', new CoordinatesImmutable(28.000427777777777, -82.44965277777779), 4.7388521666142065],
-			['fujifilm-no-gps', null, null],
-			['pixel-with-gps', new CoordinatesImmutable(50.087451, 14.420670999999999), 1234.5670103092784],
+			['DSCN0010', new CoordinatesImmutable(43.46744833333334, 11.885126666663888), null, null],
+			['gps-including-accuracy-good-local', new CoordinatesImmutable(28.000427777777777, -82.44965277777779), 4.7388521666142065, null],
+			['fujifilm-no-gps', null, null, null],
+			['pixel-with-gps', new CoordinatesImmutable(50.087451, 14.420670999999999), 1234.5670103092784, 'GPS'],
+			['pixel-with-cellid', new CoordinatesImmutable(50.087451, 14.420670999999999), 1234.5670103092784, 'CELLID'],
 		];
 
 		foreach ($data as $item) {
 			$filename = $item[0];
 			$expectedCoords = $item[1];
 			$expectedCoordsPrecision = $item[2];
+			$expectedGpsProcessingMethod = $item[3];
 
 			yield $filename => [
 				__DIR__ . '/fixtures/json/' . $filename . '.json',
 				$expectedCoords,
 				$expectedCoordsPrecision,
+				$expectedGpsProcessingMethod,
 				__DIR__ . '/fixtures/files/' . $filename . '.jpg',
 			];
 		}
@@ -48,11 +51,13 @@ final class ExifTest extends TestCase
 				'oneplus5t-snezka2',
 				new CoordinatesImmutable(50.69596538888889, 15.737657194444443),
 				null,
+				null,
 				'https://pldr-gallery.redilap.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMjI5MzguanBn&compress=false',
 			],
 			[
 				'DSCN0021',
 				new CoordinatesImmutable(43.467081666663894, 11.884538333330555),
+				null,
 				null,
 				'https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/gps/DSCN0021.jpg',
 			],
@@ -60,6 +65,7 @@ final class ExifTest extends TestCase
 			// Images from Github repository Exif Samples: https://github.com/ianare/exif-samples/
 			[
 				null, // Unable to parse as JSON, Malformed UTF-8 characters
+				null,
 				null,
 				null,
 				'https://raw.githubusercontent.com/ianare/exif-samples/master/jpg/hdr/canon_hdr_YES.jpg',
@@ -70,6 +76,7 @@ final class ExifTest extends TestCase
 				'gps-including-accuracy-good-url',
 				new CoordinatesImmutable(28.000427777777777, -82.44965277777779),
 				4.7388521666142065,
+				null,
 				'https://github.com/auth0-blog/piexifjs-article-companion/blob/a2d15b5f0be5cd961e721a9dd5467b1c9ecca9d9/images/palm%20tree%202.jpg?raw=true',
 			],
 		];
@@ -78,12 +85,14 @@ final class ExifTest extends TestCase
 			$expectedExifDataJson = $item[0];
 			$expectedCoords = $item[1];
 			$expectedCoordsPrecision = $item[2];
-			$url = $item[3];
+			$expectedGpsProcessingMethod = $item[3];
+			$url = $item[4];
 
 			yield $item[0] ?? $url => [
 				($expectedExifDataJson === null) ? null : __DIR__ . '/fixtures/json/' . $expectedExifDataJson . '.json',
 				$expectedCoords,
 				$expectedCoordsPrecision,
+				$expectedGpsProcessingMethod,
 				$url,
 			];
 		}
@@ -105,9 +114,10 @@ final class ExifTest extends TestCase
 		?string $expectedJsonDataPath,
 		?CoordinatesInterface $expectedCoordinates,
 		?float $expectedCoordinatesPrecision,
+		?string $expectedGpsProcessingMethod,
 		string $inputPath,
 	): void {
-		$this->innerTestValid($expectedJsonDataPath, $expectedCoordinates, $expectedCoordinatesPrecision, $inputPath);
+		$this->innerTestValid($expectedJsonDataPath, $expectedCoordinates, $expectedCoordinatesPrecision, $expectedGpsProcessingMethod, $inputPath);
 	}
 
 	/**
@@ -117,15 +127,17 @@ final class ExifTest extends TestCase
 		?string $expectedJsonDataPath,
 		?CoordinatesInterface $expectedCoordinates,
 		?float $expectedCoordinatesPrecision,
+		?string $expectedGpsProcessingMethod,
 		string $inputPath,
 	): void {
-		$this->innerTestValid($expectedJsonDataPath, $expectedCoordinates, $expectedCoordinatesPrecision, $inputPath);
+		$this->innerTestValid($expectedJsonDataPath, $expectedCoordinates, $expectedCoordinatesPrecision, $expectedGpsProcessingMethod, $inputPath);
 	}
 
 	private function innerTestValid(
 		?string $expectedJsonDataPath,
 		?CoordinatesInterface $expectedCoordinates,
 		?float $expectedCoordinatesPrecision,
+		?string $expectedGpsProcessingMethod,
 		string $inputPath,
 	): void {
 		$exif = new Exif($inputPath);
@@ -153,11 +165,13 @@ final class ExifTest extends TestCase
 		if ($expectedCoordinates === null) {
 			$this->assertFalse($exif->hasCoordinates());
 			$this->assertNull($exif->getCoordinates());
+			$this->assertNull($exif->getGpsProcessingMethod());
 		} else {
 			$this->assertTrue($exif->hasCoordinates());
 			$coords = $exif->getCoordinates();
 			$this->assertSame($expectedCoordinates->getLat(), $coords->getLat());
 			$this->assertSame($expectedCoordinates->getLon(), $coords->getLon());
+			$this->assertSame($expectedGpsProcessingMethod, $exif->getGpsProcessingMethod());
 		}
 	}
 

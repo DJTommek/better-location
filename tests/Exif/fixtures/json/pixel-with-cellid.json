@@ -1,7 +1,7 @@
 {
-	"FileName": "pixel-with-gps.jpg",
+	"FileName": "pixel-with-cellid.jpg",
 	"FileDateTime": 1713535506,
-	"FileSize": 797,
+	"FileSize": 799,
 	"FileType": 2,
 	"MimeType": "image\/jpeg",
 	"SectionsFound": "ANY_TAG, IFD0, COMMENT, GPS",
@@ -33,6 +33,6 @@
 		"25\/1",
 		"36039\/2500"
 	],
-    "GPSProcessingMode": "ASCII\u0000\u0000\u0000GPS",
+    "GPSProcessingMode": "ASCII\u0000\u0000\u0000CELLID",
 	"UndefinedTag:0x001F": "119753\/97"
 }
