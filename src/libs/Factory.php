@@ -37,26 +37,12 @@ class Factory
 
 	public static function telegramCustomLogger(): \Psr\Log\LoggerInterface
 	{
-		if (!isset(self::$objects[__FUNCTION__])) {
-			self::$objects[__FUNCTION__] = new \App\Logger\CustomTelegramLogger();
-		}
-		return self::$objects[__FUNCTION__];
-	}
-
-	public static function tracyPsrLogger(): \Psr\Log\LoggerInterface
-	{
-		if (!isset(self::$objects[__FUNCTION__])) {
-			self::$objects[__FUNCTION__] = new \Tracy\Bridges\Psr\TracyToPsrLoggerAdapter(\Tracy\Debugger::getLogger());
-		}
-		return self::$objects[__FUNCTION__];
+		return self::getContainer()->get(\App\Logger\CustomTelegramLogger::class);
 	}
 
 	public static function whatThreeWords(): \What3words\Geocoder\Geocoder
 	{
-		if (!isset(self::$objects['w3w'])) {
-			self::$objects['w3w'] = new \What3words\Geocoder\Geocoder(Config::W3W_API_KEY);
-		}
-		return self::$objects['w3w'];
+		return self::getContainer()->get(\What3words\Geocoder\Geocoder::class);
 	}
 
 	public static function glympse(): \DJTommek\GlympseApi\GlympseApi
@@ -116,10 +102,7 @@ class Factory
 
 	public static function servicesManager(): \App\BetterLocation\ServicesManager
 	{
-		if (!isset(self::$objects['servicesManager'])) {
-			self::$objects['servicesManager'] = new \App\BetterLocation\ServicesManager();
-		}
-		return self::$objects['servicesManager'];
+		return self::getContainer()->get(\App\BetterLocation\ServicesManager::class);
 	}
 
 	public static function latte(string $template = null, $params = []): \Latte\Engine
@@ -205,18 +188,12 @@ class Factory
 
 	public static function googleGeocodingApi(): \App\Google\Geocoding\StaticApi
 	{
-		if (!isset(self::$objects[__METHOD__])) {
-			self::$objects[__METHOD__] = new \App\Google\Geocoding\StaticApi(Config::GOOGLE_PLACE_API_KEY);
-		}
-		return self::$objects[__METHOD__];
+		return self::getContainer()->get(\App\Google\Geocoding\StaticApi::class);
 	}
 
 	public static function googleStreetViewApi(): \App\Google\StreetView\StaticApi
 	{
-		if (!isset(self::$objects[__METHOD__])) {
-			self::$objects[__METHOD__] = new \App\Google\StreetView\StaticApi(Config::GOOGLE_PLACE_API_KEY);
-		}
-		return self::$objects[__METHOD__];
+		return self::getContainer()->get(\App\Google\StreetView\StaticApi::class);
 	}
 
 	public static function googlePlaceApi(): \App\BetterLocation\GooglePlaceApi
