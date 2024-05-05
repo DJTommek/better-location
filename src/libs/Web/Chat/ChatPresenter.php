@@ -151,10 +151,8 @@ class ChatPresenter extends MainPresenter
 			try {
 				$this->chat->settingsOutputType((int)$_POST['output-type']);
 			} catch (\InvalidArgumentException $exception) {
-				$this->flashMessage(sprintf(
-					'Message output type is not valid: "%s"',
-					htmlspecialchars($exception->getMessage()),
-				), Flash::ERROR, null);
+				$errorMessage = sprintf('Message output type is not valid: "%s"', htmlspecialchars($exception->getMessage()));
+				$this->flashMessage($errorMessage, Flash::ERROR, null);
 				return;
 			}
 		}
@@ -175,10 +173,8 @@ class ChatPresenter extends MainPresenter
 				try {
 					$pluginer->process($collection);
 				} catch (PluginerException $exception) {
-					$this->flashMessage(sprintf(
-						'Pluginer URL is valid but error occured while testing it: "%s"',
-						htmlspecialchars($exception->getMessage()),
-					), Flash::ERROR, null);
+					$errorMessage = sprintf('Pluginer URL is valid but error occured while testing it: "%s"', htmlspecialchars($exception->getMessage()));
+					$this->flashMessage($errorMessage, Flash::ERROR, null);
 					return;
 				} catch (\Exception $exception) {
 					Debugger::log($exception, Debugger::EXCEPTION);
