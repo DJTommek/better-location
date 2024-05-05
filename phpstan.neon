@@ -8,6 +8,8 @@ parameters:
 		- src/bootstrap.php
 	treatPhpDocTypesAsCertain: false
 	tmpDir: temp/phpstan
+	additionalConstructors:
+		- App\Web\MainPresenter::run
 	excludePaths:
 		- 'src\libs\Utils\MGRS.php' # Not my class
 	ignoreErrors:

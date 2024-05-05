@@ -3,8 +3,6 @@
 namespace App\Web;
 
 use App\Config;
-use App\Database;
-use App\Factory;
 use App\User;
 use App\Utils\Strict;
 use App\Web\Login\LoginFacade;
@@ -25,23 +23,18 @@ abstract class MainPresenter
 
 	public const HTTP_INTERNAL_SERVER_ERROR = 500;
 
-	protected Request $request;
-	protected Database $db;
-	protected LoginFacade $login;
+	protected readonly Request $request;
+	protected readonly LoginFacade $login;
 	protected ?User $user = null;
 	public ?LayoutTemplate $template = null;
 
-	/**
-	 * Set template and basic variables
-	 */
-	public function __construct()
+	public final function run(): void
 	{
 		$requestFactory = new RequestFactory();
 		$this->request = $requestFactory->fromGlobals();
 		if ($this->template === null) { // load default template if any was provided
 			$this->template = new LayoutTemplate();
 		}
-		$this->db = Factory::database();
 		$this->login = new LoginFacade();
 		if ($this->login->isLogged()) {
 			$this->user = new User($this->login->getTelegramId(), $this->login->getDisplayName());

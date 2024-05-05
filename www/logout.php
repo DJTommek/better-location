@@ -2,4 +2,4 @@
 
 require_once __DIR__ . '/../src/bootstrap.php';
 
-new \App\Web\Logout\LogoutPresenter();
+(new \App\Kernel($container))->runPresenter(\App\Web\Logout\LogoutPresenter::class);

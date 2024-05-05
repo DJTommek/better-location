@@ -2,4 +2,4 @@
 
 require_once __DIR__ . '/../src/bootstrap.php';
 
-new App\Web\Homepage\HomepagePresenter();
+(new \App\Kernel($container))->runPresenter(App\Web\Homepage\HomepagePresenter::class);

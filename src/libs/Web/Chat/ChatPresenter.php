@@ -9,6 +9,7 @@ use App\Factory;
 use App\Pluginer\Pluginer;
 use App\Pluginer\PluginerException;
 use App\Repository\ChatEntity;
+use App\TelegramCustomWrapper\TelegramCustomWrapper;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Strict;
 use App\Web\Flash;
@@ -27,10 +28,11 @@ class ChatPresenter extends MainPresenter
 	public string $exampleInput = 'https://www.waze.com/ul?ll=50.087451%2C14.420671';
 	private bool $isUserAdmin = false;
 
-	public function __construct()
-	{
-		$this->template = new ChatTemplate();
-		parent::__construct();
+	public function __construct(
+		private readonly TelegramCustomWrapper $telegramWrapper,
+		ChatTemplate $template,
+	) {
+		$this->template = $template;
 	}
 
 	public function action(): void
@@ -95,13 +97,11 @@ class ChatPresenter extends MainPresenter
 	private function loadChatData(): void
 	{
 		try {
-			$telegramWrapper = Factory::telegram();
-
 			$userTgId = $this->user->getTelegramId();
 
 			$getChat = new Telegram\Methods\GetChat();
 			$getChat->chat_id = $this->chatTelegramId;
-			$response = $telegramWrapper->run($getChat);
+			$response = $this->telegramWrapper->run($getChat);
 			assert($response instanceof Telegram\Types\Chat);
 			$this->chatResponse = $response;
 
@@ -109,7 +109,7 @@ class ChatPresenter extends MainPresenter
 				$getChatMember = new Telegram\Methods\GetChatMember();
 				$getChatMember->chat_id = $this->chatTelegramId;
 				$getChatMember->user_id = $userTgId;
-				$chatMember = $telegramWrapper->run($getChatMember);
+				$chatMember = $this->telegramWrapper->run($getChatMember);
 				assert($chatMember instanceof Telegram\Types\ChatMember);
 				if ($chatMember->user->id !== $userTgId) {
 					throw new \RuntimeException('Invalid state - Telegram ID ID of logged user must match');
@@ -119,7 +119,7 @@ class ChatPresenter extends MainPresenter
 			} else {
 				$getchatAdmins = new Telegram\Methods\GetChatAdministrators();
 				$getchatAdmins->chat_id = $this->chatTelegramId;
-				$response = $telegramWrapper->run($getchatAdmins);
+				$response = $this->telegramWrapper->run($getchatAdmins);
 				assert($response instanceof Telegram\Types\Custom\ChatMembersArray);
 				foreach ($response as $admin) {
 					assert($admin instanceof Telegram\Types\ChatMember);

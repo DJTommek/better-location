@@ -11,10 +11,9 @@ use Nette\Http\UrlImmutable;
 
 class LoginPresenter extends MainPresenter
 {
-	public function __construct()
+	public function __construct(LoginTemplate $template)
 	{
-		$this->template = new LoginTemplate();
-		parent::__construct();
+		$this->template = $template;
 	}
 
 	public function action(): void

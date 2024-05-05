@@ -2,4 +2,4 @@
 
 require_once __DIR__ . '/../../src/bootstrap.php';
 
-new \App\Web\Chat\ChatPresenter();
+(new \App\Kernel($container))->runPresenter(\App\Web\Chat\ChatPresenter::class);

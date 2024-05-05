@@ -14,7 +14,11 @@ return static function (ContainerConfigurator $container): void {
 		->public()
 		->autowire();
 
+	$services->load('App\\Web\\', __DIR__ . '/libs/Web/*/*Template.php');
+	$services->load('App\\Web\\', __DIR__ . '/libs/Web/*/*Presenter.php');
+
 	$services->load('App\\Repository\\', __DIR__ . '/libs/Repository/*Repository.php');
+
 	$services->set(StaticMapProxy::class);
 	$services->set(TelegramCustomWrapper::class);
 	$services->set(CustomTelegramLogger::class);

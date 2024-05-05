@@ -2,5 +2,5 @@
 
 require_once __DIR__ . '/../src/bootstrap.php';
 
-new \App\Web\Locations\LocationsPresenter();
+(new \App\Kernel($container))->runPresenter(\App\Web\Locations\LocationsPresenter::class);
 

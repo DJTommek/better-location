@@ -2,5 +2,5 @@
 
 require_once __DIR__ . '/../../src/bootstrap.php';
 
-new \App\Web\Maintenance\LogPresenter();
+(new \App\Kernel($container))->runPresenter(\App\Web\Maintenance\LogPresenter::class);
 

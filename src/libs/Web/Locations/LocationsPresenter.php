@@ -28,12 +28,11 @@ class LocationsPresenter extends MainPresenter
 	private string $format = 'html';
 	private string $nowFileText;
 
-	public function __construct()
+	public function __construct(LocationsTemplate $template)
 	{
-		$this->template = new LocationsTemplate();
+		$this->template = $template;
 		$this->collection = new BetterLocationCollection();
 		$this->nowFileText = DateImmutableUtils::nowUtc()->format(Config::DATETIME_FILE_FORMAT);
-		parent::__construct();
 	}
 
 	public function action(): void
