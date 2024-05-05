@@ -104,6 +104,15 @@ class Factory
 		return new \App\BingMaps\StaticMaps(Config::BING_STATIC_MAPS_TOKEN);
 	}
 
+	public static function staticMapProxyFactory(): \App\BetterLocation\StaticMapProxyFactory
+	{
+		if (!isset(self::$objects[__FUNCTION__])) {
+			$staticMapCacheRepository = new \App\Repository\StaticMapCacheRepository(self::database());
+			self::$objects[__FUNCTION__] = new \App\BetterLocation\StaticMapProxyFactory($staticMapCacheRepository);
+		}
+		return self::$objects[__FUNCTION__];
+	}
+
 	public static function servicesManager(): \App\BetterLocation\ServicesManager
 	{
 		if (!isset(self::$objects['servicesManager'])) {

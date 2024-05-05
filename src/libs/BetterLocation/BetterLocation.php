@@ -391,7 +391,8 @@ class BetterLocation implements CoordinatesInterface
 	public function getStaticMapUrl(): ?UrlImmutable
 	{
 		if (is_null($this->staticMapUrl)) {
-			$staticMapProxy = StaticMapProxy::fromLocation($this);
+			$staticMapProxyFactory = Factory::staticMapProxyFactory();
+			$staticMapProxy = $staticMapProxyFactory->fromLocations([$this]);
 			if ($staticMapProxy !== null) {
 				$this->staticMapUrl = $staticMapProxy->publicUrl();
 			}

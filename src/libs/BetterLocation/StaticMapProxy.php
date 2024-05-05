@@ -7,7 +7,6 @@ use App\Config;
 use App\Factory;
 use App\Repository\StaticMapCacheRepository;
 use DJTommek\Coordinates\CoordinatesInterface;
-use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Nette\Http\UrlImmutable;
 use Nette\Utils\FileSystem;
@@ -19,7 +18,6 @@ class StaticMapProxy
 {
 	private const HASH_ALGORITHM = 'fnv1a64';
 
-	private StaticMapCacheRepository $staticMapCacheRepository;
 	private string $dir;
 
 	private string $privateUrl;
@@ -27,13 +25,12 @@ class StaticMapProxy
 	private UrlImmutable $publicUrl;
 	private readonly \GuzzleHttp\Client $httpClient;
 
-	private function __construct()
-	{
+	public function __construct(
+		private readonly StaticMapCacheRepository $staticMapCacheRepository,
+	) {
 		$this->dir = Config::getDataTempDir() . '/staticmap';
 		FileSystem::createDir($this->dir);
 
-		$db = Factory::database();
-		$this->staticMapCacheRepository = new StaticMapCacheRepository($db);
 		$this->httpClient = new \GuzzleHttp\Client([
 			'base_uri' => StaticMaps::LINK,
 			'timeout' => 5,
@@ -41,34 +38,22 @@ class StaticMapProxy
 		]);
 	}
 
-	/**
-	 * Load static map image based on previously generated cacheId (saved in database)
-	 *
-	 * If cached file is not available, new file will be generated and saved.
-	 *
-	 * @param string $cacheId
-	 * @return ?self Return null if cacheId does not exists.
-	 */
-	public static function fromCacheId(string $cacheId): ?self
+	public function exists(): bool
 	{
-		$self = new self();
-		$entity = $self->staticMapCacheRepository->fromId($cacheId);
-
-		if ($entity === null) {
-			return null;
-		}
-
-		$self->privateUrl = $entity->url;
-		$self->cacheId = $entity->id;
-		return $self;
+		return isset($this->cacheId);
 	}
 
-	/**
-	 * Load static map image based on provided single location.
-	 */
-	public static function fromLocation(CoordinatesInterface $input): ?self
+	public function initFromCacheId(string $cacheId): self
 	{
-		return self::fromLocations([$input]);
+		$entity = $this->staticMapCacheRepository->fromId($cacheId);
+
+		if ($entity === null) {
+			return $this;
+		}
+
+		$this->privateUrl = $entity->url;
+		$this->cacheId = $entity->id;
+		return $this;
 	}
 
 	/**
@@ -76,10 +61,10 @@ class StaticMapProxy
 	 *
 	 * @param array<CoordinatesInterface>|BetterLocationCollection $locations
 	 */
-	public static function fromLocations(array|BetterLocationCollection $locations): ?self
+	public function initFromLocations(array|BetterLocationCollection $locations): self
 	{
 		if (!Config::isBingStaticMaps()) {
-			return null;
+			return $this;
 		}
 
 		$markers = [];
@@ -91,17 +76,16 @@ class StaticMapProxy
 			$markers[] = $location;
 		}
 
-		$self = new self();
-		$self->privateUrl = self::generatePrivateUrl($markers);
-		$self->cacheId = hash(self::HASH_ALGORITHM, $self->privateUrl());
+		$this->privateUrl = self::generatePrivateUrl($markers);
+		$this->cacheId = hash(self::HASH_ALGORITHM, $this->privateUrl());
 
 		// If does not exists in database, yet, create new
-		$entity = $self->staticMapCacheRepository->fromId($self->cacheId);
+		$entity = $this->staticMapCacheRepository->fromId($this->cacheId);
 		if ($entity === null) {
-			$self->staticMapCacheRepository->save($self->cacheId, $self->privateUrl());
+			$this->staticMapCacheRepository->save($this->cacheId, $this->privateUrl());
 		}
 
-		return $self;
+		return $this;
 	}
 
 	public function download(): void

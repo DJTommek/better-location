@@ -11,7 +11,9 @@ if (!isset($_GET['id'])) {
 }
 
 $id = $_GET['id'];
-$mapProxy = StaticMapProxy::fromCacheId($id);
+
+$mapProxyFactory = \App\Factory::staticMapProxyFactory();
+$mapProxy = $mapProxyFactory->fromCacheId($id);
 if ($mapProxy === null) {
 	printf('Error: Static map image doesn\'t exists for this ID.');
 	exit;
