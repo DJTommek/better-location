@@ -2,7 +2,8 @@
 
 require_once __DIR__ . '/../../src/bootstrap.php';
 
-use App\BetterLocation\StaticMapProxy;
+use App\BetterLocation\StaticMapProxyFactory;
+use Psr\Container\ContainerInterface;
 use Tracy\Debugger;
 
 if (!isset($_GET['id'])) {
@@ -12,8 +13,12 @@ if (!isset($_GET['id'])) {
 
 $id = $_GET['id'];
 
-$mapProxyFactory = \App\Factory::staticMapProxyFactory();
+assert(isset($container));
+assert($container instanceof ContainerInterface);
+$mapProxyFactory = $container->get(StaticMapProxyFactory::class);
+assert($mapProxyFactory instanceof StaticMapProxyFactory);
 $mapProxy = $mapProxyFactory->fromCacheId($id);
+
 if ($mapProxy === null) {
 	printf('Error: Static map image doesn\'t exists for this ID.');
 	exit;

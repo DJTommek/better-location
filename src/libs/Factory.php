@@ -2,27 +2,37 @@
 
 namespace App;
 
+use Psr\Container\ContainerInterface;
+
+/**
+ * @deprecated All services here should be registered in \App\Container and loaded from there.
+ */
 class Factory
 {
 	/**
 	 * @var array<string,object>
 	 */
 	private static array $objects = [];
+	private static ContainerInterface $container;
+
+	private static function getContainer(): ContainerInterface
+	{
+		if (!isset(self::$container)) {
+			self::$container = self::$container = new Container();
+			self::$container->register();
+		}
+
+		return self::$container;
+	}
 
 	public static function database(): Database
 	{
-		if (!isset(self::$objects['database'])) {
-			self::$objects['database'] = new Database(Config::DB_SERVER, Config::DB_NAME, Config::DB_USER, Config::DB_PASS);
-		}
-		return self::$objects['database'];
+		return self::getContainer()->get(Database::class);
 	}
 
 	public static function telegram(): \App\TelegramCustomWrapper\TelegramCustomWrapper
 	{
-		if (!isset(self::$objects['telegram'])) {
-			self::$objects['telegram'] = new \App\TelegramCustomWrapper\TelegramCustomWrapper();
-		}
-		return self::$objects['telegram'];
+		return self::getContainer()->get(\App\TelegramCustomWrapper\TelegramCustomWrapper::class);
 	}
 
 	public static function telegramCustomLogger(): \Psr\Log\LoggerInterface
@@ -102,15 +112,6 @@ class Factory
 	public static function bingStaticMaps(): \App\BingMaps\StaticMaps
 	{
 		return new \App\BingMaps\StaticMaps(Config::BING_STATIC_MAPS_TOKEN);
-	}
-
-	public static function staticMapProxyFactory(): \App\BetterLocation\StaticMapProxyFactory
-	{
-		if (!isset(self::$objects[__FUNCTION__])) {
-			$staticMapCacheRepository = new \App\Repository\StaticMapCacheRepository(self::database());
-			self::$objects[__FUNCTION__] = new \App\BetterLocation\StaticMapProxyFactory($staticMapCacheRepository);
-		}
-		return self::$objects[__FUNCTION__];
 	}
 
 	public static function servicesManager(): \App\BetterLocation\ServicesManager
@@ -220,9 +221,12 @@ class Factory
 
 	public static function googlePlaceApi(): \App\BetterLocation\GooglePlaceApi
 	{
-		if (!isset(self::$objects[__METHOD__])) {
-			self::$objects[__METHOD__] = new \App\BetterLocation\GooglePlaceApi(Config::GOOGLE_PLACE_API_KEY);
-		}
-		return self::$objects[__METHOD__];
+		return self::getContainer()->get(\App\BetterLocation\GooglePlaceApi::class);
 	}
+
+	public static function staticMapProxyFactory(): \App\BetterLocation\StaticMapProxyFactory
+	{
+		return self::getContainer()->get(\App\BetterLocation\StaticMapProxyFactory::class);
+	}
+
 }

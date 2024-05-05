@@ -36,5 +36,8 @@ if (@date_default_timezone_set(App\Config::TIMEZONE) === false) {
 
 session_start();
 
+$container = new \App\Container();
+$container->register();
+
 // Note: this might a lot of data to log but it's ok for alpha/beta phase. Probably should be removed in stable or production.
 \App\Utils\SimpleLogger::log(\App\Utils\SimpleLogger::NAME_ALL_REQUESTS, $_SERVER);
