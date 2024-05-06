@@ -6,13 +6,8 @@ use App\Config;
 use App\Factory;
 use App\Icons;
 use App\MiniCurl\Exceptions\TimeoutException;
-use App\MiniCurl\MiniCurl;
-use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
 use App\Utils\Formatter;
-use App\Utils\Strict;
-use App\Utils\StringUtils;
-use App\Utils\Utils;
 use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
@@ -40,8 +35,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	/** Needs to be called when number or order of locations will change. */
 	private function clearLazyLoad(): void
 	{
-        // Recalculate keys to have list <0,inf>
-        $this->locations = array_values($this->locations);
+		// Recalculate keys to have list <0,inf>
+		$this->locations = array_values($this->locations);
 		$this->staticMapUrl = null;
 	}
 
@@ -92,8 +87,8 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 							Icons::WARNING,
 							htmlspecialchars(Formatter::distance($distance)),
 							$mostImportantLocation->getSourceType() ?? 'previous location',
-							Icons::ARROW_UP
-						)
+							Icons::ARROW_UP,
+						),
 					);
 				}
 			}
@@ -216,82 +211,14 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		return false;
 	}
 
-	/** @param MessageEntity[] $entities */
+	/**
+	 * @param MessageEntity[] $entities
+	 * @deprecated use \App\BetterLocation\FromTelegramMessage::getCollection() instead
+	 */
 	public static function fromTelegramMessage(string $message, array $entities): self
 	{
-		$betterLocationsCollection = new self();
-		$serviceManager = Factory::servicesManager();
-
-		foreach ($entities as $entity) {
-			if (in_array($entity->type, ['url', 'text_link'], true) === false) {
-				continue;
-			}
-
-			$url = TelegramHelper::getEntityContent($message, $entity);
-
-			if (Strict::isUrl($url) === false) {
-				continue;
-			}
-
-			$url = self::handleShortUrl($url);
-
-			$serviceCollection = $serviceManager->iterate($url);
-			if ($serviceCollection->filterTooClose) {
-				$serviceCollection->filterTooClose(Config::DISTANCE_IGNORE);
-			}
-			$betterLocationsCollection->add($serviceCollection);
-
-			if ($serviceCollection->isEmpty()) { // process HTTP headers only if no location was found via iteration
-				$betterLocationsCollection->add(self::processHttpHeaders($url));
-			}
-		}
-
-		$messageWithoutUrls = TelegramHelper::getMessageWithoutUrls($message, $entities);
-		$messageWithoutUrls = StringUtils::translit($messageWithoutUrls);
-		$betterLocationsCollection->add($serviceManager->iterateText($messageWithoutUrls));
-		$betterLocationsCollection->deduplicate();
-		return $betterLocationsCollection;
-	}
-
-	private static function handleShortUrl(string $url): string
-	{
-		$originalUrl = $url;
-		$tries = 0;
-		while (is_null($url) === false && Url::isShortUrl($url)) {
-			if ($tries >= 5) {
-				Debugger::log(sprintf('Too many tries (%d) for translating original URL "%s"', $tries, $originalUrl));
-				break;
-			}
-			$url = MiniCurl::loadRedirectUrl($url);
-			$tries++;
-		}
-		if (is_null($url)) { // in case of some error, revert to original URL
-			$url = $originalUrl;
-		}
-		return $url;
-	}
-
-	private static function processHttpHeaders(string $url): BetterLocationCollection
-	{
-		$collection = new BetterLocationCollection();
-		try {
-			$contentType = null;
-			try {
-				$contentType = MiniCurl::loadHeader($url, 'content-type');
-			} catch (\Throwable $exception) {
-				Debugger::log(sprintf('Error while loading headers for URL "%s": %s', $url, $exception->getMessage()));
-			}
-			if ($contentType !== null && Utils::checkIfValueInHeaderMatchArray($contentType, Url::CONTENT_TYPE_IMAGE_EXIF)) {
-				$fromExif = new FromExif($url);
-				$fromExif->run(true);
-				if ($fromExif->location !== null) {
-					$collection->add($fromExif->location);
-				}
-			}
-		} catch (\Exception $exception) {
-			Debugger::log($exception, Debugger::EXCEPTION);
-		}
-		return $collection;
+		$fromTelegramMessage = new FromTelegramMessage(Factory::servicesManager());
+		return $fromTelegramMessage->getCollection($message, $entities);
 	}
 
 	public function getStaticMapUrl(): ?UrlImmutable

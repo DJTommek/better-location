@@ -22,6 +22,7 @@ return static function (ContainerConfigurator $container): void {
 	$services->load('App\\TelegramCustomWrapper\\Events\\', __DIR__ . '/libs/TelegramCustomWrapper/Events/*');
 
 	$services->set(StaticMapProxy::class);
+	$services->set(\App\BetterLocation\FromTelegramMessage::class);
 	$services->set(TelegramCustomWrapper::class);
 	$services->set(CustomTelegramLogger::class);
 	$services->set(StaticMapProxyFactory::class);
