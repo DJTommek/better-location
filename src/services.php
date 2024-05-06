@@ -31,12 +31,14 @@ return static function (ContainerConfigurator $container): void {
 		->arg('$user', Config::DB_USER)
 		->arg('$pass', Config::DB_PASS);
 
-	$services->set(\App\Google\Geocoding\StaticApi::class)
-		->arg('$apiKey', Config::GOOGLE_PLACE_API_KEY);
-	$services->set(\App\Google\StreetView\StaticApi::class)
-		->arg('$apiKey', Config::GOOGLE_PLACE_API_KEY);
-	$services->set(\App\BetterLocation\GooglePlaceApi::class)
-		->arg('$apiKey', Config::GOOGLE_PLACE_API_KEY);
+	if (Config::isGooglePlaceApi()) {
+		$services->set(\App\Google\Geocoding\StaticApi::class)
+			->arg('$apiKey', Config::GOOGLE_PLACE_API_KEY);
+		$services->set(\App\Google\StreetView\StaticApi::class)
+			->arg('$apiKey', Config::GOOGLE_PLACE_API_KEY);
+		$services->set(\App\BetterLocation\GooglePlaceApi::class)
+			->arg('$apiKey', Config::GOOGLE_PLACE_API_KEY);
+	}
 
 	$services->set(\What3words\Geocoder\Geocoder::class)
 		->arg('$api_key', Config::W3W_API_KEY);
