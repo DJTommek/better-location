@@ -53,7 +53,7 @@ parameters:
 			path: tests/OpenElevation/OpenElevationTest.php
 		-
 			# Real value is different than described in PHPDocs
-			message: "#^Parameter \\#2 \\$entities of static method App\\\\BetterLocation\\\\BetterLocationCollection\\:\\:fromTelegramMessage\\(\\) expects array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\MessageEntity\\>, unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Custom\\\\MessageEntityArray given\\.$#"
+			message: "#^Parameter \\#2 \\$entities of method App\\\\BetterLocation\\\\FromTelegramMessage\\:\\:getCollection\\(\\) expects array\\<unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\MessageEntity\\>, unreal4u\\\\TelegramAPI\\\\Telegram\\\\Types\\\\Custom\\\\MessageEntityArray given\\.$#"
 		-
 			# Wrongly recognized class constant types for Config vs DefaultConfig - they might be string or null but in Default config is defined only as null
 			# @see https://github.com/phpstan/phpstan/issues/9218

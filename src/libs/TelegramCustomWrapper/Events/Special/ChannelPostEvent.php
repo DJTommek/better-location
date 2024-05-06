@@ -3,6 +3,7 @@
 namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\FromTelegramMessage;
 use App\TelegramCustomWrapper\UniversalHandleLocationTrait;
 use unreal4u\TelegramAPI\Telegram;
 
@@ -12,6 +13,11 @@ class ChannelPostEvent extends Special
 
 	private ?BetterLocationCollection $collection = null;
 
+	public function __construct(
+		private readonly FromTelegramMessage $fromTelegramMessage,
+	) {
+	}
+
 	public function getTgMessage(): Telegram\Types\Message
 	{
 		return $this->update->channel_post;
@@ -20,7 +26,7 @@ class ChannelPostEvent extends Special
 	public function getCollection(): BetterLocationCollection
 	{
 		if ($this->collection === null) {
-			$this->collection = BetterLocationCollection::fromTelegramMessage(
+			$this->collection = $this->fromTelegramMessage->getCollection(
 				$this->getTgText(),
 				$this->getTgMessage()->entities,
 			);

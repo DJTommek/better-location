@@ -3,6 +3,7 @@
 namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\FromTelegramMessage;
 use App\TelegramCustomWrapper\UniversalHandleLocationTrait;
 
 class PhotoEvent extends Special
@@ -11,10 +12,15 @@ class PhotoEvent extends Special
 
 	private ?BetterLocationCollection $collection = null;
 
+	public function __construct(
+		private readonly FromTelegramMessage $fromTelegramMessage,
+	) {
+	}
+
 	public function getCollection(): BetterLocationCollection
 	{
 		if ($this->collection === null) {
-			$this->collection = BetterLocationCollection::fromTelegramMessage(
+			$this->collection = $this->fromTelegramMessage->getCollection(
 				$this->getTgMessage()->caption,
 				$this->getTgMessage()->caption_entities,
 			);

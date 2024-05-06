@@ -3,6 +3,7 @@
 namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\FromTelegramMessage;
 use App\BetterLocation\GooglePlaceApi;
 use App\Config;
 use App\Icons;
@@ -17,6 +18,7 @@ class MessageEvent extends Special
 	private ?BetterLocationCollection $collection = null;
 
 	public function __construct(
+		private readonly FromTelegramMessage $fromTelegramMessage,
 		private readonly ?GooglePlaceApi $googlePlaceApi = null,
 	) {
 	}
@@ -24,7 +26,7 @@ class MessageEvent extends Special
 	public function getCollection(): BetterLocationCollection
 	{
 		if ($this->collection === null) {
-			$this->collection = BetterLocationCollection::fromTelegramMessage(
+			$this->collection = $this->fromTelegramMessage->getCollection(
 				$this->getTgText(),
 				$this->getTgMessage()->entities,
 			);

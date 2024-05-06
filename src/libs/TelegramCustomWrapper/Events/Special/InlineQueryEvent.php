@@ -4,6 +4,7 @@ namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\FromTelegramMessage;
 use App\BetterLocation\GooglePlaceApi;
 use App\BetterLocation\Service\MapyCzService;
 use App\Chat;
@@ -40,8 +41,8 @@ class InlineQueryEvent extends Special
 	private ?Chat $userPrivateChatEntity = null;
 
 	public function __construct(
+		private readonly FromTelegramMessage $fromTelegramMessage,
 		private readonly ?GooglePlaceApi $googlePlaceApi = null,
-
 	) {
 	}
 
@@ -123,7 +124,7 @@ class InlineQueryEvent extends Special
 		} else {
 			$entities = TelegramHelper::generateEntities($queryInput);
 			try {
-				$collection = BetterLocationCollection::fromTelegramMessage($queryInput, $entities);
+				$collection = $this->fromTelegramMessage->getCollection($queryInput, $entities);
 				if ($collection->count() > 1 && $this->getUserPrivateChatEntity()->getSendNativeLocation() === false) {
 					// There can be only one location if sending native location
 					$answerInlineQuery->addResult($this->getAllLocationsInlineQueryResult($collection));

@@ -5,6 +5,7 @@ namespace App\TelegramCustomWrapper\Events\Special;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\FromExif;
+use App\BetterLocation\FromTelegramMessage;
 use App\Config;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\TelegramCustomWrapper\UniversalHandleLocationTrait;
@@ -22,6 +23,11 @@ class FileEvent extends Special
 	private bool $fileTooBig = false;
 	private ?BetterLocationCollection $collection = null;
 
+	public function __construct(
+		private readonly FromTelegramMessage $fromTelegramMessage,
+	) {
+	}
+
 	public function getCollection(): BetterLocationCollection
 	{
 		if ($this->collection === null) {
@@ -36,7 +42,7 @@ class FileEvent extends Special
 			}
 			$tgMessage = $this->getTgMessage();
 
-			$this->collection->add(BetterLocationCollection::fromTelegramMessage(
+			$this->collection->add($this->fromTelegramMessage->getCollection(
 				$tgMessage->caption,
 				$tgMessage->caption_entities,
 			));

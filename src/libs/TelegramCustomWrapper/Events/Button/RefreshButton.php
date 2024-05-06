@@ -3,7 +3,7 @@
 namespace App\TelegramCustomWrapper\Events\Button;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\FromTelegramMessage;
 use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
@@ -22,6 +22,11 @@ class RefreshButton extends Button
 
 	/** @var TelegramUpdateDb */
 	private $telegramUpdateDb;
+
+	public function __construct(
+		private readonly FromTelegramMessage $fromTelegramMessage,
+	) {
+	}
 
 	public function handleWebhookUpdate(): void
 	{
@@ -93,7 +98,7 @@ class RefreshButton extends Button
 
 			$this->replyButton($text, $markup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
 		} else {
-			$collection = BetterLocationCollection::fromTelegramMessage(
+			$collection = $this->fromTelegramMessage->getCollection(
 				$this->telegramUpdateDb->originalUpdateObject->message->text,
 				$this->telegramUpdateDb->originalUpdateObject->message->entities,
 			);
