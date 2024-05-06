@@ -36,7 +36,7 @@ class ContactEvent extends Special
 	private function getCollectionFromContact(): BetterLocationCollection
 	{
 		$vcard = $this?->update?->message?->contact?->vcard ?? null;
-		if ($vcard === null) {
+		if ($vcard === null || $this->googlePlaceApi === null) {
 			return new BetterLocationCollection();
 		}
 
