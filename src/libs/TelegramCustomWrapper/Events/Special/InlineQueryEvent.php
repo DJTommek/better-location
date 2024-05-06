@@ -39,6 +39,12 @@ class InlineQueryEvent extends Special
 	 */
 	private ?Chat $userPrivateChatEntity = null;
 
+	public function __construct(
+		private readonly ?GooglePlaceApi $googlePlaceApi = null,
+
+	) {
+	}
+
 	public function getMessageSettings(): BetterLocationMessageSettings
 	{
 		$messageSettings = parent::getMessageSettings();
@@ -126,9 +132,17 @@ class InlineQueryEvent extends Special
 					$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 				}
 
-				// only if there is no match from previous processing
-				if (mb_strlen($queryInput) >= Config::GOOGLE_SEARCH_MIN_LENGTH && count($answerInlineQuery->getResults()) === 0 && Config::isGooglePlaceApi()) {
-					$googleCollection = GooglePlaceApi::search($queryInput, $this->getTgFrom()->language_code ?? null, $this->user->getLastKnownLocation());
+				// Try Google search if no there are no locations from previous processing
+				if (
+					$this->googlePlaceApi !== null
+					&& mb_strlen($queryInput) >= Config::GOOGLE_SEARCH_MIN_LENGTH
+					&& count($answerInlineQuery->getResults()) === 0
+				) {
+					$googleCollection = $this->googlePlaceApi->searchPlace(
+						queryInput: $queryInput,
+						languageCode: $this->getTgFrom()->language_code ?? null,
+						location: $this->user->getLastKnownLocation(),
+					);
 					foreach ($googleCollection as $betterLocation) {
 						$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
 					}

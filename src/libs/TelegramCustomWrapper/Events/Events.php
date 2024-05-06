@@ -5,6 +5,7 @@ namespace App\TelegramCustomWrapper\Events;
 use App\BetterLocation\BetterLocationCollection;
 use App\Chat;
 use App\Config;
+use App\Logger\CustomTelegramLogger;
 use App\Pluginer\Pluginer;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\SendMessage;
@@ -31,8 +32,9 @@ use function Clue\React\Block\await;
 
 abstract class Events
 {
-	protected Update $update;
-	private TgLog $tgLog;
+	protected readonly Update $update;
+	private readonly TgLog $tgLog;
+	/** @readonly */
 	protected $loop;
 	protected User $user;
 	/**
@@ -51,15 +53,17 @@ abstract class Events
 
 	abstract public function handleWebhookUpdate(): void;
 
-	public function __construct(Update $update)
-	{
+	final public function init(
+		CustomTelegramLogger $customTelegramLogger,
+		Update $update,
+	): self {
 		$this->update = $update;
 
 		$this->loop = Factory::create();
 		$this->tgLog = new TgLog(
 			Config::TELEGRAM_BOT_TOKEN,
 			new HttpClientRequestHandler($this->loop),
-			\App\Factory::telegramCustomLogger(),
+			$customTelegramLogger,
 		);
 		$this->user = new User($this->getTgFromId(), $this->getTgFromDisplayname());
 		$this->user->touchLastUpdate();
@@ -80,6 +84,15 @@ abstract class Events
 			$this->command = TelegramHelper::getCommand($update);
 			$this->params = TelegramHelper::getParams($update);
 		}
+
+		$this->afterInit();
+
+		return $this;
+	}
+
+	protected function afterInit(): void
+	{
+		// Can be overriden
 	}
 
 	public function getTgUpdateId(): int

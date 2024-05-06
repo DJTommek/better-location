@@ -7,7 +7,6 @@ use App\BetterLocation\BetterLocationCollection;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\TelegramCustomWrapper\UniversalHandleLocationTrait;
 use unreal4u\TelegramAPI\Telegram;
-use unreal4u\TelegramAPI\Telegram\Types\Update;
 
 class LocationEvent extends Special
 {
@@ -16,9 +15,8 @@ class LocationEvent extends Special
 	private bool $isLive;
 	private ?BetterLocationCollection $collection = null;
 
-	public function __construct(Update $update)
+	protected function afterInit(): void
 	{
-		parent::__construct($update);
 		$this->isLive = TelegramHelper::isLocation($this->update, true);
 	}
 

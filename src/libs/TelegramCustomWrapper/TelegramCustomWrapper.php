@@ -4,6 +4,7 @@ namespace App\TelegramCustomWrapper;
 
 use App\Config;
 use App\Factory;
+use App\Logger\CustomTelegramLogger;
 use App\Repository\ChatLocationHistory;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\Button\HelpButton;
@@ -19,6 +20,7 @@ use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\Events\Command\UnknownCommand;
 use App\TelegramCustomWrapper\Events\Edit\LocationEdit;
+use App\TelegramCustomWrapper\Events\EventFactory;
 use App\TelegramCustomWrapper\Events\Events;
 use App\TelegramCustomWrapper\Events\Special\AddedToChatEvent;
 use App\TelegramCustomWrapper\Events\Special\ChannelPostEvent;
@@ -47,13 +49,15 @@ class TelegramCustomWrapper
 	private readonly TgLog $tgLog;
 	private readonly LoopInterface $loop;
 
-	public function __construct()
-	{
+	public function __construct(
+		private readonly EventFactory $eventFactory,
+		CustomTelegramLogger $customTelegramLogger,
+	) {
 		$this->loop = \React\EventLoop\Factory::create();
 		$this->tgLog = new TgLog(
 			Config::TELEGRAM_BOT_TOKEN,
 			new HttpClientRequestHandler($this->loop),
-			Factory::telegramCustomLogger(),
+			$customTelegramLogger,
 		);
 	}
 
@@ -70,18 +74,18 @@ class TelegramCustomWrapper
 
 		if (TelegramHelper::isEdit($update)) {
 			if (TelegramHelper::isLocation($update)) {
-				return new LocationEdit($update);
+				return $this->eventFactory->create(LocationEdit::class, $update);
 			} else {
 				throw new EventNotSupportedException('Edit\'s are ignored');
 			}
 		}
 
 		if (TelegramHelper::myChatMember($update) !== null) {
-			return new MyChatMemberEvent($update);
+			return $this->eventFactory->create(MyChatMemberEvent::class, $update);
 		};
 
 		if (TelegramHelper::addedToChat($update, Config::TELEGRAM_BOT_NAME)) {
-			return new AddedToChatEvent($update);
+			return $this->eventFactory->create(AddedToChatEvent::class, $update);
 		}
 
 		if (TelegramHelper::isViaBot($update, Config::TELEGRAM_BOT_NAME)) {
@@ -93,7 +97,7 @@ class TelegramCustomWrapper
 		}
 
 		if (TelegramHelper::isInlineQuery($update)) {
-			return new InlineQueryEvent($update);
+			return $this->eventFactory->create(InlineQueryEvent::class, $update);
 		}
 
 		$isChannelPost = TelegramHelper::isChannelPost($update);
@@ -105,50 +109,50 @@ class TelegramCustomWrapper
 
 		if (TelegramHelper::isButtonClick($update)) {
 			return match ($command) {
-				HelpButton::CMD => new HelpButton($update),
-				FavouritesButton::CMD => new FavouritesButton($update),
-				RefreshButton::CMD => new RefreshButton($update),
-				SettingsButton::CMD => new SettingsButton($update),
-				default => new InvalidButton($update),
+				HelpButton::CMD => $this->eventFactory->create(HelpButton::class, $update),
+				FavouritesButton::CMD => $this->eventFactory->create(FavouritesButton::class, $update),
+				RefreshButton::CMD => $this->eventFactory->create(RefreshButton::class, $update),
+				SettingsButton::CMD => $this->eventFactory->create(SettingsButton::class, $update),
+				default => $this->eventFactory->create(InvalidButton::class, $update),
 			};
 		}
 
 		if (TelegramHelper::isLocation($update)) {
-			return new LocationEvent($update);
+			return $this->eventFactory->create(LocationEvent::class, $update);
 		}
 
 		if (TelegramHelper::hasDocument($update)) {
-			return new FileEvent($update);
+			return $this->eventFactory->create(FileEvent::class, $update);
 		}
 
 		if (TelegramHelper::hasContact($update)) {
-			return new ContactEvent($update);
+			return $this->eventFactory->create(ContactEvent::class, $update);
 		}
 
 		if (TelegramHelper::hasPhoto($update)) {
-			return new PhotoEvent($update);
+			return $this->eventFactory->create(PhotoEvent::class, $update);
 		}
 
 		if ($isChannelPost) {
-			return new ChannelPostEvent($update);
+			return $this->eventFactory->create(ChannelPostEvent::class, $update);
 		}
 
 		if ($command === null) {
 			if (TelegramHelper::isMessage($update)) {
-				return new MessageEvent($update);
+				return $this->eventFactory->create(MessageEvent::class, $update);
 			}
 			throw new EventNotSupportedException('Telegram event type was not recognized.');
 		}
 
 		return match ($command) {
-			StartCommand::CMD => new StartCommand($update),
-			HelpCommand::CMD => new HelpCommand($update),
-			DebugCommand::CMD => new DebugCommand($update),
-			SettingsCommand::CMD => new SettingsCommand($update),
-			FavouritesCommand::CMD => new FavouritesCommand($update),
-			FeedbackCommand::CMD => new FeedbackCommand($update),
-			LoginCommand::CMD => new LoginCommand($update),
-			default => new UnknownCommand($update),
+			StartCommand::CMD => $this->eventFactory->create(StartCommand::class, $update),
+			HelpCommand::CMD => $this->eventFactory->create(HelpCommand::class, $update),
+			DebugCommand::CMD => $this->eventFactory->create(DebugCommand::class, $update),
+			SettingsCommand::CMD => $this->eventFactory->create(SettingsCommand::class, $update),
+			FavouritesCommand::CMD => $this->eventFactory->create(FavouritesCommand::class, $update),
+			FeedbackCommand::CMD => $this->eventFactory->create(FeedbackCommand::class, $update),
+			LoginCommand::CMD => $this->eventFactory->create(LoginCommand::class, $update),
+			default => $this->eventFactory->create(UnknownCommand::class, $update),
 		};
 	}
 

@@ -3,7 +3,7 @@
 namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocationCollection;
-use App\Factory;
+use App\BetterLocation\GooglePlaceApi;
 use App\TelegramCustomWrapper\UniversalHandleLocationTrait;
 use unreal4u\TelegramAPI\Telegram;
 
@@ -12,6 +12,11 @@ class ContactEvent extends Special
 	use UniversalHandleLocationTrait;
 
 	private ?BetterLocationCollection $collection = null;
+
+	public function __construct(
+		private readonly ?GooglePlaceApi $googlePlaceApi = null,
+	) {
+	}
 
 	public function getCollection(): BetterLocationCollection
 	{
@@ -35,9 +40,7 @@ class ContactEvent extends Special
 			return new BetterLocationCollection();
 		}
 
-		$googleSearching = Factory::googlePlaceApi();
-
-		$parser = new \App\BetterLocation\VcardLocationParser($vcard, $googleSearching);
+		$parser = new \App\BetterLocation\VcardLocationParser($vcard, $this->googlePlaceApi);
 		$parser->process();
 		return $parser->getCollection();
 	}

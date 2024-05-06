@@ -3,8 +3,8 @@
 namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\GooglePlaceApi;
 use App\Config;
-use App\Factory;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
 use App\TelegramCustomWrapper\UniversalHandleLocationTrait;
@@ -15,6 +15,11 @@ class MessageEvent extends Special
 	use UniversalHandleLocationTrait;
 
 	private ?BetterLocationCollection $collection = null;
+
+	public function __construct(
+		private readonly ?GooglePlaceApi $googlePlaceApi = null,
+	) {
+	}
 
 	public function getCollection(): BetterLocationCollection
 	{
@@ -32,14 +37,13 @@ class MessageEvent extends Special
 		$collection = $this->getCollection();
 
 		if (
-			$this->isTgPm()
+			$this->googlePlaceApi !== null
+			&& $this->isTgPm()
 			&& $collection->isEmpty()
 			&& mb_strlen($this->getTgText()) >= Config::GOOGLE_SEARCH_MIN_LENGTH
-			&& Config::isGooglePlaceApi()
 		) {
 			try {
-				$placeApi = Factory::googlePlaceApi();
-				$googleCollection = $placeApi->searchPlace(
+				$googleCollection = $this->googlePlaceApi->searchPlace(
 					$this->getTgText(),
 					$this->getTgFrom()->language_code ?? null,
 					$this->user->getLastKnownLocation(),

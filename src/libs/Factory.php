@@ -15,7 +15,7 @@ class Factory
 	private static array $objects = [];
 	private static ContainerInterface $container;
 
-	private static function getContainer(): ContainerInterface
+	public static function getContainer(): ContainerInterface
 	{
 		if (!isset(self::$container)) {
 			self::$container = self::$container = new Container();
@@ -33,11 +33,6 @@ class Factory
 	public static function telegram(): \App\TelegramCustomWrapper\TelegramCustomWrapper
 	{
 		return self::getContainer()->get(\App\TelegramCustomWrapper\TelegramCustomWrapper::class);
-	}
-
-	public static function telegramCustomLogger(): \Psr\Log\LoggerInterface
-	{
-		return self::getContainer()->get(\App\Logger\CustomTelegramLogger::class);
 	}
 
 	public static function whatThreeWords(): \What3words\Geocoder\Geocoder

@@ -19,10 +19,9 @@ class LocationEdit extends Edit
 	private bool $isLive;
 	private ?BetterLocationCollection $collection = null;
 
-	public function __construct(Telegram\Types\Update $update)
+	protected function afterInit(): void
 	{
-		parent::__construct($update);
-		$this->isLive = TelegramHelper::isLocation($update, true);
+		$this->isLive = TelegramHelper::isLocation($this->update, true);
 	}
 
 	public function getCollection(): BetterLocationCollection
