@@ -11,6 +11,7 @@ parameters:
 	additionalConstructors:
 		- App\Web\MainPresenter::run
 		- App\TelegramCustomWrapper\Events\Events::init
+		- App\Web\Admin\AdminTemplate::prepare
 	excludePaths:
 		- 'src\libs\Utils\MGRS.php' # Not my class
 	ignoreErrors:

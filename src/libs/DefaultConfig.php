@@ -258,6 +258,11 @@ class DefaultConfig
 		);
 	}
 
+	public static function isAdminPasswordSet(): bool
+	{
+		return static::ADMIN_PASSWORD !== null;
+	}
+
 	public static function isW3W(): bool
 	{
 		return static::W3W_API_KEY !== null;

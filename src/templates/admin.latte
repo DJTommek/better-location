@@ -1,0 +1,341 @@
+{templateType App\Web\LayoutTemplate}
+{layout '@layout.latte'}
+{block content}
+	<div id="content-admin">
+		<h1>{\App\Icons::LOCATION} <a href="./">BetterLocation</a> - Admin</h1>
+		<ul class="nav nav-tabs nav-fill" id="main-tab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="tab-status" data-toggle="tab" href="#status">{\App\Dashboard\Status::getInstallTabIcon()} Status</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="tab-logs" data-toggle="tab" href="#logs">{\App\Dashboard\Status::getTracyEmailIcon()} Logs</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="tab-statistics" data-toggle="tab" href="#statistics">Statistics</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="tab-tester" data-toggle="tab" href="#tester">Tester</a>
+			</li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade show active" id="status">
+				<h2>Install and status</h2>
+				<ol>
+					<li>Download/clone <a href="https://github.com/DJTommek/better-location" target="_blank" title="DJTommek/better-location on Github">BetterLocation repository</a> {\App\Icons::SUCCESS}</li>
+					<li>Run <code>composer install</code> {\App\Icons::SUCCESS}</li>
+					<li>Update <code>APP_URL</code> constant in <b>{\App\Dashboard\Status::getLocalConfigPath()}</b>:
+						{if $isAppUrlSet}
+							{\App\Icons::SUCCESS} Set to <a href="{\App\Config::getAppUrl()}" target="_blank">{\App\Config::getAppUrl()}</a>
+						{else}
+							{\App\Icons::ERROR} Not set or equal to default
+						{/if}
+					</li>
+					{capture $dbTextPrefix}
+						Update all <code>DB_*</code> constants in <b>{\App\Dashboard\Status::getLocalConfigPath()}</b>
+					{/capture}
+				{var $tablesTextPrefix = 'Create tables in database using <b>asset/sql/structure.sql</b>'}
+
+				{if \App\Dashboard\Status::isDatabaseConnectionSet()}
+						<li>{$dbTextPrefix}: {\App\Icons::SUCCESS} Connected to <b>\App\Config::DB_NAME</b></li>
+						{if (\App\Dashboard\Status::isDatabaseTablesSet())}
+							<li>{$tablesTextPrefix}: {\App\Icons::CHECKED} All tables and columns are set.</li>
+						{else}
+							<li>{$tablesTextPrefix}: {\App\Icons::ERROR} Error while checking columns: <b>{\App\Dashboard\Status::$tablesError->getMessage()}</b></li>
+						{/if}
+					{else}
+						<li>{$dbTextPrefix}: \App\Icons::ERROR Error while connecting to database <b>\App\Config::DB_NAME</b>. Error: <b>\App\Dashboard\Status::$dbError->getMessage()</b></li>
+						<li>{$tablesTextPrefix}: {\App\Icons::ERROR} Setup database connection first</li>
+					{/if}
+
+				{capture $tgStatusTextPrefix}
+						Update all <code>TELEGRAM_*</code> constants in <b>{\App\Dashboard\Status::getLocalConfigPath()}</b>
+					{/capture}
+				{if \App\Config::isTelegramWebhookPassword() === false}
+						<li>{$tgStatusTextPrefix}: {\App\Icons::ERROR} webhook password is not set.</li>
+					{elseif \App\Config::isTelegramBotToken() === false}
+						<li>{$tgStatusTextPrefix}: {\App\Icons::ERROR} bot token is not set.</li>
+					{elseif \App\Config::isTelegramBotName() === false}
+						<li>{$tgStatusTextPrefix}: {\App\Icons::ERROR} bot name is not set.</li>
+					{else}
+						<li>
+							{$tgStatusTextPrefix}: {\App\Icons::SUCCESS} TG set to bot
+							<a href="https://t.me/{\App\Config::TELEGRAM_BOT_NAME}" target="_blank">{\App\Config::TELEGRAM_BOT_NAME}</a>
+							and webhook url to
+							<a href="{$tgWebhookUrl}" target="_blank">{$tgWebhookUrl}</a>
+						</li>
+					{/if}
+
+				{capture $tgWebhookTextPrefix}
+						Setup webhook and commands via
+						<a href="set-telegram.php" target="_blank">set-telegram.php</a>
+						(or with <a href="set-telegram.php?drop_pending_updates=true" target="_blank">drop_pending_updates=true</a>)
+					{/capture}
+
+				{if \App\Config::isTelegram()}
+						{\App\Dashboard\Status::runGetWebhookStatus()}
+						{if \App\Dashboard\Status::$webhookError}
+							{capture $jsonText}
+								<pre>{json_encode(get_object_vars(\App\Dashboard\Status::$webhookError->getError()), JSON_PRETTY_PRINT)}</pre>
+							{/capture}
+							{capture $webhookDetailStatus}
+								{\App\Icons::ERROR} Something is wrong: <b>{\App\Dashboard\Status::$webhookError->getMessage()}</b>:'{$jsonText}
+							{/capture}
+						{else}
+							{if \App\Dashboard\Status::$webhookOk}
+								{capture $webhookDetailStatus}
+									{\App\Icons::SUCCESS} Everything seems to be ok, check response below.
+								{/capture}
+							{else}
+								{capture $webhookDetailStatus}
+									{\App\Icons::WARNING} Something might be wrong, check response below.
+								{/capture}
+							{/if}
+						{/if}
+						<li>{$tgWebhookTextPrefix} - response from <a href="https://core.telegram.org/bots/api#getwebhookinfo" target="_blank">getWebhookInfo</a>: {$webhookDetailStatus}</li>
+					{else}
+						<li>{$tgWebhookTextPrefix}: {\App\Icons::ERROR} setup <code>TELEGRAM_*</code> in local config first.</li>
+					{/if}
+				</ol>
+
+				{if (is_null(\App\Dashboard\Status::$webhookResponseRaw) === false)}
+					<ul class="nav nav-tabs" id="webhook-tab" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active" data-bs-toggle="tab" href="#webhook-formatted">Formatted</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-bs-toggle="tab" href="#webhook-raw">Raw</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane fade show active" id="webhook-formatted">
+							<table class="table table-striped table-bordered table-hover table-sm">
+								{foreach get_object_vars(\App\Dashboard\Status::$webhookResponse) as $key => $value}
+									<tr>
+										<td>{$key}</td>
+										<td>{$value|noescape}</td>
+									</tr>
+								{/foreach}
+							</table>
+						</div>
+						<div class="tab-pane fade" id="webhook-raw">
+							{var $json = get_object_vars(\App\Dashboard\Status::$webhookResponseRaw)}
+							<pre>{json_encode($json, JSON_PRETTY_PRINT)}</pre>
+						</div>
+					</div>
+				{/if}
+
+				<ol>
+					<li value="7">Setup CRON to <a href="../api/cron-refresh.php" target="_blank">cron-refresh.php</a>.
+						{var $now = new \DateTimeImmutable()}
+					{var $autorefreshAll = \App\TelegramUpdateDb::loadAll(\App\TelegramUpdateDb::STATUS_ENABLED)}
+					{var $oldestRefresh = null}
+					{var $newestRefresh = null}
+					{if count($autorefreshAll) > 0}
+							{var $oldestRefresh = $autorefreshAll[0]}
+							{var $newestRefresh = $autorefreshAll[count($autorefreshAll) - 1]}
+							{var $diffNowOldRefresh = $now->getTimestamp() - $oldestRefresh->getLastUpdate()->getTimestamp()}
+							{($diffNowOldRefresh > 3600) ? \App\Icons::WARNING : \App\Icons::SUCCESS} {* @TODO move to config *}
+							Oldest refresh was at <b>{$now->format(\App\Config::DATETIME_FORMAT)}</b> (<b>{\App\Utils\Utils::sToHuman($diffNowOldRefresh)}</b> ago)
+							{* @TODO solve this *}
+							<br><small>Note: might not be true - refresh is actually just last update which will change everytime user will use "Refresh" button or send refreshable location and enable autorefresh.</small>
+						{/if}
+					</li>
+					<li>Google Place API: {\App\Config::isGooglePlaceApi() ? sprintf('%s Enabled (cache set to %s)', \App\Icons::SUCCESS, \App\Utils\Utils::sToHuman(\App\Config::CACHE_TTL_GOOGLE_PLACE_API)) : sprintf('%s Disabled', \App\Icons::ERROR)}</li>
+					<li>What3Words API: {\App\Config::isW3W() ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR)}</li>
+					<li>Glympse API: {\App\Config::isGlympse() ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR)}</li>
+					<li>Foursquare API: {\App\Config::isFoursquare() ? sprintf('%s Enabled (cache set to %s)', \App\Icons::SUCCESS, \App\Utils\Utils::sToHuman(\App\Config::CACHE_TTL_FOURSQUARE_API)) : sprintf('%s Disabled', \App\Icons::ERROR)}</li>
+				</ol>
+
+			</div>
+			<div class="tab-pane fade" id="logs">
+				<h2>Errors</h2>
+				<h4>Email reporting (<a href="https://tracy.nette.org/guide" target="_blank" title="Getting started with Tracy">help</a>)</h4>
+				{if is_null(\App\Config::TRACY_DEBUGGER_EMAIL)}
+					<p>{\App\Icons::INFO} Email reporting is disabled. Set email to <b>{\App\Dashboard\Status::getLocalConfigPath()}::TRACY_DEBUGGER_EMAIL</b> to enable.</p>
+				{else}
+					<p>{\App\Icons::SUCCESS} Email reporting is enabled and set to <a href="mailto:{\App\Config::TRACY_DEBUGGER_EMAIL}">{\App\Config::TRACY_DEBUGGER_EMAIL}</a>.</p>
+				{var $tracyEmailHelpPrefix = 'Tracy\'s "email-sent" file '}
+					{if file_exists(App\Config::getTracyEmailPath()) === true}
+						{\App\Icons::WARNING} {$tracyEmailHelpPrefix} detected - no futher emails will be sent unless this file is removed.
+						<a
+								href="?delete-tracy-email-sent"
+								onclick="return confirm(\'Are you sure, you want to delete Tracy\\\'s \\\'email-sent\\\' file?\')"
+						>Delete</a>
+					{else}
+						{\App\Icons::SUCCESS} {$tracyEmailHelpPrefix} not detected - in case of error, email will be sent.
+					{/if}
+				{/if}
+
+			<h2>Tracy logs</h2>
+
+			{var $tracyLogs = \App\Dashboard\Logs::getTracyLogs(10)}
+			{if count($tracyLogs) === 0}
+					<p>No logs are available.</p>
+				{else}
+					{foreach $tracyLogs as $tracyLogName => $tracyLogContent}
+						{var $className = $tracyLogName}
+						{if (in_array($tracyLogName, [\Tracy\ILogger::ERROR, \Tracy\ILogger::EXCEPTION, \Tracy\ILogger::CRITICAL], true))}
+							{var $className = 'danger'}
+						{/if}
+						<h4 class="text-{$className}">{$tracyLogName}</h4>
+						<pre>{join(PHP_EOL, $tracyLogContent)}</pre>
+					{/foreach}
+				{/if}
+
+			<h2>SimpleLogger logs</h2>
+			{var $maxLines = 10}
+			<p>Showing last {$maxLines} lines per log file, oldest lines first.</p>
+			{var $now = new \DateTimeImmutable()}
+			{var $logs = \App\Dashboard\Logs::getLogs($now, $maxLines)}
+			{foreach $logs as $logName => $logLines}
+					<h4>{$logName} <small>({$now->format(\App\Config::DATE_FORMAT)})</small></h4>
+					{if (count($logLines) === 0)}
+						<p>No log for this day is available.</p>
+					{else}
+						<button class="btn btn-sm btn-outline-primary copy-log-content" data-to-copy="{json_encode(end($logLines))}">
+							Copy content of newest log
+						</button>
+						<span style="display: none;">Copied!</span>
+						<pre>{join(PHP_EOL, array_map('json_encode', $logLines))}</pre>
+					{/if}
+				{/foreach}
+			</div>
+			<div class="tab-pane fade" id="statistics">
+				<h2>Statistics</h2>
+				<div>
+					{if (\App\Dashboard\Status::isDatabaseConnectionSet() && \App\Dashboard\Status::isDatabaseTablesSet())}
+						<ul>
+							{var $now = new DateTimeImmutable()}
+
+					{* Detected chats *}
+					{var $results = []}
+					{var $totalCount = 0}
+					{foreach \App\Dashboard\Status::getChatsStats() as $groupType => $groupCount}
+								{var $results[] = sprintf('%s = <b>%d</b>', $groupType, $groupCount)}
+								{var $totalCount += $groupCount}
+							{/foreach}
+
+							<li><b>{$totalCount}</b> detected chats ({join(', ', $results)|noescape})</li>
+
+					{* Detected users *}
+
+							<li><b>{\App\Dashboard\Status::getUsersCount()}</b> detected users (wrote at least one message or command)</li>
+
+					{* Newest user *}
+					{var $newestUser = \App\Dashboard\Status::getNewestUser()}
+					{if $newestUser}
+								{var $newestUserUsername = (mb_strpos($newestUser['user_telegram_name'], '@') === 0) ? mb_substr($newestUser['user_telegram_name'], 1) : null}
+								<li>Most recent active user:
+									<br>ID = <b>{$newestUser['user_id']}</b>
+									<br>TG ID = <b>{$newestUser['user_telegram_id']}</b>
+									<br>TG Name = <b>{$newestUserUsername ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $newestUserUsername) : sprintf('<i>%s</i>', $newestUser['user_telegram_name'])|noescape}</b>
+									<br>Registered = <b>{$newestUser['user_registered']->format(DateTimeInterface::W3C)}</b> ({\App\Utils\Utils::sToHuman($now->getTimestamp() - $newestUser['user_registered']->getTimestamp())} ago)
+									<br>Last update = <b>{$newestUser['user_last_update']->format(DateTimeInterface::W3C)}</b> ({\App\Utils\Utils::sToHuman($now->getTimestamp() - $newestUser['user_last_update']->getTimestamp())} ago)
+								</li>
+							{/if}
+
+					{* Last changed user *}
+					{var $lastChangedUser = \App\Dashboard\Status::getLatestChangedUser()}
+					{if ($lastChangedUser)}
+								{var $lastChangedUserUsername = (mb_strpos($lastChangedUser['user_telegram_name'], '@') === 0) ? mb_substr($lastChangedUser['user_telegram_name'], 1) : null}
+								<li>Newest registered user:
+									<br>ID = <b>{$lastChangedUser['user_id']}</b>
+									<br>TG ID = <b>{$lastChangedUser['user_telegram_id']}</b>
+									<br>TG Name = <b>{$lastChangedUserUsername ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $lastChangedUserUsername) : sprintf('<i>%s</i>', $lastChangedUser['user_telegram_name'])|noescape}</b>
+									<br>Registered = <b>{$lastChangedUser['user_registered']->format(DateTimeInterface::W3C)}</b> ({\App\Utils\Utils::sToHuman($now->getTimestamp() - $lastChangedUser['user_registered']->getTimestamp())} ago)
+									<br>Last update = <b>{$lastChangedUser['user_last_update']->format(DateTimeInterface::W3C)}</b> ({\App\Utils\Utils::sToHuman($now->getTimestamp() - $lastChangedUser['user_last_update']->getTimestamp())} ago)
+								</li>
+							{/if}
+
+					{* Autorefresh messages *}
+
+							<li>Count of messages with enabled autorefresh: <b>{count($autorefreshAll)}</b></li>
+					{if count($autorefreshAll) > 0}
+								{var $now = new DateTimeImmutable()}
+								{var $diffOldNewRefresh = $newestRefresh->getLastUpdate()->getTimestamp() - $oldestRefresh->getLastUpdate()->getTimestamp()}
+								{var $diffNowOldRefresh = $now->getTimestamp() - $newestRefresh->getLastUpdate()->getTimestamp()}
+								{var $diffNowNewRefresh = $now->getTimestamp() - $oldestRefresh->getLastUpdate()->getTimestamp()}
+
+								<li>
+									Oldest autorefresh:
+									<b>{$oldestRefresh->getLastUpdate()->format(\App\Config::DATETIME_FORMAT)}</b>
+									({\App\Utils\Utils::sToHuman($diffNowOldRefresh)} ago)
+								</li>
+								<li>
+									Newest autorefresh:
+									<b>{$newestRefresh->getLastUpdate()->format(\App\Config::DATETIME_FORMAT)}</b>
+									({\App\Utils\Utils::sToHuman($diffNowNewRefresh)} ago)
+								</li>
+								<li>
+									Diff between newest and oldest autorefresh:
+									<b>{$diffOldNewRefresh > 0 ? \App\Utils\Utils::sToHuman($diffOldNewRefresh) : 'none'}</b>
+								</li>
+							{/if}
+						</ul>
+					{else}
+						<p>{\App\Icons::ERROR} Setup database connection and prepare tables.</p>
+					{/if}
+				</div>
+			</div>
+			<div class="tab-pane fade" id="tester">
+				<h2>Tester</h2>
+				<div id="tester">
+					{var $tester = new \App\Dashboard\Tester($request->getPost('input'))}
+					<form method="POST">
+						<textarea name="input" class="form-control" placeholder="Type something...">{$tester->getTextareaInput()}</textarea>
+						<button type="submit" class="btn btn-primary">Send</button>
+					</form>
+					<h3>Result</h3>
+					<div class="result">
+						{if $tester->isInput()}
+							{$tester->handleInput()}
+							{if $tester->isOutputTextEmpty()}
+								print('
+								<div class="alert alert-info">No location was detected</div>
+							{else}
+								<div class="message">
+									<pre>{$tester->getOutputText()|noescape}</pre>
+									{foreach $tester->getOutputButtons() as $row}
+										<div class="row">
+											{foreach $row as $button}
+												<div class="col buttons">
+													{if empty($button->url) === false}
+														<a
+																href="{$button->url}"
+																class="btn btn-secondary"
+																target="_blank"
+																data-toggle="tooltip"
+																title="{$button->url}"
+														>{$button->text}</a>
+													{elseif $button->callback_data}
+														<button
+																class="btn btn-secondary"
+																data-toggle="tooltip"
+																title="Callback data: \'{$button->callback_data}\'"
+														>{$button->text}</button>
+													{else}
+														{php throw new \OutOfBoundsException('Unexpected button type.')}
+													{/if}
+												</div>
+											{/foreach}
+										</div>
+									{/foreach}
+								</div>
+							{/if}
+						{else}
+							<div class="alert alert-info">Fill and send some data.</div>
+						{/if}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{/block}
+
+{block cssLibs}
+	<link rel="stylesheet" href="./css/main.css">
+{/block}
+
+{block js}
+	<script src="./js/main.js"></script>
+{/block}
