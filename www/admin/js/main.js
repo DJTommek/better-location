@@ -17,19 +17,21 @@ $(function () {
 	const hash = window.location.hash;
 	$('#main-tab a[href="' + hash + '"]').tab('show');
 
-	$(document).on("click", '.copy-log-content', function (e) {
+	// Copy beautified JSON log to clipboard
+	$(document).on("click", '.copy-to-clipboard-json-log', function () {
 		const element = this;
-		const logLine = $(this).data('to-copy');
+		const logLine = $(this).data('clipboard-text');
+		const jsonBeautified = JSON.stringify(logLine['content'], null, '\t');
 
-		// const contentToCopy = $(e.target).data('to-copy');
-		if (copyToClipboard(JSON.stringify(logLine['content'], null, '\t'))) {
+		if (ClipboardJS.copy(jsonBeautified)) {
 			$(element).next('span').show();
 			setTimeout(function () {
 				$(element).next('span').hide();
 			}, 1000);
-		} else {
-			alert('Error: Nothing was added to clipboard.');
+			return;
 		}
+
+		alert('Error: Nothing was added to clipboard.');
 	});
 
 	// Enable Bootstrap tooltips everywhere
@@ -37,30 +39,3 @@ $(function () {
 		$('[data-toggle="tooltip"]').tooltip();
 	});
 });
-
-/**
- * Copy text into clipboard.
- * Currently there is no javascript API to put text into clipboard so we have to create input text element and run command "copy"
- *
- * @author https://www.w3schools.com/howto/howto_js_copy_clipboard.asp
- * @param {string} text
- * @returns {boolean} true on success, false otherwise
- */
-function copyToClipboard(text) {
-	let inputDom = document.createElement('pre'); // <pre> to respect whitespace characters
-	// element can't be hidden (display: none), select() wouldn't work, but can be out of viewport
-	inputDom.setAttribute('style', 'display: block; position: absolute; bottom: -9999em; right: -9999em; color: transparent');
-	document.body.appendChild(inputDom);
-	inputDom.innerHTML = text;
-
-	// create selection  of HTML element https://stackoverflow.com/a/6150060/3334403
-	const range = document.createRange();
-	range.selectNodeContents(inputDom);
-	const selection = window.getSelection();
-	selection.removeAllRanges();
-	selection.addRange(range);
-
-	const success = document.execCommand("copy");
-	inputDom.parentNode.removeChild(inputDom);
-	return success;
-}
