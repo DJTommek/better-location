@@ -2,12 +2,15 @@
 
 namespace App\TelegramCustomWrapper\Events;
 
+use App\Factory\ObjectsFilterTrait;
 use App\Logger\CustomTelegramLogger;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 
 class EventFactory
 {
+	use ObjectsFilterTrait;
+
 	/**
 	 * @var array<class-string,Events>
 	 */
@@ -21,17 +24,8 @@ class EventFactory
 		private readonly CustomTelegramLogger $customTelegramLogger,
 		iterable $events,
 	) {
-		$eventsClean = [];
-		foreach ($events as $event) {
-			// @TODO {rqd9s3z9i9} Condition can be removed once linked TODO is resolved
-			if (($event instanceof Events) === false) {
-				continue;
-			}
-
-			$eventsClean[$event::class] = $event;
-		}
-
-		$this->events = $eventsClean;
+		// @TODO {rqd9s3z9i9} Filter can be removed once linked TODO is resolved
+		$this->events = iterator_to_array($this->filter($events, Events::class, true));
 	}
 
 	/**
