@@ -27,7 +27,10 @@ class LocationsPresenter extends MainPresenter
 	private string $format = 'html';
 	private string $nowFileText;
 
-	public function __construct(LocationsTemplate $template)
+	public function __construct(
+		private readonly ServicesManager $servicesManager,
+		LocationsTemplate $template,
+	)
 	{
 		$this->template = $template;
 		$this->collection = new BetterLocationCollection();
@@ -87,9 +90,8 @@ class LocationsPresenter extends MainPresenter
 		}
 
 		foreach ($this->collection as $location) {
-			$manager = new ServicesManager();
 			$services = [];
-			foreach ($manager->getServices() as $service) {
+			foreach ($this->servicesManager->getServices() as $service) {
 				try {
 					$services[] = $this->website($service, $location->getLat(), $location->getLon());
 				} catch (\Throwable $exception) {
