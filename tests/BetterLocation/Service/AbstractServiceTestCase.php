@@ -82,7 +82,9 @@ abstract class AbstractServiceTestCase extends TestCase
 	protected function assertLocation(string $input, float $expectedLat, float $expectedLon, ?string $expectedSourceType = null, float $delta = 0.000_001): BetterLocation
 	{
 		$serviceName = $this->getServiceClass();
-		$service = new $serviceName($input);
+		$service = new $serviceName();
+		$service->setInput($input);
+
 		$this->assertInstanceOf(AbstractService::class, $service);
 
 		$this->assertTrue($service->isValid());

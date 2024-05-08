@@ -60,7 +60,11 @@ abstract class AbstractService
 	/** Helper to store data between methods, eg. isValid() and process() */
 	protected \stdClass $data;
 
-	public final function __construct(string $input)
+	public final function __construct()
+	{
+	}
+
+	public function setInput(string $input): self
 	{
 		$this->input = $input;
 		if (Strict::isUrl($input)) {
@@ -72,9 +76,7 @@ abstract class AbstractService
 		$this->collection = new BetterLocationCollection();
 		$this->data = new \stdClass();
 
-		if (method_exists($this, 'beforeStart')) {
-			$this->beforeStart();
-		}
+		return $this;
 	}
 
 	public function isValid(): bool
@@ -193,13 +195,15 @@ abstract class AbstractService
 
 	public static function isValidStatic(string $input): bool
 	{
-		$instance = new static($input);
+		$instance = new static();
+		$instance->setInput($input);
 		return $instance->isValid();
 	}
 
 	public static function processStatic(string $input): self
 	{
-		$instance = new static($input);
+		$instance = new static();
+		$instance->setInput($input);
 		if ($instance->isValid() === false) {
 			throw new \InvalidArgumentException('Input is not valid.');
 		}

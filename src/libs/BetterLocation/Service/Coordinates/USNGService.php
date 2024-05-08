@@ -21,7 +21,8 @@ final class USNGService extends AbstractService
 		if (preg_match_all($inStringRegex, $text, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				$usngRaw = $matches[0][$i];
-				$service = new self($usngRaw);
+				$service = new self();
+				$service->setInput($usngRaw);
 				try {
 					if ($service->isValid()) {
 						$service->process();

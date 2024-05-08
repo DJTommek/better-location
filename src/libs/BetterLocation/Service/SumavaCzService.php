@@ -105,7 +105,8 @@ final class SumavaCzService extends AbstractService
 			$processedLinks[] = $linkPath;
 
 			$fullLink = self::LINK . $linkPath;
-			$service = new SumavaCzService($fullLink);
+			$service = new SumavaCzService();
+			$service->setInput($fullLink);
 			if ($service->isValid()) {
 				$service->process();
 				$collection = $service->getCollection();

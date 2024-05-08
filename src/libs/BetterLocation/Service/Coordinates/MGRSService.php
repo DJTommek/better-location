@@ -21,7 +21,8 @@ final class MGRSService extends AbstractService
 		if (preg_match_all($inStringRegex, $text, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				$mgrsRaw = $matches[0][$i];
-				$service = new self($mgrsRaw);
+				$service = new self();
+				$service->setInput($mgrsRaw);
 				try {
 					if ($service->isValid()) {
 						$service->process();

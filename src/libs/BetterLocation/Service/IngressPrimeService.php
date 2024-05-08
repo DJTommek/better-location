@@ -53,7 +53,8 @@ final class IngressPrimeService extends AbstractService
 
 			$oflLink = $this->url->getQueryParameter('ofl');
 			if (Strict::isUrl($oflLink)) {
-				$intelService = new IngressIntelService($oflLink);
+				$intelService = new IngressIntelService();
+				$intelService->setInput($oflLink);
 				if ($intelService->isValid()) {
 					$this->data->oflLink = $oflLink;
 					$this->data->oflLinkService = $intelService;
