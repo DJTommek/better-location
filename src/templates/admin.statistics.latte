@@ -1,0 +1,77 @@
+{templateType App\Web\LayoutTemplate}
+{layout '@layout.latte'}
+{block content}
+{block adminStatistics}
+	<h2>Statistics</h2>
+	<div>
+		{if (\App\Dashboard\Status::isDatabaseConnectionSet() && \App\Dashboard\Status::isDatabaseTablesSet())}
+			<ul>
+				{var $now = new DateTimeImmutable()}
+				{* Detected chats *}
+				{var $results = []}
+				{var $totalCount = 0}
+				{foreach \App\Dashboard\Status::getChatsStats() as $groupType => $groupCount}
+					{var $results[] = sprintf('%s = <b>%d</b>', $groupType, $groupCount)}
+					{var $totalCount += $groupCount}
+				{/foreach}
+				<li>
+						<b>{$totalCount}</b> detected chats ({join(', ', $results)|noescape})
+				</li>
+
+				{* Detected users *}
+				<li><b>{\App\Dashboard\Status::getUsersCount()}</b> detected users (wrote at least one message or command)</li>
+					{* Newest user *}
+					{var $newestUser = \App\Dashboard\Status::getNewestUser()}
+					{if $newestUser}
+					{var $newestUserUsername = (mb_strpos($newestUser['user_telegram_name'], '@') === 0) ? mb_substr($newestUser['user_telegram_name'], 1) : null}
+					<li>Most recent active user:
+						<br>ID = <b>{$newestUser['user_id']}</b>
+						<br>TG ID = <b>{$newestUser['user_telegram_id']}</b>
+						<br>TG Name = <b>{$newestUserUsername ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $newestUserUsername) : sprintf('<i>%s</i>', $newestUser['user_telegram_name'])|noescape}</b>
+						<br>Registered = <b>{$newestUser['user_registered']->format(DateTimeInterface::W3C)}</b> ({\App\Utils\Utils::sToHuman($now->getTimestamp() - $newestUser['user_registered']->getTimestamp())} ago)
+						<br>Last update = <b>{$newestUser['user_last_update']->format(DateTimeInterface::W3C)}</b> ({\App\Utils\Utils::sToHuman($now->getTimestamp() - $newestUser['user_last_update']->getTimestamp())} ago)
+					</li>
+				{/if}
+
+				{* Last changed user *}
+				{var $lastChangedUser = \App\Dashboard\Status::getLatestChangedUser()}
+				{if ($lastChangedUser)}
+					{var $lastChangedUserUsername = (mb_strpos($lastChangedUser['user_telegram_name'], '@') === 0) ? mb_substr($lastChangedUser['user_telegram_name'], 1) : null}
+					<li>Newest registered user:
+						<br>ID = <b>{$lastChangedUser['user_id']}</b>
+						<br>TG ID = <b>{$lastChangedUser['user_telegram_id']}</b>
+						<br>TG Name = <b>{$lastChangedUserUsername ? sprintf('<a href="https://t.me/%1$s" target="_blank">%1$s</a>', $lastChangedUserUsername) : sprintf('<i>%s</i>', $lastChangedUser['user_telegram_name'])|noescape}</b>
+						<br>Registered = <b>{$lastChangedUser['user_registered']->format(DateTimeInterface::W3C)}</b> ({\App\Utils\Utils::sToHuman($now->getTimestamp() - $lastChangedUser['user_registered']->getTimestamp())} ago)
+						<br>Last update = <b>{$lastChangedUser['user_last_update']->format(DateTimeInterface::W3C)}</b> ({\App\Utils\Utils::sToHuman($now->getTimestamp() - $lastChangedUser['user_last_update']->getTimestamp())} ago)
+					</li>
+				{/if}
+
+				{* Autorefresh messages *}
+				<li>Count of messages with enabled autorefresh: <b>{$autorefreshAllCount}</b></li>
+							{if $autorefreshAllCount > 0}
+					{var $now = new DateTimeImmutable()}
+					{var $diffOldNewRefresh = $newestRefresh->getLastUpdate()->getTimestamp() - $oldestRefresh->getLastUpdate()->getTimestamp()}
+					{var $diffNowOldRefresh = $now->getTimestamp() - $newestRefresh->getLastUpdate()->getTimestamp()}
+					{var $diffNowNewRefresh = $now->getTimestamp() - $oldestRefresh->getLastUpdate()->getTimestamp()}
+
+					<li>
+						Oldest autorefresh:
+						<b>{$oldestRefresh->getLastUpdate()->format(\App\Config::DATETIME_FORMAT)}</b>
+						({\App\Utils\Utils::sToHuman($diffNowOldRefresh)} ago)
+					</li>
+					<li>
+						Newest autorefresh:
+						<b>{$newestRefresh->getLastUpdate()->format(\App\Config::DATETIME_FORMAT)}</b>
+						({\App\Utils\Utils::sToHuman($diffNowNewRefresh)} ago)
+					</li>
+					<li>
+						Diff between newest and oldest autorefresh:
+						<b>{$diffOldNewRefresh > 0 ? \App\Utils\Utils::sToHuman($diffOldNewRefresh) : 'none'}</b>
+					</li>
+				{/if}
+			</ul>
+		{else}
+			<p>{\App\Icons::ERROR} Setup database connection and prepare tables.</p>
+		{/if}
+	</div>
+{/block}

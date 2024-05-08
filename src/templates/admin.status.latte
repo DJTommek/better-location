@@ -1,0 +1,127 @@
+{templateType App\Web\LayoutTemplate}
+{layout '@layout.latte'}
+{block adminStatus}
+	<h2>Install and status</h2>
+	<ol>
+		<li>Download/clone <a href="https://github.com/DJTommek/better-location" target="_blank" title="DJTommek/better-location on Github">BetterLocation repository</a> {\App\Icons::SUCCESS}</li>
+		<li>Run <code>composer install</code> {\App\Icons::SUCCESS}</li>
+		<li>Update <code>APP_URL</code> constant in <b>{\App\Dashboard\Status::getLocalConfigPath()}</b>:
+			{if $isAppUrlSet}
+				{\App\Icons::SUCCESS} Set to <a href="{\App\Config::getAppUrl()}" target="_blank">{\App\Config::getAppUrl()}</a>
+			{else}
+				{\App\Icons::ERROR} Not set or equal to default
+			{/if}
+		</li>
+		{capture $dbTextPrefix}
+			Update all <code>DB_*</code> constants in <b>{\App\Dashboard\Status::getLocalConfigPath()}</b>
+		{/capture}
+					{capture $tablesTextPrefix}
+			Create tables in database using <b>asset/sql/structure.sql</b>
+		{/capture}
+
+				{if \App\Dashboard\Status::isDatabaseConnectionSet()}
+			<li>{$dbTextPrefix}: {\App\Icons::SUCCESS} Connected to <b>\App\Config::DB_NAME</b></li>
+			{if (\App\Dashboard\Status::isDatabaseTablesSet())}
+				<li>{$tablesTextPrefix}: {\App\Icons::CHECKED} All tables and columns are set.</li>
+			{else}
+				<li>{$tablesTextPrefix}: {\App\Icons::ERROR} Error while checking columns: <b>{\App\Dashboard\Status::$tablesError->getMessage()}</b></li>
+			{/if}
+		{else}
+			<li>{$dbTextPrefix}: \App\Icons::ERROR Error while connecting to database <b>\App\Config::DB_NAME</b>. Error: <b>\App\Dashboard\Status::$dbError->getMessage()</b></li>
+			<li>{$tablesTextPrefix}: {\App\Icons::ERROR} Setup database connection first</li>
+		{/if}
+
+				{capture $tgStatusTextPrefix}
+			Update all <code>TELEGRAM_*</code> constants in <b>{\App\Dashboard\Status::getLocalConfigPath()}</b>
+		{/capture}
+				{if \App\Config::isTelegramWebhookPassword() === false}
+			<li>{$tgStatusTextPrefix}: {\App\Icons::ERROR} webhook password is not set.</li>
+		{elseif \App\Config::isTelegramBotToken() === false}
+			<li>{$tgStatusTextPrefix}: {\App\Icons::ERROR} bot token is not set.</li>
+		{elseif \App\Config::isTelegramBotName() === false}
+			<li>{$tgStatusTextPrefix}: {\App\Icons::ERROR} bot name is not set.</li>
+		{else}
+			<li>
+				{$tgStatusTextPrefix}: {\App\Icons::SUCCESS} TG set to bot
+				<a href="https://t.me/{\App\Config::TELEGRAM_BOT_NAME}" target="_blank">{\App\Config::TELEGRAM_BOT_NAME}</a>
+				and webhook url to
+				<a href="{$tgWebhookUrl}" target="_blank">{$tgWebhookUrl}</a>
+			</li>
+		{/if}
+
+				{capture $tgWebhookTextPrefix}
+			Setup webhook and commands via
+			<a href="set-telegram.php" target="_blank">set-telegram.php</a>
+			(or with <a href="set-telegram.php?drop_pending_updates=true" target="_blank">drop_pending_updates=true</a>)
+		{/capture}
+
+				{if \App\Config::isTelegram()}
+			{\App\Dashboard\Status::runGetWebhookStatus()}
+			{if \App\Dashboard\Status::$webhookError}
+				{capture $jsonText}
+					<pre>{json_encode(get_object_vars(\App\Dashboard\Status::$webhookError->getError()), JSON_PRETTY_PRINT)}</pre>
+				{/capture}
+				{capture $webhookDetailStatus}
+					{\App\Icons::ERROR} Something is wrong: <b>{\App\Dashboard\Status::$webhookError->getMessage()}</b>:'{$jsonText}
+				{/capture}
+			{else}
+				{if \App\Dashboard\Status::$webhookOk}
+					{capture $webhookDetailStatus}
+						{\App\Icons::SUCCESS} Everything seems to be ok, check response below.
+					{/capture}
+				{else}
+					{capture $webhookDetailStatus}
+						{\App\Icons::WARNING} Something might be wrong, check response below.
+					{/capture}
+				{/if}
+			{/if}
+			<li>{$tgWebhookTextPrefix} - response from <a href="https://core.telegram.org/bots/api#getwebhookinfo" target="_blank">getWebhookInfo</a>: {$webhookDetailStatus}</li>
+		{else}
+			<li>{$tgWebhookTextPrefix}: {\App\Icons::ERROR} setup <code>TELEGRAM_*</code> in local config first.</li>
+		{/if}
+	</ol>
+
+	{if (is_null(\App\Dashboard\Status::$webhookResponseRaw) === false)}
+		<ul class="nav nav-tabs" id="webhook-tab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" data-bs-toggle="tab" href="#webhook-formatted">Formatted</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-bs-toggle="tab" href="#webhook-raw">Raw</a>
+			</li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade show active" id="webhook-formatted">
+				<table class="table table-striped table-bordered table-hover table-sm">
+					{foreach get_object_vars(\App\Dashboard\Status::$webhookResponse) as $key => $value}
+						<tr>
+							<td>{$key}</td>
+							<td>{$value|noescape}</td>
+						</tr>
+					{/foreach}
+				</table>
+			</div>
+			<div class="tab-pane fade" id="webhook-raw">
+				{var $json = get_object_vars(\App\Dashboard\Status::$webhookResponseRaw)}
+				<pre>{json_encode($json, JSON_PRETTY_PRINT)}</pre>
+			</div>
+		</div>
+	{/if}
+
+	<ol>
+		<li value="7">Setup CRON to <a href="../api/cron-refresh.php" target="_blank">cron-refresh.php</a>.
+			{var $now = new \DateTimeImmutable()}
+			{if $autorefreshAllCount > 0}
+				{var $diffNowOldRefresh = $now->getTimestamp() - $oldestRefresh->getLastUpdate()->getTimestamp()}
+				{($diffNowOldRefresh > 3600) ? \App\Icons::WARNING : \App\Icons::SUCCESS} {* @TODO move to config *}
+				Oldest refresh was at <b>{$now->format(\App\Config::DATETIME_FORMAT)}</b> (<b>{\App\Utils\Utils::sToHuman($diffNowOldRefresh)}</b> ago)
+				{* @TODO solve this *}
+				<br><small>Note: might not be true - refresh is actually just last update which will change everytime user will use "Refresh" button or send refreshable location and enable autorefresh.</small>
+			{/if}
+		</li>
+		<li>Google Place API: {\App\Config::isGooglePlaceApi() ? sprintf('%s Enabled (cache set to %s)', \App\Icons::SUCCESS, \App\Utils\Utils::sToHuman(\App\Config::CACHE_TTL_GOOGLE_PLACE_API)) : sprintf('%s Disabled', \App\Icons::ERROR)}</li>
+		<li>What3Words API: {\App\Config::isW3W() ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR)}</li>
+		<li>Glympse API: {\App\Config::isGlympse() ? sprintf('%s Enabled', \App\Icons::SUCCESS) : sprintf('%s Disabled', \App\Icons::ERROR)}</li>
+		<li>Foursquare API: {\App\Config::isFoursquare() ? sprintf('%s Enabled (cache set to %s)', \App\Icons::SUCCESS, \App\Utils\Utils::sToHuman(\App\Config::CACHE_TTL_FOURSQUARE_API)) : sprintf('%s Disabled', \App\Icons::ERROR)}</li>
+	</ol>
+{/block}

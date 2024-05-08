@@ -1,0 +1,53 @@
+{templateType App\Web\LayoutTemplate}
+{layout '@layout.latte'}
+{block adminTester}
+	<h2>Tester</h2>
+	<div id="tester">
+		{var $tester = new \App\Dashboard\Tester($request->getPost('input'))}
+		<form method="POST">
+			<textarea name="input" class="form-control" placeholder="Type something...">{$tester->getTextareaInput()}</textarea>
+			<button type="submit" class="btn btn-primary">Send</button>
+		</form>
+		<h3>Result</h3>
+		<div class="result">
+			{if $tester->isInput()}
+				{$tester->handleInput()}
+				{if $tester->isOutputTextEmpty()}
+					print('
+					<div class="alert alert-info">No location was detected</div>
+				{else}
+					<div class="message">
+						<pre>{$tester->getOutputText()|noescape}</pre>
+						{foreach $tester->getOutputButtons() as $row}
+							<div class="row">
+								{foreach $row as $button}
+									<div class="col buttons">
+										{if empty($button->url) === false}
+											<a
+													href="{$button->url}"
+													class="btn btn-secondary"
+													target="_blank"
+													data-toggle="tooltip"
+													title="{$button->url}"
+											>{$button->text}</a>
+										{elseif $button->callback_data}
+											<button
+													class="btn btn-secondary"
+													data-toggle="tooltip"
+													title="Callback data: \'{$button->callback_data}\'"
+											>{$button->text}</button>
+										{else}
+											{php throw new \OutOfBoundsException('Unexpected button type.')}
+										{/if}
+									</div>
+								{/foreach}
+							</div>
+						{/foreach}
+					</div>
+				{/if}
+			{else}
+				<div class="alert alert-info">Fill and send some data.</div>
+			{/if}
+		</div>
+	</div>
+{/block}

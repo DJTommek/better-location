@@ -1,0 +1,55 @@
+{templateType App\Web\LayoutTemplate}
+{layout '@layout.latte'}
+{block adminLogs}
+	<h2>Errors</h2>
+	<h4>Email reporting (<a href="https://tracy.nette.org/guide" target="_blank" title="Getting started with Tracy">help</a>)</h4>
+	{if is_null(\App\Config::TRACY_DEBUGGER_EMAIL)}
+		<p>{\App\Icons::INFO} Email reporting is disabled. Set email to <b>{\App\Dashboard\Status::getLocalConfigPath()}::TRACY_DEBUGGER_EMAIL</b> to enable.</p>
+	{else}
+		<p>{\App\Icons::SUCCESS} Email reporting is enabled and set to <a href="mailto:{\App\Config::TRACY_DEBUGGER_EMAIL}">{\App\Config::TRACY_DEBUGGER_EMAIL}</a>.</p>
+		{var $tracyEmailHelpPrefix = 'Tracy\'s "email-sent" file '}
+		{if file_exists(App\Config::getTracyEmailPath()) === true}
+			{\App\Icons::WARNING} {$tracyEmailHelpPrefix} detected - no futher emails will be sent unless this file is removed.
+			<a
+					href="?delete-tracy-email-sent"
+					onclick="return confirm(\'Are you sure, you want to delete Tracy\\\'s \\\'email-sent\\\' file?\')"
+			>Delete</a>
+		{else}
+			{\App\Icons::SUCCESS} {$tracyEmailHelpPrefix} not detected - in case of error, email will be sent.
+		{/if}
+	{/if}
+
+	<h2>Tracy logs</h2>
+
+	{var $tracyLogs = \App\Dashboard\Logs::getTracyLogs(10)}
+	{if count($tracyLogs) === 0}
+		<p>No logs are available.</p>
+	{else}
+		{foreach $tracyLogs as $tracyLogName => $tracyLogContent}
+			{var $className = $tracyLogName}
+			{if (in_array($tracyLogName, [\Tracy\ILogger::ERROR, \Tracy\ILogger::EXCEPTION, \Tracy\ILogger::CRITICAL], true))}
+				{var $className = 'danger'}
+			{/if}
+			<h4 class="text-{$className}">{$tracyLogName}</h4>
+			<pre>{join(PHP_EOL, $tracyLogContent)}</pre>
+		{/foreach}
+	{/if}
+
+	<h2>SimpleLogger logs</h2>
+	{var $maxLines = 10}
+	<p>Showing last {$maxLines} lines per log file, oldest lines first.</p>
+	{var $now = new \DateTimeImmutable()}
+	{var $logs = \App\Dashboard\Logs::getLogs($now, $maxLines)}
+	{foreach $logs as $logName => $logLines}
+		<h4>{$logName} <small>({$now->format(\App\Config::DATE_FORMAT)})</small></h4>
+		{if (count($logLines) === 0)}
+			<p>No log for this day is available.</p>
+		{else}
+			<button class="btn btn-sm btn-outline-primary copy-to-clipboard-json-log" data-clipboard-text="{json_encode(end($logLines))}">
+				Copy content of newest log
+			</button>
+			<span style="display: none;">Copied!</span>
+			<pre>{join(PHP_EOL, array_map('json_encode', $logLines))}</pre>
+		{/if}
+	{/foreach}
+{/block}
