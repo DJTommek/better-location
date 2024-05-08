@@ -11,40 +11,51 @@ class Database
 
 	private const CONNECTION_MAX_TRIES = 3;
 
-	public const TRUE = 1;
-	public const FALSE = 0;
+	/**
+	 * Lazy access - do not use directly, use getLink() instead.
+	 */
+	private \PDO $link;
 
-	public const DISABLED = 0;
-	public const ENABLED = 1;
-	public const DELETED = 2;
+	public function __construct(
+		private readonly string $server,
+		private readonly string $schema,
+		private readonly string $user,
+		private readonly string $pass,
+		private readonly string $charset = 'utf8mb4',
+	) {
+	}
 
-	public const ORDER_ASC = 'ASC';
-	public const ORDER_DESC = 'DESC';
-	public const ORDERS = [
-		self::ORDER_ASC,
-		self::ORDER_DESC,
-	];
+	/**
+	 * Connect to the database, if connection wad not initialized, yet.
+	 * Manual call of this method is not necessary, it is made automatically with first query.
+	 */
+	public function getLink(): \PDO
+	{
+		if (!isset($this->link)) {
+			$this->connect();
+		}
 
-	private \PDO $db;
+		return $this->link;
+	}
 
-	public function __construct(string $server, string $schema, string $user, string $pass, string $charset = 'utf8mb4')
+	private function connect(): void
 	{
 		for ($retry = 0; $retry < self::CONNECTION_MAX_TRIES; $retry++) {
 			try {
-				$dsn = sprintf('mysql:host=%s;dbname=%s;charset=%s', $server, $schema, $charset);
-				$this->db = new \PDO($dsn, $user, $pass, [
+				$dsn = sprintf('mysql:host=%s;dbname=%s;charset=%s', $this->server, $this->schema, $this->charset);
+				$this->link = new \PDO($dsn, $this->user, $this->pass, [
 					\PDO::ATTR_PERSISTENT => true,
 				]);
 				// Fetch each row as array indexed by column name
-				$this->db->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
+				$this->link->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
 				// Return int and float columns as PHP int and float types
-				$this->db->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, false);
+				$this->link->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, false);
 				// https://stackoverflow.com/questions/10113562/pdo-mysql-use-pdoattr-emulate-prepares-or-not
-				$this->db->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+				$this->link->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
 				// Throw \PDOException in case of error. See https://www.php.net/manual/en/class.pdoexception.php
-				$this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+				$this->link->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 				// Fix if database server don't have enabled STRICT_ALL_TABLES. See https://stackoverflow.com/questions/27880035/what-causes-mysql-not-to-enforce-not-null-constraint
-				$this->db->query('SET SESSION SQL_MODE=STRICT_ALL_TABLES');
+				$this->link->query('SET SESSION SQL_MODE=STRICT_ALL_TABLES');
 				return; // successfullly connected
 			} catch (\PDOException $exception) {
 				if ($exception->getMessage() === 'SQLSTATE[HY000] [2002] Cannot assign requested address') {
@@ -59,11 +70,6 @@ class Database
 
 		assert(isset($exception));
 		throw $exception;
-	}
-
-	public function getLink(): \PDO
-	{
-		return $this->db;
 	}
 
 	/**
@@ -92,7 +98,7 @@ class Database
 	 */
 	private function queryReal(string $query, array $params): \PDOStatement
 	{
-		$sql = $this->db->prepare($query);
+		$sql = $this->getLink()->prepare($query);
 		$sql->execute($params);
 		return $sql;
 	}
