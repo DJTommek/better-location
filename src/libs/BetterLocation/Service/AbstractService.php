@@ -61,10 +61,6 @@ abstract class AbstractService
 	/** Helper to store data between methods, eg. isValid() and process() */
 	protected \stdClass $data;
 
-	public final function __construct()
-	{
-	}
-
 	public function setInput(string $input): self
 	{
 		$this->input = $input;
