@@ -15,7 +15,7 @@ class Factory
 	private static array $objects = [];
 	private static ContainerInterface $container;
 
-	private static function getContainer(): ContainerInterface
+	public static function getContainer(): ContainerInterface
 	{
 		if (!isset(self::$container)) {
 			self::$container = self::$container = new Container();

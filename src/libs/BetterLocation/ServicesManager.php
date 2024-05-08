@@ -58,6 +58,8 @@ use App\BetterLocation\Service\WikipediaService;
 use App\BetterLocation\Service\ZanikleObceCzService;
 use App\BetterLocation\Service\ZniceneKostelyCzService;
 use App\Config;
+use App\Factory;
+use Psr\Container\ContainerInterface;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
@@ -86,23 +88,19 @@ class ServicesManager
 	/** Service can generate text representing location only by processing via paid service */
 	public const TAG_GENERATE_TEXT_PAID = 23;
 
+	private readonly ContainerInterface $container;
+
 	/** @var array<int,class-string<AbstractService>> */
 	private readonly array $services;
 
-	public function __construct()
-	{
-		$nonIndexedServices = $this->getNonIndexedServices();
-		$indexedServices = [];
-		foreach ($nonIndexedServices as $nonIndexedService) {
-			$indexedServices[$nonIndexedService::ID] = $nonIndexedService;
-		}
-		$this->services = $indexedServices;
-	}
-
 	/**
+	 * Order matters, as it is used from most used services:
+	 * - generating list of services on website
+	 * - checking and processing input, using isValid()/process() and findInText() methods
+	 *
 	 * @return list<class-string<AbstractService>>
 	 */
-	public function getNonIndexedServices(): array
+	public static function services(): array
 	{
 		$services = [];
 
@@ -143,9 +141,9 @@ class ServicesManager
 		if (Config::isFoursquare()) {
 			$services[] = FoursquareService::class;
 		}
-//		if (Config::isIngressMosaic()) {
-//			$services[] = IngressMosaicService::class;
-//		}
+		// if (Config::isIngressMosaic()) {
+		// 	$services[] = IngressMosaicService::class;
+		// }
 		$services[] = BannergressService::class;
 		$services[] = OpenBannersService::class;
 		if (Config::isGeocaching()) {
@@ -173,27 +171,47 @@ class ServicesManager
 		return $services;
 	}
 
+	public function __construct()
+	{
+		$this->container = Factory::getContainer();
+
+		$nonIndexedServices = self::services();
+		$indexedServices = [];
+		foreach ($nonIndexedServices as $nonIndexedService) {
+			$indexedServices[$nonIndexedService::ID] = $nonIndexedService;
+		}
+		$this->services = $indexedServices;
+	}
+
+
 	public function iterate(string $input): BetterLocationCollection
 	{
-		foreach ($this->services as $serviceClass) {
-			$service = new $serviceClass();
+		foreach ($this->services as $serviceString) {
+			$service = $this->container->get($serviceString);
 			$service->setInput($input);
-			if ($service->isValid()) {
-				try {
-					$service->process();
-				} catch (NotSupportedException | InvalidLocationException) {
-					// Do nothing
-				} catch (\Throwable $exception) {
-					Debugger::log($exception, Debugger::ERROR);
-					// @phpstan-ignore-next-line
-					assert(false, 'Investigate and fix this error: ' . $exception->getMessage());
-				}
-				if (count($service->getCollection()) === 0) {
-					Debugger::log(sprintf('Input "%s" was validated for "%s", but it was unable to get any valid location.', $input, get_class($service)), ILogger::WARNING);
-				}
-				return $service->getCollection();
+			assert($service instanceof AbstractService);
+
+			if ($service->isValid() === false) {
+				continue;
 			}
+
+			try {
+				$service->process();
+			} catch (NotSupportedException|InvalidLocationException) {
+				// Do nothing
+			} catch (\Throwable $exception) {
+				Debugger::log($exception, Debugger::ERROR);
+				// @phpstan-ignore-next-line
+				assert(false, 'Investigate and fix this error: ' . $exception->getMessage());
+			}
+
+			if ($service->getCollection()->isEmpty()) {
+				Debugger::log(sprintf('Input "%s" was validated for "%s", but it was unable to get any valid location.', $input, get_class($service)), ILogger::WARNING);
+			}
+
+			return $service->getCollection();
 		}
+
 		return new BetterLocationCollection();
 	}
 
@@ -206,7 +224,7 @@ class ServicesManager
 			try {
 				$subCollection = $serviceClass::findInText($text);
 				$collection->add($subCollection);
-			} catch (NotSupportedException | InvalidLocationException) {
+			} catch (NotSupportedException|InvalidLocationException) {
 				// Do nothing
 			} catch (\Throwable $exception) {
 				Debugger::log($exception, Debugger::DEBUG);

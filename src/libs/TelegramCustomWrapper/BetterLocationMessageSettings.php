@@ -106,7 +106,7 @@ class BetterLocationMessageSettings
 		$db = Factory::database();
 		$rows = $db->query('SELECT * FROM better_location_chat_services WHERE chat_id = ? ORDER BY type, service_id DESC', $chatId)->fetchAll();
 		$result = new self();
-		$services = (new ServicesManager())->getServices();
+		$services = Factory::servicesManager()->getServices();
 		if ($filtered = self::processRows($services, $rows, self::TYPE_SHARE)) {
 			$result->setLinkServices($filtered);
 		}

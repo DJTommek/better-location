@@ -2,6 +2,7 @@
 
 namespace Tests\BetterLocation;
 
+use App\Factory;
 use PHPUnit\Framework\TestCase;
 
 final class ServiceManagerTest extends TestCase
@@ -10,7 +11,7 @@ final class ServiceManagerTest extends TestCase
 
 	public static function setUpBeforeClass(): void
 	{
-		self::$manager = new \App\BetterLocation\ServicesManager();
+		self::$manager = Factory::servicesManager();
 	}
 
 	/**
@@ -31,7 +32,7 @@ final class ServiceManagerTest extends TestCase
 
 	public function testUniqueIds(): void
 	{
-		$services = self::$manager->getNonIndexedServices();
+		$services = self::$manager::services();
 		$ids = [];
 		foreach ($services as $service) {
 			$serviceId = $service::ID;

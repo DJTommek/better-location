@@ -25,6 +25,12 @@ return static function (ContainerConfigurator $container): void {
 
 	$services->load('App\\Repository\\', __DIR__ . '/libs/Repository/*Repository.php');
 
+	$betterLocationServices = \App\BetterLocation\ServicesManager::services();
+	foreach ($betterLocationServices as $betterLocationService) {
+		$services->set($betterLocationService)
+			->share(false);
+	}
+
 	// @TODO {rqd9s3z9i9} fix this to NOT tag classes, that does not inherit from App\TelegramCustomWrapper\Events\Events::class
 	$services
 		->load('App\\TelegramCustomWrapper\\Events\\', __DIR__ . '/libs/TelegramCustomWrapper/Events/')

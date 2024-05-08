@@ -7,6 +7,7 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
+use App\Factory;
 use App\Utils\Strict;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
@@ -195,14 +196,16 @@ abstract class AbstractService
 
 	public static function isValidStatic(string $input): bool
 	{
-		$instance = new static();
+		$instance = Factory::getContainer()->get(static::class);
+		assert($instance instanceof static);
 		$instance->setInput($input);
 		return $instance->isValid();
 	}
 
 	public static function processStatic(string $input): self
 	{
-		$instance = new static();
+		$instance = Factory::getContainer()->get(static::class);
+		assert($instance instanceof static);
 		$instance->setInput($input);
 		if ($instance->isValid() === false) {
 			throw new \InvalidArgumentException('Input is not valid.');
