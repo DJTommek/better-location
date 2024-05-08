@@ -3,7 +3,9 @@
 namespace App;
 
 use App\Factory\LatteFactory;
+use App\Web\Login\LoginFacade;
 use App\Web\MainPresenter;
+use Nette\Http\Request;
 use Psr\Container\ContainerInterface;
 
 final readonly class Kernel
@@ -24,6 +26,10 @@ final readonly class Kernel
 
 		$presenter = $this->container->get($presenter);
 		assert($presenter instanceof MainPresenter);
-		$presenter->run($this->container->get(LatteFactory::class));
+		$presenter->run(
+			$this->container->get(LatteFactory::class),
+			$this->container->get(LoginFacade::class),
+			$this->container->get(Request::class),
+		);
 	}
 }

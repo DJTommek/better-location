@@ -6,7 +6,6 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\ServicesManager;
 use App\Chat;
 use App\Config;
-use App\Factory;
 use App\TelegramCustomWrapper\Events\Command\DebugCommand;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Web\LayoutTemplate;
@@ -50,13 +49,15 @@ class ChatTemplate extends LayoutTemplate
 		$this->botLink = TelegramHelper::userLink(Config::TELEGRAM_BOT_NAME);
 	}
 
-	public function prepareOk(Telegram\Types\Chat $chatResponse)
-	{
+	public function prepareOk(
+		Telegram\Types\Chat $chatResponse,
+		ServicesManager $servicesManager,
+	) {
 		$this->prepare();
 		$this->lat = $this->exampleLocation->getLat();
 		$this->lon = $this->exampleLocation->getLon();
 		$this->chatResponse = $chatResponse;
-		$this->services = Factory::servicesManager();
+		$this->services = $servicesManager;
 	}
 
 	public function prepareError()

@@ -3,7 +3,6 @@
 namespace App\Web\Admin;
 
 use App\Config;
-use App\Factory;
 use App\Web\MainPresenter;
 
 class AdminPresenter extends MainPresenter

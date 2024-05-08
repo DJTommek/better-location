@@ -3,7 +3,6 @@
 namespace App\Web\Login;
 
 use App\Config;
-use App\Factory;
 use App\Utils\Strict;
 use App\Web\Flash;
 use App\Web\MainPresenter;

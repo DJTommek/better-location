@@ -9,6 +9,7 @@ use App\TelegramCustomWrapper\Events\EventFactory as TelegramEventFactory;
 use App\TelegramCustomWrapper\TelegramCustomWrapper;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
 
 return static function (ContainerConfigurator $container): void {
@@ -59,4 +60,10 @@ return static function (ContainerConfigurator $container): void {
 
 	$services->set(\Latte\Engine::class);
 	$services->set(\App\Factory\LatteFactory::class);
+	$services->set(\App\Web\Login\LoginFacade::class)
+		->share(false);
+
+	$services->set(\Nette\Http\RequestFactory::class);
+	$services->set(\Nette\Http\Request::class)
+		->factory([service(\Nette\Http\RequestFactory::class), 'fromGlobals']);
 };

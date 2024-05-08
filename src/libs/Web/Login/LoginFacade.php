@@ -3,8 +3,6 @@
 namespace App\Web\Login;
 
 use App\Config;
-use App\Database;
-use App\Factory;
 use App\Repository\WebLoginEntity;
 use App\Repository\WebLoginRepository;
 use App\TelegramCustomWrapper\Login;
@@ -14,16 +12,12 @@ class LoginFacade
 {
 	private const COOKIE_NAME = Config::WEB_COOKIES_PREFIX . 'login';
 
-	private Database $db;
-	private WebLoginRepository $webLoginRepository;
-
 	private bool $isLogged = false;
 	private ?WebLoginEntity $entity = null;
 
-	public function __construct()
-	{
-		$this->db = Factory::database();
-		$this->webLoginRepository = new WebLoginRepository($this->db);
+	public function __construct(
+		private readonly WebLoginRepository $webLoginRepository,
+	) {
 		if ($cookie = $this->getCookie()) {
 			if ($this->entity = $this->webLoginRepository->fromHash($cookie)) {
 				$this->isLogged = true;

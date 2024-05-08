@@ -3,11 +3,11 @@
 namespace App\Web;
 
 use App\Config;
+use App\Factory\LatteFactory;
 use App\User;
 use App\Utils\Strict;
 use App\Web\Login\LoginFacade;
 use Nette\Http\Request;
-use Nette\Http\RequestFactory;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
 use Nette\Utils\Json;
@@ -30,16 +30,18 @@ abstract class MainPresenter
 	public LayoutTemplate $template;
 	public string $templatefile;
 
-	public final function run(LatteFactory $latteFactory): void
-	{
+	public final function run(
+		LatteFactory $latteFactory,
+		LoginFacade $loginFacade,
+		Request $request,
+	): void {
 		$this->latteFactory = $latteFactory;
+		$this->request = $request;
+		$this->login = $loginFacade;
 
-		$requestFactory = new RequestFactory();
-		$this->request = $requestFactory->fromGlobals();
 		if (!isset($this->template)) { // load default template if any was provided
 			$this->template = new LayoutTemplate();
 		}
-		$this->login = new LoginFacade();
 		if ($this->login->isLogged()) {
 			$this->user = new User($this->login->getTelegramId(), $this->login->getDisplayName());
 		}

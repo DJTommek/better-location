@@ -3,9 +3,9 @@
 namespace App\Web\Chat;
 
 use App\BetterLocation\Service\WazeService;
+use App\BetterLocation\ServicesManager;
 use App\Chat;
 use App\Config;
-use App\Factory;
 use App\Pluginer\Pluginer;
 use App\Pluginer\PluginerException;
 use App\Repository\ChatEntity;
@@ -30,6 +30,7 @@ class ChatPresenter extends MainPresenter
 
 	public function __construct(
 		private readonly TelegramCustomWrapper $telegramWrapper,
+		private readonly ServicesManager $servicesManager,
 		ChatTemplate $template,
 	) {
 		$this->template = $template;
@@ -89,7 +90,7 @@ class ChatPresenter extends MainPresenter
 		}
 
 		$this->template->exampleLocation = $exampleCollection->getFirst();
-		$this->template->prepareOk($this->chatResponse);
+		$this->template->prepareOk($this->chatResponse, $this->servicesManager);
 		$this->template->chat = $this->chat;
 
 		$this->setTemplateFilename('chat.latte');
@@ -188,7 +189,7 @@ class ChatPresenter extends MainPresenter
 		}
 		// Validate Pluginer URL - END
 
-		$services = Factory::servicesManager()->getServices();
+		$services = $this->servicesManager->getServices();
 
 		$linkServicesToSave = [];
 		foreach ($_POST['link-services'] ?? [] as $linkserviceId) {

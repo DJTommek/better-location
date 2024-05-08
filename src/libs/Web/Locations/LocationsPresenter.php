@@ -7,7 +7,6 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\ServicesManager;
 use App\Config;
-use App\Factory;
 use App\Utils\DateImmutableUtils;
 use App\Utils\Utils;
 use App\Web\Flash;
