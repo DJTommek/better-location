@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service\Coordinates;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\Factory;
 use App\Utils\MGRS;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -21,7 +22,7 @@ final class MGRSService extends AbstractService
 		if (preg_match_all($inStringRegex, $text, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				$mgrsRaw = $matches[0][$i];
-				$service = new self();
+				$service = Factory::getContainer()->get(self::class);
 				$service->setInput($mgrsRaw);
 				try {
 					if ($service->isValid()) {

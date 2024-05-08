@@ -4,6 +4,7 @@ namespace App\BetterLocation\Service\Coordinates;
 
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\Factory;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
@@ -74,7 +75,7 @@ abstract class WGS84AbstractService extends AbstractService
 		if (preg_match_all('/' . self::getRegex() . '/iu', $text, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				$coordsRaw = $matches[0][$i];
-				$service = new static();
+				$service = Factory::getContainer()->get(static::class);
 				$service->setInput($coordsRaw);
 				try {
 					if ($service->isValid()) {
