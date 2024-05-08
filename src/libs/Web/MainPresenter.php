@@ -23,16 +23,20 @@ abstract class MainPresenter
 
 	public const HTTP_INTERNAL_SERVER_ERROR = 500;
 
+	private readonly LatteFactory $latteFactory;
 	protected readonly Request $request;
 	protected readonly LoginFacade $login;
 	protected ?User $user = null;
-	public ?LayoutTemplate $template = null;
+	public LayoutTemplate $template;
+	public string $templatefile;
 
-	public final function run(): void
+	public final function run(LatteFactory $latteFactory): void
 	{
+		$this->latteFactory = $latteFactory;
+
 		$requestFactory = new RequestFactory();
 		$this->request = $requestFactory->fromGlobals();
-		if ($this->template === null) { // load default template if any was provided
+		if (!isset($this->template)) { // load default template if any was provided
 			$this->template = new LayoutTemplate();
 		}
 		$this->login = new LoginFacade();
@@ -47,7 +51,13 @@ abstract class MainPresenter
 		$this->template->basePath = rtrim($appUrl->getPath(), '/');
 		$this->template->flashMessages = $this->getFlashMessages();
 		$this->action();
+		$this->beforeRender();
 		$this->render();
+	}
+
+	protected function setTemplateFilename(string $templateFile): void
+	{
+		$this->templatefile = Config::FOLDER_TEMPLATES . '/' . $templateFile;
 	}
 
 	public function action(): void
@@ -55,10 +65,26 @@ abstract class MainPresenter
 		// can be overriden
 	}
 
+	/**
+	 * Can be overriden to set template file
+	 */
+	public function beforeRender(): void
+	{
+	}
+
+	/**
+	 * Can be overriden for custom rendering.
+	 */
 	public function render(): void
 	{
-		// Should be overriden
-		throw new \LogicException(sprintf('No render method was provided for %s', static::class));
+		if (!isset($this->template)) {
+			throw new \LogicException(sprintf('Template must be set to render %s', static::class));
+		}
+		if (!isset($this->templatefile)) {
+			throw new \LogicException(sprintf('TemplateFile must be set to render %s', static::class));
+		}
+
+		$this->latteFactory->render($this->templatefile, $this->template);
 	}
 
 	/**

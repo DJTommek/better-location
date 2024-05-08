@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Factory\LatteFactory;
 use App\Web\MainPresenter;
 use Psr\Container\ContainerInterface;
 
@@ -23,6 +24,6 @@ final readonly class Kernel
 
 		$presenter = $this->container->get($presenter);
 		assert($presenter instanceof MainPresenter);
-		$presenter->run();
+		$presenter->run($this->container->get(LatteFactory::class));
 	}
 }

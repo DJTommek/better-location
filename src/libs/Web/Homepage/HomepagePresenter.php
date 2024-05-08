@@ -7,9 +7,9 @@ use App\Web\MainPresenter;
 
 class HomepagePresenter extends MainPresenter
 {
-	public function render(): void
+	public function beforeRender(): void
 	{
-		Factory::latte('homepage.latte', $this->template);
+		$this->setTemplateFilename('homepage.latte');
 	}
 }
 

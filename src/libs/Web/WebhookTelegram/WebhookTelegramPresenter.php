@@ -82,7 +82,7 @@ class WebhookTelegramPresenter extends MainPresenter
 		die($message);
 	}
 
-	public function render(): never
+	public function beforeRender(): never
 	{
 		$this->renderReply(self::HTTP_OK, 'End.');
 	}

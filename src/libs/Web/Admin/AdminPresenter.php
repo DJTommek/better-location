@@ -43,10 +43,10 @@ class AdminPresenter extends MainPresenter
 
 	}
 
-	public function render(): void
+	public function beforeRender(): void
 	{
+		$this->setTemplateFilename('admin.latte');
 		$this->template->prepare($this->request);
-		Factory::latte('admin.latte', $this->template);
 	}
 }
 

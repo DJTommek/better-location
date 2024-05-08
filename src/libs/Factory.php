@@ -100,16 +100,6 @@ class Factory
 		return self::getContainer()->get(\App\BetterLocation\ServicesManager::class);
 	}
 
-	public static function latte(string $template = null, $params = []): \Latte\Engine
-	{
-		$latte = new \Latte\Engine();
-		$latte->setTempDirectory(Config::FOLDER_TEMP . '/latte');
-		if ($template !== null) {
-			$latte->render(Config::FOLDER_TEMPLATES . '/' . $template, $params);
-		}
-		return $latte;
-	}
-
 	public static function nominatim(): \maxh\Nominatim\Nominatim
 	{
 		if (!isset(self::$objects['nominatim'])) {

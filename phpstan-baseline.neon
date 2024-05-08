@@ -101,11 +101,6 @@ parameters:
 			path: src/libs/DummyLogger.php
 
 		-
-			message: "#^Method App\\\\Factory\\:\\:latte\\(\\) has parameter \\$params with no type specified\\.$#"
-			count: 1
-			path: src/libs/Factory.php
-
-		-
 			message: "#^Method App\\\\Foursquare\\\\Client\\:\\:loadVenue\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/Foursquare/Client.php

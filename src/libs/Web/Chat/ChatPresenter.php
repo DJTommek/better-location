@@ -59,11 +59,11 @@ class ChatPresenter extends MainPresenter
 		}
 	}
 
-	public function render(): void
+	public function beforeRender(): void
 	{
 		if ($this->isUserAdmin === false) {
 			$this->template->prepareError();
-			Factory::latte('chatError.latte', $this->template);
+			$this->setTemplateFilename('chatError.latte');
 			return;
 		}
 
@@ -91,7 +91,8 @@ class ChatPresenter extends MainPresenter
 		$this->template->exampleLocation = $exampleCollection->getFirst();
 		$this->template->prepareOk($this->chatResponse);
 		$this->template->chat = $this->chat;
-		Factory::latte('chat.latte', $this->template);
+
+		$this->setTemplateFilename('chat.latte');
 	}
 
 	private function loadChatData(): void

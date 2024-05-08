@@ -106,7 +106,7 @@ class LocationsPresenter extends MainPresenter
 	public function render(): void
 	{
 		if ($this->collection->isEmpty()) {
-			Factory::latte('locations.latte', $this->template);
+			$this->setTemplateFilename('locations.latte');
 		}
 
 		$this->template->prepare($this->collection, $this->services);
@@ -120,7 +120,8 @@ class LocationsPresenter extends MainPresenter
 
 	public function renderHtml(): void
 	{
-		Factory::latte('locations.latte', $this->template);
+		$this->setTemplateFilename('locations.latte');
+		parent::render();
 	}
 
 	public function renderJson(): void
@@ -151,13 +152,15 @@ class LocationsPresenter extends MainPresenter
 	public function renderFileGpx(): void
 	{
 		header(sprintf('Content-Disposition: attachment; filename="BetterLocation_%d_locations_%s.gpx"', count($this->collection), $this->nowFileText));
-		Factory::latte('locationsGpx.latte', $this->template);
+		$this->setTemplateFilename('locationsGpx.latte');
+		parent::render();
 	}
 
 	public function renderFileKml(): void
 	{
 		header(sprintf('Content-Disposition: attachment; filename="BetterLocation_%d_locations_%s.kml"', count($this->collection), $this->nowFileText));
-		Factory::latte('locationsKml.latte', $this->template);
+		$this->setTemplateFilename('locationsKml.latte');
+		parent::render();
 	}
 
 	/**

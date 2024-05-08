@@ -65,10 +65,10 @@ class LoginPresenter extends MainPresenter
 		$this->flashMessage(sprintf('You were logged in as <b>%s</b>.', $tgLoginWrapper->displayname()), Flash::SUCCESS);
 	}
 
-	public function render(): void
+	public function beforeRender(): void
 	{
 		$this->template->prepare();
-		Factory::latte('login.latte', $this->template);
+		$this->setTemplateFilename('login.latte');
 	}
 }
 
