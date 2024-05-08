@@ -74,9 +74,15 @@
 {*								Favorites*}
 {*							</a>*}
 {*						</li>*}
-{*						<li>*}
-{*							<hr class="dropdown-divider">*}
-{*						</li>*}
+						<li>
+							<a class="dropdown-item" href="{$basePath}/chat/{$login->getTelegramId()}">
+								<i class="fa fa-fw fa-wrench" aria-hidden="true"></i>
+								Private chat settings
+							</a>
+						</li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
 						<li>
 							<a class="dropdown-item link-danger" href="{$basePath}/logout.php">
 								<i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>
