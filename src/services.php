@@ -72,4 +72,21 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(\Nette\Http\RequestFactory::class);
 	$services->set(\Nette\Http\Request::class)
 		->factory([service(\Nette\Http\RequestFactory::class), 'fromGlobals']);
+
+	// PSR-7 HTTP Client (default is Guzzle)
+	$services->set(\GuzzleHttp\Client::class);
+	$services->set(\Psr\Http\Client\ClientInterface::class)
+		->alias(\Psr\Http\Client\ClientInterface::class, \GuzzleHttp\Client::class);
+
+	// PSR-16 Cache (default is Nette cache via custom PSR 16 adapter)
+	$services->set(\App\Cache\NetteCachePsr16::class);
+	$services->set(\Psr\SimpleCache\CacheInterface::class)
+		->alias(\Psr\SimpleCache\CacheInterface::class, \App\Cache\NetteCachePsr16::class);
+
+	// Register and configure some of Nette Cache storages (default is FileStorage)
+	$services->set(\Nette\Caching\Storages\DevNullStorage::class);
+	$services->set(\Nette\Caching\Storages\MemoryStorage::class);
+	$services->set(\Nette\Caching\Storages\FileStorage::class)
+		->arg('$dir', Config::FOLDER_TEMP . '/nette-cache')
+		->alias(\Nette\Caching\Storage::class, \Nette\Caching\Storages\FileStorage::class);
 };
