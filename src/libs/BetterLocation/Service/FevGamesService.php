@@ -34,7 +34,8 @@ final class FevGamesService extends AbstractService
 		@$dom->loadHTML($response);
 		foreach ($dom->getElementsByTagName('a') as $linkEl) {
 			$link = $linkEl->getAttribute('href');
-			$intelService = new IngressIntelService($link);
+			$intelService = new IngressIntelService();
+			$intelService->setInput($link);
 			if ($intelService->isValid()) {
 				$data = $intelService->getData();
 				if ($data->portalCoord) {
