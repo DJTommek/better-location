@@ -153,9 +153,7 @@ class ServicesManager
 		if (Config::isW3W()) {
 			$services[] = WhatThreeWordService::class;
 		}
-		if (Config::isGlympse()) {
-			$services[] = GlympseService::class;
-		}
+		$services[] = GlympseService::class;
 		$services[] = RopikyNetService::class;
 		$services[] = ZanikleObceCzService::class;
 		$services[] = ZniceneKostelyCzService::class;

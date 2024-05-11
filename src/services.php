@@ -73,6 +73,17 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(\Nette\Http\Request::class)
 		->factory([service(\Nette\Http\RequestFactory::class), 'fromGlobals']);
 
+	if (Config::isGlympse()) {
+		$services->set(\App\Factory\GlympseApiFactory::class)
+			->arg('$apiKey', Config::GLYMPSE_API_KEY)
+			->arg('$username', Config::GLYMPSE_API_USERNAME)
+			->arg('$password', Config::GLYMPSE_API_PASSWORD);
+
+		$services->set(\DJTommek\GlympseApi\GlympseApi::class)
+			->factory([service(\App\Factory\GlympseApiFactory::class), 'create']);
+	}
+
+
 	// PSR-7 HTTP Client (default is Guzzle)
 	$services->set(\GuzzleHttp\Client::class);
 	$services->set(\Psr\Http\Client\ClientInterface::class)
