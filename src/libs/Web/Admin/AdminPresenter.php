@@ -20,6 +20,7 @@ class AdminPresenter extends MainPresenter
 
 		if ($this->request->getPost('password') === \App\Config::ADMIN_PASSWORD) {
 			$response = new \Nette\Http\Response();
+			assert(is_string(Config::ADMIN_PASSWORD));
 			$response->setCookie(\App\Config::ADMIN_PASSWORD_COOKIE, \App\Config::ADMIN_PASSWORD, '1 year');
 			$url = Config::getAppUrl('/admin');
 			$response->redirect((string)$url);
