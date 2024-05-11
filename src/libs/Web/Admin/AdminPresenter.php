@@ -18,16 +18,18 @@ class AdminPresenter extends MainPresenter
 			die('Set ADMIN_PASSWORD in your local config file first');
 		}
 
-		if ($this->request->getPost('password') === \App\Config::ADMIN_PASSWORD) {
+		/** @var string $adminPassword */
+		$adminPassword = Config::ADMIN_PASSWORD;
+
+		if ($this->request->getPost('password') === $adminPassword) {
 			$response = new \Nette\Http\Response();
-			assert(is_string(Config::ADMIN_PASSWORD));
-			$response->setCookie(\App\Config::ADMIN_PASSWORD_COOKIE, \App\Config::ADMIN_PASSWORD, '1 year');
+			$response->setCookie(\App\Config::ADMIN_PASSWORD_COOKIE, $adminPassword, '1 year');
 			$url = Config::getAppUrl('/admin');
 			$response->redirect((string)$url);
 			die();
 		}
 
-		if ($this->request->getCookie(\App\Config::ADMIN_PASSWORD_COOKIE) !== \App\Config::ADMIN_PASSWORD) {
+		if ($this->request->getCookie(\App\Config::ADMIN_PASSWORD_COOKIE) !== $adminPassword) {
 			die('Missing or invalid password. <form method="POST">Password: <input type="password" name="password"><button type="submit">Sign in</button></form>');
 		}
 
