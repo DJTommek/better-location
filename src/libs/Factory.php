@@ -40,19 +40,6 @@ class Factory
 		return self::getContainer()->get(\What3words\Geocoder\Geocoder::class);
 	}
 
-	public static function glympse(): \DJTommek\GlympseApi\GlympseApi
-	{
-		if (!isset(self::$objects['glympse'])) {
-			$client = new \DJTommek\GlympseApi\GlympseApi(Config::GLYMPSE_API_KEY);
-			$client->setUsername(Config::GLYMPSE_API_USERNAME);
-			$client->setPassword(Config::GLYMPSE_API_PASSWORD);
-			$accessToken = $client->accountLogin();
-			$client->setAccessToken($accessToken);
-			self::$objects['glympse'] = $client;
-		}
-		return self::$objects['glympse'];
-	}
-
 	public static function geocaching(): \App\Geocaching\Client
 	{
 		if (!isset(self::$objects['geocaching'])) {

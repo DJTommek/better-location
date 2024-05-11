@@ -5,9 +5,9 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\Config;
-use App\Factory;
 use App\Icons;
 use App\Utils\Utils;
+use DJTommek\GlympseApi\GlympseApi;
 use DJTommek\GlympseApi\GlympseApiException;
 use DJTommek\GlympseApi\Types\TicketInvite;
 use Tracy\Debugger;
@@ -23,6 +23,11 @@ final class GlympseService extends AbstractService
 	const TYPE_GROUP = 'group';
 	const TYPE_INVITE = 'invite';
 	const TYPE_DESTINATION = 'destination';
+
+	public function __construct(
+		private readonly ?GlympseApi $glympseApi = null,
+	) {
+	}
 
 	public static function getConstants(): array
 	{
@@ -52,6 +57,10 @@ final class GlympseService extends AbstractService
 
 	public function process(): void
 	{
+		if ($this->glympseApi === null) {
+			throw new \RuntimeException('Glympse API is not available.');
+		}
+
 		if ($this->data->inviteId ?? null) {
 			$this->processInvite();
 		} else if ($this->data->groupName ?? null) {
@@ -153,9 +162,8 @@ final class GlympseService extends AbstractService
 
 	public function processInvite(): void
 	{
-		$glympseApi = Factory::glympse();
 		try {
-			$inviteResponse = $glympseApi->invites($this->data->inviteId, null, null, null, true);
+			$inviteResponse = $this->glympseApi->invites($this->data->inviteId, null, null, null, true);
 			$inviteLocation = $this->processInviteLocation(self::TYPE_INVITE, $inviteResponse);
 			$this->collection->add($inviteLocation);
 			if ($inviteResponse->properties->destination) {
@@ -179,12 +187,11 @@ final class GlympseService extends AbstractService
 
 	public function processGroup(): void
 	{
-		$glympseApi = Factory::glympse();
 		try {
-			$groupsResponse = $glympseApi->groups($this->data->groupName);
+			$groupsResponse = $this->glympseApi->groups($this->data->groupName);
 			foreach ($groupsResponse->members as $member) {
 				try {
-					$inviteResponse = $glympseApi->invites($member->invite, null, null, null, true);
+					$inviteResponse = $this->glympseApi->invites($member->invite, null, null, null, true);
 					$inviteLocation = $this->processInviteLocation(self::TYPE_GROUP, $inviteResponse);
 					$this->collection->add($inviteLocation);
 					if ($inviteResponse->properties->destination) {
