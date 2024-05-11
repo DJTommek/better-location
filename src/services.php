@@ -83,6 +83,15 @@ return static function (ContainerConfigurator $container): void {
 			->factory([service(\App\Factory\GlympseApiFactory::class), 'create']);
 	}
 
+	if (Config::isGeocaching()) {
+		$services->set(\App\Factory\GeocachingApiFactory::class)
+			->arg('$cookie', Config::GEOCACHING_COOKIE)
+			->arg('$cacheTtl', Config::CACHE_TTL_GEOCACHING_API);
+
+		$services->set(\App\Geocaching\Client::class)
+			->factory([service(\App\Factory\GeocachingApiFactory::class), 'create']);
+	}
+
 
 	// PSR-7 HTTP Client (default is Guzzle)
 	$services->set(\GuzzleHttp\Client::class);

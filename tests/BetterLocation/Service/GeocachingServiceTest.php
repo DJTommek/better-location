@@ -10,10 +10,10 @@ use PHPUnit\Framework\TestCase;
 
 final class GeocachingServiceTest extends TestCase
 {
-	public static function setUpBeforeClass(): void
+	private function assertProcessSetup(): void
 	{
 		if (!Config::isGeocaching()) {
-			self::markTestSkipped('Geocaching is not configured');
+			$this->markTestSkipped('Geocaching service is not properly configured.');
 		}
 	}
 
@@ -137,6 +137,8 @@ final class GeocachingServiceTest extends TestCase
 	 */
 	public function testGetCoordsFromMapSearchUrl(): void
 	{
+		$this->assertProcessSetup();
+
 		$this->assertSame([50.087717, 14.42115], GeocachingService::processStatic('https://www.geocaching.com/play/map?lat=50.087717&lng=14.42115&zoom=18&asc=true&sort=distance')->getFirst()->getLatLon());
 		$this->assertSame([50.087717, 14.42115], GeocachingService::processStatic('https://www.geocaching.com/play/map/?lat=50.087717&lng=14.42115&zoom=18&asc=true&sort=distance')->getFirst()->getLatLon());
 		$this->assertSame([-50.08, 14.42115], GeocachingService::processStatic('https://www.geocaching.com/play/map?lat=-50.08&lng=14.42115&zoom=18&asc=true&sort=distance')->getFirst()->getLatLon());
@@ -148,6 +150,8 @@ final class GeocachingServiceTest extends TestCase
 	 */
 	public function testGetCoordsFromMapBrowseUrl(): void
 	{
+		$this->assertProcessSetup();
+
 		$this->assertSame([50.05821, 14.457], GeocachingService::processStatic('https://www.geocaching.com/map/#?ll=50.05821,14.457&z=16')->getFirst()->getLatLon());
 		$this->assertSame([-50.08, 14.42115], GeocachingService::processStatic('https://www.geocaching.com/map/#?ll=-50.08,14.42115&z=9')->getFirst()->getLatLon());
 		$this->assertSame([-51.705545, -57.933311], GeocachingService::processStatic('https://www.geocaching.com/map/#?z=10&ll=-51.705545,-57.933311')->getFirst()->getLatLon());
@@ -158,6 +162,8 @@ final class GeocachingServiceTest extends TestCase
 	 */
 	public function testGetCoordsFromMapCoordInfoUrl(): void
 	{
+		$this->assertProcessSetup();
+
 		$this->assertSame([50.05821, 14.457], GeocachingService::processStatic('http://coord.info/map?ll=50.05821,14.457&z=16')->getFirst()->getLatLon());
 		$this->assertSame([-50.08, 14.42115], GeocachingService::processStatic('http://coord.info/map?ll=-50.08,14.42115&z=9')->getFirst()->getLatLon());
 		$this->assertSame([-51.705545, -57.933311], GeocachingService::processStatic('http://coord.info/map?z=10&ll=-51.705545,-57.933311')->getFirst()->getLatLon());
@@ -186,14 +192,12 @@ gc12aBd
 	 */
 	public function testParseUrl(): void
 	{
-		if (Config::isGeocaching() === false) {
-			$this->markTestSkipped('Missing Geocaching cookie.');
-		} else {
-			$this->assertSame('50.087717,14.421150', GeocachingService::processStatic('https://www.geocaching.com/geocache/GC3DYC4')->getFirst()->__toString());
-			$this->assertSame('50.087717,14.421150', GeocachingService::processStatic('https://www.geocaching.com/geocache/GC3DYC4_find-the-bug')->getFirst()->__toString());
-			$this->assertSame('50.087717,14.421150', GeocachingService::processStatic('https://coord.info/GC3DYC4')->getFirst()->__toString());
-			$this->assertSame('50.087717,14.421150', GeocachingService::processStatic('https://www.geocaching.com/seek/cache_details.aspx?guid=df11c170-1af3-4ee1-853a-e97c1afe0722')->getFirst()->__toString());
-		}
+		$this->assertProcessSetup();
+
+		$this->assertSame('50.087717,14.421150', GeocachingService::processStatic('https://www.geocaching.com/geocache/GC3DYC4')->getFirst()->__toString());
+		$this->assertSame('50.087717,14.421150', GeocachingService::processStatic('https://www.geocaching.com/geocache/GC3DYC4_find-the-bug')->getFirst()->__toString());
+		$this->assertSame('50.087717,14.421150', GeocachingService::processStatic('https://coord.info/GC3DYC4')->getFirst()->__toString());
+		$this->assertSame('50.087717,14.421150', GeocachingService::processStatic('https://www.geocaching.com/seek/cache_details.aspx?guid=df11c170-1af3-4ee1-853a-e97c1afe0722')->getFirst()->__toString());
 	}
 
 	/**
@@ -201,13 +205,11 @@ gc12aBd
 	 */
 	public function testParseUrlPremium(): void
 	{
-		if (Config::isGeocaching() === false) {
-			$this->markTestSkipped('Missing Geocaching cookie.');
-		} else {
-			$this->expectException(InvalidLocationException::class);
-			$this->expectExceptionMessage('Cannot show coordinates for geocache <a href="https://www.geocaching.com/geocache/GC2QB60">GC2QB60</a> - for Geocaching premium users only');
-			GeocachingService::processStatic('https://www.geocaching.com/geocache/GC2QB60_chebsky-most?guid=8edaee5b-6723-4022-a295-8a21d990ef11')->getFirst()->__toString();
-		}
+		$this->assertProcessSetup();
+
+		$this->expectException(InvalidLocationException::class);
+		$this->expectExceptionMessage('Cannot show coordinates for geocache <a href="https://www.geocaching.com/geocache/GC2QB60">GC2QB60</a> - for Geocaching premium users only');
+		GeocachingService::processStatic('https://www.geocaching.com/geocache/GC2QB60_chebsky-most?guid=8edaee5b-6723-4022-a295-8a21d990ef11')->getFirst()->__toString();
 	}
 
 	/**
@@ -215,13 +217,10 @@ gc12aBd
 	 */
 	public function testFindInText(): void
 	{
-		if (Config::isGeocaching() === false) {
-			$this->markTestSkipped('Missing Geocaching cookie.');
-		} else {
-			$collection = GeocachingService::findInText('GC3DYC4');
-			$this->assertCount(1, $collection->getLocations());
-			$this->assertSame('50.087717,14.421150', $collection[0]->__toString());
-		}
-	}
+		$this->assertProcessSetup();
 
+		$collection = GeocachingService::findInText('GC3DYC4');
+		$this->assertCount(1, $collection->getLocations());
+		$this->assertSame('50.087717,14.421150', $collection[0]->__toString());
+	}
 }

@@ -51,6 +51,12 @@ final class GeocachingService extends AbstractService
 	const TYPE_MAP_SEARCH = 'search map';
 	const TYPE_MAP_COORD = 'coord map';
 
+	public function __construct(
+		private readonly ?Client $geocachingClient = null,
+	) {
+
+	}
+
 	public static function getConstants(): array
 	{
 		return [
@@ -255,6 +261,10 @@ final class GeocachingService extends AbstractService
 
 	public function process(): void
 	{
+		if ($this->geocachingClient === null) {
+			throw new \RuntimeException('Geocaching API is not available.');
+		}
+
 		if ($this->data->isUrlGuid ?? false) {
 			try {
 				$this->url = Strict::url(MiniCurl::loadRedirectUrl($this->input));
@@ -270,7 +280,7 @@ final class GeocachingService extends AbstractService
 		}
 
 		if ($this->data->geocacheId ?? null) {
-			$geocache = Factory::geocaching()->loadGeocachePreview($this->data->geocacheId);
+			$geocache = $this->geocachingClient->loadGeocachePreview($this->data->geocacheId);
 			$this->collection->add(self::formatApiResponse($geocache, $this->input));
 		} else if ($this->data->mapCoord ?? false) {
 			$this->collection->add(new BetterLocation($this->input, $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP_SEARCH));

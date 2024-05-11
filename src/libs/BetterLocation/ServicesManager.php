@@ -146,9 +146,7 @@ class ServicesManager
 		// }
 		$services[] = BannergressService::class;
 		$services[] = OpenBannersService::class;
-		if (Config::isGeocaching()) {
-			$services[] = GeocachingService::class;
-		}
+		$services[] = GeocachingService::class;
 		$services[] = WaymarkingService::class;
 		if (Config::isW3W()) {
 			$services[] = WhatThreeWordService::class;

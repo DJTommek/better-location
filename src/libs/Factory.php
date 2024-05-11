@@ -42,11 +42,7 @@ class Factory
 
 	public static function geocaching(): \App\Geocaching\Client
 	{
-		if (!isset(self::$objects['geocaching'])) {
-			self::$objects['geocaching'] = new \App\Geocaching\Client(Config::GEOCACHING_COOKIE);
-			self::$objects['geocaching']->setCache(Config::CACHE_TTL_GEOCACHING_API);
-		}
-		return self::$objects['geocaching'];
+		return self::getContainer()->get(\App\Geocaching\Client::class);
 	}
 
 	public static function foursquare(): \App\Foursquare\Client
