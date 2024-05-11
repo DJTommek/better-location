@@ -11,6 +11,13 @@ use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 
 final class WhatThreeWordsServiceTest extends TestCase
 {
+	public static function setUpBeforeClass(): void
+	{
+		if (!Config::isW3W()) {
+			self::markTestSkipped('What3Words API is not configured');
+		}
+	}
+
 	private function assertApiKeyExists(): void
 	{
 		if (!Config::isW3W()) {

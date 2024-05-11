@@ -4,10 +4,18 @@ namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\GlympseService;
+use App\Config;
 use PHPUnit\Framework\TestCase;
 
 final class GlympseServiceTest extends TestCase
 {
+	public static function setUpBeforeClass(): void
+	{
+		if (!Config::isGlympse()) {
+			self::markTestSkipped('Glympse is not configured');
+		}
+	}
+
 	public function testGenerateShareLink(): void
 	{
 		$this->expectException(NotSupportedException::class);

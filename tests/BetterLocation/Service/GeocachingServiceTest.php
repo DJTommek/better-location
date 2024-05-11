@@ -10,6 +10,13 @@ use PHPUnit\Framework\TestCase;
 
 final class GeocachingServiceTest extends TestCase
 {
+	public static function setUpBeforeClass(): void
+	{
+		if (!Config::isGeocaching()) {
+			self::markTestSkipped('Geocaching is not configured');
+		}
+	}
+
 	/** @noinspection PhpUnhandledExceptionInspection */
 	public function testGenerateShareLink(): void
 	{
