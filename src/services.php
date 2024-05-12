@@ -107,6 +107,8 @@ return static function (ContainerConfigurator $container): void {
 			->factory([service(\App\Factory\FoursquareApiFactory::class), 'create']);
 	}
 
+	$services->set(\App\Utils\Requestor::class);
+
 	// PSR-7 HTTP Client
 	$services->set(\App\Factory\HttpClientFactory::class);
 	$services->set(\GuzzleHttp\Client::class);
