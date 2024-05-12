@@ -28,6 +28,11 @@ final class FoursquareService extends AbstractService
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
 	];
 
+	public function __construct(
+		private readonly ?\App\Foursquare\Client $foursquareClient = null,
+	) {
+	}
+
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
@@ -52,8 +57,11 @@ final class FoursquareService extends AbstractService
 
 	public function process(): void
 	{
-		$client = Factory::foursquare();
-		$venue = $client->loadVenue($this->data->venueId);
+		if ($this->foursquareClient === null) {
+			throw new \RuntimeException('Foursquare API is not available.');
+		}
+
+		$venue = $this->foursquareClient->loadVenue($this->data->venueId);
 		$this->collection->add($this->venueToBetterLocation($venue));
 	}
 

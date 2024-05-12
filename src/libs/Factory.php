@@ -60,15 +60,6 @@ class Factory
 		return self::getContainer()->get(\App\Geocaching\Client::class);
 	}
 
-	public static function foursquare(): \App\Foursquare\Client
-	{
-		if (!isset(self::$objects['foursquare'])) {
-			self::$objects['foursquare'] = new \App\Foursquare\Client(Config::FOURSQUARE_CLIENT_ID, Config::FOURSQUARE_CLIENT_SECRET);
-			self::$objects['foursquare']->setCache(Config::CACHE_TTL_FOURSQUARE_API);
-		}
-		return self::$objects['foursquare'];
-	}
-
 	public static function ingressLanchedRu(): \App\IngressLanchedRu\Client
 	{
 		if (!isset(self::$objects['ingressLanchedRu'])) {

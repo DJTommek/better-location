@@ -97,6 +97,16 @@ return static function (ContainerConfigurator $container): void {
 		$services->set(\App\WhatThreeWord\Helper::class);
 	}
 
+	if (Config::isFoursquare()) {
+		$services->set(\App\Factory\FoursquareApiFactory::class)
+			->arg('$clientId', Config::FOURSQUARE_CLIENT_ID)
+			->arg('$clientSecret', Config::FOURSQUARE_CLIENT_SECRET)
+			->arg('$cacheTtl', Config::CACHE_TTL_FOURSQUARE_API);
+
+		$services->set(App\Foursquare\Client::class)
+			->factory([service(\App\Factory\FoursquareApiFactory::class), 'create']);
+	}
+
 	// PSR-7 HTTP Client (default is Guzzle)
 	$services->set(\GuzzleHttp\Client::class);
 	$services->set(\Psr\Http\Client\ClientInterface::class)
