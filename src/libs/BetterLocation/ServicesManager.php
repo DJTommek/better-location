@@ -148,9 +148,7 @@ class ServicesManager
 		$services[] = OpenBannersService::class;
 		$services[] = GeocachingService::class;
 		$services[] = WaymarkingService::class;
-		if (Config::isW3W()) {
-			$services[] = WhatThreeWordService::class;
-		}
+		$services[] = WhatThreeWordService::class;
 		$services[] = GlympseService::class;
 		$services[] = RopikyNetService::class;
 		$services[] = ZanikleObceCzService::class;

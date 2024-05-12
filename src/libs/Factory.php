@@ -35,9 +35,24 @@ class Factory
 		return self::getContainer()->get(\App\TelegramCustomWrapper\TelegramCustomWrapper::class);
 	}
 
-	public static function whatThreeWords(): \What3words\Geocoder\Geocoder
+	public static function whatThreeWords(): ?\What3words\Geocoder\Geocoder
 	{
-		return self::getContainer()->get(\What3words\Geocoder\Geocoder::class);
+		$container = self::getContainer();
+		if ($container->has(\What3words\Geocoder\Geocoder::class) === false) {
+			return null;
+		}
+
+		return $container->get(\What3words\Geocoder\Geocoder::class);
+	}
+
+	public static function whatThreeWordsHelper(): ?\App\WhatThreeWord\Helper
+	{
+		$container = self::getContainer();
+		if ($container->has(\App\WhatThreeWord\Helper::class) === false) {
+			return null;
+		}
+
+		return $container->get(\App\WhatThreeWord\Helper::class);
 	}
 
 	public static function geocaching(): \App\Geocaching\Client

@@ -6,6 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
+use App\Factory;
 use App\WhatThreeWord;
 
 final class WhatThreeWordService extends AbstractService
@@ -25,13 +26,19 @@ final class WhatThreeWordService extends AbstractService
 	const LINK = 'https://what3words.com/';
 	const LINK_SHORT = 'https://w3w.co/';
 
+	public function __construct(
+		private readonly ?WhatThreeWord\Helper $w3wHelper = null,
+	) {
+	}
+
 	/** @throws NotSupportedException|\Exception */
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
 		} else {
-			return WhatThreeWord\Helper::coordsToWords($lat, $lon)->map;
+			$helper = Factory::whatThreeWordsHelper();
+			return $helper?->coordsToWords($lat, $lon)->map;
 		}
 	}
 
@@ -42,7 +49,11 @@ final class WhatThreeWordService extends AbstractService
 
 	public function process(): void
 	{
-		$data = WhatThreeWord\Helper::wordsToCoords($this->data->words);
+		if ($this->w3wHelper === null) {
+			throw new \RuntimeException('What3Words API is not available.');
+		}
+
+		$data = $this->w3wHelper->wordsToCoords($this->data->words);
 		$betterLocation = new BetterLocation($this->input, $data->coordinates->lat, $data->coordinates->lng, self::class);
 		$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a>: <code>%s</code>', $data->map, self::NAME, $data->words));
 		$this->collection->add($betterLocation);
@@ -85,7 +96,12 @@ final class WhatThreeWordService extends AbstractService
 
 	public static function getShareText(float $lat, float $lon): ?string
 	{
-		$data = WhatThreeWord\Helper::coordsToWords($lat, $lon);
+		$helper = Factory::whatThreeWordsHelper();
+		if ($helper === null) {
+			return null;
+		}
+
+		$data = $helper->coordsToWords($lat, $lon);
 		return '///' . $data->words;
 	}
 

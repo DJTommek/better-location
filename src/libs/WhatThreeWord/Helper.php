@@ -19,6 +19,11 @@ class Helper
 	private const REGEX_WORDS_PREFIX_REQUIRED = self::REGEX_PREFIX . self::REGEX_WORDS;
 	private const REGEX_WORDS_PREFIX_OPTIONAL = self::REGEX_PREFIX . '?' . self::REGEX_WORDS;
 
+	public function __construct(
+		private readonly \What3words\Geocoder\Geocoder $apiClient,
+	) {
+	}
+
 	/**
 	 * @return string|null Validate words and return updated string ready to use in API or null if invalid
 	 * @example paves.fans.piston -> paves.fans.piston
@@ -51,7 +56,7 @@ class Helper
 		return $result;
 	}
 
-	public static function wordsToCoords(string $words): \stdClass
+	public function wordsToCoords(string $words): \stdClass
 	{
 		$words = self::validateWords($words);
 		if ($words === null) {
@@ -60,15 +65,14 @@ class Helper
 
 		$cacheKey = sprintf('words-to-coords-%s', $words);
 		return self::cache()->load($cacheKey, function () use ($words) {
-			return self::wordsToCoordsReal($words);
+			return $this->wordsToCoordsReal($words);
 		});
 	}
 
-	public static function wordsToCoordsReal(string $words): \stdClass
+	public function wordsToCoordsReal(string $words): \stdClass
 	{
-		$w3wApi = Factory::whatThreeWords();
-		$response = $w3wApi->convertToCoordinates($words);
-		if ($error = $w3wApi->getError()) {
+		$response = $this->apiClient->convertToCoordinates($words);
+		if ($error = $this->apiClient->getError()) {
 			$error = json_decode(json_encode($error)); // @TODO dirty hack to get stdclass instead of associated array
 			if ($error->code === 'BadWords') {
 				throw new ResponseException(sprintf('What3Words "%s" are not valid words: "%s"', $words, $error->message));
@@ -82,19 +86,18 @@ class Helper
 		}
 	}
 
-	public static function coordsToWords(float $lat, float $lon, string $lang = self::LANG): \stdClass
+	public function coordsToWords(float $lat, float $lon, string $lang = self::LANG): \stdClass
 	{
 		$cacheKey = sprintf('coords-to-words-%F-%F-%s', $lat, $lon, $lang);
 		return self::cache()->load($cacheKey, function () use ($lat, $lon, $lang) {
-			return self::coordsToWordsReal($lat, $lon, $lang);
+			return $this->coordsToWordsReal($lat, $lon, $lang);
 		});
 	}
 
-	private static function coordsToWordsReal(float $lat, float $lon, string $lang): \stdClass
+	private function coordsToWordsReal(float $lat, float $lon, string $lang): \stdClass
 	{
-		$w3wApi = Factory::whatThreeWords();
-		$response = $w3wApi->convertTo3wa($lat, $lon, $lang);
-		$error = $w3wApi->getError();
+		$response = $this->apiClient->convertTo3wa($lat, $lon, $lang);
+		$error = $this->apiClient->getError();
 		if ($error !== false) {
 			assert(is_array($error));
 			throw new ResponseException(sprintf('Unable to get W3W from coordinates: %s', $error['message']));

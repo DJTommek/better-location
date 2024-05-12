@@ -2,8 +2,10 @@
 
 namespace Tests\WhatThreeWord;
 
+use App\Config;
 use App\WhatThreeWord\Helper;
 use PHPUnit\Framework\TestCase;
+use What3words\Geocoder\Geocoder;
 
 final class HelperTest extends TestCase
 {
@@ -78,13 +80,15 @@ final class HelperTest extends TestCase
 	 */
 	public function testCoordsToWords(): void
 	{
-		$data = Helper::coordsToWords(51.521251, -0.203586);
+		$helper = self::getHelper();
+
+		$data = $helper->coordsToWords(51.521251, -0.203586);
 		$this->assertSame(51.521251, $data->coordinates->lat);
 		$this->assertSame(-0.203586, $data->coordinates->lng);
 		$this->assertSame('index.home.raft', $data->words);
 		$this->assertSame('https://w3w.co/index.home.raft', $data->map);
 
-		$data = Helper::coordsToWords(50.087451, 14.420671);
+		$data = $helper->coordsToWords(50.087451, 14.420671);
 		$this->assertSame(50.087443, $data->coordinates->lat);
 		$this->assertSame(14.420682, $data->coordinates->lng);
 		$this->assertSame('paves.fans.piston', $data->words);
@@ -96,22 +100,34 @@ final class HelperTest extends TestCase
 	 */
 	public function testWordsToCoords(): void
 	{
-		$data = Helper::wordsToCoords('index.home.raft');
+		$helper = self::getHelper();
+
+		$data = $helper->wordsToCoords('index.home.raft');
 		$this->assertSame(51.521251, $data->coordinates->lat);
 		$this->assertSame(-0.203586, $data->coordinates->lng);
 		$this->assertSame('index.home.raft', $data->words);
 		$this->assertSame('https://w3w.co/index.home.raft', $data->map);
 
-		$data = Helper::wordsToCoords('paves.fans.piston');
+		$data = $helper->wordsToCoords('paves.fans.piston');
 		$this->assertSame(50.087443, $data->coordinates->lat);
 		$this->assertSame(14.420682, $data->coordinates->lng);
 		$this->assertSame('paves.fans.piston', $data->words);
 		$this->assertSame('https://w3w.co/paves.fans.piston', $data->map);
 
-		$data = Helper::wordsToCoords('井水.组装.湖泊');
+		$data = $helper->wordsToCoords('井水.组装.湖泊');
 		$this->assertSame(39.916788, $data->coordinates->lat);
 		$this->assertSame(116.397099, $data->coordinates->lng);
 		$this->assertSame('井水.组装.湖泊', $data->words);
 		$this->assertSame('https://w3w.co/%E4%BA%95%E6%B0%B4.%E7%BB%84%E8%A3%85.%E6%B9%96%E6%B3%8A', $data->map);
+	}
+
+	private static function getHelper(): Helper
+	{
+		if (Config::isW3W() === false) {
+			self::markTestSkipped('WhatThreeWords is not properly configured - API key is missing.');
+		}
+
+		$geocoder = new Geocoder(Config::W3W_API_KEY);
+		return new Helper($geocoder);
 	}
 }

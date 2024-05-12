@@ -511,7 +511,7 @@ class BetterLocation implements CoordinatesInterface
 	public static function generateFavouriteName(float $lat, float $lon): string
 	{
 		try {
-			$result = Factory::whatThreeWords()->convertTo3wa($lat, $lon);
+			$result = Factory::whatThreeWords()?->convertTo3wa($lat, $lon);
 			if ($result) {
 				return sprintf('///%s', $result['words']);
 			} else {

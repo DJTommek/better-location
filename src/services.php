@@ -25,6 +25,7 @@ return static function (ContainerConfigurator $container): void {
 
 	$services->load('App\\Repository\\', __DIR__ . '/libs/Repository/*Repository.php');
 
+	// Register all BetterLocation services
 	$betterLocationServices = \App\BetterLocation\ServicesManager::services();
 	foreach ($betterLocationServices as $betterLocationService) {
 		$services->set($betterLocationService)
@@ -58,9 +59,6 @@ return static function (ContainerConfigurator $container): void {
 			->arg('$apiKey', Config::GOOGLE_PLACE_API_KEY);
 	}
 
-	$services->set(\What3words\Geocoder\Geocoder::class)
-		->arg('$api_key', Config::W3W_API_KEY);
-
 	$services->set(TelegramEventFactory::class)
 		->arg('$events', tagged_iterator($tagTgEvents));
 
@@ -92,6 +90,12 @@ return static function (ContainerConfigurator $container): void {
 			->factory([service(\App\Factory\GeocachingApiFactory::class), 'create']);
 	}
 
+	if (Config::isW3W()) {
+		$services->set(\What3words\Geocoder\Geocoder::class)
+			->arg('$api_key', Config::W3W_API_KEY);
+
+		$services->set(\App\WhatThreeWord\Helper::class);
+	}
 
 	// PSR-7 HTTP Client (default is Guzzle)
 	$services->set(\GuzzleHttp\Client::class);
