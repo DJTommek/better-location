@@ -124,6 +124,9 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(\Nette\Caching\Storages\DevNullStorage::class);
 	$services->set(\Nette\Caching\Storages\MemoryStorage::class);
 	$services->set(\Nette\Caching\Storages\FileStorage::class)
-		->arg('$dir', Config::FOLDER_TEMP . '/nette-cache')
+		->factory([service(\App\Factory\NetteCacheFileStorageFactory::class), 'create'])
 		->alias(\Nette\Caching\Storage::class, \Nette\Caching\Storages\FileStorage::class);
+
+	$services->set(\App\Factory\NetteCacheFileStorageFactory::class)
+		->arg('$dir', Config::FOLDER_TEMP . '/nette-cache');
 };
