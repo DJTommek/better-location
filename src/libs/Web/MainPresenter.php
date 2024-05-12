@@ -94,7 +94,7 @@ abstract class MainPresenter
 	 * - absolute example: 'http://tomas.palider.cz/something'
 	 * - relative path example: '/something' will append to URL defined in config and make it absolute
 	 */
-	public final function redirect(string|Url|UrlImmutable $url, bool $permanent = false): void
+	public final function redirect(string|Url|UrlImmutable $url, bool $permanent = false): never
 	{
 		if (is_string($url) && str_starts_with($url, '/')) { // dynamic path, eg '/login.php'
 			$url = Config::getAppUrl($url);
