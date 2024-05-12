@@ -3,6 +3,7 @@
 namespace App\Web\Admin;
 
 use App\Config;
+use App\Web\Flash;
 use App\Web\MainPresenter;
 
 class AdminPresenter extends MainPresenter
@@ -34,15 +35,22 @@ class AdminPresenter extends MainPresenter
 		}
 
 		if ($this->request->getQuery('delete-tracy-email-sent') !== null) {
-			try {
-				\Nette\Utils\FileSystem::delete(Config::getTracyEmailPath());
-				printf('<p>%s Tracy\'s "email-sent" file was deleted.</p>', \App\Icons::SUCCESS);
-			} catch (\Nette\IOException $exception) {
-				printf('<p>%s Error while deleting Tracy\'s "email-sent" file: <b>%s</b></p>', \App\Icons::ERROR, $exception->getMessage());
-			}
-			die('<p>Go back to <a href="./index.php">index.php</a></p>');
+			$this->actionDeleteTracyEmailFile();
 		}
+	}
 
+	public function actionDeleteTracyEmailFile(): never
+	{
+		try {
+			\Nette\Utils\FileSystem::delete(Config::getTracyEmailPath());
+			$this->flashMessage('Tracy\'s "email-sent" file was deleted.', Flash::SUCCESS);
+		} catch (\Nette\IOException $exception) {
+			$this->flashMessage(
+				sprintf('Error while deleting Tracy\'s "email-sent" file: "%s"', $exception->getMessage()),
+				Flash::ERROR,
+			);
+		}
+		$this->redirect('/admin');
 	}
 
 	public function beforeRender(): void
