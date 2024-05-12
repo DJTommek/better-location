@@ -1,0 +1,4731 @@
+{
+	"id": "codex-gigas-fb0f",
+	"title": "Codex Gigas",
+	"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+	"width": 6,
+	"numberOfMissions": 60,
+	"numberOfSubmittedMissions": 0,
+	"numberOfDisabledMissions": 0,
+	"missions": {
+		"0": {
+			"id": "fb9808d04e0c4df4af24bfef06fb8c3a.1c",
+			"title": "Codex Gigas 01",
+			"picture": "https://lh3.googleusercontent.com/ujIbgfnJaW8dY5WjWczYDOB0FIeeFP9IG1Mb9fUqy3507TY3166-9RXa4ZIyREDia1GHkfAL3K-_2Ff5KThw",
+			"steps": [
+				{
+					"poi": {
+						"id": "cc0e0fa76b704743802068c49a745a9b.16",
+						"title": "Hotel Ruche",
+						"latitude": 50.084219,
+						"longitude": 14.423319,
+						"picture": "https://lh3.googleusercontent.com/rODaL7_f-ygVdr0s2KnhYMnsdG4YdNgIZlcpxwy9MfYg8gia7YjIr3ftSwXYUH_KfHFV229o37O_Vo-p4zJ7kBKfsI8",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f35a30d3860a42ffaefea6edd81ae135.16",
+						"title": "Zlatá Koruna",
+						"latitude": 50.084261,
+						"longitude": 14.423871,
+						"picture": "https://lh3.googleusercontent.com/xv4rXM_3ZLHKrkgjUwrI-UTcmmZkB84TfQE1VbNndeFPcRwJdZIoalR9pcaw2P0zlTenz2aDxAIyRtf7RwlTu-NXY4Y",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "afa6370382ae4b77a915cb77ab6106d6.12",
+						"title": "Nové Město (New Town)",
+						"latitude": 50.084494,
+						"longitude": 14.423738,
+						"picture": "https://lh3.googleusercontent.com/vKEi321hPZtFyJseOJkEhb80gFDG-Mgzsga63HGMory5ts91Xf8ledgXWFNGh8wvnp37tb5dDXk8GngOZYdx04lJbg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "fbea22b64a1d4bb18c0b28e9f9532fae.16",
+						"title": "Old Knight",
+						"latitude": 50.084661,
+						"longitude": 14.423903,
+						"picture": "https://lh3.googleusercontent.com/80Bl29W53kJ-EtaGFztQIfHuFxbfkrrXGf409awedKo7z4hjnYzs1YdgKn9BA4XV60tn6Fi1GSkQF7o3gFs1-O0Q4w",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "8a798f4a06ff497c81bbb0b0a981faad.16",
+						"title": "Koruna",
+						"latitude": 50.084576,
+						"longitude": 14.424301,
+						"picture": "https://lh3.googleusercontent.com/95q6FpWMrgr3KzOPDcJnMcuUC2o7wSae4uDh3SZcEE6JeqjCaZam1tfJk_E1Js2veguF9poQi4nMaCOzDZ9Dn0GTJl61",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f6fa13d91a7448fda5b7aeea8edbf6b5.16",
+						"title": "U Dörflerü",
+						"latitude": 50.084774,
+						"longitude": 14.424122,
+						"picture": "https://lh3.googleusercontent.com/ToznzkaP8ZhU6Ve8401OHKUjWqTNbcm7DVX7RzlOH-TXbR0lqeF7ct2UmTVHPxgkj5X8Am83Y5Rko-VGiL0Q3Y-0quA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:14:44.542078Z",
+			"averageDurationMilliseconds": 401038,
+			"lengthMeters": 145
+		},
+		"1": {
+			"id": "99c756c367f340beb360fb3586a9f96f.1c",
+			"title": "Codex Gigas 02",
+			"picture": "https://lh3.googleusercontent.com/5m0kWPnP2Z9girPSHZdqkdpQ9A8gWhjLJR99PhoHK5RZQR_Fkr06Rybxz54kYWudazwfP_M_3OHHvLlyYi2oNA",
+			"steps": [
+				{
+					"poi": {
+						"id": "1c8937e7c1544c3dba2caca540758890.16",
+						"title": "Blue Light Tower",
+						"latitude": 50.084958,
+						"longitude": 14.424195,
+						"picture": "https://lh3.googleusercontent.com/K2pXYt28IPZZAwTf7zp5eLE3tQa7q4QxmVZEqd14ju5PyOTJruFIu8knVAYJo_fPuSi_CT1JzXcZDemilY7qk8_WTXVQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0e4966487aac478484294c97aa8ed1e3.16",
+						"title": "Mango's Building",
+						"latitude": 50.084771,
+						"longitude": 14.424575,
+						"picture": "https://lh3.googleusercontent.com/BE7KW0olG8tcRaMwaznCUmP9XHAmrriTs9Kpbeug3VOVqfNc6kq7S5Fq05-POTATNsu5ZZ7WoDRpkk_N6vawzuXwr-M",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0350aa55ce4340838953b95d0a92af65.16",
+						"title": "Casino",
+						"latitude": 50.084979,
+						"longitude": 14.42489,
+						"picture": "https://lh3.googleusercontent.com/cl_MhvCtww8lPrFb8Kto98AxEm8tbDQy7n-jYdy6sFBxtz0jeOF9b4cSJfDqdiHDT6REzBmydCUu3ENI0Svx703vYz4",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "7439e7702a43408aaf80989b2656b2ac.16",
+						"title": "Rings of Water",
+						"latitude": 50.085141,
+						"longitude": 14.424678,
+						"picture": "https://lh3.googleusercontent.com/_zSoZjqULfAILBNiYr4VH37N5PQNoRcl_tzVlbC5TAi-LecFoVHcMPa4n70CUrHpHEsCXLweJOIn2kaGln6tp-UwNw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "bb01ce89904244cda215c83872784f5a.16",
+						"title": "Dům U Tří Lip",
+						"latitude": 50.085274,
+						"longitude": 14.425295,
+						"picture": "https://lh3.googleusercontent.com/8gWEzHfyhBkbPRp_kSqpb1HNzAcpBxu8qKUWOmN7HBtknuN7YGqbC_SYNfYip7vgc2Ru9bQTqpqRMaqhz857K0vXVSU",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ae9c54eaf3d047bfb429c2f81266be08.16",
+						"title": "Kaiserliches Wappen",
+						"latitude": 50.085444,
+						"longitude": 14.425186,
+						"picture": "https://lh3.googleusercontent.com/HWAbaKB5BH7GgfnYzx9wSIhlda74D-tQ_0MFOqUg0mrsmx6u095xJeukddne_LQsl2AZcE_D89hfp4V5Bg6CMHwGBw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:14:46.712010Z",
+			"averageDurationMilliseconds": 133577,
+			"lengthMeters": 157
+		},
+		"2": {
+			"id": "179143dabbb64891a444264db1ead545.1c",
+			"title": "Codex Gigas 03",
+			"picture": "https://lh3.googleusercontent.com/vTxceGDtxG91PdeJ574Ph7W9VoJmVKO-ltoJmoWnAheYwhr0OG3Ok4B-wBPJXBYPkDcwkznvYL-D7mIHC-o",
+			"steps": [
+				{
+					"poi": {
+						"id": "8a9ad800e6fa4612a7edff143b174cfa.12",
+						"title": "Dělník",
+						"latitude": 50.085374,
+						"longitude": 14.425566,
+						"picture": "https://lh3.googleusercontent.com/I3cLuEJ3w9v5OcI8ekHylUFW-9fC-wNDXGX6ZcBQ3w7XkTfdoTPOnMx6f9nPbTTNhqtUbBW7iQgXkPKIV_hbbNMyeSM",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "5d49fbe04d8543fdaf41f79b6c8284dc.16",
+						"title": "Myslbek OC",
+						"latitude": 50.085664,
+						"longitude": 14.425531,
+						"picture": "https://lh3.googleusercontent.com/N3bfZq6XM1mFBcNCs7l-y3BfKGhngndIPWj0d2TmAF78FaD-Fxd8jtegKvppNenDFFwP1pqAdvB3qAPYSnXe3lAUPw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "69a4f016f0ed4dc18f7aecac1ca3ae75.16",
+						"title": "Kostel svatého Kříže",
+						"latitude": 50.085566,
+						"longitude": 14.425877,
+						"picture": "https://lh3.googleusercontent.com/YvKKFEAtpKcDx8luoALHXGqYL237yGMXtBgGrepdbrV8qmyxlvep2BF0mi2w0XOz8pfiNuROgr2CvfE47GClvUUXNto",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "d26e77b1009c45a9af06b1c1842ff329.12",
+						"title": "Mořská panna",
+						"latitude": 50.085969,
+						"longitude": 14.426744,
+						"picture": "https://lh3.googleusercontent.com/w5X7GB8SLVufqtiv7vQnPfGh_rRw_0VsXmLeTkhKGIFkkVjdjLUIylySo6hVsz2dlA3roh54UyjBtOY0LoTwL1gWhVk",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "62a90e2c10e542ebba03545507214577.16",
+						"title": "Slovanský dům",
+						"latitude": 50.086413,
+						"longitude": 14.427243,
+						"picture": "https://lh3.googleusercontent.com/QjbKtrN3ucs7Ci2DQdNLjJW1aCK1dG0QYZWtqNPWmZfZqeBk4EJhtZTPSlcKcCfxHlclXEmhtrmPLXOxEfRtQfSLIA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "7f8ce7d03cf642888fa5464fae57375e.16",
+						"title": "Divadlo Broadway",
+						"latitude": 50.086567,
+						"longitude": 14.427012,
+						"picture": "https://lh3.googleusercontent.com/ac4jpLuSby27oXBb5Y5Nm6huhr3knXnqz0klBguzfbLAytsVh69ueTykL1UM8jDZ2_9GhJYcoTGGDIPbP6ZZwx7y2g",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:14:48.627243Z",
+			"averageDurationMilliseconds": 226830,
+			"lengthMeters": 221
+		},
+		"3": {
+			"id": "4c8f910628f841acbcec9663f5751382.1c",
+			"title": "Codex Gigas 04",
+			"picture": "https://lh3.googleusercontent.com/N0WLPdgHQfgJd5AQOFnh4nGit49pUu7Onm_iIGHrS-dpCnW1eT1afY9em8kL8dCZq8f6dEMN0vu1nczaaW8o",
+			"steps": [
+				{
+					"poi": {
+						"id": "0fa71fce71ea4889bb3989559641a7c1.12",
+						"title": "Česká Národní Banka",
+						"latitude": 50.087008,
+						"longitude": 14.428395,
+						"picture": "https://lh3.googleusercontent.com/0FfRSNdvE6wTL_5EaSZrP5HCLyff5j2DU38yH-mX_zsaFu7XF0FKgstO8zQx2lk3tiSbU-wIpy7MyeKjkxbVDpDp6J0",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "80169e3130b349f1be9045c459c66b60.12",
+						"title": "Prašná Brána",
+						"latitude": 50.087174,
+						"longitude": 14.427819,
+						"picture": "https://lh3.googleusercontent.com/Bd49usf4m6x5CyhYRDhJnJb9yqaMXMRqWJ-Ut2jRETAs2MiTfYrYMIu4ID-mB3zXYOtqu_hQ2PbI_zw8eEXCbHR29w",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "9cbe757d401142abbd3ab628b1f41a46.16",
+						"title": "Old Merchant",
+						"latitude": 50.087351,
+						"longitude": 14.427953,
+						"picture": "https://lh3.googleusercontent.com/JcVdp0_M2Kh_SB2MGxiYJWX2gwV95Xc_f1wxIOVuoNeSi3aLiizPrVhJXCZlpKa1cCRxcFnekBZyubt2b5nirUwmRg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "55a8595b651043ba98de7988c2790ff8.12",
+						"title": "Obecní dům, Staré Město",
+						"latitude": 50.087536,
+						"longitude": 14.428279,
+						"picture": "https://lh3.googleusercontent.com/cjMR4S2XZmfzJuPVhFEpERsRaCE7686g2ERQnCTPEPeQY0F2kObis-aNBel-YFqSUl5I_0MKrE0gEr8gkFWYKOXsWpjc",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "7217056b75b449309364722c3de23092.16",
+						"title": "Divadlo Hybernia",
+						"latitude": 50.087418,
+						"longitude": 14.428645,
+						"picture": "https://lh3.googleusercontent.com/Z57tTFAXjdCSY_pYTn-0Tc1Vr21aCxIKeoAMOJe55owl_2Z2oOnXTXFyZ6nZrK_ZQJ_NSYCHSTU7_sMce1d2IyOSE_my",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "e40859f896b14456bf5212782560d3f2.16",
+						"title": "Státní znak",
+						"latitude": 50.08775,
+						"longitude": 14.428723,
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:14:50.579444Z",
+			"averageDurationMilliseconds": 242841,
+			"lengthMeters": 127
+		},
+		"4": {
+			"id": "6bee74a68058436b8caff266551ce248.1c",
+			"title": "Codex Gigas 05",
+			"picture": "https://lh3.googleusercontent.com/uwB25R_YQMEYxO9lp2cwNpbzCyUXq9n6gQYmUv_8o4LkbCBNLX2sZ9Z6RdV5Y1lnFgTNhDmOgQnuDwlXjtc",
+			"steps": [
+				{
+					"poi": {
+						"id": "21b47358e75a48d2b932ecb10ee4700a.16",
+						"title": "Pan Elegant",
+						"latitude": 50.087855,
+						"longitude": 14.428283,
+						"picture": "https://lh3.googleusercontent.com/Ln3gD6eEDtB6sHLS5zPQeSeqKGQWncC2g0WYt6gSW2TJf_MZLolYX8JLLZ0D0H2xWpsXN4X7nuBDXPyqD3Jl5Eq-zA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "7db674444c7e4e1f837df779ce6945e8.16",
+						"title": "Pražský znak",
+						"latitude": 50.088104,
+						"longitude": 14.428349,
+						"picture": "https://lh3.googleusercontent.com/MjKY2loiE9ITTJVt6r5EyrCq3Z7ShrcdSr1IufwU52pTEEJIw1s754LtqKQPgk3_iBko-CbZBmAQn-PnrSPK5ZFAOV0",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "855967e9147f465d8b9c65de5938425e.16",
+						"title": "Díszes Homlokzat",
+						"latitude": 50.088165,
+						"longitude": 14.427949,
+						"picture": "http://lh3.googleusercontent.com/zfqgDSYWQxbAoen8ObzKaweN0fKcAFLIpvThzVFSczSXFlPqM7utkPHkFuILhylNfvDpiFaKI148nshmo573JjVWP0WC",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "dee90a139cf64d66aa3de1ce74e319e5.16",
+						"title": "Hotel Paris",
+						"latitude": 50.08809,
+						"longitude": 14.427501,
+						"picture": "http://lh3.googleusercontent.com/9pA5kyk8aXFIE1Jc1IYj-PFHbclXaCAGco1eCUGiqJWjUq47TwNCEqt8NQ2z7fZnZ65t9sVupRCouseOcLR7DoSddg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "363429c64cbf44488e8e7e8f1a97bed1.16",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "597e91d50a7340f997510ec492fa38a2.16",
+						"title": "Statue of a Saint",
+						"latitude": 50.088072,
+						"longitude": 14.426824,
+						"picture": "https://lh3.googleusercontent.com/K0PixzAXUlTK9BttP4gNzpHg3BVF--hmDfh-YfvQO2wpbNKr7tMAZznp8BbWXaLpWWc7jRLwArlPuoiUa_YGH5Wl9xg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:14:52.515253Z",
+			"averageDurationMilliseconds": 199593,
+			"lengthMeters": 139
+		},
+		"5": {
+			"id": "514055affd2a42a0b17b317095c1ce08.1c",
+			"title": "Codex Gigas 06",
+			"picture": "https://lh3.googleusercontent.com/kN_5oIcGUSPXpeBQK8dF6rtvbXEYgxFSbre16WErs9e_rjILMP96PRPb8xv0NFN05e6YOAjzl3kSOBBuixI",
+			"steps": [
+				{
+					"poi": {
+						"id": "f603090375b74345ae7571636d41053d.16",
+						"title": "Stemma Del Palazzo",
+						"latitude": 50.087761,
+						"longitude": 14.426515,
+						"picture": "http://lh3.googleusercontent.com/WVPQEAKaA5mOclbE_1XXgW5_Nqagv9epW39URLMuJaNjmgXMOxbD_3P9nnl2xLcUp6re_HU0UsdrWo_HxvRX0G4n8lY",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "88368c604b4d48bcbf22231347921788.16",
+						"title": "Pachta Palace's Fasade",
+						"latitude": 50.087457,
+						"longitude": 14.426423,
+						"picture": "https://lh3.googleusercontent.com/QJyCNOP4EfS2tW-OJAF_a5wOjT-7l0mhME-Cpsb4WCv567GdAO1PWEPBEYWjWSAadBXcL08YRrG_4mR3pOS_cP07U0M",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "b87c88999cf54149ac93bb14b2eb1046.12",
+						"title": "Ulice Celetná",
+						"latitude": 50.087241,
+						"longitude": 14.4261,
+						"picture": "https://lh3.googleusercontent.com/XNys6Y2Xz0IuuwW_6EGqwf34Xca9YStD8FJb9M_7663l8M8iG8xliAu5hj4IheKmqQCkpcVFDX919AeUJ1eHT12W9w",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "48ca04bd653a43eea68b5df595227ac4.12",
+						"title": "Dům u Černé matky Boží",
+						"latitude": 50.087213,
+						"longitude": 14.425674,
+						"picture": "https://lh3.googleusercontent.com/eeN1HBncMqCyeUJjh3mZ4ky4AcAYYXdHMIHaGvcJtCUJwIqN-6U8KOMfa8OQf65PHV2O-U6O3PU7_tn3tVzBRcDYf3am",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "1429d0bba00f406d97625dee8dce0bad.16",
+						"title": "Bronze Hand",
+						"latitude": 50.086887,
+						"longitude": 14.425819,
+						"picture": "https://lh3.googleusercontent.com/I6TKyjYvm6br0ZFaPHuPAY4L75EqdnxNbmaq5CkGSr2WFAmz7wqn1NfzoV0VVvCuyKMCi0Im4Y0OQhKAWxW7gC7f5EGx",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "8afa5d035ed3430bbaca05bb8078fef9.16",
+						"title": "Statue",
+						"latitude": 50.086737,
+						"longitude": 14.425511,
+						"picture": "https://lh3.googleusercontent.com/vAhLskAAy3B2lHnmxPjCksJJZ7T6lrEAOcKpPOneV6d9SkAOywtheNHsQ47W29XH150JwUkBAMzT_bwylzamYeQt1Q",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:14:54.676519Z",
+			"averageDurationMilliseconds": 228983,
+			"lengthMeters": 164
+		},
+		"6": {
+			"id": "d909b123b93f4af1b69376ec27f53cc7.1c",
+			"title": "Codex Gigas 07",
+			"picture": "https://lh3.googleusercontent.com/NYUteEBD1rkh2iLVNjsXLef16qA70ec1BfHEkf2utaUw2W6bz7VYbZUI9Wpl_ahprC1ZmaUrfVlhMSeMIsQ2",
+			"steps": [
+				{
+					"poi": {
+						"id": "df704b511d1a4590b83259054ebf2d5c.12",
+						"title": "U České Orlice",
+						"latitude": 50.086683,
+						"longitude": 14.425129,
+						"picture": "https://lh3.googleusercontent.com/BNpOjL5HgXJ9jPNkKEoa8KOW02cFcn9F4jAEVNu2yh46LF8lNhxnSOzvZBeRTHr5mNPswB18B1ZAB-fl-7DLR2Mkq83M",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ee671f0e638b4c89a09b19206567a061.16",
+						"title": "Modern Art",
+						"latitude": 50.086449,
+						"longitude": 14.424956,
+						"picture": "https://lh3.googleusercontent.com/FKNAG-ipmuU0B7no2B46PtAW6xqY_qEEnQDbHkRFl8vMQ9lw7C9zGqnox_Pn1BMCyTzbtsYbyFERC3xgmXV24QWxdg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "23015b6ce8db4bd4860ce3442481feac.12",
+						"title": "The Arch and Fountain",
+						"latitude": 50.086254,
+						"longitude": 14.423699,
+						"picture": "https://lh3.googleusercontent.com/8RU5v6kjwa1-lHbG8102advD3ku7T0xyGBEgmCAH07yVD0x8gta5GOVNUaH7o67mxRe-MY8A005Ku8N9wTdHvr4wnue_",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f300aef6432b4b96bbeb807b4a14bc9c.16",
+						"title": "Università Carolina",
+						"latitude": 50.086448,
+						"longitude": 14.423532,
+						"picture": "http://lh3.googleusercontent.com/1gLYw89XF-6p_jMeZgukmqXS9Ao6zzAWuCEuNhjevOrBRq-VFeqhBMuSS-XupCTvdwl26kf38IOuP5bgqsGT1j33kpQ7",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ff4ae3afae4b41d0bd194ecd426c98f0.12",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "db85335fbbb747758a6b541ade33e704.12",
+						"title": "Anna Chromy in Memory of W. A.",
+						"latitude": 50.085784,
+						"longitude": 14.423178,
+						"picture": "https://lh3.googleusercontent.com/YnOt1UIYam1Vaw7-7ieis0ra1w2V2W3GMr0j9f0SEiuh_saWP1XSvjbLrixEsakUqzbQ4IPgKUSGeWeMPoGrhPWLRCU",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:14:56.633575Z",
+			"averageDurationMilliseconds": 271584,
+			"lengthMeters": 224
+		},
+		"7": {
+			"id": "6fc0a64ba29746dd96f84760b05eb141.1c",
+			"title": "Codex Gigas 08",
+			"picture": "https://lh3.googleusercontent.com/HoXIUtV60HkTxH7a4GTAgPsPXS12V6RWWPhPLoILgwC0JuLYB8gbhA6yO-E_zhgn-TpNf0Hdp6Z1uVAzFIT33g",
+			"steps": [
+				{
+					"poi": {
+						"id": "3eee17be7c0b407f96d77ef321493180.16",
+						"title": "In Memory Of Mozart",
+						"latitude": 50.085685,
+						"longitude": 14.423393,
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a476d484bdaf4a7ab8005f774ae50f6b.12",
+						"title": "Creepy Guy Statue",
+						"latitude": 50.085094,
+						"longitude": 14.422605,
+						"picture": "https://lh3.googleusercontent.com/yYPdf-_qjk3mNICQ7Z0A41_hwY6I6d41Oo-yux93JYq7r3iS50CkxvcvJjARN5L1KMPYddJJ0UPcgPGY4uHKPRMUwZM",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "19697771dbd045389112bcdc773aeb14.12",
+						"title": "House on Rytirska St., Prague",
+						"latitude": 50.085192,
+						"longitude": 14.422453,
+						"picture": "https://lh3.googleusercontent.com/4Xsvro09EwOFfx7L-pALEgZqKOBFnMU5CT90Mz0rF1k97TFIF4Uw1lUFrd3eJBL6YRU1uoD0-cgOUlBCg-GKN_7_7Q",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "192ae8ffbbcb4871b747a06a469abefb.12",
+						"title": "Kostel sv. Havla, Staré Město",
+						"latitude": 50.085584,
+						"longitude": 14.422226,
+						"picture": "https://lh3.googleusercontent.com/E8eQOzsdqmTFK6SkB8UfB4FdNscVh1TtSHyGD5agj_5hqOA8YfvQ51cxRNqYLyZyDBmRrurN8UokhGDE46wjpyrvws2t",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "6019b3ee76644c4da055349f6722d051.16",
+						"title": "Hammerman And Birdlady",
+						"latitude": 50.085436,
+						"longitude": 14.422025,
+						"picture": "http://lh3.googleusercontent.com/15iyE_DiMFTsEvJOAuDk3gTE8AkmKSIommFq2-rsSfAuUIeojyBMyuubFYuEOe6U7HTvpKmLB3MTvZwMsaOiyo128R0",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "610d30bd039042ec91ac6b4ab27fb3d8.16",
+						"title": "Vyzdoba Sporitelny",
+						"latitude": 50.085192,
+						"longitude": 14.421712,
+						"picture": "https://lh3.googleusercontent.com/PHRMAicVPw-4pmPnBjlB1UHo36vRfkHEWC0gj4LQL4ag49Jk0I4_ySe7ZiCGGztgh-wZZKSQVWgNNFIYc4_dvdvhqw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:14:58.589754Z",
+			"averageDurationMilliseconds": 218422,
+			"lengthMeters": 119
+		},
+		"8": {
+			"id": "9eacc80b303f49d486041c4dc3d14589.1c",
+			"title": "Codex Gigas 09",
+			"picture": "https://lh3.googleusercontent.com/mqcdneuxmCxNJHjFRGUmUK0qle60iFgyDx514YmnazUxxSvAofcpcEtYNM0Q5_mSJMIaSxO_nV6ao4ZHHWbj",
+			"steps": [
+				{
+					"poi": {
+						"id": "95eb228365524a1e9d0afaa22fdead13.16",
+						"title": "Havelske Trziste",
+						"latitude": 50.085107,
+						"longitude": 14.421458,
+						"picture": "https://lh3.googleusercontent.com/EmH1wXqTkX_jzmOfYaq7LOHFmbrQDQkqzo9bHJ0ZyFcYi0ZcHTstewd_eJ4GSbB4weyZAJk5SN9G1HtX9z5QF3H4QgzK",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "8436ffc002c04d1eabe4fef35180d678.16",
+						"title": "Zlate W",
+						"latitude": 50.084869,
+						"longitude": 14.421325,
+						"picture": "https://lh3.googleusercontent.com/tvE4yrAlqVy6xq21G5ZUWJZVaIupIpJXoB5RLPdUCjppMuV1DIq9WJZJCZPM2TD-u9rhLiQZuGqJbXOcQnavYCDiqyk",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "c4c89acef9244cfba3e8fe25d56c0fb5.16",
+						"title": "Plaque",
+						"latitude": 50.084899,
+						"longitude": 14.421002,
+						"picture": "https://lh3.googleusercontent.com/DA5mdTjqHtaEBeKlBMWafR2hEnqh5t6jn4xBv9_G8RMpFFS__vHW_8vlg6Ct9BNsfM4Lix0uRXU4CjFN_bVAsYEfiw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "3eb2c1eb9b9943f5a6bc062b5dfe3b6a.16",
+						"title": "Market Fresque",
+						"latitude": 50.084706,
+						"longitude": 14.421118,
+						"picture": "https://lh3.googleusercontent.com/s02sKhCLtw8GQ99KsWe42ZNyO7YPPBY73g4CBV9bT9FQnr0WSy6zc7HJfYFzu09y5rAAHQ1s5pUAowm_-A9c7_N7GN4",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ebf3c704e3c94fcda47b2174925a4759.16",
+						"title": "3 Zdobeny Okna",
+						"latitude": 50.084598,
+						"longitude": 14.420684,
+						"picture": "https://lh3.googleusercontent.com/6kZqVQrow5GORX0tjbKe8gCcKodyfIlN-wwidofK0SdzDoZEVRM2S0CUOVOLfEEiwR8Fdp3KgKneX7MaNyIflNFFKDY8",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "d0330026a70d49b59ff3bb86e01d295c.16",
+						"title": "Havelské Tržiště",
+						"latitude": 50.084383,
+						"longitude": 14.420461,
+						"picture": "http://lh3.googleusercontent.com/pQdnqJugad9Abj9FtddF2hxDrewB3zbSb2wz8kmVzcB9Btd0D9NiBfiHvPkLPFzjAVWYaXpmOsDJoKOtT5t9oJJON5o",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:00.573568Z",
+			"averageDurationMilliseconds": 187880,
+			"lengthMeters": 108
+		},
+		"9": {
+			"id": "4d545131751d427eafbff24c9a2ed1b5.1c",
+			"title": "Codex Gigas 10",
+			"picture": "https://lh3.googleusercontent.com/drRk2PopLSfQbwyV7L1CNCurLqJP83BfaHJh4wVsI4bFbGlCu0FTjEJkUtgsI5sAZvZ3TSBhpcwDFNKpeZfzjQ",
+			"steps": [
+				{
+					"poi": {
+						"id": "32b373ba0e274e7aa91dd3b77a75970c.16",
+						"title": "Dům U Zlatého Kříže Memorial",
+						"latitude": 50.084149,
+						"longitude": 14.420407,
+						"picture": "https://lh3.googleusercontent.com/0jXEqyG-fRGIIZfzT0ZQJJUPU7XwRTlJaFqx7SilMHE0z-KZPAq_JH1UEhrrrINkVdB1pLfVCGbtMhh_PTF4oL07PJg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0b7c152ca9c54e3195bcea37336df6b5.16",
+						"title": "Kašna Uhelný Trh",
+						"latitude": 50.083904,
+						"longitude": 14.420379,
+						"picture": "https://lh3.googleusercontent.com/S_qrQW6BgRf8ZSFAMKHllk8o_LlrXxeVrjh-50DDSKl3g6TIJ1jIddCiiDci_tyrI2ghIbVAJ8ILlGQiQia17oTRGtm_",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0d67b5592a8a45afbaffd60e6d3fad02.16",
+						"title": "Vyznamne Osobnosti",
+						"latitude": 50.08417,
+						"longitude": 14.419985,
+						"picture": "https://lh3.googleusercontent.com/tR1mNV5rJjZfJ_T1MO8UhcAn6HWZD3XaYsuVg1r9nSWeSP9ba4MiUTZQyontO5sR2Ka90jNLYlUweFS_T1exmeG8_B6r",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "dda4924d410747a882ccb51289997b39.16",
+						"title": "Erb",
+						"latitude": 50.084375,
+						"longitude": 14.419929,
+						"picture": "https://lh3.googleusercontent.com/yDegMRSC_my8u-i3p-jHEE2XIJAQhQWQVXnMbDsO_W5f4Lk6RBTUwBPmyktCnR7gYMHw_d6phS5XmnoQPevg81bYVg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "aa02ff71c3a749789f9540c49a5643fe.16",
+						"title": "Art On The Wall",
+						"latitude": 50.084701,
+						"longitude": 14.419862,
+						"picture": "https://lh3.googleusercontent.com/6G24wkq52SzVXIUxwoz0FJwkObc9pWwJeVOOejfvdMT-l-LMmyOLhJucVWjdWDC3FnfXntA7PGVIh88hCRzOSbXuk0U",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "4234ca81a06441e19e5ce135cd732d10.16",
+						"title": "Maly Dum Rozmbersky",
+						"latitude": 50.084855,
+						"longitude": 14.420156,
+						"picture": "https://lh3.googleusercontent.com/I1aK8bcn-vVVg3ahAJhN9Ff5-21UaQqbWDj4IyCaUQzs8BY0AAAYS4Maw054RdGeMmGSkRoM7lA-WHwhCIPtugWmTnRC",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:02.793989Z",
+			"averageDurationMilliseconds": 203570,
+			"lengthMeters": 155
+		},
+		"10": {
+			"id": "f01efba97f4441cabec01f7302030c5c.1c",
+			"title": "Codex Gigas 11",
+			"picture": "https://lh3.googleusercontent.com/XjF7aT1epSxuHd6HCQIdnEL1lNsdfh8E9PKvJ0Yz-kdLzIENf1NPeI5ot7YLzhFuup3ms3QwYVq9csfEF3EW",
+			"steps": [
+				{
+					"poi": {
+						"id": "8c8b355ab7bb46e58094ba21a947a53c.16",
+						"title": "Tenis Door",
+						"latitude": 50.084572,
+						"longitude": 14.41931,
+						"picture": "https://lh3.googleusercontent.com/BS7aH7S6HQ0C2vIUBHOmfX3WzLPGGQ_eOEdjfNIWVzQpoVX-fl9HtqyDpxfWDLksptP5I4WqB6OoUxhIQi11XSsSomc-",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "2213108f74444ed5819cc0d50395b729.16",
+						"title": "Najpierw Rzeźba Potem Masa",
+						"latitude": 50.08436,
+						"longitude": 14.41885,
+						"picture": "https://lh3.googleusercontent.com/x4duSWx38L0HsTBT3x3sspRhewHZcSiJa0_ztP5vRMgPpj0A_uD-cUWrP10cp8__U-38Y1wwW4349QxxF48g815qa50",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f01b8c5ea78d4720bc2a9b321fd8a312.16",
+						"title": "Three Faces",
+						"latitude": 50.084652,
+						"longitude": 14.418994,
+						"picture": "https://lh3.googleusercontent.com/FOnVcsp7c8nuWoBwb4kCWjOwg31bAdOJ0JomTwmU1YRBtlpy6PryWRwgyedUM-MBzG3v70ozI5lrzFr8bbcHfw8VBic",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "db6855658cc543ba8b444fb3fd6a6598.16",
+						"title": "Bocni Vchod Kostela Sv. Jilji",
+						"latitude": 50.084876,
+						"longitude": 14.418688,
+						"picture": "https://lh3.googleusercontent.com/uiU6o94dHOI0RpAYGzqrfBpg0497huMgsUputs3n4V3kiCniZ-JqLT5a9uFnBA22jc0VRWzrBafEeyxQY5kNaDBJnY8",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "d97dfe670dcf4ab092e9e8985941ffcb.16",
+						"title": "Lvi Hlava",
+						"latitude": 50.085097,
+						"longitude": 14.419028,
+						"picture": "https://lh3.googleusercontent.com/x1mNY-tSOpWKBlO42TOc3SmePh9R5h65B97lotcaXC24jK5b9Qj0HL9oFSoHhGzHeKE7htRzdt6V4MmuH1Qetgbstos",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "2d27155a1ede4e8a8a6dca8c4e9fa21c.16",
+						"title": "Slovenský Inštitút",
+						"latitude": 50.08542,
+						"longitude": 14.419051,
+						"picture": "https://lh3.googleusercontent.com/aC17NDT1qvB_yQO67sDodQoBo_0njCcqKD8tHq3BFuFI87BEyfWBpMwBhQv3Jvt95arKk74fz0DLrCAL7tAQuOA_aQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:05.551327Z",
+			"averageDurationMilliseconds": 268147,
+			"lengthMeters": 178
+		},
+		"11": {
+			"id": "93c0af01d0294f78a658944f640f4d21.1c",
+			"title": "Codex Gigas 12",
+			"picture": "https://lh3.googleusercontent.com/zQB35lVrihUx5CBVLw6EICeprf1sZjlkURYnIKdgjdfxWgTiIHFrY5sO49FLMA9upG5xGs7lW4DGVFboGxGF",
+			"steps": [
+				{
+					"poi": {
+						"id": "d427b77f7d9f47e1b1a85361015cf2bd.16",
+						"title": "Emanuel Piňos Hero Memorial",
+						"latitude": 50.085542,
+						"longitude": 14.419331,
+						"picture": "https://lh3.googleusercontent.com/0mgCfy_pWKKEgJObLM5uaN6bpsxdsahSY-irdawuaqwdrwTHnhqRlcNb5WyIJ9vyRxV4wrrcDNZ0uGDCKNpY5Nnu6Q",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0694e1ce3cc44e14a6c5aaff722f6a18.16",
+						"title": "Ladislav Houska Memorial",
+						"latitude": 50.08589,
+						"longitude": 14.419064,
+						"picture": "https://lh3.googleusercontent.com/cyPP7I7VC4gV75xrnZSkBUvCc0SyVJ99UlzbAdIS6Ve0bh_SViisFoXfSnjImcQstzMlNwMRjIIYQpI6VQA6ZWskw18",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "d8a1459f3fc64c1a8b4fe9dfc9761af6.16",
+						"title": "U Kocku",
+						"latitude": 50.086062,
+						"longitude": 14.418942,
+						"picture": "https://lh3.googleusercontent.com/64nzVz8DFwhtvQCY9xP6xMYX0UGGvbAS_wYydOGRzigWYbrxndJqMlcAQ713w2R28uq_Aez5s5UMXImYnWMYduwYEx8",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "6f3a28a30d514eea87bf725f6dfd695a.12",
+						"title": "Facade rue Jilska - Prague",
+						"latitude": 50.086325,
+						"longitude": 14.419007,
+						"picture": "https://lh3.googleusercontent.com/CBRUxEob3n_mObslNFfdLHHEqTrPrKszEeEOTDnSToUFBTwdwMO011n0kploZ3cA_4K22DtKFgY9E3Tjx4GxxsiDbOM",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "e31aad33ab16437a93f12d21b6708bd8.12",
+						"title": "Prague",
+						"latitude": 50.086391,
+						"longitude": 14.419427,
+						"picture": "https://lh3.googleusercontent.com/2vRntwrAhTv953VDSLDUerg5VFkzzgczuwghRUV_dGpbyK8yrVX1dvRNFP34PVl2_d-3P4HnJGWsT-2aw30-WZTjIa8",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "bd98ebd4191c492e92409252430ce60c.12",
+						"title": "Sculpture near Old Town Square",
+						"latitude": 50.086648,
+						"longitude": 14.419546,
+						"picture": "https://lh3.googleusercontent.com/-nxNFIoPHwe88HbzzhUWiajQkjutxO_o06JzX1eMQaxK72tvGkDmEs5vpjpGJhrAnlsVaGSAFJMxfrTrPpR0p-K545AK",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:07.554040Z",
+			"averageDurationMilliseconds": 184832,
+			"lengthMeters": 155
+		},
+		"12": {
+			"id": "2e3bfaff2a7a42cdba3dc97bd9c734af.1c",
+			"title": "Codex Gigas 13",
+			"picture": "https://lh3.googleusercontent.com/sMQtjdJX8kU4-2MuvzdcMFZTq5CPuJFAV1BGHxdjYh07aM30Og0anP7HVetyjJVAknOO07V1cSBWuGIW-vwJNA",
+			"steps": [
+				{
+					"poi": {
+						"id": "8258de82ed3649f1acfa90387bb0a17c.16",
+						"title": "Arnošt Lustig",
+						"latitude": 50.08714,
+						"longitude": 14.418947,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "6555d4f04a254241ab1dfd5343d0fa0c.16",
+						"title": "Babka na rohu",
+						"latitude": 50.087443,
+						"longitude": 14.418939,
+						"picture": "http://lh3.googleusercontent.com/ZfVPeELdSu-fVcL6iul9N-NlmSF63JhW0VPmagER_N7zgXTQyngQ7M5huntjCdOXE99Z3NDQGxoFcpit-DarNEf49fM",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "65409d47069741febd0808af04b88dfb.16",
+						"title": "Bridge Art",
+						"latitude": 50.087627,
+						"longitude": 14.418766,
+						"picture": "https://lh3.googleusercontent.com/okmrVW4yFVlHA8PPlIKmWSnw40g1cCbVJEqYj-vkGzPAu8k7T7jo5mOlfDVpR0viG7tg9NtPEioszBMUnEKg_0jr3YvP",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "1dc1d3a9d5d7467b952c01e5844f2166.16",
+						"title": "Praha Matka Mest",
+						"latitude": 50.087739,
+						"longitude": 14.418986,
+						"picture": "https://lh3.googleusercontent.com/P5PpTWIsMDEsGSdrmrjEteTnl3wQ9c_y8QSQnLyPoGaVLWeX9yDLqsxy7p2VbA-GVVlbO01X0tqTrU6xwpPmVTt0qL24",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "b87c6172460b48daa5374bce85c918e7.12",
+						"title": "Franz Kafka",
+						"latitude": 50.08782,
+						"longitude": 14.41924,
+						"picture": "https://lh3.googleusercontent.com/rGDMJbkbE6heMJe5N-w8dLA6Y5jG2ZQQsbdllDc9_BrScG5Mx5013g5pwonYGFOSFQvtyiC4f0lG0jzh2mBSSAbB2w",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "02ae43f3d93c42189c04856c8c8612bb.16",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:09.577176Z",
+			"averageDurationMilliseconds": 236697,
+			"lengthMeters": 98
+		},
+		"13": {
+			"id": "3228229ecc264576ad7183f48c55f7b9.1c",
+			"title": "Codex Gigas 14",
+			"picture": "https://lh3.googleusercontent.com/oVc5vGldTFBsGXqMoKpVPG_c43f3XwY9cHIr5gNwAKuaWSs1-FqW5bVqVCsRJ8qzxH3OdOyTOXj4ViCEaQBs",
+			"steps": [
+				{
+					"poi": {
+						"id": "c1e0a5d8710344b8b9fb7518c2462207.12",
+						"title": "St. Nicholas Church",
+						"latitude": 50.087942,
+						"longitude": 14.419876,
+						"picture": "https://lh3.googleusercontent.com/41f83z481Xyw6VefzucWq1C0p1_ET_R8zGHZW57hJcfsJIhsYXWPxnqjoVX8IJl3pMPZwW-cCi-ixBUZjkMNjvJMxTa3",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "e2aa05de3d6541f79a1eeacaad1cdaad.16",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "90d5a4d83cfa41479ecf76f5be72c834.16",
+						"title": "Image Theatre",
+						"latitude": 50.088028,
+						"longitude": 14.420149,
+						"picture": "https://lh3.googleusercontent.com/U_UW-StWGSIoHALwe8IvPbEpQQvv_WfPf2og0nvrQ0YBxu3WJiWQt2GXv-vUD5fwrtZkNAqKN3b7tBraNvbCegSuzJc",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "653325c1744644f5b554d69350669af9.12",
+						"title": "Hindsight",
+						"latitude": 50.087864,
+						"longitude": 14.420563,
+						"picture": "https://lh3.googleusercontent.com/PJFoSk-TIN-BbHvbVdixfOgvXpBc_AYyxYzUqJywXGrpII2nwfG9TUFqSB4AT6RLpGjoWFm7IqM7SSt4_hBdddNnqjM",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "c1ad7f9e2aa04aeb8b9954efbdad1157.12",
+						"title": "Dionysos (Bacchus)",
+						"latitude": 50.088045,
+						"longitude": 14.42046,
+						"picture": "https://lh3.googleusercontent.com/-3zFxz3h_hWoTRshZK4JaDwBYXPje3HwofPB8guH1s-jC8hDhbxDoRrqfchzdmWrXBTmZuDcpfZYDU79R2pUdHWXno89",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "8f136602288f4fb1ac85b5dbdeb829a7.16",
+						"title": "Sedící andělé",
+						"latitude": 50.088344,
+						"longitude": 14.420188,
+						"picture": "https://lh3.googleusercontent.com/aP8pC-SdFLaAhyYePBkYT-wR72-_7_ID2xbz3QRlQ3-kTjICqTimul6kfxCzfraU5TOfRMQGwcuVsYIjeTH1L4P8Pw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:11.581960Z",
+			"averageDurationMilliseconds": 187289,
+			"lengthMeters": 117
+		},
+		"14": {
+			"id": "835489c154704d2fb74975852f466b6f.1c",
+			"title": "Codex Gigas 15",
+			"picture": "https://lh3.googleusercontent.com/IAa17aGZNlCU9NynCVMYC4cmUr4GRHVhDVqpNUuBt-Oi495-rQormuvc9dCBY48AW91iwKxqyULdIe5I99Xl",
+			"steps": [
+				{
+					"poi": {
+						"id": "8e61da5bb9e54d439745bb1202b2d16d.16",
+						"title": "Alter Eingang",
+						"latitude": 50.088283,
+						"longitude": 14.41991,
+						"picture": "https://lh3.googleusercontent.com/1KemJ4Ol8WwL2zJnZKRrZWdI9eq50MDys_m-OGCWWZdX1_aBJ7ajUStbf1DhUAMfzKI1Mbd3dhOPvFjug27qJGA41Q",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "e19ac6ba733440eda80c949af48a6631.12",
+						"title": "Pařížská, Prague",
+						"latitude": 50.088652,
+						"longitude": 14.419915,
+						"picture": "https://lh3.googleusercontent.com/MF6DbVrnazakywRsMtkxRpo6x9Di_pR7QH4_oOWzizcD-LvflEWgFGFrOTnGg3WJSkD3u1ycvZBeLZLRiKxskXpBGUP_",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "5d13270ff846484da5831e5a0df8f20e.16",
+						"title": "Otakar Mařák",
+						"latitude": 50.088835,
+						"longitude": 14.419876,
+						"picture": "https://lh3.googleusercontent.com/A-owsNzo2xT4rkUqDTk_0F7gL2TIGp2kEs_faRyE6k_xQQhrEhsWywg-K_6F5vTQJPGMW4JhdWM2LMNZYelW5yplLRY",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "144a8424b783431692d46abfbd80603b.16",
+						"title": "Hermes Lion",
+						"latitude": 50.089051,
+						"longitude": 14.419812,
+						"picture": "https://lh3.googleusercontent.com/bIAXCKUg6V-r6GfJ7FTwsgZypnpTkjRVDbbHyA_qP3iAn9p2YIV_EKoxuMK11DiIRBvIh0Ub0LE5juWolnO3mu9NC3HB",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "bcbdfd6183a64507a2b6bc633cde28af.12",
+						"title": "Josefov, Praha (Prague), Česká",
+						"latitude": 50.089241,
+						"longitude": 14.41936,
+						"picture": "https://lh3.googleusercontent.com/28MrL_rNS5friNzjJBaJcXii9Y63-dhP7sOUQ7QDopGJXmdwjoI6F_iICyXdMH3iODaI0CcHMVV4l48cRby88tRlMg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f1c13ce33a2a43539cecd179991a43a3.16",
+						"title": "Antonin Sova",
+						"latitude": 50.089448,
+						"longitude": 14.419096,
+						"picture": "https://lh3.googleusercontent.com/kfnEi42kTyLFq55fsvu1r0maZ_hIttuSdfAvMnyBsTXwl7I9jk22y54qzcj4ZJPu2jDRqCqSp8R1OSrUkzJbz8zm9A",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:13.518341Z",
+			"averageDurationMilliseconds": 170028,
+			"lengthMeters": 154
+		},
+		"15": {
+			"id": "d63b9a690a5c4bb0a468740936d78339.1c",
+			"title": "Codex Gigas 16",
+			"picture": "https://lh3.googleusercontent.com/fozjGGnIIILNiJYrZU2ldPqYx4O6EoJ5VRFs12hhGKlQPzU99cqycRRSzvSSd-0NYAGkdDnW445fkCGcPlE",
+			"steps": [
+				{
+					"poi": {
+						"id": "f245829699964be5b2d2ac59d58d1d91.12",
+						"title": "Busta Rudolfa Kremličky Praha",
+						"latitude": 50.089667,
+						"longitude": 14.419373,
+						"picture": "https://lh3.googleusercontent.com/DU3-VbU8FhkMTLL23K5_r3QFfg1jaEGE-IHVr2D-hWrNUUsM-ggoh9drc0q-tkF4wppizg6G9Lhw9_O6-jqTgUg_ScY",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "cae121df19614b4f86451dc6b8690b7a.16",
+						"title": "U Znaku",
+						"latitude": 50.089569,
+						"longitude": 14.420058,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a753f4199d5a4a8b95b573c07ea1c4bf.16",
+						"title": "Zabytkowy Dom U Muszkieterow",
+						"latitude": 50.089853,
+						"longitude": 14.420018,
+						"picture": "https://lh3.googleusercontent.com/Cy2NrUELGVPCNLm-LRBgTU8NbnP0Zv54n8oijUVwoDkP-FE0fFZAWZaAbSyJt4a1TOP6xxZP0jiSL7OVggaudtylMfg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ac56e16dfd77437d887ad124e9a9674f.16",
+						"title": "Zlatý Ježíš",
+						"latitude": 50.089914,
+						"longitude": 14.420318,
+						"picture": "https://lh3.googleusercontent.com/JmpBO22a-j2eHsGrbC-6utgjgw4P38HlVbsxftExAupVqnZplojsVA4Ru4SQGW1tgGap0YxXs6kfacf5g6l1rzZiMWg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "3c6aa8ffddff472885c5910ff7f253eb.16",
+						"title": "Un Trou Dans La Facade",
+						"latitude": 50.089811,
+						"longitude": 14.420697,
+						"picture": "https://lh3.googleusercontent.com/f7LmNJaX82dTzlrNYuC1SIupRChFdBvQiCixstKQKwDQqRAjyHQTh80HJDZTE_ltZ9pJ76AfcnnulxB0b7DOZTVtnw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "2c42468416ad4bc9a160539c3cb9b43a.16",
+						"title": "Crazy Facade",
+						"latitude": 50.089805,
+						"longitude": 14.421031,
+						"picture": "https://lh3.googleusercontent.com/tKf94JLHO-P2ASpxLDvVxyFDzNsoO52nDkkewjfiAZWBGUFp0--SLNU1BTXKg-1hmBcp0YGj7QqFgjF0l8Mjn2Wqynk",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:15.543526Z",
+			"averageDurationMilliseconds": 174995,
+			"lengthMeters": 158
+		},
+		"16": {
+			"id": "8985552fe93e4c64a16a28216a682da5.1c",
+			"title": "Codex Gigas 17",
+			"picture": "https://lh3.googleusercontent.com/I6yYh-9z-Ij-_WYj2x_hlF7xw9-PjjA9kGAAUBVirbKCDblXT708bQ8ddl8kwNEITvBg_RXQ6hW9FVa8pLbiow",
+			"steps": [
+				{
+					"poi": {
+						"id": "71d2d16e865f405ea9a22645b6a46e68.12",
+						"title": "Statue De Franz Kafka",
+						"latitude": 50.090102,
+						"longitude": 14.420763,
+						"picture": "https://lh3.googleusercontent.com/5hGE0ttxruIfm-aqJSDEYbJmBW8BHq6hMnIrS9UxCw1Ow0jkSy3VlZsjHCdDnYaah7srZiwFoqdyEdqKVCEDoCgSUQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "9b5167eb0db74667af8e22a0bcbb4ba8.16",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a355aa1afc0e4288bebcde01fcbae2f6.16",
+						"title": "Kostel svatého Ducha",
+						"latitude": 50.090038,
+						"longitude": 14.420101,
+						"picture": "https://lh3.googleusercontent.com/CDwFrN8MZ8duAXH9ynsNJ2CdskVqbTMsaqM0vdCMRcoIfxDPca-9AJUMVAvdHj5hoLIWVSYhFoWzdUve_ihFpmX1SdE",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "56625499135e4b418588b010693baa21.16",
+						"title": "Egizi A Praga",
+						"latitude": 50.090154,
+						"longitude": 14.419783,
+						"picture": "https://lh3.googleusercontent.com/LEXNlwQKNIW-HWJc5EeDWHAHwMUHnCQ9XMqeGVzrkZ4PW3c84Cz1T00xoOjZHClf9ijg5f1cnUT3d_VrK_2q5RzGfQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "21fb197129584e9eb864a57ac2d08ed6.16",
+						"title": "Družstvo Pro Stavbu Učitelských Domů V Praze",
+						"latitude": 50.090992,
+						"longitude": 14.419492,
+						"picture": "https://lh3.googleusercontent.com/LHBeSuyz4UzWy_cndfo-SgTJhDjCNL7XQiBVoYazlwZdRfTC1F3t5zvI4Sv_DO1vKfhNIXEyGR50Y8SHmxGGH3vItflt",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "d904aadb271f4a0283df245cd53fe53b.16",
+						"title": "Woman with Long Hair",
+						"latitude": 50.090762,
+						"longitude": 14.419206,
+						"picture": "https://lh3.googleusercontent.com/P5bRa4Xcy42a7xiH0sxSzfvNr8T5EBMV1NrC2UQBUqmChskoEwQz0bsH_7BgeM-IoV7XLKTKOf5pCxSfwQRDTOVJ7A",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:17.601621Z",
+			"averageDurationMilliseconds": 237977,
+			"lengthMeters": 202
+		},
+		"17": {
+			"id": "17076583591349cb8ef11cb6b993e59b.1c",
+			"title": "Codex Gigas 18",
+			"picture": "https://lh3.googleusercontent.com/uau_zrpKDChgKBkzl6tNBhXkNuKzX4VjaUSuzU_TJibKhHVvdy6-54tfgOghQ49HPWuGI9Yr_V8J2DwQwIk8PQ",
+			"steps": [
+				{
+					"poi": {
+						"id": "73838f0cf48a424d8368b124b460e49d.16",
+						"title": "Stangenpark",
+						"latitude": 50.0912,
+						"longitude": 14.418647,
+						"picture": "https://lh3.googleusercontent.com/gkPlbZyMzBTdkg6x0c7nxBbz396UgxWoReOvYetD2Xj_ob8k_OWU5wv4zdBL7FTAjvcc-l-vP4K8gmEHjIP1Q4ugrs1P",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "b819c8545d7347538205041f2c0a5a49.16",
+						"title": "Intercontinental Statue",
+						"latitude": 50.091321,
+						"longitude": 14.418405,
+						"picture": "https://lh3.googleusercontent.com/MCG75bmIsTcjPYo0Z3mGefVQ7F_WKkPYiYNeac38BsLE0R1IjKETORKbUTxeoaGa_zYsh0Qw5YHM8_5uaqhFZzQUU8A",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "34580b5a55e84c9a979c98347e9541ab.16",
+						"title": "Plastika na narozi",
+						"latitude": 50.091344,
+						"longitude": 14.417805,
+						"picture": "https://lh3.googleusercontent.com/ti3ItzT3Ff9MOJncszk6QyJFZzBW1uR8Wipa-NPytx0lK4ZsjEWy8-22ZR1b8FaAKP1aGt7qCcgD37vd9ySZjFc4BDU",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "c7c79ba9a22e458a88b76a7153bede93.16",
+						"title": "Secese",
+						"latitude": 50.091028,
+						"longitude": 14.41722,
+						"picture": "https://lh3.googleusercontent.com/HYXLH-UYJjOMx49N5E3BGUXJKNqy7R1razp_MWHoBjruecRp9GfqYJz_guzLVKtKRto0DjUqG1aVQm4g5FnWrcY4x-9X",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "01fa9e13adcf42fc95105e45b9272e7b.16",
+						"title": "1911 Statue",
+						"latitude": 50.090644,
+						"longitude": 14.417645,
+						"picture": "https://lh3.googleusercontent.com/ZlWfNgJroUV1HvqtHDzDlYVG04ZX8HF6Sj91vaGJTL56Gq9z61zeHZnEJBhkyzjmBSiaKQGi9798zokscS5JLEP9gw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "cfcb65e30f2c4ac5b145af214fb68520.12",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:19.701435Z",
+			"averageDurationMilliseconds": 323579,
+			"lengthMeters": 172
+		},
+		"18": {
+			"id": "0483d3f7bb534c8bae483e86920834bb.1c",
+			"title": "Codex Gigas 19",
+			"picture": "https://lh3.googleusercontent.com/nzPeN16NCI20447DSGTVlgKiJf3yU4xz-3XL0OTGp_l14EsFXp0AUbgh0JkvZgz15D3pxN7WnPkkYHh7X8U",
+			"steps": [
+				{
+					"poi": {
+						"id": "564b7d072781480a8ce09f89175d13ab.16",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "b646e3f06a5941dea5c45cb06d0701d6.16",
+						"title": "Památník Pavla Tigrida",
+						"latitude": 50.089951,
+						"longitude": 14.418061,
+						"picture": "https://lh3.googleusercontent.com/IPwg9ocoP1Ar26RefsIvNTlnZcfLmrv6BVUBfVfd75sa0w_gjrYTRqvn7WUNDeTIzY-4Ou7jyfWPJWvTSKSXjXeJV-A",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "7ac8885b738b4efcb28185b41a24c642.16",
+						"title": "The Old New Synagogue",
+						"latitude": 50.090039,
+						"longitude": 14.418444,
+						"picture": "https://lh3.googleusercontent.com/xdxIcQNFE2-8Kh7zhGeTmCl8sA3whraUDuDGcudBNyNa82dPXI3a1YowcnFcRxXTgt6uNSvZqVCVQgtds4sky2DQOfQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f7445a1d750a445ebf2772d1cc5381fa.16",
+						"title": "Židovská Obec v Praze",
+						"latitude": 50.089756,
+						"longitude": 14.418425,
+						"picture": "https://lh3.googleusercontent.com/UiGu3UED0pdKRZAsPjmOkSe-OR_Dq17W0H6bchHUHNZq1zjIXiUq94Ur_3O6-98u1EKgYK_jTaZr0c1eXNk-ul6dzw8",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "2c62cab7e547448199e4ce91d950a389.16",
+						"title": "Antik Maiselova",
+						"latitude": 50.089477,
+						"longitude": 14.4183,
+						"picture": "https://lh3.googleusercontent.com/-mBk8btV2vINzKg86bFU_2hBpDSzaMQ-yCvBJ_hsLWe-dAgzuwFF6FtpgW_fBrGRfHC0DijyP5z7YwKin2XTJApahLkH",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "d4df447e4c624869a93c712aa2fed540.16",
+						"title": "Marie a Ježíš",
+						"latitude": 50.089298,
+						"longitude": 14.418463,
+						"picture": "https://lh3.googleusercontent.com/GDFA2cX1HYRIqExr-e4KdAPnH-OqFVhYMUTXgDc6-MDOaOO0HjSlJcW7yV-SD2gN6YS1fr6cw3oOOvmN7qtgUFgDlEU",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:21.583614Z",
+			"averageDurationMilliseconds": 214362,
+			"lengthMeters": 116
+		},
+		"19": {
+			"id": "9c98d73357ae45dc93879209118fa2e7.1c",
+			"title": "Codex Gigas 20",
+			"picture": "https://lh3.googleusercontent.com/I8jLeqoXp6M1e7CPypdeBI_R_987otxCs96Mny3q6u94uuLVbnuFwruU9ldykKO0WA3dIUPpUs4_ljnatYpE",
+			"steps": [
+				{
+					"poi": {
+						"id": "8740b888c24745439f62be1b2a3799a4.16",
+						"title": "Holzknecht",
+						"latitude": 50.089055,
+						"longitude": 14.418167,
+						"picture": "https://lh3.googleusercontent.com/diDOL3RnjNXZyewD0QhooUgAasxmcqsEaYKD4ILyUsYjc60C7cKXdxYM35wyuQ7tBDho85Kt5HqI97_mHG4D-Fu-6n8l",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "acc48e60bf014564b9f3807d4d8ae422.16",
+						"title": "I Dzieciatko Na Budynku",
+						"latitude": 50.08897,
+						"longitude": 14.417776,
+						"picture": "https://lh3.googleusercontent.com/H3u0RSpVt8VilxOQQUHBhQXMZ2E5LnKQTi1xOUZ3zfLCxOznjNsgXtTtY1_J13sGvM4_Heee99K7q7uyAmmKNrPHfxx9",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "08b0f393653a43e896c4a24417e59009.16",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "d83f592514fe4804b163acb81fbd8ca2.16",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ddfdeb9b15dc49e6b196142ad6106573.16",
+						"title": "Castle",
+						"latitude": 50.08904,
+						"longitude": 14.416263,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "141800526aab44288c086786eff9791b.16",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:22.586089Z",
+			"averageDurationMilliseconds": 184906,
+			"lengthMeters": 138
+		},
+		"20": {
+			"id": "24f2f53a2be1453e88c2df0a015d15b3.1c",
+			"title": "Codex Gigas 21",
+			"picture": "https://lh3.googleusercontent.com/XQ8CNu_IL3-UtC7qLKzK09AJVFqgj1XnEg56QFKz_spPw2suFjNcFIzbovf2ok8gtr28rI1tYmGMKAJlVP18",
+			"steps": [
+				{
+					"poi": {
+						"id": "6e5500ae541049239c7ad0c9326a832a.16",
+						"title": "Dekorace na Pouliční Lampě",
+						"latitude": 50.089514,
+						"longitude": 14.415771,
+						"picture": "http://lh3.googleusercontent.com/U2KR-Ks0q_pP3zwk8WAlg3W3ZuS8FuPQJWI53ilTl516NBPFFT1rrsdzsOCx8wHBs8yAGfz6OIFmVZPKo1XUEbw3zA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a0073490ce0d4625a3992e72b3920963.12",
+						"title": "Strazici lev",
+						"latitude": 50.089734,
+						"longitude": 14.415814,
+						"picture": "http://lh3.googleusercontent.com/baSVFgdVwodCdhclz991SzVdTIiCvhvp9OIiBfNf-JIZgp8YmlJY31dVAJuBdHTZl-Lj--KgwI2GpG_LPq59MUYhtA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "848b81ec9f39468887bb1e5843e1c290.16",
+						"title": "Parent",
+						"latitude": 50.090129,
+						"longitude": 14.416337,
+						"picture": "https://lh3.googleusercontent.com/G96ZUp4IxdxxsfkimN2R4tOQgpIqHq-6C2Cx51KpgVumHfyVfN1P24Bf7BbeqXy4QtDMYWYHJi0rFsxKUZk0iNuoSGg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "e396fa2315334c33aad702eb75bef2cf.16",
+						"title": "Sfinga U Rudolfina",
+						"latitude": 50.09024,
+						"longitude": 14.415154,
+						"picture": "https://lh3.googleusercontent.com/D-3Hu8vN9j_OUnbd98AUEFiSIzctG0YrFYiAXSjEWaGANlUZFP2DnHeqDKcjp7dP3uQnBKVMMzI8KZZxO6HvfBZTUr4",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0f512ca39bfb446cacbd2862028cee24.16",
+						"title": "Plaque",
+						"latitude": 50.089982,
+						"longitude": 14.415045,
+						"picture": "https://lh3.googleusercontent.com/887EYH3yWb2BrDdJWAsBZa9HYSsVscqSJXXOl8I66ITrVxJm2fUxbrnLkD91cAb6TIAXMhfsD7O6ax6xllD5ybFlJIQX",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "8cd0e247393f4d4d8a98e684e15103ad.12",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:24.593460Z",
+			"averageDurationMilliseconds": 306050,
+			"lengthMeters": 198
+		},
+		"21": {
+			"id": "06569039877845aa8c4446d2f1176813.1c",
+			"title": "Codex Gigas 22",
+			"picture": "https://lh3.googleusercontent.com/3a2VRbB3_Bsn8u3rhbDCD4DKofDt7uvGi1M5Y8oaMvD6M0o3DTnEJ2DW1mtnwCHCdX91p9KFg4IRXaoOJxs",
+			"steps": [
+				{
+					"poi": {
+						"id": "6c9cfb8c629440d3b7634bb4560e910d.12",
+						"title": "socha Josefa Mánesa, náměstí J",
+						"latitude": 50.089698,
+						"longitude": 14.414441,
+						"picture": "https://lh3.googleusercontent.com/Pc_4me7ouudy3y5pHvHKypnjczrd4VgGQAmpkNTTcsO8EtcQ_kBs4aCgSdI0zdIw9mACG-PmbWF_VLmEZd3HRZwkeus",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "62241eabd6a04834b67eb468373f4a33.12",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "abe79bb9d86145c99c364e7566a7e36a.12",
+						"title": "Zuil voor Rudolfium",
+						"latitude": 50.08958,
+						"longitude": 14.415056,
+						"picture": "http://lh3.googleusercontent.com/1b9DtMTF9pIdC0Wz3VcsQ35NmLlovG08eCb-9gQupuw-7UZoCbczDX6Z188Q5BIbfZh1Fq1PhV2iskYWm9NYrpo_XA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "aeed38a27b1243879f9763a7476d4b5d.16",
+						"title": "Rudolfinum's Sky",
+						"latitude": 50.089687,
+						"longitude": 14.415332,
+						"picture": "http://lh3.googleusercontent.com/A6iGlsnx6q-Wrof6WPqg0mq3ie12nqaaO-uzMhy_7iw0EoBT-D16Q_g9yU7JaLhXyqNFh6NqxhDhi3BMMRVpolfFWUI",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "7799fdc449ba4383868d0e1c415c2eac.12",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ab1ae40892b9402ebe9de4ce9de2b268.16",
+						"title": "Antonín Dvořák, Rudolfinum",
+						"latitude": 50.089241,
+						"longitude": 14.415175,
+						"picture": "https://lh3.googleusercontent.com/7NDH9uO17M0kZVljSldpFLPWekyD9shq-2ALDbyoS1J3smpxsVrcOsB4_mxuBf7--7uydohtTV6nJekEVbyrq7uF_7U6",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:26.664109Z",
+			"averageDurationMilliseconds": 125501,
+			"lengthMeters": 120
+		},
+		"22": {
+			"id": "a55f4959c86c4f41b6fc72b087038a0d.1c",
+			"title": "Codex Gigas 23",
+			"picture": "https://lh3.googleusercontent.com/LjMLaDDn_zYK-AIqanueS5VMJd4Hb4gO5FkiQi9KM5459_uFbDYAmZoaI6ETaDJN2xNbuhtan11ezK_IIukS",
+			"steps": [
+				{
+					"poi": {
+						"id": "571d34d0f88e406d968c4c1ee2c898cd.16",
+						"title": "Zlatý anděl",
+						"latitude": 50.089393,
+						"longitude": 14.415488,
+						"picture": "https://lh3.googleusercontent.com/KeGEGs81_IFACP0E29IOdPT5w1rG9JfHL5a7UfjqjkV3QGmOOerZEbmvLm3Hlp7spBLu-x9z06ROcyXkb48yK-41dG-v",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "74ce9089655d4e798ce8aad141e2293f.11",
+						"title": "Sfinga Rudolfinum Praha",
+						"latitude": 50.089173,
+						"longitude": 14.415559,
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "1f0c7a79fc1e4d83a63b13884c5bbe74.16",
+						"title": "Jan Palach",
+						"latitude": 50.089164,
+						"longitude": 14.415949,
+						"picture": "https://lh3.googleusercontent.com/icsAMmg-_TIeheZzpaCba8y2zoLOmfO3iHCH4UiDWYa2LmRT5RGxrVtJ1qdT-fsNUgsojYW2ucgdBM1LufSK0ogioA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "95e129d43cdd466c9638dc35d1ddda95.16",
+						"title": "Věrni Zůstaneme",
+						"latitude": 50.088965,
+						"longitude": 14.415826,
+						"picture": "https://lh3.googleusercontent.com/mb_jLO40FdccBzy95u3FgpAbAsBGmErOvZkKgbdnlrezRRHvgRzjQg1LjpEOntZH_JdG84wcbw_rsQGNlvnegTE7szA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "be4e8a45eec64c29a02fbbb355d7ed48.12",
+						"title": "místo narození J. Heyrovského",
+						"latitude": 50.088607,
+						"longitude": 14.415677,
+						"picture": "https://lh3.googleusercontent.com/jghh9IplDTxffmJJYiIGTSCoJVpWlttaBisEOWjkV9KwGPm9QYO6uX7ng66EcpFlTWAK-3eyv_r0Ffod_2MB8Rz8Ivg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "e01cd09160fe4de0b59920c7c338e58f.16",
+						"title": "Tower Heads",
+						"latitude": 50.08843,
+						"longitude": 14.416224,
+						"picture": "http://lh3.googleusercontent.com/q5HOy6zWFH3VLrX5V3bpRPlzoBl3bl3rbLQJ7ENduU0bcQ0CqPlSn95b8HxAU--lAStBZuqsZH1U4vPemRrReKb_0MBd",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:28.556108Z",
+			"averageDurationMilliseconds": 235688,
+			"lengthMeters": 151
+		},
+		"23": {
+			"id": "7f6512bf16ff4bb8859a4970d202067e.1c",
+			"title": "Codex Gigas 24",
+			"picture": "https://lh3.googleusercontent.com/yHSImvoSGQdY_rlWgVcdpd7CwunoXqLCkicXL2o9o6mwBNSDR87vupgKywklgkUNYbr-WSQsZlJSLil_xNR1",
+			"steps": [
+				{
+					"poi": {
+						"id": "7ed58dc590f84be184094db71b5df8b3.16",
+						"title": "Pražská secese 1908",
+						"latitude": 50.088346,
+						"longitude": 14.416549,
+						"picture": "http://lh3.googleusercontent.com/CkFNyVT7IRmFwEhDknEWvntRDNi1Hp1vYQNP55gom4Og5ZohJTGjyOq6hkB9fHium_dwnTAYv3L7Tfpv0KLiA3tbMwE",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "d3eb7eef0640414e8263b64a2420690f.16",
+						"title": "Secesní malby ve Valentinské",
+						"latitude": 50.08808,
+						"longitude": 14.416406,
+						"picture": "http://lh3.googleusercontent.com/LkE7XZJ-pV8a8hibAcgC8S-_tQm8oP5CJ1NGYR_or5Smee2IFckGpp_tRBEbxf2gwkE_kSo5R3X3WddzqntRimyt4KUG",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0cdd772b53dc4cb88af10f7c98b3b58e.11",
+						"title": "Hany Bany",
+						"latitude": 50.087912,
+						"longitude": 14.416161,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f4bfffa2e58a4e62b17ddee4b68b126e.16",
+						"title": "Painted Folding Screen",
+						"latitude": 50.087768,
+						"longitude": 14.41679,
+						"picture": "https://lh3.googleusercontent.com/Q5vMnVJXlHml0qW0yUKJZ0yx92M4Uj4cHlZOSYFfC5ZbDeEBgva_gPYm10TQj-3jfrwlWPlEEjI82irKcVgqZ5fonPc",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "296af2d0747b4cbc8c283b9cb0655f40.16",
+						"title": "SU CSAV",
+						"latitude": 50.087314,
+						"longitude": 14.416711,
+						"picture": "http://lh3.googleusercontent.com/EXTUMGXioXKuqkSigjBL9YwQa37XfPiZvisXqfss3YuT64Hjy0K36aM8r_fq9CBOxfpqSJSOcOxW9xqkihZZqgX_FvpK",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "c23b6378e2f540e8bb0373bdc11a1650.12",
+						"title": "Prague (12), Czech Republic, 1",
+						"latitude": 50.087337,
+						"longitude": 14.417307,
+						"picture": "https://lh3.googleusercontent.com/re0yhoStwVVbdUsuFkTHJdGsqcO6SXHv0oSiWSyOauFnzGMj5BwTJ6ZOZ8EAS7_VMdj7O980raEy1fdJ0Fkjkx3Ynsc",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:30.555441Z",
+			"averageDurationMilliseconds": 218784,
+			"lengthMeters": 198
+		},
+		"24": {
+			"id": "80f337790d574a179a30821f6dc75fde.1c",
+			"title": "Codex Gigas 25",
+			"picture": "https://lh3.googleusercontent.com/ZKQ0hNqPoc0F2F3vGxRI5OvczgO0gttDlXo6LkWcChK83DKXUUC3G4kALVzYLSL-6Y02ctz_HL04TojKMGYx5g",
+			"steps": [
+				{
+					"poi": {
+						"id": "d00163e11d1a45e4a2262c8211793aba.11",
+						"title": "Well of Wisdom",
+						"latitude": 50.087368,
+						"longitude": 14.417363,
+						"picture": "http://lh3.googleusercontent.com/SrTrpSFx6EswNrl1EJSnldk4RSV3h8Lg_jPbcnZV6xRfgDR5Lnt4fIwQgNFkO09Ig9Xh-5IK7HQBC0FUW6vSFMWPbg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ea02bc2d686a41eabdc4941958c31eb5.16",
+						"title": "Narodni Knihovna",
+						"latitude": 50.087024,
+						"longitude": 14.417238,
+						"picture": "http://lh3.googleusercontent.com/_xrlsinl6NG_F8gtSbs2-zuEas0TGANlAVDlAHWgqyZ1JPCHIRUnt5QH9pTarwNY4YxUZ7F9i5DkxTJxEs0cwN1yNw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "71165c77cb0f4acbb63a4f0fe6307a38.12",
+						"title": "Magistrát hlavního města Prahy",
+						"latitude": 50.087072,
+						"longitude": 14.417804,
+						"picture": "https://lh3.googleusercontent.com/wktRFvlce_1IalU4m45bXiKTRZTeyOeZ7srrKeuZPef7cEKBY9_AB_mbs2_5zn07WqqZ7BZjQGaGuVdWZWEF0fi_CCQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0068ba3179e9441caf4a56eb3889814b.12",
+						"title": "Rabbi Löw 1520 - 1609",
+						"latitude": 50.086945,
+						"longitude": 14.417905,
+						"picture": "https://lh3.googleusercontent.com/p_G6gss95Xta8eesRfzfcTzLemsbFkbgttO1BwzTYWUAjOgZ8i3yIfS0FlwaQH_kCphiLqEctjR7uj_vm4Tj7sl2Yw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "4fa7887cdf584975b5eb61ebeb3df493.16",
+						"title": "Kasna s alegorickou sochou Vltavy",
+						"latitude": 50.086712,
+						"longitude": 14.417646,
+						"picture": "http://lh3.googleusercontent.com/P3O2b9SkU0f-OVnCMlOeIPZesvzKBqyOAhT0H1kSkaJcI4by9-s_IBXh_qERtSfiG41ZpzUoX2wHhXr3WvD73zfKm78",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "33c7dd76da3043c9a828a748573a033e.16",
+						"title": "Strange Guy",
+						"latitude": 50.086662,
+						"longitude": 14.417199,
+						"picture": "https://lh3.googleusercontent.com/viANV-_AxGHLle6NHHISghK94si0-gvHD0OENdG8m4KWkvlRAT4sCe-W6zz9xTWFxgyghVRrBfYXkrNC-wUTsiCpHQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:32.580463Z",
+			"averageDurationMilliseconds": 162607,
+			"lengthMeters": 160
+		},
+		"25": {
+			"id": "5b4fb26b3f4c480ab4c2d80e254ebe7e.1c",
+			"title": "Codex Gigas 26",
+			"picture": "https://lh3.googleusercontent.com/KnnO1wS6WGNK_vEfSA1XFXIIGNRRB5xnggkVgxhj8j3Tjhrh-gTxbqsIdbVCA7uw7iIB7K2IPlNX2hVBwW6h",
+			"steps": [
+				{
+					"poi": {
+						"id": "9b956e4b9cfe42d5821e97d5aac7dca5.12",
+						"title": "Central Archive, Husova St., P",
+						"latitude": 50.086158,
+						"longitude": 14.417858,
+						"picture": "http://lh3.googleusercontent.com/yfiCfG60hOzYW-S-kLfo06CkP4b5h96odr6RAfa76VAdRFj3bICIfhUg6glXFtHkk73RzJ6g4RuXrTXiJghFcRNfyHs",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "c6ba1babd9274133bc372fc4e627df27.16",
+						"title": "U Modrého Hroznu",
+						"latitude": 50.085775,
+						"longitude": 14.418125,
+						"picture": "http://lh3.googleusercontent.com/s0k5_aFXRMCi7xQaxdtcwIu2DF7oDfVck8FN2biJdy6jUOYQODnF3ULFwipAw1yn4DMlrYHZo1N92Sqy880JN34ukw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a2ecccabbcad427996af08553e35e981.16",
+						"title": "Pietà",
+						"latitude": 50.085568,
+						"longitude": 14.418184,
+						"picture": "http://lh3.googleusercontent.com/rRm7Wckj2oNcpRd_-il5-i1wsEo6ugHGzY7Ci2bqY8BQmMFeqaji1VzSMFW3tFttNrNpOlYjl2ST_Mzn9qnoOWGrODg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "4da0b876eab548d2b2f650f0cb68ccba.16",
+						"title": "U Zlateho Tygra",
+						"latitude": 50.085254,
+						"longitude": 14.418318,
+						"picture": "https://lh3.googleusercontent.com/oiNTux4Yjpm-_AeE-TWNPel-e8GjaST_liAd8UEQuiRKhJesOQldNYe9HmU5D-mlCCLDm0HpecpYGGGVUz1ou0-urQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "d508c7b0789c40b8b45116b8a7c162dd.16",
+						"title": "Beer Museum",
+						"latitude": 50.085058,
+						"longitude": 14.418155,
+						"picture": "https://lh3.googleusercontent.com/R1w5u7YrbLQqESU9YZbkrVMLvyfss_C7lNR03irdEhlYxOZdnIhkOow7qhWz1nhGmV0PPRJ5hd9Vqx5NayAn7UIx9fk",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "82e4ec4f210d49858baea8503cc14afb.16",
+						"title": "Pinnion",
+						"latitude": 50.084646,
+						"longitude": 14.41834,
+						"picture": "http://lh3.googleusercontent.com/CHTsQc3cCgmCPQ2A6vaaU2NjLhV64XQAWhKOq4YqcoOXioJ_yBZr5w9FiPDKkrctpGLqOn5aSi6WvrvJ-Q_BlamSEJc",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:34.587316Z",
+			"averageDurationMilliseconds": 291759,
+			"lengthMeters": 179
+		},
+		"26": {
+			"id": "0a12bcd83e164cb1a5fc319c42f2ad6b.1c",
+			"title": "Codex Gigas 27",
+			"picture": "https://lh3.googleusercontent.com/c-c3X4shaufAr5-siUuWU7JWp2jBRukDdTC9pmkIggKmkF24sR3c3a2GMPAL5czc2LLnhUaJqO7wzvs69dRJ",
+			"steps": [
+				{
+					"poi": {
+						"id": "546e89bf7a81408c84a8e4f2b229d061.12",
+						"title": "David Černý - Viselec | 1997",
+						"latitude": 50.084292,
+						"longitude": 14.418248,
+						"picture": "https://lh3.googleusercontent.com/e_zCeh3Af5g1jQwrTwmqB6pAdf-H88XyZC5AogswBwioSTZinBHOlIfzmt9WMuHqSxIsmDR43nQdpVGzvTFICFHM2HkA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "100a737da6fe46de936d9bf4ec0cbb04.12",
+						"title": "Betlémská",
+						"latitude": 50.084174,
+						"longitude": 14.417508,
+						"picture": "https://lh3.googleusercontent.com/vTp6ogk5sAlqGTHAjOcVUmXDqEhiGqzsAFlNR65rSHBLPWELm8Am5Dzm2e-0VeHQG_xzdd-pRCrtJmKtclsW4GM2SChv",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "68d9c52af85448eb8b8d3498cef069b3.12",
+						"title": "Krásný dům v Praze",
+						"latitude": 50.084292,
+						"longitude": 14.416477,
+						"picture": "http://lh3.googleusercontent.com/oBp7dCyHkiUs2RMIMp3Z9bsvzFnAFPl1qyTz1-CsjrjI_R-Asw0X5TTCjt06xR_QPeRS5gSMGB3OI1arjVtBHKu5Inw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a287f9e2c1074d53b0cfc0f756cae5dc.12",
+						"title": "Vojta Náprstek",
+						"latitude": 50.084046,
+						"longitude": 14.416666,
+						"picture": "https://lh3.googleusercontent.com/i2nC6nlEDyqePfppagCNWmxrIyM_O0L8vr8NnqobKzQrlQYeNpu4AB8DO3eYx7yROuwq4lhGxyfO-wm5_RP1kKGUaqk",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "b1d9dfcdb80e45fc871915666d215bb2.16",
+						"title": "100. Výročí Vojty Náprstka Memorial",
+						"latitude": 50.083966,
+						"longitude": 14.416304,
+						"picture": "https://lh3.googleusercontent.com/bCPI7V9nncPqYzfHAIH6TOCxn4l70pp6TTAfvf9gbq6Cg872ySZ1yTWyh1-fcz18W4KLdfr0sG_s4A3lcgdJ9IaoXMQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "e7db5470170e4e1da1e55bb21428a8ae.16",
+						"title": "Totem",
+						"latitude": 50.083973,
+						"longitude": 14.415885,
+						"picture": "https://lh3.googleusercontent.com/OmffkKVa4jU4LnQPmflCRP4ZWlvbmW4GVMPi1TuEC0D4dlpewymgFSQYlCA7nLbzlODuvY_7_EgVfX-KBAgh_nnqmCw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:37.606689Z",
+			"averageDurationMilliseconds": 319321,
+			"lengthMeters": 217
+		},
+		"27": {
+			"id": "7f3821e07d6949d9a1828b586ce87d0b.1c",
+			"title": "Codex Gigas 28",
+			"picture": "https://lh3.googleusercontent.com/3w7FE1dQtSuWwKNumeHC2dSy2Pzo1fH2lwytywHEEvQYsx_qRdJCDZRpB4V4sh2Zmv7ekQoC7lLkNRjf3WbgAg",
+			"steps": [
+				{
+					"poi": {
+						"id": "8e6e3f2c8278439ca7a4b932933fe09d.16",
+						"title": "Domovní znamení Kalicha",
+						"latitude": 50.083805,
+						"longitude": 14.415529,
+						"picture": "https://lh3.googleusercontent.com/eebAjQGpBFybZmKm1fCltVL19gGQZPh2QNIz8s_edlflps1FRj1GAWa5xF3nzDGExawDD4QcO87bSBrv9mjjXwl0pJ0a",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0f452919452e42e6b86fb0877cb8aa9a.16",
+						"title": "Kalich",
+						"latitude": 50.084066,
+						"longitude": 14.415592,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f49157e46aee4ca7aaeaabdf32e1acc3.16",
+						"title": "Gestempelte Fassade",
+						"latitude": 50.08434,
+						"longitude": 14.415637,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "9b325c2a40904c63a021f0c3cfa6fac9.16",
+						"title": "Ladies on door",
+						"latitude": 50.084399,
+						"longitude": 14.415925,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a7a98d6246ce4fbebcf1856f3118cbb5.16",
+						"title": "U Bileho Jelinka",
+						"latitude": 50.08438,
+						"longitude": 14.415121,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ab8c66b7078a4a4986e307130edf8545.12",
+						"title": "Sedící Muž",
+						"latitude": 50.084611,
+						"longitude": 14.414915,
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:39.523267Z",
+			"averageDurationMilliseconds": 169203,
+			"lengthMeters": 169
+		},
+		"28": {
+			"id": "63d251f682cf4ba6aff0fc2d5c595241.1c",
+			"title": "Codex Gigas 29",
+			"picture": "https://lh3.googleusercontent.com/y1KN_OaIlBIADVYtDZZfl8kQV56qSUG-qPrWksyeG9UqQq_ZQei6Utv4oplJ0PzSMZEDMCvsXLSmOTcaRmY",
+			"steps": [
+				{
+					"poi": {
+						"id": "b7c7b1325f584d49997d183a13995327.16",
+						"title": "Studna se lvem",
+						"latitude": 50.085059,
+						"longitude": 14.414655,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0ad8e7a3fada4d03919fbd40a39b5e98.16",
+						"title": "Rudolf Deyl",
+						"latitude": 50.085358,
+						"longitude": 14.414683,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "08e02f79e6d14790b7391079965d7fb3.16",
+						"title": "Emblem Hl. Města Prahy",
+						"latitude": 50.085442,
+						"longitude": 14.414062,
+						"picture": "https://lh3.googleusercontent.com/MUFIInIn8CKEVXNqwLe4Ra4gj-TLnK-slOfie-dpeSO_DYFh-qii1CVzY290D1iIqXl2x3NtLk1--NnDIgn_X7y24gQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "bf907b96e6e64b11ac8396e48e3eb240.16",
+						"title": "Museum of Medieval Torture Instruments",
+						"latitude": 50.086051,
+						"longitude": 14.414223,
+						"picture": "https://lh3.googleusercontent.com/OVyhpzFyi2Ng2LTEvOM-Q-cgt0iB9Rdn4fsdPFIJGrMvJChmoVrNkR84mG_uRoIANJApz29l6rUiCknu58PI1qooTA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a68e862d1d15410ebd4689d1a4fea93a.16",
+						"title": "Národní Knihovna",
+						"latitude": 50.086335,
+						"longitude": 14.414607,
+						"picture": "https://lh3.googleusercontent.com/sDzWOQp9zljCyjNDhH0MNaoLU2tHsLoC_hFjPdmEHIYN5-zO8U2PXQawVeT0n8DIxksMyya_u8FqiqmnTm_JYagb6w",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "96892e6722724ad3a57424b186ac39af.16",
+						"title": "Boat Pier S.Karl",
+						"latitude": 50.086338,
+						"longitude": 14.414126,
+						"picture": "https://lh3.googleusercontent.com/U280_jXu-bsH-AO8LTGmCs5aFJryr9AvdWXCRuakENoEdOjSqP2lSBs4yEGtz3ejTm1kA1HTYWEkmT2OZbLpN7Gl7Q",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:41.643064Z",
+			"averageDurationMilliseconds": 332749,
+			"lengthMeters": 224
+		},
+		"29": {
+			"id": "f4461838c8f14cc8a48c602b7238dcb7.1c",
+			"title": "Codex Gigas 30",
+			"picture": "https://lh3.googleusercontent.com/3mhNnz3kgnKzWMxPzlqoE7I4aCYn3LaDvQOFD9nckSrmzn3AsF_LUJD4ClAetyr2yLMmh5Rg4ipCXb-01fXF",
+			"steps": [
+				{
+					"poi": {
+						"id": "9a13ed255e274542a7c4066bc528e2da.12",
+						"title": "Karel IV",
+						"latitude": 50.086302,
+						"longitude": 14.413908,
+						"picture": "https://lh3.googleusercontent.com/exg67ONWBf3zWtCK4_K3eKaM1OEQWXgM6IPoGpTZdDDLvp11rwBXxBDJzzU-_RbOhubo1yfy9ZKOZrrvjWcxIG16Yw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "7881f3435fbe4bf08444440802295c90.12",
+						"title": "Karlův most (Charles Bridge)",
+						"latitude": 50.086212,
+						"longitude": 14.413548,
+						"picture": "https://lh3.googleusercontent.com/FTET569i5SiQnYd91AwhRsJJ5AGwcvkaLEiCYPqh-WhUFTmMYV-rQ2FVMis-SifHSyQmC08HWTKoK1gy7OuerVJ4wweB",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "d570a6dc9da4411f944a8483d262a714.12",
+						"title": "Statue of the Madonna, Ss. Dominic and Thomas Aquinas",
+						"latitude": 50.086281,
+						"longitude": 14.413204,
+						"picture": "https://lh3.googleusercontent.com/_WlJULg8SzvDkxLcor3tnKZ3ip-OqmIy5PD-pHy9Xh7K1lGzpVce9qhoa6i9SF3hD_WBjFpFvUgbIOcsSZgWY-CooRQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "436742a196a1456d97989ed6e07cf457.12",
+						"title": "Charles bridge - silhouette of",
+						"latitude": 50.086311,
+						"longitude": 14.412555,
+						"picture": "https://lh3.googleusercontent.com/KqGMPgYHsL7wNspZhbBt6KdyiX07-i3lbd_G1wLTOfA2iC-2EAHCavlwJtDukXXP9139ze4ZFnOyPcW4pop1KGdoeA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ff3973779ddc4789811cfc65784a63df.12",
+						"title": "Sousoší sv. Kříže s Kalvárií",
+						"latitude": 50.086415,
+						"longitude": 14.41237,
+						"picture": "https://lh3.googleusercontent.com/of23SCTRjTzaO-CbsJzYXjuODIETx48ywQQzlB4OTXL_MVtD2AT9qWAGQ5adE6HtV7s5fvHJIJgT9JfjL6Nkn36QPOTC",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "b26f3a4e112f4953b918cebbc3c30329.12",
+						"title": "Sousoší sv. Cyrila a Metoděje",
+						"latitude": 50.086461,
+						"longitude": 14.411936,
+						"picture": "https://lh3.googleusercontent.com/7vIwonvS3kBgAX0dW69VGJLfRY5sjjtwqBJPAYJttsnK2yK4bPeZJbznSHbbFMlQjYwnI18SyOyMgUAwNRK5qdn9l3E",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:43.701680Z",
+			"averageDurationMilliseconds": 250539,
+			"lengthMeters": 146
+		},
+		"30": {
+			"id": "bff59bd8f7b84618928493422c28de98.1c",
+			"title": "Codex Gigas 31",
+			"picture": "https://lh3.googleusercontent.com/_MReclYoHS7HSfpWiyw6ywaYsFLlk_-jllsLVo320OfSezbF8PukKOkIM4_-LGt7NKModg8wrxQ1rwsuP_I",
+			"steps": [
+				{
+					"poi": {
+						"id": "a77e3bcdb25f4a6d83f418c8bd12ff62.12",
+						"title": "La deposizione, ponte San Carl",
+						"latitude": 50.086542,
+						"longitude": 14.411492,
+						"picture": "http://lh3.googleusercontent.com/c7E4gKrozDRaRU7tAyOmjl9MOMltSpZOTZmH-uBjvLLowkM3wxOqcCTJqdpdMgs8mKv74PZtncg4BGADwrDQBKMPmO2y",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "12a99f794b0e430280f0ed57ff1c2c96.12",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "755f0538d80d48f3ac21f21e2e5d720d.12",
+						"title": "MEMENTO MORI",
+						"latitude": 50.086446,
+						"longitude": 14.410886,
+						"picture": "https://lh3.googleusercontent.com/bAauH7YJtszJbBg85-2ymBTiZqqyWbgUw2t0kUl4y4MvRY5ECU08ohfjGszAjjJdxBTsHeMJQMWuf-qp3E_w1PGUiA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "27b6616d202a45aaa76267f0a422ea3b.12",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "2d25d92529b148f78ad45ca05885edd7.12",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f476b1d043e64bd2a2b74db9cadb5ee5.12",
+						"title": "Statues on Carlos bridge by ni",
+						"latitude": 50.086663,
+						"longitude": 14.410238,
+						"picture": "https://lh3.googleusercontent.com/K7dhxnrIUtReePb8I8-q8MUy5-Q1EAcj4OZ2xYyue966FXjnGDIVQyGtaPXF5MdxaKU_HQOk7lHioB5MTdYGHp0Rckc",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:45.554419Z",
+			"averageDurationMilliseconds": 172547,
+			"lengthMeters": 97
+		},
+		"31": {
+			"id": "00184d5406954c0781ba4f4c0c8eb317.1c",
+			"title": "Codex Gigas 32",
+			"picture": "https://lh3.googleusercontent.com/KpxcHzw4ckpi2h8cAqwY70n53N68RQ1k-paq-o6K4kx6-JTc0xh6YbexVkKTW_t1Dih6vysgCvc1QGmVJHY",
+			"steps": [
+				{
+					"poi": {
+						"id": "429695740c144599991a7250676ea47a.12",
+						"title": "Praga",
+						"latitude": 50.086645,
+						"longitude": 14.410021,
+						"picture": "https://lh3.googleusercontent.com/zF5rjwr56DTJ3vLr49Kbzug5UINVwT7fWFaZ1zTtNQpLXoslSgyXh9kGT1zu5uj6mEoBE-BguvJh8vd6mFDdrKJEDmc",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "cc9d14b1375a4de08c85ccb728aa5f5a.12",
+						"title": "Statues on Charles Bridge",
+						"latitude": 50.086709,
+						"longitude": 14.409833,
+						"picture": "https://lh3.googleusercontent.com/f14pdvDIvfuqm0-E514etZxqN3vHESbfmgTtSKTaTqaMAVR5pEC8Ir1-6ptqpqAnUdnQKHwRJS8r8Rp5q3TR_8IqC3I",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a41d34f2603d47c0b150a734bb4a0e58.12",
+						"title": "Karlův Most",
+						"latitude": 50.086761,
+						"longitude": 14.409491,
+						"picture": "https://lh3.googleusercontent.com/Cm63a1QptJbFr-0b1UJzoWeoqyCSyrqZt2xtFy0jDWZA39A1ynpFh72yJ3of_-56FFbUuVuBavE1vpeoorpHoP-fOJ4",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "bf4cc8c90b4b478fab8a37e04a63dc7d.12",
+						"title": "Save our souls",
+						"latitude": 50.086735,
+						"longitude": 14.408956,
+						"picture": "https://lh3.googleusercontent.com/4s6LZXJbawBVujbhF9IXQG7ssUYhe4eo_VBESu-54KT-iXdM81MWpgFKhjzS52CJzJ3hViMq-avXVQsJI_PCYg2_Nw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "64dcd026329a4c6586cc37cc845178cd.16",
+						"title": "9/11 Firefighter Memorial",
+						"latitude": 50.086877,
+						"longitude": 14.408215,
+						"picture": "https://lh3.googleusercontent.com/diRJW6eaio1FSDmKeonSLLk4LK-i5CI4YkggX_FDQwjys2U6W9z7--d-5n0kBWkcCWCVORsPqVe5GVD7fJwUhGG_jkI",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "fd66f331c6714739b3e20c9a3e490742.16",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "57d7e02b3a5d452187ab6d3dfca8ea4a.16",
+						"title": "Antique Door",
+						"latitude": 50.087669,
+						"longitude": 14.408848,
+						"picture": "https://lh3.googleusercontent.com/8B6rlewHRSLOLSfJ4Ai3FWVT7nmkzLpsaVcxCmbx_sutWzmXHlCUrYroanGxXd7_Apg1izPbeqO-ds8Br4etIw3y0hI",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:47.617119Z",
+			"averageDurationMilliseconds": 463663,
+			"lengthMeters": 233
+		},
+		"32": {
+			"id": "6a516ab504eb437dbb1be8ea1cf1a2b5.1c",
+			"title": "Codex Gigas 33",
+			"picture": "https://lh3.googleusercontent.com/2X_-F_is_llalOdI9cEN9oWTUo5MGtZtJMkUftEYDbWSOoJ-R-2axvPPbzcCF2daBCMf52u7uLelIeaOcsc",
+			"steps": [
+				{
+					"poi": {
+						"id": "6b8318fbcb7248f8a66300d4574c8f4e.16",
+						"title": "Vladimír Holan Lives Here",
+						"latitude": 50.087754,
+						"longitude": 14.409121,
+						"picture": "https://lh3.googleusercontent.com/Z5VHK-c6mgmokPRdpz4cCMWpZTE5-cYUGmK2ao9fRgTmYpuFy4vnAmBu42dUyGkoq1ZrwZ1HwhPvWGLhLsNsd_EPkGc",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ec1e07038a2f41568274399506e2ff33.12",
+						"title": "Peeing Men",
+						"latitude": 50.088089,
+						"longitude": 14.410164,
+						"picture": "https://lh3.googleusercontent.com/H5IOmVV82mPo0GXb64WV5ugAkGH5vA45UYjMJsDGkvS3NKG6pjjASbMh975R3Hxb11wup8H6AtJLi1dHEcNGLwNFQg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "da582c242cdf48aeba521334f2594713.16",
+						"title": "Malostranska Murales",
+						"latitude": 50.088327,
+						"longitude": 14.410026,
+						"picture": "https://lh3.googleusercontent.com/22ckalGnFjuvAYyebPkPbmJvUaQKnLS8L1lJQiXEeU5bKHSJB1nToS7l6oxPcQ1mrbW82RHvX4n1UoyoNCbSpr0Upkv9",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "def335e4930a4b07829da184dfbc8caf.16",
+						"title": "Černy Orel",
+						"latitude": 50.088811,
+						"longitude": 14.410058,
+						"picture": "https://lh3.googleusercontent.com/yA5meqq3xMUQXWMY8TAhV639HRmnn4cOlOFs4CUS5wp9ShDEJhPYeIP8ymke87Bw6H6yT6YZsNZhYGGo33AjsW6_3mo",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "2e737e3d0dac4771b2c3a9848dcb632a.16",
+						"title": "14. August 2002",
+						"latitude": 50.088964,
+						"longitude": 14.410345,
+						"picture": "https://lh3.googleusercontent.com/lRx_c7qhFqSh646V5kKC-FPbArnAmFcElLOert5WEX6ErZFvbFr4ZyiD5-NeGlOcKneTrgWUEBit_cPo4Hyu1YVAaJ8",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "883c4072431b4bf4a3b67a253f286232.16",
+						"title": "Reading",
+						"latitude": 50.08951,
+						"longitude": 14.409918,
+						"picture": "https://lh3.googleusercontent.com/N-TrwFqOEz274QHXNR8rILC1XwtyeEqntCFcH8oeYfOVXBcjxxlBnsIOJdbnWn-YGinxbF5OKWETE_jq1B4CI4G_tQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "4f6d5a580d2b41729ef87cd4e73a8700.16",
+						"title": "Marie Birmová",
+						"latitude": 50.089768,
+						"longitude": 14.409959,
+						"picture": "https://lh3.googleusercontent.com/dScqNmsoW_l4qHfhEoQVquqKPP9pLBP4TITk9G27U3ABm_RZ2wynFsd07EPpCEjyLmy5RP1j9yaxACmaTvZDLLrGmQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:49.595890Z",
+			"averageDurationMilliseconds": 407652,
+			"lengthMeters": 289
+		},
+		"33": {
+			"id": "1d983c95d7bc4708bd1a80e19f937f68.1c",
+			"title": "Codex Gigas 34",
+			"picture": "https://lh3.googleusercontent.com/fTyIwkg-9CPk1jygg6n0nB1JaKQH-dc-pt9NwFU6zUGNXHmfQDztl9ehSJVp-W9IigQXdtHq3ahVVSIh6i3G",
+			"steps": [
+				{
+					"poi": {
+						"id": "2a3d2346b3564357976a53c46c8d0a40.16",
+						"title": "Angel Baby Mural",
+						"latitude": 50.090463,
+						"longitude": 14.409567,
+						"picture": "https://lh3.googleusercontent.com/KNcJTIwaALx_yZXrcnEbGWuGnehs94Hm1WTvpy3TpubfiexEuzELLmd7EebnKANA-9orKuwU8hplyLYK_4m_UXyvuzP5",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a1d88dfd8cf740bba6ba030afdc6dd38.16",
+						"title": "Bůh Vína a Hojnosti",
+						"latitude": 50.090948,
+						"longitude": 14.409142,
+						"picture": "https://lh3.googleusercontent.com/2LEACkaRXL-7m2PW4tPe0aOM5jTERadSU1tikN5llF0jP1cunSJzcaKCOw6S_NOmOmwAwHNBQVeHimow2le6x4iayJo5",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "1e243b42fa90494e9ce0f5156f749e1b.16",
+						"title": "Lady Statue",
+						"latitude": 50.091129,
+						"longitude": 14.409067,
+						"picture": "https://lh3.googleusercontent.com/fuoJVmW_PBmBOVFO051fH_R_s0aE-3wsUayda3Mc98azP-SqYSM3RgMVRSEIXKdMmph4rICkvtrlk0IxOszULi-lU40",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "7fb024a897544d6491bb7a2322fa805a.16",
+						"title": "Adolf Kosarek",
+						"latitude": 50.091518,
+						"longitude": 14.409111,
+						"picture": "http://lh3.googleusercontent.com/bSza69DkHvx5M9RkBH2SxztlwXGL_yFimaRN2KBtoNNC2N0vaXLRK9Q9JsU0Q4_O7DJdHC0hgJ5hFWXPcJhnzu6E5cQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a650012e0a1a46359b276a492fc2a6c9.12",
+						"title": "Leť ! (socha v parku)",
+						"latitude": 50.091987,
+						"longitude": 14.408913,
+						"picture": "http://lh3.googleusercontent.com/u0Ec7dZ9ZTJty6Q1vjO8CJhKvL34guN2HzI2UrjO_eekxSLynBnNFZRzVaz_I1-EogWOrXvKYIl5lVZiA5vBjYYeQQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "007993436e6f4bf58520d910dddc896a.16",
+						"title": "Eduard Vojan",
+						"latitude": 50.092341,
+						"longitude": 14.409046,
+						"picture": "https://lh3.googleusercontent.com/ITvpAmcvtAJlpHFpH1v02xf9p9hfjcac5KFGh0DJR_ddCOXHZN4_fislBG7KWKRq98dWS0QWdYdojFksH9ndMgQU1O8",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:51.642084Z",
+			"averageDurationMilliseconds": 475955,
+			"lengthMeters": 221
+		},
+		"34": {
+			"id": "f24c100bf5ae4542a63b597935c4fec8.1c",
+			"title": "Codex Gigas 35",
+			"picture": "https://lh3.googleusercontent.com/9qLGUL_1SjyQozUhJo6tiNr0qkEuEFJK4_UDyk-CVsaFtBNMyHU01z6_Hx7l3RC5WUxXBTWUXF0MzoCDpGH3",
+			"steps": [
+				{
+					"poi": {
+						"id": "a0f3df5cb53f4ecab113000d7013b9fc.16",
+						"title": "Complex of the Old Vineyard",
+						"latitude": 50.092231,
+						"longitude": 14.408351,
+						"picture": "http://lh3.googleusercontent.com/Pkp9S810C7tuSstVyjD8D5BDz613qkWj9bVxFvRy2zdr_RFg9XfupGLkojyBUfWppB-P4eH7m7nCZjLqkNVFXrH5c9hb",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "edfe2650738d44a593857aef88cb561a.16",
+						"title": "Escudo Real",
+						"latitude": 50.092057,
+						"longitude": 14.407758,
+						"picture": "https://lh3.googleusercontent.com/w-PQjfdDzurfQtPJUk-nT0dM4SAFsp6xcOZms-9f3CGCJpn9LozeG_2ivpeWcV_dRS6g92ANxNVz-KLYb65uGy70Gblk",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "8d21ac4022da40d29ee7f9f5a4a9c467.12",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "cb464a06dd0c4186a50fb061eec3989e.12",
+						"title": "Karel Hasler - Statue",
+						"latitude": 50.091935,
+						"longitude": 14.406331,
+						"picture": "https://lh3.googleusercontent.com/Xst99IcIe3Q6raPHUkXO4bPz8ABlDS2WdDLoaHh3P5Vk8U-04K9r2QxuZUUihnlEdOoFGLqC8LISr-SVqUjNi6BUSzE",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "28432e8a2c504cdb97e0d6b508f61e0e.12",
+						"title": "Toy Museum Hraček, Pražský Hra",
+						"latitude": 50.091781,
+						"longitude": 14.404613,
+						"picture": "https://lh3.googleusercontent.com/cMzV5RzcC2hAowEUX6RaqFJa5A6_xQeClrfI2mnpXZHerXWWKaxAtGbqykHxYraaFri5wwfhdPB6TrQCsTBoW35S67eY",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "b84aa97446fc4fa4820acb20c9178b04.12",
+						"title": "Praga",
+						"latitude": 50.091743,
+						"longitude": 14.404147,
+						"picture": "https://lh3.googleusercontent.com/cT7LcUstKM8CsFflB5SMuLt7aZsuuA6WIaqT5QHPqVqVvAbB0j573Ut0XjEb3x6-_-2YcQMNYHqw4MQsD0ubdR5bKQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "7c3f07e4afaf4a32acc90054c4fc2bab.16",
+						"title": "Eiserne Jungfrau",
+						"latitude": 50.091556,
+						"longitude": 14.403329,
+						"picture": "https://lh3.googleusercontent.com/yyOkDESvElJ3u007_mp00M-mVoqaELdjpHgwq9Bj8LyyJg-3xNKpmG7WraFimKuGIAqtYIhHBDWY1MXPypvmxDMpq08",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:53.542282Z",
+			"averageDurationMilliseconds": 848364,
+			"lengthMeters": 370
+		},
+		"35": {
+			"id": "5023a7c1d95e47d3a0e74a6b61c788c3.1c",
+			"title": "Codex Gigas 36",
+			"picture": "https://lh3.googleusercontent.com/_IPF6mvpqYp6TtRH9s_HSlQob5-5hnmc1SNpo0p7o2UXvJ7fqMLfftGiNA5Q57DrPFy4eYSWZur1dtcKP-Tn",
+			"steps": [
+				{
+					"poi": {
+						"id": "b3a3930a6ff648709dbe6fd4c27be0c7.16",
+						"title": "Old Tower",
+						"latitude": 50.091177,
+						"longitude": 14.402841,
+						"picture": "https://lh3.googleusercontent.com/eU_LWonnEaamiZiuqfANKmBC4C2KxqsNncB4INRd9MN0f0UUkgnlHK0PtcZCZhI26kD7XRKYKBw1EdzASzfhClUbjHc",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "44771492dffe4960a42121f9798e3c1b.16",
+						"title": "Church Entrance",
+						"latitude": 50.09112,
+						"longitude": 14.402557,
+						"picture": "https://lh3.googleusercontent.com/g61KtsXtfk70JdEeZYEL3eBtAZYtg4CMmqulxwQ7SwPvMz1czEUDuSlQFSw1QVKmqx1z9tlbOH29aME_xNKKth6V4ww",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "2591d008bd784579a3f80b67c6d8f47b.12",
+						"title": "St. George basiliek",
+						"latitude": 50.091003,
+						"longitude": 14.402014,
+						"picture": "https://lh3.googleusercontent.com/yqqcIvDV8CUDl5RVmoxWsDOGM1UuwiPs66-mu0rSjedcU-5GY8ThA1y-BQnisxdX8mG0pI8x_Mi-PkaTtJKjr79faA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "277e7e45509347878bc8765f8902003c.16",
+						"title": "Fountain",
+						"latitude": 50.090554,
+						"longitude": 14.401077,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "977dc870bb6648f58e663eb9831059b1.12",
+						"title": "Kasna se sochou Sv. Jiri",
+						"latitude": 50.090329,
+						"longitude": 14.400403,
+						"picture": "https://lh3.googleusercontent.com/5D4Xi3UT0Lo15XxHibcE-1HTIH3je-vL3g8RuNDsmo4P7e1AMKX57QhvllgUViUzgODLoIShvRZA_lU8dVKGh-5RAgly",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "86bb5d1548e34e198e5a6fad7683f440.16",
+						"title": "Metropolitan Capitula by Sv.Vitus",
+						"latitude": 50.090418,
+						"longitude": 14.400041,
+						"picture": "https://lh3.googleusercontent.com/4IF0JaFaUcuZMRPmEfp7aBEQLO5UdnrdAM1zjaEy28ZSq3D4gfjjOmS-V4UHy04p9e94EvPgmvPZJdygHQNy0uT9n4k",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "e099055a42224aa68d02ee8942c82d36.12",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:14.654514Z",
+			"averageDurationMilliseconds": 367513,
+			"lengthMeters": 228
+		},
+		"36": {
+			"id": "29c98838b2884ba8a8b522fe39560a51.1c",
+			"title": "Codex Gigas 37",
+			"picture": "https://lh3.googleusercontent.com/lM873V70soVAb6OQL_Bp7FqfHFuuBhSQUTgdSVdoE4PdDyu5qV-8LnRhHgIhzhzI8frg1_We1yevL_CwTNgPUA",
+			"steps": [
+				{
+					"poi": {
+						"id": "15e54851c5dc4203ad2ef84a307bc59d.16",
+						"title": "Katedrala West Side",
+						"latitude": 50.090501,
+						"longitude": 14.399784,
+						"picture": "https://lh3.googleusercontent.com/3FUpsnKrkY8FzjQ2lT6MUxbqK8jW0dB-Ne-Ejpktc4jd-6OZcX4AeiNX1sItF_AJ1jn8bLX3560MZcMOLEp3j_VAgRs",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "209d8c6b7ee34d1890313e1552d36911.12",
+						"title": "Kohlova kašna, II. nádvoří Pra",
+						"latitude": 50.090386,
+						"longitude": 14.399122,
+						"picture": "https://lh3.googleusercontent.com/SRhkzJV37vL2H5GJgQj3aIJx9cw6sGTWIfq94WQABawBWLis_8oZPbaZQhf5c3gk2dw7DrIhjA3H35ecOkV3JjPlCEM",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "e5fe3b39d8d240bd9044efb8660f613d.12",
+						"title": "Palace",
+						"latitude": 50.08999,
+						"longitude": 14.398568,
+						"picture": "https://lh3.googleusercontent.com/GV4p2YZ3Ou_UnXQGb8lRA6JJR1o-1juhWbetjaq8UtHH6MbQtXqh13yApVpINEG1VChBTStOITf6BxG7Wvcij1F2o0Zn",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "3fb02400ba694bf9b8c1bba547718109.12",
+						"title": "Castle Gate",
+						"latitude": 50.089798,
+						"longitude": 14.398549,
+						"picture": "https://lh3.googleusercontent.com/YYkUx0AS1upgphGNMeDBHcH8HcDP0Z932WwQPpXOkYMhbM7qiwnzvV0mYobTO8FCZ8CEbYvweT8naILwkSJUtutVjw76",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "2d31d1f577b74a7d83d4105aff2ad6df.12",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "08f4271a402145acba7e610eae206b7d.12",
+						"title": "T. G. Masaryk - 1st Czech president",
+						"latitude": 50.089493,
+						"longitude": 14.397942,
+						"picture": "https://lh3.googleusercontent.com/HzaWKOJ_iQ6IpfrDcfpkqSRqETT3E32gi48oN5g36XIC-dKgkY4EBuOtSNULQakxLIca3xkarV2-U80ripTNCL-vZbg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "456f12f7e8774910b34e49cd11728fbc.16",
+						"title": "Tomto Dome",
+						"latitude": 50.089412,
+						"longitude": 14.39771,
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Bývá označována Codex gigas, nebo podle výjimečného vyobrazení ďábla také jako Ďáblova bible.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:16.647743Z",
+			"averageDurationMilliseconds": 398572,
+			"lengthMeters": 204
+		},
+		"37": {
+			"id": "ef246031fad34bad8c1717927d2bff0e.1c",
+			"title": "Codex Gigas 38",
+			"picture": "https://lh3.googleusercontent.com/0myArc1wTBY7Jh24mjmiespTl-YcIGplKsOHmcFukRAQCluomTjAe29pttigDsxmtzxNmha6qU2Cfa8Ap9yg",
+			"steps": [
+				{
+					"poi": {
+						"id": "c272aca57ef64335b72508d97bd9df94.12",
+						"title": "latarnia",
+						"latitude": 50.08956,
+						"longitude": 14.397098,
+						"picture": "https://lh3.googleusercontent.com/gd4S0XuALfEchc6tgq4PSrXvYPOcztII3pX_-PVblPEYu-D2tnkZ0o4h5WGjGN6aluUlmRiiKJQ9TU9si43L4STVXTg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0452d94105a044d88e04ca8e1832185d.12",
+						"title": "Schwarzenberský Palac",
+						"latitude": 50.089221,
+						"longitude": 14.396569,
+						"picture": "https://lh3.googleusercontent.com/Kvon5BAMIzgcqk8Az_ACDhWNFwS7mlldJf78d9lCBVZmXbtFyFuKhrAfZ9TpZm6pLKC7dcencrSki4RDSeOLlOsQKw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "8016822918f84e53981c10bde2322d29.12",
+						"title": "Mariánský sloup Hradčany",
+						"latitude": 50.089506,
+						"longitude": 14.396471,
+						"picture": "https://lh3.googleusercontent.com/1JkepYL-Z8N33t908oJD1tO99TZJknnmAI9bbklUEKFffiRiL3bpKiSYPbs_JYRZcZkrGgo5vQRdSCAvqmvAgFaA97w",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "1fa1db5b974441418d0d43acc07c65b2.16",
+						"title": "Kostel Sv. Benedikta / Church of St. Benedict",
+						"latitude": 50.089126,
+						"longitude": 14.395764,
+						"picture": "https://lh3.googleusercontent.com/UVDfZnBIlbK00KSBQHiDb3fCGx8WWf3QzRy37y1DroY5mjYegwv6V9ue8Mi7GQSRmq3Tvisvd_Jronbvg_s-F4US9g",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "682c57768e34428daf238163272524d7.16",
+						"title": "Les Veilleurs",
+						"latitude": 50.089365,
+						"longitude": 14.395425,
+						"picture": "https://lh3.googleusercontent.com/thGHeJeLL1XHEoItumUvTsxvwJ9rgeLkoxHLb3I3soJFj-4PR5krivXyIJIhwMyGt3T-NV5rJslBj3-B3t67cf9jY1r-",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "67b9fe5afc9b4a85bc8e2054a850483b.12",
+						"title": "insolite vers le château de Pr",
+						"latitude": 50.089039,
+						"longitude": 14.395375,
+						"picture": "https://lh3.googleusercontent.com/TBPzgTqHeuQ4J1UXYKeiQooiJyXIjT9vkhvDHXJfRd_vNx0NP2E863lvFaU6stb1_C5KoFEw5I1xhkuocWugL53qsIHe",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:18.607373Z",
+			"averageDurationMilliseconds": 244704,
+			"lengthMeters": 224
+		},
+		"38": {
+			"id": "32d335f3108c4650ba7638360622a9b8.1c",
+			"title": "Codex Gigas 39",
+			"picture": "https://lh3.googleusercontent.com/2HYH3TPtWkXyy_gpsKqGkoeqf60seKAlyRMryAGcez89k5jKK_iI7ve0vhmtPFUjfDucveaQiVfrLzi0fuVy",
+			"steps": [
+				{
+					"poi": {
+						"id": "eb7747cdad5a418eb3222df25a4f2b63.11",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "c9bdeaadcccc4ff1957d44b8d0a526ac.16",
+						"title": "Restaurace",
+						"latitude": 50.088406,
+						"longitude": 14.393622,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "33a4a1019aaa43d09cf75c3890ac94d6.16",
+						"title": "Loretánská kaplička",
+						"latitude": 50.088436,
+						"longitude": 14.392549,
+						"picture": "http://lh3.googleusercontent.com/udhaKPEv83VMXDKWprATannpNlYHKhLchduuf0sFlAzcWaBPCfCD56kaBAaTnK3O7qWsfNNLCDVTHGjzd9jomMGb-lZB",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "2d3168175ebb4d17b18d8e3b30dfc1e5.12",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "243da83d9fa641ab9eba25148546d68c.12",
+						"title": "Loreta",
+						"latitude": 50.088967,
+						"longitude": 14.391502,
+						"picture": "https://lh3.googleusercontent.com/wQeiheJ4kn_qJA4C0mOO34T1xpahvnkUjqp_cRNBie0Wu6IVVzA6REUFx1UEfqeQDKW54pZ1KPbqUmQJKhYp32yXk7k6",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "808182610e23bd5b77c8cb45855105c1.1d",
+						"title": "Loreto",
+						"latitude": 50.08913,
+						"longitude": 14.391607,
+						"type": "fieldTripWaypoint"
+					},
+					"objective": "viewWaypoint"
+				},
+				{
+					"poi": {
+						"id": "81bb6999ddf44b048ed72ff62c679dbd.16",
+						"title": "Dark Skulpture",
+						"latitude": 50.089465,
+						"longitude": 14.391444,
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:20.644004Z",
+			"averageDurationMilliseconds": 472606,
+			"lengthMeters": 231
+		},
+		"39": {
+			"id": "4717091a46c149eeba4a5e60ffa28f85.1c",
+			"title": "Codex Gigas 40",
+			"picture": "https://lh3.googleusercontent.com/qrzqC-GK5MJbPdBm_abCS4hcx1iX-gQD_TS_Lti2bfsKyjTb4dff0fUF9q_8nXowyUp4s5fSqGJZruoBERo",
+			"steps": [
+				{
+					"poi": {
+						"id": "be806a0a2c3146e3b723252554a55273.16",
+						"title": "Cerninsky Palac",
+						"latitude": 50.08972,
+						"longitude": 14.391196,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "1bb84d38fdbb469abd25e6caf1079588.16",
+						"title": "Památce obětí umučených komunostickou policií",
+						"latitude": 50.089861,
+						"longitude": 14.39195,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "6a08f0ebf30f46c9a97b93d2aa0d6ef0.16",
+						"title": "Zubatá Ryba",
+						"latitude": 50.090703,
+						"longitude": 14.392458,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ee98581f3f4c40beb753941af15b73f9.16",
+						"title": "Dětské Hřiště Nový Svět",
+						"latitude": 50.090712,
+						"longitude": 14.391663,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "74e9058b422cb3b69842d5e7f1788ad1.1d",
+						"title": "Nový Svět",
+						"latitude": 50.090923,
+						"longitude": 14.391387,
+						"type": "fieldTripWaypoint"
+					},
+					"objective": "viewWaypoint"
+				},
+				{
+					"poi": {
+						"id": "24e13211e213469bb3b256359db9182b.16",
+						"title": "Zlatý beránek",
+						"latitude": 50.090951,
+						"longitude": 14.390796,
+						"picture": "https://lh3.googleusercontent.com/AAxbiQOo1yYr0Ogc9rYnH2Jep2zvMFK7jUuWCKXSS3k59OVaAHt1uIAkVYxZPHkh2ROzyWayoo4Kx16AI_KpLEFTts8",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století./Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:22.653048Z",
+			"averageDurationMilliseconds": 331658,
+			"lengthMeters": 287
+		},
+		"40": {
+			"id": "946570aba9df4f618e3b997157237e5f.1c",
+			"title": "Codex Gigas 41",
+			"picture": "https://lh3.googleusercontent.com/SU4F1ohztEgWMG1LxCwuqF-XyK6dyS7nkw9hL13xKCuYoDeqZtRf9u6nwTPLDZ2tzkSs9nG1Z1kdfgL3pcc",
+			"steps": [
+				{
+					"poi": {
+						"id": "808dd4498cec45fa99041b71def72793.16",
+						"title": "Pamatnik FR. Ondricek",
+						"latitude": 50.091183,
+						"longitude": 14.390088,
+						"picture": "http://lh3.googleusercontent.com/uSXfABUo78IzcejSH-pNUkHq0GoOcxX1UOH-xHUs0Lg86ppOa8U12wx9xOHp8NkgFi6tqJDWxuJWNflxdDT97GVOTSo",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "3f282025a4cd4d8e9b4ed2eb9173647f.16",
+						"title": "U raka",
+						"latitude": 50.091446,
+						"longitude": 14.389554,
+						"picture": "http://lh3.googleusercontent.com/_pyZTMqE2H0yytrdh41saIxKE4qrNvIH4l8cI4UrbaFQdlfzsNozk4_Z81qMOo7lakFu-8Sl5x9oCnDJ2MLQ7WPYsw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "1e57fa51c0704b2da190de44f2038f7a.16",
+						"title": "Socha Na Zabradli",
+						"latitude": 50.090751,
+						"longitude": 14.389911,
+						"picture": "http://lh3.googleusercontent.com/MDy2EEZVZBca9U1AOlrcEldH33lgmIQgUeFiJAMWdcKMGKv7rGZP_MI-q2GifJ0f5SBFF7F-ICf7-yPJoUEqmzMEY_Q",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ce05aabe9e5041b6832d4e57d85424d4.16",
+						"title": "Busty Na Hradcanech",
+						"latitude": 50.09025,
+						"longitude": 14.390118,
+						"picture": "https://lh3.googleusercontent.com/CGDqGOL865rhEKIfAgFRsHvl3CHyCdOJo-34X3tLDxGkj82Z3Rz1IDubpzAvrw0nUlLXBRwkw2e688d6Ia11y6Llfz_Z",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "61ce64069df74e4bac22e33597664a83.16",
+						"title": "Kapucinsky Klaster",
+						"latitude": 50.089827,
+						"longitude": 14.390654,
+						"picture": "https://lh3.googleusercontent.com/_36R0GC6Jzm9WGP5IjlwCwTWtP4_hserVPpzlFBU5dQY6SjFWShWbZ-fa_EStLEvlZUM5TeievJjeb7thzH-9Aej9DHz0foHfDo70Pc",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "7bfcc5dd271b49fc979c5ebf0bf5a074.16",
+						"title": "Kříž Před Kapucínským Klášterem",
+						"latitude": 50.089559,
+						"longitude": 14.390904,
+						"picture": "http://lh3.googleusercontent.com/CDW8DJr5ybG9L1R2Se1YFkE7WyQHfKYgVErTmxaIJw5co5myhqDLfqR1wwoNKKQnaN_cta4p7YECexO6ao80Az8XLQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:24.827909Z",
+			"averageDurationMilliseconds": 298003,
+			"lengthMeters": 283
+		},
+		"41": {
+			"id": "bb2d9735b3664a1b9cfc35b0b78085a4.1c",
+			"title": "Codex Gigas 42",
+			"picture": "https://lh3.googleusercontent.com/1CsgPYVVidTjSfm38Atv760-uI9Zyj45Vp5_VxR8pnqKUOuHs7Fn9tN5Yhg2WxtdiChRuOl7C6LGg-d8f3WxOw",
+			"steps": [
+				{
+					"poi": {
+						"id": "4db7e85a0f93455e8184fc097767470c.16",
+						"title": "Bysta Jana Masaryka",
+						"latitude": 50.089006,
+						"longitude": 14.390393,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f4bb4739b3844ebfaf9d47a994ccfc79.11",
+						"title": "Ministry of Foreign Affairs",
+						"latitude": 50.088765,
+						"longitude": 14.390695,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "7e069e5fca8e412bb1ef203f20fc1fa5.12",
+						"title": "Socha Edvarda Beneše",
+						"latitude": 50.088436,
+						"longitude": 14.391269,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "458bbbb6a7954979882dbad6b26da40c.16",
+						"title": "Pamětní deska J. B. Pecky",
+						"latitude": 50.087798,
+						"longitude": 14.390001,
+						"picture": "https://lh3.googleusercontent.com/vXNd2AFZveG_nqXzTqxZb4s3LzCYsEL8bYhKE9FzYG6acKVSjWsgIAMTm2Z14YN_KjkRL1WuLTSZFp8jXeWnxAqFFxY",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0fdb3f21af8e4fe6b94560cacf48e7bd.16",
+						"title": "Velký kříž",
+						"latitude": 50.087634,
+						"longitude": 14.390551,
+						"picture": "https://lh3.googleusercontent.com/EBeOlEvkn20X8y_soSoi5-5vqS8T7zoUcSbsrPNqDzjO7VIc80k_i9vz3_gDUOcbmkRaP77jQTzdSjmwFs9wba_qfGEm",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "6d827f428c504de3a682375ee672733d.16",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "c70150ca2c9e3f2a2b1a8dd9f1bf9240.1d",
+						"title": "Malý Buddha",
+						"latitude": 50.087669,
+						"longitude": 14.3907,
+						"picture": "http://lh4.ggpht.com/4YIej38QTt2gnrmAko0K9sK_Mwoo6dZYOUlhi-Knu4n12oW0AST8XdYxgtmZc5V7J4HuQ76agcXwD6XA0fb3niZ3mepXVN54zA",
+						"type": "fieldTripWaypoint"
+					},
+					"objective": "viewWaypoint"
+				}
+			],
+			"description": "Codex gigas je největší rukopisná kniha světa. Byla pravděpodobně napsána počátkem 13. století. Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:26.657775Z",
+			"averageDurationMilliseconds": 404728,
+			"lengthMeters": 259
+		},
+		"42": {
+			"id": "37f41c857e254d7a8028a5737144c88a.1c",
+			"title": "Codex Gigas 43",
+			"picture": "https://lh3.googleusercontent.com/5irhwMMR2XGvweyX97SEBrlC3XPVeLjJEs-wjAz-1-iSd8N6y4sYPPeYp3XsW1L0XvMe7HDaCtZp_75Fmk3O",
+			"steps": [
+				{
+					"poi": {
+						"id": "6b3c1252067e4eb2b13a3e59f6428245.16",
+						"title": "Eliška Junková",
+						"latitude": 50.087645,
+						"longitude": 14.391004,
+						"picture": "http://lh3.googleusercontent.com/vRWMRc5XjVFRix6zf6kt_0gvLr-SX38p9fSSgYyoHNJo5OATr7EoksFnj7WAXse_nYIT4VYPmV4iBpUnfj6aGeOofSw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ec1d0cd313dc411189ea4d51cc825644.16",
+						"title": "Altánek U Petřína",
+						"latitude": 50.087736,
+						"longitude": 14.391771,
+						"picture": "http://lh3.googleusercontent.com/afctJ-uGd2rdYXFTJW03jYhK_nKL5rqYZlicefePJ6GEcvIvhcSKGMl7kDvI1k79PfFHkHs57qaSas1kl1iK50uUNcdwh6fipiMUnMUe",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "29d1f498c157455bad5ed21985f38d88.16",
+						"title": "Artystyczny Węzeł",
+						"latitude": 50.087983,
+						"longitude": 14.393281,
+						"picture": "https://lh3.googleusercontent.com/d2Cii3JfehqH_8ujsjgIJs8TBtyCHem_DjXS7zl_OnOZ6ywjTnvXBxz_JUF_-9fuFBJpEpXXLvL5bmXnHWQW-0WSIg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "dbb5dca7bd964e66a0fc0adb84f008d5.16",
+						"title": "Pomnik 1862",
+						"latitude": 50.08819,
+						"longitude": 14.393604,
+						"picture": "https://lh3.googleusercontent.com/bigWPVDh2woC7Nkhr1HBS_lzfHfE4pm9tFi4eczOwJvogC5tfaFMLSrwxmEwMU-hcNmLBJDgZBXvAx2Zfcija4Doxww",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "4225f2a88161460f904d1f21064f6873.16",
+						"title": "Lapidea Columna",
+						"latitude": 50.088262,
+						"longitude": 14.39482,
+						"picture": "https://lh3.googleusercontent.com/eSITYcI9Q0_NMjyn1JJgC2Wpu6LFgFUFknmwR9hzYrqp7rqQABiRq4lYcfk9nYPvIDr_YPwEg1i8mVf3UsNeh3Yiz-o",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "4d612de0341642d9a69a798a503e3d1a.16",
+						"title": "U zlatého beránka",
+						"latitude": 50.088451,
+						"longitude": 14.395754,
+						"picture": "https://lh3.googleusercontent.com/jHufJFvt7MWrN5lUPNJYgmteURD9hUo6fn6IxxDx3UnBY9dioWfa8jYeLVlzNsmrdfr48CHxXsOL9Cj0FP0VHVn2IaA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "435c5d7881d0d3fa6855dce90b698554.1d",
+						"title": "U Zavěšenýho Kafe",
+						"latitude": 50.088478,
+						"longitude": 14.3961,
+						"type": "fieldTripWaypoint"
+					},
+					"objective": "viewWaypoint"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:28.604807Z",
+			"averageDurationMilliseconds": 471457,
+			"lengthMeters": 382
+		},
+		"43": {
+			"id": "a799d60e591347ffa2681f77c18e9281.1c",
+			"title": "Codex Gigas 44",
+			"picture": "https://lh3.googleusercontent.com/DmN5ivoEMZI4A7JjegUP-eGp3g-1NVZLUzuzx1Mmg21p6i_tt1U4n-Jm-2vomUlFH0X-CBVCaBNe_FQJZpCP0A",
+			"steps": [
+				{
+					"poi": {
+						"id": "c93f9a7224ed4912a57f7be496c24fb6.16",
+						"title": "Pelikan",
+						"latitude": 50.088421,
+						"longitude": 14.396334,
+						"picture": "http://lh3.googleusercontent.com/73Fs0zOHGEuroVgUW7BibQQ7HOJfgsfahi1RIfI2Gvja2xe8SeK-me0qMp_zp1LCyA5E4yc_VHjkD483DlUfN5jDKjA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "c8d082e3c5074561b3e643b08e015de7.12",
+						"title": "The 25th of February, 1948",
+						"latitude": 50.088696,
+						"longitude": 14.396901,
+						"picture": "https://lh3.googleusercontent.com/pre8Mc_nRYwcTBZp5Ake6xYmiA8t7X420n69NewcPvKHNlLzhAlhqv42B0IgDaOL_T0JFM3Fr6I3RqEIdYnLe_GTJqo",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "d6f963d73c074d658841c50f371ccd9d.12",
+						"title": "Jan Neruda",
+						"latitude": 50.088506,
+						"longitude": 14.397268,
+						"picture": "https://lh3.googleusercontent.com/Vi5-FdpYmPccQwVcZI8EjLN4LSOvdDzptnJP49niBmGLjDhxx4xoGlEZp_cFUOQRcM1ZWANcw-WfTQ9kYv3UUa1R_ghd",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f2f50ab3e7f1400293fa56b9bec4aec8.16",
+						"title": "Lev s pohárem",
+						"latitude": 50.088474,
+						"longitude": 14.397644,
+						"picture": "https://lh3.googleusercontent.com/MtLHGEVJOiS_9twpksKzUkUwYM5nb6Ksx3FVDiWJnzeMPm00zbfcoiy0tefoihpiQZl7mO3YiQ9Qel-hESZpGLKnFLQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0b80543640464f0ba0d4c5b9e1898176.16",
+						"title": "Pametni Deska Dr. E.Holubovi",
+						"latitude": 50.08846,
+						"longitude": 14.397943,
+						"picture": "https://lh3.googleusercontent.com/EfKKhv3Ajdyuk6b1MbfK-1KE82i6s2IBnKvD98lQQj_pCxge6FRz0UtpMoUu9eD2VM93IQNDcfJEws00eUafmZMHtdY",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "9c48cc3645bfae94c5c69e67f3ff855d.1d",
+						"title": "Cowboys",
+						"latitude": 50.088634,
+						"longitude": 14.398005,
+						"type": "fieldTripWaypoint"
+					},
+					"objective": "viewWaypoint"
+				},
+				{
+					"poi": {
+						"id": "730a000aae3243129f2971c4875eb778.16",
+						"title": "Crystal Gallery",
+						"latitude": 50.088496,
+						"longitude": 14.398271,
+						"picture": "https://lh3.googleusercontent.com/kIRLxqV5nZBn5beaL7z7uMJz_xP8b00ecttjG9rrZ122Dn7hfQJaNqkg2jX3hmCr9vby8uTnhoMTSwBBnxln452453I",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:29.653873Z",
+			"averageDurationMilliseconds": 206826,
+			"lengthMeters": 177
+		},
+		"44": {
+			"id": "00d838a8fef940d5a3b3f3989aa863f7.1c",
+			"title": "Codex Gigas 45",
+			"picture": "https://lh3.googleusercontent.com/t3smX3vnypXS22FiczyBxpjkup66W2VKGkC5MFcORevN45no7uRAVd3Zein1gIfYqz-smA4DfqyC5XPHsAVt",
+			"steps": [
+				{
+					"poi": {
+						"id": "415dea9f79e54b42b063c9c25eae537b.16",
+						"title": "The Golden Wheel",
+						"latitude": 50.08852,
+						"longitude": 14.398903,
+						"picture": "http://lh3.googleusercontent.com/rEsakecd0rXpwNFOae46p8foAq7kAu7bM_q_mXguMjqRQDFsl4epvSf-xOyfll3--GPkXLej1gk6Z0HSjtXSUak8WSY",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "8369693ff82b4b27baa540ba83ec437c.16",
+						"title": "Gingerbread Museum",
+						"latitude": 50.088447,
+						"longitude": 14.400069,
+						"picture": "http://lh3.googleusercontent.com/GF4xpkArNqcg029iRDyVA-UCy4CX0DsqVAXAXXyzKs84x9aza-Co6V3VZSS9BTPTp_JMxs3T3kPipWl8DeeFWwZv-eo",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "92a775c18bd34c1fb886b5123df0b539.16",
+						"title": "Italian Embassy",
+						"latitude": 50.088559,
+						"longitude": 14.40048,
+						"picture": "http://lh3.googleusercontent.com/Nj0V2OZZsCEbjMfxubHQwJPPawG4fsr-Kb05q781D62WmuggPomDCLfywtFoK9I1WPPZ-cKXBM_9OYN4gG4m_BCVhy8",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "e4a0a8f3d6b34d77b8da0457dd7861c7.12",
+						"title": "Michael the Brave (1558-1601)",
+						"latitude": 50.088508,
+						"longitude": 14.401095,
+						"picture": "http://lh3.googleusercontent.com/TXVOXsQtwUaWGugMLzOlg4yNRr7ynCVkYTkeqir0Ku0v2OwTXGbuSbdkc5HxrTIPhDO4c8zRuNQrDRWS-Ualw4cykQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ab2e8650abcc49c6b9a3a7abfb154bb5.16",
+						"title": "Black Saint",
+						"latitude": 50.088671,
+						"longitude": 14.401729,
+						"picture": "http://lh3.googleusercontent.com/ENaTPU0Rxa31EVtqRQ-gm7GLCm0woFsIFWc3T-xRqHP3uIViiK24Zaf_MLl4swG-fIubDHrsrsXtSjV9cId16Z7PrA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "d194b3e7a2034b2c9ca5b59760020fa1.16",
+						"title": "Lékárna U Černého Orla",
+						"latitude": 50.08865,
+						"longitude": 14.40217,
+						"picture": "http://lh3.googleusercontent.com/lSBwPtqZUcYnDhVMkXxcO0DccH-p8fvEYTfDYEdsH73wVHfpvfbfO_ThgefF1t09UqFoUhCXd65P11BLDTMxSPj5V2Lw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:31.612524Z",
+			"averageDurationMilliseconds": 323251,
+			"lengthMeters": 241
+		},
+		"45": {
+			"id": "f75f26ecb54f417d895392f66fbc5657.1c",
+			"title": "Codex Gigas 46",
+			"picture": "https://lh3.googleusercontent.com/dtg5CY5mXPNA5HApCHebb9mYAKLejmaldQDONmUuJYR5aJgyXrICzDZHMEEJUEyZHLExyiipCpkXKXdj1qU",
+			"steps": [
+				{
+					"poi": {
+						"id": "0562c5e886464abc946786c25ff7c825.16",
+						"title": "U Certa",
+						"latitude": 50.088656,
+						"longitude": 14.402627,
+						"picture": "http://lh3.googleusercontent.com/ioBuFg1u5u9yC7AO_QNJZXI0nlLSQsGGddTmsdEs17qIYuCJMJkUMDEqwgJnhh2Yw-hcPoWmiQ4BMEroHSx5f2YvuvU",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "73f00f33963d47af82f6eee8fcc1c9ad.12",
+						"title": "Morový Sloup Nejsvětější Trojice",
+						"latitude": 50.088297,
+						"longitude": 14.402462,
+						"picture": "https://lh3.googleusercontent.com/WT6ScPJSpg8mOVBYn6kB-kfDM-cL7hM9mhN7UJDtPvGCKtuvkGBxSDmZUgOz1i7G-8RinyDA0_xl6Zr86jc87crZBVg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "444e7cab49bd4bcea4fbc32076334c73.16",
+						"title": "Kościół Liebsteinsky",
+						"latitude": 50.087938,
+						"longitude": 14.402661,
+						"picture": "https://lh3.googleusercontent.com/QuAYYHU2pCFuVADhwkdGb9C9Iboa2aDlCK84AQPiBQV0yo-IftjWxVDJq4HSjYre0ydlm_fbvq3OUohp-XVeY0JELw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "96872494dccb48948215dcf467e36863.12",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a39cdc72be6ebfbc144d257b1b23fd0a.1d",
+						"title": "St Nicholas Church",
+						"latitude": 50.087879,
+						"longitude": 14.40349,
+						"picture": "http://lh6.ggpht.com/JeqSzNBdkzBbMjj0PieEhxUcUP4cefrnublLXbW6GzdaGHLp1_ThCIX2S4RL_HPm6fEd-MDa_0wrluGrnwQc",
+						"type": "fieldTripWaypoint"
+					},
+					"objective": "viewWaypoint"
+				},
+				{
+					"poi": {
+						"id": "bf73f575b5f24ef6803497b098dfdac5.16",
+						"title": "Vechea Inyrare In Catedrala",
+						"latitude": 50.08784,
+						"longitude": 14.403649,
+						"picture": "https://lh3.googleusercontent.com/6gprMY9JB5sTbC8OuM7uSFEotzXxHR0RgAUgjED6pP7PpdTcORfrApa8_myA6FwA8jQXBkaOmavkD_aF6Cg5L177yA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:33.728936Z",
+			"averageDurationMilliseconds": 233657,
+			"lengthMeters": 156
+		},
+		"46": {
+			"id": "40c37c659cd844bdb917a373c633bdb3.1c",
+			"title": "Codex Gigas 47",
+			"picture": "https://lh3.googleusercontent.com/_BLM4cv8_RjeG8kgqlyLfLpslRJd5HsQg1Uijb0qtADxsr8rFNhG5Zf0liyTzo2BoozspHwjzvtmQztvxAvL",
+			"steps": [
+				{
+					"poi": {
+						"id": "9f9ea867d12d4e6393894f8c268e330a.16",
+						"title": "Cherub Fasade",
+						"latitude": 50.087586,
+						"longitude": 14.403767,
+						"picture": "https://lh3.googleusercontent.com/r8iEtW4APYGuTk5g9ORcQIcjUpTHqi4-5yfsFQ7cw3g8x1gJay7H66aFEJqK-0GhaNogH3XINrLnoFhHxphXkfCJ8g2L",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "abbf4a48a598491fa895ab70e404226c.16",
+						"title": "Obličej ďábla",
+						"latitude": 50.087374,
+						"longitude": 14.403864,
+						"picture": "http://lh3.googleusercontent.com/g490HDiLETyaGVtGsknHeqU3PMRNLYrFbXjPGTDN75HtX_1WJ4LoI8f1yqchu3d-qttt6bzrT21FwA4T2f8Eo7PmA-8",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "092a24485db34ecbb74d0cd07f5c59be.16",
+						"title": "Hodiny Na Malostraňáku",
+						"latitude": 50.087128,
+						"longitude": 14.403705,
+						"picture": "https://lh3.googleusercontent.com/C7GbOrgD_m9_cgHHHxEPTLsthu9DScMDQMd0jRYvW2hO-vnVZWypMEAIUn09_3s3OygKXZzHarcilnu3uO9otCr_iBM",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "82689891163a6deefa21d1fc93c7aa3a.1d",
+						"title": "Vrtbovská zahrada",
+						"latitude": 50.086868,
+						"longitude": 14.403703,
+						"picture": "http://lh3.ggpht.com/SyU_uEwWSMg_NKAVH06dNWGNs_5DGEDu_fAal6oZcI7jqzpqIh_DEEFrJXyPlf38OQnlB5SJOJ3cQUT1_EBKibuwW0CMN6KdXQ",
+						"type": "fieldTripWaypoint"
+					},
+					"objective": "viewWaypoint"
+				},
+				{
+					"poi": {
+						"id": "1f7347b13eb04d84befe815fb226a1e1.16",
+						"title": "King And Horse",
+						"latitude": 50.086759,
+						"longitude": 14.404189,
+						"picture": "http://lh3.googleusercontent.com/oFQe38DMbMhkT38ltb6gw-ueH6c7-2LIExIImL8Gn98Ef2vKIA9b3yKu5KRu0poe5Rc2ZnSd_ITDPXU2dj6MAdAIxg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a46a685cf8dd41e092c9c839fd3f25c4.16",
+						"title": "Socha Ve Zdi",
+						"latitude": 50.086646,
+						"longitude": 14.404593,
+						"picture": "http://lh3.googleusercontent.com/NdlZkyPrsIr10S7OJDuw2dV7H83z2PJf8W_FRW_c58iPDV7HsASDVzw8-gn50RnRHnF5FRR9n2GaYqkrgbMiRpc-mX0D",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:35.622169Z",
+			"averageDurationMilliseconds": 235150,
+			"lengthMeters": 151
+		},
+		"47": {
+			"id": "5436f2561ddd4ca68e99f01760fbaa93.1c",
+			"title": "Codex Gigas 48",
+			"picture": "https://lh3.googleusercontent.com/bq9nHmogr_h1RSGCsfxj-F_8arhIXY1tq0EKeJHewe6W0BCsIb0JwZ_12G8868JWSp68FJ9grXvdjuclFYo",
+			"steps": [
+				{
+					"poi": {
+						"id": "16a82d02265149ffb8382282392a9efb.11",
+						"title": "Maltezak",
+						"latitude": 50.086365,
+						"longitude": 14.405138,
+						"picture": "https://lh3.googleusercontent.com/QTu77jIlm_9a2XRm8dDQcu1YlQHtnkmINS8uVZoRDfdLqkahZgyl77jBZiUg3Y2IRg1jyIQ7EW-rmz61DrNtapN5hQM",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "099ec3a302da41a5858aa54928863a4a.16",
+						"title": "Kostel Panny Marie Pod Retezem",
+						"latitude": 50.086498,
+						"longitude": 14.405778,
+						"picture": "https://lh3.googleusercontent.com/rbaBxHp_x4kBnzC_hHDYhBDnpXU2_knaNFk0mBnYjVMtIG0F51XNJ_m3elM2sLp95J-hHWZsejkdaYJCGpHV3Gd65g",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "282b990db652466e833c19f93b2d0ce8.16",
+						"title": "Knights of Malta, Palace",
+						"latitude": 50.086232,
+						"longitude": 14.405955,
+						"picture": "https://lh3.googleusercontent.com/UDFjJc5I_0DzFGV_PIxF2_TNvZlvMJs9EKOgwGLSbfEep9is7RCiB_L7QQb1VJ8vkh60YqZwDEl8U6sBPz1Nu2Y4lL8",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "3488fa30991d401c90667e55e4bbc96f.16",
+						"title": "Mosaico Templare",
+						"latitude": 50.086149,
+						"longitude": 14.405649,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a37cbde901fa4bb9a95ba3daff17b733.16",
+						"title": "Ornamente",
+						"latitude": 50.085949,
+						"longitude": 14.406332,
+						"picture": "https://lh3.googleusercontent.com/lant1GdBJoSVYk5FxEampGoeY__yGRogOP9Ujl34oepBFeuw-f_7dmZ9BEBlQsD-gsM3NhZtCmEJA2BzvSrBb-tfUPE",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "9d692ff08aed438498890ed327638a61.16",
+						"title": "Eye Muraleso",
+						"latitude": 50.086159,
+						"longitude": 14.406387,
+						"picture": "https://lh3.googleusercontent.com/sGjoIO9AF5l9hJz0mdtgbtjHgChqHibu_e4kERw7MXMfPlemO0KhfGQYfubo3MEtrGkbTs5fOnRPSu-5u7bQasyOxWc",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:55.698597Z",
+			"averageDurationMilliseconds": 212936,
+			"lengthMeters": 181
+		},
+		"48": {
+			"id": "06cc81d440e147708d17d6b579f77643.1c",
+			"title": "Codex Gigas 49",
+			"picture": "https://lh3.googleusercontent.com/nzn3Yrx0HczxmoKbaYUhrQY532tQa9KNFOEbN-7im-jI1k5506Dk7ImFeTou_UVoi3Mzii33r9CAklepdN8",
+			"steps": [
+				{
+					"poi": {
+						"id": "78df888c76cf492ea9da3778f6a24b0b.11",
+						"title": "Lenonova Zed",
+						"latitude": 50.086231,
+						"longitude": 14.406808,
+						"picture": "https://lh3.googleusercontent.com/pTsXTj-Uk1Zqb1jJbniTPY-PbA5us7rHM5yyCg1NQe6ycvFqVQr45XhR2mh_rP0BZ-G_AYLbQIx2vEnHhFeWg0gAJg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f9c768bb699efe16c9bf1d9e3a187fbe.1d",
+						"title": "Lennon Wall",
+						"latitude": 50.086299,
+						"longitude": 14.4069,
+						"type": "fieldTripWaypoint"
+					},
+					"objective": "viewWaypoint"
+				},
+				{
+					"poi": {
+						"id": "fc27c478e760436990de8bf82b4eb814.12",
+						"title": "Kunst über dem Teufelsbach Čer",
+						"latitude": 50.086139,
+						"longitude": 14.407664,
+						"picture": "http://lh3.googleusercontent.com/6p6lasUoMCRijRSjErzJbbGEQ7ZnGZnQgI3B5eNN6lXc5IJMF_MMe8gLZKk1UbYWmDDJG25GrLzdy5-IInUb84wNTw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a15057da13214365ab527d4061ffbadb.16",
+						"title": "Tanecnice",
+						"latitude": 50.08599,
+						"longitude": 14.407829,
+						"picture": "http://lh3.googleusercontent.com/u4-fjDPnpQg8dZHKp1DJZd0-gd24U5C7H5w6c5LgC0gfseIAbU6X7bW5C2gw7mPzo7Tv6QLlpWFnG2MY4MxGNNRFGGI",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0c869658496048768f578b46122d897e.16",
+						"title": "Socha Hotelu Kampa Garden",
+						"latitude": 50.0856,
+						"longitude": 14.40796,
+						"picture": "http://lh3.googleusercontent.com/kKAODRZaB5vteTGl0aNaSd1zReRtGhQCSjjYrNqmoDkaghpLmjonxMo78dZWlmnkENu9dHfc0m7vaId7yIcg6SLLWXA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "6610f0ffab944867b87fdf2ff034032f.16",
+						"title": "Zdenek Wirth",
+						"latitude": 50.085478,
+						"longitude": 14.408262,
+						"picture": "https://lh3.googleusercontent.com/zu9eJwWUlD5ipayU8oLlk__qawl60lgLcZGcxW9m3CmiNjdL3U_APF0d2CwzUs9nBpuve3V3jDZ8DI4eivDHhuFYCA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:57.532903Z",
+			"averageDurationMilliseconds": 224432,
+			"lengthMeters": 158
+		},
+		"49": {
+			"id": "c0ff61528a8d41a698fce1e50b98ddd0.1c",
+			"title": "Codex Gigas 50",
+			"picture": "https://lh3.googleusercontent.com/lD7TsEMdEZvVaOg0PmsXNIL4sOaV908zTAKIofm0dm2992X8Dq1geARkWnokmBkAJonE32NnuMJht6JkreR0",
+			"steps": [
+				{
+					"poi": {
+						"id": "b4b3b4503b5c49ad98bdd6d6b35e9937.16",
+						"title": "Lichtenštejnský Palác",
+						"latitude": 50.085579,
+						"longitude": 14.408523,
+						"picture": "https://lh3.googleusercontent.com/_50ESKrbh5kJ2TdRFB7dwntDmEOthUR5gsAunko1zYM5QuPKEBStEgQP3shb3hiLBFG_TcYKjgZYa7tAVFWs5l6QetM",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "e1d7f8784ac04525a3604db702177afe.11",
+						"title": "Josef Dobrovsky",
+						"latitude": 50.085163,
+						"longitude": 14.408233,
+						"picture": "https://lh3.googleusercontent.com/dvWkx_90kZloaMrwUIrk7Tlxhh_WUk8DHRnZd1C8imMXK_fQ3z4OwSjmct3wVR63amLKN656Ng-QB_ZWHfxCEDMvMFc",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ad0c1899685c41e8bb748c2cbf672d11.11",
+						"title": "Statue by River on Kampa Island",
+						"latitude": 50.08486,
+						"longitude": 14.408687,
+						"picture": "https://lh3.googleusercontent.com/yp_ih07t_oItdVlo73_bAttnp7G751P3HoltfjrbbjzqE2HejXHbC2i5kaLTuP8x1I4O25nx3-IlAq9r6aXI59Wjaw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a630ef3fa47b4abf8c78780c7eabc826.16",
+						"title": "Street Art",
+						"latitude": 50.08454,
+						"longitude": 14.408634,
+						"picture": "https://lh3.googleusercontent.com/RHapPXJYNDD1bR27XOdWBG-a19n3H-1bJVwIn2OD_O7NuXFkx9jm2THlyOPTohDmdaK07OGo5UboqY6SZakwqQdCcvE",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "2a0cd57347c7407d81a392a99f208c52.16",
+						"title": "Pagan Queen",
+						"latitude": 50.084317,
+						"longitude": 14.408529,
+						"picture": "https://lh3.googleusercontent.com/Oih8PHJBt_koIK8TGbeexWglkNIbES3j5tG8wozBqbNo4ZuERqby-NS_qLYFByGwkHOcJM691_P_MuzlnIzypAwvHF4",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "449f4bca81ed408eae229160659c76cb.12",
+						"title": "Crawling Baby by David Cerny",
+						"latitude": 50.084131,
+						"longitude": 14.408373,
+						"picture": "https://lh3.googleusercontent.com/zP6Fr-ctPeJwx2_Rpb9KR3NOLrD7ucj7jNcXDfqANl5d6cm_tRimCoyVf1FlqzGi8QZ6jUJ2fredHvrtdTJVm0E-xf0",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:15:59.636362Z",
+			"averageDurationMilliseconds": 190162,
+			"lengthMeters": 183
+		},
+		"50": {
+			"id": "b7bb9ce4b2eb4f2cb703686345e767ae.1c",
+			"title": "Codex Gigas 51",
+			"picture": "https://lh3.googleusercontent.com/VNAXpja4flywDuKk4HRM6w1KSzfOkLOXDHqDT7zZMnd-XVtjWIsGFiSCmyrNM8ZYhtLZ5En2ZL3gOgYjL7kC",
+			"steps": [
+				{
+					"poi": {
+						"id": "13698595a9fe407d85abe6f9bd498c84.12",
+						"title": "Crawling Baby  ",
+						"latitude": 50.084043,
+						"longitude": 14.408264,
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "1d1b06c8bcdf44d2979e27b5232551dc.16",
+						"title": "Museum Kampa",
+						"latitude": 50.083842,
+						"longitude": 14.408174,
+						"picture": "https://lh3.googleusercontent.com/_u5last2ltaMQJ7dCAzjmWqCrs7qSk_i-vzpgxFHzpq_C8vFJwuZIcWMec_nSQnwDsR0kyzPyipbXa4wJAtf7kodw5AO",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "c97d6520a5144b8aadc418b62a3eb8af.12",
+						"title": "Red Rabbits - Museum Kampa (mo",
+						"latitude": 50.083633,
+						"longitude": 14.408451,
+						"picture": "https://lh3.googleusercontent.com/tHxIcLRvXWGfMKkkvuyQkCqfpHM1LhYg5WAcQtvbiZUPDbkcGFytOP8NRfwiIFUYeIdlWwyHRfbfDIeGEZpSjWvoU5c",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "452ceb0382c84e9b81fa7a115c3740b2.16",
+						"title": "Treeart",
+						"latitude": 50.08342,
+						"longitude": 14.408542,
+						"picture": "https://lh3.googleusercontent.com/VjvkHgsbkJSSqLzgwHVG8kQRThLIGCSB2sBjZAa8xCpp8HbB-HNFBoSGyX_DawxJz8I1C-1h-o2ifonU3q3JkARuzas",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "326e6e6cfc7e43f7bdf6124716d3f644.12",
+						"title": "Prague - Praha - Prága",
+						"latitude": 50.083302,
+						"longitude": 14.408154,
+						"picture": "http://lh3.googleusercontent.com/l__o_1fwvKffVQxHDRqLBLYno95W7PWSmiZGLPvrdNL5Mud4DHV0MY8Pu9jhqwZD46Hui_08c4F8S_yEE4VjaK_Cwg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "7fa7a0d62d134d0694f5bd7b9961c3a4.16",
+						"title": "Socha Harmonie",
+						"latitude": 50.083119,
+						"longitude": 14.408329,
+						"picture": "https://lh3.googleusercontent.com/lsmWTVlFsdvXqj1wA-58arwHBI97SAkNKaFce2TGu1erXLAcAI3sAi68B8JkifEh3DyXgbQVjehgNR0JESjyFd4u0Js",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:16:01.599861Z",
+			"averageDurationMilliseconds": 165325,
+			"lengthMeters": 110
+		},
+		"51": {
+			"id": "e98b9399b73642449325dfb6b008f204.1c",
+			"title": "Codex Gigas 52",
+			"picture": "https://lh3.googleusercontent.com/JKTAs3aRZxVa2XaHq_DOl-l_pQaVOBLVMfpqJ9iTbkFomP6p7h8_dIb6xbzgByWAVQxvdPQepNUwCG174L_OeQ",
+			"steps": [
+				{
+					"poi": {
+						"id": "64e1e389f0724530b37cc611da5590cc.12",
+						"title": "Schönheit im Kampapark",
+						"latitude": 50.08364,
+						"longitude": 14.407637,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "b161e8c88bd6410cacc9eb376a59bb7f.16",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f7b9d2c0c2e746c3bbaa077bedc46205.16",
+						"title": "Wendlingerovský",
+						"latitude": 50.082701,
+						"longitude": 14.407052,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "4996c4dfc4b9c6f5355e260caad664d3.1d",
+						"title": "Kavárna Mlýnská",
+						"latitude": 50.082668,
+						"longitude": 14.406807,
+						"type": "fieldTripWaypoint"
+					},
+					"objective": "viewWaypoint"
+				},
+				{
+					"poi": {
+						"id": "602749c3b9804a9ea3e19161cb423260.16",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "60e9315a45504f608349835c09547630.16",
+						"title": "Historical Building",
+						"latitude": 50.081936,
+						"longitude": 14.407815,
+						"picture": "https://lh3.googleusercontent.com/Fqpd34DEHOv5zgQHG3PhGC2po-mpEU_2qwVXIYsxrm7EtwtQP8DZhChPlqsIkesDDqYGMG28OwCOFV7Ywqcl3gsKiA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "50dd9828fc654aefa683d8b65090a574.16",
+						"title": "Doors",
+						"latitude": 50.081601,
+						"longitude": 14.407805,
+						"picture": "https://lh3.googleusercontent.com/-vwFYhRL2nXmnn-nNYipn-LFScZVmMU01LlXr2CyQpyv1PHB_1euz5Lipm_apvwUMj-4ZhnxtJHV8YHSjomb3TsB-t4",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:16:03.638672Z",
+			"averageDurationMilliseconds": 429819,
+			"lengthMeters": 276
+		},
+		"52": {
+			"id": "c970e33c44694878a388783ce3947bdf.1c",
+			"title": "Codex Gigas 53",
+			"picture": "https://lh3.googleusercontent.com/C6AMnkedXvgCoumF0oI8eGF-iV04qtaDiOticimjfeymrXH4WseHzwKSPqyXla6OsmFo8kb9398qde1tTsA",
+			"steps": [
+				{
+					"poi": {
+						"id": "8f2331a61aa448da8150c2f3a67ee474.16",
+						"title": "Amos",
+						"latitude": 50.081386,
+						"longitude": 14.407644,
+						"picture": "https://lh3.googleusercontent.com/h8e5mbarmCI6GPlUX3U19iwnaq8EYbvy7LTL4ThcHJTkSAlD90K-25O6MGizCeq5_fPDFWc0KeWk09Rg3_TXDwWF2uRU",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "04c5f8ab58834901924ef56a34f9202f.16",
+						"title": "Dve zeny nade dvermi",
+						"latitude": 50.081509,
+						"longitude": 14.407074,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "e83e11a4efff44beb23cce4963fa19d5.16",
+						"title": "Olympia",
+						"latitude": 50.081149,
+						"longitude": 14.406788,
+						"picture": "https://lh3.googleusercontent.com/jb40ai_Wt8kDKxpsDZzQO6gn2LCGIeOssv3LV02KgM3WKG3X7omCbwNkRACH5-rfbUveWLnmGjKHLbC0q23ZdbBFyuI",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "c062ba03bab1497b96f494cb0b127b72.16",
+						"title": "Cafe Savoy",
+						"latitude": 50.080971,
+						"longitude": 14.407027,
+						"picture": "http://lh3.googleusercontent.com/wZy2rJAsWzzkh93UTKYArPT3h7cXNo2nDdloTGO2tWlnEPW5jqbb0TUi9qI8FHXPI3LenWn3Oy0WIKXujENrPpZjeA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "450d12f04286895c25a49995ab6e768e.1d",
+						"title": "Kavárna v sedmém nebi",
+						"latitude": 50.080806,
+						"longitude": 14.407102,
+						"picture": "http://lh5.ggpht.com/JjtGZSd-Id-AOAK-E3f0VvSbDZF2-Aog38NJzcceJBQ7xjPsCE7fQi78dzDHmzyf9p1gClOw1wZalDueCiPZA97vVnQzhB3h",
+						"type": "fieldTripWaypoint"
+					},
+					"objective": "viewWaypoint"
+				},
+				{
+					"poi": {
+						"id": "01c77ec74d33441ba1a87042482cf8bf.16",
+						"title": "Statue at the gymnasium of the Christian Doppler",
+						"latitude": 50.08058,
+						"longitude": 14.406772,
+						"picture": "http://lh3.googleusercontent.com/CzuWxlwiPJ7uKhtlguW58D5STQIr8FRW0OUDy5Iv_orSto8eOKS0wA78YewhRO8r5yKxOJV_OvjPWZqNUp2oyR18bnI",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "d1f77aa165c44dc78eda026ecedc38ab.16",
+						"title": "Mathematics and Physics gymnasium Christian Doppler",
+						"latitude": 50.080386,
+						"longitude": 14.406849,
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:37.610328Z",
+			"averageDurationMilliseconds": 221499,
+			"lengthMeters": 190
+		},
+		"53": {
+			"id": "1779542a27d24301b4b24d324991ae79.1c",
+			"title": "Codex Gigas 54",
+			"picture": "https://lh3.googleusercontent.com/oPEPuXcd9-Cqu_pi_F6SMm_yHpGlVlEfRPYGKfZ_aMNkfK4-W_5p75rxkYKDqS0RDB5ImdrwcyI_I6u0KAWI",
+			"steps": [
+				{
+					"poi": {
+						"id": "4d1c42fdb2c04d35a1c7c3399e42a525.16",
+						"title": "Dvě ženy",
+						"latitude": 50.079777,
+						"longitude": 14.407123,
+						"picture": "http://lh3.googleusercontent.com/9EDaHQPAG8KMlWC5OApI5tOyzmKAoRIRIOOMVB_O0NeTotrX11xTh4qlcaBZQWgNQo3BowmucjcjKAqc_v38QGBI_A",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "57b280cec15c4594babb21e8b50c14e9.16",
+						"title": "Balkony Heads",
+						"latitude": 50.079513,
+						"longitude": 14.40757,
+						"picture": "http://lh3.googleusercontent.com/6qn-s3K5ezMiJZ523Zulidw07QX2v0FHr5Rj6fHZkjDm2vD1VkFjlr4IoD4YOZQ9NeZw8XEYjXTD9yZR5jtdfCNzVw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "9555de736091476a88e265e9ae3c477a.16",
+						"title": "Głowa Kasandry",
+						"latitude": 50.079497,
+						"longitude": 14.407958,
+						"picture": "https://lh3.googleusercontent.com/Z9JytWBZs1qwwJLytEIXQukVYu6y798DRNB_Hr0-2qHwwvc7XW52lBOz3_fVUZDQoJ6eqfULtGA_JRBYwZ00EPt7sQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "c080fab4f99f47daa11821c719e27feb.16",
+						"title": "The Titans (Two Men with Muscles)",
+						"latitude": 50.07979,
+						"longitude": 14.407992,
+						"picture": "https://lh3.googleusercontent.com/ulWMx7ma8miwRTxziNfGAo4Wf-5Luk6ro3MOEhTwYQykNVgnZ-DItY2tTrjjxRy1LInkbj8fnIEOTN_0VJHJFuE7Vw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "c4a8c7d49a4b4824a5c91969b3374da9.16",
+						"title": "Targa A Josef Zitek",
+						"latitude": 50.080043,
+						"longitude": 14.40796,
+						"picture": "https://lh3.googleusercontent.com/Huo5Eh-0LXnTFERe4MXtVGa0_sr8nMXdAtUORICvz8HxOc957rU73_mf2_Md37mSE3xjdyKrPZrJiXW7X0TaikF5qg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0c0bba5fce9f478d857d5373bdf55843.16",
+						"title": "Koloseum",
+						"latitude": 50.080445,
+						"longitude": 14.408609,
+						"picture": "https://lh3.googleusercontent.com/URP5gRnBuwWq6T_TCWdUbGgO3ZM9TxI_44uXVrxIGkpJ2nBpzSmgnyb4l6uF6PjinfKN5RJDu-u9lyNI3gpUxIv3_mER",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:39.714758Z",
+			"averageDurationMilliseconds": 249266,
+			"lengthMeters": 197
+		},
+		"54": {
+			"id": "3bce80e3682a4a5f8e79ac3c41012d63.1c",
+			"title": "Codex Gigas 55",
+			"picture": "https://lh3.googleusercontent.com/Mx8ODacLYTlqj-v0l_DIckMorV2d20YXMOH_mt6IyAwzhN9geW-GajgQmNPJIg_tKiCGsnD7dZ1zTp9toJwt",
+			"steps": [
+				{
+					"poi": {
+						"id": "1b552936faca49ca8cc54b944089607d.16",
+						"title": "Pametni Deska",
+						"latitude": 50.080961,
+						"longitude": 14.407779,
+						"picture": "https://lh3.googleusercontent.com/nwq9i7oIjcooSCSnLjFwR1vkC5ZYCevql-pk9etVJ3L-WXbYblfkpMX6TrmPam-nA5ybAQvlKVdfhoUlcvR8T8qrFsg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0b11c4cf6a59456e851505263fb048d1.16",
+						"title": "Bridge Tower",
+						"latitude": 50.081349,
+						"longitude": 14.408037,
+						"picture": "https://lh3.googleusercontent.com/oF7WbENIXrV6MpmniThwUQLaHNsR8RSqDalmV-8DwecCXhJQHPCBKiR95I1nyZngZP8QiRkcFb1lgVgj-9GWJmO1ufFD",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "3394da71d58f493ab9bd786f892dbdb5.16",
+						"title": "Bridge Decoration #1",
+						"latitude": 50.081213,
+						"longitude": 14.408293,
+						"picture": "https://lh3.googleusercontent.com/DxB4Cslg6f8m9ExS38yjS6uWUbIn0OkuXhCzLJr7ojLZGGWxu1NTOxIvuHlFJvKLc1UhM09sgj9WO9P10AUFoLYIEw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0413e1e35d304591acda6985bfdfe0ba.16",
+						"title": "Převozník",
+						"latitude": 50.081353,
+						"longitude": 14.408747,
+						"picture": "https://lh3.googleusercontent.com/PK55cecddXmnOU26S-zOGUcyXIXkAhINOk7SbOi_IlmYOPkBZ6jP-u9ebQTLWYLgHSuwdorfjjAnbFb6T0i_BrT8M84",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "09448b6b7e874ca89341b4ffecbe5334.16",
+						"title": "Železná plaketa 2",
+						"latitude": 50.08136,
+						"longitude": 14.409277,
+						"picture": "https://lh3.googleusercontent.com/UPtZv-s5YOhssU4ENI7GCpdQqA2Jo0WCfpKr4UYNL8bSQZww46WAZHnjgq7VVS8TKVWVCeBseWtTJ-XaZsJ0vbD0B80",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "e7dc7f081f15417da536b93e027c9690.16",
+						"title": "Historic Bridge Statue",
+						"latitude": 50.081207,
+						"longitude": 14.409974,
+						"picture": "https://lh3.googleusercontent.com/Zz9MyQV0sw44tvJXLljdrdT0JgUea2pqfYIAM6eaFxO1c-cJhTAUAx3cnVgWa-PI5mZroXdMxlpHEisQhAqJfx-M4Q8",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:41.603968Z",
+			"averageDurationMilliseconds": 222690,
+			"lengthMeters": 197
+		},
+		"55": {
+			"id": "a9187e7d13434dde96254ee2ea086fdf.1c",
+			"title": "Codex Gigas 56",
+			"picture": "https://lh3.googleusercontent.com/jzADfSJgCD0hmucDTU2Wyyq5P2enC2xAoI0qq68IWUSzS9w9OkOxnI50x0d8LEY_NFHo9Hyn4YVVyrebDaGn",
+			"steps": [
+				{
+					"poi": {
+						"id": "8dc4f33cf9d847199ee035ab9f3dccbd.16",
+						"title": "Bridge Decoration #5",
+						"latitude": 50.081273,
+						"longitude": 14.410327,
+						"picture": "https://lh3.googleusercontent.com/gX2hHCodqJO5JgxLnVJoKbqNR2JC8Dm6zFMrk2bsMR1J2OPYTDhn26HrNWZGDmArnUQWgSEalZFSsJXykQ2wQh-b5bM",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "b9422e08e5a34144b26e2b9435235d5e.16",
+						"title": "Bridge Decoration #6",
+						"latitude": 50.081281,
+						"longitude": 14.410911,
+						"picture": "https://lh3.googleusercontent.com/2EKXSSOao56zmxSa_-87y2hVXyhqvRD_n3jxGP9CACa0T-IcIZnriUcYG34mOYiMpZPlnsLaYwDiPaTJ2vJY3He8ZZc",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "cb0f77f1d8aa47bb961145439ae4e988.16",
+						"title": "Old Lamp",
+						"latitude": 50.081424,
+						"longitude": 14.411246,
+						"picture": "https://lh3.googleusercontent.com/JOxqed211GdliFuNI6Upwv06xhe9xYht2VktrrQCgFlh5kpaE8nRhfUBbQ8AZqQ6KxAIIyWwqX76kAKvgpuLehWKxdI",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "3f772e9d45914017abea54031637ce74.16",
+						"title": "Lampa",
+						"latitude": 50.081422,
+						"longitude": 14.411631,
+						"picture": "https://lh3.googleusercontent.com/5XLAzvgj13GHZYfrCpHwNyumVLRd6MqLeLh5C4wt5z0O3w-9KucC-VAb5unFo9zJ98jP9MPf2lemM6xjEPDpM7HdOA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f8d35daa927e4b5db0aef1c88852ef14.16",
+						"title": "Bridge Decoration #8",
+						"latitude": 50.081317,
+						"longitude": 14.412146,
+						"picture": "https://lh3.googleusercontent.com/0Vbh1fT0F-gtpw3xu8thRKllYPZgXa090M1k3QQwvvZJeyRZrtk7y5cse1jNLYtj5ytJxvHfnqLI9KfjhGxQvfgH0Ug",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "30250cee97484d8b9acaaa4803c46364.16",
+						"title": "Bridge Tower",
+						"latitude": 50.081446,
+						"longitude": 14.412454,
+						"picture": "https://lh3.googleusercontent.com/-iZjiN65lVwUfOuWnfR9M4oOH5hE3Z1im-FtsKpSCtLlBNnBUxN4GBo1XVdfi972iOCOK9KikhxqQ3KFmipenw2o6k4",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:43.692109Z",
+			"averageDurationMilliseconds": 167413,
+			"lengthMeters": 163
+		},
+		"56": {
+			"id": "0f74e818ef364147a4376e2c7ba1d2e0.1c",
+			"title": "Codex Gigas 57",
+			"picture": "https://lh3.googleusercontent.com/dmPwiHb1qKU048uXt0KKz8EMSbU5Ss3XC86xe-IZkKDkM9HDgzifKw91pWlmglLMepo69qaPqG7SQKaSLGWC",
+			"steps": [
+				{
+					"poi": {
+						"id": "613023806873482fa563a7f3fdb764dd.16",
+						"title": "Kavárna Slavia",
+						"latitude": 50.081507,
+						"longitude": 14.413187,
+						"picture": "https://lh3.googleusercontent.com/xz_FcGy-fMQTfWKq-rrH0b4xs7UXWEHbjBVjQx--ID9aMBt6XPBIsdbscYRSSrJZLPoKrosYyHhUuHPh3tT5rgLX0JY",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "18e7fdc436df4667b047e1e8a5654426.16",
+						"title": "Triga on the roof of the National Theatre",
+						"latitude": 50.081246,
+						"longitude": 14.413222,
+						"picture": "https://lh3.googleusercontent.com/BAXA92vnIDYJH7UsCe9kNYpzX8U_E3Vy4x0ty4h4J6bEWhUOfApr4lR3XTH38nIgyJ9jbbfO_lfXiwyDjdg5LB54LNna",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ba0bd0500a0b4af6bbaab13e5a85ba27.16",
+						"title": "Znak Praha",
+						"latitude": 50.08132,
+						"longitude": 14.413735,
+						"picture": "https://lh3.googleusercontent.com/KrurTP0qxal1cgRoZdzhPClu8ccYfXvywMa6X3skpxSDy-aayPZ4ySN2yIZcsI_ArnYEfefhVoiUc7Jn0sRqVFsfN6U",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "1e5220a8337f497c8ef355ef8083da24.11",
+						"title": "Nová scéna Národního divadla, Nové Město",
+						"latitude": 50.081233,
+						"longitude": 14.414587,
+						"picture": "https://lh3.googleusercontent.com/EH1YHPEZ3Z3HZaVIB8010LvP6HxjPaSOPoq60xmeIfg9HTo1Tzs4JUUdz7WFds7T7Swp1fdOYt3lWl-AHn55SR4uB14",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "4bf98db04633481ebbbc6d48557d63c9.12",
+						"title": "Národní Třída, Nové Město",
+						"latitude": 50.081518,
+						"longitude": 14.415034,
+						"picture": "https://lh3.googleusercontent.com/-KwofaCTD1f1GoXVYA2V4Lqgve1nWLa_puH85f2cDq5rzp2M4GwaCyWnW_wJk_0SJ0xfENX19WmPNzn1kOdxNTRTHWg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0e08c586de594c6cac9dcaa7bc9efc04.16",
+						"title": "Divadlo Viola",
+						"latitude": 50.081556,
+						"longitude": 14.415327,
+						"picture": "https://lh3.googleusercontent.com/PgDcPtsnkY9OCcKWl7iIiJHUjrzgclr7IoibkYCh32FyL5bu7uqt0vXjZwYsRGxLYFWVN7ZXZNcup2WrditqBiLtdy4",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:45.713103Z",
+			"averageDurationMilliseconds": 239362,
+			"lengthMeters": 195
+		},
+		"57": {
+			"id": "1291b282d354459fba9020ad542d42ed.1c",
+			"title": "Codex Gigas 58",
+			"picture": "https://lh3.googleusercontent.com/Keo8pUFSGr6JvBfzKMZS_XaAFwJPz-wNxpXrLs8rqyDqDzQ5W7m5dzfBNeJ4zsIFQEFV3dQLLyfcjZIUqnZS",
+			"steps": [
+				{
+					"poi": {
+						"id": "664dcfc2d1634283bc2ed8526f43a67a.16",
+						"title": "Dying",
+						"latitude": 50.081377,
+						"longitude": 14.41555,
+						"picture": "https://lh3.googleusercontent.com/IJgFllOitLMCQFFT645YFmgcbCDOd8HTUJV-c7SGTX615B7NAoGumU9zNiyZ-RDmLqUtM_EM9gvaLAw0uaZqs_7vYjI",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "096351a30be54c7fbc140c41a7943935.11",
+						"title": "Church of St Ursula",
+						"latitude": 50.081433,
+						"longitude": 14.415826,
+						"picture": "https://lh3.googleusercontent.com/Gt5TZVOwnNgdTg_QvWBPDVgjxjsColde7BGxmoKhztUhgKnLnkIcd2-Wc00Se4bwfDuzVOOpJbigEPGk44QKGlka6m6R",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0ee3c0852c0d4d7ea1bd938f2931b986.16",
+						"title": "Jan Nepomucký",
+						"latitude": 50.081448,
+						"longitude": 14.416127,
+						"picture": "https://lh3.googleusercontent.com/w83qu1CMh1feDeeJO9zeYDPKs_874-weCqcRtoSv_eIRWCg3c-6wrtYXEHnTZh6v7aEQUs9BMZrfwIv5YIHzyAeXNus",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "aef8466141c34b94895b5a58216aec66.16",
+						"title": "Hotel Thalia",
+						"latitude": 50.081813,
+						"longitude": 14.416485,
+						"picture": "https://lh3.googleusercontent.com/e7EBvVX02VpLnu9SemBNlKKgHJZYSpjmDHXgwWmEIAj_f65fQQ9cuvx_XzZNBQap0pEh9e4fZbTYpo3URw5tFesz7z1Z",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "00b45e0db0364aca98ce6390cff358a5.16",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "39619c8498244742b2f42dd6c1c6ce75.16",
+						"title": "Tlusté Děti",
+						"latitude": 50.082104,
+						"longitude": 14.417692,
+						"picture": "https://lh3.googleusercontent.com/hjGeqlfEpw2wmHR3EzaACAmCKch1I1M9jM7R2jISX24ilg9qeLxsi1tOlvsyC_TL4siwKOJPIAXCdh9cXqDW87O8dw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T08:48:47.582684Z",
+			"averageDurationMilliseconds": 192077,
+			"lengthMeters": 183
+		},
+		"58": {
+			"id": "43fb336da9104b0f89cd25a46ff928d7.1c",
+			"title": "Codex Gigas 59",
+			"picture": "https://lh3.googleusercontent.com/de4GEIhtjc2ppyCvSy5X5eJUWAU29JGvRfgAOdqrXkVZ6VMbVNzx60xZCGwnToSkK8scLZoITrbcZISICfwv",
+			"steps": [
+				{
+					"poi": {
+						"id": "8adcfa3cddb14018b6f544d721b5bc47.16",
+						"title": "Music Club Vagon + Metro Theatre",
+						"latitude": 50.082177,
+						"longitude": 14.418128,
+						"picture": "https://lh3.googleusercontent.com/aevnauYrx0HEPydmobmcc18kGyF9DdCUko0mY5dGUkB3iUnNO4Fbb5DPqPuKfwWv1re-1vfdfsqf9TMOYqccLS2kAnU",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "7448e842973448b388a6ec4a4e33f4ff.16",
+						"title": "Two Statues On Wall",
+						"latitude": 50.082342,
+						"longitude": 14.418627,
+						"picture": "https://lh3.googleusercontent.com/A5O_WhAhCIhGlVie8nfakFGSdVwg3Vz8onK_TL6VjfXIqc-xGgf3J5j8W864uEtZUj9ZFHsqcgaUgV16gbLmCGgKUbE",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "e48626f6946b4a34ba7923741eb79c2a.16",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "fae681380d9a4ca5bea6345f0104cc4c.16",
+						"title": "Wall Art",
+						"latitude": 50.08257,
+						"longitude": 14.419243,
+						"picture": "https://lh3.googleusercontent.com/qk6SBNikdbtRCeBFOYSbosJXut6VpYXYDuZgFjCwlF660d766-9n1ZfcGlQC1w8rIZk8rgUMCfXcN-iww8qnKP-cEA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "d6af4a13252946e4b64feae50a76b45e.16",
+						"title": "Brick Museum",
+						"latitude": 50.082596,
+						"longitude": 14.419562,
+						"picture": "https://lh3.googleusercontent.com/1oPR6TIywl4Onu4rpEO59DcvBkKTp1_OqtKA748AWEeEmgG8ZPVsBF97KD0YKNyzuyDSJkjWRvONGZ033h-HCBakUg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "324317e5fd894edfac00e697b2dba3c5.16",
+						"title": "Sova",
+						"latitude": 50.082719,
+						"longitude": 14.420387,
+						"picture": "https://lh3.googleusercontent.com/M62HF6arlfumXmnr2PMuIzDhtyQxmb22VuWvy_AWdvRrp1peFvjseGBu4puyaM0yfsuEGGSXlqwMAZQZ3X-d1tD6ldA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:16:06.054960Z",
+			"averageDurationMilliseconds": 242180,
+			"lengthMeters": 175
+		},
+		"59": {
+			"id": "df146358cb3b4f90b98b2bd971ba9403.1c",
+			"title": "Codex Gigas 60",
+			"picture": "https://lh3.googleusercontent.com/LR7XptSByjdy8_3Y_rbGL5u5ISiSZMvYv6XLMf2UBy7fwqAxfiOYIk_s4f68-fKbevapqcB9NcVPJfF-jvGS",
+			"steps": [
+				{
+					"poi": {
+						"id": "bc28b9212ac346008b0915c416abafb3.16",
+						"title": "Hypnose Doors",
+						"latitude": 50.082764,
+						"longitude": 14.42085,
+						"picture": "https://lh3.googleusercontent.com/xQxtaXairXCLFi5mxQrjnI6g2PwPRky0fnWvynDngojuDKvq1ekeBq2HJ1_fXYVPA2j8FXf6Md6qFqJy0G-ZtqOldQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ecab31fbd26d44a9807db0aa96b2ade9.11",
+						"title": "Adria Palace",
+						"latitude": 50.082735,
+						"longitude": 14.421908,
+						"picture": "https://lh3.googleusercontent.com/UzukrveJ028Y25y3mINsK25zvWjMQffh8krYXPwbqa1kBWgfQMtveC8RcTe4q7plvsFQ5SVR1oE0DYHmVE5dHvCQTA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "5122b9a45ef64178b452d7da799794a8.16",
+						"title": "Palác Ara",
+						"latitude": 50.083212,
+						"longitude": 14.421835,
+						"picture": "https://lh3.googleusercontent.com/Vx9ohf07WgfHiMhfaVex2dL71G-l9iX2d519YhTNbN1vy4w_WPtHs1AY0I8vkAZEZV7vJSPKoSgGKe21T8VHn3DNxtA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a4e5c8b8ba6546c9817d615af92d9a7d.16",
+						"title": "Kaja Saudek Muzeum",
+						"latitude": 50.083424,
+						"longitude": 14.422147,
+						"picture": "https://lh3.googleusercontent.com/pLSnloKENBy0pnI9-GfQn6oXgbdXnqHi5-SO_tMiKSwvuCSS1glJH25qv_LyRRIOpGEVtqsukE0J3yQxDh13KgQK6A",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "b2def53bdc90471ebb4150ee74c3af31.16",
+						"title": "Red statues",
+						"latitude": 50.083651,
+						"longitude": 14.422515,
+						"picture": "https://lh3.googleusercontent.com/Ek60-KYvUKeudEF1pxv5LKh7SbeSa-hYl55he3hxGPf_wOkBz8xTcXXZymtZncddJSbHRDmR7lKzWwZzVQkMYX2IZA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "21f268d2ebe04cdeb60868f7b91dcd6b.16",
+						"title": "Zlata Lyra",
+						"latitude": 50.083795,
+						"longitude": 14.423038,
+						"picture": "https://lh3.googleusercontent.com/9U0n5dHyim5g9RkfopKlAwlPucAhde0_WMQX1Y-Ojn00o9r5UA8ni4JjG8gLy28ke7UlIqL2-c_FqokWRRPZCwsIAfA",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Codex gigas je pravděpodobně největší rukopisná kniha světa. Byla napsána počátkem 13. století. /Codex Gigas is probably the largest manuscript in the world. It was written in the early 13th century.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-07T07:16:07.504070Z",
+			"averageDurationMilliseconds": 263685,
+			"lengthMeters": 239
+		}
+	},
+	"startLatitude": 50.084219,
+	"startLongitude": 14.423319,
+	"startPlaceId": "prague-ddc5",
+	"lengthMeters": 13946,
+	"formattedAddress": "Prague, Czechia",
+	"picture": "/bnrs/pictures/1c06b1469bb2ba927e75f240e5307597",
+	"type": "sequential",
+	"owner": false
+}

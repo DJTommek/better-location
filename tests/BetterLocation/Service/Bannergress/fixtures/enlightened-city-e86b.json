@@ -1,0 +1,457 @@
+{
+	"id": "enlightened-city-e86b",
+	"title": "Enlightened city",
+	"description": "인라이튼드 타운에 오신 것을 환영합니다.",
+	"width": 6,
+	"numberOfMissions": 6,
+	"numberOfSubmittedMissions": 0,
+	"numberOfDisabledMissions": 0,
+	"missions": {
+		"0": {
+			"id": "21da61232d1f4a49b51f72e8abc5ab60.1c",
+			"title": "Enlightened city 1/6",
+			"picture": "https://lh3.googleusercontent.com/647uFaM0vvc4SZK9uUnw2H0nNThe3nZq60E-cWeOECqa0uJ30ePy_wtybjyzA_4eO18CEZipcoTnF0xsWVvNh55Alf0Y8DfT4A",
+			"steps": [
+				{
+					"poi": {
+						"id": "3597fde938733236b23dfa72dc705584.16",
+						"title": "남양아이파크아파트 노인회관",
+						"latitude": 37.206308,
+						"longitude": 126.832195,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "d2d46538030a38fa8f12196850af375b.16",
+						"title": "아이팍울타리",
+						"latitude": 37.205833,
+						"longitude": 126.831924,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "9bb5772551d631089d688e77b84c4bc8.16",
+						"title": "내게 오는 길",
+						"latitude": 37.205854,
+						"longitude": 126.832425,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f1f38087bc483c9484288130c1e497ab.16",
+						"title": "팔돌려 헛둘헛둘",
+						"latitude": 37.206018,
+						"longitude": 126.832754,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "7e7eb0fc0f4445c192945619938ddf7a.16",
+						"title": "비상",
+						"latitude": 37.206545,
+						"longitude": 126.832996,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "00f42427cfc44c4e9cbf8adbfe184668.16",
+						"title": "산책로어린이놀이터",
+						"latitude": 37.206809,
+						"longitude": 126.832383,
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "인라이튼드 타운에 오신 것을 환영합니다.",
+			"type": "anyOrder",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-12T07:02:57.302884Z",
+			"averageDurationMilliseconds": 139055,
+			"lengthMeters": 261
+		},
+		"1": {
+			"id": "ad6ebc86f23a4aa8b6195a7c968dc2ea.1c",
+			"title": "Enlightened city 2/6",
+			"picture": "https://lh3.googleusercontent.com/8iURkQ47thdcMAbcDd0GlQ7Nf4TjqjqtCZlaHgwVtivV8WMKKlcenTlsB4UcycOd7idXpcuuhPSwb5JKKGlmy8b45aVH0abH",
+			"steps": [
+				{
+					"poi": {
+						"id": "34a948d5208a317a800a5a2ccb1a58ca.16",
+						"title": "한가로운 정원 분수",
+						"latitude": 37.206447,
+						"longitude": 126.832655,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0dd0bd4c5ee235caa80570b52f73f91a.16",
+						"title": "기다림",
+						"latitude": 37.206665,
+						"longitude": 126.832144,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "76eb4846c2f54d8ab35b83bf3302efb6.16",
+						"title": "정글짐 놀이터",
+						"latitude": 37.207474,
+						"longitude": 126.831781,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "7e1827ffd88f36fb874ba919eae1720a.16",
+						"title": "우림필유 분수대",
+						"latitude": 37.20791,
+						"longitude": 126.832372,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ef2546f6a80b4bad8eb718b62866b138.16",
+						"title": "우림필유놀이터",
+						"latitude": 37.208416,
+						"longitude": 126.832307,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "05042801cfef3d18bc4518dacefb28f4.16",
+						"title": "미래창조의 꿈",
+						"latitude": 37.208573,
+						"longitude": 126.832123,
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "인라이튼드 타운에 오신것을 환영합니다.",
+			"type": "anyOrder",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-12T07:02:58.732108Z",
+			"averageDurationMilliseconds": 292408,
+			"lengthMeters": 299
+		},
+		"2": {
+			"id": "2ba4a34748674dc485a7be66e3a83c8b.1c",
+			"title": "Enlightened city 3/6",
+			"picture": "https://lh3.googleusercontent.com/y9GxXtFI4ls8nepYFBO4F31HZc6c7QMHF66s_ldErENZTfArYSufeGkdnvujZikHDCaOrC6ACBhZ5ScslqtHGeeON_tMI_UJbw",
+			"steps": [
+				{
+					"poi": {
+						"id": "81a3bd1bfab236a3b8d35b896310b884.16",
+						"title": "보스마켓 뒤 쉼터",
+						"latitude": 37.209432,
+						"longitude": 126.831825,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "deceab82da783add8d02e24a3d80f249.16",
+						"title": "남양 공용주차장 분수대",
+						"latitude": 37.210537,
+						"longitude": 126.831376,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "c8e03e3ead444934975c53f0d2617924.16",
+						"title": "4단지 놀이터",
+						"latitude": 37.210474,
+						"longitude": 126.829954,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "95456cfd895d4607ba94dfeaf65a18a9.16",
+						"title": "팔각정자",
+						"latitude": 37.210539,
+						"longitude": 126.829592,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "da13ba86382b448e8e24a66b702a8ae1.16",
+						"title": "LH4단지 놀이터",
+						"latitude": 37.210177,
+						"longitude": 126.829757,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "bb34222955d54a09bd265b61a25cb481.16",
+						"title": "나비가 앉았다.",
+						"latitude": 37.209517,
+						"longitude": 126.829854,
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "인라이튼드 타운에 오신것을 환영합니다.",
+			"type": "anyOrder",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-12T07:03:10.159457Z",
+			"averageDurationMilliseconds": 531254,
+			"lengthMeters": 405
+		},
+		"3": {
+			"id": "fad7a5a2b50b45f38d42e05e88ef42d5.1c",
+			"title": "Enlightened city 4/6",
+			"picture": "https://lh3.googleusercontent.com/aeUjEqhC7hf9vDMgGaJhwSF4vIWLWSU8qnt9wD7480zCaDNReTJnLADwzleh_MNiOXhuHoI51PEZ0xNLs_uxKfiFRlvKd2FVmNk",
+			"steps": [
+				{
+					"poi": {
+						"id": "89470d3559374c53949e68bfaf718114.16",
+						"title": "토리어린이놀이터",
+						"latitude": 37.210135,
+						"longitude": 126.828178,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "756988e76c684616ad2fc123edf3d35f.16",
+						"title": "열대어조각상",
+						"latitude": 37.209323,
+						"longitude": 126.828347,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "efe4102a57bc45ebbdbc6d9aaa3a6b0c.16",
+						"title": "나무어린이놀이터",
+						"latitude": 37.209445,
+						"longitude": 126.827674,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "5ae6adc92f63417f9c068c9dca6ebc31.16",
+						"title": "스토어어린이놀이터",
+						"latitude": 37.2091,
+						"longitude": 126.827018,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "b3d824a428ff41fc82cc862cb19c0c97.16",
+						"title": "동광어린이놀이터",
+						"latitude": 37.208481,
+						"longitude": 126.828572,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "b84755e0880145b8b0f317f331286163.16",
+						"title": "기뻐하는 교회",
+						"latitude": 37.207693,
+						"longitude": 126.828892,
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "인라이튼드 타운에 오신것을 환영합니다.",
+			"type": "anyOrder",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-12T07:03:11.244850Z",
+			"averageDurationMilliseconds": 693054,
+			"lengthMeters": 468
+		},
+		"4": {
+			"id": "7d00fef427064645bacb547c161cf95d.1c",
+			"title": "Enlightened city 5/6",
+			"picture": "https://lh3.googleusercontent.com/w38tExYDoeNC_cdaXMRHs1uYl8JnFxiYf75SH00w4ZlA5SLOoX3cMZivdnopE9oGiElD6LoQ0E7izHJPUAt4L6jsfhTlSkSlxGA",
+			"steps": [
+				{
+					"poi": {
+						"id": "e789d29c9f734d229bbfcc8a6207a517.16",
+						"title": "하늘어린이공원",
+						"latitude": 37.206774,
+						"longitude": 126.830043,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "17520f9b54ed4029aee6d1fb07de237d.16",
+						"title": "사랑의빛교회",
+						"latitude": 37.207545,
+						"longitude": 126.830874,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "76eb4846c2f54d8ab35b83bf3302efb6.16",
+						"title": "정글짐 놀이터",
+						"latitude": 37.207474,
+						"longitude": 126.831781,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "0dd0bd4c5ee235caa80570b52f73f91a.16",
+						"title": "기다림",
+						"latitude": 37.206665,
+						"longitude": 126.832144,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "d2d46538030a38fa8f12196850af375b.16",
+						"title": "아이팍울타리",
+						"latitude": 37.205833,
+						"longitude": 126.831924,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "bfc9943152d94d2c870b408dc5843a0f.16",
+						"title": "돛단배공원 쉼터",
+						"latitude": 37.204397,
+						"longitude": 126.832174,
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "인라이튼드 타운에 오신것을 환영합니다.",
+			"type": "anyOrder",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-12T07:02:59.709014Z",
+			"averageDurationMilliseconds": 505157,
+			"lengthMeters": 545
+		},
+		"5": {
+			"id": "837bbb7535cb49c0942412c6848b2b08.1c",
+			"title": "Enlightened city 6/6",
+			"picture": "https://lh3.googleusercontent.com/0tbCnRZ8WpMGICeHSiGiCwTukq2-dxDLLcrN2sdDM1XHYP6KEAtY4naJKc61pMVfH9RTL2kBe0hwAM2WAgqNybH_dYrGK1jH400",
+			"steps": [
+				{
+					"poi": {
+						"id": "ea8ff3a79c074a0bb4d35b38af79c7a7.16",
+						"title": "돛단배어린이공원",
+						"latitude": 37.204257,
+						"longitude": 126.83248,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "6ca65e67cb8b417b9b02f3160c5135d3.16",
+						"title": "남양만석교회",
+						"latitude": 37.204128,
+						"longitude": 126.833259,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "1c8847effe0249f49c695fff22b0cfc8.16",
+						"title": "남양살리는교회",
+						"latitude": 37.205633,
+						"longitude": 126.832531,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "9bb5772551d631089d688e77b84c4bc8.16",
+						"title": "내게 오는 길",
+						"latitude": 37.205854,
+						"longitude": 126.832425,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f1f38087bc483c9484288130c1e497ab.16",
+						"title": "팔돌려 헛둘헛둘",
+						"latitude": 37.206018,
+						"longitude": 126.832754,
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "3597fde938733236b23dfa72dc705584.16",
+						"title": "남양아이파크아파트 노인회관",
+						"latitude": 37.206308,
+						"longitude": 126.832195,
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "인라이튼드 타운에 오신것을 환영합니다.",
+			"type": "anyOrder",
+			"status": "published",
+			"latestUpdateStatus": "2024-05-12T07:03:00.700992Z",
+			"averageDurationMilliseconds": 354752,
+			"lengthMeters": 370
+		}
+	},
+	"startLatitude": 37.206308,
+	"startLongitude": 126.832195,
+	"startPlaceId": "hwaseong-si-cf54",
+	"lengthMeters": 2832,
+	"formattedAddress": "Hwaseong-si, Gyeonggi-do, South Korea",
+	"picture": "/bnrs/pictures/50f14eae7389217a80fd94e449c6f0d0",
+	"type": "anyOrder",
+	"owner": false
+}

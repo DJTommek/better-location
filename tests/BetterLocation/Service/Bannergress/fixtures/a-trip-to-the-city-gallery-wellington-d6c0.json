@@ -1,0 +1,244 @@
+{
+	"id": "a-trip-to-the-city-gallery-wellington-d6c0",
+	"title": "A Trip to the City Gallery Wellington",
+	"description": "Take a walk to the City Gallery in Wellington, discovering portals along the way. This series starts at the Wellington Train Station.",
+	"width": 3,
+	"numberOfMissions": 3,
+	"numberOfSubmittedMissions": 0,
+	"numberOfDisabledMissions": 0,
+	"missions": {
+		"0": {
+			"id": "9e38310b13f64b908cb43bb42426441a.1c",
+			"title": "A Trip to the City Gallery Wellington 01 of 03",
+			"picture": "https://lh3.googleusercontent.com/Yd4UhyDTi4O4bA1d58ETG_Dc_D7FMflniQ0djdhcL6qv6LBFSo7LoGpvP3DG__vczvh4BXM1lw9t1j-GqYVj",
+			"steps": [
+				{
+					"poi": {
+						"id": "cbabba2423b44f8cb7a844ca7c4c4208.11",
+						"title": "Wellington Railway Station",
+						"latitude": -41.279523,
+						"longitude": 174.780023,
+						"picture": "https://lh3.googleusercontent.com/ATk2RKcKJI8Hmq6GuUms7DsgBgKJ4EQMj65gABpmINIkgS1NQ9S5mI-YY0e_jk-dTRlHsStDPx-n_cJi2RR1xlyCXUk",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "4394cdd9ff144f1285ba5fb746464f95.16",
+						"title": "Telecom Old Exchange",
+						"latitude": -41.280677,
+						"longitude": 174.778355,
+						"picture": "https://lh3.googleusercontent.com/co6Fdy4ouYgsmw17WfLA7gqJNhwlgWLBkdasUOxP0QsobnR9mzKbBuC3iC-O4YazJq6TIvxCDsirI5hDhyAeOS2GCg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "f2b4186f3d2e4f38b58247749eff19fa.16",
+						"title": "Embassy Of Netherlands Coat Of Arms",
+						"latitude": -41.281434,
+						"longitude": 174.777923,
+						"picture": "https://lh3.googleusercontent.com/vwf8l9AnaIyeTkda7Ff7lP0OKRVrW3tXqF0l-kcCB_smNzgBejHSkm1DHfUzxFVT6vpTy-kF1ZrXb5CReHNuQBDUiIo",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "c94e1e8132b3410fa323d68566d9fc6f.16",
+						"title": "Formerly Dominion Farmers Institute",
+						"latitude": -41.281736,
+						"longitude": 174.777802,
+						"picture": "https://lh3.googleusercontent.com/BkpyNiqCSudEcVqyd14X6C_bI_hlrAKTCfkjf7lmGnaYV5dGUqW7-baIquVEVtMa9A8fqg3p6o_Iw5r_eV8C1KyNn_E",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "8c611b07be8a4db398f05ae267544ff4.16",
+						"title": "National Chambers Historic Building",
+						"latitude": -41.28309,
+						"longitude": 174.777241,
+						"picture": "https://lh3.googleusercontent.com/oOlExl5z2BaihvgGjZFBu0Y86QoWDiZH2lbrWSCnX4Bn4ltpby8bAvwDMXAARIbzokJ6skr0kVG80j7eHcaTHTF01ck",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "cddbf8c8709d4e57a1e85fc25c64c6c0.16",
+						"title": "Change House Historic Building",
+						"latitude": -41.283409,
+						"longitude": 174.776812,
+						"picture": "https://lh3.googleusercontent.com/EJ_vRsSfZnCvDFDWzUM92GjJ7k989TT8YFGaphIw-9EXMA99RzpMdf1NVA1cofHmi-6H1wu2Sv9eTwc26HwmiL8sa1A",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Take a walk to the City Gallery in Wellington, discovering portals along the way. This series starts at the Wellington Train Station.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-02-02T09:41:20.516260Z",
+			"averageDurationMilliseconds": 874497,
+			"lengthMeters": 524
+		},
+		"1": {
+			"id": "39155c9314cd48c09b5d07efdfce7e81.1c",
+			"title": "A Trip to the City Gallery Wellington 02 of 03",
+			"picture": "https://lh3.googleusercontent.com/rwJD9VitHPu6ZiOjRXFj47YxPXeqMwhACuQksCBrLl1QIl2iYBXJ25XzlQAwUvY3z93IYIRftGMulxLxKVGf",
+			"steps": [
+				{
+					"poi": {
+						"id": "fa7b2c65fe0c494dacd89a27d10a0233.16",
+						"title": "Protoplasm",
+						"latitude": -41.285461,
+						"longitude": 174.775823,
+						"picture": "https://lh3.googleusercontent.com/VpCCMjgRb5hftEH8z_C77-8J6QPf9BFLVmUcgJdL14mXX5VweLN-l8UGtjkTPu865SPD6e2YmCh45bJJGGMLgTl1UYM",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "ca26b369a742400abe6a400f68278871.11",
+						"title": "John Plimmer and His Dog Fritz",
+						"latitude": -41.285728,
+						"longitude": 174.775772,
+						"picture": "https://lh3.googleusercontent.com/tLqTIXjbj8SkSZgFA_cz8r5WBw0_vdY1q1wyTi4UjzXAbC7MrWD65DHr8gzuJPPrCxTWZYIXTZ1h15pHnZGVcWwQlBZQ",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "e03a5159c2fe457fad9eda75feb41666.16",
+						"title": "Old Bank",
+						"latitude": -41.286223,
+						"longitude": 174.776263,
+						"picture": "https://lh3.googleusercontent.com/jeKH0P1DugFaxbE_iYJYlB0QqvEupegdbTHJO779bMWx9uO2eJDfmR_37JCczvFuwsKrBU4wGzgsKdwvPqviondA9Kw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "a9fa4c1ba42842bbaefaff25d8d4f144.11",
+						"title": "Rock by Neil Dawson",
+						"latitude": -41.286663,
+						"longitude": 174.776595,
+						"picture": "https://lh3.googleusercontent.com/BOr4Tzp3WRS2Trvnbz0yYxxLQiUH9ELvJbLJV5hWLuoWQwr-qZXzHRICJY9dhd_rzeVLlz40oPHwj7qUYQwdROezneg",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "06829f14a86248bebb6ea0841c5aef16.16",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "97e3140aefaa47df9f5546878f08cbe8.16",
+						"title": "Centenary Time Capsule",
+						"latitude": -41.288273,
+						"longitude": 174.776369,
+						"picture": "https://lh3.googleusercontent.com/BIROGL1INjKmEx28H3NozxpcBXvg83Sjs3pejEr8MYZpFFVHB3U0OHjZV_IoRYFX_4TPvOWlWMazq6hIBvjgTuAU5QFi",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Take a walk to the City Gallery in Wellington, discovering portals along the way. This series starts at the Wellington Train Station.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2023-12-03T13:21:20.323720Z",
+			"averageDurationMilliseconds": 605478,
+			"lengthMeters": 335
+		},
+		"2": {
+			"id": "e8fdc7b970354970af8e998aa677d7ed.1c",
+			"title": "A Trip to the City Gallery Wellington 03 of 03",
+			"picture": "https://lh3.googleusercontent.com/oLjYlL40n3UFh88KVLMR-5yeXTi4SYcJoAqsxH8j-A1bBq9vwjyBmotMIEoLiYaTevmLbvBWg3JVcN3MKbYv",
+			"steps": [
+				{
+					"poi": {
+						"id": "ea1d852846a6439ea738385205047290.16",
+						"title": "Seven Steps to Heaven",
+						"latitude": -41.288846,
+						"longitude": 174.776775,
+						"picture": "https://lh3.googleusercontent.com/H_2OCB52Qr1IWHLHGRhtEb4R0rh1U2aTmeR5YxbIpAxxKNh7u2ZIHLUpSMVc3Rm6X4g0Pl1ioY6QCHcbFkw5qsy4Yaya",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "bb25429152eb459e8fbffc803225f7c1.16",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "9ca2a21e9d054120bc4e182a901bc539.16",
+						"title": "Anchor Stone",
+						"latitude": -41.289097,
+						"longitude": 174.777645,
+						"picture": "https://lh3.googleusercontent.com/0DkoQfSranYc-CSE8FIjd36100o8UiKOXLgi_dAbXuEH3wfpgHN3BI48vyLgiW-XKiy4G8vAvOgKYc0G0kDzSJivRw",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "6d8eb3b25a0a46408547b90ce8084381.11",
+						"title": "Civic Pyramid",
+						"latitude": -41.2889,
+						"longitude": 174.778094,
+						"picture": "https://lh3.googleusercontent.com/x7OJoCHy5TcRCzI56LijiiT7aNCY8_f3GCjh9VOWvL5vcECGV4dok95QDtZv5Q-Mb-BNM6mc0JGGaFGCMwXLDNKH5H-W",
+						"type": "portal"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "11c13fa7b58a41578fd834ba02a0fe9e.12",
+						"type": "unavailable"
+					},
+					"objective": "hack"
+				},
+				{
+					"poi": {
+						"id": "04021d66b99e4a90a552c11861d56ff9.16",
+						"title": "City Gallery",
+						"latitude": -41.288591,
+						"longitude": 174.777158,
+						"picture": "https://lh3.googleusercontent.com/p4mIMApRdh_4vgp59h9l06A-ksMNE9ejLN89vdljIERqesXuOCI3GGpq_C5drq0EzxlDFWqZTPG7IJl4xzSKuW5EQ-k",
+						"type": "portal"
+					},
+					"objective": "hack"
+				}
+			],
+			"description": "Take a walk to the City Gallery in Wellington, discovering portals along the way. This series starts at the Wellington Train Station.",
+			"type": "sequential",
+			"status": "published",
+			"latestUpdateStatus": "2024-01-01T21:40:25.031748Z",
+			"averageDurationMilliseconds": 251980,
+			"lengthMeters": 207
+		}
+	},
+	"startLatitude": -41.279523,
+	"startLongitude": 174.780023,
+	"startPlaceId": "wellington-1b42",
+	"lengthMeters": 1381,
+	"formattedAddress": "Wellington, New Zealand",
+	"picture": "/bnrs/pictures/85941cf14754f79723a80669e9d852ba",
+	"type": "sequential",
+	"owner": false
+}

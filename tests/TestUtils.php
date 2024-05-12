@@ -2,7 +2,10 @@
 
 namespace Tests;
 
+use App\Cache\NetteCachePsr16;
 use DJTommek\Coordinates\Coordinates;
+use GuzzleHttp\Handler\MockHandler;
+use Nette\Caching\Storages\DevNullStorage;
 
 final class TestUtils
 {
@@ -22,5 +25,25 @@ final class TestUtils
 			self::randomLat(),
 			self::randomLon(),
 		);
+	}
+
+	/**
+	 * @return array{\GuzzleHttp\Client, MockHandler}
+	 */
+	public static function createMockedClientInterface(): array
+	{
+		$mockHandler = new \GuzzleHttp\Handler\MockHandler();
+		$handlerStack = \GuzzleHttp\HandlerStack::create($mockHandler);
+		$httpClient = new \GuzzleHttp\Client([
+			'handler' => $handlerStack,
+		]);
+
+		return [$httpClient, $mockHandler];
+	}
+
+	public static function getDevNullCache(): \Psr\SimpleCache\CacheInterface
+	{
+		$storage = new DevNullStorage();
+		return new NetteCachePsr16($storage);
 	}
 }
