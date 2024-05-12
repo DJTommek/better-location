@@ -50,9 +50,9 @@
 		{/if}
 
 				{capture $tgWebhookTextPrefix}
-			Setup webhook and commands via
-			<a href="set-telegram.php" target="_blank">set-telegram.php</a>
-			(or with <a href="set-telegram.php?drop_pending_updates=true" target="_blank">drop_pending_updates=true</a>)
+			Configure webhook and commands via
+			<a href="?telegram-configure">Telegram configure</a>
+			(or with <a href="?telegram-configure&telegram-drop-pending-updates=1">drop pending updates</a>)
 		{/capture}
 
 				{if \App\Config::isTelegram()}

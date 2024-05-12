@@ -23,7 +23,7 @@ and web [better-location.palider.cz](https://better-location.palider.cz/).
 1. Update `APP_URL` and all `DB_*` and `TELEGRAM_*` constants in `data/config.local.php`.
 1. Create database using [structure.sql](asset/sql/structure.sql) script.
 1. **Optional**: In case you are not doing this installation directly on your (web)hosting, copy all files there now.
-1. Register [bot webhook](https://core.telegram.org/bots/api#setwebhook) to your webserver via [set-telegram.php](www/admin/set-telegram.php). For detailed info, open [index.php](www/admin/index.php).
+1. Follow instructions on [/admin/index.php](www/admin/index.php).
 
 ## Development and testing
 

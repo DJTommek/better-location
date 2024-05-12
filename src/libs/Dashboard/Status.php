@@ -137,7 +137,7 @@ class Status
 			foreach (get_object_vars(self::$webhookResponseRaw) as $key => $value) {
 				if ($key === 'url') {
 					if (empty($value)) {
-						$responseFormatted->{$key} = sprintf('%s According to Telegram API response, webhook URL is not set. Did you run <a href="set-telegram.php" target="_blank">set-telegram.php</a>?', Icons::ERROR);
+						$responseFormatted->{$key} = sprintf('%s According to Telegram API response, webhook URL is not set. Did you run Telegram setup?', Icons::ERROR);
 						$webhookOk = false;
 					} else {
 						$webhookUrlFromApi = new UrlImmutable($value);
@@ -165,7 +165,7 @@ class Status
 				} else if ($key === 'max_connections' && $value !== Config::TELEGRAM_MAX_CONNECTIONS) {
 					$webhookOk = false;
 					$responseFormatted->{$key} = sprintf(
-						'%s <b>%d</b> - number is different than in Config (<b>%d</b>), run <a href="set-telegram.php" target="_blank">set-telegram.php</a> to fix.',
+						'%s <b>%d</b> - number is different than in Config (<b>%d</b>), run Telegram configure to fix.',
 						Icons::WARNING,
 						$value,
 						Config::TELEGRAM_MAX_CONNECTIONS

@@ -3,13 +3,20 @@
 namespace App\Web\Admin;
 
 use App\Config;
+use App\TelegramCustomWrapper\Events\Command\Command;
+use App\TelegramCustomWrapper\TelegramCustomWrapper;
 use App\Web\Flash;
 use App\Web\MainPresenter;
+use unreal4u\TelegramAPI\Telegram\Methods\SetMyCommands;
+use unreal4u\TelegramAPI\Telegram\Types\BotCommand;
+use unreal4u\TelegramAPI\Telegram\Types\BotCommandScope;
 
 class AdminPresenter extends MainPresenter
 {
-	public function __construct(AdminTemplate $template)
-	{
+	public function __construct(
+		private readonly TelegramCustomWrapper $telegramCustomWrapper,
+		AdminTemplate $template,
+	) {
 		$this->template = $template;
 	}
 
@@ -37,6 +44,9 @@ class AdminPresenter extends MainPresenter
 		if ($this->request->getQuery('delete-tracy-email-sent') !== null) {
 			$this->actionDeleteTracyEmailFile();
 		}
+		if ($this->request->getQuery('telegram-configure') !== null) {
+			$this->actionTelegramConfigure();
+		}
 	}
 
 	public function actionDeleteTracyEmailFile(): never
@@ -50,6 +60,48 @@ class AdminPresenter extends MainPresenter
 				Flash::ERROR,
 			);
 		}
+		$this->redirect('/admin');
+	}
+
+	public function actionTelegramConfigure(): never
+	{
+		$webhookUrl = Config::getTelegramWebhookUrl()->getAbsoluteUrl();
+		$dropPendingUpdates = $this->request->getQuery('telegram-drop-pending-updates') !== null;
+
+		$setWebhook = new \unreal4u\TelegramAPI\Telegram\Methods\SetWebhook();
+		$setWebhook->url = $webhookUrl;
+		$setWebhook->max_connections = Config::TELEGRAM_MAX_CONNECTIONS;
+		$setWebhook->secret_token = Config::TELEGRAM_WEBHOOK_PASSWORD;
+
+		$setWebhook->drop_pending_updates = $dropPendingUpdates;
+
+		$this->telegramCustomWrapper->run($setWebhook);
+
+		$commandConfigurations = [];
+		foreach (Config::TELEGRAM_COMMANDS as $scope => $classStrings) {
+			$setCommands = new SetMyCommands();
+			$setCommands->scope = new BotCommandScope();
+			$setCommands->scope->type = $scope;
+
+			foreach ($classStrings as $classString) {
+				/** @var Command $classString */
+				$command = ltrim($classString::getTgCmd(), '/');
+
+				$result = new BotCommand();
+				$result->command = $command;
+				$result->description = sprintf('%s %s', $classString::ICON, $classString::DESCRIPTION);
+				$setCommands->commands[] = $result;
+				$commandConfigurations[$command] = $command;
+			}
+			$this->telegramCustomWrapper->run($setCommands);
+		}
+
+		$resultMessage = sprintf('Telegram webhook was configured <b>%s</b> droping pending updates and <b>%d</b> commands.',
+			$dropPendingUpdates ? 'with' : 'without',
+			count($commandConfigurations),
+		);
+
+		$this->flashMessage($resultMessage, Flash::SUCCESS);
 		$this->redirect('/admin');
 	}
 

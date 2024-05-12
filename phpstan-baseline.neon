@@ -746,6 +746,16 @@ parameters:
 			path: src/libs/Utils/Utils.php
 
 		-
+			message: "#^Access to undefined constant App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\Command\\:\\:DESCRIPTION\\.$#"
+			count: 1
+			path: src/libs/Web/Admin/AdminPresenter.php
+
+		-
+			message: "#^Access to undefined constant App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\Command\\:\\:ICON\\.$#"
+			count: 1
+			path: src/libs/Web/Admin/AdminPresenter.php
+
+		-
 			message: "#^Method App\\\\Web\\\\Chat\\\\ChatPresenter\\:\\:handleSettingsForm\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/Web/Chat/ChatPresenter.php
