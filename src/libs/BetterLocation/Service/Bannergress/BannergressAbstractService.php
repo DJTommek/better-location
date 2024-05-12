@@ -38,6 +38,10 @@ abstract class BannergressAbstractService extends AbstractService
 	public function process(): void
 	{
 		$mosaic = $this->loadApi($this->data->mosaicId);
+		if ($mosaic === null) {
+			return;
+		}
+
 		$mosaicPicture = 'https://api.bannergress.com' . $mosaic->picture;
 		$location = new BetterLocation($this->inputUrl, $mosaic->startLatitude, $mosaic->startLongitude, static::class);
 		$location->setInlinePrefixMessage(sprintf('%s %s', static::getName(), $mosaic->title));
