@@ -6,12 +6,17 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\AbstractService;
 use App\Config;
 use App\Icons;
-use App\MiniCurl\MiniCurl;
 use App\Utils\Ingress;
+use App\Utils\Requestor;
 
 abstract class BannergressAbstractService extends AbstractService
 {
 	public const TAGS = [];
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	abstract protected function isValidDomain(): bool;
 
@@ -79,12 +84,10 @@ abstract class BannergressAbstractService extends AbstractService
 		$this->collection->add($location);
 	}
 
-	private function loadApi(string $mosaicId): \stdClass
+	private function loadApi(string $mosaicId): ?\stdClass
 	{
-		$response = (new MiniCurl('https://api.bannergress.com/bnrs/' . $mosaicId))
-			->allowCache(Config::CACHE_TTL_BANNERGRESS)
-			->run()
-			->getBody();
-		return json_decode($response);
+		$url = 'https://api.bannergress.com/bnrs/' . $mosaicId;
+
+		return $this->requestor->getJson($url, Config::CACHE_TTL_BANNERGRESS);
 	}
 }
