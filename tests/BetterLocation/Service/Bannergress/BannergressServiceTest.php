@@ -14,6 +14,15 @@ final class BannergressServiceTest extends TestCase
 {
 	use LocationTrait;
 
+	private Requestor $requestor;
+
+	protected function setUp(): void
+	{
+		[$httpClient, $mockHandler] = TestUtils::createMockedClientInterface();
+		assert($httpClient instanceof \GuzzleHttp\Client);
+		$this->requestor = new Requestor($httpClient, TestUtils::getDevNullCache());
+	}
+
 	private function assertLocation(string $url, float $lat, float $lon): void
 	{
 		$collection = \App\BetterLocation\Service\Bannergress\BannergressService::processStatic($url)->getCollection();
@@ -38,23 +47,34 @@ final class BannergressServiceTest extends TestCase
 		\App\BetterLocation\Service\Bannergress\BannergressService::getLink(50.087451, 14.420671, true);
 	}
 
-	public function testIsValid(): void
+	public static function isValidProvider(): array
 	{
-		$this->assertTrue(\App\BetterLocation\Service\Bannergress\BannergressService::isValidStatic('https://bannergress.com/banner/czech-cubism-and-its-representative-ce4b'));
-		$this->assertTrue(\App\BetterLocation\Service\Bannergress\BannergressService::isValidStatic('http://bannergress.com/banner/czech-cubism-and-its-representative-ce4b'));
-		$this->assertTrue(\App\BetterLocation\Service\Bannergress\BannergressService::isValidStatic('https://bannergress.com/banner/barrie-skyline-f935'));
-		$this->assertTrue(\App\BetterLocation\Service\Bannergress\BannergressService::isValidStatic('https://bannergress.com/banner/hist%C3%B3rica-catedral-de-san-lorenzo-55dd'));
-		$this->assertTrue(\App\BetterLocation\Service\Bannergress\BannergressService::isValidStatic('https://bannergress.com/banner/histórica-catedral-de-san-lorenzo-55dd'));
-		$this->assertTrue(\App\BetterLocation\Service\Bannergress\BannergressService::isValidStatic('https://bannergress.com/banner/長良川鉄道-乗りつぶし-観光編-adea'));
-		$this->assertTrue(\App\BetterLocation\Service\Bannergress\BannergressService::isValidStatic('https://bannergress.com/banner/%E9%95%B7%E8%89%AF%E5%B7%9D%E9%89%84%E9%81%93-%E4%B9%97%E3%82%8A%E3%81%A4%E3%81%B6%E3%81%97-%E8%A6%B3%E5%85%89%E7%B7%A8-adea'));
+		return [
+			[true, 'http://bannergress.com/banner/czech-cubism-and-its-representative-ce4b'],
+			[true, 'https://bannergress.com/banner/barrie-skyline-f935'],
+			[true, 'https://bannergress.com/banner/hist%C3%B3rica-catedral-de-san-lorenzo-55dd'],
+			[true, 'https://bannergress.com/banner/histórica-catedral-de-san-lorenzo-55dd'],
+			[true, 'https://bannergress.com/banner/長良川鉄道-乗りつぶし-観光編-adea'],
+			[true, 'https://bannergress.com/banner/%E9%95%B7%E8%89%AF%E5%B7%9D%E9%89%84%E9%81%93-%E4%B9%97%E3%82%8A%E3%81%A4%E3%81%B6%E3%81%97-%E8%A6%B3%E5%85%89%E7%B7%A8-adea'],
 
-		// Invalid
-		$this->assertFalse(\App\BetterLocation\Service\Bannergress\BannergressService::isValidStatic('some invalid url'));
-		$this->assertFalse(\App\BetterLocation\Service\Bannergress\BannergressService::isValidStatic('https://bannergress.com'));
-		$this->assertFalse(\App\BetterLocation\Service\Bannergress\BannergressService::isValidStatic('http://bannergress.com'));
-		$this->assertFalse(BannergressService::isValidStatic('https://bannergress.com/banner/'));
-		$this->assertFalse(\App\BetterLocation\Service\Bannergress\BannergressService::isValidStatic('http://www.some-domain.cz/'));
-		$this->assertFalse(\App\BetterLocation\Service\Bannergress\BannergressService::isValidStatic('http://www.some-domain.cz/some-path'));
+			[false, 'some invalid url'],
+			[false, 'https://bannergress.com'],
+			[false, 'http://bannergress.com'],
+			[false, 'https://bannergress.com/banner/'],
+			[false, 'http://www.some-domain.cz/'],
+			[false, 'http://www.some-domain.cz/some-path'],
+		];
+	}
+
+	/**
+	 * @dataProvider isValidProvider
+	 */
+	public function testIsValid(bool $expectedIsValid, string $input): void
+	{
+		$service = new BannergressService($this->requestor);
+		$service->setInput($input);
+		$isValid = $service->isValid();
+		$this->assertSame($expectedIsValid, $isValid);
 	}
 
 	/**
@@ -156,7 +176,8 @@ final class BannergressServiceTest extends TestCase
 		}
 	}
 
-	public function testInvalidMocked(): void {
+	public function testInvalidMocked(): void
+	{
 		[$httpClient, $mockHandler] = TestUtils::createMockedClientInterface();
 		assert($httpClient instanceof \GuzzleHttp\Client);
 		assert($mockHandler instanceof \GuzzleHttp\Handler\MockHandler);
