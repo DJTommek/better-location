@@ -107,10 +107,11 @@ return static function (ContainerConfigurator $container): void {
 			->factory([service(\App\Factory\FoursquareApiFactory::class), 'create']);
 	}
 
-	// PSR-7 HTTP Client (default is Guzzle)
+	// PSR-7 HTTP Client
+	$services->set(\App\Factory\HttpClientFactory::class);
 	$services->set(\GuzzleHttp\Client::class);
 	$services->set(\Psr\Http\Client\ClientInterface::class)
-		->alias(\Psr\Http\Client\ClientInterface::class, \GuzzleHttp\Client::class);
+		->factory([service(\App\Factory\HttpClientFactory::class), 'create']);
 
 	// PSR-16 Cache (default is Nette cache via custom PSR 16 adapter)
 	$services->set(\App\Cache\NetteCachePsr16::class);
