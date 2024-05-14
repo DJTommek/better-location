@@ -6,12 +6,11 @@ use App\BetterLocation\BetterLocation;
 use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
+use App\TelegramCustomWrapper\TelegramCustomWrapper;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Formatter;
 use App\Web\MainPresenter;
 use unreal4u\TelegramAPI\Telegram;
-
-use function Clue\React\Block\await;
 
 class CronRefreshPresenter extends MainPresenter
 {
@@ -19,6 +18,11 @@ class CronRefreshPresenter extends MainPresenter
 	 * @var list<string>
 	 */
 	private array $log;
+
+	public function __construct(
+		private readonly TelegramCustomWrapper $telegramCustomWrapper,
+	) {
+	}
 
 	public function action(): void
 	{
@@ -38,9 +42,6 @@ class CronRefreshPresenter extends MainPresenter
 
 	private function run2(): void
 	{
-		$loop = \React\EventLoop\Factory::create();
-		$tgLog = new \unreal4u\TelegramAPI\TgLog(Config::TELEGRAM_BOT_TOKEN, new \unreal4u\TelegramAPI\HttpClientRequestHandler($loop));
-
 		$messagesToRefresh = \App\TelegramUpdateDb::loadAll(
 			\App\TelegramUpdateDb::STATUS_ENABLED,
 			null,
@@ -54,11 +55,10 @@ class CronRefreshPresenter extends MainPresenter
 		}
 
 		$this->printlog(sprintf('Loaded %s updates to refresh.', count($messagesToRefresh)));
-		$telegramCustomWrapper = \App\Factory::telegram();
 		foreach ($messagesToRefresh as $messageToRefresh) {
 			$id = sprintf('%d-%d', $messageToRefresh->telegramChatId, $messageToRefresh->messageIdToEdit);
 			try {
-				$event = $telegramCustomWrapper->analyze($messageToRefresh->originalUpdateObject);
+				$event = $this->telegramCustomWrapper->analyze($messageToRefresh->originalUpdateObject);
 				$this->printlog(sprintf('Processing %s with last refresh at %s (%s ago)',
 					$id,
 					$messageToRefresh->getLastUpdate()->format(DATE_W3C),
@@ -99,13 +99,13 @@ class CronRefreshPresenter extends MainPresenter
 					$msg->text = $messageToRefresh->getLastResponseText() . sprintf('%s Last autorefresh at %s didn\'t detect any locations. Autorefreshing was disabled but you can try to enable it again.', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
 					$msg->reply_markup = $lastAutorefreshMarkup;
 					$messageToRefresh->autorefreshDisable();
-					await($tgLog->performApiRequest($msg), $loop);
+					$this->telegramCustomWrapper->run($msg);
 				} else {
 					$replyMarkup = $processedCollection->getMarkup(1);
 					$text = $processedCollection->getText();
 					$msg->text = $text . sprintf('%s Autorefreshed: %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
 					$msg->reply_markup = $replyMarkup;
-					await($tgLog->performApiRequest($msg), $loop);
+					$this->telegramCustomWrapper->run($msg);
 					$messageToRefresh->setLastSendData($text, $replyMarkup, true);
 					$this->printlog(sprintf('Update %s was processed.', $id));
 					$messageToRefresh->touchLastUpdate();

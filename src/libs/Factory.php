@@ -30,11 +30,6 @@ class Factory
 		return self::getContainer()->get(Database::class);
 	}
 
-	public static function telegram(): \App\TelegramCustomWrapper\TelegramCustomWrapper
-	{
-		return self::getContainer()->get(\App\TelegramCustomWrapper\TelegramCustomWrapper::class);
-	}
-
 	public static function whatThreeWords(): ?\What3words\Geocoder\Geocoder
 	{
 		$container = self::getContainer();
