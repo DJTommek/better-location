@@ -75,7 +75,7 @@ class MyChatMemberEvent extends Special
 				text: $text,
 				replyMarkup: $replyMarkup,
 			);
-			$this->run($sendMessage->msg);
+			$this->runSmart($sendMessage->msg);
 		} catch (ClientException $exception) {
 			$severity = ($exception->getMessage() === TH::BOT_CANNOT_INITIATE_PM) ? Debugger::WARNING : Debugger::EXCEPTION;
 			Debugger::log($exception, $severity);

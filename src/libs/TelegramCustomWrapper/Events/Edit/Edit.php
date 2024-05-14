@@ -36,6 +36,6 @@ abstract class Edit extends \App\TelegramCustomWrapper\Events\Events
 		if ($options['disable_web_page_preview']) {
 			$editMessage->disable_web_page_preview = $options['disable_web_page_preview'];
 		}
-		return $this->run($editMessage);
+		return $this->runSmart($editMessage);
 	}
 }

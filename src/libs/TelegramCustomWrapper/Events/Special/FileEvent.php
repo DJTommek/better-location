@@ -70,7 +70,7 @@ class FileEvent extends Special
 		try {
 			$getFile = new Telegram\Methods\GetFile();
 			$getFile->file_id = $document->file_id;
-			$response = $this->run($getFile);
+			$response = $this->runSmart($getFile);
 			assert($response instanceof Telegram\Types\File);
 			$fileLink = TelegramHelper::getFileUrl(Config::TELEGRAM_BOT_TOKEN, $response->file_path);
 			$fromExif = new FromExif($fileLink);

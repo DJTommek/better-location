@@ -159,7 +159,7 @@ class InlineQueryEvent extends Special
 				$answerInlineQuery->switch_pm_parameter = 'inline-exception';
 			}
 		}
-		$this->run($answerInlineQuery);
+		$this->runSmart($answerInlineQuery);
 	}
 
 	public function hasTgMessage(): bool

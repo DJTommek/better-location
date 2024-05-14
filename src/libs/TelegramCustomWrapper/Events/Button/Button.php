@@ -50,7 +50,7 @@ abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 			$msg->disable_web_page_preview = true;
 		}
 		$msg->message_id = $this->getTgMessageId();
-		return $this->run($msg);
+		return $this->runSmart($msg);
 	}
 
 	public function flash(string $text, bool $alert = false)
@@ -59,7 +59,7 @@ abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 		$flash->text = $text;
 		$flash->show_alert = $alert;
 		$flash->callback_query_id = $this->update->callback_query->id;
-		$this->run($flash);
+		$this->runSmart($flash);
 	}
 
 }

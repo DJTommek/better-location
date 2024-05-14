@@ -37,7 +37,7 @@ trait UniversalHandleLocationTrait
 
 	abstract function isTgForward(): bool;
 
-	abstract function run(TelegramMethods $objectToSend): ?TelegramTypes;
+	abstract function runSmart(TelegramMethods $objectToSend): ?TelegramTypes;
 
 	/**
 	 * Can be overriden
@@ -107,7 +107,7 @@ trait UniversalHandleLocationTrait
 		$edit->message_id = $this->getTgMessageId();
 		$edit->reply_markup = $markup;
 		try {
-			$this->run($edit);
+			$this->runSmart($edit);
 		} catch (ClientException $exception) {
 			$error = $exception->getMessage();
 			if ($error === TelegramHelper::MESSAGE_CANNOT_BE_EDITED) {

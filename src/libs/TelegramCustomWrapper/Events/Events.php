@@ -253,7 +253,7 @@ abstract class Events
 		$chatAction = new SendChatAction();
 		$chatAction->chat_id = $this->getTgChatId();
 		$chatAction->action = $action;
-		$result = $this->run($chatAction);
+		$result = $this->runSmart($chatAction);
 		if ($result === null) {
 			return null;
 		}
@@ -273,7 +273,7 @@ abstract class Events
 			$msg->disableWebPagePreview($options['disable_web_page_preview']);
 		}
 		/** @var Telegram\Types\Message $response It always should be this type. Other should throw exception */
-		$response = $this->run($msg->msg);
+		$response = $this->runSmart($msg->msg);
 		return $response;
 	}
 
@@ -285,7 +285,7 @@ abstract class Events
 		$locationMessage->longitude = $location->getLon();
 		$locationMessage->reply_to_message_id = $this->getTgMessageId();
 		$locationMessage->reply_markup = $markup;
-		$response = $this->run($locationMessage);
+		$response = $this->runSmart($locationMessage);
 		assert($response === null || $response instanceof Telegram\Types\Message);
 		return $response;
 	}
@@ -294,15 +294,11 @@ abstract class Events
 	 * @return ?TelegramTypes null if whitelisted exception
 	 * @throws ClientException|\Exception
 	 */
-	public function run(TelegramMethods $objectToSend): ?TelegramTypes
+	public function runSmart(TelegramMethods $objectToSend): ?TelegramTypes
 	{
-		SimpleLogger::log(SimpleLogger::NAME_TELEGRAM_OUTPUT, $objectToSend);
 		try {
-			$response = await($this->tgLog->performApiRequest($objectToSend), $this->loop);
-			SimpleLogger::log(SimpleLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $response);
-			return $response;
+			return $this->run($objectToSend);
 		} catch (ClientException $exception) {
-			SimpleLogger::log(SimpleLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $exception->getMessage());
 			$ignoredExceptions = [
 				TelegramHelper::NOT_CHANGED,
 				TelegramHelper::TOO_OLD,
@@ -322,6 +318,19 @@ abstract class Events
 		return null;
 	}
 
+	public function run(TelegramMethods $objectToSend): TelegramTypes
+	{
+		SimpleLogger::log(SimpleLogger::NAME_TELEGRAM_OUTPUT, $objectToSend);
+		try {
+			$response = await($this->tgLog->performApiRequest($objectToSend), $this->loop);
+			SimpleLogger::log(SimpleLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $response);
+			return $response;
+		} catch (ClientException $exception) {
+			SimpleLogger::log(SimpleLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $exception->getMessage());
+			throw $exception;
+		}
+	}
+
 	protected function isAdmin(): bool
 	{
 		if ($this->isAdmin === null) {
@@ -331,7 +340,7 @@ abstract class Events
 				$getChatMember = new Telegram\Methods\GetChatMember();
 				$getChatMember->user_id = $this->getTgFromId();
 				$getChatMember->chat_id = $this->getTgChatId();
-				$chatMember = $this->run($getChatMember);
+				$chatMember = $this->runSmart($getChatMember);
 				if ($chatMember instanceof Telegram\Types\ChatMember === false) {
 					throw new \LogicException(sprintf('Unexpected type "%s" returned from getChatMember(), chat_id = "%s", user_id = "%s"',
 						get_class($chatMember),

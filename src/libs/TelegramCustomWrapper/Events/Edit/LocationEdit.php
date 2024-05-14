@@ -90,7 +90,7 @@ class LocationEdit extends Edit
 		$editMessage->reply_markup = $replyMarkup;
 
 		try {
-			$this->run($editMessage);
+			$this->runSmart($editMessage);
 		} catch (ClientException $exception) {
 			// Message could be deleted, permissions revoked, etc. so just log and do not break whole flow.
 			Debugger::log($exception, Debugger::EXCEPTION);

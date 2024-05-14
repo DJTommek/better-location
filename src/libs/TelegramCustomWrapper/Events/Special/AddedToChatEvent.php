@@ -45,7 +45,7 @@ class AddedToChatEvent extends Special
 		try {
 			$getChatRequest = new Telegram\Methods\GetChat();
 			$getChatRequest->chat_id = $this->getTgChatId();
-			$chat = $this->run($getChatRequest);
+			$chat = $this->runSmart($getChatRequest);
 			if ($chat === null) {
 				return null;
 			}
