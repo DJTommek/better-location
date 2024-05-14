@@ -113,6 +113,13 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(\App\IngressLanchedRu\Client::class)
 		->factory([service(\App\Factory\IngressLanchedRuFactory::class), 'create']);
 
+	$services->set(\App\Factory\NominatimFactory::class)
+		->arg('$nominatimUrl', Config::NOMINATIM_URL)
+		->arg('$userAgent', Config::NOMINATIM_USER_AGENT);
+	$services->set(\App\Nominatim\NominatimWrapper::class);
+	$services->set(maxh\Nominatim\Nominatim::class)
+		->factory([service(\App\Factory\NominatimFactory::class), 'create']);
+
 	$services->set(\App\Utils\Requestor::class);
 
 	// Guzzle client
