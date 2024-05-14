@@ -115,9 +115,13 @@ return static function (ContainerConfigurator $container): void {
 
 	$services->set(\App\Utils\Requestor::class);
 
+	// Guzzle client
+	$services->set(\App\Factory\GuzzleClientFactory::class);
+	$services->set(\GuzzleHttp\Client::class)
+		->factory([service(\App\Factory\GuzzleClientFactory::class), 'create']);
+
 	// PSR-7 HTTP Client
 	$services->set(\App\Factory\HttpClientFactory::class);
-	$services->set(\GuzzleHttp\Client::class);
 	$services->set(\Psr\Http\Client\ClientInterface::class)
 		->factory([service(\App\Factory\HttpClientFactory::class), 'create']);
 
