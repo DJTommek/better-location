@@ -28,8 +28,10 @@ final class TempFileTest extends TestCase
 	{
 		self::$tempDir = FileSystem::normalizePath(TempFile::TEMP_DIR);
 
-		FileSystem::makeWritable(self::$tempDir); // Fix potentially non-deleted files that has wrong permissions
-		FileSystem::delete(self::$tempDir);  // Directory should to be empty on start for checking final status
+		if (file_exists(self::$tempDir)) {
+			FileSystem::makeWritable(self::$tempDir); // Fix potentially non-deleted files that has wrong permissions
+			FileSystem::delete(self::$tempDir);  // Directory should to be empty on start for checking final status
+		}
 	}
 
 	/**
