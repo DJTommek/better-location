@@ -60,15 +60,6 @@ class Factory
 		return self::getContainer()->get(\App\IngressLanchedRu\Client::class);
 	}
 
-	public static function ingressMosaic(): \App\IngressMosaic\Client
-	{
-		if (!isset(self::$objects['ingressMosaic'])) {
-			self::$objects['ingressMosaic'] = new \App\IngressMosaic\Client(Config::INGRESS_MOSAIC_COOKIE_XSRF, Config::INGRESS_MOSAIC_COOKIE_SESSION);
-			self::$objects['ingressMosaic']->setCache(Config::CACHE_TTL_INGRESS_MOSAIC);
-		}
-		return self::$objects['ingressMosaic'];
-	}
-
 	/** Not cached */
 	public static function bingStaticMaps(): \App\BingMaps\StaticMaps
 	{

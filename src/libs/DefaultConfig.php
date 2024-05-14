@@ -117,11 +117,6 @@ class DefaultConfig
 	/** @var ?string */
 	const FOURSQUARE_CLIENT_SECRET = null;
 
-	/** @var ?string */
-	const INGRESS_MOSAIC_COOKIE_SESSION = null;
-	/** @var ?string */
-	const INGRESS_MOSAIC_COOKIE_XSRF = null;
-
 	/** @var ?string https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key */
 	const BING_STATIC_MAPS_TOKEN = null;
 
@@ -306,14 +301,6 @@ class DefaultConfig
 	public static function getTelegramWebhookUrl(): UrlImmutable
 	{
 		return static::getAppUrl('/webhook/telegram.php');
-	}
-
-	public static function isIngressMosaic(): bool
-	{
-		return (
-			is_null(static::INGRESS_MOSAIC_COOKIE_SESSION) === false &&
-			is_null(static::INGRESS_MOSAIC_COOKIE_XSRF) === false
-		);
 	}
 
 	public static function isFoursquare(): bool

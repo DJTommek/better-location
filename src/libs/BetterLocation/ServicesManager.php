@@ -139,9 +139,6 @@ class ServicesManager
 		$services[] = DuckDuckGoService::class;
 		$services[] = AppleMapsService::class;
 		$services[] = FoursquareService::class;
-		// if (Config::isIngressMosaic()) {
-		// 	$services[] = IngressMosaicService::class;
-		// }
 		$services[] = BannergressService::class;
 		$services[] = OpenBannersService::class;
 		$services[] = GeocachingService::class;
