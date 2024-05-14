@@ -121,6 +121,14 @@ class DefaultConfig
 	const BING_STATIC_MAPS_TOKEN = null;
 
 	/**
+	 * Try to load Ingress portal details for every detected coordinate. If portal exists, append basic information
+	 * about that portal to the BetterLocation message description.
+	 *
+	 * @var bool
+	 */
+	const INGRESS_TRY_PORTAL_LOAD = false;
+
+	/**
 	 * If some input (URL) has multiple different locations, how far it has to be from main coordinate to add special line
 	 * to notify, that these locations are too far away. Anything lower than this number will be removed from collection
 	 *
@@ -266,6 +274,11 @@ class DefaultConfig
 	public static function isGeocaching(): bool
 	{
 		return static::GEOCACHING_COOKIE !== null;
+	}
+
+	public static function ingressTryPortalLoad(): bool
+	{
+		return static::INGRESS_TRY_PORTAL_LOAD;
 	}
 
 	public static function isTelegram(): bool

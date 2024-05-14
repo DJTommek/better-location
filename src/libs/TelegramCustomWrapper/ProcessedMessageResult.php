@@ -5,8 +5,10 @@ namespace App\TelegramCustomWrapper;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\Config;
+use App\Factory;
 use App\Pluginer\Pluginer;
 use App\Pluginer\PluginerException;
+use App\Utils\Ingress;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types;
 
@@ -69,12 +71,13 @@ class ProcessedMessageResult
 		}
 
 		foreach ($this->collection->getLocations() as $betterLocation) {
-
-			// @TEMPORARY 2022-10-01 - disabled because of too long waiting for external Ingress API
-//			if ($betterLocation->hasDescription(Ingress::BETTER_LOCATION_KEY_PORTAL) === false) {
-//				$ingressClient = Factory::ingressLanchedRu();
-//				Ingress::setPortalDataDescription($ingressClient, $betterLocation);
-//			}
+			if (
+				Config::ingressTryPortalLoad()
+				&& $betterLocation->hasDescription(Ingress::BETTER_LOCATION_KEY_PORTAL) === false
+			) {
+				$ingressClient = Factory::ingressLanchedRu();
+				Ingress::setPortalDataDescription($ingressClient, $betterLocation);
+			}
 
 			$this->resultText .= $betterLocation->generateMessage($this->messageSettings);
 			$this->buttons[] = $betterLocation->generateDriveButtons($this->messageSettings);
