@@ -3,8 +3,8 @@
 namespace App\Utils;
 
 use App\BetterLocation\BetterLocation;
-use App\Factory;
 use App\Icons;
+use App\IngressLanchedRu\Client;
 use App\IngressLanchedRu\Types\PortalType;
 use Nette\Http\Url;
 use Tracy\Debugger;
@@ -39,10 +39,10 @@ class Ingress
 	/**
 	 * Check if there is portal on exact coordinates of location and eventually ppend portal links as description.
 	 */
-	public static function setPortalDataDescription(BetterLocation $location): void
+	public static function setPortalDataDescription(Client $ingressClient, BetterLocation $location): void
 	{
 		try {
-			if ($portal = Factory::ingressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon())) {
+			if ($portal = $ingressClient->getPortalByCoords($location->getLat(), $location->getLon())) {
 				$location->addDescription(
 					'Ingress portal: ' . self::generatePortalLinkMessage($portal),
 					self::BETTER_LOCATION_KEY_PORTAL

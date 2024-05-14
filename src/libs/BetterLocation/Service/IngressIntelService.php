@@ -5,7 +5,6 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
-use App\Factory;
 use App\Utils\Coordinates;
 use App\Utils\Ingress;
 use App\Utils\Strict;
@@ -24,6 +23,11 @@ final class IngressIntelService extends AbstractService
 		ServicesManager::TAG_GENERATE_OFFLINE,
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
 	];
+
+	public function __construct(
+		private readonly \App\IngressLanchedRu\Client $ingressClient,
+	) {
+	}
 
 	/** @throws NotSupportedException */
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
@@ -66,7 +70,7 @@ final class IngressIntelService extends AbstractService
 	{
 		if ($this->data->portalCoord ?? false) {
 			$location = new BetterLocation($this->input, $this->data->portalCoordLat, $this->data->portalCoordLon, self::class, self::TYPE_PORTAL);
-			if ($portal = Factory::ingressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon())) {
+			if ($portal = $this->ingressClient->getPortalByCoords($location->getLat(), $location->getLon())) {
 				Ingress::rewritePrefixes($location, $portal);
 				$location->addDescription('', Ingress::BETTER_LOCATION_KEY_PORTAL); // Prevent generating Ingress description
 			}
@@ -74,7 +78,7 @@ final class IngressIntelService extends AbstractService
 		}
 		if ($this->data->mapCoord ?? false) {
 			$location = new BetterLocation($this->input, $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP);
-			if ($portal = Factory::ingressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon())) {
+			if ($portal = $this->ingressClient->getPortalByCoords($location->getLat(), $location->getLon())) {
 				Ingress::rewritePrefixes($location, $portal);
 				$location->addDescription('', Ingress::BETTER_LOCATION_KEY_PORTAL); // Prevent generating Ingress description
 			}

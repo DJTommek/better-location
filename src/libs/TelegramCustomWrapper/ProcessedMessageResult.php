@@ -72,7 +72,8 @@ class ProcessedMessageResult
 
 			// @TEMPORARY 2022-10-01 - disabled because of too long waiting for external Ingress API
 //			if ($betterLocation->hasDescription(Ingress::BETTER_LOCATION_KEY_PORTAL) === false) {
-//				Ingress::setPortalDataDescription($betterLocation);
+//				$ingressClient = Factory::ingressLanchedRu();
+//				Ingress::setPortalDataDescription($ingressClient, $betterLocation);
 //			}
 
 			$this->resultText .= $betterLocation->generateMessage($this->messageSettings);

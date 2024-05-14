@@ -4,7 +4,6 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
-use App\Factory;
 use App\Utils\Ingress;
 use App\Utils\Strict;
 use Nette\Http\UrlImmutable;
@@ -19,6 +18,12 @@ final class IngressPrimeService extends AbstractService
 
 	const TYPE_PORTAL = 'portal';
 	const TYPE_MISSION = 'mission';
+
+	public function __construct(
+		private readonly \App\IngressLanchedRu\Client $ingressClient,
+		private readonly IngressIntelService $ingressIntelService,
+	) {
+	}
 
 	/** @throws NotSupportedException */
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
@@ -44,7 +49,7 @@ final class IngressPrimeService extends AbstractService
 					if (preg_match('/^\/portal\/([0-9a-z]{32}\.[0-9a-f]{1,2})$/', $realPortalLink->getPath(), $matches)) {
 						$this->data->portalGuid = $matches[1];
 						$result = true;
-					} elseif (preg_match('/^\/mission\/([0-9a-z]{32}\.[0-9a-f]{1,2})$/', $realPortalLink->getPath(), $matches)) {
+					} else if (preg_match('/^\/mission\/([0-9a-z]{32}\.[0-9a-f]{1,2})$/', $realPortalLink->getPath(), $matches)) {
 						$this->data->missionGuid = $matches[1];
 						$result = true;
 					}
@@ -53,11 +58,10 @@ final class IngressPrimeService extends AbstractService
 
 			$oflLink = $this->url->getQueryParameter('ofl');
 			if (Strict::isUrl($oflLink)) {
-				$intelService = new IngressIntelService();
-				$intelService->setInput($oflLink);
-				if ($intelService->isValid()) {
+				$this->ingressIntelService->setInput($oflLink);
+				if ($this->ingressIntelService->isValid()) {
 					$this->data->oflLink = $oflLink;
-					$this->data->oflLinkService = $intelService;
+					$this->data->oflLinkService = $this->ingressIntelService;
 					$result = true;
 				}
 			}
@@ -67,30 +71,31 @@ final class IngressPrimeService extends AbstractService
 
 	public function process(): void
 	{
-		$lanchedApi = Factory::ingressLanchedRu();
 		$mainCoords = null;
 
-		if (isset($this->data->portalGuid) && $portal = $lanchedApi->getPortalByGUID($this->data->portalGuid)) {
+		if (
+			isset($this->data->portalGuid)
+			&& $portal = $this->ingressClient->getPortalByGUID($this->data->portalGuid)
+		) {
 			$location = new BetterLocation($this->input, $portal->lat, $portal->lng, self::class, self::TYPE_PORTAL);
 			Ingress::rewritePrefixes($location, $portal);
 			$location->addDescription('', Ingress::BETTER_LOCATION_KEY_PORTAL); // Prevent generating Ingress description
 			$this->collection->add($location);
 			$mainCoords = $location->getCoordinates();
 		}
+
 		if (isset($this->data->missionGuid)) {
 			// @TODO load mission info and probably generate BetterLocation for mission start (first portal)
 		}
 
-		$oflLinkService = $this->data->oflLinkService ?? null;
-		if ($oflLinkService instanceof IngressIntelService) {
-			$oflLinkService->process();
-			foreach ($oflLinkService->getCollection() as $oflLocation) {
+		if (isset($this->data->oflLink)) {
+			$this->ingressIntelService->process();
+			foreach ($this->ingressIntelService->getCollection() as $oflLocation) {
 				if ($mainCoords === null || $mainCoords->key() !== $oflLocation->key()) {
 					// Add to main collection only if is different than main location (portal hash, mission, ...)
 					$this->collection->add($oflLocation);
 				}
 			}
-
 		}
 	}
 

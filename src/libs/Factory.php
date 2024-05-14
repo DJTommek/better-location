@@ -57,11 +57,7 @@ class Factory
 
 	public static function ingressLanchedRu(): \App\IngressLanchedRu\Client
 	{
-		if (!isset(self::$objects['ingressLanchedRu'])) {
-			self::$objects['ingressLanchedRu'] = new \App\IngressLanchedRu\Client();
-			self::$objects['ingressLanchedRu']->setCache(Config::CACHE_TTL_INGRESS_LANCHED_RU_API);
-		}
-		return self::$objects['ingressLanchedRu'];
+		return self::getContainer()->get(\App\IngressLanchedRu\Client::class);
 	}
 
 	public static function ingressMosaic(): \App\IngressMosaic\Client

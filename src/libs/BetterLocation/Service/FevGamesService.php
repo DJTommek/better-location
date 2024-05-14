@@ -4,7 +4,6 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\Config;
-use App\Factory;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Ingress;
 use App\Utils\Strict;
@@ -16,6 +15,12 @@ final class FevGamesService extends AbstractService
 	const NAME = 'FevGames';
 
 	const LINK = 'https://fevgames.net';
+
+	public function __construct(
+		private readonly \App\IngressLanchedRu\Client $ingressClient,
+		private readonly IngressIntelService $ingressIntelService,
+	) {
+	}
 
 	public function isValid(): bool
 	{
@@ -34,25 +39,24 @@ final class FevGamesService extends AbstractService
 		@$dom->loadHTML($response);
 		foreach ($dom->getElementsByTagName('a') as $linkEl) {
 			$link = $linkEl->getAttribute('href');
-			$intelService = new IngressIntelService();
-			$intelService->setInput($link);
+			$intelService = $this->ingressIntelService->setInput($link);
 			if ($intelService->isValid()) {
 				$data = $intelService->getData();
 				if ($data->portalCoord) {
 					$location = new BetterLocation($this->inputUrl, $data->portalCoordLat, $data->portalCoordLon, self::class);
 					$eventName = $dom->getElementsByTagName('h2')->item(0)->textContent;
 					$location->setPrefixMessage(sprintf('<a href="%s">%s</a>', $this->inputUrl, htmlentities($eventName)));
-					self::addPortalData($location);
+					$this->addPortalData($location);
 					$this->collection->add($location);
 				}
 			}
 		}
 	}
 
-	private static function addPortalData(BetterLocation $location): void
+	private function addPortalData(BetterLocation $location): void
 	{
 		try {
-			$portal = Factory::ingressLanchedRu()->getPortalByCoords($location->getLat(), $location->getLon());
+			$portal = $this->ingressClient->getPortalByCoords($location->getLat(), $location->getLon());
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, Debugger::EXCEPTION);
 			return;
@@ -60,7 +64,7 @@ final class FevGamesService extends AbstractService
 		if ($portal) {
 			$location->addDescription(
 				'Registration portal: ' . Ingress::generatePortalLinkMessage($portal),
-				Ingress::BETTER_LOCATION_KEY_PORTAL
+				Ingress::BETTER_LOCATION_KEY_PORTAL,
 			);
 
 			if (in_array($portal->address, ['', 'undefined', '[Unknown Location]'], true) === false) { // show portal address only if it makes sense

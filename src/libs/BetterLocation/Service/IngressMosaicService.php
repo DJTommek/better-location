@@ -17,6 +17,11 @@ final class IngressMosaicService extends AbstractService
 	const LINK = Client::LINK;
 	const RE_PATH = '/^\/mosaic\/([0-9]+)$/';
 
+	public function __construct(
+		private readonly \App\IngressLanchedRu\Client $ingressClient,
+	) {
+	}
+
 	public function isValid(): bool
 	{
 		if (
@@ -54,8 +59,7 @@ final class IngressMosaicService extends AbstractService
 			$description = sprintf('%s %d%% online, %s', Icons::WARNING, $mosaic->status, $description);
 		}
 
-		$ingressApi = Factory::ingressLanchedRu();
-		if ($portal = $ingressApi->getPortalByCoords($mosaic->startLat, $mosaic->startLon)) {
+		if ($portal = $this->ingressClient->getPortalByCoords($mosaic->startLat, $mosaic->startLon)) {
 			$location->setAddress($portal->address);
 			$location->addDescription(
 				'Start  portal: ' . Ingress::generatePortalLinkMessage($portal),

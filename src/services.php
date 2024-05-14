@@ -107,6 +107,12 @@ return static function (ContainerConfigurator $container): void {
 			->factory([service(\App\Factory\FoursquareApiFactory::class), 'create']);
 	}
 
+	$services->set(\App\Factory\IngressLanchedRuFactory::class)
+		->arg('$cacheTtl', Config::CACHE_TTL_INGRESS_LANCHED_RU_API);
+
+	$services->set(\App\IngressLanchedRu\Client::class)
+		->factory([service(\App\Factory\IngressLanchedRuFactory::class), 'create']);
+
 	$services->set(\App\Utils\Requestor::class);
 
 	// PSR-7 HTTP Client
