@@ -2,29 +2,23 @@
 
 namespace App\Geonames;
 
-use App\Config;
-use App\Factory;
 use App\Geonames\Types\TimezoneType;
-use GuzzleHttp\Client;
-use Nette\Caching\Cache;
 use Nette\Utils\Json;
 use Psr\Http\Client\ClientInterface;
+use Psr\SimpleCache\CacheInterface;
 
 class Geonames
 {
 	public const API_URL_FREE = 'http://api.geonames.org';
 	public const API_URL_PREMIUM = 'https://secure.geonames.org';
+	public const CACHE_TTL = 300;
 
-	private string $username;
-	private ClientInterface $client;
-
-	public function __construct(string $username, string $url = self::API_URL_FREE)
-	{
-		$this->username = $username;
-		$this->client = new Client([
-			'base_uri' => $url,
-			'timeout' => 10,
-		]);
+	public function __construct(
+		private readonly ClientInterface $httpClient,
+		private readonly CacheInterface $cache,
+		private readonly string $username,
+		private readonly string $url = self::API_URL_FREE,
+	) {
 	}
 
 	/**
@@ -33,10 +27,16 @@ class Geonames
 	public function timezone(float $lat, float $lon): ?TimezoneType
 	{
 		$cacheKey = sprintf('timezone2-%F-%F', $lat, $lon);
-		return Factory::cache(Config::CACHE_NAMESPACE_GEONAMES)->load($cacheKey, function (&$dependencies) use ($lat, $lon) {
-			$dependencies[Cache::Expire] = '5 minutes';
-			return $this->timezoneReal($lat, $lon);
-		});
+
+		if ($this->cache->has($cacheKey)) {
+			return $this->cache->get($cacheKey);
+		}
+
+		$result = $this->timezoneReal($lat, $lon);
+
+		$this->cache->set($cacheKey, $result, self::CACHE_TTL);
+
+		return $result;
 	}
 
 	/**
@@ -49,13 +49,14 @@ class Geonames
 			'lat' => $lat,
 			'lng' => $lon,
 		];
+		$url = $this->url . '/timezoneJSON?' . http_build_query($queryParams);
 
 		$request = new \GuzzleHttp\Psr7\Request(
 			method: 'GET',
-			uri: 'timezoneJSON?' . http_build_query($queryParams),
+			uri: $url,
 		);
 
-		$response = $this->client->sendRequest($request);
+		$response = $this->httpClient->sendRequest($request);
 		$jsonResponse = Json::decode((string)$response->getBody());
 		if (isset($jsonResponse->status)) {
 			throw new GeonamesApiException($jsonResponse->status->message, $jsonResponse->status->value);
