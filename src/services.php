@@ -71,6 +71,9 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(\Nette\Http\Request::class)
 		->factory([service(\Nette\Http\RequestFactory::class), 'fromGlobals']);
 
+	$services->set(\App\Geonames\Geonames::class)
+		->arg('$username', Config::GEONAMES_USERNAME);
+
 	if (Config::isGlympse()) {
 		$services->set(\App\Factory\GlympseApiFactory::class)
 			->arg('$apiKey', Config::GLYMPSE_API_KEY)

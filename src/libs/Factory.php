@@ -116,10 +116,7 @@ class Factory
 
 	public static function geonames(): \App\Geonames\Geonames
 	{
-		if (!isset(self::$objects['geonames'])) {
-			self::$objects['geonames'] = new \App\Geonames\Geonames(Config::GEONAMES_USERNAME);
-		}
-		return self::$objects['geonames'];
+		return self::getContainer()->get(\App\Geonames\Geonames::class);
 	}
 
 	public static function openElevation(): \App\OpenElevation\OpenElevation

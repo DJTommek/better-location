@@ -5,7 +5,7 @@ namespace App\TelegramCustomWrapper\Events\Edit;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\Config;
-use App\Factory;
+use App\Geonames\Geonames;
 use App\Icons;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
@@ -18,6 +18,11 @@ class LocationEdit extends Edit
 {
 	private bool $isLive;
 	private ?BetterLocationCollection $collection = null;
+
+	public function __construct(
+		private readonly Geonames $geonamesApi,
+	) {
+	}
 
 	protected function afterInit(): void
 	{
@@ -66,7 +71,7 @@ class LocationEdit extends Edit
 		$text = $processedCollection->getText();
 
 		// Show datetime of last location update in local timezone based on timezone on that location itself
-		$geonames = Factory::geonames()->timezone($collection->getFirst()->getLat(), $collection->getFirst()->getLon());
+		$geonames = $this->geonamesApi->timezone($collection->getFirst()->getLat(), $collection->getFirst()->getLon());
 		$text .= sprintf(
 			'%s Last update %s',
 			Icons::REFRESH,
