@@ -3,9 +3,8 @@
 namespace App\TelegramCustomWrapper;
 
 use App\Config;
-use App\Factory;
 use App\Logger\CustomTelegramLogger;
-use App\Repository\ChatLocationHistory;
+use App\Repository\ChatLocationHistoryRepository;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\Button\HelpButton;
 use App\TelegramCustomWrapper\Events\Button\InvalidButton;
@@ -51,6 +50,7 @@ class TelegramCustomWrapper
 
 	public function __construct(
 		private readonly EventFactory $eventFactory,
+		private readonly ChatLocationHistoryRepository $chatLocationHistory,
 		CustomTelegramLogger $customTelegramLogger,
 	) {
 		$this->loop = \React\EventLoop\Factory::create();
@@ -174,11 +174,8 @@ class TelegramCustomWrapper
 			return;
 		}
 
-		$db = Factory::database();
-		$chatLocationHistory = new ChatLocationHistory($db);
-
 		foreach ($collections as $location) {
-			$chatLocationHistory->insert(
+			$this->chatLocationHistory->insert(
 				$event->getTgUpdateId(),
 				$event->getChat()->getEntity()->id,
 				$event->getUser()->getEntity()->id,

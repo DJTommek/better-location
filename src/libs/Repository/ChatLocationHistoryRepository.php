@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Utils\CoordinatesInterface;
 
-class ChatLocationHistory extends Repository
+class ChatLocationHistoryRepository extends Repository
 {
 	public function insert(int $telegramUpdateId, int $chatId, int $userId, \DateTimeInterface $dateTime, CoordinatesInterface $coords, string $input): void
 	{
