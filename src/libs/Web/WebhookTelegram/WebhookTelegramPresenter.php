@@ -49,8 +49,6 @@ class WebhookTelegramPresenter extends MainPresenter
 		try {
 			SimpleLogger::log(SimpleLogger::NAME_TELEGRAM_INPUT, $updateRaw);
 
-			\App\Factory::database(); // Just check if database connection is valid, otherwise throw Exception and end script now.
-
 			$update = new \unreal4u\TelegramAPI\Telegram\Types\Update($updateRaw, $this->telegramCustomLogger);
 			$event = $this->telegramCustomWrapper->analyze($update);
 			$timerName = 'eventHandling';
