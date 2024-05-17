@@ -9,6 +9,7 @@ use App\Config;
 use App\Pluginer\Pluginer;
 use App\Pluginer\PluginerException;
 use App\Repository\ChatEntity;
+use App\Repository\ChatRepository;
 use App\TelegramCustomWrapper\TelegramCustomWrapper;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Strict;
@@ -29,6 +30,7 @@ class ChatPresenter extends MainPresenter
 	private bool $isUserAdmin = false;
 
 	public function __construct(
+		private readonly ChatRepository $chatRepository,
 		private readonly TelegramCustomWrapper $telegramWrapper,
 		private readonly ServicesManager $servicesManager,
 		ChatTemplate $template,
@@ -53,7 +55,12 @@ class ChatPresenter extends MainPresenter
 			return;
 		}
 
-		$this->chat = new Chat($this->chatTelegramId, $this->chatResponse->type, TelegramHelper::getChatDisplayname($this->chatResponse));
+		$this->chat = new Chat(
+			$this->chatRepository,
+			$this->chatTelegramId,
+			$this->chatResponse->type,
+			TelegramHelper::getChatDisplayname($this->chatResponse),
+		);
 		$this->template->formPluginerUrl = $this->chat->getPluginerUrl()?->getAbsoluteUrl() ?? '';
 		if ($this->isPostRequest()) {
 			$this->handleSettingsForm();

@@ -11,13 +11,14 @@ class Chat
 {
 	private ?BetterLocationMessageSettings $messageSettings = null;
 	private ChatEntity $chatEntity;
-	private ChatRepository $chatRepository;
 
-	public function __construct(int $telegramChatId, string $telegramChatType, string $telegramChatName)
+	public function __construct(
+		private readonly ChatRepository $chatRepository,
+		int $telegramChatId,
+		string $telegramChatType,
+		string $telegramChatName,
+	)
 	{
-		$db = Factory::database();
-		$this->chatRepository = new ChatRepository($db);
-
 		$chatEntity = $this->chatRepository->fromTelegramId($telegramChatId);
 		if ($chatEntity === null) {
 			$this->chatRepository->insert($telegramChatId, $telegramChatType, $telegramChatName);

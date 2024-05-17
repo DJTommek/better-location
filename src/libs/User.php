@@ -14,10 +14,6 @@ use DJTommek\Coordinates\CoordinatesImmutable;
 
 class User
 {
-	private FavouritesRepository $favouritesRepository;
-	private UserRepository $userRepository;
-	private ChatRepository $chatRepository;
-
 	private UserEntity $userEntity;
 	/** Lazy (should be accessed only via getPrivateChatEntity()) */
 	private ChatEntity $userPrivateChatEntity;
@@ -27,13 +23,13 @@ class User
 	/** Lazy (should be accessed only via getMessageSettings()) */
 	private ?BetterLocationMessageSettings $messageSettings = null;
 
-	public function __construct(int $telegramId, string $telegramDisplayname)
-	{
-		$db = Factory::database();
-		$this->userRepository = new UserRepository($db);
-		$this->chatRepository = new ChatRepository($db);
-		$this->favouritesRepository = new FavouritesRepository($db);
-
+	public function __construct(
+		private readonly UserRepository $userRepository,
+		private readonly ChatRepository $chatRepository,
+		private readonly FavouritesRepository $favouritesRepository,
+		int $telegramId,
+		string $telegramDisplayname,
+	) {
 		$userEntity = $this->userRepository->fromTelegramId($telegramId);
 
 		if ($userEntity === null) {

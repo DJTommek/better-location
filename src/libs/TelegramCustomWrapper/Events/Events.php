@@ -7,6 +7,9 @@ use App\Chat;
 use App\Config;
 use App\Logger\CustomTelegramLogger;
 use App\Pluginer\Pluginer;
+use App\Repository\ChatRepository;
+use App\Repository\FavouritesRepository;
+use App\Repository\UserRepository;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\SendMessage;
 use App\TelegramCustomWrapper\TelegramHelper;
@@ -54,6 +57,9 @@ abstract class Events
 	abstract public function handleWebhookUpdate(): void;
 
 	final public function init(
+		UserRepository $userRepository,
+		ChatRepository $chatRepository,
+		FavouritesRepository $favouritesRepository,
 		CustomTelegramLogger $customTelegramLogger,
 		Update $update,
 	): self {
@@ -65,10 +71,17 @@ abstract class Events
 			new HttpClientRequestHandler($this->loop),
 			$customTelegramLogger,
 		);
-		$this->user = new User($this->getTgFromId(), $this->getTgFromDisplayname());
+		$this->user = new User(
+			$userRepository,
+			$chatRepository,
+			$favouritesRepository,
+			$this->getTgFromId(),
+			$this->getTgFromDisplayname(),
+		);
 		$this->user->touchLastUpdate();
 		if ($this->hasTgMessage()) {
 			$this->chat = new Chat(
+				$chatRepository,
 				$this->getTgChatId(),
 				$this->getTgChat()->type,
 				$this->getTgChatDisplayname(),

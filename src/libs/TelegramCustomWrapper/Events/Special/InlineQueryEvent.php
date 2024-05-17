@@ -11,6 +11,7 @@ use App\Chat;
 use App\Config;
 use App\Icons;
 use App\Repository\ChatEntity;
+use App\Repository\ChatRepository;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
@@ -42,6 +43,7 @@ class InlineQueryEvent extends Special
 
 	public function __construct(
 		private readonly FromTelegramMessage $fromTelegramMessage,
+		private readonly ChatRepository $chatRepository,
 		private readonly ?GooglePlaceApi $googlePlaceApi = null,
 	) {
 	}
@@ -56,7 +58,12 @@ class InlineQueryEvent extends Special
 	private function getUserPrivateChatEntity(): Chat
 	{
 		if ($this->userPrivateChatEntity === null) {
-			$this->userPrivateChatEntity = new Chat($this->getTgFromId(), ChatEntity::CHAT_TYPE_PRIVATE, $this->getTgFromDisplayname());
+			$this->userPrivateChatEntity = new Chat(
+				$this->chatRepository,
+				$this->getTgFromId(),
+				ChatEntity::CHAT_TYPE_PRIVATE,
+				$this->getTgFromDisplayname(),
+			);
 		}
 		return $this->userPrivateChatEntity;
 	}

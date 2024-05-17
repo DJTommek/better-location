@@ -4,6 +4,9 @@ namespace App\Web;
 
 use App\Config;
 use App\Factory\LatteFactory;
+use App\Repository\ChatRepository;
+use App\Repository\FavouritesRepository;
+use App\Repository\UserRepository;
 use App\User;
 use App\Utils\Strict;
 use App\Web\Login\LoginFacade;
@@ -31,6 +34,9 @@ abstract class MainPresenter
 	public string $templatefile;
 
 	public final function run(
+		UserRepository $userRepository,
+		ChatRepository $chatRepository,
+		FavouritesRepository $favouritesRepository,
 		LatteFactory $latteFactory,
 		LoginFacade $loginFacade,
 		Request $request,
@@ -43,7 +49,13 @@ abstract class MainPresenter
 			$this->template = new LayoutTemplate();
 		}
 		if ($this->login->isLogged()) {
-			$this->user = new User($this->login->getTelegramId(), $this->login->getDisplayName());
+			$this->user = new User(
+				$userRepository,
+				$chatRepository,
+				$favouritesRepository,
+				$this->login->getTelegramId(),
+				$this->login->getDisplayName(),
+			);
 		}
 		$this->template->login = $this->login;
 		$this->template->user = $this->user;
