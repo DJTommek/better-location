@@ -4,6 +4,7 @@ namespace App\Web\Locations;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\FavouriteNameGenerator;
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\ServicesManager;
 use App\Config;
@@ -29,6 +30,7 @@ class LocationsPresenter extends MainPresenter
 
 	public function __construct(
 		private readonly ServicesManager $servicesManager,
+		private readonly FavouriteNameGenerator $favouriteNameGenerator,
 		LocationsTemplate $template,
 	)
 	{
@@ -57,7 +59,7 @@ class LocationsPresenter extends MainPresenter
 				switch ($_GET['action']) {
 					case 'add':
 						foreach ($this->collection as $location) {
-							$name = BetterLocation::generateFavouriteName($location->getLat(), $location->getLon());
+							$name = $this->favouriteNameGenerator->generate($location);
 							$favoriteLocation = $this->user->addFavourite($location, $name);
 							$this->flashMessage(sprintf(
 								'Location <b>%s</b> was saved to favorites as <b>%s</b>.',

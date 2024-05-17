@@ -3,6 +3,7 @@
 namespace App\TelegramCustomWrapper\Events\Command;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\FavouriteNameGenerator;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\Config;
 use App\Icons;
@@ -38,6 +39,11 @@ class StartCommand extends Command
 
 	const SETTINGS = SettingsCommand::CMD;
 	const LOGIN = LoginCommand::CMD;
+
+	public function __construct(
+		private readonly FavouriteNameGenerator $favouriteNameGenerator,
+	) {
+	}
 
 	public function handleWebhookUpdate(): void
 	{
@@ -127,7 +133,8 @@ class StartCommand extends Command
 						$this->reply(sprintf('%s This location (<code>%s</code>) is already saved in favourite list as %s.', Icons::INFO, $favourite->__toString(), $favourite->getPrefixMessage()), $replyMarkup);
 					} else {
 						$location = BetterLocation::fromLatLon($lat, $lon);
-						$favourite = $this->user->addFavourite($location, BetterLocation::generateFavouriteName($lat, $lon));
+						$name = $this->favouriteNameGenerator->generate($location);
+						$favourite = $this->user->addFavourite($location, $name);
 
 						$text = sprintf(
 								'%s Location <code>%s</code> was successfully saved to favourites as %s.',

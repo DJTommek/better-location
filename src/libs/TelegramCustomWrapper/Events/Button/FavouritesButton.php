@@ -3,6 +3,7 @@
 namespace App\TelegramCustomWrapper\Events\Button;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\FavouriteNameGenerator;
 use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
@@ -21,6 +22,11 @@ class FavouritesButton extends Button
 	const ACTION_ADD = 'add';
 	const ACTION_DELETE = 'delete';
 	const ACTION_REFRESH = 'refresh';
+
+	public function __construct(
+		private readonly FavouriteNameGenerator $favouriteNameGenerator,
+	) {
+	}
 
 	public function handleWebhookUpdate(): void
 	{
@@ -67,7 +73,8 @@ class FavouritesButton extends Button
 				$this->flash(sprintf('%s This location (%s) is already saved in favourite list as %s.', Icons::INFO, $favourite->__toString(), $favourite->getPrefixMessage()), true);
 			} else {
 				$betterLocation = BetterLocation::fromLatLon($lat, $lon);
-				$betterLocation = $this->user->addFavourite($betterLocation, BetterLocation::generateFavouriteName($lat, $lon));
+				$name = $this->favouriteNameGenerator->generate($betterLocation);
+				$betterLocation = $this->user->addFavourite($betterLocation, $name);
 				$this->flash(sprintf('%s Location %s was saved as %s.%sYou can now use it inline in any chat by typing @%s.',
 					Icons::SUCCESS, $betterLocation->__toString(), $betterLocation->getPrefixMessage(), PHP_EOL, Config::TELEGRAM_BOT_NAME
 				), true);

@@ -23,7 +23,6 @@ use App\Utils\Strict;
 use maxh\Nominatim\Exceptions\NominatimException;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
-use OpenLocationCode\OpenLocationCode;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types;
 
@@ -498,28 +497,6 @@ class BetterLocation implements CoordinatesInterface
 		$htmlTag = Formatter::htmlLink((string)$this->inputUrl, $htmlText);
 		$this->setPrefixMessage($htmlTag);
 		return $this;
-	}
-
-	/**
-	 * Generate name for newly added favourite item from as what3words with error fallback to OpenLocationCode
-	 *
-	 * @param float $lat
-	 * @param float $lon
-	 * @return string
-	 * @throws \Exception
-	 */
-	public static function generateFavouriteName(float $lat, float $lon): string
-	{
-		try {
-			$result = Factory::whatThreeWords()?->convertTo3wa($lat, $lon);
-			if ($result) {
-				return sprintf('///%s', $result['words']);
-			} else {
-				return OpenLocationCode::encode($lat, $lon);
-			}
-		} catch (\Exception) {
-			return OpenLocationCode::encode($lat, $lon);
-		}
 	}
 
 	public function getCoordinates(): Coordinates

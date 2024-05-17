@@ -74,6 +74,8 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(\App\Geonames\Geonames::class)
 		->arg('$username', Config::GEONAMES_USERNAME);
 
+	$services->set(\App\BetterLocation\FavouriteNameGenerator::class);
+
 	if (Config::isGlympse()) {
 		$services->set(\App\Factory\GlympseApiFactory::class)
 			->arg('$apiKey', Config::GLYMPSE_API_KEY)

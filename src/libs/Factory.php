@@ -30,16 +30,6 @@ class Factory
 		return self::getContainer()->get(Database::class);
 	}
 
-	public static function whatThreeWords(): ?\What3words\Geocoder\Geocoder
-	{
-		$container = self::getContainer();
-		if ($container->has(\What3words\Geocoder\Geocoder::class) === false) {
-			return null;
-		}
-
-		return $container->get(\What3words\Geocoder\Geocoder::class);
-	}
-
 	public static function whatThreeWordsHelper(): ?\App\WhatThreeWord\Helper
 	{
 		$container = self::getContainer();
