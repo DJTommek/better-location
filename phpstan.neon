@@ -9,7 +9,7 @@ parameters:
 	treatPhpDocTypesAsCertain: false
 	tmpDir: temp/phpstan
 	additionalConstructors:
-		- App\Web\MainPresenter::run
+		- App\Web\MainPresenter::setDependencies
 		- App\TelegramCustomWrapper\Events\Events::init
 		- App\Web\Admin\AdminTemplate::prepare
 	excludePaths:

@@ -33,7 +33,11 @@ abstract class MainPresenter
 	public LayoutTemplate $template;
 	public string $templatefile;
 
-	public final function run(
+	/**
+	 * Dependencies that are required in MainPresenter. To request dependencies in specific presenters, define them in
+	 * __construct() method.
+	 */
+	public final function setDependencies(
 		UserRepository $userRepository,
 		ChatRepository $chatRepository,
 		FavouritesRepository $favouritesRepository,
@@ -57,6 +61,10 @@ abstract class MainPresenter
 				$this->login->getDisplayName(),
 			);
 		}
+	}
+
+	public final function run(
+	): void {
 		$this->template->login = $this->login;
 		$this->template->user = $this->user;
 		$this->template->cachebusterMainCss = filemtime(__DIR__ . '/../../../www/css/main.css');
