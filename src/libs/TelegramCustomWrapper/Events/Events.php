@@ -90,7 +90,7 @@ abstract class Events
 			$this->getTgFromId(),
 			$this->getTgFromDisplayname(),
 		);
-		$this->user->touchLastUpdate();
+
 		if ($this->hasTgMessage()) {
 			$this->chat = new Chat(
 				$this->chatRepository,
@@ -98,7 +98,6 @@ abstract class Events
 				$this->getTgChat()->type,
 				$this->getTgChatDisplayname(),
 			);
-			$this->chat->touchLastUpdate();
 		}
 
 		if (

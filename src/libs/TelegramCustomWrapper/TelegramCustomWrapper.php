@@ -159,6 +159,8 @@ class TelegramCustomWrapper
 	public function executeEventHandler(Events $event): void
 	{
 		$event->handleWebhookUpdate();
+		$event->getUser()->touchLastUpdate();
+		$event->getChat()?->touchLastUpdate();
 
 		try {
 			$this->saveToChatHistory($event);
