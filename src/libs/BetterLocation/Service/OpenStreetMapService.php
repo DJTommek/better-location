@@ -37,7 +37,7 @@ final class OpenStreetMapService extends AbstractService
 		}
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		$result = false;
 		if ($this->url && Arrays::contains(['openstreetmap.org', 'osm.org'], $this->url->getDomain(2))) {
@@ -73,7 +73,7 @@ final class OpenStreetMapService extends AbstractService
 		if ($this->data->isShortUrl ?? false) {
 			$this->url->setHost('www.openstreetmap.org');
 			$this->url = Strict::url(MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl()));
-			if ($this->isValid() === false) {
+			if ($this->validate() === false) {
 				throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url, $this->inputUrl));
 			}
 		}

@@ -42,7 +42,7 @@ final class GeohashService extends AbstractService
 		}
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return $this->isUrl() || $this->isCode();
 	}

@@ -25,35 +25,35 @@ final class OpenLocationCodeServiceTest extends TestCase
 
 	public function testIsValidUrl(): void
 	{
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('https://plus.codes/8FXP74WG+XHW'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('https://plus.codes/8FXP74WG+XH'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('http://plus.codes/8FXP74WG+XHW'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('https://plus.codes/9F2P3CQC+3F'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('https://plus.codes/87G8Q2WV+8P'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('https://plus.codes/7JVW52GR+3V'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('https://plus.codes/47C9G3F3+V2'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('https://plus.codes/4VCPPQ3V+HP'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('https://plus.codes/6GCRMQQH+W7'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('https://plus.codes/8FXP74WG+XHW'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('https://plus.codes/8FXP74WG+XH'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('http://plus.codes/8FXP74WG+XHW'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('https://plus.codes/9F2P3CQC+3F'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('https://plus.codes/87G8Q2WV+8P'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('https://plus.codes/7JVW52GR+3V'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('https://plus.codes/47C9G3F3+V2'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('https://plus.codes/4VCPPQ3V+HP'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('https://plus.codes/6GCRMQQH+W7'));
 
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('http://plus.codes/'));
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('http://bla.codes/8FXP74WG+XHW'));
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('https://plus.codes/8FXP74WG+X')); // invalid number of characters
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('https://plus.codes/8FXP71WG+XHW')); // invalid character, number 1
+		$this->assertFalse(OpenLocationCodeService::validateStatic('http://plus.codes/'));
+		$this->assertFalse(OpenLocationCodeService::validateStatic('http://bla.codes/8FXP74WG+XHW'));
+		$this->assertFalse(OpenLocationCodeService::validateStatic('https://plus.codes/8FXP74WG+X')); // invalid number of characters
+		$this->assertFalse(OpenLocationCodeService::validateStatic('https://plus.codes/8FXP71WG+XHW')); // invalid character, number 1
 	}
 
 	public function testIsValidPlusCode(): void
 	{
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('8FXP74WG+XHW'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('8FXP74WG+XH'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('9F2P3CQC+3F'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('87G8Q2WV+8P'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('7JVW52GR+3V'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('47C9G3F3+V2'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('4VCPPQ3V+HP'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('6GCRMQQH+W7'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('8FXP74WG+XHW'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('8FXP74WG+XH'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('9F2P3CQC+3F'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('87G8Q2WV+8P'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('7JVW52GR+3V'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('47C9G3F3+V2'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('4VCPPQ3V+HP'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('6GCRMQQH+W7'));
 
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('8FXP74WG+X')); // invalid number of characters
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('8FXP71WG+XHW')); // invalid character, number 1
+		$this->assertFalse(OpenLocationCodeService::validateStatic('8FXP74WG+X')); // invalid number of characters
+		$this->assertFalse(OpenLocationCodeService::validateStatic('8FXP71WG+XHW')); // invalid character, number 1
 	}
 
 	public function testProcessUrl(): void
@@ -92,31 +92,31 @@ final class OpenLocationCodeServiceTest extends TestCase
 	 */
 	public function testIsValidFullPlusCodeRepo(): void
 	{
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('8FWC2345+G6'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('8FWC2345+G6G'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('8fwc2345+'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('8FWCX400+'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('8FWC2345+G6'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('8FWC2345+G6G'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('8fwc2345+'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('8FWCX400+'));
 		// Invalid codes
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('G+'));
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('+'));
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('8FWC2345+G'));
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('8FWC2_45+G6'));
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('8FWC2η45+G6'));
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('8FWC2345+G6+'));
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('8FWC2345G6+'));
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('8FWC2300+G6'));
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('WC2300+G6g'));
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('WC2345+G'));
+		$this->assertFalse(OpenLocationCodeService::validateStatic('G+'));
+		$this->assertFalse(OpenLocationCodeService::validateStatic('+'));
+		$this->assertFalse(OpenLocationCodeService::validateStatic('8FWC2345+G'));
+		$this->assertFalse(OpenLocationCodeService::validateStatic('8FWC2_45+G6'));
+		$this->assertFalse(OpenLocationCodeService::validateStatic('8FWC2η45+G6'));
+		$this->assertFalse(OpenLocationCodeService::validateStatic('8FWC2345+G6+'));
+		$this->assertFalse(OpenLocationCodeService::validateStatic('8FWC2345G6+'));
+		$this->assertFalse(OpenLocationCodeService::validateStatic('8FWC2300+G6'));
+		$this->assertFalse(OpenLocationCodeService::validateStatic('WC2300+G6g'));
+		$this->assertFalse(OpenLocationCodeService::validateStatic('WC2345+G'));
 
 		// This plus code should be invalid but validator claims that is valid. If you try get coordinates, it throw "Exception : Passed Open Location Code is not a valid full code"
 		// $this->assertFalse(OpenLocationCodeService::isValidStatic('WC2300+'));
 
 		// Validate that codes at and exceeding 15 digits are still valid when all their
 		// digits are valid, and invalid when not.
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('849VGJQF+VX7QR3J'));
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('849VGJQF+VX7QR3U'));
-		$this->assertTrue(OpenLocationCodeService::isValidStatic('849VGJQF+VX7QR3JW'));
-		$this->assertFalse(OpenLocationCodeService::isValidStatic('849VGJQF+VX7QR3JU'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('849VGJQF+VX7QR3J'));
+		$this->assertFalse(OpenLocationCodeService::validateStatic('849VGJQF+VX7QR3U'));
+		$this->assertTrue(OpenLocationCodeService::validateStatic('849VGJQF+VX7QR3JW'));
+		$this->assertFalse(OpenLocationCodeService::validateStatic('849VGJQF+VX7QR3JU'));
 	}
 
 	/**
@@ -162,7 +162,7 @@ final class OpenLocationCodeServiceTest extends TestCase
 		$this->assertSame(1, preg_match_all(OpenLocationCodeService::RE_IN_STRING, 'some random text before 8FXP74WG+XHW and after', $matches));
 		$this->assertCount(1, $matches[1]);
 		$this->assertSame('8FXP74WG+XHW', $matches[1][0]);
-		$this->assertTrue(OpenLocationCodeService::isValidStatic($matches[1][0]));
+		$this->assertTrue(OpenLocationCodeService::validateStatic($matches[1][0]));
 		$collection = OpenLocationCodeService::processStatic($matches[1][0])->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('49.297487,14.126453', $collection[0]->__toString());

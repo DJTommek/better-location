@@ -180,7 +180,7 @@ class ServicesManager
 			$service->setInput($input);
 			assert($service instanceof AbstractService);
 
-			if ($service->isValid() === false) {
+			if ($service->validate() === false) {
 				continue;
 			}
 

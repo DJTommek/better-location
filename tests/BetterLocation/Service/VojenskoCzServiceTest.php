@@ -31,18 +31,18 @@ final class VojenskoCzServiceTest extends TestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(VojenskoCzService::isValidStatic('http://www.vojensko.cz/vu-5849-jachymov-vrsek'));
-		$this->assertTrue(VojenskoCzService::isValidStatic('http://www.vojensko.cz/pavlova-hut'));
-		$this->assertTrue(VojenskoCzService::isValidStatic('http://vojensko.cz/pavlova-hut'));
-		$this->assertTrue(VojenskoCzService::isValidStatic('http://www.vojensko.cz/velka-hledsebe-klimentov'));
-		$this->assertTrue(VojenskoCzService::isValidStatic('http://www.vojensko.cz/poddustojnicka-skola-psovodu-libejovice?image=89'));
+		$this->assertTrue(VojenskoCzService::validateStatic('http://www.vojensko.cz/vu-5849-jachymov-vrsek'));
+		$this->assertTrue(VojenskoCzService::validateStatic('http://www.vojensko.cz/pavlova-hut'));
+		$this->assertTrue(VojenskoCzService::validateStatic('http://vojensko.cz/pavlova-hut'));
+		$this->assertTrue(VojenskoCzService::validateStatic('http://www.vojensko.cz/velka-hledsebe-klimentov'));
+		$this->assertTrue(VojenskoCzService::validateStatic('http://www.vojensko.cz/poddustojnicka-skola-psovodu-libejovice?image=89'));
 
 		// Invalid
-		$this->assertFalse(VojenskoCzService::isValidStatic('some invalid url'));
-		$this->assertFalse(VojenskoCzService::isValidStatic('http://www.vojensko.cz/'));
-		$this->assertFalse(VojenskoCzService::isValidStatic('https://www.vojensko.cz/vu-5849-jachymov-vrsek')); // https is not working
-		$this->assertFalse(VojenskoCzService::isValidStatic('http://www.some-domain.cz/'));
-		$this->assertFalse(VojenskoCzService::isValidStatic('http://www.some-domain.cz/some-path'));
+		$this->assertFalse(VojenskoCzService::validateStatic('some invalid url'));
+		$this->assertFalse(VojenskoCzService::validateStatic('http://www.vojensko.cz/'));
+		$this->assertFalse(VojenskoCzService::validateStatic('https://www.vojensko.cz/vu-5849-jachymov-vrsek')); // https is not working
+		$this->assertFalse(VojenskoCzService::validateStatic('http://www.some-domain.cz/'));
+		$this->assertFalse(VojenskoCzService::validateStatic('http://www.some-domain.cz/some-path'));
 	}
 
 	/**

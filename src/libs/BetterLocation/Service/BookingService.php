@@ -20,7 +20,7 @@ final class BookingService extends AbstractService
 
 	const LINK = 'https://booking.com/';
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		if ($this->url === null) {
 			return false;

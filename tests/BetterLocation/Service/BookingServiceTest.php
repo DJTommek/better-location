@@ -23,13 +23,13 @@ final class BookingServiceTest extends AbstractServiceTestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(BookingService::isValidStatic('https://www.booking.com/hotel/at/ludwighaus-neukirchen-am-grossvenediger.html?label=gen173nr-1FCAEoggI46AdIM1gEaDqIAQKYATG4AQnIAQ_YAQHoAQH4AQKIAgGoAgO4AsvBmKcGwAIB0gIkMjFhODMyNmUtYWIzNS00MWMxLWFlYmItNjkyYzMwYmEwYzNm2AIF4AIB&sid=46dfebf8b003c46bf127c7b91dfc7404&aid=304142&ucfs=1&arphpl=1&checkin=2023-08-24&checkout=2023-08-25&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=1&hapos=1&sr_order=distance_from_search&nflt=price%3DCZK-min-2500-1&srpvid=d5bb6b0893f1020e&srepoch=1692803628&all_sr_blocks=780183211_336428765_2_0_0&highlighted_blocks=780183211_336428765_2_0_0&matching_block_id=780183211_336428765_2_0_0&sr_pri_blocks=780183211_336428765_2_0_0__9300&activeTab=htMap'));
-		$this->assertTrue(BookingService::isValidStatic('https://www.booking.com/hotel/cz/city-pisek.html'));
-		$this->assertTrue(BookingService::isValidStatic('https://www.booking.com/hotel/cz/city-pisek'));
-		$this->assertTrue(BookingService::isValidStatic('https://booking.com/hotel/cz/city-pisek'));
+		$this->assertTrue(BookingService::validateStatic('https://www.booking.com/hotel/at/ludwighaus-neukirchen-am-grossvenediger.html?label=gen173nr-1FCAEoggI46AdIM1gEaDqIAQKYATG4AQnIAQ_YAQHoAQH4AQKIAgGoAgO4AsvBmKcGwAIB0gIkMjFhODMyNmUtYWIzNS00MWMxLWFlYmItNjkyYzMwYmEwYzNm2AIF4AIB&sid=46dfebf8b003c46bf127c7b91dfc7404&aid=304142&ucfs=1&arphpl=1&checkin=2023-08-24&checkout=2023-08-25&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=1&hapos=1&sr_order=distance_from_search&nflt=price%3DCZK-min-2500-1&srpvid=d5bb6b0893f1020e&srepoch=1692803628&all_sr_blocks=780183211_336428765_2_0_0&highlighted_blocks=780183211_336428765_2_0_0&matching_block_id=780183211_336428765_2_0_0&sr_pri_blocks=780183211_336428765_2_0_0__9300&activeTab=htMap'));
+		$this->assertTrue(BookingService::validateStatic('https://www.booking.com/hotel/cz/city-pisek.html'));
+		$this->assertTrue(BookingService::validateStatic('https://www.booking.com/hotel/cz/city-pisek'));
+		$this->assertTrue(BookingService::validateStatic('https://booking.com/hotel/cz/city-pisek'));
 
-		$this->assertFalse(BookingService::isValidStatic('https://www.booking.com/'));
-		$this->assertFalse(BookingService::isValidStatic('non url'));
+		$this->assertFalse(BookingService::validateStatic('https://www.booking.com/'));
+		$this->assertFalse(BookingService::validateStatic('non url'));
 	}
 
 	/**
@@ -37,7 +37,7 @@ final class BookingServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValidUsingProvider(bool $expectedIsValid, string $link): void
 	{
-		$this->assertSame($expectedIsValid, BookingService::isValidStatic($link));
+		$this->assertSame($expectedIsValid, BookingService::validateStatic($link));
 	}
 
 	/**

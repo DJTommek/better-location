@@ -12,7 +12,7 @@ final class VojenskoCzService extends AbstractService
 
 	const LINK = 'http://www.vojensko.cz';
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return (
 			$this->url &&

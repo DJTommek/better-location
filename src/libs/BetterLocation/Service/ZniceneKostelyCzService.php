@@ -15,7 +15,7 @@ final class ZniceneKostelyCzService extends AbstractService
 
 	const LINK = 'http://znicenekostely.cz';
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return (
 			$this->url &&

@@ -29,10 +29,10 @@ final class GoogleEarthServiceTest extends AbstractServiceTestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(GoogleEarthService::isValidStatic('https://earth.google.com/web/@44.26122114,-94.16696951,11001291.02957891a,0d,35y,4.9638h,0.0000t,0.0000r?utm_source=earth7&utm_campaign=vine&hl=en'));
+		$this->assertTrue(GoogleEarthService::validateStatic('https://earth.google.com/web/@44.26122114,-94.16696951,11001291.02957891a,0d,35y,4.9638h,0.0000t,0.0000r?utm_source=earth7&utm_campaign=vine&hl=en'));
 
-		$this->assertFalse(GoogleEarthService::isValidStatic('https://example.com/?ll=50.087451,14.420671'));
-		$this->assertFalse(GoogleEarthService::isValidStatic('non url'));
+		$this->assertFalse(GoogleEarthService::validateStatic('https://example.com/?ll=50.087451,14.420671'));
+		$this->assertFalse(GoogleEarthService::validateStatic('non url'));
 	}
 
 	/**
@@ -40,7 +40,7 @@ final class GoogleEarthServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValidUsingProvider(bool $expectedIsValid, string $link): void
 	{
-		$this->assertSame($expectedIsValid, GoogleEarthService::isValidStatic($link));
+		$this->assertSame($expectedIsValid, GoogleEarthService::validateStatic($link));
 	}
 
 	/**

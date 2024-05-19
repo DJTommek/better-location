@@ -23,7 +23,7 @@ final class OpenBannersServiceTest extends AbstractServiceTestCase
 	{
 		$service = new OpenBannersService($this->requestor);
 		$service->setInput('https://www.openbanners.org/banner/czech-cubism-and-its-representative-ce4b');
-		$isValid = $service->isValid();
+		$isValid = $service->validate();
 		$this->assertSame(true, $isValid);
 	}
 
@@ -55,7 +55,7 @@ final class OpenBannersServiceTest extends AbstractServiceTestCase
 	{
 		$service = new OpenBannersService($this->requestor);
 		$service->setInput($input);
-		$isValid = $service->isValid();
+		$isValid = $service->validate();
 		$this->assertSame($expectedIsValid, $isValid);
 	}
 

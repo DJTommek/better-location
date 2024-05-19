@@ -25,31 +25,31 @@ final class GeohashServiceTest extends TestCase
 
 	public function testIsValidUrl(): void
 	{
-		$this->assertTrue(GeohashService::isValidStatic('http://geohash.org/u2fkbnhu9cxe'));
-		$this->assertTrue(GeohashService::isValidStatic('https://geohash.org/u2fkbnhu9cxe'));
-		$this->assertTrue(GeohashService::isValidStatic('http://geohash.org/6gkzwgjzn820'));
-		$this->assertTrue(GeohashService::isValidStatic('http://geohash.org/6gkzwgjzn820'));
-		$this->assertTrue(GeohashService::isValidStatic('http://geohash.org/6gkzmg1w'));
-		$this->assertTrue(GeohashService::isValidStatic('http://geohash.org/b'));
-		$this->assertTrue(GeohashService::isValidStatic('http://geohash.org/9'));
-		$this->assertTrue(GeohashService::isValidStatic('http://geohash.org/uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu'));
-		$this->assertTrue(GeohashService::isValidStatic('http://geohash.org/c216ne:Mt_Hood')); // with name in url
+		$this->assertTrue(GeohashService::validateStatic('http://geohash.org/u2fkbnhu9cxe'));
+		$this->assertTrue(GeohashService::validateStatic('https://geohash.org/u2fkbnhu9cxe'));
+		$this->assertTrue(GeohashService::validateStatic('http://geohash.org/6gkzwgjzn820'));
+		$this->assertTrue(GeohashService::validateStatic('http://geohash.org/6gkzwgjzn820'));
+		$this->assertTrue(GeohashService::validateStatic('http://geohash.org/6gkzmg1w'));
+		$this->assertTrue(GeohashService::validateStatic('http://geohash.org/b'));
+		$this->assertTrue(GeohashService::validateStatic('http://geohash.org/9'));
+		$this->assertTrue(GeohashService::validateStatic('http://geohash.org/uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu'));
+		$this->assertTrue(GeohashService::validateStatic('http://geohash.org/c216ne:Mt_Hood')); // with name in url
 
-		$this->assertFalse(GeohashService::isValidStatic('http://geohash.org/'));
-		$this->assertFalse(GeohashService::isValidStatic('http://geohash.org/abcdefgh')); // invalid character a
+		$this->assertFalse(GeohashService::validateStatic('http://geohash.org/'));
+		$this->assertFalse(GeohashService::validateStatic('http://geohash.org/abcdefgh')); // invalid character a
 	}
 
 	public function testIsValidCode(): void
 	{
-		$this->assertTrue(GeohashService::isValidStatic('u2fkbnhu9cxe'));
-		$this->assertTrue(GeohashService::isValidStatic('6gkzwgjzn820'));
-		$this->assertTrue(GeohashService::isValidStatic('6gkzmg1w'));
-		$this->assertTrue(GeohashService::isValidStatic('u'));
-		$this->assertTrue(GeohashService::isValidStatic('uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu'));
+		$this->assertTrue(GeohashService::validateStatic('u2fkbnhu9cxe'));
+		$this->assertTrue(GeohashService::validateStatic('6gkzwgjzn820'));
+		$this->assertTrue(GeohashService::validateStatic('6gkzmg1w'));
+		$this->assertTrue(GeohashService::validateStatic('u'));
+		$this->assertTrue(GeohashService::validateStatic('uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu'));
 
-		$this->assertFalse(GeohashService::isValidStatic('a')); // invalid number of characters
-		$this->assertFalse(GeohashService::isValidStatic('uuuuuuuu1uuuuua')); // invalid character, number a
-		$this->assertFalse(GeohashService::isValidStatic('c216ne:Mt_Hood')); // do not allow name, it is not part of code but it is ok in URL
+		$this->assertFalse(GeohashService::validateStatic('a')); // invalid number of characters
+		$this->assertFalse(GeohashService::validateStatic('uuuuuuuu1uuuuua')); // invalid character, number a
+		$this->assertFalse(GeohashService::validateStatic('c216ne:Mt_Hood')); // do not allow name, it is not part of code but it is ok in URL
 	}
 
 	public function testProcessUrl(): void

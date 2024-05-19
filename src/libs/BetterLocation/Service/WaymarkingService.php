@@ -40,7 +40,7 @@ final class WaymarkingService extends AbstractService
 		}
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return $this->isUrl();
 	}

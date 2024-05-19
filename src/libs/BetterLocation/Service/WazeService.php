@@ -31,7 +31,7 @@ final class WazeService extends AbstractService
 		return $link;
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return $this->isShortUrl() || $this->isNormalUrl();
 	}
@@ -91,7 +91,7 @@ final class WazeService extends AbstractService
 	{
 		if ($this->data->isShortUrl ?? false) {
 			$this->url = Strict::url($this->getRedirectUrl());
-			if ($this->isValid() === false) {
+			if ($this->validate() === false) {
 				throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url, $this->inputUrl));
 			}
 		}

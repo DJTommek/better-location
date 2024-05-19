@@ -23,61 +23,61 @@ final class SumavaCzServiceTest extends TestCase
 	public function testIsValidOriginal(): void
 	{
 		// Place
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/objekt_az/765-stezka-v-korunch-d/'));
-		$this->assertTrue(SumavaCzService::isValidStatic('https://www.sumava.cz/objekt_az/765-stezka-v-korunch-d/'));
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/objekt_az/765-stezka-v-korunch-d'));
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/objekt_az/765'));
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/objekt_az/146-infocentrum-albtn/'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/objekt_az/765-stezka-v-korunch-d/'));
+		$this->assertTrue(SumavaCzService::validateStatic('https://www.sumava.cz/objekt_az/765-stezka-v-korunch-d/'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/objekt_az/765-stezka-v-korunch-d'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/objekt_az/765'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/objekt_az/146-infocentrum-albtn/'));
 
 		// Accomodation
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/objekt/2/'));
-		$this->assertTrue(SumavaCzService::isValidStatic('https://www.sumava.cz/objekt/2/'));
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/objekt/2'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/objekt/2/'));
+		$this->assertTrue(SumavaCzService::validateStatic('https://www.sumava.cz/objekt/2/'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/objekt/2'));
 
 		// Companies
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/firma/565-aldi-sd-bodenmais-d/'));
-		$this->assertTrue(SumavaCzService::isValidStatic('https://www.sumava.cz/firma/565-aldi-sd-bodenmais-d'));
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/firma/565'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/firma/565-aldi-sd-bodenmais-d/'));
+		$this->assertTrue(SumavaCzService::validateStatic('https://www.sumava.cz/firma/565-aldi-sd-bodenmais-d'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/firma/565'));
 
 		// Gallery
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'));
-		$this->assertTrue(SumavaCzService::isValidStatic('https://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'));
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice'));
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/galerie_sekce/4711'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'));
+		$this->assertTrue(SumavaCzService::validateStatic('https://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/galerie_sekce/4711'));
 
 		// Invalid
-		$this->assertFalse(SumavaCzService::isValidStatic('some invalid url'));
-		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/mapa-stranek/'));
-		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/rozcestnik-kategorie/3-infocentra/'));
-		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/galerie/'));
-		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/blabla/objekt_az/765-stezka-v-korunch-d/'));
-		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/foooo/objekt/2/'));
-		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/palider/firma/565-aldi-sd-bodenmais-d/'));
-		$this->assertFalse(SumavaCzService::isValidStatic('http://www.sumava.cz/tomas/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'));
+		$this->assertFalse(SumavaCzService::validateStatic('some invalid url'));
+		$this->assertFalse(SumavaCzService::validateStatic('http://www.sumava.cz/mapa-stranek/'));
+		$this->assertFalse(SumavaCzService::validateStatic('http://www.sumava.cz/rozcestnik-kategorie/3-infocentra/'));
+		$this->assertFalse(SumavaCzService::validateStatic('http://www.sumava.cz/galerie/'));
+		$this->assertFalse(SumavaCzService::validateStatic('http://www.sumava.cz/blabla/objekt_az/765-stezka-v-korunch-d/'));
+		$this->assertFalse(SumavaCzService::validateStatic('http://www.sumava.cz/foooo/objekt/2/'));
+		$this->assertFalse(SumavaCzService::validateStatic('http://www.sumava.cz/palider/firma/565-aldi-sd-bodenmais-d/'));
+		$this->assertFalse(SumavaCzService::validateStatic('http://www.sumava.cz/tomas/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'));
 	}
 
 	public function testIsValidNew(): void
 	{
 		// Place
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/rozcestnik/priroda/vrcholy-rozhledny/stezka-v-korunach-d/'));
-		$this->assertTrue(SumavaCzService::isValidStatic('https://www.sumava.cz/rozcestnik/priroda/vrcholy-rozhledny/stezka-v-korunach-d/'));
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/rozcestnik/priroda/vrcholy-rozhledny/stezka-v-korunach-d'));
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/objekt_az/765'));
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/objekt_az/146-infocentrum-albtn/'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/rozcestnik/priroda/vrcholy-rozhledny/stezka-v-korunach-d/'));
+		$this->assertTrue(SumavaCzService::validateStatic('https://www.sumava.cz/rozcestnik/priroda/vrcholy-rozhledny/stezka-v-korunach-d/'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/rozcestnik/priroda/vrcholy-rozhledny/stezka-v-korunach-d'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/objekt_az/765'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/objekt_az/146-infocentrum-albtn/'));
 
 		// Accomodation
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/ubytovani/sumavska-roubenka/'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/ubytovani/sumavska-roubenka/'));
 
 		// Companies
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/firmy/obchody/smisene/aldi-sud-bodenmais-d/'));
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/firmy/obchody/cerpaci-stanice/cerpaci-stanice-shell-freyung-d/'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/firmy/obchody/smisene/aldi-sud-bodenmais-d/'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/firmy/obchody/cerpaci-stanice/cerpaci-stanice-shell-freyung-d/'));
 
 		// Gallery
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/galerie/mesta-a-obce/mesta-a-obce/tedrazice/'));
-		$this->assertTrue(SumavaCzService::isValidStatic('http://www.sumava.cz/galerie/priroda/vrcholy-rozhledny/stezka-v-korunach-d/'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/galerie/mesta-a-obce/mesta-a-obce/tedrazice/'));
+		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/galerie/priroda/vrcholy-rozhledny/stezka-v-korunach-d/'));
 
 		// Invalid
-		$this->assertFalse(SumavaCzService::isValidStatic('some invalid url'));
+		$this->assertFalse(SumavaCzService::validateStatic('some invalid url'));
 	}
 
 	/**

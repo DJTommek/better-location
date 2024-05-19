@@ -23,31 +23,31 @@ final class GlympseServiceTest extends TestCase
 
 	public function testIsValidInvite(): void
 	{
-		$this->assertTrue(GlympseService::isValidStatic('https://glympse.com/ABCD-EFGH'));
-		$this->assertTrue(GlympseService::isValidStatic('https://www.glympse.com/ABCD-EFGH'));
-		$this->assertTrue(GlympseService::isValidStatic('http://glympse.com/abCD-EFgh'));
-		$this->assertTrue(GlympseService::isValidStatic('http://www.glympse.com/ABCD-EFGH'));
-		$this->assertTrue(GlympseService::isValidStatic('https://gLYMpse.com/ABCD-EFGH'));
-		$this->assertTrue(GlympseService::isValidStatic('https://glympse.com/AB12-EF34'));
-		$this->assertTrue(GlympseService::isValidStatic('https://glympse.com/AB1-EF3'));
+		$this->assertTrue(GlympseService::validateStatic('https://glympse.com/ABCD-EFGH'));
+		$this->assertTrue(GlympseService::validateStatic('https://www.glympse.com/ABCD-EFGH'));
+		$this->assertTrue(GlympseService::validateStatic('http://glympse.com/abCD-EFgh'));
+		$this->assertTrue(GlympseService::validateStatic('http://www.glympse.com/ABCD-EFGH'));
+		$this->assertTrue(GlympseService::validateStatic('https://gLYMpse.com/ABCD-EFGH'));
+		$this->assertTrue(GlympseService::validateStatic('https://glympse.com/AB12-EF34'));
+		$this->assertTrue(GlympseService::validateStatic('https://glympse.com/AB1-EF3'));
 
-		$this->assertFalse(GlympseService::isValidStatic('https://glympse.com/'));
-		$this->assertFalse(GlympseService::isValidStatic('https://glympse.cz/'));
-		$this->assertFalse(GlympseService::isValidStatic('https://glympse.com'));
-		$this->assertFalse(GlympseService::isValidStatic('https://glympse.cz'));
-		$this->assertFalse(GlympseService::isValidStatic('https://glympse.cz/ABCD-EFGH'));
-		$this->assertFalse(GlympseService::isValidStatic('https://glympse.com/ABCDEFGH'));
+		$this->assertFalse(GlympseService::validateStatic('https://glympse.com/'));
+		$this->assertFalse(GlympseService::validateStatic('https://glympse.cz/'));
+		$this->assertFalse(GlympseService::validateStatic('https://glympse.com'));
+		$this->assertFalse(GlympseService::validateStatic('https://glympse.cz'));
+		$this->assertFalse(GlympseService::validateStatic('https://glympse.cz/ABCD-EFGH'));
+		$this->assertFalse(GlympseService::validateStatic('https://glympse.com/ABCDEFGH'));
 	}
 
 	public function testIsValidGroup(): void
 	{
-		$this->assertTrue(GlympseService::isValidStatic('https://glympse.com/!BetterLocationBot'));
-		$this->assertTrue(GlympseService::isValidStatic('https://www.glympse.com/!BetterLocationBot'));
-		$this->assertTrue(GlympseService::isValidStatic('http://glympse.com/!BetterLocationBot'));
-		$this->assertTrue(GlympseService::isValidStatic('http://www.glympse.com/!BetterLocationBot'));
-		$this->assertTrue(GlympseService::isValidStatic('https://gLYMpse.com/!BetterLocationBot'));
-		$this->assertTrue(GlympseService::isValidStatic('https://glympse.com/!BetterLocationBot123'));
-		$this->assertTrue(GlympseService::isValidStatic('https://glympse.com/!Better157LocationBot'));
+		$this->assertTrue(GlympseService::validateStatic('https://glympse.com/!BetterLocationBot'));
+		$this->assertTrue(GlympseService::validateStatic('https://www.glympse.com/!BetterLocationBot'));
+		$this->assertTrue(GlympseService::validateStatic('http://glympse.com/!BetterLocationBot'));
+		$this->assertTrue(GlympseService::validateStatic('http://www.glympse.com/!BetterLocationBot'));
+		$this->assertTrue(GlympseService::validateStatic('https://gLYMpse.com/!BetterLocationBot'));
+		$this->assertTrue(GlympseService::validateStatic('https://glympse.com/!BetterLocationBot123'));
+		$this->assertTrue(GlympseService::validateStatic('https://glympse.com/!Better157LocationBot'));
 	}
 
 	public function testGetGroupId(): void

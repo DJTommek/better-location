@@ -22,21 +22,21 @@ final class WikipediaServiceTest extends TestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(WikipediaService::isValidStatic('https://en.wikipedia.org/wiki/Conneaut_High_School'));
-		$this->assertTrue(WikipediaService::isValidStatic('https://cs.wikipedia.org/wiki/City_Tower'));
+		$this->assertTrue(WikipediaService::validateStatic('https://en.wikipedia.org/wiki/Conneaut_High_School'));
+		$this->assertTrue(WikipediaService::validateStatic('https://cs.wikipedia.org/wiki/City_Tower'));
 		// mobile URLs
-		$this->assertTrue(WikipediaService::isValidStatic('https://en.m.wikipedia.org/wiki/Conneaut_High_School'));
-		$this->assertTrue(WikipediaService::isValidStatic('https://cs.m.wikipedia.org/wiki/City_Tower'));
+		$this->assertTrue(WikipediaService::validateStatic('https://en.m.wikipedia.org/wiki/Conneaut_High_School'));
+		$this->assertTrue(WikipediaService::validateStatic('https://cs.m.wikipedia.org/wiki/City_Tower'));
 		// permanent URLs
-		$this->assertTrue(WikipediaService::isValidStatic('https://cs.wikipedia.org/w/index.php?title=Nejvy%C5%A1%C5%A1%C3%AD_soud_%C4%8Cesk%C3%A9_republiky&oldid=18532372'));
-		$this->assertTrue(WikipediaService::isValidStatic('https://cs.wikipedia.org/w/index.php?oldid=18532372'));
-		$this->assertTrue(WikipediaService::isValidStatic('https://cs.wikipedia.org/w/?oldid=18532372'));
+		$this->assertTrue(WikipediaService::validateStatic('https://cs.wikipedia.org/w/index.php?title=Nejvy%C5%A1%C5%A1%C3%AD_soud_%C4%8Cesk%C3%A9_republiky&oldid=18532372'));
+		$this->assertTrue(WikipediaService::validateStatic('https://cs.wikipedia.org/w/index.php?oldid=18532372'));
+		$this->assertTrue(WikipediaService::validateStatic('https://cs.wikipedia.org/w/?oldid=18532372'));
 
-		$this->assertFalse(WikipediaService::isValidStatic('https://wikipedia.org/'));
-		$this->assertFalse(WikipediaService::isValidStatic('https://en.wikipedia.org/'));
-		$this->assertFalse(WikipediaService::isValidStatic('https://cs.wikipedia.org/'));
+		$this->assertFalse(WikipediaService::validateStatic('https://wikipedia.org/'));
+		$this->assertFalse(WikipediaService::validateStatic('https://en.wikipedia.org/'));
+		$this->assertFalse(WikipediaService::validateStatic('https://cs.wikipedia.org/'));
 
-		$this->assertFalse(WikipediaService::isValidStatic('some invalid url'));
+		$this->assertFalse(WikipediaService::validateStatic('some invalid url'));
 	}
 
 	/**

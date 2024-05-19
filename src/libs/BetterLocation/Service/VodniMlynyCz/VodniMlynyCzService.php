@@ -18,7 +18,7 @@ final class VodniMlynyCzService extends AbstractService
 	 */
 	private const ESTATE_LIST_URL = 'https://www.vodnimlyny.cz/en/mlyny/estates/map/?do=getEstates';
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		if (
 			$this->url

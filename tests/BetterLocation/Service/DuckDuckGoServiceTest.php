@@ -27,7 +27,7 @@ final class DuckDuckGoServiceTest extends TestCase
 	public function testIsValid(): void
 	{
 		// Validating is not implemented
-		$this->assertFalse(DuckDuckGoService::isValidStatic('https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps'));
+		$this->assertFalse(DuckDuckGoService::validateStatic('https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps'));
 	}
 
 	public function testProcess(): void

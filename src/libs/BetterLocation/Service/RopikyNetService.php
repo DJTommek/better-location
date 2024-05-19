@@ -15,7 +15,7 @@ final class RopikyNetService extends AbstractService
 
 	const LINK = 'https://ropiky.net';
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return (
 			$this->url &&
@@ -31,7 +31,7 @@ final class RopikyNetService extends AbstractService
 		if (preg_match('/<a href=\"(https:\/\/mapy\.cz\/[^"]+)/', $response, $matches)) {
 			$mapyCzService = new MapyCzService();
 			$mapyCzService->setInput($matches[1]);
-			if ($mapyCzService->isValid()) {
+			if ($mapyCzService->validate()) {
 				$mapyCzService->process();
 				if ($mapyCzLocation = $mapyCzService->getCollection()->getFirst()) {
 					$this->collection->add(new BetterLocation($this->inputUrl, $mapyCzLocation->getLat(), $mapyCzLocation->getLon(), self::class));

@@ -61,7 +61,7 @@ final class GoogleMapsService extends AbstractService
 		return sprintf($drive ? self::LINK_DRIVE : self::LINK, $lat, $lon);
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		if ($this->url === null) {
 			return false;
@@ -124,7 +124,7 @@ final class GoogleMapsService extends AbstractService
 		if ($this->data->isShort ?? false) {
 			$urlToRequest = $this->url->setScheme('https'); // Optimalization by skipping one extra redirecting from http to https
 			$this->url = Strict::url(MiniCurl::loadRedirectUrl($urlToRequest->getAbsoluteUrl()));
-			if ($this->isValid() === false) {
+			if ($this->validate() === false) {
 				throw new InvalidLocationException(sprintf('Invalid redirect for short Google maps link "%s".', $this->inputUrl));
 			}
 		}

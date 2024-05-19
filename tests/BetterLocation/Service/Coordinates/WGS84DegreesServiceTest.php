@@ -28,7 +28,7 @@ final class WGS84DegreesServiceTest extends AbstractServiceTestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(WGS84DegreesService::isValidStatic('50.636144°N, 14.337469°E'));
+		$this->assertTrue(WGS84DegreesService::validateStatic('50.636144°N, 14.337469°E'));
 	}
 
 	public function testProcess(): void

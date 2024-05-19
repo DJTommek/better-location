@@ -22,7 +22,7 @@ abstract class BannergressAbstractService extends AbstractService
 
 	abstract protected function mosaicUrl(string $mosaicId): string;
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		if (
 			$this->url

@@ -36,7 +36,7 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 
 	private const CODE_NOT_FOUND = 404;
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return (
 			$this->url &&
@@ -239,7 +239,7 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 	{
 		$this->rawUrl = MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl());
 		$this->url = Strict::url($this->rawUrl);
-		if ($this->isValid() === false) {
+		if ($this->validate() === false) {
 			throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url, $this->inputUrl));
 		}
 	}

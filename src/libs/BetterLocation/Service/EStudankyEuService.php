@@ -13,7 +13,7 @@ final class EStudankyEuService extends AbstractService
 
 	const LINK = 'https://estudanky.eu';
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return (
 			$this->url &&

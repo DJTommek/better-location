@@ -17,7 +17,7 @@ final class FacebookService extends AbstractService
 
 	const LINK = 'https://facebook.com';
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return (
 			$this->url &&

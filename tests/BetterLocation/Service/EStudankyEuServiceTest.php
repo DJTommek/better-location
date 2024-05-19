@@ -24,17 +24,17 @@ final class EStudankyEuServiceTest extends TestCase
 	public function testIsValid(): void
 	{
 		// Place
-		$this->assertTrue(EStudankyEuService::isValidStatic('https://estudanky.eu/3762-studanka-kinska'));
-		$this->assertTrue(EStudankyEuService::isValidStatic('http://estudanky.eu/3762-studanka-kinska'));
-		$this->assertTrue(EStudankyEuService::isValidStatic('https://www.estudanky.eu/3762-studanka-kinska'));
-		$this->assertTrue(EStudankyEuService::isValidStatic('https://www.estudanky.eu/3762'));
-		$this->assertTrue(EStudankyEuService::isValidStatic('https://www.estudanky.eu/3762-'));
+		$this->assertTrue(EStudankyEuService::validateStatic('https://estudanky.eu/3762-studanka-kinska'));
+		$this->assertTrue(EStudankyEuService::validateStatic('http://estudanky.eu/3762-studanka-kinska'));
+		$this->assertTrue(EStudankyEuService::validateStatic('https://www.estudanky.eu/3762-studanka-kinska'));
+		$this->assertTrue(EStudankyEuService::validateStatic('https://www.estudanky.eu/3762'));
+		$this->assertTrue(EStudankyEuService::validateStatic('https://www.estudanky.eu/3762-'));
 
 		// Invalid
-		$this->assertFalse(EStudankyEuService::isValidStatic('some invalid url'));
-		$this->assertFalse(EStudankyEuService::isValidStatic('https://estudanky.eu/nepristupne-cislo-zpet-strana-1'));
-		$this->assertFalse(EStudankyEuService::isValidStatic('https://estudanky.eu/kraj-B-cislo-strana-1'));
-		$this->assertFalse(EStudankyEuService::isValidStatic('https://estudanky.eu/zachranme-studanky'));
+		$this->assertFalse(EStudankyEuService::validateStatic('some invalid url'));
+		$this->assertFalse(EStudankyEuService::validateStatic('https://estudanky.eu/nepristupne-cislo-zpet-strana-1'));
+		$this->assertFalse(EStudankyEuService::validateStatic('https://estudanky.eu/kraj-B-cislo-strana-1'));
+		$this->assertFalse(EStudankyEuService::validateStatic('https://estudanky.eu/zachranme-studanky'));
 	}
 
 	/**

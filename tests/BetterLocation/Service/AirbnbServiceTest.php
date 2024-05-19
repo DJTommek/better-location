@@ -23,13 +23,13 @@ final class AirbnbServiceTest extends AbstractServiceTestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(AirbnbService::isValidStatic('https://www.airbnb.cz/rooms/16958918?adults=8&check_in=2024-03-14&check_out=2024-03-17&source_impression_id=p3_1707752790_J1JOXEiZQ5zIywtZ&previous_page_section_name=1000&federated_search_id=db0802cc-b8b1-4e05-8df3-4874a286c728'));
-		$this->assertTrue(AirbnbService::isValidStatic('https://www.airbnb.cz/rooms/123'));
+		$this->assertTrue(AirbnbService::validateStatic('https://www.airbnb.cz/rooms/16958918?adults=8&check_in=2024-03-14&check_out=2024-03-17&source_impression_id=p3_1707752790_J1JOXEiZQ5zIywtZ&previous_page_section_name=1000&federated_search_id=db0802cc-b8b1-4e05-8df3-4874a286c728'));
+		$this->assertTrue(AirbnbService::validateStatic('https://www.airbnb.cz/rooms/123'));
 
-		$this->assertFalse(AirbnbService::isValidStatic('https://www.airbnb.cz/'));
-		$this->assertFalse(AirbnbService::isValidStatic('https://www.airbnb.com/'));
-		$this->assertFalse(AirbnbService::isValidStatic('https://www.airbnb.cz/rooms/123abc'));
-		$this->assertFalse(AirbnbService::isValidStatic('non url'));
+		$this->assertFalse(AirbnbService::validateStatic('https://www.airbnb.cz/'));
+		$this->assertFalse(AirbnbService::validateStatic('https://www.airbnb.com/'));
+		$this->assertFalse(AirbnbService::validateStatic('https://www.airbnb.cz/rooms/123abc'));
+		$this->assertFalse(AirbnbService::validateStatic('non url'));
 	}
 
 	/**
@@ -37,7 +37,7 @@ final class AirbnbServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValidUsingProvider(bool $expectedIsValid, string $link): void
 	{
-		$this->assertSame($expectedIsValid, AirbnbService::isValidStatic($link));
+		$this->assertSame($expectedIsValid, AirbnbService::validateStatic($link));
 	}
 
 	/**

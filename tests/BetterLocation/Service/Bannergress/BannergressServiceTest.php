@@ -73,7 +73,7 @@ final class BannergressServiceTest extends TestCase
 	{
 		$service = new BannergressService($this->requestor);
 		$service->setInput($input);
-		$isValid = $service->isValid();
+		$isValid = $service->validate();
 		$this->assertSame($expectedIsValid, $isValid);
 	}
 
@@ -162,7 +162,7 @@ final class BannergressServiceTest extends TestCase
 
 		$service = new BannergressService($requestor);
 		$service->setInput($inputUrl);
-		$this->assertTrue($service->isValid());
+		$this->assertTrue($service->validate());
 		$service->process();
 		$collection = $service->getCollection();
 
@@ -187,7 +187,7 @@ final class BannergressServiceTest extends TestCase
 
 		$service = new BannergressService($requestor);
 		$service->setInput('https://bannergress.com/banner/some-non-existing-banner-test-a1b2');
-		$this->assertTrue($service->isValid());
+		$this->assertTrue($service->validate());
 		$service->process();
 
 		$this->assertCount(0, $service->getCollection());

@@ -35,10 +35,10 @@ final class AppleMapsServiceTest extends AbstractServiceTestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(AppleMapsService::isValidStatic('https://maps.apple.com/?ll=50.087451,14.420671'));
+		$this->assertTrue(AppleMapsService::validateStatic('https://maps.apple.com/?ll=50.087451,14.420671'));
 
-		$this->assertFalse(AppleMapsService::isValidStatic('https://example.com/?ll=50.087451,14.420671'));
-		$this->assertFalse(AppleMapsService::isValidStatic('non url'));
+		$this->assertFalse(AppleMapsService::validateStatic('https://example.com/?ll=50.087451,14.420671'));
+		$this->assertFalse(AppleMapsService::validateStatic('non url'));
 	}
 
 	/**
@@ -46,7 +46,7 @@ final class AppleMapsServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValidUsingProvider(bool $expectedIsValid, string $link): void
 	{
-		$this->assertSame($expectedIsValid, AppleMapsService::isValidStatic($link));
+		$this->assertSame($expectedIsValid, AppleMapsService::validateStatic($link));
 	}
 
 	/**

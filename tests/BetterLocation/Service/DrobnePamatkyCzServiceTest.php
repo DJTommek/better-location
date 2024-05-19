@@ -26,19 +26,19 @@ final class DrobnePamatkyCzServiceTest extends TestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(DrobnePamatkyCzService::isValidStatic('https://www.drobnepamatky.cz/node/36966'));
-		$this->assertTrue(DrobnePamatkyCzService::isValidStatic('http://www.drobnepamatky.cz/node/36966'));
-		$this->assertTrue(DrobnePamatkyCzService::isValidStatic('https://drobnepamatky.cz/node/36966'));
-		$this->assertTrue(DrobnePamatkyCzService::isValidStatic('http://drobnepamatky.cz/node/36966'));
+		$this->assertTrue(DrobnePamatkyCzService::validateStatic('https://www.drobnepamatky.cz/node/36966'));
+		$this->assertTrue(DrobnePamatkyCzService::validateStatic('http://www.drobnepamatky.cz/node/36966'));
+		$this->assertTrue(DrobnePamatkyCzService::validateStatic('https://drobnepamatky.cz/node/36966'));
+		$this->assertTrue(DrobnePamatkyCzService::validateStatic('http://drobnepamatky.cz/node/36966'));
 
-		$this->assertFalse(DrobnePamatkyCzService::isValidStatic('https://www.drobnepamatky.cz/'));
-		$this->assertFalse(DrobnePamatkyCzService::isValidStatic('https://www.drobnepamatky.cz/node/'));
-		$this->assertFalse(DrobnePamatkyCzService::isValidStatic('https://www.drobnepamatky.cz/node/abc'));
-		$this->assertFalse(DrobnePamatkyCzService::isValidStatic('https://www.drobnepamatky.cz/node/123abc'));
-		$this->assertFalse(DrobnePamatkyCzService::isValidStatic('https://www.drobnepamatky.cz/node/abc123'));
-		$this->assertFalse(DrobnePamatkyCzService::isValidStatic('https://www.drobnepamatky.cz/node/123aaa456'));
+		$this->assertFalse(DrobnePamatkyCzService::validateStatic('https://www.drobnepamatky.cz/'));
+		$this->assertFalse(DrobnePamatkyCzService::validateStatic('https://www.drobnepamatky.cz/node/'));
+		$this->assertFalse(DrobnePamatkyCzService::validateStatic('https://www.drobnepamatky.cz/node/abc'));
+		$this->assertFalse(DrobnePamatkyCzService::validateStatic('https://www.drobnepamatky.cz/node/123abc'));
+		$this->assertFalse(DrobnePamatkyCzService::validateStatic('https://www.drobnepamatky.cz/node/abc123'));
+		$this->assertFalse(DrobnePamatkyCzService::validateStatic('https://www.drobnepamatky.cz/node/123aaa456'));
 
-		$this->assertFalse(DrobnePamatkyCzService::isValidStatic('some invalid url'));
+		$this->assertFalse(DrobnePamatkyCzService::validateStatic('some invalid url'));
 	}
 
 	/**

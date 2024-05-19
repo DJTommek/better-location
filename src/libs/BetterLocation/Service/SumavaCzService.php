@@ -29,7 +29,7 @@ final class SumavaCzService extends AbstractService
 		];
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		if (
 			$this->url &&
@@ -107,7 +107,7 @@ final class SumavaCzService extends AbstractService
 			$fullLink = self::LINK . $linkPath;
 			$service = new SumavaCzService();
 			$service->setInput($fullLink);
-			if ($service->isValid()) {
+			if ($service->validate()) {
 				$service->process();
 				$collection = $service->getCollection();
 				assert(count($collection) === 1);

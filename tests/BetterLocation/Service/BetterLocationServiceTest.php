@@ -35,25 +35,25 @@ final class BetterLocationServiceTest extends TestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(BetterLocationService::isValidStatic('https://better-location.palider.cz/50.087451,14.420671'));
-		$this->assertTrue(BetterLocationService::isValidStatic('https://www.better-location.palider.cz/50.087451,14.420671'));
-		$this->assertTrue(BetterLocationService::isValidStatic('http://better-location.palider.cz/50.087451,14.420671'));
-		$this->assertTrue(BetterLocationService::isValidStatic('http://www.better-location.palider.cz/50.087451,14.420671'));
+		$this->assertTrue(BetterLocationService::validateStatic('https://better-location.palider.cz/50.087451,14.420671'));
+		$this->assertTrue(BetterLocationService::validateStatic('https://www.better-location.palider.cz/50.087451,14.420671'));
+		$this->assertTrue(BetterLocationService::validateStatic('http://better-location.palider.cz/50.087451,14.420671'));
+		$this->assertTrue(BetterLocationService::validateStatic('http://www.better-location.palider.cz/50.087451,14.420671'));
 
 		// lat or lon out of range
-		$this->assertFalse(BetterLocationService::isValidStatic('https://better-location.palider.cz/91.087451,14.420671'));
-		$this->assertFalse(BetterLocationService::isValidStatic('https://better-location.palider.cz/-91.087451,14.420671'));
-		$this->assertFalse(BetterLocationService::isValidStatic('https://better-location.palider.cz/220.087451,14.420671'));
-		$this->assertFalse(BetterLocationService::isValidStatic('https://better-location.palider.cz/-220.087451,14.420671'));
-		$this->assertFalse(BetterLocationService::isValidStatic('https://better-location.palider.cz/51.087451,181.420671'));
-		$this->assertFalse(BetterLocationService::isValidStatic('https://better-location.palider.cz/51.087451,-181.420671'));
+		$this->assertFalse(BetterLocationService::validateStatic('https://better-location.palider.cz/91.087451,14.420671'));
+		$this->assertFalse(BetterLocationService::validateStatic('https://better-location.palider.cz/-91.087451,14.420671'));
+		$this->assertFalse(BetterLocationService::validateStatic('https://better-location.palider.cz/220.087451,14.420671'));
+		$this->assertFalse(BetterLocationService::validateStatic('https://better-location.palider.cz/-220.087451,14.420671'));
+		$this->assertFalse(BetterLocationService::validateStatic('https://better-location.palider.cz/51.087451,181.420671'));
+		$this->assertFalse(BetterLocationService::validateStatic('https://better-location.palider.cz/51.087451,-181.420671'));
 
-		$this->assertFalse(BetterLocationService::isValidStatic('https://better-location.palider.cz/50.087451&lng=14.420671'));
-		$this->assertFalse(BetterLocationService::isValidStatic('https://better-location.palider.cz/50.087451,abc'));
-		$this->assertFalse(BetterLocationService::isValidStatic('https://better-location.palider.cz/abc,14.420671'));
-		$this->assertFalse(BetterLocationService::isValidStatic('https://better-location.palider.cz/50.087451aaaa,14.420671'));
-		$this->assertFalse(BetterLocationService::isValidStatic('https://better-location.palider.cz/50.087451,14.420671aaaa'));
-		$this->assertFalse(BetterLocationService::isValidStatic('https://better-location.palider.cz/go.php?lat=50.087451,14.420671'));
+		$this->assertFalse(BetterLocationService::validateStatic('https://better-location.palider.cz/50.087451&lng=14.420671'));
+		$this->assertFalse(BetterLocationService::validateStatic('https://better-location.palider.cz/50.087451,abc'));
+		$this->assertFalse(BetterLocationService::validateStatic('https://better-location.palider.cz/abc,14.420671'));
+		$this->assertFalse(BetterLocationService::validateStatic('https://better-location.palider.cz/50.087451aaaa,14.420671'));
+		$this->assertFalse(BetterLocationService::validateStatic('https://better-location.palider.cz/50.087451,14.420671aaaa'));
+		$this->assertFalse(BetterLocationService::validateStatic('https://better-location.palider.cz/go.php?lat=50.087451,14.420671'));
 	}
 
 	public function testParseUrl(): void

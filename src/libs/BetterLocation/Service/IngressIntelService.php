@@ -39,7 +39,7 @@ final class IngressIntelService extends AbstractService
 		}
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		$result = false;
 		if ($this->url && $this->url->getDomain(2) === 'ingress.com') {

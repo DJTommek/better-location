@@ -14,7 +14,7 @@ final class PrazdneDomyCzService extends AbstractService
 
 	const LINK = 'https://prazdnedomy.cz';
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return (
 			$this->url &&

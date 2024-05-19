@@ -44,16 +44,16 @@ final class OrganicMapsServiceTest extends TestCase
 
 	public function testIsValidUrl(): void
 	{
-		$this->assertTrue(OrganicMapsService::isValidStatic('https://omaps.app/s4G4aoSWF9'));
-		$this->assertTrue(OrganicMapsService::isValidStatic('https://omaps.app/44G4aoThBC/Jan_Hus_Memorial'));
-		$this->assertTrue(OrganicMapsService::isValidStatic('https://omaps.app/0abcdefghi'));
-		$this->assertTrue(OrganicMapsService::isValidStatic('https://omaps.app/sa'));
+		$this->assertTrue(OrganicMapsService::validateStatic('https://omaps.app/s4G4aoSWF9'));
+		$this->assertTrue(OrganicMapsService::validateStatic('https://omaps.app/44G4aoThBC/Jan_Hus_Memorial'));
+		$this->assertTrue(OrganicMapsService::validateStatic('https://omaps.app/0abcdefghi'));
+		$this->assertTrue(OrganicMapsService::validateStatic('https://omaps.app/sa'));
 
-		$this->assertFalse(OrganicMapsService::isValidStatic('https://www.omaps.app/s4G4aoSWF9'));
-		$this->assertFalse(OrganicMapsService::isValidStatic('https://omaps.app/saabbccddaabbccddaabbccddaa'));
-		$this->assertFalse(OrganicMapsService::isValidStatic('https://omaps.app'));
-		$this->assertFalse(OrganicMapsService::isValidStatic('https://omaps.app/'));
-		$this->assertFalse(OrganicMapsService::isValidStatic('https://omaps.app/s'));
+		$this->assertFalse(OrganicMapsService::validateStatic('https://www.omaps.app/s4G4aoSWF9'));
+		$this->assertFalse(OrganicMapsService::validateStatic('https://omaps.app/saabbccddaabbccddaabbccddaa'));
+		$this->assertFalse(OrganicMapsService::validateStatic('https://omaps.app'));
+		$this->assertFalse(OrganicMapsService::validateStatic('https://omaps.app/'));
+		$this->assertFalse(OrganicMapsService::validateStatic('https://omaps.app/s'));
 	}
 
 	public function testProcessUrl(): void

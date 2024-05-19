@@ -15,7 +15,7 @@ final class WikipediaService extends AbstractService
 
 	const LINK = 'https://wikipedia.org';
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return (
 			$this->url &&

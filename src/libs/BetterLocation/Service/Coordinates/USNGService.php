@@ -25,7 +25,7 @@ final class USNGService extends AbstractService
 				$service = Factory::getContainer()->get(self::class);
 				$service->setInput($usngRaw);
 				try {
-					if ($service->isValid()) {
+					if ($service->validate()) {
 						$service->process();
 						$collection->add($service->getCollection());
 					} else {
@@ -39,7 +39,7 @@ final class USNGService extends AbstractService
 		return $collection;
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return MGRS::isUSNG($this->input);
 	}

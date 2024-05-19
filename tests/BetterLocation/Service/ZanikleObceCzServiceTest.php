@@ -26,47 +26,47 @@ final class ZanikleObceCzServiceTest extends TestCase
 
 	public function testIsValidObec(): void
 	{
-		$this->assertTrue(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/?obec=26831'));
-		$this->assertTrue(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/?obec=1'));
-		$this->assertTrue(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/?obec=999999'));
+		$this->assertTrue(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec=26831'));
+		$this->assertTrue(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec=1'));
+		$this->assertTrue(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec=999999'));
 
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/?obec='));
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/?obec=0'));
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/?obec=aaa'));
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/?obec=-26831'));
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/?obec=26831aaa'));
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/?obec=aaa26831'));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec='));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec=0'));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec=aaa'));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec=-26831'));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec=26831aaa'));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec=aaa26831'));
 }
 
 	public function testIsValidDetail(): void
 	{
-		$this->assertTrue(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/index.php?detail=1110015')); // valid but doesn't contain any location
+		$this->assertTrue(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/index.php?detail=1110015')); // valid but doesn't contain any location
 
-		$this->assertTrue(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/index.php?detail=282687'));
-		$this->assertTrue(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/?detail=282687'));
-		$this->assertTrue(ZanikleObceCzService::isValidStatic('http://zanikleOBCE.cz/?detail=282687'));
-		$this->assertTrue(ZanikleObceCzService::isValidStatic('http://zanikleobce.cz/index.php?detail=282687'));
-		$this->assertTrue(ZanikleObceCzService::isValidStatic('http://zanikleobce.cz/index.php?lang=d&detail=282687')); // changed language to Deutsch
+		$this->assertTrue(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/index.php?detail=282687'));
+		$this->assertTrue(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?detail=282687'));
+		$this->assertTrue(ZanikleObceCzService::validateStatic('http://zanikleOBCE.cz/?detail=282687'));
+		$this->assertTrue(ZanikleObceCzService::validateStatic('http://zanikleobce.cz/index.php?detail=282687'));
+		$this->assertTrue(ZanikleObceCzService::validateStatic('http://zanikleobce.cz/index.php?lang=d&detail=282687')); // changed language to Deutsch
 
-		$this->assertTrue(ZanikleObceCzService::isValidStatic('https://www.zanikleobce.cz/index.php?detail=282687'));
-		$this->assertTrue(ZanikleObceCzService::isValidStatic('https://www.zanikleobce.cz/?detail=282687'));
-		$this->assertTrue(ZanikleObceCzService::isValidStatic('https://zanikleobce.CZ/?detail=282687'));
-		$this->assertTrue(ZanikleObceCzService::isValidStatic('https://zanikleobce.cz/index.php?detail=282687'));
-		$this->assertTrue(ZanikleObceCzService::isValidStatic('https://ZANIKLEobce.cz/index.php?lang=d&detail=282687')); // changed language to Deutsch
-		$this->assertTrue(ZanikleObceCzService::isValidStatic('https://zanikleobce.cz/index.php?detail=282687&lang=d')); // changed language to Deutsch
+		$this->assertTrue(ZanikleObceCzService::validateStatic('https://www.zanikleobce.cz/index.php?detail=282687'));
+		$this->assertTrue(ZanikleObceCzService::validateStatic('https://www.zanikleobce.cz/?detail=282687'));
+		$this->assertTrue(ZanikleObceCzService::validateStatic('https://zanikleobce.CZ/?detail=282687'));
+		$this->assertTrue(ZanikleObceCzService::validateStatic('https://zanikleobce.cz/index.php?detail=282687'));
+		$this->assertTrue(ZanikleObceCzService::validateStatic('https://ZANIKLEobce.cz/index.php?lang=d&detail=282687')); // changed language to Deutsch
+		$this->assertTrue(ZanikleObceCzService::validateStatic('https://zanikleobce.cz/index.php?detail=282687&lang=d')); // changed language to Deutsch
 
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('some invalid url'));
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/index.php?detail='));
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/index.php?detail=-282687'));
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('https://ZANIKLEobce.cz/index.php?detail=aaa'));
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('https://www.zanikleobce.cz/index.php?detail=123aaa'));
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('https://www.zanikleobce.CZ/index.php?detail=aaa123'));
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('https://www.zanikleobce.cz/index.php?detail=aaa123aaa'));
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/index.php?DETAIL=282687'));
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/?DETAIL=282687'));
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/'));
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('http://zanikleobce.cz/'));
-		$this->assertFalse(ZanikleObceCzService::isValidStatic('http://www.zanikleobce.cz/index.php'));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('some invalid url'));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/index.php?detail='));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/index.php?detail=-282687'));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('https://ZANIKLEobce.cz/index.php?detail=aaa'));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('https://www.zanikleobce.cz/index.php?detail=123aaa'));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('https://www.zanikleobce.CZ/index.php?detail=aaa123'));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('https://www.zanikleobce.cz/index.php?detail=aaa123aaa'));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/index.php?DETAIL=282687'));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?DETAIL=282687'));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/'));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('http://zanikleobce.cz/'));
+		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/index.php'));
 	}
 
 	/**

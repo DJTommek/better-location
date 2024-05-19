@@ -22,27 +22,27 @@ final class FacebookServiceTest extends TestCase
 
 	public function testIsUrl(): void
 	{
-		$this->assertTrue(FacebookService::isValidStatic('https://facebook.com/burgerzelva'));
-		$this->assertTrue(FacebookService::isValidStatic('http://facebook.com/burgerzelva'));
-		$this->assertTrue(FacebookService::isValidStatic('http://www.facebook.com/burgerzelva'));
-		$this->assertTrue(FacebookService::isValidStatic('https://www.facebook.com/burgerzelva'));
-		$this->assertTrue(FacebookService::isValidStatic('https://facebook.com/burgerzelva/'));
-		$this->assertTrue(FacebookService::isValidStatic('https://facebook.com/burgerzelva/menu'));
-		$this->assertTrue(FacebookService::isValidStatic('https://facebook.com/burgerzelva/menu/?ref=page_internal'));
-		$this->assertTrue(FacebookService::isValidStatic('https://facebook.com/burgerzelva?ref=page_internal'));
-		$this->assertTrue(FacebookService::isValidStatic('https://m.facebook.com/burgerzelva'));
-		$this->assertTrue(FacebookService::isValidStatic('https://pt-br.facebook.com/burgerzelva'));
-		$this->assertTrue(FacebookService::isValidStatic('https://m.facebook.com/gentlegiantcafex/'));
-		$this->assertTrue(FacebookService::isValidStatic('https://pt-br.facebook.com/fantaziecafe/'));
-		$this->assertTrue(FacebookService::isValidStatic('https://www.facebook.com/FlotaVacaDiezSCZ/'));
-		$this->assertTrue(FacebookService::isValidStatic('https://www.facebook.com/Bodegas-Alfaro-730504807012751/'));
-		$this->assertTrue(FacebookService::isValidStatic('https://www.facebook.com/Biggie-Express-251025431718109/about/?ref=page_internal'));
+		$this->assertTrue(FacebookService::validateStatic('https://facebook.com/burgerzelva'));
+		$this->assertTrue(FacebookService::validateStatic('http://facebook.com/burgerzelva'));
+		$this->assertTrue(FacebookService::validateStatic('http://www.facebook.com/burgerzelva'));
+		$this->assertTrue(FacebookService::validateStatic('https://www.facebook.com/burgerzelva'));
+		$this->assertTrue(FacebookService::validateStatic('https://facebook.com/burgerzelva/'));
+		$this->assertTrue(FacebookService::validateStatic('https://facebook.com/burgerzelva/menu'));
+		$this->assertTrue(FacebookService::validateStatic('https://facebook.com/burgerzelva/menu/?ref=page_internal'));
+		$this->assertTrue(FacebookService::validateStatic('https://facebook.com/burgerzelva?ref=page_internal'));
+		$this->assertTrue(FacebookService::validateStatic('https://m.facebook.com/burgerzelva'));
+		$this->assertTrue(FacebookService::validateStatic('https://pt-br.facebook.com/burgerzelva'));
+		$this->assertTrue(FacebookService::validateStatic('https://m.facebook.com/gentlegiantcafex/'));
+		$this->assertTrue(FacebookService::validateStatic('https://pt-br.facebook.com/fantaziecafe/'));
+		$this->assertTrue(FacebookService::validateStatic('https://www.facebook.com/FlotaVacaDiezSCZ/'));
+		$this->assertTrue(FacebookService::validateStatic('https://www.facebook.com/Bodegas-Alfaro-730504807012751/'));
+		$this->assertTrue(FacebookService::validateStatic('https://www.facebook.com/Biggie-Express-251025431718109/about/?ref=page_internal'));
 
-		$this->assertFalse(FacebookService::isValidStatic('https://facebook.com/'));
-		$this->assertFalse(FacebookService::isValidStatic('https://facebook.com'));
-		$this->assertFalse(FacebookService::isValidStatic('https://facebook.com?foo=bar'));
+		$this->assertFalse(FacebookService::validateStatic('https://facebook.com/'));
+		$this->assertFalse(FacebookService::validateStatic('https://facebook.com'));
+		$this->assertFalse(FacebookService::validateStatic('https://facebook.com?foo=bar'));
 
-		$this->assertFalse(FacebookService::isValidStatic('some invalid url'));
+		$this->assertFalse(FacebookService::validateStatic('some invalid url'));
 	}
 
 	/**

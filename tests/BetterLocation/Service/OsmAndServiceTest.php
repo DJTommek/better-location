@@ -27,44 +27,44 @@ final class OsmAndServiceTest extends TestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=50.087451&lon=14.420671&z=17'));
-		$this->assertTrue(OsmAndService::isValidStatic('http://osmand.net/go.html?lat=50.087451&lon=14.420671&z=17'));
-		$this->assertTrue(OsmAndService::isValidStatic('https://OSmAnd.net/go.html?lat=50.087451&lon=14.420671&z=17'));
-		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=50.087451&lon=14.420671'));
-		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/go.html?z=17&lat=50.087451&lon=14.420671'));
-		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=50.087451&z=17&lon=14.420671'));
-		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/go?lat=50.087451&z=17&lon=14.420671'));
-		$this->assertTrue(OsmAndService::isValidStatic('https://www.osmand.net/go?lat=50.087451&z=17&lon=14.420671'));
-		$this->assertTrue(OsmAndService::isValidStatic('http://osmand.net/go?lat=50.087451&z=17&lon=14.420671'));
+		$this->assertTrue(OsmAndService::validateStatic('https://osmand.net/go.html?lat=50.087451&lon=14.420671&z=17'));
+		$this->assertTrue(OsmAndService::validateStatic('http://osmand.net/go.html?lat=50.087451&lon=14.420671&z=17'));
+		$this->assertTrue(OsmAndService::validateStatic('https://OSmAnd.net/go.html?lat=50.087451&lon=14.420671&z=17'));
+		$this->assertTrue(OsmAndService::validateStatic('https://osmand.net/go.html?lat=50.087451&lon=14.420671'));
+		$this->assertTrue(OsmAndService::validateStatic('https://osmand.net/go.html?z=17&lat=50.087451&lon=14.420671'));
+		$this->assertTrue(OsmAndService::validateStatic('https://osmand.net/go.html?lat=50.087451&z=17&lon=14.420671'));
+		$this->assertTrue(OsmAndService::validateStatic('https://osmand.net/go?lat=50.087451&z=17&lon=14.420671'));
+		$this->assertTrue(OsmAndService::validateStatic('https://www.osmand.net/go?lat=50.087451&z=17&lon=14.420671'));
+		$this->assertTrue(OsmAndService::validateStatic('http://osmand.net/go?lat=50.087451&z=17&lon=14.420671'));
 
-		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=50.087451&lon=14.420671'));
-		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=50.087451&lon=-14.420671'));
-		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=-50.087451&lon=14.420671'));
-		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=-50.087451&lon=-14.420671'));
+		$this->assertTrue(OsmAndService::validateStatic('https://osmand.net/go.html?lat=50.087451&lon=14.420671'));
+		$this->assertTrue(OsmAndService::validateStatic('https://osmand.net/go.html?lat=50.087451&lon=-14.420671'));
+		$this->assertTrue(OsmAndService::validateStatic('https://osmand.net/go.html?lat=-50.087451&lon=14.420671'));
+		$this->assertTrue(OsmAndService::validateStatic('https://osmand.net/go.html?lat=-50.087451&lon=-14.420671'));
 
-		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/map?pin=35.82665,50.96827#17/35.82665/50.96827'));
-		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/map?pin=35.82665,50.96827'));
-		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/map#17/35.82665/50.96827'));
-		$this->assertTrue(OsmAndService::isValidStatic('https://osmand.net/map?pin=35.82665,50.96827blabla#17/35.82665/50.96827'));
-		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/map?pin=35.82665,50.96827blabla#17/35.82665/50.96827blabla'));
+		$this->assertTrue(OsmAndService::validateStatic('https://osmand.net/map?pin=35.82665,50.96827#17/35.82665/50.96827'));
+		$this->assertTrue(OsmAndService::validateStatic('https://osmand.net/map?pin=35.82665,50.96827'));
+		$this->assertTrue(OsmAndService::validateStatic('https://osmand.net/map#17/35.82665/50.96827'));
+		$this->assertTrue(OsmAndService::validateStatic('https://osmand.net/map?pin=35.82665,50.96827blabla#17/35.82665/50.96827'));
+		$this->assertFalse(OsmAndService::validateStatic('https://osmand.net/map?pin=35.82665,50.96827blabla#17/35.82665/50.96827blabla'));
 
 		// lat or lon out of range
-		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=91.087451&lon=14.420671'));
-		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=-91.087451&lon=14.420671'));
-		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=220.087451&lon=14.420671'));
-		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=-220.087451&lon=14.420671'));
-		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=51.087451&lon=181.420671'));
-		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=51.087451&lon=-181.420671'));
+		$this->assertFalse(OsmAndService::validateStatic('https://osmand.net/go.html?lat=91.087451&lon=14.420671'));
+		$this->assertFalse(OsmAndService::validateStatic('https://osmand.net/go.html?lat=-91.087451&lon=14.420671'));
+		$this->assertFalse(OsmAndService::validateStatic('https://osmand.net/go.html?lat=220.087451&lon=14.420671'));
+		$this->assertFalse(OsmAndService::validateStatic('https://osmand.net/go.html?lat=-220.087451&lon=14.420671'));
+		$this->assertFalse(OsmAndService::validateStatic('https://osmand.net/go.html?lat=51.087451&lon=181.420671'));
+		$this->assertFalse(OsmAndService::validateStatic('https://osmand.net/go.html?lat=51.087451&lon=-181.420671'));
 
-		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=50.087451&lng=14.420671'));
-		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=50.087451&lon=abc'));
-		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=abc&lon=14.420671'));
-		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=50.087451aaaa&lon=14.420671'));
-		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/go.html?lat=50.087451&lon=14.420671aaaa'));
-		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/go.php?lat=50.087451&lon=14.420671'));
-		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/GO.html?lat=50.087451&lon=14.420671'));
-		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.net/go.HtmL?lat=50.087451&lon=14.420671'));
-		$this->assertFalse(OsmAndService::isValidStatic('https://osmand.org/go.html?lat=50.087451&lon=14.420671'));
+		$this->assertFalse(OsmAndService::validateStatic('https://osmand.net/go.html?lat=50.087451&lng=14.420671'));
+		$this->assertFalse(OsmAndService::validateStatic('https://osmand.net/go.html?lat=50.087451&lon=abc'));
+		$this->assertFalse(OsmAndService::validateStatic('https://osmand.net/go.html?lat=abc&lon=14.420671'));
+		$this->assertFalse(OsmAndService::validateStatic('https://osmand.net/go.html?lat=50.087451aaaa&lon=14.420671'));
+		$this->assertFalse(OsmAndService::validateStatic('https://osmand.net/go.html?lat=50.087451&lon=14.420671aaaa'));
+		$this->assertFalse(OsmAndService::validateStatic('https://osmand.net/go.php?lat=50.087451&lon=14.420671'));
+		$this->assertFalse(OsmAndService::validateStatic('https://osmand.net/GO.html?lat=50.087451&lon=14.420671'));
+		$this->assertFalse(OsmAndService::validateStatic('https://osmand.net/go.HtmL?lat=50.087451&lon=14.420671'));
+		$this->assertFalse(OsmAndService::validateStatic('https://osmand.org/go.html?lat=50.087451&lon=14.420671'));
 	}
 
 	public function testParseUrl(): void

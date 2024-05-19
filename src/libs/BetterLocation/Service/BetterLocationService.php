@@ -39,7 +39,7 @@ final class BetterLocationService extends AbstractService implements ShareCollec
 		return self::LINK . '/' . implode(';', $collection->getKeys());
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		if (
 			$this->url &&

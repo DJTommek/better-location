@@ -57,7 +57,7 @@ abstract class WGS84AbstractService extends AbstractService
 			self::RE_OPTIONAL_HEMISPHERE;
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		$input = str_replace('\'\'', '"', $this->input); // Replace two quotes as one doublequote
 		if (preg_match('/^' . static::getRegex() . '$/iu', $input, $matches)) {
@@ -78,7 +78,7 @@ abstract class WGS84AbstractService extends AbstractService
 				$service = Factory::getContainer()->get(static::class);
 				$service->setInput($coordsRaw);
 				try {
-					if ($service->isValid()) {
+					if ($service->validate()) {
 						$service->process();
 						$collection->add($service->getCollection());
 					} else {

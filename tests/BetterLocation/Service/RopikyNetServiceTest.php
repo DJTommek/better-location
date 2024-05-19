@@ -22,26 +22,26 @@ final class RopikyNetServiceTest extends TestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(RopikyNetService::isValidStatic('https://www.ropiky.net/dbase_objekt.php?id=1183840757'));
-		$this->assertTrue(RopikyNetService::isValidStatic('https://ropiky.net/dbase_objekt.php?id=1183840757'));
-		$this->assertTrue(RopikyNetService::isValidStatic('http://www.ropiky.net/dbase_objekt.php?id=1183840757'));
-		$this->assertTrue(RopikyNetService::isValidStatic('http://ropiky.net/dbase_objekt.php?id=1183840757'));
+		$this->assertTrue(RopikyNetService::validateStatic('https://www.ropiky.net/dbase_objekt.php?id=1183840757'));
+		$this->assertTrue(RopikyNetService::validateStatic('https://ropiky.net/dbase_objekt.php?id=1183840757'));
+		$this->assertTrue(RopikyNetService::validateStatic('http://www.ropiky.net/dbase_objekt.php?id=1183840757'));
+		$this->assertTrue(RopikyNetService::validateStatic('http://ropiky.net/dbase_objekt.php?id=1183840757'));
 
-		$this->assertTrue(RopikyNetService::isValidStatic('https://www.ropiky.net/nerop_objekt.php?id=1397407312'));
-		$this->assertTrue(RopikyNetService::isValidStatic('https://ropiky.net/nerop_objekt.php?id=1397407312'));
-		$this->assertTrue(RopikyNetService::isValidStatic('http://www.ropiky.net/nerop_objekt.php?id=1397407312'));
-		$this->assertTrue(RopikyNetService::isValidStatic('http://ropiky.net/nerop_objekt.php?id=1397407312'));
+		$this->assertTrue(RopikyNetService::validateStatic('https://www.ropiky.net/nerop_objekt.php?id=1397407312'));
+		$this->assertTrue(RopikyNetService::validateStatic('https://ropiky.net/nerop_objekt.php?id=1397407312'));
+		$this->assertTrue(RopikyNetService::validateStatic('http://www.ropiky.net/nerop_objekt.php?id=1397407312'));
+		$this->assertTrue(RopikyNetService::validateStatic('http://ropiky.net/nerop_objekt.php?id=1397407312'));
 
-		$this->assertFalse(RopikyNetService::isValidStatic('https://www.ropiky.net/dbase_objekt.php?id=abcd'));
-		$this->assertFalse(RopikyNetService::isValidStatic('https://www.ropiky.net/dbase_objekt.php?id='));
-		$this->assertFalse(RopikyNetService::isValidStatic('https://www.ropiky.net/dbase_objekt.blabla?id=1183840757'));
-		$this->assertFalse(RopikyNetService::isValidStatic('https://www.ropiky.net/nerop_objekt.php?id=abcd'));
-		$this->assertFalse(RopikyNetService::isValidStatic('https://www.ropiky.net/nerop_objekt.php?id='));
-		$this->assertFalse(RopikyNetService::isValidStatic('https://www.ropiky.net/nerop_objekt.blabla?id=1183840757'));
-		$this->assertFalse(RopikyNetService::isValidStatic('https://www.ropiky.net/aaaaa.php?id=1183840757'));
-		$this->assertFalse(RopikyNetService::isValidStatic('https://www.ropiky.net'));
+		$this->assertFalse(RopikyNetService::validateStatic('https://www.ropiky.net/dbase_objekt.php?id=abcd'));
+		$this->assertFalse(RopikyNetService::validateStatic('https://www.ropiky.net/dbase_objekt.php?id='));
+		$this->assertFalse(RopikyNetService::validateStatic('https://www.ropiky.net/dbase_objekt.blabla?id=1183840757'));
+		$this->assertFalse(RopikyNetService::validateStatic('https://www.ropiky.net/nerop_objekt.php?id=abcd'));
+		$this->assertFalse(RopikyNetService::validateStatic('https://www.ropiky.net/nerop_objekt.php?id='));
+		$this->assertFalse(RopikyNetService::validateStatic('https://www.ropiky.net/nerop_objekt.blabla?id=1183840757'));
+		$this->assertFalse(RopikyNetService::validateStatic('https://www.ropiky.net/aaaaa.php?id=1183840757'));
+		$this->assertFalse(RopikyNetService::validateStatic('https://www.ropiky.net'));
 
-		$this->assertFalse(RopikyNetService::isValidStatic('some invalid url'));
+		$this->assertFalse(RopikyNetService::validateStatic('some invalid url'));
 	}
 
 	/**

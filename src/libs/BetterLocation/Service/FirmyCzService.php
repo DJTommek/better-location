@@ -15,7 +15,7 @@ final class FirmyCzService extends AbstractService
 
 	const URL_PATH_REGEX = '/^\/detail\/([0-9]+)/';
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		if (
 			$this->url &&

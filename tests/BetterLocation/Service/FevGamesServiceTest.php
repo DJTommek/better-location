@@ -22,21 +22,21 @@ final class FevGamesServiceTest extends TestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(FevGamesService::isValidStatic('https://fevgames.net/ifs/event/?e=15677'));
-		$this->assertTrue(FevGamesService::isValidStatic('https://FEVgaMEs.net/ifs/event/?e=15677'));
-		$this->assertTrue(FevGamesService::isValidStatic('http://fevgames.net/ifs/event/?e=15677'));
-		$this->assertTrue(FevGamesService::isValidStatic('http://www.fevgames.net/ifs/event/?e=15677'));
-		$this->assertTrue(FevGamesService::isValidStatic('https://www.fevgames.net/ifs/event/?e=15677'));
-		$this->assertTrue(FevGamesService::isValidStatic('https://fevgames.net/ifs/event/?e=12342'));
+		$this->assertTrue(FevGamesService::validateStatic('https://fevgames.net/ifs/event/?e=15677'));
+		$this->assertTrue(FevGamesService::validateStatic('https://FEVgaMEs.net/ifs/event/?e=15677'));
+		$this->assertTrue(FevGamesService::validateStatic('http://fevgames.net/ifs/event/?e=15677'));
+		$this->assertTrue(FevGamesService::validateStatic('http://www.fevgames.net/ifs/event/?e=15677'));
+		$this->assertTrue(FevGamesService::validateStatic('https://www.fevgames.net/ifs/event/?e=15677'));
+		$this->assertTrue(FevGamesService::validateStatic('https://fevgames.net/ifs/event/?e=12342'));
 
-		$this->assertFalse(FevGamesService::isValidStatic('non url'));
-		$this->assertFalse(FevGamesService::isValidStatic('https://blabla.net/ifs/event/?e=15677'));
-		$this->assertFalse(FevGamesService::isValidStatic('https://fevgames.net/ifs/event/'));
-		$this->assertFalse(FevGamesService::isValidStatic('https://fevgames.net/ifs/event/?e=-15677'));
-		$this->assertFalse(FevGamesService::isValidStatic('https://fevgames.net/ifs/event/?e=0'));
-		$this->assertFalse(FevGamesService::isValidStatic('https://fevgames.cz/ifs/event/?e=15677'));
-		$this->assertFalse(FevGamesService::isValidStatic('https://fevgames.net?e=15677'));
-		$this->assertFalse(FevGamesService::isValidStatic('https://fevgames.net/ifs/event/?event=15677'));
+		$this->assertFalse(FevGamesService::validateStatic('non url'));
+		$this->assertFalse(FevGamesService::validateStatic('https://blabla.net/ifs/event/?e=15677'));
+		$this->assertFalse(FevGamesService::validateStatic('https://fevgames.net/ifs/event/'));
+		$this->assertFalse(FevGamesService::validateStatic('https://fevgames.net/ifs/event/?e=-15677'));
+		$this->assertFalse(FevGamesService::validateStatic('https://fevgames.net/ifs/event/?e=0'));
+		$this->assertFalse(FevGamesService::validateStatic('https://fevgames.cz/ifs/event/?e=15677'));
+		$this->assertFalse(FevGamesService::validateStatic('https://fevgames.net?e=15677'));
+		$this->assertFalse(FevGamesService::validateStatic('https://fevgames.net/ifs/event/?event=15677'));
 	}
 
 	/**

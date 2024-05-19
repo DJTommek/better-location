@@ -18,15 +18,15 @@ final class NeshanOrgServiceTest extends TestCase
 
 	public function testIsValidMap(): void
 	{
-		$this->assertTrue(NeshanOrgService::isValidStatic('https://neshan.org/maps/@50.087451,14.420671,11.0z,0.0p'));
-		$this->assertTrue(NeshanOrgService::isValidStatic('https://neshan.org/maps/@50.087451,14.420671'));
-		$this->assertTrue(NeshanOrgService::isValidStatic('http://neshan.org/maps/@50.087451,14.420671'));
-		$this->assertTrue(NeshanOrgService::isValidStatic('http://www.neshan.org/maps/@50.087451,14.420671'));
-		$this->assertTrue(NeshanOrgService::isValidStatic('https://neshan.org/maps/@-50.081311,-14.419521,12.7z,0.0p'));
-		$this->assertTrue(NeshanOrgService::isValidStatic('http://neshan.org/maps/50.087451,14.420671'));
+		$this->assertTrue(NeshanOrgService::validateStatic('https://neshan.org/maps/@50.087451,14.420671,11.0z,0.0p'));
+		$this->assertTrue(NeshanOrgService::validateStatic('https://neshan.org/maps/@50.087451,14.420671'));
+		$this->assertTrue(NeshanOrgService::validateStatic('http://neshan.org/maps/@50.087451,14.420671'));
+		$this->assertTrue(NeshanOrgService::validateStatic('http://www.neshan.org/maps/@50.087451,14.420671'));
+		$this->assertTrue(NeshanOrgService::validateStatic('https://neshan.org/maps/@-50.081311,-14.419521,12.7z,0.0p'));
+		$this->assertTrue(NeshanOrgService::validateStatic('http://neshan.org/maps/50.087451,14.420671'));
 
-		$this->assertFalse(NeshanOrgService::isValidStatic('http://neshan.org/@50.087451,14.420671'));
-		$this->assertFalse(NeshanOrgService::isValidStatic('http://neshan.org/@50.087451,14.420671'));
+		$this->assertFalse(NeshanOrgService::validateStatic('http://neshan.org/@50.087451,14.420671'));
+		$this->assertFalse(NeshanOrgService::validateStatic('http://neshan.org/@50.087451,14.420671'));
 	}
 
 	public function testProcessSourceP(): void

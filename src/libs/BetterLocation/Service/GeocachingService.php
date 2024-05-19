@@ -111,7 +111,7 @@ final class GeocachingService extends AbstractService
 		return $collection;
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return $this->isUrl() || self::isGeocacheId($this->input);
 	}
@@ -268,7 +268,7 @@ final class GeocachingService extends AbstractService
 		if ($this->data->isUrlGuid ?? false) {
 			try {
 				$this->url = Strict::url(MiniCurl::loadRedirectUrl($this->input));
-				if ($this->isValid() === false) {
+				if ($this->validate() === false) {
 					throw new InvalidLocationException(sprintf('Unprocessable input: "%s"', $this->input));
 				}
 			} catch (InvalidLocationException $exception) {

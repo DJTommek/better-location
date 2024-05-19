@@ -38,11 +38,11 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15'));
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.0695244&z=15'));
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/turisticka?source=osm&id=1112754271&x=-60.5596310&y=-63.0001012&z=15')); // Mapycz does not known address and country
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.0695244&z=15'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/turisticka?source=osm&id=1112754271&x=-60.5596310&y=-63.0001012&z=15')); // Mapycz does not known address and country
 
-		$this->assertFalse(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?y=50.0695244'));
+		$this->assertFalse(MapyCzService::validateStatic('http://mapy.cz/zemepisna?y=50.0695244'));
 	}
 
 	/**
@@ -66,32 +66,32 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 
 	public function testIsValidMap(): void
 	{
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15'));
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?x=-14.4508239&y=50.0695244&z=15'));
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?x=14.4508239&y=-50.0695244&z=15'));
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?x=-14.4508239&y=-50.0695244&z=15'));
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244'));
-		$this->assertTrue(MapyCzService::isValidStatic('https://mapy.cz/zakladni?x=14.4508239&y=50.0695244'));
-		$this->assertTrue(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?x=14.4508239&y=50.0695244'));
-		$this->assertTrue(MapyCzService::isValidStatic('http://mapy.cz/textova?x=14.4508239&y=50.0695244'));
-		$this->assertTrue(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?x=14.4508239&y=50.0695244'));
-		$this->assertTrue(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?x=14.4508239&y=50.0695244'));
-		$this->assertTrue(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?x=14.4508239&y=50.0695244'));
-		$this->assertTrue(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?x=14.4508239&y=50.0695244'));
-		$this->assertTrue(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?x=14.4508239&y=50.0695244'));
-		$this->assertTrue(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?x=14&y=50'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?x=-14.4508239&y=50.0695244&z=15'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?x=14.4508239&y=-50.0695244&z=15'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?x=-14.4508239&y=-50.0695244&z=15'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244'));
+		$this->assertTrue(MapyCzService::validateStatic('https://mapy.cz/zakladni?x=14.4508239&y=50.0695244'));
+		$this->assertTrue(MapyCzService::validateStatic('http://mapy.cz/zemepisna?x=14.4508239&y=50.0695244'));
+		$this->assertTrue(MapyCzService::validateStatic('http://mapy.cz/textova?x=14.4508239&y=50.0695244'));
+		$this->assertTrue(MapyCzService::validateStatic('http://mapy.cz/zemepisna?x=14.4508239&y=50.0695244'));
+		$this->assertTrue(MapyCzService::validateStatic('http://mapy.cz/zemepisna?x=14.4508239&y=50.0695244'));
+		$this->assertTrue(MapyCzService::validateStatic('http://mapy.cz/zemepisna?x=14.4508239&y=50.0695244'));
+		$this->assertTrue(MapyCzService::validateStatic('http://mapy.cz/zemepisna?x=14.4508239&y=50.0695244'));
+		$this->assertTrue(MapyCzService::validateStatic('http://mapy.cz/zemepisna?x=14.4508239&y=50.0695244'));
+		$this->assertTrue(MapyCzService::validateStatic('http://mapy.cz/zemepisna?x=14&y=50'));
 
-		$this->assertFalse(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?xx=14.4508239&y=50.0695244'));
-		$this->assertFalse(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?y=50.0695244'));
-		$this->assertFalse(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?x=50.0695244'));
-		$this->assertFalse(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?x=14.4508.239&y=50.0695244'));
-		$this->assertFalse(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?x=14.4508239&y=50.0695.244'));
-		$this->assertFalse(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?x=14.4508239a&y=50.0695244'));
-		$this->assertFalse(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?x=14.4508239a&y=50.0695244a'));
-		$this->assertFalse(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?x=14.a4508239&y=50.a0695244'));
-		$this->assertFalse(MapyCzService::isValidStatic('http://mapy.cz/zemepisna?x=14.a4508239&y=50.a0695244'));
-		$this->assertFalse(MapyCzService::isValidStatic('http://mapy.cz/zakladni?x=114.4508239&y=50.0695244&'));
-		$this->assertFalse(MapyCzService::isValidStatic('http://mapy.cz/zakladni?x=14.4508239&y=250.0695244'));
+		$this->assertFalse(MapyCzService::validateStatic('http://mapy.cz/zemepisna?xx=14.4508239&y=50.0695244'));
+		$this->assertFalse(MapyCzService::validateStatic('http://mapy.cz/zemepisna?y=50.0695244'));
+		$this->assertFalse(MapyCzService::validateStatic('http://mapy.cz/zemepisna?x=50.0695244'));
+		$this->assertFalse(MapyCzService::validateStatic('http://mapy.cz/zemepisna?x=14.4508.239&y=50.0695244'));
+		$this->assertFalse(MapyCzService::validateStatic('http://mapy.cz/zemepisna?x=14.4508239&y=50.0695.244'));
+		$this->assertFalse(MapyCzService::validateStatic('http://mapy.cz/zemepisna?x=14.4508239a&y=50.0695244'));
+		$this->assertFalse(MapyCzService::validateStatic('http://mapy.cz/zemepisna?x=14.4508239a&y=50.0695244a'));
+		$this->assertFalse(MapyCzService::validateStatic('http://mapy.cz/zemepisna?x=14.a4508239&y=50.a0695244'));
+		$this->assertFalse(MapyCzService::validateStatic('http://mapy.cz/zemepisna?x=14.a4508239&y=50.a0695244'));
+		$this->assertFalse(MapyCzService::validateStatic('http://mapy.cz/zakladni?x=114.4508239&y=50.0695244&'));
+		$this->assertFalse(MapyCzService::validateStatic('http://mapy.cz/zakladni?x=14.4508239&y=250.0695244'));
 	}
 
 	public function testCoordsMap(): void
@@ -114,36 +114,36 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 
 	public function testIsValidCoordId(): void
 	{
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.0695244&z=15'));
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14,50.0695244&z=15'));
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50&z=15'));
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14,50'));
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.0695244'));
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,-50.0695244'));
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=-14.4508239,50.0695244'));
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=-14.4508239,-50.0695244'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.0695244&z=15'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=14,50.0695244&z=15'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50&z=15'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=14,50'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.0695244'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,-50.0695244'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=-14.4508239,50.0695244'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=-14.4508239,-50.0695244'));
 
-		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.0695244a'));
-		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239a,50.0695244'));
-		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14.450.8239,50.0695244'));
-		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.06.95244'));
-		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,150.0695244'));
-		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,-150.0695244'));
-		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=514.4508239,15.0695244'));
-		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=-514.4508239,15.0695244'));
-		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239-50.0695244'));
-		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239'));
+		$this->assertFalse(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.0695244a'));
+		$this->assertFalse(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239a,50.0695244'));
+		$this->assertFalse(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=14.450.8239,50.0695244'));
+		$this->assertFalse(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.06.95244'));
+		$this->assertFalse(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,150.0695244'));
+		$this->assertFalse(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239,-150.0695244'));
+		$this->assertFalse(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=514.4508239,15.0695244'));
+		$this->assertFalse(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=-514.4508239,15.0695244'));
+		$this->assertFalse(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239-50.0695244'));
+		$this->assertFalse(MapyCzService::validateStatic('https://en.mapy.cz/zakladni?source=coor&id=14.4508239'));
 	}
 
 
 	public function testIsValidSourceP(): void
 	{
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/fotografie?sourcep=foto&idp=3255831'));
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/fotografie?x=14.4569172&y=49.2930016&z=16&q=bo%C5%BE%C3%AD%20muka&source=base&id=2273700&ds=2&sourcep=foto&idp=3255831'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/fotografie?sourcep=foto&idp=3255831'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/fotografie?x=14.4569172&y=49.2930016&z=16&q=bo%C5%BE%C3%AD%20muka&source=base&id=2273700&ds=2&sourcep=foto&idp=3255831'));
 
-		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/fotografie?sourcep=foto'));
-		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/fotografie?idp=3255831'));
-		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/fotografie?sourcep=foto&idp=aabc'));
+		$this->assertFalse(MapyCzService::validateStatic('https://en.mapy.cz/fotografie?sourcep=foto'));
+		$this->assertFalse(MapyCzService::validateStatic('https://en.mapy.cz/fotografie?idp=3255831'));
+		$this->assertFalse(MapyCzService::validateStatic('https://en.mapy.cz/fotografie?sourcep=foto&idp=aabc'));
 	}
 
 	/**
@@ -316,16 +316,16 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 	public function testIsValidMapyCzCustomPointsUrl(): void
 	{
 		// shortest custom points url possible
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/turisticka?vlastni-body&uc=9fJgGxW.Hq'));
-		$this->assertTrue(MapyCzService::isValidStatic('https://mapy.cz/letecka?vlastni-body&uc=9fJgGxW.Hq'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/turisticka?vlastni-body&uc=9fJgGxW.Hq'));
+		$this->assertTrue(MapyCzService::validateStatic('https://mapy.cz/letecka?vlastni-body&uc=9fJgGxW.Hq'));
 
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/turisticka?vlastni-body&x=13.9183152&y=49.9501554&z=11&ut=New%20%20POI&ut=New%20%20POI&ut=New%20%20POI&ut=New%20%20POI&uc=9fJgGxW.HqkQ0xWn3F9fWDGxX0wGlQ0xW9oq&ud=49%C2%B055%2710.378%22N%2C%2013%C2%B046%2749.078%22E&ud=13%C2%B048%2734.135%22E%2049%C2%B052%2746.280%22N&ud=Broumy%2C%20Beroun&ud=B%C5%99ezov%C3%A1%2C%20Beroun'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/turisticka?vlastni-body&x=13.9183152&y=49.9501554&z=11&ut=New%20%20POI&ut=New%20%20POI&ut=New%20%20POI&ut=New%20%20POI&uc=9fJgGxW.HqkQ0xWn3F9fWDGxX0wGlQ0xW9oq&ud=49%C2%B055%2710.378%22N%2C%2013%C2%B046%2749.078%22E&ud=13%C2%B048%2734.135%22E%2049%C2%B052%2746.280%22N&ud=Broumy%2C%20Beroun&ud=B%C5%99ezov%C3%A1%2C%20Beroun'));
 
 		// valid according validator, but invalid according parser
-		$this->assertTrue(MapyCzService::isValidStatic('https://en.mapy.cz/turisticka?vlastni-body&uc=aa'));
+		$this->assertTrue(MapyCzService::validateStatic('https://en.mapy.cz/turisticka?vlastni-body&uc=aa'));
 
-		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/turisticka?aaaa&uc=9fJgGxW.Hq'));
-		$this->assertFalse(MapyCzService::isValidStatic('https://en.mapy.cz/turisticka?vlastni-body&uc='));
+		$this->assertFalse(MapyCzService::validateStatic('https://en.mapy.cz/turisticka?aaaa&uc=9fJgGxW.Hq'));
+		$this->assertFalse(MapyCzService::validateStatic('https://en.mapy.cz/turisticka?vlastni-body&uc='));
 	}
 
 	public function testValidMapyCzCustomPointsUrl(): void

@@ -30,13 +30,13 @@ final class BaladIrServiceTest extends AbstractServiceTestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(BaladIrService::isValidStatic('https://balad.ir/location?latitude=50.087451&longitude=14.420671'));
-		$this->assertTrue(BaladIrService::isValidStatic('https://balad.ir/location?latitude=35.826644&longitude=50.968268&zoom=16.500000#15/35.83347/50.95417'));
-		$this->assertTrue(BaladIrService::isValidStatic('https://balad.ir/#6/29.513/53.574'));
+		$this->assertTrue(BaladIrService::validateStatic('https://balad.ir/location?latitude=50.087451&longitude=14.420671'));
+		$this->assertTrue(BaladIrService::validateStatic('https://balad.ir/location?latitude=35.826644&longitude=50.968268&zoom=16.500000#15/35.83347/50.95417'));
+		$this->assertTrue(BaladIrService::validateStatic('https://balad.ir/#6/29.513/53.574'));
 
-		$this->assertFalse(BaladIrService::isValidStatic('https://balad.ir/location?longitude=-14.420671'));
-		$this->assertFalse(BaladIrService::isValidStatic('https://different-domain.ir/location?latitude=-99.087451&longitude=-14.420671'));
-		$this->assertFalse(BaladIrService::isValidStatic('non url'));
+		$this->assertFalse(BaladIrService::validateStatic('https://balad.ir/location?longitude=-14.420671'));
+		$this->assertFalse(BaladIrService::validateStatic('https://different-domain.ir/location?latitude=-99.087451&longitude=-14.420671'));
+		$this->assertFalse(BaladIrService::validateStatic('non url'));
 	}
 
 	public function testProcess(): void
@@ -89,7 +89,7 @@ final class BaladIrServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValidUsingProvider(bool $expectedIsValid, string $link): void
 	{
-		$isValid = BaladIrService::isValidStatic($link);
+		$isValid = BaladIrService::validateStatic($link);
 		$this->assertSame($expectedIsValid, $isValid, $link);
 	}
 

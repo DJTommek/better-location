@@ -25,7 +25,7 @@ final class MGRSService extends AbstractService
 				$service = Factory::getContainer()->get(self::class);
 				$service->setInput($mgrsRaw);
 				try {
-					if ($service->isValid()) {
+					if ($service->validate()) {
 						$service->process();
 						$collection->add($service->getCollection());
 					} else {
@@ -39,7 +39,7 @@ final class MGRSService extends AbstractService
 		return $collection;
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return MGRS::isMGRS($this->input);
 	}

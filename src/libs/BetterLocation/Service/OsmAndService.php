@@ -39,7 +39,7 @@ final class OsmAndService extends AbstractService
 		return self::LINK . sprintf('/go.html?lat=%1$F&lon=%2$F', $lat, $lon);
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		$result = false;
 		if ($this->url && $this->url->getDomain(2) === 'osmand.net') {

@@ -16,7 +16,7 @@ final class NeshanOrgService extends AbstractService
 	public const TYPE_MAP = 'Map center';
 	public const TYPE_PLACE_ID = 'Place';
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return (
 			$this->url &&

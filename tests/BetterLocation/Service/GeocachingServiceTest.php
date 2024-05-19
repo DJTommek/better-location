@@ -36,71 +36,71 @@ final class GeocachingServiceTest extends TestCase
 	public function testIsUrl(): void
 	{
 		// geocaching.com geocache
-		$this->assertTrue(GeocachingService::isValidStatic('https://www.geocaching.com/geocache/GC3DYC4'));
-		$this->assertTrue(GeocachingService::isValidStatic('http://www.geocaching.com/geocache/GC3DYC4'));
-		$this->assertTrue(GeocachingService::isValidStatic('https://geocaching.com/geocache/GC3DYC4'));
-		$this->assertTrue(GeocachingService::isValidStatic('http://geocaching.com/geocache/GC3DYC4'));
-		$this->assertTrue(GeocachingService::isValidStatic('https://GEOcacHing.cOm/geocache/GC3dyC4'));
+		$this->assertTrue(GeocachingService::validateStatic('https://www.geocaching.com/geocache/GC3DYC4'));
+		$this->assertTrue(GeocachingService::validateStatic('http://www.geocaching.com/geocache/GC3DYC4'));
+		$this->assertTrue(GeocachingService::validateStatic('https://geocaching.com/geocache/GC3DYC4'));
+		$this->assertTrue(GeocachingService::validateStatic('http://geocaching.com/geocache/GC3DYC4'));
+		$this->assertTrue(GeocachingService::validateStatic('https://GEOcacHing.cOm/geocache/GC3dyC4'));
 
 		// geocaching.com geocache with name
-		$this->assertTrue(GeocachingService::isValidStatic('https://www.geocaching.com/geocache/GC3DYC4_find-the-bug'));
-		$this->assertTrue(GeocachingService::isValidStatic('https://www.geocaching.com/geocache/GC3DYC4_find-the-bug?guid=df11c170-1af3-4ee1-853a-e97c1afe0722'));
+		$this->assertTrue(GeocachingService::validateStatic('https://www.geocaching.com/geocache/GC3DYC4_find-the-bug'));
+		$this->assertTrue(GeocachingService::validateStatic('https://www.geocaching.com/geocache/GC3DYC4_find-the-bug?guid=df11c170-1af3-4ee1-853a-e97c1afe0722'));
 
 		// geocaching.com geocache guid
-		$this->assertTrue(GeocachingService::isValidStatic('https://www.geocaching.com/seek/cache_details.aspx?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
-		$this->assertTrue(GeocachingService::isValidStatic('https://www.geocaching.com/seek/cache_details.aspx?GUID=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
+		$this->assertTrue(GeocachingService::validateStatic('https://www.geocaching.com/seek/cache_details.aspx?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
+		$this->assertTrue(GeocachingService::validateStatic('https://www.geocaching.com/seek/cache_details.aspx?GUID=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
 
 		// geocaching.com map geocache
-		$this->assertTrue(GeocachingService::isValidStatic('https://www.geocaching.com/play/map/GC3DYC4'));
-		$this->assertTrue(GeocachingService::isValidStatic('https://www.geocaching.com/play/map/gC3dyC4'));
+		$this->assertTrue(GeocachingService::validateStatic('https://www.geocaching.com/play/map/GC3DYC4'));
+		$this->assertTrue(GeocachingService::validateStatic('https://www.geocaching.com/play/map/gC3dyC4'));
 
-		$this->assertFalse(GeocachingService::isValidStatic('https://www.geocaching.com'));
-		$this->assertFalse(GeocachingService::isValidStatic('https://www.geocaching.com/geocache/'));
-		$this->assertFalse(GeocachingService::isValidStatic('https://www.geocaching.com/geocache/AA3DYC4'));
+		$this->assertFalse(GeocachingService::validateStatic('https://www.geocaching.com'));
+		$this->assertFalse(GeocachingService::validateStatic('https://www.geocaching.com/geocache/'));
+		$this->assertFalse(GeocachingService::validateStatic('https://www.geocaching.com/geocache/AA3DYC4'));
 
-		$this->assertFalse(GeocachingService::isValidStatic('https://www.geocaching.com/seek/cache_details.aspx?guid={498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4}'));
-		$this->assertFalse(GeocachingService::isValidStatic('https://www.geocaching.com/seek/cache_details.aaa?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
-		$this->assertFalse(GeocachingService::isValidStatic('https://www.geocaching.com/seek/blabla.aspx?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
-		$this->assertFalse(GeocachingService::isValidStatic('https://coord.info/seek/cache_details.aspx?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
+		$this->assertFalse(GeocachingService::validateStatic('https://www.geocaching.com/seek/cache_details.aspx?guid={498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4}'));
+		$this->assertFalse(GeocachingService::validateStatic('https://www.geocaching.com/seek/cache_details.aaa?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
+		$this->assertFalse(GeocachingService::validateStatic('https://www.geocaching.com/seek/blabla.aspx?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
+		$this->assertFalse(GeocachingService::validateStatic('https://coord.info/seek/cache_details.aspx?guid=498e4dfa-ad2d-4bcc-8e47-93eb17e3cdd4'));
 
 		// geocaching.com map search
-		$this->assertTrue(GeocachingService::isValidStatic('https://www.geocaching.com/play/map?lat=50.087717&lng=14.42115&zoom=18&asc=true&sort=distance'));
-		$this->assertTrue(GeocachingService::isValidStatic('https://www.geocaching.com/play/map/?lat=50.087717&lng=14.42115&zoom=18&asc=true&sort=distance'));
-		$this->assertTrue(GeocachingService::isValidStatic('https://www.geocaching.com/play/map?lat=-50.08&lng=14.42115&zoom=18&asc=true&sort=distance'));
-		$this->assertTrue(GeocachingService::isValidStatic('https://www.geocaching.com/play/map?lat=-51.705545&lng=-57.933311&zoom=12&asc=true&sort=distance&sw=1'));
+		$this->assertTrue(GeocachingService::validateStatic('https://www.geocaching.com/play/map?lat=50.087717&lng=14.42115&zoom=18&asc=true&sort=distance'));
+		$this->assertTrue(GeocachingService::validateStatic('https://www.geocaching.com/play/map/?lat=50.087717&lng=14.42115&zoom=18&asc=true&sort=distance'));
+		$this->assertTrue(GeocachingService::validateStatic('https://www.geocaching.com/play/map?lat=-50.08&lng=14.42115&zoom=18&asc=true&sort=distance'));
+		$this->assertTrue(GeocachingService::validateStatic('https://www.geocaching.com/play/map?lat=-51.705545&lng=-57.933311&zoom=12&asc=true&sort=distance&sw=1'));
 
-		$this->assertFalse(GeocachingService::isValidStatic('https://www.geocaching.com/play/map?lat=-51.aaa&lng=123&zoom=12&asc=true&sort=distance&sw=1')); // invalid lat
-		$this->assertFalse(GeocachingService::isValidStatic('https://www.geocaching.com/play/map?lat=-51.705545&lng=123aa&zoom=12&asc=true&sort=distance&sw=1')); // invalid lng
-		$this->assertFalse(GeocachingService::isValidStatic('https://www.geocaching.com/play/map?lat=95&lng=123&zoom=12&asc=true&sort=distance&sw=1')); // lat over limit
-		$this->assertFalse(GeocachingService::isValidStatic('https://www.geocaching.com/play/map?lat=49.5&lng=191.111&zoom=12&asc=true&sort=distance&sw=1')); // lng over limit
+		$this->assertFalse(GeocachingService::validateStatic('https://www.geocaching.com/play/map?lat=-51.aaa&lng=123&zoom=12&asc=true&sort=distance&sw=1')); // invalid lat
+		$this->assertFalse(GeocachingService::validateStatic('https://www.geocaching.com/play/map?lat=-51.705545&lng=123aa&zoom=12&asc=true&sort=distance&sw=1')); // invalid lng
+		$this->assertFalse(GeocachingService::validateStatic('https://www.geocaching.com/play/map?lat=95&lng=123&zoom=12&asc=true&sort=distance&sw=1')); // lat over limit
+		$this->assertFalse(GeocachingService::validateStatic('https://www.geocaching.com/play/map?lat=49.5&lng=191.111&zoom=12&asc=true&sort=distance&sw=1')); // lng over limit
 
 		// geocaching.com map browse
-		$this->assertTrue(GeocachingService::isValidStatic('https://www.geocaching.com/map/#?ll=50.05821,14.457&z=16'));
-		$this->assertTrue(GeocachingService::isValidStatic('https://www.geocaching.com/map/#?ll=-50.08,14.42115&z=9'));
-		$this->assertTrue(GeocachingService::isValidStatic('https://www.geocaching.com/map/#?z=10&ll=-51.705545,-57.933311'));
+		$this->assertTrue(GeocachingService::validateStatic('https://www.geocaching.com/map/#?ll=50.05821,14.457&z=16'));
+		$this->assertTrue(GeocachingService::validateStatic('https://www.geocaching.com/map/#?ll=-50.08,14.42115&z=9'));
+		$this->assertTrue(GeocachingService::validateStatic('https://www.geocaching.com/map/#?z=10&ll=-51.705545,-57.933311'));
 
-		$this->assertFalse(GeocachingService::isValidStatic('https://www.geocaching.com/map/#?ll=50.aaa,14.457&z=16')); // invalid lat
-		$this->assertFalse(GeocachingService::isValidStatic('https://www.geocaching.com/map/#?ll=50.05821,14.123aaa&z=16')); // invalid lng
-		$this->assertFalse(GeocachingService::isValidStatic('https://www.geocaching.com/map/#?ll=95.05821,14.457&z=16')); // lat over limit
-		$this->assertFalse(GeocachingService::isValidStatic('https://www.geocaching.com/map/#?ll=50.05821,194.457&z=16')); // lng over limit
+		$this->assertFalse(GeocachingService::validateStatic('https://www.geocaching.com/map/#?ll=50.aaa,14.457&z=16')); // invalid lat
+		$this->assertFalse(GeocachingService::validateStatic('https://www.geocaching.com/map/#?ll=50.05821,14.123aaa&z=16')); // invalid lng
+		$this->assertFalse(GeocachingService::validateStatic('https://www.geocaching.com/map/#?ll=95.05821,14.457&z=16')); // lat over limit
+		$this->assertFalse(GeocachingService::validateStatic('https://www.geocaching.com/map/#?ll=50.05821,194.457&z=16')); // lng over limit
 
 		// coord.info map browse
-		$this->assertTrue(GeocachingService::isValidStatic('http://coord.info/map?ll=50.05821,14.457&z=16'));
-		$this->assertTrue(GeocachingService::isValidStatic('http://coord.info/map?ll=-50.08,14.42115&z=9'));
-		$this->assertTrue(GeocachingService::isValidStatic('http://coord.info/map?z=10&ll=-51.705545,-57.933311'));
+		$this->assertTrue(GeocachingService::validateStatic('http://coord.info/map?ll=50.05821,14.457&z=16'));
+		$this->assertTrue(GeocachingService::validateStatic('http://coord.info/map?ll=-50.08,14.42115&z=9'));
+		$this->assertTrue(GeocachingService::validateStatic('http://coord.info/map?z=10&ll=-51.705545,-57.933311'));
 
-		$this->assertFalse(GeocachingService::isValidStatic('http://coord.info/map?ll=50.aaa,14.457&z=16')); // invalid lat
-		$this->assertFalse(GeocachingService::isValidStatic('http://coord.info/map?ll=50.05821,14.123aaa&z=16')); // invalid lng
-		$this->assertFalse(GeocachingService::isValidStatic('http://coord.info/map?ll=95.05821,14.457&z=16')); // lat over limit
-		$this->assertFalse(GeocachingService::isValidStatic('http://coord.info/map?ll=50.05821,194.457&z=16')); // lng over limit
+		$this->assertFalse(GeocachingService::validateStatic('http://coord.info/map?ll=50.aaa,14.457&z=16')); // invalid lat
+		$this->assertFalse(GeocachingService::validateStatic('http://coord.info/map?ll=50.05821,14.123aaa&z=16')); // invalid lng
+		$this->assertFalse(GeocachingService::validateStatic('http://coord.info/map?ll=95.05821,14.457&z=16')); // lat over limit
+		$this->assertFalse(GeocachingService::validateStatic('http://coord.info/map?ll=50.05821,194.457&z=16')); // lng over limit
 
 		// coord.info geocache
-		$this->assertTrue(GeocachingService::isValidStatic('https://coord.info/GC3DYC4'));
-		$this->assertTrue(GeocachingService::isValidStatic('https://www.coord.info/GC3DYC4'));
-		$this->assertTrue(GeocachingService::isValidStatic('https://coOrD.INfo/Gc3dyC4'));
+		$this->assertTrue(GeocachingService::validateStatic('https://coord.info/GC3DYC4'));
+		$this->assertTrue(GeocachingService::validateStatic('https://www.coord.info/GC3DYC4'));
+		$this->assertTrue(GeocachingService::validateStatic('https://coOrD.INfo/Gc3dyC4'));
 
-		$this->assertFalse(GeocachingService::isValidStatic('https://coord.info/AA3dyC4'));
-		$this->assertFalse(GeocachingService::isValidStatic('https://coord.info/GC'));
+		$this->assertFalse(GeocachingService::validateStatic('https://coord.info/AA3dyC4'));
+		$this->assertFalse(GeocachingService::validateStatic('https://coord.info/GC'));
 	}
 
 

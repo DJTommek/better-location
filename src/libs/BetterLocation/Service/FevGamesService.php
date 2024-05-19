@@ -22,7 +22,7 @@ final class FevGamesService extends AbstractService
 	) {
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return (
 			$this->url &&
@@ -40,7 +40,7 @@ final class FevGamesService extends AbstractService
 		foreach ($dom->getElementsByTagName('a') as $linkEl) {
 			$link = $linkEl->getAttribute('href');
 			$intelService = $this->ingressIntelService->setInput($link);
-			if ($intelService->isValid()) {
+			if ($intelService->validate()) {
 				$data = $intelService->getData();
 				if ($data->portalCoord) {
 					$location = new BetterLocation($this->inputUrl, $data->portalCoordLat, $data->portalCoordLon, self::class);

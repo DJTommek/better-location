@@ -41,7 +41,7 @@ final class GlympseService extends AbstractService
 	const PATH_INVITE_ID_REGEX = '/^\/([0-9a-z]+-[0-9a-z]+)$/i';
 	const PATH_GROUP_REGEX = '/^\/!(.+)$/i';
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		if ($this->url && $this->url->getDomain() === 'glympse.com') {
 			if (preg_match(self::PATH_INVITE_ID_REGEX, $this->url->getPath(), $matches)) {

@@ -22,28 +22,28 @@ final class ZniceneKostelyCzServiceTest extends TestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(ZniceneKostelyCzService::isValidStatic('http://www.znicenekostely.cz/?load=detail&id=18231'));
-		$this->assertTrue(ZniceneKostelyCzService::isValidStatic('http://www.znicenekostely.cz/?id=18231&load=detail'));
-		$this->assertTrue(ZniceneKostelyCzService::isValidStatic('http://znicenekostely.cz/?load=detail&id=18231'));
-		$this->assertTrue(ZniceneKostelyCzService::isValidStatic('http://www.znicenekostely.cz/?load=detail&id=18231#obsah'));
-		$this->assertTrue(ZniceneKostelyCzService::isValidStatic('http://znicenekostely.cz/?load=detail&id=18231#obsah'));
-		$this->assertTrue(ZniceneKostelyCzService::isValidStatic('http://www.znicenekostely.cz/index.php?load=detail&id=18231#obsah'));
-		$this->assertTrue(ZniceneKostelyCzService::isValidStatic('http://znicenekostely.cz/index.php?load=detail&id=18231#obsah'));
-		$this->assertTrue(ZniceneKostelyCzService::isValidStatic('http://www.znicenekostely.cz/index.php?load=detail&id=4233&search_result_index=0&nej=1#obsah'));
-		$this->assertTrue(ZniceneKostelyCzService::isValidStatic('http://znicenekostely.cz/index.php?load=detail&id=4233&search_result_index=0&nej=1#obsah'));
+		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://www.znicenekostely.cz/?load=detail&id=18231'));
+		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://www.znicenekostely.cz/?id=18231&load=detail'));
+		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/?load=detail&id=18231'));
+		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://www.znicenekostely.cz/?load=detail&id=18231#obsah'));
+		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/?load=detail&id=18231#obsah'));
+		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://www.znicenekostely.cz/index.php?load=detail&id=18231#obsah'));
+		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/index.php?load=detail&id=18231#obsah'));
+		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://www.znicenekostely.cz/index.php?load=detail&id=4233&search_result_index=0&nej=1#obsah'));
+		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/index.php?load=detail&id=4233&search_result_index=0&nej=1#obsah'));
 
-		$this->assertFalse(ZniceneKostelyCzService::isValidStatic('http://www.znicenekostely.cz/?load=detail&id=18231aaaa'));
-		$this->assertFalse(ZniceneKostelyCzService::isValidStatic('http://www.znicenekostely.cz/?load=detail&id=aaaa'));
-		$this->assertFalse(ZniceneKostelyCzService::isValidStatic('http://znicenekostely.cz/index.php?load=detail&id='));
-		$this->assertFalse(ZniceneKostelyCzService::isValidStatic('http://znicenekostely.cz/?load=detail&id='));
-		$this->assertFalse(ZniceneKostelyCzService::isValidStatic('http://www.znicenekostely.cz/?load=detail&id='));
-		$this->assertFalse(ZniceneKostelyCzService::isValidStatic('http://znicenekostely.cz/?load=blabla&id=18231'));
-		$this->assertFalse(ZniceneKostelyCzService::isValidStatic('http://znicenekostely.cz/?load=detail'));
-		$this->assertFalse(ZniceneKostelyCzService::isValidStatic('http://znicenekostely.cz/?load=blabla&ID=18231'));
-		$this->assertFalse(ZniceneKostelyCzService::isValidStatic('http://znicenekostely.cz/'));
-		$this->assertFalse(ZniceneKostelyCzService::isValidStatic('http://znicenekostely.cz/index.php'));
+		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://www.znicenekostely.cz/?load=detail&id=18231aaaa'));
+		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://www.znicenekostely.cz/?load=detail&id=aaaa'));
+		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/index.php?load=detail&id='));
+		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/?load=detail&id='));
+		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://www.znicenekostely.cz/?load=detail&id='));
+		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/?load=blabla&id=18231'));
+		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/?load=detail'));
+		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/?load=blabla&ID=18231'));
+		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/'));
+		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/index.php'));
 
-		$this->assertFalse(ZniceneKostelyCzService::isValidStatic('some invalid url'));
+		$this->assertFalse(ZniceneKostelyCzService::validateStatic('some invalid url'));
 	}
 
 	/**

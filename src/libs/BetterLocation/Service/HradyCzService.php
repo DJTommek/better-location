@@ -14,7 +14,7 @@ final class HradyCzService extends AbstractService
 
 	const LINK = 'https://www.hrady.cz';
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return (
 			$this->url &&

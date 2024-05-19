@@ -42,7 +42,7 @@ final class FoursquareService extends AbstractService
 		}
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		if (
 			$this->url &&

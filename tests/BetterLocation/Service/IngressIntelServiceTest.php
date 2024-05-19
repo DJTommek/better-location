@@ -25,92 +25,92 @@ final class IngressIntelServiceTest extends TestCase
 
 	public function testIsValidMap(): void
 	{
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50.087451,144.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=-50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=-50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('http://intel.ingress.com/?ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('http://intel.ingress.com/?ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('http://intel.ingress.com/intel?ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50.087451,14'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50.123456789,14.987654321'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,144.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,-14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=-50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=-50.087451,-14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/?ll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/?ll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/intel?ll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,14'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.123456789,14.987654321'));
 
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50.087451,14.420671a'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50.087451a,14.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=150.087451,14.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50.087451,214.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=-150.087451,14.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50.087451,214.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50.08.7451,14.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50.087451,14.420.671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50.08745114.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50.087451-14.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?l=50.087451,14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,14.420671a'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451a,14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=150.087451,14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,214.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=-150.087451,14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,214.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.08.7451,14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,14.420.671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.08745114.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451-14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?l=50.087451,14.420671'));
 	}
 
 	public function testIsValidPortal(): void
 	{
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,144.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=-50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=-50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('http://intel.ingress.com/?pll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('http://intel.ingress.com/?pll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('http://intel.ingress.com/intel?pll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,14'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,144.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,-14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=-50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=-50.087451,-14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/?pll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/?pll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/intel?pll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14'));
 
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,14.420671a'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451a,14.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=150.087451,14.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,214.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=-150.087451,14.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,214.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.08.7451,14.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,14.420.671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.08745114.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451-14.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?l=50.087451,14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14.420671a'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451a,14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=150.087451,14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,214.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=-150.087451,14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,214.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.08.7451,14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14.420.671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.08745114.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451-14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?l=50.087451,14.420671'));
 	}
 
 	public function testIsValidPortalAndMap(): void
 	{
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,144.420671&ll=50.087451,144.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,-14.420671&ll=50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=-50.087451,14.420671&ll=-50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('http://intel.ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('http://intel.ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('http://intel.ingress.com/intel?pll=50.087451,14.420671&ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50,14.420671&ll=50,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,14&ll=50.087451,14'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,144.420671&ll=50.087451,144.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,-14.420671&ll=50.087451,-14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=-50.087451,14.420671&ll=-50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/intel?pll=50.087451,14.420671&ll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50,14.420671&ll=50,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14&ll=50.087451,14'));
 
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,14.420671a&ll=50.087451,14.420671a'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451a,14.420671&ll=50.087451a,14.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=150.087451,14.420671&ll=150.087451,14.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,214.420671&ll=50.087451,214.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=-150.087451,14.420671&ll=-150.087451,14.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,214.420671&ll=50.087451,214.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.08.7451,14.420671&ll=50.08.7451,14.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,14.420.671&ll=50.087451,14.420.671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.08745114.420671&ll=50.08745114.420671'));
-		$this->assertFalse(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451-14.420671&ll=50.087451-14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14.420671a&ll=50.087451,14.420671a'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451a,14.420671&ll=50.087451a,14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=150.087451,14.420671&ll=150.087451,14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,214.420671&ll=50.087451,214.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=-150.087451,14.420671&ll=-150.087451,14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,214.420671&ll=50.087451,214.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.08.7451,14.420671&ll=50.08.7451,14.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14.420.671&ll=50.087451,14.420.671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.08745114.420671&ll=50.08745114.420671'));
+		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451-14.420671&ll=50.087451-14.420671'));
 	}
 
 	public function testIsValidOnlyPortal(): void
 	{
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,14.420671&ll=fdassafd'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?pll=50.087451,14.420671&ll=50.087451----14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14.420671&ll=fdassafd'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14.420671&ll=50.087451----14.420671'));
 	}
 
 	public function testIsValidOnlyMap(): void
 	{
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50.087451,14.420671&pll=fdassafd'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/?ll=50.087451,14.420671&pll=50.087451----14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,14.420671&pll=fdassafd'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,14.420671&pll=50.087451----14.420671'));
 	}
 
 	/**
@@ -163,16 +163,16 @@ final class IngressIntelServiceTest extends TestCase
 	 */
 	public function testIsValidOldFormat(): void
 	{
-		$this->assertTrue(IngressIntelService::isValidStatic('https://ingress.com/intel?ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://ingress.com/intel?pll=50.087451,14.420671&ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('http://ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://intel.ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('http://intel.ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://ingress.com/intel?ll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://ingress.com/intel?pll=50.087451,14.420671&ll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('http://ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
 
 		// As of 2022-05-22 links are not valid, but process them as ok
-		$this->assertTrue(IngressIntelService::isValidStatic('https://ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://ingress.com/?ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::isValidStatic('https://ingress.com/?pll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://ingress.com/?ll=50.087451,14.420671'));
+		$this->assertTrue(IngressIntelService::validateStatic('https://ingress.com/?pll=50.087451,14.420671'));
 	}
 }

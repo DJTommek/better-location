@@ -27,8 +27,8 @@ final class WazeServiceTest extends TestCase
 
 	public function testIsValidShortUrl(): void
 	{
-		$this->assertTrue(WazeService::isValidStatic('https://waze.com/ul/hu2fhzy57j')); // https://www.waze.com/live-map/directions?to=ll.50.087206%2C14.407775
-		$this->assertTrue(WazeService::isValidStatic('https://waze.com/ul/hu2fk8zezt')); // https://www.waze.com/live-map/directions?to=ll.50.052273%2C14.452407
+		$this->assertTrue(WazeService::validateStatic('https://waze.com/ul/hu2fhzy57j')); // https://www.waze.com/live-map/directions?to=ll.50.087206%2C14.407775
+		$this->assertTrue(WazeService::validateStatic('https://waze.com/ul/hu2fk8zezt')); // https://www.waze.com/live-map/directions?to=ll.50.052273%2C14.452407
 	}
 
 	/**
@@ -47,27 +47,27 @@ final class WazeServiceTest extends TestCase
 
 	public function testIsValidNormalUrl(): void
 	{
-		$this->assertTrue(WazeService::isValidStatic('https://waze.com/ul?ll=50.052098,14.451968')); // https link from @ingressportalbot
-		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/ul?ll=50.06300713%2C14.43964005&navigate=yes&zoom=15'));
-		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/ul?ll=49.87707960%2C18.43036300&navigate=yes'));
-		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/ul?ll=50.06300713%2C14.43964005'));
-		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/cs/livemap/directions?latlng=50.063007132127616%2C14.439640045166016&utm_campaign=waze_website&utm_expid=.K6QI8s_pTz6FfRdYRPpI3A.0&utm_referrer=https%3A%2F%2Fwww.waze.com%2Fcs%2Faccount&utm_source=waze_website'));
-		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/cs/livemap/directions?latlng=50.063007132127616%2C14.439640045166016'));
-		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/cs/livemap/directions?utm_expid=.K6QI8s_pTz6FfRdYRPpI3A.0&utm_referrer=&to=ll.50.07734439%2C14.43475842'));
-		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/cs/livemap/directions?to=ll.50.07734439%2C14.43475842'));
-		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/cs/livemap/directions?to=ll.49.8770796%2C18.430363'));
-		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/live-map/directions?from=ll.50.093652%2C14.412417'));
+		$this->assertTrue(WazeService::validateStatic('https://waze.com/ul?ll=50.052098,14.451968')); // https link from @ingressportalbot
+		$this->assertTrue(WazeService::validateStatic('https://www.waze.com/ul?ll=50.06300713%2C14.43964005&navigate=yes&zoom=15'));
+		$this->assertTrue(WazeService::validateStatic('https://www.waze.com/ul?ll=49.87707960%2C18.43036300&navigate=yes'));
+		$this->assertTrue(WazeService::validateStatic('https://www.waze.com/ul?ll=50.06300713%2C14.43964005'));
+		$this->assertTrue(WazeService::validateStatic('https://www.waze.com/cs/livemap/directions?latlng=50.063007132127616%2C14.439640045166016&utm_campaign=waze_website&utm_expid=.K6QI8s_pTz6FfRdYRPpI3A.0&utm_referrer=https%3A%2F%2Fwww.waze.com%2Fcs%2Faccount&utm_source=waze_website'));
+		$this->assertTrue(WazeService::validateStatic('https://www.waze.com/cs/livemap/directions?latlng=50.063007132127616%2C14.439640045166016'));
+		$this->assertTrue(WazeService::validateStatic('https://www.waze.com/cs/livemap/directions?utm_expid=.K6QI8s_pTz6FfRdYRPpI3A.0&utm_referrer=&to=ll.50.07734439%2C14.43475842'));
+		$this->assertTrue(WazeService::validateStatic('https://www.waze.com/cs/livemap/directions?to=ll.50.07734439%2C14.43475842'));
+		$this->assertTrue(WazeService::validateStatic('https://www.waze.com/cs/livemap/directions?to=ll.49.8770796%2C18.430363'));
+		$this->assertTrue(WazeService::validateStatic('https://www.waze.com/live-map/directions?from=ll.50.093652%2C14.412417'));
 
-		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/livemap/?zoom=11&lat=50.093652&lon=14.412417'));
-		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/livemap/?zoom=11&lat=-50.093652&lon=14.412417'));
-		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/livemap/?zoom=11&lat=50.093652&lon=-14.412417'));
-		$this->assertTrue(WazeService::isValidStatic('https://www.waze.com/livemap/?zoom=11&lat=-50.093652&lon=-14.412417'));
+		$this->assertTrue(WazeService::validateStatic('https://www.waze.com/livemap/?zoom=11&lat=50.093652&lon=14.412417'));
+		$this->assertTrue(WazeService::validateStatic('https://www.waze.com/livemap/?zoom=11&lat=-50.093652&lon=14.412417'));
+		$this->assertTrue(WazeService::validateStatic('https://www.waze.com/livemap/?zoom=11&lat=50.093652&lon=-14.412417'));
+		$this->assertTrue(WazeService::validateStatic('https://www.waze.com/livemap/?zoom=11&lat=-50.093652&lon=-14.412417'));
 
-		$this->assertFalse(WazeService::isValidStatic('https://www.waze.com/livemap/?zoom=11&lat=50.093652&lon=214.412417'));
-		$this->assertFalse(WazeService::isValidStatic('https://www.waze.com/livemap/?zoom=11&lat=550.093652&lon=14.412417'));
-		$this->assertFalse(WazeService::isValidStatic('https://www.waze.com/livemap/?zoom=11&lat=50.093652&lon=14.412417a'));
-		$this->assertFalse(WazeService::isValidStatic('https://www.waze.com/livemap/?zoom=11&lat=50.093652a&lon=14.412417'));
-		$this->assertFalse(WazeService::isValidStatic('https://www.waze.com/livemap/?zoom=11&lat=50.093652a'));
+		$this->assertFalse(WazeService::validateStatic('https://www.waze.com/livemap/?zoom=11&lat=50.093652&lon=214.412417'));
+		$this->assertFalse(WazeService::validateStatic('https://www.waze.com/livemap/?zoom=11&lat=550.093652&lon=14.412417'));
+		$this->assertFalse(WazeService::validateStatic('https://www.waze.com/livemap/?zoom=11&lat=50.093652&lon=14.412417a'));
+		$this->assertFalse(WazeService::validateStatic('https://www.waze.com/livemap/?zoom=11&lat=50.093652a&lon=14.412417'));
+		$this->assertFalse(WazeService::validateStatic('https://www.waze.com/livemap/?zoom=11&lat=50.093652a'));
 	}
 
 	public function testProcessNormalUrl(): void

@@ -56,7 +56,7 @@ abstract class AbstractServiceTestCase extends TestCase
 		foreach (self::EXAMPLE_COORDS as $i => [$lat, $lon]) {
 			$link = $service::getShareLink($lat, $lon);
 			$this->assertSame($expectedShareLinks[$i], $link);
-			$this->assertTrue($service::isValidStatic($link), sprintf('[%s] Automatically generated share link "%s" is not valid location.', $service, $link));
+			$this->assertTrue($service::validateStatic($link), sprintf('[%s] Automatically generated share link "%s" is not valid location.', $service, $link));
 		}
 	}
 
@@ -75,7 +75,7 @@ abstract class AbstractServiceTestCase extends TestCase
 		foreach (self::EXAMPLE_COORDS as $i => [$lat, $lon]) {
 			$link = $service::getDriveLink($lat, $lon);
 			$this->assertSame($expectedShareLinks[$i], $link);
-			$this->assertTrue($service::isValidStatic($link), sprintf('[%s] Automatically generated drive link "%s" is not valid location.', $service, $link));
+			$this->assertTrue($service::validateStatic($link), sprintf('[%s] Automatically generated drive link "%s" is not valid location.', $service, $link));
 		}
 	}
 
@@ -87,7 +87,7 @@ abstract class AbstractServiceTestCase extends TestCase
 
 		$this->assertInstanceOf(AbstractService::class, $service);
 
-		$this->assertTrue($service->isValid());
+		$this->assertTrue($service->validate());
 		$service->process();
 
 		$collection = $service->getCollection();

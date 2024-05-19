@@ -35,7 +35,7 @@ final class AppleMapsService extends AbstractService
 	}
 
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		$result = false;
 

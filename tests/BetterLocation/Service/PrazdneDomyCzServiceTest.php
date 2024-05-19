@@ -11,17 +11,17 @@ final class PrazdneDomyCzServiceTest extends TestCase
 	public function testIsValid(): void
 	{
 		// Place
-		$this->assertTrue(PrazdneDomyCzService::isValidStatic('https://prazdnedomy.cz/domy/objekty/detail/2732-kasarna-u-sloupu'));
-		$this->assertTrue(PrazdneDomyCzService::isValidStatic('https://prazdnedomy.cz/domy/objekty/detail/96-dum-u-tri-bilych-lilii'));
-		$this->assertTrue(PrazdneDomyCzService::isValidStatic('https://prazdnedomy.cz/domy/objekty/detail/96'));
-		$this->assertTrue(PrazdneDomyCzService::isValidStatic('https://www.prazdnedomy.cz/domy/objekty/detail/96'));
-		$this->assertTrue(PrazdneDomyCzService::isValidStatic('http://www.prazdnedomy.cz/domy/objekty/detail/96'));
+		$this->assertTrue(PrazdneDomyCzService::validateStatic('https://prazdnedomy.cz/domy/objekty/detail/2732-kasarna-u-sloupu'));
+		$this->assertTrue(PrazdneDomyCzService::validateStatic('https://prazdnedomy.cz/domy/objekty/detail/96-dum-u-tri-bilych-lilii'));
+		$this->assertTrue(PrazdneDomyCzService::validateStatic('https://prazdnedomy.cz/domy/objekty/detail/96'));
+		$this->assertTrue(PrazdneDomyCzService::validateStatic('https://www.prazdnedomy.cz/domy/objekty/detail/96'));
+		$this->assertTrue(PrazdneDomyCzService::validateStatic('http://www.prazdnedomy.cz/domy/objekty/detail/96'));
 
 		// Invalid
-		$this->assertFalse(PrazdneDomyCzService::isValidStatic('some invalid url'));
-		$this->assertFalse(PrazdneDomyCzService::isValidStatic('https://prazdnedomy.cz/domy/objekty/detail/kasarna-u-sloupu'));
-		$this->assertFalse(PrazdneDomyCzService::isValidStatic('https://prazdnedomy.cz/clanky/'));
-		$this->assertFalse(PrazdneDomyCzService::isValidStatic('https://prazdnedomy.cz/clanky/prazdne-domy-na-vedlejsi-koleji-aneb-prazdna-nadrazi-jako-prilezitost/'));
+		$this->assertFalse(PrazdneDomyCzService::validateStatic('some invalid url'));
+		$this->assertFalse(PrazdneDomyCzService::validateStatic('https://prazdnedomy.cz/domy/objekty/detail/kasarna-u-sloupu'));
+		$this->assertFalse(PrazdneDomyCzService::validateStatic('https://prazdnedomy.cz/clanky/'));
+		$this->assertFalse(PrazdneDomyCzService::validateStatic('https://prazdnedomy.cz/clanky/prazdne-domy-na-vedlejsi-koleji-aneb-prazdna-nadrazi-jako-prilezitost/'));
 	}
 
 	/**

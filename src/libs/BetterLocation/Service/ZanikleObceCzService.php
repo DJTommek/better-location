@@ -35,7 +35,7 @@ final class ZanikleObceCzService extends AbstractService
 		}
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		if ($this->url && $this->url->getDomain(2) === 'zanikleobce.cz') {
 			// if both query parameters ('detail' + 'obec') are available, 'detail' has higher priority (as of 2021.03.08)
@@ -54,7 +54,7 @@ final class ZanikleObceCzService extends AbstractService
 	{
 		if ($this->data->isPageDetail ?? false) {
 			$this->url = Strict::url($this->getObecUrlFromDetail());
-			if ($this->isValid() === false) {
+			if ($this->validate() === false) {
 				throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url, $this->inputUrl));
 			}
 		}
@@ -81,7 +81,7 @@ final class ZanikleObceCzService extends AbstractService
 		}
 		$mapyCzService = new MapyCzService();
 		$mapyCzService->setInput($matches[1]);
-		if ($mapyCzService->isValid()) {
+		if ($mapyCzService->validate()) {
 			$mapyCzService->process();
 			if ($mapyCzLocation = $mapyCzService->getCollection()->getFirst()) {
 				$this->collection->add(new BetterLocation($this->inputUrl, $mapyCzLocation->getLat(), $mapyCzLocation->getLon(), self::class));

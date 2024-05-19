@@ -36,7 +36,7 @@ final class GoogleEarthService extends AbstractService
 	}
 
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		if ($this->url === null) {
 			return false;

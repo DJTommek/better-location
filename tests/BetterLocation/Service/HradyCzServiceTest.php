@@ -23,20 +23,20 @@ final class HradyCzServiceTest extends TestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(HradyCzService::isValidStatic('https://www.hrady.cz/aaa-bbb-ccc'));
-		$this->assertTrue(HradyCzService::isValidStatic('https://www.hrady.cz/certovy-hlavy-zelizy'));
-		$this->assertTrue(HradyCzService::isValidStatic('https://hrady.cz/certovy-hlavy-zelizy'));
-		$this->assertTrue(HradyCzService::isValidStatic('http://hrady.cz/certovy-hlavy-zelizy'));
-		$this->assertTrue(HradyCzService::isValidStatic('https://www.hrady.cz/certovy-hlavy-zelizy/'));
-		$this->assertTrue(HradyCzService::isValidStatic('https://www.hrady.cz/certovy-hlavy-zelizy/komentare'));
-		$this->assertTrue(HradyCzService::isValidStatic('https://www.hrady.cz/certovy-hlavy-zelizy/komentare/new'));
-		$this->assertTrue(HradyCzService::isValidStatic('https://www.hrady.cz/pevnost-bunkr-lo-vz-37-a-124az1z-vaha'));
+		$this->assertTrue(HradyCzService::validateStatic('https://www.hrady.cz/aaa-bbb-ccc'));
+		$this->assertTrue(HradyCzService::validateStatic('https://www.hrady.cz/certovy-hlavy-zelizy'));
+		$this->assertTrue(HradyCzService::validateStatic('https://hrady.cz/certovy-hlavy-zelizy'));
+		$this->assertTrue(HradyCzService::validateStatic('http://hrady.cz/certovy-hlavy-zelizy'));
+		$this->assertTrue(HradyCzService::validateStatic('https://www.hrady.cz/certovy-hlavy-zelizy/'));
+		$this->assertTrue(HradyCzService::validateStatic('https://www.hrady.cz/certovy-hlavy-zelizy/komentare'));
+		$this->assertTrue(HradyCzService::validateStatic('https://www.hrady.cz/certovy-hlavy-zelizy/komentare/new'));
+		$this->assertTrue(HradyCzService::validateStatic('https://www.hrady.cz/pevnost-bunkr-lo-vz-37-a-124az1z-vaha'));
 
-		$this->assertFalse(HradyCzService::isValidStatic('some invalid url'));
-		$this->assertFalse(HradyCzService::isValidStatic('https://www.hrady.cz/aaa-bbb'));
-		$this->assertFalse(HradyCzService::isValidStatic('https://www.hrady.cz/mapa'));
-		$this->assertFalse(HradyCzService::isValidStatic('https://www.hrady.cz/clanky/pohadkovemu-jicinu-predchazela-jedna-z-nejvetsich-katastrof-17-stoleti'));
-		$this->assertFalse(HradyCzService::isValidStatic('https://www.hrady.cz/search?typ_dop=105'));
+		$this->assertFalse(HradyCzService::validateStatic('some invalid url'));
+		$this->assertFalse(HradyCzService::validateStatic('https://www.hrady.cz/aaa-bbb'));
+		$this->assertFalse(HradyCzService::validateStatic('https://www.hrady.cz/mapa'));
+		$this->assertFalse(HradyCzService::validateStatic('https://www.hrady.cz/clanky/pohadkovemu-jicinu-predchazela-jedna-z-nejvetsich-katastrof-17-stoleti'));
+		$this->assertFalse(HradyCzService::validateStatic('https://www.hrady.cz/search?typ_dop=105'));
 	}
 
 	/**

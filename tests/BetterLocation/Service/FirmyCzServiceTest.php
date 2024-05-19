@@ -35,20 +35,20 @@ final class FirmyCzServiceTest extends AbstractServiceTestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(FirmyCzService::isValidStatic('https://www.firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html'));
-		$this->assertTrue(FirmyCzService::isValidStatic('https://www.firmy.cz/detail/13300341-blablabla'));
-		$this->assertTrue(FirmyCzService::isValidStatic('https://www.firmy.cz/detail/13300341'));
-		$this->assertTrue(FirmyCzService::isValidStatic('http://www.firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html'));
-		$this->assertTrue(FirmyCzService::isValidStatic('https://firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html'));
-		$this->assertTrue(FirmyCzService::isValidStatic('http://firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html'));
-		$this->assertTrue(FirmyCzService::isValidStatic('https://www.firmy.cz/detail/13134188-kosmeticky-salon-h2o-humpolec.html'));
-		$this->assertTrue(FirmyCzService::isValidStatic('https://www.firmy.cz/detail/13139938-zelva-beers-burgers-praha-zizkov.html'));
-		$this->assertTrue(FirmyCzService::isValidStatic('https://www.firmy.cz/detail/207772-penny-market-as.html'));
+		$this->assertTrue(FirmyCzService::validateStatic('https://www.firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html'));
+		$this->assertTrue(FirmyCzService::validateStatic('https://www.firmy.cz/detail/13300341-blablabla'));
+		$this->assertTrue(FirmyCzService::validateStatic('https://www.firmy.cz/detail/13300341'));
+		$this->assertTrue(FirmyCzService::validateStatic('http://www.firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html'));
+		$this->assertTrue(FirmyCzService::validateStatic('https://firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html'));
+		$this->assertTrue(FirmyCzService::validateStatic('http://firmy.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html'));
+		$this->assertTrue(FirmyCzService::validateStatic('https://www.firmy.cz/detail/13134188-kosmeticky-salon-h2o-humpolec.html'));
+		$this->assertTrue(FirmyCzService::validateStatic('https://www.firmy.cz/detail/13139938-zelva-beers-burgers-praha-zizkov.html'));
+		$this->assertTrue(FirmyCzService::validateStatic('https://www.firmy.cz/detail/207772-penny-market-as.html'));
 
-		$this->assertFalse(FirmyCzService::isValidStatic('https://www.firma.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html'));
-		$this->assertFalse(FirmyCzService::isValidStatic('http://firma.cz/detail/13300341-blablabla'));
-		$this->assertFalse(FirmyCzService::isValidStatic('https://www.firmy.cz/aaa/13300341'));
-		$this->assertFalse(FirmyCzService::isValidStatic('https://www.firmy.cz/detail/a13300341'));
+		$this->assertFalse(FirmyCzService::validateStatic('https://www.firma.cz/detail/13300341-restaurace-a-pivnice-u-slunce-blansko.html'));
+		$this->assertFalse(FirmyCzService::validateStatic('http://firma.cz/detail/13300341-blablabla'));
+		$this->assertFalse(FirmyCzService::validateStatic('https://www.firmy.cz/aaa/13300341'));
+		$this->assertFalse(FirmyCzService::validateStatic('https://www.firmy.cz/detail/a13300341'));
 	}
 
 	/**

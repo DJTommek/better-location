@@ -17,7 +17,7 @@ final class AirbnbService extends AbstractService
 
 	const LINK = 'https://www.airbnb.cz/';
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		if ($this->url === null) {
 			return false;

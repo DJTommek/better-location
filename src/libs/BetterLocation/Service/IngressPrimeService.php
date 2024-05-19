@@ -35,7 +35,7 @@ final class IngressPrimeService extends AbstractService
 		}
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		$result = false;
 		if (
@@ -59,7 +59,7 @@ final class IngressPrimeService extends AbstractService
 			$oflLink = $this->url->getQueryParameter('ofl');
 			if (Strict::isUrl($oflLink)) {
 				$this->ingressIntelService->setInput($oflLink);
-				if ($this->ingressIntelService->isValid()) {
+				if ($this->ingressIntelService->validate()) {
 					$this->data->oflLink = $oflLink;
 					$this->data->oflLinkService = $this->ingressIntelService;
 					$result = true;

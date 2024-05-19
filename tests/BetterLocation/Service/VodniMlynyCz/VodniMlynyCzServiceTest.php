@@ -24,13 +24,13 @@ final class VodniMlynyCzServiceTest extends AbstractServiceTestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(VodniMlynyCzService::isValidStatic('https://www.vodnimlyny.cz/en/mlyny/estates/detail/1509-stukhejlsky-mlyn'));
-		$this->assertTrue(VodniMlynyCzService::isValidStatic('http://vodnimlyny.cz/ru/mlyny/estates/detail/7673-schwarzenbersky-mlyn'));
+		$this->assertTrue(VodniMlynyCzService::validateStatic('https://www.vodnimlyny.cz/en/mlyny/estates/detail/1509-stukhejlsky-mlyn'));
+		$this->assertTrue(VodniMlynyCzService::validateStatic('http://vodnimlyny.cz/ru/mlyny/estates/detail/7673-schwarzenbersky-mlyn'));
 
-		$this->assertFalse(VodniMlynyCzService::isValidStatic('http://www.vodnimlyny.cz/'));
-		$this->assertFalse(VodniMlynyCzService::isValidStatic('https://www.vodnimlyny.cz/en/mlyny/estates/map/?do=estateInfo&estateId=8286'));
-		$this->assertFalse(VodniMlynyCzService::isValidStatic('http://www.vodnimlyny.cz/ru/mlyny/estates/detail/schwarzenbersky-mlyn'));
-		$this->assertFalse(VodniMlynyCzService::isValidStatic('something random'));
+		$this->assertFalse(VodniMlynyCzService::validateStatic('http://www.vodnimlyny.cz/'));
+		$this->assertFalse(VodniMlynyCzService::validateStatic('https://www.vodnimlyny.cz/en/mlyny/estates/map/?do=estateInfo&estateId=8286'));
+		$this->assertFalse(VodniMlynyCzService::validateStatic('http://www.vodnimlyny.cz/ru/mlyny/estates/detail/schwarzenbersky-mlyn'));
+		$this->assertFalse(VodniMlynyCzService::validateStatic('something random'));
 	}
 
 	/**

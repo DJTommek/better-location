@@ -18,7 +18,7 @@ final class KudyZNudyCzService extends AbstractService
 	const TYPE_ACTIVITY = 'activity';
 	const TYPE_EVENT = 'event';
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		if (
 			$this->url

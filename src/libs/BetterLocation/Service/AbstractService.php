@@ -76,7 +76,7 @@ abstract class AbstractService
 		return $this;
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return false;
 	}
@@ -190,12 +190,12 @@ abstract class AbstractService
 		return $this->data;
 	}
 
-	public static function isValidStatic(string $input): bool
+	public static function validateStatic(string $input): bool
 	{
 		$instance = Factory::getContainer()->get(static::class);
 		assert($instance instanceof static);
 		$instance->setInput($input);
-		return $instance->isValid();
+		return $instance->validate();
 	}
 
 	public static function processStatic(string $input): self
@@ -203,7 +203,7 @@ abstract class AbstractService
 		$instance = Factory::getContainer()->get(static::class);
 		assert($instance instanceof static);
 		$instance->setInput($input);
-		if ($instance->isValid() === false) {
+		if ($instance->validate() === false) {
 			throw new \InvalidArgumentException('Input is not valid.');
 		}
 		$instance->process();

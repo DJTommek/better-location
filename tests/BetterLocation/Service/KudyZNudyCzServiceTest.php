@@ -23,11 +23,11 @@ final class KudyZNudyCzServiceTest extends AbstractServiceTestCase
 
 	public function testIsValid(): void
 	{
-		$this->assertTrue(KudyZNudyCzService::isValidStatic('https://www.kudyznudy.cz/aktivity/vyhlidka-maj-jeden-z-nejkrasnejsich-rozhledu-na'));
-		$this->assertTrue(KudyZNudyCzService::isValidStatic('https://www.kudyznudy.cz/akce/veteran-rallye-z-lazni-do-lazni-1'));
+		$this->assertTrue(KudyZNudyCzService::validateStatic('https://www.kudyznudy.cz/aktivity/vyhlidka-maj-jeden-z-nejkrasnejsich-rozhledu-na'));
+		$this->assertTrue(KudyZNudyCzService::validateStatic('https://www.kudyznudy.cz/akce/veteran-rallye-z-lazni-do-lazni-1'));
 
-		$this->assertFalse(KudyZNudyCzService::isValidStatic('https://example.com/?ll=50.087451,14.420671'));
-		$this->assertFalse(KudyZNudyCzService::isValidStatic('non url'));
+		$this->assertFalse(KudyZNudyCzService::validateStatic('https://example.com/?ll=50.087451,14.420671'));
+		$this->assertFalse(KudyZNudyCzService::validateStatic('non url'));
 	}
 
 	/**
@@ -35,7 +35,7 @@ final class KudyZNudyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValidUsingProvider(bool $expectedIsValid, string $link): void
 	{
-		$this->assertSame($expectedIsValid, KudyZNudyCzService::isValidStatic($link));
+		$this->assertSame($expectedIsValid, KudyZNudyCzService::validateStatic($link));
 	}
 
 	/**

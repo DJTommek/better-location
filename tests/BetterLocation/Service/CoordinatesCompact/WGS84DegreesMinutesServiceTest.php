@@ -28,7 +28,7 @@ final class WGS84DegreesMinutesServiceTest extends TestCase
 
 	public function testNothingIsValid(): void
 	{
-		$this->assertFalse(WGS84DegreeMinutesCompactService::isValidStatic('any input'));
+		$this->assertFalse(WGS84DegreeMinutesCompactService::validateStatic('any input'));
 	}
 
 	public function testNotProcessing(): void

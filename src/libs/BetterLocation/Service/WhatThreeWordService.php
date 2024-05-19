@@ -42,7 +42,7 @@ final class WhatThreeWordService extends AbstractService
 		}
 	}
 
-	public function isValid(): bool
+	public function validate(): bool
 	{
 		return $this->isWords() || $this->isUrl();
 	}
