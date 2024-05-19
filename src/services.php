@@ -36,6 +36,7 @@ return static function (ContainerConfigurator $container): void {
 	// @TODO {rqd9s3z9i9} fix this to NOT tag classes, that does not inherit from App\TelegramCustomWrapper\Events\Events::class
 	$services
 		->load('App\\TelegramCustomWrapper\\Events\\', __DIR__ . '/libs/TelegramCustomWrapper/Events/')
+		->call('setDependencies')
 		->tag($tagTgEvents);
 
 	$services->set(StaticMapProxy::class);

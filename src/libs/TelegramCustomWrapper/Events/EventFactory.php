@@ -3,10 +3,6 @@
 namespace App\TelegramCustomWrapper\Events;
 
 use App\Factory\ObjectsFilterTrait;
-use App\Logger\CustomTelegramLogger;
-use App\Repository\ChatRepository;
-use App\Repository\FavouritesRepository;
-use App\Repository\UserRepository;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 
@@ -20,16 +16,10 @@ class EventFactory
 	private readonly array $events;
 
 	/**
-	 * @param CustomTelegramLogger $customTelegramLogger
 	 * @param iterable<object> $events
 	 */
-	public function __construct(
-		private readonly UserRepository $userRepository ,
-		private readonly ChatRepository $chatRepository,
-		private readonly FavouritesRepository $favouritesRepository,
-		private readonly CustomTelegramLogger $customTelegramLogger,
-		iterable $events,
-	) {
+	public function __construct(iterable $events)
+	{
 		// @TODO {rqd9s3z9i9} Filter can be removed once linked TODO is resolved
 		$this->events = iterator_to_array($this->filter($events, Events::class, true));
 	}
@@ -41,13 +31,7 @@ class EventFactory
 	{
 		$eventInstance = $this->events[$event];
 		assert($eventInstance instanceof Events);
-		$eventInstance->init(
-			$this->userRepository,
-			$this->chatRepository,
-			$this->favouritesRepository,
-			$this->customTelegramLogger,
-			$update
-		);
+		$eventInstance->setUpdateObject($update);
 		return $eventInstance;
 	}
 }

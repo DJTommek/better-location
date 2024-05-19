@@ -35,6 +35,10 @@ use function Clue\React\Block\await;
 
 abstract class Events
 {
+	private readonly UserRepository $userRepository;
+	private readonly ChatRepository $chatRepository;
+	private readonly FavouritesRepository $favouritesRepository;
+
 	protected readonly Update $update;
 	private readonly TgLog $tgLog;
 	/** @readonly */
@@ -56,14 +60,15 @@ abstract class Events
 
 	abstract public function handleWebhookUpdate(): void;
 
-	final public function init(
+	final public function setDependencies(
 		UserRepository $userRepository,
 		ChatRepository $chatRepository,
 		FavouritesRepository $favouritesRepository,
 		CustomTelegramLogger $customTelegramLogger,
-		Update $update,
 	): self {
-		$this->update = $update;
+		$this->userRepository = $userRepository;
+		$this->chatRepository = $chatRepository;
+		$this->favouritesRepository = $favouritesRepository;
 
 		$this->loop = Factory::create();
 		$this->tgLog = new TgLog(
@@ -71,17 +76,24 @@ abstract class Events
 			new HttpClientRequestHandler($this->loop),
 			$customTelegramLogger,
 		);
+		return $this;
+	}
+
+	final public function setUpdateObject(Update $update): self
+	{
+		$this->update = $update;
+
 		$this->user = new User(
-			$userRepository,
-			$chatRepository,
-			$favouritesRepository,
+			$this->userRepository,
+			$this->chatRepository,
+			$this->favouritesRepository,
 			$this->getTgFromId(),
 			$this->getTgFromDisplayname(),
 		);
 		$this->user->touchLastUpdate();
 		if ($this->hasTgMessage()) {
 			$this->chat = new Chat(
-				$chatRepository,
+				$this->chatRepository,
 				$this->getTgChatId(),
 				$this->getTgChat()->type,
 				$this->getTgChatDisplayname(),

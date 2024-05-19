@@ -10,7 +10,7 @@ parameters:
 	tmpDir: temp/phpstan
 	additionalConstructors:
 		- App\Web\MainPresenter::setDependencies
-		- App\TelegramCustomWrapper\Events\Events::init
+		- App\TelegramCustomWrapper\Events\Events::setDependencies
 		- App\Web\Admin\AdminTemplate::prepare
 	excludePaths:
 		- 'src\libs\Utils\MGRS.php' # Not my class
@@ -75,6 +75,19 @@ parameters:
 		-
 			# Values are added using internal method 'cast()' and setters
 			message: "#^Class App\\\\.+Dto has an uninitialized readonly property \\$.+\\. Assign it in the constructor\\.$#"
+
+		-
+			# There are two methods that are always called, but PHPStan is not able to handle multiple "additionalConstructors" for single class
+			message: "#^Class App\\\\TelegramCustomWrapper\\\\Events\\\\Events has an uninitialized readonly property \\$update\\. Assign it in the constructor\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
+		-
+			# There are two methods that are always called, but PHPStan is not able to handle multiple "additionalConstructors" for single class
+			message: "#^Readonly property App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:\\$update is assigned outside of the constructor\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
 
 
 includes:
