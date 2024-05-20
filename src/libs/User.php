@@ -56,8 +56,9 @@ class User
 
 	}
 
-	public function touchLastUpdate(): void
+	public function setLastUpdate(\DateTimeInterface $lastUpdate): void
 	{
+		$this->userEntity->lastUpdate = \DateTimeImmutable::createFromInterface($lastUpdate);
 		$this->update();
 	}
 

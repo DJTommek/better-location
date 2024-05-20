@@ -46,8 +46,9 @@ class Chat
 		return $this->chatEntity->settingsShowAddress;
 	}
 
-	public function touchLastUpdate(): void
+	public function setLastUpdate(\DateTimeInterface $lastUpdate): void
 	{
+		$this->chatEntity->lastUpdate = \DateTimeImmutable::createFromInterface($lastUpdate);
 		$this->update();
 	}
 
