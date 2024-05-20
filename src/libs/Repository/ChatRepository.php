@@ -31,7 +31,7 @@ class ChatRepository extends Repository
 			$entity->getSettingsOutputType(),
 			$entity->settingsShowAddress ? 1 : 0,
 			$entity->pluginUrl?->getAbsoluteUrl(),
-			$entity->lastUpdate->format(self::DATETIME_FORMAT),
+			$entity->lastUpdate->setTimezone(new \DateTimeZone('UTC'))->format(self::DATETIME_FORMAT),
 			$entity->id
 		);
 	}

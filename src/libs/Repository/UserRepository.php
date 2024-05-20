@@ -24,14 +24,16 @@ class UserRepository extends Repository
 
 	public function update(UserEntity $entity): void
 	{
+		$timezone = new \DateTimeZone('UTC');
+
 		$this->db->query('UPDATE better_location_user 
 				SET user_telegram_name = ?, user_location_lat = ?, user_location_lon = ?, user_location_last_update = ?, user_last_update = ? 
 				WHERE user_id = ?',
 			$entity->telegramName,
 			$entity->lastLocation?->lat,
 			$entity->lastLocation?->lon,
-			$entity->lastLocationUpdate?->format(self::DATETIME_FORMAT),
-			$entity->lastUpdate->format(self::DATETIME_FORMAT),
+			$entity->lastLocationUpdate?->setTimezone($timezone)->format(self::DATETIME_FORMAT),
+			$entity->lastUpdate->setTimezone($timezone)->format(self::DATETIME_FORMAT),
 			$entity->id,
 		);
 	}
