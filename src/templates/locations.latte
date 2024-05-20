@@ -12,48 +12,7 @@
 		</div>
 
 		<div class="accordion" id="accordionLocations" n:if="$collection->count() > 1">
-			<div class="accordion-item">
-				<h2 class="accordion-header" id="headingDistance">
-					<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false">
-						Table of distances
-					</button>
-				</h2>
-				<div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionLocations">
-					<div class="accordion-body">
-						<table class="table table-hover table-responsive accordion-location-distances">
-							<tr>
-								<td>&nbsp;</td>
-								{foreach $locations as $i => $location}
-									<th title="{$location->key()}: {$location->getAddress() ?? 'Unknown address'}">
-										{($i+1)}.
-									</th>
-								{/foreach}
-							</tr>
-
-							{foreach $distances as $indexHorizontal => $distancesHorizontal}
-								<tr>
-									{var $location = $locations[$indexHorizontal]}
-									<th title="{$location->key()}: {$location->getAddress() ?? 'Unknown address'}">
-											{($indexHorizontal+1)}.
-									</th>
-									{foreach $distancesHorizontal as $indexVertical => $distance}
-										{if $indexHorizontal === $indexVertical}
-											<td>/</td>
-										{else}
-											{var $distanceColor = 120 - \App\Utils\Utils::recalculateRangeOne($distance, $distanceSmallest, $distanceGreatest, 0, 120)}
-											<td style="background-color: hsl({$distanceColor|noescape}deg 100% 80%);">
-												<b n:tag-if="$distance === $distanceGreatest || $distance === $distanceSmallest">
-													{\App\Utils\Formatter::distance($distance)}
-												</b>
-											</td>
-										{/if}
-									{/foreach}
-								</tr>
-							{/foreach}
-						</table>
-					</div>
-				</div>
-			</div>
+			{include locationsDistances from 'locations.distances.latte'}
 		</div>
 
 		<div class="row g-0">
@@ -126,13 +85,13 @@
 									DateTimezone data are not available.
 								{/if}
 							{else}
-								<a href="{$basePath}/{$location->key()}?datetimezone=true">Load timezone data</a>
+								<a href="{$basePath}/{$location->getLatLon()}?datetimezone=true">Load timezone data</a>
 							{/if}
 						</div>
 						<div class="downloads">
 							<i class="fa fa-download"></i> Download as
-							<a href="{$basePath}/{$location->key()}?format=gpx">gpx</a> |
-							<a href="{$basePath}/{$location->key()}?format=kml">kml</a>
+							<a href="{$basePath}/{$location->getLatLon()}?format=gpx">gpx</a> |
+							<a href="{$basePath}/{$location->getLatLon()}?format=kml">kml</a>
 						</div>
 						<div class="elevation" n:if="$location->getCoordinates()->getElevation() !== null">
 							<abbr title="Above mean sea level">AMSL</abbr>: {$location->getCoordinates()->getElevation()} meters
@@ -196,7 +155,7 @@
 		{if $collection->getFirst()->getAddress()}
 			{$collection->getFirst()->getAddress()} -
 		{/if}
-		{$collection->getFirst()->key()}
+		{$collection->getFirst()->getLatLon()}
 	{else}
 		{count($collection)} locations
 	{/if}

@@ -56,18 +56,18 @@ final class WGS84DegreesMinutesServiceTest extends TestCase
 
 		$betterLocations = WGS84DegreesMinutesService::findInText($text);
 		$this->assertCount(10, $betterLocations);
-		$this->assertSame([50.99538883333334, 10.522831166666666], $betterLocations[0]->getLatLon());
-		$this->assertSame([51.072450333333336, 11.772062], $betterLocations[1]->getLatLon());
-		$this->assertSame([-52.30190416666667, 120.7798775], $betterLocations[2]->getLatLon());
-		$this->assertSame([-53.62774, -13.222133833333332], $betterLocations[3]->getLatLon());
+		$this->assertSame([50.99538883333334, 10.522831166666666], $betterLocations[0]->getLatLonArray());
+		$this->assertSame([51.072450333333336, 11.772062], $betterLocations[1]->getLatLonArray());
+		$this->assertSame([-52.30190416666667, 120.7798775], $betterLocations[2]->getLatLonArray());
+		$this->assertSame([-53.62774, -13.222133833333332], $betterLocations[3]->getLatLonArray());
 
-		$this->assertSame([54.99538883333334, 14.522831166666666], $betterLocations[4]->getLatLon());
-		$this->assertSame([55.072450333333336, 15.772062], $betterLocations[5]->getLatLon());
+		$this->assertSame([54.99538883333334, 14.522831166666666], $betterLocations[4]->getLatLonArray());
+		$this->assertSame([55.072450333333336, 15.772062], $betterLocations[5]->getLatLonArray());
 
-		$this->assertSame([-56.30190416666667, 160.7798775], $betterLocations[6]->getLatLon());
-		$this->assertSame([-56.30190416666667, 160.7798775], $betterLocations[7]->getLatLon());
-		$this->assertSame([56.30190416666667, 160.7798775], $betterLocations[8]->getLatLon());
-		$this->assertSame([-57.62774, -17.222133833333334], $betterLocations[9]->getLatLon());
+		$this->assertSame([-56.30190416666667, 160.7798775], $betterLocations[6]->getLatLonArray());
+		$this->assertSame([-56.30190416666667, 160.7798775], $betterLocations[7]->getLatLonArray());
+		$this->assertSame([56.30190416666667, 160.7798775], $betterLocations[8]->getLatLonArray());
+		$this->assertSame([-57.62774, -17.222133833333334], $betterLocations[9]->getLatLonArray());
 	}
 
 	/**

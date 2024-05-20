@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "809761a6e2378b5aeda560a555dca199",
+    "content-hash": "5db9cb044898a7134ce5edfcf26e1936",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1233,16 +1233,16 @@
         },
         {
             "name": "djtommek/coordinates",
-            "version": "1.2.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DJTommek/coordinates.git",
-                "reference": "4905a56b3d3045fc3a6334d36f25b006dcb7b02c"
+                "reference": "059c7baec48746277356f8609b2b3aa17cba93db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DJTommek/coordinates/zipball/4905a56b3d3045fc3a6334d36f25b006dcb7b02c",
-                "reference": "4905a56b3d3045fc3a6334d36f25b006dcb7b02c",
+                "url": "https://api.github.com/repos/DJTommek/coordinates/zipball/059c7baec48746277356f8609b2b3aa17cba93db",
+                "reference": "059c7baec48746277356f8609b2b3aa17cba93db",
                 "shasum": ""
             },
             "require": {
@@ -1279,9 +1279,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DJTommek/coordinates/issues",
-                "source": "https://github.com/DJTommek/coordinates/tree/1.2.0"
+                "source": "https://github.com/DJTommek/coordinates/tree/2.0.0"
             },
-            "time": "2023-06-16T19:58:17+00:00"
+            "time": "2024-05-20T18:30:46+00:00"
         },
         {
             "name": "djtommek/glympse-api",

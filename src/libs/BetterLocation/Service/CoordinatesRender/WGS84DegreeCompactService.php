@@ -11,6 +11,6 @@ final class WGS84DegreeCompactService extends AbstractService
 
 	public static function getShareText(float $lat, float $lon): ?string
 	{
-		return (new Coordinates($lat, $lon))->key();
+		return (new Coordinates($lat, $lon))->getLatLon();
 	}
 }

@@ -88,9 +88,9 @@ class ReverseResponseDto extends AbstractDto implements AddressInterface, Coordi
 		return $this->lon;
 	}
 
-	public function key(): string
+	public function getLatLon(string $delimiter = ','): string
 	{
-		return $this->getLat() . ',' . $this->getLon();
+		return sprintf('%F%s%F', $this->getLat(), $delimiter,  $this->getLon());
 	}
 
 	public function set(string $name, mixed $value): void

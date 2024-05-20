@@ -26,21 +26,21 @@ final class CoordinatesTest extends TestCase
 
 	public function testFromString(): void
 	{
-		$this->assertSame('49.885617,14.044381', Coordinates::fromString('49.885617,14.044381')->key());
-		$this->assertSame('-49.885617,14.044381', Coordinates::fromString('-49.885617,14.044381')->key());
-		$this->assertSame('49.885617,-14.044381', Coordinates::fromString('49.885617,-14.044381')->key());
-		$this->assertSame('-49.885617,-14.044381', Coordinates::fromString('-49.885617,-14.044381')->key());
-		$this->assertSame('1.234567,0.123456', Coordinates::fromString('1.234567,0.123456')->key());
-		$this->assertSame('0.000000,0.000000', Coordinates::fromString('0,0')->key());
+		$this->assertSame('49.885617,14.044381', Coordinates::fromString('49.885617,14.044381')->getLatLon());
+		$this->assertSame('-49.885617,14.044381', Coordinates::fromString('-49.885617,14.044381')->getLatLon());
+		$this->assertSame('49.885617,-14.044381', Coordinates::fromString('49.885617,-14.044381')->getLatLon());
+		$this->assertSame('-49.885617,-14.044381', Coordinates::fromString('-49.885617,-14.044381')->getLatLon());
+		$this->assertSame('1.234567,0.123456', Coordinates::fromString('1.234567,0.123456')->getLatLon());
+		$this->assertSame('0.000000,0.000000', Coordinates::fromString('0,0')->getLatLon());
 
 		// different separator
-		$this->assertSame('1.234567,0.123456', Coordinates::fromString('1.234567_0.123456', '_')->key());
+		$this->assertSame('1.234567,0.123456', Coordinates::fromString('1.234567_0.123456', '_')->getLatLon());
 		$this->assertNull(Coordinates::fromString('1.234567,0.123456', '_'));
 
 		// multi-character separator separator
-		$this->assertSame('1.234567,0.123456', Coordinates::fromString('1.234567___0.123456', '___')->key());
+		$this->assertSame('1.234567,0.123456', Coordinates::fromString('1.234567___0.123456', '___')->getLatLon());
 		$this->assertNull(Coordinates::fromString('1.234567__0.123456', '___'));
-		$this->assertSame('1.234567,0.123456', Coordinates::fromString('1.234567_abcd_0.123456', '_abcd_')->key());
+		$this->assertSame('1.234567,0.123456', Coordinates::fromString('1.234567_abcd_0.123456', '_abcd_')->getLatLon());
 		$this->assertNull(Coordinates::fromString('1.234567__0.123456', '___'));
 		$this->assertNull(Coordinates::fromString('1.234567___0.123456', '_'));
 

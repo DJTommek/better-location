@@ -38,12 +38,12 @@ final class BetterLocationTest extends TestCase
 
 		$this->assertSame(50.087451123456789, $location->getLat());
 		$this->assertSame(14.420671123456789, $location->getLon());
-		$this->assertSame('50.087451,14.420671', $location->key());
+		$this->assertSame('50.087451,14.420671', $location->getLatLon());
 		$this->assertSame('50.087451,14.420671', (string)$location);
 
 		$this->assertSame($location->getLat(), $coords->getLat());
 		$this->assertSame($location->getLon(), $coords->getLon());
-		$this->assertSame($location->key(), $coords->key());
+		$this->assertSame($location->getLatLon(), $coords->getLatLon());
 		$this->assertSame((string)$location, (string)$coords);
 
 		$expectedExport = [

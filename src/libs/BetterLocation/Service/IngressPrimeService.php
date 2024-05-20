@@ -91,7 +91,7 @@ final class IngressPrimeService extends AbstractService
 		if (isset($this->data->oflLink)) {
 			$this->ingressIntelService->process();
 			foreach ($this->ingressIntelService->getCollection() as $oflLocation) {
-				if ($mainCoords === null || $mainCoords->key() !== $oflLocation->key()) {
+				if ($mainCoords === null || $mainCoords->getLatLon() !== $oflLocation->getLatLon()) {
 					// Add to main collection only if is different than main location (portal hash, mission, ...)
 					$this->collection->add($oflLocation);
 				}

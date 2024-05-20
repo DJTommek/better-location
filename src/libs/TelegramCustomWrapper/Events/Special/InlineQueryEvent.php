@@ -219,7 +219,7 @@ class InlineQueryEvent extends Special
 			$inlineTitle .= $this->addDistanceText($betterLocation);
 		}
 		$inlineQueryResult->title = strip_tags($inlineTitle);
-		$inlineQueryResult->description = $betterLocation->key();
+		$inlineQueryResult->description = $betterLocation->getLatLon();
 
 		if ($this->showAddress()) {
 			$betterLocation->generateAddress();

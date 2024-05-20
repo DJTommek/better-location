@@ -17,9 +17,9 @@ use App\MiniCurl\Exceptions\TimeoutException;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\Utils\Coordinates;
-use App\Utils\CoordinatesInterface;
 use App\Utils\Formatter;
 use App\Utils\Strict;
+use DJTommek\Coordinates\CoordinatesInterface;
 use maxh\Nominatim\Exceptions\NominatimException;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
@@ -306,7 +306,7 @@ class BetterLocation implements CoordinatesInterface
 	/**
 	 * @return array{float, float}
 	 */
-	public function getLatLon(): array
+	public function getLatLonArray(): array
 	{
 		return [$this->getLat(), $this->getLon()];
 	}
@@ -412,7 +412,7 @@ class BetterLocation implements CoordinatesInterface
 	}
 
 	public static function fromCoords(
-		\DJTommek\Coordinates\CoordinatesInterface $coordinates,
+		CoordinatesInterface $coordinates,
 		string $service = WGS84DegreesService::class,
 		?string $type = null,
 	): self {
@@ -504,14 +504,14 @@ class BetterLocation implements CoordinatesInterface
 		return $this->coords;
 	}
 
-	public function key(): string
+	public function getLatLon(string $delimiter = ','): string
 	{
-		return $this->coords->key();
+		return $this->coords->getLatLon($delimiter);
 	}
 
 	public function getLink(string $format = null): UrlImmutable
 	{
-		$result = Config::getAppUrl('/' . $this->key());
+		$result = Config::getAppUrl('/' . $this->getLatLon());
 		return $result->withQueryParameter('format', $format);
 	}
 }

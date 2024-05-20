@@ -63,7 +63,7 @@ class LocationsPresenter extends MainPresenter
 							$favoriteLocation = $this->user->addFavourite($location, $name);
 							$this->flashMessage(sprintf(
 								'Location <b>%s</b> was saved to favorites as <b>%s</b>.',
-								$favoriteLocation->key(),
+								$favoriteLocation->getLatLon(),
 								htmlentities($favoriteLocation->getPrefixMessage()),
 							), Flash::SUCCESS);
 						}
@@ -71,7 +71,7 @@ class LocationsPresenter extends MainPresenter
 					case 'delete':
 						foreach ($this->collection as $location) {
 							$this->user->deleteFavourite($location);
-							$this->flashMessage(sprintf('Location <b>%s</b> was removed from favorites.', $location->key()), Flash::INFO);
+							$this->flashMessage(sprintf('Location <b>%s</b> was removed from favorites.', $location->getLatLon()), Flash::INFO);
 						}
 						break;
 				}
@@ -101,7 +101,7 @@ class LocationsPresenter extends MainPresenter
 				}
 			}
 			$services = array_values(array_filter($services));
-			$this->services[$location->key()] = $services;
+			$this->services[$location->getLatLon()] = $services;
 		}
 		$this->format = mb_strtolower($_GET['format'] ?? 'html');
 	}
@@ -144,7 +144,7 @@ class LocationsPresenter extends MainPresenter
 			$resultLocation->elevation = $location->getCoordinates()->getElevation();
 			$resultLocation->timezoneId = $location->getTimezoneData()?->timezoneId;
 			$resultLocation->address = $location->getAddress();
-			$resultLocation->services = $this->services[$location->key()];
+			$resultLocation->services = $this->services[$location->getLatLon()];
 			return $resultLocation;
 		}, $this->collection->getLocations());
 		header('Content-Type: application/json');

@@ -60,7 +60,7 @@ class FromExif
 		}
 
 		$this->location = new BetterLocation(
-			'EXIF ' . $coords->key(),
+			'EXIF ' . $coords->getLatLon(),
 			$coords->getLat(),
 			$coords->getLon(),
 			WGS84DegreesService::class,

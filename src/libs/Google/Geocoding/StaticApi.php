@@ -20,7 +20,7 @@ class StaticApi
 	{
 		$queryParams = [
 			'key' => $this->apiKey,
-			'latlng' => $coordinates->key(),
+			'latlng' => $coordinates->getLatLon(),
 		];
 		$url = self::API_URL . '?' . http_build_query($queryParams);
 		$response = $this->runGoogleApiRequest($url);

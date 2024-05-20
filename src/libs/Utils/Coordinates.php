@@ -144,7 +144,7 @@ class Coordinates implements CoordinatesInterface, \JsonSerializable
 
 	public function __toString(): string
 	{
-		return $this->key();
+		return $this->getLatLon();
 	}
 
 	/** Get decimal format from degrees-minutes */
@@ -218,18 +218,6 @@ class Coordinates implements CoordinatesInterface, \JsonSerializable
 		return (Strict::isFloat($lon) && $lon <= 180 && $lon >= -180);
 	}
 
-	public static function getLatLon(string $input, string $separator = ','): ?array
-	{
-		$coords = explode($separator, $input);
-		if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
-			return [
-				Strict::floatval($coords[0]),
-				Strict::floatval($coords[1])
-			];
-		}
-		return null;
-	}
-
 	/**
 	 * Safely create Coordinates object from format 'latitude,longitude' or return null
 	 */
@@ -284,5 +272,10 @@ class Coordinates implements CoordinatesInterface, \JsonSerializable
 			$result['elevation'] = $this->getElevation();
 		}
 		return $result;
+	}
+
+	public function getLatLon(string $delimiter = ','): string
+	{
+		return sprintf('%F%s%F', $this->getLat(), $delimiter, $this->getLon());
 	}
 }

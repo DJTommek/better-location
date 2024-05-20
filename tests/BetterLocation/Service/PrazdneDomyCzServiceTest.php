@@ -31,11 +31,11 @@ final class PrazdneDomyCzServiceTest extends TestCase
 	{
 		$collection = PrazdneDomyCzService::processStatic('https://prazdnedomy.cz/domy/objekty/detail/2732-kasarna-u-sloupu')->getCollection();
 		$this->assertCount(1, $collection);
-		$this->assertSame('49.060201,13.736212', $collection[0]->key());
+		$this->assertSame('49.060201,13.736212', $collection[0]->getLatLon());
 
 		$collection = PrazdneDomyCzService::processStatic('https://prazdnedomy.cz/domy/objekty/detail/96-dum-u-tri-bilych-lilii')->getCollection();
 		$this->assertCount(1, $collection);
-		$this->assertSame('50.087720,14.398980', $collection[0]->key());
+		$this->assertSame('50.087720,14.398980', $collection[0]->getLatLon());
 	}
 
 	/**

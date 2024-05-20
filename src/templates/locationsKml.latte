@@ -8,12 +8,12 @@
 			<name>BetterLocation waypoints</name>
 			{foreach $collection as $location}
 			<Placemark>
-				<name>BetterLocation {$location->key()}</name>
+				<name>BetterLocation {$location->getLatLon()}</name>
 				<address>{$location->getAddress() ?? 'Unknown address'}</address>
 				<description>
 					<![CDATA[
 					Address: <b>{$location->getAddress() ?? 'Unknown address'}</b><br>
-					Link: <a href="{$baseUrl}/{$location->key()}"><b>{$baseUrl}/{$location->key()}</b></a>
+					Link: <a href="{$baseUrl}/{$location->getLatLon()}"><b>{$baseUrl}/{$location->getLatLon()}</b></a>
 					]]>
 				</description>
 				<Point>

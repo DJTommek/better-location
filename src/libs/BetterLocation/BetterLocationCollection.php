@@ -239,7 +239,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	public function getKeys(): array
 	{
 		return array_map(function (BetterLocation $location) {
-			return $location->key();
+			return $location->getLatLon();
 		}, $this->getLocations());
 	}
 

@@ -19,27 +19,27 @@ final class EnvironmentSettingsTest extends TestCase
 		$betterLocationNegative = WGS84DegreesService::processStatic('-50.123456,-10.123456')->getFirst();
 
 		// default formatting (usually from environment settings)
-		$this->assertSame('50.123456,10.123456', $betterLocationPositive->key());
-		$this->assertSame('50.123456,-10.123456', $betterLocationPositiveNegative->key());
-		$this->assertSame('-50.123456,10.123456', $betterLocationNegativePositive->key());
-		$this->assertSame('-50.123456,-10.123456', $betterLocationNegative->key());
+		$this->assertSame('50.123456,10.123456', $betterLocationPositive->getLatLon());
+		$this->assertSame('50.123456,-10.123456', $betterLocationPositiveNegative->getLatLon());
+		$this->assertSame('-50.123456,10.123456', $betterLocationNegativePositive->getLatLon());
+		$this->assertSame('-50.123456,-10.123456', $betterLocationNegative->getLatLon());
 
 		setlocale(LC_NUMERIC, 'swedish'); // swedish formatting is using "," instead of "." in floating point
-		$this->assertSame('50.123456,10.123456', $betterLocationPositive->key());
-		$this->assertSame('50.123456,-10.123456', $betterLocationPositiveNegative->key());
-		$this->assertSame('-50.123456,10.123456', $betterLocationNegativePositive->key());
-		$this->assertSame('-50.123456,-10.123456', $betterLocationNegative->key());
+		$this->assertSame('50.123456,10.123456', $betterLocationPositive->getLatLon());
+		$this->assertSame('50.123456,-10.123456', $betterLocationPositiveNegative->getLatLon());
+		$this->assertSame('-50.123456,10.123456', $betterLocationNegativePositive->getLatLon());
+		$this->assertSame('-50.123456,-10.123456', $betterLocationNegative->getLatLon());
 
 		setlocale(LC_NUMERIC, 'american'); // american formatting is using "." instead of "," in floating point
-		$this->assertSame('50.123456,10.123456', $betterLocationPositive->key());
-		$this->assertSame('50.123456,-10.123456', $betterLocationPositiveNegative->key());
-		$this->assertSame('-50.123456,10.123456', $betterLocationNegativePositive->key());
-		$this->assertSame('-50.123456,-10.123456', $betterLocationNegative->key());
+		$this->assertSame('50.123456,10.123456', $betterLocationPositive->getLatLon());
+		$this->assertSame('50.123456,-10.123456', $betterLocationPositiveNegative->getLatLon());
+		$this->assertSame('-50.123456,10.123456', $betterLocationNegativePositive->getLatLon());
+		$this->assertSame('-50.123456,-10.123456', $betterLocationNegative->getLatLon());
 
 		setlocale(LC_NUMERIC, $localeOriginal); // restore original settings (again default formatting)
-		$this->assertSame('50.123456,10.123456', $betterLocationPositive->key()); //
-		$this->assertSame('50.123456,-10.123456', $betterLocationPositiveNegative->key());
-		$this->assertSame('-50.123456,10.123456', $betterLocationNegativePositive->key());
-		$this->assertSame('-50.123456,-10.123456', $betterLocationNegative->key());
+		$this->assertSame('50.123456,10.123456', $betterLocationPositive->getLatLon()); //
+		$this->assertSame('50.123456,-10.123456', $betterLocationPositiveNegative->getLatLon());
+		$this->assertSame('-50.123456,10.123456', $betterLocationNegativePositive->getLatLon());
+		$this->assertSame('-50.123456,-10.123456', $betterLocationNegative->getLatLon());
 	}
 }

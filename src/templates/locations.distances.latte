@@ -1,0 +1,49 @@
+{templateType App\Web\Locations\LocationsTemplate}
+{layout '@layout.latte'}
+{block locationsDistances}
+	<div class="accordion" id="accordionLocations" n:if="$collection->count() > 1">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingDistance">
+				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false">
+					Table of distances
+				</button>
+			</h2>
+			<div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionLocations">
+				<div class="accordion-body">
+					<table class="table table-hover table-responsive accordion-location-distances">
+						<tr>
+							<td>&nbsp;</td>
+							{foreach $collection as $i => $location}
+								<th title="{$location->getLatLon()}: {$location->getAddress() ?? 'Unknown address'}">
+									{($i+1)}.
+								</th>
+							{/foreach}
+						</tr>
+
+						{foreach $distances as $indexHorizontal => $distancesHorizontal}
+							<tr>
+								{var $location = $locations[$indexHorizontal]}
+
+								<th title="{$location->getLatLon()}: {$location->getAddress() ?? 'Unknown address'}">
+										{($indexHorizontal+1)}.
+								</th>
+									{foreach $distancesHorizontal as $indexVertical => $distance}
+									{if $indexHorizontal === $indexVertical}
+										<td>/</td>
+									{else}
+									{var $distanceColor = 120 - \App\Utils\Utils::recalculateRangeOne($distance, $distanceSmallest, $distanceGreatest, 0, 120)}
+										<td style="background-color: hsl({$distanceColor|noescape}deg 100% 80%);">
+											<b n:tag-if="$distance === $distanceGreatest || $distance === $distanceSmallest">
+												{\App\Utils\Formatter::distance($distance)}
+											</b>
+										</td>
+									{/if}
+								{/foreach}
+							</tr>
+						{/foreach}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+{/block}

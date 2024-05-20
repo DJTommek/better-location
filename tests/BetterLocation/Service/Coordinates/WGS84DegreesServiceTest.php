@@ -297,16 +297,16 @@ final class WGS84DegreesServiceTest extends AbstractServiceTestCase
 
 		$betterLocations = WGS84DegreesService::findInText($text);
 		$this->assertCount(10, $betterLocations);
-		$this->assertSame([50.1111, 10.2222], $betterLocations[0]->getLatLon());
-		$this->assertSame([-51.1111, -11.2222], $betterLocations[1]->getLatLon());
-		$this->assertSame([52.1111, 12.2222], $betterLocations[2]->getLatLon());
-		$this->assertSame([-53.1111, -13.2222], $betterLocations[3]->getLatLon());
-		$this->assertSame([54.1111, 14.2222], $betterLocations[4]->getLatLon());
-		$this->assertSame([-55.1111, -15.2222], $betterLocations[5]->getLatLon());
-		$this->assertSame([56.1111, 16.2222], $betterLocations[6]->getLatLon());
-		$this->assertSame([-57.1111, -17.2222], $betterLocations[7]->getLatLon());
-		$this->assertSame([-58.1111, 18.2222], $betterLocations[8]->getLatLon());
-		$this->assertSame([59.1111, -19.2222], $betterLocations[9]->getLatLon());
+		$this->assertSame([50.1111, 10.2222], $betterLocations[0]->getLatLonArray());
+		$this->assertSame([-51.1111, -11.2222], $betterLocations[1]->getLatLonArray());
+		$this->assertSame([52.1111, 12.2222], $betterLocations[2]->getLatLonArray());
+		$this->assertSame([-53.1111, -13.2222], $betterLocations[3]->getLatLonArray());
+		$this->assertSame([54.1111, 14.2222], $betterLocations[4]->getLatLonArray());
+		$this->assertSame([-55.1111, -15.2222], $betterLocations[5]->getLatLonArray());
+		$this->assertSame([56.1111, 16.2222], $betterLocations[6]->getLatLonArray());
+		$this->assertSame([-57.1111, -17.2222], $betterLocations[7]->getLatLonArray());
+		$this->assertSame([-58.1111, 18.2222], $betterLocations[8]->getLatLonArray());
+		$this->assertSame([59.1111, -19.2222], $betterLocations[9]->getLatLonArray());
 
 		$text = <<<TEXT
 Title - Coords - Note
@@ -319,11 +319,11 @@ TEXT;
 
 		$collection = WGS84DegreesService::findInText($text);
 		$this->assertCount(5, $collection);
-		$this->assertSame([50.087451, 14.420671], $collection[0]->getLatLon());
-		$this->assertSame([50.087451, 13.420671], $collection[1]->getLatLon());
-		$this->assertSame([-50.087451, 13.420671], $collection[2]->getLatLon());
-		$this->assertSame([50.087451, -13.420671], $collection[3]->getLatLon());
-		$this->assertSame([-50.087451, -13.420671], $collection[4]->getLatLon());
+		$this->assertSame([50.087451, 14.420671], $collection[0]->getLatLonArray());
+		$this->assertSame([50.087451, 13.420671], $collection[1]->getLatLonArray());
+		$this->assertSame([-50.087451, 13.420671], $collection[2]->getLatLonArray());
+		$this->assertSame([50.087451, -13.420671], $collection[3]->getLatLonArray());
+		$this->assertSame([-50.087451, -13.420671], $collection[4]->getLatLonArray());
 
 	}
 
@@ -331,7 +331,7 @@ TEXT;
 	{
 		$collection = WGS84DegreesService::findInText('GPS: 49.1438181N, 13.5560753E'); // text from cipher solutions on i-quest.cz
 		$this->assertCount(1, $collection);
-		$this->assertSame('49.143818,13.556075', $collection->getFirst()->key());
+		$this->assertSame('49.143818,13.556075', $collection->getFirst()->getLatLon());
 
 		// text from cipher solutions on i-quest.cz
 		$text = 'GPS: 49.1438181N, 13.5560753E' . PHP_EOL;
@@ -340,29 +340,29 @@ TEXT;
 
 		$collection = WGS84DegreesService::findInText($text);
 		$this->assertCount(3, $collection);
-		$this->assertSame('49.143818,13.556075', $collection[0]->key());
-		$this->assertSame('49.126674,13.626872', $collection[1]->key());
-		$this->assertSame('49.120804,13.663709', $collection[2]->key());
+		$this->assertSame('49.143818,13.556075', $collection[0]->getLatLon());
+		$this->assertSame('49.126674,13.626872', $collection[1]->getLatLon());
+		$this->assertSame('49.120804,13.663709', $collection[2]->getLatLon());
 
 		$collection = WGS84DegreesService::findInText('GPS: 49.1438181, 13.5560753E');
 		$this->assertCount(1, $collection);
 		// @TODO this is detecting character 'S' from word GPS which marks as south hemisphere
-		// $this->assertSame('49.143818,13.556075', $collection->getFirst()->key());
+		// $this->assertSame('49.143818,13.556075', $collection->getFirst()->getLatLon());
 
 		$collection = WGS84DegreesService::findInText('GPS: 49.1438181S, 13.5560753E');
 		$this->assertCount(1, $collection);
-		$this->assertSame('-49.143818,13.556075', $collection->getFirst()->key());
+		$this->assertSame('-49.143818,13.556075', $collection->getFirst()->getLatLon());
 
 		$collection = WGS84DegreesService::findInText('GPS: 49.1438181N, E13.5560753');
 		// @TODO this is detecting character 'S' from word GPS which marks as south hemisphere
 		$this->assertCount(1, $collection);
-		// $this->assertSame('49.143818,13.556075', $collection->getFirst()->key());
+		// $this->assertSame('49.143818,13.556075', $collection->getFirst()->getLatLon());
 
 		// @TODO this should return valid location, but it is hard to detect, what are coordinates and what is normal text
 		// because text before ends with letter 'S' and text after starts with 'W', both are hemispere characters.
 		$collection = WGS84DegreesService::findInText('GPS: 49.1438181N, E13.5560753 Wasted, it suck it here!');
 		// $this->assertCount(1, $collection);
-		// $this->assertSame('49.143818,13.556075', $collection->getFirst()->key());
+		// $this->assertSame('49.143818,13.556075', $collection->getFirst()->getLatLon());
 	}
 
 	public function testDynamicHemispherePositionSecond(): void
@@ -370,12 +370,12 @@ TEXT;
 		// 'N' character in 'No random' is also detected
 		$collection = WGS84DegreesService::findInText('W49.1438181, S13.5560753 No random text');
 		$this->assertCount(1, $collection);
-		$this->assertSame('-13.556075,-49.143818', $collection->getFirst()->key());
+		$this->assertSame('-13.556075,-49.143818', $collection->getFirst()->getLatLon());
 
 		// 'N' character in 'No random' is also detected
 		$collection = WGS84DegreesService::findInText('E49.1438181, S13.5560753 No random text');
 		$this->assertCount(1, $collection);
-		$this->assertSame('-13.556075,49.143818', $collection->getFirst()->key());
+		$this->assertSame('-13.556075,49.143818', $collection->getFirst()->getLatLon());
 
 		// Latitude hemisphere is defined twice
 		$collection = WGS84DegreesService::findInText('S49.1438181, S13.5560753 No random text');

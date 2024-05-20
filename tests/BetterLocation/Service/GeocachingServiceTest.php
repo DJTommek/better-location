@@ -139,10 +139,10 @@ final class GeocachingServiceTest extends TestCase
 	{
 		$this->assertProcessSetup();
 
-		$this->assertSame([50.087717, 14.42115], GeocachingService::processStatic('https://www.geocaching.com/play/map?lat=50.087717&lng=14.42115&zoom=18&asc=true&sort=distance')->getFirst()->getLatLon());
-		$this->assertSame([50.087717, 14.42115], GeocachingService::processStatic('https://www.geocaching.com/play/map/?lat=50.087717&lng=14.42115&zoom=18&asc=true&sort=distance')->getFirst()->getLatLon());
-		$this->assertSame([-50.08, 14.42115], GeocachingService::processStatic('https://www.geocaching.com/play/map?lat=-50.08&lng=14.42115&zoom=18&asc=true&sort=distance')->getFirst()->getLatLon());
-		$this->assertSame([-51.705545, -57.933311], GeocachingService::processStatic('https://www.geocaching.com/play/map?lat=-51.705545&lng=-57.933311&zoom=12&asc=true&sort=distance&sw=1')->getFirst()->getLatLon());
+		$this->assertSame([50.087717, 14.42115], GeocachingService::processStatic('https://www.geocaching.com/play/map?lat=50.087717&lng=14.42115&zoom=18&asc=true&sort=distance')->getFirst()->getLatLonArray());
+		$this->assertSame([50.087717, 14.42115], GeocachingService::processStatic('https://www.geocaching.com/play/map/?lat=50.087717&lng=14.42115&zoom=18&asc=true&sort=distance')->getFirst()->getLatLonArray());
+		$this->assertSame([-50.08, 14.42115], GeocachingService::processStatic('https://www.geocaching.com/play/map?lat=-50.08&lng=14.42115&zoom=18&asc=true&sort=distance')->getFirst()->getLatLonArray());
+		$this->assertSame([-51.705545, -57.933311], GeocachingService::processStatic('https://www.geocaching.com/play/map?lat=-51.705545&lng=-57.933311&zoom=12&asc=true&sort=distance&sw=1')->getFirst()->getLatLonArray());
 	}
 
 	/**
@@ -152,9 +152,9 @@ final class GeocachingServiceTest extends TestCase
 	{
 		$this->assertProcessSetup();
 
-		$this->assertSame([50.05821, 14.457], GeocachingService::processStatic('https://www.geocaching.com/map/#?ll=50.05821,14.457&z=16')->getFirst()->getLatLon());
-		$this->assertSame([-50.08, 14.42115], GeocachingService::processStatic('https://www.geocaching.com/map/#?ll=-50.08,14.42115&z=9')->getFirst()->getLatLon());
-		$this->assertSame([-51.705545, -57.933311], GeocachingService::processStatic('https://www.geocaching.com/map/#?z=10&ll=-51.705545,-57.933311')->getFirst()->getLatLon());
+		$this->assertSame([50.05821, 14.457], GeocachingService::processStatic('https://www.geocaching.com/map/#?ll=50.05821,14.457&z=16')->getFirst()->getLatLonArray());
+		$this->assertSame([-50.08, 14.42115], GeocachingService::processStatic('https://www.geocaching.com/map/#?ll=-50.08,14.42115&z=9')->getFirst()->getLatLonArray());
+		$this->assertSame([-51.705545, -57.933311], GeocachingService::processStatic('https://www.geocaching.com/map/#?z=10&ll=-51.705545,-57.933311')->getFirst()->getLatLonArray());
 	}
 
 	/**
@@ -164,9 +164,9 @@ final class GeocachingServiceTest extends TestCase
 	{
 		$this->assertProcessSetup();
 
-		$this->assertSame([50.05821, 14.457], GeocachingService::processStatic('http://coord.info/map?ll=50.05821,14.457&z=16')->getFirst()->getLatLon());
-		$this->assertSame([-50.08, 14.42115], GeocachingService::processStatic('http://coord.info/map?ll=-50.08,14.42115&z=9')->getFirst()->getLatLon());
-		$this->assertSame([-51.705545, -57.933311], GeocachingService::processStatic('http://coord.info/map?z=10&ll=-51.705545,-57.933311')->getFirst()->getLatLon());
+		$this->assertSame([50.05821, 14.457], GeocachingService::processStatic('http://coord.info/map?ll=50.05821,14.457&z=16')->getFirst()->getLatLonArray());
+		$this->assertSame([-50.08, 14.42115], GeocachingService::processStatic('http://coord.info/map?ll=-50.08,14.42115&z=9')->getFirst()->getLatLonArray());
+		$this->assertSame([-51.705545, -57.933311], GeocachingService::processStatic('http://coord.info/map?z=10&ll=-51.705545,-57.933311')->getFirst()->getLatLonArray());
 	}
 
 	public function testGetGeocachesIdFromText(): void

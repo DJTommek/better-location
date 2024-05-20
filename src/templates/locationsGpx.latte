@@ -19,10 +19,10 @@
 {foreach $collection as $location}
 	<wpt lat="{$location->getLat()}" lon="{$location->getLon()}">
 		<time>{$nowUtcText}</time>
-		<name>BetterLocation {$location->key()}</name>
+		<name>BetterLocation {$location->getLatLon()}</name>
 		<desc>Address: {$location->getAddress() ?? unknown}</desc>
-		<link href="{$baseUrl}/{$location->key()}">
-			<text>BetterLocation {$location->key()}</text>
+		<link href="{$baseUrl}/{$location->getLatLon()}">
+			<text>BetterLocation {$location->getLatLon()}</text>
 			<type>text/html</type>
 		</link>
 	</wpt>

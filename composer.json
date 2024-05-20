@@ -25,7 +25,7 @@
 		"nette/caching": "^3.2",
 		"sammyjo20/saloon": "^0.6.0",
 		"justinrainbow/json-schema": "^5.2",
-		"djtommek/coordinates": "^1.1",
+		"djtommek/coordinates": "^2.0",
 		"jeroendesloovere/vcard": "^1.7",
 		"league/iso3166": "^4.3",
 		"psr/log": "^1.1",

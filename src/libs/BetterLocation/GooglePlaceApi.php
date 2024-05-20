@@ -107,7 +107,7 @@ class GooglePlaceApi
 	 */
 	public function runTextSearch(string $input, string $language, ?CoordinatesInterface $location = null): array
 	{
-		$url = $this->geTextSearchUrl($input, $language, $location?->key());
+		$url = $this->geTextSearchUrl($input, $language, $location?->getLatLon());
 
 		$content = $this->runGoogleApiRequest($url);
 		if ($content === null) {
@@ -132,7 +132,7 @@ class GooglePlaceApi
 
 	private function generateLocationBias(CoordinatesInterface $location): string
 	{
-		return 'point:' . $location->key();
+		return 'point:' . $location->getLatLon();
 	}
 
 	/**
