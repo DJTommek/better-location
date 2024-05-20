@@ -65,12 +65,15 @@ class LocationEvent extends Special
 	public function handleWebhookUpdate(): void
 	{
 		if ($this->isLive) {
-			$location = $this->getTgMessage()->location;
-			$this->user->setLastKnownLocation(
-				$location->latitude,
-				$location->longitude,
-				$this->getTgMessageSentDate(),
-			);
+			$lastUpdate = $this->getTgMessageSentDate();
+			if ($lastUpdate !== null) {
+				$location = $this->getTgMessage()->location;
+				$this->user->setLastKnownLocation(
+					$location->latitude,
+					$location->longitude,
+					$lastUpdate,
+				);
+			}
 		}
 
 		assert($this->getCollection()->isEmpty() === false);

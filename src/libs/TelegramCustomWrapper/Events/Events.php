@@ -233,8 +233,12 @@ abstract class Events
 		return $this->getTgMessage()->text;
 	}
 
-	public function getTgMessageSentDate(): \DateTimeImmutable
+	public function getTgMessageSentDate(): ?\DateTimeImmutable
 	{
+		if ($this->hasTgMessage() === false) {
+			return null;
+		}
+
 		$tgMessage = $this->getTgMessage();
 		assert($tgMessage->date !== null);
 		assert($tgMessage->date !== 0);
