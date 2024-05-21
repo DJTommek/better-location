@@ -63,6 +63,7 @@
 				</div>
 				<div class="downloads text-center">
 					<i class="fa fa-download"></i> Download all as
+					<a href="{$basePath}/{$locationsKeys|join:';'}?format=json" target="_blank">json</a> |
 					<a href="{$basePath}/{$locationsKeys|join:';'}?format=gpx">gpx</a> |
 					<a href="{$basePath}/{$locationsKeys|join:';'}?format=kml">kml</a>
 				</div>
@@ -100,6 +101,7 @@
 						</div>
 						<div class="downloads">
 							<i class="fa fa-download"></i> Download as
+							<a href="{$basePath}/{$location->latLon}?format=json" target="_blank">json</a> |
 							<a href="{$basePath}/{$location->latLon}?format=gpx">gpx</a> |
 							<a href="{$basePath}/{$location->latLon}?format=kml">kml</a>
 						</div>
