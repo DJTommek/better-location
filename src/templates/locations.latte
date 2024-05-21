@@ -11,50 +11,60 @@
 			</div>
 		</div>
 
-		<div class="accordion" id="accordionLocations" n:if="$collection->count() > 1">
-			{include locationsDistances from 'locations.distances.latte'}
+		<div class="accordion" id="accordionLocations" n:if="count($distances) > 1">
+			{embed
+				'locations.distances.latte'
+				locations: $locations,
+				distances: $distances,
+				distanceSmallest: $distanceSmallest,
+				distanceGreatest: $distanceGreatest,
+			}{/embed}
 		</div>
 
 		<div class="row g-0">
 			<div class="col-12 col-md-4 col-xl-3" id="tab-locations">
 				<div class="list-group" role="tablist">
-					{foreach $collection->getLocations() as $location}
+					{foreach $locations as $location}
 						<button
-								id="list-group-item-location-{$location->getCoordinates()->hash()}"
+								id="list-group-item-location-{$location->hash}"
 								class="list-group-item list-group-item-action {$iterator->first ? 'active'}"
 								data-bs-toggle="list"
-								data-location="{$location->getCoordinates()->hash()}"
-								href="#content-locations-{$location->getCoordinates()->hash()}"
+								data-location="{$location->hash}"
+								href="#content-locations-{$location->hash}"
 								role="tab"
-								title="{$location->getAddress() ?? 'Unknown address'}"
+								title="{$location->address}"
 						>
-							<div class="d-flex justify-content-between">
-								<span n:if="$login->isLogged()" class="favourite">
-									{if $user->getFavourite($location->getLat(), $location->getLon()) !== null}
-										<a href="{$basePath}/{$location->getLat()},{$location->getLon()}?action=delete" title="Remove from favourites" class="text-danger">
+							<div class="d-flex">
+								<div n:if="$login->isLogged()" class="favourite">
+									{if $user->getFavourite($location->lat, $location->lon) !== null}
+										<a href="{$basePath}/{$location->lat},{$location->lon}?action=delete" title="Remove from favourites" class="text-danger">
 											<i class="fa fa-fw icon-heart"></i>
 										</a>
 									{else}
-										<a href="{$basePath}/{$location->getLat()},{$location->getLon()}?action=add" title="Add to favourites" class="text-danger">
+										<a href="{$basePath}/{$location->lat},{$location->lon}?action=add" title="Add to favourites" class="text-danger">
 											<i class="fa fa-fw icon-heart-o"></i>
 										</a>
 									{/if}
-								</span>
-								{if $iterator->count() > 1}
-									{$iterator->counter}:
-								{/if}
-								{$location->__toString()}
-								<a href="{$basePath}/{$location->__toString()}" target="_blank">
-									<i class="fa fa-external-link"></i>
-								</a>
+								</div>
+								<div>
+									{if $iterator->count() > 1}
+										{$iterator->counter}:
+									{/if}
+									{$location->titleHtml}
+								</div>
+								<div class="ms-auto">
+									<a href="{$basePath}/{$location->latLon}" target="_blank">
+										<i class="fa fa-external-link"></i>
+									</a>
+								</div>
 							</div>
 						</button>
 					{/foreach}
 				</div>
 				<div class="downloads text-center">
 					<i class="fa fa-download"></i> Download all as
-					<a href="{$basePath}/{$collection->getKeys()|join:';'}?format=gpx">gpx</a> |
-					<a href="{$basePath}/{$collection->getKeys()|join:';'}?format=kml">kml</a>
+					<a href="{$basePath}/{$locationsKeys|join:';'}?format=gpx">gpx</a> |
+					<a href="{$basePath}/{$locationsKeys|join:';'}?format=kml">kml</a>
 				</div>
 			</div>
 			<div class="col-12 col-md-8 col-xl-9" id="map-dynamic">
@@ -63,12 +73,12 @@
 		</div>
 
 		<div class="tab-content">
-			{foreach $collection->getLocations() as $location}
-				<div id="content-locations-{$location->getCoordinates()->hash()}" class="tab-pane fade {$iterator->first ? 'show active'}" role="tabpanel">
+			{foreach $locations as $location}
+				<div id="content-locations-{$location->hash}" class="tab-pane fade {$iterator->first ? 'show active'}" role="tabpanel">
 					<div class="text-center">
-						<div class="address address-to-fill address-to-fill-{$location->getCoordinates()->hash()}">
-							{if $location->hasAddress()}
-								{$location->getAddress() ?? 'Unknown address'}
+						<div class="address address-to-fill address-to-fill-{$location->hash}">
+							{if $location->hasAddress}
+								{$location->address}
 							{else}
 								<i class="fa fa-circle-o-notch fa-spin"></i> Loading address...
 							{/if}
@@ -76,28 +86,28 @@
 
 						<div class="timezone">
 							{if $showingTimezoneData}
-								{if $location->getTimezoneData()}
-									Local time: <b title="YYYY-MM-DD hh:mm:ss. Time might be few minutes out of date due to caching.">{$location->getTimezoneData()->time->format(\App\Config::DATETIME_FORMAT)}</b>,
-																																																					Timezone: <b>{$location->getTimezoneData()->timezone->getName()}</b>,
-									<abbr title="Coordinated Universal Time">UTC</abbr> Offset: <b>{$location->getTimezoneData()->formatNowOffset()}</b>,
-									<abbr title="Daylight saving time">DST</abbr>: <b>{$location->getTimezoneData()->isDst() ? 'yes' : 'no'}</b>
+								{if $location->timezoneData}
+									Local time: <b title="YYYY-MM-DD hh:mm:ss. Time might be few minutes out of date due to caching.">{$location->timezoneData->time->format(\App\Config::DATETIME_FORMAT)}</b>,
+																																																			   Timezone: <b>{$location->timezoneData->timezone->getName()}</b>,
+									<abbr title="Coordinated Universal Time">UTC</abbr> Offset: <b>{$location->timezoneData->formatNowOffset()}</b>,
+									<abbr title="Daylight saving time">DST</abbr>: <b>{$location->timezoneData->isDst() ? 'yes' : 'no'}</b>
 								{else}
 									DateTimezone data are not available.
 								{/if}
 							{else}
-								<a href="{$basePath}/{$location->getLatLon()}?datetimezone=true">Load timezone data</a>
+								<a href="{$basePath}/{$location->latLon}?datetimezone=true">Load timezone data</a>
 							{/if}
 						</div>
 						<div class="downloads">
 							<i class="fa fa-download"></i> Download as
-							<a href="{$basePath}/{$location->getLatLon()}?format=gpx">gpx</a> |
-							<a href="{$basePath}/{$location->getLatLon()}?format=kml">kml</a>
+							<a href="{$basePath}/{$location->latLon}?format=gpx">gpx</a> |
+							<a href="{$basePath}/{$location->latLon}?format=kml">kml</a>
 						</div>
-						<div class="elevation" n:if="$location->getCoordinates()->getElevation() !== null">
-							<abbr title="Above mean sea level">AMSL</abbr>: {$location->getCoordinates()->getElevation()} meters
+						<div class="elevation" n:if="$location->coords->getElevation() !== null">
+							<abbr title="Above mean sea level">AMSL</abbr>: {$location->coords->getElevation()} meters
 						</div>
 						<div class="telegram">
-							<a href="{App\TelegramCustomWrapper\TelegramHelper::generateStartLocation($location->getLat(), $location->getLon())}" target="_blank" title="Telegram">
+							<a href="{App\TelegramCustomWrapper\TelegramHelper::generateStartLocation($location->lat, $location->lon)}" target="_blank" title="Telegram">
 								<i class="fa fa-telegram"></i>
 								@BetterLocationBot
 							</a>
@@ -114,7 +124,7 @@
 							</tr>
 							</thead>
 							<tbody>
-							{foreach $websites[$location->__toString()] as $service}
+							{foreach $websites[$location->latLon] as $service}
 								{if isset($service['share']) || isset($service['drive']) || isset($service['text'])}
 									<tr>
 										<td class="service-title">
@@ -151,13 +161,14 @@
 {/block}
 
 {block title}
-	{if count($collection) === 1}
-		{if $collection->getFirst()->getAddress()}
-			{$collection->getFirst()->getAddress()} -
+	{if count($locations) === 1}
+		{var $location = $locations[0]}
+		{if $location->hasAddress}
+			{$location->address} -
 		{/if}
-		{$collection->getFirst()->getLatLon()}
+		{$location->latLon}
 	{else}
-		{count($collection)} locations
+		{count($locations)} locations
 	{/if}
 {/block}
 {block cssLibs}
@@ -179,7 +190,7 @@
 			return Math.floor(meters) + 'm';
 		}
 
-		const locations = {$collectionJs};
+		const locations = {$locationsJs};
 		const listGroupTabs = {};
 		const mapData = {
 			map: null,
@@ -284,7 +295,7 @@
 				popupContent += 'Coordinates: <b><a href="' + {$basePath} +'/' + locationKey + '">' + locationKey + '</a></b>';
 				popupContent += ' <i class="fa fa-fw fa-clipboard copy-to-clipboard" data-clipboard-text="' + locationKey + '" title="Copy coordinates to clipboard"></i>';
 				popupContent += '<br>';
-				popupContent += '<a href="' + {$basePath} +'/' + {$collection->getKeys()|join:';'} +';' + locationKey + '">Add this point to list</a>';
+				popupContent += '<a href="' + {$basePath} +'/' + {$locationsKeys|join:';'} +';' + locationKey + '">Add this point to list</a>';
 				popupContent += '</p>';
 				marker.bindPopup(popupContent)
 					.addTo(mapData.map)

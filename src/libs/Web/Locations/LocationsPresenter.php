@@ -32,8 +32,7 @@ class LocationsPresenter extends MainPresenter
 		private readonly ServicesManager $servicesManager,
 		private readonly FavouriteNameGenerator $favouriteNameGenerator,
 		LocationsTemplate $template,
-	)
-	{
+	) {
 		$this->template = $template;
 		$this->collection = new BetterLocationCollection();
 		$this->nowFileText = DateImmutableUtils::nowUtc()->format(Config::DATETIME_FILE_FORMAT);
@@ -65,7 +64,8 @@ class LocationsPresenter extends MainPresenter
 								'Location <b>%s</b> was saved to favorites as <b>%s</b>.',
 								$favoriteLocation->getLatLon(),
 								htmlentities($favoriteLocation->getPrefixMessage()),
-							), Flash::SUCCESS);
+							),
+								Flash::SUCCESS);
 						}
 						break;
 					case 'delete':
@@ -149,7 +149,8 @@ class LocationsPresenter extends MainPresenter
 		}, $this->collection->getLocations());
 		header('Content-Type: application/json');
 		header('Access-Control-Allow-Origin: *');
-		die(Json::encode($result));
+
+		echo Json::encode($result);
 	}
 
 	public function renderFileGpx(): void

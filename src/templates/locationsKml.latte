@@ -6,18 +6,18 @@
 		<name>BetterLocation</name>
 		<Folder>
 			<name>BetterLocation waypoints</name>
-			{foreach $collection as $location}
+			{foreach $locations as $location}
 			<Placemark>
-				<name>BetterLocation {$location->getLatLon()}</name>
-				<address>{$location->getAddress() ?? 'Unknown address'}</address>
+				<name>BetterLocation {$location->latLon}</name>
+				<address>{$location->address}</address>
 				<description>
 					<![CDATA[
-					Address: <b>{$location->getAddress() ?? 'Unknown address'}</b><br>
-					Link: <a href="{$baseUrl}/{$location->getLatLon()}"><b>{$baseUrl}/{$location->getLatLon()}</b></a>
+					Address: <b>{$location->address}</b><br>
+					Link: <a href="{$baseUrl}/{$location->latLon}"><b>{$baseUrl}/{$location->latLon}</b></a>
 					]]>
 				</description>
 				<Point>
-					<coordinates>{$location->getLon()},{$location->getLat()},0</coordinates>
+					<coordinates>{$location->lat},{$location->lon},0</coordinates>
 				</Point>
 				<TimeStamp>
 					<when>{$nowUtcText}</when>

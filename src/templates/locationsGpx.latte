@@ -16,13 +16,13 @@
         </link>
         <time>{$nowUtcText}</time>
     </metadata>
-{foreach $collection as $location}
-	<wpt lat="{$location->getLat()}" lon="{$location->getLon()}">
+{foreach $locations as $location}
+	<wpt lat="{$location->lat}" lon="{$location->lon}">
 		<time>{$nowUtcText}</time>
-		<name>BetterLocation {$location->getLatLon()}</name>
-		<desc>Address: {$location->getAddress() ?? unknown}</desc>
-		<link href="{$baseUrl}/{$location->getLatLon()}">
-			<text>BetterLocation {$location->getLatLon()}</text>
+		<name>BetterLocation {$location->latLon}</name>
+		<desc>Address: {$location->address}</desc>
+		<link href="{$baseUrl}/{$location->latLon}">
+			<text>BetterLocation {$location->latLon}</text>
 			<type>text/html</type>
 		</link>
 	</wpt>
