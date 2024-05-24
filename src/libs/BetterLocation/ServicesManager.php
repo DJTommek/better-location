@@ -172,6 +172,10 @@ class ServicesManager
 		$this->services = $indexedServices;
 	}
 
+	public function getServiceInstance(string $service): AbstractService
+	{
+		return $this->container->get($service);
+	}
 
 	public function iterate(string $input): BetterLocationCollection
 	{

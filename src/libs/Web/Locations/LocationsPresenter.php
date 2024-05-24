@@ -13,6 +13,7 @@ use App\Utils\Utils;
 use App\Web\Flash;
 use App\Web\MainPresenter;
 use DJTommek\Coordinates\Coordinates;
+use DJTommek\Coordinates\CoordinatesInterface;
 use Nette\Utils\Json;
 use Tracy\Debugger;
 
@@ -93,9 +94,10 @@ class LocationsPresenter extends MainPresenter
 
 		foreach ($this->collection as $location) {
 			$services = [];
-			foreach ($this->servicesManager->getServices() as $service) {
+			foreach ($this->servicesManager->getServices() as $serviceClass) {
 				try {
-					$services[] = $this->website($service, $location->getLat(), $location->getLon());
+					$service = $this->servicesManager->getServiceInstance($serviceClass);
+					$services[] = $this->website($service, $location);
 				} catch (\Throwable $exception) {
 					Debugger::log($exception, Debugger::EXCEPTION);
 				}
@@ -168,11 +170,12 @@ class LocationsPresenter extends MainPresenter
 	}
 
 	/**
-	 * @param class-string<AbstractService> $service
 	 * @return array{share?: string, drive?: string, text?: string, 'static'?: string, name?: string}
 	 */
-	private function website(string $service, float $lat, float $lon): array
+	private function website(AbstractService $service, CoordinatesInterface $coordinates): array
 	{
+		$lat = $coordinates->getLat();
+		$lon = $coordinates->getLon();
 		$result = [];
 		if (
 			$service::hasTag(ServicesManager::TAG_GENERATE_LINK_SHARE)
@@ -203,7 +206,7 @@ class LocationsPresenter extends MainPresenter
 		}
 
 		if ($result !== []) {
-			$result['name'] = $service::NAME;
+			$result['name'] = $service::getName();
 		}
 		return $result;
 	}
