@@ -91,6 +91,11 @@ class DefaultConfig
 		],
 	];
 
+	/**
+	 * Delete logs older than this number in seconds
+	 */
+	const LOGS_OLD_THRESHOLD = 30 * 24 * 60 * 60; // 30 days
+
 	/** @var ?string API Key for using Google Place API: https://developers.google.com/places/web-service/search null to disable */
 	const GOOGLE_PLACE_API_KEY = null;
 	//const GOOGLE_PLACE_API_KEY = 'someRandomGeneratedApiKeyFromGoogleCloudPlatform';

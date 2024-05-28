@@ -23,7 +23,6 @@ class LogPresenter extends MainPresenter
 		'log',
 		'zip'
 	];
-	private const OLD_THRESHOLD = 30 * 24 * 60 * 60; // 30 days
 	private const TOO_SMALL_THRESHOLD = 1024 * 512; // 512 kilobytes
 
 	private \stdClass $result;
@@ -171,7 +170,7 @@ class LogPresenter extends MainPresenter
 			assert($item->fileInfo instanceof \SplFileInfo);
 
 			$diff = $now - $item->fileInfo->getMTime();
-			if ($diff < self::OLD_THRESHOLD) {
+			if ($diff < Config::LOGS_OLD_THRESHOLD) {
 				continue;
 			}
 			FileSystem::delete($item->fileInfo->getPathname());
