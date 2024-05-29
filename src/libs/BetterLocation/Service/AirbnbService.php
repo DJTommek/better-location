@@ -4,8 +4,7 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\Config;
-use App\Http\HttpClient;
-use App\Http\UserAgents;
+use App\Utils\Requestor;
 use DJTommek\Coordinates\Coordinates;
 use Nette\Http\Url;
 use Nette\Utils\Json;
@@ -16,6 +15,11 @@ final class AirbnbService extends AbstractService
 	const NAME = 'Airbnb';
 
 	const LINK = 'https://www.airbnb.cz/';
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public function validate(): bool
 	{
@@ -65,16 +69,17 @@ final class AirbnbService extends AbstractService
 
 	private function requestLocationFromAirbnbApi(int $roomId): \stdClass
 	{
-		$httpClient = new HttpClient();
-		$httpClient->allowCache(Config::CACHE_TTL_AIRBNB);
-
-		$httpClient->setHttpHeader('x-airbnb-api-key', 'd306zoyjsyarp7ifhu67rjxn52tv0t20');
-		$httpClient->setHttpHeader('User-Agent', UserAgents::getRandom());
-		$httpClient->setHttpHeader('Accept', 'application/json');
+		$httpHeaders = [
+			'x-airbnb-api-key' => 'd306zoyjsyarp7ifhu67rjxn52tv0t20',
+			'Accept' => 'application/json',
+		];
 
 		$apiUrl = $this->generateApiUrl($roomId);
-		$response = $httpClient->get($apiUrl);
-		return $response->json();
+		return $this->requestor->getJson(
+			url: $apiUrl,
+			headers: $httpHeaders,
+			cacheTtl: Config::CACHE_TTL_AIRBNB,
+		);
 	}
 
 	/*
@@ -85,7 +90,7 @@ final class AirbnbService extends AbstractService
 		$hash = 'db49ad8bc9dfc274212274bec0c9b70d03bf8d1cb79458127d2d08113f7ab0ff'; // Some magic hash
 		// Requesting airbnb.com will data return in English by default
 		$url = new Url('https://www.airbnb.com/api/v3/StaysPdpSections/' . $hash);
-		$url->setQueryParameter('variables', $this->generateRequestVariables($this->data->roomId));
+		$url->setQueryParameter('variables', $this->generateRequestVariables($roomId));
 		$url->setQueryParameter('extensions', $this->generateRequestExtensions($hash));
 		return $url;
 	}
