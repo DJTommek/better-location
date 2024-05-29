@@ -12,6 +12,10 @@ parameters:
 		- App\Web\MainPresenter::setDependencies
 		- App\TelegramCustomWrapper\Events\Events::setDependencies
 		- App\Web\Admin\AdminTemplate::prepare
+		- PHPUnit\Framework\TestCase::setUp
+		- Tests\HttpTestClients::createRealHttpClient
+		- Tests\HttpTestClients::createOfflineHttpClient
+		- Tests\HttpTestClients::createMockedHttpClient
 	excludePaths:
 		- 'src\libs\Utils\MGRS.php' # Not my class
 	ignoreErrors:
