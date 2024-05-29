@@ -30,7 +30,7 @@ final class TestUtils
 	/**
 	 * @return array{\GuzzleHttp\Client, MockHandler}
 	 */
-	public static function createMockedClientInterface(): array
+	public static function createMockedHttpClient(): array
 	{
 		$mockHandler = new \GuzzleHttp\Handler\MockHandler();
 		$handlerStack = \GuzzleHttp\HandlerStack::create($mockHandler);
@@ -41,7 +41,7 @@ final class TestUtils
 		return [$httpClient, $mockHandler];
 	}
 
-	public static function getDevNullCache(): \Psr\SimpleCache\CacheInterface
+	public static function createDevNullCache(): \Psr\SimpleCache\CacheInterface
 	{
 		$storage = new DevNullStorage();
 		return new NetteCachePsr16($storage);

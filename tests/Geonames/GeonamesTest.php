@@ -28,10 +28,10 @@ final class GeonamesTest extends TestCase
 		string $expectedTimezoneId,
 		string $mockedJsonFile,
 	): void {
-		[$httpClient, $mockHandler] = TestUtils::createMockedClientInterface();
+		[$httpClient, $mockHandler] = TestUtils::createMockedHttpClient();
 		assert($httpClient instanceof \GuzzleHttp\Client);
 		assert($mockHandler instanceof \GuzzleHttp\Handler\MockHandler);
-		$cache = TestUtils::getDevNullCache();
+		$cache = TestUtils::createDevNullCache();
 		$mockHandler->append(new \GuzzleHttp\Psr7\Response(200, body: file_get_contents($mockedJsonFile)));
 
 		$geonamesApi = new Geonames($httpClient, $cache, 'Dummy');
@@ -53,7 +53,7 @@ final class GeonamesTest extends TestCase
 		string $expectedTimezoneId,
 	): void {
 		$httpClient = new Client();
-		$cache = TestUtils::getDevNullCache();
+		$cache = TestUtils::createDevNullCache();
 
 		$geonamesApi = new Geonames($httpClient, $cache, Config::GEONAMES_USERNAME);
 
