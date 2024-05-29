@@ -113,7 +113,28 @@ abstract class AbstractServiceTestCase extends TestCase
 		return $location;
 	}
 
-	abstract public function testIsValid(): void;
+	protected function assertServiceLocation(
+		AbstractService $service,
+		string $input,
+		float $expectedLat,
+		float $expectedLon,
+		?string $expectedSourceType = null,
+		float $delta = 0.000_001,
+	): BetterLocation {
+		$this->assertInstanceOf($this->getServiceClass(), $service);
+		$service->setInput($input);
 
-	abstract public function testProcess(): void;
+		$this->assertTrue($service->validate());
+		$service->process();
+
+		$collection = $service->getCollection();
+		$this->assertCount(1, $collection);
+
+		$location = $collection->getFirst();
+		$this->assertCoordsWithDelta($expectedLat, $expectedLon, $location, $delta);
+
+		$this->assertSame($expectedSourceType, $location->getSourceType());
+
+		return $location;
+	}
 }
