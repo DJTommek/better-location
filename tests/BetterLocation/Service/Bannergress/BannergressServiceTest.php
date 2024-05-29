@@ -4,32 +4,41 @@ namespace Tests\BetterLocation\Service\Bannergress;
 
 use App\BetterLocation\Service\Bannergress\BannergressService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
-use App\MiniCurl\Exceptions\InvalidResponseException;
-use App\Utils\Requestor;
-use PHPUnit\Framework\TestCase;
-use Tests\LocationTrait;
-use Tests\TestUtils;
+use Tests\BetterLocation\Service\AbstractServiceTestCase;
+use Tests\HttpTestClients;
 
-final class BannergressServiceTest extends TestCase
+final class BannergressServiceTest extends AbstractServiceTestCase
 {
-	use LocationTrait;
-
-	private Requestor $requestor;
+	private readonly HttpTestClients $httpTestClients;
 
 	protected function setUp(): void
 	{
-		[$httpClient, $mockHandler] = TestUtils::createMockedClientInterface();
-		assert($httpClient instanceof \GuzzleHttp\Client);
-		$this->requestor = new Requestor($httpClient, TestUtils::getDevNullCache());
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
 	}
 
-	private function assertLocation(string $url, float $lat, float $lon): void
+	protected function getServiceClass(): string
 	{
-		$collection = \App\BetterLocation\Service\Bannergress\BannergressService::processStatic($url)->getCollection();
-		$this->assertCount(1, $collection);
-		$location = $collection->getFirst();
-		$this->assertEqualsWithDelta($lat, $location->getLat(), 0.000001);
-		$this->assertEqualsWithDelta($lon, $location->getLon(), 0.000001);
+		return BannergressService::class;
+	}
+
+	protected function getShareLinks(): array
+	{
+		$this->revalidateGeneratedShareLink = false;
+
+		return [
+			'https://bannergress.com/map?lat=50.087451&lng=14.420671&zoom=15',
+			'https://bannergress.com/map?lat=50.100000&lng=14.500000&zoom=15',
+			'https://bannergress.com/map?lat=-50.200000&lng=14.600000&zoom=15', // round down
+			'https://bannergress.com/map?lat=50.300000&lng=-14.700001&zoom=15', // round up
+			'https://bannergress.com/map?lat=-50.400000&lng=-14.800008&zoom=15',
+		];
+	}
+
+	protected function getDriveLinks(): array
+	{
+		return [];
 	}
 
 	public function testGenerateShareLink(): void
@@ -66,12 +75,24 @@ final class BannergressServiceTest extends TestCase
 		];
 	}
 
+	public static function processProvider(): array
+	{
+		return [
+			[50.087213, 14.425674, 'https://bannergress.com/banner/czech-cubism-and-its-representative-ce4b'],
+			[35.445393, 137.019408, 'https://bannergress.com/banner/長良川鉄道-乗りつぶし-観光編-adea'],
+			[35.445393, 137.019408, 'https://bannergress.com/banner/%E9%95%B7%E8%89%AF%E5%B7%9D%E9%89%84%E9%81%93-%E4%B9%97%E3%82%8A%E3%81%A4%E3%81%B6%E3%81%97-%E8%A6%B3%E5%85%89%E7%B7%A8-adea'],
+			[-25.3414, -57.508801, 'https://bannergress.com/banner/histórica-catedral-de-san-lorenzo-55dd'],
+			[-25.3414, -57.508801, 'https://bannergress.com/banner/hist%C3%B3rica-catedral-de-san-lorenzo-55dd'],
+			[-41.287008, 174.778374, 'https://bannergress.com/banner/a-visit-to-te-papa-dffa'],
+		];
+	}
+
 	/**
 	 * @dataProvider isValidProvider
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new BannergressService($this->requestor);
+		$service = new BannergressService($this->httpTestClients->mockedRequestor);
 		$service->setInput($input);
 		$isValid = $service->validate();
 		$this->assertSame($expectedIsValid, $isValid);
@@ -79,16 +100,21 @@ final class BannergressServiceTest extends TestCase
 
 	/**
 	 * @group request
+	 * @dataProvider processProvider
 	 */
-	public function testProcessPlace(): void
+	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$this->assertLocation('https://bannergress.com/banner/czech-cubism-and-its-representative-ce4b', 50.087213, 14.425674);
-		// This is failing only in unit tests but works if processed manually (via tester in browser or Telegram)
-		// $this->assertLocation('https://bannergress.com/banner/長良川鉄道-乗りつぶし-観光編-adea', 35.445393, 137.019408);
-		$this->assertLocation('https://bannergress.com/banner/%E9%95%B7%E8%89%AF%E5%B7%9D%E9%89%84%E9%81%93-%E4%B9%97%E3%82%8A%E3%81%A4%E3%81%B6%E3%81%97-%E8%A6%B3%E5%85%89%E7%B7%A8-adea', 35.445393, 137.019408);
-		$this->assertLocation('https://bannergress.com/banner/a-visit-to-te-papa-dffa', -41.287008, 174.778374);
-		$this->assertLocation('https://bannergress.com/banner/hist%C3%B3rica-catedral-de-san-lorenzo-55dd', -25.3414, -57.508801);
-		$this->assertLocation('https://bannergress.com/banner/histórica-catedral-de-san-lorenzo-55dd', -25.3414, -57.508801);
+		$service = new BannergressService($this->httpTestClients->realRequestor);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+	}
+
+	/**
+	 * @dataProvider processProvider
+	 */
+	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
+	{
+		$service = new BannergressService($this->httpTestClients->offlineRequestor);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
 	/**
@@ -96,12 +122,13 @@ final class BannergressServiceTest extends TestCase
 	 *
 	 * @group request
 	 */
-	public function testInvalid(): void
+	public function testInvalidReal(): void
 	{
-		$this->expectException(InvalidResponseException::class);
-		$this->expectExceptionCode(404);
-		$this->expectExceptionMessage('Invalid response code "404" but required "200" for URL "https://api.bannergress.com/bnrs/aaaa-bbbb"');
-		\App\BetterLocation\Service\Bannergress\BannergressService::processStatic('https://bannergress.com/banner/aaaa-bbbb')->getCollection();
+		$service = new BannergressService($this->httpTestClients->realRequestor);
+		$service->setInput('https://bannergress.com/banner/aaaa-bbbb');
+		$this->assertTrue($service->validate());
+		$service->process();
+		$this->assertCount(0, $service->getCollection());
 	}
 
 	public static function mockedPlaceProvider(): array
@@ -153,22 +180,11 @@ final class BannergressServiceTest extends TestCase
 		string $inputUrl,
 		string $mockedJsonFile,
 	): void {
-		[$httpClient, $mockHandler] = TestUtils::createMockedClientInterface();
-		assert($httpClient instanceof \GuzzleHttp\Client);
-		assert($mockHandler instanceof \GuzzleHttp\Handler\MockHandler);
+		$this->httpTestClients->mockHandler->append(new \GuzzleHttp\Psr7\Response(200, body: file_get_contents($mockedJsonFile)));
 
-		$mockHandler->append(new \GuzzleHttp\Psr7\Response(200, body: file_get_contents($mockedJsonFile)));
-		$requestor = new Requestor($httpClient, TestUtils::getDevNullCache());
+		$service = new BannergressService($this->httpTestClients->mockedRequestor);
+		$location = $this->assertServiceLocation($service, $inputUrl, $expectedLat, $expectedLon);
 
-		$service = new BannergressService($requestor);
-		$service->setInput($inputUrl);
-		$this->assertTrue($service->validate());
-		$service->process();
-		$collection = $service->getCollection();
-
-		$this->assertOneInCollection($expectedLat, $expectedLon, null, $collection);
-
-		$location = $collection->getFirst();
 		$descriptions = $location->getDescriptions();
 		foreach ($descriptions as $key => $value) {
 			$expectedDescription = $expectedDescriptions[$key];
@@ -178,14 +194,9 @@ final class BannergressServiceTest extends TestCase
 
 	public function testInvalidMocked(): void
 	{
-		[$httpClient, $mockHandler] = TestUtils::createMockedClientInterface();
-		assert($httpClient instanceof \GuzzleHttp\Client);
-		assert($mockHandler instanceof \GuzzleHttp\Handler\MockHandler);
+		$this->httpTestClients->mockHandler->append(new \GuzzleHttp\Psr7\Response(404));
 
-		$mockHandler->append(new \GuzzleHttp\Psr7\Response(404));
-		$requestor = new Requestor($httpClient, TestUtils::getDevNullCache());
-
-		$service = new BannergressService($requestor);
+		$service = new BannergressService($this->httpTestClients->mockedRequestor);
 		$service->setInput('https://bannergress.com/banner/some-non-existing-banner-test-a1b2');
 		$this->assertTrue($service->validate());
 		$service->process();
