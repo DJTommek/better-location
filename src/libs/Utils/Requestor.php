@@ -25,12 +25,14 @@ class Requestor
 	}
 
 	/**
+	 * @param array<string, mixed> $headers
 	 * @return string Empty string in case of error (including HTTP errors 4xx)
 	 */
 	public function get(
 		\Nette\Http\Url|\Nette\Http\UrlImmutable|string $url,
 		int $cacheTtl = null,
 		bool $randommizeUserAgent = true,
+		array $headers = [],
 	): string {
 		$urlString = (string)$url;
 
@@ -42,7 +44,6 @@ class Requestor
 			}
 		}
 
-		$headers = [];
 		if ($randommizeUserAgent) {
 			$headers['user-agent'] = UserAgents::getRandom();
 		}
@@ -59,13 +60,21 @@ class Requestor
 	}
 
 	/**
+	 * @param array<string, mixed> $headers
 	 * @return mixed Returns null if error occure, including HTTP errors 4xx
 	 */
 	public function getJson(
 		\Nette\Http\Url|\Nette\Http\UrlImmutable|string $url,
 		?int $cacheTtl = null,
+		bool $randommizeUserAgent = true,
+		array $headers = [],
 	): mixed {
-		$body = $this->get($url, $cacheTtl);
+		$body = $this->get(
+			url: $url,
+			cacheTtl: $cacheTtl,
+			randommizeUserAgent: $randommizeUserAgent,
+			headers: $headers,
+		);
 		if ($body === '') {
 			return null;
 		}
