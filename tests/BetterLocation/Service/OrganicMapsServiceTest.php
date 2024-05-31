@@ -74,11 +74,11 @@ final class OrganicMapsServiceTest extends TestCase
 
 	private function generateRandomLat(): float
 	{
-		return rand(-89999999, 89999999) / 1000000;
+		return random_int(-89_999_999, 89_999_999) / 1_000_000;
 	}
 
 	private function generateRandomLon(): float
 	{
-		return rand(-179999999, 179999999) / 1000000;
+		return random_int(-179_999_999, 179_999_999) / 1_000_000;
 	}
 }

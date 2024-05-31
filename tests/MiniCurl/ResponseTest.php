@@ -26,7 +26,7 @@ final class ResponseTest extends TestCase
 		$body = $response->getBody();
 		$this->assertTrue(str_starts_with($body, '{"meta":{"date":1234567890}'));
 		$json = $response->getBodyAsJson();
-		$this->assertSame(1234567890, $json->meta->date);
+		$this->assertSame(1_234_567_890, $json->meta->date);
 		$this->assertSame('ingressPortal', $json->locations[0]->descriptions[2]->key);
 	}
 

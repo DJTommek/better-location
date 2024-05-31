@@ -19,20 +19,20 @@ use Psr\SimpleCache\CacheInterface;
 /**
  * Collection of various HTTP clients usable in any test, just create instance in PHPUnit's setUp() method
  */
-final class HttpTestClients
+final readonly class HttpTestClients
 {
 	/** HTTP client making real requests */
-	public readonly ClientInterface $realHttpClient;
+	public ClientInterface $realHttpClient;
 	/** HTTP client responding with previously saved responses (not using mocked HTTP client) */
-	public readonly ClientInterface $offlineHttpClient;
+	public ClientInterface $offlineHttpClient;
 	/** HTTP client responding with mocked responses (using $mockHandler) */
-	public readonly ClientInterface $mockedHttpClient;
+	public ClientInterface $mockedHttpClient;
 
-	public readonly MockHandler $mockHandler;
+	public MockHandler $mockHandler;
 
-	public readonly Requestor $realRequestor;
-	public readonly Requestor $offlineRequestor;
-	public readonly Requestor $mockedRequestor;
+	public Requestor $realRequestor;
+	public Requestor $offlineRequestor;
+	public Requestor $mockedRequestor;
 
 	public function __construct()
 	{
@@ -48,7 +48,7 @@ final class HttpTestClients
 	{
 		$realHandlerStack = new HandlerStack();
 		$realHandlerStack->setHandler(new CurlHandler());
-		$realHandlerStack->push([$this, 'saveResponseBodyToFileMiddleware']);
+		$realHandlerStack->push($this->saveResponseBodyToFileMiddleware(...));
 		$this->realHttpClient = new \GuzzleHttp\Client([
 			'handler' => $realHandlerStack,
 		]);
@@ -66,7 +66,7 @@ final class HttpTestClients
 			}
 		};
 		$mockedHandlerStack->setHandler($dummyHandler);
-		$mockedHandlerStack->push([$this, 'loadResponseBodyFromFileMiddleware']);
+		$mockedHandlerStack->push($this->loadResponseBodyFromFileMiddleware(...));
 		$this->offlineHttpClient = new \GuzzleHttp\Client([
 			'handler' => $mockedHandlerStack,
 		]);

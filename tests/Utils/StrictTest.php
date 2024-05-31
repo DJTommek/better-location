@@ -21,8 +21,8 @@ final class StrictTest extends TestCase
 		$this->assertTrue(Strict::isInt('10'));
 		$this->assertTrue(Strict::isInt('-10'));
 
-		$this->assertTrue(Strict::isInt(99999999999));
-		$this->assertTrue(Strict::isInt(-99999999999));
+		$this->assertTrue(Strict::isInt(99_999_999_999));
+		$this->assertTrue(Strict::isInt(-99_999_999_999));
 	}
 
 	public function testIsIntFalse(): void
@@ -70,8 +70,8 @@ final class StrictTest extends TestCase
 		$this->assertFalse(Strict::isFloat('10', false));
 		$this->assertFalse(Strict::isFloat('-10', false));
 
-		$this->assertFalse(Strict::isFloat(99999999999, false));
-		$this->assertFalse(Strict::isFloat(-99999999999, false));
+		$this->assertFalse(Strict::isFloat(99_999_999_999, false));
+		$this->assertFalse(Strict::isFloat(-99_999_999_999, false));
 
 		$this->assertFalse(Strict::isFloat(false));
 		$this->assertFalse(Strict::isFloat(true));
@@ -98,8 +98,8 @@ final class StrictTest extends TestCase
 		$this->assertTrue(Strict::isFloat('10', true));
 		$this->assertTrue(Strict::isFloat('-10', true));
 
-		$this->assertTrue(Strict::isFloat(99999999999, true));
-		$this->assertTrue(Strict::isFloat(-99999999999, true));
+		$this->assertTrue(Strict::isFloat(99_999_999_999, true));
+		$this->assertTrue(Strict::isFloat(-99_999_999_999, true));
 	}
 
 	public function testIsFloatAllowIntFalse(): void

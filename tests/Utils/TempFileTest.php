@@ -47,7 +47,7 @@ final class TempFileTest extends TestCase
 		$this->assertInstanceOf(\SplFileInfo::class, $tempfile->get());
 
 		$this->assertSame('auto-destruct.txt', $tempfile->get()->getBasename());
-		$this->assertTrue(Strings::startsWith($tempFileFullPath, self::$tempDir));
+		$this->assertTrue(\str_starts_with($tempFileFullPath, self::$tempDir));
 		$this->assertTrue($tempfile->getPathname() === $tempfile->get()->getPathname());
 
 		$this->assertFileExists($tempFileFullPath);

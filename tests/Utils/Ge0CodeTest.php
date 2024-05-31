@@ -70,7 +70,7 @@ final class Ge0CodeTest extends TestCase
 	{
 		$lat = TestUtils::randomLat();
 		$lon = TestUtils::randomLon();
-		$zoom = rand(4, 19);
+		$zoom = random_int(4, 19);
 		$result = Ge0Code::encode($lat, $lon, $zoom);
 		$result2 = Ge0Code::decode($result->code);
 

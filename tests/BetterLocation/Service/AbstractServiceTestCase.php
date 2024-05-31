@@ -12,7 +12,7 @@ abstract class AbstractServiceTestCase extends TestCase
 {
 	use LocationTrait;
 
-	public const EXAMPLE_COORDS = [
+	final public const EXAMPLE_COORDS = [
 		[50.087451, 14.420671],
 		[50.1, 14.5],
 		[-50.2, 14.6000001], // round down
