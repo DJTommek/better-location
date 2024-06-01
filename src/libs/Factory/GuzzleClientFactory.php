@@ -2,6 +2,9 @@
 
 namespace App\Factory;
 
+use App\Http\Guzzle\Middlewares\AlwaysRedirectMiddleware;
+use GuzzleHttp\HandlerStack;
+
 class GuzzleClientFactory
 {
 	private const DEFAULT_TIMEOUT = 5;
@@ -20,6 +23,12 @@ class GuzzleClientFactory
 	 */
 	public function create(array $config = []): \GuzzleHttp\Client
 	{
+		if (isset($config['handler']) === false) {
+			$handlerStack = HandlerStack::create();
+			$handlerStack->after('allow_redirects', new AlwaysRedirectMiddleware(), 'always_allow_redirects');
+			$config['handler'] = $handlerStack;
+		}
+
 		$config = array_merge($config, $this->config);
 
 		return new \GuzzleHttp\Client($config);
