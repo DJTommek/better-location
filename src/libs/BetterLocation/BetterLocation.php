@@ -13,7 +13,6 @@ use App\Factory;
 use App\Geonames\GeonamesApiException;
 use App\Geonames\Types\TimezoneType;
 use App\Icons;
-use App\MiniCurl\Exceptions\TimeoutException;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\Utils\Coordinates;
@@ -58,6 +57,8 @@ class BetterLocation implements CoordinatesInterface
 	private bool $refreshable = false;
 	private ?TimezoneType $timezoneData = null;
 	private ?UrlImmutable $staticMapUrl = null;
+	/** @var float|null Elevation in meters */
+	private ?float $elevation = null;
 
 	/**
 	 * @param string $sourceService has to be name of class extending \BetterLocation\Service\AbstractService
@@ -176,21 +177,6 @@ class BetterLocation implements CoordinatesInterface
 			}
 		}
 		return $this->timezoneData;
-	}
-
-	/** Load and save elevation from API */
-	public function generateElevation(): ?float
-	{
-		if (is_null($this->coords->getElevation())) {
-			try {
-				Factory::openElevation()->fill($this->coords);
-			} catch (TimeoutException) {
-				Debugger::log('Unable to fill coordinates elevation, request timeouted.', Debugger::WARNING);
-			} catch (\Exception $exception) {
-				Debugger::log($exception, Debugger::EXCEPTION);
-			}
-		}
-		return $this->coords->getElevation();
 	}
 
 	public function getTimezoneData(): ?TimezoneType
@@ -502,6 +488,16 @@ class BetterLocation implements CoordinatesInterface
 	public function getCoordinates(): Coordinates
 	{
 		return $this->coords;
+	}
+
+	public function getElevation(): ?float
+	{
+		return $this->elevation;
+	}
+
+	public function setElevation(?float $elevation): void
+	{
+		$this->elevation = $elevation;
 	}
 
 	public function getLatLon(string $delimiter = ','): string

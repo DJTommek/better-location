@@ -17,6 +17,7 @@ readonly class WebLocationDto
 	public bool $hasAddress;
 	public string $address;
 	public ?TimezoneType $timezoneData;
+	public ?float $elevation;
 
 	public function __construct(
 		private BetterLocation $betterLocation,
@@ -24,6 +25,7 @@ readonly class WebLocationDto
 		public string $title,
 	) {
 		$this->coords = $this->betterLocation->getCoordinates();
+		$this->elevation = $this->betterLocation->getElevation();
 		$this->lat = $this->coords->getLat();
 		$this->lon = $this->coords->getLon();
 		$this->latLon = $this->coords->getLatLon();

@@ -251,21 +251,6 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		}, $this->getLocations());
 	}
 
-	/**
-	 * Load elevations from API and fill it into all locations
-	 */
-	public function fillElevations(): void
-	{
-		try {
-			$api = Factory::openElevation();
-			$api->fillBatch($this->getCoordinates());
-		} catch (TimeoutException) {
-			Debugger::log('Unable to batch-fill coordinates elevation, request timeouted.', Debugger::WARNING);
-		} catch (\Exception $exception) {
-			Debugger::log($exception, Debugger::EXCEPTION);
-		}
-	}
-
 	/** Load addresses from API for all locations in this collection */
 	public function fillAddresses(): void
 	{

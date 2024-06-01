@@ -105,8 +105,8 @@
 							<a href="{$basePath}/{$location->latLon}?format=gpx">gpx</a> |
 							<a href="{$basePath}/{$location->latLon}?format=kml">kml</a>
 						</div>
-						<div class="elevation" n:if="$location->coords->getElevation() !== null">
-							<abbr title="Above mean sea level">AMSL</abbr>: {$location->coords->getElevation()} meters
+						<div class="elevation" n:if="$location->elevation !== null">
+							<abbr title="Above mean sea level">AMSL</abbr>: {$location->elevation} meters
 						</div>
 						<div class="telegram">
 							<a href="{App\TelegramCustomWrapper\TelegramHelper::generateStartLocation($location->lat, $location->lon)}" target="_blank" title="Telegram">

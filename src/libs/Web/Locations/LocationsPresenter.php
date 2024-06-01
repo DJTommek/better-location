@@ -8,6 +8,7 @@ use App\BetterLocation\FavouriteNameGenerator;
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\ServicesManager;
 use App\Config;
+use App\OpenElevation\OpenElevation;
 use App\Utils\DateImmutableUtils;
 use App\Utils\Utils;
 use App\Web\Flash;
@@ -32,6 +33,7 @@ class LocationsPresenter extends MainPresenter
 	public function __construct(
 		private readonly ServicesManager $servicesManager,
 		private readonly FavouriteNameGenerator $favouriteNameGenerator,
+		private readonly OpenElevation $openElevation,
 		LocationsTemplate $template,
 	) {
 		$this->template = $template;
@@ -88,7 +90,7 @@ class LocationsPresenter extends MainPresenter
 			$this->template->showingTimezoneData = true;
 		}
 		if (Utils::globalGetToBool('elevation') === true) {
-			$this->collection->fillElevations();
+			$this->fillElevations($this->collection);
 			$this->template->showingElevation = true;
 		}
 
@@ -143,7 +145,7 @@ class LocationsPresenter extends MainPresenter
 			$resultLocation->lat = $location->getLat();
 			$resultLocation->lon = $location->getLon();
 			$resultLocation->hash = $location->getCoordinates()->hash();
-			$resultLocation->elevation = $location->getCoordinates()->getElevation();
+			$resultLocation->elevation = $location->getElevation();
 			$resultLocation->timezoneId = $location->getTimezoneData()?->timezoneId;
 			$resultLocation->address = $location->getAddress();
 			$resultLocation->services = $this->services[$location->getLatLon()];
@@ -209,6 +211,20 @@ class LocationsPresenter extends MainPresenter
 			$result['name'] = $service::getName();
 		}
 		return $result;
+	}
+
+	private function fillElevations(BetterLocationCollection $betterLocationCollection): void
+	{
+		$coordinatesWithElevation = $this->openElevation->lookupBatch($betterLocationCollection);
+		foreach ($coordinatesWithElevation as $coordinates) {
+			assert($coordinates instanceof \App\Utils\Coordinates);
+
+			$location = $betterLocationCollection->getByLatLon(
+				$coordinates->getLat(),
+				$coordinates->getLon(),
+			);
+			$location?->setElevation($coordinates->getElevation());
+		}
 	}
 }
 
