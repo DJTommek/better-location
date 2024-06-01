@@ -3,9 +3,18 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\BaladIrService;
+use Tests\HttpTestClients;
 
 final class BaladIrServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
 
 	protected function getServiceClass(): string
 	{
@@ -26,71 +35,6 @@ final class BaladIrServiceTest extends AbstractServiceTestCase
 	protected function getDriveLinks(): array
 	{
 		return [];
-	}
-
-	public function testIsValid(): void
-	{
-		$this->assertTrue(BaladIrService::validateStatic('https://balad.ir/location?latitude=50.087451&longitude=14.420671'));
-		$this->assertTrue(BaladIrService::validateStatic('https://balad.ir/location?latitude=35.826644&longitude=50.968268&zoom=16.500000#15/35.83347/50.95417'));
-		$this->assertTrue(BaladIrService::validateStatic('https://balad.ir/#6/29.513/53.574'));
-
-		$this->assertFalse(BaladIrService::validateStatic('https://balad.ir/location?longitude=-14.420671'));
-		$this->assertFalse(BaladIrService::validateStatic('https://different-domain.ir/location?latitude=-99.087451&longitude=-14.420671'));
-		$this->assertFalse(BaladIrService::validateStatic('non url'));
-	}
-
-	public function testProcess(): void
-	{
-		$collection = BaladIrService::processStatic('https://balad.ir/location?latitude=35.826644&longitude=50.968268&zoom=16.500000#15/35.83347/50.95417')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('35.826644,50.968268', (string)$collection->getFirst());
-
-		$collection = BaladIrService::processStatic('https://balad.ir/location?latitude=35.826644&longitude=999.968268&zoom=16.500000#15/35.83347/50.95417')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('35.833470,50.954170', (string)$collection->getFirst());
-
-		$collection = BaladIrService::processStatic('https://balad.ir/location?latitude=35.826644&longitude=50.968268&zoom=16.5')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('35.826644,50.968268', (string)$collection->getFirst());
-
-		$collection = BaladIrService::processStatic('https://balad.ir/#15/35.826644/50.968268')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('35.826644,50.968268', (string)$collection->getFirst());
-	}
-
-	/**
-	 * @group request
-	 */
-	public function testProcessPlaceId(): void
-	{
-		$collection = BaladIrService::processStatic('https://balad.ir/p/3j08MFNHbCGvnu?preview=true')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('27.192955,56.290765', (string)$collection->getFirst());
-
-		$collection = BaladIrService::processStatic('https://balad.ir/p/%DA%A9%D9%88%DB%8C-%D8%A2%DB%8C%D8%AA-%D8%A7%D9%84%D9%84%D9%87-%D8%BA%D9%81%D8%A7%D8%B1%DB%8C-bandar-abbas_residential-complex-3j08MFNHbCGvnu?preview=true')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('27.192955,56.290765', (string)$collection->getFirst());
-
-		$collection = BaladIrService::processStatic('https://balad.ir/p/%DA%A9%D9%88%DB%8C-%D8%A2%DB%8C%D8%AA-%D8%A7%D9%84%D9%84%D9%87-%D8%BA%D9%81%D8%A7%D8%B1%DB%8C-bandar-abbas_residential-complex-3j08MFNHbCGvnu?preview=true#16.01/27.19771/56.287317')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('27.192955,56.290765', (string)$collection->getFirst());
-
-		$collection = BaladIrService::processStatic('https://balad.ir/p/blah-blah-abcd?preview=true#16.01/27.19771/56.287317')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('27.197710,56.287317', (string)$collection->getFirst());
-
-		$collection = BaladIrService::processStatic('https://balad.ir/p/405uvqx6JfALrs?preview=true')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('35.699738,51.338060', (string)$collection->getFirst());
-	}
-
-	/**
-	 * @dataProvider isValidProvider
-	 */
-	public function testIsValidUsingProvider(bool $expectedIsValid, string $link): void
-	{
-		$isValid = BaladIrService::validateStatic($link);
-		$this->assertSame($expectedIsValid, $isValid, $link);
 	}
 
 	/**
@@ -125,5 +69,57 @@ final class BaladIrServiceTest extends AbstractServiceTestCase
 			[false, 'https://balad.ir/maps/mashhad?preview=true'],
 			[true, 'https://balad.ir/maps/mashhad?preview=true#11.03/36.3084/59.6476'], // map center is valid
 		];
+	}
+
+	public static function processProvider(): array
+	{
+		return [
+			// Coordinates in URL
+			[35.826644, 50.968268, 'https://balad.ir/location?latitude=35.826644&longitude=50.968268&zoom=16.500000#15/35.83347/50.95417', BaladIrService::TYPE_PLACE_COORDS],
+			[35.826644, 50.968268, 'https://balad.ir/location?latitude=35.826644&longitude=50.968268&zoom=16.5', BaladIrService::TYPE_PLACE_COORDS],
+
+			// Map center
+			[35.833470, 50.954170, 'https://balad.ir/location?latitude=35.826644&longitude=999.968268&zoom=16.500000#15/35.83347/50.95417', BaladIrService::TYPE_MAP_CENTER],
+			[35.826644, 50.968268, 'https://balad.ir/#15/35.826644/50.968268', BaladIrService::TYPE_MAP_CENTER],
+
+			// Place IDs
+			[27.192955, 56.290765, 'https://balad.ir/p/3j08MFNHbCGvnu?preview=true', BaladIrService::TYPE_PLACE],
+			[27.192955, 56.290765, 'https://balad.ir/p/%DA%A9%D9%88%DB%8C-%D8%A2%DB%8C%D8%AA-%D8%A7%D9%84%D9%84%D9%87-%D8%BA%D9%81%D8%A7%D8%B1%DB%8C-bandar-abbas_residential-complex-3j08MFNHbCGvnu?preview=true', BaladIrService::TYPE_PLACE],
+			// Place ID is available, do not load map coordinates
+			[27.192955, 56.290765, 'https://balad.ir/p/%DA%A9%D9%88%DB%8C-%D8%A2%DB%8C%D8%AA-%D8%A7%D9%84%D9%84%D9%87-%D8%BA%D9%81%D8%A7%D8%B1%DB%8C-bandar-abbas_residential-complex-3j08MFNHbCGvnu?preview=true#16.01/27.19771/56.287317', BaladIrService::TYPE_PLACE],
+			// Place ID is not valid, load map coordinates instead
+			[27.197710, 56.287317, 'https://balad.ir/p/blah-blah-abcd?preview=true#16.01/27.19771/56.287317', BaladIrService::TYPE_MAP_CENTER],
+			[35.699738, 51.338060, 'https://balad.ir/p/405uvqx6JfALrs?preview=true', BaladIrService::TYPE_PLACE],
+		];
+	}
+
+	/**
+	 * @dataProvider isValidProvider
+	 */
+	public function testIsValid(bool $expectedIsValid, string $input): void
+	{
+		$service = new BaladIrService($this->httpTestClients->mockedRequestor);
+		$service->setInput($input);
+		$isValid = $service->validate();
+		$this->assertSame($expectedIsValid, $isValid);
+	}
+
+	/**
+	 * @group request
+	 * @dataProvider processProvider
+	 */
+	public function testProcessReal(float $expectedLat, float $expectedLon, string $input, string $expectedSourceType): void
+	{
+		$service = new BaladIrService($this->httpTestClients->realRequestor);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon, $expectedSourceType);
+	}
+
+	/**
+	 * @dataProvider processProvider
+	 */
+	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input, string $expectedSourceType): void
+	{
+		$service = new BaladIrService($this->httpTestClients->offlineRequestor);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon, $expectedSourceType);
 	}
 }

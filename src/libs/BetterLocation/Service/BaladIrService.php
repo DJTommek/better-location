@@ -6,11 +6,11 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use App\Config;
-use App\MiniCurl\Exceptions\InvalidResponseException;
-use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\CoordinatesInterface;
+use App\Utils\Requestor;
 use Nette\Http\Url;
+use Nette\Utils\Json;
 
 final class BaladIrService extends AbstractService
 {
@@ -26,6 +26,11 @@ final class BaladIrService extends AbstractService
 		ServicesManager::TAG_GENERATE_OFFLINE,
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
 	];
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public static function getConstants(): array
 	{
@@ -129,7 +134,7 @@ final class BaladIrService extends AbstractService
 					$coords->getLat(),
 					$coords->getLon(),
 					self::class,
-					self::TYPE_PLACE
+					self::TYPE_PLACE,
 				);
 				if (isset($place->name)) {
 					$location->setPrefixMessage(sprintf(
@@ -154,18 +159,12 @@ final class BaladIrService extends AbstractService
 
 	private function loadPlaceId(string $placeId): ?\stdClass
 	{
-		try {
-			$url = sprintf('https://poi.raah.ir/web/v4/%s?format=json', $placeId);
-			$response = (new MiniCurl($url))
-				->allowAutoConvertEncoding(false)
-				->allowCache(Config::CACHE_TTL_RAAH_IR)
-				->run();
-			return $response->getBodyAsJson();
-		} catch (InvalidResponseException $exception) {
-			if ($exception->getCode() === 404) {
-				return null;
-			}
-			throw $exception;
+		$url = sprintf('https://poi.raah.ir/web/v4/%s?format=json', $placeId);
+		$body = $this->requestor->get($url, Config::CACHE_TTL_RAAH_IR);
+		if ($body === 'error') {
+			return null;
 		}
+
+		return Json::decode($body);
 	}
 }
