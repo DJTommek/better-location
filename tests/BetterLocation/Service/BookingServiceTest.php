@@ -90,7 +90,7 @@ final class BookingServiceTest extends AbstractServiceTestCase
 		);
 		$this->assertSame('🇦🇹 121 Marktstraße, 5741 Neukirchen am Großvenediger, Austria', $location->getAddress());
 		$this->assertSame(
-			'★6.9 Ludwighaus in Neukirchen am Großvenediger provides accommodations with a bar and a shared lounge.',
+			'★6.9 Ludwighaus enjoys a location in Neukirchen am Großvenediger, 25 miles from Casino Kitzbuhel and 28 miles from Golfclub Kitzbühel Schwarzsee. 7.',
 			(string)$location->getDescriptions()[0],
 		);
 
@@ -101,7 +101,7 @@ final class BookingServiceTest extends AbstractServiceTestCase
 		);
 		$this->assertSame('🇺🇦 40 вулиця Ревуцького, Kyiv, 02000, Ukraine', $location->getAddress());
 		$this->assertSame(
-			'★9.8 Situated in Kyiv, 11 km from The Motherland Monument and 11 km from International Exhibition Centre, Квартира з Панорамним Краєвидом на озеро features...',
+			'★9.7 Situated in Kyiv, 11 km from The Motherland Monument and 11 km from International Exhibition Centre, Квартира з Панорамним Краєвидом features...',
 			(string)$location->getDescriptions()[0],
 		);
 
@@ -119,7 +119,7 @@ final class BookingServiceTest extends AbstractServiceTestCase
 		);
 		$this->assertSame('🇯🇵 170-0005 Tokyo-to, Toshima-ku Minamiotsuka 1-38-4, Japan', $location->getAddress());
 		$this->assertSame(
-			'★8.2 Set 300 metres from Koyasu Tenman-gu Sugawara Shrine and 400 metres from Sugamo Park, No4マンション#JR大塚駅徒歩5分 築浅 池袋 自主隔離やテレワークOK 固定Wifi 靠近池袋和新宿 從山手線大塚站步行5分鐘...',
+			'★8.3 Set 300 metres from Koyasu Tenman-gu Sugawara Shrine and 400 metres from Sugamo Park, No4マンション#JR大塚駅徒歩5分 築浅 池袋 自主隔離やテレワークOK 固定Wifi 靠近池袋和新宿 從山手線大塚站步行5分鐘...',
 			(string)$location->getDescriptions()[0],
 		);
 	}
