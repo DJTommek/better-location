@@ -2,7 +2,9 @@
 
 namespace App\OpenElevation;
 
+use App\BetterLocation\BetterLocationCollection;
 use App\Utils\Coordinates;
+use DJTommek\Coordinates\CoordinatesInterface;
 use GuzzleHttp\Psr7\Request;
 use Nette\Utils\Json;
 use Psr\Http\Client\ClientInterface;
@@ -82,17 +84,24 @@ class OpenElevation
 	/**
 	 * Get elevation for multiple coordinates
 	 *
-	 * @param array<array<string|int|float, string|int|float>> $inputs List of coorinates mapped as [[$lat1, $lon1],  [$lat2, $lon2], ...]
+	 * @param iterable<array<string|int|float, string|int|float|CoordinatesInterface>>|BetterLocationCollection $inputs List of coorinates mapped as [[$lat1, $lon1],  [$lat2, $lon2], ...]
 	 * @return Coordinates[]
 	 */
-	public function lookupBatch(array $inputs): array
+	public function lookupBatch(iterable $inputs): array
 	{
-		$locations = array_map(function ($input) {
+		$coordinates = [];
+		foreach ($inputs as $key => $input) {
+			if ($input instanceof CoordinatesInterface) {
+				$coordinates[$key] = new Coordinates($input->getLat(), $input->getLon());
+				continue;
+			}
+
 			[$lat, $lon] = $input;
-			return new Coordinates($lat, $lon);
-		}, $inputs);
-		$this->fillBatch($locations);
-		return $locations;
+			$coordinates[$key] = new Coordinates($lat, $lon);
+		}
+
+		$this->fillBatch($coordinates);
+		return $coordinates;
 	}
 
 	private function request(array $coordinates): \stdClass
@@ -101,8 +110,8 @@ class OpenElevation
 			'locations' => [],
 		];
 		foreach ($coordinates as $key => $coords) {
-			if ($coords instanceof Coordinates === false) {
-				throw new \InvalidArgumentException(sprintf('Array value on index %s is not instance of %s.', $key, Coordinates::class));
+			if ($coords instanceof CoordinatesInterface === false) {
+				throw new \InvalidArgumentException(sprintf('Array value on index %s is not instance of %s.', $key, CoordinatesInterface::class));
 			}
 			$postBody['locations'][] = [
 				'latitude' => $coords->getLat(),

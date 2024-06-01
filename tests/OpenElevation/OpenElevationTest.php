@@ -105,14 +105,14 @@ final class OpenElevationTest extends TestCase
 	public function testFillBatchInvalidObjects(): void
 	{
 		$this->expectException(\InvalidArgumentException::class);
-		$this->expectExceptionMessage('Array value on index 0 is not instance of App\Utils\Coordinates.');
+		$this->expectExceptionMessage('Array value on index 0 is not instance of DJTommek\Coordinates\CoordinatesInterface.');
 		$this->createApi()->fillBatch(['aaa']);
 	}
 
 	public function testFillBatchInvalidObjects2(): void
 	{
 		$this->expectException(\InvalidArgumentException::class);
-		$this->expectExceptionMessage('Array value on index 1 is not instance of App\Utils\Coordinates.');
+		$this->expectExceptionMessage('Array value on index 1 is not instance of DJTommek\Coordinates\CoordinatesInterface.');
 		$a = [
 			new Coordinates(36.246600, -116.816900),
 			'aaa',
