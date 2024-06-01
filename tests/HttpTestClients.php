@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\Cache\NetteCachePsr16;
+use App\Http\Guzzle\Middlewares\AlwaysRedirectMiddleware;
 use App\Utils\Requestor;
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Handler\MockHandler;
@@ -48,6 +49,7 @@ final readonly class HttpTestClients
 	{
 		$realHandlerStack = new HandlerStack();
 		$realHandlerStack->setHandler(new CurlHandler());
+		$realHandlerStack->push(new AlwaysRedirectMiddleware(), 'always_allow_redirects');
 		$realHandlerStack->push($this->saveResponseBodyToFileMiddleware(...));
 		$this->realHttpClient = new \GuzzleHttp\Client([
 			'handler' => $realHandlerStack,
