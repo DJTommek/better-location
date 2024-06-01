@@ -2,8 +2,11 @@
 
 namespace App\OpenElevation;
 
-use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
+use GuzzleHttp\Psr7\Request;
+use Nette\Utils\Json;
+use Psr\Http\Client\ClientInterface;
+use Psr\SimpleCache\CacheInterface;
 
 /**
  * Open-Elevation is a free and open-source alternative to the Google Elevation API and similar offerings.
@@ -26,13 +29,16 @@ class OpenElevation
 	public const LINK = 'https://api.open-elevation.com/api/v1';
 	public const LINK_LOOKUP = self::LINK . '/lookup';
 
-	public int $cacheTtl = 0;
-
-	/** @param int $ttl Number of seconds to store results in cache or 0 to disable. */
-	public function setCache(int $ttl): self
-	{
-		$this->cacheTtl = $ttl;
-		return $this;
+	/**
+	 * @param ClientInterface $httpClient
+	 * @param CacheInterface $cache
+	 * @param int $cacheTtl Number of seconds to store results in cache.
+	 */
+	public function __construct(
+		private readonly ClientInterface $httpClient,
+		private readonly CacheInterface $cache,
+		private readonly int $cacheTtl = 0,
+	) {
 	}
 
 	/** Fill elevation into provided Coordinates object */
@@ -82,7 +88,7 @@ class OpenElevation
 	public function lookupBatch(array $inputs): array
 	{
 		$locations = array_map(function ($input) {
-			list($lat, $lon) = $input;
+			[$lat, $lon] = $input;
 			return new Coordinates($lat, $lon);
 		}, $inputs);
 		$this->fillBatch($locations);
@@ -103,10 +109,26 @@ class OpenElevation
 				'longitude' => $coords->getLon(),
 			];
 		}
-		$curl = new MiniCurl(self::LINK_LOOKUP);
-		$curl->setHttpHeader('content-type', 'application/json');
-		$curl->setCurlOption(CURLOPT_POSTFIELDS, json_encode($postBody));
-		$curl->allowCache($this->cacheTtl);
-		return $curl->run()->getBodyAsJson();
+
+		$requestBody = Json::encode($postBody);
+		$cacheKey = md5($requestBody);
+		$cacheResult = $this->cache->get($cacheKey);
+		if ($cacheResult !== null) {
+			return $cacheResult;
+		}
+
+		$request = new Request(
+			'POST',
+			self::LINK_LOOKUP,
+			['content-type' => 'application/json'],
+			$requestBody,
+		);
+		$response = $this->httpClient->sendRequest($request);
+		$body = (string)$response->getBody();
+		$responseJson = Json::decode($body);
+
+		$this->cache->set($cacheKey, $responseJson, $this->cacheTtl);
+
+		return $responseJson;
 	}
 }

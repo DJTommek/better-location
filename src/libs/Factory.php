@@ -111,11 +111,7 @@ class Factory
 
 	public static function openElevation(): \App\OpenElevation\OpenElevation
 	{
-		if (!isset(self::$objects['openelevation'])) {
-			self::$objects['openelevation'] = new \App\OpenElevation\OpenElevation();
-			self::$objects['openelevation']->setCache(Config::CACHE_TTL_OPEN_ELEVATION);
-		}
-		return self::$objects['openelevation'];
+		return self::getContainer()->get(\App\OpenElevation\OpenElevation::class);
 	}
 
 	public static function googleGeocodingApi(): \App\Google\Geocoding\StaticApi

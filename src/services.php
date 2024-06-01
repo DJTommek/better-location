@@ -76,6 +76,9 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(\App\Geonames\Geonames::class)
 		->arg('$username', Config::GEONAMES_USERNAME);
 
+	$services->set(\App\OpenElevation\OpenElevation::class)
+		->arg('$cacheTtl', Config::CACHE_TTL_OPEN_ELEVATION);
+
 	$services->set(\App\BetterLocation\FavouriteNameGenerator::class);
 
 	if (Config::isGlympse()) {

@@ -6,24 +6,26 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\OpenElevation\OpenElevation;
 use App\Utils\Coordinates;
 use PHPUnit\Framework\TestCase;
+use Tests\HttpTestClients;
+use Tests\TestUtils;
 
 /**
  * @group request
  */
 final class OpenElevationTest extends TestCase
 {
-	/** @var OpenElevation */
-	private static $api;
+	private readonly HttpTestClients $httpTestClients;
 
-	public static function setUpBeforeClass(): void
+	protected function setUp(): void
 	{
-		self::$api = new OpenElevation();
-		self::markTestSkipped('Elevation API is not working: https://github.com/Jorl17/open-elevation/issues/58#issuecomment-1038956551');
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
 	}
 
 	public function testLookup(): void
 	{
-		$result = self::$api->lookup(50.087451, 14.420671);
+		$result = $this->createApi()->lookup(50.087451, 14.420671);
 		$this->assertInstanceOf(Coordinates::class, $result);
 		$this->assertSame(50.087451, $result->getLat());
 		$this->assertSame(14.420671, $result->getLon());
@@ -36,7 +38,7 @@ final class OpenElevationTest extends TestCase
 			[50.087451, 14.420671],
 			[-33.4255422, -70.6328236],
 		];
-		$result = self::$api->lookupBatch($input);
+		$result = $this->createApi()->lookupBatch($input);
 		$this->assertCount(2, $result);
 		$this->assertInstanceOf(Coordinates::class, $result[0]);
 		$this->assertSame(50.087451, $result[0]->getLat());
@@ -54,7 +56,7 @@ final class OpenElevationTest extends TestCase
 			[50.087451, 14.420671],
 			'foo' => [-33.4255422, -70.6328236],
 		];
-		$result = self::$api->lookupBatch($input);
+		$result = $this->createApi()->lookupBatch($input);
 		$this->assertCount(2, $result);
 		$this->assertInstanceOf(Coordinates::class, $result[0]);
 		$this->assertSame(50.087451, $result[0]->getLat());
@@ -70,7 +72,7 @@ final class OpenElevationTest extends TestCase
 	{
 		$coords = new Coordinates(50.087451, 14.420671);
 		$this->assertNull($coords->getElevation());
-		self::$api->fill($coords);
+		$this->createApi()->fill($coords);
 		$this->assertSame(206.0, $coords->getElevation());
 	}
 
@@ -82,7 +84,7 @@ final class OpenElevationTest extends TestCase
 		];
 		$this->assertNull($inputs[0]->getElevation());
 		$this->assertNull($inputs[1]->getElevation());
-		self::$api->fillBatch($inputs);
+		$this->createApi()->fillBatch($inputs);
 		$this->assertSame(206.0, $inputs[0]->getElevation());
 		$this->assertSame(-81.0, $inputs[1]->getElevation());
 	}
@@ -95,7 +97,7 @@ final class OpenElevationTest extends TestCase
 		];
 		$this->assertNull($inputs['foo']->getElevation());
 		$this->assertNull($inputs[0]->getElevation());
-		self::$api->fillBatch($inputs);
+		$this->createApi()->fillBatch($inputs);
 		$this->assertSame(206.0, $inputs['foo']->getElevation());
 		$this->assertSame(-81.0, $inputs[0]->getElevation());
 	}
@@ -104,7 +106,7 @@ final class OpenElevationTest extends TestCase
 	{
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Array value on index 0 is not instance of App\Utils\Coordinates.');
-		self::$api->fillBatch(['aaa']);
+		$this->createApi()->fillBatch(['aaa']);
 	}
 
 	public function testFillBatchInvalidObjects2(): void
@@ -115,21 +117,21 @@ final class OpenElevationTest extends TestCase
 			new Coordinates(36.246600, -116.816900),
 			'aaa',
 		];
-		self::$api->fillBatch($a);
+		$this->createApi()->fillBatch($a);
 	}
 
 	public function testFillBatchEmptyArray(): void
 	{
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Must provide at least one location');
-		self::$api->lookupBatch([]);
+		$this->createApi()->lookupBatch([]);
 	}
 
 	public function testLookupInvalidCoords(): void
 	{
 		$this->expectException(InvalidLocationException::class);
 		$this->expectExceptionMessage('Latitude coordinate must be numeric between or equal from -90 to 90 degrees.');
-		self::$api->lookup(99.087451, 14.420671);
+		$this->createApi()->lookup(99.087451, 14.420671);
 	}
 
 	public function testLookupBatchInvalidCoords(): void
@@ -140,7 +142,7 @@ final class OpenElevationTest extends TestCase
 		];
 		$this->expectException(InvalidLocationException::class);
 		$this->expectExceptionMessage('Latitude coordinate must be numeric between or equal from -90 to 90 degrees.');
-		self::$api->lookupBatch($input);
+		$this->createApi()->lookupBatch($input);
 	}
 
 	public function testLookupBatchInvalidArray(): void
@@ -151,13 +153,18 @@ final class OpenElevationTest extends TestCase
 		];
 		$this->expectException(InvalidLocationException::class);
 		$this->expectExceptionMessage('Longitude coordinate must be numeric between or equal from -180 to 180 degrees.');
-		self::$api->lookupBatch($input);
+		$this->createApi()->lookupBatch($input);
 	}
 
 	public function testLookupBatchEmptyArray(): void
 	{
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Must provide at least one location');
-		self::$api->lookupBatch([]);
+		$this->createApi()->lookupBatch([]);
+	}
+
+	private function createApi(): OpenElevation
+	{
+		return new OpenElevation($this->httpTestClients->realHttpClient, TestUtils::createDevNullCache());
 	}
 }
