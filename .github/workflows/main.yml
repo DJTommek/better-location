@@ -31,6 +31,7 @@ jobs:
       - name: 🚀 Run PHPStan analysis
         uses: php-actions/phpstan@v3
         with:
+          version: composer
           php_version: ${{ env.PHP_VERSION_REQUIRED }}
           autoload_file: src/bootstrap.php
           configuration: phpstan.neon
