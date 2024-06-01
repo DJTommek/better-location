@@ -6,7 +6,7 @@ use App\Address\Address;
 use App\Address\Country;
 use App\BetterLocation\BetterLocation;
 use App\Config;
-use App\Http\HttpClient;
+use App\Utils\Requestor;
 use App\Utils\Utils;
 use DJTommek\Coordinates\Coordinates;
 use DJTommek\Coordinates\CoordinatesInterface;
@@ -19,6 +19,11 @@ final class BookingService extends AbstractService
 	const NAME = 'Booking';
 
 	const LINK = 'https://booking.com/';
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public function validate(): bool
 	{
@@ -42,7 +47,7 @@ final class BookingService extends AbstractService
 
 	public function process(): void
 	{
-		$responseBody = self::loadUrl($this->url);
+		$responseBody = $this->loadUrl($this->url);
 		$dom = Utils::domFromUTF8($responseBody);
 
 		$finder = new \DOMXPath($dom);
@@ -70,16 +75,11 @@ final class BookingService extends AbstractService
 		$this->collection->add($location);
 	}
 
-	private static function loadUrl(Url $url): string
+	private function loadUrl(Url $url): string
 	{
-		$httpClient = new HttpClient();
-		$httpClient->allowCache(Config::CACHE_TTL_BOOKING);
-
 		$cleanUrl = (new Url($url->getHostUrl()))
 			->setPath($url->getPath());
-
-		$response = $httpClient->get($cleanUrl);
-		return $response->body();
+		return $this->requestor->get($cleanUrl, Config::CACHE_TTL_BOOKING);
 	}
 
 	private static function getCoordsFromDom(\stdClass $ldJson): CoordinatesInterface
