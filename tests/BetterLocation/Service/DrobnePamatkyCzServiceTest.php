@@ -60,7 +60,7 @@ final class DrobnePamatkyCzServiceTest extends TestCase
 	public function testMissingCoordinates1(): void
 	{
 		$this->expectException(\App\MiniCurl\Exceptions\InvalidResponseException::class);
-		$this->expectExceptionMessage('Invalid response code "404" but required "200" for URL "https://www.drobnepamatky.cz/node/9999999');
+		$this->expectExceptionMessage('Invalid response code "404" but required "200" for URL "www.drobnepamatky.cz".');
 		DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/9999999');
 	}
 
