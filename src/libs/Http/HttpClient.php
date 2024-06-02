@@ -18,6 +18,9 @@ use Psr\Http\Message\UriInterface;
  * - More features are planned to be implemented from MiniCurl, such as: partial download, download only HTTP headers,
  *      random useragents, automatic encoding conversion, POST requests
  * - Signature of classes, attributes and methods might be completely changed
+ *
+ * @deprecated For simple requests use \App\Utils\Requestor, for more complex use \Psr\Http\Client\ClientInterface
+ * which can be created using \App\Factory\GuzzleClientFactory.
  */
 class HttpClient
 {
