@@ -709,3 +709,8 @@ parameters:
 			message: "#^Method App\\\\Web\\\\Chat\\\\ChatTemplate\\:\\:prepareOk\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/Web/Chat/ChatTemplate.php
+
+		-
+			message: "#^Parameter \\#2 \\$cookieToken of class App\\\\Geocaching\\\\Client constructor expects string, null given\\.$#"
+			count: 1
+			path: tests/BetterLocation/Service/GeocachingServiceTest.php
