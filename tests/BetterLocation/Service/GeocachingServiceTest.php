@@ -5,9 +5,19 @@ namespace Tests\BetterLocation\Service;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\GeocachingService;
 use App\Config;
+use Tests\HttpTestClients;
 
 final class GeocachingServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return GeocachingService::class;
@@ -324,6 +334,9 @@ gc12aBd
 
 	private function createGeocachingClient(): \App\Geocaching\Client
 	{
-		return new \App\Geocaching\Client(Config::GEOCACHING_COOKIE);
+		return new \App\Geocaching\Client(
+			$this->httpTestClients->realRequestor,
+			Config::GEOCACHING_COOKIE,
+		);
 	}
 }

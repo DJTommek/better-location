@@ -3,7 +3,7 @@
 namespace App\Geocaching;
 
 use App\Geocaching\Types\GeocachePreviewType;
-use App\Http\HttpClient;
+use App\Utils\Requestor;
 
 class Client
 {
@@ -12,22 +12,13 @@ class Client
 	const LINK_CACHE_API = self::LINK . '/api/proxy/web/search/geocachepreview/';
 	const LINK_SHARE = 'https://coord.info';
 
-	const COOKIE_NAME = 'gspkauth';
+	private const LOGIN_COOKIE_NAME = 'gspkauth';
 
-	/** @var string */
-	private $cookieToken;
-	/** @var int */
-	private $cacheTtl = 0;
-
-	public function __construct(string $cookieToken)
-	{
-		$this->cookieToken = $cookieToken;
-	}
-
-	public function setCache(int $ttl): self
-	{
-		$this->cacheTtl = $ttl;
-		return $this;
+	public function __construct(
+		private readonly Requestor $requestor,
+		private readonly string $cookieToken,
+		private readonly ?int $cacheTtl = null,
+	) {
 	}
 
 	public function loadGeocachePreview(string $cacheId): GeocachePreviewType
@@ -41,10 +32,10 @@ class Client
 
 	private function makeJsonRequest(string $url): \stdClass
 	{
-		return (new HttpClient())
-			->setHttpCookie(self::COOKIE_NAME, $this->cookieToken)
-			->allowCache($this->cacheTtl)
-			->get($url)
-			->json();
+		$headers = [
+			'Cookie' => sprintf('%s=%s', self::LOGIN_COOKIE_NAME, $this->cookieToken),
+		];
+
+		return $this->requestor->getJson($url, $this->cacheTtl, headers: $headers);
 	}
 }

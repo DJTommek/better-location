@@ -92,12 +92,9 @@ return static function (ContainerConfigurator $container): void {
 	}
 
 	if (Config::isGeocaching()) {
-		$services->set(\App\Factory\GeocachingApiFactory::class)
-			->arg('$cookie', Config::GEOCACHING_COOKIE)
-			->arg('$cacheTtl', Config::CACHE_TTL_GEOCACHING_API);
-
 		$services->set(\App\Geocaching\Client::class)
-			->factory([service(\App\Factory\GeocachingApiFactory::class), 'create']);
+			->arg('$cookieToken', Config::GEOCACHING_COOKIE)
+			->arg('$cacheTtl', Config::CACHE_TTL_GEOCACHING_API);
 	}
 
 	if (Config::isW3W()) {
