@@ -3,9 +3,20 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\DrobnePamatkyCzService;
+use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use Tests\HttpTestClients;
 
 final class DrobnePamatkyCzServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return DrobnePamatkyCzService::class;
@@ -64,7 +75,7 @@ final class DrobnePamatkyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new DrobnePamatkyCzService();
+		$service = new DrobnePamatkyCzService($this->httpTestClients->mockedRequestor);
 		$service->setInput($input);
 		$isValid = $service->validate();
 		$this->assertSame($expectedIsValid, $isValid);
@@ -74,23 +85,47 @@ final class DrobnePamatkyCzServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processProvider
 	 */
-	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
+	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new DrobnePamatkyCzService();
+		$service = new DrobnePamatkyCzService($this->httpTestClients->realRequestor);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+	}
+
+	/**
+	 * @dataProvider processProvider
+	 */
+	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
+	{
+		$service = new DrobnePamatkyCzService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
 	/**
 	 * @group request
 	 */
-	public function testMissingCoordinates1(): void
+	public function testMissingCoordinatesReal(): void
 	{
-		$service = new DrobnePamatkyCzService();
+		$service = new DrobnePamatkyCzService($this->httpTestClients->realRequestor);
 		$service->setInput('https://www.drobnepamatky.cz/node/9999999');
 		$this->assertTrue($service->validate());
 
-		$this->expectException(\App\MiniCurl\Exceptions\InvalidResponseException::class);
-		$this->expectExceptionMessage('Invalid response code "404" but required "200" for URL "www.drobnepamatky.cz".');
+		$this->expectException(InvalidLocationException::class);
+		$this->expectExceptionMessage('Coordinates on DrobnePamatky.cz page are missing.');
+
+		$service->process();
+	}
+
+	/**
+	 * @group request
+	 */
+	public function testMissingCoordinatesOffline(): void
+	{
+		$service = new DrobnePamatkyCzService($this->httpTestClients->offlineRequestor);
+		$service->setInput('https://www.drobnepamatky.cz/node/9999999');
+		$this->assertTrue($service->validate());
+
+		$this->expectException(InvalidLocationException::class);
+		$this->expectExceptionMessage('Coordinates on DrobnePamatky.cz page are missing.');
 
 		$service->process();
 	}

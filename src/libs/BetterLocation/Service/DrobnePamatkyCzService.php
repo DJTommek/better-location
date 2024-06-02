@@ -7,7 +7,7 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use App\Config;
-use App\MiniCurl\MiniCurl;
+use App\Utils\Requestor;
 use App\Utils\Strict;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -25,6 +25,11 @@ final class DrobnePamatkyCzService extends AbstractService
 		ServicesManager::TAG_GENERATE_OFFLINE,
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
 	];
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
@@ -46,13 +51,14 @@ final class DrobnePamatkyCzService extends AbstractService
 
 	public function process(): void
 	{
-		$response = (new MiniCurl($this->input))->allowCache(Config::CACHE_TTL_DROBNE_PAMATKY_CZ)->run()->getBody();
-		if (!preg_match('/<meta\s+name="geo\.position"\s*content="([0-9.]+);\s*([0-9.]+)\s*"/', $response, $matches)) {
-			Debugger::log($response, ILogger::DEBUG);
+		$body = $this->requestor->get($this->url, Config::CACHE_TTL_DROBNE_PAMATKY_CZ);
+
+		if (!preg_match('/<meta\s+name="geo\.position"\s*content="([0-9.]+);\s*([0-9.]+)\s*"/', $body, $matches)) {
+			Debugger::log($body, ILogger::DEBUG);
 			throw new InvalidLocationException(sprintf('Coordinates on %s page are missing.', self::NAME));
 		}
 		$location = new BetterLocation($this->input, Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class);
-		if (preg_match('/<h1[^>]+>(.+)<\/h1>/s', $response, $titleMatches)) {
+		if (preg_match('/<h1[^>]+>(.+)<\/h1>/s', $body, $titleMatches)) {
 			$location->setDescription(trim(strip_tags($titleMatches[1])));
 		}
 		$this->collection->add($location);
