@@ -145,6 +145,12 @@ final class GeocachingServiceTest extends AbstractServiceTestCase
 			[50.087717, 14.421150, 'https://www.geocaching.com/geocache/GC3DYC4', GeocachingService::TYPE_CACHE],
 			[50.087717, 14.421150, 'https://www.geocaching.com/geocache/GC3DYC4_find-the-bug', GeocachingService::TYPE_CACHE],
 			[50.087717, 14.421150, 'https://coord.info/GC3DYC4', GeocachingService::TYPE_CACHE],
+		];
+	}
+
+	public static function geocacheGuidUrlProvider(): array
+	{
+		return [
 			[50.087717, 14.421150, 'https://www.geocaching.com/seek/cache_details.aspx?guid=df11c170-1af3-4ee1-853a-e97c1afe0722', GeocachingService::TYPE_CACHE],
 		];
 	}
@@ -255,6 +261,7 @@ gc12aBd
 
 	/**
 	 * @dataProvider geocacheIdUrlProvider
+	 * @dataProvider geocacheGuidUrlProvider
 	 * @group request
 	 */
 	public function testProcessGeocacheIdFromUrl(float $expectedLat, float $expectedLon, string $input, string $expectedSourceType): void
