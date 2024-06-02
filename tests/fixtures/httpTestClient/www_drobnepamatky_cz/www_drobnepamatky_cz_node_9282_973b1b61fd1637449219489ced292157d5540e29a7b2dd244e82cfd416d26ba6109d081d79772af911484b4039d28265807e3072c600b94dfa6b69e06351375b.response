@@ -507,10 +507,10 @@ window.onload = init;
  <label for="edit-comment">Váš text: <span class="form-required" title="Toto pole je vyžadováno.">*</span></label>
  <textarea cols="60" rows="15" name="comment" id="edit-comment"  class="form-textarea required"></textarea>
 </div>
-<div class="wysiwyg wysiwyg-format-1 wysiwyg-editor-ckeditor wysiwyg-field-edit-comment wysiwyg-status-0 wysiwyg-toggle-0 wysiwyg-resizable-1"><ul class="tips"><li>Webové a e-mailové adresy jsou automaticky převedeny na odkazy.</li><li>Povolené HTML značky: &lt;a&gt; &lt;em&gt; &lt;strong&gt; &lt;cite&gt; &lt;code&gt; &lt;ul&gt; &lt;ol&gt; &lt;li&gt; &lt;dl&gt; &lt;dt&gt; &lt;dd&gt;&lt;h2&gt;&lt;h3&gt;&lt;p&gt;&lt;b&gt;&lt;hr&gt;&lt;img&gt;</li><li>Řádky a odstavce se zalomí automaticky.</li></ul></div><p><a href="/filter/tips"> </a></p><input type="hidden" name="form_build_id" id="form-VoL0IsRviRKInoFJu3_EIi-vnj3vHhy2EoxdAqC4mM8" value="form-VoL0IsRviRKInoFJu3_EIi-vnj3vHhy2EoxdAqC4mM8"  />
+<div class="wysiwyg wysiwyg-format-1 wysiwyg-editor-ckeditor wysiwyg-field-edit-comment wysiwyg-status-0 wysiwyg-toggle-0 wysiwyg-resizable-1"><ul class="tips"><li>Webové a e-mailové adresy jsou automaticky převedeny na odkazy.</li><li>Povolené HTML značky: &lt;a&gt; &lt;em&gt; &lt;strong&gt; &lt;cite&gt; &lt;code&gt; &lt;ul&gt; &lt;ol&gt; &lt;li&gt; &lt;dl&gt; &lt;dt&gt; &lt;dd&gt;&lt;h2&gt;&lt;h3&gt;&lt;p&gt;&lt;b&gt;&lt;hr&gt;&lt;img&gt;</li><li>Řádky a odstavce se zalomí automaticky.</li></ul></div><p><a href="/filter/tips"> </a></p><input type="hidden" name="form_build_id" id="form-rnOGaNlmGHHgncoVk18NLlp9NWb5vFzBZPlqDksXeXI" value="form-rnOGaNlmGHHgncoVk18NLlp9NWb5vFzBZPlqDksXeXI"  />
 <input type="hidden" name="form_id" id="edit-comment-form" value="comment_form"  />
-<fieldset class="captcha"><legend>CAPTCHA</legend><div class="description">Před odesláním komentáře prosím vyplňte následující pole.</div><input type="hidden" name="captcha_sid" id="edit-captcha-sid" value="16127554"  />
-<input type="hidden" name="captcha_token" id="edit-captcha-token" value="50e9c52671098b3bc9462c633274ec27"  />
+<fieldset class="captcha"><legend>CAPTCHA</legend><div class="description">Před odesláním komentáře prosím vyplňte následující pole.</div><input type="hidden" name="captcha_sid" id="edit-captcha-sid" value="16156680"  />
+<input type="hidden" name="captcha_token" id="edit-captcha-token" value="c7ab861bc26b43fbf63b2db122523e61"  />
 <div class="form-item" id="edit-captcha-response-wrapper">
  <label for="edit-captcha-response">Zadejte název šestého dne v týdnu: <span class="form-required" title="Toto pole je vyžadováno.">*</span></label>
  <input type="text" maxlength="50" name="captcha_response" id="edit-captcha-response" size="50" value="" class="form-text required" />

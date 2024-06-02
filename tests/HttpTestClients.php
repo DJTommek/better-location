@@ -22,6 +22,11 @@ use Psr\SimpleCache\CacheInterface;
  */
 final readonly class HttpTestClients
 {
+	/**
+	 * Some requests can contain sensitive information (credentials, login cookies), so hash must not be weak.
+	 */
+	private const REQUEST_FINGERPRINT_HASH_ALGORITHM = 'sha3-512';
+
 	/** HTTP client making real requests */
 	public ClientInterface $realHttpClient;
 	/** HTTP client responding with previously saved responses (not using mocked HTTP client) */
@@ -135,7 +140,7 @@ final readonly class HttpTestClients
 		$urlSafe = preg_replace('/[^A-Za-z0-9_\-]/', '_', $urlString);
 		$urlSafeShort = substr($urlSafe, 0, 100);
 		$serialized = serialize($requestForFingerprint);
-		$requestFingerprint = md5($serialized);
+		$requestFingerprint = hash(self::REQUEST_FINGERPRINT_HASH_ALGORITHM, $serialized);
 
 		return sprintf('%s/fixtures/httpTestClient/%s/%s_%s.response', __DIR__, $authoritySafe, $urlSafeShort, $requestFingerprint);
 	}

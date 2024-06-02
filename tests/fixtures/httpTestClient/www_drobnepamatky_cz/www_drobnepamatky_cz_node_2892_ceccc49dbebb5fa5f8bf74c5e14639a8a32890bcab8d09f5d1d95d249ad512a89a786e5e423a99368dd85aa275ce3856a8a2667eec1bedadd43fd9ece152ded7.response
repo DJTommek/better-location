@@ -6,17 +6,17 @@
  
 <meta name="viewport" content="width=device-width, initial-scale=1">  
   <title>    
-    Pamětní deska rodiny Slavíčkovi na domě Kováků 1811/12 na Smíchově | Drobné památky     
+    Kříž jižně od Zvíkova u stromu v poli | Drobné památky     
   </title>
   <meta name="description" content="Databáze drobných památek České republiky">  
   <link href="i.ico" rel="icon" type="image/png" />      
   <!--<meta name="google-site-verification" content="gbDt-KBTRS3-9bJ0fejW1205-GlVH-JNKALDW04IlbA" />     -->
   <meta name="robots" content="index,follow">     
      
-  <meta name="geo.position" content="50.067698;   
-  14.401455 " />    
-  <meta name="ICBM" content="50.067698,    
-  14.401455 " />      
+  <meta name="geo.position" content="48.974158;   
+  14.612296 " />    
+  <meta name="ICBM" content="48.974158,    
+  14.612296 " />      
                 
   <link type="text/css" rel="stylesheet" media="all" href="/files/css/css_6d42df83af9f84bc227503feda64e65d.css" />
    
@@ -35,7 +35,7 @@
   <body  class="not-front not-logged-in page-node node-type-objekt no-sidebars   
    ">         
     
-   <div id="page" class="nid-36966">            
+   <div id="page" class="nid-2892">            
 <input type="checkbox" id="hamburgr" class="hamburgr" tabindex="1" />
 	<label for="hamburgr" class="hamburgr-label" >
 	<img   class="hamburgr-tvar" src="/sites/all/themes/kelvin/hamburgr.svg"></label>
@@ -123,7 +123,7 @@
                      
            objekt           
            ">                        
-          Pamětní deska rodiny Slavíčkovi na domě Kováků 1811/12 na Smíchově</h1>               
+          Kříž jižně od Zvíkova u stromu v poli</h1>               
       </div>               
                       
                       
@@ -131,7 +131,7 @@
 	                   
       <div id="breadcrumb-wrapper">                   
         <div class="breadcrumb">                       
-          <a href="/">Domů</a><span> → </span><a href="/taxonomy/term/1">Hlavní město Praha</a><span> → </span><a href="/taxonomy/term/15">okres Hlavní město Praha</a><span> → </span><a href="/taxonomy/term/92">Praha</a><span> → </span><a href="/taxonomy/term/6395">Smíchov</a>   
+          <a href="/">Domů</a><span> → </span><a href="/taxonomy/term/3">Jihočeský kraj</a><span> → </span><a href="/taxonomy/term/28">okres České Budějovice</a><span> → </span><a href="/taxonomy/term/1253">Zvíkov</a><span> → </span><a href="/taxonomy/term/8540">Zvíkov u Lišova</a>   
                      
           <span style="font-size:15px; position:relative; top:4px;">  ↴            
           </span>                                  
@@ -154,9 +154,9 @@
             				
                 <style>
 .z1999 {mix-blend-moxde: multiply;}</style>
-  <div id="node-36966" class="node  objekt sobjekt">
+  <div id="node-2892" class="node  objekt sobjekt">
          
-  <div class=nahled><a href="/files/2020/pametni-deska-65419-2.jpg"><img src='/files/2020/pametni-deska-65419-2.jpg'></a></div>
+  <div class=nahled><a href="/files/2014/kriz-2943-2.jpg"><img src='/files/2014/kriz-2943-2.jpg'></a></div>
   <div class="field field-type-computed field-field-divstart">
     <div class="field-items">
             <div class="field-item odd">
@@ -174,7 +174,7 @@
             <div class="field-item odd">
                       <div class="field-label-inline-first">
               Obec:&nbsp;</div>
-                    <a title="Praha" href="taxonomy/term/92">Praha</a>        </div>
+                    <a title="Zvíkov" href="taxonomy/term/1253">Zvíkov</a>        </div>
         </div>
 </div>
 <div class="field field-type-computed field-field-com-okres">
@@ -182,7 +182,7 @@
             <div class="field-item odd">
                       <div class="field-label-inline-first">
               Okres:&nbsp;</div>
-                    <a title="okres Hlavní město Praha" href="/taxonomy/term/15">okres Hlavní město Praha</a>        </div>
+                    <a title="okres České Budějovice" href="/taxonomy/term/28">okres České Budějovice</a>        </div>
         </div>
 </div>
 <div class="field field-type-computed field-field-com-ku">
@@ -190,7 +190,7 @@
             <div class="field-item odd">
                       <div class="field-label-inline-first">
               Katastrální území:&nbsp;</div>
-                    <a title="Smíchov" href="/taxonomy/term/6395">Smíchov</a>        </div>
+                    <a title="Zvíkov u Lišova" href="/taxonomy/term/8540">Zvíkov u Lišova</a>        </div>
         </div>
 </div>
 <div class="field field-type-computed field-field-comp-coor">
@@ -198,7 +198,7 @@
             <div class="field-item odd">
                       <div class="field-label-inline-first">
               Poloha:&nbsp;</div>
-                    <span class="geo"><span class="latitude">50.067698</span>, <span class="longitude">14.401455</span></span>        </div>
+                    <span class="geo"><span class="latitude">48.974158</span>, <span class="longitude">14.612296</span></span>        </div>
         </div>
 </div>
 <div class="field field-type-computed field-field-druh">
@@ -206,13 +206,13 @@
             <div class="field-item odd">
                       <div class="field-label-inline-first">
               Druh památky:&nbsp;</div>
-                    <a title="Odkaz na popis druhu objektu Pamětní deska" href="/pametni-deska">Pamětní deska</a>        </div>
+                    <a title="Odkaz na popis druhu objektu Kříž" href="/kriz">Kříž</a>        </div>
         </div>
 </div>
 <div class="field field-type-computed field-field-com-blizke">
     <div class="field-items">
             <div class="field-item odd">
-                    <a href="http://www.drobnepamatky.cz/blizke?km%5Blatitude%5D=50.067698&km%5Blongitude%5D=14.401455&km%5Bsearch_distance%5D=50&km%5Bsearch_units%5D=km">na mapě</a>, <a href="http://www.drobnepamatky.cz/blizketabulka?km%5Blatitude%5D=50.067698&km%5Blongitude%5D=14.401455&km%5Bsearch_distance%5D=50&km%5Bsearch_units%5D=km">v tabulce</a>, <p><b><a href="https://www.drobnepamatky.cz/mapa/#17/50.067698/14.401455/op-dp"></span>Památka na mapě památek Česka</a></b><p><b><a href="https://www.drobnepamatky.cz/mapadp#17/50.067698/14.401455"></span>Památka na klikací mapě památek Česka</a></b>        </div>
+                    <a href="http://www.drobnepamatky.cz/blizke?km%5Blatitude%5D=48.974158&km%5Blongitude%5D=14.612296&km%5Bsearch_distance%5D=50&km%5Bsearch_units%5D=km">na mapě</a>, <a href="http://www.drobnepamatky.cz/blizketabulka?km%5Blatitude%5D=48.974158&km%5Blongitude%5D=14.612296&km%5Bsearch_distance%5D=50&km%5Bsearch_units%5D=km">v tabulce</a>, <p><b><a href="https://www.drobnepamatky.cz/mapa/#17/48.974158/14.612296/op-dp"></span>Památka na mapě památek Česka</a></b><p><b><a href="https://www.drobnepamatky.cz/mapadp#17/48.974158/14.612296"></span>Památka na klikací mapě památek Česka</a></b>        </div>
         </div>
 </div>
 <div class="field field-type-text field-field-sidlo">
@@ -220,7 +220,7 @@
             <div class="field-item odd">
                       <div class="field-label-inline-first">
               Nejbližší sídlo:&nbsp;</div>
-                    Praha        </div>
+                    Zvíkov        </div>
         </div>
 </div>
 <div class="field field-type-computed field-field-com-cara">
@@ -235,16 +235,7 @@
           
         <div class="field-item odd">
                 
-                    <div style="align:center;"><a href="https://www.drobnepamatky.cz/files/2020/pametni-deska-65419-2.jpg" class="imagecache imagecache-300 imagecache-imagelink imagecache-300_imagelink"><img src="https://www.drobnepamatky.cz/files/imagecache/300/2020/pametni-deska-65419-2.jpg" alt="Fotografie objektu" title="" width="267" height="200" class="imagecache imagecache-300"/></a></div>
-         <div class="titly">
-                                                  
-                                                          
-        </div>
-        </div>        
-            
-        <div class="field-item even">
-                
-                    <div style="align:center;"><a href="https://www.drobnepamatky.cz/files/2020/pametni-deska-65420-2.jpg" class="imagecache imagecache-300 imagecache-imagelink imagecache-300_imagelink"><img src="https://www.drobnepamatky.cz/files/imagecache/300/2020/pametni-deska-65420-2.jpg" alt="Fotografie objektu" title="" width="267" height="200" class="imagecache imagecache-300"/></a></div>
+                    <div style="align:center;"><a href="https://www.drobnepamatky.cz/files/2014/kriz-2943-2.jpg" class="imagecache imagecache-300 imagecache-imagelink imagecache-300_imagelink"><img src="https://www.drobnepamatky.cz/files/imagecache/300/2014/kriz-2943-2.jpg" alt="Fotografie objektu" title="" width="267" height="200" class="imagecache imagecache-300"/></a></div>
          <div class="titly">
                                                   
                                                           
@@ -254,11 +245,19 @@
 </div>
 
       
+<div class="field field-type-text field-field-oborano">
+    <div class="field-items">
+            <div class="field-item odd">
+                      <div class="field-label-inline-first">
+              Památka je oborána (v poli bez přístupové cesty):&nbsp;</div>
+                    <a href="/oborane">ano</a>        </div>
+        </div>
+</div>
 <div class="field field-type-computed field-field-com-jtsk">
     <div class="field-items">
             <div class="field-item odd">
-                    <div class="pano-street"><div class="mapyodkazy"><div class="panorama" style=""></div><DIV id='pryc' class='if'><iframe src='https://www.wikidata.org/wiki/'></iframe><p class='wdp'><a href='https://www.wikidata.org/wiki/'></a></div><div id="polozky"><p><a href="http://www.openstreetmap.org/?mlat=50.067698&mlon=14.401455&zoom=16#map=16/50.067698/14.401455"><span class="loga"><img src="/files/loga/openstreetmaps-logo.png" alt="Openstreetmaps" title="Openstreetmap" height="30"></span>OpenStreetMap</a><p><a href="http://www.mapy.cz/turisticka?x=14.401455&y=50.067698&z=16&source=coor&id=14.401455%2C50.067698"><span class="loga"><img src="/files/loga/mapy-cz-logo.png" alt="Mapy.cz" title="Mapy.cz" height="30"></span>Mapy.cz - turistická </a> | <a href="http://www.mapy.cz/letecka?x=14.401455&y=50.067698&z=16&source=coor&id=14.401455%2C50.067698">letecká</a> | <a href="http://www.mapy.cz/fotografie?x=14.401455&y=50.067698&base=ophoto&z=16&source=coor&id=14.401455%2C50.067698"></span>s fotkami</a><p><a href="https://ags.cuzk.cz/archiv/?extent=-744169,-1044596,-744858,-1045399"><span class="loga"><img src="/files/loga/cuzk-mapa-katastr-logo.png" alt="ÚAZK" title="ÚAZK" height="30"></span>Archiv  s historickými mapami</a> - <a href="/stabilni-katastr">info</a><p><a href="http://mapa.opevneni.cz/?n=50.067698&e=14.401455&r=1a955700018&z=13&m=t&s=4&l=cz"><span class="loga"><img src="/files/loga/opevneni.png" alt="Mapa opevnění" title="Mapa opevnění" height="30"></span>Mapa opevnění první republiky</a><p><a href="http://mapire.eu/de/map/collection/firstsurvey/?zoom=16&lat=50.067698&lon=14.401455"><span class="loga"><img src="/files/loga/mapire-i-logo.png" alt="Mapire - I. vojenské mapování" title="Mapire - I. vojenské mapování" height="30"></span>První</a>, <a href="http://mapire.eu/de/map/collection/secondsurvey/?zoom=16&lat=50.067698&lon=14.401455">druhé </a>, <a href="http://mapire.eu/de/map/hkf_75e/?zoom=16&lat=50.067698&lon=14.401455">třetí vojenské mapování</a>.</a><p><a href="http://maps.google.com/maps?ll=50.067698,14.401455&spn=0.1,0.1&t=h&q=50.067698,14.401455&z=18"><span class="loga"><img src="/files/loga/google-maps-logo.png" alt="Google Maps" title="Google Maps" height="30"></span>Google Mapy</a><p><a href="https://sgi-nahlizenidokn.cuzk.cz/marushka/default.aspx?themeid=3&MarMiddlePoint=-744514%20-1044998&MarScale=500"><span class="loga"><img src="/files/loga/cuzk-mapa-katastr-logo.png" alt="ČÚZK - mapa katastru nemovitostí" title="ČÚZK - mapa katastru nemovitostí" height="30"></span>Katastrální mapa</a>, <a href="http://nahlizenidokn.cuzk.cz/MapaIdentifikace.aspx?x=-744514&y=-1044998&l=KN
-">číslo parcely (přibližné)</a><p><a href="https://tools.wmflabs.org/wikishootme/#lat=50.067698&lng=14.401455&zoom=18"><span class="loga"><img src="/files/loga/wikimedia-commons-logo.png" alt="Wikimedia Commons" title="Wikimedia Commons" height="30"></span>Wikidata</a></div></div></div>        </div>
+                    <div class="pano-street"><div class="mapyodkazy"><div class="panorama" style=""></div><DIV id='pryc' class='if'><iframe src='https://www.wikidata.org/wiki/'></iframe><p class='wdp'><a href='https://www.wikidata.org/wiki/'></a></div><div id="polozky"><p><a href="http://www.openstreetmap.org/?mlat=48.974158&mlon=14.612296&zoom=16#map=16/48.974158/14.612296"><span class="loga"><img src="/files/loga/openstreetmaps-logo.png" alt="Openstreetmaps" title="Openstreetmap" height="30"></span>OpenStreetMap</a><p><a href="http://www.mapy.cz/turisticka?x=14.612296&y=48.974158&z=16&source=coor&id=14.612296%2C48.974158"><span class="loga"><img src="/files/loga/mapy-cz-logo.png" alt="Mapy.cz" title="Mapy.cz" height="30"></span>Mapy.cz - turistická </a> | <a href="http://www.mapy.cz/letecka?x=14.612296&y=48.974158&z=16&source=coor&id=14.612296%2C48.974158">letecká</a> | <a href="http://www.mapy.cz/fotografie?x=14.612296&y=48.974158&base=ophoto&z=16&source=coor&id=14.612296%2C48.974158"></span>s fotkami</a><p><a href="https://ags.cuzk.cz/archiv/?extent=-745479,-1167158,-746179,-1167961"><span class="loga"><img src="/files/loga/cuzk-mapa-katastr-logo.png" alt="ÚAZK" title="ÚAZK" height="30"></span>Archiv  s historickými mapami</a> - <a href="/stabilni-katastr">info</a><p><a href="http://mapa.opevneni.cz/?n=48.974158&e=14.612296&r=1a955700018&z=13&m=t&s=4&l=cz"><span class="loga"><img src="/files/loga/opevneni.png" alt="Mapa opevnění" title="Mapa opevnění" height="30"></span>Mapa opevnění první republiky</a><p><a href="http://mapire.eu/de/map/collection/firstsurvey/?zoom=16&lat=48.974158&lon=14.612296"><span class="loga"><img src="/files/loga/mapire-i-logo.png" alt="Mapire - I. vojenské mapování" title="Mapire - I. vojenské mapování" height="30"></span>První</a>, <a href="http://mapire.eu/de/map/collection/secondsurvey/?zoom=16&lat=48.974158&lon=14.612296">druhé </a>, <a href="http://mapire.eu/de/map/hkf_75e/?zoom=16&lat=48.974158&lon=14.612296">třetí vojenské mapování</a>.</a><p><a href="http://maps.google.com/maps?ll=48.974158,14.612296&spn=0.1,0.1&t=h&q=48.974158,14.612296&z=18"><span class="loga"><img src="/files/loga/google-maps-logo.png" alt="Google Maps" title="Google Maps" height="30"></span>Google Mapy</a><p><a href="https://sgi-nahlizenidokn.cuzk.cz/marushka/default.aspx?themeid=3&MarMiddlePoint=-745829%20-1167559&MarScale=500"><span class="loga"><img src="/files/loga/cuzk-mapa-katastr-logo.png" alt="ČÚZK - mapa katastru nemovitostí" title="ČÚZK - mapa katastru nemovitostí" height="30"></span>Katastrální mapa</a>, <a href="http://nahlizenidokn.cuzk.cz/MapaIdentifikace.aspx?x=-745829&y=-1167559&l=KN
+">číslo parcely (přibližné)</a><p><a href="https://tools.wmflabs.org/wikishootme/#lat=48.974158&lng=14.612296&zoom=18"><span class="loga"><img src="/files/loga/wikimedia-commons-logo.png" alt="Wikimedia Commons" title="Wikimedia Commons" height="30"></span>Wikidata</a></div></div></div>        </div>
         </div>
 </div>
 <div class="field field-type-computed field-field-com-nid">
@@ -266,7 +265,7 @@
             <div class="field-item odd">
                       <div class="field-label-inline-first">
               Odkaz na tuto stránku:&nbsp;</div>
-                    <a title="Odkaz na stránku objektu " href="/node/36966">https://www.drobnepamatky.cz/node/36966</a>        </div>
+                    <a title="Odkaz na stránku objektu " href="/node/2892">https://www.drobnepamatky.cz/node/2892</a>        </div>
         </div>
 </div>
 <div class="field field-type-computed field-field-pridano">
@@ -274,12 +273,12 @@
             <div class="field-item odd">
                       <div class="field-label-inline-first">
               Přidáno:&nbsp;</div>
-                    12. června 2020        </div>
+                    26. února 2014        </div>
         </div>
 </div>
                                               
      <script>
-var map = L.map('map', {zoomControl: true, fullscreenControl: true},  ).setView([50.067698, 14.401455], 19);
+var map = L.map('map', {zoomControl: true, fullscreenControl: true},  ).setView([48.974158, 14.612296], 19);
 map.attributionControl.setPrefix('zdroj mapy:');
 var c = new L.Control.Coordinates();
 		c.addTo(map);
@@ -354,7 +353,7 @@ var terc = L.icon({
 		iconSize:     [50, 50], // size of the icon
 		iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
 });
-var marker = L.marker([50.067698, 14.401455],{icon: terc}).addTo(map);
+var marker = L.marker([48.974158, 14.612296],{icon: terc}).addTo(map);
 var baseLayers = {
 		"Letecká mapa": letpos,
 		"Základní mapa ČR": zm10z,
@@ -395,19 +394,19 @@ L.control.scale({imperial: false}).addTo(map);
                 collapsed: Math.max(document.documentElement.clientWidth, window.innerWidth || 0) < 1025
             }).addTo(map);
 */
- /*var map2 = L.map('map2').setView([50.067698, 14.401455], 16);
+ /*var map2 = L.map('map2').setView([48.974158, 14.612296], 16);
      L.tileLayer.wms('https://geoportal.cuzk.cz/WMS_ZM10_PUB/WMService.aspx', {
         layers: 'GR_ZM10',
         maxZoom: 28,
         attribution: '&copy; <a href="https://geoportal.cuzk.cz">Geoportál ČÚZK</a>'
     }).addTo(map2);
-        var marker2 = L.marker([50.067698, 14.401455]).addTo(map2);
+        var marker2 = L.marker([48.974158, 14.612296]).addTo(map2);
 */
  var map3 = L.map('map3',{ zoomControl: false }).setView([49.8171606, 15.4766247], 6);
  var imageUrl = '/sites/all/themes/kelvin/cr.png',
     imageBounds = [[48.32075469291386,11.960005017207168],[51.283858965971255,18.9472584474165]];
 L.imageOverlay(imageUrl, imageBounds).addTo(map3);
-        var marker3 = L.marker([50.067698, 14.401455]).addTo(map3);
+        var marker3 = L.marker([48.974158, 14.612296]).addTo(map3);
        // var popup = marker.bindPopup('<b>Hello world!</b><br />I am a popup.');
       //  popup.openPopup();
     </script>		
@@ -419,7 +418,7 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map3);
 };
 var panoramaScene = new SMap.Pano.Scene(document.querySelector(".panorama"), options);
 // kolem teto pozice chceme nejblizsi panorama
-var position = SMap.Coords.fromWGS84(14.401455, 50.067698);
+var position = SMap.Coords.fromWGS84(14.612296, 48.974158);
 // hledame s toleranci 50m
 SMap.Pano.getBest(position, 50).then(function(place) {
     panoramaScene.show(place);
@@ -438,7 +437,7 @@ SMap.Pano.getBest(position, 50).then(function(place) {
     <div id="map22" style="min-height:500px"></div>
 </div>
     <script type="text/javascript">
-        var center = [50.067698, 14.401455];
+        var center = [48.974158, 14.612296];
         var layer1 = L.tileLayer.wms('https://geoportal.cuzk.cz/WMS_ORTOFOTO_PUB/WMService.aspx?', {
                 layers: 'GR_ORTFOTORGB',
                 maxZoom: 28,
@@ -477,8 +476,8 @@ SMap.Pano.getBest(position, 50).then(function(place) {
             }, {
                 collapsed: Math.max(document.documentElement.clientWidth, window.innerWidth || 0) < 1025
             }).addTo(map11);
-			var marker11 = L.marker([50.067698, 14.401455],{icon: terc}).addTo(map11);
-				var marker11 = L.marker([50.067698, 14.401455],{icon: terc}).addTo(map22);
+			var marker11 = L.marker([48.974158, 14.612296],{icon: terc}).addTo(map11);
+				var marker11 = L.marker([48.974158, 14.612296],{icon: terc}).addTo(map22);
 		 L.control.layers({
 				"Turistická z mapy.cz ;)": layer2
             }, {
@@ -497,7 +496,7 @@ window.onload = init;
     </script>
     
   <div class="box">
-        <div class="content" id="pridatkomentar"><form action="/comment/reply/36966"  accept-charset="UTF-8" method="post" id="comment-form">
+        <div class="content" id="pridatkomentar"><form action="/comment/reply/2892"  accept-charset="UTF-8" method="post" id="comment-form">
 <div><div class="form-item" id="edit-name-wrapper">
  <label for="edit-name">Vaše jméno: </label>
  <input type="text" maxlength="60" name="name" id="edit-name" size="30" value=" Kolemjdoucí" class="form-text" />
@@ -515,12 +514,12 @@ window.onload = init;
  <label for="edit-comment">Váš text: <span class="form-required" title="Toto pole je vyžadováno.">*</span></label>
  <textarea cols="60" rows="15" name="comment" id="edit-comment"  class="form-textarea required"></textarea>
 </div>
-<div class="wysiwyg wysiwyg-format-1 wysiwyg-editor-ckeditor wysiwyg-field-edit-comment wysiwyg-status-0 wysiwyg-toggle-0 wysiwyg-resizable-1"><ul class="tips"><li>Webové a e-mailové adresy jsou automaticky převedeny na odkazy.</li><li>Povolené HTML značky: &lt;a&gt; &lt;em&gt; &lt;strong&gt; &lt;cite&gt; &lt;code&gt; &lt;ul&gt; &lt;ol&gt; &lt;li&gt; &lt;dl&gt; &lt;dt&gt; &lt;dd&gt;&lt;h2&gt;&lt;h3&gt;&lt;p&gt;&lt;b&gt;&lt;hr&gt;&lt;img&gt;</li><li>Řádky a odstavce se zalomí automaticky.</li></ul></div><p><a href="/filter/tips"> </a></p><input type="hidden" name="form_build_id" id="form-fqHODZLeKnzF5e8vJr_FSrxKM47MrnzVZ0SDgseDSVM" value="form-fqHODZLeKnzF5e8vJr_FSrxKM47MrnzVZ0SDgseDSVM"  />
+<div class="wysiwyg wysiwyg-format-1 wysiwyg-editor-ckeditor wysiwyg-field-edit-comment wysiwyg-status-0 wysiwyg-toggle-0 wysiwyg-resizable-1"><ul class="tips"><li>Webové a e-mailové adresy jsou automaticky převedeny na odkazy.</li><li>Povolené HTML značky: &lt;a&gt; &lt;em&gt; &lt;strong&gt; &lt;cite&gt; &lt;code&gt; &lt;ul&gt; &lt;ol&gt; &lt;li&gt; &lt;dl&gt; &lt;dt&gt; &lt;dd&gt;&lt;h2&gt;&lt;h3&gt;&lt;p&gt;&lt;b&gt;&lt;hr&gt;&lt;img&gt;</li><li>Řádky a odstavce se zalomí automaticky.</li></ul></div><p><a href="/filter/tips"> </a></p><input type="hidden" name="form_build_id" id="form-CTnlBBOgxLaxWpCQ3USUPLkW4ONGh-1xFfbNhXXwBpo" value="form-CTnlBBOgxLaxWpCQ3USUPLkW4ONGh-1xFfbNhXXwBpo"  />
 <input type="hidden" name="form_id" id="edit-comment-form" value="comment_form"  />
-<fieldset class="captcha"><legend>CAPTCHA</legend><div class="description">Před odesláním komentáře prosím vyplňte následující pole.</div><input type="hidden" name="captcha_sid" id="edit-captcha-sid" value="16127550"  />
-<input type="hidden" name="captcha_token" id="edit-captcha-token" value="a9960af1978e8bf840685840feeb6bc9"  />
+<fieldset class="captcha"><legend>CAPTCHA</legend><div class="description">Před odesláním komentáře prosím vyplňte následující pole.</div><input type="hidden" name="captcha_sid" id="edit-captcha-sid" value="16156682"  />
+<input type="hidden" name="captcha_token" id="edit-captcha-token" value="1dd374684a6e61c1fcf36d5447f1da4c"  />
 <div class="form-item" id="edit-captcha-response-wrapper">
- <label for="edit-captcha-response">Zadejte název prvního měsíce v roce: <span class="form-required" title="Toto pole je vyžadováno.">*</span></label>
+ <label for="edit-captcha-response">Zadejte název zvířete, které dělá bééé: <span class="form-required" title="Toto pole je vyžadováno.">*</span></label>
  <input type="text" maxlength="50" name="captcha_response" id="edit-captcha-response" size="50" value="" class="form-text required" />
  <div class="description"> </div>
 </div>

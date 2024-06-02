@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Nejvyšší soud České republiky – Wikipedie</title>
 <script>(function(){var className="client-js vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-sticky-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-0 vector-feature-appearance-disabled vector-feature-appearance-pinned-clientpref-0 vector-feature-night-mode-disabled skin-theme-clientpref-day vector-toc-available";var cookie=document.cookie.match(/(?:^|; )cswikimwclientpreferences=([^;]+)/);if(cookie){cookie[1].split('%2C').forEach(function(pref){className=className.replace(new RegExp('(^| )'+pref.replace(/-clientpref-\w+$|[^\w-]+/g,'')+'-clientpref-\\w+( |$)'),'$1'+pref+'$2');});}document.documentElement.className=className;}());RLCONF={"wgBreakFrames":false,"wgSeparatorTransformTable":[",\t."," \t,"],
-"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"ČSN basic dt","wgMonthNames":["","leden","únor","březen","duben","květen","červen","červenec","srpen","září","říjen","listopad","prosinec"],"wgRequestId":"f0f2d41a-2565-4ed9-914b-e6e375c6350b","wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Nejvyšší_soud_České_republiky","wgTitle":"Nejvyšší soud České republiky","wgCurRevisionId":23523999,"wgRevisionId":18532372,"wgArticleId":34317,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Monitoring:Rejstřík památek z Wikidat","Údržba:Články objektů bez souřadnic","Monitoring:Články s identifikátorem NKC","Monitoring:Články s identifikátorem ISNI","Monitoring:Články s identifikátorem VIAF","Monitoring:Články s identifikátorem WORLDCATID","Wikipedie:Nejlepší články","Nejvyšší soud České republiky","Nejvyšší soudy",
+"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"ČSN basic dt","wgMonthNames":["","leden","únor","březen","duben","květen","červen","červenec","srpen","září","říjen","listopad","prosinec"],"wgRequestId":"72a3b695-bed8-498a-aa1e-b979da18866c","wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Nejvyšší_soud_České_republiky","wgTitle":"Nejvyšší soud České republiky","wgCurRevisionId":23523999,"wgRevisionId":18532372,"wgArticleId":34317,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Monitoring:Rejstřík památek z Wikidat","Údržba:Články objektů bez souřadnic","Monitoring:Články s identifikátorem NKC","Monitoring:Články s identifikátorem ISNI","Monitoring:Články s identifikátorem VIAF","Monitoring:Články s identifikátorem WORLDCATID","Wikipedie:Nejlepší články","Nejvyšší soud České republiky","Nejvyšší soudy",
 "Soudy v Brně","Kulturní památky v Brně","Vzniklo 1993","Nejvyšší soudy v Česku"],"wgPageViewLanguage":"cs","wgPageContentLanguage":"cs","wgPageContentModel":"wikitext","wgRelevantPageName":"Nejvyšší_soud_České_republiky","wgRelevantArticleId":34317,"wgIsProbablyEditable":true,"wgRelevantPageIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgNoticeProject":"wikipedia","wgCiteReferencePreviewsActive":false,"wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":true,"wgPopupsFlags":6,"wgVisualEditor":{"pageLanguageCode":"cs","pageLanguageDir":"ltr","pageVariantFallbacks":"cs"},"wgMFDisplayWikibaseDescriptions":{"search":true,"watchlist":true,"tagline":true,"nearby":true},"wgWMESchemaEditAttemptStepOversample":false,"wgWMEPageLength":30000,"wgULSCurrentAutonym":"čeština","wgCoordinates":{"lat":49.205194444444,"lon":16.602194444444},"wgCentralAuthMobileDomain":false,"wgEditSubmitButtonLabelPublish":true,"wgULSPosition":"interlanguage",
 "wgULSisCompactLinksEnabled":false,"wgVector2022LanguageInHeader":true,"wgULSisLanguageSelectorEmpty":false,"wgWikibaseItemId":"Q7645005","wgCheckUserClientHintsHeadersJsApi":["architecture","bitness","brands","fullVersionList","mobile","model","platform","platformVersion"],"GEHomepageSuggestedEditsEnableTopics":true,"wgGETopicsMatchModeEnabled":true,"wgGEStructuredTaskRejectionReasonTextInputEnabled":false,"wgGELevelingUpEnabledForUser":false};RLSTATE={"skins.vector.user.styles":"ready","ext.globalCssJs.user.styles":"ready","site.styles":"ready","user.styles":"ready","skins.vector.user":"ready","ext.globalCssJs.user":"ready","user":"ready","user.options":"loading","mediawiki.action.styles":"ready","mediawiki.interface.helpers.styles":"ready","ext.cite.styles":"ready","skins.vector.search.codex.styles":"ready","skins.vector.styles":"ready","skins.vector.icons":"ready","jquery.makeCollapsible.styles":"ready","ext.wikimediamessages.styles":"ready",
 "ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.uls.interlanguage":"ready","wikibase.client.init":"ready","ext.wikimediaBadges":"ready"};RLPAGEMODULES=["ext.cite.ux-enhancements","mediawiki.page.media","site","mediawiki.page.ready","jquery.makeCollapsible","mediawiki.toc","skins.vector.js","ext.centralNotice.geoIP","ext.centralNotice.startUp","ext.gadget.WikiMiniAtlas","ext.gadget.OSMmapa","ext.gadget.direct-links-to-commons","ext.gadget.ReferenceTooltips","ext.gadget.courses","ext.urlShortener.toolbar","ext.centralauth.centralautologin","mmv.head","mmv.bootstrap.autostart","ext.popups","ext.visualEditor.desktopArticleTarget.init","ext.visualEditor.targetLoader","ext.echo.centralauth","ext.eventLogging","ext.wikimediaEvents","ext.navigationTiming","ext.uls.interface","ext.cx.eventlogging.campaigns","ext.cx.uls.quick.actions","wikibase.client.vector-2022","ext.checkUser.clientHints","ext.growthExperiments.SuggestedEditSession"];</script>
@@ -847,13 +847,13 @@
 </div>
 <!-- 
 NewPP limit report
-Parsed by mw‐web.eqiad.main‐6d6bbb99bd‐p94qh
-Cached time: 20240602124539
+Parsed by mw‐web.eqiad.main‐6d6bbb99bd‐tr5ms
+Cached time: 20240602175136
 Cache expiry: 2592000
 Reduced expiry: false
 Complications: [show‐toc]
-CPU time usage: 0.611 seconds
-Real time usage: 1.183 seconds
+CPU time usage: 0.405 seconds
+Real time usage: 0.546 seconds
 Preprocessor visited node count: 3441/1000000
 Post‐expand include size: 101417/2097152 bytes
 Template argument size: 28025/2097152 bytes
@@ -861,25 +861,25 @@ Highest expansion depth: 22/100
 Expensive parser function count: 4/500
 Unstrip recursion depth: 0/20
 Unstrip post‐expand size: 48395/5000000 bytes
-Lua time usage: 0.215/10.000 seconds
+Lua time usage: 0.142/10.000 seconds
 Lua memory usage: 3215066/52428800 bytes
 Number of Wikibase entities loaded: 2/400
 -->
 <!--
 Transclusion expansion time report (%,ms,calls,template)
-100.00%  811.971      1 -total
- 50.97%  413.840      1 Šablona:Infobox_-_soud
- 41.00%  332.915      1 Šablona:Infobox
- 19.56%  158.806      1 Šablona:Obrázek_z_WD
- 11.22%   91.074      1 Šablona:Rejstříky_památek
-  9.23%   74.909      1 Šablona:Validuj_geosouřadnice
-  8.49%   68.907      1 Šablona:Autoritní_data
-  6.20%   50.322     17 Šablona:Citace_elektronické_monografie
-  5.83%   47.370      1 Šablona:Commonscat
-  4.63%   37.570     14 Šablona:Rejstříky_památek/rejstřík
+100.00%  439.544      1 -total
+ 37.72%  165.789      1 Šablona:Infobox_-_soud
+ 35.23%  154.864      1 Šablona:Infobox
+ 14.64%   64.346      1 Šablona:Rejstříky_památek
+ 12.95%   56.929      1 Šablona:Obrázek_z_WD
+ 12.16%   53.466      1 Šablona:Autoritní_data
+  6.65%   29.251     17 Šablona:Citace_elektronické_monografie
+  5.47%   24.053     14 Šablona:Rejstříky_památek/rejstřík
+  5.32%   23.395      1 Šablona:Různé_významy
+  4.61%   20.271      4 Šablona:Citace_monografie
 -->
 
-<!-- Saved in RevisionOutputCache with key cswiki:rcache:18532372:dateformat=default and timestamp 20240602124538 and revision id 18532372.
+<!-- Saved in RevisionOutputCache with key cswiki:rcache:18532372:dateformat=default and timestamp 20240602175136 and revision id 18532372.
  -->
 </div><!--esi <esi:include src="/esitest-fa8a495983347898/content" /> --><noscript><img src="https://login.wikimedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" width="1" height="1" style="border: none; position: absolute;"></noscript>
 <div class="printfooter" data-nosnippet="">Citováno z „<a dir="ltr" href="https://cs.wikipedia.org/w/index.php?title=Nejvyšší_soud_České_republiky&amp;oldid=18532372">https://cs.wikipedia.org/w/index.php?title=Nejvyšší_soud_České_republiky&amp;oldid=18532372</a>“</div></div>
@@ -930,7 +930,7 @@ faktické nepřesnosti, vandalismus nebo materiál, který nevyhovuje licencím 
 </li>
 	</ul>
 </div>
-<script>(RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgHostname":"mw-web.eqiad.main-6d6bbb99bd-qdh98","wgBackendResponseTime":174,"wgPageParseReport":{"limitreport":{"cputime":"0.611","walltime":"1.183","ppvisitednodes":{"value":3441,"limit":1000000},"postexpandincludesize":{"value":101417,"limit":2097152},"templateargumentsize":{"value":28025,"limit":2097152},"expansiondepth":{"value":22,"limit":100},"expensivefunctioncount":{"value":4,"limit":500},"unstrip-depth":{"value":0,"limit":20},"unstrip-size":{"value":48395,"limit":5000000},"entityaccesscount":{"value":2,"limit":400},"timingprofile":["100.00%  811.971      1 -total"," 50.97%  413.840      1 Šablona:Infobox_-_soud"," 41.00%  332.915      1 Šablona:Infobox"," 19.56%  158.806      1 Šablona:Obrázek_z_WD"," 11.22%   91.074      1 Šablona:Rejstříky_památek","  9.23%   74.909      1 Šablona:Validuj_geosouřadnice","  8.49%   68.907      1 Šablona:Autoritní_data","  6.20%   50.322     17 Šablona:Citace_elektronické_monografie","  5.83%   47.370      1 Šablona:Commonscat","  4.63%   37.570     14 Šablona:Rejstříky_památek/rejstřík"]},"scribunto":{"limitreport-timeusage":{"value":"0.215","limit":"10.000"},"limitreport-memusage":{"value":3215066,"limit":52428800}},"cachereport":{"origin":"mw-web.eqiad.main-6d6bbb99bd-p94qh","timestamp":"20240602124539","ttl":2592000,"transientcontent":false}}});});</script>
+<script>(RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgHostname":"mw-web.eqiad.main-6d6bbb99bd-t86xq","wgBackendResponseTime":172,"wgPageParseReport":{"limitreport":{"cputime":"0.405","walltime":"0.546","ppvisitednodes":{"value":3441,"limit":1000000},"postexpandincludesize":{"value":101417,"limit":2097152},"templateargumentsize":{"value":28025,"limit":2097152},"expansiondepth":{"value":22,"limit":100},"expensivefunctioncount":{"value":4,"limit":500},"unstrip-depth":{"value":0,"limit":20},"unstrip-size":{"value":48395,"limit":5000000},"entityaccesscount":{"value":2,"limit":400},"timingprofile":["100.00%  439.544      1 -total"," 37.72%  165.789      1 Šablona:Infobox_-_soud"," 35.23%  154.864      1 Šablona:Infobox"," 14.64%   64.346      1 Šablona:Rejstříky_památek"," 12.95%   56.929      1 Šablona:Obrázek_z_WD"," 12.16%   53.466      1 Šablona:Autoritní_data","  6.65%   29.251     17 Šablona:Citace_elektronické_monografie","  5.47%   24.053     14 Šablona:Rejstříky_památek/rejstřík","  5.32%   23.395      1 Šablona:Různé_významy","  4.61%   20.271      4 Šablona:Citace_monografie"]},"scribunto":{"limitreport-timeusage":{"value":"0.142","limit":"10.000"},"limitreport-memusage":{"value":3215066,"limit":52428800}},"cachereport":{"origin":"mw-web.eqiad.main-6d6bbb99bd-tr5ms","timestamp":"20240602175136","ttl":2592000,"transientcontent":false}}});});</script>
 <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"Article","name":"Nejvy\u0161\u0161\u00ed soud \u010cesk\u00e9 republiky","url":"https:\/\/cs.wikipedia.org\/wiki\/Nejvy%C5%A1%C5%A1%C3%AD_soud_%C4%8Cesk%C3%A9_republiky","sameAs":"http:\/\/www.wikidata.org\/entity\/Q7645005","mainEntity":"http:\/\/www.wikidata.org\/entity\/Q7645005","author":{"@type":"Organization","name":"P\u0159isp\u011bvatel\u00e9 projekt\u016f Wikimedia"},"publisher":{"@type":"Organization","name":"nadace Wikimedia","logo":{"@type":"ImageObject","url":"https:\/\/www.wikimedia.org\/static\/images\/wmf-hor-googpub.png"}},"datePublished":"2005-09-03T11:03:53Z","dateModified":"2020-05-20T21:29:57Z","image":"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/2\/2b\/Brno%2C_Bure%C5%A1ova_20%2C_Nejvy%C5%A1%C5%A1%C3%AD_soud_%C4%8CR_%280965%29.jpg","headline":"vrcholn\u00fd org\u00e1n soudn\u00ed moci v \u010cesku, s\u00eddl\u00edc\u00ed v pam\u00e1tkov\u011b chr\u00e1n\u011bn\u00e9 budov\u011b"}</script>
 </body>
 </html>
