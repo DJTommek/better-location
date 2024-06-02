@@ -85,21 +85,21 @@ final class AirbnbServiceTest extends AbstractServiceTestCase
 	}
 
 	/**
-	 * @dataProvider processProvider
-	 */
-	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
-	{
-		$service = new AirbnbService($this->httpTestClients->offlineRequestor);
-		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
-	}
-
-	/**
 	 * @group request
 	 * @dataProvider processProvider
 	 */
 	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
 		$service = new AirbnbService($this->httpTestClients->realRequestor);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+	}
+
+	/**
+	 * @dataProvider processProvider
+	 */
+	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
+	{
+		$service = new AirbnbService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 }
