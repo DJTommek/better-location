@@ -129,7 +129,9 @@ final readonly class HttpTestClients
 	private function requestFileFingerprint(RequestInterface $request): string
 	{
 		// User agents might be randomized, ignore them for fingerprint
-		$requestForFingerprint = $request->withoutHeader('User-Agent');
+		$requestForFingerprint = $request->withoutHeader('User-Agent')
+			->withoutHeader('Cookie')
+			->withoutHeader('Authorization');
 
 		// Cleanup URI for nicer filename
 		$uri = $requestForFingerprint->getUri();
