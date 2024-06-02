@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="cs">      
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ 
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+  <title>    
+    Stránka nebyla nalezena | Drobné památky     
+  </title>
+  <meta name="description" content="Databáze drobných památek České republiky">  
+  <link href="i.ico" rel="icon" type="image/png" />      
+  <!--<meta name="google-site-verification" content="gbDt-KBTRS3-9bJ0fejW1205-GlVH-JNKALDW04IlbA" />     -->
+  <meta name="robots" content="index,follow">     
+                
+  <link type="text/css" rel="stylesheet" media="all" href="/files/css/css_a6c07c2653d0705ba84fee8f84cc5b81.css" />
+   
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <script src="/sites/all/themes/kelvin/coor.js"></script>
+        <link href='/sites/all/themes/kelvin/leaflet.fullscreen.css' rel='stylesheet' />
+ <script src='/sites/all/themes/kelvin/Leaflet.fullscreen.min.js'></script>
+ <link href='/sites/all/themes/kelvin/leaflet.zoomhome.css' rel='stylesheet' />
+ <script src='/sites/all/themes/kelvin/leaflet.zoomhome.min.js'></script>
+   <script src='/sites/all/themes/kelvin/sync.js'></script>  
+    </head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9039499713136622"
+     crossorigin="anonymous"></script>
+  <body  class="not-front not-logged-in page-node node-type-page no-sidebars   
+   ">         
+    
+   <div id="page" class="nid-5704">            
+<input type="checkbox" id="hamburgr" class="hamburgr" tabindex="1" />
+	<label for="hamburgr" class="hamburgr-label" >
+	<img   class="hamburgr-tvar" src="/sites/all/themes/kelvin/hamburgr.svg"></label>
+	<div class="smenu" >
+	  <div class="block block-menu " id="block-menu-primary-links">
+<h2>Primary links</h2><div class="in"><ul class="menu"><li class="leaf first"><a href="/" title="">Titulní strana</a></li>
+<li class="leaf"><a href="/hledat" title="">Najít památky dle druhu</a></li>
+<li class="leaf"><a href="/druhy-pamatek" title="Druhy drobných památek, klasifikace, kategorizace">Druhy drobných památek</a></li>
+<li class="leaf"><a href="/celky" title="">Správní členění Česka</a></li>
+<li class="leaf"><a href="/vsechny-pamatky" title="">Všechny památky v databázi</a></li>
+<li class="leaf"><a href="/clanky-navody-0" title="Články a návody">Články</a></li>
+<li class="leaf"><a href="/mapy" title="Mapy drobných památek">Mapy</a></li>
+<li class="leaf"><a href="/odkazy-na-weby-o-drobnych-pamatkach" title="Odkazy">Odkazy</a></li>
+<li class="leaf"><a href="/krizove-cesty-s-pamatkami" title="">Křížové cesty</a></li>
+<li class="leaf"><a href="/o-projektu" title="">O projektu</a></li>
+<li class="leaf last"><a href="/jak-pridat-pamatku" title="">Jak přidat památku</a></li>
+</ul></div></div>
+<div class="block block-menu " id="block-menu-secondary-links">
+<h2>Secondary links</h2><div class="in"><ul class="menu"><li class="leaf first last"><a href="/user" title="">Přihlásit se a přidat památku</a></li>
+</ul></div></div>
+  
+	</div>
+	<label for="hamburgr" class="vemenu"></label>	 
+<div class="pridat" style="display:flex;     justify-content: space-between;	position:absolute; top:10px; right:20px; ; height:50px; z-index:101"><a href='/user'></a><a href='/user'><span>Přidat památku</span><img src='/sites/all/themes/kelvin/pridat.svg'></a>	
+</div>
+<div id="obsah">				
+      <div id="header-wrapper">                 
+        <div id="header"><p id="titulek">                             
+              <a href="/" title="Drobné památky">                                
+                <svg class="dp"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 32 32"
+   version="1.1"
+   id="Layer_1"
+  >
+    <path
+     id="spodek"
+     d="m 11.443851,31.836455 c 0.808379,-0.163284 4.142758,-0.830022 10.155435,-2.030882 6.623353,-1.322788 6.430864,-1.282085 6.752951,-1.427314 0.382841,-0.172586 0.851689,-0.5878 1.027006,-0.909519 0.665585,-2.410748 1.166984,-3.892765 1.996922,-6.515451 l 0.616129,-2.051351 c 0.02837,-0.489974 -0.01907,-1.026605 -0.184812,-1.425173 -0.348976,-0.638505 -1.01346,-1.079449 -1.793902,-1.190395 -0.30618,-0.04187 -0.701253,-0.01396 -4.134716,0.298181 -2.087908,0.190724 -3.877795,0.367958 -3.977537,0.394473 l -0.181325,0.04792 v 2.799035 2.798986 l -1.13723,0.664697 c -0.625475,0.365632 -1.425211,0.832254 -1.777197,1.037073 -0.351997,0.204678 -1.093524,0.637668 -1.647849,0.961898 -0.580513,0.340048 -1.162915,0.677442 -1.748603,1.009721 l -4.678756,-0.6941 -4.6787542,-0.694096 -0.00608,-2.172994 c -0.0034,-1.195142 -0.0093,-2.216677 -0.013059,-2.270173 -0.00519,-0.07117 -0.032557,-0.09303 -0.1027598,-0.08233 -0.052615,0.0093 -1.0531475,0.226543 -2.2234404,0.485555 -2.2332515,0.49416 -2.519641,0.581243 -2.9214499,0.888447 -0.8377441,0.640414 -1.03881103,1.896538 -0.4378697,2.735585 0.1709531,0.238637 0.4588494,0.489927 2.0294578,1.770661 1.4809408,1.207607 1.3836553,1.127968 2.8290138,2.316037 3.6593729,3.007947 3.6847389,3.027905 4.0502139,3.187972 0.661484,0.289808 1.0301485,0.300971 2.1881245,0.06745 z"
+     style="fill:#008000;stroke-width:3.77952766"
+     />
+  <path
+     id="stred"
+     d="m 20.075081,21.813967 1.9e-5,-5.28961 c 2.4e-5,-7.6635617 -0.01682,-9.0632884 -0.04739,-9.0632884 -0.02605,0 -1.143857,0.5343986 -2.48392,1.187558 l -2.436487,1.1876046 -2.7989,-0.4563416 C 10.769007,9.1291574 9.3245295,8.8951719 9.0984525,8.8603301 8.6703966,8.7942748 7.9927117,8.6821661 7.8048402,8.645882 L 7.6960334,8.627274 c 0.080147,8.583966 0,6.526847 3.3e-6,15.026989 l 2.1882458,0.320044 c 1.2035385,0.175843 2.8605765,0.420058 3.6823135,0.542167 l 1.494075,0.222357 z"
+     style="fill:#6c5353;stroke-width:3.77952766"
+      />
+  <path
+     id="vrsek"
+     d="M 15.321367,8.096365 C 15.587353,7.9647193 15.968169,7.7781817 16.16765,7.6823548 18.321225,6.6458408 19.36138,6.1152564 19.33952,6.0643658 17.390433,3.7951246 15.556155,1.7995027 13.981452,-3e-7 c -1.800879,2.630965 -3.648356,4.6477066 -5.3578341,7.2591344 0,0.02326 0.014491,0.041866 0.032557,0.041866 0.017711,0 1.3751091,0.2330552 3.0162771,0.5182569 1.641175,0.2851554 3.024811,0.5180245 3.074742,0.5177453 0.04991,-2.323e-4 0.308413,-0.1083874 0.574389,-0.2400328 z"
+     style="fill:#6c5353;stroke-width:3.77952766"
+     />
+</svg>
+<span>Drobné památky                                   
+                </span></a>                         
+            </p>                         
+          <div id="head">       
+            <div class="block block-menu " id="block-menu-primary-links">
+<h2>Primary links</h2><div class="in"><ul class="menu"><li class="leaf first"><a href="/" title="">Titulní strana</a></li>
+<li class="leaf"><a href="/hledat" title="">Najít památky dle druhu</a></li>
+<li class="leaf"><a href="/druhy-pamatek" title="Druhy drobných památek, klasifikace, kategorizace">Druhy drobných památek</a></li>
+<li class="leaf"><a href="/celky" title="">Správní členění Česka</a></li>
+<li class="leaf"><a href="/vsechny-pamatky" title="">Všechny památky v databázi</a></li>
+<li class="leaf"><a href="/clanky-navody-0" title="Články a návody">Články</a></li>
+<li class="leaf"><a href="/mapy" title="Mapy drobných památek">Mapy</a></li>
+<li class="leaf"><a href="/odkazy-na-weby-o-drobnych-pamatkach" title="Odkazy">Odkazy</a></li>
+<li class="leaf"><a href="/krizove-cesty-s-pamatkami" title="">Křížové cesty</a></li>
+<li class="leaf"><a href="/o-projektu" title="">O projektu</a></li>
+<li class="leaf last"><a href="/jak-pridat-pamatku" title="">Jak přidat památku</a></li>
+</ul></div></div>
+<div class="block block-menu " id="block-menu-secondary-links">
+<h2>Secondary links</h2><div class="in"><ul class="menu"><li class="leaf first last"><a href="/user" title="">Přihlásit se a přidat památku</a></li>
+</ul></div></div>
+                          
+          </div>                 
+        </div>                      
+      </div> 
+<style>
+.pridat a {padding:10px}
+</style>
+                       
+           
+                       
+      <div id="nadpis-wrapper">                   
+        <h1 id="nadpis" class="page           
+                     
+                     
+           ">                        
+          Stránka nebyla nalezena</h1>               
+      </div>               
+                      
+                      
+        
+	                   
+      <div id="breadcrumb-wrapper">                   
+        <div class="breadcrumb">                       
+          <a href="/">Domů</a>   
+                     
+          <span style="font-size:15px; position:relative; top:4px;">  ↴            
+          </span>                                  
+                               
+        </div>               
+      </div>               
+        
+                                     
+                                                  
+                                                  
+                  	  
+      <div id="main-wrapper">                   
+        <div id="main" class=" page             
+                         
+                         
+             ">                                     
+            <div id="content" class="column">                             
+              <div class="section">                                                  
+                 
+            				
+                  <div id="node-5704" class="node  page">
+                                   
+
+
+
+
+
+<div class="node-body"><h2>404</h2>
+
+<p><strong>Požadovaná stránka nebyla nalezena.</strong></p>
+
+<p><strong>Můžete přejít na <a href="/">titulní stranu</a> a&nbsp;použít vyhledávací formulář.&nbsp;</strong></p>
+
+<p>&nbsp;</p>
+</div>    
+
+ 
+
+ </div>
+
+
+
+ 
+                                                  
+                <hr class="cistic">                             
+              </div>                         
+            </div>                         
+                                      
+                 
+        </div>                   
+      </div> 	               
+      </div>               
+      <!-- /.section, /#footer -->            
+    </div>
+	</div>
+ <!-- <div style="margin: 30px auto">                   
+        <div  >                       
+          <div class="section" style="background:white; max-width:500px;  margin: 0 auto; padding:10px" >
+         <iframe src="/sites/all/themes/kelvin/pig.html" style="max-height:100px;"></iframe>                          
+         </div>                
+         </div>               
+      </div> -->
+	   <div id=footer-wrapper>                   
+        <div id="footer">                       
+          <div class="section">                           
+            <div class="block block-block " id="block-block-1">
+<div class="in"><p>Webové stránky Drobné památky</p>
+<p><a href="javascript:window.print()" title="zobrazí okno k vytištění zobrazené stránky">Tisk&nbsp;&para;</a> |  <a href="https://www.drobnepamatky.cz/o-projektu">Kontakt&nbsp;&bdquo;&ldquo;</a> |
+   <a href="#head" title="Zobrazí začátek (vršek) stránky">Nahoru&nbsp;&uarr;</a></p>
+
+
+<a href="https://www.toplist.cz/stat/1613399/"><script language="JavaScript" type="text/javascript">
+<!--
+document.write('<img src="https://toplist.cz/dot.asp?id=1613399&http='+
+escape(document.referrer)+'&t='+escape(document.title)+
+'&wi='+escape(window.screen.width)+'&he='+escape(window.screen.height)+'&cd='+
+escape(window.screen.colorDepth)+'" width="1" height="1" border=0 alt="TOPlist" />');
+//--></script><noscript><img src="https://toplist.cz/dot.asp?id=1613399" border="0"
+alt="TOPlist" width="1" height="1" /></noscript></a>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-32221361-2', 'auto');
+  ga('send', 'pageview');
+
+</script></div></div>
+  
+          </div>                 
+         </div>               
+      </div> 
+ <!-- /#page,  -->            
+    <script type="text/javascript" src="/files/js/js_987480c73b0ab8ad346ca78b45688e42.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/", "lightbox2": { "rtl": "0", "file_path": "/(\\w\\w/)files", "default_image": "/sites/all/modules/lightbox2/images/brokenimage.jpg", "border_size": 10, "font_color": "000", "box_color": "fff", "top_position": "", "overlay_opacity": "0.8", "overlay_color": "000", "disable_close_click": 1, "resize_sequence": 0, "resize_speed": 400, "fade_in_speed": 400, "slide_down_speed": 1, "use_alt_layout": 1, "disable_resize": 0, "disable_zoom": 0, "force_show_nav": 0, "show_caption": 1, "loop_items": 0, "node_link_text": "Zobraz detaily obrázku", "node_link_target": 0, "image_count": "Obrázek !current z !total", "video_count": "Video !current of !total", "page_count": "Page !current of !total", "lite_press_x_close": "press \x3ca href=\"#\" onclick=\"hideLightbox(); return FALSE;\"\x3e\x3ckbd\x3ex\x3c/kbd\x3e\x3c/a\x3e to close", "download_link_text": "", "enable_login": true, "enable_contact": false, "keys_close": "c x 27", "keys_previous": "p 37", "keys_next": "n 39", "keys_zoom": "z", "keys_play_pause": "32", "display_image_size": "original", "image_node_sizes": "(\\.thumbnail)", "trigger_lightbox_classes": "", "trigger_lightbox_group_classes": "img.inline,img.flickr-photo-img,img.flickr-photoset-img,img.thumbnail, img.image-thumbnail", "trigger_slideshow_classes": "", "trigger_lightframe_classes": "", "trigger_lightframe_group_classes": "", "custom_class_handler": "lightbox", "custom_trigger_classes": "img.lightbox", "disable_for_gallery_lists": 1, "disable_for_acidfree_gallery_lists": true, "enable_acidfree_videos": true, "slideshow_interval": 5000, "slideshow_automatic_start": true, "slideshow_automatic_exit": true, "show_play_pause": true, "pause_on_next_click": false, "pause_on_previous_click": true, "loop_slides": false, "iframe_width": 600, "iframe_height": 400, "iframe_border": 1, "enable_video": 0 }, "no_colons": { "no_colons_mode": "punctuation_colons", "no_colons_use_cck_jquery": { "cck_jquery": "cck_jquery" }, "no_colons_use_views_jquery": { "views_jquery": "views_jquery" } } });
+//--><!]]>
+</script>
+ 
+          
+  </body>

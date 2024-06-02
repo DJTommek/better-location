@@ -141,7 +141,14 @@ final readonly class HttpTestClients
 		$urlSafeShort = substr($urlSafe, 0, 100);
 		$serialized = serialize($requestForFingerprint);
 		$requestFingerprint = hash(self::REQUEST_FINGERPRINT_HASH_ALGORITHM, $serialized);
+		$requestFingerprintShort = substr($requestFingerprint, 0, 32);
 
-		return sprintf('%s/fixtures/httpTestClient/%s/%s_%s.response', __DIR__, $authoritySafe, $urlSafeShort, $requestFingerprint);
+		return sprintf(
+			'%s/fixtures/httpTestClient/%s/%s_%s.response',
+			__DIR__,
+			$authoritySafe,
+			$urlSafeShort,
+			$requestFingerprintShort,
+		);
 	}
 }
