@@ -3,55 +3,81 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\DrobnePamatkyCzService;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
-use PHPUnit\Framework\TestCase;
 
-final class DrobnePamatkyCzServiceTest extends TestCase
+final class DrobnePamatkyCzServiceTest extends AbstractServiceTestCase
 {
-	/** @noinspection PhpUnhandledExceptionInspection */
-	public function testGenerateShareLink(): void
+	protected function getServiceClass(): string
 	{
-		$this->assertSame('https://www.drobnepamatky.cz/blizko?km[latitude]=50.087451&km[longitude]=14.420671&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(50.087451, 14.420671));
-		$this->assertSame('https://www.drobnepamatky.cz/blizko?km[latitude]=50.100000&km[longitude]=14.500000&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(50.1, 14.5));
-		$this->assertSame('https://www.drobnepamatky.cz/blizko?km[latitude]=-50.200000&km[longitude]=14.600000&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(-50.2, 14.6000001)); // round down
-		$this->assertSame('https://www.drobnepamatky.cz/blizko?km[latitude]=50.300000&km[longitude]=-14.700001&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(50.3, -14.7000009)); // round up
-		$this->assertSame('https://www.drobnepamatky.cz/blizko?km[latitude]=-50.400000&km[longitude]=-14.800008&km[search_distance]=5&km[search_units]=km', DrobnePamatkyCzService::getLink(-50.4, -14.800008));
+		return DrobnePamatkyCzService::class;
 	}
 
-	public function testGenerateDriveLink(): void
+	protected function getShareLinks(): array
 	{
-		$this->expectException(NotSupportedException::class);
-		DrobnePamatkyCzService::getLink(50.087451, 14.420671, true);
+		$this->revalidateGeneratedShareLink = false;
+
+		return [
+			'https://www.drobnepamatky.cz/blizko?km[latitude]=50.087451&km[longitude]=14.420671&km[search_distance]=5&km[search_units]=km',
+			'https://www.drobnepamatky.cz/blizko?km[latitude]=50.100000&km[longitude]=14.500000&km[search_distance]=5&km[search_units]=km',
+			'https://www.drobnepamatky.cz/blizko?km[latitude]=-50.200000&km[longitude]=14.600000&km[search_distance]=5&km[search_units]=km',
+			'https://www.drobnepamatky.cz/blizko?km[latitude]=50.300000&km[longitude]=-14.700001&km[search_distance]=5&km[search_units]=km',
+			'https://www.drobnepamatky.cz/blizko?km[latitude]=-50.400000&km[longitude]=-14.800008&km[search_distance]=5&km[search_units]=km',
+		];
 	}
 
-	public function testIsValid(): void
+	protected function getDriveLinks(): array
 	{
-		$this->assertTrue(DrobnePamatkyCzService::validateStatic('https://www.drobnepamatky.cz/node/36966'));
-		$this->assertTrue(DrobnePamatkyCzService::validateStatic('http://www.drobnepamatky.cz/node/36966'));
-		$this->assertTrue(DrobnePamatkyCzService::validateStatic('https://drobnepamatky.cz/node/36966'));
-		$this->assertTrue(DrobnePamatkyCzService::validateStatic('http://drobnepamatky.cz/node/36966'));
+		return [];
+	}
 
-		$this->assertFalse(DrobnePamatkyCzService::validateStatic('https://www.drobnepamatky.cz/'));
-		$this->assertFalse(DrobnePamatkyCzService::validateStatic('https://www.drobnepamatky.cz/node/'));
-		$this->assertFalse(DrobnePamatkyCzService::validateStatic('https://www.drobnepamatky.cz/node/abc'));
-		$this->assertFalse(DrobnePamatkyCzService::validateStatic('https://www.drobnepamatky.cz/node/123abc'));
-		$this->assertFalse(DrobnePamatkyCzService::validateStatic('https://www.drobnepamatky.cz/node/abc123'));
-		$this->assertFalse(DrobnePamatkyCzService::validateStatic('https://www.drobnepamatky.cz/node/123aaa456'));
+	public static function isValidProvider(): array
+	{
+		return [
+			[true, 'https://www.drobnepamatky.cz/node/36966'],
+			[true, 'http://www.drobnepamatky.cz/node/36966'],
+			[true, 'https://drobnepamatky.cz/node/36966'],
+			[true, 'http://drobnepamatky.cz/node/36966'],
 
-		$this->assertFalse(DrobnePamatkyCzService::validateStatic('some invalid url'));
+			[false, 'some invalid url'],
+			[false, 'https://www.drobnepamatky.cz/'],
+			[false, 'https://www.drobnepamatky.cz/node/'],
+			[false, 'https://www.drobnepamatky.cz/node/abc'],
+			[false, 'https://www.drobnepamatky.cz/node/123abc'],
+			[false, 'https://www.drobnepamatky.cz/node/abc123'],
+			[false, 'https://www.drobnepamatky.cz/node/123aaa456'],
+		];
+	}
+
+	public static function processProvider(): array
+	{
+		return [
+			[50.067698, 14.401455, 'https://www.drobnepamatky.cz/node/36966'],
+			[49.854263, 18.542156, 'https://www.drobnepamatky.cz/node/9279'],
+			[49.805000, 18.449748, 'https://www.drobnepamatky.cz/node/9282'],
+			// Oborané památky (https://www.drobnepamatky.cz/oborane)
+			[49.687425, 14.712345, 'https://www.drobnepamatky.cz/node/10646'],
+			[48.974158, 14.612296, 'https://www.drobnepamatky.cz/node/2892'],
+		];
+	}
+
+	/**
+	 * @dataProvider isValidProvider
+	 */
+	public function testIsValid(bool $expectedIsValid, string $input): void
+	{
+		$service = new DrobnePamatkyCzService();
+		$service->setInput($input);
+		$isValid = $service->validate();
+		$this->assertSame($expectedIsValid, $isValid);
 	}
 
 	/**
 	 * @group request
+	 * @dataProvider processProvider
 	 */
-	public function testUrl(): void
+	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$this->assertSame('50.067698,14.401455', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/36966')->getFirst()->__toString());
-		$this->assertSame('49.854263,18.542156', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/9279')->getFirst()->__toString());
-		$this->assertSame('49.805000,18.449748', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/9282')->getFirst()->__toString());
-		// Oborané památky (https://www.drobnepamatky.cz/oborane)
-		$this->assertSame('49.687425,14.712345', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/10646')->getFirst()->__toString());
-		$this->assertSame('48.974158,14.612296', DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/2892')->getFirst()->__toString());
+		$service = new DrobnePamatkyCzService();
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
 	/**
@@ -59,9 +85,13 @@ final class DrobnePamatkyCzServiceTest extends TestCase
 	 */
 	public function testMissingCoordinates1(): void
 	{
+		$service = new DrobnePamatkyCzService();
+		$service->setInput('https://www.drobnepamatky.cz/node/9999999');
+		$this->assertTrue($service->validate());
+
 		$this->expectException(\App\MiniCurl\Exceptions\InvalidResponseException::class);
 		$this->expectExceptionMessage('Invalid response code "404" but required "200" for URL "www.drobnepamatky.cz".');
-		DrobnePamatkyCzService::processStatic('https://www.drobnepamatky.cz/node/9999999');
-	}
 
+		$service->process();
+	}
 }
