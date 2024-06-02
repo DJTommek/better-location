@@ -4,7 +4,7 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\Config;
-use App\Http\HttpClient;
+use App\Utils\Requestor;
 use DJTommek\Coordinates\Coordinates;
 use Nette\Utils\Json;
 
@@ -14,6 +14,11 @@ final class WikipediaService extends AbstractService
 	const NAME = 'Wikipedia';
 
 	const LINK = 'https://wikipedia.org';
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public function validate(): bool
 	{
@@ -46,10 +51,7 @@ final class WikipediaService extends AbstractService
 
 	private function requestLocationFromWikipediaPage(): \stdClass
 	{
-		$httpClient = new HttpClient();
-		$httpClient->allowCache(Config::CACHE_TTL_WIKIPEDIA);
-		$response = $httpClient->get($this->url);
-		$body = $response->body();
+		$body = $this->requestor->get($this->url, Config::CACHE_TTL_WIKIPEDIA);
 
 		$startString = ';RLCONF=';
 		$endString = ';RLSTATE=';
