@@ -14,8 +14,8 @@ use Nette\Utils\Json;
 use Tracy\Debugger;
 
 /**
- * @deprecated Use \App\Http\HttpClient instead. If some feature is missing which is already in MiniCurl it should be
- * also implemented into HttpClient
+ * @deprecated For simple requests use \App\Utils\Requestor, for more complex use \Psr\Http\Client\ClientInterface
+ *  which can be created using \App\Factory\GuzzleClientFactory.
  */
 class MiniCurl
 {
