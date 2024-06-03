@@ -4,7 +4,7 @@
 	<h2>Errors</h2>
 	<h4>Email reporting (<a href="https://tracy.nette.org/guide" target="_blank" title="Getting started with Tracy">help</a>)</h4>
 	{if is_null(\App\Config::TRACY_DEBUGGER_EMAIL)}
-		<p>{\App\Icons::INFO} Email reporting is disabled. Set email to <b>{\App\Dashboard\Status::getLocalConfigPath()}::TRACY_DEBUGGER_EMAIL</b> to enable.</p>
+		<p>{\App\Icons::INFO} Email reporting is disabled. Set email to <b>{getLocalConfigPath()}::TRACY_DEBUGGER_EMAIL</b> to enable.</p>
 	{else}
 		<p>{\App\Icons::SUCCESS} Email reporting is enabled and set to <a href="mailto:{\App\Config::TRACY_DEBUGGER_EMAIL}">{\App\Config::TRACY_DEBUGGER_EMAIL}</a>.</p>
 		{var $tracyEmailHelpPrefix = 'Tracy\'s "email-sent" file '}

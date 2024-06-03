@@ -3,6 +3,7 @@
 namespace App\Web\Admin;
 
 use App\Config;
+use App\Database;
 use App\TelegramCustomWrapper\Events\Command\Command;
 use App\TelegramCustomWrapper\TelegramCustomWrapper;
 use App\Web\Flash;
@@ -15,6 +16,7 @@ class AdminPresenter extends MainPresenter
 {
 	public function __construct(
 		private readonly TelegramCustomWrapper $telegramCustomWrapper,
+		private readonly Database $database,
 		AdminTemplate $template,
 	) {
 		$this->template = $template;
@@ -108,7 +110,7 @@ class AdminPresenter extends MainPresenter
 	public function beforeRender(): void
 	{
 		$this->setTemplateFilename('admin.latte');
-		$this->template->prepare($this->request);
+		$this->template->prepare($this->database, $this->request);
 	}
 }
 

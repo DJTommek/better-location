@@ -4,13 +4,13 @@
 {block adminStatistics}
 	<h2>Statistics</h2>
 	<div>
-		{if (\App\Dashboard\Status::isDatabaseConnectionSet() && \App\Dashboard\Status::isDatabaseTablesSet())}
+		{if $isDatabaseConnectionSet && $isDatabaseTablesSet}
 			<ul>
 				{var $now = new DateTimeImmutable()}
 				{* Detected chats *}
 				{var $results = []}
 				{var $totalCount = 0}
-				{foreach \App\Dashboard\Status::getChatsStats() as $groupType => $groupCount}
+				{foreach getChatsStats() as $groupType => $groupCount}
 					{var $results[] = sprintf('%s = <b>%d</b>', $groupType, $groupCount)}
 					{var $totalCount += $groupCount}
 				{/foreach}
@@ -19,9 +19,9 @@
 				</li>
 
 				{* Detected users *}
-				<li><b>{\App\Dashboard\Status::getUsersCount()}</b> detected users (wrote at least one message or command)</li>
+				<li><b>{getUsersCount()}</b> detected users (wrote at least one message or command)</li>
 					{* Newest user *}
-					{var $newestUser = \App\Dashboard\Status::getNewestUser()}
+					{var $newestUser = getNewestUser()}
 					{if $newestUser}
 					{var $newestUserUsername = (mb_strpos($newestUser['user_telegram_name'], '@') === 0) ? mb_substr($newestUser['user_telegram_name'], 1) : null}
 					<li>Most recent active user:
@@ -34,7 +34,7 @@
 				{/if}
 
 				{* Last changed user *}
-				{var $lastChangedUser = \App\Dashboard\Status::getLatestChangedUser()}
+				{var $lastChangedUser = getLatestChangedUser()}
 				{if ($lastChangedUser)}
 					{var $lastChangedUserUsername = (mb_strpos($lastChangedUser['user_telegram_name'], '@') === 0) ? mb_substr($lastChangedUser['user_telegram_name'], 1) : null}
 					<li>Newest registered user:

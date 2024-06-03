@@ -5,7 +5,7 @@
 	<ol>
 		<li>Download/clone <a href="https://github.com/DJTommek/better-location" target="_blank" title="DJTommek/better-location on Github">BetterLocation repository</a> {\App\Icons::SUCCESS}</li>
 		<li>Run <code>composer install</code> {\App\Icons::SUCCESS}</li>
-		<li>Update <code>APP_URL</code> constant in <b>{\App\Dashboard\Status::getLocalConfigPath()}</b>:
+		<li>Update <code>APP_URL</code> constant in <b>{getLocalConfigPath()}</b>:
 			{if $isAppUrlSet}
 				{\App\Icons::SUCCESS} Set to <a href="{\App\Config::getAppUrl()}" target="_blank">{\App\Config::getAppUrl()}</a>
 			{else}
@@ -13,26 +13,26 @@
 			{/if}
 		</li>
 		{capture $dbTextPrefix}
-			Update all <code>DB_*</code> constants in <b>{\App\Dashboard\Status::getLocalConfigPath()}</b>
+			Update all <code>DB_*</code> constants in <b>{getLocalConfigPath()}</b>
 		{/capture}
-					{capture $tablesTextPrefix}
+		{capture $tablesTextPrefix}
 			Create tables in database using <b>asset/sql/structure.sql</b>
 		{/capture}
 
-				{if \App\Dashboard\Status::isDatabaseConnectionSet()}
+		{if $isDatabaseConnectionSet}
 			<li>{$dbTextPrefix}: {\App\Icons::SUCCESS} Connected to <b>\App\Config::DB_NAME</b></li>
-			{if (\App\Dashboard\Status::isDatabaseTablesSet())}
+			{if $isDatabaseTablesSet}
 				<li>{$tablesTextPrefix}: {\App\Icons::CHECKED} All tables and columns are set.</li>
 			{else}
-				<li>{$tablesTextPrefix}: {\App\Icons::ERROR} Error while checking columns: <b>{\App\Dashboard\Status::$tablesError->getMessage()}</b></li>
+				<li>{$tablesTextPrefix}: {\App\Icons::ERROR} Error while checking columns: <b>{$tablesError->getMessage()}</b></li>
 			{/if}
 		{else}
-			<li>{$dbTextPrefix}: \App\Icons::ERROR Error while connecting to database <b>\App\Config::DB_NAME</b>. Error: <b>\App\Dashboard\Status::$dbError->getMessage()</b></li>
+			<li>{$dbTextPrefix}: \App\Icons::ERROR Error while connecting to database <b>\App\Config::DB_NAME</b>. Error: <b>{$dbError->getMessage()}</b></li>
 			<li>{$tablesTextPrefix}: {\App\Icons::ERROR} Setup database connection first</li>
 		{/if}
 
-				{capture $tgStatusTextPrefix}
-			Update all <code>TELEGRAM_*</code> constants in <b>{\App\Dashboard\Status::getLocalConfigPath()}</b>
+		{capture $tgStatusTextPrefix}
+			Update all <code>TELEGRAM_*</code> constants in <b>{getLocalConfigPath()}</b>
 		{/capture}
 				{if \App\Config::isTelegramWebhookPassword() === false}
 			<li>{$tgStatusTextPrefix}: {\App\Icons::ERROR} webhook password is not set.</li>
@@ -55,17 +55,16 @@
 			(or with <a href="?telegram-configure&telegram-drop-pending-updates=1">drop pending updates</a>)
 		{/capture}
 
-				{if \App\Config::isTelegram()}
-			{\App\Dashboard\Status::runGetWebhookStatus()}
-			{if \App\Dashboard\Status::$webhookError}
+		{if \App\Config::isTelegram()}
+			{if $webhookError}
 				{capture $jsonText}
-					<pre>{json_encode(get_object_vars(\App\Dashboard\Status::$webhookError->getError()), JSON_PRETTY_PRINT)}</pre>
+					<pre>{json_encode(get_object_vars($webhookError->getError()), JSON_PRETTY_PRINT)}</pre>
 				{/capture}
 				{capture $webhookDetailStatus}
-					{\App\Icons::ERROR} Something is wrong: <b>{\App\Dashboard\Status::$webhookError->getMessage()}</b>:'{$jsonText}
+					{\App\Icons::ERROR} Something is wrong: <b>{$webhookError->getMessage()}</b>:'{$jsonText}
 				{/capture}
 			{else}
-				{if \App\Dashboard\Status::$webhookOk}
+				{if $webhookOk}
 					{capture $webhookDetailStatus}
 						{\App\Icons::SUCCESS} Everything seems to be ok, check response below.
 					{/capture}
@@ -81,7 +80,7 @@
 		{/if}
 	</ol>
 
-	{if (is_null(\App\Dashboard\Status::$webhookResponseRaw) === false)}
+	{if (is_null($webhookResponseRaw) === false)}
 		<ul class="nav nav-tabs" id="webhook-tab" role="tablist">
 			<li class="nav-item">
 				<a class="nav-link active" data-bs-toggle="tab" href="#webhook-formatted">Formatted</a>
@@ -93,7 +92,7 @@
 		<div class="tab-content">
 			<div class="tab-pane fade show active" id="webhook-formatted">
 				<table class="table table-striped table-bordered table-hover table-sm">
-					{foreach get_object_vars(\App\Dashboard\Status::$webhookResponse) as $key => $value}
+					{foreach get_object_vars($webhookResponse) as $key => $value}
 						<tr>
 							<td>{$key}</td>
 							<td>{$value|noescape}</td>
@@ -102,7 +101,7 @@
 				</table>
 			</div>
 			<div class="tab-pane fade" id="webhook-raw">
-				{var $json = get_object_vars(\App\Dashboard\Status::$webhookResponseRaw)}
+				{var $json = get_object_vars($webhookResponseRaw)}
 				<pre>{json_encode($json, JSON_PRETTY_PRINT)}</pre>
 			</div>
 		</div>
