@@ -202,7 +202,7 @@ class LocationsPresenter extends MainPresenter
 
 		if (
 			$service::hasTag(ServicesManager::TAG_GENERATE_LINK_IMAGE)
-			&& $output = $service::getScreenshotLink($lat, $lon)
+			&& $output = $service->getScreenshotLink($coordinates)
 		) {
 			$result['static'] = $output;
 		}

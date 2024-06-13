@@ -186,7 +186,8 @@ class BetterLocation implements CoordinatesInterface
 
 	public function generateMessage(BetterLocationMessageSettings $settings): string
 	{
-		$generator = new MessageGenerator();
+		$serviceManager = new ServicesManager();
+		$generator = new MessageGenerator($serviceManager);
 		return $generator->generate(
 			$this->coords,
 			$settings,

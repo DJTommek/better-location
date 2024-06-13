@@ -13,6 +13,7 @@ use App\Icons;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
+use DJTommek\Coordinates\CoordinatesInterface;
 use DJTommek\MapyCzApi;
 use DJTommek\MapyCzApi\MapyCzApiException;
 use DJTommek\MapyCzApi\Types\PlaceType;
@@ -64,7 +65,7 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		// https://en.mapy.cz/s/faretabotu
 		return $this->data->isShortUrl = (bool)preg_match(
 			'/^\/s\/[a-zA-Z0-9]+$/',
-			$this->url->getPath()
+			$this->url->getPath(),
 		);
 	}
 
@@ -74,7 +75,7 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		// https://mapy.cz/?x=15.278244&y=49.691235&z=15&ma_x=15.278244&ma_y=49.691235&ma_t=Jsem+tady%2C+otev%C5%99i+odkaz&source=coor&id=15.278244%2C49.691235
 		// Mapy.cz panorama:
 		// https://en.mapy.cz/zakladni?x=14.3139613&y=49.1487367&z=15&pano=1&pid=30158941&yaw=1.813&fov=1.257&pitch=-0.026
-//		$parsedUrl = parse_url(urldecode($url)); // @TODO why it is used urldecode?
+		// $parsedUrl = parse_url(urldecode($url)); // @TODO why it is used urldecode?
 
 		if ($this->url->getQueryParameter('source') === 'coor' && $this->url->getQueryParameter('id')) { // coordinates in place ID
 			$coords = explode(',', $this->url->getQueryParameter('id'));
@@ -124,15 +125,14 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		return sprintf('%s/zakladni?vlastni-body&uc=%s', self::LINK, $coordsEncoded);
 	}
 
-
-	public static function getScreenshotLink(float $lat, float $lon, array $options = []): ?string
+	public function getScreenshotLink(CoordinatesInterface $coordinates, array $options = []): ?string
 	{
 		// URL Parameters to screenshoter (Mapy.cz website is using it with p=3 and l=0):
 		// l=0 hide right panel (can be opened via arrow icon)
 		// p=1 disable right panel (can't be opened) and disable bottom left panorama view screenshot
 		// p=2 show right panel and (can't be hidden) and disable bottom left panorama view screenshot
 		// p=3 disable right panel (can't be opened) and enable bottom left panorama view screenshot
-		return 'https://en.mapy.cz/screenshoter?url=' . urlencode(self::getShareLink($lat, $lon) . '&p=3&l=0');
+		return 'https://en.mapy.cz/screenshoter?url=' . urlencode(self::getShareLink($coordinates->getLat(), $coordinates->getLon()) . '&p=3&l=0');
 	}
 
 	public function process(): void
@@ -176,7 +176,7 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		// URL with Panorama ID
 		if (Strict::isPositiveInt($this->url->getQueryParameter('pid'))) {
 			try {
-                $panoramaId = Strict::intval($this->url->getQueryParameter('pid'));
+				$panoramaId = Strict::intval($this->url->getQueryParameter('pid'));
 				$mapyCzResponse = $mapyCzApi->loadPanoramaDetails($panoramaId);
 				$this->collection->add(new BetterLocation($this->inputUrl, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PANORAMA));
 			} catch (MapyCzApiException $exception) {

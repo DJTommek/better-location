@@ -44,6 +44,7 @@ class InlineQueryEvent extends Special
 	public function __construct(
 		private readonly FromTelegramMessage $fromTelegramMessage,
 		private readonly ChatRepository $chatRepository,
+		private readonly MapyCzService $mapyCzService,
 		private readonly ?GooglePlaceApi $googlePlaceApi = null,
 	) {
 	}
@@ -111,12 +112,12 @@ class InlineQueryEvent extends Special
 		} else if (preg_match(sprintf('/^%s %s (-?[0-9]{1,2}\.[0-9]{1,6}) (-?[0-9]{1,3}\.[0-9]{1,6}) (.+)$/', StartCommand::FAVOURITE, StartCommand::FAVOURITE_RENAME), $queryInput, $matches)) {
 			$newName = strip_tags($matches[3]);
 			$newNameCommandDecoded = TelegramHelper::InlineTextEncode(
-				sprintf('%s %s %F %F %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_RENAME, $matches[1], $matches[2], $newName)
+				sprintf('%s %s %F %F %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_RENAME, $matches[1], $matches[2], $newName),
 			);
 			if (mb_strlen($newNameCommandDecoded) > 64) {
 				$answerInlineQuery->switch_pm_text = sprintf('New name is too long.');
 				$answerInlineQuery->switch_pm_parameter = TelegramHelper::InlineTextEncode(
-					sprintf('%s %s %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_ERROR, StartCommand::FAVOURITE_ERROR_TOO_LONG)
+					sprintf('%s %s %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_ERROR, StartCommand::FAVOURITE_ERROR_TOO_LONG),
 				);
 			} else {
 				$answerInlineQuery->switch_pm_text = sprintf('%s Rename to "%s"', Icons::CHANGE, $newName);
@@ -203,7 +204,7 @@ class InlineQueryEvent extends Special
 			$distance = $usersLastLocation->getCoordinates()->distance($betterLocation->getCoordinates());
 			return sprintf(
 				' (%s away)',
-				htmlspecialchars(Formatter::distance($distance))
+				htmlspecialchars(Formatter::distance($distance)),
 			);
 		} else {
 			return '';
@@ -230,7 +231,7 @@ class InlineQueryEvent extends Special
 
 		$processedCollection = $this->singleLocationToMessageResult($betterLocation);
 
-		$inlineQueryResult->thumbnail_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
+		$inlineQueryResult->thumbnail_url = $this->mapyCzService->getScreenshotLink($betterLocation);
 		$inlineQueryResult->reply_markup = $processedCollection->getMarkup(1);
 		$inlineQueryResult->input_message_content = new Text();
 		$inlineQueryResult->input_message_content->message_text = $processedCollection->getText();
@@ -253,7 +254,7 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->latitude = $betterLocation->getLat();
 		$inlineQueryResult->longitude = $betterLocation->getLon();
 		$inlineQueryResult->title = strip_tags($inlineTitle);
-		$inlineQueryResult->thumbnail_url = MapyCzService::getScreenshotLink($betterLocation->getLat(), $betterLocation->getLon());
+		$inlineQueryResult->thumbnail_url = $this->mapyCzService->getScreenshotLink($betterLocation);
 		$inlineQueryResult->reply_markup = $processedCollection->getMarkup(1);
 		return $inlineQueryResult;
 	}

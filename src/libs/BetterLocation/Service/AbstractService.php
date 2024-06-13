@@ -9,6 +9,7 @@ use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use App\Factory;
 use App\Utils\Strict;
+use DJTommek\Coordinates\CoordinatesInterface;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
 
@@ -132,7 +133,7 @@ abstract class AbstractService
 	 * @param array<mixed,mixed> $options
 	 * @throws NotSupportedException
 	 */
-	public static function getScreenshotLink(float $lat, float $lon, array $options = []): ?string
+	public function getScreenshotLink(CoordinatesInterface $coordinates, array $options = []): ?string
 	{
 		throw new NotSupportedException('Static image link is not supported.');
 	}

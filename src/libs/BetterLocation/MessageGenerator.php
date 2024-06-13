@@ -12,6 +12,11 @@ use Tracy\Debugger;
 
 class MessageGenerator
 {
+	public function __construct(
+		private readonly ServicesManager $servicesManager,
+	) {
+	}
+
 	/**
 	 * @param array<class-string<AbstractService>,string> $pregeneratedLinks
 	 * @param list<Description> $descriptions
@@ -57,9 +62,10 @@ class MessageGenerator
 
 	private function generateScreenshotLink(CoordinatesInterface $coordinates, BetterLocationMessageSettings $settings): ?string
 	{
-		$screenshotService = $settings->getScreenshotLinkService();
+		$screenshotServiceReference = $settings->getScreenshotLinkService();
+		$screenshotService = $this->servicesManager->getServiceInstance($screenshotServiceReference);
 		try { // Catch exceptions to prevent one faulty service to block other potentially good services
-			return $screenshotService::getScreenshotLink($coordinates->getLat(), $coordinates->getLon());
+			return $screenshotService->getScreenshotLink($coordinates);
 		} catch (\Exception $exception) {
 			Debugger::log($exception, Debugger::EXCEPTION);
 			return null;

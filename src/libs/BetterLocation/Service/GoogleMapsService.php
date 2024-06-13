@@ -13,9 +13,11 @@ use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\Formatter;
 use App\Utils\Strict;
+use DJTommek\Coordinates\CoordinatesInterface;
 
 /**
  * Google has nice documentations related to generating link to their apps.
+ *
  * @link https://developers.google.com/maps/documentation/urls/get-started
  * @link https://gearside.com/easily-link-to-locations-and-directions-using-the-new-google-maps/
  */
@@ -103,7 +105,7 @@ final class GoogleMapsService extends AbstractService
 		return false;
 	}
 
-	public static function getScreenshotLink(float $lat, float $lon, array $options = []): ?string
+	public function getScreenshotLink(CoordinatesInterface $coordinates, array $options = []): ?string
 	{
 		if (is_null(Config::GOOGLE_MAPS_STATIC_API_KEY)) {
 			throw new NotSupportedException('Google Maps Static API key is not defined.');
@@ -113,7 +115,7 @@ final class GoogleMapsService extends AbstractService
 			'zoom' => '13',
 			'size' => '600x600',
 			'maptype' => 'roadmap',
-			'markers' => sprintf('color:red|label:|%1$s,%2$s', $lat, $lon),
+			'markers' => sprintf('color:red|label:|%1$s,%2$s', $coordinates->getLat(), $coordinates->getLon()),
 			'key' => Config::GOOGLE_MAPS_STATIC_API_KEY,
 		];
 		return 'https://maps.googleapis.com/maps/api/staticmap?' . http_build_query($params);
