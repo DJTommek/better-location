@@ -63,6 +63,13 @@ final class KudyZNudyCzServiceTest extends AbstractServiceTestCase
 		];
 	}
 
+	public static function processInvalidProvider(): array
+	{
+		return [
+			['https://www.kudyznudy.cz/akce/abcd'],
+		];
+	}
+
 	/**
 	 * @dataProvider isValidProvider
 	 */
@@ -91,5 +98,24 @@ final class KudyZNudyCzServiceTest extends AbstractServiceTestCase
 	{
 		$service = new KudyZNudyCzService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon, $expectedSourceType);
+	}
+
+	/**
+	 * @dataProvider processInvalidProvider
+	 * @group request
+	 */
+	public function testProcessInvalidReal(string $input): void
+	{
+		$service = new KudyZNudyCzService($this->httpTestClients->realRequestor);
+		$this->assertServiceNoLocation($service, $input);
+	}
+
+	/**
+	 * @dataProvider processInvalidProvider
+	 */
+	public function testProcessInvalidOffline(string $input): void
+	{
+		$service = new KudyZNudyCzService($this->httpTestClients->offlineRequestor);
+		$this->assertServiceNoLocation($service, $input);
 	}
 }
