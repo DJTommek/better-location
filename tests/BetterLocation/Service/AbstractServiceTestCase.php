@@ -113,6 +113,17 @@ abstract class AbstractServiceTestCase extends TestCase
 		return $location;
 	}
 
+	protected function assertServiceIsValid(
+		AbstractService $service,
+		string $input,
+		bool $expectedIsValid,
+	): void {
+		$this->assertInstanceOf($this->getServiceClass(), $service);
+		$service->setInput($input);
+
+		$this->assertSame($expectedIsValid, $service->validate());
+	}
+
 	protected function assertServiceLocation(
 		AbstractService $service,
 		string $input,
