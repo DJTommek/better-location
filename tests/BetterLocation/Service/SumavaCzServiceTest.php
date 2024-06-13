@@ -2,270 +2,261 @@
 
 namespace Tests\BetterLocation\Service;
 
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\SumavaCzService;
-use PHPUnit\Framework\TestCase;
 
-final class SumavaCzServiceTest extends TestCase
+/**
+ * Methods containing "original" are URLs, that were used before 2022-06-20.
+ * Methods containing "new" are URLs, that were used after 2022-06-20.
+ */
+final class SumavaCzServiceTest extends AbstractServiceTestCase
 {
-	public function testGenerateShareLink(): void
+	protected function getServiceClass(): string
 	{
-		$this->expectException(NotSupportedException::class);
-		SumavaCzService::getLink(50.087451, 14.420671);
+		return SumavaCzService::class;
 	}
 
-	public function testGenerateDriveLink(): void
+	protected function getShareLinks(): array
 	{
-		$this->expectException(NotSupportedException::class);
-		SumavaCzService::getLink(50.087451, 14.420671, true);
+		return [];
 	}
 
-	public function testIsValidOriginal(): void
+	protected function getDriveLinks(): array
 	{
-		// Place
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/objekt_az/765-stezka-v-korunch-d/'));
-		$this->assertTrue(SumavaCzService::validateStatic('https://www.sumava.cz/objekt_az/765-stezka-v-korunch-d/'));
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/objekt_az/765-stezka-v-korunch-d'));
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/objekt_az/765'));
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/objekt_az/146-infocentrum-albtn/'));
-
-		// Accomodation
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/objekt/2/'));
-		$this->assertTrue(SumavaCzService::validateStatic('https://www.sumava.cz/objekt/2/'));
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/objekt/2'));
-
-		// Companies
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/firma/565-aldi-sd-bodenmais-d/'));
-		$this->assertTrue(SumavaCzService::validateStatic('https://www.sumava.cz/firma/565-aldi-sd-bodenmais-d'));
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/firma/565'));
-
-		// Gallery
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'));
-		$this->assertTrue(SumavaCzService::validateStatic('https://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'));
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice'));
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/galerie_sekce/4711'));
-
-		// Invalid
-		$this->assertFalse(SumavaCzService::validateStatic('some invalid url'));
-		$this->assertFalse(SumavaCzService::validateStatic('http://www.sumava.cz/mapa-stranek/'));
-		$this->assertFalse(SumavaCzService::validateStatic('http://www.sumava.cz/rozcestnik-kategorie/3-infocentra/'));
-		$this->assertFalse(SumavaCzService::validateStatic('http://www.sumava.cz/galerie/'));
-		$this->assertFalse(SumavaCzService::validateStatic('http://www.sumava.cz/blabla/objekt_az/765-stezka-v-korunch-d/'));
-		$this->assertFalse(SumavaCzService::validateStatic('http://www.sumava.cz/foooo/objekt/2/'));
-		$this->assertFalse(SumavaCzService::validateStatic('http://www.sumava.cz/palider/firma/565-aldi-sd-bodenmais-d/'));
-		$this->assertFalse(SumavaCzService::validateStatic('http://www.sumava.cz/tomas/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'));
-	}
-
-	public function testIsValidNew(): void
-	{
-		// Place
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/rozcestnik/priroda/vrcholy-rozhledny/stezka-v-korunach-d/'));
-		$this->assertTrue(SumavaCzService::validateStatic('https://www.sumava.cz/rozcestnik/priroda/vrcholy-rozhledny/stezka-v-korunach-d/'));
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/rozcestnik/priroda/vrcholy-rozhledny/stezka-v-korunach-d'));
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/objekt_az/765'));
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/objekt_az/146-infocentrum-albtn/'));
-
-		// Accomodation
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/ubytovani/sumavska-roubenka/'));
-
-		// Companies
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/firmy/obchody/smisene/aldi-sud-bodenmais-d/'));
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/firmy/obchody/cerpaci-stanice/cerpaci-stanice-shell-freyung-d/'));
-
-		// Gallery
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/galerie/mesta-a-obce/mesta-a-obce/tedrazice/'));
-		$this->assertTrue(SumavaCzService::validateStatic('http://www.sumava.cz/galerie/priroda/vrcholy-rozhledny/stezka-v-korunach-d/'));
-
-		// Invalid
-		$this->assertFalse(SumavaCzService::validateStatic('some invalid url'));
+		return [];
 	}
 
 	/**
-	 * URLs before 2022-06-20.
-	 *
-	 * @see testProcessPlaceNew()
-	 * @group request
+	 * @return array<array{bool, string}>
 	 */
-	public function testProcessPlaceOriginal(): void
+	public static function isValidOriginalProvider(): array
 	{
-		$collectionOriginal = SumavaCzService::processStatic('http://www.sumava.cz/objekt_az/765-stezka-v-korunch-d/')->getCollection();
-		$this->assertCount(1, $collectionOriginal);
-		$this->assertSame('48.890900,13.485400', $collectionOriginal->getFirst()->getLatLon());
-		$this->assertSame('Place', $collectionOriginal->getFirst()->getSourceType());
-		// Link above is now (2022-06-20) redirected here:
+		return [
+			// Place
+			[true, 'http://www.sumava.cz/objekt_az/765-stezka-v-korunch-d/'],
+			[true, 'https://www.sumava.cz/objekt_az/765-stezka-v-korunch-d/'],
+			[true, 'http://www.sumava.cz/objekt_az/765-stezka-v-korunch-d'],
+			[true, 'http://www.sumava.cz/objekt_az/765'],
+			[true, 'http://www.sumava.cz/objekt_az/146-infocentrum-albtn/'],
 
-		$collection = SumavaCzService::processStatic('http://www.sumava.cz/objekt_az/146-infocentrum-albtn/')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.121800,13.209300', $collection->getFirst()->getLatLon());
+			// Accomodation
+			[true, 'http://www.sumava.cz/objekt/2/'],
+			[true, 'https://www.sumava.cz/objekt/2/'],
+			[true, 'http://www.sumava.cz/objekt/2'],
+
+			// Companies
+			[true, 'http://www.sumava.cz/firma/565-aldi-sd-bodenmais-d/'],
+			[true, 'https://www.sumava.cz/firma/565-aldi-sd-bodenmais-d'],
+			[true, 'http://www.sumava.cz/firma/565'],
+
+			// Gallery
+			[true, 'http://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'],
+			[true, 'https://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'],
+			[true, 'http://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice'],
+			[true, 'http://www.sumava.cz/galerie_sekce/4711'],
+
+			// Invalid
+			[false, 'some invalid url'],
+			[false, 'http://www.sumava.cz/mapa-stranek/'],
+			[false, 'http://www.sumava.cz/rozcestnik-kategorie/3-infocentra/'],
+			[false, 'http://www.sumava.cz/galerie/'],
+			[false, 'http://www.sumava.cz/blabla/objekt_az/765-stezka-v-korunch-d/'],
+			[false, 'http://www.sumava.cz/foooo/objekt/2/'],
+			[false, 'http://www.sumava.cz/palider/firma/565-aldi-sd-bodenmais-d/'],
+			[false, 'http://www.sumava.cz/tomas/galerie_sekce/4711-zmeck-park-hrdek-u-suice/'],
+		];
+	}
+
+	public static function isValidNewProvider(): array
+	{
+		return [
+			// Place
+			[true, 'http://www.sumava.cz/rozcestnik/priroda/vrcholy-rozhledny/stezka-v-korunach-d/'],
+			[true, 'https://www.sumava.cz/rozcestnik/priroda/vrcholy-rozhledny/stezka-v-korunach-d/'],
+			[true, 'http://www.sumava.cz/rozcestnik/priroda/vrcholy-rozhledny/stezka-v-korunach-d'],
+			[true, 'http://www.sumava.cz/objekt_az/765'],
+			[true, 'http://www.sumava.cz/objekt_az/146-infocentrum-albtn/'],
+
+			// Accomodation
+			[true, 'http://www.sumava.cz/ubytovani/sumavska-roubenka/'],
+
+			// Companies
+			[true, 'http://www.sumava.cz/firmy/obchody/smisene/aldi-sud-bodenmais-d/'],
+			[true, 'http://www.sumava.cz/firmy/obchody/cerpaci-stanice/cerpaci-stanice-shell-freyung-d/'],
+
+			// Gallery
+			[true, 'http://www.sumava.cz/galerie/mesta-a-obce/mesta-a-obce/tedrazice/'],
+			[true, 'http://www.sumava.cz/galerie/priroda/vrcholy-rozhledny/stezka-v-korunach-d/'],
+
+			// Invalid
+			[false, 'some invalid url'],
+		];
+	}
+
+	public static function processPlaceOriginalProvider(): array
+	{
+		return [
+			[[[48.890900, 13.485400, 'Place']], 'http://www.sumava.cz/objekt_az/765-stezka-v-korunch-d/'],
+			[[[49.121800, 13.209300, 'Place']], 'http://www.sumava.cz/objekt_az/146-infocentrum-albtn/'],
+		];
+	}
+
+	public static function processPlaceNewProvider(): array
+	{
+		return [
+			[[[48.890900, 13.485400, 'Place']], 'http://www.sumava.cz/rozcestnik/priroda/vrcholy-rozhledny/stezka-v-korunach-d/'],
+			[[[49.121800, 13.209300, 'Place']], 'http://www.sumava.cz/rozcestnik/instituce/infocentra/infocentrum-alzbetin/'],
+		];
+	}
+
+
+	public static function processAccomodationOriginalProvider(): array
+	{
+		return [
+			[[[49.170100, 13.454600, 'Accomodation']], 'http://www.sumava.cz/objekt/2/'],
+			[[[48.670000, 14.162900, 'Accomodation']], 'http://www.sumava.cz/objekt/39'],
+		];
+	}
+
+	public static function processAccomodationNewProvider(): array
+	{
+		return [
+			[[[49.170100, 13.454600, 'Accomodation']], 'http://www.sumava.cz/ubytovani/apartmany-stara-posta-hartmanice/'],
+			[[[48.670000, 14.162900, 'Accomodation']], 'http://www.sumava.cz/ubytovani/rekreace-na-lipne/'],
+		];
+	}
+
+	public static function processCompaniesOriginalProvider(): array
+	{
+		return [
+			[[[49.071600, 13.092100, 'Company']], 'http://www.sumava.cz/firma/565-aldi-sd-bodenmais-d/'],
+			[[[49.063400, 13.104300, 'Company']], 'http://www.sumava.cz/firma/805-erpac-stanice-shell-bodenmais-d/'],
+		];
+	}
+
+	public static function processCompaniesNewProvider(): array
+	{
+		return [
+			[[[49.071600, 13.092100, 'Company']], 'http://www.sumava.cz/firmy/obchody/smisene/aldi-sud-bodenmais-d/'],
+			[[[49.063400, 13.104300, 'Company']], 'http://www.sumava.cz/firmy/obchody/cerpaci-stanice/cerpaci-stanice-shell-bodenmais-d/'],
+		];
 	}
 
 	/**
-	 * URLs after 2022-06-20.
-	 *
-	 * @see testProcessPlaceOriginal()
-	 * @group request
-	 */
-	public function testProcessPlaceNew(): void
-	{
-		$collectionNew = SumavaCzService::processStatic('http://www.sumava.cz/rozcestnik/priroda/vrcholy-rozhledny/stezka-v-korunach-d/')->getCollection();
-		$this->assertCount(1, $collectionNew);
-		$this->assertSame('48.890900,13.485400', $collectionNew->getFirst()->getLatLon());
-		$this->assertSame('Place', $collectionNew->getFirst()->getSourceType());
-
-		$collection = SumavaCzService::processStatic('http://www.sumava.cz/rozcestnik/instituce/infocentra/infocentrum-alzbetin/')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.121800,13.209300', $collection->getFirst()->getLatLon());
-	}
-
-	/**
-	 * URLs before 2022-06-20.
-	 *
-	 * @group request
-	 */
-	public function testProcessAccomodationOriginal(): void
-	{
-		$collection = SumavaCzService::processStatic('http://www.sumava.cz/objekt/2/')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.170100,13.454600', $collection->getFirst()->getLatLon());
-		$this->assertSame('Accomodation', $collection->getFirst()->getSourceType());
-
-		// no coordinates in description, but available in map
-		$collection = SumavaCzService::processStatic('http://www.sumava.cz/objekt/39')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('48.670000,14.162900', $collection->getFirst()->getLatLon());
-		$this->assertSame('Accomodation', $collection->getFirst()->getSourceType());
-	}
-
-	/**
-	 * URLs after 2022-06-20.
-	 *
-	 * @group request
-	 */
-	public function testProcessAccomodationNew(): void
-	{
-		$collection = SumavaCzService::processStatic('http://www.sumava.cz/ubytovani/apartmany-stara-posta-hartmanice/')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.170100,13.454600', $collection->getFirst()->getLatLon());
-		$this->assertSame('Accomodation', $collection->getFirst()->getSourceType());
-
-		// no coordinates in description, but available in map
-		$collection = SumavaCzService::processStatic('http://www.sumava.cz/ubytovani/rekreace-na-lipne/')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('48.670000,14.162900', $collection->getFirst()->getLatLon());
-		$this->assertSame('Accomodation', $collection->getFirst()->getSourceType());
-	}
-
-	/**
-	 * URLs before 2022-06-20.
-	 *
-	 * @group request
-	 */
-	public function testProcessCompaniesOriginal(): void
-	{
-		$collection = SumavaCzService::processStatic('http://www.sumava.cz/firma/565-aldi-sd-bodenmais-d/')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.071600,13.092100', $collection->getFirst()->getLatLon());
-		$this->assertSame('Company', $collection->getFirst()->getSourceType());
-
-		$collection = SumavaCzService::processStatic('http://www.sumava.cz/firma/805-erpac-stanice-shell-bodenmais-d/')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.063400,13.104300', $collection->getFirst()->getLatLon());
-		$this->assertSame('Company', $collection->getFirst()->getSourceType());
-	}
-
-	/**
-	 * URLs after 2022-06-20.
-	 *
-	 * @group request
-	 */
-	public function testProcessCompaniesNew(): void
-	{
-		$collection = SumavaCzService::processStatic('http://www.sumava.cz/firmy/obchody/smisene/aldi-sud-bodenmais-d/')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.071600,13.092100', $collection->getFirst()->getLatLon());
-		$this->assertSame('Company', $collection->getFirst()->getSourceType());
-
-		$collection = SumavaCzService::processStatic('http://www.sumava.cz/firmy/obchody/cerpaci-stanice/cerpaci-stanice-shell-bodenmais-d/')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.063400,13.104300', $collection->getFirst()->getLatLon());
-		$this->assertSame('Company', $collection->getFirst()->getSourceType());
-	}
-
-	/**
-	 * URLs before 2022-06-20.
-	 *
 	 * Type is place because gallery is just original source
-	 * @group request
 	 */
-	public function testProcessGalleryOriginal(): void
+	public static function processGalleryOriginalProvider(): array
 	{
-		$collection = SumavaCzService::processStatic('http://www.sumava.cz/galerie_sekce/4710-tedraice/')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.265100,13.520600', $collection->getFirst()->getLatLon());
-		$this->assertSame('Place', $collection->getFirst()->getSourceType());
+		return [
+			[[[49.265100, 13.520600, 'Place']], 'http://www.sumava.cz/galerie_sekce/4710-tedraice/'],
 
-		$collection = SumavaCzService::processStatic('http://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice/')->getCollection();
-		$this->assertCount(3, $collection);
-		$this->assertSame('49.261300,13.498500', $collection->getFirst()->getLatLon());
-		$this->assertSame('Place', $collection->getFirst()->getSourceType());
-		$this->assertSame('49.261100,13.498100', $collection[1]->getLatLon());
-		$this->assertSame('Place', $collection[1]->getSourceType());
-		$this->assertSame('49.260500,13.497900', $collection[2]->getLatLon());
-		$this->assertSame('Place', $collection[2]->getSourceType());
+			[
+				[
+					[49.261300, 13.498500, 'Place'],
+					[49.261100, 13.498100, 'Place'],
+					[49.260500, 13.497900, 'Place'],
+				],
+				'http://www.sumava.cz/galerie_sekce/4711-zmeck-park-hrdek-u-suice/',
+			],
+		];
 	}
 
 	/**
-	 * URLs after 2022-06-20.
-	 *
 	 * Type is place because gallery is just original source
-	 * @group request
 	 */
-	public function testProcessGalleryNew(): void
+	public static function processGalleryNewProvider(): array
 	{
-		$collection = SumavaCzService::processStatic('http://www.sumava.cz/galerie/mesta-a-obce/mesta-a-obce/tedrazice/')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.265100,13.520600', $collection->getFirst()->getLatLon());
-		$this->assertSame('Place', $collection->getFirst()->getSourceType());
+		return [
+			[[[49.265100, 13.520600, 'Place']], 'http://www.sumava.cz/galerie/mesta-a-obce/mesta-a-obce/tedrazice/'],
 
-		$collection = SumavaCzService::processStatic('http://www.sumava.cz/galerie/zabava/odpocinek/zamecky-park-hradek-u-susice/')->getCollection();
-		$this->assertCount(3, $collection);
-		$this->assertSame('49.261300,13.498500', $collection->getFirst()->getLatLon());
-		$this->assertSame('Place', $collection->getFirst()->getSourceType());
-		$this->assertSame('49.261100,13.498100', $collection[1]->getLatLon());
-		$this->assertSame('Place', $collection[1]->getSourceType());
-		$this->assertSame('49.260500,13.497900', $collection[2]->getLatLon());
-		$this->assertSame('Place', $collection[2]->getSourceType());
+			[
+				[
+					[49.261300, 13.498500, 'Place'],
+					[49.261100, 13.498100, 'Place'],
+					[49.260500, 13.497900, 'Place'],
+				],
+				'http://www.sumava.cz/galerie/zabava/odpocinek/zamecky-park-hradek-u-susice/',
+			],
+		];
 	}
 
 	/**
-	 * URLs before 2022-06-20.
-	 *
 	 * Gallery is not linked to any specific place
-	 * @group request
 	 */
-	public function testGalleryNotRelatedOriginal(): void
+	public static function galleryNotRelatedProviderOriginal(): array
 	{
-		$this->assertCount(0, SumavaCzService::processStatic('http://www.sumava.cz/galerie_sekce/4688-strovsk-skotsk-horalsk-hry-2020/')->getCollection());
+		return [
+			['http://www.sumava.cz/galerie_sekce/4688-strovsk-skotsk-horalsk-hry-2020/'],
+		];
 	}
 
 	/**
-	 * URLs after 2022-06-20.
-	 *
 	 * Gallery is not linked to any specific place
+	 */
+	public static function galleryNotRelatedProviderNew(): array
+	{
+		return [
+			['http://www.sumava.cz/galerie/kultura-a-pamatky/akce/strazovske-skotske-horalske-hry-2020/'],
+		];
+	}
+
+	public static function invalidIdProvider(): array
+	{
+		return [
+			['https://www.sumava.cz/objekt_az/99999999'],
+			['https://www.sumava.cz/objekt/99999999'],
+			['https://www.sumava.cz/galerie_sekce/9999999'],
+		];
+	}
+
+	/**
+	 * @dataProvider isValidOriginalProvider
+	 * @dataProvider isValidNewProvider
+	 */
+	public function testIsValid(bool $expectedIsValid, string $input): void
+	{
+		$service = new SumavaCzService();
+		$this->assertServiceIsValid($service, $input, $expectedIsValid);
+	}
+
+	/**
+	 * @dataProvider processPlaceOriginalProvider
+	 * @dataProvider processPlaceNewProvider
+	 * @dataProvider processAccomodationOriginalProvider
+	 * @dataProvider processAccomodationNewProvider
+	 * @dataProvider processCompaniesOriginalProvider
+	 * @dataProvider processCompaniesNewProvider
+	 * @dataProvider processGalleryOriginalProvider
+	 * @dataProvider processGalleryNewProvider
 	 * @group request
 	 */
-	public function testGalleryNotRelatedNew(): void
+	public function testProcess(array $expectedResults, string $input): void
 	{
-		$this->assertCount(0, SumavaCzService::processStatic('http://www.sumava.cz/galerie/kultura-a-pamatky/akce/strazovske-skotske-horalske-hry-2020/')->getCollection());
+		$service = new SumavaCzService();
+		$service->setInput($input);
+		$this->assertTrue($service->validate());
+		$service->process();
+
+		$collection = $service->getCollection();
+		$this->assertCount(count($expectedResults), $collection);
+
+		foreach ($expectedResults as $key => $expectedResult) {
+			[$expectedLat, $expectedLon, $expectedSourceType] = $expectedResult;
+			$location = $collection[$key];
+			$this->assertSame($expectedLat, $location->getLat());
+			$this->assertSame($expectedLon, $location->getLon());
+			$this->assertSame($expectedSourceType, $location->getSourceType());
+		}
 	}
 
 	/**
 	 * @group request
+	 * @dataProvider invalidIdProvider
+	 * @dataProvider galleryNotRelatedProviderOriginal
+	 * @dataProvider galleryNotRelatedProviderNew
 	 */
-	public function testInvalidId(): void
+	public function testInvalidId(string $input): void
 	{
-		$this->assertCount(0, SumavaCzService::processStatic('https://www.sumava.cz/objekt_az/99999999')->getCollection());
-		$this->assertCount(0, SumavaCzService::processStatic('https://www.sumava.cz/objekt/99999999')->getCollection());
-		$this->assertCount(0, SumavaCzService::processStatic('https://www.sumava.cz/galerie_sekce/9999999')->getCollection());
+		$service = new SumavaCzService();
+		$this->assertServiceNoLocation($service, $input);
 	}
 }
