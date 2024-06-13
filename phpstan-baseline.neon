@@ -686,11 +686,6 @@ parameters:
 			path: src/libs/Web/Admin/AdminTemplate.php
 
 		-
-			message: "#^Class App\\\\Web\\\\Admin\\\\AdminTemplate has an uninitialized readonly property \\$webhookResponseRaw\\. Assign it in the constructor\\.$#"
-			count: 1
-			path: src/libs/Web/Admin/AdminTemplate.php
-
-		-
 			message: "#^Method App\\\\Web\\\\Admin\\\\AdminTemplate\\:\\:getChatsStats\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/Web/Admin/AdminTemplate.php
@@ -716,22 +711,12 @@ parameters:
 			path: src/libs/Web/Admin/AdminTemplate.php
 
 		-
-			message: "#^Readonly property App\\\\Web\\\\Admin\\\\AdminTemplate\\:\\:\\$webhookError is assigned outside of the constructor\\.$#"
-			count: 2
-			path: src/libs/Web/Admin/AdminTemplate.php
-
-		-
 			message: "#^Readonly property App\\\\Web\\\\Admin\\\\AdminTemplate\\:\\:\\$webhookOk is assigned outside of the constructor\\.$#"
 			count: 1
 			path: src/libs/Web/Admin/AdminTemplate.php
 
 		-
 			message: "#^Readonly property App\\\\Web\\\\Admin\\\\AdminTemplate\\:\\:\\$webhookResponse is assigned outside of the constructor\\.$#"
-			count: 1
-			path: src/libs/Web/Admin/AdminTemplate.php
-
-		-
-			message: "#^Readonly property App\\\\Web\\\\Admin\\\\AdminTemplate\\:\\:\\$webhookResponseRaw is assigned outside of the constructor\\.$#"
 			count: 1
 			path: src/libs/Web/Admin/AdminTemplate.php
 

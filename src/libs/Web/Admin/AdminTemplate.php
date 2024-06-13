@@ -12,12 +12,7 @@ use App\Web\LayoutTemplate;
 use Nette\Http\Request;
 use Nette\Http\UrlImmutable;
 use unreal4u\TelegramAPI\Exceptions\ClientException;
-use unreal4u\TelegramAPI\HttpClientRequestHandler;
-use unreal4u\TelegramAPI\Telegram\Methods\GetWebhookInfo;
 use unreal4u\TelegramAPI\Telegram\Types\WebhookInfo;
-use unreal4u\TelegramAPI\TgLog;
-
-use function Clue\React\Block\await;
 
 class AdminTemplate extends LayoutTemplate
 {
@@ -38,15 +33,21 @@ class AdminTemplate extends LayoutTemplate
 	public readonly bool $isDatabaseTablesSet;
 	public readonly ?\PDOException $dbError;
 	public readonly ?\PDOException $tablesError;
-	public readonly WebhookInfo $webhookResponseRaw;
+	public readonly ?WebhookInfo $webhookResponseRaw;
 	public readonly \stdClass $webhookResponse;
 	public readonly ?ClientException $webhookError;
 	public readonly bool $webhookOk;
 
-	public function prepare(Database $database, Request $request): void
-	{
+	public function prepare(
+		Database $database,
+		Request $request,
+		?WebhookInfo $webhookInfo,
+		?ClientException $webhookError,
+	): void {
 		$this->database = $database;
 		$this->request = $request;
+		$this->webhookResponseRaw = $webhookInfo;
+		$this->webhookError = $webhookError;
 
 		$this->appUrl = Config::getAppUrl();
 		$this->isAppUrlSet = $this->appUrl->isEqual(DefaultConfig::getAppUrl()) === false;
@@ -61,9 +62,7 @@ class AdminTemplate extends LayoutTemplate
 		$this->isDatabaseTablesSet = $this->isDatabaseTablesSet();
 		$this->installTabIcon = $this->getInstallTabIcon();
 		$this->tracyEmailIcon = $this->getTracyEmailIcon();
-		if (Config::isTelegram()) {
-			$this->runGetWebhookStatus();
-		}
+		$this->formatWebhookInfo();
 	}
 
 	private function getInstallTabIcon(): string
@@ -165,80 +164,75 @@ class AdminTemplate extends LayoutTemplate
 		}
 	}
 
-
-	public function runGetWebhookStatus(): void
+	public function formatWebhookInfo(): void
 	{
-		$loop = \React\EventLoop\Factory::create();
-		$tgLog = new TgLog(Config::TELEGRAM_BOT_TOKEN, new HttpClientRequestHandler($loop));
-		try {
-			$this->webhookResponseRaw = await($tgLog->performApiRequest(new GetWebhookInfo()), $loop);
-			$responseFormatted = new \stdClass();
-			$webhookOk = true;
-			foreach (get_object_vars($this->webhookResponseRaw) as $key => $value) {
-				if ($key === 'url') {
-					if (empty($value)) {
-						$responseFormatted->{$key} = sprintf('%s According to Telegram API response, webhook URL is not set. Did you run Telegram setup?', Icons::ERROR);
-						$webhookOk = false;
-					} else {
-						$webhookUrlFromApi = new UrlImmutable($value);
-						$webhookUrlFromConfig = Config::getTelegramWebhookUrl();
-
-						if ($webhookUrlFromConfig->isEqual($webhookUrlFromApi)) {
-							$responseFormatted->{$key} = sprintf('%s <a href="%2$s" target="_blank">%2$s</a> (matching with Config)', Icons::SUCCESS, $webhookUrlFromConfig);
-						} else {
-							$stringValue = sprintf('%s Webhook URL is set according to webhook response but it\'s different than in Config:<br>', Icons::WARNING);
-							$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Webhook response)<br>', $webhookUrlFromApi);
-							$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Config)', $webhookUrlFromConfig);
-							$responseFormatted->{$key} = $stringValue;
-							$webhookOk = false;
-						}
-					}
-				} else if ($key === 'pending_update_count') {
-					if ($value === 0) {
-						$responseFormatted->{$key} = Icons::SUCCESS . ' None';
-					} else {
-						$webhookOk = false;
-						$responseFormatted->{$key} = Icons::WARNING . ' ' . $value;
-					}
-				} else if ($key === 'last_error_message' && $value === '') {
-					$responseFormatted->{$key} = Icons::SUCCESS . ' None';
-				} else if ($key === 'max_connections' && $value !== Config::TELEGRAM_MAX_CONNECTIONS) {
-					$webhookOk = false;
-					$responseFormatted->{$key} = sprintf(
-						'%s <b>%d</b> - number is different than in Config (<b>%d</b>), run Telegram configure to fix.',
-						Icons::WARNING,
-						$value,
-						Config::TELEGRAM_MAX_CONNECTIONS,
-					);
-				} else if ($key === 'ip_address') {
-					$responseFormatted->{$key} = sprintf('<a href="http://%1$s/" target="_blank">%1$s</a>', $value);
-				} else if ($key === 'last_error_date') {
-					if ($value === 0) {
-						$responseFormatted->{$key} = Icons::SUCCESS . ' Never';
-					} else {
-						$lastErrorDate = DateImmutableUtils::fromTimestamp($value);
-						$now = new \DateTimeImmutable();
-						$diff = $now->getTimestamp() - $lastErrorDate->getTimestamp();
-
-						$responseFormatted->{$key} = sprintf('%d<br>%s<br>%s ago',
-							$lastErrorDate->getTimestamp(),
-							$lastErrorDate->format(DATE_ISO8601),
-							\App\Utils\Utils::sToHuman($diff),
-						);
-					}
-				} else if (is_bool($value)) {
-					$responseFormatted->{$key} = $value ? 'true' : 'false';
-				} else if (is_array($value)) {
-					$responseFormatted->{$key} = sprintf('Array of <b>%d</b> values: %s', count($value), print_r($value, true));
-				} else {
-					$responseFormatted->{$key} = $value;
-				}
-			}
-			$this->webhookOk = $webhookOk;
-			$this->webhookResponse = $responseFormatted;
-			$this->webhookError = null;
-		} catch (ClientException $clientException) {
-			$this->webhookError = $clientException;
+		if ($this->webhookResponseRaw === null) {
+			return;
 		}
+
+		$responseFormatted = new \stdClass();
+		$webhookOk = true;
+		foreach (get_object_vars($this->webhookResponseRaw) as $key => $value) {
+			if ($key === 'url') {
+				if (empty($value)) {
+					$responseFormatted->{$key} = sprintf('%s According to Telegram API response, webhook URL is not set. Did you run Telegram setup?', Icons::ERROR);
+					$webhookOk = false;
+				} else {
+					$webhookUrlFromApi = new UrlImmutable($value);
+					$webhookUrlFromConfig = Config::getTelegramWebhookUrl();
+
+					if ($webhookUrlFromConfig->isEqual($webhookUrlFromApi)) {
+						$responseFormatted->{$key} = sprintf('%s <a href="%2$s" target="_blank">%2$s</a> (matching with Config)', Icons::SUCCESS, $webhookUrlFromConfig);
+					} else {
+						$stringValue = sprintf('%s Webhook URL is set according to webhook response but it\'s different than in Config:<br>', Icons::WARNING);
+						$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Webhook response)<br>', $webhookUrlFromApi);
+						$stringValue .= sprintf('<a href="%1$s" target="_blank">%1$s</a> (Config)', $webhookUrlFromConfig);
+						$responseFormatted->{$key} = $stringValue;
+						$webhookOk = false;
+					}
+				}
+			} else if ($key === 'pending_update_count') {
+				if ($value === 0) {
+					$responseFormatted->{$key} = Icons::SUCCESS . ' None';
+				} else {
+					$webhookOk = false;
+					$responseFormatted->{$key} = Icons::WARNING . ' ' . $value;
+				}
+			} else if ($key === 'last_error_message' && $value === '') {
+				$responseFormatted->{$key} = Icons::SUCCESS . ' None';
+			} else if ($key === 'max_connections' && $value !== Config::TELEGRAM_MAX_CONNECTIONS) {
+				$webhookOk = false;
+				$responseFormatted->{$key} = sprintf(
+					'%s <b>%d</b> - number is different than in Config (<b>%d</b>), run Telegram configure to fix.',
+					Icons::WARNING,
+					$value,
+					Config::TELEGRAM_MAX_CONNECTIONS,
+				);
+			} else if ($key === 'ip_address') {
+				$responseFormatted->{$key} = sprintf('<a href="http://%1$s/" target="_blank">%1$s</a>', $value);
+			} else if ($key === 'last_error_date') {
+				if ($value === 0) {
+					$responseFormatted->{$key} = Icons::SUCCESS . ' Never';
+				} else {
+					$lastErrorDate = DateImmutableUtils::fromTimestamp($value);
+					$now = new \DateTimeImmutable();
+					$diff = $now->getTimestamp() - $lastErrorDate->getTimestamp();
+
+					$responseFormatted->{$key} = sprintf('%d<br>%s<br>%s ago',
+						$lastErrorDate->getTimestamp(),
+						$lastErrorDate->format(DATE_ISO8601),
+						\App\Utils\Utils::sToHuman($diff),
+					);
+				}
+			} else if (is_bool($value)) {
+				$responseFormatted->{$key} = $value ? 'true' : 'false';
+			} else if (is_array($value)) {
+				$responseFormatted->{$key} = sprintf('Array of <b>%d</b> values: %s', count($value), print_r($value, true));
+			} else {
+				$responseFormatted->{$key} = $value;
+			}
+		}
+		$this->webhookOk = $webhookOk;
+		$this->webhookResponse = $responseFormatted;
 	}
 }

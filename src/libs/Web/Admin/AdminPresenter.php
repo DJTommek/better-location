@@ -8,6 +8,8 @@ use App\TelegramCustomWrapper\Events\Command\Command;
 use App\TelegramCustomWrapper\TelegramCustomWrapper;
 use App\Web\Flash;
 use App\Web\MainPresenter;
+use unreal4u\TelegramAPI\Exceptions\ClientException;
+use unreal4u\TelegramAPI\Telegram\Methods\GetWebhookInfo;
 use unreal4u\TelegramAPI\Telegram\Methods\SetMyCommands;
 use unreal4u\TelegramAPI\Telegram\Types\BotCommand;
 use unreal4u\TelegramAPI\Telegram\Types\BotCommandScope;
@@ -110,7 +112,16 @@ class AdminPresenter extends MainPresenter
 	public function beforeRender(): void
 	{
 		$this->setTemplateFilename('admin.latte');
-		$this->template->prepare($this->database, $this->request);
+
+		$webhookError = null;
+		$webhookInfo = null;
+		try {
+			$webhookInfo = Config::isTelegramBotToken() ? $this->telegramCustomWrapper->run(new GetWebhookInfo()) : null;
+		} catch (ClientException $clientException) {
+			$webhookError = $clientException;
+		}
+
+		$this->template->prepare($this->database, $this->request, $webhookInfo, $webhookError);
 	}
 }
 
