@@ -4,7 +4,7 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\Config;
-use App\MiniCurl\MiniCurl;
+use App\Utils\Requestor;
 use App\Utils\Utils;
 use DJTommek\Coordinates\Coordinates;
 
@@ -17,6 +17,11 @@ final class KudyZNudyCzService extends AbstractService
 
 	const TYPE_ACTIVITY = 'activity';
 	const TYPE_EVENT = 'event';
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public function validate(): bool
 	{
@@ -39,10 +44,7 @@ final class KudyZNudyCzService extends AbstractService
 
 	public function process(): void
 	{
-		$response = (new MiniCurl($this->url))
-			->allowCache(Config::CACHE_TTL_KUDY_Z_NUDY_CZ)
-			->run()
-			->getBody();
+		$response = $this->requestor->get($this->url, Config::CACHE_TTL_KUDY_Z_NUDY_CZ);
 		$dom = Utils::domFromUTF8($response);
 		$element = $dom->getElementById('szn-map');
 		if ($element === null) {

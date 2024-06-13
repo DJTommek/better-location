@@ -3,9 +3,19 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\KudyZNudyCzService;
+use Tests\HttpTestClients;
 
 final class KudyZNudyCzServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return KudyZNudyCzService::class;
@@ -56,18 +66,30 @@ final class KudyZNudyCzServiceTest extends AbstractServiceTestCase
 	/**
 	 * @dataProvider isValidProvider
 	 */
-	public function testIsValid(bool $expectedIsValid, string $link): void
+	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$this->assertSame($expectedIsValid, KudyZNudyCzService::validateStatic($link));
+		$service = new KudyZNudyCzService($this->httpTestClients->mockedRequestor);
+		$service->setInput($input);
+		$isValid = $service->validate();
+		$this->assertSame($expectedIsValid, $isValid);
 	}
 
 	/**
 	 * @dataProvider processProvider
 	 * @group request
 	 */
-	public function testProcess(float $expectedLat, float $expectedLon, string $expectedSourceType, string $input): void
+	public function testProcessReal(float $expectedLat, float $expectedLon, string $expectedSourceType, string $input): void
 	{
-		$service = new KudyZNudyCzService();
+		$service = new KudyZNudyCzService($this->httpTestClients->realRequestor);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon, $expectedSourceType);
+	}
+
+	/**
+	 * @dataProvider processProvider
+	 */
+	public function testProcessOffline(float $expectedLat, float $expectedLon, string $expectedSourceType, string $input): void
+	{
+		$service = new KudyZNudyCzService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon, $expectedSourceType);
 	}
 }
