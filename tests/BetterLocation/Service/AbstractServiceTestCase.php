@@ -137,4 +137,18 @@ abstract class AbstractServiceTestCase extends TestCase
 
 		return $location;
 	}
+
+	protected function assertServiceNoLocation(
+		AbstractService $service,
+		string $input,
+	): void {
+		$this->assertInstanceOf($this->getServiceClass(), $service);
+		$service->setInput($input);
+
+		$this->assertTrue($service->validate());
+		$service->process();
+
+		$collection = $service->getCollection();
+		$this->assertCount(0, $collection);
+	}
 }
