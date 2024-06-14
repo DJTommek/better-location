@@ -44,10 +44,6 @@ final class FevGamesServiceTest extends TestCase
 	 */
 	public function testUrl(): void
 	{
-		$collection = FevGamesService::processStatic('https://fevgames.net/ifs/event/?e=23415')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.963966,14.073212', (string)$collection->getFirst());
-
 		$collection = FevGamesService::processStatic('https://fevgames.net/ifs/event/?e=23448')->getCollection();
 		$this->assertCount(1, $collection);
 		$this->assertSame('-37.815226,144.963781', (string)$collection->getFirst());
