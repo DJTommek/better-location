@@ -80,7 +80,7 @@ final class FevGamesServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$ingressClient = new \App\IngressLanchedRu\Client();
+		$ingressClient = new \App\IngressLanchedRu\Client($this->httpTestClients->mockedRequestor);
 		$ingressIntelService = new IngressIntelService($ingressClient);
 
 		$service = new FevGamesService($ingressClient, $ingressIntelService, $this->httpTestClients->mockedRequestor);
@@ -93,7 +93,7 @@ final class FevGamesServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessReal(array $expectedResults, string $input): void
 	{
-		$ingressClient = new \App\IngressLanchedRu\Client();
+		$ingressClient = new \App\IngressLanchedRu\Client($this->httpTestClients->realRequestor);
 		$ingressIntelService = new IngressIntelService($ingressClient);
 
 		$service = new FevGamesService($ingressClient, $ingressIntelService, $this->httpTestClients->realRequestor);
@@ -105,7 +105,7 @@ final class FevGamesServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessOffline(array $expectedResults, string $input): void
 	{
-		$ingressClient = new \App\IngressLanchedRu\Client();
+		$ingressClient = new \App\IngressLanchedRu\Client($this->httpTestClients->offlineRequestor);
 		$ingressIntelService = new IngressIntelService($ingressClient);
 
 		$service = new FevGamesService($ingressClient, $ingressIntelService, $this->httpTestClients->offlineRequestor);
@@ -134,7 +134,7 @@ final class FevGamesServiceTest extends AbstractServiceTestCase
 	 */
 	public function testNoIntelLinkReal(string $input): void
 	{
-		$ingressClient = new \App\IngressLanchedRu\Client();
+		$ingressClient = new \App\IngressLanchedRu\Client($this->httpTestClients->mockedRequestor);
 		$ingressIntelService = new IngressIntelService($ingressClient);
 
 		$service = new FevGamesService($ingressClient, $ingressIntelService, $this->httpTestClients->realRequestor);
@@ -146,7 +146,7 @@ final class FevGamesServiceTest extends AbstractServiceTestCase
 	 */
 	public function testNoIntelLinkOffline(string $input): void
 	{
-		$ingressClient = new \App\IngressLanchedRu\Client();
+		$ingressClient = new \App\IngressLanchedRu\Client($this->httpTestClients->mockedRequestor);
 		$ingressIntelService = new IngressIntelService($ingressClient);
 
 		$service = new FevGamesService($ingressClient, $ingressIntelService, $this->httpTestClients->offlineRequestor);

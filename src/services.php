@@ -114,11 +114,8 @@ return static function (ContainerConfigurator $container): void {
 			->factory([service(\App\Factory\FoursquareApiFactory::class), 'create']);
 	}
 
-	$services->set(\App\Factory\IngressLanchedRuFactory::class)
-		->arg('$cacheTtl', Config::CACHE_TTL_INGRESS_LANCHED_RU_API);
-
 	$services->set(\App\IngressLanchedRu\Client::class)
-		->factory([service(\App\Factory\IngressLanchedRuFactory::class), 'create']);
+		->arg('$cacheTtl', Config::CACHE_TTL_INGRESS_LANCHED_RU_API);
 
 	$services->set(\App\Factory\NominatimFactory::class)
 		->arg('$nominatimUrl', Config::NOMINATIM_URL)

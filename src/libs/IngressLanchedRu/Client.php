@@ -3,7 +3,7 @@
 namespace App\IngressLanchedRu;
 
 use App\IngressLanchedRu\Types\PortalType;
-use App\MiniCurl\MiniCurl;
+use App\Utils\Requestor;
 
 /**
  * Hi there. Looks you are interested in Ingress portal search. I can help you with it.
@@ -13,6 +13,7 @@ use App\MiniCurl\MiniCurl;
  * Third, if you have any new portal related information - you may share it with me.
  * Next, if you want to get information about new portals in your area - take a look at @IngressPortalBot. It can do that in telegram.
  * Finally, you may contact with me @Lanched.
+ *
  * @see https://lanched.ru/PortalGet/
  * @author Tomas Palider (DJTommek) https://tomas.palider.cz/ Author of this PHP wrapper only, not related to API in any way.
  */
@@ -24,13 +25,10 @@ class Client
 	const LINK_GET_PORTALS = self::LINK . '/getPortals.php';
 	const LINK_SEARCH_PORTALS = self::LINK . '/searchPortals.php';
 
-	/** @var int */
-	private $cacheTtl = 0;
-
-	public function setCache(int $ttl): self
-	{
-		$this->cacheTtl = $ttl;
-		return $this;
+	public function __construct(
+		private readonly Requestor $requestor,
+		private readonly ?int $cacheTtl = null,
+	) {
 	}
 
 	/**
@@ -132,6 +130,6 @@ class Client
 	/** @return \stdClass|array<mixed>|null */
 	private function makeJsonRequest(string $url)
 	{
-		return (new MiniCurl($url))->allowCache($this->cacheTtl)->run()->getBodyAsJson();
+		return $this->requestor->getJson($url, $this->cacheTtl);
 	}
 }
