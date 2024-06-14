@@ -21,8 +21,11 @@ final class ClientTest extends TestCase
 	{
 		return [
 			['ed64a5b3c8fc3d61973a863b3667b116.16', 'Mariánsky sloup', 50.087354, 14.421307],
+			// Real portal name contains extra space: 'Era Kone Amphitheater '
 			['6e6c2299f12b496cbd2c15971a306c51.16', 'Era Kone Amphitheater', -9.480218, 147.15345],
 			['ddb6b3176edf4e94969f6c0db32caaf9.12', 'GANDHI MANDAPAM', 8.078457, 77.550645],
+			// Due to bug in REST API, portal name is integer instead of string
+			['470292c1672441d18585709d871f27d7.16', '1737', 49.456762, 13.784239],
 		];
 	}
 
