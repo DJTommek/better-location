@@ -1,0 +1,1387 @@
+
+<!DOCTYPE html>
+<html lang="cs">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+		<meta name="robots" content="index, follow" />
+		<meta name="googlebot" content="index, follow, snippet, archive" />
+		<meta name="author" content="Šumavské firmy: Aldi Süd, Bodenmais (D)" />
+		<meta name="keywords" content="šumava, firmy" />
+		<meta name="description" content="Šumavské firmy - šumava.cz" />
+
+		<meta property="og:url" content="https://darekprosueryder.cz/" />
+		<meta property="og:title" content="Šumavské firmy: Aldi Süd, Bodenmais (D)" />
+		<meta property="og:description" content="Šumavské firmy - šumava.cz" />
+		<meta property="og:site_name" content="Šumavské firmy: Aldi Süd, Bodenmais (D)" />
+
+		<meta property="og:image" content="/res/images/og-default.jpg" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+
+		<title>Šumavské firmy: Aldi Süd, Bodenmais (D)</title>
+
+		<link href="https://fonts.googleapis.com" rel="preconnect" />
+		<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+
+					<link href="/res/css/bootstrap.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			<link href="/res/css/swiper.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			<link href="/res/css/main.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			<link href="/res/css/print.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" media="print" />
+			<link href="/res/css/devel.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+
+							<link href="/res/css/glightbox.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			
+			<noscript>
+				<link href="/res/css/bootstrap.min.css" rel="stylesheet" />
+				<link href="/res/css/swiper.min.css" rel="stylesheet" />
+				<link href="/res/css/main.min.css" rel="stylesheet" />
+				<link href="/res/css/print.min.css" rel="stylesheet" media="print" />
+				<link href="/res/css/devel.min.css" rel="stylesheet" />
+
+									<link href="/res/css/glightbox.min.css" rel="stylesheet" />
+							</noscript>
+		
+		<script>
+			!function(t){'use strict';t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement('link').relList.supports('preload')}catch(t){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){var e=t.media||'all';function a(){t.addEventListener?t.removeEventListener('load',a):t.attachEvent&&t.detachEvent('onload',a),t.setAttribute('onload',null),t.media=e}t.addEventListener?t.addEventListener('load',a):t.attachEvent&&t.attachEvent('onload',a),setTimeout(function(){t.rel='stylesheet',t.media='only x'}),setTimeout(a,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName('link'),n=0;n<a.length;n++){var o=a[n];'preload'!==o.rel||'style'!==o.getAttribute('as')||o.getAttribute('data-loadcss')||(o.setAttribute('data-loadcss',!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener('load',function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent('onload',function(){e.poly(),t.clearInterval(a)})}'undefined'!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}('undefined'!=typeof global?global:this);
+		</script>
+
+		<link href="/res/favicons/favicon.ico" rel="icon" type="image/x-icon" />
+		<link href="/res/favicons/apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57" />
+		<link href="/res/favicons/apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60" />
+		<link href="/res/favicons/apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72" />
+		<link href="/res/favicons/apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76" />
+		<link href="/res/favicons/apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114" />
+		<link href="/res/favicons/apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120" />
+		<link href="/res/favicons/apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144" />
+		<link href="/res/favicons/apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152" />
+		<link href="/res/favicons/apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180" />
+		<link href="/res/favicons/android-icon-192x192.png" rel="icon" type="image/png" sizes="192x192" />
+		<link href="/res/favicons/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32" />
+		<link href="/res/favicons/favicon-96x96.png" rel="icon" type="image/png" sizes="96x96" />
+		<link href="/res/favicons/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16" />
+		<link href="/res/favicons/manifest.json" rel="manifest" />
+
+		<meta name="msapplication-TileImage" content="/res/favicons/ms-icon-144x144.png" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="#0d4804" />
+		<meta name="msapplication-TileColor" content="#0d4804" />
+		<meta name="theme-color" content="#0d4804" />
+
+					<script src="https://api.mapy.cz/loader.js"></script>
+			<script>Loader.load()</script>
+		
+					<script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7609448103131768" async crossorigin="anonymous"></script>
+			</head>
+
+	<body class="is-page">
+		<!-- header -->
+		<header class="header">
+	<!-- header top -->
+	<div class="container header__top">
+		<!-- logo -->
+		<a class="header__top-logo" href="/" title="Šumava.cz">
+			<h1>Šumava.cz</h1>
+			<img class="is-desktop" src="/res/images/logo.png" alt="Šumava.cz" width="351" height="47" />
+			<img class="is-mobile" src="/res/images/logo-mobile.png" alt="Šumava.cz" width="200" height="27" />
+		</a>
+
+		<!-- opens main menu on mobile -->
+		<button id="MainMenuToggle" class="navbar-toggler collapsed" type="button" aria-controls="MainMenu" aria-expanded="false" aria-label="Zobrazit menu" data-bs-target="#MainMenu" data-bs-toggle="collapse">
+			<span class="navbar-toggler__bar"></span>
+			<span class="navbar-toggler__bar"></span>
+			<span class="navbar-toggler__bar"></span>
+		</button>
+	</div>
+
+	<!-- header bottom -->
+	<div class="container header__bottom">
+		<!-- main menu -->
+		<nav id="MainMenu" class="navbar-collapse collapse">
+			<div class="main-menu-wrap">
+				<ul class="main-menu level-1">
+					<li class="dropdown is-active">
+						<a class="dropdown-toggle color-red" href="/rozcestnik/" title="Šumava A-Z" aria-expanded="false">
+							<span>rozcestník</span>
+							<span class="dropdown-caret" tabindex="0" role="button" aria-label="Zobrazit submenu"></span>
+						</a>
+						<div class="dropdown-menu level2">
+							<ul>
+								<li>
+									<a href="/rozcestnik/" title="šumavský rozcestník" tabindex="-1"><span>rozcestník</span></a>
+								</li>
+								<li class="is-active">
+									<a href="/firmy/" title="šumavské firmy" tabindex="-1"><span>firmy</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a class="color-orange" href="/ubytovani/" title="ubytování na Šumavě"><span>ubytování</span></a>
+					</li>
+					<li>
+						<a class="color-yellow" href="/e-shop/" title="šumavský e-shop"><span>e-shop</span></a>
+					</li>
+					<li class="is-inactive">
+						<a class="color-green-light" href="#" title="mapa Šumavy"><span>mapa</span></a>
+					</li>
+					<li>
+						<a class="color-green" href="/galerie/" title="šumavská galerie"><span>fotogalerie</span></a>
+					</li>
+					<li class="is-inactive">
+						<a class="color-blue-light" href="#" title="šumavské tipy"><span>tipy</span></a>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle color-default" href="#" title="Šumava - ostatní" aria-expanded="false" aria-haspopup="true" role="button">
+							<span>ostatní</span>
+							<span class="dropdown-caret" tabindex="0" role="button" aria-label="Zobrazit submenu"></span>
+						</a>
+						<div class="dropdown-menu level2">
+							<ul>
+								<li>
+									<a href="/kontakty/" title="Šumava - kontakty" tabindex="-1"><span>kontakty</span></a>
+								</li>
+								<li>
+									<a href="/obchodni-podminky/" title="Šumava - obchodní podmínky" tabindex="-1"><span>obchodní podmínky</span></a>
+								</li>
+								<li>
+									<a href="/prohlaseni-o-cookies/" title="Šumava - prohlášení o cookies" tabindex="-1"><span>prohlášení o cookies</span></a>
+								</li>
+								<li>
+									<a href="/mapa-stranek/" title="Šumava - mapa stránek" tabindex="-1"><span>mapa stránek</span></a>
+								</li>
+								<li>
+									<a href="/webmuzeum-zapalkovych-nalepek/" title="Šumava - webmuzeum zápalkových nálepek" tabindex="-1"><span>zápalkové nálepky</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+
+	<!-- header darkness -->
+	<div class="header__darkness"></div>
+</header>
+
+		<!-- slider -->
+		
+	<section class="slider">
+		<div class="swiper">
+			<div class="swiper-wrapper">
+													<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/1.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">největší jedinec svého druhu v ČR - Lukavický tisovec</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/2.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">nejdeštivějších místo v České republice - 1500 mm/rok - Březník</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/3.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">nejdelší hradní most v Evropě - hrad Velhartice</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/4.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">jedno z nejstarších slovanských osídlení na našem území - Tasnovice</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/5.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">celosvětově unikátní akt nespravedlnosti - Lex Schwarzenberg</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/6.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">nejvýše položená synagoga v Česku a střední Evropě - Hartmanice</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/7.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">první verše &quot;polámal se mraveneček&quot; napsal Josef Kožíšek, Lužany</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+												</div>
+			<div class="swiper-pagination"></div>
+		</div>
+	</section>
+
+		<!-- content -->
+		<section class="container content">
+			<div class="content__inside">
+					
+<!-- fixed menu -->
+<div class="menu-fixed">
+	<div class="container">
+		<ul>
+			<li><a href="#section-main" title="Aldi Süd, Bodenmais (D)">Aldi Süd, Bodenmais (D)</a></li>
+
+							<li><a href="#section-map" title="mapa">mapa</a></li>
+			
+			
+							<li><a href="#section-attractions" title="místa v okolí">místa v okolí</a></li>
+			
+							<li><a href="#section-apartments" title="ubytování v okolí">ubytování v okolí</a></li>
+			
+							<li><a href="#section-companies" title="firmy v okolí">firmy v okolí</a></li>
+					</ul>
+	</div>
+</div>
+
+<!-- companies detail -->
+<div id="section-main" class="section color-brown">
+	<div class="section__line">
+		<h2 class="section__line-title">Aldi Süd, Bodenmais (D)</h2>
+	</div>
+
+	<!-- breadcrumbs -->
+	<ul class="section__breadcrumbs"><li><a href="/">Šumava.cz</a></li><li><a href="/firmy/" title="firmy">firmy</a></li><li><a href="/firmy/obchody/" title="obchody">obchody</a></li><li><a href="/firmy/obchody/smisene/" title="smíšené">smíšené</a></li><li class="is-active">Aldi Süd, Bodenmais (D)</li></ul>
+	<!-- detail -->
+	<div class="section__detail">
+		<div class="row">
+			<div class="col-12 col-sm-6">
+									
+					<a class="lazyload-wrap lightbox section__detail-main-image" href="/res/images/companies/originals/565.jpg" title="Aldi Süd, Bodenmais (D)" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+						<img class="lazyload" src="/res/images/companies/565.jpg" alt="Aldi Süd, Bodenmais (D)" width="570" height="427" />
+					</a>
+				
+							</div>
+			<div class="col-12 col-sm-6">
+				<div class="section__detail-inside">
+					<h3>detailní info</h3>
+
+											<strong>kategorie:</strong> <a href="/firmy/obchody/" title="obchody">obchody</a>
+
+													/ <a href="/firmy/obchody/smisene/" title="smíšené">smíšené</a>
+												<br />
+					
+											<strong>lokalita:</strong> Německo<br />
+					
+											<strong>GPS:</strong> 49°04'17.80"N 13°05'31.40"E													<a href="http://mapy.cz/#mm=ZTtTcP@sa=s@st=s@ssq=49°04&#039;17.80&quot;N 13°05&#039;31.40&quot;E" title="Zobrazit na mapy.cz" target="_blank" rel="noreferrer">
+								<img class="section__detail-logo-maps" src="/res/images/logo-mapy.png" alt="Zobrazit na mapy.cz" />
+							</a>
+							<br />
+											
+											<strong>odkaz:</strong> <a href="https://www.aldi-sued.de/" title="Aldi Süd, Bodenmais (D)" target="_blank">https://www.aldi-sued.de/</a><br />
+					
+											<h3>popis</h3>
+						<div class="section__detail-info">
+							<p><span style="font-family: Verdana; font-size: 10.6666669845581px;">Známý německý diskontní obchod.</span></p>						</div>
+					
+											<h3>doplňující info</h3>
+						<div class="section__detail-info">
+							<p>ALDI Süd<br />Kötztinger Straße 37<br />Bodenmais, Německo</p>
+<p>Otevírací doba<br />Po: 08:00 - 20:00<br />Út: 08:00 - 20:00<br />St: 08:00 - 20:00<br />Čt: 08:00 - 20:00<br />Pá: 08:00 - 20:00<br />So: 08:00 - 20:00<br />Ne: zavřeno</p>						</div>
+					
+											<!-- google ad -->
+						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7609448103131768" data-ad-slot="6325963524" data-ad-format="auto" data-full-width-responsive="true"></ins>
+						<script>
+							(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>
+									</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<!-- map -->
+	<div id="section-map" class="section color-brown is-map">
+		<div class="section__line">
+			<h2 class="section__line-title">Aldi Süd, Bodenmais (D) na mapě</h2>
+		</div>
+
+		<div class="section__map">
+			<div id="map" class="section__map-frame"></div>
+
+			<script type="text/javascript">
+				var center = SMap.Coords.fromWGS84(13.0921, 49.0716);
+				var map = new SMap(JAK.gel('map'), center, 11);
+
+				map.addDefaultLayer(SMap.DEF_BASE);
+				map.addDefaultLayer(SMap.DEF_SMART_TURIST).enable();
+				map.addDefaultLayer(SMap.DEF_HISTORIC);
+				map.addDefaultControls();
+
+				var sync = new SMap.Control.Sync();
+				map.addControl(sync);
+
+				var layerSwitch = new SMap.Control.Layer();
+				layerSwitch.addDefaultLayer(SMap.DEF_BASE);
+				layerSwitch.addDefaultLayer(SMap.DEF_SMART_TURIST);
+				layerSwitch.addDefaultLayer(SMap.DEF_HISTORIC);
+				map.addControl(layerSwitch, {left: '8px', top: '8px'});
+				map.getLayer(SMap.DEF_SMART_TURIST).setTrail(true);
+
+				var markerLayer = new SMap.Layer.Marker();
+				var clusterer = new SMap.Marker.Clusterer(map);
+				markerLayer.setClusterer(clusterer);
+				var markers = [];
+
+				var marker = new SMap.Marker(SMap.Coords.fromWGS84(13.0921, 49.0716), null, {url: '/res/images/map-point-brown.png'});
+				markers.push(marker);
+
+				markerLayer.addMarker(markers);
+				map.addLayer(markerLayer).enable();
+			</script>
+		</div>
+	</div>
+
+
+	<!-- attractions -->
+	<div id="section-attractions" class="section color-red">
+		<div class="section__line">
+			<h2 class="section__line-title">místa v okolí</h2>
+		</div>
+
+		<div class="row section__list">
+										<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/rozcestnik/kultura-a-pamatky/galerie/galerie-skla-dekoraci-darku-joska-2-d/" title="galerie skla, dekorací, dárků Joska 2 (D)">
+															
+								<img class="lazyload" src="/res/images/attractions/thumbs/6110.jpg" alt="galerie skla, dekorací, dárků Joska 2 (D)" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/rozcestnik/kultura-a-pamatky/galerie/galerie-skla-dekoraci-darku-joska-2-d/" title="galerie skla, dekorací, dárků Joska 2 (D)">galerie skla, dekorací, dárků Joska 2 (D)</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/rozcestnik/kultura-a-pamatky/" title="kultura a památky">kultura a památky</a>
+
+																			/ <a href="/rozcestnik/kultura-a-pamatky/galerie/" title="galerie">galerie</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> Německo<br />
+								
+																	<strong>GPS:</strong> 49°04'10.74"N 13°05'44.24"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/rozcestnik/kultura-a-pamatky/galerie/galerie-skla-dekoraci-darku-joska-2-d/" title="galerie skla, dekorací, dárků Joska 2 (D)">zobrazit více</a>
+					</div>
+				</div>
+
+																				<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/rozcestnik/kultura-a-pamatky/hrbitovy/hrbitov-bodenmais-d/" title="hřbitov Bodenmais (D)">
+															
+								<img class="lazyload" src="/res/images/attractions/thumbs/2241.jpg" alt="hřbitov Bodenmais (D)" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/rozcestnik/kultura-a-pamatky/hrbitovy/hrbitov-bodenmais-d/" title="hřbitov Bodenmais (D)">hřbitov Bodenmais (D)</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/rozcestnik/kultura-a-pamatky/" title="kultura a památky">kultura a památky</a>
+
+																			/ <a href="/rozcestnik/kultura-a-pamatky/hrbitovy/" title="hřbitovy">hřbitovy</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> Německo<br />
+								
+																	<strong>GPS:</strong> 49°04'08.95"N 13°05'43.20"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/rozcestnik/kultura-a-pamatky/hrbitovy/hrbitov-bodenmais-d/" title="hřbitov Bodenmais (D)">zobrazit více</a>
+					</div>
+				</div>
+
+									
+							<div class="col-12 col-lg-4 section__item">
+					<div class="section__item-inside is-surroundings">
+						<h3 class="section__line-label">další místa v okolí</h3>
+						<ul>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/galerie/galerie-skla-dekoraci-darku-joska-2-d/" title="galerie skla, dekorací, dárků Joska 2 (D)">
+										<span>galerie skla, dekorací, dá...</span>
+										<span>0.34 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/hrbitovy/hrbitov-bodenmais-d/" title="hřbitov Bodenmais (D)">
+										<span>hřbitov Bodenmais (D)</span>
+										<span>0.35 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/bodenmais-d/" title="Bodenmais (D)">
+										<span>Bodenmais (D)</span>
+										<span>0.55 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/galerie/obrazarna-galerie-leimberger-bodenmais-d/" title="obrazárna galerie Leimberger, Bodenmais (D)">
+										<span>obrazárna galerie Leimberg...</span>
+										<span>0.64 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/akvaparky/akvapark-silberberg-bodenmais-d/" title="akvapark Silberberg, Bodenmais (D)">
+										<span>akvapark Silberberg, Boden...</span>
+										<span>0.64 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/doprava/nadrazi/nadrazi-bodenmais-d/" title="nádraží Bodenmais (D)">
+										<span>nádraží Bodenmais (D)</span>
+										<span>0.66 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kasny-studny/kasna-joska-badenmais-d/" title="kašna Joska, Badenmais (D)">
+										<span>kašna Joska, Badenmais (D)...</span>
+										<span>0.7 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kasny-studny/kasna-bodenmais-d/" title="kašna Bodenmais (D)">
+										<span>kašna Bodenmais (D)</span>
+										<span>0.73 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/infocentra/infocentrum-bodenmais-d/" title="infocentrum Bodenmais (D)">
+										<span>infocentrum Bodenmais (D)</span>
+										<span>0.73 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/galerie/galerie-skla-dekoraci-darku-joska-d/" title="galerie skla, dekorací, dárků Joska (D)">
+										<span>galerie skla, dekorací, dá...</span>
+										<span>0.75 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/fary/fara-bodenmais-d/" title="fara Bodenmais (D)">
+										<span>fara Bodenmais (D)</span>
+										<span>0.76 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/vojenske/pomniky/pomnik-padlych-wwi-i-ii-bodenmais-d/" title="pomník padlých WWI i II, Bodenmais (D)">
+										<span>pomník padlých WWI i II, B...</span>
+										<span>0.76 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/zabava/odpocinek/park-hriste-biergarten-galerie-skla-joska-bodenmais-d/" title="park, hřiště, biergarten, galerie skla Joska, Bodenmais (D)">
+										<span>park, hřiště, biergarten, ...</span>
+										<span>0.77 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/zabava/deti/detske-hriste-joska-bodenmais-d/" title="dětské hřiště Joska, Bodenmais (D)">
+										<span>dětské hřiště Joska, Boden...</span>
+										<span>0.77 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-nanebevzeti-p-marie-bodenmais-d/" title="kostel Nanebevzetí P. Marie, Bodenmais (D)">
+										<span>kostel Nanebevzetí P. Mari...</span>
+										<span>0.79 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/technicke/pivovar-adam-brau-bodenmais-d/" title="pivovar Adam-Bräu, Bodenmais (D)">
+										<span>pivovar Adam-Bräu, Bodenma...</span>
+										<span>0.86 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/hasicske-sbory/ffw-bodenmais-d/" title="FFW Bodenmais (D)">
+										<span>FFW Bodenmais (D)</span>
+										<span>1.02 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/zabava/deti/detske-hriste-silberberg-dolni-stanice-d/" title="dětské hřiště Silberberg (dolní stanice) (D)">
+										<span>dětské hřiště Silberberg (...</span>
+										<span>2.16 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/ski-arealy/skiareal-silberberg-d/" title="skiareál Silberberg (D)">
+										<span>skiareál Silberberg (D)</span>
+										<span>2.19 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/doprava/lanovky/sedackova-lanovka-silberberg-d/" title="sedačková lanovka Silberberg (D)">
+										<span>sedačková lanovka Silberbe...</span>
+										<span>2.22 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/bobova-draha/bobova-draha-silberberg/" title="bobová dráha, Silberberg">
+										<span>bobová dráha, Silberberg</span>
+										<span>2.23 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/muzea-expozice/expozice-historicky-dul-hora-silberberg-bodenmais-d/" title="expozice historický důl, hora Silberberg, Bodenmais (D)">
+										<span>expozice historický důl, h...</span>
+										<span>2.54 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/zabava/deti/detske-hriste-silberberg-stredni-stanice-d/" title="dětské hřiště Silberberg (střední stanice) (D)">
+										<span>dětské hřiště Silberberg (...</span>
+										<span>2.55 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/sankovani/silberberg-bodenmais-d/" title="Silberberg, Bodenmais (D)">
+										<span>Silberberg, Bodenmais (D)</span>
+										<span>2.55 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/doprava/nadrazi/vlakova-zastavka-bohmhof-d/" title="vlaková zastávka Böhmhof (D)">
+										<span>vlaková zastávka Böhmhof (...</span>
+										<span>2.56 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/voda-vodopady/vodopad-rissloch-d/" title="vodopád Rissloch (D)">
+										<span>vodopád Rissloch (D)</span>
+										<span>2.77 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/vrcholy-rozhledny/silberberg-d-955-m-n-m/" title="Silberberg (D) 955 m n. m.">
+										<span>Silberberg (D) 955 m n. m.</span>
+										<span>2.85 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/bezecke-lyzovani/bezecke-lyzovani-bretterschachten-d/" title="běžecké lyžování Bretterschachten (D)">
+										<span>běžecké lyžování Brettersc...</span>
+										<span>4.6 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/doprava/parkoviste/parkoviste-bretterschachten-d/" title="parkoviště Bretterschachten (D)">
+										<span>parkoviště Bretterschachte...</span>
+										<span>4.72 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/vrcholy-rozhledny/maly-javor-kleiner-arber-d-1-348-m-n-m/" title="Malý Javor - Kleiner Arber (D) 1.348 m.n.m.">
+										<span>Malý Javor - Kleiner Arber...</span>
+										<span>4.84 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/voda-ledovcova-jezera/velke-javorske-jezero-ledovcove-d/" title="Velké Javorské jezero (ledovcové) (D)">
+										<span>Velké Javorské jezero (led...</span>
+										<span>5.48 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/pocasi-predpoved/wetteronline-predpoved-velky-javor/" title="WetterOnline - předpověď Velký Javor">
+										<span>WetterOnline - předpověď V...</span>
+										<span>5.56 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/vrcholy-rozhledny/velky-javor-grosser-arber-d-1456-m-n-m/" title="Velký Javor - Großer Arber (D) 1456 m n. m.">
+										<span>Velký Javor - Großer Arber...</span>
+										<span>5.56 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/vytvarna-dila/zapad-slunce-nad-javorem-josef-vachal/" title="Západ slunce nad Javorem - Josef Váchal">
+										<span>Západ slunce nad Javorem -...</span>
+										<span>5.56 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-sv-bartolomeje-velky-javor/" title="kaple sv. Bartoloměje, Velký Javor">
+										<span>kaple sv. Bartoloměje, Vel...</span>
+										<span>5.58 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/vojenske/ujezdy/stanoviste-nato-nadge-velky-javor-d/" title="stanoviště NATO NADGE, Velký Javor (D)">
+										<span>stanoviště NATO NADGE, Vel...</span>
+										<span>5.63 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/vojenske/pomniky/pomnik-padlych-wwi-velke-javorske-jezero-d/" title="pomník padlých WWI, Velké Javorské jezero (D)">
+										<span>pomník padlých WWI, Velké ...</span>
+										<span>5.75 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/doprava/parkoviste/parkoviste-velke-javorske-jezero/" title="parkoviště Velké Javorské jezero">
+										<span>parkoviště Velké Javorské ...</span>
+										<span>5.77 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/zabava/deti/pohadkovy-les-marchenwald-d/" title="pohádkový les Märchenwald (D)">
+										<span>pohádkový les Märchenwald ...</span>
+										<span>5.82 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/vodactvi/vodactvi-bayerisch-kanada-d/" title="vodáctví Bayerisch Kanada (D)">
+										<span>vodáctví Bayerisch Kanada ...</span>
+										<span>6 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/voda-ledovcova-jezera/male-javorske-jezero-ledovcove-d/" title="Malé Javorské jezero (ledovcové) (D)">
+										<span>Malé Javorské jezero (ledo...</span>
+										<span>6.45 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kasny-studny/zlab-velky-javor-d/" title="žlab, Velký Javor (D)">
+										<span>žlab, Velký Javor (D)</span>
+										<span>6.54 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/zabava/deti/detske-hriste-velky-javor-d/" title="dětské hřiště Velký Javor (D)">
+										<span>dětské hřiště Velký Javor ...</span>
+										<span>6.55 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kasny-studny/vodotrysk-velky-javor-d/" title="vodotrysk, Velký Javor (D)">
+										<span>vodotrysk, Velký Javor (D)...</span>
+										<span>6.56 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/doprava/lanovky/kabinkova-lanovka-velky-javor-d/" title="kabinková lanovka Velký Javor (D)">
+										<span>kabinková lanovka Velký Ja...</span>
+										<span>6.58 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/horska-a-vodni-sluzba/horska-sluzba-zwiesel-d/" title="horská služba Zwiesel (D)">
+										<span>horská služba Zwiesel (D)...</span>
+										<span>6.58 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/voda-prehrady/prehrada-gumpenried-schwarzer-regen-d/" title="přehrada Gumpenried, Schwarzer Regen (D)">
+										<span>přehrada Gumpenried, Schwa...</span>
+										<span>6.62 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/ski-arealy/skiareal-velky-javor-d/" title="skiareál Velký Javor (D)">
+										<span>skiareál Velký Javor (D)</span>
+										<span>6.66 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/doprava/parkoviste/parkoviste-velky-javor/" title="parkoviště Velký Javor">
+										<span>parkoviště Velký Javor</span>
+										<span>6.69 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/sochy/sv-jan-nepomucky-schwarzer-regen-d/" title="sv. Jan Nepomucký, Schwarzer Regen (D)">
+										<span>sv. Jan Nepomucký, Schwarz...</span>
+										<span>6.71 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/drachselsried-d/" title="Drachselsried (D)">
+										<span>Drachselsried (D)</span>
+										<span>7.15 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/infocentra/infocentrum-drachselsried-d/" title="infocentrum Drachselsried (D)">
+										<span>infocentrum Drachselsried ...</span>
+										<span>7.15 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/vrcholy-rozhledny/schonecker-riegel-d-833-m-n-m/" title="Schönecker Riegel (D) 833 m n. m.">
+										<span>Schönecker Riegel (D) 833 ...</span>
+										<span>7.18 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-sv-aegidius-drachselsried-d/" title="kostel sv. Aegidius, Drachselsried (D)">
+										<span>kostel sv. Aegidius, Drach...</span>
+										<span>7.22 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/vojenske/pomniky/pomnik-padlych-wwi-drachselsried-d/" title="pomník padlých WWI, Drachselsried (D)">
+										<span>pomník padlých WWI, Drachs...</span>
+										<span>7.22 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/langdorf-d/" title="Langdorf (D)">
+										<span>Langdorf (D)</span>
+										<span>7.56 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/mooshutte-d/" title="Mooshütte (D)">
+										<span>Mooshütte (D)</span>
+										<span>7.81 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/seebachschleife-d/" title="Seebachschleife (D)">
+										<span>Seebachschleife (D)</span>
+										<span>7.86 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/brennes-d/" title="Brennes (D)">
+										<span>Brennes (D)</span>
+										<span>7.91 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/regenhutte-d/" title="Regenhütte (D)">
+										<span>Regenhütte (D)</span>
+										<span>8.23 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/muzea-expozice/glashuttenmuseum-regenhutte-d/" title="Glashüttenmuseum Regenhütte (D)">
+										<span>Glashüttenmuseum Regenhütt...</span>
+										<span>8.31 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/muzea-expozice/muzeum-vycpanych-zvirat-tiermuseum-pfeiffer-regenhutte-d/" title="muzeum vycpaných zvířat - Tiermuseum Pfeiffer - Regenhütte (D)">
+										<span>muzeum vycpaných zvířat - ...</span>
+										<span>8.31 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/schwarzach-d/" title="Schwarzach (D)">
+										<span>Schwarzach (D)</span>
+										<span>8.5 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/zamky/zamek-rabenstein-d/" title="zámek Rabenstein (D)">
+										<span>zámek Rabenstein (D)</span>
+										<span>8.7 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/vojenske/pomniky/pomnik-padlych-wwi-i-ii-rabenstein-d/" title="pomník padlých WWI i II, Rabenstein (D)">
+										<span>pomník padlých WWI i II, R...</span>
+										<span>8.78 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/rabenstein-d/" title="Rabenstein (D)">
+										<span>Rabenstein (D)</span>
+										<span>8.8 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kasny-studny/pitko-rabenstein-d/" title="pítko Rabenstein (D)">
+										<span>pítko Rabenstein (D)</span>
+										<span>8.8 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-sv-jana-nepomuckeho-rabenstein-d/" title="kostel sv. Jana Nepomuckého, Rabenstein (D)">
+										<span>kostel sv. Jana Nepomuckéh...</span>
+										<span>8.8 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-sv-jiri-rabenstein/" title="kaple sv. Jiří, Rabenstein">
+										<span>kaple sv. Jiří, Rabenstein...</span>
+										<span>8.83 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/motorsport-rallye/planet-kart-o-mania/" title="Planet Kart-o-mania">
+										<span>Planet Kart-o-mania</span>
+										<span>8.89 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/doprava/nadrazi/vlakova-zastavka-aussenried-d/" title="vlaková zastávka Außenried (D)">
+										<span>vlaková zastávka Außenried...</span>
+										<span>9.01 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-panny-marie-arnbruck-d/" title="kaple Panny Marie, Arnbruck (D)">
+										<span>kaple Panny Marie, Arnbruc...</span>
+										<span>9.18 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/hasicske-sbory/ffw-arnbruck-d/" title="FFW Arnbruck (D)">
+										<span>FFW Arnbruck (D)</span>
+										<span>9.3 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/vojenske/pomniky/pomnik-padlych-wwi-i-ii-arnbruck-d/" title="pomník padlých WWI i II, Arnbruck (D)">
+										<span>pomník padlých WWI i II, A...</span>
+										<span>9.32 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/arnbruck-d/" title="Arnbruck (D)">
+										<span>Arnbruck (D)</span>
+										<span>9.38 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/fary/fara-bayerisch-eisenstein-d/" title="fara Bayerisch Eisenstein (D)">
+										<span>fara Bayerisch Eisenstein ...</span>
+										<span>9.39 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/infocentra/infocentrum-bayerisch-eisenstein-d/" title="infocentrum Bayerisch Eisenstein (D)">
+										<span>infocentrum Bayerisch Eise...</span>
+										<span>9.39 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/aussenried-d/" title="Außenried (D)">
+										<span>Außenried (D)</span>
+										<span>9.4 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/vojenske/pomniky/pomnik-padlych-wwii-bayerisch-eisenstein-d/" title="pomník padlých WWII, Bayerisch Eisenstein (D)">
+										<span>pomník padlých WWII, Bayer...</span>
+										<span>9.4 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-sv-jana-nepomuckeho-bayerisch-eisenstein-d/" title="kostel sv. Jana Nepomuckého, Bayerisch Eisenstein (D)">
+										<span>kostel sv. Jana Nepomuckéh...</span>
+										<span>9.41 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/zabava/odpocinek/lesni-restaurace-schwellhausl-d/" title="lesní restaurace Schwellhäusl (D)">
+										<span>lesní restaurace Schwellhä...</span>
+										<span>9.46 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/technicke/slunecni-hodiny-schwellhausl-d/" title="sluneční hodiny Schwellhäusl (D)">
+										<span>sluneční hodiny Schwellhäu...</span>
+										<span>9.46 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/hrbitovy/hrbitov-byvaly-bayerisch-eisenstein-d/" title="hřbitov bývalý Bayerisch Eisenstein (D)">
+										<span>hřbitov bývalý Bayerisch E...</span>
+										<span>9.51 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-sv-bartholomaus-arnbruck/" title="kostel sv. Bartholomäus, Arnbruck">
+										<span>kostel sv. Bartholomäus, A...</span>
+										<span>9.53 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-bayerisch-eisenstein-d/" title="kaple Bayerisch Eisenstein (D)">
+										<span>kaple Bayerisch Eisenstein...</span>
+										<span>9.54 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/technicke/plavebni-kanal-schwellgraben-d/" title="plavební kanál Schwellgraben (D)">
+										<span>plavební kanál Schwellgrab...</span>
+										<span>9.55 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/architektura/staveni-bayerisch-eisenstein/" title="stavení Bayerisch Eisenstein">
+										<span>stavení Bayerisch Eisenste...</span>
+										<span>9.62 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/hasicske-sbory/ffw-bayerisch-eisenstein-d/" title="FFW Bayerisch Eisenstein (D)">
+										<span>FFW Bayerisch Eisenstein (...</span>
+										<span>9.63 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-nad-bayerisch-eisenstein-d/" title="kaple nad Bayerisch Eisenstein (D)">
+										<span>kaple nad Bayerisch Eisens...</span>
+										<span>9.66 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/vrcholy-rozhledny/vyhlidka-hindenburgkanzel-d/" title="vyhlídka Hindenburgkanzel (D)">
+										<span>vyhlídka Hindenburgkanzel ...</span>
+										<span>9.67 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/architektura/arberland-halle-bayerisch-eisenstein-d/" title="ArberLand Halle, Bayerisch Eisenstein (D)">
+										<span>ArberLand Halle, Bayerisch...</span>
+										<span>9.67 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/zabava/deti/detske-hriste-za-nadrazim-bayerisch-eisenstein-d/" title="dětské hřiště za nádražím Bayerisch Eisenstein (D)">
+										<span>dětské hřiště za nádražím ...</span>
+										<span>9.72 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/muzea-expozice/zeleznicni-muzeum-bayerisch-eisenstein-d/" title="železniční muzeum Bayerisch Eisenstein (D)">
+										<span>železniční muzeum Bayerisc...</span>
+										<span>9.75 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/akce/adventni-trhy-bayerisch-eisenstein-d/" title="adventní trhy Bayerisch Eisenstein (D)">
+										<span>adventní trhy Bayerisch Ei...</span>
+										<span>9.78 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/akce/noc-vykurovani-rauhnachte-2016-bayerisch-eisenstein-d/" title="Noc vykuřování - Rauhnächte 2016, Bayerisch Eisenstein (D)">
+										<span>Noc vykuřování - Rauhnächt...</span>
+										<span>9.78 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/bayerisch-eisenstein-d/" title="Bayerisch Eisenstein (D)">
+										<span>Bayerisch Eisenstein (D)</span>
+										<span>9.92 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/technicke/zeleznicni-most-ludwigsthal-d/" title="železniční most Ludwigsthal (D)">
+										<span>železniční most Ludwigstha...</span>
+										<span>9.95 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/publicisticke-porady/pozor-statni-hranice-z-druhe-strany/" title="Pozor! Státní hranice - Z druhé strany">
+										<span>Pozor! Státní hranice - Z ...</span>
+										<span>9.95 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/voda-reky/debrnicky-potok-grosse-deffernik-d/" title="Debrnický potok - Grosse Deffernik (D)">
+										<span>Debrnický potok - Grosse D...</span>
+										<span>9.97 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/hranicni-prechody/hranicni-prechod-zelezna-ruda-bayerisch-eisenstein/" title="hraniční přechod Železná Ruda - Bayerisch Eisenstein">
+										<span>hraniční přechod Železná R...</span>
+										<span>9.97 km</span>
+									</a>
+								</li>
+													</ul>
+					</div>
+				</div>
+					</div>
+	</div>
+
+	<!-- apartments -->
+	<div id="section-apartments" class="section color-orange">
+		<div class="section__line">
+			<h2 class="section__line-title">ubytování v okolí</h2>
+		</div>
+
+		<div class="row section__list">
+										<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/ubytovani/mala-pariz/" title="Malá Paříž">
+															
+								<img class="lazyload" src="/res/images/apartments/thumbs/298.jpg" alt="Malá Paříž" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/ubytovani/mala-pariz/" title="Malá Paříž">Malá Paříž</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>typ:</strong> hotel ****<br />
+								
+																	<strong>lokalita:</strong> špičácko<br />
+								
+																	<strong>obec:</strong> Špičák<br />
+								
+																	<strong>kapacita ubytování:</strong> 16<br />
+								
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/ubytovani/mala-pariz/" title="Malá Paříž">zobrazit více</a>
+					</div>
+				</div>
+
+																				<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/ubytovani/sportovni-29/" title="Sportovni 29">
+															
+								<img class="lazyload" src="/res/images/apartments/thumbs/243.jpg" alt="Sportovni 29" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/ubytovani/sportovni-29/" title="Sportovni 29">Sportovni 29</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>typ:</strong> apartmánový dům<br />
+								
+																	<strong>lokalita:</strong> železnorudsko<br />
+								
+																	<strong>obec:</strong> Železná Ruda<br />
+								
+																	<strong>kapacita ubytování:</strong> 12<br />
+								
+																	<strong>cena ubytování:</strong> od 340 Kč<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/ubytovani/sportovni-29/" title="Sportovni 29">zobrazit více</a>
+					</div>
+				</div>
+
+									
+							<div class="col-12 col-lg-4 section__item">
+					<div class="section__item-inside is-surroundings">
+						<h3 class="section__line-label">další ubytování v okolí</h3>
+						<ul>
+															<li>
+									<a href="/ubytovani/mala-pariz/" title="Malá Paříž">
+										<span>Malá Paříž</span>
+										<span>12.41 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/sportovni-29/" title="Sportovni 29">
+										<span>Sportovni 29</span>
+										<span>12.41 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/valmi/" title="Valmi">
+										<span>Valmi</span>
+										<span>12.44 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/apartmany-rudik-zelezna-ruda/" title="apartmány Rudík, Železná Ruda">
+										<span>apartmány Rudík, Železná R...</span>
+										<span>12.48 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/bultas/" title="Bultas">
+										<span>Bultas</span>
+										<span>12.5 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/bohmerwald/" title="Böhmerwald">
+										<span>Böhmerwald</span>
+										<span>12.54 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/villa-vydra/" title="Villa Vydra">
+										<span>Villa Vydra</span>
+										<span>12.76 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/hanna/" title="Hanna">
+										<span>Hanna</span>
+										<span>13.26 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/markupova/" title="Markupová">
+										<span>Markupová</span>
+										<span>13.28 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/kvapil/" title="Kvapil">
+										<span>Kvapil</span>
+										<span>13.32 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/vaca/" title="Vaca">
+										<span>Vaca</span>
+										<span>13.36 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/hamry/" title="Hamry">
+										<span>Hamry</span>
+										<span>16.22 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/zamecek-prasily/" title="Zámeček Prášily">
+										<span>Zámeček Prášily</span>
+										<span>21.14 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/apartmany-prasily/" title="Apartmány Prášily">
+										<span>Apartmány Prášily</span>
+										<span>21.25 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/u-michala/" title="U Michala">
+										<span>U Michala</span>
+										<span>21.33 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/stare-srni/" title="Staré Srní">
+										<span>Staré Srní</span>
+										<span>28.08 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/drexler/" title="Drexler">
+										<span>Drexler</span>
+										<span>28.31 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/apartmany-stara-posta-hartmanice/" title="apartmány Stará Pošta, Hartmanice">
+										<span>apartmány Stará Pošta, Har...</span>
+										<span>28.57 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/jiricna/" title="Jiřičná">
+										<span>Jiřičná</span>
+										<span>29.79 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/sumavska-roubenka/" title="Šumavská roubenka">
+										<span>Šumavská roubenka</span>
+										<span>31.85 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/sumavska-chalupa/" title="Šumavská chalupa">
+										<span>Šumavská chalupa</span>
+										<span>31.85 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/mikes/" title="Mikeš">
+										<span>Mikeš</span>
+										<span>34.38 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/rekreace-na-lipne/" title="Rekreace na Lipně">
+										<span>Rekreace na Lipně</span>
+										<span>90.18 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/dobik/" title="Dobík">
+										<span>Dobík</span>
+										<span>90.4 km</span>
+									</a>
+								</li>
+													</ul>
+					</div>
+				</div>
+					</div>
+	</div>
+
+	<!-- companies -->
+	<div id="section-companies" class="section color-brown">
+		<div class="section__line">
+			<h2 class="section__line-title">firmy v okolí</h2>
+		</div>
+
+		<div class="row section__list">
+										<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/firmy/obchody/smisene/rewe-bodenmais-d/" title="REWE, Bodenmais (D)">
+															
+								<img class="lazyload" src="/res/images/companies/thumbs/568.jpg" alt="REWE, Bodenmais (D)" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/firmy/obchody/smisene/rewe-bodenmais-d/" title="REWE, Bodenmais (D)">REWE, Bodenmais (D)</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/firmy/obchody/" title="obchody">obchody</a>
+
+																			/ <a href="/firmy/obchody/smisene/" title="smíšené">smíšené</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> Německo<br />
+								
+																	<strong>GPS:</strong> 49°04'12.94"N 13°05'40.47"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/firmy/obchody/smisene/rewe-bodenmais-d/" title="REWE, Bodenmais (D)">zobrazit více</a>
+					</div>
+				</div>
+
+																				<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/firmy/obchody/moda/nkd-bodenmais-d/" title="NKD, Bodenmais (D)">
+															
+								<img class="lazyload" src="/res/images/companies/thumbs/567.jpg" alt="NKD, Bodenmais (D)" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/firmy/obchody/moda/nkd-bodenmais-d/" title="NKD, Bodenmais (D)">NKD, Bodenmais (D)</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/firmy/obchody/" title="obchody">obchody</a>
+
+																			/ <a href="/firmy/obchody/moda/" title="móda">móda</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> Německo<br />
+								
+																	<strong>GPS:</strong> 49°04'10.76"N 13°05'50.04"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/firmy/obchody/moda/nkd-bodenmais-d/" title="NKD, Bodenmais (D)">zobrazit více</a>
+					</div>
+				</div>
+
+									
+							<div class="col-12 col-lg-4 section__item">
+					<div class="section__item-inside is-surroundings">
+						<h3 class="section__line-label">další firmy v okolí</h3>
+						<ul>
+															<li>
+									<a href="/firmy/obchody/smisene/rewe-bodenmais-d/" title="REWE, Bodenmais (D)">
+										<span>REWE, Bodenmais (D)</span>
+										<span>0.23 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/firmy/obchody/moda/nkd-bodenmais-d/" title="NKD, Bodenmais (D)">
+										<span>NKD, Bodenmais (D)</span>
+										<span>0.43 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/firmy/obchody/cerpaci-stanice/cerpaci-stanice-shell-bodenmais-d/" title="čerpací stanice Shell, Bodenmais (D)">
+										<span>čerpací stanice Shell, Bod...</span>
+										<span>1.27 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/firmy/obchody/cerpaci-stanice/cerpaci-stanice-shell-drachselsried-d/" title="čerpací stanice Shell, Drachselsried (D)">
+										<span>čerpací stanice Shell, Dra...</span>
+										<span>7.37 km</span>
+									</a>
+								</li>
+													</ul>
+					</div>
+				</div>
+					</div>
+	</div>
+			</div>
+		</section>
+
+		<!-- footer -->
+		<footer class="footer">
+	<div class="container">
+		<p>
+			&copy; sumava.cz 1996 - 2024			<span class="footer__delimiter">|</span>
+			<span>všechna práva vyhrazena</span>
+			<span class="footer__delimiter">|</span>
+			<a href="/kontakty/" title="kontakty">kontakty</a>
+			<span class="footer__delimiter">|</span>
+			<a href="/mapa-stranek/" title="mapa stránek">mapa stránek</a>
+			<br />
+			<span>e-mail: <a href="mailto:info@sumava.cz" title="info@sumava.cz">info@sumava.cz</a></span>
+		</p>
+		<p>
+			<a href="/obchodni-podminky/" title="obchodní podmínky">obchodní podmínky</a>
+			<span class="footer__delimiter">|</span>
+			<a href="/prohlaseni-o-cookies/" title="prohlášení o cookies">prohlášení o cookies</a>
+			<br />
+			<a href="/webmuzeum-zapalkovych-nalepek/" title="webmuzeum zápalkových nálepek">webmuzeum zápalkových nálepek</a>
+			<span class="footer__delimiter">|</span>
+			<a href="http://www.webmuzeum.sumava.cz/" title="webmuzeum starých webových stránek (odkaz)" target="_blank" rel="noreferrer">webmuzeum starých webových stránek (odkaz)</a>
+		</p>
+		<p>
+			<a href="http://www.sumava.cz" title="www.sumava.cz">www.sumava.cz</a>
+			<span class="footer__delimiter">|</span>
+			<a href="http://www.retourex.cz" title="www.retourex.cz" target="_blank" rel="noreferrer">www.retourex.cz</a>
+			<span class="footer__delimiter">|</span>
+			<a href="http://www.spaceorigin.com" title="www.spaceorigin.com" target="_blank" rel="noreferrer">www.spaceorigin.com</a>
+		</p>
+		<a href="https://www.facebook.com/www.sumava.cz/" title="Šumava.cz na Facebooku" target="_blank" rel="noreferrer">
+			<img class="lazyload" src="/res/images/icon-fb.png" alt="Šumava.cz na Facebooku" width="150" height="52" />
+		</a>
+	</div>
+</footer>
+
+					<script src="/res/js/vendor/bootstrap/dom/data.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dom/event-handler.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dom/manipulator.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dom/selector-engine.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/base-component.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/collapse.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dropdown.min.js"></script>
+
+			<script src="/res/js/vendor/swiper.min.js"></script>
+			<script src="/res/js/vendor/lazysizes.min.js"></script>
+			<script src="/res/js/vendor/lazysizes.unveilhooks.min.js"></script>
+
+							<script src="/res/js/vendor/glightbox.min.js"></script>
+			
+			<script src="/res/js/class/Web.min.js"></script>
+			<script src="/res/js/class/MainMenu.min.js"></script>
+
+			<script src="/res/js/functions.min.js"></script>
+			<script src="/res/js/init.min.js"></script>
+		
+			</body>
+</html>

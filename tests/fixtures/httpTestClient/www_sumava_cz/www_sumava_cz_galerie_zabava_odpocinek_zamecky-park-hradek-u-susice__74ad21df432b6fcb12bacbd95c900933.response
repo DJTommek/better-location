@@ -1,0 +1,462 @@
+
+<!DOCTYPE html>
+<html lang="cs">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+		<meta name="robots" content="index, follow" />
+		<meta name="googlebot" content="index, follow, snippet, archive" />
+		<meta name="author" content="Šumavská galerie: zámecký park Hrádek u Sušice" />
+		<meta name="keywords" content="šumava, galerie, fotogalerie, foto, fotografie" />
+		<meta name="description" content="Fotografie členěné do galerií ze Šumavy a širokého okolí - šumava.cz" />
+
+		<meta property="og:url" content="https://darekprosueryder.cz/" />
+		<meta property="og:title" content="Šumavská galerie: zámecký park Hrádek u Sušice" />
+		<meta property="og:description" content="Fotografie členěné do galerií ze Šumavy a širokého okolí - šumava.cz" />
+		<meta property="og:site_name" content="Šumavská galerie: zámecký park Hrádek u Sušice" />
+
+		<meta property="og:image" content="/res/images/og-default.jpg" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+
+		<title>Šumavská galerie: zámecký park Hrádek u Sušice</title>
+
+		<link href="https://fonts.googleapis.com" rel="preconnect" />
+		<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+
+					<link href="/res/css/bootstrap.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			<link href="/res/css/swiper.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			<link href="/res/css/main.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			<link href="/res/css/print.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" media="print" />
+			<link href="/res/css/devel.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+
+							<link href="/res/css/glightbox.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			
+			<noscript>
+				<link href="/res/css/bootstrap.min.css" rel="stylesheet" />
+				<link href="/res/css/swiper.min.css" rel="stylesheet" />
+				<link href="/res/css/main.min.css" rel="stylesheet" />
+				<link href="/res/css/print.min.css" rel="stylesheet" media="print" />
+				<link href="/res/css/devel.min.css" rel="stylesheet" />
+
+									<link href="/res/css/glightbox.min.css" rel="stylesheet" />
+							</noscript>
+		
+		<script>
+			!function(t){'use strict';t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement('link').relList.supports('preload')}catch(t){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){var e=t.media||'all';function a(){t.addEventListener?t.removeEventListener('load',a):t.attachEvent&&t.detachEvent('onload',a),t.setAttribute('onload',null),t.media=e}t.addEventListener?t.addEventListener('load',a):t.attachEvent&&t.attachEvent('onload',a),setTimeout(function(){t.rel='stylesheet',t.media='only x'}),setTimeout(a,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName('link'),n=0;n<a.length;n++){var o=a[n];'preload'!==o.rel||'style'!==o.getAttribute('as')||o.getAttribute('data-loadcss')||(o.setAttribute('data-loadcss',!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener('load',function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent('onload',function(){e.poly(),t.clearInterval(a)})}'undefined'!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}('undefined'!=typeof global?global:this);
+		</script>
+
+		<link href="/res/favicons/favicon.ico" rel="icon" type="image/x-icon" />
+		<link href="/res/favicons/apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57" />
+		<link href="/res/favicons/apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60" />
+		<link href="/res/favicons/apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72" />
+		<link href="/res/favicons/apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76" />
+		<link href="/res/favicons/apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114" />
+		<link href="/res/favicons/apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120" />
+		<link href="/res/favicons/apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144" />
+		<link href="/res/favicons/apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152" />
+		<link href="/res/favicons/apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180" />
+		<link href="/res/favicons/android-icon-192x192.png" rel="icon" type="image/png" sizes="192x192" />
+		<link href="/res/favicons/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32" />
+		<link href="/res/favicons/favicon-96x96.png" rel="icon" type="image/png" sizes="96x96" />
+		<link href="/res/favicons/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16" />
+		<link href="/res/favicons/manifest.json" rel="manifest" />
+
+		<meta name="msapplication-TileImage" content="/res/favicons/ms-icon-144x144.png" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="#0d4804" />
+		<meta name="msapplication-TileColor" content="#0d4804" />
+		<meta name="theme-color" content="#0d4804" />
+
+					<script src="https://api.mapy.cz/loader.js"></script>
+			<script>Loader.load()</script>
+		
+					<script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7609448103131768" async crossorigin="anonymous"></script>
+			</head>
+
+	<body class="is-page">
+		<!-- header -->
+		<header class="header">
+	<!-- header top -->
+	<div class="container header__top">
+		<!-- logo -->
+		<a class="header__top-logo" href="/" title="Šumava.cz">
+			<h1>Šumava.cz</h1>
+			<img class="is-desktop" src="/res/images/logo.png" alt="Šumava.cz" width="351" height="47" />
+			<img class="is-mobile" src="/res/images/logo-mobile.png" alt="Šumava.cz" width="200" height="27" />
+		</a>
+
+		<!-- opens main menu on mobile -->
+		<button id="MainMenuToggle" class="navbar-toggler collapsed" type="button" aria-controls="MainMenu" aria-expanded="false" aria-label="Zobrazit menu" data-bs-target="#MainMenu" data-bs-toggle="collapse">
+			<span class="navbar-toggler__bar"></span>
+			<span class="navbar-toggler__bar"></span>
+			<span class="navbar-toggler__bar"></span>
+		</button>
+	</div>
+
+	<!-- header bottom -->
+	<div class="container header__bottom">
+		<!-- main menu -->
+		<nav id="MainMenu" class="navbar-collapse collapse">
+			<div class="main-menu-wrap">
+				<ul class="main-menu level-1">
+					<li class="dropdown">
+						<a class="dropdown-toggle color-red" href="/rozcestnik/" title="Šumava A-Z" aria-expanded="false">
+							<span>rozcestník</span>
+							<span class="dropdown-caret" tabindex="0" role="button" aria-label="Zobrazit submenu"></span>
+						</a>
+						<div class="dropdown-menu level2">
+							<ul>
+								<li>
+									<a href="/rozcestnik/" title="šumavský rozcestník" tabindex="-1"><span>rozcestník</span></a>
+								</li>
+								<li>
+									<a href="/firmy/" title="šumavské firmy" tabindex="-1"><span>firmy</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a class="color-orange" href="/ubytovani/" title="ubytování na Šumavě"><span>ubytování</span></a>
+					</li>
+					<li>
+						<a class="color-yellow" href="/e-shop/" title="šumavský e-shop"><span>e-shop</span></a>
+					</li>
+					<li class="is-inactive">
+						<a class="color-green-light" href="#" title="mapa Šumavy"><span>mapa</span></a>
+					</li>
+					<li class="is-active">
+						<a class="color-green" href="/galerie/" title="šumavská galerie"><span>fotogalerie</span></a>
+					</li>
+					<li class="is-inactive">
+						<a class="color-blue-light" href="#" title="šumavské tipy"><span>tipy</span></a>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle color-default" href="#" title="Šumava - ostatní" aria-expanded="false" aria-haspopup="true" role="button">
+							<span>ostatní</span>
+							<span class="dropdown-caret" tabindex="0" role="button" aria-label="Zobrazit submenu"></span>
+						</a>
+						<div class="dropdown-menu level2">
+							<ul>
+								<li>
+									<a href="/kontakty/" title="Šumava - kontakty" tabindex="-1"><span>kontakty</span></a>
+								</li>
+								<li>
+									<a href="/obchodni-podminky/" title="Šumava - obchodní podmínky" tabindex="-1"><span>obchodní podmínky</span></a>
+								</li>
+								<li>
+									<a href="/prohlaseni-o-cookies/" title="Šumava - prohlášení o cookies" tabindex="-1"><span>prohlášení o cookies</span></a>
+								</li>
+								<li>
+									<a href="/mapa-stranek/" title="Šumava - mapa stránek" tabindex="-1"><span>mapa stránek</span></a>
+								</li>
+								<li>
+									<a href="/webmuzeum-zapalkovych-nalepek/" title="Šumava - webmuzeum zápalkových nálepek" tabindex="-1"><span>zápalkové nálepky</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+
+	<!-- header darkness -->
+	<div class="header__darkness"></div>
+</header>
+
+		<!-- slider -->
+		
+	<section class="slider">
+		<div class="swiper">
+			<div class="swiper-wrapper">
+													<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/1.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">nejstarší autokemp v České republice - Annín</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/2.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">nejvýše položené nádraží v Česku 995 m n. m. - Kubova Huť</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/3.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">druhý největší hrad v Čechách po Pražském hradu - Český Krumlov</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/4.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">první rektorkou Univerzity Karlovy jako první žena od jejího založení - prof. MUDr. Milena Králíčková, Ph.D.</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/5.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">jediná gotická katedrála v Bavorsku - Řezno</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/6.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">nejvýše položená pravěká pevnost v Čechách - Obří hrad</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/7.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">po Praze bývala rozlohou druhá největší obec na území Čech - Stodůlky</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+												</div>
+			<div class="swiper-pagination"></div>
+		</div>
+	</section>
+
+		<!-- content -->
+		<section class="container content">
+			<div class="content__inside">
+					
+<!-- fixed menu -->
+<div class="menu-fixed">
+	<div class="container">
+		<ul>
+			<li><a href="#section-main" title="zámecký park Hrádek u Sušice">zámecký park Hrádek u Sušice</a></li>
+
+							<li><a href="#section-attractions" title="místa související s fotogalerií">místa související s fotogalerií</a></li>
+					</ul>
+	</div>
+</div>
+
+<!-- galleries detail -->
+<div id="section-main" class="section color-green">
+	<div class="section__line">
+		<h2 class="section__line-title">fotogalerie: zámecký park Hrádek u Sušice</h2>
+	</div>
+
+	<!-- breadcrumbs -->
+	<ul class="section__breadcrumbs"><li><a href="/">Šumava.cz</a></li><li><a href="/galerie/" title="galerie">galerie</a></li><li><a href="/galerie/zabava/" title="zábava">zábava</a></li><li><a href="/galerie/zabava/odpocinek/" title="odpočinek">odpočinek</a></li><li class="is-active">zámecký park Hrádek u Sušice</li></ul>
+	<!-- detail -->
+	<div class="section__detail">
+		<div class="row">
+			<div class="col-12 col-sm-6">
+									
+					<a class="lazyload-wrap lightbox section__detail-main-image" href="/res/images/galleries/zmeckparkhrdekusuice1613679368/1613679404_3.jpg" title="zámecký park Hrádek u Sušice" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+						<img class="lazyload" src="/res/images/galleries/zmeckparkhrdekusuice1613679368/1613679404_3.jpg" alt="zámecký park Hrádek u Sušice" width="677" height="450" />
+					</a>
+				
+									<div class="section__detail-gallery">
+																					
+								<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/galleries/zmeckparkhrdekusuice1613679368/1613679404_7.jpg" title="zámecký park Hrádek u Sušice" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+									<img class="lazyload" src="/res/images/galleries/zmeckparkhrdekusuice1613679368/mini/1613679404_7.jpg" alt="zámecký park Hrádek u Sušice" width="139" height="92" />
+								</a>
+																												
+								<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/galleries/zmeckparkhrdekusuice1613679368/1613679404_6.jpg" title="zámecký park Hrádek u Sušice" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+									<img class="lazyload" src="/res/images/galleries/zmeckparkhrdekusuice1613679368/mini/1613679404_6.jpg" alt="zámecký park Hrádek u Sušice" width="139" height="92" />
+								</a>
+																												
+								<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/galleries/zmeckparkhrdekusuice1613679368/1613679404_5.jpg" title="zámecký park Hrádek u Sušice" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+									<img class="lazyload" src="/res/images/galleries/zmeckparkhrdekusuice1613679368/mini/1613679404_5.jpg" alt="zámecký park Hrádek u Sušice" width="139" height="92" />
+								</a>
+																												
+								<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/galleries/zmeckparkhrdekusuice1613679368/1613679404_4.jpg" title="zámecký park Hrádek u Sušice" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+									<img class="lazyload" src="/res/images/galleries/zmeckparkhrdekusuice1613679368/mini/1613679404_4.jpg" alt="zámecký park Hrádek u Sušice" width="139" height="92" />
+								</a>
+																												
+								<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/galleries/zmeckparkhrdekusuice1613679368/1613679404_3.jpg" title="zámecký park Hrádek u Sušice" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+									<img class="lazyload" src="/res/images/galleries/zmeckparkhrdekusuice1613679368/mini/1613679404_3.jpg" alt="zámecký park Hrádek u Sušice" width="139" height="92" />
+								</a>
+																												
+								<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/galleries/zmeckparkhrdekusuice1613679368/1613679404_2.jpg" title="zámecký park Hrádek u Sušice" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+									<img class="lazyload" src="/res/images/galleries/zmeckparkhrdekusuice1613679368/mini/1613679404_2.jpg" alt="zámecký park Hrádek u Sušice" width="139" height="92" />
+								</a>
+																												
+								<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/galleries/zmeckparkhrdekusuice1613679368/1613679404_1.jpg" title="zámecký park Hrádek u Sušice" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+									<img class="lazyload" src="/res/images/galleries/zmeckparkhrdekusuice1613679368/mini/1613679404_1.jpg" alt="zámecký park Hrádek u Sušice" width="139" height="92" />
+								</a>
+																		</div>
+							</div>
+			<div class="col-12 col-sm-6">
+				<div class="section__detail-inside">
+					<h3>detailní info</h3>
+
+											<strong>kategorie:</strong> <a href="/galerie/zabava/" title="zábava">zábava</a>
+
+													/ <a href="/galerie/zabava/odpocinek/" title="odpočinek">odpočinek</a>
+												<br />
+					
+											<strong>lokalita:</strong> sušicko<br />
+					
+					
+											<!-- google ad -->
+						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7609448103131768" data-ad-slot="6325963524" data-ad-format="auto" data-full-width-responsive="true"></ins>
+						<script>
+							(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>
+									</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<!-- attractions -->
+	<div id="section-attractions" class="section color-red">
+		<div class="section__line">
+			<h2 class="section__line-title">místa související s fotogalerií</h2>
+		</div>
+
+		<div class="row section__list">
+										<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/rozcestnik/mesta-a-obce/mesta-a-obce/hradek-u-susice/" title="Hrádek u Sušice">
+															
+								<img class="lazyload" src="/res/images/attractions/thumbs/56.jpg" alt="Hrádek u Sušice" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/hradek-u-susice/" title="Hrádek u Sušice">Hrádek u Sušice</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/rozcestnik/mesta-a-obce/" title="města a obce">města a obce</a>
+
+																			/ <a href="/rozcestnik/mesta-a-obce/mesta-a-obce/" title="města a obce">města a obce</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> sušicko<br />
+								
+																	<strong>GPS:</strong> 49°15'40.582"N, 13°29'54.593"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/rozcestnik/mesta-a-obce/mesta-a-obce/hradek-u-susice/" title="Hrádek u Sušice">zobrazit více</a>
+					</div>
+				</div>
+
+																				<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/rozcestnik/kultura-a-pamatky/zamky/zamek-hradek-u-susice/" title="zámek Hrádek u Sušice">
+															
+								<img class="lazyload" src="/res/images/attractions/thumbs/658.jpg" alt="zámek Hrádek u Sušice" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/rozcestnik/kultura-a-pamatky/zamky/zamek-hradek-u-susice/" title="zámek Hrádek u Sušice">zámek Hrádek u Sušice</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/rozcestnik/kultura-a-pamatky/" title="kultura a památky">kultura a památky</a>
+
+																			/ <a href="/rozcestnik/kultura-a-pamatky/zamky/" title="zámky">zámky</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> sušicko<br />
+								
+																	<strong>GPS:</strong> 49°15'39.93"N, 13°29'53.08"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/rozcestnik/kultura-a-pamatky/zamky/zamek-hradek-u-susice/" title="zámek Hrádek u Sušice">zobrazit více</a>
+					</div>
+				</div>
+
+									
+							<div class="col-12 col-lg-4 section__item">
+					<div class="section__item-inside is-surroundings">
+						<h3 class="section__line-label">další místa související s fotogalerií</h3>
+						<ul>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/hradek-u-susice/" title="Hrádek u Sušice">
+										<span>Hrádek u Sušice</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/zamky/zamek-hradek-u-susice/" title="zámek Hrádek u Sušice">
+										<span>zámek Hrádek u Sušice</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/zabava/odpocinek/zamecky-park-hradek-u-susice/" title="zámecký park Hrádek u Sušice">
+										<span>zámecký park Hrádek u Sušice</span>
+									</a>
+								</li>
+													</ul>
+					</div>
+				</div>
+					</div>
+	</div>
+			</div>
+		</section>
+
+		<!-- footer -->
+		<footer class="footer">
+	<div class="container">
+		<p>
+			&copy; sumava.cz 1996 - 2024			<span class="footer__delimiter">|</span>
+			<span>všechna práva vyhrazena</span>
+			<span class="footer__delimiter">|</span>
+			<a href="/kontakty/" title="kontakty">kontakty</a>
+			<span class="footer__delimiter">|</span>
+			<a href="/mapa-stranek/" title="mapa stránek">mapa stránek</a>
+			<br />
+			<span>e-mail: <a href="mailto:info@sumava.cz" title="info@sumava.cz">info@sumava.cz</a></span>
+		</p>
+		<p>
+			<a href="/obchodni-podminky/" title="obchodní podmínky">obchodní podmínky</a>
+			<span class="footer__delimiter">|</span>
+			<a href="/prohlaseni-o-cookies/" title="prohlášení o cookies">prohlášení o cookies</a>
+			<br />
+			<a href="/webmuzeum-zapalkovych-nalepek/" title="webmuzeum zápalkových nálepek">webmuzeum zápalkových nálepek</a>
+			<span class="footer__delimiter">|</span>
+			<a href="http://www.webmuzeum.sumava.cz/" title="webmuzeum starých webových stránek (odkaz)" target="_blank" rel="noreferrer">webmuzeum starých webových stránek (odkaz)</a>
+		</p>
+		<p>
+			<a href="http://www.sumava.cz" title="www.sumava.cz">www.sumava.cz</a>
+			<span class="footer__delimiter">|</span>
+			<a href="http://www.retourex.cz" title="www.retourex.cz" target="_blank" rel="noreferrer">www.retourex.cz</a>
+			<span class="footer__delimiter">|</span>
+			<a href="http://www.spaceorigin.com" title="www.spaceorigin.com" target="_blank" rel="noreferrer">www.spaceorigin.com</a>
+		</p>
+		<a href="https://www.facebook.com/www.sumava.cz/" title="Šumava.cz na Facebooku" target="_blank" rel="noreferrer">
+			<img class="lazyload" src="/res/images/icon-fb.png" alt="Šumava.cz na Facebooku" width="150" height="52" />
+		</a>
+	</div>
+</footer>
+
+					<script src="/res/js/vendor/bootstrap/dom/data.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dom/event-handler.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dom/manipulator.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dom/selector-engine.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/base-component.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/collapse.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dropdown.min.js"></script>
+
+			<script src="/res/js/vendor/swiper.min.js"></script>
+			<script src="/res/js/vendor/lazysizes.min.js"></script>
+			<script src="/res/js/vendor/lazysizes.unveilhooks.min.js"></script>
+
+							<script src="/res/js/vendor/glightbox.min.js"></script>
+			
+			<script src="/res/js/class/Web.min.js"></script>
+			<script src="/res/js/class/MainMenu.min.js"></script>
+
+			<script src="/res/js/functions.min.js"></script>
+			<script src="/res/js/init.min.js"></script>
+		
+			</body>
+</html>

@@ -4,7 +4,7 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\Config;
-use App\MiniCurl\MiniCurl;
+use App\Utils\Requestor;
 use App\Utils\Utils;
 
 final class SumavaCzService extends AbstractService
@@ -18,6 +18,11 @@ final class SumavaCzService extends AbstractService
 	const TYPE_PLACE = 'Place';
 	const TYPE_GALLERY = 'Gallery';
 	const TYPE_COMPANY = 'Company';
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public static function getConstants(): array
 	{
@@ -66,15 +71,17 @@ final class SumavaCzService extends AbstractService
 
 	public function process(): void
 	{
-		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_SUMAVA_CZ)->run()->getBody();
+		$body = $this->requestor->get($this->url, Config::CACHE_TTL_SUMAVA_CZ);
+
 		if ($this->data->type === self::TYPE_GALLERY) {
-			$this->processGallery($response);
-		} else {
-			if ($coords = Utils::findMapyCzApiCoords($response)) {
-				$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class, $this->data->type);
-				$location->setPrefixMessage(sprintf('<a href="%s">%s</a>', $this->inputUrl, self::NAME));
-				$this->collection->add($location);
-			}
+			$this->processGallery($body);
+			return;
+		}
+
+		if ($coords = Utils::findMapyCzApiCoords($body)) {
+			$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class, $this->data->type);
+			$location->setPrefixMessage(sprintf('<a href="%s">%s</a>', $this->inputUrl, self::NAME));
+			$this->collection->add($location);
 		}
 	}
 
@@ -105,7 +112,7 @@ final class SumavaCzService extends AbstractService
 			$processedLinks[] = $linkPath;
 
 			$fullLink = self::LINK . $linkPath;
-			$service = new SumavaCzService();
+			$service = new SumavaCzService($this->requestor);
 			$service->setInput($fullLink);
 			if ($service->validate()) {
 				$service->process();

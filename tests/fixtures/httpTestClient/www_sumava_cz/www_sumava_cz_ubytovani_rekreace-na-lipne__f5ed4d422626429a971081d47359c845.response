@@ -1,0 +1,1772 @@
+
+<!DOCTYPE html>
+<html lang="cs">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+		<meta name="robots" content="index, follow" />
+		<meta name="googlebot" content="index, follow, snippet, archive" />
+		<meta name="author" content="Ubytování na Šumavě: Rekreace na Lipně" />
+		<meta name="keywords" content="šumava, ubytování, apartmány, hotely, chaty, penziony" />
+		<meta name="description" content="Apartmány, hotely, chaty, penziony na Šumavě - šumava.cz" />
+
+		<meta property="og:url" content="https://darekprosueryder.cz/" />
+		<meta property="og:title" content="Ubytování na Šumavě: Rekreace na Lipně" />
+		<meta property="og:description" content="Apartmány, hotely, chaty, penziony na Šumavě - šumava.cz" />
+		<meta property="og:site_name" content="Ubytování na Šumavě: Rekreace na Lipně" />
+
+		<meta property="og:image" content="/res/images/og-default.jpg" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+
+		<title>Ubytování na Šumavě: Rekreace na Lipně</title>
+
+		<link href="https://fonts.googleapis.com" rel="preconnect" />
+		<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+
+					<link href="/res/css/bootstrap.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			<link href="/res/css/swiper.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			<link href="/res/css/main.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			<link href="/res/css/print.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" media="print" />
+			<link href="/res/css/devel.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+
+							<link href="/res/css/glightbox.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			
+			<noscript>
+				<link href="/res/css/bootstrap.min.css" rel="stylesheet" />
+				<link href="/res/css/swiper.min.css" rel="stylesheet" />
+				<link href="/res/css/main.min.css" rel="stylesheet" />
+				<link href="/res/css/print.min.css" rel="stylesheet" media="print" />
+				<link href="/res/css/devel.min.css" rel="stylesheet" />
+
+									<link href="/res/css/glightbox.min.css" rel="stylesheet" />
+							</noscript>
+		
+		<script>
+			!function(t){'use strict';t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement('link').relList.supports('preload')}catch(t){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){var e=t.media||'all';function a(){t.addEventListener?t.removeEventListener('load',a):t.attachEvent&&t.detachEvent('onload',a),t.setAttribute('onload',null),t.media=e}t.addEventListener?t.addEventListener('load',a):t.attachEvent&&t.attachEvent('onload',a),setTimeout(function(){t.rel='stylesheet',t.media='only x'}),setTimeout(a,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName('link'),n=0;n<a.length;n++){var o=a[n];'preload'!==o.rel||'style'!==o.getAttribute('as')||o.getAttribute('data-loadcss')||(o.setAttribute('data-loadcss',!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener('load',function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent('onload',function(){e.poly(),t.clearInterval(a)})}'undefined'!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}('undefined'!=typeof global?global:this);
+		</script>
+
+		<link href="/res/favicons/favicon.ico" rel="icon" type="image/x-icon" />
+		<link href="/res/favicons/apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57" />
+		<link href="/res/favicons/apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60" />
+		<link href="/res/favicons/apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72" />
+		<link href="/res/favicons/apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76" />
+		<link href="/res/favicons/apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114" />
+		<link href="/res/favicons/apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120" />
+		<link href="/res/favicons/apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144" />
+		<link href="/res/favicons/apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152" />
+		<link href="/res/favicons/apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180" />
+		<link href="/res/favicons/android-icon-192x192.png" rel="icon" type="image/png" sizes="192x192" />
+		<link href="/res/favicons/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32" />
+		<link href="/res/favicons/favicon-96x96.png" rel="icon" type="image/png" sizes="96x96" />
+		<link href="/res/favicons/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16" />
+		<link href="/res/favicons/manifest.json" rel="manifest" />
+
+		<meta name="msapplication-TileImage" content="/res/favicons/ms-icon-144x144.png" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="#0d4804" />
+		<meta name="msapplication-TileColor" content="#0d4804" />
+		<meta name="theme-color" content="#0d4804" />
+
+					<script src="https://api.mapy.cz/loader.js"></script>
+			<script>Loader.load()</script>
+		
+					<script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7609448103131768" async crossorigin="anonymous"></script>
+			</head>
+
+	<body class="is-page">
+		<!-- header -->
+		<header class="header">
+	<!-- header top -->
+	<div class="container header__top">
+		<!-- logo -->
+		<a class="header__top-logo" href="/" title="Šumava.cz">
+			<h1>Šumava.cz</h1>
+			<img class="is-desktop" src="/res/images/logo.png" alt="Šumava.cz" width="351" height="47" />
+			<img class="is-mobile" src="/res/images/logo-mobile.png" alt="Šumava.cz" width="200" height="27" />
+		</a>
+
+		<!-- opens main menu on mobile -->
+		<button id="MainMenuToggle" class="navbar-toggler collapsed" type="button" aria-controls="MainMenu" aria-expanded="false" aria-label="Zobrazit menu" data-bs-target="#MainMenu" data-bs-toggle="collapse">
+			<span class="navbar-toggler__bar"></span>
+			<span class="navbar-toggler__bar"></span>
+			<span class="navbar-toggler__bar"></span>
+		</button>
+	</div>
+
+	<!-- header bottom -->
+	<div class="container header__bottom">
+		<!-- main menu -->
+		<nav id="MainMenu" class="navbar-collapse collapse">
+			<div class="main-menu-wrap">
+				<ul class="main-menu level-1">
+					<li class="dropdown">
+						<a class="dropdown-toggle color-red" href="/rozcestnik/" title="Šumava A-Z" aria-expanded="false">
+							<span>rozcestník</span>
+							<span class="dropdown-caret" tabindex="0" role="button" aria-label="Zobrazit submenu"></span>
+						</a>
+						<div class="dropdown-menu level2">
+							<ul>
+								<li>
+									<a href="/rozcestnik/" title="šumavský rozcestník" tabindex="-1"><span>rozcestník</span></a>
+								</li>
+								<li>
+									<a href="/firmy/" title="šumavské firmy" tabindex="-1"><span>firmy</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="is-active">
+						<a class="color-orange" href="/ubytovani/" title="ubytování na Šumavě"><span>ubytování</span></a>
+					</li>
+					<li>
+						<a class="color-yellow" href="/e-shop/" title="šumavský e-shop"><span>e-shop</span></a>
+					</li>
+					<li class="is-inactive">
+						<a class="color-green-light" href="#" title="mapa Šumavy"><span>mapa</span></a>
+					</li>
+					<li>
+						<a class="color-green" href="/galerie/" title="šumavská galerie"><span>fotogalerie</span></a>
+					</li>
+					<li class="is-inactive">
+						<a class="color-blue-light" href="#" title="šumavské tipy"><span>tipy</span></a>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle color-default" href="#" title="Šumava - ostatní" aria-expanded="false" aria-haspopup="true" role="button">
+							<span>ostatní</span>
+							<span class="dropdown-caret" tabindex="0" role="button" aria-label="Zobrazit submenu"></span>
+						</a>
+						<div class="dropdown-menu level2">
+							<ul>
+								<li>
+									<a href="/kontakty/" title="Šumava - kontakty" tabindex="-1"><span>kontakty</span></a>
+								</li>
+								<li>
+									<a href="/obchodni-podminky/" title="Šumava - obchodní podmínky" tabindex="-1"><span>obchodní podmínky</span></a>
+								</li>
+								<li>
+									<a href="/prohlaseni-o-cookies/" title="Šumava - prohlášení o cookies" tabindex="-1"><span>prohlášení o cookies</span></a>
+								</li>
+								<li>
+									<a href="/mapa-stranek/" title="Šumava - mapa stránek" tabindex="-1"><span>mapa stránek</span></a>
+								</li>
+								<li>
+									<a href="/webmuzeum-zapalkovych-nalepek/" title="Šumava - webmuzeum zápalkových nálepek" tabindex="-1"><span>zápalkové nálepky</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+
+	<!-- header darkness -->
+	<div class="header__darkness"></div>
+</header>
+
+		<!-- slider -->
+		
+	<section class="slider">
+		<div class="swiper">
+			<div class="swiper-wrapper">
+													<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/1.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">nejstarší autokemp v České republice - Annín</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/2.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">jediné znaky na náhrobnících z křižáckých výprav v ČR - Radomyšl</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/3.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">nejvýše položená synagoga v Česku a střední Evropě - Hartmanice</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/4.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">nejmohutnější zřícenina hradu v Čechách - Rabí</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/5.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">nejmenší studánka na světě - u kostela Narození Panny Marie, Strašín</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/6.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">první rakousko-uherská továrna na kolečka k dětským kočárkům - Watzlawick Rejštejn</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/7.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">první elektrické tavení skla v ČSR - Annín</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+												</div>
+			<div class="swiper-pagination"></div>
+		</div>
+	</section>
+
+		<!-- content -->
+		<section class="container content">
+			<div class="content__inside">
+					
+<!-- fixed menu -->
+<div class="menu-fixed">
+	<div class="container">
+		<ul>
+			<li><a href="#section-main" title="Rekreace na Lipně">Rekreace na Lipně</a></li>
+
+							<li><a href="#section-map" title="mapa">mapa</a></li>
+			
+							<li><a href="#section-attractions" title="místa v okolí">místa v okolí</a></li>
+			
+							<li><a href="#section-companies" title="firmy v okolí">firmy v okolí</a></li>
+					</ul>
+	</div>
+</div>
+
+<!-- apartments detail -->
+<div id="section-main" class="section color-orange">
+	<div class="section__line">
+		<h2 class="section__line-title">Rekreace na Lipně</h2>
+	</div>
+
+	<!-- breadcrumbs -->
+	<ul class="section__breadcrumbs"><li><a href="/">Šumava.cz</a></li><li><a href="/ubytovani/" title="ubytování">ubytování</a></li><li class="is-active">Rekreace na Lipně</li></ul>
+	<!-- detail -->
+	<div class="section__detail">
+		<div class="row">
+			<div class="col-12 col-sm-6">
+									
+					<a class="lazyload-wrap lightbox section__detail-main-image" href="/res/images/apartments/originals/492.jpg" title="Rekreace na Lipně" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+						<img src="/res/images/apartments/492.jpg" alt="Rekreace na Lipně" width="570" height="379" />
+					</a>
+				
+									<div class="section__detail-gallery">
+													
+							<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/apartments/originals/492.jpg" title="Rekreace na Lipně" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+								<img class="lazyload" src="/res/images/apartments/thumbsSmall/492.jpg" alt="Rekreace na Lipně" width="135" height="90" />
+							</a>
+													
+							<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/apartments/originals/493.jpg" title="Rekreace na Lipně" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+								<img class="lazyload" src="/res/images/apartments/thumbsSmall/493.jpg" alt="Rekreace na Lipně" width="135" height="101" />
+							</a>
+													
+							<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/apartments/originals/494.jpg" title="Rekreace na Lipně" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+								<img class="lazyload" src="/res/images/apartments/thumbsSmall/494.jpg" alt="Rekreace na Lipně" width="135" height="60" />
+							</a>
+													
+							<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/apartments/originals/495.jpg" title="Rekreace na Lipně" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+								<img class="lazyload" src="/res/images/apartments/thumbsSmall/495.jpg" alt="Rekreace na Lipně" width="135" height="60" />
+							</a>
+													
+							<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/apartments/originals/496.jpg" title="Rekreace na Lipně" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+								<img class="lazyload" src="/res/images/apartments/thumbsSmall/496.jpg" alt="Rekreace na Lipně" width="135" height="76" />
+							</a>
+													
+							<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/apartments/originals/497.jpg" title="Rekreace na Lipně" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+								<img class="lazyload" src="/res/images/apartments/thumbsSmall/497.jpg" alt="Rekreace na Lipně" width="135" height="101" />
+							</a>
+													
+							<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/apartments/originals/498.jpg" title="Rekreace na Lipně" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+								<img class="lazyload" src="/res/images/apartments/thumbsSmall/498.jpg" alt="Rekreace na Lipně" width="135" height="101" />
+							</a>
+													
+							<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/apartments/originals/499.jpg" title="Rekreace na Lipně" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+								<img class="lazyload" src="/res/images/apartments/thumbsSmall/499.jpg" alt="Rekreace na Lipně" width="135" height="101" />
+							</a>
+													
+							<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/apartments/originals/500.jpg" title="Rekreace na Lipně" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+								<img class="lazyload" src="/res/images/apartments/thumbsSmall/500.jpg" alt="Rekreace na Lipně" width="135" height="90" />
+							</a>
+													
+							<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/apartments/originals/501.jpg" title="Rekreace na Lipně" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+								<img class="lazyload" src="/res/images/apartments/thumbsSmall/501.jpg" alt="Rekreace na Lipně" width="135" height="90" />
+							</a>
+													
+							<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/apartments/originals/502.jpg" title="Rekreace na Lipně" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+								<img class="lazyload" src="/res/images/apartments/thumbsSmall/502.jpg" alt="Rekreace na Lipně" width="135" height="90" />
+							</a>
+													
+							<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/apartments/originals/503.jpg" title="Rekreace na Lipně" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+								<img class="lazyload" src="/res/images/apartments/thumbsSmall/503.jpg" alt="Rekreace na Lipně" width="135" height="90" />
+							</a>
+													
+							<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/apartments/originals/504.jpg" title="Rekreace na Lipně" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+								<img class="lazyload" src="/res/images/apartments/thumbsSmall/504.jpg" alt="Rekreace na Lipně" width="135" height="90" />
+							</a>
+													
+							<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/apartments/originals/505.jpg" title="Rekreace na Lipně" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+								<img class="lazyload" src="/res/images/apartments/thumbsSmall/505.jpg" alt="Rekreace na Lipně" width="67" height="101" />
+							</a>
+													
+							<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/apartments/originals/506.jpg" title="Rekreace na Lipně" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+								<img class="lazyload" src="/res/images/apartments/thumbsSmall/506.jpg" alt="Rekreace na Lipně" width="135" height="90" />
+							</a>
+											</div>
+							</div>
+			<div class="col-12 col-sm-6">
+				<div class="section__detail-inside">
+					<ul class="section__detail-stepper">
+						<li><a class="is-active" href="#" title="poloha" data-id="1">poloha</a></li>
+						<li><a href="#" title="objekt" data-id="2">objekt</a></li>
+						<li><a href="#" title="pokoje" data-id="3">pokoje</a></li>
+						<li><a href="#" title="strava" data-id="4">strava</a></li>
+						<li><a href="#" title="sport a zábava" data-id="5">sport a zábava</a></li>
+						<li><a href="#" title="děti" data-id="6">děti</a></li>
+						<li><a href="#" title="bussiness" data-id="7">bussiness</a></li>
+						<li><a href="#" title="cena" data-id="8">cena</a></li>
+					</ul>
+
+					<div class="section__detail-step is-active" data-id="1">
+						<h3>detailní info</h3>
+
+						
+													<strong>adresa:</strong> Frymburk 354, Frymburk<br />
+						
+													<strong>lokalita:</strong> lipensko<br />
+						
+													<strong>GPS:</strong> 48°40'12.166"N, 14°9'46.477"E							<a href="http://mapy.cz/#mm=ZTtTcP@sa=s@st=s@ssq=48°40&#039;12.166&quot;N, 14°9&#039;46.477&quot;E" title="Zobrazit na mapy.cz" target="_blank" rel="noreferrer">
+								<img class="section__detail-logo-maps" src="/res/images/logo-mapy.png" alt="Zobrazit na mapy.cz" />
+							</a>
+							<br />
+						
+													<h3>kontakty</h3>
+
+															<strong>telefon:</strong> <a href="tel:+420 777 883 539" title="+420 777 883 539">+420 777 883 539</a>, <br />
+							
+															<strong>www:</strong> <a href="http://" title="http://" target="_blank">http://</a><br />
+							
+													
+													<h3>doplňující info</h3>
+
+							
+															<strong>vzdálenost od autobusové zastávky:</strong> BUS - 500 m, obchod, restuarce 1 km, krytý bazén s tobogánem 200 m, půjčovna kol 300 m<br />
+							
+															<strong>vzdálenost od nádraží:</strong> vlakové nádraží 11 km<br />
+													
+						
+													<!-- google ad -->
+							<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7609448103131768" data-ad-slot="6325963524" data-ad-format="auto" data-full-width-responsive="true"></ins>
+							<script>
+								(adsbygoogle = window.adsbygoogle || []).push({});
+							</script>
+											</div>
+
+					<div class="section__detail-step" data-id="2">
+													<h3>popis objektu</h3>
+
+							<div class="section__detail-info">
+								Rekreační domy se nacházejí 200 metrů od jezera Lipno. Apartmány Rekreace na Lipně se nachází v klidné lokalitě, v bezprostřední blízkosti Wellness Hotelu Frymburk (cca 5 min chůze), kde můžete využít širokou nabídku služeb jako např.: masáže, wellness procedury, saunový svět, aquapark, bowling, squash, solnou jeskyni. Ve vzdálenosti 200 m od ubytování oceníte zvláště v letních měsících udržovanou písečnou pláž a také cyklostezku vhodnou na výlety na kolech nebo na in-line bruslení. V blízkosti je také ski areál Kramolín a nedaleko rakouský ski areál Sternstein a Hochficht. Parkování je možné před apartmánem. V letních měsících je k dispozici venkovní posezení, zahradní gril, trampolína a zakrývací pískoviště. Možnost úschovna lyží a kol. Řadový dům – V obývacím pokoji se nachází rohová rozkládací sedací souprava, TV, DVD, krbová kamna na dřevo a francouzské okno s výstupem na oplocenou terasu. V domě je elektrické topení, 2× WC (1× v přízemí, 1× v patře), 1× koupelna s vanou, pračkou se sušičkou a fénem, dále 4 samostatné ložnice (3× manželská postel v patře, 1× palanda v přízemí), přistýlka pro 2 osoby (rozkládací sedací souprava v obývacím pokoji) a dětská skládací cestovní postýlka. Připojení na internet přes Wi-Fi, zařízená kuchyň (lednička, myčka, elektrický sporák se sklokeramickou deskou, rychlovarná konvice, mikrovlnná trouba, toastovač, nádobí), jídelní stůl pro 8 osob a dětská židlička. Na objektu je ložní povlečení (kromě dětské postýlky), ručníky a osušky nutné vzít s sebou. Apartmán je nekuřácký, maximální kapacita apartmánu je 10 osob. Atriový dům – V obývacím pokoji se nachází rozkládací sedací souprava, TV, krbová kamna na dřevo a francouzské okno s výstupem na uzavřený dvorek. V domě je 2× WC, 1× koupelna s vanou a dále 3 samostatné ložnice (2× jednolůžko, 1× manželská postel + jednolůžko formou palandy-nad manželskou postelí, 1× palanda + jednolůžko), přistýlka pro 2 osoby (rozkládací sedací souprava v obývacím pokoji) a dětská dřevěná postýlka (včetně matrace, bez peřinky a povlečení). Připojení na internet přes Wi-Fi, zařízenou kuchyň (lednička, myčka, elektrický sporák se sklokeramickou deskou, rychlovarná konvice, mikrovlnná trouba, toastovač, nádobí), jídelní stůl pro 8 osob a dětskou židličku. Na objektu je ložní povlečení (kromě dětské postýlky), ručníky a osušky nutné vzít s sebou. Apartmán je přízemní (vhodný pro rodiny s menšími dětmi i pro seniory). Apartmán je nekuřácký, maximální kapacita apartmánu je 10 osob.							</div>
+						
+						<h3>vybavení objektu</h3>
+						<span class="section__detail-equipment">bar</span>
+						<span class="section__detail-equipment">bezbariérový pokoj</span>
+						<span class="section__detail-equipment">bezbariérový přístup</span>
+						<span class="section__detail-equipment is-containing">domácím zvířatům vstup povolen</span>
+						<span class="section__detail-equipment is-containing">garáž</span>
+						<span class="section__detail-equipment is-containing">gril</span>
+						<span class="section__detail-equipment is-containing">internet, wifi</span>
+						<span class="section__detail-equipment">konferenční centrum</span>
+						<span class="section__detail-equipment is-containing">krb</span>
+						<span class="section__detail-equipment is-containing">nekuřácký objekt</span>
+						<span class="section__detail-equipment">ohniště</span>
+						<span class="section__detail-equipment is-containing">parkoviště otevřené</span>
+						<span class="section__detail-equipment">parkoviště uzavřené</span>
+						<span class="section__detail-equipment">společenská místnost</span>
+						<span class="section__detail-equipment">úschovna cenných předmětů</span>
+						<span class="section__detail-equipment is-containing">zahrada s posezením</span>
+					</div>
+
+					<div class="section__detail-step" data-id="3">
+						
+						
+						<h3>vybavení pokojů</h3>
+						<span class="section__detail-equipment">balkón</span>
+						<span class="section__detail-equipment">CD přehrávač</span>
+						<span class="section__detail-equipment">DVD přehrávač</span>
+						<span class="section__detail-equipment is-containing">internet, wifi</span>
+						<span class="section__detail-equipment is-containing">koupelna s vanou</span>
+						<span class="section__detail-equipment">koupelna se sprchou</span>
+						<span class="section__detail-equipment is-containing">lednice</span>
+						<span class="section__detail-equipment">minibar</span>
+						<span class="section__detail-equipment is-containing">pračka</span>
+						<span class="section__detail-equipment">satelit</span>
+						<span class="section__detail-equipment is-containing">televize</span>
+						<span class="section__detail-equipment">trezor</span>
+						<span class="section__detail-equipment">WC na pokoji</span>
+
+						<h3>složení pokojů</h3>
+						<span class="section__detail-equipment">apartmány 2L</span>
+						<span class="section__detail-equipment">apartmány 3L</span>
+						<span class="section__detail-equipment">apartmány 4L</span>
+						<span class="section__detail-equipment">apartmány 5L</span>
+						<span class="section__detail-equipment">apartmány 6L</span>
+						<span class="section__detail-equipment">1L</span>
+						<span class="section__detail-equipment">2L</span>
+						<span class="section__detail-equipment">3L</span>
+						<span class="section__detail-equipment">4L</span>
+						<span class="section__detail-equipment">5L</span>
+						<span class="section__detail-equipment">6L</span>
+						<span class="section__detail-equipment">přistýlka</span>
+					</div>
+
+					<div class="section__detail-step" data-id="4">
+						<h3>stravování v objektu</h3>
+						<span class="section__detail-equipment">stravování</span>
+						<span class="section__detail-equipment">restaurace</span>
+						<span class="section__detail-equipment">jídelna</span>
+						<span class="section__detail-equipment">snídaně</span>
+						<span class="section__detail-equipment">obědy</span>
+						<span class="section__detail-equipment">večere</span>
+						<span class="section__detail-equipment">restaurace v objektu, možnost ubytování bez stravy</span>
+						<span class="section__detail-equipment">vlastní vaření společné</span>
+						<span class="section__detail-equipment is-containing">vlastní vaření na pokoji</span>
+						<span class="section__detail-equipment is-containing">lednice</span>
+						<span class="section__detail-equipment is-containing">mikrovlnná trouba</span>
+						<span class="section__detail-equipment is-containing">myčka nádobí</span>
+						<span class="section__detail-equipment is-containing">nádobí</span>
+						<span class="section__detail-equipment is-containing">sporák</span>
+						<span class="section__detail-equipment is-containing">toustovač</span>
+						<span class="section__detail-equipment is-containing">trouba</span>
+						<span class="section__detail-equipment is-containing">konvice</span>
+
+													<h3>stravování v okolí</h3>
+															<strong>vzdálenost od obchodu s potravinami:</strong> 1 km<br />
+							
+															<strong>vzdálenost od bufetu:</strong> 1 km<br />
+							
+															<strong>vzdálenost od restaurace:</strong> 1 km<br />
+																		</div>
+
+					<div class="section__detail-step" data-id="5">
+						<h3>volný čas a sportovní vyžití v objektu</h3>
+						<span class="section__detail-equipment">bazén venkovní</span>
+						<span class="section__detail-equipment">bazén vnitřní</span>
+						<span class="section__detail-equipment">fitcentrum</span>
+						<span class="section__detail-equipment">ping-pong</span>
+						<span class="section__detail-equipment">sauna</span>
+						<span class="section__detail-equipment">solárium</span>
+						<span class="section__detail-equipment">squash</span>
+						<span class="section__detail-equipment">šipky</span>
+						<span class="section__detail-equipment">tělocvična</span>
+						<span class="section__detail-equipment">tenisový kurt</span>
+						<span class="section__detail-equipment">úschovna kol</span>
+						<span class="section__detail-equipment">úschovna zimní výbavy</span>
+						<span class="section__detail-equipment">vysoušeče obuvi</span>
+						<span class="section__detail-equipment">wellness</span>
+						<span class="section__detail-equipment">whirpool</span>
+
+						<h3>volný čas a sportovní vyžití v okolí</h3>
+
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+											</div>
+
+					<div class="section__detail-step" data-id="6">
+													<h3>popis pro děti</h3>
+							<div class="section__detail-info">
+								Rekreace na Lipně nabízí ideální podmínky pro rodiny s dětmi. U Každého domu je dispozici trampolína a pískoviště. V okolí jsou dětská hřiště a mnoho vyžití pro děti.							</div>
+						
+						<h3>vybavenost pro děti v objektu</h3>
+						<span class="section__detail-equipment">brouzdaliště</span>
+						<span class="section__detail-equipment is-containing">dětská postýlka</span>
+						<span class="section__detail-equipment is-containing">dětská židle</span>
+						<span class="section__detail-equipment is-containing">dětské hřiště</span>
+						<span class="section__detail-equipment is-containing">dětský bazén</span>
+						<span class="section__detail-equipment">dětský koutek</span>
+						<span class="section__detail-equipment">hlídání dětí</span>
+						<span class="section__detail-equipment">houpačka</span>
+						<span class="section__detail-equipment">pískoviště</span>
+						<span class="section__detail-equipment">prolézačky</span>
+						<span class="section__detail-equipment">skluzavka</span>
+						<span class="section__detail-equipment">dětský vlek</span>
+						<span class="section__detail-equipment">trampolína</span>
+
+						<h3>vybavenost pro děti v okolí</h3>
+
+													<strong>vzdálenost od dětského hřiště:</strong> 0,5 km<br />
+						
+													<strong>vzdálenost od dětského bazénu:</strong> 0,2 km<br />
+						
+													<strong>vzdálenost od hlídání dětí:</strong> 0,2 km<br />
+						
+													<strong>vzdálenost od dětského vleku:</strong> 10 km<br />
+											</div>
+
+					<div class="section__detail-step" data-id="7">
+						<h3>konferenční kapacity</h3>
+						<span class="section__detail-equipment">salónek</span>
+						<span class="section__detail-equipment">zasedací místnost</span>
+						<span class="section__detail-equipment">kongresový sál</span>
+						<span class="section__detail-equipment">bussiness centrum</span>
+						<span class="section__detail-equipment">dataprojektor</span>
+						<span class="section__detail-equipment">flipchart</span>
+						<span class="section__detail-equipment">konferenční set</span>
+						<span class="section__detail-equipment">pódium</span>
+						<span class="section__detail-equipment">šatna</span>
+
+					</div>
+
+					<div class="section__detail-step" data-id="8">
+						<h3>info k cenám</h3>
+
+													<strong>minimální počet nocí:</strong> 2<br />
+						
+						
+						<h3>nabídka objektu</h3>
+						<span class="section__detail-equipment is-containing">v sezóně pouze týdenní pobyty</span>
+						<span class="section__detail-equipment is-containing">ubytování celoročně / provoz v zimní sezoně</span>
+						<span class="section__detail-equipment is-containing">kauce</span>
+						<span class="section__detail-equipment is-containing">Vánoce</span>
+						<span class="section__detail-equipment is-containing">Silvestr</span>
+
+						<h3>ceny</h3>
+						<div class="section__detail-info">
+							<table>
+																									<tr>																					<td>																							</td>
+																																<td>																							</td>
+																																<td>																							</td>
+																																<td>																							</td>
+																																<td>																							</td>
+																														</tr>																	<tr>																					<td>																							</td>
+																																<td>																							</td>
+																																<td>																							</td>
+																																<td>																							</td>
+																																<td>																							</td>
+																														</tr>																	<tr>																					<td>																							</td>
+																																<td>																							</td>
+																																<td>																							</td>
+																																<td>																							</td>
+																																<td>																							</td>
+																														</tr>																	<tr>																					<td>																							</td>
+																																<td>																							</td>
+																																<td>																							</td>
+																																<td>																							</td>
+																																<td>																							</td>
+																														</tr>																	<tr>																					<td>																							</td>
+																																<td>																							</td>
+																																<td>																							</td>
+																																<td>																							</td>
+																																<td>																							</td>
+																														</tr>															</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<!-- map -->
+	<div id="section-map" class="section color-orange is-map">
+		<div class="section__line">
+			<h2 class="section__line-title">Rekreace na Lipně na mapě</h2>
+		</div>
+
+		<div class="section__map">
+			<div id="map" class="section__map-frame"></div>
+
+			<script type="text/javascript">
+				var center = SMap.Coords.fromWGS84(14.1629, 48.67);
+				var map = new SMap(JAK.gel('map'), center, 11);
+
+				map.addDefaultLayer(SMap.DEF_BASE);
+				map.addDefaultLayer(SMap.DEF_SMART_TURIST).enable();
+				map.addDefaultLayer(SMap.DEF_HISTORIC);
+				map.addDefaultControls();
+
+				var sync = new SMap.Control.Sync();
+				map.addControl(sync);
+
+				var layerSwitch = new SMap.Control.Layer();
+				layerSwitch.addDefaultLayer(SMap.DEF_BASE);
+				layerSwitch.addDefaultLayer(SMap.DEF_SMART_TURIST);
+				layerSwitch.addDefaultLayer(SMap.DEF_HISTORIC);
+				map.addControl(layerSwitch, {left: '8px', top: '8px'});
+				map.getLayer(SMap.DEF_SMART_TURIST).setTrail(true);
+
+				var markerLayer = new SMap.Layer.Marker();
+				var clusterer = new SMap.Marker.Clusterer(map);
+				markerLayer.setClusterer(clusterer);
+				var markers = [];
+
+				var marker = new SMap.Marker(SMap.Coords.fromWGS84(14.1629, 48.67), null, {url: '/res/images/map-point-orange.png'});
+				markers.push(marker);
+
+				markerLayer.addMarker(markers);
+				map.addLayer(markerLayer).enable();
+			</script>
+		</div>
+	</div>
+
+	<!-- attractions -->
+	<div id="section-attractions" class="section color-red">
+		<div class="section__line">
+			<h2 class="section__line-title">místa v okolí</h2>
+		</div>
+
+		<div class="row section__list">
+										<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/rozcestnik/instituce/hasicske-sbory/sdh-frymburk/" title="SDH Frymburk">
+															
+								<img class="lazyload" src="/res/images/attractions/thumbs/2990.jpg" alt="SDH Frymburk" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/rozcestnik/instituce/hasicske-sbory/sdh-frymburk/" title="SDH Frymburk">SDH Frymburk</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/rozcestnik/instituce/" title="instituce">instituce</a>
+
+																			/ <a href="/rozcestnik/instituce/hasicske-sbory/" title="hasičské sbory">hasičské sbory</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> lipensko<br />
+								
+																	<strong>GPS:</strong> 48°39'57.399"N, 14°9'54.434"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/rozcestnik/instituce/hasicske-sbory/sdh-frymburk/" title="SDH Frymburk">zobrazit více</a>
+					</div>
+				</div>
+
+																				<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/rozcestnik/zabava/deti/detske-hriste-frymburk/" title="dětské hřiště Frymburk">
+															
+								<img class="lazyload" src="/res/images/attractions/thumbs/2999.jpg" alt="dětské hřiště Frymburk" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/rozcestnik/zabava/deti/detske-hriste-frymburk/" title="dětské hřiště Frymburk">dětské hřiště Frymburk</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/rozcestnik/zabava/" title="zábava">zábava</a>
+
+																			/ <a href="/rozcestnik/zabava/deti/" title="děti">děti</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> lipensko<br />
+								
+																	<strong>GPS:</strong> 48°39'52.051"N, 14°9'49.401"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/rozcestnik/zabava/deti/detske-hriste-frymburk/" title="dětské hřiště Frymburk">zobrazit více</a>
+					</div>
+				</div>
+
+									
+							<div class="col-12 col-lg-4 section__item">
+					<div class="section__item-inside is-surroundings">
+						<h3 class="section__line-label">další místa v okolí</h3>
+						<ul>
+															<li>
+									<a href="/rozcestnik/instituce/hasicske-sbory/sdh-frymburk/" title="SDH Frymburk">
+										<span>SDH Frymburk</span>
+										<span>0.48 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/zabava/deti/detske-hriste-frymburk/" title="dětské hřiště Frymburk">
+										<span>dětské hřiště Frymburk...</span>
+										<span>0.61 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/koupaliste/koupani-frymburk/" title="koupání Frymburk">
+										<span>koupání Frymburk</span>
+										<span>0.62 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/muzea-expozice/muzeum-frymburk/" title="muzeum Frymburk">
+										<span>muzeum Frymburk</span>
+										<span>0.94 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kasny-studny/chrlici-zaba-frymburk/" title="chrlící žába, Frymburk">
+										<span>chrlící žába, Frymburk</span>
+										<span>0.95 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/infocentra/infocentrum-frymburk/" title="infocentrum Frymburk">
+										<span>infocentrum Frymburk</span>
+										<span>0.95 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/pametihodnosti/pranyr-frymburk/" title="pranýř, Frymburk">
+										<span>pranýř, Frymburk</span>
+										<span>0.98 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/osobnosti/baumgartner-andreas-prof/" title="Baumgartner Andreas, prof.">
+										<span>Baumgartner Andreas, prof.</span>
+										<span>0.99 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kasny-studny/kasna-frymburk/" title="kašna Frymburk">
+										<span>kašna Frymburk</span>
+										<span>0.99 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/pamatniky/pametni-deska-ondrej-baumgartner-frymburk/" title="pamětní deska Ondřej Baumgartner, Frymburk">
+										<span>pamětní deska Ondřej Baumg...</span>
+										<span>0.99 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/zabava/plavby-lodi/vyhlidkove-plavby-frymburk/" title="vyhlídkové plavby Frymburk">
+										<span>vyhlídkové plavby Frymburk...</span>
+										<span>1.01 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/cirkevni/mariansky-sloup-frymburk/" title="Mariánský sloup, Frymburk">
+										<span>Mariánský sloup, Frymburk...</span>
+										<span>1.01 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/bezecke-lyzovani/bezecke-lyzovani-frymburk/" title="běžecké lyžování Frymburk">
+										<span>běžecké lyžování Frymburk...</span>
+										<span>1.03 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/frymburk/" title="Frymburk">
+										<span>Frymburk</span>
+										<span>1.03 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/voda-reky/namestni-potok-frymburk/" title="náměstní potok Frymburk">
+										<span>náměstní potok Frymburk</span>
+										<span>1.05 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/vojenske/pomniky/pamatnik-osvobozeni-frymburk/" title="památník osvobození Frymburk">
+										<span>památník osvobození Frymbu...</span>
+										<span>1.05 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/technicke/umely-potok-strouha-frymburk/" title="umělý potok, strouha Frymburk">
+										<span>umělý potok, strouha Frymb...</span>
+										<span>1.05 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/pamatniky/pomnik-adalberta-stiftera-frymburk/" title="pomník Adalberta Stiftera, Frymburk">
+										<span>pomník Adalberta Stiftera,...</span>
+										<span>1.08 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/pamatniky/pametni-deska-michal-tkac/" title="pamětní deska Michal Tkáč">
+										<span>pamětní deska Michal Tkáč...</span>
+										<span>1.17 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/fary/fara-frymburk/" title="fara Frymburk">
+										<span>fara Frymburk</span>
+										<span>1.17 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/vojenske/pomniky/pomnik-padlych-wwi-i-ii-frymburk/" title="pomník padlých WWI i II, Frymburk">
+										<span>pomník padlých WWI i II, F...</span>
+										<span>1.18 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/vojenske/pomniky/pomnik-padlych-wwi-frymburk/" title="pomník padlých WWI, Frymburk">
+										<span>pomník padlých WWI, Frymbu...</span>
+										<span>1.18 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/posudov/" title="Posudov">
+										<span>Posudov</span>
+										<span>1.19 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-sv-bartolomeje-frymburk/" title="kostel sv. Bartoloměje, Frymburk">
+										<span>kostel sv. Bartoloměje, Fr...</span>
+										<span>1.19 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/akvaparky/wakeboarding-a-vodni-lyzovani-frymburk/" title="wakeboarding a vodní lyžování, Frymburk">
+										<span>wakeboarding a vodní lyžov...</span>
+										<span>1.24 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/zabava/deti/activity-park-medi-kubika-frymburk/" title="Activity Park Médi Kubíka, Frymburk">
+										<span>Activity Park Médi Kubíka,...</span>
+										<span>1.3 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/ski-arealy/skiareal-frymburk/" title="skiareál Frymburk">
+										<span>skiareál Frymburk</span>
+										<span>1.37 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/cirkevni/krizova-cesta-frymburk/" title="křížová cesta Frymburk">
+										<span>křížová cesta Frymburk</span>
+										<span>1.39 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/brusleni/brusleni-lipno/" title="bruslení Lipno">
+										<span>bruslení Lipno</span>
+										<span>1.4 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-panny-marie-bolestne-frymburk/" title="kaple Panny Marie Bolestné, Frymburk">
+										<span>kaple Panny Marie Bolestné...</span>
+										<span>1.84 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/milna/" title="Milná">
+										<span>Milná</span>
+										<span>2.96 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/filmova-mista/hop-nebo-trop/" title="Hop nebo trop">
+										<span>Hop nebo trop</span>
+										<span>3.05 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/kovarov/" title="Kovářov">
+										<span>Kovářov</span>
+										<span>3.63 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/blatna-u-frymburku/" title="Blatná u Frymburku">
+										<span>Blatná u Frymburku</span>
+										<span>3.73 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/vrcholy-rozhledny/alpska-vyhlidka-960-m-n-m/" title="Alpská vyhlídka 960 m n. m.">
+										<span>Alpská vyhlídka 960 m n. m...</span>
+										<span>4.12 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-sv-filipa-a-jakuba-predni-vyton/" title="kostel sv. Filipa a Jakuba, Přední Výtoň">
+										<span>kostel sv. Filipa a Jakuba...</span>
+										<span>4.16 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/letecky-seskoky/letiste-frymburk/" title="letiště Frymburk">
+										<span>letiště Frymburk</span>
+										<span>4.17 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/pesi-naucne-stezky/ns-svaty-tomas/" title="NS Svatý Tomáš">
+										<span>NS Svatý Tomáš</span>
+										<span>4.25 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/golf/golf-lipno-nad-vltavou/" title="golf Lipno nad Vltavou">
+										<span>golf Lipno nad Vltavou</span>
+										<span>4.27 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/predni-vyton/" title="Přední Výtoň">
+										<span>Přední Výtoň</span>
+										<span>4.33 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/doprava/parkoviste/parkoviste-laja/" title="parkoviště Lája">
+										<span>parkoviště Lája</span>
+										<span>4.7 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/doprava/pro-vozickare/trasy-pro-vozickare-lipno/" title="trasy pro vozíčkáře, Lipno">
+										<span>trasy pro vozíčkáře, Lipno...</span>
+										<span>4.7 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/horska-a-vodni-sluzba/vodni-zachranna-sluzba-lipno/" title="Vodní záchranná služba Lipno">
+										<span>Vodní záchranná služba Lip...</span>
+										<span>4.89 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/prirodni-krasy-ukazy/kotlina-pod-planicskym-rybnikem/" title="Kotlina pod Pláničským rybníkem">
+										<span>Kotlina pod Pláničským ryb...</span>
+										<span>4.98 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/bobova-draha/bobova-draha-lipno-nad-vltavou/" title="bobová dráha Lipno nad Vltavou">
+										<span>bobová dráha Lipno nad Vlt...</span>
+										<span>5.04 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/lanova-centra/lanove-centrum-lipno-nad-vltavou/" title="lanové centrum Lipno nad Vltavou">
+										<span>lanové centrum Lipno nad V...</span>
+										<span>5.06 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/publicisticke-porady/nas-venkov-vesnicka-beverly-hills/" title="Náš venkov - Vesnická Beverly Hills">
+										<span>Náš venkov - Vesnická Beve...</span>
+										<span>5.12 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/prirodni-krasy-ukazy/olsina-v-novolhotskem-lese/" title="Olšina v Novolhotském lese">
+										<span>Olšina v Novolhotském lese...</span>
+										<span>5.15 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/ski-arealy/skiareal-lipno-kramolin/" title="skiareál Lipno - Kramolín">
+										<span>skiareál Lipno - Kramolín...</span>
+										<span>5.16 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/bezecke-lyzovani/bezecke-lyzovani-lipno-kramolin/" title="běžecké lyžování Lipno - Kramolín">
+										<span>běžecké lyžování Lipno - K...</span>
+										<span>5.16 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/pocasi-snih/holidayinfo-lipno-foxpark/" title="Holidayinfo - Lipno, Foxpark">
+										<span>Holidayinfo - Lipno, Foxpa...</span>
+										<span>5.17 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/publicisticke-porady/krasne-zive-pamatky-16-dil-na-sumave-a-v-podhuri/" title="Krásné živé památky - 16. díl - Na Šumavě a v podhůří">
+										<span>Krásné živé památky - 16. ...</span>
+										<span>5.19 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/zricenina/zricenina-vitkuv-kamen/" title="zřícenina Vítkův kámen">
+										<span>zřícenina Vítkův kámen...</span>
+										<span>5.19 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/hrbitovy/hrbitov-svaty-tomas/" title="hřbitov Svatý Tomáš">
+										<span>hřbitov Svatý Tomáš</span>
+										<span>5.29 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/pamatniky/pametni-deska-johann-bertlwieser/" title="pamětní deska Johann Bertlwieser">
+										<span>pamětní deska Johann Bertl...</span>
+										<span>5.29 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-boziho-tela-svaty-tomas/" title="kostel Božího těla, Svatý Tomáš">
+										<span>kostel Božího těla, Svatý ...</span>
+										<span>5.29 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/horska-a-vodni-sluzba/horska-sluzba-kramolin/" title="horská služba Kramolín">
+										<span>horská služba Kramolín</span>
+										<span>5.37 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/zabava/deti/detske-hriste-lipno-nad-vltavou/" title="dětské hřiště Lipno nad Vltavou">
+										<span>dětské hřiště Lipno nad Vl...</span>
+										<span>5.39 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/pocasi-snih/holidayinfo-lipno-kramolin/" title="Holidayinfo - Lipno, Kramolín">
+										<span>Holidayinfo - Lipno, Kramo...</span>
+										<span>5.41 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/svaty-tomas/" title="Svatý Tomáš">
+										<span>Svatý Tomáš</span>
+										<span>5.42 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/zamky/zamek-schwarzenberska-myslivna/" title="zámek Schwarzenberská myslivna">
+										<span>zámek Schwarzenberská mysl...</span>
+										<span>5.46 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/akvaparky/akvapark-lipno/" title="akvapark Lipno">
+										<span>akvapark Lipno</span>
+										<span>5.49 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/infocentra/turisticke-centrum-lipenska/" title="Turistické Centrum Lipenska">
+										<span>Turistické Centrum Lipensk...</span>
+										<span>5.49 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/zanikle-osady/bedrichov/" title="Bedřichov">
+										<span>Bedřichov</span>
+										<span>5.59 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/vojenske/ujezdy/532-rt-rota-svaty-tomas/" title="532. RT rota, Svatý Tomáš">
+										<span>532. RT rota, Svatý Tomáš...</span>
+										<span>5.59 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/doprava/lanovky/sedackove-lanovky-lipno/" title="sedačkové lanovky Lipno">
+										<span>sedačkové lanovky Lipno</span>
+										<span>5.63 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/lesni-domky/" title="Lesní Domky">
+										<span>Lesní Domky</span>
+										<span>5.68 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/infocentra/infocentrum-lipno-nad-vltavou/" title="infocentrum Lipno nad Vltavou">
+										<span>infocentrum Lipno nad Vlta...</span>
+										<span>5.69 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/voda-rybniky/planicsky-rybnik-velky-kozi/" title="Pláničský rybník (Velký Kozí)">
+										<span>Pláničský rybník (Velký Ko...</span>
+										<span>5.87 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/ochrana-prirody/prirodni-rezervace-planicsky-rybnik/" title="přírodní rezervace Pláničský rybník">
+										<span>přírodní rezervace Pláničs...</span>
+										<span>5.87 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/prirodni-krasy-ukazy/raseliniste-bobovec/" title="Rašeliniště Bobovec">
+										<span>Rašeliniště Bobovec</span>
+										<span>5.92 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/pocasi-snih/holidayinfo-lipno-brezovice/" title="Holidayinfo - Lipno, Březovice">
+										<span>Holidayinfo - Lipno, Březo...</span>
+										<span>5.92 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/pocasi-predpoved/accuweather-lipno-nad-vltavou/" title="AccuWeather - Lipno nad Vltavou">
+										<span>AccuWeather - Lipno nad Vl...</span>
+										<span>5.96 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/lipno-nad-vltavou/" title="Lipno nad Vltavou">
+										<span>Lipno nad Vltavou</span>
+										<span>5.96 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/bezecke-lyzovani/bezecke-lyzovani-lipno-nad-vltavou/" title="běžecké lyžování Lipno nad Vltavou">
+										<span>běžecké lyžování Lipno nad...</span>
+										<span>5.96 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/yacht/yacht-lipno-nad-vltavou/" title="yacht Lipno nad Vltavou">
+										<span>yacht Lipno nad Vltavou</span>
+										<span>5.97 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/pesi-naucne-stezky/ns-lipno-nad-vltavou/" title="NS Lipno nad Vltavou">
+										<span>NS Lipno nad Vltavou</span>
+										<span>6.05 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/jamy/" title="Jámy">
+										<span>Jámy</span>
+										<span>6.6 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/muzea-expozice/expozice-vodni-elektrarny-lipno-nad-vltavou/" title="expozice vodní elektrárny Lipno nad Vltavou">
+										<span>expozice vodní elektrárny ...</span>
+										<span>6.83 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/technicke/francisova-turbina-lipno/" title="francisova turbína Lipno">
+										<span>francisova turbína Lipno</span>
+										<span>6.9 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/geologie/skala-certovo-kopyto/" title="skála Čertovo kopyto">
+										<span>skála Čertovo kopyto</span>
+										<span>6.96 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/voda-prehrady/prehrada-lipno/" title="přehrada Lipno">
+										<span>přehrada Lipno</span>
+										<span>6.98 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/publicisticke-porady/na-ceste-po-lipensku-9442/" title="Na cestě po Lipensku">
+										<span>Na cestě po Lipensku</span>
+										<span>6.98 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/dolni-vltavice/" title="Dolní Vltavice">
+										<span>Dolní Vltavice</span>
+										<span>7.05 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/doprava/nadrazi/vlakova-zastavka-lipno-nad-vltavou/" title="vlaková zastávka Lipno nad Vltavou">
+										<span>vlaková zastávka Lipno nad...</span>
+										<span>7.14 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-u-svetliku/" title="kaple u Světlíku">
+										<span>kaple u Světlíku</span>
+										<span>7.23 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/pametihodnosti/godosova-poutevna/" title="Godošova poutevna">
+										<span>Godošova poutevna</span>
+										<span>7.41 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/hrbitovy/hrbitov-svetlik/" title="hřbitov Světlík">
+										<span>hřbitov Světlík</span>
+										<span>7.45 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-sv-jakuba-vetsiho-svetlik/" title="kostel sv. Jakuba Většího, Světlík">
+										<span>kostel sv. Jakuba Většího,...</span>
+										<span>7.48 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/fary/fara-svetlik/" title="fara Světlík">
+										<span>fara Světlík</span>
+										<span>7.48 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-sv-jana-nepomuckeho-svetlik/" title="kaple sv. Jana Nepomuckého, Světlík">
+										<span>kaple sv. Jana Nepomuckého...</span>
+										<span>7.52 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/muckov/" title="Muckov">
+										<span>Muckov</span>
+										<span>7.52 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/prirodni-krasy-ukazy/medvedi-hora/" title="Medvědí hora">
+										<span>Medvědí hora</span>
+										<span>7.53 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/blizna/" title="Bližná">
+										<span>Bližná</span>
+										<span>7.6 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/pamatniky/pametni-deska-dr-edvard-benes-svetlik/" title="pamětní deska Dr. Edvard Beneš, Světlík">
+										<span>pamětní deska Dr. Edvard B...</span>
+										<span>7.6 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/svetlik/" title="Světlík">
+										<span>Světlík</span>
+										<span>7.72 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kasny-studny/kasna-svetlik/" title="kašna Světlík">
+										<span>kašna Světlík</span>
+										<span>7.73 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/technicke/operne-pilire-zeleznicniho-mostu-loucovice/" title="opěrné pilíře železničního mostu, Loučovice">
+										<span>opěrné pilíře železničního...</span>
+										<span>7.8 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-cerna-v-posumavi/" title="kaple Černá v Pošumaví">
+										<span>kaple Černá v Pošumaví</span>
+										<span>7.81 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/doprava/nadrazi/vlakova-zastavka-loucovice/" title="vlaková zastávka Loučovice">
+										<span>vlaková zastávka Loučovice...</span>
+										<span>7.9 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/voda-rybniky/rybnik-svetlik/" title="rybník Světlík">
+										<span>rybník Světlík</span>
+										<span>8.14 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/fary/fara-loucovice/" title="fara Loučovice">
+										<span>fara Loučovice</span>
+										<span>8.21 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-sv-oldricha-loucovice/" title="kostel sv. Oldřicha, Loučovice">
+										<span>kostel sv. Oldřicha, Loučo...</span>
+										<span>8.21 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-sv-prokopa-loucovice/" title="kostel sv. Prokopa, Loučovice">
+										<span>kostel sv. Prokopa, Loučov...</span>
+										<span>8.26 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/hasicske-sbory/sdh-cerna-v-posumavi/" title="SDH Černá v Pošumaví">
+										<span>SDH Černá v Pošumaví</span>
+										<span>8.36 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-neposkvrneneho-poceti-panny-marie-cerna-v-posumavi/" title="kostel Neposkvrněného početí Panny Marie, Černá v Pošumaví">
+										<span>kostel Neposkvrněného poče...</span>
+										<span>8.45 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/sochy/sv-jan-nepomucky-cerna-v-posumavi/" title="sv. Jan Nepomucký, Černá v Pošumaví">
+										<span>sv. Jan Nepomucký, Černá v...</span>
+										<span>8.47 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/cerna-v-posumavi/" title="Černá v Pošumaví">
+										<span>Černá v Pošumaví</span>
+										<span>8.49 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/vojenske/pomniky/pomnik-padlych-wwi-cerna-v-posumavi/" title="pomník padlých WWI, Černá v Pošumaví">
+										<span>pomník padlých WWI, Černá ...</span>
+										<span>8.49 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/osobnosti/schimann-adolf/" title="Schimann Adolf">
+										<span>Schimann Adolf</span>
+										<span>8.49 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/architektura/vila-eugena-poraka-loucovice/" title="vila Eugena Poráka, Loučovice">
+										<span>vila Eugena Poráka, Loučov...</span>
+										<span>8.64 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/infocentra/infocentrum-cerna-v-posumavi/" title="infocentrum Černá v Pošumaví">
+										<span>infocentrum Černá v Pošuma...</span>
+										<span>8.64 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/hranicni-prechody/hranicni-prechod-predni-vyton-guglwald/" title="hraniční přechod Přední Výtoň - Guglwald">
+										<span>hraniční přechod Přední Vý...</span>
+										<span>8.8 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/doprava/nadrazi/nadrazi-loucovice/" title="nádraží Loučovice">
+										<span>nádraží Loučovice</span>
+										<span>8.82 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/loucovice/" title="Loučovice">
+										<span>Loučovice</span>
+										<span>8.89 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/hasicske-sbory/sdh-loucovice/" title="SDH Loučovice">
+										<span>SDH Loučovice</span>
+										<span>8.9 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/sochy/certova-stena-a-proudy-jiri-genzer-loucovice/" title="Čertova stěna a proudy - Jiří Genzer, Loučovice">
+										<span>Čertova stěna a proudy - J...</span>
+										<span>9.06 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/mlyny/vltavsky-mlyn-loucovice/" title="Vltavský mlýn Loučovice">
+										<span>Vltavský mlýn Loučovice</span>
+										<span>9.08 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/mytina/" title="Mýtina">
+										<span>Mýtina</span>
+										<span>9.1 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/publicisticke-porady/vyprava-za-ceskymi-certy-cert-nikdy-nespi/" title="Výprava za českými čerty - Čert nikdy nespí">
+										<span>Výprava za českými čerty -...</span>
+										<span>9.1 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/literatura/certova-stena-eliska-krasnohorska/" title="Čertova stěna, Eliška Krásnohorská">
+										<span>Čertova stěna, Eliška Krás...</span>
+										<span>9.1 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/prirodni-krasy-ukazy/certova-stena-luc/" title="Čertova Stěna - Luč">
+										<span>Čertova Stěna - Luč</span>
+										<span>9.1 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-neposkvrneneho-poceti-panny-marie-malsin-ostrov/" title="kaple Neposkvrněného početí Panny Marie, Malšín - Ostrov">
+										<span>kaple Neposkvrněného počet...</span>
+										<span>9.11 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/architektura/roubenka-malsin/" title="roubenka Malšín">
+										<span>roubenka Malšín</span>
+										<span>9.16 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-srdce-jezisova-malsin/" title="kostel Srdce Ježíšova, Malšín">
+										<span>kostel Srdce Ježíšova, Mal...</span>
+										<span>9.21 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/ski-arealy/skiareal-loucovice/" title="skiareál Loučovice">
+										<span>skiareál Loučovice</span>
+										<span>9.23 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/filmova-mista/hop-nebo-trop-501/" title="Hop nebo trop">
+										<span>Hop nebo trop</span>
+										<span>9.24 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/ostrov/" title="Ostrov">
+										<span>Ostrov</span>
+										<span>9.29 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/hranicni-prechody/hranicni-prechod-jezova-iglbach/" title="hraniční přechod Ježová - Iglbach">
+										<span>hraniční přechod Ježová - ...</span>
+										<span>9.39 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/mlyny/mlyn-certova-stena/" title="mlýn Čertova stěna">
+										<span>mlýn Čertova stěna</span>
+										<span>9.61 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/vodactvi/vodactvi-cerna-v-posumavi/" title="vodáctví Černá v Pošumaví">
+										<span>vodáctví Černá v Pošumaví...</span>
+										<span>9.7 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/cyklistika/cyklistika-cerna-v-posumavi/" title="cyklistika Černá v Pošumaví">
+										<span>cyklistika Černá v Pošumav...</span>
+										<span>9.7 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/koupaliste/koupani-cerna-v-posumavi/" title="koupání Černá v Pošumaví">
+										<span>koupání Černá v Pošumaví...</span>
+										<span>9.7 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/tvrze/tvrz-pasovary/" title="tvrz Pasovary">
+										<span>tvrz Pasovary</span>
+										<span>9.73 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/zanikle-osady/pasovary/" title="Pasovary">
+										<span>Pasovary</span>
+										<span>9.76 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/doprava/nadrazi/nadrazi-cerna-v-posumavi/" title="nádraží Černá v Pošumaví">
+										<span>nádraží Černá v Pošumaví...</span>
+										<span>9.83 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/divadla/pasijove-divadlo-prirodni-amfiteatr-horice-na-sumave/" title="pašijové divadlo - přírodní amfiteátr, Hořice na Šumavě">
+										<span>pašijové divadlo - přírodn...</span>
+										<span>9.9 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/pamatniky/pametni-deska-johann-josef-ammann/" title="pamětní deska Johann Josef Ammann">
+										<span>pamětní deska Johann Josef...</span>
+										<span>9.93 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/osobnosti/ammann-johann-josef/" title="Ammann Johann Josef">
+										<span>Ammann Johann Josef</span>
+										<span>9.93 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/zabava/deti/pohadkova-rezervace-horice-na-sumave/" title="Pohádková rezervace, Hořice na Šumavě">
+										<span>Pohádková rezervace, Hořic...</span>
+										<span>9.94 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/pametihodnosti/zanikle-pasijove-divadlo-i-kaple-p-marie-bolestne-horice-na-sumave/" title="zaniklé pašijové divadlo i kaple P. Marie Bolestné, Hořice na Šumavě">
+										<span>zaniklé pašijové divadlo i...</span>
+										<span>9.96 km</span>
+									</a>
+								</li>
+													</ul>
+					</div>
+				</div>
+					</div>
+	</div>
+
+	<!-- companies -->
+	<div id="section-companies" class="section color-brown">
+		<div class="section__line">
+			<h2 class="section__line-title">firmy v okolí</h2>
+		</div>
+
+		<div class="row section__list">
+										<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/firmy/obchody/cerpaci-stanice/cerpaci-stanice-benzina-frymburk/" title="čerpací stanice Benzina, Frymburk">
+															
+								<img class="lazyload" src="/res/images/companies/thumbs/704.jpg" alt="čerpací stanice Benzina, Frymburk" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/firmy/obchody/cerpaci-stanice/cerpaci-stanice-benzina-frymburk/" title="čerpací stanice Benzina, Frymburk">čerpací stanice Benzina, Frymburk</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/firmy/obchody/" title="obchody">obchody</a>
+
+																			/ <a href="/firmy/obchody/cerpaci-stanice/" title="čerpací stanice">čerpací stanice</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> lipensko<br />
+								
+																	<strong>GPS:</strong> 48°39'53.399"N, 14°10'4.001"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/firmy/obchody/cerpaci-stanice/cerpaci-stanice-benzina-frymburk/" title="čerpací stanice Benzina, Frymburk">zobrazit více</a>
+					</div>
+				</div>
+
+																				<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/firmy/obchody/smisene/jednota-potraviny-frymburk/" title="Jednota-potraviny Frymburk">
+															
+								<img class="lazyload" src="/res/images/companies/thumbs/1.jpg" alt="Jednota-potraviny Frymburk" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/firmy/obchody/smisene/jednota-potraviny-frymburk/" title="Jednota-potraviny Frymburk">Jednota-potraviny Frymburk</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/firmy/obchody/" title="obchody">obchody</a>
+
+																			/ <a href="/firmy/obchody/smisene/" title="smíšené">smíšené</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> lipensko<br />
+								
+																	<strong>GPS:</strong> 48°39'43.557"N, 14°9'56.922"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/firmy/obchody/smisene/jednota-potraviny-frymburk/" title="Jednota-potraviny Frymburk">zobrazit více</a>
+					</div>
+				</div>
+
+									
+							<div class="col-12 col-lg-4 section__item">
+					<div class="section__item-inside is-surroundings">
+						<h3 class="section__line-label">další firmy v okolí</h3>
+						<ul>
+															<li>
+									<a href="/firmy/obchody/cerpaci-stanice/cerpaci-stanice-benzina-frymburk/" title="čerpací stanice Benzina, Frymburk">
+										<span>čerpací stanice Benzina, F...</span>
+										<span>0.68 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/firmy/obchody/smisene/jednota-potraviny-frymburk/" title="Jednota-potraviny Frymburk">
+										<span>Jednota-potraviny Frymburk</span>
+										<span>0.9 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/firmy/obchody/smisene/jednota-potraviny-frymburk/" title="Jednota-potraviny Frymburk">
+										<span>Jednota-potraviny Frymburk</span>
+										<span>4.31 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/firmy/obchody/smisene/jednota-potraviny-lipno/" title="Jednota-potraviny Lipno">
+										<span>Jednota-potraviny Lipno</span>
+										<span>5.15 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/firmy/bankovni-sluzby/bankomaty/bankomat-ceska-sporitelna/" title="Bankomat Česká spořitelna">
+										<span>Bankomat Česká spořitelna...</span>
+										<span>5.18 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/firmy/bankovni-sluzby/bankomaty/bankomat-komercni-banka/" title="Bankomat Komerční banka">
+										<span>Bankomat Komerční banka</span>
+										<span>5.59 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/firmy/bankovni-sluzby/bankomaty/bankomat-postovni-sporitelna/" title="Bankomat Poštovní spořitelna">
+										<span>Bankomat Poštovní spořitel...</span>
+										<span>5.7 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/firmy/bankovni-sluzby/bankomaty/bankomat-csob/" title="Bankomat ČSOB">
+										<span>Bankomat ČSOB</span>
+										<span>5.7 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/firmy/obchody/smisene/jednota-potraviny-svetlik/" title="Jednota-potraviny Světlík">
+										<span>Jednota-potraviny Světlík...</span>
+										<span>7.71 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/firmy/obchody/smisene/jednota-potraviny-loucovice/" title="Jednota-potraviny Loučovice">
+										<span>Jednota-potraviny Loučovic...</span>
+										<span>8.5 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/firmy/obchody/smisene/jednota-potraviny-cerna-v-posumavi/" title="Jednota-potraviny Černá v Pošumaví">
+										<span>Jednota-potraviny Černá v ...</span>
+										<span>8.52 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/firmy/obchody/smisene/jednota-potraviny-loucovice/" title="Jednota-potraviny Loučovice">
+										<span>Jednota-potraviny Loučovic...</span>
+										<span>8.8 km</span>
+									</a>
+								</li>
+													</ul>
+					</div>
+				</div>
+					</div>
+	</div>
+			</div>
+		</section>
+
+		<!-- footer -->
+		<footer class="footer">
+	<div class="container">
+		<p>
+			&copy; sumava.cz 1996 - 2024			<span class="footer__delimiter">|</span>
+			<span>všechna práva vyhrazena</span>
+			<span class="footer__delimiter">|</span>
+			<a href="/kontakty/" title="kontakty">kontakty</a>
+			<span class="footer__delimiter">|</span>
+			<a href="/mapa-stranek/" title="mapa stránek">mapa stránek</a>
+			<br />
+			<span>e-mail: <a href="mailto:info@sumava.cz" title="info@sumava.cz">info@sumava.cz</a></span>
+		</p>
+		<p>
+			<a href="/obchodni-podminky/" title="obchodní podmínky">obchodní podmínky</a>
+			<span class="footer__delimiter">|</span>
+			<a href="/prohlaseni-o-cookies/" title="prohlášení o cookies">prohlášení o cookies</a>
+			<br />
+			<a href="/webmuzeum-zapalkovych-nalepek/" title="webmuzeum zápalkových nálepek">webmuzeum zápalkových nálepek</a>
+			<span class="footer__delimiter">|</span>
+			<a href="http://www.webmuzeum.sumava.cz/" title="webmuzeum starých webových stránek (odkaz)" target="_blank" rel="noreferrer">webmuzeum starých webových stránek (odkaz)</a>
+		</p>
+		<p>
+			<a href="http://www.sumava.cz" title="www.sumava.cz">www.sumava.cz</a>
+			<span class="footer__delimiter">|</span>
+			<a href="http://www.retourex.cz" title="www.retourex.cz" target="_blank" rel="noreferrer">www.retourex.cz</a>
+			<span class="footer__delimiter">|</span>
+			<a href="http://www.spaceorigin.com" title="www.spaceorigin.com" target="_blank" rel="noreferrer">www.spaceorigin.com</a>
+		</p>
+		<a href="https://www.facebook.com/www.sumava.cz/" title="Šumava.cz na Facebooku" target="_blank" rel="noreferrer">
+			<img class="lazyload" src="/res/images/icon-fb.png" alt="Šumava.cz na Facebooku" width="150" height="52" />
+		</a>
+	</div>
+</footer>
+
+					<script src="/res/js/vendor/bootstrap/dom/data.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dom/event-handler.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dom/manipulator.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dom/selector-engine.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/base-component.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/collapse.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dropdown.min.js"></script>
+
+			<script src="/res/js/vendor/swiper.min.js"></script>
+			<script src="/res/js/vendor/lazysizes.min.js"></script>
+			<script src="/res/js/vendor/lazysizes.unveilhooks.min.js"></script>
+
+							<script src="/res/js/vendor/glightbox.min.js"></script>
+			
+			<script src="/res/js/class/Web.min.js"></script>
+			<script src="/res/js/class/MainMenu.min.js"></script>
+
+			<script src="/res/js/functions.min.js"></script>
+			<script src="/res/js/init.min.js"></script>
+		
+			</body>
+</html>

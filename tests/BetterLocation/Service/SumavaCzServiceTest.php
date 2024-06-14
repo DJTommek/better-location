@@ -3,6 +3,7 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\SumavaCzService;
+use Tests\HttpTestClients;
 
 /**
  * Methods containing "original" are URLs, that were used before 2022-06-20.
@@ -10,6 +11,15 @@ use App\BetterLocation\Service\SumavaCzService;
  */
 final class SumavaCzServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return SumavaCzService::class;
@@ -214,7 +224,7 @@ final class SumavaCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new SumavaCzService();
+		$service = new SumavaCzService($this->httpTestClients->mockedRequestor);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -229,9 +239,26 @@ final class SumavaCzServiceTest extends AbstractServiceTestCase
 	 * @dataProvider processGalleryNewProvider
 	 * @group request
 	 */
-	public function testProcess(array $expectedResults, string $input): void
+	public function testProcessReal(array $expectedResults, string $input): void
 	{
-		$service = new SumavaCzService();
+		$service = new SumavaCzService($this->httpTestClients->realRequestor);
+		$this->testProcess($service, $expectedResults, $input);
+	}
+
+	/**
+	 * @dataProvider processPlaceNewProvider
+	 * @dataProvider processAccomodationNewProvider
+	 * @dataProvider processCompaniesNewProvider
+	 * @dataProvider processGalleryNewProvider
+	 */
+	public function testProcessOffline(array $expectedResults, string $input): void
+	{
+		$service = new SumavaCzService($this->httpTestClients->offlineRequestor);
+		$this->testProcess($service, $expectedResults, $input);
+	}
+
+	private function testProcess(SumavaCzService $service, array $expectedResults, string $input): void
+	{
 		$service->setInput($input);
 		$this->assertTrue($service->validate());
 		$service->process();
@@ -254,9 +281,20 @@ final class SumavaCzServiceTest extends AbstractServiceTestCase
 	 * @dataProvider galleryNotRelatedProviderOriginal
 	 * @dataProvider galleryNotRelatedProviderNew
 	 */
-	public function testInvalidId(string $input): void
+	public function testInvalidIdReal(string $input): void
 	{
-		$service = new SumavaCzService();
+		$service = new SumavaCzService($this->httpTestClients->realRequestor);
+		$this->assertServiceNoLocation($service, $input);
+	}
+
+	/**
+	 * @group request
+	 * @dataProvider invalidIdProvider
+	 * @dataProvider galleryNotRelatedProviderNew
+	 */
+	public function testInvalidIdOffline(string $input): void
+	{
+		$service = new SumavaCzService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceNoLocation($service, $input);
 	}
 }
