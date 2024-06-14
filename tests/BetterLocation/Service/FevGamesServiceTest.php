@@ -56,7 +56,15 @@ final class FevGamesServiceTest extends AbstractServiceTestCase
 	public static function processProvider(): array
 	{
 		return [
-			[-37.815226, 144.963781, 'https://fevgames.net/ifs/event/?e=23448'],
+			[[[-37.815226, 144.963781]], 'https://fevgames.net/ifs/event/?e=23448'],
+
+			[
+				[
+					[40.696302, 14.481354],
+					[40.699493, 14.482077],
+				],
+				'https://fevgames.net/ifs/event/?e=27094',
+			],
 		];
 	}
 
@@ -83,25 +91,41 @@ final class FevGamesServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processProvider
 	 */
-	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
+	public function testProcessReal(array $expectedResults, string $input): void
 	{
 		$ingressClient = new \App\IngressLanchedRu\Client();
 		$ingressIntelService = new IngressIntelService($ingressClient);
 
 		$service = new FevGamesService($ingressClient, $ingressIntelService, $this->httpTestClients->realRequestor);
-		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+		$this->testProcess($service, $expectedResults, $input);
 	}
 
 	/**
 	 * @dataProvider processProvider
 	 */
-	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
+	public function testProcessOffline(array $expectedResults, string $input): void
 	{
 		$ingressClient = new \App\IngressLanchedRu\Client();
 		$ingressIntelService = new IngressIntelService($ingressClient);
 
 		$service = new FevGamesService($ingressClient, $ingressIntelService, $this->httpTestClients->offlineRequestor);
-		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+		$this->testProcess($service, $expectedResults, $input);
+	}
+
+	private function testProcess(FevGamesService $service, array $expectedResults, string $input): void
+	{
+		$service->setInput($input);
+		$this->assertTrue($service->validate());
+		$service->process();
+
+		$collection = $service->getCollection();
+		$this->assertCount(count($expectedResults), $collection);
+		foreach ($expectedResults as $key => $expectedResult) {
+			[$expectedLat, $expectedLon] = $expectedResult;
+			$location = $collection[$key];
+			$this->assertSame($expectedLat, $location->getLat());
+			$this->assertSame($expectedLon, $location->getLon());
+		}
 	}
 
 	/**
