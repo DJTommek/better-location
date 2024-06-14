@@ -4,9 +4,19 @@ namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\FevGamesService;
 use App\BetterLocation\Service\IngressIntelService;
+use Tests\HttpTestClients;
 
 final class FevGamesServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return FevGamesService::class;
@@ -65,7 +75,7 @@ final class FevGamesServiceTest extends AbstractServiceTestCase
 		$ingressClient = new \App\IngressLanchedRu\Client();
 		$ingressIntelService = new IngressIntelService($ingressClient);
 
-		$service = new FevGamesService($ingressClient, $ingressIntelService);
+		$service = new FevGamesService($ingressClient, $ingressIntelService, $this->httpTestClients->mockedRequestor);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -73,12 +83,24 @@ final class FevGamesServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processProvider
 	 */
-	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
+	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
 		$ingressClient = new \App\IngressLanchedRu\Client();
 		$ingressIntelService = new IngressIntelService($ingressClient);
 
-		$service = new FevGamesService($ingressClient, $ingressIntelService);
+		$service = new FevGamesService($ingressClient, $ingressIntelService, $this->httpTestClients->realRequestor);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+	}
+
+	/**
+	 * @dataProvider processProvider
+	 */
+	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
+	{
+		$ingressClient = new \App\IngressLanchedRu\Client();
+		$ingressIntelService = new IngressIntelService($ingressClient);
+
+		$service = new FevGamesService($ingressClient, $ingressIntelService, $this->httpTestClients->offlineRequestor);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -86,12 +108,24 @@ final class FevGamesServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processNotValidProvider
 	 */
-	public function testNoIntelLink(string $input): void
+	public function testNoIntelLinkReal(string $input): void
 	{
 		$ingressClient = new \App\IngressLanchedRu\Client();
 		$ingressIntelService = new IngressIntelService($ingressClient);
 
-		$service = new FevGamesService($ingressClient, $ingressIntelService);
+		$service = new FevGamesService($ingressClient, $ingressIntelService, $this->httpTestClients->realRequestor);
+		$this->assertServiceNoLocation($service, $input);
+	}
+
+	/**
+	 * @dataProvider processNotValidProvider
+	 */
+	public function testNoIntelLinkOffline(string $input): void
+	{
+		$ingressClient = new \App\IngressLanchedRu\Client();
+		$ingressIntelService = new IngressIntelService($ingressClient);
+
+		$service = new FevGamesService($ingressClient, $ingressIntelService, $this->httpTestClients->offlineRequestor);
 		$this->assertServiceNoLocation($service, $input);
 	}
 }

@@ -4,8 +4,8 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\Config;
-use App\MiniCurl\MiniCurl;
 use App\Utils\Ingress;
+use App\Utils\Requestor;
 use App\Utils\Strict;
 use Tracy\Debugger;
 
@@ -19,6 +19,7 @@ final class FevGamesService extends AbstractService
 	public function __construct(
 		private readonly \App\IngressLanchedRu\Client $ingressClient,
 		private readonly IngressIntelService $ingressIntelService,
+		private readonly Requestor $requestor,
 	) {
 	}
 
@@ -34,9 +35,9 @@ final class FevGamesService extends AbstractService
 
 	public function process(): void
 	{
-		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_FEVGAMES)->run()->getBody();
+		$body = $this->requestor->get($this->url, Config::CACHE_TTL_FEVGAMES);
 		$dom = new \DOMDocument();
-		@$dom->loadHTML($response);
+		@$dom->loadHTML($body);
 		foreach ($dom->getElementsByTagName('a') as $linkEl) {
 			$link = $linkEl->getAttribute('href');
 			$intelService = $this->ingressIntelService->setInput($link);

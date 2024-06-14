@@ -1,0 +1,1191 @@
+<html>
+
+<head>
+    <title>#IngressFS @ Fev Games</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="MenuStyles.css" rel="stylesheet" type="text/css">     
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../resources/jquery-dateformat.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#filterInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#autoScoreSheetTblBody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    
+    <style>
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .h1,
+        .h2,
+        .h3,
+        .h4,
+        .h5,
+        .h6 {
+            margin-bottom: 0.5rem;
+            font-family: inherit;
+            font-weight: 500;
+            line-height: 1.1;
+            color: inherit;
+        }
+        th{
+            font-weight: 1;
+        }
+        h1,
+        .h1 {
+            font-size: 2.5rem;
+        }
+        
+        h2,
+        .h2 {
+            font-size: 2rem;
+        }
+        
+        h3,
+        .h3 {
+            font-size: 1.5rem;
+        }
+        body {
+            margin: 0;
+            font-family: coda, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: normal;
+            line-height: 1.5;
+            color: #fff;
+            background-color: #212529;
+        }
+        
+        a,button,.sorter {
+            color: #fac000;
+            text-decoration: underline;
+            background-color: transparent;
+            -webkit-text-decoration-skip: objects;
+            font-family: coda, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: normal;
+            line-height: 1.5;
+            border: none;
+            padding: 0px;
+            cursor: pointer;
+
+        }
+        
+        a:hover {
+            color: #ffe388;
+            text-decoration: underline;
+        }
+        .enl {
+            color: #00ff00 !important /*69bd45*/
+        }
+        
+        .res {
+            color: #00bbff !important /*3765b0*/
+        }        
+        .machina {
+            color: #ff0000 !important /*3765b0*/
+        }
+        
+        .info {
+            color: #59FBEA
+        }
+        input {
+            margin-left: 20px;
+            background-color:transparent !important;
+            border: 1px solid black !important;
+            color: white;
+            width: 50%;
+        }
+        table.agents {
+            width: 550px;
+            border-collapse: collapse;
+            border-style: none;
+            margin-bottom: 2em;
+        }
+        
+        @media only screen and (max-width: 440px) {
+            table.agents {
+                width: 100%;
+            }
+        }
+        
+        @media only screen and (max-width: 475px) {
+            #cssmenu {
+                height: auto;
+                border-style: none;
+            }
+            #cssmenu>ul>li>a {
+                border-style: none !important;
+            }
+            #cssmenu>ul>li>a::after {
+                border-style: none !important;
+            }
+            #cssmenu>ul>li {
+                float: none;
+            }
+        }
+        .portalDetails {
+            display: none;
+            /*margin: 20px; */
+            padding: 20px;
+            border-color: black;
+            border:1px;
+        }
+
+        .more_info {
+            border-bottom: 1px dotted;
+            position: relative;
+        }
+
+        .more_info .title {
+            position: absolute;
+            top: 20px;
+            background: silver;
+            padding: 4px;
+            left: 0;
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+
+<body style="margin-left: 20px; margin-right: 20px; ">
+    
+    <div id='cssmenu'>
+        <ul>
+            <li class='active '><a href='https://fevgames.net/'><span>Fev Games Home</span></a></li>
+            <li class='active '><a href='https://fevgames.net/ingressfs/'><span>IFS Home</span></a></li>
+            <li class='active '><a href='../events/'><span>Events</span></a></li>
+        </ul>
+    </div>
+
+
+    <div id="newListing">
+        
+    </div>
+    
+    <div id="listing">
+        <p>
+            <h2>#IngressFS - Melbourne, Australia - July 2022</h2>
+            </br>
+            Date/Time: <span class='info'>02-Jul-2022 01:00 pm UTC +10</span> // <span class='info'><script language='javascript'>document.write(jQuery.format.prettyDate('2022-07-02T03:00:00Z'));</script></span>
+            </br>
+            Base Portal: <span class="info">The City of Melbourne Building</span> 
+            // <a target='_blank' href='https://intel.ingress.com/intel?ll=-37.815226,144.963781&z=17&pll=-37.815226,144.963781'>Intel Link</a>
+                        // <a target='_blank' href='https://maps.google.com/maps?q=-37.815226,144.963781'>Google Maps</a></br>
+            
+            Event Channel: <a href='https://t.me/FSVic' target='_blank'>t.me/FSVic</a></br></br></br><h3>Scores</h3><table id="scores" style="max-width: 550px" class="table table-striped table-hover table-inverse table-sm table-responsive"><thead>
+                            <th style='width: 20%;'>Stat</th>
+                            <th style='width: 20%;'>Total</th>
+                            <th style='width: 60%;'>Enl // Res</th>
+                        </thead>
+                        <tbody><tr>
+                    <td>Lvl</td>
+                    <td style='text-align:right;'>0</td>
+                        <td class='score_info' title='Enl: 0% - 0</br>Res: 0% - 0' >
+                            <div class='progress'> 
+                                <span style='color:transparent;'>0</span>
+                                
+                            </div>
+                        </td>
+                    </tr><tr>
+                    <td>AP</td>
+                    <td style='text-align:right;'>1,265,205</td>
+                        <td class='score_info' title='Enl: 18% - 231,721</br>Res: 82% - 1,033,484' >
+                            <div class='progress'> 
+                                <div class='progress-bar skin-green' role='progressbar' style='width: 18.314897585767%' aria-valuenow='18.314897585767' aria-valuemin='0' aria-valuemax=1265205>
+                        231,721
+                    </div>
+                                <div class='progress-bar skin-blue' role='progressbar' style='width: 81.685102414233%' aria-valuenow='81.685102414233' aria-valuemin='0' aria-valuemax=1265205>
+                        1,033,484
+                    </div>
+                            </div>
+                        </td>
+                    </tr><tr>
+                    <td>Agents</td>
+                    <td style='text-align:right;'>55</td>
+                        <td class='score_info' title='Enl: 36% - 20</br>Res: 64% - 35' >
+                            <div class='progress'> 
+                                <div class='progress-bar skin-green' role='progressbar' style='width: 36.363636363636%' aria-valuenow='36.363636363636' aria-valuemin='0' aria-valuemax=55>
+                        20
+                    </div>
+                                <div class='progress-bar skin-blue' role='progressbar' style='width: 63.636363636364%' aria-valuenow='63.636363636364' aria-valuemin='0' aria-valuemax=55>
+                        35
+                    </div>
+                            </div>
+                        </td>
+                    </tr><tr>
+                    <td>AP/Agent</td>
+                    <td style='text-align:right;'>23,004</td>
+                        <td class='score_info' title='Enl: 28% - 11,586</br>Res: 72% - 29,528' >
+                            <div class='progress'> 
+                                <div class='progress-bar skin-green' role='progressbar' style='width: 28.18019094219%' aria-valuenow='28.18019094219' aria-valuemin='0' aria-valuemax=41114.164285714>
+                        11,586
+                    </div>
+                                <div class='progress-bar skin-blue' role='progressbar' style='width: 71.81980905781%' aria-valuenow='71.81980905781' aria-valuemin='0' aria-valuemax=41114.164285714>
+                        29,528
+                    </div>
+                            </div>
+                        </td>
+                    </tr><tr>
+                    <td>Bonus</td>
+                    <td style='text-align:right;'>25,009,378</td>
+                        <td class='score_info' title='Enl: 41% - 10,242,172</br>Res: 59% - 14,767,206' >
+                            <div class='progress'> 
+                                <div class='progress-bar skin-green' role='progressbar' style='width: 40.953325588505%' aria-valuenow='40.953325588505' aria-valuemin='0' aria-valuemax=25009378>
+                        10,242,172
+                    </div>
+                                <div class='progress-bar skin-blue' role='progressbar' style='width: 59.046674411495%' aria-valuenow='59.046674411495' aria-valuemin='0' aria-valuemax=25009378>
+                        14,767,206
+                    </div>
+                            </div>
+                        </td>
+                    </tr></tbody>
+                    </table>
+                    <a target= '_blank' href='https://twitter.com/ChatSpud/status/1543193679057133569/photo/1'>Group Photo</a> //
+                    <a href='https://fevgames.net/ifs/scores/?m=2207'>July 2022 All Cities Scores</a> // 
+                    <a href='https://fevgames.net/ifs/scores/?l=Melbourne%2C+Australia'>Melbourne, Australia All Time Scores</a> </br> 
+                    <small style='color:gray;'> 
+                        Above scores have been provided by the faction leaders listed below. </br>
+                        Click on the faction numbers to see percentages.
+                    </small>
+                    </br>
+                   
+                    <h3>Event Description</h3>
+                    </br>
+                    Time for another round of virtual FS!</br></br>The prize pack up for grabs today, for the 'Selfie Award' you need to do all of the following:</br>-Post a selfie in the special 'Selfies Only TG Chat' with your IGN. </br>-Have the selfie with the most 👍's (must be 👍's up too!). </br>-Only selfies uploaded on the day and between the hours of the event will be accepted.</br>-All selfies must be NEW selfies and not recycled from past FS's.</br>-Selfies must contain the agent & something ingress related (not just photo of an item or something the colour of..)</br></br>The IngressFS venue is your home. So get comfy and join your fellow us on an online social gathering to create good memories in a virtual setting.</br></br>To be eligible for the FS badge, you must submit at least your start stats to this form, plus you need to do at least three of the following:</br></br>🔎 Contribute to the passcode challenge (find at least one portal)</br>🔋 Recharge more than 50k XM</br>🥽 review at least 30 portals in Wayfarer</br>🤳 Post a selfie in the special Selfies Only TG Chat with Ingress swag in it - Add your agent name to the message when posting the photo!</br>🚁 Complete 2 Drone Hacks</br>🎥 Tell a story or sing a song in the ZOOM Chat</br></br>Make sure your agent name appears in the score section of the event page by the end of the day in order to get the FS badge.</br></br>If our passcode isn't solved, none of us will get the badge! </br></br>Make sure you get your name checked on the list and that it appears below in the Score Data section otherwise you won't get the badge.</br></br>Make sure you post your end stats by 4pm or you won't be verified.</br></br>How to submit your stats:</br>https://fevgames.net/ingressfs/auto-score-sheet-instructions/</br></br></br>
+                    </br></br></br><h3>Auto Score Sheet Data</h3><p>Filter <input id='filterInput' type='text' placeholder='filter...'></p><table id='autoScoreSheetTbl' class='table table-striped table-hover table-inverse table-sm table-responsive'><thead><th>#</th><th class='sorter' onclick='sortTable(1)' style='min-width:150;'> Agent Name</th><th class='sorter' onclick='sortTable(2)' style='min-width:100;'>Level Gain</th><th class='sorter' onclick='sortTable(3)' style='min-width:200;'>AP Gain</th><th class='sorter' onclick='sortTable(4)' style='min-width:150;'>XM Recharged</th><th class='sorter' onclick='sortTable(5)' style='min-width:150;'>Drone Hacks</th><th class='sorter' onclick='sortTable(6)' style='min-width:150;'>Wayfarer Reviews</th></thead><tbody id='autoScoreSheetTblBody'><tr><td>#1</td><td class='res'>oscarc1</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='99' class='progress-bar skin-blue' role='progressbar' style='width: 100%' aria-valuenow='100' aria-valuemin='0' aria-valuemax=566162>
+                                566,162
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='22.051216097846' class='progress-bar skin-blue' role='progressbar' style='width: 13.540692244771%' aria-valuenow='13.540692244771' aria-valuemin='0' aria-valuemax=2588073>
+                                350,443
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#2</td><td class='res'>E1GHTYS1X</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='36.956139762118' class='progress-bar skin-blue' role='progressbar' style='width: 30.287797485525%' aria-valuenow='30.287797485525' aria-valuemin='0' aria-valuemax=566162>
+                                171,478
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='28.321378106414' class='progress-bar skin-blue' role='progressbar' style='width: 20.585818097094%' aria-valuenow='20.585818097094' aria-valuemin='0' aria-valuemax=2588073>
+                                532,776
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='39.960396039604' class='progress-bar skin-blue' role='progressbar' style='width: 33.663366336634%' aria-valuenow='33.663366336634' aria-valuemin='0' aria-valuemax=101>
+                                34
+                            </div></div></td></tr><tr><td>#3</td><td class='res'>danthonia</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='22.508153143447' class='progress-bar skin-blue' role='progressbar' style='width: 14.054104655558%' aria-valuenow='14.054104655558' aria-valuemin='0' aria-valuemax=566162>
+                                79,569
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='12.513938362635' class='progress-bar skin-blue' role='progressbar' style='width: 2.8246498456574%' aria-valuenow='2.8246498456574' aria-valuemin='0' aria-valuemax=2588073>
+                                73,104
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#4</td><td class='res'>WMDOne</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='15.930954391146' class='progress-bar skin-blue' role='progressbar' style='width: 6.6639936979169%' aria-valuenow='6.6639936979169' aria-valuemin='0' aria-valuemax=566162>
+                                37,729
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='25.041607404428' class='progress-bar skin-blue' role='progressbar' style='width: 16.900682476885%' aria-valuenow='16.900682476885' aria-valuemin='0' aria-valuemax=2588073>
+                                437,402
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='37.316831683168' class='progress-bar skin-blue' role='progressbar' style='width: 30.693069306931%' aria-valuenow='30.693069306931' aria-valuemin='0' aria-valuemax=101>
+                                31
+                            </div></div></td></tr><tr><td>#5</td><td class='res'>M42</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='14.790162532985' class='progress-bar skin-blue' role='progressbar' style='width: 5.3822050932419%' aria-valuenow='5.3822050932419' aria-valuemin='0' aria-valuemax=566162>
+                                30,472
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='22.422027508498' class='progress-bar skin-blue' role='progressbar' style='width: 13.957334279211%' aria-valuenow='13.957334279211' aria-valuemin='0' aria-valuemax=2588073>
+                                361,226
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#6</td><td class='res'>Spect8tr</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='14.300802597137' class='progress-bar skin-blue' role='progressbar' style='width: 4.8323624686927%' aria-valuenow='4.8323624686927' aria-valuemin='0' aria-valuemax=566162>
+                                27,359
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='33.024661591848' class='progress-bar skin-blue' role='progressbar' style='width: 25.870406282976%' aria-valuenow='25.870406282976' aria-valuemin='0' aria-valuemax=2588073>
+                                669,545
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#7</td><td class='enl'>proquet</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='13.074337380467' class='progress-bar skin-green' role='progressbar' style='width: 3.4543116634462%' aria-valuenow='3.4543116634462' aria-valuemin='0' aria-valuemax=566162>
+                                19,557
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='68.60629124449' class='progress-bar skin-green' role='progressbar' style='width: 65.849765443247%' aria-valuenow='65.849765443247' aria-valuemin='0' aria-valuemax=2588073>
+                                1,704,240
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-green' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='61.108910891089' class='progress-bar skin-green' role='progressbar' style='width: 57.425742574257%' aria-valuenow='57.425742574257' aria-valuemin='0' aria-valuemax=101>
+                                58
+                            </div></div></td></tr><tr><td>#8</td><td class='res'>rragnar</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='12.963512210286' class='progress-bar skin-blue' role='progressbar' style='width: 3.3297890003215%' aria-valuenow='3.3297890003215' aria-valuemin='0' aria-valuemax=566162>
+                                18,852
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='96.017346110407' class='progress-bar skin-blue' role='progressbar' style='width: 96.64870349484%' aria-valuenow='96.64870349484' aria-valuemin='0' aria-valuemax=2588073>
+                                2,501,339
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#9</td><td class='enl'>Sloth35</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='12.956909859722' class='progress-bar skin-green' role='progressbar' style='width: 3.3223706289013%' aria-valuenow='3.3223706289013' aria-valuemin='0' aria-valuemax=566162>
+                                18,810
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='99' class='progress-bar skin-green' role='progressbar' style='width: 100%' aria-valuenow='100' aria-valuemin='0' aria-valuemax=2588073>
+                                2,588,073
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-green' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#10</td><td class='res'>Luckylips101</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='12.44286970867' class='progress-bar skin-blue' role='progressbar' style='width: 2.7447974254719%' aria-valuenow='2.7447974254719' aria-valuemin='0' aria-valuemax=566162>
+                                15,540
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='50.045121988445' class='progress-bar skin-blue' role='progressbar' style='width: 44.99451908814%' aria-valuenow='44.99451908814' aria-valuemin='0' aria-valuemax=2588073>
+                                1,164,491
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#11</td><td class='res'>d0ggies1954</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='11.912480880031' class='progress-bar skin-blue' role='progressbar' style='width: 2.1488549213829%' aria-valuenow='2.1488549213829' aria-valuemin='0' aria-valuemax=566162>
+                                12,166
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='43.989991395142' class='progress-bar skin-blue' role='progressbar' style='width: 38.191001567576%' aria-valuenow='38.191001567576' aria-valuemin='0' aria-valuemax=2588073>
+                                988,411
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='42.60396039604' class='progress-bar skin-blue' role='progressbar' style='width: 36.633663366337%' aria-valuenow='36.633663366337' aria-valuemin='0' aria-valuemax=101>
+                                37
+                            </div></div></td></tr><tr><td>#12</td><td class='res'>CaptRoverman</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='11.715510754872' class='progress-bar skin-blue' role='progressbar' style='width: 1.9275401740138%' aria-valuenow='1.9275401740138' aria-valuemin='0' aria-valuemax=566162>
+                                10,913
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='40.837595771062' class='progress-bar skin-blue' role='progressbar' style='width: 34.648984012429%' aria-valuenow='34.648984012429' aria-valuemin='0' aria-valuemax=2588073>
+                                896,741
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='98.118811881188' class='progress-bar skin-blue' role='progressbar' style='width: 99.009900990099%' aria-valuenow='99.009900990099' aria-valuemin='0' aria-valuemax=101>
+                                100
+                            </div></div></td></tr><tr><td>#13</td><td class='res'>emmasee100</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='11.550766388419' class='progress-bar skin-blue' role='progressbar' style='width: 1.7424341442909%' aria-valuenow='1.7424341442909' aria-valuemin='0' aria-valuemax=566162>
+                                9,865
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='13.2841036555' class='progress-bar skin-blue' role='progressbar' style='width: 3.690004107303%' aria-valuenow='3.690004107303' aria-valuemin='0' aria-valuemax=2588073>
+                                95,500
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#14</td><td class='res'>Alderbaran11</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='11.043171389108' class='progress-bar skin-blue' role='progressbar' style='width: 1.1721026843907%' aria-valuenow='1.1721026843907' aria-valuemin='0' aria-valuemax=566162>
+                                6,636
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='26.956360195404' class='progress-bar skin-blue' role='progressbar' style='width: 19.052090107196%' aria-valuenow='19.052090107196' aria-valuemin='0' aria-valuemax=2588073>
+                                493,082
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#15</td><td class='res'>TedTwinkie</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='11.034053857377' class='progress-bar skin-blue' role='progressbar' style='width: 1.1618582667152%' aria-valuenow='1.1618582667152' aria-valuemin='0' aria-valuemax=566162>
+                                6,578
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='24.991572107896' class='progress-bar skin-blue' role='progressbar' style='width: 16.84446304258%' aria-valuenow='16.84446304258' aria-valuemin='0' aria-valuemax=2588073>
+                                435,947
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='28.50495049505' class='progress-bar skin-blue' role='progressbar' style='width: 20.792079207921%' aria-valuenow='20.792079207921' aria-valuemin='0' aria-valuemax=101>
+                                21
+                            </div></div></td></tr><tr><td>#16</td><td class='res'>SAMTU1st</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.934861400094' class='progress-bar skin-blue' role='progressbar' style='width: 1.0504060675213%' aria-valuenow='1.0504060675213' aria-valuemin='0' aria-valuemax=566162>
+                                5,947
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='12.434707212664' class='progress-bar skin-blue' role='progressbar' style='width: 2.7356260816445%' aria-valuenow='2.7356260816445' aria-valuemin='0' aria-valuemax=2588073>
+                                70,800
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#17</td><td class='enl'>laughingwater</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.90216404492' class='progress-bar skin-green' role='progressbar' style='width: 1.0136674662023%' aria-valuenow='1.0136674662023' aria-valuemin='0' aria-valuemax=566162>
+                                5,739
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='61.654136108216' class='progress-bar skin-green' role='progressbar' style='width: 58.038355177771%' aria-valuenow='58.038355177771' aria-valuemin='0' aria-valuemax=2588073>
+                                1,502,075
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-green' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#18</td><td class='res'>BennoKompressor</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.876226239133' class='progress-bar skin-blue' role='progressbar' style='width: 0.98452386419435%' aria-valuenow='0.98452386419435' aria-valuemin='0' aria-valuemax=566162>
+                                5,574
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='15.111406440236' class='progress-bar skin-blue' role='progressbar' style='width: 5.7431533036356%' aria-valuenow='5.7431533036356' aria-valuemin='0' aria-valuemax=2588073>
+                                148,637
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#19</td><td class='res'>Katie5692</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.822621440506' class='progress-bar skin-blue' role='progressbar' style='width: 0.92429375337801%' aria-valuenow='0.92429375337801' aria-valuemin='0' aria-valuemax=566162>
+                                5,233
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='17.556395820365' class='progress-bar skin-blue' role='progressbar' style='width: 8.4903323824328%' aria-valuenow='8.4903323824328' aria-valuemin='0' aria-valuemax=2588073>
+                                219,736
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='36.435643564356' class='progress-bar skin-blue' role='progressbar' style='width: 29.70297029703%' aria-valuenow='29.70297029703' aria-valuemin='0' aria-valuemax=101>
+                                30
+                            </div></div></td></tr><tr><td>#20</td><td class='res'>MikeGurry</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.443300680724' class='progress-bar skin-blue' role='progressbar' style='width: 0.49809065249875%' aria-valuenow='0.49809065249875' aria-valuemin='0' aria-valuemax=566162>
+                                2,820
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='55.299756614284' class='progress-bar skin-blue' role='progressbar' style='width: 50.898602937398%' aria-valuenow='50.898602937398' aria-valuemin='0' aria-valuemax=2588073>
+                                1,317,293
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#21</td><td class='res'>Sinny1</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.44094269838' class='progress-bar skin-blue' role='progressbar' style='width: 0.4954412341344%' aria-valuenow='0.4954412341344' aria-valuemin='0' aria-valuemax=566162>
+                                2,805
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='18.789052318076' class='progress-bar skin-blue' role='progressbar' style='width: 9.8753396832315%' aria-valuenow='9.8753396832315' aria-valuemin='0' aria-valuemax=2588073>
+                                255,581
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#22</td><td class='res'>FredChicken</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.391110671504' class='progress-bar skin-blue' role='progressbar' style='width: 0.43945019270103%' aria-valuenow='0.43945019270103' aria-valuemin='0' aria-valuemax=566162>
+                                2,488
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='13.62699158795' class='progress-bar skin-blue' role='progressbar' style='width: 4.0752714471346%' aria-valuenow='4.0752714471346' aria-valuemin='0' aria-valuemax=2588073>
+                                105,471
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='36.435643564356' class='progress-bar skin-blue' role='progressbar' style='width: 29.70297029703%' aria-valuenow='29.70297029703' aria-valuemin='0' aria-valuemax=101>
+                                30
+                            </div></div></td></tr><tr><td>#23</td><td class='res'>Tyco0x</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.356684129277' class='progress-bar skin-blue' role='progressbar' style='width: 0.40076868458144%' aria-valuenow='0.40076868458144' aria-valuemin='0' aria-valuemax=566162>
+                                2,269
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='27.960539366548' class='progress-bar skin-blue' role='progressbar' style='width: 20.180381310728%' aria-valuenow='20.180381310728' aria-valuemin='0' aria-valuemax=2588073>
+                                522,283
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#24</td><td class='enl'>melbournian</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.340649849336' class='progress-bar skin-green' role='progressbar' style='width: 0.38275263970383%' aria-valuenow='0.38275263970383' aria-valuemin='0' aria-valuemax=566162>
+                                2,167
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='39.02208824867' class='progress-bar skin-green' role='progressbar' style='width: 32.609087919854%' aria-valuenow='32.609087919854' aria-valuemin='0' aria-valuemax=2588073>
+                                843,947
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='99' class='progress-bar skin-green' role='progressbar' style='width: 100%' aria-valuenow='100' aria-valuemin='0' aria-valuemax=4>
+                                4
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#25</td><td class='enl'>Nevele</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.335933884648' class='progress-bar skin-green' role='progressbar' style='width: 0.37745380297512%' aria-valuenow='0.37745380297512' aria-valuemin='0' aria-valuemax=566162>
+                                2,137
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='32.736038743884' class='progress-bar skin-green' role='progressbar' style='width: 25.546110948184%' aria-valuenow='25.546110948184' aria-valuemin='0' aria-valuemax=2588073>
+                                661,152
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-green' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='55.821782178218' class='progress-bar skin-green' role='progressbar' style='width: 51.485148514851%' aria-valuenow='51.485148514851' aria-valuemin='0' aria-valuemax=101>
+                                52
+                            </div></div></td></tr><tr><td>#26</td><td class='res'>gcespresso</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.320685598822' class='progress-bar skin-blue' role='progressbar' style='width: 0.36032089755229%' aria-valuenow='0.36032089755229' aria-valuemin='0' aria-valuemax=566162>
+                                2,040
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='13.686690058588' class='progress-bar skin-blue' role='progressbar' style='width: 4.1423483804359%' aria-valuenow='4.1423483804359' aria-valuemin='0' aria-valuemax=2588073>
+                                107,207
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='44.366336633663' class='progress-bar skin-blue' role='progressbar' style='width: 38.613861386139%' aria-valuenow='38.613861386139' aria-valuemin='0' aria-valuemax=101>
+                                39
+                            </div></div></td></tr><tr><td>#27</td><td class='enl'>joojeene</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.313768850612' class='progress-bar skin-green' role='progressbar' style='width: 0.35254927035018%' aria-valuenow='0.35254927035018' aria-valuemin='0' aria-valuemax=566162>
+                                1,996
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='29.490209511092' class='progress-bar skin-green' role='progressbar' style='width: 21.899111810216%' aria-valuenow='21.899111810216' aria-valuemin='0' aria-valuemax=2588073>
+                                566,765
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-green' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='38.19801980198' class='progress-bar skin-green' role='progressbar' style='width: 31.683168316832%' aria-valuenow='31.683168316832' aria-valuemin='0' aria-valuemax=101>
+                                32
+                            </div></div></td></tr><tr><td>#28</td><td class='enl'>bulletproof9</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.302293336536' class='progress-bar skin-green' role='progressbar' style='width: 0.33965543431032%' aria-valuenow='0.33965543431032' aria-valuemin='0' aria-valuemax=566162>
+                                1,923
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='13.672693930967' class='progress-bar skin-green' role='progressbar' style='width: 4.1266223943451%' aria-valuenow='4.1266223943451' aria-valuemin='0' aria-valuemax=2588073>
+                                106,800
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-green' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#29</td><td class='enl'>od1n</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.275726735457' class='progress-bar skin-green' role='progressbar' style='width: 0.30980532073859%' aria-valuenow='0.30980532073859' aria-valuemin='0' aria-valuemax=566162>
+                                1,754
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='12.654724963322' class='progress-bar skin-green' role='progressbar' style='width: 2.9828370374406%' aria-valuenow='2.9828370374406' aria-valuemin='0' aria-valuemax=2588073>
+                                77,198
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-green' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#30</td><td class='enl'>julyp</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.259220859047' class='progress-bar skin-green' role='progressbar' style='width: 0.2912593921881%' aria-valuenow='0.2912593921881' aria-valuemin='0' aria-valuemax=566162>
+                                1,649
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='14.666522157605' class='progress-bar skin-green' role='progressbar' style='width: 5.243283323152%' aria-valuenow='5.243283323152' aria-valuemin='0' aria-valuemax=2588073>
+                                135,700
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-green' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#31</td><td class='enl'>A1Z267r135</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.251675315546' class='progress-bar skin-green' role='progressbar' style='width: 0.28278125342217%' aria-valuenow='0.28278125342217' aria-valuemin='0' aria-valuemax=566162>
+                                1,601
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='14.164690485933' class='progress-bar skin-green' role='progressbar' style='width: 4.6794275122842%' aria-valuenow='4.6794275122842' aria-valuemin='0' aria-valuemax=2588073>
+                                121,107
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-green' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='36.435643564356' class='progress-bar skin-green' role='progressbar' style='width: 29.70297029703%' aria-valuenow='29.70297029703' aria-valuemin='0' aria-valuemax=101>
+                                30
+                            </div></div></td></tr><tr><td>#32</td><td class='enl'>msr82</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.219921153309' class='progress-bar skin-green' role='progressbar' style='width: 0.24710241944885%' aria-valuenow='0.24710241944885' aria-valuemin='0' aria-valuemax=566162>
+                                1,399
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='24.275431179878' class='progress-bar skin-green' role='progressbar' style='width: 16.039810314469%' aria-valuenow='16.039810314469' aria-valuemin='0' aria-valuemax=2588073>
+                                415,122
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-green' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='39.960396039604' class='progress-bar skin-green' role='progressbar' style='width: 33.663366336634%' aria-valuenow='33.663366336634' aria-valuemin='0' aria-valuemax=101>
+                                34
+                            </div></div></td></tr><tr><td>#33</td><td class='res'>potatoknightop</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.209388832172' class='progress-bar skin-blue' role='progressbar' style='width: 0.23526835075473%' aria-valuenow='0.23526835075473' aria-valuemin='0' aria-valuemax=566162>
+                                1,332
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='18.920897903575' class='progress-bar skin-blue' role='progressbar' style='width: 10.023480790534%' aria-valuenow='10.023480790534' aria-valuemin='0' aria-valuemax=2588073>
+                                259,415
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='39.079207920792' class='progress-bar skin-blue' role='progressbar' style='width: 32.673267326733%' aria-valuenow='32.673267326733' aria-valuemin='0' aria-valuemax=101>
+                                33
+                            </div></div></td></tr><tr><td>#34</td><td class='res'>feeleefehleh</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.19649852869' class='progress-bar skin-blue' role='progressbar' style='width: 0.22078486369626%' aria-valuenow='0.22078486369626' aria-valuemin='0' aria-valuemax=566162>
+                                1,250
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='17.853203136078' class='progress-bar skin-blue' role='progressbar' style='width: 8.8238237484028%' aria-valuenow='8.8238237484028' aria-valuemin='0' aria-valuemax=2588073>
+                                228,367
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#35</td><td class='res'>suziberi</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.187066599313' class='progress-bar skin-blue' role='progressbar' style='width: 0.21018719023884%' aria-valuenow='0.21018719023884' aria-valuemin='0' aria-valuemax=566162>
+                                1,190
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='23.491476090512' class='progress-bar skin-blue' role='progressbar' style='width: 15.158961899452%' aria-valuenow='15.158961899452' aria-valuemin='0' aria-valuemax=2588073>
+                                392,325
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#36</td><td class='res'>FlorenceOz</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.183136628739' class='progress-bar skin-blue' role='progressbar' style='width: 0.20577149296491%' aria-valuenow='0.20577149296491' aria-valuemin='0' aria-valuemax=566162>
+                                1,165
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='12.312008973472' class='progress-bar skin-blue' role='progressbar' style='width: 2.5977628915413%' aria-valuenow='2.5977628915413' aria-valuemin='0' aria-valuemax=2588073>
+                                67,232
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='99' class='progress-bar skin-blue' role='progressbar' style='width: 100%' aria-valuenow='100' aria-valuemin='0' aria-valuemax=101>
+                                101
+                            </div></div></td></tr><tr><td>#37</td><td class='res'>Silverlode24</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.182979429916' class='progress-bar skin-blue' role='progressbar' style='width: 0.20559486507395%' aria-valuenow='0.20559486507395' aria-valuemin='0' aria-valuemax=566162>
+                                1,164
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='17.335931018947' class='progress-bar skin-blue' role='progressbar' style='width: 8.2426191224127%' aria-valuenow='8.2426191224127' aria-valuemin='0' aria-valuemax=2588073>
+                                213,325
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#38</td><td class='enl'>SpudChat</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.180778646394' class='progress-bar skin-green' role='progressbar' style='width: 0.20312207460056%' aria-valuenow='0.20312207460056' aria-valuemin='0' aria-valuemax=566162>
+                                1,150
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='24.902952891978' class='progress-bar skin-green' role='progressbar' style='width: 16.744890889863%' aria-valuenow='16.744890889863' aria-valuemin='0' aria-valuemax=2588073>
+                                433,370
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='99' class='progress-bar skin-green' role='progressbar' style='width: 100%' aria-valuenow='100' aria-valuemin='0' aria-valuemax=4>
+                                4
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='99' class='progress-bar skin-green' role='progressbar' style='width: 100%' aria-valuenow='100' aria-valuemin='0' aria-valuemax=101>
+                                101
+                            </div></div></td></tr><tr><td>#39</td><td class='res'>Meerkat452</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.168517138204' class='progress-bar skin-blue' role='progressbar' style='width: 0.18934509910591%' aria-valuenow='0.18934509910591' aria-valuemin='0' aria-valuemax=566162>
+                                1,072
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='12.681272900726' class='progress-bar skin-blue' role='progressbar' style='width: 3.0126661805907%' aria-valuenow='3.0126661805907' aria-valuemin='0' aria-valuemax=2588073>
+                                77,970
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#40</td><td class='enl'>boredcacher</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.141478940657' class='progress-bar skin-green' role='progressbar' style='width: 0.1589651018613%' aria-valuenow='0.1589651018613' aria-valuemin='0' aria-valuemax=566162>
+                                900
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='29.20000479121' class='progress-bar skin-green' role='progressbar' style='width: 21.573039091247%' aria-valuenow='21.573039091247' aria-valuemin='0' aria-valuemax=2588073>
+                                558,326
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=4>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#41</td><td class='res'>Elem3ntalOrchid</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.113183152525' class='progress-bar skin-blue' role='progressbar' style='width: 0.12717208148904%' aria-valuenow='0.12717208148904' aria-valuemin='0' aria-valuemax=566162>
+                                720
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='22.83616845429' class='progress-bar skin-blue' role='progressbar' style='width: 14.422661184596%' aria-valuenow='14.422661184596' aria-valuemin='0' aria-valuemax=2588073>
+                                373,269
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#42</td><td class='res'>Cueless</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.105323211378' class='progress-bar skin-blue' role='progressbar' style='width: 0.11834068694119%' aria-valuenow='0.11834068694119' aria-valuemin='0' aria-valuemax=566162>
+                                670
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='19.348484760669' class='progress-bar skin-blue' role='progressbar' style='width: 10.503915461426%' aria-valuenow='10.503915461426' aria-valuemin='0' aria-valuemax=2588073>
+                                271,849
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='40.841584158416' class='progress-bar skin-blue' role='progressbar' style='width: 34.653465346535%' aria-valuenow='34.653465346535' aria-valuemin='0' aria-valuemax=101>
+                                35
+                            </div></div></td></tr><tr><td>#43</td><td class='res'>hisname</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.099506854928' class='progress-bar skin-blue' role='progressbar' style='width: 0.11180545497578%' aria-valuenow='0.11180545497578' aria-valuemin='0' aria-valuemax=566162>
+                                633
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='16.871651611064' class='progress-bar skin-blue' role='progressbar' style='width: 7.7209568663635%' aria-valuenow='7.7209568663635' aria-valuemin='0' aria-valuemax=2588073>
+                                199,824
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='37.316831683168' class='progress-bar skin-blue' role='progressbar' style='width: 30.693069306931%' aria-valuenow='30.693069306931' aria-valuemin='0' aria-valuemax=101>
+                                31
+                            </div></div></td></tr><tr><td>#44</td><td class='enl'>lopixiko</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.086459352623' class='progress-bar skin-green' role='progressbar' style='width: 0.097145340026353%' aria-valuenow='0.097145340026353' aria-valuemin='0' aria-valuemax=566162>
+                                550
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='21.700625136926' class='progress-bar skin-green' role='progressbar' style='width: 13.146769816771%' aria-valuenow='13.146769816771' aria-valuemin='0' aria-valuemax=2588073>
+                                340,248
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-green' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#45</td><td class='res'>Syco0x</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.078599411476' class='progress-bar skin-blue' role='progressbar' style='width: 0.088313945478503%' aria-valuenow='0.088313945478503' aria-valuemin='0' aria-valuemax=566162>
+                                500
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='21.424966760984' class='progress-bar skin-blue' role='progressbar' style='width: 12.837041304476%' aria-valuenow='12.837041304476' aria-valuemin='0' aria-valuemax=2588073>
+                                332,232
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#46</td><td class='res'>Phyxis</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.06445151741' class='progress-bar skin-blue' role='progressbar' style='width: 0.072417435292372%' aria-valuenow='0.072417435292372' aria-valuemin='0' aria-valuemax=566162>
+                                410
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='15.533766242297' class='progress-bar skin-blue' role='progressbar' style='width: 6.2177148789853%' aria-valuenow='6.2177148789853' aria-valuemin='0' aria-valuemax=2588073>
+                                160,919
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#47</td><td class='res'>Scattereffect</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.053919196272' class='progress-bar skin-blue' role='progressbar' style='width: 0.060583366598253%' aria-valuenow='0.060583366598253' aria-valuemin='0' aria-valuemax=566162>
+                                343
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='13.136508127862' class='progress-bar skin-blue' role='progressbar' style='width: 3.5241664357999%' aria-valuenow='3.5241664357999' aria-valuemin='0' aria-valuemax=2588073>
+                                91,208
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-blue' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.940594059406' class='progress-bar skin-blue' role='progressbar' style='width: 50.49504950495%' aria-valuenow='50.49504950495' aria-valuemin='0' aria-valuemax=101>
+                                51
+                            </div></div></td></tr><tr><td>#48</td><td class='res'>HellFireXF</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.048731635115' class='progress-bar skin-blue' role='progressbar' style='width: 0.054754646196672%' aria-valuenow='0.054754646196672' aria-valuemin='0' aria-valuemax=566162>
+                                310
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='17.612964935688' class='progress-bar skin-blue' role='progressbar' style='width: 8.5538931861659%' aria-valuenow='8.5538931861659' aria-valuemin='0' aria-valuemax=2588073>
+                                221,381
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='76.75' class='progress-bar skin-blue' role='progressbar' style='width: 75%' aria-valuenow='75' aria-valuemin='0' aria-valuemax=4>
+                                3
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#49</td><td class='enl'>Saltedeggfries</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.039299705738' class='progress-bar skin-green' role='progressbar' style='width: 0.044156972739251%' aria-valuenow='0.044156972739251' aria-valuemin='0' aria-valuemax=566162>
+                                250
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='14.498018409836' class='progress-bar skin-green' role='progressbar' style='width: 5.0539532694789%' aria-valuenow='5.0539532694789' aria-valuemin='0' aria-valuemax=2588073>
+                                130,800
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=4>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='36.435643564356' class='progress-bar skin-green' role='progressbar' style='width: 29.70297029703%' aria-valuenow='29.70297029703' aria-valuemin='0' aria-valuemax=101>
+                                30
+                            </div></div></td></tr><tr><td>#50</td><td class='res'>DeadlyErnest</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.036155729279' class='progress-bar skin-blue' role='progressbar' style='width: 0.040624414920111%' aria-valuenow='0.040624414920111' aria-valuemin='0' aria-valuemax=566162>
+                                230
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='14.500597548833' class='progress-bar skin-blue' role='progressbar' style='width: 5.0568511784637%' aria-valuenow='5.0568511784637' aria-valuemin='0' aria-valuemax=2588073>
+                                130,875
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-blue' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=4>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='38.19801980198' class='progress-bar skin-blue' role='progressbar' style='width: 31.683168316832%' aria-valuenow='31.683168316832' aria-valuemin='0' aria-valuemax=101>
+                                32
+                            </div></div></td></tr><tr><td>#51</td><td class='enl'>cluelessness</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.009431929377' class='progress-bar skin-green' role='progressbar' style='width: 0.01059767345742%' aria-valuenow='0.01059767345742' aria-valuemin='0' aria-valuemax=566162>
+                                60
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10.376554293484' class='progress-bar skin-green' role='progressbar' style='width: 0.42309471177977%' aria-valuenow='0.42309471177977' aria-valuemin='0' aria-valuemax=2588073>
+                                10,950
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='54.5' class='progress-bar skin-green' role='progressbar' style='width: 50%' aria-valuenow='50' aria-valuemin='0' aria-valuemax=4>
+                                2
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=101>
+                                0
+                            </div></div></td></tr><tr><td>#52</td><td class='enl'>themythodea</td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=1>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=566162>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=2588073>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='10' class='progress-bar skin-green' role='progressbar' style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax=4>
+                                0
+                            </div></div></td><td><div class='progress' > 
+                            <div sort='37.316831683168' class='progress-bar skin-green' role='progressbar' style='width: 30.693069306931%' aria-valuenow='30.693069306931' aria-valuemin='0' aria-valuemax=101>
+                                31
+                            </div></div></td></tr></tbody></table>            </br></br>
+            <small>
+                Only agents listed above are eligble for the IngressFS badge.</br>
+                All event details have been provided by the faction leaders listed below. Fev Games takes no responsibility for the accuracy of the details</br>
+                <a target= '_blank' id='feedbacklink' href='#'><small>Report a problem with this event</small></a></br>
+                Please make sure you've <a href="https://fevgames.net/ingressfs/org-guide/"><small>read all the requirements</small></a> for the FS badge before the event.</small>
+            </br></br>
+                        </br>
+            </br>
+            <table style="width: 500px; border-collapse: collapse; border-style: none;">
+                <tbody>
+                    <tr>
+                        <td class="enl h3" style="width: 50%; text-align: center;">Enl Leader</td>
+                        <td class="res h3" style="width: 50%; text-align: center;">Res Leader</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%; text-align: center;"><a class="enl" href="https://t.me/SpudChat">spudchat</a> </td>
+                        <td style="width: 50%; text-align: center;"><a class="res" href="https://t.me/captroverman">captroverman</a> </td>
+                    </tr>                                  
+                </tbody>
+            </table>
+          
+        </p>
+        
+    </div>
+    
+    <table style="width: 500px; border-collapse: collapse; border-style: none;">
+        <tbody>
+            <tr>
+                <td class="enl" style="width: 50%; text-align: center; vertical-align: top;">
+                                    </td>
+                <td class="res" style="width: 50%; text-align: center;vertical-align: top;">
+                                    </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script type="text/javascript" language="javascript">
+        document.getElementById('feedbacklink').href = 'https://docs.google.com/forms/d/e/1FAIpQLSe7AXZaS9lxuxHVMbL103Lkk6Q5kfr6mS2ihhpwZ3wvWFC3sg/viewform?usp=pp_url&entry.312288697=' + encodeURI(document.URL);
+        
+        /*tooltip*/
+        $(".score_info").click(function () {
+            var $title = $(this).find(".title");
+            if (!$title.length) {
+                $(this).append('<span class="title">' + $(this).attr("title") + '</span>');
+            } else {
+                $title.remove();
+            }
+        });
+
+        /*table sorter*/
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("autoScoreSheetTbl");
+            switching = true;
+            // Set the sorting direction to descending:
+            dir = "desc";
+            /* Make a loop that will continue until no switching has been done: */
+            while (switching) {
+                // Start by saying: no switching is done:
+                switching = false;
+                rows = table.rows;
+                /* Loop through all table rows (except the first, which contains table headers): */
+                for (i = 1; i < (rows.length - 1); i++) {
+                    // Start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Get the two elements you want to compare, one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    /* Check if the two rows should switch place, based on the direction, asc or desc: */
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+
+                    x = rows[i].getElementsByTagName("TD")[0].innerHTML;
+                    y = rows[i + 1].getElementsByTagName("TD")[0].innerHTML;
+                    z = x;
+                    rows[i].getElementsByTagName("TD")[0].innerHTML=y;
+                    rows[i + 1].getElementsByTagName("TD")[0].innerHTML=z;
+                    
+                    switching = true;
+                    // Each time a switch is done, increase this count by 1:
+                    switchcount ++;
+                } else {
+                    /* If no switching has been done AND the direction is "desc", set the direction to "asc" and run the while loop again. */
+                    if (switchcount == 0 && dir == "desc") {
+                        dir = "asc";
+                        switching = true;
+                    }
+                }
+            }
+        } 
+
+        /*collapsable*/
+        function meetingDetails() { collapseDetails("meetingDetails")}
+        function restockDetails() { collapseDetails("restockDetails")}
+        function timeDetails() { collapseDetails("timeDetails")}
+        function debugData() { collapseDetails("debugData")}
+        
+        function collapseDetails(s) {
+            var x = document.getElementById(s);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+        /*Google Analytics */
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-27864337-2', 'auto');
+        ga('send', 'pageview');
+
+        
+
+    
+    </script>
+
+
+</body>
+
+</html>

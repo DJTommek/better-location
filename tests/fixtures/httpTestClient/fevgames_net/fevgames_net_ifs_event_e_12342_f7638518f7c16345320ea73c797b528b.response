@@ -1,0 +1,172 @@
+<html>
+
+<head>
+    <title>#IngressFS @ Fev Games</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="MenuStyles.css" rel="stylesheet" type="text/css">     
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../resources/jquery-dateformat.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#filterInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#autoScoreSheetTblBody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    
+    <style>
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .h1,
+        .h2,
+        .h3,
+        .h4,
+        .h5,
+        .h6 {
+            margin-bottom: 0.5rem;
+            font-family: inherit;
+            font-weight: 500;
+            line-height: 1.1;
+            color: inherit;
+        }
+        th{
+            font-weight: 1;
+        }
+        h1,
+        .h1 {
+            font-size: 2.5rem;
+        }
+        
+        h2,
+        .h2 {
+            font-size: 2rem;
+        }
+        
+        h3,
+        .h3 {
+            font-size: 1.5rem;
+        }
+        body {
+            margin: 0;
+            font-family: coda, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: normal;
+            line-height: 1.5;
+            color: #fff;
+            background-color: #212529;
+        }
+        
+        a,button,.sorter {
+            color: #fac000;
+            text-decoration: underline;
+            background-color: transparent;
+            -webkit-text-decoration-skip: objects;
+            font-family: coda, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: normal;
+            line-height: 1.5;
+            border: none;
+            padding: 0px;
+            cursor: pointer;
+
+        }
+        
+        a:hover {
+            color: #ffe388;
+            text-decoration: underline;
+        }
+        .enl {
+            color: #00ff00 !important /*69bd45*/
+        }
+        
+        .res {
+            color: #00bbff !important /*3765b0*/
+        }        
+        .machina {
+            color: #ff0000 !important /*3765b0*/
+        }
+        
+        .info {
+            color: #59FBEA
+        }
+        input {
+            margin-left: 20px;
+            background-color:transparent !important;
+            border: 1px solid black !important;
+            color: white;
+            width: 50%;
+        }
+        table.agents {
+            width: 550px;
+            border-collapse: collapse;
+            border-style: none;
+            margin-bottom: 2em;
+        }
+        
+        @media only screen and (max-width: 440px) {
+            table.agents {
+                width: 100%;
+            }
+        }
+        
+        @media only screen and (max-width: 475px) {
+            #cssmenu {
+                height: auto;
+                border-style: none;
+            }
+            #cssmenu>ul>li>a {
+                border-style: none !important;
+            }
+            #cssmenu>ul>li>a::after {
+                border-style: none !important;
+            }
+            #cssmenu>ul>li {
+                float: none;
+            }
+        }
+        .portalDetails {
+            display: none;
+            /*margin: 20px; */
+            padding: 20px;
+            border-color: black;
+            border:1px;
+        }
+
+        .more_info {
+            border-bottom: 1px dotted;
+            position: relative;
+        }
+
+        .more_info .title {
+            position: absolute;
+            top: 20px;
+            background: silver;
+            padding: 4px;
+            left: 0;
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+
+<body style="margin-left: 20px; margin-right: 20px; ">
+    
+    <div id='cssmenu'>
+        <ul>
+            <li class='active '><a href='https://fevgames.net/'><span>Fev Games Home</span></a></li>
+            <li class='active '><a href='https://fevgames.net/ingressfs/'><span>IFS Home</span></a></li>
+            <li class='active '><a href='../events/'><span>Events</span></a></li>
+        </ul>
+    </div>
+
+
+    <div id="newListing">
+        <h2>Event not found</h2>
