@@ -2,61 +2,96 @@
 
 namespace Tests\BetterLocation\Service;
 
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\FevGamesService;
-use PHPUnit\Framework\TestCase;
+use App\BetterLocation\Service\IngressIntelService;
 
-final class FevGamesServiceTest extends TestCase
+final class FevGamesServiceTest extends AbstractServiceTestCase
 {
-	public function testGenerateShareLink(): void
+	protected function getServiceClass(): string
 	{
-		$this->expectException(NotSupportedException::class);
-		FevGamesService::getLink(50.087451, 14.420671);
+		return FevGamesService::class;
 	}
 
-	public function testGenerateDriveLink(): void
+	protected function getShareLinks(): array
 	{
-		$this->expectException(NotSupportedException::class);
-		FevGamesService::getLink(50.087451, 14.420671, true);
+		return [];
 	}
 
-	public function testIsValid(): void
+	protected function getDriveLinks(): array
 	{
-		$this->assertTrue(FevGamesService::validateStatic('https://fevgames.net/ifs/event/?e=15677'));
-		$this->assertTrue(FevGamesService::validateStatic('https://FEVgaMEs.net/ifs/event/?e=15677'));
-		$this->assertTrue(FevGamesService::validateStatic('http://fevgames.net/ifs/event/?e=15677'));
-		$this->assertTrue(FevGamesService::validateStatic('http://www.fevgames.net/ifs/event/?e=15677'));
-		$this->assertTrue(FevGamesService::validateStatic('https://www.fevgames.net/ifs/event/?e=15677'));
-		$this->assertTrue(FevGamesService::validateStatic('https://fevgames.net/ifs/event/?e=12342'));
+		return [];
+	}
 
-		$this->assertFalse(FevGamesService::validateStatic('non url'));
-		$this->assertFalse(FevGamesService::validateStatic('https://blabla.net/ifs/event/?e=15677'));
-		$this->assertFalse(FevGamesService::validateStatic('https://fevgames.net/ifs/event/'));
-		$this->assertFalse(FevGamesService::validateStatic('https://fevgames.net/ifs/event/?e=-15677'));
-		$this->assertFalse(FevGamesService::validateStatic('https://fevgames.net/ifs/event/?e=0'));
-		$this->assertFalse(FevGamesService::validateStatic('https://fevgames.cz/ifs/event/?e=15677'));
-		$this->assertFalse(FevGamesService::validateStatic('https://fevgames.net?e=15677'));
-		$this->assertFalse(FevGamesService::validateStatic('https://fevgames.net/ifs/event/?event=15677'));
+	public static function isValidProvider(): array
+	{
+		return [
+			[true, 'https://fevgames.net/ifs/event/?e=15677'],
+			[true, 'https://FEVgaMEs.net/ifs/event/?e=15677'],
+			[true, 'http://fevgames.net/ifs/event/?e=15677'],
+			[true, 'http://www.fevgames.net/ifs/event/?e=15677'],
+			[true, 'https://www.fevgames.net/ifs/event/?e=15677'],
+			[true, 'https://fevgames.net/ifs/event/?e=12342'],
+
+			[false, 'non url'],
+			[false, 'https://blabla.net/ifs/event/?e=15677'],
+			[false, 'https://fevgames.net/ifs/event/'],
+			[false, 'https://fevgames.net/ifs/event/?e=-15677'],
+			[false, 'https://fevgames.net/ifs/event/?e=0'],
+			[false, 'https://fevgames.cz/ifs/event/?e=15677'],
+			[false, 'https://fevgames.net?e=15677'],
+			[false, 'https://fevgames.net/ifs/event/?event=15677'],
+		];
+	}
+
+	public static function processProvider(): array
+	{
+		return [
+			[-37.815226, 144.963781, 'https://fevgames.net/ifs/event/?e=23448'],
+		];
+	}
+
+	public static function processNotValidProvider(): array
+	{
+		return [
+			['https://fevgames.net/ifs/event/?e=12342'],
+		];
+	}
+
+	/**
+	 * @dataProvider isValidProvider
+	 */
+	public function testIsValid(bool $expectedIsValid, string $input): void
+	{
+		$ingressClient = new \App\IngressLanchedRu\Client();
+		$ingressIntelService = new IngressIntelService($ingressClient);
+
+		$service = new FevGamesService($ingressClient, $ingressIntelService);
+		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
 	/**
 	 * @group request
+	 * @dataProvider processProvider
 	 */
-	public function testUrl(): void
+	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$collection = FevGamesService::processStatic('https://fevgames.net/ifs/event/?e=23448')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('-37.815226,144.963781', (string)$collection->getFirst());
+		$ingressClient = new \App\IngressLanchedRu\Client();
+		$ingressIntelService = new IngressIntelService($ingressClient);
+
+		$service = new FevGamesService($ingressClient, $ingressIntelService);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
 	/**
 	 * @group request
+	 * @dataProvider processNotValidProvider
 	 */
-	public function testNoIntelLink(): void
+	public function testNoIntelLink(string $input): void
 	{
-		$this->markTestSkipped('Unable to find event, that does not have filled Intel link');
+		$ingressClient = new \App\IngressLanchedRu\Client();
+		$ingressIntelService = new IngressIntelService($ingressClient);
 
-		$collection = FevGamesService::processStatic('https://fevgames.net/ifs/event/?e=12342')->getCollection();
-		$this->assertCount(0, $collection);
+		$service = new FevGamesService($ingressClient, $ingressIntelService);
+		$this->assertServiceNoLocation($service, $input);
 	}
 }
