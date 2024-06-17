@@ -43,7 +43,7 @@ final class IngressIntelService extends AbstractService
 	{
 		$result = false;
 		if ($this->url && $this->url->getDomain(2) === 'ingress.com') {
-			if ($param = $this->inputUrl->getQueryParameter('pll')) { // map coordinates
+			if ($param = $this->inputUrl->getQueryParameter('pll')) { // portal coordinates
 				$coords = explode(',', $param);
 				if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
 					$this->data->portalCoord = true;
@@ -53,7 +53,7 @@ final class IngressIntelService extends AbstractService
 				}
 			}
 
-			if ($param = $this->inputUrl->getQueryParameter('ll')) { // portal coordinates
+			if ($param = $this->inputUrl->getQueryParameter('ll')) { // map coordinates
 				$coords = explode(',', $param);
 				if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
 					$this->data->mapCoord = true;

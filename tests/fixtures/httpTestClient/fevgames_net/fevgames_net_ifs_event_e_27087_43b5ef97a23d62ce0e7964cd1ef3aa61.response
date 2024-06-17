@@ -1,0 +1,344 @@
+<html>
+
+<head>
+    <title>#IngressFS @ Fev Games</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="MenuStyles.css" rel="stylesheet" type="text/css">     
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../resources/jquery-dateformat.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#filterInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#autoScoreSheetTblBody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    
+    <style>
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .h1,
+        .h2,
+        .h3,
+        .h4,
+        .h5,
+        .h6 {
+            margin-bottom: 0.5rem;
+            font-family: inherit;
+            font-weight: 500;
+            line-height: 1.1;
+            color: inherit;
+        }
+        th{
+            font-weight: 1;
+        }
+        h1,
+        .h1 {
+            font-size: 2.5rem;
+        }
+        
+        h2,
+        .h2 {
+            font-size: 2rem;
+        }
+        
+        h3,
+        .h3 {
+            font-size: 1.5rem;
+        }
+        body {
+            margin: 0;
+            font-family: coda, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: normal;
+            line-height: 1.5;
+            color: #fff;
+            background-color: #212529;
+        }
+        
+        a,button,.sorter {
+            color: #fac000;
+            text-decoration: underline;
+            background-color: transparent;
+            -webkit-text-decoration-skip: objects;
+            font-family: coda, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: normal;
+            line-height: 1.5;
+            border: none;
+            padding: 0px;
+            cursor: pointer;
+
+        }
+        
+        a:hover {
+            color: #ffe388;
+            text-decoration: underline;
+        }
+        .enl {
+            color: #00ff00 !important /*69bd45*/
+        }
+        
+        .res {
+            color: #00bbff !important /*3765b0*/
+        }        
+        .machina {
+            color: #ff0000 !important /*3765b0*/
+        }
+        
+        .info {
+            color: #59FBEA
+        }
+        input {
+            margin-left: 20px;
+            background-color:transparent !important;
+            border: 1px solid black !important;
+            color: white;
+            width: 50%;
+        }
+        table.agents {
+            width: 550px;
+            border-collapse: collapse;
+            border-style: none;
+            margin-bottom: 2em;
+        }
+        
+        @media only screen and (max-width: 440px) {
+            table.agents {
+                width: 100%;
+            }
+        }
+        
+        @media only screen and (max-width: 475px) {
+            #cssmenu {
+                height: auto;
+                border-style: none;
+            }
+            #cssmenu>ul>li>a {
+                border-style: none !important;
+            }
+            #cssmenu>ul>li>a::after {
+                border-style: none !important;
+            }
+            #cssmenu>ul>li {
+                float: none;
+            }
+        }
+        .portalDetails {
+            display: none;
+            /*margin: 20px; */
+            padding: 20px;
+            border-color: black;
+            border:1px;
+        }
+
+        .more_info {
+            border-bottom: 1px dotted;
+            position: relative;
+        }
+
+        .more_info .title {
+            position: absolute;
+            top: 20px;
+            background: silver;
+            padding: 4px;
+            left: 0;
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+
+<body style="margin-left: 20px; margin-right: 20px; ">
+    
+    <div id='cssmenu'>
+        <ul>
+            <li class='active '><a href='https://fevgames.net/'><span>Fev Games Home</span></a></li>
+            <li class='active '><a href='https://fevgames.net/ingressfs/'><span>IFS Home</span></a></li>
+            <li class='active '><a href='../events/'><span>Events</span></a></li>
+        </ul>
+    </div>
+
+
+    <div id="newListing">
+        
+    </div>
+    
+    <div id="listing">
+        <p>
+            <h2>#IngressFS - Sochi, Russia - July 2024</h2>
+            </br>
+            Date/Time: <span class='info'>06-Jul-2024 01:00 pm UTC +0</span> // <span class='info'><script language='javascript'>document.write(jQuery.format.prettyDate('2024-07-06T13:00:00Z'));</script></span>
+            </br>
+            Base Portal: <span class="info">Фреска музыкальная</span> 
+            // <a target='_blank' href='https://intel.ingress.com/?pll=43.579854,39.72527'>Intel Link</a>
+                        // <a target='_blank' href='https://maps.google.com/maps?q=43.579854,39.72527'>Google Maps</a></br>
+            
+            Event Channel: <a href='https://t.me/ifssochi' target='_blank'>t.me/ifssochi</a></br></br>
+                   
+                    <h3>Event Description</h3>
+                    </br>
+                    </br>
+                    </br></br></br><h3>Auto Score Sheet Data</h3><p>Filter <input id='filterInput' type='text' placeholder='filter...'></p><table id='autoScoreSheetTbl' class='table table-striped table-hover table-inverse table-sm table-responsive'><thead><th>#</th><th class='sorter' onclick='sortTable(1)' style='min-width:150;'> Agent Name</th><th class='sorter' onclick='sortTable(2)' style='min-width:100;'>Level Gain</th><th class='sorter' onclick='sortTable(3)' style='min-width:200;'>AP Gain</th><th class='sorter' onclick='sortTable(4)' style='min-width:150;'>XM Recharged</th></thead><tbody id='autoScoreSheetTblBody'></tbody></table>            </br></br>
+            <small>
+                Only agents listed above are eligble for the IngressFS badge.</br>
+                All event details have been provided by the faction leaders listed below. Fev Games takes no responsibility for the accuracy of the details</br>
+                <a target= '_blank' id='feedbacklink' href='#'><small>Report a problem with this event</small></a></br>
+                Please make sure you've <a href="https://fevgames.net/ingressfs/org-guide/"><small>read all the requirements</small></a> for the FS badge before the event.</small>
+            </br></br>
+            <a target='_blank' href='https://docs.google.com/forms/d/e/1FAIpQLSeZehg1s-iD5gEBNK6rbObQ3VktCO04wQqj4IgUhu9P50FfmA/viewform?embedded=true&entry.1713568541=Sochi, Russia - July 2024'>
+                        Register your RSVP for this event
+                    </a>            </br>
+            </br>
+            <table style="width: 500px; border-collapse: collapse; border-style: none;">
+                <tbody>
+                    <tr>
+                        <td class="enl h3" style="width: 50%; text-align: center;">Enl Leader</td>
+                        <td class="res h3" style="width: 50%; text-align: center;">Res Leader</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%; text-align: center;"><a class="enl" href="https://t.me/miatnyigrib">miatnyigrib</a> </td>
+                        <td style="width: 50%; text-align: center;"><a class="res" href="https://t.me/Forstaug">Forstaug</a> </td>
+                    </tr>                                  
+                </tbody>
+            </table>
+          
+        </p>
+        
+    </div>
+    
+    <table style="width: 500px; border-collapse: collapse; border-style: none;">
+        <tbody>
+            <tr>
+                <td class="enl" style="width: 50%; text-align: center; vertical-align: top;">
+                    <div id='Enl'>
+                            <h4>Enl Attendees (5)</h4>
+                            brodyaga111 <br/>drshurae<br/>lanipups<br/>MeridiasVRBB                        
+                        </div>                </td>
+                <td class="res" style="width: 50%; text-align: center;vertical-align: top;">
+                    <div id='Res'>
+                            <h4>Res Attendees (1)</h4>
+                                                    
+                        </div>                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script type="text/javascript" language="javascript">
+        document.getElementById('feedbacklink').href = 'https://docs.google.com/forms/d/e/1FAIpQLSe7AXZaS9lxuxHVMbL103Lkk6Q5kfr6mS2ihhpwZ3wvWFC3sg/viewform?usp=pp_url&entry.312288697=' + encodeURI(document.URL);
+        
+        /*tooltip*/
+        $(".score_info").click(function () {
+            var $title = $(this).find(".title");
+            if (!$title.length) {
+                $(this).append('<span class="title">' + $(this).attr("title") + '</span>');
+            } else {
+                $title.remove();
+            }
+        });
+
+        /*table sorter*/
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("autoScoreSheetTbl");
+            switching = true;
+            // Set the sorting direction to descending:
+            dir = "desc";
+            /* Make a loop that will continue until no switching has been done: */
+            while (switching) {
+                // Start by saying: no switching is done:
+                switching = false;
+                rows = table.rows;
+                /* Loop through all table rows (except the first, which contains table headers): */
+                for (i = 1; i < (rows.length - 1); i++) {
+                    // Start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Get the two elements you want to compare, one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    /* Check if the two rows should switch place, based on the direction, asc or desc: */
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+
+                    x = rows[i].getElementsByTagName("TD")[0].innerHTML;
+                    y = rows[i + 1].getElementsByTagName("TD")[0].innerHTML;
+                    z = x;
+                    rows[i].getElementsByTagName("TD")[0].innerHTML=y;
+                    rows[i + 1].getElementsByTagName("TD")[0].innerHTML=z;
+                    
+                    switching = true;
+                    // Each time a switch is done, increase this count by 1:
+                    switchcount ++;
+                } else {
+                    /* If no switching has been done AND the direction is "desc", set the direction to "asc" and run the while loop again. */
+                    if (switchcount == 0 && dir == "desc") {
+                        dir = "asc";
+                        switching = true;
+                    }
+                }
+            }
+        } 
+
+        /*collapsable*/
+        function meetingDetails() { collapseDetails("meetingDetails")}
+        function restockDetails() { collapseDetails("restockDetails")}
+        function timeDetails() { collapseDetails("timeDetails")}
+        function debugData() { collapseDetails("debugData")}
+        
+        function collapseDetails(s) {
+            var x = document.getElementById(s);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+        /*Google Analytics */
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-27864337-2', 'auto');
+        ga('send', 'pageview');
+
+        
+
+    
+    </script>
+
+
+</body>
+
+</html>
