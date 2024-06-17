@@ -78,13 +78,85 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 	public static function processProvider(): array
 	{
 		return [
-			[50.087213, 14.425674, 'https://bannergress.com/banner/czech-cubism-and-its-representative-ce4b'],
-			[35.445393, 137.019408, 'https://bannergress.com/banner/長良川鉄道-乗りつぶし-観光編-adea'],
-			[35.445393, 137.019408, 'https://bannergress.com/banner/%E9%95%B7%E8%89%AF%E5%B7%9D%E9%89%84%E9%81%93-%E4%B9%97%E3%82%8A%E3%81%A4%E3%81%B6%E3%81%97-%E8%A6%B3%E5%85%89%E7%B7%A8-adea'],
-			[-25.3414, -57.508801, 'https://bannergress.com/banner/histórica-catedral-de-san-lorenzo-55dd'],
-			[-25.3414, -57.508801, 'https://bannergress.com/banner/hist%C3%B3rica-catedral-de-san-lorenzo-55dd'],
-			[-41.287008, 174.778374, 'https://bannergress.com/banner/a-visit-to-te-papa-dffa'],
-			[51.340404, 12.375222, 'https://bannergress.com/banner/altes-rathaus-leipzig-e69b'], // contains warning
+			[
+				50.087213,
+				14.425674,
+				'<a href="https://bannergress.com/banner/czech-cubism-and-its-representative-ce4b">Bannergress Czech cubism  and its representative</a> <a href="https://api.bannergress.com/bnrs/pictures/1bc82f3f243f77d4360e5a063194665d">🖼</a>',
+				[
+					'36 missions, 11.2 km',
+					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F03c465c460b44ccfa5659f8ce20c2fe4.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F03c465c460b44ccfa5659f8ce20c2fe4.1c">Czech cubism  and its representative 1 📱</a> <a href="https://intel.ingress.com/mission/03c465c460b44ccfa5659f8ce20c2fe4.1c">🖥</a> <a href="https://lh3.googleusercontent.com/IAOb9xC7aSjvEjo_yG75bMwwz-RPuhWMVWFrjbyW0ZxQlVv8qg8l84XUBOjy-c7Z1DASJB0q1_l23AftLCA">🖼</a>',
+					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F48ca04bd653a43eea68b5df595227ac4.12&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.087213%2C14.425674">Dům u Černé matky Boží 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087213,14.425674">🖥</a>',
+				],
+				'https://bannergress.com/banner/czech-cubism-and-its-representative-ce4b',
+			],
+			[
+				35.445393,
+				137.019408,
+				'<a href="https://bannergress.com/banner/長良川鉄道-乗りつぶし-観光編-adea">Bannergress 長良川鉄道 乗りつぶし 観光編</a> <a href="https://api.bannergress.com/bnrs/pictures/8ef227000bb990adf1b5016822d59f96">🖼</a>',
+				[
+					'6 missions, 66.2 km',
+					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F9eed921e28ba4b0d9c0cbe33c7625949.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F9eed921e28ba4b0d9c0cbe33c7625949.1c">1/6 長良川鉄道 乗りつぶし 観光編 📱</a> <a href="https://intel.ingress.com/mission/9eed921e28ba4b0d9c0cbe33c7625949.1c">🖥</a> <a href="https://lh3.googleusercontent.com/I76TstcCXBSYQwPzIght5t9o6MUb4O-iNmJWgYoo39QPx5vcSEN1AwY_GfJc-sOtNsZRNx5CxCNeCCUe7C0">🖼</a>',
+					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F95ed7ea05c8643748d6e11e3d3e6634a.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D35.445393%2C137.019408">JR美濃太田駅 📱</a> <a href="https://intel.ingress.com/intel?pll=35.445393,137.019408">🖥</a>',
+				],
+				'https://bannergress.com/banner/長良川鉄道-乗りつぶし-観光編-adea',
+			],
+			[
+				35.445393,
+				137.019408,
+				'<a href="https://bannergress.com/banner/長良川鉄道-乗りつぶし-観光編-adea">Bannergress 長良川鉄道 乗りつぶし 観光編</a> <a href="https://api.bannergress.com/bnrs/pictures/8ef227000bb990adf1b5016822d59f96">🖼</a>',
+				[
+					'6 missions, 66.2 km',
+					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F9eed921e28ba4b0d9c0cbe33c7625949.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F9eed921e28ba4b0d9c0cbe33c7625949.1c">1/6 長良川鉄道 乗りつぶし 観光編 📱</a> <a href="https://intel.ingress.com/mission/9eed921e28ba4b0d9c0cbe33c7625949.1c">🖥</a> <a href="https://lh3.googleusercontent.com/I76TstcCXBSYQwPzIght5t9o6MUb4O-iNmJWgYoo39QPx5vcSEN1AwY_GfJc-sOtNsZRNx5CxCNeCCUe7C0">🖼</a>',
+					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F95ed7ea05c8643748d6e11e3d3e6634a.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D35.445393%2C137.019408">JR美濃太田駅 📱</a> <a href="https://intel.ingress.com/intel?pll=35.445393,137.019408">🖥</a>',
+				],
+				'https://bannergress.com/banner/%E9%95%B7%E8%89%AF%E5%B7%9D%E9%89%84%E9%81%93-%E4%B9%97%E3%82%8A%E3%81%A4%E3%81%B6%E3%81%97-%E8%A6%B3%E5%85%89%E7%B7%A8-adea',
+			],
+			[
+				-25.3414,
+				-57.508801,
+				'<a href="https://bannergress.com/banner/histórica-catedral-de-san-lorenzo-55dd">Bannergress Histórica Catedral de San Lorenzo</a> <a href="https://api.bannergress.com/bnrs/pictures/1c41b1923dec9abc1f3268879247764d">🖼</a>',
+				[
+					'36 missions, 12.2 km',
+					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fbf5438fb646c4ff299433d00c8f52fec.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fbf5438fb646c4ff299433d00c8f52fec.1c">Histórica Catedral de San Lorenzo 1/36 📱</a> <a href="https://intel.ingress.com/mission/bf5438fb646c4ff299433d00c8f52fec.1c">🖥</a> <a href="https://lh3.googleusercontent.com/BX9e64w3Nw3x3Y04cG7HScYalx8Fc5jWOrmc_jxh7c4TO30dRYj1ouXu16bqi_2MEJ4mfSbQ7vPievMJb7DQ">🖼</a>',
+					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F7fd4e9a641354c2faabfa98d2ae5a21a.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D-25.341400%2C-57.508801">Homenaje Niños De San Lorenzo 📱</a> <a href="https://intel.ingress.com/intel?pll=-25.341400,-57.508801">🖥</a>',
+				],
+				'https://bannergress.com/banner/histórica-catedral-de-san-lorenzo-55dd',
+			],
+			[
+				-25.3414,
+				-57.508801,
+				'<a href="https://bannergress.com/banner/histórica-catedral-de-san-lorenzo-55dd">Bannergress Histórica Catedral de San Lorenzo</a> <a href="https://api.bannergress.com/bnrs/pictures/1c41b1923dec9abc1f3268879247764d">🖼</a>',
+				[
+					'36 missions, 12.2 km',
+					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fbf5438fb646c4ff299433d00c8f52fec.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fbf5438fb646c4ff299433d00c8f52fec.1c">Histórica Catedral de San Lorenzo 1/36 📱</a> <a href="https://intel.ingress.com/mission/bf5438fb646c4ff299433d00c8f52fec.1c">🖥</a> <a href="https://lh3.googleusercontent.com/BX9e64w3Nw3x3Y04cG7HScYalx8Fc5jWOrmc_jxh7c4TO30dRYj1ouXu16bqi_2MEJ4mfSbQ7vPievMJb7DQ">🖼</a>',
+					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F7fd4e9a641354c2faabfa98d2ae5a21a.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D-25.341400%2C-57.508801">Homenaje Niños De San Lorenzo 📱</a> <a href="https://intel.ingress.com/intel?pll=-25.341400,-57.508801">🖥</a>',
+				],
+				'https://bannergress.com/banner/hist%C3%B3rica-catedral-de-san-lorenzo-55dd',
+			],
+			[
+				-41.287008,
+				174.778374,
+				'<a href="https://bannergress.com/banner/a-visit-to-te-papa-dffa">Bannergress A Visit to Te Papa</a> <a href="https://api.bannergress.com/bnrs/pictures/eeb9e2f94ff522ee03889b0ca5845d3b">🖼</a>',
+				[
+					'3 missions, 1.1 km',
+					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F853b2312aae24d0986c1ab9e22a609bd.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F853b2312aae24d0986c1ab9e22a609bd.1c">A Visit to Te Papa 01 of 03 📱</a> <a href="https://intel.ingress.com/mission/853b2312aae24d0986c1ab9e22a609bd.1c">🖥</a> <a href="https://lh3.googleusercontent.com/Ib0teN1w4L5fHzODwtqnz8BPP9IOoHqV3bXvA_VseGCGtpTFgh_gJ3CNKNlMJN4gd8QQ6-9snIJDmoJ0yEQ1">🖼</a>',
+					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Ffd5d393d6117400d9cb7a40bfd1d68a5.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D-41.287008%2C174.778374">Frank Kitts Park 📱</a> <a href="https://intel.ingress.com/intel?pll=-41.287008,174.778374">🖥</a>',
+				],
+				'https://bannergress.com/banner/a-visit-to-te-papa-dffa',
+			],
+			[
+				// Mosaic contains warning
+				51.340404,
+				12.375222,
+				'<a href="https://bannergress.com/banner/altes-rathaus-leipzig-e69b">Bannergress Altes Rathaus Leipzig</a> <a href="https://api.bannergress.com/bnrs/pictures/6726ae2da8f01f37c32bbff9fa677da7">🖼</a>',
+				[
+					'24 missions, 7.6 km',
+					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fb7532be89bc44a9694bdb412e7d30725.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fb7532be89bc44a9694bdb412e7d30725.1c">Altes Rathaus Leipzig 1#24 📱</a> <a href="https://intel.ingress.com/mission/b7532be89bc44a9694bdb412e7d30725.1c">🖥</a> <a href="https://lh3.googleusercontent.com/Le0eMqMKmXaowSNA_Ko0Xm7UoC-pk9_IdVOrmlYqns2yEOftJc-qoVuBMipgDBs1qf41P8o4CcqvCni6d5Ss">🖼</a>',
+					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Fcc04a0b5111c42a9a8c82596891eeccb.11&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D51.340404%2C12.375222">Stadtgeschichtliches Museum 📱</a> <a href="https://intel.ingress.com/intel?pll=51.340404,12.375222">🖥</a>',
+					'⚠ Mission 19 only playable during opening hours (Monday to Friday between 7am and 8pm and Saturday between 7am and 3pm)',
+				],
+				'https://bannergress.com/banner/altes-rathaus-leipzig-e69b',
+			],
 		];
 	}
 
@@ -103,19 +175,38 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processProvider
 	 */
-	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
+	public function testProcessReal(float $expectedLat, float $expectedLon, string $expectedPrefix, array $expectedDescriptions, string $input): void
 	{
 		$service = new BannergressService($this->httpTestClients->realRequestor);
-		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+		$this->testProcess($service, $expectedLat, $expectedLon, $expectedPrefix, $expectedDescriptions, $input);
 	}
 
 	/**
 	 * @dataProvider processProvider
 	 */
-	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
+	public function testProcessOffline(float $expectedLat, float $expectedLon, string $expectedPrefix, array $expectedDescriptions, string $input): void
 	{
 		$service = new BannergressService($this->httpTestClients->offlineRequestor);
-		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+		$this->testProcess($service, $expectedLat, $expectedLon, $expectedPrefix, $expectedDescriptions, $input);
+	}
+
+	private function testProcess(
+		BannergressService $service,
+		float $expectedLat,
+		float $expectedLon,
+		string $expectedPrefix,
+		array $expectedDescriptions,
+		string $input,
+	): void {
+		$location = $this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+		$descriptions = $location->getDescriptions();
+		$this->assertSame($expectedPrefix, $location->getPrefixMessage());
+
+		$this->assertCount(count($expectedDescriptions), $descriptions);
+
+		foreach ($expectedDescriptions as $key => $expectedDescriptionText) {
+			$this->assertSame($expectedDescriptionText, $descriptions[$key]->content);
+		}
 	}
 
 	/**
