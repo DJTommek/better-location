@@ -86,6 +86,14 @@ abstract class BannergressAbstractService extends AbstractService
 			);
 		}
 		$this->collection->add($location);
+
+		if (isset($mosaic->warning)) {
+			$location->addDescription(sprintf(
+				'%s %s',
+				Icons::WARNING,
+				htmlspecialchars($mosaic->warning),
+			));
+		}
 	}
 
 	private function loadApi(string $mosaicId): ?\stdClass

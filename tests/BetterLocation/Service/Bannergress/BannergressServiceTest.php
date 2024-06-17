@@ -84,6 +84,7 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 			[-25.3414, -57.508801, 'https://bannergress.com/banner/histórica-catedral-de-san-lorenzo-55dd'],
 			[-25.3414, -57.508801, 'https://bannergress.com/banner/hist%C3%B3rica-catedral-de-san-lorenzo-55dd'],
 			[-41.287008, 174.778374, 'https://bannergress.com/banner/a-visit-to-te-papa-dffa'],
+			[51.340404, 12.375222, 'https://bannergress.com/banner/altes-rathaus-leipzig-e69b'], // contains warning
 		];
 	}
 
