@@ -5,6 +5,7 @@ namespace App\TelegramCustomWrapper\Events;
 use App\BetterLocation\BetterLocationCollection;
 use App\Chat;
 use App\Config;
+use App\Geonames\Geonames;
 use App\Logger\CustomTelegramLogger;
 use App\Pluginer\Pluginer;
 use App\Repository\ChatRepository;
@@ -38,6 +39,7 @@ abstract class Events
 	private readonly UserRepository $userRepository;
 	private readonly ChatRepository $chatRepository;
 	private readonly FavouritesRepository $favouritesRepository;
+	private readonly Geonames $geonames;
 
 	protected readonly Update $update;
 	private readonly TgLog $tgLog;
@@ -65,10 +67,12 @@ abstract class Events
 		ChatRepository $chatRepository,
 		FavouritesRepository $favouritesRepository,
 		CustomTelegramLogger $customTelegramLogger,
+		Geonames $geonames,
 	): self {
 		$this->userRepository = $userRepository;
 		$this->chatRepository = $chatRepository;
 		$this->favouritesRepository = $favouritesRepository;
+		$this->geonames = $geonames;
 
 		$this->loop = Factory::create();
 		$this->tgLog = new TgLog(
@@ -87,6 +91,7 @@ abstract class Events
 			$this->userRepository,
 			$this->chatRepository,
 			$this->favouritesRepository,
+			$this->geonames,
 			$this->getTgFromId(),
 			$this->getTgFromDisplayname(),
 		);

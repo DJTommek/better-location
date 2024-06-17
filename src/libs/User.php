@@ -4,6 +4,7 @@ namespace App;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
+use App\Geonames\Geonames;
 use App\Repository\ChatEntity;
 use App\Repository\ChatRepository;
 use App\Repository\FavouritesRepository;
@@ -27,6 +28,7 @@ class User
 		private readonly UserRepository $userRepository,
 		private readonly ChatRepository $chatRepository,
 		private readonly FavouritesRepository $favouritesRepository,
+		private readonly Geonames $geonames,
 		int $telegramId,
 		string $telegramDisplayname,
 	) {
@@ -140,7 +142,7 @@ class User
 			$location->setPrefixMessage(sprintf('%s Last location', Icons::CURRENT_LOCATION));
 
 			// Show datetime of last location update in local timezone based on timezone on that location itself
-			$geonames = Factory::geonames()->timezone($location->getLat(), $location->getLon());
+			$geonames = $this->geonames->timezone($location->getLat(), $location->getLon());
 			$lastUpdate = $this->userEntity->lastLocationUpdate->setTimezone($geonames->timezone);
 
 			$location->setDescription(sprintf('Last update %s', $lastUpdate->format(\App\Config::DATETIME_FORMAT_ZONE)));
