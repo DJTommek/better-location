@@ -50,7 +50,7 @@ abstract class BannergressAbstractService extends AbstractService
 				'<a href="%s">%s %s</a> <a href="%s">%s</a>',
 				static::mosaicUrl($mosaic->id),
 				static::getName(),
-				$mosaic->title,
+				htmlspecialchars($mosaic->title),
 				$mosaicPicture,
 				Icons::PICTURE,
 			),

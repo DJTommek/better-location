@@ -144,8 +144,18 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				],
 				'https://bannergress.com/banner/a-visit-to-te-papa-dffa',
 			],
-			[
-				// Mosaic contains warning
+			[ // Contains < and > characters in mosaic title and mosaic missions
+				35.828688,
+				139.803912,
+				'<a href="https://bannergress.com/banner/mdsss-mission-day-埼玉六宿-f249">Bannergress &lt;MDSSS&gt;Mission Day 埼玉六宿</a> <a href="https://api.bannergress.com/bnrs/pictures/67ebaaf299ec15e4fa74b358f582cf90">🖼</a>',
+				[
+					'18 missions, 191.9 km',
+					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F8ec5d5cb603947ea89dda655918c6337.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F8ec5d5cb603947ea89dda655918c6337.1c">&lt;MDSSS草1&gt;草加宿の歴史探訪 📱</a> <a href="https://intel.ingress.com/mission/8ec5d5cb603947ea89dda655918c6337.1c">🖥</a> <a href="https://lh3.googleusercontent.com/JvSw_chppp0lQgdplLz0HE2WW7ibc-u4yHOA8bCH3Slz2EnFi6hcvJYzmN63k7PD5RiYyY7AXjsWw0n49dZk">🖼</a>',
+					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Fde67af6909be49d6bab104e5486f64ed.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D35.828688%2C139.803912">おせんさんの像 📱</a> <a href="https://intel.ingress.com/intel?pll=35.828688,139.803912">🖥</a>',
+				],
+				'https://bannergress.com/banner/mdsss-mission-day-%E5%9F%BC%E7%8E%89%E5%85%AD%E5%AE%BF-f249',
+			],
+			[ // Mosaic contains warning
 				51.340404,
 				12.375222,
 				'<a href="https://bannergress.com/banner/altes-rathaus-leipzig-e69b">Bannergress Altes Rathaus Leipzig</a> <a href="https://api.bannergress.com/bnrs/pictures/6726ae2da8f01f37c32bbff9fa677da7">🖼</a>',
