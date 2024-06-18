@@ -94,6 +94,15 @@ abstract class BannergressAbstractService extends AbstractService
 				htmlspecialchars($mosaic->warning),
 			));
 		}
+
+		if ($mosaic->numberOfDisabledMissions > 0) {
+			$location->addDescription(sprintf(
+				'%s %d %s disabled.',
+				Icons::WARNING,
+				$mosaic->numberOfDisabledMissions,
+				$mosaic->numberOfDisabledMissions === 1 ? 'mission is' : 'missions are',
+			));
+		}
 	}
 
 	private function loadApi(string $mosaicId): ?\stdClass

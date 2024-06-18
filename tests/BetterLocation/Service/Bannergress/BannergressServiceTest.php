@@ -167,6 +167,42 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				],
 				'https://bannergress.com/banner/altes-rathaus-leipzig-e69b',
 			],
+			[ // All mosaics missions are offline
+				50.405524,
+				4.437925,
+				'<a href="https://bannergress.com/banner/second-sunday-christmas-charleroi-a326">Bannergress Second Sunday Christmas Charleroi</a> <a href="https://api.bannergress.com/bnrs/pictures/84c0c299c48b487248e77bea2be35002">🖼</a>',
+				[
+					'6 missions, 2.1 km',
+					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F4422e468d0654e9e8b2623c1d428ea45.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F4422e468d0654e9e8b2623c1d428ea45.1c">Second Sunday Christmas Charleroi 1/6 📱</a> <a href="https://intel.ingress.com/mission/4422e468d0654e9e8b2623c1d428ea45.1c">🖥</a> <a href="https://lh3.googleusercontent.com/tG6hFCgOgfIKVAgYaOmh7KKOnH0RoelS__pogjOWG7GRjOSAwfeAy1KyULOh7BSa4DsCLdHs73r4y6adHc4PUrRFO7FBcBhCNg4">🖼</a>',
+					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F7e7250fda2004a15a7f07d075462119b.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.405524%2C4.437925">Fontaine Gare de Charleroi-Sud 📱</a> <a href="https://intel.ingress.com/intel?pll=50.405524,4.437925">🖥</a>',
+					'⚠ 6 missions are disabled.',
+				],
+				'https://bannergress.com/banner/second-sunday-christmas-charleroi-a326',
+			],
+			[ // Some of mosaics missions are offline
+				50.282922,
+				21.411533,
+				'<a href="https://bannergress.com/banner/ingress-resistance-subcarpathia-206c">Bannergress Ingress Resistance Subcarpathia</a> <a href="https://api.bannergress.com/bnrs/pictures/eb6384bfb2b946ee68739654ab8c9991">🖼</a>',
+				[
+					'42 missions, 88.2 km',
+					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2Ffa06595dabcf4916bc4ca26ff7a5a436.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2Ffa06595dabcf4916bc4ca26ff7a5a436.1c">Ingress Resistance Subcarpathia 📱</a> <a href="https://intel.ingress.com/mission/fa06595dabcf4916bc4ca26ff7a5a436.1c">🖥</a> <a href="https://lh3.googleusercontent.com/Bbr2iBG4SpAblZTRcZjqpqFs8H4z4bSzvKSiXv6c0vjbzB5BdAg_0sZspw_ucTRRwOpH-hFRYtj9Q24Ac-sB">🖼</a>',
+					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F0223f932793945a596cb1514c93b3ade.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.282922%2C21.411533">Bulwary Gryfitów Mieleckich 📱</a> <a href="https://intel.ingress.com/intel?pll=50.282922,21.411533">🖥</a>',
+					'⚠ 36 missions are disabled.',
+				],
+				'https://bannergress.com/banner/ingress-resistance-subcarpathia-206c',
+			],
+			[ // One of mosaics missions is offline
+				54.362788,
+				10.139598,
+				'<a href="https://bannergress.com/banner/md-kiel-e3c9">Bannergress MD: Kiel</a> <a href="https://api.bannergress.com/bnrs/pictures/7d719b22d49c4744ae074c8464fd0135">🖼</a>',
+				[
+					'24 missions, 24.4 km',
+					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2Ff672da8bb36843cabd44a19f6febb3e6.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2Ff672da8bb36843cabd44a19f6febb3e6.1c">MD: Kiel, Kiel Canal 📱</a> <a href="https://intel.ingress.com/mission/f672da8bb36843cabd44a19f6febb3e6.1c">🖥</a> <a href="https://lh3.googleusercontent.com/UWGRb6VGmyS5pORJ6iGQuJD2Y3E5dCjKmROeaGbJCRNPAzX-1ujioqgeeAhIjb0CUDmJojhYXFK1qBTwMDQ6">🖼</a>',
+					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F1926967ca358489392d62ccca1d35c5d.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D54.362788%2C10.139598">Schleusenpark Eingang Süd 📱</a> <a href="https://intel.ingress.com/intel?pll=54.362788,10.139598">🖥</a>',
+					'⚠ 1 mission is disabled.',
+				],
+				'https://bannergress.com/banner/md-kiel-e3c9',
+			],
 		];
 	}
 
