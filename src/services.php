@@ -21,7 +21,7 @@ return static function (ContainerConfigurator $container): void {
 		->autowire();
 
 	$services->load('App\\Web\\', __DIR__ . '/libs/Web/*/*Template.php');
-	$services->load('App\\Web\\', __DIR__ . '/libs/Web/*/*Presenter.php')
+	$services->load('App\\Web\\', __DIR__ . '/libs/Web/**/*Presenter.php')
 		->call('setDependencies');
 
 	$services->load('App\\Repository\\', __DIR__ . '/libs/Repository/*Repository.php');
