@@ -66,8 +66,8 @@ abstract class MainPresenter
 		}
 	}
 
-	public final function run(
-	): void {
+	public final function run(): void
+	{
 		$this->template->login = $this->login;
 		$this->template->user = $this->user;
 		$this->template->cachebusterMainCss = filemtime(__DIR__ . '/../../../www/css/main.css');
@@ -168,20 +168,29 @@ abstract class MainPresenter
 	/**
 	 * @param array<mixed,mixed>|\stdClass $data
 	 */
-	protected function sendJson(array|\stdClass $data, int $httpCode = self::HTTP_OK): void
+	protected function sendJson(array|\stdClass $data, int $httpCode = self::HTTP_OK): never
 	{
 		http_response_code($httpCode);
 		header('Content-Type: application/json');
 		die(Json::encode($data));
 	}
 
-	protected function apiResponse(bool $error, ?string $message = null, \stdClass|null $result = null, int $httpCode = self::HTTP_OK): void
-	{
+	/**
+	 * @param \stdClass|array<string|int, mixed>|null $result Array list is just for backward compatibility, should not
+	 *      be used for new responses.
+	 * @param self::HTTP_* $httpCode
+	 */
+	protected function apiResponse(
+		bool $error,
+		?string $message = null,
+		\stdClass|array|null $result = null,
+		int $httpCode = self::HTTP_OK,
+	): never {
 		$data = [
 			'error' => $error,
 			'datetime' => time(),
-			'message' => $message === null ? '' : $message,
-			'result' => $result === null ? new \stdClass() : $result,
+			'message' => $message ?? '',
+			'result' => $result ?? new \stdClass(),
 		];
 		$this->sendJson($data, $httpCode);
 	}
