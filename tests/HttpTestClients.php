@@ -3,11 +3,13 @@
 namespace Tests;
 
 use App\Cache\NetteCachePsr16;
+use App\Factory\GuzzleClientFactory;
 use App\Http\Guzzle\Middlewares\AlwaysRedirectMiddleware;
 use App\Utils\Requestor;
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
 use GuzzleHttp\Promise\PromiseInterface;
 use Nette\Caching\Storages\DevNullStorage;
 use Nette\IOException;
@@ -44,26 +46,29 @@ final readonly class HttpTestClients
 	{
 		$storage = new DevNullStorage();
 		$cache = new NetteCachePsr16($storage);
+		$guzzleClientFactory = new GuzzleClientFactory();
 
-		$this->createRealHttpClient($cache);
-		$this->createOfflineHttpClient($cache);
-		$this->createMockedHttpClient($cache);
+		$this->createRealHttpClient($guzzleClientFactory, $cache);
+		$this->createOfflineHttpClient($guzzleClientFactory, $cache);
+		$this->createMockedHttpClient($guzzleClientFactory, $cache);
 	}
 
-	private function createRealHttpClient(CacheInterface $cache): void
+	private function createRealHttpClient(GuzzleClientFactory $guzzleClientFactory, CacheInterface $cache): void
 	{
 		$realHandlerStack = new HandlerStack();
 		$realHandlerStack->setHandler(new CurlHandler());
+        $realHandlerStack->push(Middleware::redirect(), 'allow_redirects');
 		$realHandlerStack->push(new AlwaysRedirectMiddleware(), 'always_allow_redirects');
-		$realHandlerStack->push($this->saveResponseBodyToFileMiddleware(...));
-		$this->realHttpClient = new \GuzzleHttp\Client([
+		$realHandlerStack->unshift($this->saveResponseBodyToFileMiddleware(...));
+
+		$this->realHttpClient = $guzzleClientFactory->create([
 			'handler' => $realHandlerStack,
 		]);
 
 		$this->realRequestor = new Requestor($this->realHttpClient, $cache);
 	}
 
-	private function createOfflineHttpClient(CacheInterface $cache): void
+	private function createOfflineHttpClient(GuzzleClientFactory $guzzleClientFactory, CacheInterface $cache): void
 	{
 		$mockedHandlerStack = new HandlerStack();
 		$dummyHandler = new class() {
@@ -74,18 +79,18 @@ final readonly class HttpTestClients
 		};
 		$mockedHandlerStack->setHandler($dummyHandler);
 		$mockedHandlerStack->push($this->loadResponseBodyFromFileMiddleware(...));
-		$this->offlineHttpClient = new \GuzzleHttp\Client([
+		$this->offlineHttpClient = $guzzleClientFactory->create([
 			'handler' => $mockedHandlerStack,
 		]);
 
 		$this->offlineRequestor = new Requestor($this->offlineHttpClient, $cache);
 	}
 
-	private function createMockedHttpClient(CacheInterface $cache): void
+	private function createMockedHttpClient(GuzzleClientFactory $guzzleClientFactory, CacheInterface $cache): void
 	{
 		$this->mockHandler = new MockHandler();
 		$handlerStack = HandlerStack::create($this->mockHandler);
-		$this->mockedHttpClient = new \GuzzleHttp\Client([
+		$this->mockedHttpClient = $guzzleClientFactory->create([
 			'handler' => $handlerStack,
 		]);
 
@@ -100,6 +105,10 @@ final readonly class HttpTestClients
 			$promise = $handler($request, $options);
 			return $promise->then(
 				function (ResponseInterface $response) use ($filepath) {
+					if ($this->isRedirect($response)) {
+						throw new \RuntimeException('Redirect should be handled by RedirectMiddleware');
+					}
+
 					FileSystem::write($filepath, (string)$response->getBody());
 
 					return $response;
@@ -152,5 +161,11 @@ final readonly class HttpTestClients
 			$urlSafeShort,
 			$requestFingerprintShort,
 		);
+	}
+
+	private function isRedirect(ResponseInterface $response): bool
+	{
+		$code = $response->getStatusCode();
+		return $code >= 300 && $code < 400;
 	}
 }

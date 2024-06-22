@@ -19,15 +19,20 @@ class GuzzleClientFactory
 		RequestOptions::PROXY => Config::GUZZLE_OPTION_DEFAULT_PROXY,
 	];
 
+	public function createDefaultHandlerStack(): HandlerStack
+	{
+		$handlerStack = HandlerStack::create();
+		$handlerStack->after('allow_redirects', new AlwaysRedirectMiddleware(), 'always_allow_redirects');
+		return $handlerStack;
+	}
+
 	/**
 	 * @param array<string,mixed> $config
 	 */
 	public function create(array $config = []): \GuzzleHttp\Client
 	{
 		if (isset($config['handler']) === false) {
-			$handlerStack = HandlerStack::create();
-			$handlerStack->after('allow_redirects', new AlwaysRedirectMiddleware(), 'always_allow_redirects');
-			$config['handler'] = $handlerStack;
+			$config['handler'] = $this->createDefaultHandlerStack();
 		}
 
 		$config = array_merge($config, $this->config);
