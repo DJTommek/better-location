@@ -33,21 +33,79 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 		];
 	}
 
-	public function testIsValidShortUrl(): void
+	public static function isValidBasicProvider(): array
 	{
-		$this->assertTrue(GoogleMapsService::validateStatic('https://goo.gl/maps/rgZZt125tpvf2rnCA'));
-		$this->assertTrue(GoogleMapsService::validateStatic('http://goo.gl/maps/rgZZt125tpvf2rnCA'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://goo.gl/maps/eUYMwABdpv9NNSDX7'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://GoO.GL/maps/hEbUKxSuMjA2'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://goo.gL/maps/pPZ91TfW2edvejbb6'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://maps.app.goo.gl/W5wPRJ5FMJxgaisf9'));
-		$this->assertTrue(GoogleMapsService::validateStatic('http://maps.app.goo.gl/W5wPRJ5FMJxgaisf9'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://maps.app.goo.gl/nJqTbFow1HtofApTA'));
+		return [
+			[true, 'https://www.google.com/maps/place/Velk%C3%BD+Meheln%C3%ADk,+397+01+Pisek/@49.2941662,14.2258333,14z/data=!4m2!3m1!1s0x470b5087ca84a6e9:0xfeb1428d8c8334da'],
+			[true, 'https://www.google.com/maps/place/Zelend%C3%A1rky/@49.2069545,14.2495123,15z/data=!4m5!3m4!1s0x0:0x3ad3965c4ecb9e51!8m2!3d49.2113282!4d14.2553488'],
+			[true, 'https://www.google.cz/maps/@36.8264601,22.5287146,9.33z'],
+			[true, 'https://www.google.cz/maps/place/49%C2%B020\'00.6%22N+14%C2%B017\'46.2%22E/@49.3339819,14.2956352,18.4z/data=!4m5!3m4!1s0x0:0x0!8m2!3d49.333511!4d14.296174'],
+			[true, 'https://www.google.cz/maps/place/Hrad+P%C3%ADsek/@49.3088543,14.1454615,391m/data=!3m1!1e3!4m12!1m6!3m5!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!2sHrad+P%C3%ADsek!8m2!3d49.3088525!4d14.1465894!3m4!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!8m2!3d49.3088525!4d14.1465894'],
+			[true, 'https://www.google.com/maps/place/50%C2%B006\'04.6%22N+14%C2%B031\'44.0%22E/@50.101271,14.5281082,18z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d50.1012711!4d14.5288824?shorturl=1'],
+			[true, 'https://maps.google.com/maps?ll=49.367523,14.514022&q=49.367523,14.514022'],
+			[true, 'https://maps.google.com/maps?ll=-49.367523,-14.514022&q=-49.367523,-14.514022'],
+			[true, 'http://maps.google.com/?q=49.417361,14.652640'], // http link from @ingressportalbot
+			[true, 'http://maps.google.com/?q=-49.417361,-14.652640'], // http link from @ingressportalbot
+			[true, 'https://maps.google.com/?q=49.417361,14.652640'], // same as above, just https
+			[true, 'https://maps.google.com/?q=-49.417361,-14.652640'], // same as above, just https
+			[true, 'http://maps.google.com/?daddr=50.052098,14.451968'], // http drive link from @ingressportalbot
+			[true, 'http://maps.google.com/?daddr=-50.052098,-14.451968'], // http drive link from @ingressportalbot
+			[true, 'https://maps.google.com/?daddr=50.052098,14.451968'], // same as above, just https
+			[true, 'https://maps.google.com/?daddr=-50.052098,-14.451968'], // same as above, just https
+			[true, 'https://www.google.cz/maps/place/50.02261,14.525433'],
+			[true, 'https://www.google.cz/maps/place/-50.02261,-14.525433'],
+			[true, 'https://www.google.com/maps/place/50.0821019,14.4494197'],
+			[true, 'https://www.google.com/maps/place/50.0821019,14.4494197'],
+			[true, 'https://google.com/maps/place/50.0821019,14.4494197'],
+			[true, 'https://www.google.cz/maps/place/50.02261,14.525433'],
+			[true, 'https://google.cz/maps/place/50.02261,14.525433'],
+			[true, 'https://google.com/maps?q=49.417361,14.652640'],
+			[true, 'https://maps.google.com/?q=49.417361,14.652640'],
+			[true, 'https://maps.google.cz/?q=49.417361,14.652640'],
+			[true, 'https://www.maps.google.cz/?q=49.417361,14.652640'],
+		];
+	}
 
-		$this->assertFalse(GoogleMapsService::validateStatic('https://mapsapp.goo.gl/nJqTbFow1HtofApTA'));
-		$this->assertFalse(GoogleMapsService::validateStatic('https://maps.app.goo.gl.com/nJqTbFow1HtofApTA'));
-		$this->assertFalse(GoogleMapsService::validateStatic('https://maps.app.googl/nJqTbFow1HtofApTA'));
-		$this->assertFalse(GoogleMapsService::validateStatic('https://maps.appgoo.gl/nJqTbFow1HtofApTA'));
+	public static function isValidShortProvider(): array
+	{
+		return [
+			[true, 'https://goo.gl/maps/rgZZt125tpvf2rnCA'],
+			[true, 'http://goo.gl/maps/rgZZt125tpvf2rnCA'],
+			[true, 'https://goo.gl/maps/eUYMwABdpv9NNSDX7'],
+			[true, 'https://GoO.GL/maps/hEbUKxSuMjA2'],
+			[true, 'https://goo.gL/maps/pPZ91TfW2edvejbb6'],
+			[true, 'https://maps.app.goo.gl/W5wPRJ5FMJxgaisf9'],
+			[true, 'http://maps.app.goo.gl/W5wPRJ5FMJxgaisf9'],
+			[true, 'https://maps.app.goo.gl/nJqTbFow1HtofApTA'],
+			[false, 'https://mapsapp.goo.gl/nJqTbFow1HtofApTA'],
+			[false, 'https://maps.app.goo.gl.com/nJqTbFow1HtofApTA'],
+			[false, 'https://maps.app.googl/nJqTbFow1HtofApTA'],
+			[false, 'https://maps.appgoo.gl/nJqTbFow1HtofApTA'],
+		];
+	}
+
+	public static function isValidStreetViewProvider(): array
+	{
+		return [
+			[true, 'https://www.google.com/maps/@50.0873231,14.4208835,3a,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656'],
+			[true, 'https://www.google.com/maps/@50.0873231,-14.4208835,3a,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656'],
+			[true, 'https://www.google.com/maps/@-50.0873231,14.4208835,3a,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656'],
+			[true, 'https://www.google.com/maps/@-50.0873231,-14.4208835,3a,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656'],
+			// valid but not street view, missing "3a" parameter
+			[true, 'https://www.google.com/maps/@50.0873231,14.4208835,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656'],
+		];
+	}
+
+
+	/**
+	 * @dataProvider isValidBasicProvider
+	 * @dataProvider isValidShortProvider
+	 * @dataProvider isValidStreetViewProvider
+	 */
+	public function testIsValid(bool $expectedIsValid, string $input): void
+	{
+		$service = new GoogleMapsService();
+		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
 	/**
@@ -65,48 +123,6 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 		$this->assertSame('49.296449,14.480361', GoogleMapsService::processStatic('https://maps.app.goo.gl/W5wPRJ5FMJxgaisf9')->getFirst()->__toString());
 		$this->assertSame('49.296449,14.480361', GoogleMapsService::processStatic('http://maps.app.goo.gl/W5wPRJ5FMJxgaisf9')->getFirst()->__toString());
 		$this->assertSame('49.267720,14.003169', GoogleMapsService::processStatic('https://maps.app.goo.gl/nJqTbFow1HtofApTA')->getFirst()->__toString());
-	}
-
-	public function testIsValid(): void
-	{
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.google.com/maps/place/Velk%C3%BD+Meheln%C3%ADk,+397+01+Pisek/@49.2941662,14.2258333,14z/data=!4m2!3m1!1s0x470b5087ca84a6e9:0xfeb1428d8c8334da'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.google.com/maps/place/Zelend%C3%A1rky/@49.2069545,14.2495123,15z/data=!4m5!3m4!1s0x0:0x3ad3965c4ecb9e51!8m2!3d49.2113282!4d14.2553488'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.google.cz/maps/@36.8264601,22.5287146,9.33z'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.google.cz/maps/place/49%C2%B020\'00.6%22N+14%C2%B017\'46.2%22E/@49.3339819,14.2956352,18.4z/data=!4m5!3m4!1s0x0:0x0!8m2!3d49.333511!4d14.296174'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.google.cz/maps/place/Hrad+P%C3%ADsek/@49.3088543,14.1454615,391m/data=!3m1!1e3!4m12!1m6!3m5!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!2sHrad+P%C3%ADsek!8m2!3d49.3088525!4d14.1465894!3m4!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!8m2!3d49.3088525!4d14.1465894'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.google.com/maps/place/50%C2%B006\'04.6%22N+14%C2%B031\'44.0%22E/@50.101271,14.5281082,18z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d50.1012711!4d14.5288824?shorturl=1'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://maps.google.com/maps?ll=49.367523,14.514022&q=49.367523,14.514022'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://maps.google.com/maps?ll=-49.367523,-14.514022&q=-49.367523,-14.514022'));
-		$this->assertTrue(GoogleMapsService::validateStatic('http://maps.google.com/?q=49.417361,14.652640')); // http link from @ingressportalbot
-		$this->assertTrue(GoogleMapsService::validateStatic('http://maps.google.com/?q=-49.417361,-14.652640')); // http link from @ingressportalbot
-		$this->assertTrue(GoogleMapsService::validateStatic('https://maps.google.com/?q=49.417361,14.652640')); // same as above, just https
-		$this->assertTrue(GoogleMapsService::validateStatic('https://maps.google.com/?q=-49.417361,-14.652640')); // same as above, just https
-		$this->assertTrue(GoogleMapsService::validateStatic('http://maps.google.com/?daddr=50.052098,14.451968')); // http drive link from @ingressportalbot
-		$this->assertTrue(GoogleMapsService::validateStatic('http://maps.google.com/?daddr=-50.052098,-14.451968')); // http drive link from @ingressportalbot
-		$this->assertTrue(GoogleMapsService::validateStatic('https://maps.google.com/?daddr=50.052098,14.451968')); // same as above, just https
-		$this->assertTrue(GoogleMapsService::validateStatic('https://maps.google.com/?daddr=-50.052098,-14.451968')); // same as above, just https
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.google.cz/maps/place/50.02261,14.525433'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.google.cz/maps/place/-50.02261,-14.525433'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.google.com/maps/place/50.0821019,14.4494197'));
-
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.google.com/maps/place/50.0821019,14.4494197'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://google.com/maps/place/50.0821019,14.4494197'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.google.cz/maps/place/50.02261,14.525433'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://google.cz/maps/place/50.02261,14.525433'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://google.com/maps?q=49.417361,14.652640'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://maps.google.com/?q=49.417361,14.652640'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://maps.google.cz/?q=49.417361,14.652640'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.maps.google.cz/?q=49.417361,14.652640'));
-	}
-
-	public function testIsValidStreetView(): void
-	{
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.google.com/maps/@50.0873231,14.4208835,3a,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.google.com/maps/@50.0873231,-14.4208835,3a,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.google.com/maps/@-50.0873231,14.4208835,3a,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656'));
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.google.com/maps/@-50.0873231,-14.4208835,3a,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656'));
-		// valid but not street view, missing "3a" parameter
-		$this->assertTrue(GoogleMapsService::validateStatic('https://www.google.com/maps/@50.0873231,14.4208835,75y,254.65h,90t/data=!3m7!1e1!3m5!1sL_00EpSjrJlMCFtP8VYCZg!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DL_00EpSjrJlMCFtP8VYCZg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D246.83417%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656'));
 	}
 
 	/**
