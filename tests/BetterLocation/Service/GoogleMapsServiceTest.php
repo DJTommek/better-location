@@ -3,9 +3,19 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\GoogleMapsService;
+use Tests\HttpTestClients;
 
 final class GoogleMapsServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return GoogleMapsService::class;
@@ -207,34 +217,53 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	/**
 	 * Links generated on phone in Google maps app by clicking on "share" button while opened place
 	 */
-	public static function processShareUrlPhoneProvider(): array
+	public static function processShareNormalUrlPhoneProvider(): array
 	{
 		$datasets = [
-			__FUNCTION__ . ' Baumax (long)' => [
+			__FUNCTION__ . ' Baumax' => [
 				[[50.056156,14.472952, GoogleMapsService::TYPE_PLACE, '<a href="https://www.baumax.cz/">bauMax</a>']],
 				'https://www.google.com/maps/place/bauMax,+Chodovsk%C3%A1+1549%2F18,+101+00+Praha+10/data=!4m2!3m1!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2?utm_source=mstt_1&entry=gps',
 			],
-			__FUNCTION__ . ' Baumax (short)' => [ // same as previous but short URL
-				[[50.056156,14.472952, GoogleMapsService::TYPE_PLACE, '<a href="https://www.baumax.cz/">bauMax</a>']],
-				'https://maps.app.goo.gl/X5bZDTSFfdRzchGY6',
-			],
-			__FUNCTION__ . ' Lemour Sušice (long)' => [
+			__FUNCTION__ . ' Lemour Sušice' => [
 				[[49.231830,13.521600, GoogleMapsService::TYPE_PLACE, '<a href="https://www.facebook.com/pages/Café-LAmour/632972443431373?fref=ts">Café L\'Amour</a>']],
 				'https://www.google.com/maps/place/Caf%C3%A9+Lamour,+n%C3%A1b%C5%99.+Karla+Houry+180,+342+01+Su%C5%A1ice/data=!4m2!3m1!1s0x470b2b2fad7dd1c3:0x6c66c5beca8a4117?utm_source=mstt_1&entry=gps',
 			],
-			__FUNCTION__ . ' Lemour Sušice (short)' => [ // same as previous but short URL
-				[[49.231830,13.521600, GoogleMapsService::TYPE_PLACE, '<a href="https://www.facebook.com/pages/Café-LAmour/632972443431373?fref=ts">Café L\'Amour</a>']],
-				'https://maps.app.goo.gl/C4FjaU9CXsHuMrobA',
-			],
-			__FUNCTION__ . ' Dacia Průhonice (long)' => [
+			__FUNCTION__ . ' Dacia Průhonice' => [
 				[[50.002966,14.569240, GoogleMapsService::TYPE_PLACE, '<a href="https://www.daciapruhonice.cz/">Dacia Průhonice - Pyramida Průhonice</a>']],
 				'https://www.google.com/maps/place/Dacia+Pr%C5%AFhonice+-+Pyramida+Pr%C5%AFhonice,+u+Prahy,+U+Pyramidy+721,+252+43+Pr%C5%AFhonice/data=!4m2!3m1!1s0x470b8f7265f22517:0xd2786b5c9cd599cd?utm_source=mstt_1&entry=gps&g_ep=CAESCTExLjYzLjcwNBgAIIgnKgBCAkNa',
 			],
-			__FUNCTION__ . ' Dacia Průhonice (short)' => [
+		];
+
+		// Append input URL into prefix
+		foreach ($datasets as &$dataset) {
+			$expectedResults = &$dataset[0];
+			$inputUrl = $dataset[1];
+			foreach ($expectedResults as &$expectedResult) {
+				$expectedResult[3] = sprintf('<a href="%s">Google</a>: %s', $inputUrl, $expectedResult[3]);
+			}
+		}
+		return $datasets;
+	}
+
+	/**
+	 * Links generated on phone in Google maps app by clicking on "share" button while opened place
+	 */
+	public static function processShareShortUrlPhoneProvider(): array
+	{
+		$datasets = [
+			__FUNCTION__ . ' Baumax' => [ // same as previous but short URL
+				[[50.056156,14.472952, GoogleMapsService::TYPE_PLACE, '<a href="https://www.baumax.cz/">bauMax</a>']],
+				'https://maps.app.goo.gl/X5bZDTSFfdRzchGY6',
+			],
+			__FUNCTION__ . ' Lemour Sušice' => [ // same as previous but short URL
+				[[49.231830,13.521600, GoogleMapsService::TYPE_PLACE, '<a href="https://www.facebook.com/pages/Café-LAmour/632972443431373?fref=ts">Café L\'Amour</a>']],
+				'https://maps.app.goo.gl/C4FjaU9CXsHuMrobA',
+			],
+			__FUNCTION__ . ' Dacia Průhonice' => [
 				[[50.002966,14.569240, GoogleMapsService::TYPE_PLACE, '<a href="https://www.daciapruhonice.cz/">Dacia Průhonice - Pyramida Průhonice</a>']],
 				'https://maps.app.goo.gl/NM78pUenb1hVA3nX8',
 			],
-			__FUNCTION__ . ' Mount Victoria Lookout (short)' => [
+			__FUNCTION__ . ' Mount Victoria Lookout' => [
 				[[-41.296057,174.794310, GoogleMapsService::TYPE_PLACE, '<a href="http://www.wellingtonnz.com/discover/things-to-do/sights-activities/mount-victoria-lookout/">Mount Victoria Lookout</a>']],
 				'https://maps.app.goo.gl/PRwZr2cHQLfqxbNw9',
 			],
@@ -258,7 +287,7 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new GoogleMapsService();
+		$service = new GoogleMapsService($this->httpTestClients->mockedRequestor);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -269,11 +298,30 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	 * @dataProvider processShortUrlProvider
 	 * @dataProvider processStreetViewUrlProvider
 	 * @dataProvider processShareUrlPCBrowser
-	 * @dataProvider processShareUrlPhoneProvider
+	 * @dataProvider processShareNormalUrlPhoneProvider
+	 * @dataProvider processShareShortUrlPhoneProvider
 	 */
-	public function testProcess(array $expectedResults, string $input): void
+	public function testProcessReal(array $expectedResults, string $input): void
 	{
-		$service = new GoogleMapsService();
+		$service = new GoogleMapsService($this->httpTestClients->realRequestor);
+		$this->testProcess($service, $expectedResults, $input);
+	}
+
+	/**
+	 * @group request
+	 * @dataProvider processProvider
+	 * @dataProvider processCoordsInUrlProvider
+	 * @dataProvider processStreetViewUrlProvider
+	 * @dataProvider processShareUrlPCBrowser
+	 */
+	public function testProcessOffline(array $expectedResults, string $input): void
+	{
+		$service = new GoogleMapsService($this->httpTestClients->offlineRequestor);
+		$this->testProcess($service, $expectedResults, $input);
+	}
+
+	private function testProcess(GoogleMapsService $service, array $expectedResults, string $input): void
+	{
 		$service->setInput($input);
 		$this->assertTrue($service->validate());
 		$service->process();

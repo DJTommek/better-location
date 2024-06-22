@@ -12,6 +12,7 @@ use App\Factory;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\Formatter;
+use App\Utils\Requestor;
 use App\Utils\Strict;
 use DJTommek\Coordinates\CoordinatesInterface;
 
@@ -43,6 +44,11 @@ final class GoogleMapsService extends AbstractService
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
 		ServicesManager::TAG_GENERATE_LINK_DRIVE,
 	];
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public static function getConstants(): array
 	{
@@ -212,7 +218,7 @@ final class GoogleMapsService extends AbstractService
 		}
 
 		// URL don't have any coordinates or place-id to translate so load content for more in-depth analysis
-		$content = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_GOOGLE_MAPS)->run()->getBody();
+		$content = $this->requestor->get($this->url, Config::CACHE_TTL_GOOGLE_MAPS);
 		$coords = null;
 		// Searching for multi-byte encoded URL containing place ID
 		// https://search.google.com/local/reviews?placeid\u003dChIJKe0_A-3sC0cREMjaVtfpgdE\u0026q\u003d...
