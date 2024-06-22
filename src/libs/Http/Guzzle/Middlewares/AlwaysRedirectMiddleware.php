@@ -28,7 +28,7 @@ class AlwaysRedirectMiddleware
 	{
 		return function (RequestInterface $request, array $options) use ($handler) {
 			$redirectMiddleware = new RedirectMiddleware($handler);
-			$options['allow_redirects'] = true;
+			$options['allow_redirects'] = ['track_redirects' => true];
 			return $redirectMiddleware($request, $options);
 		};
 	}

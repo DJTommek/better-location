@@ -337,6 +337,9 @@ class MiniCurl
 		return $headers[$keyLower] ?? null;
 	}
 
+	/**
+	 * @deprecated Use \App\Utils\Requestor::loadRedirectUrl() instead
+	 */
 	public static function loadRedirectUrl(string $url): ?string
 	{
 		return self::loadHeader($url, 'location');
