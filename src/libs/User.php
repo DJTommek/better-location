@@ -4,7 +4,6 @@ namespace App;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
-use App\Geonames\Geonames;
 use App\Repository\ChatEntity;
 use App\Repository\ChatRepository;
 use App\Repository\FavouritesRepository;
@@ -28,7 +27,6 @@ class User
 		private readonly UserRepository $userRepository,
 		private readonly ChatRepository $chatRepository,
 		private readonly FavouritesRepository $favouritesRepository,
-		private readonly Geonames $geonames,
 		int $telegramId,
 		string $telegramDisplayname,
 	) {
@@ -135,24 +133,12 @@ class User
 		return $this->favourites;
 	}
 
-	public function getLastKnownLocation(): ?BetterLocation
+	public function getLastCoordinates(): ?CoordinatesImmutable
 	{
-		if ($this->userEntity->lastLocation) {
-			$location = BetterLocation::fromCoords($this->userEntity->lastLocation);
-			$location->setPrefixMessage(sprintf('%s Last location', Icons::CURRENT_LOCATION));
-
-			// Show datetime of last location update in local timezone based on timezone on that location itself
-			$geonames = $this->geonames->timezone($location->getLat(), $location->getLon());
-			$lastUpdate = $this->userEntity->lastLocationUpdate->setTimezone($geonames->timezone);
-
-			$location->setDescription(sprintf('Last update %s', $lastUpdate->format(\App\Config::DATETIME_FORMAT_ZONE)));
-			return $location;
-		} else {
-			return null;
-		}
+		return $this->userEntity->lastLocation;
 	}
 
-	public function getLastKnownLocationDatetime(): ?\DateTimeImmutable
+	public function getLastCoordinatesDatetime(): ?\DateTimeImmutable
 	{
 		return $this->userEntity->lastLocationUpdate;
 	}

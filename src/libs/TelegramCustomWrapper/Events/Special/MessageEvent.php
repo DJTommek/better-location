@@ -48,7 +48,7 @@ class MessageEvent extends Special
 				$googleCollection = $this->googlePlaceApi->searchPlace(
 					$this->getTgText(),
 					$this->getTgFrom()->language_code ?? null,
-					$this->user->getLastKnownLocation(),
+					$this->user->getLastCoordinates(),
 				);
 				$collection->add($googleCollection);
 			} catch (\Exception $exception) {

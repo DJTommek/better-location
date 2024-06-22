@@ -4,7 +4,6 @@ namespace App\Web;
 
 use App\Config;
 use App\Factory\LatteFactory;
-use App\Geonames\Geonames;
 use App\Repository\ChatRepository;
 use App\Repository\FavouritesRepository;
 use App\Repository\UserRepository;
@@ -42,7 +41,6 @@ abstract class MainPresenter
 		UserRepository $userRepository,
 		ChatRepository $chatRepository,
 		FavouritesRepository $favouritesRepository,
-		Geonames $geonames,
 		LatteFactory $latteFactory,
 		LoginFacade $loginFacade,
 		Request $request,
@@ -59,7 +57,6 @@ abstract class MainPresenter
 				$userRepository,
 				$chatRepository,
 				$favouritesRepository,
-				$geonames,
 				$this->login->getTelegramId(),
 				$this->login->getDisplayName(),
 			);

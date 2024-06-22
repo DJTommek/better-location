@@ -9,6 +9,7 @@ use App\BetterLocation\GooglePlaceApi;
 use App\BetterLocation\Service\MapyCzService;
 use App\Chat;
 use App\Config;
+use App\Geonames\Geonames;
 use App\Icons;
 use App\Repository\ChatEntity;
 use App\Repository\ChatRepository;
@@ -34,6 +35,13 @@ class InlineQueryEvent extends Special
 	const MAX_FAVOURITES = 10;
 
 	/**
+	 * How long is location considered still "live", see usages.
+	 *
+	 * @var int in seconds
+	 */
+	private const LIVE_LOCATION_THRESHOLD = 600;
+
+	/**
 	 * Instance of Chat for this user's private chat (only for lazy load)
 	 *
 	 * @internal Only for lazy load, do not use directly. Use $this->getUserPrivateChatEntity() instead
@@ -45,6 +53,7 @@ class InlineQueryEvent extends Special
 		private readonly FromTelegramMessage $fromTelegramMessage,
 		private readonly ChatRepository $chatRepository,
 		private readonly MapyCzService $mapyCzService,
+		private readonly Geonames $geonames,
 		private readonly ?GooglePlaceApi $googlePlaceApi = null,
 	) {
 	}
@@ -85,17 +94,28 @@ class InlineQueryEvent extends Special
 			$this->user->setLastKnownLocation($inlineLocation->latitude, $inlineLocation->longitude);
 		}
 
+		$userLastCoordinates = $this->user->getLastCoordinates();
+
 		if (empty($queryInput)) {
-			if ($this->user->getLastKnownLocation() !== null) {
-				$lastKnownLocation = clone $this->user->getLastKnownLocation();
+			if ($userLastCoordinates !== null) {
+				$userLastLocation = BetterLocation::fromCoords($userLastCoordinates);
+				$userLastLocation->setPrefixMessage(sprintf('%s Last location', Icons::CURRENT_LOCATION));
+
 				$now = new \DateTimeImmutable();
-				$diff = $now->getTimestamp() - $this->user->getLastKnownLocationDatetime()->getTimestamp();
-				if ($diff <= 600) { // if last update was just few minutes ago, behave just like current location @TODO time border move to config
-					$lastKnownLocation->setPrefixMessage(sprintf('%s Current location', Icons::CURRENT_LOCATION));
-					$lastKnownLocation->setDescription(null);
+				$userLastCoordinatesDatetime = $this->user->getLastCoordinatesDatetime();
+
+				$diff = $now->getTimestamp() - $userLastCoordinatesDatetime->getTimestamp();
+				if ($diff <= self::LIVE_LOCATION_THRESHOLD) { // if last update was just few minutes ago, behave just like current location @TODO time border move to config
+					$userLastLocation->setPrefixMessage(sprintf('%s Current location', Icons::CURRENT_LOCATION));
+				} else { // Show datetime of last location update in local timezone based on timezone on that location itself
+					$geonames = $this->geonames->timezone($userLastCoordinates->getLat(), $userLastCoordinates->getLon());
+					$userLastLocation->addDescription(sprintf(
+						'Last update %s',
+						$userLastCoordinatesDatetime->setTimezone($geonames->timezone)->format(\App\Config::DATETIME_FORMAT_ZONE),
+					));
 				}
-				$inlineText = sprintf('%s (%s ago)', $lastKnownLocation->getPrefixMessage(), Formatter::seconds($diff, true));
-				$answerInlineQuery->addResult($this->getInlineQueryResult($lastKnownLocation, $inlineText));
+				$inlineText = sprintf('%s (%s ago)', $userLastLocation->getPrefixMessage(), Formatter::seconds($diff, true));
+				$answerInlineQuery->addResult($this->getInlineQueryResult($userLastLocation, $inlineText));
 			}
 
 			// Show list of favourites
@@ -150,7 +170,7 @@ class InlineQueryEvent extends Special
 					$googleCollection = $this->googlePlaceApi->searchPlace(
 						queryInput: $queryInput,
 						languageCode: $this->getTgFrom()->language_code ?? null,
-						location: $this->user->getLastKnownLocation(),
+						location: $userLastCoordinates,
 					);
 					foreach ($googleCollection as $betterLocation) {
 						$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
@@ -200,15 +220,16 @@ class InlineQueryEvent extends Special
 	 */
 	private function addDistanceText(BetterLocation $betterLocation): string
 	{
-		if ($usersLastLocation = $this->user->getLastKnownLocation()) {
-			$distance = $usersLastLocation->getCoordinates()->distance($betterLocation->getCoordinates());
-			return sprintf(
-				' (%s away)',
-				htmlspecialchars(Formatter::distance($distance)),
-			);
-		} else {
+		$usersLastLocation = $this->user->getLastCoordinates();
+		if ($usersLastLocation === null) {
 			return '';
 		}
+
+		$distance = $usersLastLocation->distance($betterLocation);
+		return sprintf(
+			' (%s away)',
+			htmlspecialchars(Formatter::distance($distance)),
+		);
 	}
 
 	private function getInlineQueryResultArticle(BetterLocation $betterLocation, string $inlineTitle = null): Inline\Query\Result\Article
