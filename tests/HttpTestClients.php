@@ -14,6 +14,7 @@ use GuzzleHttp\Promise\PromiseInterface;
 use Nette\Caching\Storages\DevNullStorage;
 use Nette\IOException;
 use Nette\Utils\FileSystem;
+use Nette\Utils\Json;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -101,15 +102,20 @@ final readonly class HttpTestClients
 	{
 		return function (RequestInterface $request, array $options) use ($handler) {
 			$filepath = $this->requestFileFingerprint($request);
+			$filepathBody = $filepath . '.response';
+			$filepathHeaders = $filepath . '.headers';
+			$filepathCode = $filepath . '.code';
 
 			$promise = $handler($request, $options);
 			return $promise->then(
-				function (ResponseInterface $response) use ($filepath) {
+				function (ResponseInterface $response) use ($filepathBody, $filepathHeaders, $filepathCode) {
 					if ($this->isRedirect($response)) {
 						throw new \RuntimeException('Redirect should be handled by RedirectMiddleware');
 					}
 
-					FileSystem::write($filepath, (string)$response->getBody());
+					FileSystem::write($filepathBody, (string)$response->getBody());
+					FileSystem::write($filepathHeaders, Json::encode($response->getHeaders()));
+					FileSystem::write($filepathCode, (string)$response->getStatusCode());
 
 					return $response;
 				},
@@ -121,14 +127,20 @@ final readonly class HttpTestClients
 	{
 		return function (RequestInterface $request, array $options) {
 			$filepath = $this->requestFileFingerprint($request);
+			$filepathBody = $filepath . '.response';
+			$filepathHeaders = $filepath . '.headers';
+			$filepathCode = $filepath . '.code';
 
 			try {
-				$offlineResponse = FileSystem::read($filepath);
+				$body = FileSystem::read($filepathBody);
+				// Backward compatibility - headers and httpCode might not exists
+				$headers = file_exists($filepathHeaders) ? Json::decode(FileSystem::read($filepathHeaders), true) : [];
+				$httpCode = file_exists($filepathCode) ? (int)FileSystem::read($filepathCode) : 200;
 			} catch (IOException $exception) {
 				throw new \Exception(sprintf('Mocked response "%s" is not available. Did you run real request test first?', $filepath), previous: $exception);
 			}
 
-			return new \GuzzleHttp\Psr7\Response(200, body: $offlineResponse);
+			return new \GuzzleHttp\Psr7\Response($httpCode, headers: $headers, body: $body);
 		};
 	}
 
@@ -155,7 +167,7 @@ final readonly class HttpTestClients
 		$requestFingerprintShort = substr($requestFingerprint, 0, 32);
 
 		return sprintf(
-			'%s/fixtures/httpTestClient/%s/%s_%s.response',
+			'%s/fixtures/httpTestClient/%s/%s_%s',
 			__DIR__,
 			$authoritySafe,
 			$urlSafeShort,
