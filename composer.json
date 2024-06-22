@@ -23,7 +23,6 @@
 		"lvht/geohash": "^1.1",
 		"guzzlehttp/guzzle": "^7.5",
 		"nette/caching": "^3.2",
-		"sammyjo20/saloon": "^0.6.0",
 		"justinrainbow/json-schema": "^5.2",
 		"djtommek/coordinates": "^2.0",
 		"jeroendesloovere/vcard": "^1.7",

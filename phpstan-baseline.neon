@@ -91,16 +91,6 @@ parameters:
 			path: src/libs/Geocaching/Types/GeocachePreviewType.php
 
 		-
-			message: "#^Method App\\\\IpApiCom\\\\Connector\\:\\:defaultConfig\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/IpApiCom/Connector.php
-
-		-
-			message: "#^Method App\\\\IpApiCom\\\\Request\\:\\:defaultQuery\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/IpApiCom/Request.php
-
-		-
 			message: "#^Method App\\\\MiniCurl\\\\Cache\\:\\:__construct\\(\\) has parameter \\$curlInfo with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/MiniCurl/Cache.php
