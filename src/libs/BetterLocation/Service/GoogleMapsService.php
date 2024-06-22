@@ -205,7 +205,10 @@ final class GoogleMapsService extends AbstractService
 			} else {
 				$type = self::TYPE_MAP;
 			}
-			$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, $type));
+
+			if ($type === self::TYPE_STREET_VIEW || $this->collection->isEmpty()) {
+				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, $type));
+			}
 		}
 
 		// To prevent doing unnecessary request, this is done only if there is no other location detected

@@ -110,17 +110,11 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	{
 		return [
 			[[[49.294166, 14.225833, GoogleMapsService::TYPE_MAP]], 'https://www.google.com/maps/place/Velk%C3%BD+Meheln%C3%ADk,+397+01+Pisek/@49.2941662,14.2258333,14z/data=!4m2!3m1!1s0x470b5087ca84a6e9:0xfeb1428d8c8334da'],
-			[
-				[
-					[49.211328, 14.255349, GoogleMapsService::TYPE_PLACE],
-					[49.206955, 14.249512, GoogleMapsService::TYPE_MAP],
-				],
-				'https://www.google.com/maps/place/Zelend%C3%A1rky/@49.2069545,14.2495123,15z/data=!4m5!3m4!1s0x0:0x3ad3965c4ecb9e51!8m2!3d49.2113282!4d14.2553488',
-			],
+			[[[49.211328, 14.255349, GoogleMapsService::TYPE_PLACE]], 'https://www.google.com/maps/place/Zelend%C3%A1rky/@49.2069545,14.2495123,15z/data=!4m5!3m4!1s0x0:0x3ad3965c4ecb9e51!8m2!3d49.2113282!4d14.2553488'],
 			[[[36.826460, 22.528715, GoogleMapsService::TYPE_MAP]], 'https://www.google.cz/maps/@36.8264601,22.5287146,9.33z'],
-			[[[49.333511, 14.296174, GoogleMapsService::TYPE_PLACE], [49.3339819, 14.2956352, GoogleMapsService::TYPE_MAP]], 'https://www.google.cz/maps/place/49%C2%B020\'00.6%22N+14%C2%B017\'46.2%22E/@49.3339819,14.2956352,18.4z/data=!4m5!3m4!1s0x0:0x0!8m2!3d49.333511!4d14.296174'],
-			[[[49.308853, 14.146589, GoogleMapsService::TYPE_PLACE], [49.3088543, 14.1454615, GoogleMapsService::TYPE_MAP]], 'https://www.google.cz/maps/place/Hrad+P%C3%ADsek/@49.3088543,14.1454615,391m/data=!3m1!1e3!4m12!1m6!3m5!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!2sHrad+P%C3%ADsek!8m2!3d49.3088525!4d14.1465894!3m4!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!8m2!3d49.3088525!4d14.1465894'],
-			[[[50.101271, 14.528882, GoogleMapsService::TYPE_PLACE], [50.101271, 14.528108, GoogleMapsService::TYPE_MAP]], 'https://www.google.com/maps/place/50%C2%B006\'04.6%22N+14%C2%B031\'44.0%22E/@50.101271,14.5281082,18z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d50.1012711!4d14.5288824?shorturl=1'],
+			[[[49.333511, 14.296174, GoogleMapsService::TYPE_PLACE]], 'https://www.google.cz/maps/place/49%C2%B020\'00.6%22N+14%C2%B017\'46.2%22E/@49.3339819,14.2956352,18.4z/data=!4m5!3m4!1s0x0:0x0!8m2!3d49.333511!4d14.296174'],
+			[[[49.308853, 14.146589, GoogleMapsService::TYPE_PLACE]], 'https://www.google.cz/maps/place/Hrad+P%C3%ADsek/@49.3088543,14.1454615,391m/data=!3m1!1e3!4m12!1m6!3m5!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!2sHrad+P%C3%ADsek!8m2!3d49.3088525!4d14.1465894!3m4!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!8m2!3d49.3088525!4d14.1465894'],
+			[[[50.101271, 14.528882, GoogleMapsService::TYPE_PLACE]], 'https://www.google.com/maps/place/50%C2%B006\'04.6%22N+14%C2%B031\'44.0%22E/@50.101271,14.5281082,18z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d50.1012711!4d14.5288824?shorturl=1'],
 		];
 	}
 
@@ -160,29 +154,11 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	public static function processShortUrlProvider(): array
 	{
 		return [
-			[
-				[
-					[49.982825, 14.571417, GoogleMapsService::TYPE_PLACE],
-					[49.9827605, 14.568364, GoogleMapsService::TYPE_MAP],
-				],
-				'https://goo.gl/maps/rgZZt125tpvf2rnCA',
-			],
-			[
-				[
-					[49.982825, 14.571417, GoogleMapsService::TYPE_PLACE],
-					[49.9827605, 14.568364, GoogleMapsService::TYPE_MAP],
-				],
-				'http://gOo.gl/maps/rgZZt125tpvf2rnCA',
-			],
+			[[[49.982825, 14.571417, GoogleMapsService::TYPE_PLACE]], 'https://goo.gl/maps/rgZZt125tpvf2rnCA'],
+			[[[49.982825, 14.571417, GoogleMapsService::TYPE_PLACE]], 'http://gOo.gl/maps/rgZZt125tpvf2rnCA'],
 			[[[49.3066028, 14.1467086, GoogleMapsService::TYPE_STREET_VIEW]], 'https://goo.gl/maps/eUYMwABdpv9NNSDX7'],
 			[[[49.3062328, 14.1466707, GoogleMapsService::TYPE_STREET_VIEW]], 'https://goo.GL/maps/hEbUKxSuMjA2'],
-			[
-				[
-					[49.2702263, 14.0462163, GoogleMapsService::TYPE_PLACE],
-					[49.2702269, 14.0456688, GoogleMapsService::TYPE_MAP],
-				],
-				'https://goo.gl/maps/pPZ91TfW2edvejbb6',
-			],
+			[[[49.2702263, 14.0462163, GoogleMapsService::TYPE_PLACE]], 'https://goo.gl/maps/pPZ91TfW2edvejbb6'],
 			[[[49.296449499999994, 14.4803612, GoogleMapsService::TYPE_HIDDEN]], 'https://maps.app.goo.gl/W5wPRJ5FMJxgaisf9'],
 			[[[49.296449499999994, 14.4803612, GoogleMapsService::TYPE_HIDDEN]], 'http://maps.app.goo.gl/W5wPRJ5FMJxgaisf9'],
 			[[[49.2677196, 14.0031687, GoogleMapsService::TYPE_HIDDEN]], 'https://maps.app.goo.gl/nJqTbFow1HtofApTA'],
@@ -197,13 +173,7 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	public static function processShareNormalUrlPCBrowser(): array
 	{
 		return [
-			__FUNCTION__ . ' Baumax Michle (normal)' => [
-				[
-					[50.056068, 14.472953, GoogleMapsService::TYPE_PLACE],
-					[50.054355, 14.476390, GoogleMapsService::TYPE_MAP],
-				],
-				'https://www.google.com/maps/place/bauMax/@50.0543547,14.4763896,16.75z/data=!4m5!3m4!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2!8m2!3d50.0560684!4d14.4729532?shorturl=1',
-			],
+			__FUNCTION__ . ' Baumax Michle (normal)' => [[[50.056068, 14.472953, GoogleMapsService::TYPE_PLACE]], 'https://www.google.com/maps/place/bauMax/@50.0543547,14.4763896,16.75z/data=!4m5!3m4!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2!8m2!3d50.0560684!4d14.4729532?shorturl=1'],
 		];
 	}
 
@@ -215,13 +185,7 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	public static function processShareShortUrlPCBrowser(): array
 	{
 		return [
-			__FUNCTION__ . ' Baumax Michle (short)' => [
-				[
-					[50.056068, 14.472953, GoogleMapsService::TYPE_PLACE],
-					[50.054355, 14.476390, GoogleMapsService::TYPE_MAP],
-				],
-				'https://goo.gl/maps/AK13hVJLjnveWZqJA',
-			],
+			__FUNCTION__ . ' Baumax Michle (short)' => [[[50.056068, 14.472953, GoogleMapsService::TYPE_PLACE]], 'https://goo.gl/maps/AK13hVJLjnveWZqJA'],
 		];
 	}
 
