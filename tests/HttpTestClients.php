@@ -30,6 +30,19 @@ final readonly class HttpTestClients
 	 */
 	private const REQUEST_FINGERPRINT_HASH_ALGORITHM = 'sha3-512';
 
+	/**
+	 * HTTP request headers, that should not be used in generated path or in data file data
+	 */
+	private const REQUEST_SENSITIVE_HTTP_HEADERS = [
+		'Cookie',
+		'Authorization',
+		'User-Agent', // User agents might be randomized, ignore them for fingerprint
+	];
+	/**
+	 * URL query parameters, that should not be used in generated path
+	 */
+	private const REQUEST_SENSITIVE_QUERY_PARAMS = ['key'];
+
 	/** HTTP client making real requests */
 	public ClientInterface $realHttpClient;
 	/** HTTP client responding with previously saved responses (not using mocked HTTP client) */
@@ -58,7 +71,7 @@ final readonly class HttpTestClients
 	{
 		$realHandlerStack = new HandlerStack();
 		$realHandlerStack->setHandler(new CurlHandler());
-        $realHandlerStack->push(Middleware::redirect(), 'allow_redirects');
+		$realHandlerStack->push(Middleware::redirect(), 'allow_redirects');
 		$realHandlerStack->push(new AlwaysRedirectMiddleware(), 'always_allow_redirects');
 		$realHandlerStack->unshift($this->saveResponseBodyToFileMiddleware(...));
 
@@ -149,18 +162,18 @@ final readonly class HttpTestClients
 	 */
 	private function requestFileFingerprint(RequestInterface $request): string
 	{
-		// User agents might be randomized, ignore them for fingerprint
-		$requestForFingerprint = $request->withoutHeader('User-Agent')
-			->withoutHeader('Cookie')
-			->withoutHeader('Authorization');
+		// Cleanup URI for nicer filename and remove sensitive information
+		$uri = $request->getUri();
+		$queryClean = $this->removeSensitiveQueryParams($uri->getQuery());
+		$urlCleanString = $uri->getAuthority() . $uri->getPath() . $queryClean;
 
-		// Cleanup URI for nicer filename
-		$uri = $requestForFingerprint->getUri();
-		$urlString = $uri->getAuthority() . $uri->getPath() . $uri->getQuery();
+		// User agents might be randomized, ignore them for fingerprint
+		$requestForFingerprint = $this->removeSensitiveHeaders($request)
+			->withUri($uri->withQuery($queryClean));
 
 		$authoritySafe = preg_replace('/[^A-Za-z0-9_\-]/', '_', $uri->getAuthority());
 
-		$urlSafe = preg_replace('/[^A-Za-z0-9_\-]/', '_', $urlString);
+		$urlSafe = preg_replace('/[^A-Za-z0-9_\-]/', '_', $urlCleanString);
 		$urlSafeShort = substr($urlSafe, 0, 100);
 		$serialized = serialize($requestForFingerprint);
 		$requestFingerprint = hash(self::REQUEST_FINGERPRINT_HASH_ALGORITHM, $serialized);
@@ -179,5 +192,23 @@ final readonly class HttpTestClients
 	{
 		$code = $response->getStatusCode();
 		return $code >= 300 && $code < 400;
+	}
+
+	private function removeSensitiveHeaders(RequestInterface $request): RequestInterface
+	{
+		$result = $request;
+		foreach (self::REQUEST_SENSITIVE_HTTP_HEADERS as $sensitiveHeader) {
+			$result = $result->withoutHeader($sensitiveHeader);
+		}
+		return $result;
+	}
+
+	private function removeSensitiveQueryParams(string $query): string
+	{
+		parse_str($query, $queryParams);
+		foreach (self::REQUEST_SENSITIVE_QUERY_PARAMS as $sensitiveQueryParam) {
+			unset($queryParams[$sensitiveQueryParam]);
+		}
+		return http_build_query($queryParams);
 	}
 }
