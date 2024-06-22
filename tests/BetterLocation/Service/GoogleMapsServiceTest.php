@@ -194,7 +194,7 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	 * Opened URL before opening place: https://www.google.com/maps/@50.0543547,14.4763896,16.75z
 	 * Opened URL after opening place: https://www.google.com/maps/place/bauMax/@50.0543547,14.4763896,16.75z/data=!4m5!3m4!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2!8m2!3d50.0560684!4d14.4729532
 	 */
-	public static function processShareUrlPCBrowser(): array
+	public static function processShareNormalUrlPCBrowser(): array
 	{
 		return [
 			__FUNCTION__ . ' Baumax Michle (normal)' => [
@@ -204,6 +204,17 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 				],
 				'https://www.google.com/maps/place/bauMax/@50.0543547,14.4763896,16.75z/data=!4m5!3m4!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2!8m2!3d50.0560684!4d14.4729532?shorturl=1',
 			],
+		];
+	}
+
+	/**
+	 * Links generated in browser on Google app by clicking on "share" button
+	 * Opened URL before opening place: https://www.google.com/maps/@50.0543547,14.4763896,16.75z
+	 * Opened URL after opening place: https://www.google.com/maps/place/bauMax/@50.0543547,14.4763896,16.75z/data=!4m5!3m4!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2!8m2!3d50.0560684!4d14.4729532
+	 */
+	public static function processShareShortUrlPCBrowser(): array
+	{
+		return [
 			__FUNCTION__ . ' Baumax Michle (short)' => [
 				[
 					[50.056068,14.472953, GoogleMapsService::TYPE_PLACE],
@@ -297,7 +308,8 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	 * @dataProvider processCoordsInUrlProvider
 	 * @dataProvider processShortUrlProvider
 	 * @dataProvider processStreetViewUrlProvider
-	 * @dataProvider processShareUrlPCBrowser
+	 * @dataProvider processShareNormalUrlPCBrowser
+	 * @dataProvider processShareShortUrlPCBrowser
 	 * @dataProvider processShareNormalUrlPhoneProvider
 	 * @dataProvider processShareShortUrlPhoneProvider
 	 */
@@ -312,7 +324,7 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	 * @dataProvider processProvider
 	 * @dataProvider processCoordsInUrlProvider
 	 * @dataProvider processStreetViewUrlProvider
-	 * @dataProvider processShareUrlPCBrowser
+	 * @dataProvider processShareNormalUrlPCBrowser
 	 */
 	public function testProcessOffline(array $expectedResults, string $input): void
 	{

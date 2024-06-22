@@ -9,7 +9,6 @@ use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use App\Config;
 use App\Factory;
-use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\Formatter;
 use App\Utils\Requestor;
@@ -131,7 +130,7 @@ final class GoogleMapsService extends AbstractService
 	{
 		if ($this->data->isShort ?? false) {
 			$urlToRequest = $this->url->setScheme('https'); // Optimalization by skipping one extra redirecting from http to https
-			$this->url = Strict::url(MiniCurl::loadRedirectUrl($urlToRequest->getAbsoluteUrl()));
+			$this->url = Strict::url($this->requestor->loadFinalRedirectUrl($urlToRequest));
 			if ($this->validate() === false) {
 				throw new InvalidLocationException(sprintf('Invalid redirect for short Google maps link "%s".', $this->inputUrl));
 			}
