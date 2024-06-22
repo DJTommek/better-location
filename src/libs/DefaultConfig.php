@@ -177,6 +177,29 @@ class DefaultConfig
 	 */
 	const GEONAMES_USERNAME = 'BetterLocation';
 
+	/**
+	 * Maximum timeout of request (connect, read and general timeout).
+	 * @var positive-int In seconds, default 5 seconds
+	 * @see https://docs.guzzlephp.org/en/7.0/request-options.html#connect-timeout
+	 * @see https://docs.guzzlephp.org/en/7.0/request-options.html#read-timeout
+	 * @see https://docs.guzzlephp.org/en/7.0/request-options.html#timeout
+	 */
+	const GUZZLE_OPTION_DEFAULT_TIMEOUT = 5;
+
+	/**
+	 * Proxy for Guzzle HTTP Client. Leave null for no proxy.
+	 *
+	 * Example for local SOCKS5 proxy:
+	 * @example 'socks5h://127.0.0.1:1080';
+	 * @example [
+	 *   'http'  => 'socks5h://127.0.0.1:1080',
+	 *   'https' => 'socks5h://127.0.0.1:10443',
+	 * ];
+	 *
+	 * @see https://docs.guzzlephp.org/en/7.0/request-options.html#proxy
+	 */
+	const GUZZLE_OPTION_DEFAULT_PROXY = null;
+
 	const DATE_FORMAT = 'Y-m-d';
 	const TIME_FORMAT = 'H:i:s';
 	const TIME_FORMAT_ZONE = self::TIME_FORMAT . ' T';

@@ -2,20 +2,21 @@
 
 namespace App\Factory;
 
+use App\Config;
 use App\Http\Guzzle\Middlewares\AlwaysRedirectMiddleware;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\RequestOptions;
 
 class GuzzleClientFactory
 {
-	private const DEFAULT_TIMEOUT = 5;
-
 	/**
-	 * @var array<string,mixed>
+	 * @var array<RequestOptions::*, mixed>
 	 */
 	private array $config = [
-		'connect_timeout' => self::DEFAULT_TIMEOUT,
-		'read_timeout' => self::DEFAULT_TIMEOUT,
-		'timeout' => self::DEFAULT_TIMEOUT,
+		RequestOptions::CONNECT_TIMEOUT => Config::GUZZLE_OPTION_DEFAULT_TIMEOUT,
+		RequestOptions::READ_TIMEOUT => Config::GUZZLE_OPTION_DEFAULT_TIMEOUT,
+		RequestOptions::TIMEOUT => Config::GUZZLE_OPTION_DEFAULT_TIMEOUT,
+		RequestOptions::PROXY => Config::GUZZLE_OPTION_DEFAULT_PROXY,
 	];
 
 	/**
