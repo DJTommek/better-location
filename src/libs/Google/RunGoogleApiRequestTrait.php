@@ -3,13 +3,14 @@
 namespace App\Google;
 
 use App\BetterLocation\GooglePlaceApi;
-use App\MiniCurl\MiniCurl;
+use App\Utils\Requestor;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
 trait RunGoogleApiRequestTrait
 {
 	public function __construct(
+		private readonly Requestor $requestor,
 		#[\SensitiveParameter] private readonly string $apiKey,
 	) {
 	}
@@ -18,12 +19,7 @@ trait RunGoogleApiRequestTrait
 
 	private function runGoogleApiRequest(string $url): ?\stdClass
 	{
-		$response = (new MiniCurl($url))
-			->allowCache($this->cacheTtl())
-			->allowAutoConvertEncoding(false)
-			->run();
-
-		$content = $response->getBodyAsJson();
+		$content = $this->requestor->getJson($url, $this->cacheTtl());
 		$status = ResponseCodes::customFrom($content->status);
 
 		if ($status->isEmpty()) {
@@ -42,7 +38,7 @@ trait RunGoogleApiRequestTrait
 			}
 
 			Debugger::log('Request URL: ' . $url, ILogger::DEBUG);
-			Debugger::log('Response content: ' . $response->getBody(), ILogger::DEBUG);
+			Debugger::log($content, ILogger::DEBUG);
 			throw new \Exception(sprintf(
 				'Invalid status "%s" from %s. Error: "%s". See debug.log for more info.',
 				self::class,
