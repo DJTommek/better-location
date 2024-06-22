@@ -114,8 +114,10 @@ class InlineQueryEvent extends Special
 						$userLastCoordinatesDatetime->setTimezone($geonames->timezone)->format(\App\Config::DATETIME_FORMAT_ZONE),
 					));
 				}
+
 				$inlineText = sprintf('%s (%s ago)', $userLastLocation->getPrefixMessage(), Formatter::seconds($diff, true));
-				$answerInlineQuery->addResult($this->getInlineQueryResult($userLastLocation, $inlineText));
+				$userLastLocation->setInlinePrefixMessage($inlineText);
+				$answerInlineQuery->addResult($this->getInlineQueryResult($userLastLocation, false));
 			}
 
 			// Show list of favourites
@@ -155,7 +157,7 @@ class InlineQueryEvent extends Special
 				$collection = $this->fromTelegramMessage->getCollection($queryInput, $entities);
 				if ($collection->count() > 1 && $this->getUserPrivateChatEntity()->getSendNativeLocation() === false) {
 					// There can be only one location if sending native location
-					$answerInlineQuery->addResult($this->getAllLocationsInlineQueryResult($collection));
+					$answerInlineQuery->addResult($this->getAllLocationsInlineQueryResultArticle($collection));
 				}
 				foreach ($collection->getLocations() as $betterLocation) {
 					$answerInlineQuery->addResult($this->getInlineQueryResult($betterLocation));
@@ -205,12 +207,12 @@ class InlineQueryEvent extends Special
 		return $this->update->inline_query->from;
 	}
 
-	private function getInlineQueryResult(BetterLocation $betterLocation, string $inlineTitle = null): Inline\Query\Result\Location|Inline\Query\Result\Article
+	private function getInlineQueryResult(BetterLocation $betterLocation, bool $calculateDistance = true): Inline\Query\Result\Location|Inline\Query\Result\Article
 	{
 		if ($this->getUserPrivateChatEntity()->getSendNativeLocation()) {
-			return $this->getInlineQueryResultNativeLocation($betterLocation, $inlineTitle);
+			return $this->getInlineQueryResultNativeLocation($betterLocation, $calculateDistance);
 		} else {
-			return $this->getInlineQueryResultArticle($betterLocation, $inlineTitle);
+			return $this->getInlineQueryResultArticle($betterLocation, $calculateDistance);
 		}
 	}
 
@@ -232,12 +234,12 @@ class InlineQueryEvent extends Special
 		);
 	}
 
-	private function getInlineQueryResultArticle(BetterLocation $betterLocation, string $inlineTitle = null): Inline\Query\Result\Article
+	private function getInlineQueryResultArticle(BetterLocation $betterLocation, bool $calculateDistance = true): Inline\Query\Result\Article
 	{
 		$inlineQueryResult = new Inline\Query\Result\Article();
 		$inlineQueryResult->id = rand(100000, 999999);
-		if (is_null($inlineTitle)) {
-			$inlineTitle = $betterLocation->getInlinePrefixMessage() ?? $betterLocation->getPrefixMessage();
+		$inlineTitle = $betterLocation->getInlinePrefixMessage() ?? $betterLocation->getPrefixMessage();
+		if ($calculateDistance) {
 			$inlineTitle .= $this->addDistanceText($betterLocation);
 		}
 		$inlineQueryResult->title = strip_tags($inlineTitle);
@@ -261,12 +263,12 @@ class InlineQueryEvent extends Special
 		return $inlineQueryResult;
 	}
 
-	private function getInlineQueryResultNativeLocation(BetterLocation $betterLocation, string $inlineTitle = null): Inline\Query\Result\Location
+	private function getInlineQueryResultNativeLocation(BetterLocation $betterLocation, bool $calculateDistance): Inline\Query\Result\Location
 	{
 		$inlineQueryResult = new Inline\Query\Result\Location();
 		$inlineQueryResult->id = rand(100000, 999999);
-		if (is_null($inlineTitle)) {
-			$inlineTitle = $betterLocation->getInlinePrefixMessage() ?? $betterLocation->getPrefixMessage();
+		$inlineTitle = $betterLocation->getInlinePrefixMessage() ?? $betterLocation->getPrefixMessage();
+		if ($calculateDistance) {
 			$inlineTitle .= $this->addDistanceText($betterLocation);
 		}
 
@@ -280,7 +282,7 @@ class InlineQueryEvent extends Special
 		return $inlineQueryResult;
 	}
 
-	private function getAllLocationsInlineQueryResult(BetterLocationCollection $collection): Inline\Query\Result\Article
+	private function getAllLocationsInlineQueryResultArticle(BetterLocationCollection $collection): Inline\Query\Result\Article
 	{
 		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
 		$processedCollection->process(true);
