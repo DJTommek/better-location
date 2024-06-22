@@ -1,0 +1,113 @@
+{
+   "html_attributions" : [],
+   "result" : 
+   {
+      "address_components" : 
+      [
+         {
+            "long_name" : "u",
+            "short_name" : "u",
+            "types" : 
+            [
+               "subpremise"
+            ]
+         },
+         {
+            "long_name" : "u Prahy",
+            "short_name" : "u Prahy",
+            "types" : 
+            [
+               "point_of_interest",
+               "establishment"
+            ]
+         },
+         {
+            "long_name" : "721",
+            "short_name" : "721",
+            "types" : 
+            [
+               "street_number"
+            ]
+         },
+         {
+            "long_name" : "U Pyramidy",
+            "short_name" : "U Pyramidy",
+            "types" : 
+            [
+               "route"
+            ]
+         },
+         {
+            "long_name" : "Průhonice",
+            "short_name" : "Průhonice",
+            "types" : 
+            [
+               "postal_town"
+            ]
+         },
+         {
+            "long_name" : "Praha-západ",
+            "short_name" : "Praha-západ",
+            "types" : 
+            [
+               "administrative_area_level_2",
+               "political"
+            ]
+         },
+         {
+            "long_name" : "Středočeský kraj",
+            "short_name" : "Středočeský kraj",
+            "types" : 
+            [
+               "administrative_area_level_1",
+               "political"
+            ]
+         },
+         {
+            "long_name" : "Czechia",
+            "short_name" : "CZ",
+            "types" : 
+            [
+               "country",
+               "political"
+            ]
+         },
+         {
+            "long_name" : "252 43",
+            "short_name" : "252 43",
+            "types" : 
+            [
+               "postal_code"
+            ]
+         }
+      ],
+      "business_status" : "OPERATIONAL",
+      "formatted_address" : "u, u Prahy, U Pyramidy 721, 252 43 Průhonice, Czechia",
+      "geometry" : 
+      {
+         "location" : 
+         {
+            "lat" : 50.0029657,
+            "lng" : 14.56923980000001
+         },
+         "viewport" : 
+         {
+            "northeast" : 
+            {
+               "lat" : 50.0043680302915,
+               "lng" : 14.5706485302915
+            },
+            "southwest" : 
+            {
+               "lat" : 50.0016700697085,
+               "lng" : 14.5679505697085
+            }
+         }
+      },
+      "international_phone_number" : "+420 267 751 006",
+      "name" : "Dacia Průhonice - Pyramida Průhonice",
+      "url" : "https://maps.google.com/?cid=15165989790682552781",
+      "website" : "https://www.daciapruhonice.cz/"
+   },
+   "status" : "OK"
+}

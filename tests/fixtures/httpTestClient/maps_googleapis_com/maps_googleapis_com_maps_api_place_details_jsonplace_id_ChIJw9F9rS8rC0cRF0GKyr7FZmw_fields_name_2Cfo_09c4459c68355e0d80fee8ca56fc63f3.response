@@ -1,0 +1,96 @@
+{
+   "html_attributions" : [],
+   "result" : 
+   {
+      "address_components" : 
+      [
+         {
+            "long_name" : "180",
+            "short_name" : "180",
+            "types" : 
+            [
+               "premise"
+            ]
+         },
+         {
+            "long_name" : "nábřeží Karla Houry",
+            "short_name" : "nábř. Karla Houry",
+            "types" : 
+            [
+               "route"
+            ]
+         },
+         {
+            "long_name" : "Sušice 1",
+            "short_name" : "Sušice 1",
+            "types" : 
+            [
+               "postal_town"
+            ]
+         },
+         {
+            "long_name" : "Klatovy",
+            "short_name" : "Klatovy",
+            "types" : 
+            [
+               "administrative_area_level_2",
+               "political"
+            ]
+         },
+         {
+            "long_name" : "Plzeňský kraj",
+            "short_name" : "Plzeňský kraj",
+            "types" : 
+            [
+               "administrative_area_level_1",
+               "political"
+            ]
+         },
+         {
+            "long_name" : "Czechia",
+            "short_name" : "CZ",
+            "types" : 
+            [
+               "country",
+               "political"
+            ]
+         },
+         {
+            "long_name" : "342 01",
+            "short_name" : "342 01",
+            "types" : 
+            [
+               "postal_code"
+            ]
+         }
+      ],
+      "business_status" : "OPERATIONAL",
+      "formatted_address" : "nábř. Karla Houry 180, 342 01 Sušice-Sušice 1, Czechia",
+      "geometry" : 
+      {
+         "location" : 
+         {
+            "lat" : 49.23183,
+            "lng" : 13.5216
+         },
+         "viewport" : 
+         {
+            "northeast" : 
+            {
+               "lat" : 49.2331624802915,
+               "lng" : 13.5230340802915
+            },
+            "southwest" : 
+            {
+               "lat" : 49.23046451970851,
+               "lng" : 13.5203361197085
+            }
+         }
+      },
+      "international_phone_number" : "+420 777 747 719",
+      "name" : "Café L'Amour",
+      "url" : "https://maps.google.com/?cid=7811148026953220375",
+      "website" : "https://www.facebook.com/pages/Café-LAmour/632972443431373?fref=ts"
+   },
+   "status" : "OK"
+}

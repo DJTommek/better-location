@@ -8,7 +8,6 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use App\Config;
-use App\Factory;
 use App\Utils\Coordinates;
 use App\Utils\Formatter;
 use App\Utils\Requestor;
@@ -46,6 +45,7 @@ final class GoogleMapsService extends AbstractService
 
 	public function __construct(
 		private readonly Requestor $requestor,
+		private readonly ?GooglePlaceApi $googlePlaceApi = null,
 	) {
 	}
 
@@ -231,10 +231,9 @@ final class GoogleMapsService extends AbstractService
 		$contentForRegex = str_replace('\\\\u003d', '=', $content);
 		$contentForRegex = str_replace('\\\\u0026q', '&', $contentForRegex);
 		$b = str_contains($contentForRegex, 'https://search.google.com/local/reviews?placeid=ChIJKe0_A-3sC0cREMjaVtfpgdE&=V%C3%BDstava+stan%C5%AF,+spac');
-		if (preg_match('/reviews\?placeid=([a-zA-Z0-9_-]+)&=/', $contentForRegex, $matches)) {
+		if ($this->googlePlaceApi !== null && preg_match('/reviews\?placeid=([a-zA-Z0-9_-]+)&=/', $contentForRegex, $matches)) {
 			$placeId = $matches[1];
-			$placeApi = Factory::googlePlaceApi();
-			$placeDetails = $placeApi->getPlaceDetails($placeId, ['name', 'formatted_address', 'geometry', 'url', 'website', 'international_phone_number', 'business_status', 'address_components']);
+			$placeDetails = $this->googlePlaceApi->getPlaceDetails($placeId, ['name', 'formatted_address', 'geometry', 'url', 'website', 'international_phone_number', 'business_status', 'address_components']);
 			if ($placeDetails !== null) {
 				$location = new BetterLocation(
 					$this->inputUrl,

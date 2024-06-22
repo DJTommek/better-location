@@ -1,0 +1,98 @@
+{
+   "html_attributions" : [],
+   "result" : 
+   {
+      "address_components" : 
+      [
+         {
+            "long_name" : "1549/18",
+            "short_name" : "1549/18",
+            "types" : 
+            [
+               "street_number"
+            ]
+         },
+         {
+            "long_name" : "Chodovská",
+            "short_name" : "Chodovská",
+            "types" : 
+            [
+               "route"
+            ]
+         },
+         {
+            "long_name" : "Praha 10",
+            "short_name" : "Praha 10",
+            "types" : 
+            [
+               "sublocality_level_1",
+               "sublocality",
+               "political"
+            ]
+         },
+         {
+            "long_name" : "Hlavní město Praha",
+            "short_name" : "Hlavní město Praha",
+            "types" : 
+            [
+               "administrative_area_level_2",
+               "political"
+            ]
+         },
+         {
+            "long_name" : "Hlavní město Praha",
+            "short_name" : "Hlavní město Praha",
+            "types" : 
+            [
+               "administrative_area_level_1",
+               "political"
+            ]
+         },
+         {
+            "long_name" : "Czechia",
+            "short_name" : "CZ",
+            "types" : 
+            [
+               "country",
+               "political"
+            ]
+         },
+         {
+            "long_name" : "101 00",
+            "short_name" : "101 00",
+            "types" : 
+            [
+               "postal_code"
+            ]
+         }
+      ],
+      "business_status" : "OPERATIONAL",
+      "formatted_address" : "Chodovská 1549/18, 101 00 Praha 10, Czechia",
+      "geometry" : 
+      {
+         "location" : 
+         {
+            "lat" : 50.0561563,
+            "lng" : 14.4729522
+         },
+         "viewport" : 
+         {
+            "northeast" : 
+            {
+               "lat" : 50.0573804802915,
+               "lng" : 14.4741148302915
+            },
+            "southwest" : 
+            {
+               "lat" : 50.0546825197085,
+               "lng" : 14.4714168697085
+            }
+         }
+      },
+      "international_phone_number" : "+420 272 142 821",
+      "name" : "bauMax",
+      "url" : "https://maps.google.com/?cid=17051943568117747154",
+      "website" : "https://www.baumax.cz/"
+   },
+   "status" : "OK"
+}

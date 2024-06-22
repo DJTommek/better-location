@@ -2,7 +2,9 @@
 
 namespace Tests\BetterLocation\Service;
 
+use App\BetterLocation\GooglePlaceApi;
 use App\BetterLocation\Service\GoogleMapsService;
+use App\Config;
 use Tests\HttpTestClients;
 
 final class GoogleMapsServiceTest extends AbstractServiceTestCase
@@ -275,7 +277,8 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessReal(array $expectedResults, string $input): void
 	{
-		$service = new GoogleMapsService($this->httpTestClients->realRequestor);
+		$googlePlaceApi = new GooglePlaceApi($this->httpTestClients->realRequestor, Config::GOOGLE_PLACE_API_KEY);
+		$service = new GoogleMapsService($this->httpTestClients->realRequestor, $googlePlaceApi);
 		$this->testProcess($service, $expectedResults, $input);
 	}
 
@@ -300,7 +303,8 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessOffline(array $expectedResults, string $input): void
 	{
-		$service = new GoogleMapsService($this->httpTestClients->offlineRequestor);
+		$googlePlaceApi = new GooglePlaceApi($this->httpTestClients->offlineRequestor, '');
+		$service = new GoogleMapsService($this->httpTestClients->offlineRequestor, $googlePlaceApi);
 		$this->testProcess($service, $expectedResults, $input);
 	}
 

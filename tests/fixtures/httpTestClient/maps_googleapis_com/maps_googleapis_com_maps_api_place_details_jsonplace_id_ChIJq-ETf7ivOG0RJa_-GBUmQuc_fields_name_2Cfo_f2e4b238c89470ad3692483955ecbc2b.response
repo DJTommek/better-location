@@ -1,0 +1,90 @@
+{
+   "html_attributions" : [],
+   "result" : 
+   {
+      "address_components" : 
+      [
+         {
+            "long_name" : "Lookout Road",
+            "short_name" : "Lookout Rd",
+            "types" : 
+            [
+               "route"
+            ]
+         },
+         {
+            "long_name" : "Hataitai",
+            "short_name" : "Hataitai",
+            "types" : 
+            [
+               "sublocality_level_1",
+               "sublocality",
+               "political"
+            ]
+         },
+         {
+            "long_name" : "Wellington",
+            "short_name" : "Wellington",
+            "types" : 
+            [
+               "locality",
+               "political"
+            ]
+         },
+         {
+            "long_name" : "Wellington",
+            "short_name" : "Wellington",
+            "types" : 
+            [
+               "administrative_area_level_1",
+               "political"
+            ]
+         },
+         {
+            "long_name" : "New Zealand",
+            "short_name" : "NZ",
+            "types" : 
+            [
+               "country",
+               "political"
+            ]
+         },
+         {
+            "long_name" : "6011",
+            "short_name" : "6011",
+            "types" : 
+            [
+               "postal_code"
+            ]
+         }
+      ],
+      "business_status" : "OPERATIONAL",
+      "formatted_address" : "Lookout Road, Hataitai, Wellington 6011, New Zealand",
+      "geometry" : 
+      {
+         "location" : 
+         {
+            "lat" : -41.2960571,
+            "lng" : 174.7943104
+         },
+         "viewport" : 
+         {
+            "northeast" : 
+            {
+               "lat" : -41.2951424697085,
+               "lng" : 174.7953495802915
+            },
+            "southwest" : 
+            {
+               "lat" : -41.2978404302915,
+               "lng" : 174.7926516197085
+            }
+         }
+      },
+      "international_phone_number" : "+64 4 802 4860",
+      "name" : "Mount Victoria Lookout",
+      "url" : "https://maps.google.com/?cid=16663923443279769381",
+      "website" : "http://www.wellingtonnz.com/discover/things-to-do/sights-activities/mount-victoria-lookout/"
+   },
+   "status" : "OK"
+}
