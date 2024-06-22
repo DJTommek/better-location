@@ -246,9 +246,13 @@ final class SumavaCzServiceTest extends AbstractServiceTestCase
 	}
 
 	/**
+	 * @dataProvider processPlaceOriginalProvider
 	 * @dataProvider processPlaceNewProvider
+	 * @dataProvider processAccomodationOriginalProvider
 	 * @dataProvider processAccomodationNewProvider
+	 * @dataProvider processCompaniesOriginalProvider
 	 * @dataProvider processCompaniesNewProvider
+	 * @dataProvider processGalleryOriginalProvider
 	 * @dataProvider processGalleryNewProvider
 	 */
 	public function testProcessOffline(array $expectedResults, string $input): void

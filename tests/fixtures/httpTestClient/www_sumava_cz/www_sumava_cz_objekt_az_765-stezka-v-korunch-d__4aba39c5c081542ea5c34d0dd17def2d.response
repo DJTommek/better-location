@@ -1,0 +1,1291 @@
+
+<!DOCTYPE html>
+<html lang="cs">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+		<meta name="robots" content="index, follow" />
+		<meta name="googlebot" content="index, follow, snippet, archive" />
+		<meta name="author" content="Šumavský rozcestník: Stezka v korunách (D)" />
+		<meta name="keywords" content="šumava, razcestník, města, obce, doprava, památky, příroda, sport, wellnes, zábava, vojenské" />
+		<meta name="description" content="Šumava A-Z - šumava.cz" />
+
+		<meta property="og:url" content="https://darekprosueryder.cz/" />
+		<meta property="og:title" content="Šumavský rozcestník: Stezka v korunách (D)" />
+		<meta property="og:description" content="Šumava A-Z - šumava.cz" />
+		<meta property="og:site_name" content="Šumavský rozcestník: Stezka v korunách (D)" />
+
+		<meta property="og:image" content="/res/images/og-default.jpg" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+
+		<title>Šumavský rozcestník: Stezka v korunách (D)</title>
+
+		<link href="https://fonts.googleapis.com" rel="preconnect" />
+		<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+
+					<link href="/res/css/bootstrap.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			<link href="/res/css/swiper.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			<link href="/res/css/main.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			<link href="/res/css/print.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" media="print" />
+			<link href="/res/css/devel.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+
+							<link href="/res/css/glightbox.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			
+			<noscript>
+				<link href="/res/css/bootstrap.min.css" rel="stylesheet" />
+				<link href="/res/css/swiper.min.css" rel="stylesheet" />
+				<link href="/res/css/main.min.css" rel="stylesheet" />
+				<link href="/res/css/print.min.css" rel="stylesheet" media="print" />
+				<link href="/res/css/devel.min.css" rel="stylesheet" />
+
+									<link href="/res/css/glightbox.min.css" rel="stylesheet" />
+							</noscript>
+		
+		<script>
+			!function(t){'use strict';t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement('link').relList.supports('preload')}catch(t){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){var e=t.media||'all';function a(){t.addEventListener?t.removeEventListener('load',a):t.attachEvent&&t.detachEvent('onload',a),t.setAttribute('onload',null),t.media=e}t.addEventListener?t.addEventListener('load',a):t.attachEvent&&t.attachEvent('onload',a),setTimeout(function(){t.rel='stylesheet',t.media='only x'}),setTimeout(a,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName('link'),n=0;n<a.length;n++){var o=a[n];'preload'!==o.rel||'style'!==o.getAttribute('as')||o.getAttribute('data-loadcss')||(o.setAttribute('data-loadcss',!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener('load',function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent('onload',function(){e.poly(),t.clearInterval(a)})}'undefined'!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}('undefined'!=typeof global?global:this);
+		</script>
+
+		<link href="/res/favicons/favicon.ico" rel="icon" type="image/x-icon" />
+		<link href="/res/favicons/apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57" />
+		<link href="/res/favicons/apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60" />
+		<link href="/res/favicons/apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72" />
+		<link href="/res/favicons/apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76" />
+		<link href="/res/favicons/apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114" />
+		<link href="/res/favicons/apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120" />
+		<link href="/res/favicons/apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144" />
+		<link href="/res/favicons/apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152" />
+		<link href="/res/favicons/apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180" />
+		<link href="/res/favicons/android-icon-192x192.png" rel="icon" type="image/png" sizes="192x192" />
+		<link href="/res/favicons/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32" />
+		<link href="/res/favicons/favicon-96x96.png" rel="icon" type="image/png" sizes="96x96" />
+		<link href="/res/favicons/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16" />
+		<link href="/res/favicons/manifest.json" rel="manifest" />
+
+		<meta name="msapplication-TileImage" content="/res/favicons/ms-icon-144x144.png" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="#0d4804" />
+		<meta name="msapplication-TileColor" content="#0d4804" />
+		<meta name="theme-color" content="#0d4804" />
+
+					<script src="https://api.mapy.cz/loader.js"></script>
+			<script>Loader.load()</script>
+		
+					<script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7609448103131768" async crossorigin="anonymous"></script>
+			</head>
+
+	<body class="is-page">
+		<!-- header -->
+		<header class="header">
+	<!-- header top -->
+	<div class="container header__top">
+		<!-- logo -->
+		<a class="header__top-logo" href="/" title="Šumava.cz">
+			<h1>Šumava.cz</h1>
+			<img class="is-desktop" src="/res/images/logo.png" alt="Šumava.cz" width="351" height="47" />
+			<img class="is-mobile" src="/res/images/logo-mobile.png" alt="Šumava.cz" width="200" height="27" />
+		</a>
+
+		<!-- opens main menu on mobile -->
+		<button id="MainMenuToggle" class="navbar-toggler collapsed" type="button" aria-controls="MainMenu" aria-expanded="false" aria-label="Zobrazit menu" data-bs-target="#MainMenu" data-bs-toggle="collapse">
+			<span class="navbar-toggler__bar"></span>
+			<span class="navbar-toggler__bar"></span>
+			<span class="navbar-toggler__bar"></span>
+		</button>
+	</div>
+
+	<!-- header bottom -->
+	<div class="container header__bottom">
+		<!-- main menu -->
+		<nav id="MainMenu" class="navbar-collapse collapse">
+			<div class="main-menu-wrap">
+				<ul class="main-menu level-1">
+					<li class="dropdown is-active">
+						<a class="dropdown-toggle color-red" href="/rozcestnik/" title="Šumava A-Z" aria-expanded="false">
+							<span>rozcestník</span>
+							<span class="dropdown-caret" tabindex="0" role="button" aria-label="Zobrazit submenu"></span>
+						</a>
+						<div class="dropdown-menu level2">
+							<ul>
+								<li class="is-active">
+									<a href="/rozcestnik/" title="šumavský rozcestník" tabindex="-1"><span>rozcestník</span></a>
+								</li>
+								<li>
+									<a href="/firmy/" title="šumavské firmy" tabindex="-1"><span>firmy</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a class="color-orange" href="/ubytovani/" title="ubytování na Šumavě"><span>ubytování</span></a>
+					</li>
+					<li>
+						<a class="color-yellow" href="/e-shop/" title="šumavský e-shop"><span>e-shop</span></a>
+					</li>
+					<li class="is-inactive">
+						<a class="color-green-light" href="#" title="mapa Šumavy"><span>mapa</span></a>
+					</li>
+					<li>
+						<a class="color-green" href="/galerie/" title="šumavská galerie"><span>fotogalerie</span></a>
+					</li>
+					<li class="is-inactive">
+						<a class="color-blue-light" href="#" title="šumavské tipy"><span>tipy</span></a>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle color-default" href="#" title="Šumava - ostatní" aria-expanded="false" aria-haspopup="true" role="button">
+							<span>ostatní</span>
+							<span class="dropdown-caret" tabindex="0" role="button" aria-label="Zobrazit submenu"></span>
+						</a>
+						<div class="dropdown-menu level2">
+							<ul>
+								<li>
+									<a href="/kontakty/" title="Šumava - kontakty" tabindex="-1"><span>kontakty</span></a>
+								</li>
+								<li>
+									<a href="/obchodni-podminky/" title="Šumava - obchodní podmínky" tabindex="-1"><span>obchodní podmínky</span></a>
+								</li>
+								<li>
+									<a href="/prohlaseni-o-cookies/" title="Šumava - prohlášení o cookies" tabindex="-1"><span>prohlášení o cookies</span></a>
+								</li>
+								<li>
+									<a href="/mapa-stranek/" title="Šumava - mapa stránek" tabindex="-1"><span>mapa stránek</span></a>
+								</li>
+								<li>
+									<a href="/webmuzeum-zapalkovych-nalepek/" title="Šumava - webmuzeum zápalkových nálepek" tabindex="-1"><span>zápalkové nálepky</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+
+	<!-- header darkness -->
+	<div class="header__darkness"></div>
+</header>
+
+		<!-- slider -->
+		
+	<section class="slider">
+		<div class="swiper">
+			<div class="swiper-wrapper">
+													<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/1.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">největší krytý hotelový bazén 25m dlouhý v Čechách - Srní</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/2.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">přední evropská seismologická stanice v počtu záznamů – štola Kristýna</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/3.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">nejmohutnější zřícenina hradu v Čechách - Rabí</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/4.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">nejdelší hradní most v Evropě - hrad Velhartice</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/5.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">rozlohou 648 ha největší rybník na světě - rybník Rožmberk</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/6.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">druhý největší hrad v Čechách po Pražském hradu - Český Krumlov</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/7.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">celosvětově unikátní akt nespravedlnosti - Lex Schwarzenberg</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+												</div>
+			<div class="swiper-pagination"></div>
+		</div>
+	</section>
+
+		<!-- content -->
+		<section class="container content">
+			<div class="content__inside">
+					
+<!-- fixed menu -->
+<div class="menu-fixed">
+	<div class="container">
+		<ul>
+			<li><a href="#section-main" title="Stezka v korunách (D)">Stezka v korunách (D)</a></li>
+
+							<li><a href="#section-map" title="mapa">mapa</a></li>
+			
+							<li><a href="#section-galleries" title="fotografie">fotografie</a></li>
+			
+							<li><a href="#section-attractions" title="místa v okolí">místa v okolí</a></li>
+			
+							<li><a href="#section-apartments" title="ubytování v okolí">ubytování v okolí</a></li>
+			
+							<li><a href="#section-companies" title="firmy v okolí">firmy v okolí</a></li>
+					</ul>
+	</div>
+</div>
+
+<!-- attractions detail -->
+<div id="section-main" class="section color-red">
+	<div class="section__line">
+		<h2 class="section__line-title">Stezka v korunách (D)</h2>
+	</div>
+
+	<!-- breadcrumbs -->
+	<ul class="section__breadcrumbs"><li><a href="/">Šumava.cz</a></li><li><a href="/rozcestnik/" title="rozcestník">rozcestník</a></li><li><a href="/rozcestnik/priroda/" title="příroda">příroda</a></li><li><a href="/rozcestnik/priroda/vrcholy-rozhledny/" title="vrcholy, rozhledny">vrcholy, rozhledny</a></li><li class="is-active">Stezka v korunách (D)</li></ul>
+	<!-- detail -->
+	<div class="section__detail">
+		<div class="row">
+			<div class="col-12 col-sm-6">
+									
+					<a class="lazyload-wrap lightbox section__detail-main-image" href="/res/images/attractions/originals/765.jpg" title="Stezka v korunách (D)" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+						<img class="lazyload" src="/res/images/attractions/765.jpg" alt="Stezka v korunách (D)" width="570" height="427" />
+					</a>
+				
+									<div class="section__detail-gallery">
+																														
+									<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/galleries/stezkavkorunch1280864079/199.jpg" title="Stezka v korunách (D)" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+										<img class="lazyload" src="/res/images/galleries/stezkavkorunch1280864079/mini/199.jpg" alt="Stezka v korunách (D)" width="138" height="104" />
+									</a>
+																																
+									<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/galleries/stezkavkorunch1280864079/198.jpg" title="Stezka v korunách (D)" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+										<img class="lazyload" src="/res/images/galleries/stezkavkorunch1280864079/mini/198.jpg" alt="Stezka v korunách (D)" width="138" height="104" />
+									</a>
+																																
+									<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/galleries/stezkavkorunch1280864079/197.jpg" title="Stezka v korunách (D)" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+										<img class="lazyload" src="/res/images/galleries/stezkavkorunch1280864079/mini/197.jpg" alt="Stezka v korunách (D)" width="138" height="104" />
+									</a>
+																																
+									<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/galleries/stezkavkorunch1280864079/196.jpg" title="Stezka v korunách (D)" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+										<img class="lazyload" src="/res/images/galleries/stezkavkorunch1280864079/mini/196.jpg" alt="Stezka v korunách (D)" width="138" height="104" />
+									</a>
+																																
+									<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/galleries/stezkavkorunch1280864079/195.jpg" title="Stezka v korunách (D)" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+										<img class="lazyload" src="/res/images/galleries/stezkavkorunch1280864079/mini/195.jpg" alt="Stezka v korunách (D)" width="78" height="104" />
+									</a>
+																																
+									<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/galleries/stezkavkorunch1280864079/194.jpg" title="Stezka v korunách (D)" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+										<img class="lazyload" src="/res/images/galleries/stezkavkorunch1280864079/mini/194.jpg" alt="Stezka v korunách (D)" width="138" height="104" />
+									</a>
+																																
+									<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/galleries/stezkavkorunch1280864079/193.jpg" title="Stezka v korunách (D)" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+										<img class="lazyload" src="/res/images/galleries/stezkavkorunch1280864079/mini/193.jpg" alt="Stezka v korunách (D)" width="138" height="104" />
+									</a>
+																																
+									<a class="lazyload-wrap lightbox section__detail-image" href="/res/images/galleries/stezkavkorunch1280864079/192.jpg" title="Stezka v korunách (D)" data-gallery="detail" data-type="image" data-draggable="false" data-zoomable="false">
+										<img class="lazyload" src="/res/images/galleries/stezkavkorunch1280864079/mini/192.jpg" alt="Stezka v korunách (D)" width="78" height="104" />
+									</a>
+															
+												</div>
+
+					<div class="section__detail-gallery-controls">
+						<a class="btn btn-default btn-gray" href="#section-galleries" title="zobrazit více fotografií">zobrazit více fotografií</a>
+					</div>
+							</div>
+			<div class="col-12 col-sm-6">
+				<div class="section__detail-inside">
+					<h3>detailní info</h3>
+
+											<strong>kategorie:</strong> <a href="/rozcestnik/priroda/" title="příroda">příroda</a>
+
+													/ <a href="/rozcestnik/priroda/vrcholy-rozhledny/" title="vrcholy, rozhledny">vrcholy, rozhledny</a>
+												<br />
+					
+											<strong>lokalita:</strong> Německo<br />
+					
+											<strong>GPS:</strong> 48°53'27.34"N 13°29'07.54"E													<a href="http://mapy.cz/#mm=ZTtTcP@sa=s@st=s@ssq=48°53&#039;27.34&quot;N 13°29&#039;07.54&quot;E" title="Zobrazit na mapy.cz" target="_blank" rel="noreferrer">
+								<img class="section__detail-logo-maps" src="/res/images/logo-mapy.png" alt="Zobrazit na mapy.cz" />
+							</a>
+							<br />
+											
+											<h3>popis</h3>
+						<div class="section__detail-info">
+							Stezka v korunách stromů, Národní park v Bavorském lese. Největší stezka na světě v korunách stromů, její délka je 1300 m. Stezka umožňuje pohyb ve výšce 8 až 25 m nad zemí, návštěvník prochází nenarušenou přírodou. Tento jedinečný pohled z nezvyklé perspektivy nabízí stezka v korunách stromů v Bavorském národním parku. Přístupová cesta k největšímu parku tohoto druhu na světě se nachází u parkoviště vedle výběhu pro zvěř. Nástupní věž je vybavena výtahem, ten umožňuje pohodlný a volný přístup důchodcům, postiženým i rodičům s kočárkem. Cestou po převážně dřevěné konstrukci, opatrně zasazené do smíšeného lesa, se každý návštěvník obohatí o nefalšovaný přírodní zážitek, který je umocňován didaktickými, orientačně smyslovými elementy podél celé stezky. Zde poznává nezapomenutelnou krajinu a její rozdílné životní formy v nové dimenzi. Po 1300 m dlouhé lávce dojde na plošinu 44 m vysoké vyhlídkové věže, ze které se naskýtá fantastický a bezmála neomezený výhled. Směrem k obci Lusen se můžeme kochat pohledem na neosídlenou krajinu s lesy a divokým zákoutím, na druhé straně na pečlivě upravenou kulturní krajinu Bavorského lesa, kde dohlédneme až k Alpám. Stezka končí v přízemí u domu Hanse Eisenmanna, zde se nachází informační centrum.						</div>
+					
+											<h3>doplňující info</h3>
+						<strong>odkaz:</strong> <a href="http://www.baumwipfelpfad.by/bwp_cz/index.php" title="Stezka v korunách (D)" target="_blank">http://www.baumwipfelpfad.by/bwp_cz/index.php</a><br /><br />
+					
+											<!-- google ad -->
+						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7609448103131768" data-ad-slot="6325963524" data-ad-format="auto" data-full-width-responsive="true"></ins>
+						<script>
+							(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>
+									</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<!-- map -->
+	<div id="section-map" class="section color-red is-map">
+		<div class="section__line">
+			<h2 class="section__line-title">Stezka v korunách (D) na mapě</h2>
+		</div>
+
+		<div class="section__map">
+			<div id="map" class="section__map-frame"></div>
+
+			<script type="text/javascript">
+				var center = SMap.Coords.fromWGS84(13.4854, 48.8909);
+				var map = new SMap(JAK.gel('map'), center, 11);
+
+				map.addDefaultLayer(SMap.DEF_BASE);
+				map.addDefaultLayer(SMap.DEF_SMART_TURIST).enable();
+				map.addDefaultLayer(SMap.DEF_HISTORIC);
+				map.addDefaultControls();
+
+				var sync = new SMap.Control.Sync();
+				map.addControl(sync);
+
+				var layerSwitch = new SMap.Control.Layer();
+				layerSwitch.addDefaultLayer(SMap.DEF_BASE);
+				layerSwitch.addDefaultLayer(SMap.DEF_SMART_TURIST);
+				layerSwitch.addDefaultLayer(SMap.DEF_HISTORIC);
+				map.addControl(layerSwitch, {left: '8px', top: '8px'});
+				map.getLayer(SMap.DEF_SMART_TURIST).setTrail(true);
+
+				var markerLayer = new SMap.Layer.Marker();
+				var clusterer = new SMap.Marker.Clusterer(map);
+				markerLayer.setClusterer(clusterer);
+				var markers = [];
+
+				var marker = new SMap.Marker(SMap.Coords.fromWGS84(13.4854, 48.8909), null, {url: '/res/images/map-point-red.png'});
+				markers.push(marker);
+
+				markerLayer.addMarker(markers);
+				map.addLayer(markerLayer).enable();
+			</script>
+		</div>
+	</div>
+
+	<!-- galleries -->
+	<div id="section-galleries" class="section color-green">
+		<div class="section__line">
+			<h2 class="section__line-title">Stezka v korunách (D) na fotografiích</h2>
+		</div>
+
+		<div class="row section__list">
+										<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/galerie/priroda/vrcholy-rozhledny/stezka-v-korunach-d/" title="Stezka v korunách (D)">
+															<img class="lazyload" src="/res/images/galleries/stezkavkorunch1280864079/167.jpg" alt="Stezka v korunách (D)" />
+													</a>
+
+						<h3 class="section__item-label">
+							<a href="/galerie/priroda/vrcholy-rozhledny/stezka-v-korunach-d/" title="Stezka v korunách (D)">Stezka v korunách (D)</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/galerie/priroda/" title="příroda">příroda</a>
+
+																		<br />
+								
+																	<strong>lokalita:</strong> Německo<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/galerie/priroda/vrcholy-rozhledny/stezka-v-korunach-d/" title="Stezka v korunách (D)">zobrazit více</a>
+					</div>
+				</div>
+
+																
+					</div>
+	</div>
+
+	<!-- attractions -->
+	<div id="section-attractions" class="section color-red">
+		<div class="section__line">
+			<h2 class="section__line-title">místa v okolí</h2>
+		</div>
+
+		<div class="row section__list">
+										<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/rozcestnik/doprava/pro-vozickare/trasy-pro-vozickare-stezka-v-korunach-d/" title="trasy pro vozíčkáře, stezka v korunách (D)">
+															
+								<img class="lazyload" src="/res/images/attractions/thumbs/4240.jpg" alt="trasy pro vozíčkáře, stezka v korunách (D)" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/rozcestnik/doprava/pro-vozickare/trasy-pro-vozickare-stezka-v-korunach-d/" title="trasy pro vozíčkáře, stezka v korunách (D)">trasy pro vozíčkáře, stezka v korunách (D)</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/rozcestnik/doprava/" title="doprava">doprava</a>
+
+																			/ <a href="/rozcestnik/doprava/pro-vozickare/" title="pro vozíčkáře">pro vozíčkáře</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> Německo<br />
+								
+																	<strong>GPS:</strong> 48°53'27.34"N 13°29'07.54"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/rozcestnik/doprava/pro-vozickare/trasy-pro-vozickare-stezka-v-korunach-d/" title="trasy pro vozíčkáře, stezka v korunách (D)">zobrazit více</a>
+					</div>
+				</div>
+
+																				<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/rozcestnik/instituce/infocentra/infocentrum-neuschonau-a-dum-dr-hanse-eisenmanna-d/" title="infocentrum Neuschönau a dům Dr. Hanse Eisenmanna (D)">
+															
+								<img class="lazyload" src="/res/images/attractions/thumbs/157.jpg" alt="infocentrum Neuschönau a dům Dr. Hanse Eisenmanna (D)" width="343" height="238" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/rozcestnik/instituce/infocentra/infocentrum-neuschonau-a-dum-dr-hanse-eisenmanna-d/" title="infocentrum Neuschönau a dům Dr. Hanse Eisenmanna (D)">infocentrum Neuschönau a dům Dr. Hanse Eisenmanna (D)</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/rozcestnik/instituce/" title="instituce">instituce</a>
+
+																			/ <a href="/rozcestnik/instituce/infocentra/" title="infocentra">infocentra</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> Německo<br />
+								
+																	<strong>GPS:</strong> 48°53'24.83"N 13°29'11.13"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/rozcestnik/instituce/infocentra/infocentrum-neuschonau-a-dum-dr-hanse-eisenmanna-d/" title="infocentrum Neuschönau a dům Dr. Hanse Eisenmanna (D)">zobrazit více</a>
+					</div>
+				</div>
+
+									
+							<div class="col-12 col-lg-4 section__item">
+					<div class="section__item-inside is-surroundings">
+						<h3 class="section__line-label">další místa v okolí</h3>
+						<ul>
+															<li>
+									<a href="/rozcestnik/doprava/pro-vozickare/trasy-pro-vozickare-stezka-v-korunach-d/" title="trasy pro vozíčkáře, stezka v korunách (D)">
+										<span>trasy pro vozíčkáře, stezk...</span>
+										<span>0 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/infocentra/infocentrum-neuschonau-a-dum-dr-hanse-eisenmanna-d/" title="infocentrum Neuschönau a dům Dr. Hanse Eisenmanna (D)">
+										<span>infocentrum Neuschönau a d...</span>
+										<span>0.11 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/osobnosti/eisenmann-hans-dr-d/" title="Eisenmann Hans Dr. (D)">
+										<span>Eisenmann Hans Dr. (D)</span>
+										<span>0.11 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/zoo/zoo-neuschonau-d/" title="ZOO Neuschönau (D)">
+										<span>ZOO Neuschönau (D)</span>
+										<span>0.32 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/pesi-naucne-stezky/ns-neuschonau-d/" title="NS Neuschönau (D)">
+										<span>NS Neuschönau (D)</span>
+										<span>1.06 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/neuschonau-d/" title="Neuschönau (D)">
+										<span>Neuschönau (D)</span>
+										<span>1.06 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/prirodni-krasy-ukazy/felswandergebiet-d/" title="Felswandergebiet (D)">
+										<span>Felswandergebiet (D)</span>
+										<span>3.45 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/sochy/park-archa-heinz-theuerjahr-d/" title="park Archa, Heinz Theuerjahr (D)">
+										<span>park Archa, Heinz Theuerja...</span>
+										<span>4.14 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/muzea-expozice/muzeum-historie-lesa-sankt-oswald-d/" title="muzeum historie lesa Sankt Oswald (D)">
+										<span>muzeum historie lesa Sankt...</span>
+										<span>4.16 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/sankt-oswald-riedlhutte-d/" title="Sankt Oswald - Riedlhütte (D)">
+										<span>Sankt Oswald - Riedlhütte ...</span>
+										<span>4.16 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/vrcholy-rozhledny/hohlstein-d-1196-m-n-m/" title="Hohlstein (D) 1196 m n. m.">
+										<span>Hohlstein (D) 1196 m n. m.</span>
+										<span>4.22 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/waldhauser-d/" title="Waldhäuser (D)">
+										<span>Waldhäuser (D)</span>
+										<span>4.3 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/pamatniky/pamatnik-eduard-traut-d/" title="památník Eduard Traut (D)">
+										<span>památník Eduard Traut (D)...</span>
+										<span>4.4 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-waldhauser-d/" title="kaple Waldhäuser (D)">
+										<span>kaple Waldhäuser (D)</span>
+										<span>4.44 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/hohenau-d/" title="Hohenau (D)">
+										<span>Hohenau (D)</span>
+										<span>4.47 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/hasicske-sbory/ffw-waldhauser-d/" title="FFW Waldhäuser (D)">
+										<span>FFW Waldhäuser (D)</span>
+										<span>4.62 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-saldenau-d/" title="kaple Saldenau (D)">
+										<span>kaple Saldenau (D)</span>
+										<span>4.64 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/saldenau-d/" title="Saldenau (D)">
+										<span>Saldenau (D)</span>
+										<span>4.74 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kasny-studny/pramen-pod-luznym-d/" title="pramen pod Luzným (D)">
+										<span>pramen pod Luzným (D)</span>
+										<span>4.88 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/kapfham-d/" title="Kapfham (D)">
+										<span>Kapfham (D)</span>
+										<span>5.36 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-kapfham-d/" title="kaple Kapfham (D)">
+										<span>kaple Kapfham (D)</span>
+										<span>5.41 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/vytvarna-dila/teufelsloch-josef-vachal/" title="Teufelsloch - Josef Váchal">
+										<span>Teufelsloch - Josef Váchal...</span>
+										<span>5.42 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/vytvarna-dila/luzny-od-brezniku-josef-vachal/" title="Luzný od Březníku - Josef Váchal">
+										<span>Luzný od Březníku - Josef ...</span>
+										<span>5.63 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/vytvarna-dila/z-pralesa-pod-luznym-josef-vachal/" title="Z pralesa pod Luzným - Josef Váchal">
+										<span>Z pralesa pod Luzným - Jos...</span>
+										<span>5.63 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/vytvarna-dila/boure-nad-luznym-josef-vachal/" title="Bouře nad Luzným - Josef Váchal">
+										<span>Bouře nad Luzným - Josef V...</span>
+										<span>5.63 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/vrcholy-rozhledny/luzny-lusen-d-1373-m-n-m/" title="Luzný - Lusen (D) 1373 m n. m.">
+										<span>Luzný - Lusen (D) 1373 m n...</span>
+										<span>5.63 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/hasicske-sbory/ffw-neudorf-d/" title="FFW Neudorf (D)">
+										<span>FFW Neudorf (D)</span>
+										<span>5.95 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/neudorf-d/" title="Neudorf (D)">
+										<span>Neudorf (D)</span>
+										<span>6.01 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/bierhutte-d/" title="Bierhütte (D)">
+										<span>Bierhütte (D)</span>
+										<span>6.09 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kasny-studny/zlab-neudorf-d/" title="žlab Neudorf (D)">
+										<span>žlab Neudorf (D)</span>
+										<span>6.09 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kasny-studny/zlab-bierhutte-d/" title="žlab Bierhütte (D)">
+										<span>žlab Bierhütte (D)</span>
+										<span>6.11 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-herz-jesu-neudorf-d/" title="kostel Herz Jesu, Neudorf (D)">
+										<span>kostel Herz Jesu, Neudorf ...</span>
+										<span>6.14 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-bierhutte-d/" title="kaple Bierhütte (D)">
+										<span>kaple Bierhütte (D)</span>
+										<span>6.22 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/voda-rybniky/rybnik-bierhutte-d/" title="rybník Bierhütte (D)">
+										<span>rybník Bierhütte (D)</span>
+										<span>6.23 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/mlyny/reschmuhle-d/" title="Reschmühle (D)">
+										<span>Reschmühle (D)</span>
+										<span>6.29 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-lichteneck-d/" title="kaple Lichteneck (D)">
+										<span>kaple Lichteneck (D)</span>
+										<span>6.66 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/lichteneck-d/" title="Lichteneck (D)">
+										<span>Lichteneck (D)</span>
+										<span>6.71 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/hasicske-sbory/ffw-mauth-d/" title="FFW Mauth (D)">
+										<span>FFW Mauth (D)</span>
+										<span>7.15 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/hrbitovy/hrbitov-mauth-d/" title="hřbitov Mauth (D)">
+										<span>hřbitov Mauth (D)</span>
+										<span>7.15 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-sv-leopolda-mauth-d/" title="kostel sv. Leopolda, Mauth (D)">
+										<span>kostel sv. Leopolda, Mauth...</span>
+										<span>7.19 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/vojenske/pomniky/pomnik-padlych-wwi-i-ii-mauth-d/" title="pomník padlých WWI i II, Mauth (D)">
+										<span>pomník padlých WWI i II, M...</span>
+										<span>7.2 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/zoologie/vydri-dum-otterhaus-mauth-d/" title="vydří dům Otterhaus, Mauth (D)">
+										<span>vydří dům Otterhaus, Mauth...</span>
+										<span>7.24 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/mauth-finsterau-d/" title="Mauth - Finsterau (D)">
+										<span>Mauth - Finsterau (D)</span>
+										<span>7.28 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-zwolfhauser-d/" title="kaple Zwölfhäuser (D)">
+										<span>kaple Zwölfhäuser (D)</span>
+										<span>7.32 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/hohenrohren-d/" title="Hohenröhren (D)">
+										<span>Hohenröhren (D)</span>
+										<span>7.36 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/heinrichsbrunn-d/" title="Heinrichsbrunn (D)">
+										<span>Heinrichsbrunn (D)</span>
+										<span>7.36 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/ochrana-prirody/nationalpark-bayerischer-wald-d/" title="Nationalpark Bayerischer Wald (D)">
+										<span>Nationalpark Bayerischer W...</span>
+										<span>7.43 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/infocentra/infocentrum-grafenau-d/" title="infocentrum Grafenau (D)">
+										<span>infocentrum Grafenau (D)</span>
+										<span>7.45 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/zwolfhauser-d/" title="Zwölfhäuser (D)">
+										<span>Zwölfhäuser (D)</span>
+										<span>7.48 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/infocentra/infocentrum-st-oswald-riedlhutte-d/" title="infocentrum St. Oswald-Riedlhütte (D)">
+										<span>infocentrum St. Oswald-Rie...</span>
+										<span>7.72 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/grafenau-d/" title="Grafenau (D)">
+										<span>Grafenau (D)</span>
+										<span>7.81 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/muzea-expozice/mestske-muzeum-grafenau-d/" title="městské muzeum Grafenau (D)">
+										<span>městské muzeum Grafenau (D...</span>
+										<span>7.81 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/kreuzberg-d/" title="Kreuzberg (D)">
+										<span>Kreuzberg (D)</span>
+										<span>7.83 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-finsterau-d/" title="kaple Finsterau (D)">
+										<span>kaple Finsterau (D)</span>
+										<span>8.02 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/hrbitovy/hrbitov-finsterau-d/" title="hřbitov Finsterau (D)">
+										<span>hřbitov Finsterau (D)</span>
+										<span>8.02 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/vojenske/pomniky/pomnik-padlych-wwi-i-ii-finsterau-d/" title="pomník padlých WWI i II, Finsterau (D)">
+										<span>pomník padlých WWI i II, F...</span>
+										<span>8.03 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/hasicske-sbory/ffw-finsterau-d/" title="FFW Finsterau (D)">
+										<span>FFW Finsterau (D)</span>
+										<span>8.03 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-mater-dolorosa-finsterau-d/" title="kostel  Mater dolorosa, Finsterau (D)">
+										<span>kostel&nbsp;&nbsp;Mater dolorosa, Fi...</span>
+										<span>8.05 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/fary/fara-finsterau-d/" title="fara Finsterau (D)">
+										<span>fara Finsterau (D)</span>
+										<span>8.05 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/skanzeny/skanzen-finsterau-d/" title="skanzen Finsterau (D)">
+										<span>skanzen Finsterau (D)</span>
+										<span>8.05 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/finsterau-d/" title="Finsterau (D)">
+										<span>Finsterau (D)</span>
+										<span>8.05 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/sport-a-wellness/pesi-naucne-stezky/ns-promena-horske-smrciny/" title="NS Proměna horské smrčiny">
+										<span>NS Proměna horské smrčiny...</span>
+										<span>8.51 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/priroda/voda-reky/breznicky-potok/" title="Březnický potok">
+										<span>Březnický potok</span>
+										<span>8.72 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kaple/kaple-spiegelau-d/" title="kaple Spiegelau (D)">
+										<span>kaple Spiegelau (D)</span>
+										<span>8.89 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/vytvarna-dila/pozar-na-moorkopfu-josef-vachal/" title="Požár na Moorkopfu - Josef Váchal">
+										<span>Požár na Moorkopfu - Josef...</span>
+										<span>8.9 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/infocentra/infocentrum-np-breznik/" title="infocentrum NP Březník">
+										<span>infocentrum NP Březník</span>
+										<span>8.95 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/zabava/fotopoint/fotopoint-breznik/" title="fotopoint Březník">
+										<span>fotopoint Březník</span>
+										<span>8.96 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/vojenske/pomniky/pomnik-por-p-s-vaclava-horvatha/" title="pomník por. P.S. Václava Horvátha">
+										<span>pomník por. P.S. Václava H...</span>
+										<span>8.96 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kasny-studny/studanka-breznik/" title="studánka Březník">
+										<span>studánka Březník</span>
+										<span>8.97 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/zanikle-osady/breznik/" title="Březník">
+										<span>Březník</span>
+										<span>9 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/literatura/ze-sveta-lesnich-samot-karel-klostermann/" title="Ze světa lesních samot, Karel Klostermann">
+										<span>Ze světa lesních samot, Ka...</span>
+										<span>9 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/spiegelau-d/" title="Spiegelau (D)">
+										<span>Spiegelau (D)</span>
+										<span>9.27 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/fary/fara-spiegelau-d/" title="fara Spiegelau (D)">
+										<span>fara Spiegelau (D)</span>
+										<span>9.53 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/kostely/kostel-st-johannes-spiegelau-d/" title="kostel St. Johannes, Spiegelau (D)">
+										<span>kostel St. Johannes, Spieg...</span>
+										<span>9.53 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/vojenske/pomniky/pomnik-padlych-wwii-spiegelau/" title="pomník padlých WWII, Spiegelau">
+										<span>pomník padlých WWII, Spieg...</span>
+										<span>9.55 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/zabava/deti/lesni-hriste-spiegelau-d/" title="lesní hřiště Spiegelau (D)">
+										<span>lesní hřiště Spiegelau (D)...</span>
+										<span>9.65 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/instituce/infocentra/infocentrum-spiegelau-d/" title="infocentrum Spiegelau (D)">
+										<span>infocentrum Spiegelau (D)</span>
+										<span>9.76 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/rozcestnik/kultura-a-pamatky/hrbitovy/hrbitov-spiegelau-d/" title="hřbitov Spiegelau (D)">
+										<span>hřbitov Spiegelau (D)</span>
+										<span>9.98 km</span>
+									</a>
+								</li>
+													</ul>
+					</div>
+				</div>
+					</div>
+	</div>
+
+	<!-- apartments -->
+	<div id="section-apartments" class="section color-orange">
+		<div class="section__line">
+			<h2 class="section__line-title">ubytování v okolí</h2>
+		</div>
+
+		<div class="row section__list">
+										<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/ubytovani/stare-srni/" title="Staré Srní">
+															
+								<img class="lazyload" src="/res/images/apartments/thumbs/183.jpg" alt="Staré Srní" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/ubytovani/stare-srni/" title="Staré Srní">Staré Srní</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>typ:</strong> penzion<br />
+								
+																	<strong>lokalita:</strong> srňsko<br />
+								
+																	<strong>obec:</strong> Srní<br />
+								
+								
+																	<strong>cena ubytování:</strong> od 530 Kč<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/ubytovani/stare-srni/" title="Staré Srní">zobrazit více</a>
+					</div>
+				</div>
+
+																				<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/ubytovani/drexler/" title="Drexler">
+															
+								<img class="lazyload" src="/res/images/apartments/thumbs/91.jpg" alt="Drexler" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/ubytovani/drexler/" title="Drexler">Drexler</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>typ:</strong> apartmánový dům<br />
+								
+																	<strong>lokalita:</strong> srňsko<br />
+								
+																	<strong>obec:</strong> Srní<br />
+								
+								
+																	<strong>cena ubytování:</strong> od 330 Kč<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/ubytovani/drexler/" title="Drexler">zobrazit více</a>
+					</div>
+				</div>
+
+									
+							<div class="col-12 col-lg-4 section__item">
+					<div class="section__item-inside is-surroundings">
+						<h3 class="section__line-label">další ubytování v okolí</h3>
+						<ul>
+															<li>
+									<a href="/ubytovani/stare-srni/" title="Staré Srní">
+										<span>Staré Srní</span>
+										<span>21.05 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/drexler/" title="Drexler">
+										<span>Drexler</span>
+										<span>21.92 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/u-michala/" title="U Michala">
+										<span>U Michala</span>
+										<span>25.06 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/zamecek-prasily/" title="Zámeček Prášily">
+										<span>Zámeček Prášily</span>
+										<span>25.09 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/apartmany-prasily/" title="Apartmány Prášily">
+										<span>Apartmány Prášily</span>
+										<span>25.28 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/mikes/" title="Mikeš">
+										<span>Mikeš</span>
+										<span>28.64 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/apartmany-stara-posta-hartmanice/" title="apartmány Stará Pošta, Hartmanice">
+										<span>apartmány Stará Pošta, Har...</span>
+										<span>31.14 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/sumavska-chalupa/" title="Šumavská chalupa">
+										<span>Šumavská chalupa</span>
+										<span>31.54 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/sumavska-roubenka/" title="Šumavská roubenka">
+										<span>Šumavská roubenka</span>
+										<span>31.54 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/vaca/" title="Vaca">
+										<span>Vaca</span>
+										<span>32.79 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/bohmerwald/" title="Böhmerwald">
+										<span>Böhmerwald</span>
+										<span>32.87 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/mala-pariz/" title="Malá Paříž">
+										<span>Malá Paříž</span>
+										<span>32.96 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/sportovni-29/" title="Sportovni 29">
+										<span>Sportovni 29</span>
+										<span>32.96 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/apartmany-rudik-zelezna-ruda/" title="apartmány Rudík, Železná Ruda">
+										<span>apartmány Rudík, Železná R...</span>
+										<span>33.11 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/bultas/" title="Bultas">
+										<span>Bultas</span>
+										<span>33.15 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/villa-vydra/" title="Villa Vydra">
+										<span>Villa Vydra</span>
+										<span>33.31 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/valmi/" title="Valmi">
+										<span>Valmi</span>
+										<span>33.49 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/hanna/" title="Hanna">
+										<span>Hanna</span>
+										<span>34.57 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/markupova/" title="Markupová">
+										<span>Markupová</span>
+										<span>35.06 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/kvapil/" title="Kvapil">
+										<span>Kvapil</span>
+										<span>35.07 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/jiricna/" title="Jiřičná">
+										<span>Jiřičná</span>
+										<span>35.13 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/hamry/" title="Hamry">
+										<span>Hamry</span>
+										<span>41.27 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/dobik/" title="Dobík">
+										<span>Dobík</span>
+										<span>55.36 km</span>
+									</a>
+								</li>
+															<li>
+									<a href="/ubytovani/rekreace-na-lipne/" title="Rekreace na Lipně">
+										<span>Rekreace na Lipně</span>
+										<span>55.4 km</span>
+									</a>
+								</li>
+													</ul>
+					</div>
+				</div>
+					</div>
+	</div>
+
+	<!-- companies -->
+	<div id="section-companies" class="section color-brown">
+		<div class="section__line">
+			<h2 class="section__line-title">firmy v okolí</h2>
+		</div>
+
+		<div class="row section__list">
+										<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/firmy/obchody/cerpaci-stanice/cerpaci-stanice-shell-grafenau-d/" title="čerpací stanice Shell, Grafenau (D)">
+															
+								<img class="lazyload" src="/res/images/companies/thumbs/807.jpg" alt="čerpací stanice Shell, Grafenau (D)" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/firmy/obchody/cerpaci-stanice/cerpaci-stanice-shell-grafenau-d/" title="čerpací stanice Shell, Grafenau (D)">čerpací stanice Shell, Grafenau (D)</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/firmy/obchody/" title="obchody">obchody</a>
+
+																			/ <a href="/firmy/obchody/cerpaci-stanice/" title="čerpací stanice">čerpací stanice</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> Německo<br />
+								
+																	<strong>GPS:</strong> 48°52'38.31"N 13°23'41.10"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/firmy/obchody/cerpaci-stanice/cerpaci-stanice-shell-grafenau-d/" title="čerpací stanice Shell, Grafenau (D)">zobrazit více</a>
+					</div>
+				</div>
+
+																				<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/firmy/obchody/cerpaci-stanice/cerpaci-stanice-shell-freyung-d/" title="čerpací stanice Shell, Freyung (D)">
+															
+								<img class="lazyload" src="/res/images/companies/thumbs/808.jpg" alt="čerpací stanice Shell, Freyung (D)" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/firmy/obchody/cerpaci-stanice/cerpaci-stanice-shell-freyung-d/" title="čerpací stanice Shell, Freyung (D)">čerpací stanice Shell, Freyung (D)</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/firmy/obchody/" title="obchody">obchody</a>
+
+																			/ <a href="/firmy/obchody/cerpaci-stanice/" title="čerpací stanice">čerpací stanice</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> Německo<br />
+								
+																	<strong>GPS:</strong> 48°48'47.76"N 13°32'42.69"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/firmy/obchody/cerpaci-stanice/cerpaci-stanice-shell-freyung-d/" title="čerpací stanice Shell, Freyung (D)">zobrazit více</a>
+					</div>
+				</div>
+
+									
+					</div>
+	</div>
+			</div>
+		</section>
+
+		<!-- footer -->
+		<footer class="footer">
+	<div class="container">
+		<p>
+			&copy; sumava.cz 1996 - 2024			<span class="footer__delimiter">|</span>
+			<span>všechna práva vyhrazena</span>
+			<span class="footer__delimiter">|</span>
+			<a href="/kontakty/" title="kontakty">kontakty</a>
+			<span class="footer__delimiter">|</span>
+			<a href="/mapa-stranek/" title="mapa stránek">mapa stránek</a>
+			<br />
+			<span>e-mail: <a href="mailto:info@sumava.cz" title="info@sumava.cz">info@sumava.cz</a></span>
+		</p>
+		<p>
+			<a href="/obchodni-podminky/" title="obchodní podmínky">obchodní podmínky</a>
+			<span class="footer__delimiter">|</span>
+			<a href="/prohlaseni-o-cookies/" title="prohlášení o cookies">prohlášení o cookies</a>
+			<br />
+			<a href="/webmuzeum-zapalkovych-nalepek/" title="webmuzeum zápalkových nálepek">webmuzeum zápalkových nálepek</a>
+			<span class="footer__delimiter">|</span>
+			<a href="http://www.webmuzeum.sumava.cz/" title="webmuzeum starých webových stránek (odkaz)" target="_blank" rel="noreferrer">webmuzeum starých webových stránek (odkaz)</a>
+		</p>
+		<p>
+			<a href="http://www.sumava.cz" title="www.sumava.cz">www.sumava.cz</a>
+			<span class="footer__delimiter">|</span>
+			<a href="http://www.retourex.cz" title="www.retourex.cz" target="_blank" rel="noreferrer">www.retourex.cz</a>
+			<span class="footer__delimiter">|</span>
+			<a href="http://www.spaceorigin.com" title="www.spaceorigin.com" target="_blank" rel="noreferrer">www.spaceorigin.com</a>
+		</p>
+		<a href="https://www.facebook.com/www.sumava.cz/" title="Šumava.cz na Facebooku" target="_blank" rel="noreferrer">
+			<img class="lazyload" src="/res/images/icon-fb.png" alt="Šumava.cz na Facebooku" width="150" height="52" />
+		</a>
+	</div>
+</footer>
+
+					<script src="/res/js/vendor/bootstrap/dom/data.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dom/event-handler.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dom/manipulator.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dom/selector-engine.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/base-component.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/collapse.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dropdown.min.js"></script>
+
+			<script src="/res/js/vendor/swiper.min.js"></script>
+			<script src="/res/js/vendor/lazysizes.min.js"></script>
+			<script src="/res/js/vendor/lazysizes.unveilhooks.min.js"></script>
+
+							<script src="/res/js/vendor/glightbox.min.js"></script>
+			
+			<script src="/res/js/class/Web.min.js"></script>
+			<script src="/res/js/class/MainMenu.min.js"></script>
+
+			<script src="/res/js/functions.min.js"></script>
+			<script src="/res/js/init.min.js"></script>
+		
+			</body>
+</html>

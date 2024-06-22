@@ -1,9 +1,628 @@
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
-<html><head>
-<title>301 Moved Permanently</title>
-</head><body>
-<h1>Moved Permanently</h1>
-<p>The document has moved <a href="https://www.sumava.cz/objekt/99999999/">here</a>.</p>
-<hr>
-<address>Apache/2.4.25 (Debian) Server at www.sumava.cz Port 443</address>
-</body></html>
+
+<!DOCTYPE html>
+<html lang="cs">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+		<meta name="robots" content="index, follow" />
+		<meta name="googlebot" content="index, follow, snippet, archive" />
+		<meta name="author" content="Šumava.cz" />
+		<meta name="keywords" content="šumava, informace, rozcestník, firmy, ubytování, e-shop, fotogalerie, fotografie" />
+		<meta name="description" content="Přehledný průvodce Šumavou - šumava.cz" />
+
+		<meta property="og:url" content="https://darekprosueryder.cz/" />
+		<meta property="og:title" content="Šumava.cz" />
+		<meta property="og:description" content="Přehledný průvodce Šumavou - šumava.cz" />
+		<meta property="og:site_name" content="Šumava.cz" />
+
+		<meta property="og:image" content="/res/images/og-default.jpg" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+
+		<title>Šumava.cz</title>
+
+		<link href="https://fonts.googleapis.com" rel="preconnect" />
+		<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+
+					<link href="/res/css/bootstrap.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			<link href="/res/css/swiper.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			<link href="/res/css/main.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+			<link href="/res/css/print.min.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" media="print" />
+			<link href="/res/css/devel.css" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet'" />
+
+			
+			<noscript>
+				<link href="/res/css/bootstrap.min.css" rel="stylesheet" />
+				<link href="/res/css/swiper.min.css" rel="stylesheet" />
+				<link href="/res/css/main.min.css" rel="stylesheet" />
+				<link href="/res/css/print.min.css" rel="stylesheet" media="print" />
+				<link href="/res/css/devel.min.css" rel="stylesheet" />
+
+							</noscript>
+		
+		<script>
+			!function(t){'use strict';t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement('link').relList.supports('preload')}catch(t){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){var e=t.media||'all';function a(){t.addEventListener?t.removeEventListener('load',a):t.attachEvent&&t.detachEvent('onload',a),t.setAttribute('onload',null),t.media=e}t.addEventListener?t.addEventListener('load',a):t.attachEvent&&t.attachEvent('onload',a),setTimeout(function(){t.rel='stylesheet',t.media='only x'}),setTimeout(a,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName('link'),n=0;n<a.length;n++){var o=a[n];'preload'!==o.rel||'style'!==o.getAttribute('as')||o.getAttribute('data-loadcss')||(o.setAttribute('data-loadcss',!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener('load',function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent('onload',function(){e.poly(),t.clearInterval(a)})}'undefined'!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}('undefined'!=typeof global?global:this);
+		</script>
+
+		<link href="/res/favicons/favicon.ico" rel="icon" type="image/x-icon" />
+		<link href="/res/favicons/apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57" />
+		<link href="/res/favicons/apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60" />
+		<link href="/res/favicons/apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72" />
+		<link href="/res/favicons/apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76" />
+		<link href="/res/favicons/apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114" />
+		<link href="/res/favicons/apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120" />
+		<link href="/res/favicons/apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144" />
+		<link href="/res/favicons/apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152" />
+		<link href="/res/favicons/apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180" />
+		<link href="/res/favicons/android-icon-192x192.png" rel="icon" type="image/png" sizes="192x192" />
+		<link href="/res/favicons/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32" />
+		<link href="/res/favicons/favicon-96x96.png" rel="icon" type="image/png" sizes="96x96" />
+		<link href="/res/favicons/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16" />
+		<link href="/res/favicons/manifest.json" rel="manifest" />
+
+		<meta name="msapplication-TileImage" content="/res/favicons/ms-icon-144x144.png" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="#0d4804" />
+		<meta name="msapplication-TileColor" content="#0d4804" />
+		<meta name="theme-color" content="#0d4804" />
+
+		
+					<script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7609448103131768" async crossorigin="anonymous"></script>
+			</head>
+
+	<body class="is-homepage">
+		<!-- header -->
+		<header class="header">
+	<!-- header top -->
+	<div class="container header__top">
+		<!-- logo -->
+		<a class="header__top-logo" href="/" title="Šumava.cz">
+			<h1>Šumava.cz</h1>
+			<img class="is-desktop" src="/res/images/logo.png" alt="Šumava.cz" width="351" height="47" />
+			<img class="is-mobile" src="/res/images/logo-mobile.png" alt="Šumava.cz" width="200" height="27" />
+		</a>
+
+		<!-- opens main menu on mobile -->
+		<button id="MainMenuToggle" class="navbar-toggler collapsed" type="button" aria-controls="MainMenu" aria-expanded="false" aria-label="Zobrazit menu" data-bs-target="#MainMenu" data-bs-toggle="collapse">
+			<span class="navbar-toggler__bar"></span>
+			<span class="navbar-toggler__bar"></span>
+			<span class="navbar-toggler__bar"></span>
+		</button>
+	</div>
+
+	<!-- header bottom -->
+	<div class="container header__bottom">
+		<!-- main menu -->
+		<nav id="MainMenu" class="navbar-collapse collapse">
+			<div class="main-menu-wrap">
+				<ul class="main-menu level-1">
+					<li class="dropdown">
+						<a class="dropdown-toggle color-red" href="/rozcestnik/" title="Šumava A-Z" aria-expanded="false">
+							<span>rozcestník</span>
+							<span class="dropdown-caret" tabindex="0" role="button" aria-label="Zobrazit submenu"></span>
+						</a>
+						<div class="dropdown-menu level2">
+							<ul>
+								<li>
+									<a href="/rozcestnik/" title="šumavský rozcestník" tabindex="-1"><span>rozcestník</span></a>
+								</li>
+								<li>
+									<a href="/firmy/" title="šumavské firmy" tabindex="-1"><span>firmy</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a class="color-orange" href="/ubytovani/" title="ubytování na Šumavě"><span>ubytování</span></a>
+					</li>
+					<li>
+						<a class="color-yellow" href="/e-shop/" title="šumavský e-shop"><span>e-shop</span></a>
+					</li>
+					<li class="is-inactive">
+						<a class="color-green-light" href="#" title="mapa Šumavy"><span>mapa</span></a>
+					</li>
+					<li>
+						<a class="color-green" href="/galerie/" title="šumavská galerie"><span>fotogalerie</span></a>
+					</li>
+					<li class="is-inactive">
+						<a class="color-blue-light" href="#" title="šumavské tipy"><span>tipy</span></a>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle color-default" href="#" title="Šumava - ostatní" aria-expanded="false" aria-haspopup="true" role="button">
+							<span>ostatní</span>
+							<span class="dropdown-caret" tabindex="0" role="button" aria-label="Zobrazit submenu"></span>
+						</a>
+						<div class="dropdown-menu level2">
+							<ul>
+								<li>
+									<a href="/kontakty/" title="Šumava - kontakty" tabindex="-1"><span>kontakty</span></a>
+								</li>
+								<li>
+									<a href="/obchodni-podminky/" title="Šumava - obchodní podmínky" tabindex="-1"><span>obchodní podmínky</span></a>
+								</li>
+								<li>
+									<a href="/prohlaseni-o-cookies/" title="Šumava - prohlášení o cookies" tabindex="-1"><span>prohlášení o cookies</span></a>
+								</li>
+								<li>
+									<a href="/mapa-stranek/" title="Šumava - mapa stránek" tabindex="-1"><span>mapa stránek</span></a>
+								</li>
+								<li>
+									<a href="/webmuzeum-zapalkovych-nalepek/" title="Šumava - webmuzeum zápalkových nálepek" tabindex="-1"><span>zápalkové nálepky</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+
+	<!-- header darkness -->
+	<div class="header__darkness"></div>
+</header>
+
+		<!-- slider -->
+		
+	<section class="slider">
+		<div class="swiper">
+			<div class="swiper-wrapper">
+													<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/1.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">nejstarší kamenný hrad v Čechách - Přimda</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/2.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">první elektrické tavení skla v ČSR - Annín</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/3.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">jediný mokřad v ČR na celosvětovém seznamu na ochranu mokřadů - Modravské slatě</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/4.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">nejdeštivějších místo v České republice - 1500 mm/rok - Březník</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/5.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">po Praze bývala rozlohou druhá největší obec na území Čech - Stodůlky</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/6.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">patrně jediné město na světě se všemi dochovanými bránami - Třeboň</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+														<div class="swiper-slide swiper-lazy" data-background="/res/images/slider/7.jpg">
+						<div class="container">
+							<div class="slider__inside">
+								<span class="slider__text">největší vodní elektrárna v západních Čechách - Čeňkova pila</span>
+								<span class="slider__title">zajímavosti ze Šumavy</span>
+							</div>
+						</div>
+					</div>
+												</div>
+			<div class="swiper-pagination"></div>
+		</div>
+	</section>
+
+		<!-- content -->
+		<section class="container content">
+			<div class="content__inside">
+				
+	<!-- attractions -->
+	<div class="section color-red">
+		<div class="section__line">
+			<h2 class="section__line-title">
+				<a href="/rozcestnik/" title="na Šumavě Vám doporučujeme navštívit">na Šumavě Vám doporučujeme navštívit</a>
+			</h2>
+			<div class="section__line-links">
+				<a class="section__line-link has-arrow" href="/rozcestnik/" title="šumavský rozcestník">zobrazit celý rozcestník</a>
+				<a class="section__line-link has-info" href="#" title="více informací">zobrazit info</a>
+				<a class="section__line-link has-search" href="#" title="vyhledávání v rozcestníku">vyhledávání</a>
+			</div>
+
+			<form class="section__line-search" action="/rozcestnik/" method="get"><div class="section__line-search-group"><label for="search-keyword--attractions">klíčové slovo</label><input id="search-keyword--attractions" type="text" name="keyword" value="" /></div><div class="section__line-search-group is-category"><label for="search-category--attractions">kategorie</label><select id="search-category--attractions" name="category"><option value="">nerozhoduje</option><option value="13">doprava</option><option value="1">instituce</option><option value="9">kultura a památky</option><option value="11">města a obce</option><option value="3">příroda</option><option value="5">sport a wellness</option><option value="15">vojenské</option><option value="7">zábava</option></select></div><div class="section__line-search-group is-subcategory"></div><div class="section__line-search-group"><label for="search-locality--attractions">lokalita</label><select id="search-locality--attractions" name="locality"><option value="1">Šumava</option><option value="4">budějovicko</option><option value="5">domažlicko</option><option value="6">horažďovicko</option><option value="7">churáňo-zadovsko</option><option value="31">jindřichohradecko</option><option value="8">kapličsko</option><option value="9">kašpersko</option><option value="10">klatovsko</option><option value="11">krumlovsko</option><option value="12">kvildsko</option><option value="13">lipensko</option><option value="14">modravsko</option><option value="2">Německo</option><option value="15">nepomucko</option><option value="32">novohradsko</option><option value="16">písecko</option><option value="17">plzeňsko</option><option value="18">prachaticko</option><option value="19">prášilsko</option><option value="3">Rakousko</option><option value="20">srňsko</option><option value="21">strakonicko</option><option value="22">sušicko</option><option value="23">špičácko</option><option value="1">Šumava</option><option value="24">táborsko</option><option value="25">tachovsko</option><option value="30">třeboňsko</option><option value="26">vimpersko</option><option value="27">volarsko</option><option value="28">vyšebrodsko</option><option value="29">železnorudsko</option></select></div><button class="btn btn-default btn-white" type="submit">vyhledat</button></form>		</div>
+
+					<div class="section__quote">
+				<p>Šumava (německy Böhmerwald) je rozsáhlé pásemné pohoří, které se nachází na jihozápadní hranici České republiky u hranic s Německem a Rakouskem. Její délka od údolí Chodské Úhlavy a Vyšebrodského průsmyku (kde navazuje na Český les) k Vyšebrodskému průsmyku je asi 120 km, maximální šířka Šumavy a jejího podhůří je 45km. Hřebenem Šumavy prochází hlavní evropské rozvodí mezi Černým a Severním mořem. Proto se také Šumavě přezdívá „zelená strecha Evropy“. Pohoří navazuje na bavorské stranně známé pod názvem Bavorský les - Bayerischer Wald a také rakouské straně. Tvoří tak velkou souvislou plochu, přičemž u našich sousedů klesá pohoří výrazně, na české straně pozvolně. Nad rozsáhlé ploché horské pláně vyčnívají klenby hlavních vrcholů. Nejvyšším vrcholem Šumavy je Velký Javor (1456 m n. m.) na bavorské straně hranice. Nejvyšším vrcholem české části je Plechý (1378 m n. m.) nad začátkem Lipenské přehradní nádrže. Šumava je mimořádně cenná, člověkem zatím málo dotčená přírodní krajina v minulosti díky svým pro člověka krutým životním podmínkám a v dobách totality díky zřízení pohraničního pásma. Proto byla na jejím území vyhlášena celá řada přírodních rezervací, které od roku 1963 zahrnula do svého chráněného území nově vyhlášená CHKO Šumava. V její nejcennější části byl zřízen roku 1991 národní park Šumava. Ten společně s ochranným pásmem, které je tvořeno zbytkem CHKOŠ, pokrývá většinu šumavského území. Šumava nabízí množství možností jak pro letní, tak pro zimní rekreaci, sport, zábavu, relaxaci a stojí za návštěvu v každém ročním období. V rubrice Šumava A-Z se Vám snažíme přinést souhrnný přehled všeho, co Vám Šumava nabízí a míst, které rozhodně stojí za návštěvu. Využijte nabídky levného ubytování na Šumavě, přičemž páteř ubytovacích služeb tvoří penziony Šumava.</p>
+<p>Možná zcela váháte kde strávit dovolenou, letní prázdniny, jarní prázdniny, zimní prázdniny, prodloužený víkend, víkend, Vánoční svátky, Silvestr, státní svátky ČR nebo státní svátky v SRN, pobyt s dětmi, nebo pobyt s malými dětmi, odpočinek, sportovní aktivitu na horách v zimní, letní sezonu i mimo sezónu. Nebo si nechcete nechat ujít houbařskou sezonu, vodácké sjezdy řek, odemykání a zamykání řek, odemykání a zamykání hradů a zámků, zajímavé večerní či kostýmované prohlídky hradů a zámků s průvodcem. Nebo jsme sportovní nadšenec a jezdíte na sportovní závody ve sjezdu, v běhu na lyžích, cyklomaratony (Král Šumavy), MTB bikerské sjezdy, rallye Šumava, rallye Vltava či hledáte vhodné letiště pro padákové seskoky? Chodíte na dlouhé pěší vycházky po horách a holdujete nordic walking? Nechcete nechat doma svého zvířecího miláčka a trávíte aktivní dovolenou se psem, kočkou? Hledáte jízdu na koni přírodou či pobyt na ranči? Preferujete koupání v akvaparku, v menším bazénu, na veřejném koupališti, v přehradní nádrži, či v řece? Sháníte volné pokoje na červen, červenec, silvestr?</p>
+<p>Možná váháte jestli navštívit Šumavu nebo jiné hory (například Krušné hory, Jizerské hory, Krkonoše, Jeseníky, Beskydy, Vysočinu)… Pak pro Šumavu hovoří to, že se jedná o území, které UNESCO prohlásilo za chráněnou a biosférickou oblast – vzdušné lázně. Šumava je pohoří s nejvyšší průměrnou nadmořskou výškou v České republice a díky jejímu uzavření vojenským pásmem při Železné oponě v době Studené války a následné důkladné ochraně Národním parkem Šumava a přilehlou Chráněnou krajinnou oblastí a řadou Přírodních rezervací k zachování unikátní panenské přírody. Spolu s Bavorským národním parkem tvoří Zelenou střechu Evropy – nejrozlehlejší zalesněný komplex ve střední Evropě. Toužíte projet Šumavu na kole nebo jít vycházkou s průvodcem (vycházky divočinou s průvodcem NP Šumava) jako návštěvníci jinak uzavřených míst (zóny NP Šumava)? Láká Vás řeka Vltava, Otava a Vydra, nebo stojaté vody jako Lipenská přehrada či přírodní ledovcová jezera (Černé, Čertovo, Prášilské, Plešné, jezero Laka, malé Javorské jezero a Velké jezero). Šumava je ideální pro Váš volný čas, celý region je vhodný na výlety na kole v zimě na běžecké lyžování a sjezd. Dostupné sněhového zpravodajství informuje o podmínkách pro zimní sporty na Šumavě. Nemusíte sledovat počasí na příští týden, neboť i v případě nepřízně počasí je možností vyžití ve volném čase a rekreace na Šumavě dostatek.</p>
+<p>Chcete chodit po místech kde se natáčela Divá Bára, Zmizelá Šumava nebo Policie Modrava? Šumava to je nejen příroda, lesy, louky, vodní toky, jezera, největší přehradní nádrž v Česku - Lipno, turistické trasy, cyklostezky, běžecké stopy (velmi atraktivní je Modrava), sjezdovky a skiareály (od Hojsovy Stráže, Špičák, Železná Ruda po Lipno nebo německý Velký Javor či hornorakouský Hochficht), tedy oblast s přepestrou nabídkou zábavných, sportovních a adrenalinových příležitostí. To vše dohromady tvoří ideální podmínky pro  pohodovou a přitom aktivní rodinnou dovolenou s dětmi či psem na Šumavě.  Turisticky zaměřeným rodinám s dětmi se budou líbit nekonečné turistické či cyklistické toulky Šumavou. Cílem mohou být známé hrady Velhartice, Kašperk, Rábí.</p>
+<p>Pro Vaši rekreaci je k dispozici velká řádka ubytování od kempů, chatek, horských chat přes ubytování v soukromí, penzionech až po rozsáhlé hotelové komplexy. Každý typ ubytování má svoje výhody. Námi nabízené ubytování v apartmánech Vám sice neposkytuje stravování (snídaně, polopenze, plná penze), ale k dispozici je Vám vybavená kuchyňka, blízký obchod s potravinami a restaurace v sousedství kterou je možné využít na snídaně, obědy, večeře, posezení i piva či kávy. Kuchyně samozřejmě čistá stejně jako koupelna. Téměř vždy se najdou volné pokoje na červen, červenec, silvestr.</p>
+<p>Na Šumavě naleznete turistické, sportovní, rekreační lokality soustředěné kolem větších měst a městeček jako Klatovy, Sušice, Nýrsko, Železná Ruda, Prášily, Hartmanice, Horažďovice, Domažlice, Kašperské Hory, Srní, Modrava, Kvilda, Borová Lada, Zadov, Churáňov, Stachy, Javorník, Boubín, Vimperk, Volary, Stožec, Lipensko, Český Krumlov. Železná Ruda patří mezi největší střediska zimních i letních sportů, rekreace a turistiky na Šumavě a v Bavorském lese. Železná Ruda je jedním z největších mimoaplských center ve střední Evropě s pestrými možnostmi rekreace ve všech ročních obdobích. Hory si zachovávají své kouzlo po všechna roční období. Železná Ruda leží na trase Praha – Plzeň – Železná Ruda – Deggendorf – Landshut – Mnichov (E53). Železná Ruda je vzdálena 80 km od Plzně, 170 kilometrů od Prahy, 40 kilometrů od Klatov a 190 kilometrů od Mnichova. Rozmanitost terénu v Železné Rudě na Šumavě nabízí po celý rok široké možnosti využití - od rekreační turistiky, cyklistiky až po sportovně založené aktivity.</p>
+<p>Mezi známé akce na Železné Rudě patří Rysí slavnosti, Železnorudské slavnosti a turistické cíle jako Velký Javor, Černé a Čertovo jezero, Bílá Strž, vrchol Svaroh, areály Samoty, Belveder, Nad nádražím. Vhodné tipy na rekreaci, sport, zábavu Vám poskytnou informační střediska. Mezi oblíbená a nesmírně atraktivní místa patří také Jezerní slať, vrcholek Boubín s pralesem a rozhlednou anebo hora Poledník s rozhlednou a nádherným kruhovým výhledem.</p>			</div>
+		
+		<div class="row section__list">
+							<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/rozcestnik/priroda/voda-vodopady/vodopad-rissloch-d/" title="vodopád Rissloch (D)">
+															
+								<img class="lazyload" src="/res/images/attractions/thumbs/255.jpg" alt="vodopád Rissloch (D)" width="343" height="232" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/rozcestnik/priroda/voda-vodopady/vodopad-rissloch-d/" title="vodopád Rissloch (D)">vodopád Rissloch (D)</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/rozcestnik/priroda/" title="příroda">příroda</a>
+
+																			/ <a href="/rozcestnik/priroda/voda-vodopady/" title="voda - vodopády">voda - vodopády</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> Německo<br />
+								
+																	<strong>GPS:</strong> 49°5'19.737"N, 13°7'10.412"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/rozcestnik/priroda/voda-vodopady/vodopad-rissloch-d/" title="vodopád Rissloch (D)">zobrazit více</a>
+					</div>
+				</div>
+							<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/rozcestnik/priroda/voda-ledovcova-jezera/prasilske-jezero-ledovcove/" title="Prášilské jezero (ledovcové)">
+															
+								<img class="lazyload" src="/res/images/attractions/thumbs/222.jpg" alt="Prášilské jezero (ledovcové)" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/rozcestnik/priroda/voda-ledovcova-jezera/prasilske-jezero-ledovcove/" title="Prášilské jezero (ledovcové)">Prášilské jezero (ledovcové)</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/rozcestnik/priroda/" title="příroda">příroda</a>
+
+																			/ <a href="/rozcestnik/priroda/voda-ledovcova-jezera/" title="voda - ledovcová jezera">voda - ledovcová jezera</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> prášilsko<br />
+								
+																	<strong>GPS:</strong> 49°4'31.999"N, 13°23'59.999"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/rozcestnik/priroda/voda-ledovcova-jezera/prasilske-jezero-ledovcove/" title="Prášilské jezero (ledovcové)">zobrazit více</a>
+					</div>
+				</div>
+							<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/rozcestnik/priroda/voda-slate/chalupska-slat/" title="Chalupská slať">
+															
+								<img class="lazyload" src="/res/images/attractions/thumbs/247.jpg" alt="Chalupská slať" width="343" height="229" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/rozcestnik/priroda/voda-slate/chalupska-slat/" title="Chalupská slať">Chalupská slať</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/rozcestnik/priroda/" title="příroda">příroda</a>
+
+																			/ <a href="/rozcestnik/priroda/voda-slate/" title="voda - slatě">voda - slatě</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> kvildsko<br />
+								
+																	<strong>GPS:</strong> 49°0'41.31"N; 13°39'36.91"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/rozcestnik/priroda/voda-slate/chalupska-slat/" title="Chalupská slať">zobrazit více</a>
+					</div>
+				</div>
+							<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/rozcestnik/kultura-a-pamatky/hrady/hrad-velhartice/" title="hrad Velhartice">
+															
+								<img class="lazyload" src="/res/images/attractions/thumbs/571.jpg" alt="hrad Velhartice" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/rozcestnik/kultura-a-pamatky/hrady/hrad-velhartice/" title="hrad Velhartice">hrad Velhartice</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/rozcestnik/kultura-a-pamatky/" title="kultura a památky">kultura a památky</a>
+
+																			/ <a href="/rozcestnik/kultura-a-pamatky/hrady/" title="hrady">hrady</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> sušicko<br />
+								
+																	<strong>GPS:</strong> 49°15'46.503"N, 13°23'58.743"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/rozcestnik/kultura-a-pamatky/hrady/hrad-velhartice/" title="hrad Velhartice">zobrazit více</a>
+					</div>
+				</div>
+							<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/rozcestnik/mesta-a-obce/mesta-a-obce/velhartice/" title="Velhartice">
+															
+								<img class="lazyload" src="/res/images/attractions/thumbs/129.jpg" alt="Velhartice" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/rozcestnik/mesta-a-obce/mesta-a-obce/velhartice/" title="Velhartice">Velhartice</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/rozcestnik/mesta-a-obce/" title="města a obce">města a obce</a>
+
+																			/ <a href="/rozcestnik/mesta-a-obce/mesta-a-obce/" title="města a obce">města a obce</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> sušicko<br />
+								
+																	<strong>GPS:</strong> 49°15'58.024"N, 13°23'30.163"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/rozcestnik/mesta-a-obce/mesta-a-obce/velhartice/" title="Velhartice">zobrazit více</a>
+					</div>
+				</div>
+							<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/rozcestnik/priroda/voda-vodopady/vodopad-bila-strz/" title="vodopád Bílá Strž">
+															
+								<img class="lazyload" src="/res/images/attractions/thumbs/254.jpg" alt="vodopád Bílá Strž" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/rozcestnik/priroda/voda-vodopady/vodopad-bila-strz/" title="vodopád Bílá Strž">vodopád Bílá Strž</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>kategorie:</strong> <a href="/rozcestnik/priroda/" title="příroda">příroda</a>
+
+																			/ <a href="/rozcestnik/priroda/voda-vodopady/" title="voda - vodopády">voda - vodopády</a>
+																		<br />
+								
+																	<strong>lokalita:</strong> špičácko<br />
+								
+																	<strong>GPS:</strong> 49°11'23.866"N, 13°9'25.839"E<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/rozcestnik/priroda/voda-vodopady/vodopad-bila-strz/" title="vodopád Bílá Strž">zobrazit více</a>
+					</div>
+				</div>
+					</div>
+	</div>
+
+	<div class="section__gad">
+		<!-- google ad -->
+		<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7609448103131768" data-ad-slot="4369789530" data-ad-format="auto" data-full-width-responsive="true"></ins>
+		<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+		</script>
+	</div>
+
+	<!-- apartments -->
+	<div class="section color-orange">
+		<div class="section__line">
+			<h2 class="section__line-title">
+				<a href="/ubytovani/" title="nabídky ubytování na Šumavě">nabídky ubytování na Šumavě</a>
+			</h2>
+			<div class="section__line-links">
+				<a class="section__line-link has-arrow" href="/ubytovani/" title="všechny nabídky ubytování na Šumavě">zobrazit všechny nabídky</a>
+				<a class="section__line-link has-info" href="#" title="více informací">zobrazit info</a>
+				<a class="section__line-link has-search" href="#" title="vyhledávání ubytování">vyhledávání</a>
+			</div>
+
+			<form class="section__line-search" action="/ubytovani/" method="get"><div class="section__line-search-group is-subcategory"></div><div class="section__line-search-group"><label for="search-locality--apartments">lokalita</label><select id="search-locality--apartments" name="locality"><option value="1">Šumava</option><option value="4">budějovicko</option><option value="5">domažlicko</option><option value="6">horažďovicko</option><option value="7">churáňo-zadovsko</option><option value="31">jindřichohradecko</option><option value="8">kapličsko</option><option value="9">kašpersko</option><option value="10">klatovsko</option><option value="11">krumlovsko</option><option value="12">kvildsko</option><option value="13">lipensko</option><option value="14">modravsko</option><option value="2">Německo</option><option value="15">nepomucko</option><option value="32">novohradsko</option><option value="16">písecko</option><option value="17">plzeňsko</option><option value="18">prachaticko</option><option value="19">prášilsko</option><option value="3">Rakousko</option><option value="20">srňsko</option><option value="21">strakonicko</option><option value="22">sušicko</option><option value="23">špičácko</option><option value="1">Šumava</option><option value="24">táborsko</option><option value="25">tachovsko</option><option value="30">třeboňsko</option><option value="26">vimpersko</option><option value="27">volarsko</option><option value="28">vyšebrodsko</option><option value="29">železnorudsko</option></select></div><div class="section__line-search-group"><label for="search-type--apartments">typ</label><select id="search-type--apartments" name="type"><option value="">nerozhoduje</option><option value="1">apartmán</option><option value="2">apartmánový dům</option><option value="3">farmy a statky</option><option value="4">hostel</option><option value="5">hotel **</option><option value="6">hotel ***</option><option value="7">hotel ****</option><option value="8">hotel *****</option><option value="9">chalupa</option><option value="10">chata</option><option value="11">kemp</option><option value="12">lázně</option><option value="13">penzion</option><option value="14">zámek</option></select></div><div class="section__line-search-group"><label for="search-price--apartments">cena</label><select id="search-price--apartments" name="price"><option value="100000">nerozhoduje</option><option value="200">do 200</option><option value="300">do 300</option><option value="450">do 450</option><option value="600">do 600</option><option value="800">do 800</option></select></div><button class="btn btn-default btn-white" type="submit">vyhledat</button></form>		</div>
+
+					<div class="section__quote">
+				<p>Ubytování Šumava: Šumava nabízí velký výběr z různých typů ubytovacích zařízení a to velmi levně bez ztráty kvality. Vybírat můžete z nabídky od pronájmu celých chat a chalup přes ubytování v menších i větších penzionech až po rodinné hotely nebo velké hotelové komplexy. Vhodný horský hotel, chatu a chalupu, penzion, zámek, kemp naleznete podle potřeb na samotách v přírodě nebo blíže k civilizaci v jednotlivých šumavských obcích či větších městech. K dispozici k levnému a kvalitnímu ubytování jsou Vám i autokempy, kempy, horské chaty a chaty, prastaré chalupy, ubytování v soukromí, penziony, apartmány a apartmánové domy. Páteří turistických služeb jsou penziony Šumava. Šumava a jižní Čechy, to je pravá česká levná dovolená. Oblíbené turistické lokality jsou městečka a osady jako Borová Lada, Filipova Huť, Kvilda, Horská Kvilda, Modrava, Špičák, Železná Ruda. Nebo lipenská oblast města v okolí přehradní nádrže Lipno jako Horní Planá, Frymburk, Nová Pec, Černá v Pošumaví. Vyhledávaná jsou ale také větší města jako Klatovy, Kašperské Hory, Sušice, Prachatice, Český Krumlov a Vyšší Brod. Šumava levné ubytování pro Vás!</p>			</div>
+		
+		<div class="row section__list">
+							<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/ubytovani/valmi/" title="Valmi">
+															
+								<img class="lazyload" src="/res/images/apartments/thumbs/76.jpg" alt="Valmi" width="343" height="228" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/ubytovani/valmi/" title="Valmi">Valmi</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>lokalita:</strong> železnorudsko<br />
+								
+																	<strong>obec:</strong> Železná Ruda<br />
+								
+																	<strong>kapacita ubytování:</strong> 28<br />
+								
+																	<strong>cena ubytování:</strong> od 250 Kč<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/ubytovani/valmi/" title="Valmi">zobrazit více</a>
+					</div>
+				</div>
+							<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/ubytovani/drexler/" title="Drexler">
+															
+								<img class="lazyload" src="/res/images/apartments/thumbs/91.jpg" alt="Drexler" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/ubytovani/drexler/" title="Drexler">Drexler</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>lokalita:</strong> srňsko<br />
+								
+																	<strong>obec:</strong> Srní<br />
+								
+								
+																	<strong>cena ubytování:</strong> od 330 Kč<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/ubytovani/drexler/" title="Drexler">zobrazit více</a>
+					</div>
+				</div>
+							<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/ubytovani/sumavska-chalupa/" title="Šumavská chalupa">
+															
+								<img class="lazyload" src="/res/images/apartments/thumbs/207.jpg" alt="Šumavská chalupa" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/ubytovani/sumavska-chalupa/" title="Šumavská chalupa">Šumavská chalupa</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>lokalita:</strong> sušicko<br />
+								
+																	<strong>obec:</strong> Annín<br />
+								
+																	<strong>kapacita ubytování:</strong> 12<br />
+								
+																	<strong>cena ubytování:</strong> od 250 Kč<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/ubytovani/sumavska-chalupa/" title="Šumavská chalupa">zobrazit více</a>
+					</div>
+				</div>
+							<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/ubytovani/sumavska-roubenka/" title="Šumavská roubenka">
+															
+								<img class="lazyload" src="/res/images/apartments/thumbs/224.jpg" alt="Šumavská roubenka" width="343" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/ubytovani/sumavska-roubenka/" title="Šumavská roubenka">Šumavská roubenka</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>lokalita:</strong> sušicko<br />
+								
+																	<strong>obec:</strong> Annín<br />
+								
+																	<strong>kapacita ubytování:</strong> 20<br />
+								
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/ubytovani/sumavska-roubenka/" title="Šumavská roubenka">zobrazit více</a>
+					</div>
+				</div>
+							<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/ubytovani/jiricna/" title="Jiřičná">
+															
+								<img class="lazyload" src="/res/images/apartments/thumbs/196.jpg" alt="Jiřičná" width="342" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/ubytovani/jiricna/" title="Jiřičná">Jiřičná</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>lokalita:</strong> sušicko<br />
+								
+																	<strong>obec:</strong> Jiřičná<br />
+								
+																	<strong>kapacita ubytování:</strong> 40<br />
+								
+																	<strong>cena ubytování:</strong> od 330 Kč<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/ubytovani/jiricna/" title="Jiřičná">zobrazit více</a>
+					</div>
+				</div>
+							<div class="col-12 col-sm-6 col-lg-4 section__item">
+					<div class="section__item-inside">
+						<a class="lazyload-wrap section__item-image" href="/ubytovani/apartmany-rudik-zelezna-ruda/" title="apartmány Rudík, Železná Ruda">
+															
+								<img class="lazyload" src="/res/images/apartments/thumbs/156.jpg" alt="apartmány Rudík, Železná Ruda" width="341" height="257" />
+													</a>
+						<h3 class="section__item-label">
+							<a href="/ubytovani/apartmany-rudik-zelezna-ruda/" title="apartmány Rudík, Železná Ruda">apartmány Rudík, Železná Ruda</a>
+						</h3>
+						<div class="section__item-text">
+							<p>
+																	<strong>lokalita:</strong> železnorudsko<br />
+								
+																	<strong>obec:</strong> Železná Ruda<br />
+								
+																	<strong>kapacita ubytování:</strong> 20<br />
+								
+																	<strong>cena ubytování:</strong> od 250 Kč<br />
+															</p>
+						</div>
+						<a class="btn btn-default btn-gray" href="/ubytovani/apartmany-rudik-zelezna-ruda/" title="apartmány Rudík, Železná Ruda">zobrazit více</a>
+					</div>
+				</div>
+					</div>
+	</div>
+			</div>
+		</section>
+
+		<!-- footer -->
+		<footer class="footer">
+	<div class="container">
+		<p>
+			&copy; sumava.cz 1996 - 2024			<span class="footer__delimiter">|</span>
+			<span>všechna práva vyhrazena</span>
+			<span class="footer__delimiter">|</span>
+			<a href="/kontakty/" title="kontakty">kontakty</a>
+			<span class="footer__delimiter">|</span>
+			<a href="/mapa-stranek/" title="mapa stránek">mapa stránek</a>
+			<br />
+			<span>e-mail: <a href="mailto:info@sumava.cz" title="info@sumava.cz">info@sumava.cz</a></span>
+		</p>
+		<p>
+			<a href="/obchodni-podminky/" title="obchodní podmínky">obchodní podmínky</a>
+			<span class="footer__delimiter">|</span>
+			<a href="/prohlaseni-o-cookies/" title="prohlášení o cookies">prohlášení o cookies</a>
+			<br />
+			<a href="/webmuzeum-zapalkovych-nalepek/" title="webmuzeum zápalkových nálepek">webmuzeum zápalkových nálepek</a>
+			<span class="footer__delimiter">|</span>
+			<a href="http://www.webmuzeum.sumava.cz/" title="webmuzeum starých webových stránek (odkaz)" target="_blank" rel="noreferrer">webmuzeum starých webových stránek (odkaz)</a>
+		</p>
+		<p>
+			<a href="http://www.sumava.cz" title="www.sumava.cz">www.sumava.cz</a>
+			<span class="footer__delimiter">|</span>
+			<a href="http://www.retourex.cz" title="www.retourex.cz" target="_blank" rel="noreferrer">www.retourex.cz</a>
+			<span class="footer__delimiter">|</span>
+			<a href="http://www.spaceorigin.com" title="www.spaceorigin.com" target="_blank" rel="noreferrer">www.spaceorigin.com</a>
+		</p>
+		<a href="https://www.facebook.com/www.sumava.cz/" title="Šumava.cz na Facebooku" target="_blank" rel="noreferrer">
+			<img class="lazyload" src="/res/images/icon-fb.png" alt="Šumava.cz na Facebooku" width="150" height="52" />
+		</a>
+	</div>
+</footer>
+
+					<script src="/res/js/vendor/bootstrap/dom/data.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dom/event-handler.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dom/manipulator.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dom/selector-engine.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/base-component.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/collapse.min.js"></script>
+			<script src="/res/js/vendor/bootstrap/dropdown.min.js"></script>
+
+			<script src="/res/js/vendor/swiper.min.js"></script>
+			<script src="/res/js/vendor/lazysizes.min.js"></script>
+			<script src="/res/js/vendor/lazysizes.unveilhooks.min.js"></script>
+
+			
+			<script src="/res/js/class/Web.min.js"></script>
+			<script src="/res/js/class/MainMenu.min.js"></script>
+
+			<script src="/res/js/functions.min.js"></script>
+			<script src="/res/js/init.min.js"></script>
+		
+			</body>
+</html>
