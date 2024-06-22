@@ -117,10 +117,10 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 				],
 				'https://www.google.com/maps/place/Zelend%C3%A1rky/@49.2069545,14.2495123,15z/data=!4m5!3m4!1s0x0:0x3ad3965c4ecb9e51!8m2!3d49.2113282!4d14.2553488',
 			],
-			[[[36.826460,22.528715, GoogleMapsService::TYPE_MAP]], 'https://www.google.cz/maps/@36.8264601,22.5287146,9.33z'],
-			[[[49.333511,14.296174, GoogleMapsService::TYPE_PLACE], [49.3339819,14.2956352, GoogleMapsService::TYPE_MAP]], 'https://www.google.cz/maps/place/49%C2%B020\'00.6%22N+14%C2%B017\'46.2%22E/@49.3339819,14.2956352,18.4z/data=!4m5!3m4!1s0x0:0x0!8m2!3d49.333511!4d14.296174'],
-			[[[49.308853,14.146589, GoogleMapsService::TYPE_PLACE], [49.3088543,14.1454615, GoogleMapsService::TYPE_MAP]], 'https://www.google.cz/maps/place/Hrad+P%C3%ADsek/@49.3088543,14.1454615,391m/data=!3m1!1e3!4m12!1m6!3m5!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!2sHrad+P%C3%ADsek!8m2!3d49.3088525!4d14.1465894!3m4!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!8m2!3d49.3088525!4d14.1465894'],
-			[[[50.101271,14.528882, GoogleMapsService::TYPE_PLACE], [50.101271,14.528108, GoogleMapsService::TYPE_MAP]], 'https://www.google.com/maps/place/50%C2%B006\'04.6%22N+14%C2%B031\'44.0%22E/@50.101271,14.5281082,18z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d50.1012711!4d14.5288824?shorturl=1'],
+			[[[36.826460, 22.528715, GoogleMapsService::TYPE_MAP]], 'https://www.google.cz/maps/@36.8264601,22.5287146,9.33z'],
+			[[[49.333511, 14.296174, GoogleMapsService::TYPE_PLACE], [49.3339819, 14.2956352, GoogleMapsService::TYPE_MAP]], 'https://www.google.cz/maps/place/49%C2%B020\'00.6%22N+14%C2%B017\'46.2%22E/@49.3339819,14.2956352,18.4z/data=!4m5!3m4!1s0x0:0x0!8m2!3d49.333511!4d14.296174'],
+			[[[49.308853, 14.146589, GoogleMapsService::TYPE_PLACE], [49.3088543, 14.1454615, GoogleMapsService::TYPE_MAP]], 'https://www.google.cz/maps/place/Hrad+P%C3%ADsek/@49.3088543,14.1454615,391m/data=!3m1!1e3!4m12!1m6!3m5!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!2sHrad+P%C3%ADsek!8m2!3d49.3088525!4d14.1465894!3m4!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!8m2!3d49.3088525!4d14.1465894'],
+			[[[50.101271, 14.528882, GoogleMapsService::TYPE_PLACE], [50.101271, 14.528108, GoogleMapsService::TYPE_MAP]], 'https://www.google.com/maps/place/50%C2%B006\'04.6%22N+14%C2%B031\'44.0%22E/@50.101271,14.5281082,18z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d50.1012711!4d14.5288824?shorturl=1'],
 		];
 	}
 
@@ -199,8 +199,8 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 		return [
 			__FUNCTION__ . ' Baumax Michle (normal)' => [
 				[
-					[50.056068,14.472953, GoogleMapsService::TYPE_PLACE],
-					[50.054355,14.476390, GoogleMapsService::TYPE_MAP],
+					[50.056068, 14.472953, GoogleMapsService::TYPE_PLACE],
+					[50.054355, 14.476390, GoogleMapsService::TYPE_MAP],
 				],
 				'https://www.google.com/maps/place/bauMax/@50.0543547,14.4763896,16.75z/data=!4m5!3m4!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2!8m2!3d50.0560684!4d14.4729532?shorturl=1',
 			],
@@ -217,8 +217,8 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 		return [
 			__FUNCTION__ . ' Baumax Michle (short)' => [
 				[
-					[50.056068,14.472953, GoogleMapsService::TYPE_PLACE],
-					[50.054355,14.476390, GoogleMapsService::TYPE_MAP],
+					[50.056068, 14.472953, GoogleMapsService::TYPE_PLACE],
+					[50.054355, 14.476390, GoogleMapsService::TYPE_MAP],
 				],
 				'https://goo.gl/maps/AK13hVJLjnveWZqJA',
 			],
@@ -232,15 +232,15 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	{
 		$datasets = [
 			__FUNCTION__ . ' Baumax' => [
-				[[50.056156,14.472952, GoogleMapsService::TYPE_PLACE, '<a href="https://www.baumax.cz/">bauMax</a>']],
+				[[50.056156, 14.472952, GoogleMapsService::TYPE_PLACE, '<a href="https://www.baumax.cz/">bauMax</a>']],
 				'https://www.google.com/maps/place/bauMax,+Chodovsk%C3%A1+1549%2F18,+101+00+Praha+10/data=!4m2!3m1!1s0x470b93a27e4781c5:0xeca4ac5483aa4dd2?utm_source=mstt_1&entry=gps',
 			],
 			__FUNCTION__ . ' Lemour Sušice' => [
-				[[49.231830,13.521600, GoogleMapsService::TYPE_PLACE, '<a href="https://www.facebook.com/pages/Café-LAmour/632972443431373?fref=ts">Café L\'Amour</a>']],
+				[[49.231830, 13.521600, GoogleMapsService::TYPE_PLACE, '<a href="https://www.facebook.com/pages/Café-LAmour/632972443431373?fref=ts">Café L\'Amour</a>']],
 				'https://www.google.com/maps/place/Caf%C3%A9+Lamour,+n%C3%A1b%C5%99.+Karla+Houry+180,+342+01+Su%C5%A1ice/data=!4m2!3m1!1s0x470b2b2fad7dd1c3:0x6c66c5beca8a4117?utm_source=mstt_1&entry=gps',
 			],
 			__FUNCTION__ . ' Dacia Průhonice' => [
-				[[50.002966,14.569240, GoogleMapsService::TYPE_PLACE, '<a href="https://www.daciapruhonice.cz/">Dacia Průhonice - Pyramida Průhonice</a>']],
+				[[50.002966, 14.569240, GoogleMapsService::TYPE_PLACE, '<a href="https://www.daciapruhonice.cz/">Dacia Průhonice - Pyramida Průhonice</a>']],
 				'https://www.google.com/maps/place/Dacia+Pr%C5%AFhonice+-+Pyramida+Pr%C5%AFhonice,+u+Prahy,+U+Pyramidy+721,+252+43+Pr%C5%AFhonice/data=!4m2!3m1!1s0x470b8f7265f22517:0xd2786b5c9cd599cd?utm_source=mstt_1&entry=gps&g_ep=CAESCTExLjYzLjcwNBgAIIgnKgBCAkNa',
 			],
 		];
@@ -263,19 +263,19 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	{
 		$datasets = [
 			__FUNCTION__ . ' Baumax' => [ // same as previous but short URL
-				[[50.056156,14.472952, GoogleMapsService::TYPE_PLACE, '<a href="https://www.baumax.cz/">bauMax</a>']],
+				[[50.056156, 14.472952, GoogleMapsService::TYPE_PLACE, '<a href="https://www.baumax.cz/">bauMax</a>']],
 				'https://maps.app.goo.gl/X5bZDTSFfdRzchGY6',
 			],
 			__FUNCTION__ . ' Lemour Sušice' => [ // same as previous but short URL
-				[[49.231830,13.521600, GoogleMapsService::TYPE_PLACE, '<a href="https://www.facebook.com/pages/Café-LAmour/632972443431373?fref=ts">Café L\'Amour</a>']],
+				[[49.231830, 13.521600, GoogleMapsService::TYPE_PLACE, '<a href="https://www.facebook.com/pages/Café-LAmour/632972443431373?fref=ts">Café L\'Amour</a>']],
 				'https://maps.app.goo.gl/C4FjaU9CXsHuMrobA',
 			],
 			__FUNCTION__ . ' Dacia Průhonice' => [
-				[[50.002966,14.569240, GoogleMapsService::TYPE_PLACE, '<a href="https://www.daciapruhonice.cz/">Dacia Průhonice - Pyramida Průhonice</a>']],
+				[[50.002966, 14.569240, GoogleMapsService::TYPE_PLACE, '<a href="https://www.daciapruhonice.cz/">Dacia Průhonice - Pyramida Průhonice</a>']],
 				'https://maps.app.goo.gl/NM78pUenb1hVA3nX8',
 			],
 			__FUNCTION__ . ' Mount Victoria Lookout' => [
-				[[-41.296057,174.794310, GoogleMapsService::TYPE_PLACE, '<a href="http://www.wellingtonnz.com/discover/things-to-do/sights-activities/mount-victoria-lookout/">Mount Victoria Lookout</a>']],
+				[[-41.296057, 174.794310, GoogleMapsService::TYPE_PLACE, '<a href="http://www.wellingtonnz.com/discover/things-to-do/sights-activities/mount-victoria-lookout/">Mount Victoria Lookout</a>']],
 				'https://maps.app.goo.gl/PRwZr2cHQLfqxbNw9',
 			],
 		];
@@ -304,11 +304,7 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 
 	/**
 	 * @group request
-	 * @dataProvider processProvider
-	 * @dataProvider processCoordsInUrlProvider
 	 * @dataProvider processShortUrlProvider
-	 * @dataProvider processStreetViewUrlProvider
-	 * @dataProvider processShareNormalUrlPCBrowser
 	 * @dataProvider processShareShortUrlPCBrowser
 	 * @dataProvider processShareNormalUrlPhoneProvider
 	 * @dataProvider processShareShortUrlPhoneProvider
@@ -320,11 +316,23 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	}
 
 	/**
-	 * @group request
 	 * @dataProvider processProvider
 	 * @dataProvider processCoordsInUrlProvider
 	 * @dataProvider processStreetViewUrlProvider
 	 * @dataProvider processShareNormalUrlPCBrowser
+	 */
+	public function testProcessWithoutRequest(array $expectedResults, string $input): void
+	{
+		$service = new GoogleMapsService($this->httpTestClients->mockedRequestor);
+		$this->testProcess($service, $expectedResults, $input);
+	}
+
+	/**
+	 * @dataProvider processShortUrlProvider
+	 * @dataProvider processShareNormalUrlPCBrowser
+	 * @dataProvider processShareShortUrlPCBrowser
+	 * @dataProvider processShareNormalUrlPhoneProvider
+	 * @dataProvider processShareShortUrlPhoneProvider
 	 */
 	public function testProcessOffline(array $expectedResults, string $input): void
 	{
