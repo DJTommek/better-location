@@ -4,9 +4,19 @@ namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\ZanikleObceCzService;
+use Tests\HttpTestClients;
 
 final class ZanikleObceCzServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return ZanikleObceCzService::class;
@@ -107,7 +117,7 @@ final class ZanikleObceCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new ZanikleObceCzService();
+		$service = new ZanikleObceCzService($this->httpTestClients->mockedRequestor);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -116,9 +126,19 @@ final class ZanikleObceCzServiceTest extends AbstractServiceTestCase
 	 * @dataProvider processtUrlObecProvider
 	 * @dataProvider processUrlDetailProvider
 	 */
-	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
+	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new ZanikleObceCzService();
+		$service = new ZanikleObceCzService($this->httpTestClients->realRequestor);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+	}
+
+	/**
+	 * @dataProvider processtUrlObecProvider
+	 * @dataProvider processUrlDetailProvider
+	 */
+	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
+	{
+		$service = new ZanikleObceCzService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 

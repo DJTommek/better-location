@@ -1,0 +1,142 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html><HTML><HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1250">
+<title>M�sta, obce, osady, samoty a objekty zanikl� nebo ��ste�n� zanikl� (dobov� pohlednice, historie, vojensk� mapy, m�stopis)</title>
+<META name="author" content="Pavel Beran, Kl�terec nad Oh��, beran@seznam.cz">
+<META name="keywords" lang="en" content="destroyed disappeared places towns villages">
+<META name="keywords" lang="cs" content="dobov� pohlednice, star� pohlednice, pohledy, fotografie, mapy, zanikl�, zmizel�, zni�en�, zlikvidovan�, m�sta, obce, osady, samoty">
+<META name="keywords" lang="cs" content="vojensk� mapy">
+<META name="keywords" lang="cs" content="vojensk� v�cvikov� prostor, VVP, hradi�t�, doupov, jince, brdy, prameny, libav�, boletice, odsun n�mc� ">
+
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+<META name="DC.Title" content="Zanikl� obce po roce 1945" />
+<META name="DC.Creator" content="Ing. Pavel Beran " />
+<META name="DC.Subject" scheme="PHNK" content="zanikl� obce " />
+<META name="DC.Subject" scheme="PHNK" content="d�jiny " />
+<META name="DC.Subject" scheme="PHNK" content="geografie" />
+<META name="DC.Subject" scheme="MDT_MRF" content="911.373-021.142 " />
+<META name="DC.Subject" scheme="MDT_MRF" content="93/94 " />
+<META name="DC.Subject" scheme="MDT_MRF" content="37.016:91 " />
+<META name="DC.Subject" scheme="MDT_KON" content="911 - Obecn� geografie. Systematick� geografie " />
+<META name="DC.Subject" scheme="MDT_KON" content="93/94 - D�jiny (obecn�) " />
+<META name="DC.Subject" scheme="LCC" content="911 - Historical geography" />
+<META name="DC.Description.abstract" content="Port�l obsahuj�c� informace o obc�ch a m�stech, kter� zanikly na �zem� �R. Zve�ejn�ny jsou �l�nky, dobov� obr�zky/pohlednice a novodob� obr�zky t�kaj�c� se v��e uveden� t�matiky. " />
+<META name="DC.Publisher" content="Ing. Pavel Beran" />
+<META name="DC.Publisher.address" content="beran@seznam.cz" />
+<META name="DC.Date" content="2006-27-02" />
+<META name="DC.Format.medium" content="computerFile" />
+<META name="DC.Identifier" content="http://www.zanikleobce.cz" />
+<META name="DC.Identifier" scheme="URN" content="URN:NBN:cz-nk2006129" />
+<META name="DC.Language" scheme="RFC3066" content="cze" />
+<META name="DC.Coverage.spatial" scheme="PHNK" content="�esko" />
+<META name="DC.Coverage.spatial" scheme="PHNK" content="Sudety (�esko) " />
+<META name="DC.Rights" content="Copyright 2005-2015 zanikleobce.cz Pavel Beran" />
+
+<META property="og:title" content="www.zanikleobce.cz">
+<META property="og:description" content="M�sta, obce, osady, samoty a objekty zanikl� nebo ��ste�n� zanikl� (dobov� pohlednice, historie, vojensk� mapy, m�stopis)">
+<META property="og:site_name" content="www.zanikleobce.cz">
+<META property="og:url" content="http://www.zanikleobce.cz">
+<META property="og:image" content="http://www.zanikleobce.cz/img/logo-zanikleobce.jpg">
+<META property="og:type" content="article">
+
+<LINK rel="icon" type="image/png" href="./img/zoico.png"/>
+
+
+<LINK REL="StyleSheet" HREF="styl15.css" type="text/css">
+<SCRIPT LANGUAGE="JavaScript" src="map/functions.js" type="text/javascript"></script>
+<SCRIPT LANGUAGE="JavaScript" src="map/menu.js" type="text/javascript"></script>
+
+
+
+
+<SCRIPT>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '341047589434891',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</SCRIPT>
+
+</HEAD>
+
+<BODY><center><TABLE CELLSPACING=0 CELLPADDING=0 ><TR>  <TD valign=top style="padding-right: 0px; padding-left: 0px; border-left: 0px solid #808080; border-right: 0px solid #808080;">    <TABLE WIDTH=900 CELLSPACING=0 CELLPADDING=0>      <tr>        <TD WIDTH=100% style="background-color: #FFFFFF;" align=right valign=top height=15><small><a href="index.php?akce=login"><span style="position: relative; bottom: 3px">P�ihl�en�</span><IMG SRC="img/login.gif" alt="P�ihl�en�" border=0></a>&nbsp;<a href="index.php?akce=regist"><span style="position: relative; bottom: 3px">Registrace</span><IMG SRC="img/register.gif" alt="Registrace nov�ho u�ivatele" border=0></a>&nbsp;&nbsp;<A HREF="index.php?lang=d&amp;obec=502"><span style="position: relative; bottom: 3px">Deutsch</span><A HREF="index.php?lang=d&amp;obec=502"><IMG SRC="img/flag_ger.gif" BORDER=0 ALT="Deutsch"></a></A></small></td></tr><TR>	<TD>	    <div class="nav10">        <div class="nav11">        </div>				<div class="nav12">        </div>      </div>      <div class="nav20">        <div class="nav21"><A HREF="index.php?">�vod</a> | <A HREF="index.php?menu=92">Obr�zky</a> | <A HREF="index.php?menu=91">�l�nky</a> | <A HREF="index.php?menu=93">Datab�ze</a> | <A HREF="index.php?menu=94">P�isp�vatel�</a> | <A HREF="index.php?menu=95">Odkazy</a> | <A HREF="index.php?menu=96">Literatura</a> | <A HREF="index.php?menu=97">F�rum</a> | <A HREF="index.php?menu=19">Kontakt</a>			  </div>        <div class="nav22">          <form method="get" action="index.php?lang=d&amp;obec=502">						<input type="text" name="co" value="">						<input type="submit" class="b" value="Vyhledat">          </form>        </div>      </div>	</TD></TR><TR>	<TD>
+<DIV class="obec"><DIV style="float: right; WIDTH:117px;"><DIV class="obec_menu" style="WIDTH: 112px; padding-bottom:5px;"><span class="font90"><B><span class="sedive_svetlejsi2" title="Abyste mohl p�idat obr�zek, p�ihla�te se, p��padn� zaregistrujte. D�ky.">� P�idat obr�zek</span><BR><span class="sedive_svetlejsi2" title="Abyste mohl p�idat �l�nek, p�ihla�te se, p��padn� zaregistrujte. D�ky.">� P�idat �l�nek</span><BR><span class="sedive_svetlejsi2" title="Abyste mohl p�idat odkaz, p�ihla�te se, p��padn� zaregistrujte. D�ky.">� P�idat odkaz</span><BR><span class="sedive_svetlejsi2" title="Abyste mohl p�idat GPS sou�adnice, p�ihla�te se, p��padn� zaregistrujte. D�ky.">� P�idat GPS</span><BR></B></span></DIV><DIV class="obec_mapka"><CENTER><div style="margin-top:2px; margin-bottom: 10px; width: 117px; height=70">	<a href="index.php?menu=222&amp;mpx=14.23444&amp;mpy=48.59027&amp;mpr=13&amp;typ=20" title="Interaktivn� mapa">		<img src="http://maps.google.com/maps/api/staticmap?center=48.59027,14.23444&markers=48.59027,14.23444&zoom=10&size=117x70&key=AIzaSyD1B2wY1Pd0keruPz0putMoO-F5SUbj7C0" width=117 height=70 border=0>	</a></div><span class="font80"><B>Okol�:</B><BR><a href="index.php?obec=612">Hv�zda</a> 1.0km<BR><a href="index.php?obec=603">H�b�tek</a> 1.1km<BR><a href="index.php?obec=647">Kr�sn� Pole</a> 1.2km<BR><a href="index.php?obec=567">Frantoly</a> 1.3km<BR><a href="index.php?obec=634">Kapli�ky</a> 1.4km<BR><a href="index.php?obec=18763">h�jovna Hornschlag</a> 1.5km<BR><a href="index.php?obec=15127">Hutter�v ml�n</a> 1.9km<BR><a href="index.php?obec=578">Hodo�</a> 2.1km<BR><a href="index.php?obec=15479">Dorstadt</a> 2.2km<BR><a href="index.php?obec=542">Dob��n</a> 2.4km<BR><i>V�pis je omezen na 10 m�st. <b>[<a href="index.php?obec=502&amp;akce=okoli">v�ce</a>]</b></i></span></DIV></DIV><DIV style="float: right;"><small><span class="sedive">[<A HREF="index.php?zdroj=1">Pavel Beran</a> 11.7.2005]&nbsp;</span></small></DIV><BIG><B><A HREF="index.php?obec=502">Ad�mky</a>&nbsp;&nbsp;<font color="#505050"><I>(Abdank)</I></FONT></B></BIG><BR><BR>Kategorie: <B><a href="index.php?menu=11&amp;typ=20">Osada</a></B>&nbsp;&nbsp;&nbsp(spr�vn� obec: <B>Sch�nfelden</B>)<BR>Okres: <B><a href="index.php?menu=11&amp;okr=3302">�esk� Krumlov</a></B><BR>D�vod z�niku: <B><a href="index.php?menu=11&amp;duv=9999">Nespecifikov�no</a></B>&nbsp;- <BR>Obdob� z�niku: <B><a href="index.php?menu=11&amp;obd=0">Nespecifikov�no</A></B><BR>Sou�asn� stav: <B><a href="index.php?menu=11&amp;stv=1">Zni�ena zcela</A></B><BR><BR><B><img src="img\bullet1.gif" width="5" height="5" class="bullet1">&nbsp;WGS-84 sou�adnice (GPS)</B><BR><TABLE CELLSPACING=0 CELLPADDING=2 class="obec_stat" style="border: 0px;"><TR><TD align=center style="BORDER-RIGHT: #606060 1px solid;">&nbsp;</td><TD align=center style="BORDER-RIGHT: #606060 1px solid;"><B>���ka N(Y)�</B></td><TD align = center style="BORDER-RIGHT: #606060 1px solid;"><B>D�lka E(X)�</B></td><TD style="BORDER-RIGHT: #606060 1px solid;"><B>Popis</B></td><TD><B>Vlo�eno</B></td><TD>&nbsp;</TD></tr><TR><TD align = center style="BORDER-TOP: #606060 1px solid; BORDER-RIGHT: #606060 1px solid;"><a href="index.php?menu=222&amp;mpx=14.23444&amp;mpy=48.59027&amp;mpr=13&amp;typ=20" title="Interaktivn� mapa"><img src="img/icon_google_small.png" border=0></a>&nbsp;&nbsp;<a href="https://mapy.cz/turisticka?y=48.59027&x=14.23444&z=15%20&l=0%20&source=coor&id=14.23444%2C48.59027target=" target=_blank title="MAPY.CZ"><img src="img/icn_seznam.gif" border=0></a></td><TD align = center style="BORDER-TOP: #606060 1px solid; BORDER-RIGHT: #606060 1px solid;">48.59027&nbsp;</TD><TD align = center style="BORDER-TOP: #606060 1px solid; BORDER-RIGHT: #606060 1px solid;">14.23444&nbsp;</TD></TD><TD style="BORDER-TOP: #606060 1px solid; BORDER-RIGHT: #606060 1px solid;">dle mapy - centroid m�sta&nbsp;</TD><TD width=150 style="BORDER-TOP: #606060 1px solid;"><span class="sedive"></span><small><span class="sedive"><A HREF="index.php?zdroj=1">Pavel Beran</a> 1.1.2006&nbsp;</span></small></TD><TD style="BORDER-TOP: #606060 1px solid;">&nbsp;</TD></TR></table><BR><B><img src="img\bullet1.gif" width="5" height="5" class="bullet1">&nbsp;Historie a jin� �l�nky</B><BR><SMALL><B>Deutsche Beschreibung</B>&nbsp;&nbsp;<small><span class="sedive">[<A HREF="index.php?zdroj=2596">Dieter Pohl</a> 27.2.2007]</span></small><BR>Relevantn� pouze pro n�meckou verzi str�nek.<HR><B>Ad�mky</B>&nbsp;&nbsp;<small><span class="sedive">[<A HREF="index.php?zdroj=1726">Zden�k Pechar</a> 21.2.2008]</span></small><BR>O osad� je prvn� zm�nka v roce 1530 a to v urb��i vy�ebrodsk�ho kl�tera. V�klad n�meck�ho n�zvu osady nen� jednozna�n�. Mohlo by to b�t podle jm�na prvn�ho usedl�ho a nebo zkr�cen� verze v�razu Habedank , �pod�kov�n�  bohu po zda�il�m d�le�. �esk� n�zev Ad�mky, byl stanoven z�konem v roce 1923. Po�et dom� se v osad� t�m�� nem�nil, v roce 1840 je uv�d�no 5 dom�. Co� je stejn� jako o dv� stolet� p�ed t�m. Roku 1930 je uv�d�no 6 dom� a 35 obyvatel. Vys�dlen� osady po roce 1945 prob�hlo ve dvou etap�ch. Dne 14.8. a  6.10 1946, celkem bylo  podle z�znam� vys�dleno 63 osob. Spr�vn� komis� pro dos�dlen� bylo ur�eno �e se u� tato osada dos�dlovat ne...  <B>[<A HREF="index.php?detail=1447591">v�ce</A>]</B><BR></SMALL><BR><B><img src="img\bullet1.gif" width="5" height="5" class="bullet1">&nbsp;V�voj po�tu obyvatel a dom�</B>
+<TABLE CELLSPACING=0 CELLPADDING=2 class="obec_stat" style="border: 0px;"><TR><TD style='BORDER-BOTTOM: #606060 1px solid; BORDER-RIGHT: #606060 1px solid;'>Rok</TD><TD WIDTH=40 ALIGN=CENTER style='BORDER-BOTTOM: #606060 1px solid; ;'>1910</TD><TD rowspan=3 valign=bottom style='border: 0px; background-color:#E9E9E9'>[<small><i><A HREF="index.php?menu=121&amp;obec=502">zdroje �daj�</A></i></small>]</TD></TR><TR><TD style='BORDER-BOTTOM: #606060 1px solid; BORDER-RIGHT: #606060 1px solid;'>Po�et obyvatel</TD><TD WIDTH=40 ALIGN=CENTER style='BORDER-BOTTOM: #606060 1px solid; ;'>37</TD></TR><TR><TD style='BORDER-RIGHT: #606060 1px solid;'>Po�et dom�</TD><TD WIDTH=40 ALIGN=CENTER style=';'>5</TD></TR></TABLE>
+<BR><TABLE border=0 cellpadding=0 cellspacing=0><TR><TD><B><img src="img\bullet1.gif" width="5" height="5" class="bullet1">&nbsp;Dobov� obr�zky/pohlednice</B><BR> 	    <DIV class="obrazky_det"><A HREF="index.php?detail=94392" class="nounderline"><IMG SRC="img/00/094392 adamky_s.jpg"  WIDTH=146 HEIGHT=90 border=0 class="black_border"><BR></A><SMALL><A HREF="index.php?detail=94392">Celkov� pohled</A></SMALL></DIV><DIV class="obrazky_det"><A HREF="index.php?detail=133487" class="nounderline"><IMG SRC="img/00/133487 fukutzu_s.jpg"  WIDTH=146 HEIGHT=90 border=0 class="black_border"><BR></A><SMALL><A HREF="index.php?detail=133487">Ad�mky</A></SMALL></DIV><BR>      
+</TD></TR></TABLE><TABLE border=0 cellpadding=0 cellspacing=0><TR><TD><B><img src="img\bullet1.gif" width="5" height="5" class="bullet1">&nbsp;Novodob� obr�zky</B><BR> 	    <DIV class="obrazky_det"><A HREF="index.php?detail=119507" class="nounderline"><IMG SRC="img/00/119507 dsc_0474_s.jpg"  WIDTH=146 HEIGHT=90 border=0 class="black_border"><BR></A><SMALL><A HREF="index.php?detail=119507">Ad�mky.</A></SMALL></DIV><DIV class="obrazky_det"><A HREF="index.php?detail=119512" class="nounderline"><IMG SRC="img/00/119512 dsc_0476_s.jpg"  WIDTH=146 HEIGHT=90 border=0 class="black_border"><BR></A><SMALL><A HREF="index.php?detail=119512">Ad�mky.</A></SMALL></DIV><DIV class="obrazky_det"><A HREF="index.php?detail=119517" class="nounderline"><IMG SRC="img/00/119517 dsc_0478_s.jpg"  WIDTH=146 HEIGHT=90 border=0 class="black_border"><BR></A><SMALL><A HREF="index.php?detail=119517">Ad�mky.</A></SMALL></DIV><DIV class="obrazky_det"><A HREF="index.php?detail=119522" class="nounderline"><IMG SRC="img/00/119522 dsc_0479_s.jpg"  WIDTH=146 HEIGHT=90 border=0 class="black_border"><BR></A><SMALL><A HREF="index.php?detail=119522">Ad�mky.</A></SMALL></DIV><DIV class="obrazky_det"><A HREF="index.php?detail=119527" class="nounderline"><IMG SRC="img/00/119527 dsc_0481_s.jpg"  WIDTH=146 HEIGHT=90 border=0 class="black_border"><BR></A><SMALL><A HREF="index.php?detail=119527">Ad�mky.</A></SMALL></DIV><DIV class="obrazky_det"><A HREF="index.php?detail=119532" class="nounderline"><IMG SRC="img/00/119532 dsc_0484_s.jpg"  WIDTH=146 HEIGHT=90 border=0 class="black_border"><BR></A><SMALL><A HREF="index.php?detail=119532">Ad�mky.</A></SMALL></DIV><DIV class="obrazky_det"><A HREF="index.php?detail=119537" class="nounderline"><IMG SRC="img/00/119537 dsc_0486_s.jpg"  WIDTH=146 HEIGHT=90 border=0 class="black_border"><BR></A><SMALL><A HREF="index.php?detail=119537">Ad�mky.</A></SMALL></DIV><DIV class="obrazky_det"><A HREF="index.php?detail=119542" class="nounderline"><IMG SRC="img/00/119542 dsc_0488_s.jpg"  WIDTH=146 HEIGHT=90 border=0 class="black_border"><BR></A><SMALL><A HREF="index.php?detail=119542">Ad�mky.</A></SMALL></DIV><BR>      
+</TD></TR></TABLE><TABLE border=0 cellpadding=0 cellspacing=0><TR><TD><B><img src="img\bullet1.gif" width="5" height="5" class="bullet1">&nbsp;Ostatn�</B><BR> 	    <DIV class="obrazky_det"><A HREF="index.php?detail=43487" class="nounderline"><IMG SRC="img/00/043487 adamky letecka_s.jpg"  WIDTH=146 HEIGHT=90 border=0 class="black_border"><BR></A><SMALL><A HREF="index.php?detail=43487">Ad�mky</A></SMALL></DIV><DIV class="obrazky_det"><A HREF="index.php?detail=43492" class="nounderline"><IMG SRC="img/00/043492 adamky historicka_s.jpg"  WIDTH=146 HEIGHT=90 border=0 class="black_border"><BR></A><SMALL><A HREF="index.php?detail=43492">Ad�mky</A></SMALL></DIV><BR>      
+</TD></TR></TABLE><TABLE border=0 cellpadding=0 cellspacing=0><TR><TD></TD></TR></TABLE><DIV class="obrazky"><hr><div class="right"></div><div class="left"><span class="nadpcerveny">Koment��e a up�es�uj�c� informace k m�stu</span></div><BR><BR><div id="komentareseznam"><div class="koment_ur0"><div><B> adamky</B> <span class="sedive">[<B>peko</B> 17.12.2007 18:24]</span> | <a href="index.php?obec=502&amp;kom=4743">Reagovat</a><BR>Adamky zanikly zcela beze stopy kvuli hrani�n�mu pasmu v roce 1959.<BR></div></div><div class="koment_ur0"><div><B> Ad�mky</B> <span class="sedive">[<B>Franti�ek Schusser</B> 12.12.2008 12:58]</span> | <a href="index.php?obec=502&amp;kom=6847">Reagovat</a><BR>Osada Ad�mky se jmenovala n�mecky Abdank a le�ela na �pat� hory Hv�zda p�i cest� z Kr�sn�ch Pol� na Hv�zdnou. Poprv� je p�ipom�n�na v urb��i vy�ebrodsk�ho kl�tera roku 1530. Pat�ila k rycht� Kapli�ky a m�la 5 osedl�ch, tedy 5 dom�. Tento po�et dom� je uv�d�n i v roce 1840., v roce 1930 zde bylo 6 dom� a 35 obyvatel. Nejv�t�� a nejstar�� statek m�l �p. 1,m�l 24 hektar�, ��kalo se zde Liplhansn, i kdy� nejm�n� od konce t�icetilet� v�lky zde byl nep�etr�it� rod Zanner�. Ostatn� domy m�ly 2 a� 6 hektar� a jejich majitel� pracovali v lou�ovick�ch pap�rn�ch. D�m �p. 6. byla h�jenka vy�ebrodsk�ho kl�tera. Osada byla vys�dlena 14. srpna a 6. ��jna 1946. M�stn� spr�vn� komise ur�ila , �e osada ji� nebude dos�dlena. Celkem bylo z Ad�mek vys�dleno 63 osob v�etn� ��ov� v�pomoci z Vy���ho Brodu. V�echny domy byly kamenn� a patrov�. Osada byla zbo�ena destruk�n� skupinou ministerstva vnitra v l�t� 1959. Podle profesora Janka poch�z� m�stn� jm�no Abdank z Habedank, tedy �pod�kov�n� Bohu po zda�il�m d�le.� Sp�e v�ak to bylo jm�no prv�ho usedl�ka. V roce 1923 byl ��edn� stanoven �esk� n�zev Ad�mky jako domn�le star��.<BR></div></div></div><div class="koment">
+			<span class="nadpcerveny">&nbsp;Dopl�te nebo up�esn�te informace k tomuto m�stu</span><BR>
+            <table border="0" cellpadding="2" cellspacing="0">
+              <form action="index.php?obec=502" onsubmit="return koment_validate(this);" method="post">
+              <input type="hidden" name="kpridat" value="2">
+              <input type="hidden" name="kn_odeslano" value="ano">
+              <input type="hidden" name="kn_reakce_id" value="0">
+              <tr>
+                <td>Jm�no:
+                </td>
+                <td>
+
+                  <input class="koment" type="text" name="kn_name" value="" size="30" maxlength="50">
+		
+                </td>
+              </tr>
+		
+              <tr>
+                <td valign=top>
+                   E-mail:
+                </td>
+                <td valign=top>
+                  <input class="koment" type="text" name="kn_email" value="" size="30" maxlength="50"><BR>
+									<I>Pokud chcete automaticky zaslat odpov�di, uve�te Va�� emailovou adresu (v platn�m tvaru nap�. ja@seznam.cz). V r�mci antispamov� ochrany nebude V� email nikde zobrazen. Poslou�� pouze pro automatick� zasl�n� odpov�d� na V� p��sp�vek. </I>
+								</td>
+              </tr>
+				
+              <tr>
+                <td>Nadpis:
+                </td>
+                <td>
+                  <input class="koment" type="text" name="kn_predmet" value="" size="61" maxlength="70">
+                </td>
+              </tr>
+              <tr>
+                <td valign=top>Koment��/Up�esn�n�:&nbsp;&nbsp;
+                </td>
+                <td>
+                  <textarea class="koment" cols="60" rows="5" name="kn_text"></textarea>
+                </td>
+              </tr>
+              <input type="hidden" name="tmp_novinky" value="0"><input type="hidden" name="kn_ochr2" value="172">              
+							<tr>
+              </tr>
+              <tr>
+                 <td colspan=2>
+KOMENTAR NEBYL ULOZEN !!!<BR>
+									 <I><FONT color=red><BIG><B>V r�mci ochrany proti spamov�m p��sp�vk�m opi�te ��slo <B>53 </B>do n�sleduj�c�ho pol��ka: </B></BIG></I></font> 
+                   <input class="koment" type="text" name="kn_ochr" value="" size="2" maxlength="2"><BR>
+									 <BR>
+                   <input type="submit" class="b" value="Odeslat">&nbsp;&nbsp;&nbsp;
+                 </td>
+              </tr>
+              </form>
+            </table>
+						</div>					</div><BR></div>
+</div></td></tr><tr>	<td>		<BR>      <div class="nav20">			<div class="nav21">				<small>(C)2005-2022 zanikleobce.cz <A HREF="mailto: beran@seznam.cz">Pavel Beran</a></small>			</div>		</div>	</td></tr><tr>	<td>		<small><small>Processing time: 45 msec.		<BR>IP address = 12.34.56.78<BR>desktop version<BR>		</small></SMALL>	</td></tr></table>		</TD>	</TR></TABLE></center></BODY>

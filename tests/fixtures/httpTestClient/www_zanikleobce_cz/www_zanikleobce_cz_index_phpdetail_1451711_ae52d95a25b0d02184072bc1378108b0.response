@@ -1,0 +1,136 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html><HTML><HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1250">
+<title>M�sta, obce, osady, samoty a objekty zanikl� nebo ��ste�n� zanikl� (dobov� pohlednice, historie, vojensk� mapy, m�stopis)</title>
+<META name="author" content="Pavel Beran, Kl�terec nad Oh��, beran@seznam.cz">
+<META name="keywords" lang="en" content="destroyed disappeared places towns villages">
+<META name="keywords" lang="cs" content="dobov� pohlednice, star� pohlednice, pohledy, fotografie, mapy, zanikl�, zmizel�, zni�en�, zlikvidovan�, m�sta, obce, osady, samoty">
+<META name="keywords" lang="cs" content="vojensk� mapy">
+<META name="keywords" lang="cs" content="vojensk� v�cvikov� prostor, VVP, hradi�t�, doupov, jince, brdy, prameny, libav�, boletice, odsun n�mc� ">
+
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+<META name="DC.Title" content="Zanikl� obce po roce 1945" />
+<META name="DC.Creator" content="Ing. Pavel Beran " />
+<META name="DC.Subject" scheme="PHNK" content="zanikl� obce " />
+<META name="DC.Subject" scheme="PHNK" content="d�jiny " />
+<META name="DC.Subject" scheme="PHNK" content="geografie" />
+<META name="DC.Subject" scheme="MDT_MRF" content="911.373-021.142 " />
+<META name="DC.Subject" scheme="MDT_MRF" content="93/94 " />
+<META name="DC.Subject" scheme="MDT_MRF" content="37.016:91 " />
+<META name="DC.Subject" scheme="MDT_KON" content="911 - Obecn� geografie. Systematick� geografie " />
+<META name="DC.Subject" scheme="MDT_KON" content="93/94 - D�jiny (obecn�) " />
+<META name="DC.Subject" scheme="LCC" content="911 - Historical geography" />
+<META name="DC.Description.abstract" content="Port�l obsahuj�c� informace o obc�ch a m�stech, kter� zanikly na �zem� �R. Zve�ejn�ny jsou �l�nky, dobov� obr�zky/pohlednice a novodob� obr�zky t�kaj�c� se v��e uveden� t�matiky. " />
+<META name="DC.Publisher" content="Ing. Pavel Beran" />
+<META name="DC.Publisher.address" content="beran@seznam.cz" />
+<META name="DC.Date" content="2006-27-02" />
+<META name="DC.Format.medium" content="computerFile" />
+<META name="DC.Identifier" content="http://www.zanikleobce.cz" />
+<META name="DC.Identifier" scheme="URN" content="URN:NBN:cz-nk2006129" />
+<META name="DC.Language" scheme="RFC3066" content="cze" />
+<META name="DC.Coverage.spatial" scheme="PHNK" content="�esko" />
+<META name="DC.Coverage.spatial" scheme="PHNK" content="Sudety (�esko) " />
+<META name="DC.Rights" content="Copyright 2005-2015 zanikleobce.cz Pavel Beran" />
+
+<META property="og:title" content="www.zanikleobce.cz">
+<META property="og:description" content="M�sta, obce, osady, samoty a objekty zanikl� nebo ��ste�n� zanikl� (dobov� pohlednice, historie, vojensk� mapy, m�stopis)">
+<META property="og:site_name" content="www.zanikleobce.cz">
+<META property="og:url" content="http://www.zanikleobce.cz">
+<META property="og:image" content="http://www.zanikleobce.cz/img/logo-zanikleobce.jpg">
+<META property="og:type" content="article">
+
+<LINK rel="icon" type="image/png" href="./img/zoico.png"/>
+
+
+<LINK REL="StyleSheet" HREF="styl15.css" type="text/css">
+<SCRIPT LANGUAGE="JavaScript" src="map/functions.js" type="text/javascript"></script>
+<SCRIPT LANGUAGE="JavaScript" src="map/menu.js" type="text/javascript"></script>
+
+
+
+
+<SCRIPT>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '341047589434891',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</SCRIPT>
+
+</HEAD>
+
+<BODY><center><TABLE CELLSPACING=0 CELLPADDING=0 ><TR>  <TD valign=top style="padding-right: 0px; padding-left: 0px; border-left: 0px solid #808080; border-right: 0px solid #808080;">    <TABLE WIDTH=900 CELLSPACING=0 CELLPADDING=0>      <tr>        <TD WIDTH=100% style="background-color: #FFFFFF;" align=right valign=top height=15><small><a href="index.php?akce=login"><span style="position: relative; bottom: 3px">P�ihl�en�</span><IMG SRC="img/login.gif" alt="P�ihl�en�" border=0></a>&nbsp;<a href="index.php?akce=regist"><span style="position: relative; bottom: 3px">Registrace</span><IMG SRC="img/register.gif" alt="Registrace nov�ho u�ivatele" border=0></a>&nbsp;&nbsp;<A HREF="index.php?lang=d&amp;detail=1451711"><span style="position: relative; bottom: 3px">Deutsch</span><A HREF="index.php?lang=d&amp;detail=1451711"><IMG SRC="img/flag_ger.gif" BORDER=0 ALT="Deutsch"></a></A></small></td></tr><TR>	<TD>	    <div class="nav10">        <div class="nav11">        </div>				<div class="nav12">        </div>      </div>      <div class="nav20">        <div class="nav21"><A HREF="index.php?">�vod</a> | <A HREF="index.php?menu=92">Obr�zky</a> | <A HREF="index.php?menu=91">�l�nky</a> | <A HREF="index.php?menu=93">Datab�ze</a> | <A HREF="index.php?menu=94">P�isp�vatel�</a> | <A HREF="index.php?menu=95">Odkazy</a> | <A HREF="index.php?menu=96">Literatura</a> | <A HREF="index.php?menu=97">F�rum</a> | <A HREF="index.php?menu=19">Kontakt</a>			  </div>        <div class="nav22">          <form method="get" action="index.php?lang=d&amp;detail=1451711">						<input type="text" name="co" value="">						<input type="submit" class="b" value="Vyhledat">          </form>        </div>      </div>	</TD></TR><TR>	<TD><DIV class="detail_popis"><BIG><B><A HREF="index.php?obec=7087">Achatz�v ml�n</A> <font color="#505050"><I>(Achatz�v ml�n)</I></FONT></B> - <B>Z historie</B><BR></BIG><BR>P�isp�l: <A HREF="index.php?zdroj=3716">Jan Nov�k</A><BR><BR>Z ml�n� byl nejzn�m�j�� Horn� ml�n tak� zvan� Achatz�v ml�n. Le�el severn� od m�sta. V roce 1616 je zde zmi�ov�n jak�si Ambros horn� mlyn��(Oberm�ller). V roce 1654 Georg Schober. Rod Achatz� p�i�el z okol� Berchtesgadenu a nejd��ve se usadil ve Zbytin�ch. Jejich d�m m�l �.p. 16 a naz�val se Ochitzhaus. Roku 1661 kupuj� brat�i Peter a Johann Achatz usedlost od vdovy Kunigunde Schoberov� ve Volarech. Peter a Johann pak p�ev�d�j� nemovitost na Veita Achatze ze Zbytin. Cechovn� list m� dataci 21.5.1662. D�le jsou uv�d�ni jako majitel� Simon Achatz (1709), Johann Achatz a jeho syn (1773, 1784). Jako posledn� majitel Franz Achatz.<BR>Ml�n m�l na �eln� st�n� m�l dataci 1733. P�vodn� snad d�ev�n�, p�estav�n� ve zmi�ovan�m roce, v 1. pat�e byl pokoj s komorou. Do pokoje vedly v�stavn� dve�e, stolem, sk��n� a sb�rkou, kterou majitel uchov�val po sv�ch p�edc�ch: cechovn� list schvalovac� k provozov�n� mlyn��stv� Veita Achatze z roku 1662, sklen�n� d�b�nek s ryt�m sv. Michalem z 18. stolet�, malby na skle �i star�� obleky s obuv�.(dle F.Mare�, J. Sedl��ek-Soupis pam�tek historick�ch a um�leck�ch v kr�lovstv� �esk�m-okres Prachatick� 1913). Definitivn� zbo�en n�kdy v 70.letech 20. stolet�.  <BR><BR>Z webu sumavskecyklotrasy.euweb.cz<BR><BR><SMALL><font color="#505050">Vlo�eno: 5.2.2009</font></SMALL></div><BR><BR><DIV class="obrazky"><hr><div class="right"></div><div class="left"><span class="nadpcerveny">Koment��e a up�es�uj�c� informace </span></div><BR><BR><div id="komentareseznam"><div class="koment_ur0"><div><B> Achatz�v ml�n</B> <span class="sedive">[<B>Jan Glozar</B> 19.6.2010 15:53]</span> | <a href="index.php?detail=1451711&amp;kom=10555">Reagovat</a><BR>Achatz�v ml�n vyho�el pot�, co si v n�m d�ti hr�ly se sirkami. Alespo� toto je roz���en� verze.<BR></div></div></div><div class="koment">
+			<span class="nadpcerveny">&nbsp;Koment��e a up�es�uj�c� informace </span><BR>
+            <table border="0" cellpadding="2" cellspacing="0">
+              <form action="index.php?detail=1451711" onsubmit="return koment_validate(this);" method="post">
+              <input type="hidden" name="kpridat" value="2">
+              <input type="hidden" name="kn_odeslano" value="ano">
+              <input type="hidden" name="kn_reakce_id" value="0">
+              <tr>
+                <td>Jm�no:
+                </td>
+                <td>
+
+                  <input class="koment" type="text" name="kn_name" value="" size="30" maxlength="50">
+		
+                </td>
+              </tr>
+		
+              <tr>
+                <td valign=top>
+                   E-mail:
+                </td>
+                <td valign=top>
+                  <input class="koment" type="text" name="kn_email" value="" size="30" maxlength="50"><BR>
+									<I>Pokud chcete automaticky zaslat odpov�di, uve�te Va�� emailovou adresu (v platn�m tvaru nap�. ja@seznam.cz). V r�mci antispamov� ochrany nebude V� email nikde zobrazen. Poslou�� pouze pro automatick� zasl�n� odpov�d� na V� p��sp�vek. </I>
+								</td>
+              </tr>
+				
+              <tr>
+                <td>Nadpis:
+                </td>
+                <td>
+                  <input class="koment" type="text" name="kn_predmet" value="" size="61" maxlength="70">
+                </td>
+              </tr>
+              <tr>
+                <td valign=top>Koment��/Up�esn�n�:&nbsp;&nbsp;
+                </td>
+                <td>
+                  <textarea class="koment" cols="60" rows="5" name="kn_text"></textarea>
+                </td>
+              </tr>
+              <input type="hidden" name="tmp_novinky" value="0"><input type="hidden" name="kn_ochr2" value="250">              
+							<tr>
+              </tr>
+              <tr>
+                 <td colspan=2>
+KOMENTAR NEBYL ULOZEN !!!<BR>
+									 <I><FONT color=red><BIG><B>V r�mci ochrany proti spamov�m p��sp�vk�m opi�te ��slo <B>79 </B>do n�sleduj�c�ho pol��ka: </B></BIG></I></font> 
+                   <input class="koment" type="text" name="kn_ochr" value="" size="2" maxlength="2"><BR>
+									 <BR>
+                   <input type="submit" class="b" value="Odeslat">&nbsp;&nbsp;&nbsp;
+                 </td>
+              </tr>
+              </form>
+            </table>
+						</div>					</div><BR></DIV>
+</div></td></tr><tr>	<td>		<BR>      <div class="nav20">			<div class="nav21">				<small>(C)2005-2022 zanikleobce.cz <A HREF="mailto: beran@seznam.cz">Pavel Beran</a></small>			</div>		</div>	</td></tr><tr>	<td>		<small><small>Processing time: 19 msec.		<BR>IP address = 12.34.56.78<BR>desktop version<BR>		</small></SMALL>	</td></tr></table>		</TD>	</TR></TABLE></center></BODY>

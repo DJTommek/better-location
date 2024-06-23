@@ -7,7 +7,7 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use App\Config;
-use App\MiniCurl\MiniCurl;
+use App\Utils\Requestor;
 use App\Utils\Strict;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -23,6 +23,11 @@ final class ZanikleObceCzService extends AbstractService
 		ServicesManager::TAG_GENERATE_OFFLINE,
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
 	];
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	/**@throws NotSupportedException */
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
@@ -63,7 +68,7 @@ final class ZanikleObceCzService extends AbstractService
 
 	private function getObecUrlFromDetail(): string
 	{
-		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_ZANIKLE_OBCE_CZ)->run()->getBody();
+		$response = $this->requestor->get($this->url, Config::CACHE_TTL_ZANIKLE_OBCE_CZ);
 //		if (!preg_match('/<DIV class="detail_popis"><BIG><B><A HREF="([^"]+)/', $response, $matches)) { // original matching but not matching all urls
 		if (!preg_match('/HREF="([^"]+obec=[^"]+)"/', $response, $matches)) {
 			Debugger::log($response, ILogger::DEBUG);
@@ -74,7 +79,7 @@ final class ZanikleObceCzService extends AbstractService
 
 	private function processPageObec(): void
 	{
-		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_ZANIKLE_OBCE_CZ)->run()->getBody();
+		$response = $this->requestor->get($this->url, Config::CACHE_TTL_ZANIKLE_OBCE_CZ);
 		if (!preg_match('/<a href=\"(https:\/\/mapy\.cz\/[^"]+)/', $response, $matches)) {  // might be multiple matches, return first occured
 			Debugger::log($response, ILogger::DEBUG);
 			throw new InvalidLocationException(sprintf('Coordinates on obec page "%s" are missing.', $this->url));
