@@ -30,6 +30,7 @@ final class MapyCzPanoramaGeneratorService extends AbstractService
 				$link = new Url($bestPanorama->getLink());
 				$link->setQueryParameter('source', MapyCzApi::SOURCE_COOR);
 				$link->setQueryParameter('id', $lon . ',' . $lat);
+				$link->setQueryParameter('ovl', '8'); // Overlay: show panorama coverage
 				return (string)$link;
 			}
 			return null;
