@@ -47,7 +47,7 @@ class ChatHistoryTemplate extends LayoutTemplate
 				'key' => $historyLocationEntity->coordinates->getLatLon(),
 				'timestamp' => $historyLocationEntity->timestamp->getTimestamp() * 1000,
 				'input' => $historyLocationEntity->input,
-				'address' => null,
+				'address' => $historyLocationEntity->address,
 			];
 			$this->allCoords[] = [$historyLocationEntity->getLat(), $historyLocationEntity->getLon()];
 		}

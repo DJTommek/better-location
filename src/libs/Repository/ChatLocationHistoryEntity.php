@@ -14,6 +14,7 @@ class ChatLocationHistoryEntity extends Entity implements CoordinatesInterface
 	public readonly float $latitude;
 	public readonly float $longitude;
 	public readonly string $input;
+	public readonly ?string $address;
 
 	public readonly ChatEntity $chat;
 	public readonly UserEntity $user;
@@ -34,6 +35,7 @@ class ChatLocationHistoryEntity extends Entity implements CoordinatesInterface
 		$entity->latitude = $row['latitude'];
 		$entity->longitude = $row['longitude'];
 		$entity->input = $row['input'];
+		$entity->address = $row['address'];
 
 		$entity->coordinates = new CoordinatesImmutable($entity->latitude, $entity->longitude);
 		return $entity;

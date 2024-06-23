@@ -11,7 +11,7 @@ class ChatLocationHistoryRepository extends Repository
 	 */
 	public function loadByTelegramChatId(int $telegramChatId): array
 	{
-		$sql = 'SELECT clh.id, clh.telegram_update_id, clh.timestamp, clh.latitude, clh.longitude, clh.input, user.*, chat.*
+		$sql = 'SELECT clh.id, clh.telegram_update_id, clh.timestamp, clh.latitude, clh.longitude, clh.input, clh.address, user.*, chat.*
 		FROM better_location_chat_location_history clh 
 		LEFT JOIN better_location_user user ON user.user_id = clh.user_id
 		LEFT JOIN better_location_chat chat ON chat.chat_id = clh.chat_id
