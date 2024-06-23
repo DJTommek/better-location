@@ -1,0 +1,148 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html><HTML><HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1250">
+<title>M�sta, obce, osady, samoty a objekty zanikl� nebo ��ste�n� zanikl� (dobov� pohlednice, historie, vojensk� mapy, m�stopis)</title>
+<META name="author" content="Pavel Beran, Kl�terec nad Oh��, beran@seznam.cz">
+<META name="keywords" lang="en" content="destroyed disappeared places towns villages">
+<META name="keywords" lang="cs" content="dobov� pohlednice, star� pohlednice, pohledy, fotografie, mapy, zanikl�, zmizel�, zni�en�, zlikvidovan�, m�sta, obce, osady, samoty">
+<META name="keywords" lang="cs" content="vojensk� mapy">
+<META name="keywords" lang="cs" content="vojensk� v�cvikov� prostor, VVP, hradi�t�, doupov, jince, brdy, prameny, libav�, boletice, odsun n�mc� ">
+
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+<META name="DC.Title" content="Zanikl� obce po roce 1945" />
+<META name="DC.Creator" content="Ing. Pavel Beran " />
+<META name="DC.Subject" scheme="PHNK" content="zanikl� obce " />
+<META name="DC.Subject" scheme="PHNK" content="d�jiny " />
+<META name="DC.Subject" scheme="PHNK" content="geografie" />
+<META name="DC.Subject" scheme="MDT_MRF" content="911.373-021.142 " />
+<META name="DC.Subject" scheme="MDT_MRF" content="93/94 " />
+<META name="DC.Subject" scheme="MDT_MRF" content="37.016:91 " />
+<META name="DC.Subject" scheme="MDT_KON" content="911 - Obecn� geografie. Systematick� geografie " />
+<META name="DC.Subject" scheme="MDT_KON" content="93/94 - D�jiny (obecn�) " />
+<META name="DC.Subject" scheme="LCC" content="911 - Historical geography" />
+<META name="DC.Description.abstract" content="Port�l obsahuj�c� informace o obc�ch a m�stech, kter� zanikly na �zem� �R. Zve�ejn�ny jsou �l�nky, dobov� obr�zky/pohlednice a novodob� obr�zky t�kaj�c� se v��e uveden� t�matiky. " />
+<META name="DC.Publisher" content="Ing. Pavel Beran" />
+<META name="DC.Publisher.address" content="beran@seznam.cz" />
+<META name="DC.Date" content="2006-27-02" />
+<META name="DC.Format.medium" content="computerFile" />
+<META name="DC.Identifier" content="http://www.zanikleobce.cz" />
+<META name="DC.Identifier" scheme="URN" content="URN:NBN:cz-nk2006129" />
+<META name="DC.Language" scheme="RFC3066" content="cze" />
+<META name="DC.Coverage.spatial" scheme="PHNK" content="�esko" />
+<META name="DC.Coverage.spatial" scheme="PHNK" content="Sudety (�esko) " />
+<META name="DC.Rights" content="Copyright 2005-2015 zanikleobce.cz Pavel Beran" />
+
+<META property="og:title" content="www.zanikleobce.cz">
+<META property="og:description" content="M�sta, obce, osady, samoty a objekty zanikl� nebo ��ste�n� zanikl� (dobov� pohlednice, historie, vojensk� mapy, m�stopis)">
+<META property="og:site_name" content="www.zanikleobce.cz">
+<META property="og:url" content="http://www.zanikleobce.cz">
+<META property="og:image" content="http://www.zanikleobce.cz/img/logo-zanikleobce.jpg">
+<META property="og:type" content="article">
+
+<LINK rel="icon" type="image/png" href="./img/zoico.png"/>
+
+
+<LINK REL="StyleSheet" HREF="styl15.css" type="text/css">
+<SCRIPT LANGUAGE="JavaScript" src="map/functions.js" type="text/javascript"></script>
+<SCRIPT LANGUAGE="JavaScript" src="map/menu.js" type="text/javascript"></script>
+
+
+
+
+<SCRIPT>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '341047589434891',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</SCRIPT>
+
+</HEAD>
+
+<BODY><center><TABLE CELLSPACING=0 CELLPADDING=0 ><TR>  <TD valign=top style="padding-right: 0px; padding-left: 0px; border-left: 0px solid #808080; border-right: 0px solid #808080;">    <TABLE WIDTH=900 CELLSPACING=0 CELLPADDING=0>      <tr>        <TD WIDTH=100% style="background-color: #FFFFFF;" align=right valign=top height=15><small><a href="index.php?akce=login"><span style="position: relative; bottom: 3px">P�ihl�en�</span><IMG SRC="img/login.gif" alt="P�ihl�en�" border=0></a>&nbsp;<a href="index.php?akce=regist"><span style="position: relative; bottom: 3px">Registrace</span><IMG SRC="img/register.gif" alt="Registrace nov�ho u�ivatele" border=0></a>&nbsp;&nbsp;<A HREF="index.php?lang=d&amp;detail=1110015"><span style="position: relative; bottom: 3px">Deutsch</span><A HREF="index.php?lang=d&amp;detail=1110015"><IMG SRC="img/flag_ger.gif" BORDER=0 ALT="Deutsch"></a></A></small></td></tr><TR>	<TD>	    <div class="nav10">        <div class="nav11">        </div>				<div class="nav12">        </div>      </div>      <div class="nav20">        <div class="nav21"><A HREF="index.php?">�vod</a> | <A HREF="index.php?menu=92">Obr�zky</a> | <A HREF="index.php?menu=91">�l�nky</a> | <A HREF="index.php?menu=93">Datab�ze</a> | <A HREF="index.php?menu=94">P�isp�vatel�</a> | <A HREF="index.php?menu=95">Odkazy</a> | <A HREF="index.php?menu=96">Literatura</a> | <A HREF="index.php?menu=97">F�rum</a> | <A HREF="index.php?menu=19">Kontakt</a>			  </div>        <div class="nav22">          <form method="get" action="index.php?lang=d&amp;detail=1110015">						<input type="text" name="co" value="">						<input type="submit" class="b" value="Vyhledat">          </form>        </div>      </div>	</TD></TR><TR>	<TD><DIV class="detail_popis"><BIG><B>V�zva</B></BIG><BR><BR>P�isp�l: <A HREF="index.php?zdroj=1">Pavel Beran</A><BR><BR><I><B>"Nezm�rn� �sil� jednotlivce m��e b�t zma�eno nez�jmem t�ch, kte�� by se mohli pod�let. Pod�let se znamen� ochotu poskytnout a podpo�it, ale z�rove� i mo�nost z�skat."</B></I><BR><BR>Kvalita t�chto str�nek z�vis� zejm�na na jejich obsahu. Pokud m�te mo�nost, p�isp�jte i Vy k jeho obohacen�. M�te-li n�jak� vhodn� materi�l a jste-li ochoten/na se o n�j pod�lit, budeme r�di, kdy� se stanete jedn�m z p�isp�vatel� (spolutv�rc�).<BR><BR>Va�e p��padn� rozhodov�n� o poskytnut� Va�ich materi�l�, p�isp�n� vhodn�m �l�nkem nebo zpracov�n� ur�it� oblasti by mohlo uleh�it n�kolik n�sleduj�c�ch fakt�:<BR><BR><LI>Jedn� se o nekomer�n� projekt, kter� s sebou z finan�n�ho hlediska nese pouze n�klady.<BR><LI>Uveden� Va�eho jm�na jako zdroje/autora u poskytnut�ho materi�lu.<BR><LI>Obrazov� materi�l je zobrazov�n v ni���m rozli�en�, kter� je dostate�n� kvalitn� pro monitor, nikoliv v�ak pro tisk. Obr�zky nav�c obsahuj� �vodotisk�, kter�m je zabr�n�no neopr�vn�n�mu pou�it� �i zneu�it�.<BR><LI>Jedn� se o prvn� projekt podobn�ho rozsahu na �esk�m Internetu.<BR><LI>Str�nky jsou v �esk� i n�meck� jazykov� verzi.<BR><BR><B>V p��pad� Va�eho z�jmu kontaktujte pros�m <A HREF="mailto: beran@seznam.cz">spr�vce</a></B>.<BR><BR><SMALL><font color="#505050">Vlo�eno: 18.5.2004</font></SMALL></div><BR><BR><DIV class="obrazky"><hr><div class="right"></div><div class="left"><span class="nadpcerveny">Koment��e a up�es�uj�c� informace </span></div><BR><BR><div id="komentareseznam"><div class="koment_ur0"><div><B> r�d</B> <span class="sedive">[<B>Kv�toslav Pokorn�</B> 13.4.2006 18:41]</span> | <a href="index.php?detail=1110015&amp;kom=700">Reagovat</a><BR>Dobr� den .Dnes jsem p�i�el na tyto str�nky jsem rod�kem z Konobr�e r�d poskytnu n�kolik obr�zk� t�to vesni�ky t� mi chyb� sousedn� vesnice Pa�idla(Por�dl).Napi�te kam m�m fota zaslat.
+ <BR>  d�kuji K.Pokorn�<BR></div></div><div class="koment_ur1"><div><B> Re: r�d</B> <span class="sedive">[<B>Anton�n Suk</B> 29.6.2006 20:18]</span> | <a href="index.php?detail=1110015&amp;kom=880">Reagovat</a><BR>I j� budu r�d,kdy� se objev� dal�� fotky z t�chto obc� &quot;podkru�nohorsk�ho zlomu&quot; na t�chto str�nk�ch.Va�� obc� jsem mnohokr�t proj�d�l,znal jsem i n�kter� ob�any(Jula �olt�s,Josef(?) �varc.Konobr� a Pa�idla byly zaj�mav� obce a bude jen dob�e,kdy� se fotogalerie o z�b�ry z t�chto obc� roz����! O p�id�n� fotografi� se m��ete p�i�init osobn�,zejm�na m�te-li digit�ln� fotoapar�t.N�vod je na t�chto str�nk�ch.Mus�te se nejd��v form�ln� zaregistrovat-viz vysv��tlivky v prav�m horn�m rohu hlavn� str�nky.Dr��m V�m palce.<BR></div></div><div class="koment_ur2"><div><B> Konobr�e</B> <span class="sedive">[<B>Martin �varc</B> 26.3.2018 21:03]</span> | <a href="index.php?detail=1110015&amp;kom=21754">Reagovat</a><BR>Dobr� den, sh�n�m informace o rodin� �varcov�ch, Josef �varc z Konobr�e je m�j prastr�c, o kter�m bohu�el nem�me mnoho informac�. Podle Va�eho p��sp�vku jste ho znal. Mohl bych v�s poprosit o dal�� informace o n�m?
+ <BR> D�kuji, s pozdravem Martin �varc<BR></div></div><div class="koment_ur3"><div><B> Re: Konobr�e</B> <span class="sedive">[<B>Anton�n Suk</B> 26.3.2018 23:03]</span> | <a href="index.php?detail=1110015&amp;kom=21755">Reagovat</a><BR>J� mus�m up�esnit mou informaci o Pepovi �varcovi - potkal jsem se  s n�m jen na 2 t�dny,na chirurgii nemocnice v Most�,kde jsme se oba ve stejn� chv�li podrobili ban�ln� operaci. Mysl�m,�e jsem se s n�m u� potom nese�el,i kdy� jsme si to p�ed odchodem z nemocnice slibovali.V�m jen,�e m�l kr�snou pan� a bydlel v Konobr�i. Ona za n�m p�i�la n�kolikr�t na n�v�t�vu a dodnes si pom�rn� dob�e pamatuju jej� hezk� �sm�v. R�d na n� vzpom�n�m,ale dal�� informace o n�m nem�m.<BR></div></div><div class="koment_ur4"><div><B> Re: Re: Konobr�e</B> <span class="sedive">[<B>Martin �varc</B> 27.3.2018 23:43]</span> | <a href="index.php?detail=1110015&amp;kom=21759">Reagovat</a><BR>D�ky moc. V kter�m roce to pros�m bylo?<BR></div></div><div class="koment_ur0"><div><B> Sprengung von Pressnitz</B> <span class="sedive">[<B>Wohlrab Helmut</B> 21.5.2006 22:00]</span> | <a href="index.php?detail=1110015&amp;kom=793">Reagovat</a><BR>Wer kann mir Auskunft geben??
+ <BR> �ber die Venichtung von Pressnitz ist ein Film getreht worden.Wo kann ich diesen bekommen ??
+ <BR> 
+ <BR> Mit freundlichen Gr��en
+ <BR> Hemut Wohlrab
+ <BR> 
+ <BR> PS:Meine Ahnen sind auch aus Pressnitz vertrieben worden.Wenn jemand �ber meine Ahnen Auskunft m�chte,bitte melden.<BR></div></div><div class="koment_ur1"><div><B> Re: Sprengung von Pressnitz</B> <span class="sedive">[<B>Zdenka Nedv�dov�-Starmanov�</B> 4.11.2006 12:48]</span> | <a href="index.php?detail=1110015&amp;kom=3346">Reagovat</a><BR>S rodi�i jsme bydleli v Konobr�i,pozd�ji v Kopistech o  t�ch m�m n�jak� material,ale r�da bych vid�la n�co z Konobr�e a Pa�idel.Z.N<BR></div></div><div class="koment_ur0"><div><B> Pov�d�n� �.2.o zanikl� obci V�esov�</B> <span class="sedive">[<B>Anna S�ndorov�</B> 29.6.2006 10:38]</span> | <a href="index.php?detail=1110015&amp;kom=879">Reagovat</a><BR>P�ed ned�vnem jsem i j� p�isp�la men��m pov�d�n�m o zanikl� obci V�esov�-Doglasgrun,jej� zalo�en� a prvn� zminky o n� poch�z� z roku 1492.Ze zanikl� obce z�stal jen n�zev,ale to nejcenn�j�� najdeme v kronik�ch a dochovan�ch dokumentech.Jen d�ky t�mto z�znam�m dal�� generace v� a budou v�d�t jak� obec byla.Z�stalo u� jen m�lo starousedl�k�,kte�� by n�m mohli povypr�v�t.Veden� kroniky mi umo�nuje nahl�dnout do minulosti na�� obce.A proto touto cestou hled�m kohokoliv,kter� m� �i m�l s touto obc� n�co spole�n�ho.Velice d�kuji S�ndorov� Anna-kronik�� obce V�esov�   (sandorova.anna@seznam.cz nebo 732647700)<BR></div></div><div class="koment_ur0"><div><B> Bildersuche</B> <span class="sedive">[<B>Milan Vali�</B> 9.7.2006 13:29]</span> | <a href="index.php?detail=1110015&amp;kom=894">Reagovat</a><BR>Wer hat noch alte Bilder von Deutschbundesort (Dolni Rozmysl), Littmitz, Lanz,Waldl,Thein und Dolni Nivy. Die Bilder ben�tige ich f�r meine Ahnenforschung.
+ <BR> 
+ <BR> Danke
+ <BR> Milan Vali�<BR></div></div><div class="koment_ur0"><div><B> chyba u obce R��odol u Mostu</B> <span class="sedive">[<B><a href="index.php?&amp;detail=1110015&amp;zdroj=956&akce=sendemail" title="Poslat email">Anton�n Suk</a></B> 25.7.2006 20:19]</span> | <a href="index.php?detail=1110015&amp;kom=1223">Reagovat</a><BR>Nev�m,co sledoval autor fotografie Horn� R��odol,kdy� ji vlo�il do �pln� jin� obce.Hloup� vtip,nebo aktivn� hloupost? Na sn�mku nen� R��odol u Mostu,ale Horn� R��odol,��st Liberce.M�m v�hodu,�e prvn� obec jsem velmi dob�e znal jako d�t�,v Liberci u� zase �iju skoro 30 let.Jde o k�i�ovatku ulic 28.��jna, Karoliny Sv�tl� a U �koly.
+ <BR> Zaj�mav� pokus zm�st �ten��e str�nek ? Nebo zb�silost a touha z��astnit se za ka�dou cenu?Ale o �ivot nejde,tak jde o ......,�e ?<BR></div></div><div class="koment_ur0"><div><B> Hled�m informace</B> <span class="sedive">[<B>ivonna dole�alov�</B> 14.11.2006 11:36]</span> | <a href="index.php?detail=1110015&amp;kom=3386">Reagovat</a><BR>o zanikl� obci Bohuslav (Passlas) mezi obcemi Tepl� a Mnichov (u Mari�nsk�ch L�zn�). Z�stalo z n� jen p�r domk�, kter� v 50.letech buldozery u�et�ily a kter� byly rozprod�v�ny jako &quot;boura�ky&quot; na cihly. Domky dnes vlastn� chalup��i. P�tr�m po sv�ch p�edc�ch, kte�� zde �ili. Posledn� v�pis z rodn�ch list� sah� do roku 1806, p�edpokl�d�m ale, �e se zde us�dlili je�t� d��ve. D�kuji za ka�dou informaci.<BR></div></div><div class="koment_ur0"><div><B> Poutn� m�sto sv. Anna Zl. Hory-Horn� �dol�</B> <span class="sedive">[<B>Zden�k Hl�vka</B> 25.1.2009 14:08]</span> | <a href="index.php?detail=1110015&amp;kom=7193">Reagovat</a><BR>M�m tu jedno up�esn�n�. Mnoho lid� toto m�sto ud�v� jako sv.Marta ale j� m�m ��st v�pisu z novin kde n�jak� (nezn�m z hlavy jm�no musel bych dokumentaci naj�t co� je hromada pap�r� CD a DVD) historik toto m�sto popisuje jako poutn� m�sto sv.Anna.Na�e rodina �ije pouh�ch 20 km od tohoto m�sta, ji� 61let.V50 letech jsme se spolu��ky sv. Annu nav�t�vili (je�t� kdy� v�echny kaple st�ly) a v�ichni ho zn�me pod jm�nem sv. Anna.<BR></div></div><div class="koment_ur0"><div><B> co se d�je</B> <span class="sedive">[<B>Ji�� H�la</B> 10.11.2009 23:38]</span> | <a href="index.php?detail=1110015&amp;kom=8931">Reagovat</a><BR>V�en� p��tel� diskutuj�c�...jako zanikl� obce je smutn� v�c, ale nen� sp�e ��lenej�� v�c to co se d�je nyn�???? Jsem rod�kem z obce Zdislava-Schonbach a byl ned�vno v LIberci...teda, ale co se d�je pod je�t�dsk�mi pl�n�mi (mysl�m t�m ��len� v�stavbov� bum) je nepopsatekn� hor��, ne� samotn� obce co zmizely po t� ��len� v�lce... a kdo mi to vyvr�t�? Nikdo!!!<BR></div></div><div class="koment_ur0"><div><B> Dvoretin, Svetlik</B> <span class="sedive">[<B>Anna Maria Rodenh�user</B> 13.3.2016 17:38]</span> | <a href="index.php?detail=1110015&amp;kom=20121">Reagovat</a><BR>meine Mutter kommt aus Dvoretin, wir h�tten sehr viele Informationen, auch Bilder, wer hat Interesse?<BR></div></div></div><div class="koment">
+			<span class="nadpcerveny">&nbsp;Koment��e a up�es�uj�c� informace </span><BR>
+            <table border="0" cellpadding="2" cellspacing="0">
+              <form action="index.php?detail=1110015" onsubmit="return koment_validate(this);" method="post">
+              <input type="hidden" name="kpridat" value="2">
+              <input type="hidden" name="kn_odeslano" value="ano">
+              <input type="hidden" name="kn_reakce_id" value="0">
+              <tr>
+                <td>Jm�no:
+                </td>
+                <td>
+
+                  <input class="koment" type="text" name="kn_name" value="" size="30" maxlength="50">
+		
+                </td>
+              </tr>
+		
+              <tr>
+                <td valign=top>
+                   E-mail:
+                </td>
+                <td valign=top>
+                  <input class="koment" type="text" name="kn_email" value="" size="30" maxlength="50"><BR>
+									<I>Pokud chcete automaticky zaslat odpov�di, uve�te Va�� emailovou adresu (v platn�m tvaru nap�. ja@seznam.cz). V r�mci antispamov� ochrany nebude V� email nikde zobrazen. Poslou�� pouze pro automatick� zasl�n� odpov�d� na V� p��sp�vek. </I>
+								</td>
+              </tr>
+				
+              <tr>
+                <td>Nadpis:
+                </td>
+                <td>
+                  <input class="koment" type="text" name="kn_predmet" value="" size="61" maxlength="70">
+                </td>
+              </tr>
+              <tr>
+                <td valign=top>Koment��/Up�esn�n�:&nbsp;&nbsp;
+                </td>
+                <td>
+                  <textarea class="koment" cols="60" rows="5" name="kn_text"></textarea>
+                </td>
+              </tr>
+              <input type="hidden" name="tmp_novinky" value="0"><input type="hidden" name="kn_ochr2" value="301">              
+							<tr>
+              </tr>
+              <tr>
+                 <td colspan=2>
+KOMENTAR NEBYL ULOZEN !!!<BR>
+									 <I><FONT color=red><BIG><B>V r�mci ochrany proti spamov�m p��sp�vk�m opi�te ��slo <B>96 </B>do n�sleduj�c�ho pol��ka: </B></BIG></I></font> 
+                   <input class="koment" type="text" name="kn_ochr" value="" size="2" maxlength="2"><BR>
+									 <BR>
+                   <input type="submit" class="b" value="Odeslat">&nbsp;&nbsp;&nbsp;
+                 </td>
+              </tr>
+              </form>
+            </table>
+						</div>					</div><BR></DIV>
+</div></td></tr><tr>	<td>		<BR>      <div class="nav20">			<div class="nav21">				<small>(C)2005-2022 zanikleobce.cz <A HREF="mailto: beran@seznam.cz">Pavel Beran</a></small>			</div>		</div>	</td></tr><tr>	<td>		<small><small>Processing time: 120 msec.		<BR>IP address = 12.34.56.78<BR>desktop version<BR>		</small></SMALL>	</td></tr></table>		</TD>	</TR></TABLE></center></BODY>

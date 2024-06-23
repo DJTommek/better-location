@@ -111,6 +111,13 @@ final class ZanikleObceCzServiceTest extends AbstractServiceTestCase
 		];
 	}
 
+	public function processMissingCoordinatesProvider(): array
+	{
+		return [
+			['http://www.zanikleobce.cz/index.php?detail=1110015'],
+		];
+	}
+
 	/**
 	 * @dataProvider isValidObecProvider
 	 * @dataProvider isValidDetailProvider
@@ -144,11 +151,30 @@ final class ZanikleObceCzServiceTest extends AbstractServiceTestCase
 
 	/**
 	 * @group request
+	 * @dataProvider processMissingCoordinatesProvider
 	 */
-	public function testMissingCoordinates(): void
+	public function testMissingCoordinatesReal(string $input): void
 	{
+		$service = new ZanikleObceCzService($this->httpTestClients->realRequestor);
+		$this->testMissingCoordinates($service, $input);
+	}
+
+	/**
+	 * @dataProvider processMissingCoordinatesProvider
+	 */
+	public function testMissingCoordinatesOffline(string $input): void
+	{
+		$service = new ZanikleObceCzService($this->httpTestClients->offlineRequestor);
+		$this->testMissingCoordinates($service, $input);
+	}
+
+	private function testMissingCoordinates(ZanikleObceCzService $service, string $input): void
+	{
+		$service->setInput($input);
+
 		$this->expectException(InvalidLocationException::class);
-		$this->expectExceptionMessage('Detail page "http://www.zanikleobce.cz/index.php?detail=1110015" has no location.');
-		ZanikleObceCzService::processStatic('http://www.zanikleobce.cz/index.php?detail=1110015');
+		$this->expectExceptionMessage('Coordinates on obec page "http://www.zanikleobce.cz/index.php?detail=1110015" are missing.');
+
+		$service->process();
 	}
 }
