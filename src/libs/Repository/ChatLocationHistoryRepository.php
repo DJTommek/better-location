@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Utils\CoordinatesInterface;
+use DJTommek\Coordinates\CoordinatesInterface;
 
 class ChatLocationHistoryRepository extends Repository
 {
@@ -16,8 +16,8 @@ class ChatLocationHistoryRepository extends Repository
 		LEFT JOIN better_location_user user ON user.user_id = clh.user_id
 		LEFT JOIN better_location_chat chat ON chat.chat_id = clh.chat_id
 		WHERE chat.chat_telegram_id = ? 
-		ORDER BY timestamp 
-		DESC LIMIT 1000';
+		ORDER BY timestamp DESC 
+		LIMIT 1000';
 		$rows = $this->db->query($sql, $telegramChatId)->fetchAll();
 		return ChatLocationHistoryEntity::fromRows($rows);
 	}
@@ -30,13 +30,19 @@ class ChatLocationHistoryRepository extends Repository
 		CoordinatesInterface $coords,
 		string $input,
 		?string $address,
-	): void
-	{
+	): void {
 		$this->db->query('INSERT INTO better_location_chat_location_history 
     			(telegram_update_id, chat_id, user_id, timestamp, latitude, longitude, input, address) 
     			VALUES 
                 (?, ?, ?, ?, ?, ?, ?, ?)',
-			$telegramUpdateId, $chatId, $userId, $dateTime->getTimestamp(), $coords->getLat(), $coords->getLon(), $input, $address
+			$telegramUpdateId,
+			$chatId,
+			$userId,
+			$dateTime->getTimestamp(),
+			$coords->getLat(),
+			$coords->getLon(),
+			$input,
+			$address,
 		);
 	}
 }
