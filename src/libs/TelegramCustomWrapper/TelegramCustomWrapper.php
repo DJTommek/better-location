@@ -187,6 +187,7 @@ class TelegramCustomWrapper
 				$event->getTgMessageSentDate(),
 				$location->getCoordinates(),
 				$location->getInput(),
+				$location->getAddress(),
 			);
 		}
 	}

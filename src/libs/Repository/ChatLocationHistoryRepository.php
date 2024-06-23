@@ -22,13 +22,21 @@ class ChatLocationHistoryRepository extends Repository
 		return ChatLocationHistoryEntity::fromRows($rows);
 	}
 
-	public function insert(int $telegramUpdateId, int $chatId, int $userId, \DateTimeInterface $dateTime, CoordinatesInterface $coords, string $input): void
+	public function insert(
+		int $telegramUpdateId,
+		int $chatId,
+		int $userId,
+		\DateTimeInterface $dateTime,
+		CoordinatesInterface $coords,
+		string $input,
+		?string $address,
+	): void
 	{
 		$this->db->query('INSERT INTO better_location_chat_location_history 
-    			(telegram_update_id, chat_id, user_id, timestamp, latitude, longitude, input) 
+    			(telegram_update_id, chat_id, user_id, timestamp, latitude, longitude, input, address) 
     			VALUES 
-                (?, ?, ?, ?, ?, ?, ?)',
-			$telegramUpdateId, $chatId, $userId, $dateTime->getTimestamp(), $coords->getLat(), $coords->getLon(), $input
+                (?, ?, ?, ?, ?, ?, ?, ?)',
+			$telegramUpdateId, $chatId, $userId, $dateTime->getTimestamp(), $coords->getLat(), $coords->getLon(), $input, $address
 		);
 	}
 }
