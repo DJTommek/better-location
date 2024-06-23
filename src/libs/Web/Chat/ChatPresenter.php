@@ -70,7 +70,7 @@ class ChatPresenter extends MainPresenter
 	public function beforeRender(): void
 	{
 		if ($this->isUserAdmin === false) {
-			$this->template->prepareError();
+			$this->template->prepareError(requireAdmin: true);
 			$this->setTemplateFilename('chatError.latte');
 			return;
 		}

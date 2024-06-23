@@ -716,16 +716,6 @@ parameters:
 			path: src/libs/Web/Chat/ChatPresenter.php
 
 		-
-			message: "#^Method App\\\\Web\\\\Chat\\\\ChatTemplate\\:\\:prepare\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Web/Chat/ChatTemplate.php
-
-		-
-			message: "#^Method App\\\\Web\\\\Chat\\\\ChatTemplate\\:\\:prepareError\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Web/Chat/ChatTemplate.php
-
-		-
 			message: "#^Method App\\\\Web\\\\Chat\\\\ChatTemplate\\:\\:prepareOk\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/Web/Chat/ChatTemplate.php

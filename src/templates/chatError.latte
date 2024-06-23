@@ -12,7 +12,7 @@
 			<ul>
 				<li><a href="{$botLink}" target="_blank">{$botName}</a> is added to this chat</li>
 				<li>you are in this chat</li>
-				<li>you have administrator's rights in this chat</li>
+				<li n:if="$chatErrorRequireAdmin">you have administrator's rights in this chat</li>
 				<li>chat ID is correct via command <code>{$debugCommand}</code></li>
 			</ul>
 			If problem persist, contact <a href="{$authorLink}" target="_blank">{$authorName}</a>.

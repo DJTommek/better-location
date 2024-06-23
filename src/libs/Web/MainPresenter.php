@@ -7,6 +7,7 @@ use App\Factory\LatteFactory;
 use App\Repository\ChatRepository;
 use App\Repository\FavouritesRepository;
 use App\Repository\UserRepository;
+use App\TelegramCustomWrapper\TelegramHelper;
 use App\User;
 use App\Utils\Strict;
 use App\Web\Login\LoginFacade;
@@ -72,6 +73,8 @@ abstract class MainPresenter
 		$this->template->baseUrl = rtrim($appUrl->getAbsoluteUrl(), '/');
 		$this->template->basePath = rtrim($appUrl->getPath(), '/');
 		$this->template->flashMessages = $this->getFlashMessages();
+		$this->template->botName = Config::TELEGRAM_BOT_NAME;
+		$this->template->botLink = TelegramHelper::userLink(Config::TELEGRAM_BOT_NAME);
 		$this->action();
 		$this->beforeRender();
 		$this->render();

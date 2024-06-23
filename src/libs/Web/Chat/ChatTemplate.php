@@ -5,16 +5,14 @@ namespace App\Web\Chat;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\ServicesManager;
 use App\Chat;
-use App\Config;
-use App\TelegramCustomWrapper\Events\Command\DebugCommand;
-use App\TelegramCustomWrapper\TelegramHelper;
+use App\Web\ChatErrorTrait;
 use App\Web\LayoutTemplate;
 use unreal4u\TelegramAPI\Telegram;
 
 class ChatTemplate extends LayoutTemplate
 {
+	use ChatErrorTrait;
 
-	// in case of ok - start
 	public int $telegramChatId;
 	public Telegram\Types\Chat $chatResponse;
 	public Chat $chat;
@@ -26,46 +24,17 @@ class ChatTemplate extends LayoutTemplate
 	public string $exampleInput;
 	public BetterLocation $exampleLocation;
 	public bool $canBotEditMessagesOfOthers = false;
-	// in case of ok - end
-	// in case of error - start
-	/** @var string */
-	public $debugCommand;
-	/** @var string */
-	public $botLink;
-	/** @var string */
-	public $botName;
-	/** @var string */
-	public $authorName;
-	/** @var string */
-	public $authorLink;
 	public ServicesManager $services;
 	public string $formPluginerUrl = '';
-
-	// in case of error - end
-
-	private function prepare()
-	{
-		$this->botName = Config::TELEGRAM_BOT_NAME;
-		$this->botLink = TelegramHelper::userLink(Config::TELEGRAM_BOT_NAME);
-	}
 
 	public function prepareOk(
 		Telegram\Types\Chat $chatResponse,
 		ServicesManager $servicesManager,
 	) {
-		$this->prepare();
 		$this->lat = $this->exampleLocation->getLat();
 		$this->lon = $this->exampleLocation->getLon();
 		$this->chatResponse = $chatResponse;
 		$this->services = $servicesManager;
-	}
-
-	public function prepareError()
-	{
-		$this->prepare();
-		$this->debugCommand = DebugCommand::getTgCmd(true);
-		$this->authorName = 'DJTommek';
-		$this->authorLink = TelegramHelper::userLink($this->authorName);
 	}
 }
 

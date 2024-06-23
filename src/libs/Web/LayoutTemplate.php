@@ -7,27 +7,27 @@ use App\Web\Login\LoginFacade;
 
 class LayoutTemplate
 {
-	/** @var LoginFacade */
-	public $login;
-	/** @var ?User */
-	public $user;
-	/** @var int */
-	public $cachebusterMainCss;
+	public LoginFacade $login;
+	public ?User $user;
+	public int $cachebusterMainCss;
 	/**
 	 * @var string Full URL including path without trailing slash
 	 * @example https://better-location.palider.cz/better-location/www
 	 * @example https://better-location.palider.cz
 	 */
-	public $baseUrl;
+	public string $baseUrl;
 	/**
 	 * @var string Path part of URL without domain and trailing slash
 	 * @example '/better-location/www'
 	 * @example ''
 	 */
-	public $basePath;
+	public string $basePath;
 	/**
 	 * @var \Generator<FlashMessage>
 	 */
 	public \Generator $flashMessages;
+
+	public string $botLink;
+	public string $botName;
 }
 
