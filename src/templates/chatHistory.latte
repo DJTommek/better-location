@@ -1,0 +1,226 @@
+{templateType App\Web\Chat\ChatHistoryTemplate}
+{layout '@layout.latte'}
+{block content}
+	<div id="content-chat-history">
+		<h2 class="text-center"><a href="{$basePath}/chat/{$chatEntity->telegramId}/history">Location history of {$chatEntity->telegramChatType} {$chatEntity->telegramName}</a></h2>
+		<div id="map-dynamic">
+			<div id="map-dynamic-leaflet"></div>
+		</div>
+		<table id="location-history-table" class="table table-sm">
+			<thead>
+			<tr>
+				<th>Date time</th>
+				<th>User</th>
+				<th>Coordinates</th>
+				<th>Input</th>
+			</tr>
+			</thead>
+			<tbody>
+			{foreach $chatHistoryLocations as $chatHistoryLocation}
+				<tr>
+					<td>{$chatHistoryLocation->timestamp->format(\App\Config::DATETIME_FORMAT)}</td>
+					<td>{$chatHistoryLocation->user->telegramName}</td>
+					<td>
+						<a href="{$basePath}/{$chatHistoryLocation->coordinates->getLatLon()}" target="_blank">
+							{$chatHistoryLocation->coordinates->getLatLon()}
+						</a>
+					</td>
+					<td>{$chatHistoryLocation->input}</td>
+				</tr>
+			{/foreach}
+			</tbody>
+		</table>
+	</div>
+{/block}
+
+{block title}
+	Chat {$chatEntity->telegramName}
+{/block}
+
+{block cssLibs}
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@v0.74.0/dist/L.Control.Locate.min.css"/>
+{/block}
+{block jsLibs}
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+	<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@v0.74.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+{/block}
+
+{block js}
+	<script>
+		function distanceHuman(meters) {
+			if (meters > 10_000) {
+				return Math.floor(meters / 1000) + 'km';
+			} else if (meters > 1000) {
+				return Math.floor(meters / 10) / 100 + 'km'; // keep rounded to two decimal places
+			}
+			return Math.floor(meters) + 'm';
+		}
+
+		function escapeHtml(unsafe) {
+			return unsafe
+				.replace(/&/g, "&amp;")
+				.replace(/</g, "&lt;")
+				.replace(/>/g, "&gt;")
+				.replace(/"/g, "&quot;")
+				.replace(/'/g, "&#039;");
+		}
+
+		const locations = {$locationsJs};
+		const listGroupTabs = {};
+		const mapData = {
+			map: null,
+			markers: {
+				browserLocation: null,
+				locations: {},
+			},
+			circles: {
+				browserLocationAccuracy: null,
+			},
+			icons: {
+				active: L.icon({
+					iconUrl: {$basePath} +'/img/icons/marker-icon-active.png',
+					iconSize: [25, 41],
+					iconAnchor: [13, 41],
+				}),
+				inactive: L.icon({
+					iconUrl: {$basePath} +'/img/icons/marker-icon-inactive.png',
+					iconSize: [25, 41],
+					iconAnchor: [13, 41],
+				}),
+			},
+			layers: {
+				{syntax off}
+				baseLayers: {
+					'OSM default': L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+						maxZoom: 19,
+						attribution: 'copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+					}),
+					'Waze default': L.tileLayer('https://worldtiles{s}.waze.com/tiles/{z}/{x}/{y}.png', {
+						minZoom: 2,
+						maxZoom: 18,
+						attribution: '<a href="https://www.waze.com/legal/tos" target="_blank" rel="noopener">Waze</a>',
+						tileSize: 256,
+						zoomOffset: 0,
+						subdomains: '1234',
+					}),
+					'Mapy.cz base': L.tileLayer('https://mapserver.mapy.cz/base--en/{z}-{x}-{y}', {
+						minZoom: 2,
+						maxZoom: 18,
+						attribution: '<a href="https://o.seznam.cz" target="_blank" rel="noopener">Seznam.cz, a.s.</a>',
+						tileSize: 256,
+						zoomOffset: 0,
+					}),
+					'Mapy.cz base (alternative)': L.tileLayer('https://palider.cz/api/map-server/mapy-cz/base-en/{z}/{x}/{y}', {
+						minZoom: 2,
+						maxZoom: 18,
+						attribution: '<a href="https://o.seznam.cz" target="_blank" rel="noopener">Seznam.cz, a.s.</a>',
+						tileSize: 256,
+						zoomOffset: 0,
+					}),
+					'Mapy.cz hiking': L.tileLayer('https://mapserver.mapy.cz/turist-m/{z}-{x}-{y}', {
+						minZoom: 2,
+						maxZoom: 18,
+						attribution: '<a href="https://o.seznam.cz" target="_blank" rel="noopener">Seznam.cz, a.s.</a>',
+						tileSize: 256,
+						zoomOffset: 0,
+					}),
+					'Mapy.cz hiking (alternative)': L.tileLayer('https://palider.cz/api/map-server/mapy-cz/turist-m/{z}/{x}/{y}', {
+						minZoom: 2,
+						maxZoom: 18,
+						attribution: '<a href="https://o.seznam.cz" target="_blank" rel="noopener">Seznam.cz, a.s.</a>',
+						tileSize: 256,
+						zoomOffset: 0,
+					}),
+					// @TODO change app_id and app_code (these are taken from wego.here.com)
+					'HERE default': L.tileLayer('https://{s}.base.maps.ls.hereapi.com/maptile/2.1/basetile/newest/normal.day/{z}/{x}/{y}/512/png8?app_id=VgTVFr1a0ft1qGcLCVJ6&app_code=LJXqQ8ErW71UsRUK3R33Ow', {
+						minZoom: 2,
+						maxZoom: 18,
+						attribution: '<a href="https://legal.here.com/en-gb/terms/documentation-license" target="_blank" rel="noopener">&copy; HERE</a>',
+						tileSize: 256,
+						zoomOffset: 0,
+						subdomains: '1234',
+					}),
+					// @TODO change app_id and app_code (these are taken from wego.here.com)
+					'HERE satellite': L.tileLayer('https://{s}.aerial.maps.ls.hereapi.com/maptile/2.1/basetile/newest/satellite.day/{z}/{x}/{y}/512/png8?app_id=VgTVFr1a0ft1qGcLCVJ6&app_code=LJXqQ8ErW71UsRUK3R33Ow', {
+						minZoom: 2,
+						maxZoom: 18,
+						attribution: '<a href="https://legal.here.com/en-gb/terms/documentation-license" target="_blank" rel="noopener">&copy; HERE</a>',
+						tileSize: 256,
+						zoomOffset: 0,
+						subdomains: '1234',
+					}),
+				},
+				{/syntax}
+			}
+		}
+		$(function () {
+			mapData.map = L.map('map-dynamic-leaflet').setView(locations[0]['coords'], 13);
+			mapData.map.fitBounds(new L.LatLngBounds({$allCoords}), {'maxZoom': 13});
+
+			const baseLayer = Settings.load('dynamicMapBaseLayer');
+			mapData.layers.baseLayers[baseLayer].addTo(mapData.map);
+			L.control.layers(mapData.layers.baseLayers, mapData.layers.overlays).addTo(mapData.map);
+
+			mapData.map.on('baselayerchange', function (event) {
+				Settings.save('dynamicMapBaseLayer', event.name);
+			});
+
+			locations.forEach(function (location, index) {
+				const isFirst = (index === 0);
+
+				const marker = L.marker(
+					[location.lat, location.lon],
+					{
+						icon: isFirst ? mapData.icons.active : mapData.icons.inactive,
+					}
+				);
+				let popupContent = '<p>';
+				popupContent += 'Coordinates: <b><a href="' + {$basePath} +'/' + location.key + '" target="_blank">' + location.key + '</a></b>';
+				popupContent += ' <i class="fa fa-fw fa-clipboard copy-to-clipboard" data-clipboard-text="' + location.key + '" title="Copy coordinates to clipboard"></i>';
+				popupContent += '<br>Saved: <b>' + (new Date(location.timestamp)) + '</b>';
+				popupContent += '<br>Input: <b>' + escapeHtml(location.input) + '</b>';
+				if (location.address) {
+					popupContent += '<br>Address: <b>' + location.address + '</b>';
+				}
+				popupContent += '</p>';
+				marker.bindPopup(popupContent, {
+					offset: [0, -30],
+				});
+				marker.on('popupopen', function (event) {
+					for (const [locationMarkerTempHash, locationMarkerTemp] of Object.entries(mapData.markers.locations)) {
+						if (locationMarkerTempHash === location.hash) {
+							locationMarkerTemp.setIcon(mapData.icons.active);
+						} else {
+							locationMarkerTemp.setIcon(mapData.icons.inactive);
+						}
+					}
+				});
+				marker.addTo(mapData.map);
+				mapData.markers.locations[location.hash] = marker;
+			});
+
+			const locateControl = L.control.locate({
+				setView: false,
+				strings: {
+					popup: function (params) {
+						const markerLatLng = locateControl._marker.getLatLng();
+						const latLon = markerLatLng.lat.toFixed(6) + ',' + markerLatLng.lng.toFixed(6);
+						let popupContent = '<p>';
+						popupContent += 'Browser location: <b><a href="' + {$basePath} +'/' + latLon + '">' + latLon + '</a></b> (accuracy <b>' + distanceHuman(params.distance) + '</b>)';
+						return popupContent;
+					}
+				}
+			}).addTo(mapData.map);
+
+			// If access to browser location is granted, show it in the map automatically but without pan and zoom
+			navigator.permissions.query({
+				name: 'geolocation',
+			}).then(function (result) {
+				if (result.state === 'granted') {
+					locateControl.start();
+				}
+			});
+		});
+	</script>
+{/block}
