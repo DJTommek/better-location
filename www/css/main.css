@@ -228,13 +228,16 @@ a {
 #content-chat-history #location-history-table tr td {
 	vertical-align: middle;
 }
+
+/* Datetime */
 #content-chat-history #location-history-table tr td:nth-child(1) {
 	width: 10em;
 }
-
+/* Address */
 #content-chat-history #location-history-table tr td:nth-child(4) {
-	/*overflow: hidden;*/
-	/*text-overflow: ellipsis;*/
-	/*white-space: nowrap;*/
+	min-width: 10em;
+}
+/* Input */
+#content-chat-history #location-history-table tr td:nth-child(5) {
 	word-break: break-all;
 }

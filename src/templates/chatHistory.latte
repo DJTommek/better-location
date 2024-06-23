@@ -12,6 +12,7 @@
 				<th>Date time</th>
 				<th>User</th>
 				<th>Coordinates</th>
+				<th>Address</th>
 				<th>Input</th>
 			</tr>
 			</thead>
@@ -25,6 +26,7 @@
 							{$chatHistoryLocation->coordinates->getLatLon()}
 						</a>
 					</td>
+					<td>{$chatHistoryLocation->address ?? 'N/A'}</td>
 					<td>{$chatHistoryLocation->input}</td>
 				</tr>
 			{/foreach}
