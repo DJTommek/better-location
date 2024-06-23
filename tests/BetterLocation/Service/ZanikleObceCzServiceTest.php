@@ -3,118 +3,123 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\ZanikleObceCzService;
-use PHPUnit\Framework\TestCase;
 
-final class ZanikleObceCzServiceTest extends TestCase
+final class ZanikleObceCzServiceTest extends AbstractServiceTestCase
 {
-	public function testGenerateShareLink(): void
+	protected function getServiceClass(): string
 	{
-		$this->assertSame('http://zanikleobce.cz/index.php?menu=222&mpx=14.420671&mpy=50.087451', ZanikleObceCzService::getLink(50.087451, 14.420671));
-		$this->assertSame('http://zanikleobce.cz/index.php?menu=222&mpx=14.500000&mpy=50.100000', ZanikleObceCzService::getLink(50.1, 14.5));
-		$this->assertSame('http://zanikleobce.cz/index.php?menu=222&mpx=14.600000&mpy=-50.200000', ZanikleObceCzService::getLink(-50.2, 14.6000001)); // round down
-		$this->assertSame('http://zanikleobce.cz/index.php?menu=222&mpx=-14.700001&mpy=50.300000', ZanikleObceCzService::getLink(50.3, -14.7000009)); // round up
-		$this->assertSame('http://zanikleobce.cz/index.php?menu=222&mpx=-14.800008&mpy=-50.400000', ZanikleObceCzService::getLink(-50.4, -14.800008));
+		return ZanikleObceCzService::class;
 	}
 
-	public function testGenerateDriveLink(): void
+	protected function getShareLinks(): array
 	{
-		$this->expectException(NotSupportedException::class);
-		ZanikleObceCzService::getLink(50.087451, 14.420671, true);
+		$this->revalidateGeneratedShareLink = false;
+
+		return [
+			'http://zanikleobce.cz/index.php?menu=222&mpx=14.420671&mpy=50.087451',
+			'http://zanikleobce.cz/index.php?menu=222&mpx=14.500000&mpy=50.100000',
+			'http://zanikleobce.cz/index.php?menu=222&mpx=14.600000&mpy=-50.200000', // round down
+			'http://zanikleobce.cz/index.php?menu=222&mpx=-14.700001&mpy=50.300000', // round up
+			'http://zanikleobce.cz/index.php?menu=222&mpx=-14.800008&mpy=-50.400000',
+		];
 	}
 
-	public function testIsValidObec(): void
+	protected function getDriveLinks(): array
 	{
-		$this->assertTrue(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec=26831'));
-		$this->assertTrue(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec=1'));
-		$this->assertTrue(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec=999999'));
+		return [];
+	}
 
-		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec='));
-		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec=0'));
-		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec=aaa'));
-		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec=-26831'));
-		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec=26831aaa'));
-		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?obec=aaa26831'));
-}
 
-	public function testIsValidDetail(): void
+	public function isValidObecProvider(): array
 	{
-		$this->assertTrue(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/index.php?detail=1110015')); // valid but doesn't contain any location
+		return [
+			[true, 'http://www.zanikleobce.cz/?obec=26831'],
+			[true, 'http://www.zanikleobce.cz/?obec=1'],
+			[true, 'http://www.zanikleobce.cz/?obec=999999'],
 
-		$this->assertTrue(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/index.php?detail=282687'));
-		$this->assertTrue(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?detail=282687'));
-		$this->assertTrue(ZanikleObceCzService::validateStatic('http://zanikleOBCE.cz/?detail=282687'));
-		$this->assertTrue(ZanikleObceCzService::validateStatic('http://zanikleobce.cz/index.php?detail=282687'));
-		$this->assertTrue(ZanikleObceCzService::validateStatic('http://zanikleobce.cz/index.php?lang=d&detail=282687')); // changed language to Deutsch
+			[false, 'http://www.zanikleobce.cz/?obec='],
+			[false, 'http://www.zanikleobce.cz/?obec=0'],
+			[false, 'http://www.zanikleobce.cz/?obec=aaa'],
+			[false, 'http://www.zanikleobce.cz/?obec=-26831'],
+			[false, 'http://www.zanikleobce.cz/?obec=26831aaa'],
+			[false, 'http://www.zanikleobce.cz/?obec=aaa26831'],
+		];
+	}
 
-		$this->assertTrue(ZanikleObceCzService::validateStatic('https://www.zanikleobce.cz/index.php?detail=282687'));
-		$this->assertTrue(ZanikleObceCzService::validateStatic('https://www.zanikleobce.cz/?detail=282687'));
-		$this->assertTrue(ZanikleObceCzService::validateStatic('https://zanikleobce.CZ/?detail=282687'));
-		$this->assertTrue(ZanikleObceCzService::validateStatic('https://zanikleobce.cz/index.php?detail=282687'));
-		$this->assertTrue(ZanikleObceCzService::validateStatic('https://ZANIKLEobce.cz/index.php?lang=d&detail=282687')); // changed language to Deutsch
-		$this->assertTrue(ZanikleObceCzService::validateStatic('https://zanikleobce.cz/index.php?detail=282687&lang=d')); // changed language to Deutsch
+	public function isValidDetailProvider(): array
+	{
+		return [
+			[true, 'http://www.zanikleobce.cz/index.php?detail=1110015'], // valid but doesn't contain any location
 
-		$this->assertFalse(ZanikleObceCzService::validateStatic('some invalid url'));
-		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/index.php?detail='));
-		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/index.php?detail=-282687'));
-		$this->assertFalse(ZanikleObceCzService::validateStatic('https://ZANIKLEobce.cz/index.php?detail=aaa'));
-		$this->assertFalse(ZanikleObceCzService::validateStatic('https://www.zanikleobce.cz/index.php?detail=123aaa'));
-		$this->assertFalse(ZanikleObceCzService::validateStatic('https://www.zanikleobce.CZ/index.php?detail=aaa123'));
-		$this->assertFalse(ZanikleObceCzService::validateStatic('https://www.zanikleobce.cz/index.php?detail=aaa123aaa'));
-		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/index.php?DETAIL=282687'));
-		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/?DETAIL=282687'));
-		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/'));
-		$this->assertFalse(ZanikleObceCzService::validateStatic('http://zanikleobce.cz/'));
-		$this->assertFalse(ZanikleObceCzService::validateStatic('http://www.zanikleobce.cz/index.php'));
+			[true, 'http://www.zanikleobce.cz/index.php?detail=282687'],
+			[true, 'http://www.zanikleobce.cz/?detail=282687'],
+			[true, 'http://zanikleOBCE.cz/?detail=282687'],
+			[true, 'http://zanikleobce.cz/index.php?detail=282687'],
+			[true, 'http://zanikleobce.cz/index.php?lang=d&detail=282687'], // changed language to Deutsch
+
+			[true, 'https://www.zanikleobce.cz/index.php?detail=282687'],
+			[true, 'https://www.zanikleobce.cz/?detail=282687'],
+			[true, 'https://zanikleobce.CZ/?detail=282687'],
+			[true, 'https://zanikleobce.cz/index.php?detail=282687'],
+			[true, 'https://ZANIKLEobce.cz/index.php?lang=d&detail=282687'], // changed language to Deutsch
+			[true, 'https://zanikleobce.cz/index.php?detail=282687&lang=d'], // changed language to Deutsch
+
+			[false, 'some invalid url'],
+			[false, 'http://www.zanikleobce.cz/index.php?detail='],
+			[false, 'http://www.zanikleobce.cz/index.php?detail=-282687'],
+			[false, 'https://ZANIKLEobce.cz/index.php?detail=aaa'],
+			[false, 'https://www.zanikleobce.cz/index.php?detail=123aaa'],
+			[false, 'https://www.zanikleobce.CZ/index.php?detail=aaa123'],
+			[false, 'https://www.zanikleobce.cz/index.php?detail=aaa123aaa'],
+			[false, 'http://www.zanikleobce.cz/index.php?DETAIL=282687'],
+			[false, 'http://www.zanikleobce.cz/?DETAIL=282687'],
+			[false, 'http://www.zanikleobce.cz/'],
+			[false, 'http://zanikleobce.cz/'],
+			[false, 'http://www.zanikleobce.cz/index.php'],
+		];
+	}
+
+	public function processtUrlObecProvider(): array
+	{
+		return [
+			[48.590270, 14.234440, 'http://www.zanikleobce.cz/index.php?obec=502'],
+			[49.786750, 12.557330, 'http://www.zanikleobce.cz/index.php?obec=22307'],
+			[48.915560, 13.889190, 'http://www.zanikleobce.cz/index.php?obec=7087'],
+			[50.111750, 14.509370, 'http://www.zanikleobce.cz/index.php?obec=27819'],
+			[50.519070, 13.644160, 'http://www.zanikleobce.cz/index.php?lang=d&obec=27059'],
+		];
+	}
+
+	public function processUrlDetailProvider(): array
+	{
+		return [
+			[48.590270, 14.234440, 'http://www.zanikleobce.cz/index.php?detail=119532'],
+			[48.915560, 13.889190, 'http://www.zanikleobce.cz/index.php?detail=223422'],
+			[48.915560, 13.889190, 'http://www.zanikleobce.cz/index.php?detail=1451711'],
+			[49.778330, 13.120830, 'http://www.zanikleobce.cz/index.php?lang=d&detail=48637'],
+		];
+	}
+
+	/**
+	 * @dataProvider isValidObecProvider
+	 * @dataProvider isValidDetailProvider
+	 */
+	public function testIsValid(bool $expectedIsValid, string $input): void
+	{
+		$service = new ZanikleObceCzService();
+		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
 	/**
 	 * @group request
+	 * @dataProvider processtUrlObecProvider
+	 * @dataProvider processUrlDetailProvider
 	 */
-	public function testUrlObec(): void
+	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$collection = ZanikleObceCzService::processStatic('http://www.zanikleobce.cz/index.php?obec=502')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('48.590270,14.234440', $collection[0]->__toString());
-
-		$collection = ZanikleObceCzService::processStatic('http://www.zanikleobce.cz/index.php?obec=22307')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.786750,12.557330', $collection[0]->__toString());
-
-		$collection = ZanikleObceCzService::processStatic('http://www.zanikleobce.cz/index.php?obec=7087')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('48.915560,13.889190', $collection[0]->__toString());
-
-		$collection =ZanikleObceCzService::processStatic('http://www.zanikleobce.cz/index.php?obec=27819')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.111750,14.509370', $collection[0]->__toString());
-
-		$collection = ZanikleObceCzService::processStatic('http://www.zanikleobce.cz/index.php?lang=d&obec=27059')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.519070,13.644160', $collection[0]->__toString());
-	}
-
-	/**
-	 * @group request
-	 */
-	public function testUrlDetail(): void
-	{
-		$collection = ZanikleObceCzService::processStatic('http://www.zanikleobce.cz/index.php?detail=119532')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('48.590270,14.234440', $collection[0]->__toString());
-
-		$collection = ZanikleObceCzService::processStatic('http://www.zanikleobce.cz/index.php?detail=223422')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('48.915560,13.889190', $collection[0]->__toString());
-
-		$collection = ZanikleObceCzService::processStatic('http://www.zanikleobce.cz/index.php?detail=1451711')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('48.915560,13.889190', $collection[0]->__toString());
-
-		$collection = ZanikleObceCzService::processStatic('http://www.zanikleobce.cz/index.php?lang=d&detail=48637')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.778330,13.120830', $collection[0]->__toString());
+		$service = new ZanikleObceCzService();
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
 	/**
