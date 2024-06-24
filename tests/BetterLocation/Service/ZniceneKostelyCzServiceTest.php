@@ -2,83 +2,97 @@
 
 namespace Tests\BetterLocation\Service;
 
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\ZniceneKostelyCzService;
-use PHPUnit\Framework\TestCase;
 
-final class ZniceneKostelyCzServiceTest extends TestCase
+final class ZniceneKostelyCzServiceTest extends AbstractServiceTestCase
 {
-	public function testGenerateShareLink(): void
+	protected function getServiceClass(): string
 	{
-		$this->expectException(NotSupportedException::class);
-		ZniceneKostelyCzService::getLink(50.087451, 14.420671);
+		return ZniceneKostelyCzService::class;
 	}
 
-	public function testGenerateDriveLink(): void
+	protected function getShareLinks(): array
 	{
-		$this->expectException(NotSupportedException::class);
-		ZniceneKostelyCzService::getLink(50.087451, 14.420671, true);
+		return [];
 	}
 
-	public function testIsValid(): void
+	protected function getDriveLinks(): array
 	{
-		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://www.znicenekostely.cz/?load=detail&id=18231'));
-		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://www.znicenekostely.cz/?id=18231&load=detail'));
-		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/?load=detail&id=18231'));
-		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://www.znicenekostely.cz/?load=detail&id=18231#obsah'));
-		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/?load=detail&id=18231#obsah'));
-		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://www.znicenekostely.cz/index.php?load=detail&id=18231#obsah'));
-		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/index.php?load=detail&id=18231#obsah'));
-		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://www.znicenekostely.cz/index.php?load=detail&id=4233&search_result_index=0&nej=1#obsah'));
-		$this->assertTrue(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/index.php?load=detail&id=4233&search_result_index=0&nej=1#obsah'));
+		return [];
+	}
 
-		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://www.znicenekostely.cz/?load=detail&id=18231aaaa'));
-		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://www.znicenekostely.cz/?load=detail&id=aaaa'));
-		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/index.php?load=detail&id='));
-		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/?load=detail&id='));
-		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://www.znicenekostely.cz/?load=detail&id='));
-		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/?load=blabla&id=18231'));
-		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/?load=detail'));
-		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/?load=blabla&ID=18231'));
-		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/'));
-		$this->assertFalse(ZniceneKostelyCzService::validateStatic('http://znicenekostely.cz/index.php'));
+	public function isValidProvider(): array
+	{
+		return [
+			[true, 'http://www.znicenekostely.cz/?load=detail&id=18231'],
+			[true, 'http://www.znicenekostely.cz/?id=18231&load=detail'],
+			[true, 'http://znicenekostely.cz/?load=detail&id=18231'],
+			[true, 'http://www.znicenekostely.cz/?load=detail&id=18231#obsah'],
+			[true, 'http://znicenekostely.cz/?load=detail&id=18231#obsah'],
+			[true, 'http://www.znicenekostely.cz/index.php?load=detail&id=18231#obsah'],
+			[true, 'http://znicenekostely.cz/index.php?load=detail&id=18231#obsah'],
+			[true, 'http://www.znicenekostely.cz/index.php?load=detail&id=4233&search_result_index=0&nej=1#obsah'],
+			[true, 'http://znicenekostely.cz/index.php?load=detail&id=4233&search_result_index=0&nej=1#obsah'],
 
-		$this->assertFalse(ZniceneKostelyCzService::validateStatic('some invalid url'));
+			[false, 'http://www.znicenekostely.cz/?load=detail&id=18231aaaa'],
+			[false, 'http://www.znicenekostely.cz/?load=detail&id=aaaa'],
+			[false, 'http://znicenekostely.cz/index.php?load=detail&id='],
+			[false, 'http://znicenekostely.cz/?load=detail&id='],
+			[false, 'http://www.znicenekostely.cz/?load=detail&id='],
+			[false, 'http://znicenekostely.cz/?load=blabla&id=18231'],
+			[false, 'http://znicenekostely.cz/?load=detail'],
+			[false, 'http://znicenekostely.cz/?load=blabla&ID=18231'],
+			[false, 'http://znicenekostely.cz/'],
+			[false, 'http://znicenekostely.cz/index.php'],
+
+			[false, 'some invalid url'],
+		];
+	}
+
+	public function processProvider(): array
+	{
+		return [
+			[49.885617, 14.044381, 'http://www.znicenekostely.cz/?load=detail&id=18231#obsah'],
+			[48.944638, 15.697070, 'http://www.znicenekostely.cz/index.php?load=detail&id=13727'],
+			[50.636144, 14.337469, 'http://www.znicenekostely.cz/index.php?load=detail&id=4233&search_result_index=0&nej=1#obsah'],
+			[50.042461, 14.375072, 'http://www.znicenekostely.cz/index.php?load=detail&id=14039&search_result_index=17&stav[]=Z&stav[]=T&stav[]=R&stav[]=O&stav[]=k&stav[]=n&stav[]=e&znamka[]=500&znamka[]=600&znamka_old[]=501&znamka_old[]=601&zanik=5&subtyp[]=kostely#obsah'],
+			[50.782953, 14.368479, 'http://www.znicenekostely.cz/index.php?load=detail&id=6656&search_result_index=12&nej=3#obsah'],
+		];
+	}
+
+	public function processNoLocationProvider(): array
+	{
+		return [
+			['http://znicenekostely.cz/index.php?load=detail&id=99999999'],
+		];
+	}
+
+	/**
+	 * @dataProvider isValidProvider
+	 */
+	public function testIsValid(bool $expectedIsValid, string $input): void
+	{
+		$service = new ZniceneKostelyCzService();
+		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
 	/**
 	 * @group request
+	 * @dataProvider processProvider
 	 */
-	public function testUrl(): void
+	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$collection = ZniceneKostelyCzService::processStatic('http://www.znicenekostely.cz/?load=detail&id=18231#obsah')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.885617,14.044381', $collection[0]->__toString());
-
-		$collection = ZniceneKostelyCzService::processStatic('http://www.znicenekostely.cz/index.php?load=detail&id=13727')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('48.944638,15.697070', $collection[0]->__toString());
-
-		$collection = ZniceneKostelyCzService::processStatic('http://www.znicenekostely.cz/index.php?load=detail&id=4233&search_result_index=0&nej=1#obsah')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.636144,14.337469', $collection[0]->__toString());
-
-		$collection = ZniceneKostelyCzService::processStatic('http://www.znicenekostely.cz/index.php?load=detail&id=14039&search_result_index=17&stav[]=Z&stav[]=T&stav[]=R&stav[]=O&stav[]=k&stav[]=n&stav[]=e&znamka[]=500&znamka[]=600&znamka_old[]=501&znamka_old[]=601&zanik=5&subtyp[]=kostely#obsah')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.042461,14.375072', $collection[0]->__toString());
-
-		$collection = ZniceneKostelyCzService::processStatic('http://www.znicenekostely.cz/index.php?load=detail&id=6656&search_result_index=12&nej=3#obsah')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.782953,14.368479', $collection[0]->__toString());
-
+		$service = new ZniceneKostelyCzService();
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
 	/**
 	 * @group request
+	 * @dataProvider processNoLocationProvider
 	 */
-	public function testMissingCoordinates(): void
+	public function testProcessNoLocation(string $input): void
 	{
-		$collection = ZniceneKostelyCzService::processStatic('http://znicenekostely.cz/index.php?load=detail&id=99999999')->getCollection();
-		$this->assertCount(0, $collection);
+		$service = new ZniceneKostelyCzService();
+		$this->assertServiceNoLocation($service, $input);
 	}
 }
