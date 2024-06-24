@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+
+    <!-- WebArchiv NK Praha -->
+    <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+    <meta name="DC.Title" content="Vojensko.cz">
+    <meta name="DC.Subject" scheme="PHNK" content="vojenské stavby">
+    <meta name="DC.Subject" scheme="PHNK" content="vojenské dějiny">
+    <meta name="DC.Subject" scheme="MDT_MRF" content="355.7">
+    <meta name="DC.Subject" scheme="MDT_MRF" content="355.4(091)">
+    <meta name="DC.Subject" scheme="MDT_MRF" content="(437)">
+    <meta name="DC.Subject" scheme="MDT_MRF" content="(0.034.2)004.738.12">
+    <meta name="DC.Subject" scheme="MDT_MRF" content="(0.034.2)77.03">
+    <meta name="DC.Subject" scheme="MDT_KON" content="355/359 Vojenství. Obrana země. Ozbrojené síly">
+    <meta name="DC.Subject" scheme="MDT_KON" content="355 Military science">
+    <meta name="DC.Description.abstract" content="Fotogalerie objektů bývalé Pohraniční stráže a Československé lidové armády">
+    <meta name="DC.Publisher" content="Jiří Pecher">
+    <meta name="DC.Date" content="2007-">
+    <meta name="DC.Type" scheme="DCMIType" content="Text">
+    <meta name="DC.Type" scheme="DCMIType" content="Image">
+    <meta name="DC.Type" scheme="PHNK" content="www dokumenty">
+    <meta name="DC.Type" scheme="PHNK" content="fotogalerie">
+    <meta name="DC.Format" scheme="IMT" content="text/html">
+    <meta name="DC.Format" scheme="IMT" content="image/jpeg">
+    <meta name="DC.Format.medium" content="computerFile">
+    <meta name="DC.Identifier" content="https://vojensko.cz">
+    <meta name="DC.Identifier" scheme="URN" content="URN:NBN:cz-nk20095268">
+    <meta name="DC.Language" scheme="RFC3066" content="cze">
+    <meta name="DC.Coverage.spatial" scheme="PHNK" content="Československo">
+    <meta name="DC.Rights" content="2007-2024 Vojensko.cz">
+    <!-- WebArchiv NK Praha //-->
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="all, index, follow">
+    <meta name="author" content="Webstudio Jiri Pecher [www.jpecher.cz] 2022">
+    <meta name="copyright" content="Copyright © 2007-2024 Vojensko.CZ">
+    <meta name="description" content="Objekty bývalé PS a ČSLA, vzpomínky pamětníků.">
+    <meta name="keywords" content="československá armáda, čsla, pohraniční stráž, hranice, pvos, vidové hlásky">
+
+    <base href="/">
+
+    <!-- HOME PAGE //-->
+    <link rel="home" href="https://www.vojensko.cz/uvod" title="Domů">
+
+    <!-- FAVICON //-->
+    <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+
+    <!-- GOOGLE FONTS //-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&amp;subset=latin,latin-ext&amp;display=block" rel="stylesheet">
+
+    <!-- CSS //-->
+    <link href="https://www.vojensko.cz/templates/gridpak.css" rel="stylesheet">
+
+    <link href="https://www.vojensko.cz/templates/vojensko/style.css?v1" rel="stylesheet">
+    <link href="https://www.vojensko.cz/templates/vojensko/userarea.css?v1" rel="stylesheet">
+
+    <!-- JS //-->
+    <script src="https://www.vojensko.cz/inc/functions.js"></script>
+    <script src="https://www.vojensko.cz/inc/cookies.js"></script>
+
+    <!-- SEZNAM PARTNER 7.2022 //-->
+    <script src="https://ssp.seznam.cz/static/js/ssp.js"></script>
+
+    <!-- JQUERY (ON-LINE) //-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    <!-- AUTOCOMPLETE -->
+    <link href="https://www.vojensko.cz/libraries/autocomplete/css/jquery.autocomplete.min.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/autocomplete/js/jquery.autocomplete.min.js"></script>
+
+    <!-- CSS MENUMAKER //-->
+    <link href="https://www.vojensko.cz/libraries/cssmenumaker/css/jquery.menumaker.min.css" rel="stylesheet">
+    <link href="https://www.vojensko.cz/libraries/cssmenumaker/css/custom.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/cssmenumaker/js/jquery.menumaker.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+      $('#cssmenu').menumaker( {
+        title: 'Menu',
+        breakpoint: 768,
+        format: 'multitoggle'
+      });
+    });
+    </script>
+
+    <!-- DRAWER //-->
+    <link href="https://www.vojensko.cz/libraries/drawer/src/css/jquery.drawer.min.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/drawer/src/js/jquery.drawer.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+    $('.drawer-item').drawer( {
+        slideSpeed: 200,
+        arrowIcon: '&#9658;'
+      });
+    });
+    </script>
+
+    <!-- KEYBOARD PAGINATION //-->
+    <script src="https://www.vojensko.cz/libraries/keyboard-pagination/jquery.keyboard-pagination.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+      $('.keyboard-pagination').keyboardPagination( {
+        keyCodeLeft: 100,         /* Numpad4 */
+        keyCodeRight: 102,        /* Numpad6 */
+        prev: '.pagination-prev',
+        next: '.pagination-next',
+        useKeyCtrl: true
+      });
+    });
+    </script>
+
+    <!-- LAZY LOAD //-->
+    <script src="https://www.vojensko.cz/libraries/lazyload/jquery.lazyload.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+      $('img.lazy').lazyload();
+    });
+    </script>
+
+    <!-- FORM SPINNER //-->
+    <link href="https://www.vojensko.cz/libraries/form-spinner/style.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/form-spinner/script.js"></script>
+
+    <!-- GC CALENDAR //-->
+    <link href="https://www.vojensko.cz/libraries/calendar-gc/src/calendar-gc.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/calendar-gc/src/calendar-gc.js"></script>
+
+    <!-- STAR RATING SVG //-->
+    <link href="https://www.vojensko.cz/libraries/star-rating-svg/src/css/star-rating-svg.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/star-rating-svg/src/jquery.star-rating-svg.js"></script>
+
+
+    <script>
+    $(document).ready(function() {
+      $('.my-rating').starRating({
+
+        initialRating: 0,
+        starSize: 25,
+        useFullStars: true,
+        useGradient: false,
+
+        callback: function(currentRating){
+          alert('Děkujeme za hodnocení ' + currentRating);
+          window.location.href = 'https://www.vojensko.cz/objekty-csla' + '?rating=' + currentRating;
+        }
+      });
+    });
+    </script>
+
+
+    <!-- FANCYBOX 3 //-->
+    <link href="https://www.vojensko.cz/libraries/fancybox/fancybox3/dist/jquery.fancybox.min.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/fancybox/fancybox3/dist/jquery.fancybox.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+      $('[data-fancybox]').fancybox( {
+        buttons: ['zoom', 'slideShow', 'thumbs', 'close'],
+        youtube: {
+          autoplay: true,
+          controls: true,
+          showinfo: true
+        }
+      });
+    });
+    </script>
+
+    <!-- SETTINGS //-->
+    <script>
+    $(document).ready(function() {
+      $(window).scroll(function() {
+        if ($(this).scrollTop() > 100) {
+          $('#scrollup').fadeIn();
+        } else {
+          $('#scrollup').fadeOut();
+        }
+      });
+      $('#scrollup, a.nahoru').click(function() {
+        $('html, body').animate( {
+          scrollTop: 0
+        }, 600);
+        return false;
+      });
+    });
+    </script>
+
+    <script>
+    $(document).ready(function() {
+      $('button.close').click(function() {
+        $('.box-message-ok, .box-message-error, .box-message-warning').fadeTo(500, 0).slideUp();
+      });
+    });
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="https://www.vojensko.cz/inc/html5shiv.min.js"></script>
+    <script src="https://www.vojensko.cz/inc/rem.min.js"></script>
+    <![endif]-->
+
+    <title>Objekty ČSLA | Vojensko.cz</title>
+</head>
+
+<body id="top" class="layout-cs no-js" onload="TextLenghtValidator();">
+<script>document.body.className = document.body.className.replace('no-js', 'js');</script>
+
+<div id="page" class="page">
+<header class="">
+
+
+<div id="flat-hlavicka" class="cleaner">
+<div class="page">
+
+<div id="header" class="row">
+
+  <div class="span_7 col noprint">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+        <div class="logostranky">
+          <a href="https://www.vojensko.cz/" title="Vojensko.CZ - Objekty bývalé PS a ČSLA, vzpomínky pamětníků, historie">
+            <div class="logo"></div>
+            <div class="nazev"><h1 class="nazev"><span style="color: #066;">Vojensko</span><span style="color: #666;">.</span><span style="color: #993;">cz</span></h1></div>
+            <div class="podnazev"><h2 class="podnazev"><span style="color: #808080;">Objekty bývalé PS a ČSLA, vzpomínky pamětníků, historie</span></h2></div>
+          </a>
+        </div>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+  <div class="span_5 col noprint">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+<nav class="center">
+  <div id="82422064" style="display: block;">
+    <ul class="menu-top">
+      <li class="fm-first"><a href="https://www.vojensko.cz/uvod" class="82422064-item-1">Úvod</a></li><li class="fm-item"><a href="https://www.vojensko.cz/kontakt" class="82422064-item-2">Kontakt</a></li><li class="fm-item"><a href="https://www.vojensko.cz/o-webu" class="82422064-item-3">O webu</a></li><li class="fm-item"><a href="https://www.vojensko.cz/vyhledavani" class="82422064-item-4">Vyhledávání</a></li><li class="fm-last"><a href="https://www.vojensko.cz/osobni-nastaveni" class="82422064-item-5">Osobní nastavení</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+        <div class="hledatform">
+          <form action="https://www.vojensko.cz/vyhledavani" method="get">
+          <div class="block">
+                              <input type="hidden" name="strict" value="1">
+          <fieldset>
+<div class="pretext">Hledáte pouze konkrétní položku?</div>          <div class="autocomplete">
+            <input style="float: left;" type="text" id="top-search" autocomplete="off" onkeyup="autocomplet()" name="hledat" value="" size="30" maxlength="50" placeholder="zadejte výraz ..." class="pole">
+            <ul id="result" style="display: none;"></ul>
+          </div>
+          <button type="submit" class="tlacitko" title="Hledej">&Ograve;</button>
+          </fieldset>
+          </div>
+          </form>
+        </div>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+  <div class="span_12 col print">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+        <div class="print-logo"></div>
+        <div class="print-nazev"><span style="color: #066;">Vojensko</span><span style="color: #666;">.</span><span style="color: #993;">cz</span></div>
+        <div class="print-podnazev"><span style="color: #808080;">Objekty bývalé PS a ČSLA, vzpomínky pamětníků, historie</span></div>
+        <div class="print-text"></div>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+</div><!-- .row //-->
+<div class="clearfix"></div>
+
+<div id="mainmenu" class=""><nav class="center">
+  <div id="2126776443" style="display: block;">
+    <ul class="menu-main">
+      <li class="fm-first"><a href="https://www.vojensko.cz/uvod" title="Úvodní stránka" class="2126776443-item-1">Úvod</a></li><li class="fm-item"><a href="https://www.vojensko.cz/objekty-ps" title="Objekty Pohraniční stráže" class="2126776443-item-2">Objekty PS</a></li><li class="fm-item active"><a href="https://www.vojensko.cz/objekty-csla" title="Objekty Československé lidové armády" class="2126776443-item-3">Objekty ČSLA</a></li><li class="fm-item"><a href="https://www.vojensko.cz/objekty-pvos" title="Objekty Protivzdušné obrany státu" class="2126776443-item-4">Objekty PVOS</a></li><li class="fm-item"><a href="https://www.vojensko.cz/dobove-foto" title="Dobové fotografie" class="2126776443-item-5">Dobové foto</a></li><li class="fm-last"><a href="https://www.vojensko.cz/ruzne" title="Co se jinam nevešlo" class="2126776443-item-6">Různé</a></li>
+    </ul>
+  </div>
+</nav>
+</div><!-- #mainmenu //--> 
+
+</div><!-- .page //-->
+</div><!-- #flat-hlavicka //-->
+</header>
+
+<hr class="print">
+
+
+<div id="breadcrumbs" class="row">
+
+  <div class="span_12 col noprint">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+        <p><span class="jstezde">Jste zde</span><span class="dvojtecka">:</span> <span><a href="https://www.vojensko.cz/">domů</a></span> &raquo; <span><a href="https://www.vojensko.cz/objekty-csla">objekty čsla</a></span> &raquo; <span><a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla">kasárna a objekty čsla</a></span> &raquo; <span><a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek">vú 5849 - jáchymov (vršek)</a></span></p>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+</div><!-- .row //-->
+<div class="clearfix"></div>
+
+
+<main class="">
+<div id="main" class="row">
+
+  <div class="span_12 col">
+    <div id="maincol" class="">
+      <div id="maincol-stranky-objekty-csla" class="innertube">
+        <div id="cookie" class="red"><script>document.getElementById('cookie').innerHTML = (navigator.cookieEnabled) ? "" : "<p>Cookies ERROR !!!</p>";</script></div>
+<h3 class="pagetitle">Objekty ČSLA</h3>
+<div id="scripts-pages-objekty-csla" class="row">
+
+  <div class="span_8 col">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+<div class="box">
+
+<div id="detail-foto">
+  <p class="uvodsekce"><a href="javascript:history.back(-1);" class="link">&laquo; Zpět</a> | <a href="https://www.vojensko.cz/objekty-csla" class="link">Jdi na seznam</a> | <a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek" class="link">Obnovit</a> | <a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek#vasekomentare" class="link">Vaše komentáře</a> (52)</p>
+
+      <p class="inforadek"><small class="gray" style="font-family: verdana;">(pro změnu obrázku můžete použít CTRL + šipky &harr; numerické klávesnice)</small><br>
+      <strong>1</strong> foto (internet nebo reprofoto) z celkových <strong>9</strong></p>
+
+      <div class="sipky">
+        <ul class="keyboard-pagination sipky"><li class="pagination-prev floatleft"><a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?image=9#detail-foto" rel="prev" title="předchozí obrázek" class="button">&lsaquo; předchozí obr.</a></li><li class="pagination-next floatright"><a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?image=2#detail-foto" rel="next" title="další obrázek" class="button">další obr. &rsaquo;</a></li></ul>
+        <br class="cleaner">
+      </div>
+
+      <div class="hlavniobrazek"><img src="data/items/big/3180.jpg" width="480" height="360" alt="Foto 1" title="Foto 1" class="data_img_detail"></div>
+
+      <div class="popiskaobrazku">Pohled na zaniklou bránu objektu. V pozadí nově postavený penzion. (všechny fotky ze zdroje: www.zanikleobce.cz)</div>
+<a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?image=1#detail-foto"><img data-original="data/items/small/3180.jpg" width="75" height="56" alt="Foto 1" title="Foto 1" class="data_img_thumb_active lazy"></a>
+<a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?image=2#detail-foto"><img data-original="data/items/small/3180[1].jpg" width="75" height="56" alt="Foto 2" title="Foto 2" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?image=3#detail-foto"><img data-original="data/items/small/3180[2].jpg" width="75" height="56" alt="Foto 3" title="Foto 3" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?image=4#detail-foto"><img data-original="data/items/small/3180[3].jpg" width="75" height="56" alt="Foto 4" title="Foto 4" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?image=5#detail-foto"><img data-original="data/items/small/3180[4].jpg" width="75" height="56" alt="Foto 5" title="Foto 5" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?image=6#detail-foto"><img data-original="data/items/small/3180[5].jpg" width="75" height="56" alt="Foto 6" title="Foto 6" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?image=7#detail-foto"><img data-original="data/items/small/3180[6].jpg" width="75" height="56" alt="Foto 7" title="Foto 7" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?image=8#detail-foto"><img data-original="data/items/small/3180[7].jpg" width="75" height="56" alt="Foto 8" title="Foto 8" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?image=9#detail-foto"><img data-original="data/items/small/3180[8].jpg" width="75" height="56" alt="Foto 9" title="Foto 9" class="data_img_thumb lazy"></a>
+
+  <br class="cleaner">
+  <p class="center"><strong>Autor:</strong> internet nebo reprofoto | <strong>Pořízeno:</strong>  | <strong>Foto:</strong> 9 fotek</p>
+
+</div><!-- #detail-foto //-->
+<br><br>
+
+
+
+  <div id="komentare">
+    <div id="vasekomentare" class="comm_anchor"></div>
+    <div class="big"><strong>Vaše komentáře...</strong></div>
+<a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?sort=fibre&amp;posun=0#pridatkomentar" class="link">Přidat nový komentář...</a>
+<div class="comm_sortlink"><strong>Řazeno dle vláken</strong> | <a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?sort=time#vasekomentare" class="link">Seřadit dle času</a></div>
+
+  <div id="komentar-158164" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">kl</div>
+    <div class="comm_infoline"><span class="comm_author">Majernik</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;denko113&#64;gmail&#46;com" title="denko113&#64;gmail&#46;com" class="link">email</a></span> | <span class="comm_added">8.8.2021 13:39</span> | <span class="comm_id">id 158164</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=158164&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(158164);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">VU 5849 na Barbore bolo zrušený v roku 1972 a zlúčeny s PS ZI Kromežíž</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=158164&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-137156" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">Barbora Vršek</div>
+    <div class="comm_infoline"><span class="comm_author">V.F</span> | <span class="comm_added">9.4.2019 18:54</span> | <span class="comm_id">id 137156</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=137156&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(137156);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">https://youtu.be/j5Y8ZbP5IKo</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=137156&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-154387" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: Barbora Vršek</div>
+    <div class="comm_infoline"><span class="comm_author">Karel Buchta</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;JarkaBu&#64;seznam&#46;cz" title="JarkaBu&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">4.3.2021 11:52</span> | <span class="comm_id">id 154387</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=154387&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(154387);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Sloužil jsem tam v r.1970-72 řidič.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=154387&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-131190" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">PS Plavno</div>
+    <div class="comm_infoline"><span class="comm_author">Stanislav Drábek</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;tom475&#64;email&#46;cz" title="tom475&#64;email&#46;cz" class="link">email</a></span> | <span class="comm_added">20.8.2018 12:10</span> | <span class="comm_id">id 131190</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=131190&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(131190);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Nepamatuje si někdo na nedaleký vojenský utvar Plavno. Byl jsem tam na vojenském přijímači v srpnu1964.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=131190&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-137157" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: PS Plavno</div>
+    <div class="comm_infoline"><span class="comm_author">V.Fiala</span> | <span class="comm_added">9.4.2019 19:06</span> | <span class="comm_id">id 137157</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=137157&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(137157);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Na Plavně jsem byl 12 dní ve středisku VS od 1. 9.1959. pouze 12 dní a pak kurz radistů.<br />
+Jinak jsem zařadil krátké video, Barbora-vršek<br />
+https://youtu.be/j5Y8ZbP5IKo<br />
+je třeba ho spustit atd. ahoj</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=137157&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-137369" class="comm_anchor"></div><div class="comm_subcomm" style="width: 32px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 32px;">
+    <div class="comm_title">Re: Re: PS Plavno</div>
+    <div class="comm_infoline"><span class="comm_author">Stanislav Drábek</span> | <span class="comm_added">19.4.2019 16:38</span> | <span class="comm_id">id 137369</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=137369&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(137369);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Moc děkuji za reakci na mou otázku. Dozvěděl jsem se tak, že VS Plavno existoval už před rokem 64. Po měsíčním výcviku přišla přísaha a my jsme se rozjeli do sestav, já do Záluží u Litvínova. Vršek jsem objevil náhodou při hledání Plavna, tak ho znám. Plavno jsem navštívil po dlouhých 52 letech, a nemohl jsem to na Plavně poznat. Nic se nezachovalo, dokonce ani náznaky budov jako na Vršku. Video z Vršku jsem zhlédl a moc se mi líbilo. Děkuji a ahoj.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=137369&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-129969" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">barbora 65-66</div>
+    <div class="comm_infoline"><span class="comm_author">peter sojka</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;blujaycan&#64;yahoo&#46;com" title="blujaycan&#64;yahoo&#46;com" class="link">email</a></span> | <span class="comm_added">30.6.2018 19:28</span> | <span class="comm_id">id 129969</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=129969&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(129969);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">nasel jsem toto pouze nahodou, jelikoz jsem vyhledaval barboru. o vrsku si ani nepamatuji mnoho, krome hospody tam. ani si jiz nepamatuji mnoho o mojich &quot;chlapcu ve zbranich.&quot; to je jiz neuveritelna historije, ale stejne plati, a neodchazi. to je nase potiz dnes, neni-li?<br />
+takto jsem tento jmeno nasel.<br />
+<a href="http://www.palfi.cz/clanky/osady-spadajici-pod-jachymov/vrsek.html">www.palfi.cz/clanky/&hellip;</a><br />
+kdo si pamatuje -<br />
+https://1drv.ms/f/s!AuW19CEDhOVSphcraki2kDFEs3ie</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=129969&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-129976" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: barbora 65-66</div>
+    <div class="comm_infoline"><span class="comm_author">Milan Šulek</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;milansulek7&#64;gmail&#46;com" title="milansulek7&#64;gmail&#46;com" class="link">email</a></span> | <span class="comm_added">30.6.2018 21:55</span> | <span class="comm_id">id 129976</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=129976&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(129976);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">V roku 1962 tam bol výcvikový tábor(prijímač) VS -Vnútornej stráže.Po dvojmesačnom výcviku sme sa rozišli do posádok napr. Vykmanov, Horní Slavkov Příbram ai.Bolo nás tam asi 800 .</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=129976&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-140753" class="comm_anchor"></div><div class="comm_subcomm" style="width: 32px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 32px;">
+    <div class="comm_title">Re: Re: barbora 65-66</div>
+    <div class="comm_infoline"><span class="comm_author">Jan Sefl</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;jansefl47&#64;gmail&#46;com" title="jansefl47&#64;gmail&#46;com" class="link">email</a></span> | <span class="comm_added">22.9.2019 13:16</span> | <span class="comm_id">id 140753</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=140753&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(140753);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Tak to je muj pripad a skoncil jsem docasne ve Vykmanove.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=140753&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-127855" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">Krátké video. Barbora . Vršek.</div>
+    <div class="comm_infoline"><span class="comm_author">V.F</span> | <span class="comm_added">1.4.2018 19:04</span> | <span class="comm_id">id 127855</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=127855&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(127855);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">https://youtu.be/j5Y8ZbP5IKo Barbora - Vršek</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=127855&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-125747" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">Krátký pobyt v PŠ Berbora</div>
+    <div class="comm_infoline"><span class="comm_author">Václav Šípek</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;mgrves&#64;email&#46;cz" title="mgrves&#64;email&#46;cz" class="link">email</a></span> | <span class="comm_added">28.1.2018 14:49</span> | <span class="comm_id">id 125747</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=125747&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(125747);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Na úvod svého příspěvku bych chtěl pozdravit všechny bývalé kamarády ve zbrani sloužící u jednotek Vnitřní stráže. Potěšilo mně, že jsem se mohl alespoň pohledem vrátit po 58 letech do míst bývalé PŠ. Oproti předešlému pisateli Lubomíru Volnému, směřovala má cesta na Barboru zcela opačným směrem. V roce 60 jsem narukoval do výcvikového střediska Brod u Příbrami. Po skončení základního výcviku jsem byl s většinou ostatních převelen na velitelskou rotu do kasáren Dubno u Příbrami. Od února roku 61 jsem byl pak převelen na samostatnou strážní rotu do Prahy 9 na Klíčov (tím se splnil můj sen, neboť jsem bydlel nedaleko v Libni, prakticky pod kopcem). Osudová rána mně však čekala zanedlouho, neboť jsem byl najednou v dubnu téhož roku vybrán pro absolvování již výše zmíněné PŠ. Následovalo opětovné sbalení &quot;všech fidlátek&quot; a šupky hupky zpět do Příbrami, a odtud spolu s ostatními na korbě náklaďáku na Barboru. Tam hned po ubytování začal od rána druhého dne tvrdý výcvik. Ranní rozcvička-nástup do půl těla a běh do kopce ve sněhu téměř až na hřeben. Takto to pokračovalo cca týden, až do doby, kdy se dostavil příbrmský praporní lékař kpt. Novotný. V neděli jsem byl s ostatními na vycházce a v restauraci na Klínovci jsme si dali pár piv. V pondělí dopoledne pak následovala zdravotní prohlídka. Když mi lékař začal opakovaně měřit tlak krve, tak jsem rychle pochopil, že není něco v pořádku. Po chvíli se mně zeptal kdo vás poslal na vojnu a který doktor vás prohlížel? Tehdy jsem poměrně nesměle odpověděl vy soudruhu kapitáne. Na to vstal, odešel aby se vzápětí vrátil s velitelem PŠ a sdělil nám oběma že jsem s okamžitou platností z PŠ vyloučen ze zdravotních důvodů. Tím důvodem byl naměřený tlak 210/165. Vyplnil mi příslušné papíry na prohlídky do vojenské nemocnice v Praze s tím, že jsem neměl vůbec na vojnu nastoupit. Tak díky Bohu skončilo moje martýrium s PŠ, následoval návrat do Prahy. V nemocnici nic nezjistili a tak jsem již v klidu dosloužil v Praze na Klíčově. Václav</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=125747&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-121164" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">ozve se mi někdo?</div>
+    <div class="comm_infoline"><span class="comm_author">Jiří Herold</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;heroldj&#64;seznam&#46;cz" title="heroldj&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">28.9.2017 10:30</span> | <span class="comm_id">id 121164</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=121164&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(121164);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">V listopadu1968-15.4.1969 jsem byl v PŠ na Barboře,na 3 rotě u kpt. Pilce. Vzpomínám si na pár jmen-Dušek, Urban, Karas , Vondrák, Vytiska atd.<br />
+ V listopadu 1969 jsem byl převelen znovu na Barboru jako velitel družstva na 1 rotě . velitel byl kpt. Peka. Měsíc před odchodem do civilu- září 1970 jsem se vrátil do Domažlic. Jiří Herold</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=121164&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-127572" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: ozve se mi někdo?</div>
+    <div class="comm_infoline"><span class="comm_author">Hubka Václav</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;venda&#46;hubka&#64;seznam&#46;cz" title="venda&#46;hubka&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">24.3.2018 12:17</span> | <span class="comm_id">id 127572</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=127572&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(127572);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Ahoj,<br />
+říkají ti něco jména Jar. Košek, Mil. Kulík - Ustí nad Labem, Standa Šifta - Mladá Boleslav, nevím jistě.<br />
+Velitel čety des. Sluštík. Kulík ( šífák). <br />
+Velitel roty Pilc. Přišel jsem ze Sušice radiová rota.<br />
+Zda ano, odpověz.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=127572&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-128151" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: ozve se mi někdo?</div>
+    <div class="comm_infoline"><span class="comm_author">Vladimír Hartman</span> | <span class="comm_added">12.4.2018 15:21</span> | <span class="comm_id">id 128151</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=128151&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(128151);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Tak to jsem byl v PŠ právě v tom mezidobí, tedy přes léto 1969.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=128151&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-128812" class="comm_anchor"></div><div class="comm_subcomm" style="width: 32px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 32px;">
+    <div class="comm_title">Re: Re: ozve se mi někdo?</div>
+    <div class="comm_infoline"><span class="comm_author">Max</span> | <span class="comm_added">14.5.2018 15:04</span> | <span class="comm_id">id 128812</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=128812&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(128812);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Zdravím, Meno povedomé.Tak to sme boli asi v jednom čase tam. 50 rokov nazad. Marián, Bratislava. Bol som jeden z troch, čo bol v kurze povýšený priamo v škole.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=128812&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-128821" class="comm_anchor"></div><div class="comm_subcomm" style="width: 48px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 48px;">
+    <div class="comm_title">Re: Re: Re: ozve se mi někdo?</div>
+    <div class="comm_infoline"><span class="comm_author">Max</span> | <span class="comm_added">14.5.2018 15:29</span> | <span class="comm_id">id 128821</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=128821&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(128821);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">a ešte sa pamätám, že som bol ako vojak v eskorte pre kotolníka, cigáňa zo Spišskej Novej Vsi. Slobodník vtedy videl prvý raz Tatry, xixi</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=128821&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-145605" class="comm_anchor"></div><div class="comm_subcomm" style="width: 64px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 64px;">
+    <div class="comm_title">Re: Re: Re: Re: ozve se mi někdo?</div>
+    <div class="comm_infoline"><span class="comm_author">Stefan Miho</span> | <span class="comm_added">30.3.2020 17:31</span> | <span class="comm_id">id 145605</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=145605&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(145605);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Nevolas sa nahodou Petkes z Blavy nebol si nahodou v izbe z Babeckom Hetesom Mikolasom ja som bol vedla z Pulchartom Zizkom Zilinskym tiez som tam bol v aprili 69</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=145605&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-131252" class="comm_anchor"></div><div class="comm_subcomm" style="width: 48px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 48px;">
+    <div class="comm_title">Re: Re: Re: ozve se mi někdo?</div>
+    <div class="comm_infoline"><span class="comm_author">Vladimír Hartman</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;vladimir&#46;m&#46;h11&#64;gmail&#46;com" title="vladimir&#46;m&#46;h11&#64;gmail&#46;com" class="link">email</a></span> | <span class="comm_added">22.8.2018 12:06</span> | <span class="comm_id">id 131252</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=131252&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(131252);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Mariáne, zdravím. Zdá se mi, že jsme spolu byli na jedné světnici. Nedělal jsi náhodou barmana? Pokud by to sedělo, můžeš mi napsat na můj mejl.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=131252&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-131258" class="comm_anchor"></div><div class="comm_subcomm" style="width: 48px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 48px;">
+    <div class="comm_title">Re: Re: Re: ozve se mi někdo?</div>
+    <div class="comm_infoline"><span class="comm_author">Vladimír Hartman</span> | <span class="comm_added">22.8.2018 15:34</span> | <span class="comm_id">id 131258</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=131258&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(131258);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Ještě se k tomu vracím - není Tvé příjmení náhodou Pindroch (nebo podobně)?</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=131258&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-135174" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: ozve se mi někdo?</div>
+    <div class="comm_infoline"><span class="comm_author">Ing.Jaroslav Valas,CSc.</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;valas&#46;jaroslav&#64;seznam&#46;cz" title="valas&#46;jaroslav&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">25.1.2019 17:11</span> | <span class="comm_id">id 135174</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=135174&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(135174);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Asi tě mám na hromadné fotografií ze zimního zrychleného přesunu. Nevím jak ti tu fotografií poslat.<br />
+ JV</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=135174&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-120802" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">Upřesnění.</div>
+    <div class="comm_infoline"><span class="comm_author">Příslušník VS VÚ 9600 Praha</span> | <span class="comm_added">14.9.2017 13:40</span> | <span class="comm_id">id 120802</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=120802&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(120802);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Říkáte tomuto objektu Jáchymov Vršek, ale mezi námi obyvateli tohoto kraje se neřekne jinak než Na Barboře, bývalem to táboře vězňů pracujících na šachtách Jáchymovských dolů</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=120802&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-121924" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: Upřesnění.</div>
+    <div class="comm_infoline"><span class="comm_author">Vladimír Hartman</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;vladimir&#46;m&#46;h11&#64;gmail&#46;com" title="vladimir&#46;m&#46;h11&#64;gmail&#46;com" class="link">email</a></span> | <span class="comm_added">30.10.2017 10:28</span> | <span class="comm_id">id 121924</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=121924&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(121924);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Ahoj, také my, kteří jsme tam byli v PŠ v létě 1969, jsme tomu místu neřekli jinak, než &quot;Na Barboře&quot;. Jinak - kromě toho tábora tam byla také šachta, dodnes jsou tam zbytky haldy.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=121924&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-124745" class="comm_anchor"></div><div class="comm_subcomm" style="width: 32px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 32px;">
+    <div class="comm_title">Re: Re: Upřesnění.</div>
+    <div class="comm_infoline"><span class="comm_author">Antonín sedlář</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;tony12&#64;seznam&#46;cz" title="tony12&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">31.12.2017 15:08</span> | <span class="comm_id">id 124745</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=124745&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(124745);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Já jsem tam byl taky v tu dobu na rotě kpt.Pilce. Musely jsme se starat o králiky a ovce. \\\\\\\\rotu jsme měly až dole u plotu. Soutěžilo se mezi rotamy,kdo vypyje více piva a tahaly prázdné bysy k bráně.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=124745&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-128815" class="comm_anchor"></div><div class="comm_subcomm" style="width: 32px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 32px;">
+    <div class="comm_title">Re: Re: Upřesnění.</div>
+    <div class="comm_infoline"><span class="comm_author">Max</span> | <span class="comm_added">14.5.2018 15:12</span> | <span class="comm_id">id 128815</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=128815&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(128815);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Na tie haldy som chodil na vychádzky. Dole cez cestu boli tiež. Chodil som tam zbierať minerály. Potom jeden blbý staršína, mi to vyhádzal z balíka. Ryšavý frajer. Tuším na rote kpt Pilca som bol, to sú roky.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=128815&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-119785" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">PŠ VS 1964-65</div>
+    <div class="comm_infoline"><span class="comm_author">Miloslav Brixí</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;mbrixi&#64;cmail&#46;cz" title="mbrixi&#64;cmail&#46;cz" class="link">email</a></span> | <span class="comm_added">5.8.2017 21:58</span> | <span class="comm_id">id 119785</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=119785&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(119785);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Po přijímači v roce 1964 v Chodové Plané jsem byl asi měsíc v Pohodlí u Litomyšle a pak jsem byl převelen na Barboru do PŠ Vnitřní stráže.Byl jsem na druhé rotě,velitelem byl kpt.Štafa,velitel naší čety byl napor.Novák a vel.družstva svob Říha.Velitel praporu byl major Růžička,který si šlapal na jazyk při vyslovování r.<br />
+Nacvičovali jsme spartakiádu a cvičili v Praze a nacvičovali jsme i voj.přehlídku a pochodovali jsme v Plzni v roce 1965.Bylo to náročné ale vše jsme zvládli a po PŠ jsem sloužil v Pardubicích Semtíně.Pokud to čte někdo známý ozvěte se.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=119785&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-119772" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">VS-útvar 7690 Příbram</div>
+    <div class="comm_infoline"><span class="comm_author">Volný Lubomír</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;lubomir&#46;volny&#64;email&#46;cz" title="lubomir&#46;volny&#64;email&#46;cz" class="link">email</a></span> | <span class="comm_added">5.8.2017 16:29</span> | <span class="comm_id">id 119772</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=119772&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(119772);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Prvního srpna 2017 to bylo 53 let co jsem narukoval k Vnitřní stráži na Barboru-Vršek.Cílová stanice byla Ostrov n.Ohří.Na Barboru nás vezli nákladními auty.Ještě pár vzpomínek k tomu co jsem napsal už dříve.Velitel naší roty byl npr.Calábek,zástupce byl npr.Bucha,velitel čety čet.Zelenka.Velitel družstva byl svob.Palyza-s tím jsme si užili nejvíce.Další na které si vzpomínám-svob.Velas a Pindiak.Proháněli nás pořádně,ale chovali se knám slušně.Kolem byly krásné lesy, strmé kopce,haldy,ideální prostor na posilování těla i ducha.Viděli jsme i betonové stavby v lesích ale o vězních se jen šuškalo.O tom,že na barácích kde jsme byli ubytováni byli několik let předtím vězněni např.naši hokejoví reprezentanti jsem se dozvěděl až v civilu v r.68z tisku.Možná,že si někdo ještě vzpomene a napíše své vzpomínky.Zdravím všechny bývalé vojáky Vnitřní stráže,kteří prošli Barborou,Příbramí- kasárna Dubno a Brod.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=119772&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-120799" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: VS-útvar 7690 Příbram</div>
+    <div class="comm_infoline"><span class="comm_author">vladimir pajer</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;VLADIMIRPAJER111&#64;seznam&#46;cz" title="VLADIMIRPAJER111&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">14.9.2017 07:03</span> | <span class="comm_id">id 120799</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=120799&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(120799);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Dobrý den, nemáte prosím informace o původu rozstřílení části obce Welsberg-Vršek na konci 2.sv.války, předem Vám děkuji. Pajer</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=120799&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-127841" class="comm_anchor"></div><div class="comm_subcomm" style="width: 32px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 32px;">
+    <div class="comm_title">Re: Re: VS-útvar 7690 Příbram</div>
+    <div class="comm_infoline"><span class="comm_author">Hořtová</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;pension&#46;hort&#64;seznam&#46;cz" title="pension&#46;hort&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">1.4.2018 13:49</span> | <span class="comm_id">id 127841</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=127841&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(127841);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Dobrý den,<br />
+náhodou jsem si všimla,že jste též vojančil na Barboře,<br />
+kde jsme v r.1980 zakoupili původní opravnu vozíků a<br />
+z původní chaty jsme vybudovali penzion.<br />
+Také nás zajímá historie původní vesnice Wersberg, ale<br />
+bohužel žádné dobové fotografie se asi nezachovaly.<br />
+Pokud byste náhodou měli k dispozici něco ohledně této<br />
+části Jáchymova, rádi bychom se o této historii též něco dozvěděli. Díky rodina Hořtova</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=127841&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-131259" class="comm_anchor"></div><div class="comm_subcomm" style="width: 48px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 48px;">
+    <div class="comm_title">Re: Re: Re: VS-útvar 7690 Příbram</div>
+    <div class="comm_infoline"><span class="comm_author">petr s</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;psojka&#64;msn&#46;com" title="psojka&#64;msn&#46;com" class="link">email</a></span> | <span class="comm_added">22.8.2018 15:52</span> | <span class="comm_id">id 131259</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=131259&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(131259);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">stravil jsem rok 65-66 v barbore and nenasel jsem zadne podrobnosti az v tomto roku diky zminky o barbore[vrsek]werlsberg na teto link?<br />
+https://<a href="http://www.palfi.cz/clanky/osady-spadajici-pod-jachymov/vrsek.html">www.palfi.cz/clanky/&hellip;</a></div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=131259&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-121934" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: VS-útvar 7690 Příbram</div>
+    <div class="comm_infoline"><span class="comm_author">Juraj Machava</span> | <span class="comm_added">30.10.2017 15:31</span> | <span class="comm_id">id 121934</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=121934&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(121934);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Ahoj Lubo<br />
+V Auguste pred 53 r. som narukoval na voj. zakl. službu. Zvalašt. vlakom som cestoval z Prahy do Jachymova. Tam sme nasadli do nakladakov Tatra a konečna bola Barbora. Tu nas naučili aka je ludska bytost bezviznamna , reagovanie na prava a lava. Asi po mesiaci som šil do autarskeho kurzu do Pribrami /Bytys/.Ak si odmyslim omedzenost niktorych staršich vojakov bolo to v pohode. Chodili sme kosit luky v blizkosti Albertam. Potom Praha matersky utvar a v oktobri nastup do autarskej peešky vo Volaroch a v juni 1965 navrat do Prahy 10 Vršovice <br />
+Ahoj</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=121934&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-133511" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: VS-útvar 7690 Příbram</div>
+    <div class="comm_infoline"><span class="comm_author">Jindřich Gubiš</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;jindra&#46;gubis&#64;seznam&#46;cz" title="jindra&#46;gubis&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">7.12.2018 17:07</span> | <span class="comm_id">id 133511</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=133511&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(133511);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Zdravím,Barbora byla také,pak zdravotní poddůstojnická škola v Praze,potom ošetřovna na Dubně až do 1.srpna 1964.Rád na Příbram vzpomínám,hlavně na čaje v Kulturním domě.Ty kluci uraňácký byli pořád pod vlivem,tak holky chodily převážně s vojáky.Doktor se jmenoval Bohuňovský.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=133511&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-134816" class="comm_anchor"></div><div class="comm_subcomm" style="width: 32px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 32px;">
+    <div class="comm_title">Re: Re: VS-útvar 7690 Příbram</div>
+    <div class="comm_infoline"><span class="comm_author">Lubomír Fouček</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;foucek&#64;volny&#46;cz" title="foucek&#64;volny&#46;cz" class="link">email</a></span> | <span class="comm_added">12.1.2019 18:02</span> | <span class="comm_id">id 134816</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=134816&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(134816);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Zdravím Tě Jindro,<br />
+žiju v Železném Brodu.Ozvi se mob.602483769(O2).<br />
+Luboš Fouček</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=134816&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-112339" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">Ing.J.Valas,CSc</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;valas&#46;Jaroslav&#64;seznam&#46;cz" title="valas&#46;Jaroslav&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">8.1.2017 16:12</span> | <span class="comm_id">id 112339</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=112339&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(112339);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Ozve se kdo byl v PŠ 5849 Jáchymov v létech 1969-70 ? Byl jsem tam jako absolvent VŠ velitelem čety I.roty u kpt.Peky.<br />
+ JV</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=112339&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-112406" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">Robert Drozda</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;robert&#46;drozda&#64;email&#46;cz" title="robert&#46;drozda&#64;email&#46;cz" class="link">email</a></span> | <span class="comm_added">10.1.2017 19:39</span> | <span class="comm_id">id 112406</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=112406&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(112406);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Ahoj, jsme přece ze stejné PŠ. Byl jsem v roce 69/70 na Barboře jako vojáček III. roty u kpt. Pilce. Shodou okolností jsem se rozhodl napsat něco jako vzpomínky na vojnu a tak jsem hledal na internetu a našel tvoji výzvu. Rád bych zjistil, jak to bylo po našem odchodu, kdy dle mých informací sebrali a zavřeli některé důstojníky pro rozkrádání. Já osobně měl půl roku stále hlad. Také jsem zažil úplavici. Vozili nás na brigády na kopání výkopů na sídliště do K. V. Co se jmen týče, velitel útvaru byl Kopecký? a na štábu byl mjr. Herčík? Nevím už určitě. Svoje kamarády z roty jsem už nepotkal. Ozval se mně před mnoha lety Michalský z naší roty. My jsme se asi neznali, ale sdíleli stejný osud. Ozvi se. Díky. Robert 602 395 360</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=112406&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-112737" class="comm_anchor"></div><div class="comm_subcomm" style="width: 32px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 32px;">
+    <div class="comm_title">Re: Re: vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">Valas Jaroslav</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;valas&#46;Jaroslav&#64;seznam&#46;cz" title="valas&#46;Jaroslav&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">21.1.2017 11:01</span> | <span class="comm_id">id 112737</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=112737&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(112737);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Kpt. Pilc byl velitelem 3. roty, mojí kolegové z 3. roty byli Ing. Ladislav Tylek a Petr Rýdlo ( umělec- zemřel).<br />
+Po vašem odchodu byla další poddůstojnická škola. Za mého pobytu tam nikoho nezavřeli.Máš pravdu, že jídlo tam nebylo nejlepší - ale já jsem jedl hodně skrojky od chleba které tam byly volně přístupné. Nevím, že byste jezdili pracovat na výkopové práce do KV. VÚ měl patronát s porcelánkou v Lesově a tam se jezdilo.<br />
+Některé údaje o VÚ najdeš na www. zanikléobce.cz pod názvem Jáchymov Vršek.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=112737&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-112818" class="comm_anchor"></div><div class="comm_subcomm" style="width: 48px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 48px;">
+    <div class="comm_title">Re: Re: Re: vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">Robert Drozda</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;robert&#46;drozda&#64;email&#46;cz" title="robert&#46;drozda&#64;email&#46;cz" class="link">email</a></span> | <span class="comm_added">23.1.2017 18:47</span> | <span class="comm_id">id 112818</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=112818&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(112818);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Díky za odpověď. Pokud by tě to nevadilo, zavolej mě prosím.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=112818&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-128818" class="comm_anchor"></div><div class="comm_subcomm" style="width: 48px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 48px;">
+    <div class="comm_title">Re: Re: Re: vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">Max</span> | <span class="comm_added">14.5.2018 15:22</span> | <span class="comm_id">id 128818</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=128818&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(128818);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">V turnuse apríl-august 1969 tam Staršinu roty robil taký nesympatický chlap, ryšavý, a tuším polovník. Mal asi dobré vzťahy s velením. Ale v podstate sa dalo s ním vyjsť. Preventívne som sa hlásil do služby na ošetrovni, ako dozorný, aby na mňa nepadla strážna služba, xixi</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=128818&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-129506" class="comm_anchor"></div><div class="comm_subcomm" style="width: 64px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 64px;">
+    <div class="comm_title">III.rota</div>
+    <div class="comm_infoline"><span class="comm_author">Láďa Epedrýn</span> | <span class="comm_added">11.6.2018 17:43</span> | <span class="comm_id">id 129506</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=129506&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(129506);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Nesympatický zrzek byl svob. Seidl. V přijímači na nás řval, vy knechti! Měl tam sebou i loveckou kulovnici, vyučený myslivec. Jednou jsem šel po asfaltce kolem kasáren a on mi střílel malorážkou pod nohy a strašně se chechtal.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=129506&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-116940" class="comm_anchor"></div><div class="comm_subcomm" style="width: 32px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 32px;">
+    <div class="comm_title">Re: Re: vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">Jiří Hofmann</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;j&#46;hofi&#64;tiscali&#46;cz" title="j&#46;hofi&#64;tiscali&#46;cz" class="link">email</a></span> | <span class="comm_added">7.5.2017 17:43</span> | <span class="comm_id">id 116940</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=116940&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(116940);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Zdravím pamětníky, byl jsem na &quot;Na Barboře&quot; v roce 1970 od listopadu do května 1971 ve škole ZI.Na rotu si nevzpomenu, je na fotu č.4 po schodech od roty se šlo dolů ,tam byly učebny a marodka.Potvrzuji úplavici, na raní nástup jsme se jednou dostavili jen dva , ostatní srali . Já přežil díiky rumu a citronům z domova.Také jsme byli na výkopech v KV Pamatuji , že jsme vylomili zámky u kompresoru a jeli dál sbíječkami. Když vykládám jaké to tam bylo ,nevěří.Ale dobrá zkušenost. Po absolutoriu, na útvarové ošetřovně lázně</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=116940&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-116978" class="comm_anchor"></div><div class="comm_subcomm" style="width: 48px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 48px;">
+    <div class="comm_title">Re: Re: Re: vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">Jiří Hofmann</span> | <span class="comm_added">8.5.2017 17:58</span> | <span class="comm_id">id 116978</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=116978&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(116978);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Velitelem roty byl kpt Podrabský</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=116978&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-120376" class="comm_anchor"></div><div class="comm_subcomm" style="width: 64px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 64px;">
+    <div class="comm_title">Re: Re: Re: Re: vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">pavel wurst</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;wusvob&#64;seznam&#46;cz" title="wusvob&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">25.8.2017 13:56</span> | <span class="comm_id">id 120376</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=120376&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(120376);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">slouzil jsem na Barbore v roce 1969..muj velitel byl kapitan Podrabsky..kazde rano pri nastupu strasne zuril kdyz mu bylo nahlaseno co prez noc provedli vojaci s jeho roty..</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=120376&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-165973" class="comm_anchor"></div><div class="comm_subcomm" style="width: 80px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 80px;">
+    <div class="comm_title">Re: Re: Re: Re: Re: vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">TŮMA Věroslav</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;tuma&#64;c-box&#46;cz" title="tuma&#64;c-box&#46;cz" class="link">email</a></span> | <span class="comm_added">19.7.2022 17:41</span> | <span class="comm_id">id 165973</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=165973&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(165973);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Byl jsem tam od listopadu 1969 do dubna 1970. Asi 9 nás bylo z Horních Počernic bývalé PTP.<br />
+Jména Jurkovič, Gregořica, Gergel víc už si nevzpomínám.</div>
+    <div class="comm_reply"><span class="comm_replink">Zde již nelze dále reagovat</span></div>
+  </div>
+  <div id="komentar-131737" class="comm_anchor"></div><div class="comm_subcomm" style="width: 48px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 48px;">
+    <div class="comm_title">Re: Re: Re: vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">Jiří Špičák</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;jiri-spicak&#64;seznam&#46;cz" title="jiri-spicak&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">11.9.2018 19:13</span> | <span class="comm_id">id 131737</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=131737&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(131737);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Byl jsem tam v té samé době. Byl jsem v jednom ze dvou baráků UBA a naproti byly učebny. Jména si už nepamatuji, jen vím, že se mnou byl na cimře Karol Božko (jsem s ním v kontaktu). Vzpomínám na nekonečné odhazování sněhu a noční pochůzkovou stráž v neskutečně těžkém mantlu. Do kinosálu jsem chodil hrát na piano. Epidemii také pamatuji, byla z odebírání čaje ešusama z obrovského hrnce (jednou ho kuchař omylem osolil), byl to kmen šigeli (tyfová) a já padl mezi posledními takže jsem byl pořád ve službě. Matně vzpomínám, že se tam někdo napil z hahve od piva ona v ní byla nějaká dezinfekce a špatně to dopadlo. Na praxi jsem byl pak v nemocnici v Budějcích a spal na Fučíkárně. Napiš mi na mail, třeba se známe. Tvé jméno je mi povědomé, nebyl jsi z Ústí?</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=131737&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-133604" class="comm_anchor"></div><div class="comm_subcomm" style="width: 64px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 64px;">
+    <div class="comm_title">Re: Re: Re: Re: vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">Jiří Hofmann</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;hofij&#64;seznam&#46;cz" title="hofij&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">10.12.2018 20:20</span> | <span class="comm_id">id 133604</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=133604&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(133604);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Zdravím! Ano jsem z Ústí a sloužil jsem po absolutoriu u pontoňáků v Litoměřicích.Podoby vypadávají z hlavy a sem tam se vynoří jméno. Byli tam dva starší kluci, jeden polák jménem Janeczek. Tan druhý byl pěkně při tělě. Mimo vyučování jsem s několika , jména vypadla, dělal názorné nástěnky na rotě. Rozdělělení léků obsahy brašen atd. Do hospody v Abertamech, nebo na tu horskou chatu. Kde ty loňšké sněhy jsou.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=133604&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-131750" class="comm_anchor"></div><div class="comm_subcomm" style="width: 48px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 48px;">
+    <div class="comm_title">Re: Re: Re: vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">Karol Boško</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;boskokarol&#64;gmail&#46;com" title="boskokarol&#64;gmail&#46;com" class="link">email</a></span> | <span class="comm_added">12.9.2018 18:47</span> | <span class="comm_id">id 131750</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=131750&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(131750);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Presne v tom období som tam bol ako peesák. Tiež si toho moc nepamätám, ale píšem si s Jirkom Špičákom, ktorý bol tiež v PŠ, potom sme sa rozišli na pohraničné roty.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=131750&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-128153" class="comm_anchor"></div><div class="comm_subcomm" style="width: 32px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 32px;">
+    <div class="comm_title">Re: Re: vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">Vladimír Hartman</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;vladimir&#46;m&#46;h11&#64;gmail&#46;com" title="vladimir&#46;m&#46;h11&#64;gmail&#46;com" class="link">email</a></span> | <span class="comm_added">12.4.2018 15:27</span> | <span class="comm_id">id 128153</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=128153&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(128153);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Ahoj, pokud si vzpomínám, tak ta jména (Kopecký, Herčík) by souhlasila. Vzpoměl jsem si, že velitelem školy byl mjr. Kožík.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=128153&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-115347" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">Sedlář Antonín</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;tony12&#64;seznam&#46;cz" title="tony12&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">29.3.2017 21:05</span> | <span class="comm_id">id 115347</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=115347&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(115347);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Absolvoval jsem tam na 1rotě PŠ ZI v roce 1969. Rád na to vzpomínám. Děkuji,že se o to někdo zajímá.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=115347&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-115348" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">Sedlář Antonín</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;tony12&#64;seznam&#46;cz" title="tony12&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">29.3.2017 21:12</span> | <span class="comm_id">id 115348</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=115348&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(115348);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Omlouvám se za omyl v označení roty. Byl jsem na 3 rotě u kapitána Pilce on tam choval králiky a ovce. A chodily jsme do porcelánky pracovat za talířew do jídelny!!!</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=115348&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-128465" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">Láďa Epedrýn</span> | <span class="comm_added">26.4.2018 20:54</span> | <span class="comm_id">id 128465</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=128465&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(128465);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Na Barboře jsem byl od 5. 10. 1969 do konce září 1971. Nejdříve na III. rotě, kpt. Pilc později různě. Velitel pplk. Kopecký, velitel štábu mjr. Kožík, týlař mjr. Nerad. Narukoval jsem s kamarády Pepa Tichý (zemřel) Futera, Tlapák. Absolvent Rýdlo už je také na pravdě bóží. Velitel II. roty spáchal sebevraždu.<br />
+Někdy v roce 1972 tam vlétla kontrola a zjistila rozkrádačky. Pozavírali nějaké důstojníky. Nakupovali tvrdý alkohol a vykazovali jako nákup zákusků.<br />
+Areál už je téměř zlikvidovaný. Haldy po těžbě uranu svítí dodnes. Když používali štěrk z nich na stavbu silnic, museli jej pokrývat o 100% vyšší vrstvou asfaltu než normálně. Takže jsme tam také něco nainhalovali. První půlrok byl hlad, protože kuchař byl nastřelovač pneumatik z východního Slovenska a taky ty rozkrádačky. Bylo by to na román.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=128465&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-128817" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: vzpomínky</div>
+    <div class="comm_infoline"><span class="comm_author">Max</span> | <span class="comm_added">14.5.2018 15:16</span> | <span class="comm_id">id 128817</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=128817&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(128817);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Pekný deň. Apríl - august 1969, PŠ-ZI Barbora</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=128817&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-100137" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">1 rota 3 četa r 1964</div>
+    <div class="comm_infoline"><span class="comm_author">otto koukal</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;otto&#46;koukal&#64;seznam&#46;cz" title="otto&#46;koukal&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">11.1.2016 18:55</span> | <span class="comm_id">id 100137</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=100137&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(100137);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text"><br />
+Je to nostalgická vzpomínka na naše mládí<br />
+ale udělali z nás chlapy což se o dnešní mládeži<br />
+nedá říct<br />
+ Jinak jsem rád že jsem už starý naše <br />
+děcka si ale ještě zastřílí<br />
+ NASCHLE kulometák 1 roty 3 čety rok 1964</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=100137&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-98353" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">VS-útvar 7690 Příbram</div>
+    <div class="comm_infoline"><span class="comm_author">Volný Lubomír</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;lubomir&#46;volny&#64;email&#46;cz" title="lubomir&#46;volny&#64;email&#46;cz" class="link">email</a></span> | <span class="comm_added">2.12.2015 15:37</span> | <span class="comm_id">id 98353</span> | <span class="comm_replink"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?com=98353&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(98353);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Díky těmto snímkům se mohu podívat na místa kde jsem prožil první dva měsíce voj.zákl.služby. K VS jsem narukoval prvního srpna r.1964 do kasáren Barbora Vršek.V té době tam bylo výcvikové středisko Vnitřní stráže.Na snímku č.1 je bývalá hlavní brána.Na snímku č.5 je ubikace kde byla ubytována naše rota.Ve spodní části snímku jsou garáže a spodní brána,přes kterou jsme každý den pochodovali do okolních lesů na výcvik.Ten byl velmi náročný na fyzičku.Na konci září jsme byli odveleni do Příbrami kasárna Dubno.Na Barboře pak pokračovala Péeška VS.Luboš.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?respond=98353&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  </div><!-- #komentare //-->
+
+<script>
+function ResizeForm(pixelvalue) {
+  var box = document.getElementById('for_komentar');
+  var boxheight = parseInt(box.style.height);
+  var newheight = boxheight + pixelvalue;
+  if (newheight > 0 && newheight < 800) {
+    box.style.height = newheight + "px";
+  }
+}
+
+function TextLenghtValidator() {
+  var maximum = 2000;
+  var field = document.forms['send-A1'].elements['komentar'];
+  if (field.value.length > maximum) {
+    field.value = field.value.substring(0, maximum);
+  } else {
+    document.forms['send-A1'].elements['endremaining'].value = maximum - field.value.length;
+  }
+}
+
+function SendEmailToAdmin(komentar_id) {
+  var part_1 = "mailto:vojensko@seznam.cz?subject=Problematický komentář id " + komentar_id + " na serveru Vojensko.cz&body=Oznamuji problematický komentář id " + komentar_id + " na serveru Vojensko.cz";
+  var part_2 = "%0A%0AStránka komentáře: www.vojensko.cz//objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek#" + komentar_id + "";
+  var part_3 = "%0A%0ADle mého názoru je problematický, protože:%0A%0A";
+  document.location = part_1 + part_2 + part_3;
+  return false;
+}
+</script>
+
+
+<br>
+<br>
+
+<div id="pridatkomentar" class="kotva"></div>
+<div id="komentarform">
+  <form action="/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek#pridatkomentar" id="send-A1" method="post" onsubmit="__formDisMultipleClick(this);">
+  <div class="block">
+    <input type="hidden" name="sort" value="fibre">  <input type="hidden" name="posun" value="0">
+  <input type="hidden" name="form_id" value="form-A1">
+  <input type="hidden" name="send" value="1">
+  <fieldset><legend>Přidáváte nový komentář</legend>
+  <div><label for="for_jmeno">Vaše jméno <span class="red">*</span> </label></div>
+  <div class="styled fsize-50"><input id="for_jmeno" type="text" name="jmeno" value="" placeholder="" class="styled"></div>
+  <div><label for="for_email">E-mail</label></div>
+  <div class="styled fsize-50"><input id="for_email" type="text" name="email" value="" placeholder="" class="styled"></div>
+  <div><label for="for_nadpis">Nadpis <span class="red">*</span> </label></div>
+  <div class="styled fsize-100"><input id="for_nadpis" type="text" name="nadpis" value="" placeholder="" class="styled"></div>
+  <div class="resizeline"><a href="javascript:ResizeForm(50);"><img src="img/web/plus.png" title="Zvětšit okno &darr;" class="resizeBTN"><span class="no">plus</span></a> <span class="small">okno</span> <a href="javascript:ResizeForm(-50);"><img src="img/web/minus.png" alt="" title="Zmenšit okno &uarr;" class="resizeBTN"><span class="no">minus</span></a></div>
+  <div><label for="for_komentar">Komentář <span class="red">*</span> </label></div>
+  <div class="styled fsize-100"><textarea id="for_komentar" rows="10" name="komentar" placeholder="zde napište svůj komentář..." onkeydown="TextLenghtValidator()" onkeyup="TextLenghtValidator()" style="height: 150px;" class="styled"></textarea></div>
+  <div class="small right">... lze napsat ještě<input type="text" name="endremaining" value="2000" size="4" disabled="disabled" style="display: inline-block; width: 4rem; text-align: center; font-weight: 400; padding: 0; border: 0; color: inherit; background-color: inherit;">znaků</div>
+  <div><label for="for_rok">Jaký je rok <span class="red">*</span>  (antispamová otázka)</label></div>
+  <div class="styled"><input id="for_rok" type="number" name="rok" value="" class="styled"></div>
+  <div id="spamprotirobotum">
+    Ochrana proti spamu. Napište číslo stodvacet:    <input id="protirobotum" type="text" name="past" value="" style="width: 6rem;" maxlength="3" class="styled">
+  </div>
+  <br>
+  <noscript>
+    <div><label for="for_nospam">Bezpečnostní antispam kód <span class="red">*</span> </label></div>
+    <div style="margin-bottom: 5px;">Opište text: <span class="red">nospam</span></div>
+    <div class="styled">
+    <input id="for_nospam" type="text" name="nospam" value="" style="width: 9rem;" maxlength="6" class="styled"></div>
+    <br>
+  </noscript>
+  <br>
+  <div id="myDiv-form-A1"></div>
+  <script>document.getElementById("myDiv-form-A1").innerHTML = ('\074input type="hidden" name="nospam" value="no' + 'spam" /\076');</script>
+  <p class="center no"><input type="submit" name="jsemrobot" value="-1-" class="styledbutton"></p>
+  <p class="center">
+    <button type="submit" class="styledbutton"> Odeslat <i></i> </button>
+    &nbsp;&nbsp;&nbsp;
+    <button type="reset" class="styledbutton" onclick="window.location.href='/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek';">Storno</button>
+  </p>
+  <p class="center no"><input type="submit" name="jsemrobot" value="-2-" class="styledbutton"></p>
+  <br>
+  <ul class="styled">
+    <li>hvězdičkou <span class="red bold">*</span> jsou označena povinná pole</li>
+    <li>maximální délka textu komentáře je 2000 znaků</li>
+    <li>odřádkování textu komentáře (ENTER) zůstane zachováno</li>    <li>HTML tagy nebudou použity</li>    <li>WWW adresy budou automaticky převedeny na odkazy</li>    <li>reagovat lze pouze do 5 úrovně</li>
+    <li>vyhrazujeme si právo smazat nevhodné příspěvky</li>
+          </ul>
+  </fieldset>
+  </div>
+  </form>
+  <script>
+    document.getElementById('protirobotum').value = 6 * 20;
+    document.getElementById('spamprotirobotum').style.display = 'none';
+  </script>
+</div><!-- #komentarform //-->
+
+
+
+</div><!-- .box //-->
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+  <div class="span_4 col">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+<div class="box">
+
+  <div id="detail-text">
+    <div class="sekce"><a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla"><img src="https://www.vojensko.cz/img/web/pictures.png" width="22" height="22" alt=""> <h3>Kasárna a objekty ČSLA</h3></a></div>
+    <div class="polozka"><h4><strong class="big">VÚ 5849 - Jáchymov (Vršek)</strong></h4></div>
+<p class="okres"><strong>Okres:</strong> Karlovy Vary</p>
+<p class="gps"><strong>GPS:</strong> 50&deg;22&#039;32.658&quot;N, 12&deg;51&#039;50.221&quot;E</p>
+<span class="mapka"><img src="scripts/pages/mapa.php?x=17&amp;y=21" title="Orientační poloha na mapě ČR"></span>
+</p>
+<p><a href="https://mapy.cz/zakladni?source=coor&id=12.863950277778%2C50.375738333333" onclick="return !window.open(this.href)" class="link extended">Najít na mapě</a><br>
+<div class="text userarea"><p>VÚ 5849 - Jáchymov (Vršek) se nacházel asi čtyři kilometry SZ od města Jáchymov v zaniklé obci Vršek v bývalých budovách dolu Barbora.<br /> Byla zde umístěna Poddůstojnická škola zdravotnických instruktorů (lapiduchů), která využívala část budov, které po dole zůstaly. Taktéž se zde nacházel třeba i výcvik PS.<br /> <br /> Tento útvar zde vznikl na počátku 60. let (asi rok 1961), kdy došlo ke zrušení dolu Barbora (rok 1957). Od roku 1975 pak byla PŠ ZI umístěna v Uh. Hradišti. <br /> <br /> V současné době (2015) se zde nachází nově postavený penzion, jinak zbytek je srovnán se zemí.<br /> <br /> Za veškeré informace k tomuto útvaru děkujeme, tak jako děkujeme Vláďovi Hartmanovi za vyhledání tohoto útvaru.</p><p><em>Krátké video z místa je ke shlédnutí <a href="https://www.youtube.com/watch?v=j5Y8ZbP5IKo&amp;feature=youtu.be"><strong>ZDE</strong></a></em>.</p></div>
+
+      <div class="seznam">
+        <div class="gray"><strong>Dobové foto</strong></div>
+        <ul><li><a href="https://www.vojensko.cz/dobove-foto/sekce-00055-dobove-foto-ps/polozka-04054-vycvikove-stredisko-ps-barbora-jachymov-r-1966">Výcvikové středisko PS Barbora (Jáchymov) r. 1966</a></li></ul>
+      </div>
+
+
+
+  <div class="aktualizace"><small class="small gray">A2015-03-02 14:41:27 U2018-04-03 15:18:37 TG439</small></div>
+</div><!-- #detail-text //-->
+</div><!-- .box //-->
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+</div><!-- .row //-->
+<div class="clearfix"></div>
+
+
+
+
+
+
+
+
+      </div><!-- .innertube //-->
+    </div><!-- #maincol //-->
+  </div><!-- .col //-->
+
+
+  <div class="clearfix"></div>
+</div><!-- #main //-->
+
+</main>
+
+<hr class="print">
+<footer class="">
+
+<div id="flat-paticka" class="cleaner">
+<div class="page">
+
+<div id="footer" class="row">
+
+  <div class="span_12 col noprint">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+<div id="bottommenu" class="">
+<nav class="center">
+  <div id="1554212405" style="display: block;">
+    <ul class="menu-bottom">
+      <li class="fm-first"><a href="https://www.vojensko.cz/uvod" class="1554212405-item-1">Úvod</a></li><li class="fm-item"><a href="https://www.vojensko.cz/mapa-stranek" class="1554212405-item-2">Mapa stránek</a></li><li class="fm-item"><a href="https://www.vojensko.cz/rss" class="1554212405-item-3">RSS</a></li><li class="fm-item"><a href="https://www.vojensko.cz/zasady-ochrany-osobnich-udaju" class="1554212405-item-4">Zásady ochrany osobních údajů</a></li><li class="fm-last"><a href="https://www.vojensko.cz/admin" class="1554212405-item-5">ADM</a></li>
+    </ul>
+  </div>
+</nav>
+</div><!-- #bottommenu //--> 
+
+        <p class="privacy odsadit_nahore">Publikování a další šíření obsahu tohoto webu je povoleno pouze se souhlasem redakce a s uvedením zdroje <strong>www.vojensko.cz</strong><br>
+        Sponzor projektu <strong>Webstudio Pecher</strong> s podporou. Verze stránek Vojensko.CZ 2.0</p>
+        <p class="banners">
+          <a href="https://www.cspvo.cz/" onclick="return !window.open(this.href)" title="Československá PVO 1950-1992"><img src="https://www.vojensko.cz/img/banner/cspvo.gif" width="88" height="31" alt="Banner"></a>
+          <a href="http://www.csla.cz/" onclick="return !window.open(this.href)" title="Stránky o ČSLA"><img src="https://www.vojensko.cz/img/banner/csla.gif" width="88" height="31" alt="Banner"></a>
+          <a href="http://www.ropiky.net/" onclick="return !window.open(this.href)" title="Opevnění Československa 1936-38"><img src="https://www.vojensko.cz/img/banner/ropiky.gif" width="88" height="31" alt="Banner"></a>
+          <a href="http://www.vojenstvi.cz/" onclick="return !window.open(this.href)" title="Československé vojenství"><img src="https://www.vojensko.cz/img/banner/vojenstvi.gif" width="88" height="31" alt="Banner"></a>
+          <a href="https://www.webarchiv.cz/" onclick="return !window.open(this.href)" title="Archiv českého webu"><img src="https://www.vojensko.cz/img/banner/webarchiv.gif" width="88" height="31" alt="Banner"></a>
+          <br class="cleaner">
+        </p>
+        <p class="copyright">Copyright © 2007-2024 Vojensko.CZ</p>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+  <div class="span_12 col print">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+        <div class="print-text">Copyright © 2007-2024 Vojensko.CZ</div>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+</div><!-- .row //-->
+<div class="clearfix"></div>
+
+</div><!-- .page //-->
+</div><!-- #flat-paticka //-->
+
+<div id="top-scroller" class="noprint">
+  <a id="scrollup" href="#" title="Přesunout nahoru"></a>
+</div><!-- #top-scroller //-->
+
+
+<!-- Reklama SEZNAM PARTNER //-->
+<div id="reklama">
+<div id="ssp-zone-32713"></div>
+<div id="ssp-zone-292313"></div>
+<script>
+if (window.innerWidth >= 970) {
+  sssp.getAds([
+    {
+      "zoneId": 32713,
+      "id": "ssp-zone-32713",
+      "width": 970,
+      "height": 210
+    }
+  ]);
+} else { /* mensi reklama pro mobil, tablet */
+  sssp.getAds([
+    {
+      "zoneId": 292313,
+      "id": "ssp-zone-292313",
+      "width": 320,
+      "height": 100
+    }
+  ]);
+}
+</script>
+</div>
+
+
+</footer>
+  
+</div><!-- #page .page //-->
+
+</body>
+</html>

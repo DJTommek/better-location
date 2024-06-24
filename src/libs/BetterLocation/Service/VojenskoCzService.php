@@ -3,7 +3,8 @@
 namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
-use App\MiniCurl\MiniCurl;
+use App\Config;
+use App\Utils\Requestor;
 
 final class VojenskoCzService extends AbstractService
 {
@@ -11,6 +12,11 @@ final class VojenskoCzService extends AbstractService
 	const NAME = 'Vojensko.cz';
 
 	const LINK = 'http://www.vojensko.cz';
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public function validate(): bool
 	{
@@ -26,12 +32,7 @@ final class VojenskoCzService extends AbstractService
 
 	public function process(): void
 	{
-		// Do not allow caching, because it would be stored with bad encoding. Needs to be converted first
-		$response = (new MiniCurl($this->url->getAbsoluteUrl()))
-			->allowCache(0) // do not allow caching, there is non-UTF-8 encoding. Must be decoded first
-			->allowAutoConvertEncoding(false) // default mb_convert_encoding is not working for this website
-			->run()
-			->getBody();
+		$response = $this->requestor->get($this->url, Config::CACHE_TTL_VOJENSKO_CZ);
 		$dom = new \DOMDocument();
 		@$dom->loadHTML($response);
 		$finder = new \DOMXPath($dom);

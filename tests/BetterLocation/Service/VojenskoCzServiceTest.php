@@ -3,9 +3,19 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\VojenskoCzService;
+use Tests\HttpTestClients;
 
 final class VojenskoCzServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return VojenskoCzService::class;
@@ -35,9 +45,7 @@ final class VojenskoCzServiceTest extends AbstractServiceTestCase
 			[true, 'https://www.vojensko.cz/objekty-pvos/sekce-00129-2-rtb-brno/polozka-02266-621-rtr-chropyne-souhrn-fotografii-utvaru'],
 			[true, 'https://www.vojensko.cz/objekty-csla/sekce-00051-objekty-elektronicke-valky/polozka-00476-stanoviste-tisina'],
 			[true, 'https://www.vojensko.cz/ruzne/sekce-00058-pristroje-nastroje-zbrane/polozka-04356-zavora-ippen-pavluv-studenec'],
-			// @TODO Valid, no location on this page, but it has linked page 'VÚ Beroun' that has location 49.967211,14.068781 (https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03747-vu-beroun)
 			[true, 'https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75'],
-			// @TODO Valid, no location on this page, but it has linked page 'PH 254 - Kapličky' that has location 49.967211,14.068781 (https://www.vojensko.cz/objekty-pvos/sekce-00044-pozorovaci-hlasky/polozka-00767-ph-254-kaplicky)
 			[true, 'https://www.vojensko.cz/objekty-pvos/sekce-00044-pozorovaci-hlasky/polozka-05500-demontaz-veze-vidove-hlasky-ph-254-kaplicky'],
 			[true, 'https://www.vojensko.cz/objekty-csla/sekce-00031/polozka-03180'], // Valid, page will load
 
@@ -85,7 +93,7 @@ final class VojenskoCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new VojenskoCzService();
+		$service = new VojenskoCzService($this->httpTestClients->mockedRequestor);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -93,9 +101,18 @@ final class VojenskoCzServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processProvider
 	 */
-	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
+	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new VojenskoCzService();
+		$service = new VojenskoCzService($this->httpTestClients->realRequestor);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+	}
+
+	/**
+	 * @dataProvider processProvider
+	 */
+	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
+	{
+		$service = new VojenskoCzService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -103,9 +120,18 @@ final class VojenskoCzServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processNoLocationProvider
 	 */
-	public function testProcessNoLocation(string $input): void
+	public function testProcessNoLocationReal(string $input): void
 	{
-		$service = new VojenskoCzService();
+		$service = new VojenskoCzService($this->httpTestClients->realRequestor);
+		$this->assertServiceNoLocation($service, $input);
+	}
+
+	/**
+	 * @dataProvider processNoLocationProvider
+	 */
+	public function testProcessNoLocationOffline(string $input): void
+	{
+		$service = new VojenskoCzService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceNoLocation($service, $input);
 	}
 }

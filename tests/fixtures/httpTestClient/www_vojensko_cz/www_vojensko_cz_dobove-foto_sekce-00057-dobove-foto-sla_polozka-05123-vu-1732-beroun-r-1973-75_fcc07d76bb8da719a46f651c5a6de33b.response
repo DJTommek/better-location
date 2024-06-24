@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+
+    <!-- WebArchiv NK Praha -->
+    <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+    <meta name="DC.Title" content="Vojensko.cz">
+    <meta name="DC.Subject" scheme="PHNK" content="vojenské stavby">
+    <meta name="DC.Subject" scheme="PHNK" content="vojenské dějiny">
+    <meta name="DC.Subject" scheme="MDT_MRF" content="355.7">
+    <meta name="DC.Subject" scheme="MDT_MRF" content="355.4(091)">
+    <meta name="DC.Subject" scheme="MDT_MRF" content="(437)">
+    <meta name="DC.Subject" scheme="MDT_MRF" content="(0.034.2)004.738.12">
+    <meta name="DC.Subject" scheme="MDT_MRF" content="(0.034.2)77.03">
+    <meta name="DC.Subject" scheme="MDT_KON" content="355/359 Vojenství. Obrana země. Ozbrojené síly">
+    <meta name="DC.Subject" scheme="MDT_KON" content="355 Military science">
+    <meta name="DC.Description.abstract" content="Fotogalerie objektů bývalé Pohraniční stráže a Československé lidové armády">
+    <meta name="DC.Publisher" content="Jiří Pecher">
+    <meta name="DC.Date" content="2007-">
+    <meta name="DC.Type" scheme="DCMIType" content="Text">
+    <meta name="DC.Type" scheme="DCMIType" content="Image">
+    <meta name="DC.Type" scheme="PHNK" content="www dokumenty">
+    <meta name="DC.Type" scheme="PHNK" content="fotogalerie">
+    <meta name="DC.Format" scheme="IMT" content="text/html">
+    <meta name="DC.Format" scheme="IMT" content="image/jpeg">
+    <meta name="DC.Format.medium" content="computerFile">
+    <meta name="DC.Identifier" content="https://vojensko.cz">
+    <meta name="DC.Identifier" scheme="URN" content="URN:NBN:cz-nk20095268">
+    <meta name="DC.Language" scheme="RFC3066" content="cze">
+    <meta name="DC.Coverage.spatial" scheme="PHNK" content="Československo">
+    <meta name="DC.Rights" content="2007-2024 Vojensko.cz">
+    <!-- WebArchiv NK Praha //-->
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="all, index, follow">
+    <meta name="author" content="Webstudio Jiri Pecher [www.jpecher.cz] 2022">
+    <meta name="copyright" content="Copyright © 2007-2024 Vojensko.CZ">
+    <meta name="description" content="Objekty bývalé PS a ČSLA, vzpomínky pamětníků.">
+    <meta name="keywords" content="československá armáda, čsla, pohraniční stráž, hranice, pvos, vidové hlásky">
+
+    <base href="/">
+
+    <!-- HOME PAGE //-->
+    <link rel="home" href="https://www.vojensko.cz/uvod" title="Domů">
+
+    <!-- FAVICON //-->
+    <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+
+    <!-- GOOGLE FONTS //-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&amp;subset=latin,latin-ext&amp;display=block" rel="stylesheet">
+
+    <!-- CSS //-->
+    <link href="https://www.vojensko.cz/templates/gridpak.css" rel="stylesheet">
+
+    <link href="https://www.vojensko.cz/templates/vojensko/style.css?v1" rel="stylesheet">
+    <link href="https://www.vojensko.cz/templates/vojensko/userarea.css?v1" rel="stylesheet">
+
+    <!-- JS //-->
+    <script src="https://www.vojensko.cz/inc/functions.js"></script>
+    <script src="https://www.vojensko.cz/inc/cookies.js"></script>
+
+    <!-- SEZNAM PARTNER 7.2022 //-->
+    <script src="https://ssp.seznam.cz/static/js/ssp.js"></script>
+
+    <!-- JQUERY (ON-LINE) //-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    <!-- AUTOCOMPLETE -->
+    <link href="https://www.vojensko.cz/libraries/autocomplete/css/jquery.autocomplete.min.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/autocomplete/js/jquery.autocomplete.min.js"></script>
+
+    <!-- CSS MENUMAKER //-->
+    <link href="https://www.vojensko.cz/libraries/cssmenumaker/css/jquery.menumaker.min.css" rel="stylesheet">
+    <link href="https://www.vojensko.cz/libraries/cssmenumaker/css/custom.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/cssmenumaker/js/jquery.menumaker.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+      $('#cssmenu').menumaker( {
+        title: 'Menu',
+        breakpoint: 768,
+        format: 'multitoggle'
+      });
+    });
+    </script>
+
+    <!-- DRAWER //-->
+    <link href="https://www.vojensko.cz/libraries/drawer/src/css/jquery.drawer.min.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/drawer/src/js/jquery.drawer.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+    $('.drawer-item').drawer( {
+        slideSpeed: 200,
+        arrowIcon: '&#9658;'
+      });
+    });
+    </script>
+
+    <!-- KEYBOARD PAGINATION //-->
+    <script src="https://www.vojensko.cz/libraries/keyboard-pagination/jquery.keyboard-pagination.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+      $('.keyboard-pagination').keyboardPagination( {
+        keyCodeLeft: 100,         /* Numpad4 */
+        keyCodeRight: 102,        /* Numpad6 */
+        prev: '.pagination-prev',
+        next: '.pagination-next',
+        useKeyCtrl: true
+      });
+    });
+    </script>
+
+    <!-- LAZY LOAD //-->
+    <script src="https://www.vojensko.cz/libraries/lazyload/jquery.lazyload.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+      $('img.lazy').lazyload();
+    });
+    </script>
+
+    <!-- FORM SPINNER //-->
+    <link href="https://www.vojensko.cz/libraries/form-spinner/style.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/form-spinner/script.js"></script>
+
+    <!-- GC CALENDAR //-->
+    <link href="https://www.vojensko.cz/libraries/calendar-gc/src/calendar-gc.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/calendar-gc/src/calendar-gc.js"></script>
+
+    <!-- STAR RATING SVG //-->
+    <link href="https://www.vojensko.cz/libraries/star-rating-svg/src/css/star-rating-svg.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/star-rating-svg/src/jquery.star-rating-svg.js"></script>
+
+
+    <script>
+    $(document).ready(function() {
+      $('.my-rating').starRating({
+
+        initialRating: 0,
+        starSize: 25,
+        useFullStars: true,
+        useGradient: false,
+
+        callback: function(currentRating){
+          alert('Děkujeme za hodnocení ' + currentRating);
+          window.location.href = 'https://www.vojensko.cz/dobove-foto' + '?rating=' + currentRating;
+        }
+      });
+    });
+    </script>
+
+
+    <!-- FANCYBOX 3 //-->
+    <link href="https://www.vojensko.cz/libraries/fancybox/fancybox3/dist/jquery.fancybox.min.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/fancybox/fancybox3/dist/jquery.fancybox.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+      $('[data-fancybox]').fancybox( {
+        buttons: ['zoom', 'slideShow', 'thumbs', 'close'],
+        youtube: {
+          autoplay: true,
+          controls: true,
+          showinfo: true
+        }
+      });
+    });
+    </script>
+
+    <!-- SETTINGS //-->
+    <script>
+    $(document).ready(function() {
+      $(window).scroll(function() {
+        if ($(this).scrollTop() > 100) {
+          $('#scrollup').fadeIn();
+        } else {
+          $('#scrollup').fadeOut();
+        }
+      });
+      $('#scrollup, a.nahoru').click(function() {
+        $('html, body').animate( {
+          scrollTop: 0
+        }, 600);
+        return false;
+      });
+    });
+    </script>
+
+    <script>
+    $(document).ready(function() {
+      $('button.close').click(function() {
+        $('.box-message-ok, .box-message-error, .box-message-warning').fadeTo(500, 0).slideUp();
+      });
+    });
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="https://www.vojensko.cz/inc/html5shiv.min.js"></script>
+    <script src="https://www.vojensko.cz/inc/rem.min.js"></script>
+    <![endif]-->
+
+    <title>Dobové foto | Vojensko.cz</title>
+</head>
+
+<body id="top" class="layout-cs no-js" onload="TextLenghtValidator();">
+<script>document.body.className = document.body.className.replace('no-js', 'js');</script>
+
+<div id="page" class="page">
+<header class="">
+
+
+<div id="flat-hlavicka" class="cleaner">
+<div class="page">
+
+<div id="header" class="row">
+
+  <div class="span_7 col noprint">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+        <div class="logostranky">
+          <a href="https://www.vojensko.cz/" title="Vojensko.CZ - Objekty bývalé PS a ČSLA, vzpomínky pamětníků, historie">
+            <div class="logo"></div>
+            <div class="nazev"><h1 class="nazev"><span style="color: #066;">Vojensko</span><span style="color: #666;">.</span><span style="color: #993;">cz</span></h1></div>
+            <div class="podnazev"><h2 class="podnazev"><span style="color: #808080;">Objekty bývalé PS a ČSLA, vzpomínky pamětníků, historie</span></h2></div>
+          </a>
+        </div>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+  <div class="span_5 col noprint">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+<nav class="center">
+  <div id="827144251" style="display: block;">
+    <ul class="menu-top">
+      <li class="fm-first"><a href="https://www.vojensko.cz/uvod" class="827144251-item-1">Úvod</a></li><li class="fm-item"><a href="https://www.vojensko.cz/kontakt" class="827144251-item-2">Kontakt</a></li><li class="fm-item"><a href="https://www.vojensko.cz/o-webu" class="827144251-item-3">O webu</a></li><li class="fm-item"><a href="https://www.vojensko.cz/vyhledavani" class="827144251-item-4">Vyhledávání</a></li><li class="fm-last"><a href="https://www.vojensko.cz/osobni-nastaveni" class="827144251-item-5">Osobní nastavení</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+        <div class="hledatform">
+          <form action="https://www.vojensko.cz/vyhledavani" method="get">
+          <div class="block">
+                              <input type="hidden" name="strict" value="1">
+          <fieldset>
+<div class="pretext">Hledáte pouze konkrétní položku?</div>          <div class="autocomplete">
+            <input style="float: left;" type="text" id="top-search" autocomplete="off" onkeyup="autocomplet()" name="hledat" value="" size="30" maxlength="50" placeholder="zadejte výraz ..." class="pole">
+            <ul id="result" style="display: none;"></ul>
+          </div>
+          <button type="submit" class="tlacitko" title="Hledej">&Ograve;</button>
+          </fieldset>
+          </div>
+          </form>
+        </div>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+  <div class="span_12 col print">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+        <div class="print-logo"></div>
+        <div class="print-nazev"><span style="color: #066;">Vojensko</span><span style="color: #666;">.</span><span style="color: #993;">cz</span></div>
+        <div class="print-podnazev"><span style="color: #808080;">Objekty bývalé PS a ČSLA, vzpomínky pamětníků, historie</span></div>
+        <div class="print-text"></div>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+</div><!-- .row //-->
+<div class="clearfix"></div>
+
+<div id="mainmenu" class=""><nav class="center">
+  <div id="1217421485" style="display: block;">
+    <ul class="menu-main">
+      <li class="fm-first"><a href="https://www.vojensko.cz/uvod" title="Úvodní stránka" class="1217421485-item-1">Úvod</a></li><li class="fm-item"><a href="https://www.vojensko.cz/objekty-ps" title="Objekty Pohraniční stráže" class="1217421485-item-2">Objekty PS</a></li><li class="fm-item"><a href="https://www.vojensko.cz/objekty-csla" title="Objekty Československé lidové armády" class="1217421485-item-3">Objekty ČSLA</a></li><li class="fm-item"><a href="https://www.vojensko.cz/objekty-pvos" title="Objekty Protivzdušné obrany státu" class="1217421485-item-4">Objekty PVOS</a></li><li class="fm-item active"><a href="https://www.vojensko.cz/dobove-foto" title="Dobové fotografie" class="1217421485-item-5">Dobové foto</a></li><li class="fm-last"><a href="https://www.vojensko.cz/ruzne" title="Co se jinam nevešlo" class="1217421485-item-6">Různé</a></li>
+    </ul>
+  </div>
+</nav>
+</div><!-- #mainmenu //--> 
+
+</div><!-- .page //-->
+</div><!-- #flat-hlavicka //-->
+</header>
+
+<hr class="print">
+
+
+<div id="breadcrumbs" class="row">
+
+  <div class="span_12 col noprint">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+        <p><span class="jstezde">Jste zde</span><span class="dvojtecka">:</span> <span><a href="https://www.vojensko.cz/">domů</a></span> &raquo; <span><a href="https://www.vojensko.cz/dobove-foto">dobové foto</a></span> &raquo; <span><a href="https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla">dobové foto čsla</a></span> &raquo; <span><a href="https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75">vú 1732 - beroun r. 1973-75</a></span></p>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+</div><!-- .row //-->
+<div class="clearfix"></div>
+
+
+<main class="">
+<div id="main" class="row">
+
+  <div class="span_12 col">
+    <div id="maincol" class="">
+      <div id="maincol-stranky-dobove-foto" class="innertube">
+        <div id="cookie" class="red"><script>document.getElementById('cookie').innerHTML = (navigator.cookieEnabled) ? "" : "<p>Cookies ERROR !!!</p>";</script></div>
+<h3 class="pagetitle">Dobové foto</h3>
+<div id="scripts-pages-objekty-dobove" class="row">
+
+  <div class="span_8 col">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+<div class="box">
+
+<div id="detail-foto">
+  <p class="uvodsekce"><a href="javascript:history.back(-1);" class="link">&laquo; Zpět</a> | <a href="https://www.vojensko.cz/dobove-foto" class="link">Jdi na seznam</a> | <a href="https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75" class="link">Obnovit</a> | <a href="https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75#vasekomentare" class="link">Vaše komentáře</a> (6)</p>
+
+      <p class="inforadek"><small class="gray" style="font-family: verdana;">(pro změnu obrázku můžete použít CTRL + šipky &harr; numerické klávesnice)</small><br>
+      <strong>1</strong> foto (J.Mrázek) z celkových <strong>6</strong></p>
+
+      <div class="sipky">
+        <ul class="keyboard-pagination sipky"><li class="pagination-prev floatleft"><a href="https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?image=6#detail-foto" rel="prev" title="předchozí obrázek" class="button">&lsaquo; předchozí obr.</a></li><li class="pagination-next floatright"><a href="https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?image=2#detail-foto" rel="next" title="další obrázek" class="button">další obr. &rsaquo;</a></li></ul>
+        <br class="cleaner">
+      </div>
+
+      <div class="hlavniobrazek"><img src="data/items/big/5123.jpg" width="480" height="360" alt="Foto 1" title="Foto 1" class="data_img_detail"></div>
+
+      <div class="popiskaobrazku"></div>
+<a href="https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?image=1#detail-foto"><img data-original="data/items/small/5123.jpg" width="75" height="56" alt="Foto 1" title="Foto 1" class="data_img_thumb_active lazy"></a>
+<a href="https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?image=2#detail-foto"><img data-original="data/items/small/5123[1].jpg" width="75" height="56" alt="Foto 2" title="Foto 2" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?image=3#detail-foto"><img data-original="data/items/small/5123[2].jpg" width="75" height="56" alt="Foto 3" title="Foto 3" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?image=4#detail-foto"><img data-original="data/items/small/5123[3].jpg" width="75" height="56" alt="Foto 4" title="Foto 4" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?image=5#detail-foto"><img data-original="data/items/small/5123[4].jpg" width="75" height="56" alt="Foto 5" title="Foto 5" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?image=6#detail-foto"><img data-original="data/items/small/5123[5].jpg" width="75" height="56" alt="Foto 6" title="Foto 6" class="data_img_thumb lazy"></a>
+
+  <br class="cleaner">
+  <p class="center"><strong>Autor:</strong> J.Mrázek | <strong>Pořízeno:</strong> 1973-75 | <strong>Foto:</strong> 6 fotek</p>
+
+</div><!-- #detail-foto //-->
+<br><br>
+
+
+
+  <div id="komentare">
+    <div id="vasekomentare" class="comm_anchor"></div>
+    <div class="big"><strong>Vaše komentáře...</strong></div>
+<a href="https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?sort=fibre&amp;posun=0#pridatkomentar" class="link">Přidat nový komentář...</a>
+<div class="comm_sortlink"><strong>Řazeno dle vláken</strong> | <a href="dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?sort=time#vasekomentare" class="link">Seřadit dle času</a></div>
+
+  <div id="komentar-162759" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">vojna</div>
+    <div class="comm_infoline"><span class="comm_author">Jan Šlápota</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;janslapota&#64;seznam&#46;cz" title="janslapota&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">20.2.2022 21:43</span> | <span class="comm_id">id 162759</span> | <span class="comm_replink"><a href="dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?com=162759&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(162759);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Kdo slouži v Berouně 1963-65 v rotě SRVD ozvěte se Děkuji</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?respond=162759&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-161311" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">Beroun 1973 - 1975</div>
+    <div class="comm_infoline"><span class="comm_author">Bohumil Dařílek</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;b&#46;darilek&#64;volny&#46;cz" title="b&#46;darilek&#64;volny&#46;cz" class="link">email</a></span> | <span class="comm_added">4.1.2022 18:42</span> | <span class="comm_id">id 161311</span> | <span class="comm_replink"><a href="dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?com=161311&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(161311);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Taky jsem složil v Berouně 1973 - 75 na 12 rotě vel.npor.Freml</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?respond=161311&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-177817" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: Beroun 1973 - 1975</div>
+    <div class="comm_infoline"><span class="comm_author">Ján Mrázek</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;doprava&#46;mrazek&#64;gmail&#46;com" title="doprava&#46;mrazek&#64;gmail&#46;com" class="link">email</a></span> | <span class="comm_added">29.3.2024 20:55</span> | <span class="comm_id">id 177817</span> | <span class="comm_replink"><a href="dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?com=177817&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(177817);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Ahoj, nebol tam s tebou aj Juraj Sedláček z Bratislavy? Bol a TOPke 1973-75.o.Ďakujem za odpoveď a prípadne aj foto.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?respond=177817&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-154414" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">ZAMUTOV</div>
+    <div class="comm_infoline"><span class="comm_author">Jaroslav Mitaľ</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;jaromitaldedo&#64;gmail&#46;com" title="jaromitaldedo&#64;gmail&#46;com" class="link">email</a></span> | <span class="comm_added">5.3.2021 08:31</span> | <span class="comm_id">id 154414</span> | <span class="comm_replink"><a href="dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?com=154414&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(154414);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Zdravim sluzil som tam 1973-1975 tretia rota 2 -prapor</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?respond=154414&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-154982" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: ZAMUTOV</div>
+    <div class="comm_infoline"><span class="comm_author">Ján Mrázek</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;doprava&#46;mrazek&#64;gmail&#46;com" title="doprava&#46;mrazek&#64;gmail&#46;com" class="link">email</a></span> | <span class="comm_added">19.3.2021 17:43</span> | <span class="comm_id">id 154982</span> | <span class="comm_replink"><a href="dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?com=154982&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(154982);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Ahoj, ja som rukoval na jar 73, tak sme sa tam určite videli. Mena z 2. praporu si spomínam len niektoré - napr. Tuma (vodič)<br />
+Kašpárek (boli sme darovat krv a rovnaká skupina 0+<br />
+( no takú blbost si zapamatám...) A bolo super, že zo začiatku ešte fungovala arma, tak sme si vylepšovali stravu. Vlastne vedla sme boli najprv vo výcvikáči ako vodiči (KŘK ). Tak som sa dostal na 10. rotu -velitel npr. Laco Kotlár (z Bratislavy,ako ja).<br />
+PS. Ak máte niekto ešte nejaké foto, alebo spomienky -napíšte.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?respond=154982&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-170445" class="comm_anchor"></div><div class="comm_subcomm" style="width: 32px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 32px;">
+    <div class="comm_title">Re: Re: ZAMUTOV</div>
+    <div class="comm_infoline"><span class="comm_author">Ján Kováč</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;jk&#46;remako&#64;gmail&#46;com" title="jk&#46;remako&#64;gmail&#46;com" class="link">email</a></span> | <span class="comm_added">2.2.2023 14:14</span> | <span class="comm_id">id 170445</span> | <span class="comm_replink"><a href="dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?com=170445&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(170445);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Tiež som rukoval na jar 1973 po výcvikáči som sa dostal na 4 prapor 8 rota veliteľ tam bol por.Kozler. Po piatich mesiacoch som bol veliteľ RDM 12 .Určite sme sa často stretávali .Len som bol ubytovaný na vyšsom / 2 /poschodí.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75?respond=170445&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  </div><!-- #komentare //-->
+
+<script>
+function ResizeForm(pixelvalue) {
+  var box = document.getElementById('for_komentar');
+  var boxheight = parseInt(box.style.height);
+  var newheight = boxheight + pixelvalue;
+  if (newheight > 0 && newheight < 800) {
+    box.style.height = newheight + "px";
+  }
+}
+
+function TextLenghtValidator() {
+  var maximum = 2000;
+  var field = document.forms['send-A1'].elements['komentar'];
+  if (field.value.length > maximum) {
+    field.value = field.value.substring(0, maximum);
+  } else {
+    document.forms['send-A1'].elements['endremaining'].value = maximum - field.value.length;
+  }
+}
+
+function SendEmailToAdmin(komentar_id) {
+  var part_1 = "mailto:vojensko@seznam.cz?subject=Problematický komentář id " + komentar_id + " na serveru Vojensko.cz&body=Oznamuji problematický komentář id " + komentar_id + " na serveru Vojensko.cz";
+  var part_2 = "%0A%0AStránka komentáře: www.vojensko.cz//dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75#" + komentar_id + "";
+  var part_3 = "%0A%0ADle mého názoru je problematický, protože:%0A%0A";
+  document.location = part_1 + part_2 + part_3;
+  return false;
+}
+</script>
+
+
+<br>
+<br>
+
+<div id="pridatkomentar" class="kotva"></div>
+<div id="komentarform">
+  <form action="/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75#pridatkomentar" id="send-A1" method="post" onsubmit="__formDisMultipleClick(this);">
+  <div class="block">
+    <input type="hidden" name="sort" value="fibre">  <input type="hidden" name="posun" value="0">
+  <input type="hidden" name="form_id" value="form-A1">
+  <input type="hidden" name="send" value="1">
+  <fieldset><legend>Přidáváte nový komentář</legend>
+  <div><label for="for_jmeno">Vaše jméno <span class="red">*</span> </label></div>
+  <div class="styled fsize-50"><input id="for_jmeno" type="text" name="jmeno" value="" placeholder="" class="styled"></div>
+  <div><label for="for_email">E-mail</label></div>
+  <div class="styled fsize-50"><input id="for_email" type="text" name="email" value="" placeholder="" class="styled"></div>
+  <div><label for="for_nadpis">Nadpis <span class="red">*</span> </label></div>
+  <div class="styled fsize-100"><input id="for_nadpis" type="text" name="nadpis" value="" placeholder="" class="styled"></div>
+  <div class="resizeline"><a href="javascript:ResizeForm(50);"><img src="img/web/plus.png" title="Zvětšit okno &darr;" class="resizeBTN"><span class="no">plus</span></a> <span class="small">okno</span> <a href="javascript:ResizeForm(-50);"><img src="img/web/minus.png" alt="" title="Zmenšit okno &uarr;" class="resizeBTN"><span class="no">minus</span></a></div>
+  <div><label for="for_komentar">Komentář <span class="red">*</span> </label></div>
+  <div class="styled fsize-100"><textarea id="for_komentar" rows="10" name="komentar" placeholder="zde napište svůj komentář..." onkeydown="TextLenghtValidator()" onkeyup="TextLenghtValidator()" style="height: 150px;" class="styled"></textarea></div>
+  <div class="small right">... lze napsat ještě<input type="text" name="endremaining" value="2000" size="4" disabled="disabled" style="display: inline-block; width: 4rem; text-align: center; font-weight: 400; padding: 0; border: 0; color: inherit; background-color: inherit;">znaků</div>
+  <div><label for="for_rok">Jaký je rok <span class="red">*</span>  (antispamová otázka)</label></div>
+  <div class="styled"><input id="for_rok" type="number" name="rok" value="" class="styled"></div>
+  <div id="spamprotirobotum">
+    Ochrana proti spamu. Napište číslo stodvacet:    <input id="protirobotum" type="text" name="past" value="" style="width: 6rem;" maxlength="3" class="styled">
+  </div>
+  <br>
+  <noscript>
+    <div><label for="for_nospam">Bezpečnostní antispam kód <span class="red">*</span> </label></div>
+    <div style="margin-bottom: 5px;">Opište text: <span class="red">nospam</span></div>
+    <div class="styled">
+    <input id="for_nospam" type="text" name="nospam" value="" style="width: 9rem;" maxlength="6" class="styled"></div>
+    <br>
+  </noscript>
+  <br>
+  <div id="myDiv-form-A1"></div>
+  <script>document.getElementById("myDiv-form-A1").innerHTML = ('\074input type="hidden" name="nospam" value="no' + 'spam" /\076');</script>
+  <p class="center no"><input type="submit" name="jsemrobot" value="-1-" class="styledbutton"></p>
+  <p class="center">
+    <button type="submit" class="styledbutton"> Odeslat <i></i> </button>
+    &nbsp;&nbsp;&nbsp;
+    <button type="reset" class="styledbutton" onclick="window.location.href='/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75';">Storno</button>
+  </p>
+  <p class="center no"><input type="submit" name="jsemrobot" value="-2-" class="styledbutton"></p>
+  <br>
+  <ul class="styled">
+    <li>hvězdičkou <span class="red bold">*</span> jsou označena povinná pole</li>
+    <li>maximální délka textu komentáře je 2000 znaků</li>
+    <li>odřádkování textu komentáře (ENTER) zůstane zachováno</li>    <li>HTML tagy nebudou použity</li>    <li>WWW adresy budou automaticky převedeny na odkazy</li>    <li>reagovat lze pouze do 5 úrovně</li>
+    <li>vyhrazujeme si právo smazat nevhodné příspěvky</li>
+          </ul>
+  </fieldset>
+  </div>
+  </form>
+  <script>
+    document.getElementById('protirobotum').value = 6 * 20;
+    document.getElementById('spamprotirobotum').style.display = 'none';
+  </script>
+</div><!-- #komentarform //-->
+
+
+
+</div><!-- .box //-->
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+  <div class="span_4 col">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+<div class="box">
+
+  <div id="detail-text">
+    <div class="sekce"><a href="https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla"><img src="https://www.vojensko.cz/img/web/pictures.png" width="22" height="22" alt=""> <h3>Dobové foto ČSLA</h3></a></div>
+    <div class="polozka"><h4><strong class="big">VÚ 1732 - Beroun r. 1973-75</strong></h4></div>
+<div class="text userarea"><p>Dobové fotografie z VÚ 1732 - Beroun.</p><p><em>Ahojte veteráni.<br />Bol som vodič V3S, 4/1973-1975. Spolu na izbe som bol s Jirkom Endálom z Varnsdorfu. Najprv som vozil kabelákov, neskôr RDM12, Milan Rosenbaum, Paleček Tomáš z Prahy. Boli sme na pár mesiacov odveleni na Valdek a tam to bolo super - v lese na chatách. Inak 4. prapor kpt. Kocourek a veliteľ 10. roty bol npor. Kotlár (z Bratislavy). V našom ročníku boli: Jaro Houdek, Michal Hatala, Jaroslav Kmiť (staršina), Pertl, Latocha, Jeleňčiak, Jirka Popelka, Žganič Peťo... a iní. <br />Určite sa niektorí spoznáte.</em></p></div>
+
+      <div class="seznam">
+        <div class="gray"><strong>Související fotogalerie</strong></div>
+        <ul><li><a href="https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03747-vu-beroun">VÚ Beroun</a></li></ul>
+      </div>
+
+
+
+  <div class="aktualizace"><small class="small gray">A2021-02-02 13:46:32 TG472</small></div>
+</div><!-- #detail-text //-->
+</div><!-- .box //-->
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+</div><!-- .row //-->
+<div class="clearfix"></div>
+
+
+
+
+
+
+
+
+      </div><!-- .innertube //-->
+    </div><!-- #maincol //-->
+  </div><!-- .col //-->
+
+
+  <div class="clearfix"></div>
+</div><!-- #main //-->
+
+</main>
+
+<hr class="print">
+<footer class="">
+
+<div id="flat-paticka" class="cleaner">
+<div class="page">
+
+<div id="footer" class="row">
+
+  <div class="span_12 col noprint">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+<div id="bottommenu" class="">
+<nav class="center">
+  <div id="419229012" style="display: block;">
+    <ul class="menu-bottom">
+      <li class="fm-first"><a href="https://www.vojensko.cz/uvod" class="419229012-item-1">Úvod</a></li><li class="fm-item"><a href="https://www.vojensko.cz/mapa-stranek" class="419229012-item-2">Mapa stránek</a></li><li class="fm-item"><a href="https://www.vojensko.cz/rss" class="419229012-item-3">RSS</a></li><li class="fm-item"><a href="https://www.vojensko.cz/zasady-ochrany-osobnich-udaju" class="419229012-item-4">Zásady ochrany osobních údajů</a></li><li class="fm-last"><a href="https://www.vojensko.cz/admin" class="419229012-item-5">ADM</a></li>
+    </ul>
+  </div>
+</nav>
+</div><!-- #bottommenu //--> 
+
+        <p class="privacy odsadit_nahore">Publikování a další šíření obsahu tohoto webu je povoleno pouze se souhlasem redakce a s uvedením zdroje <strong>www.vojensko.cz</strong><br>
+        Sponzor projektu <strong>Webstudio Pecher</strong> s podporou. Verze stránek Vojensko.CZ 2.0</p>
+        <p class="banners">
+          <a href="https://www.cspvo.cz/" onclick="return !window.open(this.href)" title="Československá PVO 1950-1992"><img src="https://www.vojensko.cz/img/banner/cspvo.gif" width="88" height="31" alt="Banner"></a>
+          <a href="http://www.csla.cz/" onclick="return !window.open(this.href)" title="Stránky o ČSLA"><img src="https://www.vojensko.cz/img/banner/csla.gif" width="88" height="31" alt="Banner"></a>
+          <a href="http://www.ropiky.net/" onclick="return !window.open(this.href)" title="Opevnění Československa 1936-38"><img src="https://www.vojensko.cz/img/banner/ropiky.gif" width="88" height="31" alt="Banner"></a>
+          <a href="http://www.vojenstvi.cz/" onclick="return !window.open(this.href)" title="Československé vojenství"><img src="https://www.vojensko.cz/img/banner/vojenstvi.gif" width="88" height="31" alt="Banner"></a>
+          <a href="https://www.webarchiv.cz/" onclick="return !window.open(this.href)" title="Archiv českého webu"><img src="https://www.vojensko.cz/img/banner/webarchiv.gif" width="88" height="31" alt="Banner"></a>
+          <br class="cleaner">
+        </p>
+        <p class="copyright">Copyright © 2007-2024 Vojensko.CZ</p>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+  <div class="span_12 col print">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+        <div class="print-text">Copyright © 2007-2024 Vojensko.CZ</div>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+</div><!-- .row //-->
+<div class="clearfix"></div>
+
+</div><!-- .page //-->
+</div><!-- #flat-paticka //-->
+
+<div id="top-scroller" class="noprint">
+  <a id="scrollup" href="#" title="Přesunout nahoru"></a>
+</div><!-- #top-scroller //-->
+
+
+<!-- Reklama SEZNAM PARTNER //-->
+<div id="reklama">
+<div id="ssp-zone-32713"></div>
+<div id="ssp-zone-292313"></div>
+<script>
+if (window.innerWidth >= 970) {
+  sssp.getAds([
+    {
+      "zoneId": 32713,
+      "id": "ssp-zone-32713",
+      "width": 970,
+      "height": 210
+    }
+  ]);
+} else { /* mensi reklama pro mobil, tablet */
+  sssp.getAds([
+    {
+      "zoneId": 292313,
+      "id": "ssp-zone-292313",
+      "width": 320,
+      "height": 100
+    }
+  ]);
+}
+</script>
+</div>
+
+
+</footer>
+  
+</div><!-- #page .page //-->
+
+</body>
+</html>

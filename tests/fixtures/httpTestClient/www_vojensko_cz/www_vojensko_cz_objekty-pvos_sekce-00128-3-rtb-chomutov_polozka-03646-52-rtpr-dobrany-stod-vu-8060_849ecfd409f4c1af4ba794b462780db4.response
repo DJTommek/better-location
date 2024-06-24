@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+
+    <!-- WebArchiv NK Praha -->
+    <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+    <meta name="DC.Title" content="Vojensko.cz">
+    <meta name="DC.Subject" scheme="PHNK" content="vojenské stavby">
+    <meta name="DC.Subject" scheme="PHNK" content="vojenské dějiny">
+    <meta name="DC.Subject" scheme="MDT_MRF" content="355.7">
+    <meta name="DC.Subject" scheme="MDT_MRF" content="355.4(091)">
+    <meta name="DC.Subject" scheme="MDT_MRF" content="(437)">
+    <meta name="DC.Subject" scheme="MDT_MRF" content="(0.034.2)004.738.12">
+    <meta name="DC.Subject" scheme="MDT_MRF" content="(0.034.2)77.03">
+    <meta name="DC.Subject" scheme="MDT_KON" content="355/359 Vojenství. Obrana země. Ozbrojené síly">
+    <meta name="DC.Subject" scheme="MDT_KON" content="355 Military science">
+    <meta name="DC.Description.abstract" content="Fotogalerie objektů bývalé Pohraniční stráže a Československé lidové armády">
+    <meta name="DC.Publisher" content="Jiří Pecher">
+    <meta name="DC.Date" content="2007-">
+    <meta name="DC.Type" scheme="DCMIType" content="Text">
+    <meta name="DC.Type" scheme="DCMIType" content="Image">
+    <meta name="DC.Type" scheme="PHNK" content="www dokumenty">
+    <meta name="DC.Type" scheme="PHNK" content="fotogalerie">
+    <meta name="DC.Format" scheme="IMT" content="text/html">
+    <meta name="DC.Format" scheme="IMT" content="image/jpeg">
+    <meta name="DC.Format.medium" content="computerFile">
+    <meta name="DC.Identifier" content="https://vojensko.cz">
+    <meta name="DC.Identifier" scheme="URN" content="URN:NBN:cz-nk20095268">
+    <meta name="DC.Language" scheme="RFC3066" content="cze">
+    <meta name="DC.Coverage.spatial" scheme="PHNK" content="Československo">
+    <meta name="DC.Rights" content="2007-2024 Vojensko.cz">
+    <!-- WebArchiv NK Praha //-->
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="all, index, follow">
+    <meta name="author" content="Webstudio Jiri Pecher [www.jpecher.cz] 2022">
+    <meta name="copyright" content="Copyright © 2007-2024 Vojensko.CZ">
+    <meta name="description" content="Objekty bývalé PS a ČSLA, vzpomínky pamětníků.">
+    <meta name="keywords" content="československá armáda, čsla, pohraniční stráž, hranice, pvos, vidové hlásky">
+
+    <base href="/">
+
+    <!-- HOME PAGE //-->
+    <link rel="home" href="https://www.vojensko.cz/uvod" title="Domů">
+
+    <!-- FAVICON //-->
+    <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+
+    <!-- GOOGLE FONTS //-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&amp;subset=latin,latin-ext&amp;display=block" rel="stylesheet">
+
+    <!-- CSS //-->
+    <link href="https://www.vojensko.cz/templates/gridpak.css" rel="stylesheet">
+
+    <link href="https://www.vojensko.cz/templates/vojensko/style.css?v1" rel="stylesheet">
+    <link href="https://www.vojensko.cz/templates/vojensko/userarea.css?v1" rel="stylesheet">
+
+    <!-- JS //-->
+    <script src="https://www.vojensko.cz/inc/functions.js"></script>
+    <script src="https://www.vojensko.cz/inc/cookies.js"></script>
+
+    <!-- SEZNAM PARTNER 7.2022 //-->
+    <script src="https://ssp.seznam.cz/static/js/ssp.js"></script>
+
+    <!-- JQUERY (ON-LINE) //-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    <!-- AUTOCOMPLETE -->
+    <link href="https://www.vojensko.cz/libraries/autocomplete/css/jquery.autocomplete.min.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/autocomplete/js/jquery.autocomplete.min.js"></script>
+
+    <!-- CSS MENUMAKER //-->
+    <link href="https://www.vojensko.cz/libraries/cssmenumaker/css/jquery.menumaker.min.css" rel="stylesheet">
+    <link href="https://www.vojensko.cz/libraries/cssmenumaker/css/custom.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/cssmenumaker/js/jquery.menumaker.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+      $('#cssmenu').menumaker( {
+        title: 'Menu',
+        breakpoint: 768,
+        format: 'multitoggle'
+      });
+    });
+    </script>
+
+    <!-- DRAWER //-->
+    <link href="https://www.vojensko.cz/libraries/drawer/src/css/jquery.drawer.min.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/drawer/src/js/jquery.drawer.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+    $('.drawer-item').drawer( {
+        slideSpeed: 200,
+        arrowIcon: '&#9658;'
+      });
+    });
+    </script>
+
+    <!-- KEYBOARD PAGINATION //-->
+    <script src="https://www.vojensko.cz/libraries/keyboard-pagination/jquery.keyboard-pagination.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+      $('.keyboard-pagination').keyboardPagination( {
+        keyCodeLeft: 100,         /* Numpad4 */
+        keyCodeRight: 102,        /* Numpad6 */
+        prev: '.pagination-prev',
+        next: '.pagination-next',
+        useKeyCtrl: true
+      });
+    });
+    </script>
+
+    <!-- LAZY LOAD //-->
+    <script src="https://www.vojensko.cz/libraries/lazyload/jquery.lazyload.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+      $('img.lazy').lazyload();
+    });
+    </script>
+
+    <!-- FORM SPINNER //-->
+    <link href="https://www.vojensko.cz/libraries/form-spinner/style.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/form-spinner/script.js"></script>
+
+    <!-- GC CALENDAR //-->
+    <link href="https://www.vojensko.cz/libraries/calendar-gc/src/calendar-gc.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/calendar-gc/src/calendar-gc.js"></script>
+
+    <!-- STAR RATING SVG //-->
+    <link href="https://www.vojensko.cz/libraries/star-rating-svg/src/css/star-rating-svg.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/star-rating-svg/src/jquery.star-rating-svg.js"></script>
+
+
+    <script>
+    $(document).ready(function() {
+      $('.my-rating').starRating({
+
+        initialRating: 0,
+        starSize: 25,
+        useFullStars: true,
+        useGradient: false,
+
+        callback: function(currentRating){
+          alert('Děkujeme za hodnocení ' + currentRating);
+          window.location.href = 'https://www.vojensko.cz/objekty-pvos' + '?rating=' + currentRating;
+        }
+      });
+    });
+    </script>
+
+
+    <!-- FANCYBOX 3 //-->
+    <link href="https://www.vojensko.cz/libraries/fancybox/fancybox3/dist/jquery.fancybox.min.css" rel="stylesheet">
+    <script src="https://www.vojensko.cz/libraries/fancybox/fancybox3/dist/jquery.fancybox.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+      $('[data-fancybox]').fancybox( {
+        buttons: ['zoom', 'slideShow', 'thumbs', 'close'],
+        youtube: {
+          autoplay: true,
+          controls: true,
+          showinfo: true
+        }
+      });
+    });
+    </script>
+
+    <!-- SETTINGS //-->
+    <script>
+    $(document).ready(function() {
+      $(window).scroll(function() {
+        if ($(this).scrollTop() > 100) {
+          $('#scrollup').fadeIn();
+        } else {
+          $('#scrollup').fadeOut();
+        }
+      });
+      $('#scrollup, a.nahoru').click(function() {
+        $('html, body').animate( {
+          scrollTop: 0
+        }, 600);
+        return false;
+      });
+    });
+    </script>
+
+    <script>
+    $(document).ready(function() {
+      $('button.close').click(function() {
+        $('.box-message-ok, .box-message-error, .box-message-warning').fadeTo(500, 0).slideUp();
+      });
+    });
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="https://www.vojensko.cz/inc/html5shiv.min.js"></script>
+    <script src="https://www.vojensko.cz/inc/rem.min.js"></script>
+    <![endif]-->
+
+    <title>Objekty PVOS | Vojensko.cz</title>
+</head>
+
+<body id="top" class="layout-cs no-js" onload="TextLenghtValidator();">
+<script>document.body.className = document.body.className.replace('no-js', 'js');</script>
+
+<div id="page" class="page">
+<header class="">
+
+
+<div id="flat-hlavicka" class="cleaner">
+<div class="page">
+
+<div id="header" class="row">
+
+  <div class="span_7 col noprint">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+        <div class="logostranky">
+          <a href="https://www.vojensko.cz/" title="Vojensko.CZ - Objekty bývalé PS a ČSLA, vzpomínky pamětníků, historie">
+            <div class="logo"></div>
+            <div class="nazev"><h1 class="nazev"><span style="color: #066;">Vojensko</span><span style="color: #666;">.</span><span style="color: #993;">cz</span></h1></div>
+            <div class="podnazev"><h2 class="podnazev"><span style="color: #808080;">Objekty bývalé PS a ČSLA, vzpomínky pamětníků, historie</span></h2></div>
+          </a>
+        </div>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+  <div class="span_5 col noprint">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+<nav class="center">
+  <div id="238972485" style="display: block;">
+    <ul class="menu-top">
+      <li class="fm-first"><a href="https://www.vojensko.cz/uvod" class="238972485-item-1">Úvod</a></li><li class="fm-item"><a href="https://www.vojensko.cz/kontakt" class="238972485-item-2">Kontakt</a></li><li class="fm-item"><a href="https://www.vojensko.cz/o-webu" class="238972485-item-3">O webu</a></li><li class="fm-item"><a href="https://www.vojensko.cz/vyhledavani" class="238972485-item-4">Vyhledávání</a></li><li class="fm-last"><a href="https://www.vojensko.cz/osobni-nastaveni" class="238972485-item-5">Osobní nastavení</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+        <div class="hledatform">
+          <form action="https://www.vojensko.cz/vyhledavani" method="get">
+          <div class="block">
+                              <input type="hidden" name="strict" value="1">
+          <fieldset>
+<div class="pretext">Hledáte pouze konkrétní položku?</div>          <div class="autocomplete">
+            <input style="float: left;" type="text" id="top-search" autocomplete="off" onkeyup="autocomplet()" name="hledat" value="" size="30" maxlength="50" placeholder="zadejte výraz ..." class="pole">
+            <ul id="result" style="display: none;"></ul>
+          </div>
+          <button type="submit" class="tlacitko" title="Hledej">&Ograve;</button>
+          </fieldset>
+          </div>
+          </form>
+        </div>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+  <div class="span_12 col print">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+        <div class="print-logo"></div>
+        <div class="print-nazev"><span style="color: #066;">Vojensko</span><span style="color: #666;">.</span><span style="color: #993;">cz</span></div>
+        <div class="print-podnazev"><span style="color: #808080;">Objekty bývalé PS a ČSLA, vzpomínky pamětníků, historie</span></div>
+        <div class="print-text"></div>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+</div><!-- .row //-->
+<div class="clearfix"></div>
+
+<div id="mainmenu" class=""><nav class="center">
+  <div id="1743552468" style="display: block;">
+    <ul class="menu-main">
+      <li class="fm-first"><a href="https://www.vojensko.cz/uvod" title="Úvodní stránka" class="1743552468-item-1">Úvod</a></li><li class="fm-item"><a href="https://www.vojensko.cz/objekty-ps" title="Objekty Pohraniční stráže" class="1743552468-item-2">Objekty PS</a></li><li class="fm-item"><a href="https://www.vojensko.cz/objekty-csla" title="Objekty Československé lidové armády" class="1743552468-item-3">Objekty ČSLA</a></li><li class="fm-item active"><a href="https://www.vojensko.cz/objekty-pvos" title="Objekty Protivzdušné obrany státu" class="1743552468-item-4">Objekty PVOS</a></li><li class="fm-item"><a href="https://www.vojensko.cz/dobove-foto" title="Dobové fotografie" class="1743552468-item-5">Dobové foto</a></li><li class="fm-last"><a href="https://www.vojensko.cz/ruzne" title="Co se jinam nevešlo" class="1743552468-item-6">Různé</a></li>
+    </ul>
+  </div>
+</nav>
+</div><!-- #mainmenu //--> 
+
+</div><!-- .page //-->
+</div><!-- #flat-hlavicka //-->
+</header>
+
+<hr class="print">
+
+
+<div id="breadcrumbs" class="row">
+
+  <div class="span_12 col noprint">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+        <p><span class="jstezde">Jste zde</span><span class="dvojtecka">:</span> <span><a href="https://www.vojensko.cz/">domů</a></span> &raquo; <span><a href="https://www.vojensko.cz/objekty-pvos">objekty pvos</a></span> &raquo; <span><a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov">3. rtb - chomutov</a></span> &raquo; <span><a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060">52. rtpr dobřany (stod) - vú ...</a></span></p>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+</div><!-- .row //-->
+<div class="clearfix"></div>
+
+
+<main class="">
+<div id="main" class="row">
+
+  <div class="span_12 col">
+    <div id="maincol" class="">
+      <div id="maincol-stranky-objekty-pvos" class="innertube">
+        <div id="cookie" class="red"><script>document.getElementById('cookie').innerHTML = (navigator.cookieEnabled) ? "" : "<p>Cookies ERROR !!!</p>";</script></div>
+<h3 class="pagetitle">Objekty PVOS</h3>
+<div id="scripts-pages-objekty-pvos" class="row">
+
+  <div class="span_8 col">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+<div class="box">
+
+<div id="detail-foto">
+  <p class="uvodsekce"><a href="javascript:history.back(-1);" class="link">&laquo; Zpět</a> | <a href="https://www.vojensko.cz/objekty-pvos" class="link">Jdi na seznam</a> | <a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060" class="link">Obnovit</a> | <a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060#vasekomentare" class="link">Vaše komentáře</a> (19)</p>
+
+      <p class="inforadek"><small class="gray" style="font-family: verdana;">(pro změnu obrázku můžete použít CTRL + šipky &harr; numerické klávesnice)</small><br>
+      <strong>1</strong> foto (J.Vítovec) z celkových <strong>48</strong></p>
+
+      <div class="sipky">
+        <ul class="keyboard-pagination sipky"><li class="pagination-prev floatleft"><a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=48#detail-foto" rel="prev" title="předchozí obrázek" class="button">&lsaquo; předchozí obr.</a></li><li class="pagination-next floatright"><a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=2#detail-foto" rel="next" title="další obrázek" class="button">další obr. &rsaquo;</a></li></ul>
+        <br class="cleaner">
+      </div>
+
+      <div class="hlavniobrazek"><img src="data/items/big/3646.jpg" width="480" height="360" alt="Foto 1" title="Foto 1" class="data_img_detail"></div>
+
+      <div class="popiskaobrazku">Letecký snímek bývalých kasáren Dobřany. Označen štáb a VS 52. rtp.</div>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=1#detail-foto"><img data-original="data/items/small/3646.jpg" width="75" height="56" alt="Foto 1" title="Foto 1" class="data_img_thumb_active lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=2#detail-foto"><img data-original="data/items/small/3646[1].jpg" width="75" height="56" alt="Foto 2" title="Foto 2" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=3#detail-foto"><img data-original="data/items/small/3646[2].jpg" width="75" height="56" alt="Foto 3" title="Foto 3" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=4#detail-foto"><img data-original="data/items/small/3646[3].jpg" width="75" height="56" alt="Foto 4" title="Foto 4" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=5#detail-foto"><img data-original="data/items/small/3646[4].jpg" width="75" height="56" alt="Foto 5" title="Foto 5" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=6#detail-foto"><img data-original="data/items/small/3646[5].jpg" width="75" height="56" alt="Foto 6" title="Foto 6" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=7#detail-foto"><img data-original="data/items/small/3646[6].jpg" width="75" height="56" alt="Foto 7" title="Foto 7" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=8#detail-foto"><img data-original="data/items/small/3646[7].jpg" width="75" height="56" alt="Foto 8" title="Foto 8" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=9#detail-foto"><img data-original="data/items/small/3646[8].jpg" width="75" height="56" alt="Foto 9" title="Foto 9" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=10#detail-foto"><img data-original="data/items/small/3646[9].jpg" width="75" height="56" alt="Foto 10" title="Foto 10" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=11#detail-foto"><img data-original="data/items/small/3646[10].jpg" width="75" height="56" alt="Foto 11" title="Foto 11" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=12#detail-foto"><img data-original="data/items/small/3646[11].jpg" width="75" height="56" alt="Foto 12" title="Foto 12" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=13#detail-foto"><img data-original="data/items/small/3646[12].jpg" width="75" height="56" alt="Foto 13" title="Foto 13" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=14#detail-foto"><img data-original="data/items/small/3646[13].jpg" width="75" height="56" alt="Foto 14" title="Foto 14" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=15#detail-foto"><img data-original="data/items/small/3646[14].jpg" width="75" height="56" alt="Foto 15" title="Foto 15" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=16#detail-foto"><img data-original="data/items/small/3646[15].jpg" width="75" height="56" alt="Foto 16" title="Foto 16" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=17#detail-foto"><img data-original="data/items/small/3646[16].jpg" width="75" height="56" alt="Foto 17" title="Foto 17" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=18#detail-foto"><img data-original="data/items/small/3646[17].jpg" width="75" height="56" alt="Foto 18" title="Foto 18" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=19#detail-foto"><img data-original="data/items/small/3646[18].jpg" width="75" height="56" alt="Foto 19" title="Foto 19" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=20#detail-foto"><img data-original="data/items/small/3646[19].jpg" width="75" height="56" alt="Foto 20" title="Foto 20" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=21#detail-foto"><img data-original="data/items/small/3646[20].jpg" width="75" height="56" alt="Foto 21" title="Foto 21" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=22#detail-foto"><img data-original="data/items/small/3646[21].jpg" width="75" height="56" alt="Foto 22" title="Foto 22" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=23#detail-foto"><img data-original="data/items/small/3646[22].jpg" width="75" height="56" alt="Foto 23" title="Foto 23" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=24#detail-foto"><img data-original="data/items/small/3646[23].jpg" width="75" height="56" alt="Foto 24" title="Foto 24" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=25#detail-foto"><img data-original="data/items/small/3646[24].jpg" width="75" height="56" alt="Foto 25" title="Foto 25" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=26#detail-foto"><img data-original="data/items/small/3646[25].jpg" width="75" height="56" alt="Foto 26" title="Foto 26" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=27#detail-foto"><img data-original="data/items/small/3646[26].jpg" width="75" height="56" alt="Foto 27" title="Foto 27" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=28#detail-foto"><img data-original="data/items/small/3646[27].jpg" width="75" height="56" alt="Foto 28" title="Foto 28" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=29#detail-foto"><img data-original="data/items/small/3646[28].jpg" width="75" height="56" alt="Foto 29" title="Foto 29" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=30#detail-foto"><img data-original="data/items/small/3646[29].jpg" width="75" height="56" alt="Foto 30" title="Foto 30" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=31#detail-foto"><img data-original="data/items/small/3646[30].jpg" width="75" height="56" alt="Foto 31" title="Foto 31" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=32#detail-foto"><img data-original="data/items/small/3646[31].jpg" width="75" height="56" alt="Foto 32" title="Foto 32" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=33#detail-foto"><img data-original="data/items/small/3646[32].jpg" width="75" height="56" alt="Foto 33" title="Foto 33" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=34#detail-foto"><img data-original="data/items/small/3646[33].jpg" width="75" height="56" alt="Foto 34" title="Foto 34" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=35#detail-foto"><img data-original="data/items/small/3646[34].jpg" width="75" height="56" alt="Foto 35" title="Foto 35" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=36#detail-foto"><img data-original="data/items/small/3646[35].jpg" width="75" height="56" alt="Foto 36" title="Foto 36" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=37#detail-foto"><img data-original="data/items/small/3646[36].jpg" width="75" height="56" alt="Foto 37" title="Foto 37" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=38#detail-foto"><img data-original="data/items/small/3646[37].jpg" width="75" height="56" alt="Foto 38" title="Foto 38" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=39#detail-foto"><img data-original="data/items/small/3646[38].jpg" width="75" height="56" alt="Foto 39" title="Foto 39" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=40#detail-foto"><img data-original="data/items/small/3646[39].jpg" width="75" height="56" alt="Foto 40" title="Foto 40" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=41#detail-foto"><img data-original="data/items/small/3646[40].jpg" width="75" height="56" alt="Foto 41" title="Foto 41" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=42#detail-foto"><img data-original="data/items/small/3646[41].jpg" width="75" height="56" alt="Foto 42" title="Foto 42" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=43#detail-foto"><img data-original="data/items/small/3646[42].jpg" width="75" height="56" alt="Foto 43" title="Foto 43" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=44#detail-foto"><img data-original="data/items/small/3646[43].jpg" width="75" height="56" alt="Foto 44" title="Foto 44" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=45#detail-foto"><img data-original="data/items/small/3646[44].jpg" width="75" height="56" alt="Foto 45" title="Foto 45" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=46#detail-foto"><img data-original="data/items/small/3646[45].jpg" width="75" height="56" alt="Foto 46" title="Foto 46" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=47#detail-foto"><img data-original="data/items/small/3646[46].jpg" width="75" height="56" alt="Foto 47" title="Foto 47" class="data_img_thumb lazy"></a>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?image=48#detail-foto"><img data-original="data/items/small/3646[47].jpg" width="75" height="56" alt="Foto 48" title="Foto 48" class="data_img_thumb lazy"></a>
+
+  <br class="cleaner">
+  <p class="center"><strong>Autor:</strong> J.Vítovec | <strong>Pořízeno:</strong> 11.2015 | <strong>Foto:</strong> 48 fotek</p>
+
+</div><!-- #detail-foto //-->
+<br><br>
+
+
+
+  <div id="komentare">
+    <div id="vasekomentare" class="comm_anchor"></div>
+    <div class="big"><strong>Vaše komentáře...</strong></div>
+<a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?sort=fibre&amp;posun=0#pridatkomentar" class="link">Přidat nový komentář...</a>
+<div class="comm_sortlink"><strong>Řazeno dle vláken</strong> | <a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?sort=time#vasekomentare" class="link">Seřadit dle času</a></div>
+
+  <div id="komentar-175229" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">vú2469 rok 1960-62 Dobřany</div>
+    <div class="comm_infoline"><span class="comm_author">Karel Pindor</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;karel&#46;pindor&#64;seznam&#46;cz" title="karel&#46;pindor&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">17.11.2023 09:45</span> | <span class="comm_id">id 175229</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=175229&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(175229);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">H2023ledám někoho kdo v době 1960-62 sloužil v Dobřanech , nejlépe u autoroty u vú2469.ozvěte se</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=175229&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-175228" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">vú2469 rok 1960-62 Dobřany</div>
+    <div class="comm_infoline"><span class="comm_author">Karel Pindor</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;karel&#46;pindor&#64;seznam&#46;cz" title="karel&#46;pindor&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">17.11.2023 09:43</span> | <span class="comm_id">id 175228</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=175228&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(175228);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">H2023ledám někoho kdo v době 1960-62 sloužil v Dobřanech , nejlépe u autoroty u vú2469.ozvěte se</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=175228&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-172039" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">Hledám</div>
+    <div class="comm_infoline"><span class="comm_author">Milan Kohoutek</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;mil&#46;koh&#64;seznam&#46;cz" title="mil&#46;koh&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">14.4.2023 23:27</span> | <span class="comm_id">id 172039</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=172039&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(172039);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Hledám kamarády z vojny Stod-stražisko 1974-1976.Dušan Matula-technik a ostatní.....</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=172039&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-172972" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: Hledám Milan Kohoutek</div>
+    <div class="comm_infoline"><span class="comm_author">Peter Mikuštiak</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;mikustiakpeter&#64;gmail&#46;com" title="mikustiakpeter&#64;gmail&#46;com" class="link">email</a></span> | <span class="comm_added">17.6.2023 15:57</span> | <span class="comm_id">id 172972</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=172972&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(172972);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Ja som zRTZ Dobřany,zo Stďakmi sa stretavame na stretnutiach,Kralik Baran Mezei Viglacký Mašek Vodehnal Brabenec atd.8-11.6 sme mali 3tie stretnutie bolo nás 14</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=172972&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-169710" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">Kniha Volací znak Salakuška</div>
+    <div class="comm_infoline"><span class="comm_author">Martin Káňa</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;martin&#46;kana&#64;centrum&#46;cz" title="martin&#46;kana&#64;centrum&#46;cz" class="link">email</a></span> | <span class="comm_added">6.1.2023 21:11</span> | <span class="comm_id">id 169710</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=169710&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(169710);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Chlapi, stále je v prodeji kniha o RTV - Volací znak Salakuška (popsány radiotechnické útvary v Čechách, Eda Kremlička tam vzpomíná, Miro Krnáč a mnoho dalších). Eshop: <a  href="http://www.eshop.librix.eu/Volaci-znak-Salakuska-d384.htm">www.eshop.librix.eu/Volaci-znak-Salakuska-d384.htm</a></div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=169710&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-141369" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">Kamarádi kde jste</div>
+    <div class="comm_infoline"><span class="comm_author">Provazník Pavelkl</span> | <span class="comm_added">24.10.2019 20:08</span> | <span class="comm_id">id 141369</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=141369&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(141369);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">1973_ 1975</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=141369&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-173046" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: Kamarádi kde jste</div>
+    <div class="comm_infoline"><span class="comm_author">Tonda</span> | <span class="comm_added">21.6.2023 23:39</span> | <span class="comm_id">id 173046</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=173046&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(173046);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Zřejmě zrušeno fórum PVOS lampasákem Pávkem! Nefunkční už delší dobu hned po jeho nástupu do funkce. <a  href="https://www.youtube.com/watch?v=A5mKKzn8t2o&t=73s">www.youtube.com/watch?v=A5mKKzn8t2o&t=73s</a> <a  href="https://www.youtube.com/watch?v=jwjqztX71tI">www.youtube.com/watch?v=jwjqztX71tI</a> <a  href="https://www.youtube.com/watch?v=yaug-cmdTKA">www.youtube.com/watch?v=yaug-cmdTKA</a> <a  href="https://www.youtube.com/watch?v=R2Npf1JY_lU">www.youtube.com/watch?v=R2Npf1JY_lU</a> <a  href="https://www.youtube.com/watch?v=6xYZ9QBU5mI">www.youtube.com/watch?v=6xYZ9QBU5mI</a> <a  href="https://www.youtube.com/watch?v=JowXv9dpLZo">www.youtube.com/watch?v=JowXv9dpLZo</a> <a  href="https://www.youtube.com/watch?v=973yBgFaqIc">www.youtube.com/watch?v=973yBgFaqIc</a> Kufříček IQ107 to jediné přesně pasuje. <a  href="https://www.youtube.com/shorts/Tyah6wXjuNM">www.youtube.com/shorts/Tyah6wXjuNM</a> <a  href="https://www.youtube.com/watch?v=AFDMdcmNDxo">www.youtube.com/watch?v=AFDMdcmNDxo</a> <a  href="https://www.youtube.com/watch?v=FMsqktONzFk">www.youtube.com/watch?v=FMsqktONzFk</a> <br />
+ Fórum portálu CS PVO 1950-1992 - Obsah<br />
+cspvo.cz<br />
+<a  href="https://forum.cspvo.cz">forum.cspvo.cz</a><br />
+Vítejte a začněte nejprve zde! Základní informace pro všechny uživatele o působení na tomto fóru, které by neměly uniknout Vaší pozornosti.<br />
+Tuto stránku jste navštívili 5krát. Poslední návštěva: 21.6.23<br />
+Velitelství PVOS - Fórum portálu CS PVO 1950-1992<br />
+<a  href="https://forum.cspvo.cz">forum.cspvo.cz</a> › viewforum<br />
+28. 7. 2017 — V celé historii PVOS měly tyto útvary a zařízení své významné místo v zabezpečení nedotknutelnosti vzdušného prostoru Československa. Moderátor: Netopýr.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=173046&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-141368" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">Kamarádi kde jste??!</div>
+    <div class="comm_infoline"><span class="comm_author">Provazník Pavel</span> | <span class="comm_added">24.10.2019 20:05</span> | <span class="comm_id">id 141368</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=141368&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(141368);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Provazník 1973_1975 RTZu Pelikana</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=141368&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-135980" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">Hledá se ....</div>
+    <div class="comm_infoline"><span class="comm_author">Jiří Bartoš</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;jura&#46;bartoska&#64;seznam&#46;cz" title="jura&#46;bartoska&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">20.2.2019 23:21</span> | <span class="comm_id">id 135980</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=135980&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(135980);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Zdravím všechny, mám prosbu, oslovila mě slečna ze Slovenska, hledá pro svého dědečka kamaráda z vojny z let 1966-67 . Její dědeček se jmenuje Rudo Kosmel a jeho kamarád je Jiří Bartoš , který by měl být z Brna ( aspon si to slečna myslí) Píše mi, že sloužili v Dobřanech V.U. 8060, Tak snad jsem tu správně. <br />
+Já jsem taky Jiří Bartoš , proto mě oslovila a bylo nas vice. Mě napadlo se tu zeptat. Kdyby někdo věděl o jiřím Bartošovi, prosím napište mi na email ,nebo tel. 731748264 děkuji</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=135980&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-169099" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: Hledá se ....</div>
+    <div class="comm_infoline"><span class="comm_author">Tonda</span> | <span class="comm_added">21.12.2022 21:30</span> | <span class="comm_id">id 169099</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=169099&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(169099);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Zdravím Vás vespolek. Zkoušejte pohledat na tomto portálu <a  href="https://forum.cspvo.cz/">forum.cspvo.cz/</a> v kolonce ,,hledám lidi". Určitě se Vám někdo ozve. Sloužil jsem taky u VÚ 8060 523. RTR ale o něco později v r. 1972-1974. S pozdravem a přáním příjemných svátků Tonda.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=169099&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-130086" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">TO ( Téóčko) 1976-77</div>
+    <div class="comm_infoline"><span class="comm_author">Harazím Vladimír</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;zvlhcovani&#64;seznam&#46;cz" title="zvlhcovani&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">6.7.2018 18:07</span> | <span class="comm_id">id 130086</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=130086&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(130086);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Hledají se z TO <br />
+Ivan Hnilica, Juraj Slavkovský, Dušan Trstenský, Pepa Vondraš a další ,,,,</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=130086&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-126467" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">VO 8060</div>
+    <div class="comm_infoline"><span class="comm_author">Arnold Medzihradsky</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;amedzi&#64;me&#46;com" title="amedzi&#64;me&#46;com" class="link">email</a></span> | <span class="comm_added">18.2.2018 08:50</span> | <span class="comm_id">id 126467</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=126467&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(126467);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Od 01.april 1971 super vojna...prijímač a potom RTZ,pokial niekto prečíta,ozvite sa...</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=126467&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-123619" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">Kniha o radiotechnickém vojsku</div>
+    <div class="comm_infoline"><span class="comm_author">voják</span> | <span class="comm_added">8.12.2017 07:06</span> | <span class="comm_id">id 123619</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=123619&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(123619);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Zdar, <br />
+stále je v prodeji kniha o radiotechnickém vojsku s názvem Volací znak Salakuška: <br />
+https://eshop.librix.eu/produkt/detail/912/volaci-znak-salakuska</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=123619&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-131533" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: Kniha o radiotechnickém vojsku</div>
+    <div class="comm_infoline"><span class="comm_author">Jozef Vasko</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;jojo&#46;vasko&#64;gmail&#46;com" title="jojo&#46;vasko&#64;gmail&#46;com" class="link">email</a></span> | <span class="comm_added">3.9.2018 15:15</span> | <span class="comm_id">id 131533</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=131533&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(131533);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Pozrite si <a href="http://www.salakuska.estranky.sk">www.salakuska.estran&hellip;</a> o záklaďákoch a službe na 52.rtp v Stode u Plzne v rokoch 1985 - 1987.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=131533&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-109670" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">stod 8060</div>
+    <div class="comm_infoline"><span class="comm_author">pierrepetr</span> | <span class="comm_added">28.10.2016 01:06</span> | <span class="comm_id">id 109670</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=109670&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(109670);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">v Dobřanech u bigošů jsem byl v base,ve Stodu byla nevyhovující basa v 1979,jinak jsem sloužil na křižáku ,křížový vrch,tam bylo vysílací středisko pro Stod 8060,118+duhy</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=109670&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-102961" class="comm_anchor"></div>
+  <div class="comm_content" style="margin-left: 0px;">
+    <div class="comm_title">Dobřany</div>
+    <div class="comm_infoline"><span class="comm_author">Dan</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;jdmaric&#46;&#64;seznam&#46;cz" title="jdmaric&#46;&#64;seznam&#46;cz" class="link">email</a></span> | <span class="comm_added">21.3.2016 17:15</span> | <span class="comm_id">id 102961</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=102961&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(102961);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Ahoj! Podle poznámek k fotkám soudím, že máš k dobřanským kasárnům nějaký vztah. Můžeš prozradit co Tě k nim váže? Dík Dan</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=102961&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-103803" class="comm_anchor"></div><div class="comm_subcomm" style="width: 16px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 16px;">
+    <div class="comm_title">Re: Dobřany</div>
+    <div class="comm_infoline"><span class="comm_author">Jaroslav Vítovec</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;vitovec&#64;atlas&#46;cz" title="vitovec&#64;atlas&#46;cz" class="link">email</a></span> | <span class="comm_added">17.4.2016 17:27</span> | <span class="comm_id">id 103803</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=103803&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(103803);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Ahoj! K dobřanským kasárnům mě celkem nic podstatného neváže. Jen jsem v letech 1963/1965 za voj. služby na 309 RTH Doubrava /521.rtr Poleň/ byl na cca 1 měsíc na stáži ve spojovací dílně 52. rtpr Dobřany. Sem na Vojensko do sekcí &quot;PVOS&quot; a &quot;Různé&quot; občas něčím přispívám. Např. &quot;PH Sedlo nad Albrechticemi u Sušice&quot; /současný stav, dobové obr. z r. 1958, porovnání souč. a dobového stavu/, dále &quot;Návštěva PH 228 - Filipova Huť r. 2012&quot; , pak mnoho obrázků a reportáží ze dvou, prvního a druhého &quot;setkání ročníku 63/65 z 309 RTH Doubrava /Poleň/&quot;, včetně dobových fotografií tohoto ročníku. Nedávno, když jsem chtěl vyhovět prosbě kamaráda, který sloužil v r. 63/65 na velitelské rotě 52. rtpr. Dobřany o pomoc s publikací velmi zajímavých dobových fotografií /např. inf. o K. Krylovi/, jsem zjistil že není dosud založena složka 52. rtpr. Dobřany a ty dobové fotky není kam přiřadit. Proto jsem dojel do Dobřan, nafotil kasárna a pak to vložil sem na Vojensko a následně i ty předmětné dobové fotografie. Jarda.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=103803&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  <div id="komentar-168128" class="comm_anchor"></div><div class="comm_subcomm" style="width: 32px;">&nbsp;</div>
+  <div class="comm_content" style="margin-left: 32px;">
+    <div class="comm_title">Re: Re: Dobřany RTP. 52- 8060</div>
+    <div class="comm_infoline"><span class="comm_author">Petr Noack</span> | <span class="comm_email"><a href="mai&#108;&#116;&#111;&#58;peterwernernoack&#64;gmail&#46;com" title="peterwernernoack&#64;gmail&#46;com" class="link">email</a></span> | <span class="comm_added">7.11.2022 08:43</span> | <span class="comm_id">id 168128</span> | <span class="comm_replink"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?com=168128&amp;sort=fibre#nahlasit" onclick="return SendEmailToAdmin(168128);" title="Nahlásit problematický komentář" class="link">nahlásit</a></span>
+    </div>
+    <div class="comm_text">Sloužil jsem v létech 1962/64 u rtpr.52 - 8060 v Dobřanech , jako st.kuchař. Vařili jsme celkem pro 800 vojáků našeho pluku a PTD 216, se kterými jsme byli společně v kasárnách. O mých zážitcích během VZS jsem napsal mimo dalších z těch let iněkolik kapitol v mé knížce Obsluhoval jsem i krále.( vydalo nakl. Starý Most v Plzni.) Doufám, že se některý ze žijîcích kamarádů ozve. PWN.</div>
+    <div class="comm_reply"><span class="ico16-reply-r"><a href="objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060?respond=168128&amp;sort=fibre&amp;posun=0#reakcenakomentar" title="Reagovat na komentář" class="link">Reagovat</a></span></div>
+  </div>
+  </div><!-- #komentare //-->
+
+<script>
+function ResizeForm(pixelvalue) {
+  var box = document.getElementById('for_komentar');
+  var boxheight = parseInt(box.style.height);
+  var newheight = boxheight + pixelvalue;
+  if (newheight > 0 && newheight < 800) {
+    box.style.height = newheight + "px";
+  }
+}
+
+function TextLenghtValidator() {
+  var maximum = 2000;
+  var field = document.forms['send-A1'].elements['komentar'];
+  if (field.value.length > maximum) {
+    field.value = field.value.substring(0, maximum);
+  } else {
+    document.forms['send-A1'].elements['endremaining'].value = maximum - field.value.length;
+  }
+}
+
+function SendEmailToAdmin(komentar_id) {
+  var part_1 = "mailto:vojensko@seznam.cz?subject=Problematický komentář id " + komentar_id + " na serveru Vojensko.cz&body=Oznamuji problematický komentář id " + komentar_id + " na serveru Vojensko.cz";
+  var part_2 = "%0A%0AStránka komentáře: www.vojensko.cz//objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060#" + komentar_id + "";
+  var part_3 = "%0A%0ADle mého názoru je problematický, protože:%0A%0A";
+  document.location = part_1 + part_2 + part_3;
+  return false;
+}
+</script>
+
+
+<br>
+<br>
+
+<div id="pridatkomentar" class="kotva"></div>
+<div id="komentarform">
+  <form action="/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060#pridatkomentar" id="send-A1" method="post" onsubmit="__formDisMultipleClick(this);">
+  <div class="block">
+    <input type="hidden" name="sort" value="fibre">  <input type="hidden" name="posun" value="0">
+  <input type="hidden" name="form_id" value="form-A1">
+  <input type="hidden" name="send" value="1">
+  <fieldset><legend>Přidáváte nový komentář</legend>
+  <div><label for="for_jmeno">Vaše jméno <span class="red">*</span> </label></div>
+  <div class="styled fsize-50"><input id="for_jmeno" type="text" name="jmeno" value="" placeholder="" class="styled"></div>
+  <div><label for="for_email">E-mail</label></div>
+  <div class="styled fsize-50"><input id="for_email" type="text" name="email" value="" placeholder="" class="styled"></div>
+  <div><label for="for_nadpis">Nadpis <span class="red">*</span> </label></div>
+  <div class="styled fsize-100"><input id="for_nadpis" type="text" name="nadpis" value="" placeholder="" class="styled"></div>
+  <div class="resizeline"><a href="javascript:ResizeForm(50);"><img src="img/web/plus.png" title="Zvětšit okno &darr;" class="resizeBTN"><span class="no">plus</span></a> <span class="small">okno</span> <a href="javascript:ResizeForm(-50);"><img src="img/web/minus.png" alt="" title="Zmenšit okno &uarr;" class="resizeBTN"><span class="no">minus</span></a></div>
+  <div><label for="for_komentar">Komentář <span class="red">*</span> </label></div>
+  <div class="styled fsize-100"><textarea id="for_komentar" rows="10" name="komentar" placeholder="zde napište svůj komentář..." onkeydown="TextLenghtValidator()" onkeyup="TextLenghtValidator()" style="height: 150px;" class="styled"></textarea></div>
+  <div class="small right">... lze napsat ještě<input type="text" name="endremaining" value="2000" size="4" disabled="disabled" style="display: inline-block; width: 4rem; text-align: center; font-weight: 400; padding: 0; border: 0; color: inherit; background-color: inherit;">znaků</div>
+  <div><label for="for_rok">Jaký je rok <span class="red">*</span>  (antispamová otázka)</label></div>
+  <div class="styled"><input id="for_rok" type="number" name="rok" value="" class="styled"></div>
+  <div id="spamprotirobotum">
+    Ochrana proti spamu. Napište číslo stodvacet:    <input id="protirobotum" type="text" name="past" value="" style="width: 6rem;" maxlength="3" class="styled">
+  </div>
+  <br>
+  <noscript>
+    <div><label for="for_nospam">Bezpečnostní antispam kód <span class="red">*</span> </label></div>
+    <div style="margin-bottom: 5px;">Opište text: <span class="red">nospam</span></div>
+    <div class="styled">
+    <input id="for_nospam" type="text" name="nospam" value="" style="width: 9rem;" maxlength="6" class="styled"></div>
+    <br>
+  </noscript>
+  <br>
+  <div id="myDiv-form-A1"></div>
+  <script>document.getElementById("myDiv-form-A1").innerHTML = ('\074input type="hidden" name="nospam" value="no' + 'spam" /\076');</script>
+  <p class="center no"><input type="submit" name="jsemrobot" value="-1-" class="styledbutton"></p>
+  <p class="center">
+    <button type="submit" class="styledbutton"> Odeslat <i></i> </button>
+    &nbsp;&nbsp;&nbsp;
+    <button type="reset" class="styledbutton" onclick="window.location.href='/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060';">Storno</button>
+  </p>
+  <p class="center no"><input type="submit" name="jsemrobot" value="-2-" class="styledbutton"></p>
+  <br>
+  <ul class="styled">
+    <li>hvězdičkou <span class="red bold">*</span> jsou označena povinná pole</li>
+    <li>maximální délka textu komentáře je 2000 znaků</li>
+    <li>odřádkování textu komentáře (ENTER) zůstane zachováno</li>    <li>HTML tagy nebudou použity</li>    <li>WWW adresy budou automaticky převedeny na odkazy</li>    <li>reagovat lze pouze do 5 úrovně</li>
+    <li>vyhrazujeme si právo smazat nevhodné příspěvky</li>
+          </ul>
+  </fieldset>
+  </div>
+  </form>
+  <script>
+    document.getElementById('protirobotum').value = 6 * 20;
+    document.getElementById('spamprotirobotum').style.display = 'none';
+  </script>
+</div><!-- #komentarform //-->
+
+
+
+</div><!-- .box //-->
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+  <div class="span_4 col">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+<div class="box">
+
+  <div id="detail-text">
+    <div class="sekce"><a href="https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov"><img src="https://www.vojensko.cz/img/web/pictures.png" width="22" height="22" alt=""> <h3>3. rtb - Chomutov</h3></a></div>
+    <div class="polozka"><h4><strong class="big">52. rtpr Dobřany (Stod) - VÚ 8060</strong></h4></div>
+<p class="okres"><strong>Okres:</strong> Plzeň-jih</p>
+<p class="gps"><strong>GPS:</strong> 49&deg;39&#039;10.731&quot;N, 13&deg;18&#039;0.740&quot;E</p>
+<span class="mapka"><img src="scripts/pages/mapa.php?x=26&amp;y=45" title="Orientační poloha na mapě ČR"></span>
+</p>
+<p><a href="https://mapy.cz/zakladni?source=coor&id=13.300205555556%2C49.652980833333" onclick="return !window.open(this.href)" class="link extended">Najít na mapě</a><br>
+<div class="text userarea"><p>Fotografie z 52. radiotechnického praporu v Dobřanech (Stodu) - VÚ 8060.<br /><br />52. rtpr Dobřany byl zřízen v srpnu 1961 a dislokován v kasárnách Dobřany. V roce 1972 pak byl přestěhován do posádky Stod. Po roce 1989 několikrát mění název a podřízenost, postupně jsou rušeny podřízené jednotky a v roce 1997 zaniká úplně.<br /><br />52. rtp byly postupně podřízeny:<br />- velitelská rota (RTZ, TO)<br />- provozní spojovací uzel (Rota velení)<br />306. RTH (551. rtr) Aš<br />307. RTH (550. rtr) Kříženec<br />308. RTH Nová Ves<br />309. RTH Doubrava (521. rtr Poleň)<br />310. RTH Litice (Stod)<br />311. RTH Stod (Chotěšov)<br />315. RTH (522. rtr) Zhůří<br />321. RTH (523. rtr) Katovice<br /><br />Současný stav kasáren v Dobřanech:<br />V Dobřanech nedošlo, tak jako v řadě případů jinde, k totální devastaci a likvidaci kasáren. Celý areál je naopak udržován a smysluplně využíván. Po odstěhování 52. rtp do Stodu, zůstal v kasárnách 216. dělostřelecký pluk. V roce 1998 byla kasárna bezúplatně předána Městu Dobřany. Některé budovy jsou využívány Městem (Techn. služby), další jsou pronajímány k soukromému podnikání. Je zde truhlárna, výroba oděvů, pneuservis, restaurace, kino, kanceláře, elektrotechnická výroba (kabely, konektory), sklady a další. Štábní budova 52. rtp, budova TO a jedna další budova jsou přestavěny na byty. Budova VR a celá řada budov směrem ke vjezdu je přestavěna na domy s pečovatelskou službou. Nástupiště (buzerplac) slouží jako velké parkoviště. Na bývalém hřišti a autoparku 52. rtp stojí cca 20 nových rodinných domků. Strážnice a basa jsou přestavěny na obytné domky. Současné fotografie jsou zde vedle, v odkazu na Mapy.cz lze zobrazit i panorama průjezdu kolem i přes bývalá kasárna.</p></div>
+
+      <div class="seznam">
+        <div class="gray"><strong>Dobové foto</strong></div>
+        <ul><li><a href="https://www.vojensko.cz/dobove-foto/sekce-00056-dobove-foto-pvos/polozka-03089-310-rth-litice-r-1962-64">310. RTH Litice r. 1962-64</a></li>
+<li><a href="https://www.vojensko.cz/dobove-foto/sekce-00056-dobove-foto-pvos/polozka-04440-311-rth-chotesov-r-1966-68">311. rth Chotěšov r. 1966-68</a></li>
+<li><a href="https://www.vojensko.cz/dobove-foto/sekce-00056-dobove-foto-pvos/polozka-04078-311-rth-chotesov-r-1970-72">311. rth Chotěšov r. 1970-72</a></li>
+<li><a href="https://www.vojensko.cz/dobove-foto/sekce-00056-dobove-foto-pvos/polozka-03661-dobrany-r-1963-65">Dobřany r. 1963-65</a></li>
+<li><a href="https://www.vojensko.cz/dobove-foto/sekce-00056-dobove-foto-pvos/polozka-01046-dobrany-r-1974-76">Dobřany r. 1974-76</a></li>
+<li><a href="https://www.vojensko.cz/dobove-foto/sekce-00056-dobove-foto-pvos/polozka-02606-vu-8060-stod-r-1973-75">VÚ 8060 Stod r. 1973-75</a></li>
+<li><a href="https://www.vojensko.cz/dobove-foto/sekce-00056-dobove-foto-pvos/polozka-00220-vu-8060-stod-r-1975">VÚ 8060 Stod r. 1975</a></li></ul>
+      </div>
+
+
+
+  <div class="aktualizace"><small class="small gray">A2016-03-18 14:31:31 U2023-01-08 09:19:40 TG196</small></div>
+</div><!-- #detail-text //-->
+</div><!-- .box //-->
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+</div><!-- .row //-->
+<div class="clearfix"></div>
+
+
+
+
+
+
+
+
+      </div><!-- .innertube //-->
+    </div><!-- #maincol //-->
+  </div><!-- .col //-->
+
+
+  <div class="clearfix"></div>
+</div><!-- #main //-->
+
+</main>
+
+<hr class="print">
+<footer class="">
+
+<div id="flat-paticka" class="cleaner">
+<div class="page">
+
+<div id="footer" class="row">
+
+  <div class="span_12 col noprint">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+<div id="bottommenu" class="">
+<nav class="center">
+  <div id="1846674029" style="display: block;">
+    <ul class="menu-bottom">
+      <li class="fm-first"><a href="https://www.vojensko.cz/uvod" class="1846674029-item-1">Úvod</a></li><li class="fm-item"><a href="https://www.vojensko.cz/mapa-stranek" class="1846674029-item-2">Mapa stránek</a></li><li class="fm-item"><a href="https://www.vojensko.cz/rss" class="1846674029-item-3">RSS</a></li><li class="fm-item"><a href="https://www.vojensko.cz/zasady-ochrany-osobnich-udaju" class="1846674029-item-4">Zásady ochrany osobních údajů</a></li><li class="fm-last"><a href="https://www.vojensko.cz/admin" class="1846674029-item-5">ADM</a></li>
+    </ul>
+  </div>
+</nav>
+</div><!-- #bottommenu //--> 
+
+        <p class="privacy odsadit_nahore">Publikování a další šíření obsahu tohoto webu je povoleno pouze se souhlasem redakce a s uvedením zdroje <strong>www.vojensko.cz</strong><br>
+        Sponzor projektu <strong>Webstudio Pecher</strong> s podporou. Verze stránek Vojensko.CZ 2.0</p>
+        <p class="banners">
+          <a href="https://www.cspvo.cz/" onclick="return !window.open(this.href)" title="Československá PVO 1950-1992"><img src="https://www.vojensko.cz/img/banner/cspvo.gif" width="88" height="31" alt="Banner"></a>
+          <a href="http://www.csla.cz/" onclick="return !window.open(this.href)" title="Stránky o ČSLA"><img src="https://www.vojensko.cz/img/banner/csla.gif" width="88" height="31" alt="Banner"></a>
+          <a href="http://www.ropiky.net/" onclick="return !window.open(this.href)" title="Opevnění Československa 1936-38"><img src="https://www.vojensko.cz/img/banner/ropiky.gif" width="88" height="31" alt="Banner"></a>
+          <a href="http://www.vojenstvi.cz/" onclick="return !window.open(this.href)" title="Československé vojenství"><img src="https://www.vojensko.cz/img/banner/vojenstvi.gif" width="88" height="31" alt="Banner"></a>
+          <a href="https://www.webarchiv.cz/" onclick="return !window.open(this.href)" title="Archiv českého webu"><img src="https://www.vojensko.cz/img/banner/webarchiv.gif" width="88" height="31" alt="Banner"></a>
+          <br class="cleaner">
+        </p>
+        <p class="copyright">Copyright © 2007-2024 Vojensko.CZ</p>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+  <div class="span_12 col print">
+    <div class="obsah_obal">
+      <div class="obsah">
+
+        <div class="print-text">Copyright © 2007-2024 Vojensko.CZ</div>
+
+      </div><!-- .obsah //-->
+    </div><!-- .obsah_obal //-->
+  </div><!-- .col //-->
+
+</div><!-- .row //-->
+<div class="clearfix"></div>
+
+</div><!-- .page //-->
+</div><!-- #flat-paticka //-->
+
+<div id="top-scroller" class="noprint">
+  <a id="scrollup" href="#" title="Přesunout nahoru"></a>
+</div><!-- #top-scroller //-->
+
+
+<!-- Reklama SEZNAM PARTNER //-->
+<div id="reklama">
+<div id="ssp-zone-32713"></div>
+<div id="ssp-zone-292313"></div>
+<script>
+if (window.innerWidth >= 970) {
+  sssp.getAds([
+    {
+      "zoneId": 32713,
+      "id": "ssp-zone-32713",
+      "width": 970,
+      "height": 210
+    }
+  ]);
+} else { /* mensi reklama pro mobil, tablet */
+  sssp.getAds([
+    {
+      "zoneId": 292313,
+      "id": "ssp-zone-292313",
+      "width": 320,
+      "height": 100
+    }
+  ]);
+}
+</script>
+</div>
+
+
+</footer>
+  
+</div><!-- #page .page //-->
+
+</body>
+</html>
