@@ -4,10 +4,9 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\Config;
-use App\MiniCurl\MiniCurl;
-use App\Utils\Coordinates;
 use App\Utils\Requestor;
 use App\Utils\Strict;
+use DJTommek\Coordinates\CoordinatesImmutable;
 
 final class ZniceneKostelyCzService extends AbstractService
 {
@@ -34,11 +33,15 @@ final class ZniceneKostelyCzService extends AbstractService
 	public function process(): void
 	{
 		$response = $this->requestor->get($this->url, Config::CACHE_TTL_ZNICENE_KOSTELY_CZ);
-		if (preg_match('/WGS84 souřadnice objektu: ([0-9.]+)°N, ([0-9.]+)°E/', $response, $matches)) {
-			if (Coordinates::isLat($matches[1]) && Coordinates::isLon($matches[2])) {
-				$location = new BetterLocation($this->inputUrl, Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class);
-				$this->collection->add($location);
-			}
+		if (!preg_match('/WGS84 souřadnice objektu: ([0-9.]+)°N, ([0-9.]+)°E/', $response, $matches)) {
+			return;
 		}
+		$coords = CoordinatesImmutable::safe($matches[1], $matches[2]);
+		if ($coords === null) {
+			return;
+		}
+
+		$location = new BetterLocation($this->inputUrl, $coords->lat, $coords->lon, self::class);
+		$this->collection->add($location);
 	}
 }
