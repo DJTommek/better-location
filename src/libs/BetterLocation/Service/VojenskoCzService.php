@@ -17,7 +17,10 @@ final class VojenskoCzService extends AbstractService
 		return (
 			$this->url &&
 			$this->url->getDomain(2) === 'vojensko.cz' &&
-			mb_strlen($this->url->getPath()) > 1 // not root
+			// Examples:
+			// '/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek'
+			// '/ruzne/sekce-00058-pristroje-nastroje-zbrane/polozka-04356-zavora-ippen-pavluv-studenec'
+			preg_match('/^\/[^\/]+\/sekce-[0-9]+[^\/]+\/polozka-[0-9]+/', $this->url->getPath())
 		);
 	}
 
@@ -44,7 +47,7 @@ final class VojenskoCzService extends AbstractService
 		$location->setPrefixMessage(sprintf('<a href="%s" target="_blank">%s %s</a>',
 			$this->inputUrl->getAbsoluteUrl(),
 			self::NAME,
-			$objectName
+			$objectName,
 		));
 		$this->collection->add($location);
 	}

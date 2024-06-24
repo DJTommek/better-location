@@ -2,84 +2,110 @@
 
 namespace Tests\BetterLocation\Service;
 
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\VojenskoCzService;
-use PHPUnit\Framework\TestCase;
 
-final class VojenskoCzServiceTest extends TestCase
+final class VojenskoCzServiceTest extends AbstractServiceTestCase
 {
-	private function assertLocation(string $url, float $lat, float $lon): void
+	protected function getServiceClass(): string
 	{
-		$collection = VojenskoCzService::processStatic($url)->getCollection();
-		$this->assertCount(1, $collection);
-		$location = $collection->getFirst();
-		$this->assertEqualsWithDelta($lat, $location->getLat(), 0.000001);
-		$this->assertEqualsWithDelta($lon, $location->getLon(), 0.000001);
+		return VojenskoCzService::class;
 	}
 
-	public function testGenerateShareLink(): void
+	protected function getShareLinks(): array
 	{
-		$this->expectException(NotSupportedException::class);
-		VojenskoCzService::getLink(50.087451, 14.420671);
+		return [];
 	}
 
-	public function testGenerateDriveLink(): void
+	protected function getDriveLinks(): array
 	{
-		$this->expectException(NotSupportedException::class);
-		VojenskoCzService::getLink(50.087451, 14.420671, true);
+		return [];
 	}
 
-	public function testIsValid(): void
+	public static function isValidProvider(): array
 	{
-		$this->markTestSkipped('Website change');
-		$this->assertTrue(VojenskoCzService::validateStatic('http://www.vojensko.cz/vu-5849-jachymov-vrsek'));
-		$this->assertTrue(VojenskoCzService::validateStatic('http://www.vojensko.cz/pavlova-hut'));
-		$this->assertTrue(VojenskoCzService::validateStatic('http://vojensko.cz/pavlova-hut'));
-		$this->assertTrue(VojenskoCzService::validateStatic('http://www.vojensko.cz/velka-hledsebe-klimentov'));
-		$this->assertTrue(VojenskoCzService::validateStatic('http://www.vojensko.cz/poddustojnicka-skola-psovodu-libejovice?image=89'));
+		return [
+			[true, 'https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek'],
+			[true, 'http://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek'],
+			[true, 'http://vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek'],
+			[true, 'https://vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek'],
+			[true, 'https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?image=7#detail-foto'],
+			[true, 'https://www.vojensko.cz/objekty-ps/sekce-00061-zanikle-roty-5-bps/polozka-00107-pavlova-hut?image=5#detail-foto'],
+			[true, 'https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03747-vu-beroun'],
+			[true, 'https://www.vojensko.cz/objekty-pvos/sekce-00044-pozorovaci-hlasky/polozka-03260-ph-457-novosedly'],
+			[true, 'https://www.vojensko.cz/objekty-pvos/sekce-00129-2-rtb-brno/polozka-02266-621-rtr-chropyne-souhrn-fotografii-utvaru'],
+			[true, 'https://www.vojensko.cz/objekty-csla/sekce-00051-objekty-elektronicke-valky/polozka-00476-stanoviste-tisina'],
+			[true, 'https://www.vojensko.cz/ruzne/sekce-00058-pristroje-nastroje-zbrane/polozka-04356-zavora-ippen-pavluv-studenec'],
+			// @TODO Valid, no location on this page, but it has linked page 'VÚ Beroun' that has location 49.967211,14.068781 (https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03747-vu-beroun)
+			[true, 'https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75'],
+			// @TODO Valid, no location on this page, but it has linked page 'PH 254 - Kapličky' that has location 49.967211,14.068781 (https://www.vojensko.cz/objekty-pvos/sekce-00044-pozorovaci-hlasky/polozka-00767-ph-254-kaplicky)
+			[true, 'https://www.vojensko.cz/objekty-pvos/sekce-00044-pozorovaci-hlasky/polozka-05500-demontaz-veze-vidove-hlasky-ph-254-kaplicky'],
+			[true, 'https://www.vojensko.cz/objekty-csla/sekce-00031/polozka-03180'], // Valid, page will load
 
-		// Invalid
-		$this->assertFalse(VojenskoCzService::validateStatic('some invalid url'));
-		$this->assertFalse(VojenskoCzService::validateStatic('http://www.vojensko.cz/'));
-		$this->assertFalse(VojenskoCzService::validateStatic('https://www.vojensko.cz/vu-5849-jachymov-vrsek')); // https is not working
-		$this->assertFalse(VojenskoCzService::validateStatic('http://www.some-domain.cz/'));
-		$this->assertFalse(VojenskoCzService::validateStatic('http://www.some-domain.cz/some-path'));
+			// Valid, but no locations
+			[true, 'https://www.vojensko.cz/dobove-foto/sekce-00055-dobove-foto-ps/polozka-01895-artolec-r-1980-82'],
+			[true, 'https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05100-vu-1535-kromeriz-r-1965-67'],
+			[true, 'https://www.vojensko.cz/ruzne/sekce-00149-knihy-o-ps-a-csla/polozka-04293-sumava-hranici-prechazejte-po-pulnoci'],
+
+			[false, 'not url'],
+			[false, 'https://www.vojensko.cz'],
+			[false, 'https://www.vojensko.cz/'],
+			[false, 'https://www.vojensko.cz/uvod'],
+			[false, 'https://www.vojensko.cz/objekty-pvos/sekce-00044-pozorovaci-hlasky'], // Category
+			[false, 'https://www.vojensko.cz/some-random-invalid-path'],
+			[false, 'https://www.vojensko.cz/objekty-pvos'],
+			[false, 'https://www.vojensko.cz/dobove-foto'],
+		];
+	}
+
+	public static function processProvider(): array
+	{
+		return [
+			[50.375738, 12.863950, 'https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek'],
+			[50.375738, 12.863950, 'http://vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek'],
+			[50.375738, 12.863950, 'https://www.vojensko.cz/objekty-csla/sekce-00031/polozka-03180'],
+			[50.375738, 12.863950, 'https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03180-vu-5849-jachymov-vrsek?image=7#detail-foto'],
+			[49.869869, 12.534102, 'https://www.vojensko.cz/objekty-csla/sekce-00051-objekty-elektronicke-valky/polozka-00476-stanoviste-tisina'],
+			[49.652981, 13.300206, 'https://www.vojensko.cz/objekty-pvos/sekce-00128-3-rtb-chomutov/polozka-03646-52-rtpr-dobrany-stod-vu-8060'],
+		];
+	}
+
+	public static function processNoLocationProvider(): array
+	{
+		return [
+			['https://www.vojensko.cz/objekty-pvos/sekce-00129-2-rtb-brno/polozka-02266-621-rtr-chropyne-souhrn-fotografii-utvaru'],
+			// @TODO Valid, no location on this page, but it has linked page 'VÚ Beroun' that has location 49.967211,14.068781 (https://www.vojensko.cz/objekty-csla/sekce-00031-kasarna-a-objekty-csla/polozka-03747-vu-beroun)
+			['https://www.vojensko.cz/dobove-foto/sekce-00057-dobove-foto-sla/polozka-05123-vu-1732-beroun-r-1973-75'],
+			// @TODO Valid, no location on this page, but it has linked page 'PH 254 - Kapličky' that has location 49.967211,14.068781 (https://www.vojensko.cz/objekty-pvos/sekce-00044-pozorovaci-hlasky/polozka-00767-ph-254-kaplicky)
+			['https://www.vojensko.cz/objekty-pvos/sekce-00044-pozorovaci-hlasky/polozka-05500-demontaz-veze-vidove-hlasky-ph-254-kaplicky'],
+		];
+	}
+
+	/**
+	 * @dataProvider isValidProvider
+	 */
+	public function testIsValid(bool $expectedIsValid, string $input): void
+	{
+		$service = new VojenskoCzService();
+		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
 	/**
 	 * @group request
+	 * @dataProvider processProvider
 	 */
-	public function testProcessPlace(): void
+	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$this->assertLocation('http://www.vojensko.cz/vu-5849-jachymov-vrsek', 50.375738, 12.863950);
-		$this->assertLocation('http://www.vojensko.cz/vu-5849-jachymov-vrsek?image=4', 50.375738, 12.863950);
-		$this->assertLocation('http://www.vojensko.cz/vu-5849-jachymov-vrsek?sort=fibre#vasekomentare', 50.375738, 12.863950);
-
-		$this->assertLocation('http://www.vojensko.cz/velka-hledsebe-klimentov', 49.965879166667, 12.667772777778);
-		$this->assertLocation('http://www.vojensko.cz/1-rps-trojmezi', 50.302519444444, 12.143930555556);
-		$this->assertLocation('http://www.vojensko.cz/11-rps-cerchov', 49.389722222222, 12.770575);
-		$this->assertLocation('http://www.vojensko.cz/poddustojnicka-skola-psovodu-libejovice?image=89', 49.111813888889, 14.182483055556);
-		$this->assertLocation('http://www.vojensko.cz/muzeum-pohranicni-straze-kota-rozvadov', 49.673671388889, 12.545002777778);
-		$this->assertLocation('http://www.vojensko.cz/ph-164-mrakov', 49.39109, 12.950441111111);
+		$service = new VojenskoCzService();
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
 	/**
-	 * Pages, that do not have any location
 	 * @group request
+	 * @dataProvider processNoLocationProvider
 	 */
-	public function testInvalid(): void
+	public function testProcessNoLocation(string $input): void
 	{
-		// specific pages
-		$this->assertCount(0, VojenskoCzService::processStatic('http://www.vojensko.cz/pohranicnici-na-dunaji')->getCollection());
-		$this->assertCount(0, VojenskoCzService::processStatic('http://www.vojensko.cz/hlavni-stranka')->getCollection());
-		$this->assertCount(0, VojenskoCzService::processStatic('http://www.vojensko.cz/borova-lada-r-1989-90')->getCollection());
-		$this->assertCount(0, VojenskoCzService::processStatic('http://www.vojensko.cz/knizeci-plane-r-1975-77')->getCollection());
-		$this->assertCount(0, VojenskoCzService::processStatic('http://www.vojensko.cz/vite-co-je-na-snimku-08')->getCollection());
-
-		// general web pages
-		$this->assertCount(0, VojenskoCzService::processStatic('http://www.vojensko.cz/mapa-stranek')->getCollection());
-		$this->assertCount(0, VojenskoCzService::processStatic('http://www.vojensko.cz/rss')->getCollection());
-		$this->assertCount(0, VojenskoCzService::processStatic('https://www.vojensko.cz/feed/rss/aktuality.php')->getCollection());
-		$this->assertCount(0, VojenskoCzService::processStatic('http://www.vojensko.cz/kontakt')->getCollection());
+		$service = new VojenskoCzService();
+		$this->assertServiceNoLocation($service, $input);
 	}
 }
