@@ -16,7 +16,6 @@ final class VojenskoCzService extends AbstractService
 	{
 		return (
 			$this->url &&
-			$this->url->getScheme() === 'http' && // page is not working on https
 			$this->url->getDomain(2) === 'vojensko.cz' &&
 			mb_strlen($this->url->getPath()) > 1 // not root
 		);
@@ -33,15 +32,20 @@ final class VojenskoCzService extends AbstractService
 		$dom = new \DOMDocument();
 		@$dom->loadHTML($response);
 		$finder = new \DOMXPath($dom);
-		if ($locationElement = $finder->query('//div[@id="detail"]//a[text() = "Najít na mapě"]/@href')->item(0)) {
-			$mapyCzLocation = MapyCzService::processStatic($locationElement->textContent)->getFirst();
-			$location = new BetterLocation($this->inputUrl, $mapyCzLocation->getLat(), $mapyCzLocation->getLon(), self::class);
-			$location->setPrefixMessage(sprintf('<a href="%s" target="_blank">%s %s</a>',
-				$this->inputUrl->getAbsoluteUrl(),
-				self::NAME,
-				trim($finder->query('//div[@id="detail"]//h4/text()')->item(0)->textContent)
-			));
-			$this->collection->add($location);
+		$locationElement = $finder->query('//div[@id="detail-text"]//a[text() = "Najít na mapě"]/@href')->item(0);
+		if ($locationElement === null) {
+			return;
 		}
+
+		$mapyCzLocation = MapyCzService::processStatic($locationElement->textContent)->getFirst();
+		$location = new BetterLocation($this->inputUrl, $mapyCzLocation->getLat(), $mapyCzLocation->getLon(), self::class);
+
+		$objectName = trim($finder->query('//div[@id="detail-text"]//h4')->item(0)->textContent);
+		$location->setPrefixMessage(sprintf('<a href="%s" target="_blank">%s %s</a>',
+			$this->inputUrl->getAbsoluteUrl(),
+			self::NAME,
+			$objectName
+		));
+		$this->collection->add($location);
 	}
 }
