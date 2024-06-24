@@ -2,6 +2,7 @@
 
 namespace Tests\BetterLocation\Service;
 
+use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\VojenskoCzService;
 use Tests\HttpTestClients;
 
@@ -93,7 +94,7 @@ final class VojenskoCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new VojenskoCzService($this->httpTestClients->mockedRequestor);
+		$service = new VojenskoCzService($this->httpTestClients->mockedRequestor, new MapyCzService());
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -103,7 +104,7 @@ final class VojenskoCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new VojenskoCzService($this->httpTestClients->realRequestor);
+		$service = new VojenskoCzService($this->httpTestClients->realRequestor, new MapyCzService());
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -112,7 +113,7 @@ final class VojenskoCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new VojenskoCzService($this->httpTestClients->offlineRequestor);
+		$service = new VojenskoCzService($this->httpTestClients->offlineRequestor, new MapyCzService());
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -122,7 +123,7 @@ final class VojenskoCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessNoLocationReal(string $input): void
 	{
-		$service = new VojenskoCzService($this->httpTestClients->realRequestor);
+		$service = new VojenskoCzService($this->httpTestClients->realRequestor, new MapyCzService());
 		$this->assertServiceNoLocation($service, $input);
 	}
 
@@ -131,7 +132,7 @@ final class VojenskoCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessNoLocationOffline(string $input): void
 	{
-		$service = new VojenskoCzService($this->httpTestClients->offlineRequestor);
+		$service = new VojenskoCzService($this->httpTestClients->offlineRequestor, new MapyCzService());
 		$this->assertServiceNoLocation($service, $input);
 	}
 }

@@ -15,6 +15,7 @@ final class VojenskoCzService extends AbstractService
 
 	public function __construct(
 		private readonly Requestor $requestor,
+		private readonly MapyCzService $mapyCzService,
 	) {
 	}
 
@@ -41,7 +42,10 @@ final class VojenskoCzService extends AbstractService
 			return;
 		}
 
-		$mapyCzLocation = MapyCzService::processStatic($locationElement->textContent)->getFirst();
+		$this->mapyCzService->setInput($locationElement->textContent);
+		$this->mapyCzService->validate();
+		$this->mapyCzService->process();
+		$mapyCzLocation = $this->mapyCzService->getCollection()->getFirst();
 		$location = new BetterLocation($this->inputUrl, $mapyCzLocation->getLat(), $mapyCzLocation->getLon(), self::class);
 
 		$objectName = trim($finder->query('//div[@id="detail-text"]//h4')->item(0)->textContent);
