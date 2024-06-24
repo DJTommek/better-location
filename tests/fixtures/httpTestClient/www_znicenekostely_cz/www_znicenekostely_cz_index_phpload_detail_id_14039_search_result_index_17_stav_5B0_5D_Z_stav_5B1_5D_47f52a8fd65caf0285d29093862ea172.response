@@ -1,0 +1,1412 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="cs" xml:lang="cs">
+<head>
+<title>Kostely</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="cs" />
+<meta name="description" content="Informace o kostelech, kaplích a kapličkách v České republice, jež jsou ve špatném stavebně-technickém stavu nebo byly v období po roce" />
+<meta name="keywords" content="kostel, kaple, památka, zničený, poškozený, oprava, databáze, fotografie" />
+<meta name="robots" content="follow,index" />
+<link href="template/gb_styles.css" rel="stylesheet" type="text/css" />
+<link href="template/styl.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+<script src="https://raw.github.com/kriskowal/es5-shim/master/es5-shim.min.js"></script>
+
+<script src="./js/ui/image-browser.js"></script>
+</head>
+<body>
+<div id="page">
+
+<div id="header">
+	<h1 id="logo"><a href="./">
+		<span>Poškozené a <strong>zničené kostely</strong> a kaple v České republice</span>
+	</a></h1>
+
+	<div class="menu" style="overflow:hidden">
+		<div class="identity">
+						<ul>
+				<li><a href="./#login">Přihlásit se</a>
+				<li><a href="index.php?load=registrace">Registrace</a>
+			</ul>
+					</div>
+
+		<ul>
+			<li><a href="index.php?load=search&amp;nej=1">Nejohroženější <strong>kostely</strong></a>
+			<li><a href="index.php?load=search&amp;nej=3">Nejohroženější <strong>velké kaple</strong></a>
+			<li><a href="index.php?load=search&amp;nej=2">Nejohroženější <strong>kaple</strong></a>
+			<li><a href="index.php?load=search&amp;stav[]=Z&amp;stav[]=T&amp;stav[]=R&amp;stav[]=O&amp;stav[]=k&amp;stav[]=n&amp;stav[]=e&amp;znamka[]=500&amp;znamka[]=600&amp;znamka_old[]=501&amp;znamka_old[]=601&amp;zanik=5&amp;subtyp[]=kostely"><strong>Kostely zbořené 1945&ndash;1989</strong></a>
+		</ul>
+		<ul>
+			<li><a href="index.php?load=dotace">Dotace</a>
+			<li><a href="index.php?load=kontakty">Kontakt</a>
+			<li><a href="index.php?load=odkazy">Odkazy</a>
+		</ul>
+
+				<ul class="back-menu">
+			<li><a href="./">&larr; Zpět na úvodní stránku</a>
+		</ul>
+			</div>
+
+	<ul id="vystava">
+		<li>
+			<a href="/vystava">Výstava Zničené kostely severních Čech 1945–1989</a>
+			<a href="/vystava">Ausstellung Vernichtete Kirchen Nordböhmens 1945–1989</a>
+		<li>
+			<a href="/vystava-zidovske-pamatky">Výstava Zničené židovské památky severních Čech 1938–1989</a>
+			<a href="/vystava-zidovske-pamatky">Ausstellung Vernichtete jüdische Denkmäler Nordböhmens 1938–1989</a>
+	</ul>
+</div>
+
+<form id="search" action="index.php#search" method="get">
+	<div class="group checklist typ">
+		<label><input type="checkbox" name="stav[]" value="Z"  checked /> <span>Zaniklé</span></label>
+<label><input type="checkbox" name="stav[]" value="T"  checked /> <span>Torzální</span></label>
+<label><input type="checkbox" name="stav[]" value="R"  checked /> <span>Polozřícené</span></label>
+<label><input type="checkbox" name="stav[]" value="O"  checked /> <span>Poškozené</span></label>
+<label><input type="checkbox" name="stav[]" value="n"  checked /> <span>Opravené</span></label>
+<label><input type="checkbox" name="stav[]" value="k"  checked /> <span>Novostavby</span></label>
+	</div>
+	<div class="group">
+		<input type="text" name="lokalita" value="" /><br />
+		<label><input type="checkbox" name="fulltext" checked /> Lokalita fulltextově<br /><small>Bude se hledat v polích Lokalita, Obec, Část obce, Katastrální území a Jiná jména.</small></label>
+		<input type="text" name="query" value="" /><br />
+	</div>
+	<div class="group">
+		<input type="text" name="obec" value="" /><br />
+		<select name="okres">
+			<option value="">(Vyberte okres)</option>
+			<option value="Benešov"> Benešov</option><option value="Beroun"> Beroun</option><option value="Blansko"> Blansko</option><option value="Brno-město"> Brno-město</option><option value="Brno-venkov"> Brno-venkov</option><option value="Bruntál"> Bruntál</option><option value="Břeclav"> Břeclav</option><option value="Česká Lípa"> Česká Lípa</option><option value="České Budějovice"> České Budějovice</option><option value="Český Krumlov"> Český Krumlov</option><option value="Děčín"> Děčín</option><option value="Domažlice"> Domažlice</option><option value="Frýdek-Místek"> Frýdek-Místek</option><option value="Havlíčkův Brod"> Havlíčkův Brod</option><option value="Hodonín"> Hodonín</option><option value="Hradec Králové"> Hradec Králové</option><option value="Cheb"> Cheb</option><option value="Chomutov"> Chomutov</option><option value="Chrudim"> Chrudim</option><option value="Jablonec nad Nisou"> Jablonec nad Nisou</option><option value="Jeseník"> Jeseník</option><option value="Jičín"> Jičín</option><option value="Jihlava"> Jihlava</option><option value="Jindřichův Hradec"> Jindřichův Hradec</option><option value="Karlovy Vary"> Karlovy Vary</option><option value="Karviná"> Karviná</option><option value="Kladno"> Kladno</option><option value="Klatovy"> Klatovy</option><option value="Kolín"> Kolín</option><option value="Kroměříž"> Kroměříž</option><option value="Kutná Hora"> Kutná Hora</option><option value="Liberec"> Liberec</option><option value="Litoměřice"> Litoměřice</option><option value="Louny"> Louny</option><option value="Mělník"> Mělník</option><option value="Mladá Boleslav"> Mladá Boleslav</option><option value="Most"> Most</option><option value="Náchod"> Náchod</option><option value="Nový Jičín"> Nový Jičín</option><option value="Nymburk"> Nymburk</option><option value="Olomouc"> Olomouc</option><option value="Opava"> Opava</option><option value="Ostrava-město"> Ostrava-město</option><option value="Pardubice"> Pardubice</option><option value="Pelhřimov"> Pelhřimov</option><option value="Písek"> Písek</option><option value="Plzeň-jih"> Plzeň-jih</option><option value="Plzeň-město"> Plzeň-město</option><option value="Plzeň-sever"> Plzeň-sever</option><option value="Praha"> Praha</option><option value="Praha-východ"> Praha-východ</option><option value="Praha-západ"> Praha-západ</option><option value="Prachatice"> Prachatice</option><option value="Prostějov"> Prostějov</option><option value="Přerov"> Přerov</option><option value="Příbram"> Příbram</option><option value="Rakovník"> Rakovník</option><option value="Rokycany"> Rokycany</option><option value="Rychnov nad Kněžnou"> Rychnov nad Kněžnou</option><option value="Semily"> Semily</option><option value="Sokolov"> Sokolov</option><option value="Strakonice"> Strakonice</option><option value="Svitavy"> Svitavy</option><option value="Šumperk"> Šumperk</option><option value="Tábor"> Tábor</option><option value="Tachov"> Tachov</option><option value="Teplice"> Teplice</option><option value="Trutnov"> Trutnov</option><option value="Třebíč"> Třebíč</option><option value="Uherské Hradiště"> Uherské Hradiště</option><option value="Ústí nad Labem"> Ústí nad Labem</option><option value="Ústí nad Orlicí"> Ústí nad Orlicí</option><option value="Vsetín"> Vsetín</option><option value="Vyškov"> Vyškov</option><option value="Zlín"> Zlín</option><option value="Znojmo"> Znojmo</option><option value="Žďár nad Sázavou"> Žďár nad Sázavou</option>		</select><br />
+		<select name="kraj">
+			<option value="">(Vyberte kraj)</option>
+			<option value="A"> Praha</option><option value="S"> Středočeský</option><option value="C"> Jihočeský</option><option value="P"> Plzeňský</option><option value="K"> Karlovarský</option><option value="U"> Ústecký</option><option value="L"> Liberecký</option><option value="H"> Královéhradecký</option><option value="E"> Pardubice</option><option value="J"> Vysočina</option><option value="B"> Jihomoravský</option><option value="Z"> Zlínský</option><option value="M"> Olomoucký</option><option value="T"> Moravskoslezský</option>		</select><br />
+		<select name="region">
+			<option value="">(Vyberte region)</option>
+			<option value="-"> -</option><option value="-(Bielsko)"> -(Bielsko)</option><option value="-(Bystrzyca Kłodzka)"> -(Bystrzyca Kłodzka)</option><option value="-(Cieszyn)"> -(Cieszyn)</option><option value="-(Kladsko celek)"> -(Kladsko celek)</option><option value="-(Kłodzko)"> -(Kłodzko)</option><option value="-(Lądek-Zdrój)"> -(Lądek-Zdrój)</option><option value="-(Radków)"> -(Radków)</option><option value="-(Skoczów)"> -(Skoczów)</option><option value="-(Strumień)"> -(Strumień)</option><option value="Aš"> Aš</option><option value="Bečov nad Teplou"> Bečov nad Teplou</option><option value="Bechyně"> Bechyně</option><option value="Bělá pod Bezdězem"> Bělá pod Bezdězem</option><option value="Benátky nad Jizerou"> Benátky nad Jizerou</option><option value="Benešov"> Benešov</option><option value="Benešov nad Ploučnicí"> Benešov nad Ploučnicí</option><option value="Beroun"> Beroun</option><option value="Bezdružice"> Bezdružice</option><option value="Bílina"> Bílina</option><option value="Bílovec"> Bílovec</option><option value="Blansko"> Blansko</option><option value="Blatná"> Blatná</option><option value="Blovice"> Blovice</option><option value="Bohumín"> Bohumín</option><option value="Bochov"> Bochov</option><option value="Bojkovice"> Bojkovice</option><option value="Bor"> Bor</option><option value="Boskovice"> Boskovice</option><option value="Brandýs nad Labem"> Brandýs nad Labem</option><option value="Brandýs nad Orlicí"> Brandýs nad Orlicí</option><option value="Brno"> Brno</option><option value="Brno-venkov"> Brno-venkov</option><option value="Broumov"> Broumov</option><option value="Brtnice"> Brtnice</option><option value="Bruntál"> Bruntál</option><option value="Břeclav"> Břeclav</option><option value="Březnice"> Březnice</option><option value="Bučovice"> Bučovice</option><option value="Budišov nad Budišovkou"> Budišov nad Budišovkou</option><option value="Bystřice nad Pernštejnem"> Bystřice nad Pernštejnem</option><option value="Bystřice pod Hostýnem"> Bystřice pod Hostýnem</option><option value="Bzenec"> Bzenec</option><option value="Cvikov"> Cvikov</option><option value="Čáslav"> Čáslav</option><option value="Čechtice"> Čechtice</option><option value="Čelákovice"> Čelákovice</option><option value="Černošice"> Černošice</option><option value="Červený Kostelec"> Červený Kostelec</option><option value="Česká Kamenice"> Česká Kamenice</option><option value="Česká Lípa"> Česká Lípa</option><option value="Česká Skalice"> Česká Skalice</option><option value="Česká Třebová"> Česká Třebová</option><option value="České Budějovice"> České Budějovice</option><option value="Český Brod"> Český Brod</option><option value="Český Dub"> Český Dub</option><option value="Český Krumlov"> Český Krumlov</option><option value="Český Těšín"> Český Těšín</option><option value="Dačice"> Dačice</option><option value="Děčín"> Děčín</option><option value="Dobrovice"> Dobrovice</option><option value="Dobruška"> Dobruška</option><option value="Dobřany"> Dobřany</option><option value="Dobříš"> Dobříš</option><option value="Doksy"> Doksy</option><option value="Domažlice"> Domažlice</option><option value="Doupov"> Doupov</option><option value="Doupov/Klášterec nad Ohří"> Doupov/Klášterec nad Ohří</option><option value="Dubá"> Dubá</option><option value="Duchcov"> Duchcov</option><option value="Dvůr Králové nad Labem"> Dvůr Králové nad Labem</option><option value="Frenštát pod Radhoštěm"> Frenštát pod Radhoštěm</option><option value="Frýdek"> Frýdek</option><option value="Frýdlant"> Frýdlant</option><option value="Frýdlant nad Ostravicí"> Frýdlant nad Ostravicí</option><option value="Fryštát"> Fryštát</option><option value="Fulnek"> Fulnek</option><option value="Golčův Jeníkov"> Golčův Jeníkov</option><option value="Habry"> Habry</option><option value="Hartmanice"> Hartmanice</option><option value="Havířov"> Havířov</option><option value="Havlíčkův Brod"> Havlíčkův Brod</option><option value="Heřmanův Městec"> Heřmanův Městec</option><option value="Hlinsko"> Hlinsko</option><option value="Hluboká nad Vltavou"> Hluboká nad Vltavou</option><option value="Hlučín"> Hlučín</option><option value="Hodkovice nad Mohelkou"> Hodkovice nad Mohelkou</option><option value="Hodonín"> Hodonín</option><option value="Holešov"> Holešov</option><option value="Holice"> Holice</option><option value="Hora Svaté Kateřiny"> Hora Svaté Kateřiny</option><option value="Hora Svatého Šebestiána"> Hora Svatého Šebestiána</option><option value="Horažďovice"> Horažďovice</option><option value="Horní Benešov"> Horní Benešov</option><option value="Horní Blatná"> Horní Blatná</option><option value="Horní Planá"> Horní Planá</option><option value="Horní Slavkov"> Horní Slavkov</option><option value="Horšovský Týn"> Horšovský Týn</option><option value="Hořice"> Hořice</option><option value="Hořovice"> Hořovice</option><option value="Hořovice/Příbram"> Hořovice/Příbram</option><option value="Hostinné"> Hostinné</option><option value="Hostivice"> Hostivice</option><option value="Hostouň"> Hostouň</option><option value="Hradec Králové"> Hradec Králové</option><option value="Hrádek nad Nisou"> Hrádek nad Nisou</option><option value="Hranice"> Hranice</option><option value="Hronov"> Hronov</option><option value="Hrotovice"> Hrotovice</option><option value="Hulín"> Hulín</option><option value="Humpolec"> Humpolec</option><option value="Hustopeče"> Hustopeče</option><option value="Chabařovice"> Chabařovice</option><option value="Cheb"> Cheb</option><option value="Chlumec nad Cidlinou"> Chlumec nad Cidlinou</option><option value="Choceň"> Choceň</option><option value="Chodov"> Chodov</option><option value="Chomutov"> Chomutov</option><option value="Chotěboř"> Chotěboř</option><option value="Chrast"> Chrast</option><option value="Chrastava"> Chrastava</option><option value="Chrudim"> Chrudim</option><option value="Chvalšiny"> Chvalšiny</option><option value="Ivančice"> Ivančice</option><option value="Jablonec nad Nisou"> Jablonec nad Nisou</option><option value="Jablonné v Podještědí"> Jablonné v Podještědí</option><option value="Jablunkov"> Jablunkov</option><option value="Jáchymov"> Jáchymov</option><option value="Jaroměř"> Jaroměř</option><option value="Jaroměřice nad Rokytnou"> Jaroměřice nad Rokytnou</option><option value="Jaroslavice"> Jaroslavice</option><option value="Javorník"> Javorník</option><option value="Jemnice"> Jemnice</option><option value="Jesenice"> Jesenice</option><option value="Jeseník"> Jeseník</option><option value="Jevíčko"> Jevíčko</option><option value="Jičín"> Jičín</option><option value="Jihlava"> Jihlava</option><option value="Jihlava/Štoky"> Jihlava/Štoky</option><option value="Jilemnice"> Jilemnice</option><option value="Jílové u Prahy"> Jílové u Prahy</option><option value="Jindřichův Hradec"> Jindřichův Hradec</option><option value="Jirkov"> Jirkov</option><option value="Jirkov/Litvínov/Hora Svaté Kateřiny"> Jirkov/Litvínov/Hora Svaté Kateřiny</option><option value="Jistebnice"> Jistebnice</option><option value="Kadaň"> Kadaň</option><option value="Kamenice nad Lipou"> Kamenice nad Lipou</option><option value="Kaplice"> Kaplice</option><option value="Karlovy Vary"> Karlovy Vary</option><option value="Kašperské Hory"> Kašperské Hory</option><option value="Kdyně"> Kdyně</option><option value="Kladno"> Kladno</option><option value="Klášterec nad Ohří"> Klášterec nad Ohří</option><option value="Klatovy"> Klatovy</option><option value="Klobouky u Brna"> Klobouky u Brna</option><option value="Kojetín"> Kojetín</option><option value="Kolín"> Kolín</option><option value="Konice"> Konice</option><option value="Kopidlno"> Kopidlno</option><option value="Kostelec nad Černými lesy"> Kostelec nad Černými lesy</option><option value="Kostelec nad Orlicí"> Kostelec nad Orlicí</option><option value="Kouřim"> Kouřim</option><option value="Králíky"> Králíky</option><option value="Kralovice"> Kralovice</option><option value="Kralupy nad Vltavou"> Kralupy nad Vltavou</option><option value="Kralupy nad Vltavou/Velvary"> Kralupy nad Vltavou/Velvary</option><option value="Kraslice"> Kraslice</option><option value="Krnov"> Krnov</option><option value="Kroměříž"> Kroměříž</option><option value="Krupka"> Krupka</option><option value="Křemže"> Křemže</option><option value="Křivoklát"> Křivoklát</option><option value="Kunštát"> Kunštát</option><option value="Kuřim"> Kuřim</option><option value="Kutná Hora"> Kutná Hora</option><option value="Kyjov"> Kyjov</option><option value="Kynšperk nad Ohří"> Kynšperk nad Ohří</option><option value="Lanškroun"> Lanškroun</option><option value="Lázně Kynžvart"> Lázně Kynžvart</option><option value="Ledeč nad Sázavou"> Ledeč nad Sázavou</option><option value="Letohrad"> Letohrad</option><option value="Letovice"> Letovice</option><option value="Libáň"> Libáň</option><option value="Liberec"> Liberec</option><option value="Libochovice"> Libochovice</option><option value="Lipník nad Bečvou"> Lipník nad Bečvou</option><option value="Lipová"> Lipová</option><option value="Lišov"> Lišov</option><option value="Litoměřice"> Litoměřice</option><option value="Litomyšl"> Litomyšl</option><option value="Litovel"> Litovel</option><option value="Litvínov"> Litvínov</option><option value="Loket"> Loket</option><option value="Loket/Chodov"> Loket/Chodov</option><option value="Lomnice nad Lužnicí"> Lomnice nad Lužnicí</option><option value="Lomnice nad Popelkou"> Lomnice nad Popelkou</option><option value="Louny"> Louny</option><option value="Lovosice"> Lovosice</option><option value="Luby"> Luby</option><option value="Luhačovice"> Luhačovice</option><option value="Luže"> Luže</option><option value="Lysá nad Labem"> Lysá nad Labem</option><option value="Manětín"> Manětín</option><option value="Mariánské Lázně"> Mariánské Lázně</option><option value="Mělník"> Mělník</option><option value="Městec Králové"> Městec Králové</option><option value="Město Albrechtice"> Město Albrechtice</option><option value="Město Libavá"> Město Libavá</option><option value="Město Touškov"> Město Touškov</option><option value="Mikulov"> Mikulov</option><option value="Mikulov/Valtice"> Mikulov/Valtice</option><option value="Milevsko"> Milevsko</option><option value="Mimoň"> Mimoň</option><option value="Mirovice"> Mirovice</option><option value="Místek"> Místek</option><option value="Mladá Boleslav"> Mladá Boleslav</option><option value="Mladá Vožice"> Mladá Vožice</option><option value="Mnichovo Hradiště"> Mnichovo Hradiště</option><option value="Mníšek pod Brdy"> Mníšek pod Brdy</option><option value="Mohelnice"> Mohelnice</option><option value="Moravská Ostrava"> Moravská Ostrava</option><option value="Moravská Třebová"> Moravská Třebová</option><option value="Moravské Budějovice"> Moravské Budějovice</option><option value="Moravský Beroun"> Moravský Beroun</option><option value="Moravský Krumlov"> Moravský Krumlov</option><option value="Morkovice"> Morkovice</option><option value="Most"> Most</option><option value="Most/Jirkov"> Most/Jirkov</option><option value="Mšeno"> Mšeno</option><option value="Náchod"> Náchod</option><option value="Náměšť nad Oslavou"> Náměšť nad Oslavou</option><option value="Napajedla"> Napajedla</option><option value="Nasavrky"> Nasavrky</option><option value="Nechanice"> Nechanice</option><option value="Nejdek"> Nejdek</option><option value="Nepomuk"> Nepomuk</option><option value="Neratovice"> Neratovice</option><option value="Netolice"> Netolice</option><option value="Neveklov"> Neveklov</option><option value="Nová Bystřice"> Nová Bystřice</option><option value="Nová Paka"> Nová Paka</option><option value="Nové Hrady"> Nové Hrady</option><option value="Nové Město na Moravě"> Nové Město na Moravě</option><option value="Nové Město nad Metují"> Nové Město nad Metují</option><option value="Nové Město pod Smrkem"> Nové Město pod Smrkem</option><option value="Nové Strašecí"> Nové Strašecí</option><option value="Nový Bor"> Nový Bor</option><option value="Nový Bydžov"> Nový Bydžov</option><option value="Nový Jičín"> Nový Jičín</option><option value="Nový Rychnov"> Nový Rychnov</option><option value="Nymburk"> Nymburk</option><option value="Nýrsko"> Nýrsko</option><option value="Odry"> Odry</option><option value="Olešnice"> Olešnice</option><option value="Olomouc"> Olomouc</option><option value="Opava"> Opava</option><option value="Opočno"> Opočno</option><option value="Orlová"> Orlová</option><option value="Osoblaha"> Osoblaha</option><option value="Ostrov"> Ostrov</option><option value="Pacov"> Pacov</option><option value="Pardubice"> Pardubice</option><option value="Pečky"> Pečky</option><option value="Pelhřimov"> Pelhřimov</option><option value="Písek"> Písek</option><option value="Planá"> Planá</option><option value="Plánice"> Plánice</option><option value="Plumlov"> Plumlov</option><option value="Plzeň"> Plzeň</option><option value="Plzeň/Radnice/Rokycany"> Plzeň/Radnice/Rokycany</option><option value="Poběžovice"> Poběžovice</option><option value="Počátky"> Počátky</option><option value="Podbořany"> Podbořany</option><option value="Poděbrady"> Poděbrady</option><option value="Pohořelice"> Pohořelice</option><option value="Police nad Metují"> Police nad Metují</option><option value="Polička"> Polička</option><option value="Polná"> Polná</option><option value="Poruba"> Poruba</option><option value="Postoloprty"> Postoloprty</option><option value="Praha"> Praha</option><option value="Prachatice"> Prachatice</option><option value="Prostějov"> Prostějov</option><option value="Protivín"> Protivín</option><option value="Přelouč"> Přelouč</option><option value="Přerov"> Přerov</option><option value="Přeštice"> Přeštice</option><option value="Příbor"> Příbor</option><option value="Příbor/Frenštát pod Radhoštěm"> Příbor/Frenštát pod Radhoštěm</option><option value="Příbram"> Příbram</option><option value="Přibyslav"> Přibyslav</option><option value="Radnice"> Radnice</option><option value="Rakovník"> Rakovník</option><option value="Rokycany"> Rokycany</option><option value="Rokycany/Radnice"> Rokycany/Radnice</option><option value="Rokytnice nad Jizerou"> Rokytnice nad Jizerou</option><option value="Rokytnice v Orlických horách"> Rokytnice v Orlických horách</option><option value="Rosice"> Rosice</option><option value="Rosice/Brno-město"> Rosice/Brno-město</option><option value="Roudnice nad Labem"> Roudnice nad Labem</option><option value="Rousínov"> Rousínov</option><option value="Rožmitál pod Třemšínem"> Rožmitál pod Třemšínem</option><option value="Rožnov pod Radhoštěm"> Rožnov pod Radhoštěm</option><option value="Rožnov pod Radhoštěm/Frenštát pod Radhoštěm"> Rožnov pod Radhoštěm/Frenštát pod Radhoštěm</option><option value="Rumburk"> Rumburk</option><option value="Rychnov nad Kněžnou"> Rychnov nad Kněžnou</option><option value="Rýmařov"> Rýmařov</option><option value="Říčany"> Říčany</option><option value="Sadská"> Sadská</option><option value="Sedlčany"> Sedlčany</option><option value="Sedlec-Prčice"> Sedlec-Prčice</option><option value="Semily"> Semily</option><option value="Skalná"> Skalná</option><option value="Skuteč"> Skuteč</option><option value="Slaný"> Slaný</option><option value="Slavkov u Brna"> Slavkov u Brna</option><option value="Slavonice"> Slavonice</option><option value="Slezská Ostrava"> Slezská Ostrava</option><option value="Soběslav"> Soběslav</option><option value="Sobotka"> Sobotka</option><option value="Sokolov"> Sokolov</option><option value="Stará Boleslav"> Stará Boleslav</option><option value="Staré Město"> Staré Město</option><option value="Stod"> Stod</option><option value="Stod/Horšovský Týn"> Stod/Horšovský Týn</option><option value="Strakonice"> Strakonice</option><option value="Stráž nad Nežárkou"> Stráž nad Nežárkou</option><option value="Strážnice"> Strážnice</option><option value="Stříbro"> Stříbro</option><option value="Sušice"> Sušice</option><option value="Světlá nad Sázavou"> Světlá nad Sázavou</option><option value="Svitavy"> Svitavy</option><option value="Svoboda nad Úpou"> Svoboda nad Úpou</option><option value="Šluknov"> Šluknov</option><option value="Šternberk"> Šternberk</option><option value="Štětí"> Štětí</option><option value="Štíty"> Štíty</option><option value="Štoky"> Štoky</option><option value="Šumperk"> Šumperk</option><option value="Tábor"> Tábor</option><option value="Tachov"> Tachov</option><option value="Tanvald"> Tanvald</option><option value="Telč"> Telč</option><option value="Teplá"> Teplá</option><option value="Teplice"> Teplice</option><option value="Teplice nad Metují"> Teplice nad Metují</option><option value="Terezín"> Terezín</option><option value="Tišnov"> Tišnov</option><option value="Toužim"> Toužim</option><option value="Trhové Sviny"> Trhové Sviny</option><option value="Trutnov"> Trutnov</option><option value="Třebechovice pod Orebem"> Třebechovice pod Orebem</option><option value="Třebíč"> Třebíč</option><option value="Třeboň"> Třeboň</option><option value="Třešť"> Třešť</option><option value="Třinec"> Třinec</option><option value="Turnov"> Turnov</option><option value="Týn nad Vltavou"> Týn nad Vltavou</option><option value="Týnec nad Sázavou"> Týnec nad Sázavou</option><option value="Týniště nad Orlicí"> Týniště nad Orlicí</option><option value="Uherské Hradiště"> Uherské Hradiště</option><option value="Uherský Brod"> Uherský Brod</option><option value="Uherský Ostroh"> Uherský Ostroh</option><option value="Uhlířské Janovice"> Uhlířské Janovice</option><option value="Unhošť"> Unhošť</option><option value="Uničov"> Uničov</option><option value="Úpice"> Úpice</option><option value="Ústí nad Labem"> Ústí nad Labem</option><option value="Ústí nad Orlicí"> Ústí nad Orlicí</option><option value="Úštěk"> Úštěk</option><option value="Valašské Klobouky"> Valašské Klobouky</option><option value="Valašské Meziříčí"> Valašské Meziříčí</option><option value="Valtice"> Valtice</option><option value="Vamberk"> Vamberk</option><option value="Varnsdorf"> Varnsdorf</option><option value="Vejprty"> Vejprty</option><option value="Velešín"> Velešín</option><option value="Velká Bíteš"> Velká Bíteš</option><option value="Velké Meziříčí"> Velké Meziříčí</option><option value="Velvary"> Velvary</option><option value="Veselí nad Lužnicí"> Veselí nad Lužnicí</option><option value="Veselí nad Moravou"> Veselí nad Moravou</option><option value="Větrný Jeníkov"> Větrný Jeníkov</option><option value="Vidnava"> Vidnava</option><option value="Vimperk"> Vimperk</option><option value="Vítkov"> Vítkov</option><option value="Vitorazsko (Schrems)"> Vitorazsko (Schrems)</option><option value="Vitorazsko (Weitra)"> Vitorazsko (Weitra)</option><option value="Vizovice"> Vizovice</option><option value="Vlašim"> Vlašim</option><option value="Vodňany"> Vodňany</option><option value="Volary"> Volary</option><option value="Volyně"> Volyně</option><option value="Votice"> Votice</option><option value="Vranov nad Dyjí"> Vranov nad Dyjí</option><option value="Vrbno pod Pradědem"> Vrbno pod Pradědem</option><option value="Vrchlabí"> Vrchlabí</option><option value="Vsetín"> Vsetín</option><option value="Vysoké Mýto"> Vysoké Mýto</option><option value="Vysoké nad Jizerou"> Vysoké nad Jizerou</option><option value="Vyškov"> Vyškov</option><option value="Vyšší Brod"> Vyšší Brod</option><option value="Zábřeh"> Zábřeh</option><option value="Zbiroh"> Zbiroh</option><option value="Zlaté Hory"> Zlaté Hory</option><option value="Zlín"> Zlín</option><option value="Znojmo"> Znojmo</option><option value="Zruč nad Sázavou"> Zruč nad Sázavou</option><option value="Žacléř"> Žacléř</option><option value="Žamberk"> Žamberk</option><option value="Žatec"> Žatec</option><option value="Ždánice"> Ždánice</option><option value="Žďár nad Sázavou"> Žďár nad Sázavou</option><option value="Železný Brod"> Železný Brod</option><option value="Židlochovice"> Židlochovice</option><option value="Žlutice"> Žlutice</option>		</select><br />
+		<select name="okres1938">
+			<option value="">(Vyberte okres 1938)</option>
+			<option value="(NĚMECKO:Slezsko)"> (NĚMECKO:Slezsko)</option><option value="(SLOVENSKO)"> (SLOVENSKO)</option><option value="Aš"> Aš</option><option value="Bečov nad Teplou"> Bečov nad Teplou</option><option value="Bechyně"> Bechyně</option><option value="Bělá pod Bezdězem"> Bělá pod Bezdězem</option><option value="Benátky nad Jizerou"> Benátky nad Jizerou</option><option value="Benešov"> Benešov</option><option value="Benešov nad Ploučnicí"> Benešov nad Ploučnicí</option><option value="Beroun"> Beroun</option><option value="Bezdružice"> Bezdružice</option><option value="Bílina"> Bílina</option><option value="Bílovec"> Bílovec</option><option value="Blansko"> Blansko</option><option value="Blatná"> Blatná</option><option value="Blovice"> Blovice</option><option value="Bohumín"> Bohumín</option><option value="Bochov"> Bochov</option><option value="Bojkovice"> Bojkovice</option><option value="Boskovice"> Boskovice</option><option value="Brandýs nad Labem"> Brandýs nad Labem</option><option value="Brno (OS Brno-město)"> Brno (OS Brno-město)</option><option value="Brno (OS Brno-okolí)"> Brno (OS Brno-okolí)</option><option value="Brno-venkov"> Brno-venkov</option><option value="Broumov"> Broumov</option><option value="Bruntál"> Bruntál</option><option value="Břeclav"> Břeclav</option><option value="Březnice"> Březnice</option><option value="Bučovice"> Bučovice</option><option value="Bystřice nad Pernštejnem"> Bystřice nad Pernštejnem</option><option value="Bystřice pod Hostýnem"> Bystřice pod Hostýnem</option><option value="Cvikov"> Cvikov</option><option value="Čáslav"> Čáslav</option><option value="Česká Kamenice"> Česká Kamenice</option><option value="Česká Lípa"> Česká Lípa</option><option value="Česká Skalice"> Česká Skalice</option><option value="České Budějovice"> České Budějovice</option><option value="Český Brod"> Český Brod</option><option value="Český Dub"> Český Dub</option><option value="Český Krumlov"> Český Krumlov</option><option value="Český Těšín"> Český Těšín</option><option value="Dačice"> Dačice</option><option value="Děčín"> Děčín</option><option value="Dobřany"> Dobřany</option><option value="Dobříš"> Dobříš</option><option value="Dolní Kralovice"> Dolní Kralovice</option><option value="Domažlice"> Domažlice</option><option value="Doupov"> Doupov</option><option value="Dubá"> Dubá</option><option value="Duchcov"> Duchcov</option><option value="Dvorce"> Dvorce</option><option value="Dvůr Králové nad Labem"> Dvůr Králové nad Labem</option><option value="Frenštát pod Radhoštěm"> Frenštát pod Radhoštěm</option><option value="Frýdek"> Frýdek</option><option value="Frýdlant"> Frýdlant</option><option value="Fryštát"> Fryštát</option><option value="Fulnek"> Fulnek</option><option value="Habry"> Habry</option><option value="Hartmanice"> Hartmanice</option><option value="Havlíčkův Brod"> Havlíčkův Brod</option><option value="Hlinsko"> Hlinsko</option><option value="Hluboká nad Vltavou"> Hluboká nad Vltavou</option><option value="Hlučín"> Hlučín</option><option value="Hodonín"> Hodonín</option><option value="Holešov"> Holešov</option><option value="Holice"> Holice</option><option value="Hora Svaté Kateřiny"> Hora Svaté Kateřiny</option><option value="Hora Svatého Šebestiána"> Hora Svatého Šebestiána</option><option value="Horažďovice"> Horažďovice</option><option value="Horní Benešov"> Horní Benešov</option><option value="Horní Blatná"> Horní Blatná</option><option value="Horní Maršov"> Horní Maršov</option><option value="Horní Planá"> Horní Planá</option><option value="Horšovský Týn"> Horšovský Týn</option><option value="Hořice"> Hořice</option><option value="Hořovice"> Hořovice</option><option value="Hostinné"> Hostinné</option><option value="Hostouň"> Hostouň</option><option value="Hradec Králové"> Hradec Králové</option><option value="Hranice"> Hranice</option><option value="Hrotovice"> Hrotovice</option><option value="Humpolec"> Humpolec</option><option value="Hustopeče"> Hustopeče</option><option value="Chabařovice"> Chabařovice</option><option value="Cheb"> Cheb</option><option value="Chlumec nad Cidlinou"> Chlumec nad Cidlinou</option><option value="Chomutov"> Chomutov</option><option value="Chotěboř"> Chotěboř</option><option value="Chrastava"> Chrastava</option><option value="Chrudim"> Chrudim</option><option value="Chvalšiny"> Chvalšiny</option><option value="Ivančice"> Ivančice</option><option value="Jablonec nad Nisou"> Jablonec nad Nisou</option><option value="Jablonné v Podještědí"> Jablonné v Podještědí</option><option value="Jablunkov"> Jablunkov</option><option value="Jáchymov"> Jáchymov</option><option value="Jaroměř"> Jaroměř</option><option value="Jaroslavice"> Jaroslavice</option><option value="Javorník"> Javorník</option><option value="Jemnice"> Jemnice</option><option value="Jesenice"> Jesenice</option><option value="Jeseník"> Jeseník</option><option value="Jevíčko"> Jevíčko</option><option value="Jičín"> Jičín</option><option value="Jihlava"> Jihlava</option><option value="Jilemnice"> Jilemnice</option><option value="Jílové u Prahy"> Jílové u Prahy</option><option value="Jindřichov"> Jindřichov</option><option value="Jindřichův Hradec"> Jindřichův Hradec</option><option value="Jirkov"> Jirkov</option><option value="Kadaň"> Kadaň</option><option value="Kamenice nad Lipou"> Kamenice nad Lipou</option><option value="Kaplice"> Kaplice</option><option value="Karlovy Vary"> Karlovy Vary</option><option value="Kašperské Hory"> Kašperské Hory</option><option value="Kdyně"> Kdyně</option><option value="Kladno"> Kladno</option><option value="Klatovy"> Klatovy</option><option value="Klimkovice"> Klimkovice</option><option value="Klobouky u Brna"> Klobouky u Brna</option><option value="Kojetín"> Kojetín</option><option value="Kolín"> Kolín</option><option value="Konice"> Konice</option><option value="Kostelec nad Černými lesy"> Kostelec nad Černými lesy</option><option value="Kostelec nad Orlicí"> Kostelec nad Orlicí</option><option value="Kouřim"> Kouřim</option><option value="Králíky"> Králíky</option><option value="Kralovice"> Kralovice</option><option value="Kralupy nad Vltavou"> Kralupy nad Vltavou</option><option value="Kraslice"> Kraslice</option><option value="Krnov"> Krnov</option><option value="Kroměříž"> Kroměříž</option><option value="Křivoklát"> Křivoklát</option><option value="Kunštát"> Kunštát</option><option value="Kutná Hora"> Kutná Hora</option><option value="Kyjov"> Kyjov</option><option value="Lanškroun"> Lanškroun</option><option value="Lázně Kynžvart"> Lázně Kynžvart</option><option value="Ledeč nad Sázavou"> Ledeč nad Sázavou</option><option value="Libáň"> Libáň</option><option value="Liberec"> Liberec</option><option value="Libochovice"> Libochovice</option><option value="Lipník nad Bečvou"> Lipník nad Bečvou</option><option value="Lipová"> Lipová</option><option value="Lišov"> Lišov</option><option value="Litoměřice"> Litoměřice</option><option value="Litomyšl"> Litomyšl</option><option value="Litovel"> Litovel</option><option value="Litvínov"> Litvínov</option><option value="Loket"> Loket</option><option value="Lomnice nad Lužnicí"> Lomnice nad Lužnicí</option><option value="Lomnice nad Popelkou"> Lomnice nad Popelkou</option><option value="Loučná nad Desnou"> Loučná nad Desnou</option><option value="Louny"> Louny</option><option value="Lovosice"> Lovosice</option><option value="Manětín"> Manětín</option><option value="Mariánské Lázně"> Mariánské Lázně</option><option value="Mělník"> Mělník</option><option value="Městec Králové"> Městec Králové</option><option value="Město Albrechtice"> Město Albrechtice</option><option value="Město Libavá"> Město Libavá</option><option value="Město Touškov"> Město Touškov</option><option value="Mikulov"> Mikulov</option><option value="Milevsko"> Milevsko</option><option value="Mimoň"> Mimoň</option><option value="Mirovice"> Mirovice</option><option value="Místek"> Místek</option><option value="Mladá Boleslav"> Mladá Boleslav</option><option value="Mladá Vožice"> Mladá Vožice</option><option value="Mnichovo Hradiště"> Mnichovo Hradiště</option><option value="Mohelnice"> Mohelnice</option><option value="Moravská Ostrava"> Moravská Ostrava</option><option value="Moravská Třebová"> Moravská Třebová</option><option value="Moravské Budějovice"> Moravské Budějovice</option><option value="Moravský Krumlov"> Moravský Krumlov</option><option value="Most"> Most</option><option value="Náchod"> Náchod</option><option value="Náměšť nad Oslavou"> Náměšť nad Oslavou</option><option value="Napajedla"> Napajedla</option><option value="Nasavrky"> Nasavrky</option><option value="Nechanice"> Nechanice</option><option value="Nejdek"> Nejdek</option><option value="Nepomuk"> Nepomuk</option><option value="Netolice"> Netolice</option><option value="Neveklov"> Neveklov</option><option value="Nová Bystřice"> Nová Bystřice</option><option value="Nová Paka"> Nová Paka</option><option value="Nové Hrady"> Nové Hrady</option><option value="Nové Město na Moravě"> Nové Město na Moravě</option><option value="Nové Město nad Metují"> Nové Město nad Metují</option><option value="Nové Město pod Smrkem"> Nové Město pod Smrkem</option><option value="Nové Strašecí"> Nové Strašecí</option><option value="Nový Bor"> Nový Bor</option><option value="Nový Bydžov"> Nový Bydžov</option><option value="Nový Jičín"> Nový Jičín</option><option value="Nymburk"> Nymburk</option><option value="Nýrsko"> Nýrsko</option><option value="Odry"> Odry</option><option value="Olomouc"> Olomouc</option><option value="Olomouc (město)"> Olomouc (město)</option><option value="Opava"> Opava</option><option value="Opočno"> Opočno</option><option value="Osoblaha"> Osoblaha</option><option value="Pacov"> Pacov</option><option value="Pardubice"> Pardubice</option><option value="Pelhřimov"> Pelhřimov</option><option value="Písek"> Písek</option><option value="Planá"> Planá</option><option value="Plánice"> Plánice</option><option value="Plumlov"> Plumlov</option><option value="Plzeň"> Plzeň</option><option value="Poběžovice"> Poběžovice</option><option value="Počátky"> Počátky</option><option value="Podbořany"> Podbořany</option><option value="Poděbrady"> Poděbrady</option><option value="Pohořelice"> Pohořelice</option><option value="Police nad Metují"> Police nad Metují</option><option value="Polička"> Polička</option><option value="Polná"> Polná</option><option value="Postoloprty"> Postoloprty</option><option value="Praha (OS Praha-jih)"> Praha (OS Praha-jih)</option><option value="Praha (OS Praha-sever)"> Praha (OS Praha-sever)</option><option value="Praha (OS Praha-východ)"> Praha (OS Praha-východ)</option><option value="Praha (OS Praha-západ)"> Praha (OS Praha-západ)</option><option value="Praha (OS Vnitřní Praha)"> Praha (OS Vnitřní Praha)</option><option value="Praha-sever"> Praha-sever</option><option value="Praha-východ"> Praha-východ</option><option value="Praha-západ"> Praha-západ</option><option value="Prachatice"> Prachatice</option><option value="Prostějov"> Prostějov</option><option value="Přelouč"> Přelouč</option><option value="Přerov"> Přerov</option><option value="Přeštice"> Přeštice</option><option value="Příbor"> Příbor</option><option value="Příbram"> Příbram</option><option value="Přibyslav"> Přibyslav</option><option value="Přimda"> Přimda</option><option value="Přísečnice"> Přísečnice</option><option value="Rakovník"> Rakovník</option><option value="Rokycany"> Rokycany</option><option value="Rokytnice nad Jizerou"> Rokytnice nad Jizerou</option><option value="Rokytnice v Orlických horách"> Rokytnice v Orlických horách</option><option value="Roudnice nad Labem"> Roudnice nad Labem</option><option value="Rožnov pod Radhoštěm"> Rožnov pod Radhoštěm</option><option value="Rumburk"> Rumburk</option><option value="Rychnov nad Kněžnou"> Rychnov nad Kněžnou</option><option value="Rýmařov"> Rýmařov</option><option value="Říčany"> Říčany</option><option value="Sedlčany"> Sedlčany</option><option value="Sedlec"> Sedlec</option><option value="Semily"> Semily</option><option value="Skalná"> Skalná</option><option value="Skuteč"> Skuteč</option><option value="Slaný"> Slaný</option><option value="Slavkov u Brna"> Slavkov u Brna</option><option value="Slavonice"> Slavonice</option><option value="Slezská Ostrava"> Slezská Ostrava</option><option value="Soběslav"> Soběslav</option><option value="Sobotka"> Sobotka</option><option value="Sokolov"> Sokolov</option><option value="Staré Město"> Staré Město</option><option value="Stod"> Stod</option><option value="Strakonice"> Strakonice</option><option value="Strážnice"> Strážnice</option><option value="Stříbro"> Stříbro</option><option value="Sušice"> Sušice</option><option value="Svitavy"> Svitavy</option><option value="Šluknov"> Šluknov</option><option value="Šternberk"> Šternberk</option><option value="Štětí"> Štětí</option><option value="Štíty"> Štíty</option><option value="Štoky"> Štoky</option><option value="Šumperk"> Šumperk</option><option value="Tábor"> Tábor</option><option value="Tachov"> Tachov</option><option value="Tanvald"> Tanvald</option><option value="Telč"> Telč</option><option value="Teplá"> Teplá</option><option value="Teplice"> Teplice</option><option value="Teplice nad Metují"> Teplice nad Metují</option><option value="Tišnov"> Tišnov</option><option value="Trhové Sviny"> Trhové Sviny</option><option value="Trutnov"> Trutnov</option><option value="Třebíč"> Třebíč</option><option value="Třeboň"> Třeboň</option><option value="Třešť"> Třešť</option><option value="Turnov"> Turnov</option><option value="Týn nad Vltavou"> Týn nad Vltavou</option><option value="Uherské Hradiště"> Uherské Hradiště</option><option value="Uherský Brod"> Uherský Brod</option><option value="Uherský Ostroh"> Uherský Ostroh</option><option value="Uhlířské Janovice"> Uhlířské Janovice</option><option value="Unhošť"> Unhošť</option><option value="Uničov"> Uničov</option><option value="Úpice"> Úpice</option><option value="Ústí nad Labem"> Ústí nad Labem</option><option value="Ústí nad Orlicí"> Ústí nad Orlicí</option><option value="Úštěk"> Úštěk</option><option value="Valašské Klobouky"> Valašské Klobouky</option><option value="Valašské Meziříčí"> Valašské Meziříčí</option><option value="Varnsdorf"> Varnsdorf</option><option value="Vejprty"> Vejprty</option><option value="Velká Bíteš"> Velká Bíteš</option><option value="Velké Meziříčí"> Velké Meziříčí</option><option value="Velvary"> Velvary</option><option value="Veselí nad Lužnicí"> Veselí nad Lužnicí</option><option value="Vidnava"> Vidnava</option><option value="Vimperk"> Vimperk</option><option value="Vítkov"> Vítkov</option><option value="Vizovice"> Vizovice</option><option value="Vlašim"> Vlašim</option><option value="Vodňany"> Vodňany</option><option value="Volary"> Volary</option><option value="Volyně"> Volyně</option><option value="Votice"> Votice</option><option value="Vranov nad Dyjí"> Vranov nad Dyjí</option><option value="Vrbno pod Pradědem"> Vrbno pod Pradědem</option><option value="Vrchlabí"> Vrchlabí</option><option value="Vsetín"> Vsetín</option><option value="Vysoké Mýto"> Vysoké Mýto</option><option value="Vysoké nad Jizerou"> Vysoké nad Jizerou</option><option value="Vyškov"> Vyškov</option><option value="Vyšší Brod"> Vyšší Brod</option><option value="Zábřeh"> Zábřeh</option><option value="Zbiroh"> Zbiroh</option><option value="Zbraslav"> Zbraslav</option><option value="Zdounky"> Zdounky</option><option value="Zlaté Hory"> Zlaté Hory</option><option value="Zlín"> Zlín</option><option value="Znojmo"> Znojmo</option><option value="Žacléř"> Žacléř</option><option value="Žamberk"> Žamberk</option><option value="Žatec"> Žatec</option><option value="Ždánice"> Ždánice</option><option value="Žďár nad Sázavou"> Žďár nad Sázavou</option><option value="Železný Brod"> Železný Brod</option><option value="Židlochovice"> Židlochovice</option><option value="Žlutice"> Žlutice</option>		</select><br />
+		<select name="zeme">
+			<option value="">(Vyberte zemi)</option>
+			<option value="Č"> Čechy</option><option value="ČV"> Čechy (Vitorazsko)</option><option value="M"> Morava</option><option value="Me"> Morava (enkláva ve Slezsku)</option><option value="MV"> Morava (Valticko)</option><option value="SH"> Slezsko (Hlučínsko)</option><option value="SO"> Slezsko (Opavský díl)</option><option value="ST"> Slezsko (Těšínský díl)</option><option value="SOe"> Slezsko (moravská enkláva)</option>		</select><br />
+	</div>
+	<div class="group druh">
+		<div class="checklist">
+			<label><input type="checkbox" name="material[]" value="dřevěné"  checked /> dřevěné</label><label><input type="checkbox" name="material[]" value="hrázděné"  checked /> hrázděné</label><label><input type="checkbox" name="material[]" value="polodřevěné"  checked /> polodřevěné</label><label><input type="checkbox" name="material[]" value="polohrázděné"  checked /> polohrázděné</label><label><input type="checkbox" name="material[]" value="skalní"  checked /> skalní</label><label><input type="checkbox" name="material[]" value="zděné"  checked /> zděné</label><label><input type="checkbox" name="material[]" value="ostatní"  checked /> ostatní</label>		</div>
+		<div class="checklist">
+			<label><input type="checkbox" name="subtyp[]" value="kláštery"  /> <span>kláštery</span></label>
+<label><input type="checkbox" name="subtyp[]" value="kostely"  checked /> <span>kostely</span></label>
+<label><input type="checkbox" name="subtyp[]" value="zvonice"  /> <span>zvonice</span></label>
+<label><input type="checkbox" name="subtyp[]" value="velké kaple"  /> <span>velké kaple</span></label>
+<label><input type="checkbox" name="subtyp[]" value="kaple"  /> <span>kaple</span></label>
+<label><input type="checkbox" name="subtyp[]" value="kapličky"  /> <span>kapličky</span></label>
+<label><input type="checkbox" name="subtyp[]" value="zvoničky"  /> <span>zvoničky</span></label>
+<label><input type="checkbox" name="subtyp[]" value="fary"  /> <span>fary</span></label>
+<label><input type="checkbox" name="subtyp[]" value="hřbitovy"  /> <span>hřbitovy</span></label>
+<label><input type="checkbox" name="subtyp[]" value="židovské"  /> <span>židovské</span></label>
+<label><input type="checkbox" name="subtyp[]" value="ostatní"  /> <span>ostatní</span></label>
+		</div>
+	</div>
+	<div class="group ids">
+		<select name="znamka">
+			<option value="">(Známka)</option>
+						<option value="010">010 – moderní stavba na místě zaniklé stavby</option>
+			<option value="090">090 – přibližná replika zaniklé stavby</option>
+			<option value="095">095 – replika zaniklé stavby (podle fotografie aj.)</option>
+			<option value="099">099 – novostavba (kopie/replika) jako náhrada zaniklé stavby</option>
+			<option value="100">100 – stavba v perfektním stavu</option>
+			<option value="112">112 – stavba, která má v pořádku střechu, okna, dveře, interiér i omítky, ale potřebuje na cca 1/4 plochy obnovit nátěr</option>
+			<option value="120">120 – stavba, která má v pořádku střechu, okna, dveře, interiér i omítky, ale potřebuje na cca 1/2 plochy obnovit nátěr</option>
+			<option value="122">122 – stavba, která má v pořádku střechu, okna, dveře, interiér i omítky, ale potřebuje na cca 3/4 plochy obnovit nátěr</option>
+			<option value="200">200 – stavba, která má v pořádku střechu, okna, dveře, interiér i omítky, ale potřebuje na celé ploše obnovit nátěr</option>
+			<option value="223">223 – stavba, která má v pořádku střechu, okna, dveře a interiér, ale potřebuje na cca 1/4 plochy obnovit omítku</option>
+			<option value="230">230 – stavba, která má v pořádku střechu, okna, dveře a interiér, ale potřebuje na cca 1/2 plochy obnovit omítku</option>
+			<option value="233">233 – stavba, která má v pořádku střechu, okna, dveře a interiér, ale potřebuje na cca 3/4 plochy obnovit omítku</option>
+			<option value="300">300 – stavba, která má v pořádku střechu, okna, dveře a interiér, ale potřebuje na cca celé ploše obnovit omítku</option>
+			<option value="334">334 – stavba, která má v pořádku střechu, okna, dveře a interiér, ale má narušenou statiku</option>
+			<option value="340">340 – stavba, která má v pořádku střechu, ale má zpustošený interiér a většinou i rozbitá okna a dveře</option>
+			<option value="344">344 – stavba, která má v pořádku zdivo, ale má v různém stupni poškozenou střechu</option>
+			<option value="400">400 – stavba, která má v pořádku zdivo, ale je zcela bez krovů a střechy</option>
+			<option value="445">445 – stavba, která má mírně narušené i obvodové zdivo</option>
+			<option value="450">450 – stavba, která má středně narušené i obvodové zdivo</option>
+			<option value="455">455 – stavba, která má silně narušené i obvodové zdivo</option>
+			<option value="500">500 – stavba, kde už zbývají jen části obvodového zdiva</option>
+			<option value="501">501 – novostavba; před obnovou existovaly zbytky zdiva, které mohly a nemusely být při obnově využity</option>
+			<option value="600">600 – stavba zcela zničená</option>
+			<option value="601">601 – novostavba; před obnovou nezbývalo z původní stavby nic</option>
+			<option value="700">700 – specifická známka pro objekty, kde je třeba něco zjistit</option>
+		</select><br />
+		<select name="zanik">
+			<option value="">(Období devastace)</option>
+			<option value="1"> Do roku 1436</option><option value="2"> 1437–1653</option><option value="3"> 1654–1848</option><option value="4a"> 1849–1918</option><option value="4b"> 1918–1938</option><option value="4c"> 1938–1945</option><option value="5" selected="selected"> 1945–1989</option><option value="6"> Od roku 1990</option>		</select><br />
+		<select name="duvod">
+			<option value="">(Důvod devastace)</option>
+			<option value="autohavárie"> Autohavárie</option><option value="hraniční pásmo"> Hraniční pásmo</option><option value="těžba"> Těžba</option><option value="vodní nádrž"> Vodní nádrž</option><option value="válečné události"> Válečné události</option><option value="vojenský prostor"> Vojenský prostor</option><option value="jiný"> Jiný</option>		</select><br />
+		<br />		<input type="text" name="kod_cz" value="" /><br />
+		<input type="text" name="object_id" value="" /><br />
+		
+		
+		<input type="hidden" name="load" value="search" />
+	</div>
+
+	<div class="buttons" style="position:relative;">
+		<button type="submit">Hledat</button>
+		<span style="position:absolute;top:4px;right:10px;">
+			<a href="./index.php?load=map-browser">Hledat na mapě</a>
+		</span>
+	</div>
+</form>
+
+<script>
+(function () {
+	var form = document.getElementById('search');
+	var stavy = form['stav[]'];
+	var znamka = form['znamka'];
+	var kodcz = form['kod_cz'];
+
+	form['lokalita'].onclick = form['query'].onclick = form['obec'].onclick =
+		form['kod_cz'].onclick = form['object_id'].onclick = function () {
+		this.select();
+	};
+
+	znamka.onchange = function () {
+		var val = !!this.value;
+		for (var i = 0, ii = stavy.length; i < ii; ++i) {
+			stavy[i].disabled = val;
+		}
+	};
+	kodcz.onkeyup = function () {
+		var val = !!this.value;
+		form['lokalita'].disabled = val;
+		form['fulltext'].disabled = val;
+		form['obec'].disabled = val;
+		form['okres'].disabled = val;
+		form['okres1938'].disabled = val;
+		form['kraj'].disabled = val;
+		form['zeme'].disabled = val;
+	};
+
+	var updateClassName = function (input) {
+		input = (input && input.tagName === 'INPUT') ? input : this;
+		input.className = input.value ? 'has-value' : '';
+	};
+	var observeValue = function (input) {
+		updateClassName(input);
+		input.onblur = updateClassName;
+	};
+	observeValue(form['lokalita']);
+	observeValue(form['query']);
+	observeValue(form['obec']);
+	observeValue(form['object_id']);
+	observeValue(form['kod_cz']);
+
+		form['znamka'].value = '';
+	var znamka = form['znamka'].value;
+	for (var i = 0, ii = stavy.length; i < ii; ++i) {
+		stavy[i].disabled = !!znamka;
+	}
+	}());
+</script>
+
+<div id="obsah">
+<script>
+window.goog = {
+  provide: function () {},
+  require: function () {}
+};
+window.mappy = {};
+window.kostely = {};
+</script>
+
+
+
+<div style="overflow: hidden">
+    <span style="float: left"><a href="?load=detail&amp;id=12686&amp;search_result_index=16&amp;stav%5B0%5D=Z&amp;stav%5B1%5D=T&amp;stav%5B2%5D=R&amp;stav%5B3%5D=O&amp;stav%5B4%5D=k&amp;stav%5B5%5D=n&amp;stav%5B6%5D=e&amp;znamka%5B0%5D=500&amp;znamka%5B1%5D=600&amp;znamka_old%5B0%5D=501&amp;znamka_old%5B1%5D=601&amp;zanik=5&amp;subtyp%5B0%5D=kostely#obsah">&larr; bývalý kostel Povýšení sv. Kříže (Budišov nad Budišovkou)</a></span>
+      <span style="float: right"><a href="?load=detail&amp;id=13737&amp;search_result_index=18&amp;stav%5B0%5D=Z&amp;stav%5B1%5D=T&amp;stav%5B2%5D=R&amp;stav%5B3%5D=O&amp;stav%5B4%5D=k&amp;stav%5B5%5D=n&amp;stav%5B6%5D=e&amp;znamka%5B0%5D=500&amp;znamka%5B1%5D=600&amp;znamka_old%5B0%5D=501&amp;znamka_old%5B1%5D=601&amp;zanik=5&amp;subtyp%5B0%5D=kostely#obsah">kostel Povýšení sv. Kříže (Býčkovice) &rarr;</a></span>
+  </div>
+
+<div class="sidebar">
+  <div class="title"><code>19808</code> <span>Butovice</span></div>
+    <dl class="subtitle">
+    <dt>Jiná jména:</dt>
+    <dd>Butowitz</dd>
+  </dl>
+    <dl>
+    <dt>Část obce:</dt>
+    <dd>Jinonice</dd>
+    <dt>Kat. území:</dt>
+    <dd>Jinonice</dd>
+    <dt>Obec:</dt>
+    <dd>Praha</dd>
+    <dt>Okres:</dt>
+    <dd>Praha (město)</dd>
+    <dt>Kraj:</dt>
+    <dd>Praha</dd>
+    <dt>Region:</dt>
+    <dd>Praha</dd>
+    <dt>Okres (1938):</dt>
+    <dd>Praha (OS Praha-západ)</dd>
+    <dt>Země:</dt>
+    <dd>Čechy</dd>
+    <dt>X [JTSK]:</dt>
+    <dd>-747278</dd>
+    <dt>Y [JTSK]:</dt>
+    <dd>-1046645</dd>
+  </dl>
+
+    <div class="images">
+        <ul id="photos"></ul>
+        <p id="photos-queue-title" style="display:none">Fotky ke schválení:</p>
+    <ul class="plain" id="photos-queue"></ul>
+        <div><a href="javascript:;" id="add-photo-link" class="add">Přidat obrázek</a></div>
+    <span id="add-photo-loader" style="display:none">Nahrávání...</span>
+    <form id="add-photo-form" action="./engine/upload.php?object_id=14039&amp;jsonp=handleUploadedPhotos" target="upload_target" method="post" enctype="multipart/form-data" style="display:none">
+      <div>
+        <input type="file" name="file[]" id="add-photo-input" />
+        <p style="background-color:#FFA;padding:5px;margin:0;margin-top:5px;font-size:12px">Povoleny jsou soubory JPEG (.jpg, .jpeg), PNG, GIF a WBMP.</span>
+      </div>
+      <div id="add-photo-preview" style="display:none"></div>
+      <div><span>Popiska:</span> <input type="text" name="popis[]" /></div>
+      <div><span>Datum:</span> <input type="text" name="datum[]" /></div>
+      <div><span>Zdroj:</span> <input type="text" name="zdroj[]" /></div>
+            <div><button type="submit">Nahrát</button></div>
+    </form>
+    <iframe name="upload_target" style="display:none"></iframe>
+    <script>
+(function () {
+  var ul = document.getElementById('photos');
+  var lis = ul.childNodes;
+  var removed = 0;
+  for (var i = 0, ii = lis.length; i < ii - removed; ++i) {
+    if (lis[i].nodeType !== 1) {
+      ul.removeChild(lis[i]);
+      removed += 1;
+    }
+  }
+
+  var form = document.getElementById('add-photo-form');
+  var link = document.getElementById('add-photo-link');
+  var input = document.getElementById('add-photo-input');
+  var preview = document.getElementById('add-photo-preview');
+  var loader = document.getElementById('add-photo-loader');
+
+  input.onchange = function () {
+    var files = input.files;
+    if (files) {
+      var file = files[0];
+      if (file.size > 10 * 1024 * 1024) {
+        alert('Maximální povolená velikost obrázku je 10 MB. Zmenšete obrázek a zkuste jej nahrát znovu.');
+        input.value = '';
+        preview.style.display = 'none';
+        return;
+      }
+      var reader = new FileReader();
+      reader.onloadend = function (e) {
+        var img = new Image();
+        img.src = e.target.result;
+        preview.innerHTML = '';
+        preview.appendChild(img);
+        preview.style.display = 'block';
+
+        img.onload = function () {
+          img.onload = null;
+          if (form.scrollIntoView) {
+            form.scrollIntoView();
+          }
+        };
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  link.onclick = function (e) {
+    form.style.display = 'block';
+    if (form.scrollIntoView) {
+      form.scrollIntoView();
+    }
+    return false;
+  };
+  form.onsubmit = function () {
+    if (!input.value) {
+      return false;
+    }
+
+    preview.style.display = 'none';
+    form.style.display = 'none';
+    loader.style.display = 'block';
+
+    window.setTimeout(function () {
+      for (var i = 0, ii = form.length; i < ii; ++i) {
+        form[i].value = '';
+      }
+    }, 0);
+  };
+}());
+function handleUploadedPhotos(results) {
+  document.getElementById('add-photo-loader').style.display = 'none'
+
+  var result;
+  for (var i = 0, ii = results.length; i < ii; ++i) {
+    result = results[i];
+    if (result['error']) {
+      alert('Vaše fotografie nebyla přidána (chyba ' + result['error'] + ')');
+    } else {
+      pushPhoto(result);
+            alert('Vaše fotografie byla přidána a čeká na schválení.');
+          }
+  }
+};
+function pushPhoto(photo) {
+  var noPhotos = document.getElementById('no-photos');
+  if (noPhotos) {
+    noPhotos.parentNode.removeChild(noPhotos);
+  }
+
+  var ul = document.getElementById(photo['zobrazit'] ? 'photos' : 'photos-queue');
+  var li = document.createElement('li');
+
+  var size_qs = photo['zobrazit'] ? (ul.childNodes.length ? 'w=78&h=78' : 'w=240') : 'w=78&h=78';
+
+  if (!photo['zobrazit']) {
+    document.getElementById('photos-queue-title').style.display = 'block';
+  }
+
+  var a = document.createElement('a');
+  a.className = 'image-browser-source';
+  a.href = './image.php?id=' + photo['id'] + '&h=800';
+  a.title = photo['popis'];
+  a.setAttribute('data-browser', 'photos');
+
+  var note = [];
+  if (photo['datum']) {
+    note.push('datum pořízení fotografie: ' + photo['datum']);
+  }
+  if (photo['zdroj']) {
+    note.push('zdroj: ' + photo['zdroj']);
+  }
+  if (photo['prispel'] && photo['prispel'] !== photo['zdroj']) {
+    note.push('nahrál: ' + photo['prispel']);
+  }
+  a.setAttribute('data-note', note.join(' – '));
+
+  var img = new Image();
+  img.src = './image.php?id=' + photo['id'] + '&' + size_qs;
+  a.appendChild(img);
+  li.appendChild(a);
+  ul.appendChild(li);
+
+  ui.ImageBrowser.findSetsOnPage();
+};
+
+pushPhoto({
+  'id': 191792,
+  'popis': 'pohled přes stromořadí do místa, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191791,
+  'popis': 'kamenné články z kostela položené nedaleko místa, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191790,
+  'popis': 'kamenné články z kostela položené nedaleko místa, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191789,
+  'popis': 'kamenné články z kostela položené nedaleko místa, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191788,
+  'popis': 'kamenné články z kostela položené nedaleko místa, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191787,
+  'popis': 'kamenné články z kostela položené nedaleko místa, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191786,
+  'popis': 'kamenné články z kostela položené nedaleko místa, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191785,
+  'popis': 'kamenné články z kostela položené nedaleko místa, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191784,
+  'popis': 'kamenné články z kostela položené nedaleko místa, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191783,
+  'popis': 'kamenné články z kostela položené nedaleko místa, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191782,
+  'popis': 'kamenné články z kostela položené nedaleko místa, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191781,
+  'popis': 'kamenné články z kostela položené nedaleko místa, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191780,
+  'popis': 'kamenné články z kostela položené nedaleko místa, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191779,
+  'popis': 'kamenné články z kostela položené nedaleko místa, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191778,
+  'popis': 'sokl pro sochu nedaleko místa, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191777,
+  'popis': 'sokl pro sochu nedaleko místa, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191776,
+  'popis': 'pohled z místa kostela na stromořadí před průčelím',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191775,
+  'popis': 'pohled přes stromořadí před kostelem na místo kostela',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191774,
+  'popis': 'pohled z místa kostela na stromořadí před průčelím',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191773,
+  'popis': 'pohled na místo, kde kostel stál (lípa vpravo od budky stála při levé zadní části kostela)',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191772,
+  'popis': 'pohled na místo, kde kostel stál',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191768,
+  'popis': 'trosky kostela',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191769,
+  'popis': 'trosky kostela',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191770,
+  'popis': 'trosky kostela',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 191771,
+  'popis': 'trosky kostela',
+  'zdroj': 'admin',
+  'datum': 'únor 2023',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 156995,
+  'popis': 'demolice kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': '1966',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 202286,
+  'popis': 'historické foto kostela',
+  'zdroj': 'prokopskeudoli.org',
+  'datum': 'před 1966',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 153027,
+  'popis': 'historické foto kostela',
+  'zdroj': 'foto Rudolf Hylský',
+  'datum': '1949',
+  'prispel': 'Fotoarchiv České geologické služby' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 156998,
+  'popis': 'historické foto kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'po 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 156997,
+  'popis': 'historické foto kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'po 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 156996,
+  'popis': 'historické foto kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'po 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157002,
+  'popis': 'historické foto kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'po 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157001,
+  'popis': 'historické foto kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'po 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 158200,
+  'popis': 'historické foto kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'po 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157000,
+  'popis': 'historické foto kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'po 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 156999,
+  'popis': 'historické foto kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'po 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157004,
+  'popis': 'historické foto kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'po 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157005,
+  'popis': 'historické foto kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'po 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157007,
+  'popis': 'vstupní portál kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'po 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157006,
+  'popis': 'vstupní portál kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'po 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157008,
+  'popis': 'vstupní portál kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'po 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157009,
+  'popis': 'erb nad vstupním portálem',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'po 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 185071,
+  'popis': 'historické foto kostela',
+  'zdroj': 'pofila.cz',
+  'datum': 'před 1945',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 202287,
+  'popis': 'historické foto kostela',
+  'zdroj': 'facebook Neznámá místa na fotografiích a pohlednicích (Soňa Uhlířová)',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 156994,
+  'popis': 'historické foto kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 156993,
+  'popis': 'historické foto kostela (v pozadí)',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 156992,
+  'popis': 'historické foto kostela (v pozadí)',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 202284,
+  'popis': 'historické foto kostela',
+  'zdroj': 'cs.wikipedia.org',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 162185,
+  'popis': 'historické foto kostela',
+  'zdroj': 'sken z knihy Vltava, autor Karel Plicka',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 162186,
+  'popis': 'historické foto kostela - detail',
+  'zdroj': 'sken z knihy Vltava, autor Karel Plicka',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 156986,
+  'popis': 'historické foto kostela',
+  'zdroj': 'fotobanka ČTK',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 64130,
+  'popis': 'celkový pohled na kostel a jeho okolí',
+  'zdroj': 'ze sbírky Ústavu dějin umění AV ČR, v.v.i.',
+  'datum': 'před 1945',
+  'prispel': 'admin' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 155292,
+  'popis': 'historické foto kostela',
+  'zdroj': 'prokopskeudoli.org.uvirt11.active24.cz',
+  'datum': 'před 1945',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 144794,
+  'popis': 'historické foto kostela v době 1. republiky, kdy se zde konaly vyhlášené poutě',
+  'zdroj': 'facebook Praha neznámá',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 144795,
+  'popis': 'historické foto kostela – detail',
+  'zdroj': 'facebook Praha neznámá',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 144793,
+  'popis': 'historické foto kostela',
+  'zdroj': 'facebook Jinonice Live',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 169740,
+  'popis': 'pohled do Prokopského údolí od kostela',
+  'zdroj': 'facebook Pohlednice ze staré Prahy do roku 1960 Evžen Šimek',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 169739,
+  'popis': 'historické foto kostela',
+  'zdroj': 'www.aukro.cz',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 141435,
+  'popis': 'historické foto kostela',
+  'zdroj': 'facebook (Petr Kuz)',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157010,
+  'popis': 'historické foto interiéru kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157011,
+  'popis': 'historické foto interiéru kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157012,
+  'popis': 'historické foto interiéru kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157013,
+  'popis': 'historické foto interiéru kostela',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157017,
+  'popis': 'interiér kostela - detail výzdoby',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157016,
+  'popis': 'interiér kostela - detail výzdoby',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157015,
+  'popis': 'interiér kostela - detail',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157014,
+  'popis': 'interiér kostela - detail',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': 'před 1945',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 153212,
+  'popis': 'celkový pohled na kostel nad Prokopským údolím',
+  'zdroj': 'pofila.cz',
+  'datum': 'před 1945',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 155289,
+  'popis': 'historické foto kostela',
+  'zdroj': 'cs.wikipedia.org',
+  'datum': 'před 1945',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 145363,
+  'popis': 'historické foto kostela',
+  'zdroj': 'praha-archeologicka.cz',
+  'datum': '1940',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 144790,
+  'popis': 'historické foto kostela s dobovým popisem',
+  'zdroj': 'facebook Slomo Morchedaj',
+  'datum': '1940',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 154345,
+  'popis': 'historické foto kostela',
+  'zdroj': 'facebook Jitka Oktábcová',
+  'datum': '30. léta 20. století',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 144804,
+  'popis': 'historické foto kostela',
+  'zdroj': 'Pražský kaleidoskop Karel Oktábec resp. Světozor',
+  'datum': '14.7.1927',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 154473,
+  'popis': 'historické foto kostela',
+  'zdroj': 'facebook Jitka Oktábcová',
+  'datum': '20. léta 20. století',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 167666,
+  'popis': 'pohled do Prokopského údolí s kostelem sv. Prokopa na skále',
+  'zdroj': 'Archiv hlavního města Prahy, Sbírka fotografií, sign. I 4550',
+  'datum': '11.10.1925',
+  'prispel': 'Mgr. Miroslava Přikrylová' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 167668,
+  'popis': 'pohled do Prokopského údolí s kostelem sv. Prokopa na skále',
+  'zdroj': 'Archiv hlavního města Prahy, Sbírka fotografií, sign. I 9384',
+  'datum': '28.7.1923',
+  'prispel': 'Mgr. Miroslava Přikrylová' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 167667,
+  'popis': 'pohled do Prokopského údolí s kostelem sv. Prokopa na skále',
+  'zdroj': 'Archiv hlavního města Prahy, Sbírka fotografií, sign. I 9383',
+  'datum': '28.7.1923',
+  'prispel': 'Mgr. Miroslava Přikrylová' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 167665,
+  'popis': 'pohled do Prokopského údolí s kostelem sv. Prokopa na skále',
+  'zdroj': 'Archiv hlavního města Prahy, Sbírka fotografií, sign. I 4549',
+  'datum': '28.7.1923',
+  'prispel': 'Mgr. Miroslava Přikrylová' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 167664,
+  'popis': 'pohled do Prokopského údolí s kostelem sv. Prokopa na skále',
+  'zdroj': 'Archiv hlavního města Prahy, Sbírka fotografií, sign. I 4548',
+  'datum': '28.7.1923',
+  'prispel': 'Mgr. Miroslava Přikrylová' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 167663,
+  'popis': 'pohled do Prokopského údolí s kostelem sv. Prokopa na skále',
+  'zdroj': 'Archiv hlavního města Prahy, Sbírka fotografií, sign. I 4547',
+  'datum': '22.7.1923',
+  'prispel': 'Mgr. Miroslava Přikrylová' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 193808,
+  'popis': 'dobová pohlednice s kostelem (vpravo dole)',
+  'zdroj': 'pofila.cz',
+  'datum': 'okolo 1922',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 127703,
+  'popis': 'pohled do Prokopského údolí s kostelem sv. Prokopa na skále',
+  'zdroj': 'Zdeněk Eberl, Vladimír Petrovský: Historický místopis Prokopského údolí a okolí',
+  'datum': 'okolo 1922',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 154948,
+  'popis': 'historické foto kostela a jeho interiéru',
+  'zdroj': 'vlastafiller.sweb.cz',
+  'datum': '1911',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 176058,
+  'popis': 'historické foto kostela',
+  'zdroj': 'facebook Svaťa Bartoň',
+  'datum': '31.7.1907',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 155291,
+  'popis': 'historické foto kostela',
+  'zdroj': 'prokopskeudoli.org.uvirt11.active24.cz',
+  'datum': 'kolem 1906',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 190359,
+  'popis': 'historická pohlednice s kostelem',
+  'zdroj': 'www.burda-auction.com',
+  'datum': '1905',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 154346,
+  'popis': 'historické foto kostela',
+  'zdroj': 'facebook Pavel Strnad',
+  'datum': 'okolo 1905',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 185069,
+  'popis': 'dobová pohlednice s kostelem',
+  'zdroj': 'pofila.cz',
+  'datum': '1904',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 145365,
+  'popis': 'dobová pohlednice s kostelem',
+  'zdroj': 'facebook Jitka Oktábcová',
+  'datum': '1904',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 184913,
+  'popis': 'dobová pohlednice s kostelem',
+  'zdroj': 'pofila.cz',
+  'datum': 'kolem 1900',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 64131,
+  'popis': 'historické foto kostela - západní vstupní průčelí',
+  'zdroj': 'ze sbírky Ústavu dějin umění AV ČR, v.v.i.',
+  'datum': 'kolem 1900',
+  'prispel': 'admin' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157022,
+  'popis': 'dobová pohlednice s kostelem',
+  'zdroj': 'facebook Evžen Šimek',
+  'datum': 'kolem 1900',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 208958,
+  'popis': 'dobová pohlednice původní vsi s kostelem (vpravo nahoře)',
+  'zdroj': 'pofila.cz',
+  'datum': 'kolem 1900',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 166350,
+  'popis': 'dobová pohlednice s kostelem',
+  'zdroj': 'starepohledy.cz',
+  'datum': 'kolem 1900',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 166351,
+  'popis': 'dobová pohlednice s kostelem - výřez',
+  'zdroj': 'starepohledy.cz',
+  'datum': 'kolem 1900',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 166162,
+  'popis': 'dobová pohlednice Jinonic s kostelem',
+  'zdroj': 'starepohledy.cz',
+  'datum': 'kolem 1900',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 166163,
+  'popis': 'dobová pohlednice Jinonic s kostelem - výřez',
+  'zdroj': 'starepohledy.cz',
+  'datum': 'kolem 1900',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 166507,
+  'popis': 'dobová pohlednice s kostelem (vlevo)',
+  'zdroj': 'pofila.cz',
+  'datum': 'kolem 1900',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 193777,
+  'popis': 'dobová pohlednice původní vsi s kostelem',
+  'zdroj': 'pofila.cz',
+  'datum': '1899',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 169741,
+  'popis': 'historické foto kostela',
+  'zdroj': 'facebook Pohlednice ze staré Prahy do roku 1960 Evžen Šimek',
+  'datum': '1899',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 64132,
+  'popis': 'celkový pohled na kostel a jeho okolí',
+  'zdroj': 'ze sbírky Ústavu dějin umění AV ČR, v.v.i.',
+  'datum': 'mezi 1890 a 1899',
+  'prispel': 'admin' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 144800,
+  'popis': 'historické foto kostela',
+  'zdroj': 'www.ahmp.cz',
+  'datum': 'kolem 1890',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 144798,
+  'popis': 'historické foto kostela',
+  'zdroj': 'www.ahmp.cz',
+  'datum': 'kolem 1890',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 186553,
+  'popis': 'historické foto kostela (vpravo nahoře)',
+  'zdroj': 'SOA Český Krumlov',
+  'datum': 'konec 19. století',
+  'prispel': 'Mgr. Jindřich Hospaska' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 186554,
+  'popis': 'celkový pohled na Dalejské údolí s kostelem v pozadí',
+  'zdroj': 'SOA Český Krumlov',
+  'datum': 'konec 19. století',
+  'prispel': 'Mgr. Jindřich Hospaska' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157024,
+  'popis': 'kresba Václava Mochana podle fotografie z roku 1898',
+  'zdroj': 'z kroniky Košíř, autor kroniky Václav Mochan (© ush-praha.rajce.idnes.cz)',
+  'datum': '1898',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 154946,
+  'popis': 'kresba kostela podle E. Chalupy (nahoře uprostřed)',
+  'zdroj': 'sejn.cz',
+  'datum': '70. léta 19. století',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157023,
+  'popis': 'pouť u sv. Prokopa v Prokopském údolí (autor Quido Mánes)',
+  'zdroj': 'facebook Slomo Mordechaj',
+  'datum': '1861',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 158204,
+  'popis': 'kresba údolí s kostelem od Adolfa Kosárka',
+  'zdroj': 'facebook Stará Praha krásná Petra Sluková',
+  'datum': '1857',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 144805,
+  'popis': 'kresba kostela',
+  'zdroj': 'facebook Společnosti pro ochranu údolí',
+  'datum': '19. století',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157025,
+  'popis': 'kresba Prokopského údolí s kostelem (autor Vincenc Morstadt) ',
+  'zdroj': 'Archiv hlavního města Prahy',
+  'datum': '19. století',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 202285,
+  'popis': 'kresba kostela (v pozadí)',
+  'zdroj': 'cs.wikipedia.org',
+  'datum': '19. století',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157026,
+  'popis': 'kresba kostela (vlevo nahoře, autor Franz Zimmer)',
+  'zdroj': 'www.ahmp.cz',
+  'datum': '19. století',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 160249,
+  'popis': 'kresba kostela od L. Gruenewalda',
+  'zdroj': 'facebook Pražský historický kaleidoskop Jitka Oktábcová',
+  'datum': '1840',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 158971,
+  'popis': 'kresba kostela, autor Adolf Friedrich Kunike',
+  'zdroj': 'facebook Stará Praha krásná Petra Sluková',
+  'datum': '1830',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 157027,
+  'popis': 'kresba neznámého autora zobrazuje Svatoprokopskou pouť, kostel v pozadí nahoře',
+  'zdroj': 'storm.rajce.idnes.cz',
+  'datum': '1. polovina 19. stolet',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 147076,
+  'popis': 'kresba kostela – malíř Johann Venuto (Jan Antonín Venuto)',
+  'zdroj': 'facebook Vojtěch Klimt',
+  'datum': '1822',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 158203,
+  'popis': 'historická veduta s kostelem',
+  'zdroj': 'www.veduty.cz',
+  'datum': '1805',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 154944,
+  'popis': 'kresba kostela - F. B. Werner',
+  'zdroj': 'katalog.ahmp.cz',
+  'datum': '1740',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 154945,
+  'popis': 'kresba kostela - F. B. Werner - detail',
+  'zdroj': 'katalog.ahmp.cz',
+  'datum': '1740',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 32611,
+  'popis': 'rytina kostela',
+  'zdroj': '',
+  'datum': '18. století',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 158205,
+  'popis': 'kopie historické geologické mapy se zákresem kostela v kroužku',
+  'zdroj': 'ahmp.cz',
+  'datum': '1823',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 52471,
+  'popis': 'plán pro stavbu kostela',
+  'zdroj': 'Ústav dějin umění AV ČR',
+  'datum': 'před 1711',
+  'prispel': '' || null,
+  'zobrazit': 1});
+pushPhoto({
+  'id': 154942,
+  'popis': 'informační tabule u údolí pod zbořeným kostelem',
+  'zdroj': 'www.zahadyzivota.cz',
+  'datum': '',
+  'prispel': 'Miloslav Horník' || null,
+  'zobrazit': 1});
+    </script>
+      </div>
+</div>
+
+<div class="content">
+  <div class="title"><strong><code>14039</code> kostel sv. Prokopa</strong></div>
+
+  
+  <p><b>Zaniklé (známka
+    600)
+          zděné kostely      </b></p>
+  <dl>
+    <dt>Druh stavby:</dt>
+    <dd>kostel</dd>
+        <dt>Církev:</dt>
+    <dd>katolická</dd>
+            <dt>Parcela:</dt>
+    <dd>pozemková parcela č. 1082</dd>
+        <dt>Kód katastrálního území:</dt>
+    <dd>728730</dd>
+        <dt>Období devastace:</dt>
+    <dd>1945–1989</dd>
+            <dt>Důvod devastace:</dt>
+    <dd>jiný</dd>
+            <dt>Postaveno:</dt>
+    <dd>(1667) 1711 - 4.7.1712, loď přistavěna 1723, sakristie 1758, opravy 1893</dd>
+            <dt>Zbořeno:</dt>
+    <dd>asi 26.5.1966</dd>
+            <dt>Poloha:</dt>
+    <dd>na skále nad Prokopským údolím</dd>
+      </dl>
+
+  <p>se sanktusníkem</p>
+    <p class="pozn">Zůstalo jen málo trosek kamenů, cihel a prejzů ze střechy, na troskách leží kamenný článek z průčelí kostela. Další kamenné prvky jsou naskládány asi 50 m od trosek kostela. Zčásti je dochovan kaštanový hájek před kostelem. - Hájkem nad silničkou Hlubočepy - Butovice vedla stará cesta k poutnímu kostelu sv. Prokopa, umístěnému ve výhodné poloze na skále nad údolím. Na tomto místě počal stavět kostel ke cti sv. Prokopa v 2. polovině 17. století Pietro Maggi na náklad Václava Michny z Vacínova. Zdivo dosáhlo asi 7 m výše, když stavebník roku 1667 zemřel. Stavba pak zůstala torzem až do roku 1711, kdy se úlohy ujala jinonická vrchnost, kníže Adolf Schwarzenberg. Nový projektant Pavel Ignác Bayer použil starší zdivo, takže kostel byl již v roce 1712 dokončen a dne 4.7.1712 vysvěcen. Roku 1723 přistavěl Jan Jiří Aichbauer ke kostelu sakristii. Roku 1753 dal jinonický administrátor Vojtěch Blažej Aleš poblíž postavit sochu sv. Prokopa. Roku 1715 se v poustevně při kostele usadil poustevník, který prováděl i kostelnické povinnosti. Poustevna zůstala kostelníkovým obydlím i poté, co Josef II. poustevnictví zakázal a poustevnický řád ivanitů zrušil. Poslední úpravy kostel prodělal v roce 1893 při opravě. - Barokní budova byla drobná stavba s obdélnou lodí zaklenutou dvěma poli křížové klenby a čtvercovým presbytářem s okosenými rohy, zaklenutým plackovou klenbou. V sanktusníku byly umístěny dva menší zvony. Interiér byl vybaven kvalitním barokním mobiliářem. Kostel měl čtyři oltáře; na hlavním oltáři sv. Prokopa byla kopie zázračného obrazu sv. Prokopa ze Sázavského kláštera (pražský malíř Jan Schumer, rok 1712), nad ním se nacházelo sousoší Nejsvětější Trojice a Schwarzenberský znak. Tři boční oltáře s obrazy byly zasvěceny sv. Jakubovi (po levé straně kostela), sv. Eustachovi a sv. Janu Nepomuckému (oba po pravé straně kostela). Oltáře a další truhlářské zakázky zhotovil Jan Jakub Char z Postoloprt, čtyři obrazy s legendou Francisca Borgia namaloval Jan Jiří Heintsch. Jedním z dalších sedmi obrazů možná byl i gotický deskový obraz černé Panny Marie. - Během druhé poloviny 19. století probíhala v blízkosti kostela intenzívní těžba vápence. Zásadní změnu pro kostel přineslo v roce 1887 odtěžení skalního masivu silurských vápenců v místech Svatoprokopské jeskyně a v roce 1890 pak odstřel skály se zbytky jeskyně a s poustevnou. Kostel se tak ocitl na hraně vápencového lomu.  Během 2. světové války přímo ve skále pod kostelem začali Němci razit továrnu na letecké motory, ale nestihli ji dokončit. V poválečném období sloužila nedokončená podzemní továrna jako sklad zeleniny. Někdy v 50. letech 20. století oblast zabrala československá armáda a kostel i s okolím se ocitl v nepřístupném vojenském pásmu. Následně došlo ke stavebním úpravám a rozšíření nedokončené podzemní továrny ve skále pod kostelem. V polovině 60. let 20. století požádali vojáci Ministerstvo školství a kultury ČSSR o zrušení památkové ochrany kostela; zdůvodňovali to tím, že stavba je staticky narušená. Pravděpodobnějším důvodem žádosti vojáků byla jejich obava, aby kostel neusnadňoval zaměření vojenského objektu ve skále pod ním. Památková ochrana byla z kostela sňata výnosem Ministerstva školství a kultury ČSSR ze dne 11.10.1965 a asi dne 23.5.1966 byl nepřístupný kostel odstřelen. Před zbořením kostela byl jeho inventář rozvezen do několika kostelů. Jeden z pobočných oltářů je v kostele Všech svatých na Pražském hradě, kde jsou i ostatky sv. Prokopa. Lavice se rozpadly na dvoře u kostela sv. Prokopa na Žižkově. Rozlámaný Schwarzenberský znak dodnes leží v kopřivách na místě, kde kostel stával. - Vojenský objekt v oblasti bývalých lomů patří spojovacímu vojsku a má vysoký stupeň utajení. Jeho větší část je pod zemí ve skále právě pod bývalým kostelem. Dnes se ví jen to, že by objekt měl sloužit jako kryt pro velení armády v případě války. - Pozemek, na němž kostel stál, patří Agentuře hospodaření s nemovitým majetkem Ministerstva obrany ČR. - V roce 2007 byl na Dalejské skále vztyčen pamětní kříž, který ale stojí na přístupném místě cca 160 m od místa, kde stával kostel (místo kostela je stále v oploceném vojenském prostoru).</p>
+  
+  <p>Zdroj: Martin Čechura: Zaniklé kostely Čech; Ladislav Šingovský</p>
+    <div id="map-browser" class="object"></div>
+      <p>WGS84 souřadnice objektu: 50.042461°N, 14.375072°E</p>
+  
+
+  <div class="clear"></div>
+
+  <div class="comments">
+    <h3>Komentáře</h3>
+        <p class="text">Žádné komentáře</p>
+        <ul id="comments">
+                </ul>
+
+    <iframe name="comment_target" style="display: none"></iframe>
+    <iframe name="comment_delete_target" style="display: none"></iframe>
+  </div>
+
+
+  <script>
+kostely.removeComment = function (self) {
+  if (!confirm('Chcete opravdu daný komentář smazat?')) {
+    return false;
+  }
+  setTimeout(function () {
+    self.parentNode.parentNode.parentNode.removeChild(self.parentNode.parentNode);
+  }, 1000);
+};
+
+kostely.pushComment = function (comment) {
+  var comments = document.getElementById('comments');
+  var form_child = comments.lastChild;
+  if (form_child.tagName !== 'LI') {
+    form_child = form_child.previousSibling;
+  }
+
+  var li = document.createElement('LI');
+  var span = document.createElement('SPAN');
+  span.innerHTML = '<strong>' + comment['user_name'] + '</strong> napsal ' + comment['date'];
+  li.appendChild(span);
+  li.id = 'comment' + comment['id'];
+  li.innerHTML += comment['text'];
+  comments.insertBefore(li, form_child);
+
+  window.location.hash = '#comment' + comment['id'];
+
+  var form = document.getElementById('comment-form');
+  if (form) {
+    form.onsubmit = function () {
+      if (form['text'].value === '') {
+        alert('Nelze přidat prázdný komentář.');
+        return false;
+      }
+    };
+    setTimeout(function () {
+      form['text'].value = '';
+    }, 0);
+  }
+};
+  </script>
+
+</div>
+
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCAnm22bYkysXT9gS2dd7qp6Jv1rp2BtHE&amp;sensor=false"></script>
+<script src="./js/jtsk2wgs84.js"></script>
+
+<script src="./js/mappy/map.js"></script>
+<script src="./js/mappy/map-marker.js"></script>
+<script src="./js/mappy/map-marker-operation.js"></script>
+<script src="./js/mappy/map-marker-selection.js"></script>
+<script src="./js/mappy/map-marker-storage.js"></script>
+<script src="./js/mappy/map-state.js"></script>
+<script src="./js/kostely/map-markers.js"></script>
+<script src="./js/kostely/main-search.js"></script>
+<script>
+var original_onload = window.onload;
+window.onload = function () {
+    var wgs84 = [ 50.042461, 14.375072 ];
+  
+  original_onload();
+  kostely.map.setZoom(16);
+  kostely.map.setCenter(new google.maps.LatLng(wgs84[0], wgs84[1]));
+};
+</script>
+
+
+<div class="null"></div>
+</div>
+
+<script>
+ui.ImageBrowser.findSetsOnPage();
+</script>
+
+<div id="footer">
+	<p>&copy; 2008&ndash;2024 Michal Valenčík</p>
+	<p>Místopisné údaje a lokalizace podle <a href="http://sovamm.wz.cz/o_kodech.htm">CZ_RETRO</a>, lokalizace staveb: Václav Blahout</p>
+	<p>Verze dat CZ_RETRO: 04.&thinsp;11.&thinsp;2017</p>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-1181969-5");
+pageTracker._trackPageview();
+</script>
+</body>
+</html>

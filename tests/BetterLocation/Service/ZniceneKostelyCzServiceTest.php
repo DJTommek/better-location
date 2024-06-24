@@ -3,9 +3,19 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\ZniceneKostelyCzService;
+use Tests\HttpTestClients;
 
 final class ZniceneKostelyCzServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return ZniceneKostelyCzService::class;
@@ -72,7 +82,7 @@ final class ZniceneKostelyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new ZniceneKostelyCzService();
+		$service = new ZniceneKostelyCzService($this->httpTestClients->mockedRequestor);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -80,9 +90,18 @@ final class ZniceneKostelyCzServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processProvider
 	 */
-	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
+	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new ZniceneKostelyCzService();
+		$service = new ZniceneKostelyCzService($this->httpTestClients->realRequestor);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+	}
+
+	/**
+	 * @dataProvider processProvider
+	 */
+	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
+	{
+		$service = new ZniceneKostelyCzService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -90,9 +109,18 @@ final class ZniceneKostelyCzServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processNoLocationProvider
 	 */
-	public function testProcessNoLocation(string $input): void
+	public function testProcessNoLocationReal(string $input): void
 	{
-		$service = new ZniceneKostelyCzService();
+		$service = new ZniceneKostelyCzService($this->httpTestClients->realRequestor);
+		$this->assertServiceNoLocation($service, $input);
+	}
+
+	/**
+	 * @dataProvider processNoLocationProvider
+	 */
+	public function testProcessNoLocationOffline(string $input): void
+	{
+		$service = new ZniceneKostelyCzService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceNoLocation($service, $input);
 	}
 }
