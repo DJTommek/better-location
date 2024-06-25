@@ -62,7 +62,7 @@ final class EStudankyEuServiceTest extends TestCase
 	{
 		$this->expectException(InvalidResponseException::class);
 		$this->expectExceptionCode(404);
-		$this->expectExceptionMessage('Invalid response code "404" but required "200" for URL "https://estudanky.eu/999999999"');
+		$this->expectExceptionMessage('Invalid response code "404" but required "200" for URL "estudanky.eu"');
 		EStudankyEuService::processStatic('https://estudanky.eu/999999999');
 	}
 }
