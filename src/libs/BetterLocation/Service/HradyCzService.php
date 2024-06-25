@@ -6,6 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\Config;
 use App\Utils\Requestor;
 use App\Utils\Utils;
+use DJTommek\Coordinates\Coordinates;
 
 final class HradyCzService extends AbstractService
 {
@@ -34,29 +35,29 @@ final class HradyCzService extends AbstractService
 		$paths = explode('/', $this->url->getPath());
 		$this->url->setPath($paths[1]);
 		$response = $this->requestor->get($this->url, Config::CACHE_TTL_HRADY_CZ);
-		if ($coords = Utils::findMapyCzApiCoords($response)) {
-			$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class);
-			$this->updatePrefixMessage($location, $response);
-			$this->collection->add($location);
+
+		$dom = Utils::domFromUTF8($response);
+		$ldJson = Utils::parseLdJson($dom);
+		if ($ldJson === null) {
+			return;
 		}
+
+		assert($ldJson->geo->{'@type'} === 'GeoCoordinates');
+		// Coordinates are provided as string, so convert and validate them before providing them into BetterLocation
+		$coords = new Coordinates($ldJson->geo->latitude, $ldJson->geo->longitude);
+
+		$location = new BetterLocation($this->inputUrl, $coords->lat, $coords->lon, self::class);
+		$this->updatePrefixMessage($location, $ldJson->name);
+		$this->collection->add($location);
 	}
 
-	private function updatePrefixMessage(BetterLocation $location, string $response): void
+	private function updatePrefixMessage(BetterLocation $location, string $place): void
 	{
-		$place = self::getPlaceName($response);
 		if ($this->inputUrl->isEqual($this->url)) {
 			$prefix = sprintf('<a href="%s">%s %s</a>', $this->inputUrl, self::NAME, $place);
 		} else {
 			$prefix = sprintf('<a href="%s">%s</a> <a href="%s">%s</a>', $this->inputUrl, self::NAME, $this->url, $place);
 		}
 		$location->setPrefixMessage($prefix);
-	}
-
-	private static function getPlaceName(string $response): string
-	{
-		$dom = new \DOMDocument();
-		@$dom->loadHTML($response);
-		$finder = new \DOMXPath($dom);
-		return trim($finder->query('//h1/a/text()')->item(1)->textContent); // first item is <span> with icon
 	}
 }
