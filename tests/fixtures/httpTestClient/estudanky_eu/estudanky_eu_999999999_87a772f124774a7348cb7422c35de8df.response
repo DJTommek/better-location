@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<head>
+<meta charset='utf-8'>
+<meta name='Author' content='(c) 2008-2024 - Mladí ochránci přírody - Honza Koukl' />
+<meta name='viewport' content='width=device-width, minimum-scale=1, initial-scale=1, viewport-fit=cover'>
+<meta name='description' content='Chyba 404 - neexistující záznam | Národní registr pramenů a studánek | Mladí ochránci přírody' />
+<meta name='robots' content='index,follow' />
+<meta name="wedos-online" content="EmnA9i8REOHZ1dk6GEU8">
+<title>Chyba 404 - neexistující záznam | Národní registr pramenů a studánek</title>
+<link rel='shortcut icon' href='favicon.ico' />
+<!-- style -->
+    <link href='style/bootstrap.css' rel='stylesheet'>
+	<link href='style/facebox.css' rel='stylesheet'>
+	<link href='style/ekko-lightbox.css' rel='stylesheet'>
+    <link href='style/rome.css' rel='stylesheet'>
+<!-- fonty -->
+	<link href='https://fonts.googleapis.com/css?family=Noto+Sans|Noto+Serif|Suez+One' rel='stylesheet'>
+    <link href='style/awesome/css/all.css' rel='stylesheet'> 
+<!-- script -->
+	<script src='script/check.js'></script>
+	<script src='script/clip.js'></script>
+	<script src='script/sorttable.js'></script>
+	<script src='script/jquery.min.js'></script>
+	<script src='script/bootstrap.bundle.min.js'></script>
+	<script src='script/facebox.js'></script>
+	<script src='script/ekko-lightbox.js'></script>
+    <script src='script/rome.js'></script>
+<!-- lightbox -->
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+    event.preventDefault();
+    $(this).ekkoLightbox({
+		alwaysShowClose: true,
+		});
+});
+</script>
+<!-- facebox -->
+<script>
+jQuery(document).ready(function($) {
+  $('a[rel*=facebox]').facebox()
+})
+</script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class='navbar navbar-expand-lg navbar-dark bg-secondary'>
+  <div class='container'>
+    <a class='navbar-brand' href='/'><img class='img-fluid rounded' src='im/logo-est.png' title='Úvodní stránka' alt='Úvodní stránka' /></a>
+    <button class='navbar-toggler navbar-toggler-right' type='button' data-toggle='collapse' data-target='#navbarResponsive' aria-controls='navbarResponsive' aria-expanded='false' aria-label='Toggle navigation'>
+    <span class='navbar-toggler-icon'></span>
+    </button>
+    <div class='collapse navbar-collapse' id='navbarResponsive'>
+      <ul class='navbar-nav mr-auto'>
+        <li class='nav-item dropdown'>
+          <a class='nav-link dropdown-toggle' href='#' id='navbarDropdownPortfolio' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>O nás</a>
+			<div class='dropdown-menu dropdown-menu-right' aria-labelledby='navbarDropdownPortfolio'>
+                <a class='dropdown-item' href='novinky-strana-1' title='Seznam klíčových okamžiků projektu eStudánky'>Jak šel čas</a>
+                <a class='dropdown-item' href='mobilni-aplikace' title='Mobilní aplikace'>Mobilní aplikace</a>
+                <a class='dropdown-item' href='prameny-studanky-proc-pecovat' title='Zamyšlení nad smyslem péče o prameny a studánky'>Smysl projektu</a>
+                <a class='dropdown-item' href='souteze' title='Zasoutěžte si o dobrý pocit a případně malou odměnu'>Soutěže</a>
+                <a class='dropdown-item' href='caste-dotazy' title='Zde najdete odpovědi na nejčastější dotazy'>Časté dotazy</a>
+                <a class='dropdown-item' href='pitna-voda' title='Problematika pitnosti přírodních zdrojů'>Je ta voda pitná?</a>
+                <a class='dropdown-item' href='podporovatele' title='Seznam těch, kteří se zasloužili o podporu a rozvoj národního registru'>Podporovatelé</a>
+                <a class='dropdown-item' href='pravni-upozorneni' title='Trocha úředních slov, aby bylo jasno'>Právní upozornění</a>
+				<a class='dropdown-item' href='kontakt' title='Kontaktní informace'>Kontaktní formulář</a>
+				<a class='dropdown-item' href='kniha-strana-1' title='Zde je prostor pro Vaše názory, připomínky a hodnocení'>Vaše názory</a>
+				<a class='dropdown-item' href='aktualizace-webu' title='Informace o změnách na webu'>Aktualizace webu</a>
+           </div>
+            </li>
+            <li class='nav-item dropdown'>
+              <a class='nav-link dropdown-toggle' href='#' id='navbarDropdownPortfolio' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Zdroje</a>
+			<div class='dropdown-menu dropdown-menu-right' aria-labelledby='navbarDropdownPortfolio'>
+                <a class='dropdown-item' href='typy-zdroju' title='Typy zdrojů, které evidujeme v registru'>Co evidujeme</a>
+				<a class='dropdown-item' href='pridat' title='Přidání vodního zdroje do registru'>Přidat zdroj</a>
+				<a class='dropdown-item' href='vypis-cislo-zpet-strana-1' title='Seznam evidovaných zdrojů'>Výpis zdrojů</a>
+				<a class='dropdown-item' href='vyber' title='Výběr mezi evidovanými zdroji'>Vyhledat zdroj</a>
+				<a class='dropdown-item' href='mapa' title='Interaktivní studánková mapa'>Studánková mapa</a>
+				<a class='dropdown-item' href='nepristupne-cislo-zpet-strana-1' title='Seznam nepřístupných zdrojů'>Nepřístupné zdroje</a>
+				<a class='dropdown-item' href='zanikle-cislo-zpet-strana-1' title='Zaniklé, vyschlé a zničené zdroje'>Zaniklé zdroje</a>
+				<a class='dropdown-item' href='neprirodni-cislo-zpet-strana-1' title='Nepřírodní zdroje napojedné na vodovody'>Nepřírodní zdroje</a>
+				<a class='dropdown-item' href='prameny-rek' title='Podrobné údaje u některých pramenech českých řek'>Prameny řek</a>
+				<a class='dropdown-item' href='opravit' title='Záznamy čekající na opravu údajů'>Chybné záznamy</a>
+				<a class='dropdown-item' href='rozbory-kvality-vody' title='Seznam zdrojů ke kterým je k dispozici rozbor vody'>Zdroje s rozborem</a>
+				<a class='dropdown-item' href='galerie-strana-1' title='Studánková galerie'>Studánková galerie</a>
+				<a class='dropdown-item' href='pruzkum' title='Zdroje k průzkumu, nalezení, pátrání, ...'>Zdroje k průzkumu</a>
+           </div>
+            </li>
+            <li class='nav-item dropdown'>
+              <a class='nav-link dropdown-toggle' href='#' id='navbarDropdownPortfolio' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Péče</a>
+			<div class='dropdown-menu dropdown-menu-right' aria-labelledby='navbarDropdownPortfolio'>
+				<a class='dropdown-item' href='zachranme-studanky' title='Pomozte studánkám převzetím dloudobého patronátu nad jednou z nich'>Zachraňme studánky</a>
+				<a class='dropdown-item' href='poradna' title='Studánková poradna'>Studánková poradna</a>				
+				<a class='dropdown-item' href='pece-o-studanky' title='Stručný postup na co pamatovat při péči o zdroj'>Jak pečovat</a>
+				<a class='dropdown-item' href='uprava-udrzba-studanek' title='Návod na údržbu a úpravu studánek publikovaný Eduardem Urešem'>Údržba studánek</a>
+				<a class='dropdown-item' href='studankova-pece-v-praxi' title='Zprávičky o studánkové péči'>Vaše zprávičky</a>
+           </div>
+            </li>
+            <li class='nav-item dropdown'>
+              <a class='nav-link dropdown-toggle' href='#' id='navbarDropdownPortfolio' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Propagace</a>
+			<div class='dropdown-menu dropdown-menu-right' aria-labelledby='navbarDropdownPortfolio'>
+				<a class='dropdown-item' href='propagace' title='Dejte o nás vědět světu'>Propagace</a>
+				<a class='dropdown-item' href='vydane-materialy' title='Co děláme pro to abychom byli vidět'>Vydané materiály</a>
+				<a class='dropdown-item' href='press' title='Co a kde se píše a odkazuje na eStudanky'>Články, odkazy</a>
+				<a class='dropdown-item' href='akce' title='Kalendář akcí se studánkovou tématikou'>Studánkové akce</a>
+				<a class='dropdown-item' href='akce-zpravy' title='Zprávičky z proběhlých akcích'>Zprávy z akcí</a>
+           </div>
+            </li>
+            <li class='nav-item dropdown'>
+              <a class='nav-link dropdown-toggle' href='#' id='navbarDropdownPortfolio' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Speciality</a>
+			<div class='dropdown-menu dropdown-menu-right' aria-labelledby='navbarDropdownPortfolio'>
+				<a class='dropdown-item' href='nastaveni' title='Stručné nastavení webu'>Nastavení</a>
+				<a class='dropdown-item' href='schranka' title='Schránka pro oblíbené záznamy'>Schránka</a>
+				<a class='dropdown-item' href='moje-zaznamy' title='Vámi vložené záznamy do národního registru'>Moje záznamy</a>
+                <a class='dropdown-item' href='moje-mereni' title='Vámi vložená měření do národního registru'>Moje měření</a>
+				<a class='dropdown-item' href='mereni-datum-zpet-strana-1' title='Měření hodnot vodních zdrojů'>Měření hodnot</a>
+				<a class='dropdown-item' href='statistika' title='Hromady čísel s počty záznamů z různých hledisek'>Statistika</a>
+				<a class='dropdown-item' href='navstevnost' title='Data o návštěvnosti stránek'>Návštěvnost</a>
+				<a class='dropdown-item' href='maly-vodni-slovnicek' title='Slovníček pojmů z oblasti kontroly kvality vod'>Malý slovníček</a>
+                <a class='dropdown-item' href='prevody-souradnic' title='Převody souřadnic mezi jednotlivými systémy'>Převody souřadnic</a>
+           </div>
+		   </li>
+ 	</ul>
+	<ul class='navbar-nav ml-lg-auto'>
+		<!-- search form -->
+		<li class='nav-item'>
+			<form action='/hledat' method='post'><input type='hidden' name='search_send' value='post' />
+				<i class='fas fa-search text-white pr-2' title='Vyhledávání'></i>
+  		  		<input class='form-control-sm' size='8' name='search' type='search' required='required' placeholder='najdi ...' title='Prohledá všechny zdroje v oblastech názvu, poznámky, katastrálního území a vkladatele + veškeré články na webu'>
+			</form>
+		</li>
+		<!-- user -->
+		<li class='nav-item'>
+			<i class='fas fa-user text-white pl-lg-4 pr-2' title='Uživatel'></i><a class='text-white' href='/prihlaseni' title='Přihlásit se do registru'>přihlásit</a>
+		</li>
+	</ul>
+   </div>
+ </div>
+</nav>
+
+	<div class='container mb-4'>
+	<h1 class='mt-5 mb-3 alert alert-danger'>Neexistující záznam</h1>
+	<img class='img-fluid float-right' src='im/k_err.png' alt='Neexistující záznam' />
+	<div class='ml-sm-4 mr-sm-4'><p>Ať děláme co děláme, záznam s tímto číslem v evidenci není. Jak je to možné?</p>
+	<ul>
+	<li>záznam ještě nebyl schválen, to se stává zejména v letních měsících, kdy nám schvalování trvá trochu déle</li>
+    <li>v adresovém řádku prohlížeče jste zkusili napsat nějaké číslo záznamu, ale nevyšlo to</li>
+	<li>trpaslíček který provádí zobrazování záznamů je příliš unaven a musí si chviličku odpočinout</li>
+	<li>záznam v registru je, ale nelíbí se mu jak se k němu lidé venku chovají, tak se na nějakou dobu schoval</li>
+	</ul>
+	<p>Ať je důvod jakýkoli, nenechte se odradit a zkuste přejít např. na <a href='vypis-cislo-zpet-strana-1'> výpis všech studánek</a>.</p>
+	</div></div>
+
+<!-- Footer -->
+<footer class='py-1 bg-body'>
+	<div class='container mb-4 bg-body'>
+	<small>
+         <div class='row mt-4'>
+			<div class='col-lg-4 text-center'>
+			<p>Projekt <a href='podporovatele'>podporují</a><br />
+            <a href='https://www.mzp.cz/' title='Ministerstvo životního prostředí' target='_blank'><img class='img-fluid rounded' src='im/loga/mzp.png' width='250' alt='Ministerstvo životního prostředí' /></a><br />
+            <a href='https://www.praha.eu/' title='Hlavní město Praha' target='_blank'><img class='img-fluid rounded' src='im/loga/praha.png' width='70' alt='Hlavní město Praha' /></a>
+            <a href='https://www.mapy.cz/' title='Mapy.CZ' target='_blank'><img class='img-fluid rounded' src='im/loga/mapy.png' width='150' alt='Mapy.cz, s.r.o.' /></a></p>
+			</div>
+			<div class='col-lg-4 text-center'>
+            <p>Provozují Mladí ochránci přírody, z.s.<br /><a href='https://www.emop.cz/' title='Mladí ochránci přírody, z.s.' target='_blank'><img class='img-fluid pt-2 pb-2 rounded' src='im/loga/mop.png' width='150' alt='Mladí ochránci přírody, z.s.' /></a><br /><a href='https://sk.estudanky.eu/' target='_blank' title='Slovenský registr pramenů a studánek'><strong>Slovensko</strong></a> | <a href='statistika' title='Počty záznamů v registru'>Statistika</a> | <a href='kontakt' title='Napiště nám'>Kontakt</a><span>
+<a href="https://www.toplist.cz"><script language="JavaScript" type="text/javascript" charset="utf-8">
+<!--
+document.write('<img src="https://toplist.cz/dot.asp?id=688517&http='+
+encodeURIComponent(document.referrer)+'&t='+encodeURIComponent(document.title)+'&l='+encodeURIComponent(document.URL)+
+'&wi='+encodeURIComponent(window.screen.width)+'&he='+encodeURIComponent(window.screen.height)+'&cd='+
+encodeURIComponent(window.screen.colorDepth)+'" width="1" height="1" border=0 alt="TOPlist" />');
+//--></script><noscript><img src="https://toplist.cz/dot.asp?id=688517&njs=1" border="0"
+alt="TOPlist" width="1" height="1" /></noscript></a></span></p>
+			</div>
+			<div class='col-lg-4 text-center'>
+            <p>Licencováno v rámci <a rel='license' href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs'><img alt='Licence Creative Commons' class='img-fluid pb-2 rounded' src='https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png' /></a><br />Archivováno v rámci <a href='https://www.webarchiv.cz' title='WebArchiv - archiv českého webu' target='_blank'><img class='img-fluid pb-2 rounded' src='im/loga/webarchiv.jpg' alt='WebArchiv - archiv českého webu' /></a><br />Stránka generována 10.7 msec.</p>
+			</div>
+		</div>
+	</small>
+	</div>
+</footer>
+<!-- datumovnik -->    
+<script>
+    rome(datnab, { weekStart: 1, time: false, "inputFormat": "D.M.YYYY", });
+</script>
+</body>
+</html>

@@ -4,7 +4,8 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\Config;
-use App\MiniCurl\MiniCurl;
+use App\Utils\Requestor;
+use App\Utils\Utils;
 
 final class EStudankyEuService extends AbstractService
 {
@@ -12,6 +13,12 @@ final class EStudankyEuService extends AbstractService
 	const NAME = 'estudanky.eu';
 
 	const LINK = 'https://estudanky.eu';
+
+	public function __construct(
+		private readonly Requestor $requestor,
+		private readonly MapyCzService $mapyCzService,
+	) {
+	}
 
 	public function validate(): bool
 	{
@@ -24,13 +31,18 @@ final class EStudankyEuService extends AbstractService
 
 	public function process(): void
 	{
-		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_ESTUDANKY_EU)->run()->getBody();
-		$dom = new \DOMDocument();
-		@$dom->loadHTML($response);
+		$response = $this->requestor->get($this->url, Config::CACHE_TTL_ESTUDANKY_EU);
+		$dom = Utils::domFromUTF8($response);
 		$finder = new \DOMXPath($dom);
 		$mapyczLink = $finder->query('//div/div/ul/li/a[contains(text(),"Mapy.CZ")]/@href')->item(0)->textContent;
-		$location = MapyCzService::processStatic($mapyczLink)->getFirst();
-		$location = new BetterLocation($this->inputUrl, $location->getLat(), $location->getLon(), self::class);
+		if ($mapyczLink === null) {
+			return;
+		}
+		$this->mapyCzService->setInput($mapyczLink);
+		$this->mapyCzService->validate();
+		$this->mapyCzService->process();
+		$mapyCzLocation = $this->mapyCzService->getCollection()->getFirst();
+		$location = new BetterLocation($this->inputUrl, $mapyCzLocation->getLat(), $mapyCzLocation->getLon(), self::class);
 		if ($placeName = self::getPlaceName($finder)) {
 			$location->setPrefixMessage(sprintf('<a href="%s">%s - %s</a>', $this->inputUrl, self::NAME, $placeName));
 		}

@@ -3,10 +3,20 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\EStudankyEuService;
-use App\MiniCurl\Exceptions\InvalidResponseException;
+use App\BetterLocation\Service\MapyCzService;
+use Tests\HttpTestClients;
 
 final class EStudankyEuServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return EStudankyEuService::class;
@@ -60,7 +70,7 @@ final class EStudankyEuServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new EStudankyEuService();
+		$service = new EStudankyEuService($this->httpTestClients->mockedRequestor, new MapyCzService());
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -68,9 +78,18 @@ final class EStudankyEuServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processProvider
 	 */
-	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
+	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new EStudankyEuService();
+		$service = new EStudankyEuService($this->httpTestClients->realRequestor, new MapyCzService());
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+	}
+
+	/**
+	 * @dataProvider processProvider
+	 */
+	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
+	{
+		$service = new EStudankyEuService($this->httpTestClients->offlineRequestor, new MapyCzService());
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -78,14 +97,18 @@ final class EStudankyEuServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processInvalidIdProvider
 	 */
-	public function testInvalidId(string $input): void
+	public function testInvalidIdReal(string $input): void
 	{
-		$service = new EStudankyEuService();
+		$service = new EStudankyEuService($this->httpTestClients->realRequestor, new MapyCzService());
+		$this->assertServiceNoLocation($service, $input);
+	}
 
-		$this->expectException(InvalidResponseException::class);
-		$this->expectExceptionCode(404);
-		$this->expectExceptionMessage('Invalid response code "404" but required "200" for URL "estudanky.eu"');
-
+	/**
+	 * @dataProvider processInvalidIdProvider
+	 */
+	public function testInvalidIdOffline(string $input): void
+	{
+		$service = new EStudankyEuService($this->httpTestClients->offlineRequestor, new MapyCzService());
 		$this->assertServiceNoLocation($service, $input);
 	}
 }
