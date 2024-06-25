@@ -64,7 +64,7 @@ final class HradyCzServiceTest extends TestCase
 	{
 		$this->expectException(InvalidResponseException::class);
 		$this->expectExceptionCode(404);
-		$this->expectExceptionMessage('Invalid response code "404" but required "200" for URL "https://www.hrady.cz/aaa-bbb-ccc"');
+		$this->expectExceptionMessage('Invalid response code "404" but required "200" for URL "www.hrady.cz".');
 		HradyCzService::processStatic('https://www.hrady.cz/aaa-bbb-ccc');
 	}
 }
