@@ -304,9 +304,24 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 			return null;
 		}
 
-		$countryIsoCode = $place->extend?->address?->country_iso ?? null;
-		$country = $countryIsoCode === null ? null : Country::fromNumericCode($countryIsoCode);
-
+		$country = $this->countryFromMapyCzPlace($place);
 		return new Address($addressText, $country);
+	}
+
+	public function countryFromMapyCzPlace(PlaceType $place): ?Country
+	{
+		$countryIsoCode = $place->extend?->address?->country_iso ?? null;
+		if ($countryIsoCode === null) {
+			return null;
+		}
+
+		try {
+			return Country::fromNumericCode($countryIsoCode);
+		} catch (\Throwable) {
+			// Example
+			// https://en.mapy.cz/zakladni?x=-67.5159386&y=-45.8711989&z=15&source=osm&id=17164289
+			// throws 'League\ISO3166\Exception\DomainException : Not a valid numeric key: 32'
+			return null;
+		}
 	}
 }
