@@ -3,10 +3,19 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\PrazdneDomyCzService;
-use App\MiniCurl\Exceptions\InvalidResponseException;
+use Tests\HttpTestClients;
 
 final class PrazdneDomyCzServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return PrazdneDomyCzService::class;
@@ -58,7 +67,7 @@ final class PrazdneDomyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new PrazdneDomyCzService();
+		$service = new PrazdneDomyCzService($this->httpTestClients->mockedRequestor);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -66,9 +75,18 @@ final class PrazdneDomyCzServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processProvider
 	 */
-	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
+	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new PrazdneDomyCzService();
+		$service = new PrazdneDomyCzService($this->httpTestClients->realRequestor);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+	}
+
+	/**
+	 * @dataProvider processProvider
+	 */
+	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
+	{
+		$service = new PrazdneDomyCzService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -76,14 +94,18 @@ final class PrazdneDomyCzServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processInvalidIdProvider
 	 */
-	public function testInvalidId(string $input): void
+	public function testInvalidIdReal(string $input): void
 	{
-		$service = new PrazdneDomyCzService();
+		$service = new PrazdneDomyCzService($this->httpTestClients->realRequestor);
+		$this->assertServiceNoLocation($service, $input);
+	}
 
-		$this->expectException(InvalidResponseException::class);
-		$this->expectExceptionCode(500);
-		$this->expectExceptionMessage('Invalid response code "500" but required "200" for URL "prazdnedomy.cz"');
-
+	/**
+	 * @dataProvider processInvalidIdProvider
+	 */
+	public function testInvalidIdOffline(string $input): void
+	{
+		$service = new PrazdneDomyCzService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceNoLocation($service, $input);
 	}
 }

@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="cs" class="ie6 no-js"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="cs" class="ie7 no-js"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="cs" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="cs" class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> 
+<html lang="cs" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+        <meta name="description" content="Databáze domů s historií">
+        <meta name="keywords" content="prázdné domy neobývané nevyužívané k rekonstrukci ruiny rozpadlé domy používané zachráněné">
+        <meta name="robots" content="index,follow">
+        <meta name="author" content="impire.cz">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <title>Dům U Tří bílých lilií | Databáze domů s historií</title>
+
+    <link rel="stylesheet" href="/plugins/bower_components/fancybox/source/jquery.fancybox.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/plugins/jquery.fancybox-thumbs/jquery.fancybox-thumbs.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/plugins/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/index.css?v=1706737033" type="text/css" media="screen">
+    <link rel="stylesheet" href="/css/print.css?v=1706737033" type="text/css" media="print">
+
+    <!--[if lt IE 9]>
+      <script src="/plugins/ie/html5.js"></script>
+      <script src="/plugins/ie/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <script type="text/javascript">BASE_PATH ="";</script>
+    <script type="text/javascript" src="/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <script src="/adminzone/ui/metronic_4.5.3/global/plugins/bootstrap-toastr/toastr.js" type="text/javascript"></script>
+    <link href="/adminzone/ui/metronic_4.5.3/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css">
+    <link href="/plugins/fontawesome-free-5.10.1-web/css/all.css" rel="stylesheet" type="text/css">
+    <!--<link href="/plugins/fontawesome-free-5.10.1-web/css/fontawesome.min.css" rel="stylesheet" type="text/css" />-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&amp;subset=latin-ext" rel="stylesheet">
+
+        <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+            var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'UA-105665073-1');</script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body class="not-home not-asside module-estates presenter-estates action-detail">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=UA-105665073-1"
+                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="mycontainer">
+        <header>
+            <div class="myinnercontainer">
+                <a href="/" class="logo"><img src="/images/layout/logo.png" alt="" class="large"><img src="/images/layout/logo-smaller2.png" class="small" alt=""></a>
+
+                <a href="/domy/objekty/add/" class="add-estate-header-button" title="Přidat dům"><i class="fa fa-plus"></i><span>Přidat dům</span></a>
+
+                <div class="user-area-wrapper">
+<div class="user-area">
+	<a class="login-link" href="/user/sign-in/?redirect=https%3A%2F%2Fprazdnedomy.cz%2Fdomy%2Fobjekty%2Fdetail%2F96-dum-u-tri-bilych-lilii"><i class="fa fa-sign-in"></i> Přihlásit se</a> | 
+	<a class="register-link" href="/user/register/"><i class="fa fa-user-plus"></i> Zaregistrovat se</a>
+</div>                </div>
+                <div class="menu-socials main">
+                    <a href="https://www.facebook.com/prazdnedomy/" target="_blank"><i class="fa fa-facebook"></i></a>
+                    <a href="" target="_blank"><i class="fa fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/prazdne.domy/" target="_blank"><i class="fa fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="nav-area">
+                <div class="mobile-switcher menu-switcher hide-siblings first" data-toggle=".main-menu.mobile"><i class="fa fa-bars"></i> <span>Menu</span></div>
+                <div class="mobile-switcher user-switcher hide-siblings" data-toggle=".nav-area .user-area"><i class="fa fa-user"></i> <span>Uživatel</span></div>
+                <div class="mobile-switcher search-switcher hide-siblings last" data-toggle=".quick-search-wrapper.mobile"><i class="fa fa-search"></i> <span>Hledat</span></div>
+                <div class="clear"></div>
+
+<div class="user-area">
+	<a class="login-link" href="/user/sign-in/?redirect=https%3A%2F%2Fprazdnedomy.cz%2Fdomy%2Fobjekty%2Fdetail%2F96-dum-u-tri-bilych-lilii"><i class="fa fa-sign-in"></i> Přihlásit se</a> | 
+	<a class="register-link" href="/user/register/"><i class="fa fa-user-plus"></i> Zaregistrovat se</a>
+</div>
+                <nav class="main-menu mobile">
+                    
+<ul class="menu">
+		<li class="item-0 first  odd  not-in-path ">
+			<a href="/"><span>Mapa</span></a>
+		</li>
+		<li class="item-1    active in-path ">
+			<a href="/domy/objekty/"><span>Databáze <i class="fa fa-caret-down"></i></span></a>
+
+<div class="submenu-wrapper depth-2">
+<ul class="submenu">
+		<li class="item-0 first  odd active in-path ">
+			<a href="/domy/objekty/"><span>Objekty</span></a>
+		</li>
+		<li class="item-1     not-in-path ">
+			<a href="/domy/objekty/kladne/"><span>Kladné příklady</span></a>
+		</li>
+		<li class="item-2   odd  not-in-path ">
+			<a href="/domy/objekty/prodej/"><span>K záchraně</span></a>
+		</li>
+		<li class="item-3     not-in-path ">
+			<a href="/domy/architekti/"><span>Katalog architektů</span></a>
+		</li>
+		<li class="item-4   odd  not-in-path ">
+			<a href="/domy/majitele/"><span>Významní majitelé</span></a>
+		</li>
+		<li class="item-5     not-in-path ">
+			<a href="/domy/spolecnosti/"><span>Katalog společností</span></a>
+		</li>
+		<li class="item-6   odd  not-in-path ">
+			<a href="/uzitecne-odkazy/"><span>Užitečné odkazy</span></a>
+		</li>
+		<li class="item-7     not-in-path ">
+			<a href="/autori-databaze/"><span>Autoři databáze</span></a>
+		</li>
+		<li class="item-8  last odd  not-in-path ">
+			<a href="/jak-pridat-dum-do-databaze/"><span>Návody <i class="fa fa-caret-down"></i></span></a>
+
+<div class="submenu-wrapper depth-3">
+<ul class="submenu">
+		<li class="item-0 first  odd  not-in-path ">
+			<a href="/jak-pridat-dum-do-databaze/"><span>Jak přidat / upravit dům</span></a>
+		</li>
+		<li class="item-1  last   not-in-path ">
+			<a href="/kde-hledat-info-foto/"><span>Kde hledat informace</span></a>
+		</li>
+</ul>
+</div>		</li>
+</ul>
+</div>		</li>
+		<li class="item-2   odd  not-in-path ">
+			<a href="/nase-aktivita/"><span>O nás <i class="fa fa-caret-down"></i></span></a>
+
+<div class="submenu-wrapper depth-2">
+<ul class="submenu">
+		<li class="item-0 first  odd  not-in-path ">
+			<a href="/nase-aktivita/"><span>Naše aktivita</span></a>
+		</li>
+		<li class="item-1     not-in-path ">
+			<a href="/nas-tym/"><span>Náš tým</span></a>
+		</li>
+		<li class="item-2   odd  not-in-path ">
+			<a href="/casto-kladene-otazky-nazory/"><span>Často kladené otázky</span></a>
+		</li>
+		<li class="item-3     not-in-path ">
+			<a href="/napsali-o-nas/"><span>Média</span></a>
+		</li>
+		<li class="item-4   odd  not-in-path ">
+			<a href="/kalendarium/"><span>Kalendárium</span></a>
+		</li>
+		<li class="item-5  last   not-in-path ">
+			<a href="/zpracovani-osobnich-udaju/"><span>Zpracování osobních údajů</span></a>
+		</li>
+</ul>
+</div>		</li>
+		<li class="item-3     not-in-path ">
+			<a href="/akce/"><span>Přehled akcí</span></a>
+		</li>
+		<li class="item-4   odd  not-in-path ">
+			<a href="/podporte-nas/"><span>Podpořte nás</span></a>
+		</li>
+		<li class="item-5     not-in-path ">
+			<a href="/clanky/"><span>Články</span></a>
+		</li>
+		<li class="item-6  last odd  not-in-path ">
+			<a href="/kontakt/"><span>Kontakt</span></a>
+		</li>
+</ul>
+                    <div class="menu-socials in-menu">
+                        <a href="https://www.facebook.com/prazdnedomy/" target="_blank"><i class="fa fa-facebook"></i></a>
+                        <a href="" target="_blank"><i class="fa fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/prazdne.domy/" target="_blank"><i class="fa fa-instagram"></i></a>
+                    </div>
+                    <div class="clear"></div>
+
+                </nav>
+
+                <div class="quick-search-wrapper mobile">
+<form action="/domy/objekty/detail/96-dum-u-tri-bilych-lilii" method="post" id="frm-quickSearchMobile">
+
+
+
+	<label for="frm-quickSearchMobile-search" class="required">Hledat</label>
+
+	<input type="text" name="search" placeholder="Hledat" id="frm-quickSearchMobile-search" required data-nette-rules='[{"op":":filled","msg":"Hledat musí být vyplněno."}]' class="text">
+
+
+
+	
+
+	<button type="submit" name="send" value=""><i class="fa fa-search"></i></button>
+
+
+
+<input type="hidden" name="_do" value="quickSearchMobile-submit"><!--[if IE]><input type=IEbug disabled style="display:none"><![endif]-->
+</form>
+                </div>
+
+            </div>
+
+
+            <nav class="main-menu desktop">
+                <div class="myinnercontainer">
+                    
+<ul class="menu">
+		<li class="item-0 first  odd  not-in-path ">
+			<a href="/"><span>Mapa</span></a>
+		</li>
+		<li class="item-1    active in-path ">
+			<a href="/domy/objekty/"><span>Databáze <i class="fa fa-caret-down"></i></span></a>
+
+<div class="submenu-wrapper depth-2">
+<ul class="submenu">
+		<li class="item-0 first  odd active in-path ">
+			<a href="/domy/objekty/"><span>Objekty</span></a>
+		</li>
+		<li class="item-1     not-in-path ">
+			<a href="/domy/objekty/kladne/"><span>Kladné příklady</span></a>
+		</li>
+		<li class="item-2   odd  not-in-path ">
+			<a href="/domy/objekty/prodej/"><span>K záchraně</span></a>
+		</li>
+		<li class="item-3     not-in-path ">
+			<a href="/domy/architekti/"><span>Katalog architektů</span></a>
+		</li>
+		<li class="item-4   odd  not-in-path ">
+			<a href="/domy/majitele/"><span>Významní majitelé</span></a>
+		</li>
+		<li class="item-5     not-in-path ">
+			<a href="/domy/spolecnosti/"><span>Katalog společností</span></a>
+		</li>
+		<li class="item-6   odd  not-in-path ">
+			<a href="/uzitecne-odkazy/"><span>Užitečné odkazy</span></a>
+		</li>
+		<li class="item-7     not-in-path ">
+			<a href="/autori-databaze/"><span>Autoři databáze</span></a>
+		</li>
+		<li class="item-8  last odd  not-in-path ">
+			<a href="/jak-pridat-dum-do-databaze/"><span>Návody <i class="fa fa-caret-down"></i></span></a>
+
+<div class="submenu-wrapper depth-3">
+<ul class="submenu">
+		<li class="item-0 first  odd  not-in-path ">
+			<a href="/jak-pridat-dum-do-databaze/"><span>Jak přidat / upravit dům</span></a>
+		</li>
+		<li class="item-1  last   not-in-path ">
+			<a href="/kde-hledat-info-foto/"><span>Kde hledat informace</span></a>
+		</li>
+</ul>
+</div>		</li>
+</ul>
+</div>		</li>
+		<li class="item-2   odd  not-in-path ">
+			<a href="/nase-aktivita/"><span>O nás <i class="fa fa-caret-down"></i></span></a>
+
+<div class="submenu-wrapper depth-2">
+<ul class="submenu">
+		<li class="item-0 first  odd  not-in-path ">
+			<a href="/nase-aktivita/"><span>Naše aktivita</span></a>
+		</li>
+		<li class="item-1     not-in-path ">
+			<a href="/nas-tym/"><span>Náš tým</span></a>
+		</li>
+		<li class="item-2   odd  not-in-path ">
+			<a href="/casto-kladene-otazky-nazory/"><span>Často kladené otázky</span></a>
+		</li>
+		<li class="item-3     not-in-path ">
+			<a href="/napsali-o-nas/"><span>Média</span></a>
+		</li>
+		<li class="item-4   odd  not-in-path ">
+			<a href="/kalendarium/"><span>Kalendárium</span></a>
+		</li>
+		<li class="item-5  last   not-in-path ">
+			<a href="/zpracovani-osobnich-udaju/"><span>Zpracování osobních údajů</span></a>
+		</li>
+</ul>
+</div>		</li>
+		<li class="item-3     not-in-path ">
+			<a href="/akce/"><span>Přehled akcí</span></a>
+		</li>
+		<li class="item-4   odd  not-in-path ">
+			<a href="/podporte-nas/"><span>Podpořte nás</span></a>
+		</li>
+		<li class="item-5     not-in-path ">
+			<a href="/clanky/"><span>Články</span></a>
+		</li>
+		<li class="item-6  last odd  not-in-path ">
+			<a href="/kontakt/"><span>Kontakt</span></a>
+		</li>
+</ul>
+                    <div class="menu-socials in-menu">
+                        <a href="https://www.facebook.com/prazdnedomy/" target="_blank"><i class="fa fa-facebook"></i></a>
+                        <a href="" target="_blank"><i class="fa fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/prazdne.domy/" target="_blank"><i class="fa fa-instagram"></i></a>
+                    </div>
+                    <div class="clear"></div>
+
+                </div>
+            </nav>
+        </header>
+
+        <div class="content-columns">
+            <div class="myinnercontainer">
+                <div class="content-section">
+
+<h1 class="h1 estate-detail-title">Dům U Tří bílých lilií</h1>
+
+<div id="snippet--estateMenu"><div class="estate-header">
+    <a href="" class="button small" onclick="window.print();return false;">TISK</a>
+    <a href="" class="button small red" onclick="showChangeReportForm();return false;">DOPLNIT KARTU</a>
+
+
+<div class="popup-form-wrapper" style="display: none;"><div class="popup-form"  id="changeReportForm" style="padding: 20px;"><form action="/domy/objekty/detail/96-dum-u-tri-bilych-lilii" method="post" enctype="multipart/form-data" id="frm-changeReportForm">
+
+
+
+	<h5 class="h6"></h5>
+
+	<h3 class="h3">Požadavek na doplnění karty</h3>
+
+
+
+	<h5 class="h6"><label for="frm-changeReportForm-created_by_email" class="required">Váš e-mail</label></h5>
+
+	<input type="email" name="created_by_email" id="frm-changeReportForm-created_by_email" required data-nette-rules='[{"op":":filled","msg":"Váš e-mail musí být vyplněno."},{"op":":email","msg":"Váš e-mail musí obsahovat platnou e-mailovou adresu."}]' class="text">
+
+
+
+	<h5 class="h6"></h5>
+
+	<div class="help-block">Chcete-li se stát autorem, musíte se přihlásit</div>
+
+
+
+	<h5 class="h6"></h5>
+
+	<label for="frm-changeReportForm-want_be_author"><input type="checkbox" name="want_be_author" id="frm-changeReportForm-want_be_author" disabled>Chci se stát autorem / spoluautorem karty</label>
+
+
+
+	<h5 class="h6"><label for="frm-changeReportForm-subject" class="required">Předmět</label></h5>
+
+	<input type="text" name="subject" maxlength="40" id="frm-changeReportForm-subject" required data-nette-rules='[{"op":":filled","msg":"Předmět musí být vyplněno."},{"op":":maxLength","msg":"Předmět je moc dlouhý, maximální délka je 40 znaků","arg":40}]' class="text">
+
+
+
+	<h5 class="h6"></h5>
+
+	<p>Chcete-li připojit odkaz, využijte speciální pole a nevkládejte ho do popisu</p>
+
+
+
+	<h5 class="h6"><label for="frm-changeReportForm-link">Odkaz</label></h5>
+
+	<input type="text" name="link" maxlength="3000" id="frm-changeReportForm-link" data-nette-rules='[{"op":"optional"},{"op":":maxLength","msg":"Odkaz je moc dlouhý, maximální délka je 3000 znaků","arg":3000}]' class="text">
+
+
+
+	<h5 class="h6"><label for="frm-changeReportForm-description" class="required">Komentář</label></h5>
+
+	<textarea name="description" id="frm-changeReportForm-description" required data-nette-rules='[{"op":":filled","msg":"Komentář musí být vyplněno."}]'></textarea>
+
+
+
+	<h5 class="h6"><label for="frm-changeReportForm-image">Externí galerie (foto / video)</label></h5>
+
+	<input type="file" name="image" id="frm-changeReportForm-image" class="text">
+
+
+
+	<h5 class="h6"></h5>
+
+	<div class="text" style="max-width: 450px">Chcete nám poslat více fotografií? Nahrajte prosím fotografie na externí uložiště (Facebook, rajče, google...) a pošlete nám pouze odkaz. Tuto galerii přiřadíme do sekce “externí galerie” a do karty objektu případně vybereme pár nejlepších fotografií.</div>
+
+
+
+	<h5 class="h6"><label for="frm-changeReportForm-tmp_captcha" class="required">Jaký je aktuálně rok?</label></h5>
+
+	<input type="text" name="tmp_captcha" id="frm-changeReportForm-tmp_captcha" required data-nette-rules='[{"op":":filled","msg":"Jaký je aktuálně rok? musí být vyplněno."}]' class="text">
+
+
+
+	<h5 class="h6"></h5>
+
+	<input type="submit" name="send" value="Odeslat" class="button">
+
+
+
+<input type="hidden" name="_do" value="changeReportForm-submit">
+</form>
+</div></div>
+				<script type="text/javascript">
+				function showChangeReportForm() {
+					$.fancybox({
+						href: "#changeReportForm",
+						autoDimensions: false,
+						width: 500,
+						height: 300,
+						minWidth: 320,
+						beforeLoad: function() {
+							if (typeof(tinyMCE) != "undefined") {
+								$("#changeReportForm").find("textarea.wswg").each(function() {
+									tinymce.remove("#" + $(this).attr("id"));
+								});
+							}
+						},
+						beforeShow: function() {
+							if (typeof(tinyMCE) != "undefined") {
+								$("#changeReportForm").find("textarea.wswg").each(function() {
+									tinymce.createEditor($(this).attr("id"), tinyMCEinitEasy).render();
+								});
+							}
+						},
+					});
+				};
+				</script>
+    <script>
+        $(document).bind('ready', function () {
+            var id = '#changeReportForm';
+            if ($(id).find('.error').length > 0) {
+                $.fancybox({
+                    href: id
+                });
+            }
+        });
+    </script>
+        
+</div>
+</div>
+<div class="clear"></div>
+
+
+<form action="/domy/objekty/detail/96-dum-u-tri-bilych-lilii" method="post" id="frm-estateForm">
+
+
+    <div class="estate-info-boxes">
+        <div class="estate-info-box table-warning">
+            <div class="title">Objekt
+            </div>
+            <div class="content">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="icon"><i class="fa fa-industry"></i></div>
+                        </td>
+                        <td>
+                            <div class="text">
+                                 <span class='text-red'>Zachráněný dům</span> <br><br>
+                                
+                                Bytový dům<br>
+                                Stav: Používaný<br>
+                                
+                                <a href="http://www.pamatkovykatalog.cz/uskp/podle-relevance/1/seznam?h=44448-1-746&hlObj=1&fulltext=" target="_blank">památkový katalog</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="estate-info-box">
+            <div class="title">Adresa
+                <a href="https://mapy.cz/zakladni?x=14.39898&y=50.08772&z=18&source=coor&id=14.39898%2C50.08772" target="_blank">mapa</a>
+            </div>
+            <div class="content">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="icon"><div class="map-location"><img src="/images/layout/icon-country-cz.png" alt="" width="102">
+	<em style="top: 19.648498960123px; left: 37.052056421931px; margin-top: 2px; margin-left: -4px;"></em>
+</div>
+</div>
+                        </td>
+                        <td>
+                            <div class="text">
+                                Jánský vršek 310<br>
+                                11800 Praha – Malá Strana <br>
+                                 Hlavní město Praha<br>
+                                50° 5' 15.8'', 14° 23' 56.3''
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="estate-info-box">
+            <div class="title">Osoby spjaté s nemovitostí</div>
+            <div class="content">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="icon"><i class="fa fa-key"></i></div>
+                        </td>
+                        <td>
+                            <div class="text">
+                                Majitel:
+                                    <!--Zobrazim nyni pouze toho vyznamneho majitele - ostatni kvuli GDPR schovam-->
+                                                                    (<a href="https://nahlizenidokn.cuzk.cz/MapaIdentifikace.aspx?l=KN&x=-744385&y=-1042767" target="_blank">katastr</a>)
+                                <br>
+
+                                    Architekt: neznámý nebo nevyplněný
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+        <div class="row" id="images-row">
+        <div class="col-sm-7 info-column">
+
+
+
+
+            <h4 class="estate-section-title">
+                Doplňující informace
+               
+                <div class="clear"></div>
+            </h4>
+
+           
+
+            <div class="text-section">
+                    Máte k objektu informace / fotografie? Použijte nahoře vpravo "doplnit kartu", kde se můžete stát také autorem / spoluautorem této karty.
+            </div>
+
+
+            <h4 class="estate-section-title">Časová osa</h4>
+
+            <div class="text-section estate-timeline" id="estate-timeline">
+                
+                    <div class="timeline-item ">
+                        <div class="description">
+                            <span class="year">
+                                    8/2017
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                    <span class="lbl">Používaný</span>
+                                    <br><br>
+                                Dům je po kompletní rekonstrukci, nově se v něm nachází hotel U Tří bílých lilií a bytové jednotky. <br>
+Rekonstrukce podle projektu kanceláře Consilium ai.  <a href="http://www.consiliumai.cz/" target="_blank">[1]</a> 
+                            </div>
+                        </div>
+                    <div class="timeline-item ">
+                        <div class="description">
+                            <span class="year">
+                                    2015
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                    <span class="lbl">Stavební úpravy</span>
+                                    <br><br>
+                                V dražbě jej získává současný majitel, který se ihned pouští do kompletní rekonstrukce.
+                            </div>
+                        </div>
+                    <div class="timeline-item hidden-item">
+                        <div class="description">
+                            <span class="year">
+                                    2013
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                    <span class="lbl">Prázdný</span>
+                                    <br><br>
+                                Ještě v roce 2013 je v domě dokonce instalované 120V elektrické napětí - z domu se stává regulérní dům hrůzy. Nedlouho poté jej opouštějí poslední obyvatelé, ale záchrana naštěstí přichází rychle.
+                            </div>
+                        </div>
+                    <div class="timeline-item hidden-item">
+                        <div class="description">
+                            <span class="year">
+                                    1989
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                Po revoluci dům získává jediný vlastník, ten v domě obyvatele nechává žít i nadále, ale do oprav domu nedává ani korunu. Dům několikrát mění majitele, ale situace se stále nelepší.
+                            </div>
+                        </div>
+                    <div class="timeline-item hidden-item">
+                        <div class="description">
+                            <span class="year">
+                                    1948
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                Ve 20. století za období komunismu dům pomalu ale jistě chřadne. Žije v něm až 25 lidí a provádí se pouze základní údržba.
+                            </div>
+                        </div>
+                    <div class="timeline-item hidden-item">
+                        <div class="description">
+                            <span class="year">
+                                    1853
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                Růžena Skopková, rozená Baümelová, prodala dům Janu Karlu Krudovidovi.
+                            </div>
+                        </div>
+                    <div class="timeline-item hidden-item">
+                        <div class="description">
+                            <span class="year">
+                                    1845
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                Dům již vlastnila nová majitelka, Rosalie Baümelová. Ta se v tomto roce pustila do náročné rekonstrukce a přestavby domu. Dispozice domu byla uzavřena přístavbou dolního nároží hlavního křídla. Přízemí bylo zaklenuto, včetně nově zřízené vstupní chodby, a připojeno současné schodiště do patra. Dále byl sjednocen rozvrh okenních os a upravena uliční fasáda. Tyčové zábradlí s ornamentálním zdobením pochází patrně až z konce 19. století.
+                            </div>
+                        </div>
+                    <div class="timeline-item hidden-item">
+                        <div class="description">
+                            <span class="year">
+                                    1838
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                Tato majitelka se o dům zřejmě dobře nestarala, protože už v tomto roce je dům uváděn ve špatném stavu, odpadové roury se musí vyměnít, také pavlače, dřevěné schody na dvoře a střecha pavlače.
+                            </div>
+                        </div>
+                    <div class="timeline-item hidden-item">
+                        <div class="description">
+                            <span class="year">
+                                    1833
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                Až do tohoto roku zůstal dům v užívání rodině Haasových, kdy jej Josef Haas prodal Terezii Langeherové.
+                            </div>
+                        </div>
+                    <div class="timeline-item hidden-item">
+                        <div class="description">
+                            <span class="year">
+                                    1825
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                    <span class="lbl">Stavební úpravy</span>
+                                    <br><br>
+                                Rodina Haasových provádí na domě další stavební úpravy. Ve stavebních spisech v Archivu města Prahy jest zachováno pouze oznámení, aby majitel Jan  Ant. Haas očekával ve svém domě 25.5. 1825 stavební komisi. Podrobnější informace o stavebních úpravách nejsou dochovány.
+                            </div>
+                        </div>
+                    <div class="timeline-item hidden-item">
+                        <div class="description">
+                            <span class="year">
+                                    1784
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                Až do tohoto roku zůstal dům v užívání rodině Stubnerových, kdy jej P. Johannes Stubner odkázal jako dík za ošetřování Ant. Haasovi. Rodina Haasových na přelomu 18. a 19. století provedla zásadní přestavbu domu, kdy získalo dnešní podobu křídlo při Břetislavově ulici zakreslené na Juttnarově plánu z let 1811 - 15.
+                            </div>
+                        </div>
+                    <div class="timeline-item hidden-item">
+                        <div class="description">
+                            <span class="year">
+                                    1769
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                Nárys Prahy od J. D. Hubera zakresluje v těchto místech patrový dům se sedlovou, s ulicí souběžnou střechou. Jeho boční strana navazující dnes na čp. 517 je však volná, čtyřosá, se vchodem na pravé straně.
+                            </div>
+                        </div>
+                    <div class="timeline-item hidden-item">
+                        <div class="description">
+                            <span class="year">
+                                    1723
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                    <span class="lbl">Stavební úpravy</span>
+                                    <br><br>
+                                Dům je v dobových pramenech uváděn jako patrový, o tři roky později je zmiňováno i 2.patro.
+                            </div>
+                        </div>
+                    <div class="timeline-item hidden-item">
+                        <div class="description">
+                            <span class="year">
+                                    1689
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                Po smrti Martina Kratochvíla, postoupila vdova Eva Kratochvílová dům svému zeti Tomáši Štubnerovi, tesaři, s dluhy na domě váznoucími, jako věno své dcery.
+                            </div>
+                        </div>
+                    <div class="timeline-item hidden-item">
+                        <div class="description">
+                            <span class="year">
+                                    1656
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                Od pana Wendlingera dům koupil tesař Martin Kratochvíl.
+                            </div>
+                        </div>
+                    <div class="timeline-item hidden-item">
+                        <div class="description">
+                            <span class="year">
+                                    1655
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                Majitelem domu byl jistý Michal Grass, který jej prodal J. J. Wendlingerovi, cís. radovi, advokátu, kterému patřil dům vedlejší - došlo tak ke spojení západního a prostředního křídla. Poprvé se také objevil název domu - U tří bílých lilií.
+                            </div>
+                        </div>
+                    <div class="timeline-item hidden-item">
+                        <div class="description">
+                            <span class="year">
+                                    1654
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                    <span class="lbl">Vznik</span>
+                                    <br><br>
+                                První písemný záznam o domě. Inspektoři Vlašského špitálu žádají, aby jim byl dům připsán do vlastnictví se zřetelem k jejich pohledávce 300 zl. z roku 1641. Téhož roku chce dům také koupit Michal Trošt, kovář.
+                            </div>
+                        </div>
+                    <div class="timeline-item hidden-item">
+                        <div class="description">
+                            <span class="year">
+                                    1562
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                Na vyobrazení Prahy z tohoto roku (Praga Bohemiae Metropolis), dům čp. 310 ještě neexistoval.
+                            </div>
+                        </div>
+                            <div class="center estate-timeline-footer">
+                                <a href="" class="button light" data-toggle-class="#estate-timeline">
+                                    <span class="more">Zobrazit celou časovou osu</span>
+                                    <span class="less">Skrýt časovou osu</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!--</div>-->
+
+                    </div>
+
+                    <div class="col-sm-5  images-column">
+                        <h4 class="estate-section-title">Náhled galerie</h4>
+
+                        <div class="estate-images">
+                            <div class="gallery-images">
+                                        <div class="image iter-2-new-row iter-3-new-row iter-4-new-row iter-5-new-row iter-first iter-6-one-row iter-7-one-row iter-8-one-row iter-9-one-row iter-6-last-row iter-7-last-row iter-8-last-row iter-9-last-row ">
+                                            <a href="/upload/media/25/95.jpg" data-fancybox-group="gallery-preview"  title="Po rekonstrukci"  data-title="Po rekonstrukci" data-datum="10.11.2016" data-copyright="Radomír Kočí" class="gallery " >
+                                                <img src="/upload/media/25/95_preview_cropped_160x120.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="image iter-2 iter-6-one-row iter-7-one-row iter-8-one-row iter-9-one-row iter-6-last-row iter-7-last-row iter-8-last-row iter-9-last-row ">
+                                            <a href="/upload/media/25/11738.jpg" data-fancybox-group="gallery-preview"  title=""  data-datum="1769" class="gallery " >
+                                                <img src="/upload/media/25/11738_preview_cropped_160x120.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="image iter-2-new-row iter-3 iter-6-one-row iter-7-one-row iter-8-one-row iter-9-one-row iter-6-last-row iter-7-last-row iter-8-last-row iter-9-last-row ">
+                                            <a href="/upload/media/25/92.jpg" data-fancybox-group="gallery-preview"  title="Počátek rekonstrukce"  data-title="Počátek rekonstrukce" data-datum="19.6.2016" data-copyright="Radomír Kočí" class="gallery " >
+                                                <img src="/upload/media/25/92_preview_cropped_160x120.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="image iter-2 iter-3-new-row iter-4 iter-6-one-row iter-7-one-row iter-8-one-row iter-9-one-row iter-3-last-row iter-6-last-row iter-7-last-row iter-8-last-row iter-9-last-row ">
+                                            <a href="/upload/media/25/11739.jpg" data-fancybox-group="gallery-preview"  title=""  data-datum="1815" class="gallery " >
+                                                <img src="/upload/media/25/11739_preview_cropped_160x120.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="image iter-2-new-row iter-4-new-row iter-5 iter-6-one-row iter-7-one-row iter-8-one-row iter-9-one-row iter-2-last-row iter-3-last-row iter-4-last-row iter-6-last-row iter-7-last-row iter-8-last-row iter-9-last-row ">
+                                            <a href="/upload/media/25/93.jpg" data-fancybox-group="gallery-preview"  title="Počátek rekonstrukce"  data-title="Počátek rekonstrukce" data-datum="19.6.2016" data-copyright="Radomír Kočí" class="gallery " >
+                                                <img src="/upload/media/25/93_preview_cropped_160x120.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="image iter-2 iter-3 iter-5-new-row iter-6 iter-last iter-6-one-row iter-7-one-row iter-8-one-row iter-9-one-row iter-2-last-row iter-3-last-row iter-4-last-row iter-5-last-row iter-6-last-row iter-7-last-row iter-8-last-row iter-9-last-row ">
+                                            <a href="/upload/media/25/94.jpg" data-fancybox-group="gallery-preview"  title="Po rekonstrukci"  data-title="Po rekonstrukci" data-datum="10.11.2016" data-copyright="Radomír Kočí" class="gallery " >
+                                                <img src="/upload/media/25/94_preview_cropped_160x120.jpg" alt="">
+                                            </a>
+                                        </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="estate-images-footer">
+                            <a href="#" onclick="$('#images-row').toggleClass('all-images');
+                                    return false;" class="button light">Zobrazit kompletní galerii</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 all-images-column">
+                        <h4 class="estate-section-title">Náhled galerie</h4>
+
+                        <ul class="articles-categories" id="snippet--galleryTypes">
+                            
+                                <li class=""><a href="#gallery-0" class="scroll-to">Exteriér</a></li>
+
+
+
+                                <li class=""><a href="#gallery-1" class="scroll-to">Výřezy z map</a></li>
+
+
+                        </ul>
+
+                        <div class="center">
+                            <a href="#" onclick="$('#images-row').toggleClass('all-images');
+                                    return false;" class="button light">Skrýt kompletní galerii</a>
+                        </div>
+
+                            <h3 class="images-section-title" id="gallery-0">Exteriér</h3>
+                            <div class="estate-images wider">
+<div class="gallery-images">
+            <div class="image image-relative iter-2-new-row iter-3-new-row iter-4-new-row iter-5-new-row iter-first iter-4-one-row iter-5-one-row iter-6-one-row iter-7-one-row iter-8-one-row iter-9-one-row iter-4-last-row iter-5-last-row iter-6-last-row iter-7-last-row iter-8-last-row iter-9-last-row  ">
+                <div class="flag">PO</div>
+                    <a href="/upload/media/25/95.jpg" class="gallery " data-fancybox-group="gallery"  title="Po rekonstrukci"  data-title="Po rekonstrukci" data-datum="10.11.2016" data-copyright="Radomír Kočí">
+                        <img src="/upload/media/25/95_preview_cropped_160x120.jpg" alt="">
+                    </a>
+            </div>
+            <div class="image image-relative iter-2 iter-4-one-row iter-5-one-row iter-6-one-row iter-7-one-row iter-8-one-row iter-9-one-row iter-4-last-row iter-5-last-row iter-6-last-row iter-7-last-row iter-8-last-row iter-9-last-row  ">
+                    <a href="/upload/media/25/92.jpg" class="gallery " data-fancybox-group="gallery"  title="Počátek rekonstrukce"  data-title="Počátek rekonstrukce" data-datum="19.6.2016" data-copyright="Radomír Kočí">
+                        <div class="flag">PŘED</div>
+                        <img src="/upload/media/25/92_preview_cropped_160x120.jpg" alt="">
+                    </a>
+            </div>
+            <div class="image image-relative iter-2-new-row iter-3 iter-4-one-row iter-5-one-row iter-6-one-row iter-7-one-row iter-8-one-row iter-9-one-row iter-2-last-row iter-4-last-row iter-5-last-row iter-6-last-row iter-7-last-row iter-8-last-row iter-9-last-row  ">
+                    <a href="/upload/media/25/93.jpg" class="gallery " data-fancybox-group="gallery"  title="Počátek rekonstrukce"  data-title="Počátek rekonstrukce" data-datum="19.6.2016" data-copyright="Radomír Kočí">
+                        <img src="/upload/media/25/93_preview_cropped_160x120.jpg" alt="">
+                    </a>
+            </div>
+            <div class="image image-relative iter-2 iter-3-new-row iter-4 iter-last iter-4-one-row iter-5-one-row iter-6-one-row iter-7-one-row iter-8-one-row iter-9-one-row iter-2-last-row iter-3-last-row iter-4-last-row iter-5-last-row iter-6-last-row iter-7-last-row iter-8-last-row iter-9-last-row  ">
+                    <a href="/upload/media/25/94.jpg" class="gallery " data-fancybox-group="gallery"  title="Po rekonstrukci"  data-title="Po rekonstrukci" data-datum="10.11.2016" data-copyright="Radomír Kočí">
+                        <img src="/upload/media/25/94_preview_cropped_160x120.jpg" alt="">
+                    </a>
+            </div>
+    <div class="clear"></div>
+</div>                                <div class="clear"></div>
+                            </div>
+                            <h3 class="images-section-title" id="gallery-1">Výřezy z map</h3>
+                            <div class="estate-images wider">
+<div class="gallery-images">
+            <div class="image image-relative iter-2-new-row iter-3-new-row iter-4-new-row iter-5-new-row iter-first iter-2-one-row iter-3-one-row iter-4-one-row iter-5-one-row iter-6-one-row iter-7-one-row iter-8-one-row iter-9-one-row iter-2-last-row iter-3-last-row iter-4-last-row iter-5-last-row iter-6-last-row iter-7-last-row iter-8-last-row iter-9-last-row  ">
+                    <a href="/upload/media/25/11738.jpg" class="gallery " data-fancybox-group="gallery"  title=""  data-datum="1769">
+                        <img src="/upload/media/25/11738_preview_cropped_160x120.jpg" alt="">
+                    </a>
+            </div>
+            <div class="image image-relative iter-2 iter-last iter-2-one-row iter-3-one-row iter-4-one-row iter-5-one-row iter-6-one-row iter-7-one-row iter-8-one-row iter-9-one-row iter-2-last-row iter-3-last-row iter-4-last-row iter-5-last-row iter-6-last-row iter-7-last-row iter-8-last-row iter-9-last-row  ">
+                    <a href="/upload/media/25/11739.jpg" class="gallery " data-fancybox-group="gallery"  title=""  data-datum="1815">
+                        <img src="/upload/media/25/11739_preview_cropped_160x120.jpg" alt="">
+                    </a>
+            </div>
+    <div class="clear"></div>
+</div>                                <div class="clear"></div>
+                            </div>
+
+                        <div class="center">
+                            <br>
+                            <a href="#" onclick="$('#images-row').toggleClass('all-images');
+                                    return false;" class="button light">Skrýt kompletní galerii</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-7">
+
+                        <h4 class="estate-section-title">Články</h4>
+                        <div class="text-section">
+                                                    </div>
+
+                        <h4 class="estate-section-title">Knihy</h4>
+                        <div class="text-section">
+                                            </div>
+
+                <h4 class="estate-section-title">Externí galerie (foto / video)</h4>
+                <div class="text-section">
+                </div>
+
+                <h4 class="estate-section-title">Odkazy</h4>
+                <div class="text-section">
+                                            <div class="links-row">
+                            <div class="web"><a href="http://www.consiliumai.cz/" target="_blank">www.consiliumai.cz</a></div>
+                            <div class="text">CONSILIUM ai</div>
+                            <div class="position">  [1]  </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="links-row">
+                            <div class="web"><a href="http://www.ubilelilie.cz/" target="_blank">www.ubilelilie.cz</a></div>
+                            <div class="text"></div>
+                            <div class="position">  </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="links-row">
+                            <div class="web"><a href="http://www.key-stav.cz/ref/rekonstrukce-domu-u-tri-bilych-lilii-jansky-vrsek-praha/" target="_blank">www.key-stav.cz</a></div>
+                            <div class="text"></div>
+                            <div class="position">  </div>
+                            <div class="clear"></div>
+                        </div>
+                </div>
+
+                <h4 class="estate-section-title">FB</h4>
+                <div class="text-section">
+                                            <div class="facebook-row">
+                            <div class="datum">26. září 2021</div>
+                            <div class="text"><a href="https://www.facebook.com/prazdnedomy/posts/2995328677404854" target="_blank"><i class="fa fa-facebook-square"></i> 26.9.2021</a></div>
+                            <div class="position">  </div>
+                            <div class="clear"></div>
+                        </div>
+                </div>
+
+                <h4 class="estate-section-title">Majitelé nemovitosti</h4>
+                <div class="text-section subjects-section">
+
+                </div>
+
+            </div>
+            <div class="col-sm-5">
+
+                <div class="street-view-wrapper" style="display: noneX;">
+                    <div id="panorama-vindow" class="panorama-view-wrapper">
+                        <h4 class="estate-section-title">Panorama</h4>
+                        <div class="panorama" style="height:200px"></div>
+                    </div>
+                </div>
+
+
+                <h4 class="estate-section-title">Mapa</h4>
+                <div id="map-wrapper" class="estate-map"></div>
+            </div>
+        </div>
+
+        <h4 class="estate-section-title">Autor karty
+            <span class="author">
+                <a href="/user/profil/8/">Rendy </a>
+            </span>
+                <span class="author"></span>Spoluautoři:
+                <span class="author">
+                <a href="/user/profil/392/">Monika W.</a>
+            </span>
+        <span class="last-change">aktualizováno: 24. září 2021</span>
+    </h4>
+
+    <h4 class="estate-section-title">Diskuze
+            <a href="/domy/objekty/detail/96-dum-u-tri-bilych-lilii?do=addComment" class="button small float-right fancybox-ajax"><i class="fa fa-plus"></i> Přidat komentář</a>
+        <div class="clear"></div>
+    </h4>
+    <div class="text-section">
+<div id="snippet--comments">                K tomuto objektu neexistují žádné komentáře.
+</div>    </div>
+
+    <input type="hidden" name="_do" value="estateForm-submit"></form>
+
+                    <div class="clear"></div>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+        <footer>
+
+            <div class="credits">
+                <div class="fb-like" data-href="https://prazdenomy.cz" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+                |
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs">(CC) BY-NC-SA - některá práva vyhrazena</a> - Prázdné domy, z. s. 2017
+                <span class="credits-created-by">| Created by impire.cz</span>
+            </div>
+        </footer>
+
+        <div id="ajax-spinner"></div>
+
+        <div id="hint"></div>
+    </div>
+    <noscript id="deferred-styles">
+    <link rel="stylesheet" href="/plugins/bower_components/select2/select2.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/plugins/jquery.multiselect/jquery.multiselect.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/plugins/tooltipster/css/tooltipster.bundle.min.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/plugins/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-noir.min.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="//cdn.rawgit.com/thdoan/magnify/master/dist/css/magnify.css">
+        </noscript>
+
+    <script>
+        var loadDeferredStyles = function () {
+            var addStylesNode = document.getElementById("deferred-styles");
+            var replacement = document.createElement("div");
+            replacement.innerHTML = addStylesNode.textContent;
+            document.body.appendChild(replacement)
+            addStylesNode.parentElement.removeChild(addStylesNode);
+        };
+        try {
+            var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+                    webkitRequestAnimationFrame || msRequestAnimationFrame;
+            if (raf)
+                raf(function () {
+                    window.setTimeout(loadDeferredStyles, 0);
+                });
+            else
+                window.addEventListener('load', loadDeferredStyles);
+        } catch (e) {
+            window.addEventListener('load', loadDeferredStyles);
+        }
+    </script>
+
+    <script type="text/javascript" src="/plugins/bower_components/nette.ajax.js/nette.ajax.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/nette-forms/src/assets/netteForms.js"></script>
+
+    <script>
+        Nette.validators.FormCustomFormRules_validateDate = function (elem, args, val) {
+            regex = /^\d+\.\d+\.\d\d\d\d$/;
+            return (val.match(regex) != null);
+        };
+        Nette.validators.FormCustomFormRules_validatePrice = function (elem, args, val) {
+            console.log(args);
+            return args[0] || args[1] > 0;
+        };
+//            console.log('VALIDUJI');
+//            return false;
+////            var el1 = document.getElementById("frmform-" + args.field1.control);
+////            var val1 = Nette.getValue(el1);
+////
+////            var el2 = document.getElementById("frmform-" + args.field2.control);
+////            var val2 = Nette.getValue(el2);
+////            return val == val1 + val2;
+//        };
+    </script>
+    <script type="text/javascript" src="/plugins/bower_components/fancybox/source/jquery.fancybox.pack.js"></script>
+    <script type="text/javascript" src="/plugins/jquery.fancybox-thumbs/jquery.fancybox-thumbs.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/jquery-ui/ui/i18n/datepicker-cs.js"></script>
+    <script type="text/javascript" src="/plugins/jquery.multiselect/jquery.multiselect.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/matchHeight/jquery.matchHeight-min.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/select2/select2.min.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/select2/select2_locale_cs.js"></script>
+    <script type="text/javascript" src="/plugins/select2.nette.init.js?v=1706737033"></script>
+    <script type="text/javascript" src="/plugins/jquery.magnify/jquery.magnify.js"></script>
+    <script type="text/javascript" src="/plugins/jquery.elevatezoom.js"></script>
+    <script type="text/javascript" src="/plugins/tooltipster/js/tooltipster.bundle.min.js"></script>
+    <!--<script type="text/javascript" src="/plugins/jquery.lazyload.1.9.1.min.js"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>-->
+
+    <!--testuji pro bootstrap modal-->
+    <!--    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+
+
+    <script type="text/javascript" src="/plugins/cookieconsent/dist/cookieconsent.js"></script>
+    <script type="text/javascript" src="/cookies"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("consent", "default", Object.assign({}, globalGtagPerms, {
+            wait_for_update: 1000 // milliseconds
+        }));
+
+    </script>
+
+
+    
+
+    <script type="text/javascript" src="/plugins/dependent-select-box.js?v=1706737033"></script>
+    <script type="text/javascript" src="/js/controls.js?v=1706737033"></script>
+    <script type="text/javascript" src="/js/app.js?v=1706737033"></script>
+    <script type="text/javascript" src="/js/estate-form.js?v=1706737033"></script>
+    <script src="https://use.fontawesome.com/67bbc25e5a.js"></script>
+    
+
+        <script type="text/javascript" src="/js/estate-timeline.js"></script>
+        <script type="text/javascript" src="/js/estate-map.js"></script>
+        <script type="text/javascript" src="https://api.mapy.cz/loader.js"></script>
+        <script type="text/javascript">Loader.load(null, {
+                pano: true});</script>
+        <script>
+            var options = {
+                nav: false//, // skryjeme navigaci
+                        //pitchRange: [0, 0] // zakazeme vertikalni rozhled
+            };
+            var panoramaScene = new SMap.Pano.Scene(document.querySelector(".panorama"), options);
+            // kolem teto pozice chceme nejblizsi panorama
+            var position = SMap.Coords.fromWGS84(14.39898, 50.08772);
+            //console.log(14.39898, 50.08772);
+            //console.log("14.399053518533606", "50.08757799425027");
+                // hledame s toleranci 50m
+                SMap.Pano.getBest(position, 100).then(function (place) {
+                    panoramaScene.show(place);
+                }, function () {
+                    $("#panorama-vindow").hide();
+                });
+        </script> 
+
+        <script>
+
+            $('.estate-map').estateMap({
+                //estates: [$item->getMapJson()|noescape], 
+                estate: {"lat":50.08772,"lng":14.39898,"id":96,"name":"D\u016fm U T\u0159\u00ed b\u00edl\u00fdch lili\u00ed","icon":"\/upload\/markers\/highlight\/1-a604eda8e427f4a2463a85012b2298dbbbb4052e.png?v=1706737033"}, // je to tu proto, ze kdyz se to vezme z ajaxu, nemusi tam mlyn byt, kdyz je neaktivni
+                behavior: EstateMap.behaviorView,
+                positionInfoUrl: "\/domy\/objekty\/detail\/96-dum-u-tri-bilych-lilii?do=coordinatesToAddress",
+                estateInfoUrl: "\/domy\/objekty\/detail\/96-dum-u-tri-bilych-lilii?do=estateInfo",
+                estatesUrl: "\/domy\/objekty\/detail\/96-dum-u-tri-bilych-lilii?highlight=96&do=getEstates",
+                zoom: 16,
+                lat: 50.08772,
+                lng: 14.39898
+            });
+
+        </script>
+
+        <script>
+
+//            $('.sendDOnationCheck').on("click", function (e) {
+//                var money = $('input[name="donation"]:checked').val();
+//                if (money === 'other') {
+//                    money = $('input[name="donation_value"]').val();
+//                }
+//                var href = $(this).data("href");
+//                window.location.replace(href + "&amount=" + money);
+//            });
+//
+//            $('input[type=radio][name=donation]').on('change', function (e) {
+//                if ($(this).val() === 'other') {
+//                    $('input[name="donation_value"]').prop('disabled', false);
+//                } else {
+//                    $('input[name="donation_value"]').prop('disabled', true);
+//                }
+//            });
+//
+//            $('input[type=radio][name=donation], input[name="donation_value"]').on('keyup change', function (e) {
+//                var money = $('input[name="donation"]:checked').val();
+//                if (money === 'other') {
+//                    money = $('input[name="donation_value"]').val();
+//                    console.log('other');
+//                }
+//                if (money > 1) {
+//                    var src = $("#donation_img").attr("src");
+//                    var newsrc = src.substring(0, src.indexOf("&amount="));
+//                    $("#donation_img").attr("src", newsrc + "&amount=" + money);
+//                }
+//            });
+
+
+        </script>
+
+
+<div id="snippet--flashes">        <script type="text/javascript">
+        </script>
+</div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-105665073-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id))
+                return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/cs_CZ/sdk.js#xfbml=1&version=v2.9&appId=213215739189859";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+</body>
+</html>

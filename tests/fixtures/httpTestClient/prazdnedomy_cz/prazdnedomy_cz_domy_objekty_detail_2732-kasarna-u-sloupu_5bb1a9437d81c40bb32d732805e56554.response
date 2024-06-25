@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="cs" class="ie6 no-js"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="cs" class="ie7 no-js"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="cs" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="cs" class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> 
+<html lang="cs" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+        <meta name="description" content="Databáze domů s historií">
+        <meta name="keywords" content="prázdné domy neobývané nevyužívané k rekonstrukci ruiny rozpadlé domy používané zachráněné">
+        <meta name="robots" content="index,follow">
+        <meta name="author" content="impire.cz">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <title>Kasárna U Sloupů | Databáze domů s historií</title>
+
+    <link rel="stylesheet" href="/plugins/bower_components/fancybox/source/jquery.fancybox.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/plugins/jquery.fancybox-thumbs/jquery.fancybox-thumbs.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/plugins/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/index.css?v=1706737033" type="text/css" media="screen">
+    <link rel="stylesheet" href="/css/print.css?v=1706737033" type="text/css" media="print">
+
+    <!--[if lt IE 9]>
+      <script src="/plugins/ie/html5.js"></script>
+      <script src="/plugins/ie/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <script type="text/javascript">BASE_PATH ="";</script>
+    <script type="text/javascript" src="/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <script src="/adminzone/ui/metronic_4.5.3/global/plugins/bootstrap-toastr/toastr.js" type="text/javascript"></script>
+    <link href="/adminzone/ui/metronic_4.5.3/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css">
+    <link href="/plugins/fontawesome-free-5.10.1-web/css/all.css" rel="stylesheet" type="text/css">
+    <!--<link href="/plugins/fontawesome-free-5.10.1-web/css/fontawesome.min.css" rel="stylesheet" type="text/css" />-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&amp;subset=latin-ext" rel="stylesheet">
+
+        <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+            var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'UA-105665073-1');</script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body class="not-home not-asside module-estates presenter-estates action-detail">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=UA-105665073-1"
+                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="mycontainer">
+        <header>
+            <div class="myinnercontainer">
+                <a href="/" class="logo"><img src="/images/layout/logo.png" alt="" class="large"><img src="/images/layout/logo-smaller2.png" class="small" alt=""></a>
+
+                <a href="/domy/objekty/add/" class="add-estate-header-button" title="Přidat dům"><i class="fa fa-plus"></i><span>Přidat dům</span></a>
+
+                <div class="user-area-wrapper">
+<div class="user-area">
+	<a class="login-link" href="/user/sign-in/?redirect=https%3A%2F%2Fprazdnedomy.cz%2Fdomy%2Fobjekty%2Fdetail%2F2732-kasarna-u-sloupu"><i class="fa fa-sign-in"></i> Přihlásit se</a> | 
+	<a class="register-link" href="/user/register/"><i class="fa fa-user-plus"></i> Zaregistrovat se</a>
+</div>                </div>
+                <div class="menu-socials main">
+                    <a href="https://www.facebook.com/prazdnedomy/" target="_blank"><i class="fa fa-facebook"></i></a>
+                    <a href="" target="_blank"><i class="fa fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/prazdne.domy/" target="_blank"><i class="fa fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="nav-area">
+                <div class="mobile-switcher menu-switcher hide-siblings first" data-toggle=".main-menu.mobile"><i class="fa fa-bars"></i> <span>Menu</span></div>
+                <div class="mobile-switcher user-switcher hide-siblings" data-toggle=".nav-area .user-area"><i class="fa fa-user"></i> <span>Uživatel</span></div>
+                <div class="mobile-switcher search-switcher hide-siblings last" data-toggle=".quick-search-wrapper.mobile"><i class="fa fa-search"></i> <span>Hledat</span></div>
+                <div class="clear"></div>
+
+<div class="user-area">
+	<a class="login-link" href="/user/sign-in/?redirect=https%3A%2F%2Fprazdnedomy.cz%2Fdomy%2Fobjekty%2Fdetail%2F2732-kasarna-u-sloupu"><i class="fa fa-sign-in"></i> Přihlásit se</a> | 
+	<a class="register-link" href="/user/register/"><i class="fa fa-user-plus"></i> Zaregistrovat se</a>
+</div>
+                <nav class="main-menu mobile">
+                    
+<ul class="menu">
+		<li class="item-0 first  odd  not-in-path ">
+			<a href="/"><span>Mapa</span></a>
+		</li>
+		<li class="item-1    active in-path ">
+			<a href="/domy/objekty/"><span>Databáze <i class="fa fa-caret-down"></i></span></a>
+
+<div class="submenu-wrapper depth-2">
+<ul class="submenu">
+		<li class="item-0 first  odd active in-path ">
+			<a href="/domy/objekty/"><span>Objekty</span></a>
+		</li>
+		<li class="item-1     not-in-path ">
+			<a href="/domy/objekty/kladne/"><span>Kladné příklady</span></a>
+		</li>
+		<li class="item-2   odd  not-in-path ">
+			<a href="/domy/objekty/prodej/"><span>K záchraně</span></a>
+		</li>
+		<li class="item-3     not-in-path ">
+			<a href="/domy/architekti/"><span>Katalog architektů</span></a>
+		</li>
+		<li class="item-4   odd  not-in-path ">
+			<a href="/domy/majitele/"><span>Významní majitelé</span></a>
+		</li>
+		<li class="item-5     not-in-path ">
+			<a href="/domy/spolecnosti/"><span>Katalog společností</span></a>
+		</li>
+		<li class="item-6   odd  not-in-path ">
+			<a href="/uzitecne-odkazy/"><span>Užitečné odkazy</span></a>
+		</li>
+		<li class="item-7     not-in-path ">
+			<a href="/autori-databaze/"><span>Autoři databáze</span></a>
+		</li>
+		<li class="item-8  last odd  not-in-path ">
+			<a href="/jak-pridat-dum-do-databaze/"><span>Návody <i class="fa fa-caret-down"></i></span></a>
+
+<div class="submenu-wrapper depth-3">
+<ul class="submenu">
+		<li class="item-0 first  odd  not-in-path ">
+			<a href="/jak-pridat-dum-do-databaze/"><span>Jak přidat / upravit dům</span></a>
+		</li>
+		<li class="item-1  last   not-in-path ">
+			<a href="/kde-hledat-info-foto/"><span>Kde hledat informace</span></a>
+		</li>
+</ul>
+</div>		</li>
+</ul>
+</div>		</li>
+		<li class="item-2   odd  not-in-path ">
+			<a href="/nase-aktivita/"><span>O nás <i class="fa fa-caret-down"></i></span></a>
+
+<div class="submenu-wrapper depth-2">
+<ul class="submenu">
+		<li class="item-0 first  odd  not-in-path ">
+			<a href="/nase-aktivita/"><span>Naše aktivita</span></a>
+		</li>
+		<li class="item-1     not-in-path ">
+			<a href="/nas-tym/"><span>Náš tým</span></a>
+		</li>
+		<li class="item-2   odd  not-in-path ">
+			<a href="/casto-kladene-otazky-nazory/"><span>Často kladené otázky</span></a>
+		</li>
+		<li class="item-3     not-in-path ">
+			<a href="/napsali-o-nas/"><span>Média</span></a>
+		</li>
+		<li class="item-4   odd  not-in-path ">
+			<a href="/kalendarium/"><span>Kalendárium</span></a>
+		</li>
+		<li class="item-5  last   not-in-path ">
+			<a href="/zpracovani-osobnich-udaju/"><span>Zpracování osobních údajů</span></a>
+		</li>
+</ul>
+</div>		</li>
+		<li class="item-3     not-in-path ">
+			<a href="/akce/"><span>Přehled akcí</span></a>
+		</li>
+		<li class="item-4   odd  not-in-path ">
+			<a href="/podporte-nas/"><span>Podpořte nás</span></a>
+		</li>
+		<li class="item-5     not-in-path ">
+			<a href="/clanky/"><span>Články</span></a>
+		</li>
+		<li class="item-6  last odd  not-in-path ">
+			<a href="/kontakt/"><span>Kontakt</span></a>
+		</li>
+</ul>
+                    <div class="menu-socials in-menu">
+                        <a href="https://www.facebook.com/prazdnedomy/" target="_blank"><i class="fa fa-facebook"></i></a>
+                        <a href="" target="_blank"><i class="fa fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/prazdne.domy/" target="_blank"><i class="fa fa-instagram"></i></a>
+                    </div>
+                    <div class="clear"></div>
+
+                </nav>
+
+                <div class="quick-search-wrapper mobile">
+<form action="/domy/objekty/detail/2732-kasarna-u-sloupu" method="post" id="frm-quickSearchMobile">
+
+
+
+	<label for="frm-quickSearchMobile-search" class="required">Hledat</label>
+
+	<input type="text" name="search" placeholder="Hledat" id="frm-quickSearchMobile-search" required data-nette-rules='[{"op":":filled","msg":"Hledat musí být vyplněno."}]' class="text">
+
+
+
+	
+
+	<button type="submit" name="send" value=""><i class="fa fa-search"></i></button>
+
+
+
+<input type="hidden" name="_do" value="quickSearchMobile-submit"><!--[if IE]><input type=IEbug disabled style="display:none"><![endif]-->
+</form>
+                </div>
+
+            </div>
+
+
+            <nav class="main-menu desktop">
+                <div class="myinnercontainer">
+                    
+<ul class="menu">
+		<li class="item-0 first  odd  not-in-path ">
+			<a href="/"><span>Mapa</span></a>
+		</li>
+		<li class="item-1    active in-path ">
+			<a href="/domy/objekty/"><span>Databáze <i class="fa fa-caret-down"></i></span></a>
+
+<div class="submenu-wrapper depth-2">
+<ul class="submenu">
+		<li class="item-0 first  odd active in-path ">
+			<a href="/domy/objekty/"><span>Objekty</span></a>
+		</li>
+		<li class="item-1     not-in-path ">
+			<a href="/domy/objekty/kladne/"><span>Kladné příklady</span></a>
+		</li>
+		<li class="item-2   odd  not-in-path ">
+			<a href="/domy/objekty/prodej/"><span>K záchraně</span></a>
+		</li>
+		<li class="item-3     not-in-path ">
+			<a href="/domy/architekti/"><span>Katalog architektů</span></a>
+		</li>
+		<li class="item-4   odd  not-in-path ">
+			<a href="/domy/majitele/"><span>Významní majitelé</span></a>
+		</li>
+		<li class="item-5     not-in-path ">
+			<a href="/domy/spolecnosti/"><span>Katalog společností</span></a>
+		</li>
+		<li class="item-6   odd  not-in-path ">
+			<a href="/uzitecne-odkazy/"><span>Užitečné odkazy</span></a>
+		</li>
+		<li class="item-7     not-in-path ">
+			<a href="/autori-databaze/"><span>Autoři databáze</span></a>
+		</li>
+		<li class="item-8  last odd  not-in-path ">
+			<a href="/jak-pridat-dum-do-databaze/"><span>Návody <i class="fa fa-caret-down"></i></span></a>
+
+<div class="submenu-wrapper depth-3">
+<ul class="submenu">
+		<li class="item-0 first  odd  not-in-path ">
+			<a href="/jak-pridat-dum-do-databaze/"><span>Jak přidat / upravit dům</span></a>
+		</li>
+		<li class="item-1  last   not-in-path ">
+			<a href="/kde-hledat-info-foto/"><span>Kde hledat informace</span></a>
+		</li>
+</ul>
+</div>		</li>
+</ul>
+</div>		</li>
+		<li class="item-2   odd  not-in-path ">
+			<a href="/nase-aktivita/"><span>O nás <i class="fa fa-caret-down"></i></span></a>
+
+<div class="submenu-wrapper depth-2">
+<ul class="submenu">
+		<li class="item-0 first  odd  not-in-path ">
+			<a href="/nase-aktivita/"><span>Naše aktivita</span></a>
+		</li>
+		<li class="item-1     not-in-path ">
+			<a href="/nas-tym/"><span>Náš tým</span></a>
+		</li>
+		<li class="item-2   odd  not-in-path ">
+			<a href="/casto-kladene-otazky-nazory/"><span>Často kladené otázky</span></a>
+		</li>
+		<li class="item-3     not-in-path ">
+			<a href="/napsali-o-nas/"><span>Média</span></a>
+		</li>
+		<li class="item-4   odd  not-in-path ">
+			<a href="/kalendarium/"><span>Kalendárium</span></a>
+		</li>
+		<li class="item-5  last   not-in-path ">
+			<a href="/zpracovani-osobnich-udaju/"><span>Zpracování osobních údajů</span></a>
+		</li>
+</ul>
+</div>		</li>
+		<li class="item-3     not-in-path ">
+			<a href="/akce/"><span>Přehled akcí</span></a>
+		</li>
+		<li class="item-4   odd  not-in-path ">
+			<a href="/podporte-nas/"><span>Podpořte nás</span></a>
+		</li>
+		<li class="item-5     not-in-path ">
+			<a href="/clanky/"><span>Články</span></a>
+		</li>
+		<li class="item-6  last odd  not-in-path ">
+			<a href="/kontakt/"><span>Kontakt</span></a>
+		</li>
+</ul>
+                    <div class="menu-socials in-menu">
+                        <a href="https://www.facebook.com/prazdnedomy/" target="_blank"><i class="fa fa-facebook"></i></a>
+                        <a href="" target="_blank"><i class="fa fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/prazdne.domy/" target="_blank"><i class="fa fa-instagram"></i></a>
+                    </div>
+                    <div class="clear"></div>
+
+                </div>
+            </nav>
+        </header>
+
+        <div class="content-columns">
+            <div class="myinnercontainer">
+                <div class="content-section">
+
+<h1 class="h1 estate-detail-title">Kasárna U Sloupů</h1>
+
+<div id="snippet--estateMenu"><div class="estate-header">
+    <a href="" class="button small" onclick="window.print();return false;">TISK</a>
+    <a href="" class="button small red" onclick="showChangeReportForm();return false;">DOPLNIT KARTU</a>
+
+
+<div class="popup-form-wrapper" style="display: none;"><div class="popup-form"  id="changeReportForm" style="padding: 20px;"><form action="/domy/objekty/detail/2732-kasarna-u-sloupu" method="post" enctype="multipart/form-data" id="frm-changeReportForm">
+
+
+
+	<h5 class="h6"></h5>
+
+	<h3 class="h3">Požadavek na doplnění karty</h3>
+
+
+
+	<h5 class="h6"><label for="frm-changeReportForm-created_by_email" class="required">Váš e-mail</label></h5>
+
+	<input type="email" name="created_by_email" id="frm-changeReportForm-created_by_email" required data-nette-rules='[{"op":":filled","msg":"Váš e-mail musí být vyplněno."},{"op":":email","msg":"Váš e-mail musí obsahovat platnou e-mailovou adresu."}]' class="text">
+
+
+
+	<h5 class="h6"></h5>
+
+	<div class="help-block">Chcete-li se stát autorem, musíte se přihlásit</div>
+
+
+
+	<h5 class="h6"></h5>
+
+	<label for="frm-changeReportForm-want_be_author"><input type="checkbox" name="want_be_author" id="frm-changeReportForm-want_be_author" disabled>Chci se stát autorem / spoluautorem karty</label>
+
+
+
+	<h5 class="h6"><label for="frm-changeReportForm-subject" class="required">Předmět</label></h5>
+
+	<input type="text" name="subject" maxlength="40" id="frm-changeReportForm-subject" required data-nette-rules='[{"op":":filled","msg":"Předmět musí být vyplněno."},{"op":":maxLength","msg":"Předmět je moc dlouhý, maximální délka je 40 znaků","arg":40}]' class="text">
+
+
+
+	<h5 class="h6"></h5>
+
+	<p>Chcete-li připojit odkaz, využijte speciální pole a nevkládejte ho do popisu</p>
+
+
+
+	<h5 class="h6"><label for="frm-changeReportForm-link">Odkaz</label></h5>
+
+	<input type="text" name="link" maxlength="3000" id="frm-changeReportForm-link" data-nette-rules='[{"op":"optional"},{"op":":maxLength","msg":"Odkaz je moc dlouhý, maximální délka je 3000 znaků","arg":3000}]' class="text">
+
+
+
+	<h5 class="h6"><label for="frm-changeReportForm-description" class="required">Komentář</label></h5>
+
+	<textarea name="description" id="frm-changeReportForm-description" required data-nette-rules='[{"op":":filled","msg":"Komentář musí být vyplněno."}]'></textarea>
+
+
+
+	<h5 class="h6"><label for="frm-changeReportForm-image">Externí galerie (foto / video)</label></h5>
+
+	<input type="file" name="image" id="frm-changeReportForm-image" class="text">
+
+
+
+	<h5 class="h6"></h5>
+
+	<div class="text" style="max-width: 450px">Chcete nám poslat více fotografií? Nahrajte prosím fotografie na externí uložiště (Facebook, rajče, google...) a pošlete nám pouze odkaz. Tuto galerii přiřadíme do sekce “externí galerie” a do karty objektu případně vybereme pár nejlepších fotografií.</div>
+
+
+
+	<h5 class="h6"><label for="frm-changeReportForm-tmp_captcha" class="required">Jaký je aktuálně rok?</label></h5>
+
+	<input type="text" name="tmp_captcha" id="frm-changeReportForm-tmp_captcha" required data-nette-rules='[{"op":":filled","msg":"Jaký je aktuálně rok? musí být vyplněno."}]' class="text">
+
+
+
+	<h5 class="h6"></h5>
+
+	<input type="submit" name="send" value="Odeslat" class="button">
+
+
+
+<input type="hidden" name="_do" value="changeReportForm-submit">
+</form>
+</div></div>
+				<script type="text/javascript">
+				function showChangeReportForm() {
+					$.fancybox({
+						href: "#changeReportForm",
+						autoDimensions: false,
+						width: 500,
+						height: 300,
+						minWidth: 320,
+						beforeLoad: function() {
+							if (typeof(tinyMCE) != "undefined") {
+								$("#changeReportForm").find("textarea.wswg").each(function() {
+									tinymce.remove("#" + $(this).attr("id"));
+								});
+							}
+						},
+						beforeShow: function() {
+							if (typeof(tinyMCE) != "undefined") {
+								$("#changeReportForm").find("textarea.wswg").each(function() {
+									tinymce.createEditor($(this).attr("id"), tinyMCEinitEasy).render();
+								});
+							}
+						},
+					});
+				};
+				</script>
+    <script>
+        $(document).bind('ready', function () {
+            var id = '#changeReportForm';
+            if ($(id).find('.error').length > 0) {
+                $.fancybox({
+                    href: id
+                });
+            }
+        });
+    </script>
+        
+</div>
+</div>
+<div class="clear"></div>
+
+
+<form action="/domy/objekty/detail/2732-kasarna-u-sloupu" method="post" id="frm-estateForm">
+
+
+    <div class="estate-info-boxes">
+        <div class="estate-info-box ">
+            <div class="title">Objekt
+            </div>
+            <div class="content">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="icon"><i class="fa fa-industry"></i></div>
+                        </td>
+                        <td>
+                            <div class="text">
+                                
+                                
+                                Kasárna<br>
+                                Stav: Prázdný<br>
+                                
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="estate-info-box">
+            <div class="title">Adresa
+                <a href="https://mapy.cz/zakladni?x=13.736211538314791&y=49.06020115106241&z=18&source=coor&id=13.736211538314791%2C49.06020115106241" target="_blank">mapa</a>
+            </div>
+            <div class="content">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="icon"><div class="map-location"><img src="/images/layout/icon-country-cz.png" alt="" width="102">
+	<em style="top: 41.130954476327px; left: 27.530230276718px; margin-top: 2px; margin-left: -4px;"></em>
+</div>
+</div>
+                        </td>
+                        <td>
+                            <div class="text">
+                                Vimperk U Sloupů<br>
+                                385 01 Vimperk <br>
+                                 Prachatice<br>
+                                49° 3' 36.7'', 13° 44' 10.4''
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="estate-info-box">
+            <div class="title">Osoby spjaté s nemovitostí</div>
+            <div class="content">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="icon"><i class="fa fa-key"></i></div>
+                        </td>
+                        <td>
+                            <div class="text">
+                                Majitel:
+                                    <!--Zobrazim nyni pouze toho vyznamneho majitele - ostatni kvuli GDPR schovam-->
+                                                                            Město Vimperk
+                                (<a href="https://nahlizenidokn.cuzk.cz/MapaIdentifikace.aspx?l=KN&x=-807950&y=-1149142" target="_blank">katastr</a>)
+                                <br>
+
+                                    Architekt: neznámý nebo nevyplněný
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+        <div class="row" id="images-row">
+        <div class="col-sm-7 info-column">
+
+
+
+
+            <h4 class="estate-section-title">
+                Doplňující informace
+               
+                <div class="clear"></div>
+            </h4>
+
+           
+
+            <div class="text-section">
+                    Máte k objektu informace / fotografie? Použijte nahoře vpravo "doplnit kartu", kde se můžete stát také autorem / spoluautorem této karty.
+            </div>
+
+
+            <h4 class="estate-section-title">Časová osa</h4>
+
+            <div class="text-section estate-timeline" id="estate-timeline">
+                
+                    <div class="timeline-item ">
+                        <div class="description">
+                            <span class="year">
+                                    2001
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                    <span class="lbl">Prázdný</span>
+                                    <br><br>
+                                Armáda vimperský areál U Sloupu opustila 25. září 2001. Příslušníci vimperských útvarů přešli do posádek ve Strašicích na Rokycansku a v Písku. Zrušení vimperské posádky bylo součástí redislokace české armády.
+                            </div>
+                        </div>
+                    <div class="timeline-item ">
+                        <div class="description">
+                            <span class="year">
+                                    1953
+                                </span>
+                                <i class="fa fa-angle-right"></i>
+                                    <span class="lbl">Vznik</span>
+                                    <br><br>
+                                Vojáci ve Vimperku nepřetržitě působili od roku 1953, kdy se kasárna U Sloupu začala stavět. Naposledy zde sídlil 2. průzkumný prapor a 2. protiletadlový oddíl české armády. Vimperští průzkumníci se mimo jiné také úspěšně podíleli na mírových misích SFOR a KFOR na území bývalé Jugoslávie. 
+                            </div>
+                        </div>
+                            <div class="center estate-timeline-footer">
+                            </div>
+                        </div>
+                        <!--</div>-->
+
+                    </div>
+
+                    <div class="col-sm-5  images-column">
+                        <h4 class="estate-section-title">Náhled galerie</h4>
+
+                        <div class="estate-images">
+                            <div class="gallery-images">
+                                        <div class="image iter-2-new-row iter-3-new-row iter-4-new-row iter-5-new-row iter-first iter-2-one-row iter-3-one-row iter-4-one-row iter-5-one-row iter-6-one-row iter-7-one-row iter-8-one-row iter-9-one-row iter-2-last-row iter-3-last-row iter-4-last-row iter-5-last-row iter-6-last-row iter-7-last-row iter-8-last-row iter-9-last-row ">
+                                            <a href="/upload/media/2582/9851.jpg" data-fancybox-group="gallery-preview"  title=""  class="gallery " >
+                                                <img src="/upload/media/2582/9851_preview_cropped_160x120.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="image iter-2 iter-last iter-2-one-row iter-3-one-row iter-4-one-row iter-5-one-row iter-6-one-row iter-7-one-row iter-8-one-row iter-9-one-row iter-2-last-row iter-3-last-row iter-4-last-row iter-5-last-row iter-6-last-row iter-7-last-row iter-8-last-row iter-9-last-row ">
+                                            <a href="/upload/media/2582/9852.jpg" data-fancybox-group="gallery-preview"  title=""  class="gallery " >
+                                                <img src="/upload/media/2582/9852_preview_cropped_160x120.jpg" alt="">
+                                            </a>
+                                        </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="estate-images-footer">
+                            <a href="#" onclick="$('#images-row').toggleClass('all-images');
+                                    return false;" class="button light">Zobrazit kompletní galerii</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 all-images-column">
+                        <h4 class="estate-section-title">Náhled galerie</h4>
+
+                        <ul class="articles-categories" id="snippet--galleryTypes">
+                            
+
+
+
+                                <li class=""><a href="#gallery-1" class="scroll-to">Výřezy z map</a></li>
+
+                                <li class=""><a href="#gallery-11" class="scroll-to">Ostatní</a></li>
+
+                        </ul>
+
+                        <div class="center">
+                            <a href="#" onclick="$('#images-row').toggleClass('all-images');
+                                    return false;" class="button light">Skrýt kompletní galerii</a>
+                        </div>
+
+                            <h3 class="images-section-title" id="gallery-1">Výřezy z map</h3>
+                            <div class="estate-images wider">
+<div class="gallery-images">
+            <div class="image image-relative iter-2-new-row iter-3-new-row iter-4-new-row iter-5-new-row iter-first iter-last iter-2-one-row iter-3-one-row iter-4-one-row iter-5-one-row iter-6-one-row iter-7-one-row iter-8-one-row iter-9-one-row iter-2-last-row iter-3-last-row iter-4-last-row iter-5-last-row iter-6-last-row iter-7-last-row iter-8-last-row iter-9-last-row  ">
+                    <a href="/upload/media/2582/9851.jpg" class="gallery " data-fancybox-group="gallery"  title="" >
+                        <img src="/upload/media/2582/9851_preview_cropped_160x120.jpg" alt="">
+                    </a>
+            </div>
+    <div class="clear"></div>
+</div>                                <div class="clear"></div>
+                            </div>
+                            <h3 class="images-section-title" id="gallery-11">Ostatní</h3>
+                            <div class="estate-images wider">
+<div class="gallery-images">
+            <div class="image image-relative iter-2-new-row iter-3-new-row iter-4-new-row iter-5-new-row iter-first iter-last iter-2-one-row iter-3-one-row iter-4-one-row iter-5-one-row iter-6-one-row iter-7-one-row iter-8-one-row iter-9-one-row iter-2-last-row iter-3-last-row iter-4-last-row iter-5-last-row iter-6-last-row iter-7-last-row iter-8-last-row iter-9-last-row  ">
+                    <a href="/upload/media/2582/9852.jpg" class="gallery " data-fancybox-group="gallery"  title="" >
+                        <img src="/upload/media/2582/9852_preview_cropped_160x120.jpg" alt="">
+                    </a>
+            </div>
+    <div class="clear"></div>
+</div>                                <div class="clear"></div>
+                            </div>
+
+                        <div class="center">
+                            <br>
+                            <a href="#" onclick="$('#images-row').toggleClass('all-images');
+                                    return false;" class="button light">Skrýt kompletní galerii</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-7">
+
+                        <h4 class="estate-section-title">Články</h4>
+                        <div class="text-section">
+                                                            <div class="media-row">
+                                    <div class="datum">16. října 2007</div>
+                                    <div class="web"><a href="https://prachaticky.denik.cz/zpravy_region/pt_vpk_slunecni_elektrarna2007.html" target="_blank">prachaticky.denik.cz</a></div>
+                                    <div class="text">Nad Vimperkem by mohla stát sluneční elektrárna</div>
+                                    <div class="position">  </div>
+                                    <div class="clear"></div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="media-row">
+                                    <div class="datum">14. října 2003</div>
+                                    <div class="web"><a href="http://www.rozhlas.cz/cb/zpravodajstvi/_zprava/vimperk-je-pripraven-prevzit-armadni-majetek--90453" target="_blank">www.rozhlas.cz</a></div>
+                                    <div class="text">Vimperk je připraven převzít armádní majetek</div>
+                                    <div class="position">  </div>
+                                    <div class="clear"></div>
+                                    <div class="clear"></div>
+                                </div>
+                        </div>
+
+                        <h4 class="estate-section-title">Knihy</h4>
+                        <div class="text-section">
+                                            </div>
+
+                <h4 class="estate-section-title">Externí galerie (foto / video)</h4>
+                <div class="text-section">
+                            <div class="media-row" >
+                                <div class="datum">1. července 2010</div>
+                                <div class="web"><a href="http://dolany.rajce.idnes.cz/Vimperk_Kasarna_U_Sloupu/" target="_blank">dolany.rajce.idnes.cz</a></div>
+                                <div class="text">dolany.rajce.idnes.cz</div>
+                                <div class="position">  </div>
+                                <div class="clear"></div>
+                                <div class="clear"></div>
+                                <div class="clear"></div>
+                            </div>
+                </div>
+
+                <h4 class="estate-section-title">Odkazy</h4>
+                <div class="text-section">
+                                            <div class="links-row">
+                            <div class="web"><a href="http://www.risy.cz/cs/vyhledavace/brownfields/detail?id=3133" target="_blank">www.risy.cz</a></div>
+                            <div class="text"></div>
+                            <div class="position">  </div>
+                            <div class="clear"></div>
+                        </div>
+                </div>
+
+                <h4 class="estate-section-title">FB</h4>
+                <div class="text-section">
+                                    </div>
+
+                <h4 class="estate-section-title">Majitelé nemovitosti</h4>
+                <div class="text-section subjects-section">
+
+
+                        <div class="subject-row actual" id="subject-row-3086">
+                            <div class="left-part" >
+                                <div class="datum">
+                                    27. února 2018  </div>
+                                <div class="name">Město Vimperk <i class="fa fa-address-book-o" title="Veřejný majitel"></i></div>
+                            </div>
+
+                            
+                            <div class="clear"></div>
+                        </div>
+                </div>
+
+            </div>
+            <div class="col-sm-5">
+
+                <div class="street-view-wrapper" style="display: noneX;">
+                    <div id="panorama-vindow" class="panorama-view-wrapper">
+                        <h4 class="estate-section-title">Panorama</h4>
+                        <div class="panorama" style="height:200px"></div>
+                    </div>
+                </div>
+
+
+                <h4 class="estate-section-title">Mapa</h4>
+                <div id="map-wrapper" class="estate-map"></div>
+            </div>
+        </div>
+
+        <h4 class="estate-section-title">Autor karty
+            <span class="author">
+                <a href="/user/profil/8/">Rendy </a>
+            </span>
+        <span class="last-change">aktualizováno: 27. února 2018</span>
+    </h4>
+
+    <h4 class="estate-section-title">Diskuze
+            <a href="/domy/objekty/detail/2732-kasarna-u-sloupu?do=addComment" class="button small float-right fancybox-ajax"><i class="fa fa-plus"></i> Přidat komentář</a>
+        <div class="clear"></div>
+    </h4>
+    <div class="text-section">
+<div id="snippet--comments">                K tomuto objektu neexistují žádné komentáře.
+</div>    </div>
+
+    <input type="hidden" name="_do" value="estateForm-submit"></form>
+
+                    <div class="clear"></div>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+        <footer>
+
+            <div class="credits">
+                <div class="fb-like" data-href="https://prazdenomy.cz" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+                |
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs">(CC) BY-NC-SA - některá práva vyhrazena</a> - Prázdné domy, z. s. 2017
+                <span class="credits-created-by">| Created by impire.cz</span>
+            </div>
+        </footer>
+
+        <div id="ajax-spinner"></div>
+
+        <div id="hint"></div>
+    </div>
+    <noscript id="deferred-styles">
+    <link rel="stylesheet" href="/plugins/bower_components/select2/select2.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/plugins/jquery.multiselect/jquery.multiselect.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/plugins/tooltipster/css/tooltipster.bundle.min.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/plugins/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-noir.min.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="//cdn.rawgit.com/thdoan/magnify/master/dist/css/magnify.css">
+        </noscript>
+
+    <script>
+        var loadDeferredStyles = function () {
+            var addStylesNode = document.getElementById("deferred-styles");
+            var replacement = document.createElement("div");
+            replacement.innerHTML = addStylesNode.textContent;
+            document.body.appendChild(replacement)
+            addStylesNode.parentElement.removeChild(addStylesNode);
+        };
+        try {
+            var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+                    webkitRequestAnimationFrame || msRequestAnimationFrame;
+            if (raf)
+                raf(function () {
+                    window.setTimeout(loadDeferredStyles, 0);
+                });
+            else
+                window.addEventListener('load', loadDeferredStyles);
+        } catch (e) {
+            window.addEventListener('load', loadDeferredStyles);
+        }
+    </script>
+
+    <script type="text/javascript" src="/plugins/bower_components/nette.ajax.js/nette.ajax.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/nette-forms/src/assets/netteForms.js"></script>
+
+    <script>
+        Nette.validators.FormCustomFormRules_validateDate = function (elem, args, val) {
+            regex = /^\d+\.\d+\.\d\d\d\d$/;
+            return (val.match(regex) != null);
+        };
+        Nette.validators.FormCustomFormRules_validatePrice = function (elem, args, val) {
+            console.log(args);
+            return args[0] || args[1] > 0;
+        };
+//            console.log('VALIDUJI');
+//            return false;
+////            var el1 = document.getElementById("frmform-" + args.field1.control);
+////            var val1 = Nette.getValue(el1);
+////
+////            var el2 = document.getElementById("frmform-" + args.field2.control);
+////            var val2 = Nette.getValue(el2);
+////            return val == val1 + val2;
+//        };
+    </script>
+    <script type="text/javascript" src="/plugins/bower_components/fancybox/source/jquery.fancybox.pack.js"></script>
+    <script type="text/javascript" src="/plugins/jquery.fancybox-thumbs/jquery.fancybox-thumbs.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/jquery-ui/ui/i18n/datepicker-cs.js"></script>
+    <script type="text/javascript" src="/plugins/jquery.multiselect/jquery.multiselect.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/matchHeight/jquery.matchHeight-min.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/select2/select2.min.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/select2/select2_locale_cs.js"></script>
+    <script type="text/javascript" src="/plugins/select2.nette.init.js?v=1706737033"></script>
+    <script type="text/javascript" src="/plugins/jquery.magnify/jquery.magnify.js"></script>
+    <script type="text/javascript" src="/plugins/jquery.elevatezoom.js"></script>
+    <script type="text/javascript" src="/plugins/tooltipster/js/tooltipster.bundle.min.js"></script>
+    <!--<script type="text/javascript" src="/plugins/jquery.lazyload.1.9.1.min.js"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>-->
+
+    <!--testuji pro bootstrap modal-->
+    <!--    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+
+
+    <script type="text/javascript" src="/plugins/cookieconsent/dist/cookieconsent.js"></script>
+    <script type="text/javascript" src="/cookies"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("consent", "default", Object.assign({}, globalGtagPerms, {
+            wait_for_update: 1000 // milliseconds
+        }));
+
+    </script>
+
+
+    
+
+    <script type="text/javascript" src="/plugins/dependent-select-box.js?v=1706737033"></script>
+    <script type="text/javascript" src="/js/controls.js?v=1706737033"></script>
+    <script type="text/javascript" src="/js/app.js?v=1706737033"></script>
+    <script type="text/javascript" src="/js/estate-form.js?v=1706737033"></script>
+    <script src="https://use.fontawesome.com/67bbc25e5a.js"></script>
+    
+
+        <script type="text/javascript" src="/js/estate-timeline.js"></script>
+        <script type="text/javascript" src="/js/estate-map.js"></script>
+        <script type="text/javascript" src="https://api.mapy.cz/loader.js"></script>
+        <script type="text/javascript">Loader.load(null, {
+                pano: true});</script>
+        <script>
+            var options = {
+                nav: false//, // skryjeme navigaci
+                        //pitchRange: [0, 0] // zakazeme vertikalni rozhled
+            };
+            var panoramaScene = new SMap.Pano.Scene(document.querySelector(".panorama"), options);
+            // kolem teto pozice chceme nejblizsi panorama
+            var position = SMap.Coords.fromWGS84("13.736211538314791", "49.06020115106241");
+            //console.log("13.736211538314791", "49.06020115106241");
+            //console.log(0, 0);
+                // hledame s toleranci 50m
+                SMap.Pano.getBest(position, 100).then(function (place) {
+                    panoramaScene.show(place);
+                }, function () {
+                    $("#panorama-vindow").hide();
+                });
+        </script> 
+
+        <script>
+
+            $('.estate-map').estateMap({
+                //estates: [$item->getMapJson()|noescape], 
+                estate: {"lat":"49.06020115106241","lng":"13.736211538314791","id":2732,"name":"Kas\u00e1rna U Sloup\u016f","icon":"\/upload\/markers\/highlight\/6-d84eda6d0d3c1f53bc45fa02c75d9afad046dc93.png?v=1706737033"}, // je to tu proto, ze kdyz se to vezme z ajaxu, nemusi tam mlyn byt, kdyz je neaktivni
+                behavior: EstateMap.behaviorView,
+                positionInfoUrl: "\/domy\/objekty\/detail\/2732-kasarna-u-sloupu?do=coordinatesToAddress",
+                estateInfoUrl: "\/domy\/objekty\/detail\/2732-kasarna-u-sloupu?do=estateInfo",
+                estatesUrl: "\/domy\/objekty\/detail\/2732-kasarna-u-sloupu?highlight=2732&do=getEstates",
+                zoom: 16,
+                lat: 49.06020115106241,
+                lng: 13.736211538314791
+            });
+
+        </script>
+
+        <script>
+
+//            $('.sendDOnationCheck').on("click", function (e) {
+//                var money = $('input[name="donation"]:checked').val();
+//                if (money === 'other') {
+//                    money = $('input[name="donation_value"]').val();
+//                }
+//                var href = $(this).data("href");
+//                window.location.replace(href + "&amount=" + money);
+//            });
+//
+//            $('input[type=radio][name=donation]').on('change', function (e) {
+//                if ($(this).val() === 'other') {
+//                    $('input[name="donation_value"]').prop('disabled', false);
+//                } else {
+//                    $('input[name="donation_value"]').prop('disabled', true);
+//                }
+//            });
+//
+//            $('input[type=radio][name=donation], input[name="donation_value"]').on('keyup change', function (e) {
+//                var money = $('input[name="donation"]:checked').val();
+//                if (money === 'other') {
+//                    money = $('input[name="donation_value"]').val();
+//                    console.log('other');
+//                }
+//                if (money > 1) {
+//                    var src = $("#donation_img").attr("src");
+//                    var newsrc = src.substring(0, src.indexOf("&amount="));
+//                    $("#donation_img").attr("src", newsrc + "&amount=" + money);
+//                }
+//            });
+
+
+        </script>
+
+
+<div id="snippet--flashes">        <script type="text/javascript">
+        </script>
+</div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-105665073-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id))
+                return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/cs_CZ/sdk.js#xfbml=1&version=v2.9&appId=213215739189859";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+</body>
+</html>

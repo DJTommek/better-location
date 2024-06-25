@@ -4,8 +4,7 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\Config;
-use App\MiniCurl\MiniCurl;
-use App\Utils\Strict;
+use App\Utils\Requestor;
 
 final class PrazdneDomyCzService extends AbstractService
 {
@@ -13,6 +12,11 @@ final class PrazdneDomyCzService extends AbstractService
 	const NAME = 'Prazdnedomy.cz';
 
 	const LINK = 'https://prazdnedomy.cz';
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public function validate(): bool
 	{
@@ -25,11 +29,14 @@ final class PrazdneDomyCzService extends AbstractService
 
 	public function process(): void
 	{
-		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_PRAZDNE_DOMY)->run()->getBody();
+		$response = $this->requestor->get($this->url, Config::CACHE_TTL_PRAZDNE_DOMY);
 		$dom = new \DOMDocument();
 		@$dom->loadHTML($response);
 		$finder = new \DOMXPath($dom);
 		$mapyczLink = $finder->query('//div[@class="estate-info-box"]/div/a[contains(text(),"mapa")]/@href')->item(0)->textContent;
+		if ($mapyczLink === null) {
+			return;
+		}
 		$mapyCzLocation = MapyCzService::processStatic($mapyczLink)->getFirst();
 		$location = new BetterLocation($this->url, $mapyCzLocation->getLat(), $mapyCzLocation->getLon(), self::class);
 
