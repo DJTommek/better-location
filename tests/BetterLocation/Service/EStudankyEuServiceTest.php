@@ -3,66 +3,89 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\EStudankyEuService;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\MiniCurl\Exceptions\InvalidResponseException;
-use PHPUnit\Framework\TestCase;
 
-final class EStudankyEuServiceTest extends TestCase
+final class EStudankyEuServiceTest extends AbstractServiceTestCase
 {
-	public function testGenerateShareLink(): void
+	protected function getServiceClass(): string
 	{
-		$this->expectException(NotSupportedException::class);
-		EStudankyEuService::getLink(50.087451, 14.420671);
+		return EStudankyEuService::class;
 	}
 
-	public function testGenerateDriveLink(): void
+	protected function getShareLinks(): array
 	{
-		$this->expectException(NotSupportedException::class);
-		EStudankyEuService::getLink(50.087451, 14.420671, true);
+		return [];
 	}
 
-	public function testIsValid(): void
+	protected function getDriveLinks(): array
 	{
-		// Place
-		$this->assertTrue(EStudankyEuService::validateStatic('https://estudanky.eu/3762-studanka-kinska'));
-		$this->assertTrue(EStudankyEuService::validateStatic('http://estudanky.eu/3762-studanka-kinska'));
-		$this->assertTrue(EStudankyEuService::validateStatic('https://www.estudanky.eu/3762-studanka-kinska'));
-		$this->assertTrue(EStudankyEuService::validateStatic('https://www.estudanky.eu/3762'));
-		$this->assertTrue(EStudankyEuService::validateStatic('https://www.estudanky.eu/3762-'));
+		return [];
+	}
 
-		// Invalid
-		$this->assertFalse(EStudankyEuService::validateStatic('some invalid url'));
-		$this->assertFalse(EStudankyEuService::validateStatic('https://estudanky.eu/nepristupne-cislo-zpet-strana-1'));
-		$this->assertFalse(EStudankyEuService::validateStatic('https://estudanky.eu/kraj-B-cislo-strana-1'));
-		$this->assertFalse(EStudankyEuService::validateStatic('https://estudanky.eu/zachranme-studanky'));
+	public static function isValidProvider(): array
+	{
+		return [
+			[true, 'https://estudanky.eu/3762-studanka-kinska'],
+			[true, 'http://estudanky.eu/3762-studanka-kinska'],
+			[true, 'https://www.estudanky.eu/3762-studanka-kinska'],
+			[true, 'https://www.estudanky.eu/3762'],
+			[true, 'https://www.estudanky.eu/3762-'],
+
+			// Invalid
+			[false, 'some invalid url'],
+			[false, 'https://estudanky.eu/nepristupne-cislo-zpet-strana-1'],
+			[false, 'https://estudanky.eu/kraj-B-cislo-strana-1'],
+			[false, 'https://estudanky.eu/zachranme-studanky'],
+		];
+	}
+
+	public static function processProvider(): array
+	{
+		return [
+			[50.078999, 14.400600, 'https://estudanky.eu/3762-studanka-kinska'],
+			[50.068591, 14.420468, 'https://estudanky.eu/10596-studna-bez-jmena'],
+			[49.517083, 18.729550, 'https://estudanky.eu/4848'],
+		];
+	}
+
+	public static function processInvalidIdProvider(): array
+	{
+		return [
+			['https://estudanky.eu/999999999'],
+		];
+	}
+
+	/**
+	 * @dataProvider isValidProvider
+	 */
+	public function testIsValid(bool $expectedIsValid, string $input): void
+	{
+		$service = new EStudankyEuService();
+		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
 	/**
 	 * @group request
+	 * @dataProvider processProvider
 	 */
-	public function testProcessPlace(): void
+	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$collection = EStudankyEuService::processStatic('https://estudanky.eu/3762-studanka-kinska')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.078999,14.400600', $collection[0]->__toString());
-
-		$collection = EStudankyEuService::processStatic('https://estudanky.eu/10596-studna-bez-jmena')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.068591,14.420468', $collection[0]->__toString());
-
-		$collection = EStudankyEuService::processStatic('https://estudanky.eu/4848')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.517083,18.729550', $collection[0]->__toString());
+		$service = new EStudankyEuService();
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
 	/**
 	 * @group request
+	 * @dataProvider processInvalidIdProvider
 	 */
-	public function testInvalidId(): void
+	public function testInvalidId(string $input): void
 	{
+		$service = new EStudankyEuService();
+
 		$this->expectException(InvalidResponseException::class);
 		$this->expectExceptionCode(404);
 		$this->expectExceptionMessage('Invalid response code "404" but required "200" for URL "estudanky.eu"');
-		EStudankyEuService::processStatic('https://estudanky.eu/999999999');
+
+		$this->assertServiceNoLocation($service, $input);
 	}
 }
