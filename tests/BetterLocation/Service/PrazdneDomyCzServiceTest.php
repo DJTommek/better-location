@@ -45,7 +45,7 @@ final class PrazdneDomyCzServiceTest extends TestCase
 	{
 		$this->expectException(InvalidResponseException::class);
 		$this->expectExceptionCode(500);
-		$this->expectExceptionMessage('Invalid response code "500" but required "200" for URL "https://prazdnedomy.cz/domy/objekty/detail/999999999"');
+		$this->expectExceptionMessage('Invalid response code "500" but required "200" for URL "prazdnedomy.cz"');
 		PrazdneDomyCzService::processStatic('https://prazdnedomy.cz/domy/objekty/detail/999999999');
 	}
 }
