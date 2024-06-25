@@ -149,6 +149,40 @@ abstract class AbstractServiceTestCase extends TestCase
 		return $location;
 	}
 
+	/**
+	 * @param array<array{float, float, ?string, ?string}> $expectedResults List of expected results {lat, lon,
+	 *      ?sourceType, ?expectedPrefix} If expectedPrefix is not provided or null, it is not being checked.
+	 */
+	protected function assertServiceLocations(
+		AbstractService $service,
+		string $input,
+		array $expectedResults,
+		float $delta = 0.000_001,
+	): void {
+		$this->assertInstanceOf($this->getServiceClass(), $service);
+		$service->setInput($input);
+
+		$this->assertTrue($service->validate());
+		$service->process();
+
+		$collection = $service->getCollection();
+		$this->assertCount(count($expectedResults), $collection);
+
+		foreach ($expectedResults as $key => $expectedResult) {
+			$expectedLat = $expectedResult[0];
+			$expectedLon = $expectedResult[1];
+			$location = $collection[$key];
+			$this->assertCoordsWithDelta($expectedLat, $expectedLon, $location, $delta);
+			$expectedSourceType = $expectedResult[2] ?? null;
+			$this->assertSame($expectedSourceType, $location->getSourceType());
+
+			$expectedPrefix = $expectedResult[3] ?? null;
+			if ($expectedPrefix !== null) {
+				$this->assertSame($expectedPrefix, $location->getPrefixMessage());
+			}
+		}
+	}
+
 	protected function assertServiceNoLocation(
 		AbstractService $service,
 		string $input,
