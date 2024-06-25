@@ -25,7 +25,8 @@ final class HradyCzServiceTest extends AbstractServiceTestCase
 	public static function isValidProvider(): array
 	{
 		return [
-			[true, 'https://www.hrady.cz/aaa-bbb-ccc'],
+			[true, 'https://www.hrady.cz/hrad-najstejn'],
+			[true, 'https://www.hrady.cz/zamek-reckovice'],
 			[true, 'https://www.hrady.cz/certovy-hlavy-zelizy'],
 			[true, 'https://hrady.cz/certovy-hlavy-zelizy'],
 			[true, 'http://hrady.cz/certovy-hlavy-zelizy'],
@@ -33,12 +34,14 @@ final class HradyCzServiceTest extends AbstractServiceTestCase
 			[true, 'https://www.hrady.cz/certovy-hlavy-zelizy/komentare'],
 			[true, 'https://www.hrady.cz/certovy-hlavy-zelizy/komentare/new'],
 			[true, 'https://www.hrady.cz/pevnost-bunkr-lo-vz-37-a-124az1z-vaha'],
+			[true, 'https://www.hrady.cz/aaa-bbb-ccc'], // No location but valid
 
 			[false, 'some invalid url'],
-			[false, 'https://www.hrady.cz/aaa-bbb'],
+			[false, 'https://www.hrady.cz/aaa'],
 			[false, 'https://www.hrady.cz/mapa'],
 			[false, 'https://www.hrady.cz/clanky/pohadkovemu-jicinu-predchazela-jedna-z-nejvetsich-katastrof-17-stoleti'],
 			[false, 'https://www.hrady.cz/search?typ_dop=105'],
+			[false, 'https://www.hrady.cz/pamatky/kraj-vysocina'],
 		];
 	}
 

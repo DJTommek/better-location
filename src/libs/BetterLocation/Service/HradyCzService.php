@@ -19,8 +19,8 @@ final class HradyCzService extends AbstractService
 		return (
 			$this->url &&
 			$this->url->getDomain(2) === 'hrady.cz' &&
-			// path has always at least three words joined with dash
-			preg_match('/^\/[a-z0-9]+-[a-z0-9]+-[a-z0-9]+/', $this->url->getPath())
+			// path has always at least two words joined with dash
+			preg_match('/^\/[a-z0-9]+-[a-z0-9]+/', $this->url->getPath())
 		);
 	}
 
