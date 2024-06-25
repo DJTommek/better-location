@@ -4,7 +4,7 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\Config;
-use App\MiniCurl\MiniCurl;
+use App\Utils\Requestor;
 use App\Utils\Utils;
 
 final class HradyCzService extends AbstractService
@@ -13,6 +13,11 @@ final class HradyCzService extends AbstractService
 	const NAME = 'Hrady.cz';
 
 	const LINK = 'https://www.hrady.cz';
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public function validate(): bool
 	{
@@ -28,7 +33,7 @@ final class HradyCzService extends AbstractService
 	{
 		$paths = explode('/', $this->url->getPath());
 		$this->url->setPath($paths[1]);
-		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_HRADY_CZ)->run()->getBody();
+		$response = $this->requestor->get($this->url, Config::CACHE_TTL_HRADY_CZ);
 		if ($coords = Utils::findMapyCzApiCoords($response)) {
 			$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class);
 			$this->updatePrefixMessage($location, $response);

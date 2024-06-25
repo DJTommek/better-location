@@ -3,10 +3,19 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\HradyCzService;
-use App\MiniCurl\Exceptions\InvalidResponseException;
+use Tests\HttpTestClients;
 
 final class HradyCzServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return HradyCzService::class;
@@ -66,7 +75,7 @@ final class HradyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new HradyCzService();
+		$service = new HradyCzService($this->httpTestClients->mockedRequestor);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -74,9 +83,19 @@ final class HradyCzServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processProvider
 	 */
-	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
+	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new HradyCzService();
+		$service = new HradyCzService($this->httpTestClients->realRequestor);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+	}
+
+	/**
+	 * @group request
+	 * @dataProvider processProvider
+	 */
+	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
+	{
+		$service = new HradyCzService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -84,14 +103,18 @@ final class HradyCzServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processProviderInvalid
 	 */
-	public function testInvalidId(string $input): void
+	public function testInvalidIdReal(string $input): void
 	{
-		$service = new HradyCzService();
+		$service = new HradyCzService($this->httpTestClients->realRequestor);
+		$this->assertServiceNoLocation($service, $input);
+	}
 
-		$this->expectException(InvalidResponseException::class);
-		$this->expectExceptionCode(404);
-		$this->expectExceptionMessage('Invalid response code "404" but required "200" for URL "www.hrady.cz".');
-
+	/**
+	 * @dataProvider processProviderInvalid
+	 */
+	public function testInvalidIdOffline(string $input): void
+	{
+		$service = new HradyCzService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceNoLocation($service, $input);
 	}
 }
