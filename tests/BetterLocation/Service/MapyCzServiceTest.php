@@ -282,7 +282,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 		$this->assertSame('50.073784,14.422105', MapyCzService::processStatic('https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=2111676')->getFirst()->__toString());
 		$this->assertSame('50.084007,14.440339', MapyCzService::processStatic('https://en.mapy.cz/zakladni?x=14.4527551&y=50.0750056&z=15&source=pubt&id=15308193')->getFirst()->__toString());
 		$this->assertSame('50.084748,14.454012', MapyCzService::processStatic('https://mapy.cz/zakladni?x=14.4651576&y=50.0796325&z=15&source=firm&id=468797')->getFirst()->__toString());
-		$this->assertSame('50.093312,14.455159', MapyCzService::processStatic('https://mapy.cz/zakladni?x=14.4367048&y=50.0943640&z=15&source=traf&id=15659817')->getFirst()->__toString());
+		$this->assertSame('50.094364,14.436705', MapyCzService::processStatic('https://mapy.cz/zakladni?x=14.4367048&y=50.0943640&z=15&source=traf&id=15659817')->getFirst()->__toString());
 		$this->assertSame('49.993611,14.205278', MapyCzService::processStatic('https://en.mapy.cz/fotografie?x=14.2029782&y=49.9929235&z=17&source=foto&id=1080344')->getFirst()->__toString());
 		$this->assertSame('50.106624,14.366203', MapyCzService::processStatic('https://en.mapy.cz/zakladni?x=14.3596717&y=50.0997874&z=15&source=base&id=1833337')->getFirst()->__toString()); // area
 		// some other places than Czechia (source OSM)
@@ -302,7 +302,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 		$this->assertSame('50.533111,16.155906', MapyCzService::processStatic('https://en.mapy.cz/s/devevemoje')->getFirst()->__toString());
 		$this->assertSame('50.084007,14.440339', MapyCzService::processStatic('https://en.mapy.cz/s/degogalazo')->getFirst()->__toString());
 		$this->assertSame('50.084748,14.454012', MapyCzService::processStatic('https://en.mapy.cz/s/cavukepuba')->getFirst()->__toString());
-		$this->assertSame('50.093312,14.455159', MapyCzService::processStatic('https://en.mapy.cz/s/fuvatavode')->getFirst()->__toString());
+		$this->assertSame('50.094364,14.436705', MapyCzService::processStatic('https://en.mapy.cz/s/fuvatavode')->getFirst()->__toString());
 		$this->assertSame('50.106624,14.366203', MapyCzService::processStatic('https://en.mapy.cz/s/gesaperote')->getFirst()->__toString()); // area
 		// some other places than Czechia (source OSM)
 		$this->assertSame('49.444980,11.109055', MapyCzService::processStatic('https://en.mapy.cz/s/hozogeruvo')->getFirst()->__toString());
