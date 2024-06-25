@@ -2,6 +2,7 @@
 
 namespace Tests\BetterLocation\Service;
 
+use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\PrazdneDomyCzService;
 use Tests\HttpTestClients;
 
@@ -67,7 +68,7 @@ final class PrazdneDomyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new PrazdneDomyCzService($this->httpTestClients->mockedRequestor);
+		$service = new PrazdneDomyCzService($this->httpTestClients->mockedRequestor, new MapyCzService());
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -77,7 +78,7 @@ final class PrazdneDomyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new PrazdneDomyCzService($this->httpTestClients->realRequestor);
+		$service = new PrazdneDomyCzService($this->httpTestClients->realRequestor, new MapyCzService());
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -86,7 +87,7 @@ final class PrazdneDomyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new PrazdneDomyCzService($this->httpTestClients->offlineRequestor);
+		$service = new PrazdneDomyCzService($this->httpTestClients->offlineRequestor, new MapyCzService());
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -96,7 +97,7 @@ final class PrazdneDomyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testInvalidIdReal(string $input): void
 	{
-		$service = new PrazdneDomyCzService($this->httpTestClients->realRequestor);
+		$service = new PrazdneDomyCzService($this->httpTestClients->realRequestor, new MapyCzService());
 		$this->assertServiceNoLocation($service, $input);
 	}
 
@@ -105,7 +106,7 @@ final class PrazdneDomyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testInvalidIdOffline(string $input): void
 	{
-		$service = new PrazdneDomyCzService($this->httpTestClients->offlineRequestor);
+		$service = new PrazdneDomyCzService($this->httpTestClients->offlineRequestor, new MapyCzService());
 		$this->assertServiceNoLocation($service, $input);
 	}
 }

@@ -15,6 +15,7 @@ final class PrazdneDomyCzService extends AbstractService
 
 	public function __construct(
 		private readonly Requestor $requestor,
+		private readonly MapyCzService $mapyCzService,
 	) {
 	}
 
@@ -37,7 +38,10 @@ final class PrazdneDomyCzService extends AbstractService
 		if ($mapyczLink === null) {
 			return;
 		}
-		$mapyCzLocation = MapyCzService::processStatic($mapyczLink)->getFirst();
+		$this->mapyCzService->setInput($mapyczLink);
+		$this->mapyCzService->validate();
+		$this->mapyCzService->process();
+		$mapyCzLocation = $this->mapyCzService->getCollection()->getFirst();
 		$location = new BetterLocation($this->url, $mapyCzLocation->getLat(), $mapyCzLocation->getLon(), self::class);
 
 		$placeName = $finder->query('//h1/text()')->item(0)->textContent;
