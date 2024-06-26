@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ropiky.net - Objekt RS-II/72/B1-90</title>
+    <meta content="text/html; charset=windows-1250" http-equiv="Content-Type">
+    <link rel="stylesheet" type="text/css" href="css_dbase.css">
+  </head>
+  <body onresize="ImgHide();" onscroll="ImgHide();">
+    <script src="includes/dbase_objekt.js"></script>
+    <div class="head">
+      <div class="head_left">[ <a href="../index.php">Úvod</a> | <a href="../clanky_index.php">Články</a> | <a href="../dbase_index.php">Databáze</a> | <a href="../diskuse_index.php" target="_top">Diskuse</a> | <a href="http://mapa.opevneni.cz/?n=48.931465&e=17.892468&r=1a955000010&z=7&m=t&l=cz" target="_blank">Mapa.opevneni.cz</a> | <a href="http://ukradene.ropiky.net/ " target="_blank">Ukradené ropíky</a>  ]</div>
+      <div class="head_right">Uživatel : <b>130.61.211.165</b> () [ <a href="..//login.php">Přihlásit</a> ]</div>
+    </div>
+    <!-- tělo dokumentu -->
+    <div class="body">
+      <h1>Objekt RS-II/72/B1-90</h1>
+
+      <!-- tabulka s navigací -->
+      <table class="navigc">
+        <tr>
+          <td style="width:100px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_sbor.php?sbor=6';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'"><b>VI. sbor</b></td>
+          <td style="width:100px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_usek.php?id=1075697742';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'"><b>RS-II</b></td>
+          <td style="width:80px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_objekt.php?id=1183840689';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'">64/A-140</td>
+          <td style="width:80px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_objekt.php?id=1183840715';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'">66/A-140</td>
+          <td style="width:80px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_objekt.php?id=1183840747';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'">69/A-180</td>
+          <td style="width:80px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_objekt.php?id=1183840753';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'">71/B2-100</td>
+          <th style="width:80px;">72/B1-90</th>
+          <td style="width:80px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_objekt.php?id=1183840760';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'">76/B2-80</td>
+          <td style="width:80px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_objekt.php?id=1183840767';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'">77/E</td>
+          <td style="width:80px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_objekt.php?id=1183840803';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'">79/A-180</td>
+          <td style="width:80px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_objekt.php?id=1183840806';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'">81/A-120</td>
+        </tr>
+      </table>
+<html>
+      <form action="includes/obj_top_37.php" method="post">
+      <!-- tabulka s hlavními údaji -->
+      <table class="objekt">
+        <col style="width:350px;">
+        <col style="width:50px;">
+        <col style="width:80px;">
+        <col style="width:190px;">
+        <col style="width:90px;">
+        <col style="width:90px;">
+        <col style="width:190px;">
+        <col>
+        <tr>
+      <map name="FPMap0">
+        <area href="http://www.opevneni.cz/asp/mapred9rop.asp?id=1183840757" target="_blank" shape="rect" coords="0, 0, 566, 220 " title="Mapa na opevneni.cz" >
+          <th rowspan="18"><img class="dwg" src="draws/b1-90n.png" border="0" width="560" height="220" haspace="5" vspace="55" usemap="#FPMap0"></th>
+          <input type="hidden" name="id" value="1183840757">
+          <th colspan="2">armádní sbor</th>
+          <td>VI. sbor</td>
+          <th rowspan="3">čelni střílna</th>
+          <th colspan="1">typ</th>
+          <td>
+							<select id="misko_sl_typ" name="sl_typ" disabled 
+								<option></option>
+								<option value=""></option>
+								<option value="normální">normální</option>
+								<option value="zeslabená">zeslabená</option>
+								<option value="depresní">depresní</option>
+								<option value="?">?</option>
+							</select>
+						</td>
+        </tr>
+        <tr>
+          <th colspan="2">stavební úsek</th>
+          <td>RS-II (Číz (Číž))</td>
+          <th colspan="1">číslo</th>
+          <td><input class="pole_cislo" type="text" id="misko_sl_no" name="sl_no" value="" disabled></td>
+        </tr>
+        <tr>
+          <th rowspan="5">číslování</th>
+          <th>ŘOP</th>
+          <td>72</td>
+          <th colspan="1">lafeta 38</th>
+          <td>
+							<select id="misko_sl_laf" name="sl_laf" disabled
+							<option></option>
+							<option value=""></option>
+							<option value="-">-</option>
+							<option value="ano">ano</option>
+							<option value="?">?</option>
+							</select>
+						</td>
+        </tr>
+        <tr>
+          <th>ŘOP staré</th>
+          <td></td>
+          <th rowspan="3">střílna vpravo</th>
+          <th colspan="1">typ</th>
+          <td>
+						<select id="misko_sp_typ" name="sp_typ" disabled
+							<option></option>
+							<option value=""></option>
+							<option value="normální">normální</option>
+							<option value="zeslabená">zeslabená</option>
+							<option value="depresní">depresní</option>
+							<option value="?">?</option>
+						</select>
+						</td>
+        </tr>
+        <tr>
+          <th>Německé</th>
+          <td></td>
+          <th colspan="1">číslo</th>
+          <td><input class="pole_cislo" type="text" id="misko_sp_no" name="sp_no" value="" disabled></td>
+        </tr>
+        <tr>
+          <th>VEČ</th>
+          <td></td>
+          <th colspan="1">lafeta 38</th>
+          <td>
+						<select id="misko_sp_laf" name="sp_laf" disabled
+							<option></option>
+							<option value=""></option>
+							<option value="-">-</option>
+							<option value="ano">ano</option>
+							<option value="?">?</option>
+						</select>
+						</td>
+        </tr>
+        <tr>
+          <th>jiné</th>
+          <td></td>
+          <th colspan="2">výškový rozdíl střílen [cm]</th>
+          <td><input class="pole_cislo" type="text" id="misko_s_vyska" name="s_vyska" value="0" maxlength="3" disabled></td>
+        </tr>
+        <tr>
+          <th colspan="2">typ</th>
+          <td>B1-90</td>
+          <th rowspan="3">vchodová střílna</th>
+          <th colspan="1">typ</th>
+          <td>
+						<select id="misko_s_vch" name="s_vch" disabled
+							<option></option>
+							<option value=""></option>
+							<option value="ozubová">ozubová</option>
+							<option value="kolíčková">kolíčková</option>
+							<option value="šroubová">šroubová</option>
+							<option value="?">?</option>
+						</select>
+					</td>
+        </tr>
+        <tr>
+          <th colspan="2" title="odolnost">odolnost</th>
+          <td>normální (N)          <th colspan="1">výrobce</th>
+          <td>
+						<select id="misko_s_vyr" name="s_vyr" disabled
+							<option></option>
+							<option value=""></option>
+							<option value="Bächer">Bächer</option>
+							<option value="MO">MO</option>
+							<option value="Třinec">Třinec</option>
+							<option value="Vítkovice">Vítkovice</option>
+							<option value="ZB">ZB</option>
+							<option value="?">?</option>
+						</select>
+					</td>
+</td>
+        </tr>
+        <tr>
+          <th colspan="2" title="výškové řešení - sklon">sklon</th>
+          <td>-          <th colspan="1">číslo</th>
+          <td><input class="pole_cislo" type="text" id="misko_s_no" name="s_no" value=""  disabled></td>
+</td>
+        </tr>
+        <tr>
+          <th colspan="2">nadmořská výška</th>
+          <td>161 m n.m. </td>
+          <th colspan="2">výdech ventilace</th>
+          <td>
+						<select id="misko_vent" name="vent" disabled
+							<option></option>
+							<option value=""></option>
+							<option value="S">S</option>
+							<option value="L">L</option>
+							<option value="?">?</option>
+						</select>
+					</td>
+        </tr>
+        <tr>
+          <th colspan="2">datum betonáže</th>
+          <td>2.p.10.1937</td>
+         <th colspan="2">kabelový vstup</th>
+          <td>
+						<select id="misko_kabel" name="kabel" disabled
+							<option></option>
+							<option value=""></option>
+							<option value="-">-</option>
+							<option value="oba">oba</option>
+							<option value="pod ventilátorom">pod ventilátorom</option>
+							<option value="?">?</option>
+						</select>
+					</td>
+        </tr>
+        <tr>
+          <th colspan="2">krychelná pevnost</th>
+          <td title="1 kg/cm&#178 = 1 atm (atmosféra) ">444 kg/cm&#178 </td>
+          <th colspan="2">zárubně dveří</th>
+          <td>
+						<select id="misko_dvere" name="dvere" style="text-align:left;" disabled
+							<option></option>
+							<option value=""></option>
+							<option value="-">-</option>
+							<option value="R-239">R-239</option>
+							<option value="R-444a">R-444a</option>
+							<option value="poválečné">poválečné</option>
+							<option value="?">?</option>
+						</select>
+					</td>
+        </tr>
+        <tr>
+          <th colspan="2">stav objektu 1938</th>
+          <td>postaven           <th colspan="2">žlábky na chlazení hl.</th>
+          <td>
+						<select id="misko_zlab" name="zlab" disabled
+							<option></option>
+							<option value=""></option>
+							<option value="-">-</option>
+							<option value="ano">ano</option>
+							<option value="?">?</option>
+						</select>
+					</td>
+</td>
+        </tr>
+        <tr>
+          <th colspan="2">dnešní stav objektu</th>
+          <td>zahlazen          <th colspan="2">inundační šachta</th>
+          <td>
+						<select id="misko_sachta" name="sachta" disabled
+							<option></option>
+							<option value=""></option>
+							<option value="-">-</option>
+							<option value="malá">malá</option>
+							<option value="velká">velká</option>
+							<option value="?">?</option>
+						</select>
+					</td>
+        </tr>
+        <tr>
+          <th colspan="2">poznámka</th>
+          <td><input class="pole_cislo" title="" type="text" id="misko_pozn" name="pozn" value="" disabled></td>
+          <th colspan="2">čelní zához</th>
+          <td>
+						<select id="misko_c_zahoz" name="c_zahoz" disabled
+							<option></option>
+							<option value=""></option>
+							<option value="-">-</option>
+							<option value="úplný">úplný</option>
+							<option value="částečný">částečný</option>
+							<option value="rovnanina">rovnanina</option>
+							<option value="?">?</option>
+						</select>
+					</td>
+        </tr>
+        </tr>
+        <tr>
+          <th colspan="2"> </th>
+          <td colspan="1" title=" "><div class="cellhid"></div></td>
+          <th colspan="2">týlový zához</th>
+          <td>
+						<select id="misko_t_zahoz" name="t_zahoz" disabled
+							<option></option>
+							<option value=""></option>
+							<option value="ne">ne</option>
+							<option value="jednostranný">jednostranný</option>
+							<option value="oboustranný">oboustranný</option>
+							<option value="?">?</option>
+						</select>
+					</td>
+        </tr>
+        </tr>
+        <tr>
+          <th colspan="2"> </th>
+          <td colspan="1" title=" "><div class="cellhid"></div></td>
+          <th colspan="2">PAO</th>
+          <td>
+						<select id="misko_pao" name="pao" disabled
+							<option></option>
+							<option value=""></option>
+							<option value="ano">ano</option>
+							<option value="ne">ne</option>
+						</select>
+					</td>
+        </tr>
+      </table>
+      </form>
+		</html>
+      <!-- skrytý obrázek, mapa nebo schéma přesnosti -->
+      <img id="wai" src="ikony/wait.gif" style="display:none; position:absolute; top:0px; left:0px; border:0px;">
+      <div id="shd" style="display:none; background-color:rgba(0,0,0,0.5); float:none; position:fixed; top:0px; left:0px; width:100%; height:100%;"></div>
+      <div id="imd" style="display:none; background-color:#ffffff; float:none; position:absolute; padding:10px; border:1px solid #808080;">
+        <img id="img" onclick="ImgHide();" onload="ImgView();" title="Kliknutím okno zavřete..." style=" border:1px solid #000000; cursor:hand; cursor:pointer;">
+      </div>
+      <div id="imf" style="display:none; background-color:#ffffff; float:none; position:absolute; padding:10px; border:1px solid #808080; height:35px; text-align:center; vertical-align:top;">
+        <input type="hidden" id="imf_autid" value="">
+        <input type="hidden" id="imf_imgid" value="">
+        <input type="hidden" id="usr" value="">
+        <input type="hidden" id="ust" value="">
+        <input type="text" id="imf_popis" value="" style="width:95%; border:0px; text-align:center;"><br>
+        <input type="text" id="imf_autor" value="" style="width:95%; border:0px; text-align:center;">
+      </div>
+      <!-- -->
+
+      <!-- tabulka dobovými fotografiemi -->
+      <table class="dobove">
+        <caption>
+          <b>Dobové fotografie</b>
+        </caption>
+        <tr>
+         <th>
+            <img src="dob_thumb/1573580715.jpg" onclick="dobovka(1573580715,'Sbírka J. Lakosil - T. Svoboda','Tomáš Svoboda (12.11.2019)');" title="Sbírka J. Lakosil - T. Svoboda"></a>
+            <img src="dob_thumb/1573576487.jpg" onclick="dobovka(1573576487,'8.11. při opouštění  (1938 Československé opevnění - Velká obrazová kniha)','Tomáš Svoboda (12.11.2019)');" title="8.11. při opouštění  (1938 Československé opevnění - Velká obrazová kniha)"></a>
+          </th>
+        </tr>
+      </table>
+
+      <!-- tabulka s fotografiemi -->
+      <table class="dobove">
+        <caption>
+          <b>Fotodokumentace</b>
+        </caption>
+        <tr>
+          <th>
+            <img src="dbf_thumbs/1554487535.jpg" onclick="fotka(1554487535,'Roh pole je posetý betonovými úlomky','Tomáš Svoboda  (5.4.2019)','1105380993','','','1719438554');" title="Tomáš Svoboda (5.4.2019) Roh pole je posetý betonovými úlomky">
+            <img src="dbf_thumbs/1554487534.jpg" onclick="fotka(1554487534,'','Tomáš Svoboda  (5.4.2019)','1105380993','','','1719438554');" title="Tomáš Svoboda (5.4.2019) ">
+            <img src="dbf_thumbs/1554487533.jpg" onclick="fotka(1554487533,'','Tomáš Svoboda  (5.4.2019)','1105380993','','','1719438554');" title="Tomáš Svoboda (5.4.2019) ">
+            <img src="dbf_thumbs/1554487532.jpg" onclick="fotka(1554487532,'','Tomáš Svoboda  (5.4.2019)','1105380993','','','1719438554');" title="Tomáš Svoboda (5.4.2019) ">
+          </th>
+        </tr>
+      </table>
+
+      <!-- tabulka s GPS souřadnicemi -->
+      <table class="objekt">
+        <caption>
+          <b>Souřadnice WGS-84</b>
+        </caption>
+        <col style="width:120px;">
+        <col style="width:120px;">
+        <col style="width:80px;">
+        <col style="width:100px;">
+        <col style="width:150px;">
+        <col>
+        <tr>
+          <th title="Severní šířka">lat N(Y)°</th>
+          <th title="Východní délka">long E(X)°</th>
+          <th title="Odchylka od průměrné hodnoty">delta</th>
+          <th title="Datum vložení">datum</th>
+          <th>autor</th>
+          <th>poznámka</th>
+        </tr>
+        <tr>
+          <td class="cent" style="font-weight:bold;">48,32575</td>
+          <td class="cent" style="font-weight:bold;" align="center">20,23345</td>
+          <td colspan="4">
+            <span style="float:right;">
+              [ <u style="cursor:hand; cursor:pointer;" onclick="presnost('1183840757');">Přesnost</u> |
+              <u style="cursor:hand; cursor:pointer;" onclick="mapa('340691','1279367');">Mapa-T</u>  
+              | <a href="http://www.opevneni.cz/asp/mapred9rop.asp?id=1183840757" target="_blank" title="Mapa na opevneni.cz">mapa.opevneni.cz</a> | 
+              <a href="https://mapy.cz/turisticka?x=20.23345&y=48.32575&z=16 &l=0 &source=coor&id=20.23345%2C48.32575 " target="_blank" title="Ukáže objekt na mapy.cz">mapy.cz</a> | 
+              <a href="http://maps.google.cz/?q=48.32575N,20.23345E&t=h&z=18&mrt=loc" target="_blank" title="Ukáže objekt na google.maps">Google.maps</a> |
+              <a href="#" onclick="x=(screen.availWidth-820)/2; y=(screen.availHeight-620)/2; window.open('http://mapy.ropiky.net/oleata.php?scale=1&x=340691&y=1279367&px=800&py=600&back=cenia', 'Mapa', 'width=820,height=620,menubar=no,resizable=no,left='+x+',top='+y);">Mapa-C</a> ]            </span>
+            Průměrné souřadnice objektu
+          </td>
+        </tr>
+        <tr>
+          <td class="cent">48,32576</td>
+          <td class="cent">20,23344</td>
+          <td class="cent">1,8 m</td>
+          <td class="cent">4.4.2019</td>
+          <td>Petr Koláček</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="cent">48,32573</td>
+          <td class="cent">20,23348</td>
+          <td class="cent">2,9 m</td>
+          <td class="cent">4.4.2019</td>
+          <td>Tomáš Svoboda</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="cent">48,32575</td>
+          <td class="cent">20,23343</td>
+          <td class="cent">1,5 m</td>
+          <td class="cent">21.4.2014</td>
+          <td>Stano Mazák</td>
+          <td>Stred rozptylu úlomkov betónu</td>
+        </tr>
+        <tr>
+          <td class="cent">48,32574</td>
+          <td class="cent">20,23345</td>
+          <td class="cent">0,4 m</td>
+          <td class="cent">21.4.2014</td>
+          <td>Vladimír Sýkora</td>
+          <td>odhad na místě</td>
+        </tr>
+        <tr class="none">
+          <td class="cent">48,32552</td>
+          <td class="cent">20,23346</td>
+          <td class="cent" style="color:#FF0000;">25,3 m</td>
+          <td class="cent">8.2.2011</td>
+          <td>Stano Mazák</td>
+          <td>Odhad podľa dobových podkladov (ŘOP, HU-HIM)</td>
+        </tr>
+    </table>
+
+      <!-- tabulka s azimuty -->
+      <table class="objekt">
+        <caption>
+          <b>Azimuty střílen</b>
+        </caption>
+        <col style="width:80px;">
+        <col style="width:80px;">
+        <col style="width:80px;">
+        <col style="width:100px;">
+        <col style="width:150px;">
+        <col>
+        <tr>
+          <th>levý (°)</th>
+          <th>čelní (°)</th>
+          <th>pravý (°)</th>
+          <th>datum</th>
+          <th>autor</th>
+          <th>poznámka</th>
+        </tr>
+        <tr>
+          <td class="cent">n/a</td>
+          <td class="cent"><b>110</b></td>
+          <td class="cent"><b>200</b></td>
+          <td colspan="3">Průměrné azimuty střílen</td>
+        <tr>
+          <td class="cent">n/a</td>
+          <td class="cent">110</td>
+          <td class="cent">200</td>
+          <td class="cent">9.10.2015</td>
+          <td class="cent">Stano Mazák</td>
+          <td>odhad</td>
+        </tr>
+      </table>
+
+      <!-- tabulka s poznámkami -->
+      <table class="info">
+        <caption>
+          <b>Komentáře</b>
+        <col style="width:60px;">
+        <col>
+        <tr>
+          <td><img src="ikony/0000000000s.jpg"></td>
+          <td>
+            <p><u>Petr Koláček</u> <i style="color:#808080;">(3.4.2019)</i></p>
+              <p>Hromada kusů betonu na poli.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img src="ikony/0000000000s.jpg"></td>
+          <td>
+            <p><u>Zdeněk Hanáček</u> <i style="color:#808080;">(8.4.2008)</i></p>
+              <p>2. sled</p>
+          </td>
+        </tr>
+      </table>
+      <hr>
+    </div>
+    <!-- patička -->
+     
+	<a href='#'  onclick="alert('1. Jednotlivé příspěvky jsou osobními názory přispěvovatelů a nevyjadřují stanovisko provozovatelů serveru www.ropiky.net.\n2. Autoři stránek si vyhrazují právo na úpravu uživatelských příspěvků.\n3. Neuautorizované kopírování jakékoliv části této internetové prezentace je zakázáno.\n4. Linkování jakékoliv části této internetové prezentace je zakázáno.\n5. Všechna práva jsou vyhrazena.\n6. Veškerá data nacházející se na těchto stránkách (souřadnice, komentáře, fotografie) jsou majetkem jejich autorů a jsou určena pouze pro osobní použití. Bez souhlasu autorů nesmějí být žádná data kopírována, veřejně prezentována, publikována ani jinak komerčně využívána. Publikovaním údajov na www.ropiky.net ich autor – registrovaný používateľ udeľuje administrátorom právo ich publikovania na tomto fóre, pričom toto právo zostane zachované aj v prípade, ak používateľ požiada o zrušenie registrácie na fóre v zmysle nariadenia GDPR.\n7. Používateľ berie na vedomie, že pri využívaní služieb na serveri sa nesmie správatť v rozpore so všeobecne záväznými právnymi predpismi Českej republiky, Slovenskej republiky a Európskej únie, najmä nesmie žiadnym spôsobom: propagovať násilie a otvorene alebo skrytou formou podnecovať nenávisť na základe pohlavia, rasy, farby pleti, jazyka, viery a náboženstva, politického ci iného zmýšlania, národného alebo sociálneho pôvodu, príslušnosti k národnosti alebo k etnickej skupine, používať vulgarizmy, slovné spojenia alebo iné slovné alebo znakové výrazy, ktorých priamy alebo nepriamy význam je v rozpore so všeobecne akceptovateľnou spoločenskou morálkou a etikou!') ;">   
+	<div class="foot">    
+	<b>Copyright ropiky.net ©1999-2024&nbsp &nbsp</b> 
+   	</a>  
+	
+	<a href='##'  onclick="alert('GDPR_1. Fórum www.ropiky.net ukladá do databázy meno registrovaného používateľa, registrovanú mailovú adresu, nick, IP adresu posledného prihlásenia, prípadne iné údaje, ktoré o sebe užívateľ uviedol vo svojom používateľskom profile. Osobné údaje sú prihlásenému používateľovi dostupné v záložke Osobné údaje. Heslo je zašifrované, a nie je dostupné ani administrátorom. V zmysle nariadenia GDPR (General Data Protection Regulation) má každý registrovaný používateľ možnosť požiadať administráciu o zrušenie svojej registrácie a vymazanie svojich osobných údajov z databázy. Požiadavku o zrušenie registrácie je potrebné zaslať z registrovanej mailovej adresy ( z dôvodu identifikácie žiadateľa ) na admin@ropiky.net. V prípade zrušenia registrácie budú všetky príspevky daného používateľa anonimizované.') ;">   
+	<b>&nbsp &nbsp Ochrana osobních údajú (GDPR)</b> 
+    </div> 
+	</a> 
+	  </body>
+</html>

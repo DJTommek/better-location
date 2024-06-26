@@ -9,16 +9,17 @@ use Tests\HttpTestClients;
 
 final class RopikyNetServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
 	private readonly MapyCzService $mapyCzServiceMocked;
 
 	protected function setUp(): void
 	{
 		parent::setUp();
 
-		$httpTestClients = new HttpTestClients();
+		$this->httpTestClients = new HttpTestClients();
 		$this->mapyCzServiceMocked = new MapyCzService(
-			$httpTestClients->mockedRequestor,
-			(new MapyCzApi)->setClient($httpTestClients->mockedHttpClient),
+			$this->httpTestClients->mockedRequestor,
+			(new MapyCzApi)->setClient($this->httpTestClients->mockedHttpClient),
 		);
 	}
 
@@ -82,7 +83,7 @@ final class RopikyNetServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new RopikyNetService($this->mapyCzServiceMocked);
+		$service = new RopikyNetService($this->httpTestClients->mockedRequestor, $this->mapyCzServiceMocked);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -90,9 +91,18 @@ final class RopikyNetServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processDBaseObjektProvider
 	 */
-	public function testProcess(array $expectedResults, string $input): void
+	public function testProcessReal(array $expectedResults, string $input): void
 	{
-		$service = new RopikyNetService($this->mapyCzServiceMocked);
+		$service = new RopikyNetService($this->httpTestClients->realRequestor, $this->mapyCzServiceMocked);
+		$this->assertServiceLocations($service, $input, $expectedResults);
+	}
+
+	/**
+	 * @dataProvider processDBaseObjektProvider
+	 */
+	public function testProcessOffline(array $expectedResults, string $input): void
+	{
+		$service = new RopikyNetService($this->httpTestClients->offlineRequestor, $this->mapyCzServiceMocked);
 		$this->assertServiceLocations($service, $input, $expectedResults);
 	}
 }

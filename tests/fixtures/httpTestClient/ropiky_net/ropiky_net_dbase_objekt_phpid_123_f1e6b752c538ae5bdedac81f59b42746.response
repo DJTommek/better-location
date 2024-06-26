@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ropiky.net - Hlavní stránka</title>
+    <meta content="text/html; charset=windows-1250" http-equiv="Content-Type">
+    <link rel="stylesheet" type="text/css" href="css_index.css">
+  </head>
+  <body>
+    <div class="head">
+      <div class="head_left">[ <a href="../index.php">Úvod</a> | <a href="../clanky_index.php">Články</a> | <a href="../dbase_index.php">Databáze</a> | <a href="../diskuse_index.php" target="_top">Diskuse</a> | <a href="http://mapa.opevneni.cz/?n=48.931465&e=17.892468&r=1a955000010&z=7&m=t&l=cz" target="_blank">Mapa.opevneni.cz</a> | <a href="http://ukradene.ropiky.net/ " target="_blank">Ukradené ropíky</a>  ]</div>
+      <div class="head_right">Uživatel : <b>130.61.211.165</b> () [ <a href="..//login.php">Přihlásit</a> ]</div>
+    </div>
+    <!-- tělo dokumentu -->
+    <div class="body">
+      <table class="top">
+        <tr>
+          <td>
+            <p>O předválečném opevnění Československa z let 1935-38 byly již napsány a publikovány desítky studií, knih a internetových stránek. Bohužel se však velká většina z nich soustředí především na dělostřelecké tvrze či objekty těžkého opevnění a přehlíží při tom zcela fakt, že veškerá tíha obrany by v září 1938 závisela ve velké míře především na velkém množství vybudovaných a k obraně připravených lehkých objektů. Právě pro to si tyto stránky kladou za cíl především zpracovat v co nejširším rozsahu především problematiku výstavby objektů lehkého opevnění u nás a zpřístupnit informace o tom, kde a jakým způsobem byly stavěny, čím byly vystrojeny a vyzbrojeny a v neposlední řadě i o tom, kde se tyto zajímavé objekty dochovaly do dnešní doby.</p>
+          </td>
+        </tr>
+      </table>
+      <table class="news">
+        <caption>
+          <b><a href="diskuse_index.php">Diskusní fórum:</a></b>
+        </caption>
+        <tr>
+          <td>
+            <p>V diskusi věnované problematice lehkého opevnění, ale i jiným tématům souvisejícícm s opevněním, je aktuálně  <b>17328 příspěvků</b>. Prohlížení diskuse je umožněno všem návštěvníkům, přispívat však mohou jenom registrovaní uživatelé po přihlášení.</p>
+            <b>Poslední vložené příspěvky:</b>
+            <div>
+              <img src="ikony/0000000000s.jpg">
+              23.6.2024 - <u>Luboš Melichar</u><br>
+              Na Trh knih ji někdo nabízí za 2000,-, třeba by se s ním dalo domluvit na slev. Ale i tak je to oproti Aukru (tam se pořád nabízí) sleva.<br>
+            </div>
+            <div>
+              <img src="ikony/1075717458s.jpg">
+              15.6.2024 - <u>Jan Lakosil</u><br>
+              Myslím, že nejjednodušší způsob na získání knihy je pravidelně projíždět nabídky antikvariátů a aktivovat si sledování na knihobotu, kdyby se jim dostala do nabídky. Dřív nebo později se kniha někde objeví. Na aukru se jednu kdosi snaží prodat za necelé tři tisíce, třeba by se s prodejcem dala vyjednat nižší cena.<br>
+            </div>
+            <div>
+              <img src="ikony/0000000000s.jpg">
+              14.6.2024 - <u>David Pokorný</u><br>
+              Při obhlídce detailů knihy Pohraniční pevnosti jsem zjistil, že kniha má ca 1/3 "objem" než Vaše Velké obrazové knihy. Tzn. i kdyby, s přihlédnutím třeba k možné "úspoře nákladů z rozsahu" by se dotisk Vašich Velkých obrazových knih snad, třeba u Tváří :-), mohl do +/- 800-900 Kč vejít. Takovou cenu by jistě většina fandů Vašich knih/Opevnění akceptovala. Já určitě :-).<br>
+            </div>
+            <div>
+              <img src="ikony/0000000000s.jpg">
+              13.6.2024 - <u>David Pokorný</u><br>
+              Právě jsem objevil obdobnou knihu jako je Vaše ČS opevnění 1938 Velká obrazová kniha a to Pohraniční pevnosti I od pana Stehlíka: https://www.knihy.cz/pohranicni-pevnosti/?hgtid=3811d2ff-0096-4cc2-979a-6f0fa6e04c5d vydaná Nakladatelstvím Tváře. Cena je něco nad 300 Kč. Možná by se šlo na dotisku Vaší knihy domluvit s nimi, třeba by to cenově vyšlo solidně ?<br>
+            </div>
+            <div>
+              <img src="ikony/1075717458s.jpg">
+              12.6.2024 - <u>Jan Lakosil</u><br>
+              Já to chápal tehdy tak, že je problém s cenou velkoformátových publikací, což je i Velké obrazová kniha. U menších formátů knih výrobní náklady také stouply, ale trh to tak nějak akceptuje, když se knihy prodávají v ceně kolem 500 Kč. S dalšími knížkami se uvidí, možná už letos na podzim :-)<br>
+            </div>
+            <p style="margin-top:5px;">Celé diskusní fórum najdete <a href="diskuse_index.php">zde</a></p>
+          </td>
+        </tr>
+      </table>
+      <table class="list">
+        <caption>
+          <b><a href="clanky_index.php">Články:</a></b>
+        </caption>
+        <tr>
+          <td>
+            <p>V každém oboru lidského bádání - pokud je prováděno systematicky, dochází časem k rozšiřování vědomostí a revizi původních závěrů. Stejně tak i při studii historie lehkého opevnění z let 1936-38, dochází postupem času k významným posunům v chápání historie výstavby, funkce a složení vybavení a ve spoustě dalších drobností. Vnímejte prosím zde uvedené materiály jako pohled autorů na danou problematiku v závislosti na době zveřejnění.</p>          <b>Poslední vložené články:</b><br>
+              <span style="font-size:8pt;">11.12.2023 - Matouš Kníže </span><a href="clanky_item.php?id=1702316298">Muzea a expozice na Jesenicku a Králicko-sněžnicku</a><br>
+              <br>
+              <span style="font-size:8pt;">19.10.2023 - Matouš Kníže </span><a href="clanky_item.php?id=1697727221">Vojenský výcvikový prostor Dobrá Voda VÚ 1030</a><br>
+              <br>
+              <span style="font-size:8pt;">14.10.2023 - Vnislav Knapík </span><a href="clanky_item.php?id=1697308510">Jak jsme dělali kamufláž</a><br>
+              <br>
+            Všech <b>593 článků</b> roztříděných do jednotlivých témat, najdete <a href="clanky_index.php">zde</a>.
+            </td>
+          </tr>
+      </table>
+      <table class="dbase">
+        <caption>
+          <b><a href="dbase_index.php">Databáze:</a></b>
+        </caption>
+        <tr>
+          <td>
+            <p>Jádrem tohoto serveru a vlastně i hlavní důvod jeho existence je <b><a href="dbase_index.php">databáze lehkého opevnění</a></b>, obsahující údaje o každé postavené nebo alespoň archivně doložené plánované pevnůstce, její fotodokumentaci, polohu, azimut střílen a spoustu dalších údajů. Jedná se o otevřený projekt, do kterého může měřením v terénu nebo bádáním v archivech přispět každý uživatel.</p>
+            <p>Aktuálně  je  evidováno <b>14018 objektů</b>  Československého lehkého opevnění starého i nového typu , 148757 <a href="_dbase\_dbase.php?all=img">fotografií</a> , 40753 <a href="_dbase\_dbase.php?all=gps">souřadnic</a> a navazujících 12014 komentářů či 309 <a href="_dbase\_dbase.php?all=dob">dobových snímků</a> .</p>
+          </td>
+        </tr>
+      </table>
+      <hr>
+    </div>
+    <!-- patička -->
+     
+	<a href='#'  onclick="alert('1. Jednotlivé příspěvky jsou osobními názory přispěvovatelů a nevyjadřují stanovisko provozovatelů serveru www.ropiky.net.\n2. Autoři stránek si vyhrazují právo na úpravu uživatelských příspěvků.\n3. Neuautorizované kopírování jakékoliv části této internetové prezentace je zakázáno.\n4. Linkování jakékoliv části této internetové prezentace je zakázáno.\n5. Všechna práva jsou vyhrazena.\n6. Veškerá data nacházející se na těchto stránkách (souřadnice, komentáře, fotografie) jsou majetkem jejich autorů a jsou určena pouze pro osobní použití. Bez souhlasu autorů nesmějí být žádná data kopírována, veřejně prezentována, publikována ani jinak komerčně využívána. Publikovaním údajov na www.ropiky.net ich autor – registrovaný používateľ udeľuje administrátorom právo ich publikovania na tomto fóre, pričom toto právo zostane zachované aj v prípade, ak používateľ požiada o zrušenie registrácie na fóre v zmysle nariadenia GDPR.\n7. Používateľ berie na vedomie, že pri využívaní služieb na serveri sa nesmie správatť v rozpore so všeobecne záväznými právnymi predpismi Českej republiky, Slovenskej republiky a Európskej únie, najmä nesmie žiadnym spôsobom: propagovať násilie a otvorene alebo skrytou formou podnecovať nenávisť na základe pohlavia, rasy, farby pleti, jazyka, viery a náboženstva, politického ci iného zmýšlania, národného alebo sociálneho pôvodu, príslušnosti k národnosti alebo k etnickej skupine, používať vulgarizmy, slovné spojenia alebo iné slovné alebo znakové výrazy, ktorých priamy alebo nepriamy význam je v rozpore so všeobecne akceptovateľnou spoločenskou morálkou a etikou!') ;">   
+	<div class="foot">    
+	<b>Copyright ropiky.net ©1999-2024&nbsp &nbsp</b> 
+   	</a>  
+	
+	<a href='##'  onclick="alert('GDPR_1. Fórum www.ropiky.net ukladá do databázy meno registrovaného používateľa, registrovanú mailovú adresu, nick, IP adresu posledného prihlásenia, prípadne iné údaje, ktoré o sebe užívateľ uviedol vo svojom používateľskom profile. Osobné údaje sú prihlásenému používateľovi dostupné v záložke Osobné údaje. Heslo je zašifrované, a nie je dostupné ani administrátorom. V zmysle nariadenia GDPR (General Data Protection Regulation) má každý registrovaný používateľ možnosť požiadať administráciu o zrušenie svojej registrácie a vymazanie svojich osobných údajov z databázy. Požiadavku o zrušenie registrácie je potrebné zaslať z registrovanej mailovej adresy ( z dôvodu identifikácie žiadateľa ) na admin@ropiky.net. V prípade zrušenia registrácie budú všetky príspevky daného používateľa anonimizované.') ;">   
+	<b>&nbsp &nbsp Ochrana osobních údajú (GDPR)</b> 
+    </div> 
+	</a> 
+	  </body>
+</html>

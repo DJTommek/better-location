@@ -4,7 +4,7 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\Config;
-use App\MiniCurl\MiniCurl;
+use App\Utils\Requestor;
 use App\Utils\Strict;
 use Nette\Utils\Arrays;
 
@@ -16,6 +16,7 @@ final class RopikyNetService extends AbstractService
 	const LINK = 'https://ropiky.net';
 
 	public function __construct(
+		private readonly Requestor $requestor,
 		private readonly MapyCzService $mapyCzService,
 	) {
 	}
@@ -32,15 +33,15 @@ final class RopikyNetService extends AbstractService
 
 	public function process(): void
 	{
-		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_ROPIKY_NET)->run()->getBody();
-		if (preg_match('/<a href=\"(https:\/\/mapy\.cz\/[^"]+)/', $response, $matches)) {
-			$this->mapyCzService->setInput($matches[1]);
-			if ($this->mapyCzService->validate()) {
-				$this->mapyCzService->process();
-				if ($mapyCzLocation = $this->mapyCzService->getCollection()->getFirst()) {
-					$this->collection->add(new BetterLocation($this->inputUrl, $mapyCzLocation->getLat(), $mapyCzLocation->getLon(), self::class));
-				}
-			}
+		$response = $this->requestor->get($this->url, Config::CACHE_TTL_ROPIKY_NET);
+		if (!preg_match('/<a href=\"(https:\/\/mapy\.cz\/[^"]+)/', $response, $matches)) {
+			return;
 		}
+
+		$this->mapyCzService->setInput($matches[1]);
+		$this->mapyCzService->validate();
+		$this->mapyCzService->process();
+		$mapyCzLocation = $this->mapyCzService->getCollection()->getFirst();
+		$this->collection->add(new BetterLocation($this->inputUrl, $mapyCzLocation->getLat(), $mapyCzLocation->getLon(), self::class));
 	}
 }

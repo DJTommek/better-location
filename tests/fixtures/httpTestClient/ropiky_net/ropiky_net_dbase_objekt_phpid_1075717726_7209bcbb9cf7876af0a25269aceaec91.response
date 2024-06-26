@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ropiky.net - Objekt I.a/1/B</title>
+    <meta content="text/html; charset=windows-1250" http-equiv="Content-Type">
+    <link rel="stylesheet" type="text/css" href="css_dbase.css">
+  </head>
+  <body onresize="ImgHide();" onscroll="ImgHide();">
+    <script src="includes/dbase_objekt.js"></script>
+    <div class="head">
+      <div class="head_left">[ <a href="../index.php">Úvod</a> | <a href="../clanky_index.php">Články</a> | <a href="../dbase_index.php">Databáze</a> | <a href="../diskuse_index.php" target="_top">Diskuse</a> | <a href="http://mapa.opevneni.cz/?n=48.931465&e=17.892468&r=1a955000010&z=7&m=t&l=cz" target="_blank">Mapa.opevneni.cz</a> | <a href="http://ukradene.ropiky.net/ " target="_blank">Ukradené ropíky</a>  ]</div>
+      <div class="head_right">Uživatel : <b>130.61.211.165</b> () [ <a href="..//login.php">Přihlásit</a> ]</div>
+    </div>
+    <!-- tělo dokumentu -->
+    <div class="body">
+      <h1>Objekt I.a/1/B</h1>
+
+      <!-- tabulka s navigací -->
+      <table class="navigc">
+        <tr>
+          <td style="width:100px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_sbor.php?sbor=P';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'"><b>ZVV Praha</b></td>
+          <td style="width:100px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_usek.php?id=1075697505';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'"><b>I.a</b></td>
+          <th style="width:80px;">1/B</th>
+          <td style="width:80px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_objekt.php?id=1075717727';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'">2/B</td>
+          <td style="width:80px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_objekt.php?id=1075717729';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'">3a/A</td>
+          <td style="width:80px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_objekt.php?id=1075717728';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'">3/C</td>
+          <td style="width:80px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_objekt.php?id=1075717730';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'">4/A</td>
+          <td style="width:80px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_objekt.php?id=1075717731';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'">5/B</td>
+          <td style="width:80px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_objekt.php?id=1075717732';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'">6/A</td>
+          <td style="width:80px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_objekt.php?id=1075717734';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'">7a/B</td>
+          <td style="width:80px; cursor:hand; cursor:pointer;" onclick="window.location.href='dbase_objekt.php?id=1075717733';"  onmouseover="this.style.backgroundColor='#b0c4de'" onmouseout="this.style.backgroundColor='#ffffff'">7/A</td>
+        </tr>
+      </table>
+<html>
+      <form action="includes/obj_top_37.php" method="post">
+      <!-- tabulka s hlavními údaji -->
+      <table class="objekt">
+        <col style="width:350px;">
+        <col style="width:50px;">
+        <col style="width:80px;">
+        <col style="width:190px;">
+        <col style="width:90px;">
+        <col style="width:90px;">
+        <col style="width:190px;">
+        <col>
+        <tr>
+      <map name="FPMap0">
+        <area href="http://www.opevneni.cz/asp/mapred9rop.asp?id=1075717726" target="_blank" shape="rect" coords="0, 0, 566, 220 " title="Mapa na opevneni.cz" >
+          <th rowspan="18"><img class="dwg" src="draws/b.png" border="0" width="560" height="220" haspace="5" vspace="55" usemap="#FPMap0"></th>
+          <input type="hidden" name="id" value="1075717726">
+          <th colspan="2">armádní sbor</th>
+          <td>ZVV Praha</td>
+        </tr>
+        <tr>
+          <th colspan="2">stavební úsek</th>
+          <td>I.a (Bartošovice [v Orlických horách])</td>
+        </tr>
+        <tr>
+          <th rowspan="5">číslování</th>
+          <th>ŘOP</th>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th>ŘOP staré</th>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Německé</th>
+          <td></td>
+        </tr>
+        <tr>
+          <th>VEČ</th>
+          <td>212</td>
+        </tr>
+        <tr>
+          <th>jiné</th>
+          <td></td>
+        </tr>
+        <tr>
+          <th colspan="2">typ</th>
+          <td>B</td>
+        </tr>
+        <tr>
+          <th colspan="2">odolnost</th>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <th colspan="2">sklon</th>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <th colspan="2">nadmořská výška</th>
+          <td>664 m n.m. </td>
+        </tr>
+        <tr>
+          <th colspan="2">datum betonáže</th>
+          <td>?</td>
+        </tr>
+        <tr>
+          <th colspan="2">krychelná pevnost</th>
+          <td title="1 kg/cm&#178 = 1 atm (atmosféra) ">? kg/cm&#178 </td>
+        </tr>
+        <tr>
+          <th colspan="2">stav objektu 1938</th>
+          <td>postaven </td>
+        </tr>
+        <tr>
+          <th colspan="2">dnešní stav objektu</th>
+          <td>dochován        </tr>
+        <tr>
+          <th colspan="2">poznámka</th>
+          <td><input class="pole_cislo" title="" type="text" id="misko_pozn" name="pozn" value="" disabled></td>
+        </tr>
+        </tr>
+        <tr>
+          <th colspan="2"> </th>
+          <td colspan="1" title=" "><div class="cellhid"></div></td>
+        </tr>
+        </tr>
+        <tr>
+          <th colspan="2"> </th>
+          <td colspan="1" title=" "><div class="cellhid"></div></td>
+        </tr>
+      </table>
+      </form>
+		</html>
+      <!-- skrytý obrázek, mapa nebo schéma přesnosti -->
+      <img id="wai" src="ikony/wait.gif" style="display:none; position:absolute; top:0px; left:0px; border:0px;">
+      <div id="shd" style="display:none; background-color:rgba(0,0,0,0.5); float:none; position:fixed; top:0px; left:0px; width:100%; height:100%;"></div>
+      <div id="imd" style="display:none; background-color:#ffffff; float:none; position:absolute; padding:10px; border:1px solid #808080;">
+        <img id="img" onclick="ImgHide();" onload="ImgView();" title="Kliknutím okno zavřete..." style=" border:1px solid #000000; cursor:hand; cursor:pointer;">
+      </div>
+      <div id="imf" style="display:none; background-color:#ffffff; float:none; position:absolute; padding:10px; border:1px solid #808080; height:35px; text-align:center; vertical-align:top;">
+        <input type="hidden" id="imf_autid" value="">
+        <input type="hidden" id="imf_imgid" value="">
+        <input type="hidden" id="usr" value="">
+        <input type="hidden" id="ust" value="">
+        <input type="text" id="imf_popis" value="" style="width:95%; border:0px; text-align:center;"><br>
+        <input type="text" id="imf_autor" value="" style="width:95%; border:0px; text-align:center;">
+      </div>
+      <!-- -->
+
+      <!-- tabulka s fotografiemi -->
+      <table class="dobove">
+        <caption>
+          <b>Fotodokumentace</b>
+        </caption>
+        <tr>
+          <th>
+            <img src="dbf_thumbs/1574525082.jpg" onclick="fotka(1574525082,'Srpen 1997','Tomáš Svoboda  (23.11.2019)','1105380993','','','1719438555');" title="Tomáš Svoboda (23.11.2019) Srpen 1997">
+            <img src="dbf_thumbs/1467032920.jpg" onclick="fotka(1467032920,'objekt z čela od silnice (foceno 16/05/30)','Jiří Hrabák  (27.6.2016)','1231499110','','','1719438555');" title="Jiří Hrabák (27.6.2016) objekt z čela od silnice (foceno 16/05/30)">
+            <img src="dbf_thumbs/1416734330.jpg" onclick="fotka(1416734330,'21.11.2014','Josef Hud  (23.11.2014)','1291399587','','','1719438555');" title="Josef Hud (23.11.2014) 21.11.2014">
+            <img src="dbf_thumbs/1416734329.jpg" onclick="fotka(1416734329,'21.11.2014','Josef Hud  (23.11.2014)','1291399587','','','1719438555');" title="Josef Hud (23.11.2014) 21.11.2014">
+            <img src="dbf_thumbs/1416734328.jpg" onclick="fotka(1416734328,'21.11.2014','Josef Hud  (23.11.2014)','1291399587','','','1719438555');" title="Josef Hud (23.11.2014) 21.11.2014">
+            <img src="dbf_thumbs/1292695738.jpg" onclick="fotka(1292695738,'1.8.2009','Josef Hud  (18.12.2010)','1291399587','','','1719438555');" title="Josef Hud (18.12.2010) 1.8.2009">
+            <img src="dbf_thumbs/1292695737.jpg" onclick="fotka(1292695737,'1.8.2009','Josef Hud  (18.12.2010)','1291399587','','','1719438555');" title="Josef Hud (18.12.2010) 1.8.2009">
+            <img src="dbf_thumbs/1292695736.jpg" onclick="fotka(1292695736,'1.8.2009','Josef Hud  (18.12.2010)','1291399587','','','1719438555');" title="Josef Hud (18.12.2010) 1.8.2009">
+            <img src="dbf_thumbs/1254852733.jpg" onclick="fotka(1254852733,'','Jiří Fuchs  (6.10.2009)','1075717460','','','1719438555');" title="Jiří Fuchs (6.10.2009) ">
+            <img src="dbf_thumbs/1254852732.jpg" onclick="fotka(1254852732,'','Jiří Fuchs  (6.10.2009)','1075717460','','','1719438555');" title="Jiří Fuchs (6.10.2009) ">
+            <img src="dbf_thumbs/1252156578.jpg" onclick="fotka(1252156578,'Levý výstřel k silnici','Vladimír Smetana  (5.9.2009)','1246881371','','','1719438555');" title="Vladimír Smetana (5.9.2009) Levý výstřel k silnici">
+            <img src="dbf_thumbs/1252156577.jpg" onclick="fotka(1252156577,'Otvor pro periskop','Vladimír Smetana  (5.9.2009)','1246881371','','','1719438555');" title="Vladimír Smetana (5.9.2009) Otvor pro periskop">
+            <img src="dbf_thumbs/1252156576.jpg" onclick="fotka(1252156576,'Levá střílna','Vladimír Smetana  (5.9.2009)','1246881371','','','1719438555');" title="Vladimír Smetana (5.9.2009) Levá střílna">
+            <img src="dbf_thumbs/1252156574.jpg" onclick="fotka(1252156574,'Pravá střílna','Vladimír Smetana  (5.9.2009)','1246881371','','','1719438555');" title="Vladimír Smetana (5.9.2009) Pravá střílna">
+            <img src="dbf_thumbs/1188366855.jpg" onclick="fotka(1188366855,'7/2007','Roman Holinka  (29.8.2007)','1109754397','','','1719438555');" title="Roman Holinka (29.8.2007) 7/2007">
+            <img src="dbf_thumbs/1188366854.jpg" onclick="fotka(1188366854,'7/2007','Roman Holinka  (29.8.2007)','1109754397','','','1719438555');" title="Roman Holinka (29.8.2007) 7/2007">
+            <img src="dbf_thumbs/1188366853.jpg" onclick="fotka(1188366853,'7/2007','Roman Holinka  (29.8.2007)','1109754397','','','1719438555');" title="Roman Holinka (29.8.2007) 7/2007">
+            <img src="dbf_thumbs/1188366852.jpg" onclick="fotka(1188366852,'7/2007','Roman Holinka  (29.8.2007)','1109754397','','','1719438555');" title="Roman Holinka (29.8.2007) 7/2007">
+            <img src="dbf_thumbs/1188366851.jpg" onclick="fotka(1188366851,'7/2007','Roman Holinka  (29.8.2007)','1109754397','','','1719438555');" title="Roman Holinka (29.8.2007) 7/2007">
+            <img src="dbf_thumbs/1092137222.jpg" onclick="fotka(1092137222,'','Vladimír Sýkora  (10.8.2004)','1075717465','','','1719438555');" title="Vladimír Sýkora (10.8.2004) ">
+            <img src="dbf_thumbs/1092137209.jpg" onclick="fotka(1092137209,'','Vladimír Sýkora  (10.8.2004)','1075717465','','','1719438555');" title="Vladimír Sýkora (10.8.2004) ">
+            <img src="dbf_thumbs/1071511239.jpg" onclick="fotka(1071511239,'foto 29.10.1999','Libor Martinů  (15.12.2003)','1075717459','','','1719438555');" title="Libor Martinů (15.12.2003) foto 29.10.1999">
+            <img src="dbf_thumbs/1071511191.jpg" onclick="fotka(1071511191,'foto 29.10.1999','Libor Martinů  (15.12.2003)','1075717459','','','1719438555');" title="Libor Martinů (15.12.2003) foto 29.10.1999">
+          </th>
+        </tr>
+      </table>
+
+      <!-- tabulka s GPS souřadnicemi -->
+      <table class="objekt">
+        <caption>
+          <b>Souřadnice WGS-84</b>
+        </caption>
+        <col style="width:120px;">
+        <col style="width:120px;">
+        <col style="width:80px;">
+        <col style="width:100px;">
+        <col style="width:150px;">
+        <col>
+        <tr>
+          <th title="Severní šířka">lat N(Y)°</th>
+          <th title="Východní délka">long E(X)°</th>
+          <th title="Odchylka od průměrné hodnoty">delta</th>
+          <th title="Datum vložení">datum</th>
+          <th>autor</th>
+          <th>poznámka</th>
+        </tr>
+        <tr>
+          <td class="cent" style="font-weight:bold;">50,12752</td>
+          <td class="cent" style="font-weight:bold;" align="center">16,60108</td>
+          <td colspan="4">
+            <span style="float:right;">
+              [ <u style="cursor:hand; cursor:pointer;" onclick="presnost('1075717726');">Přesnost</u> |
+              <u style="cursor:hand; cursor:pointer;" onclick="mapa('587509','1057603');">Mapa-T</u>  
+              | <a href="http://www.opevneni.cz/asp/mapred9rop.asp?id=1075717726" target="_blank" title="Mapa na opevneni.cz">mapa.opevneni.cz</a> | 
+              <a href="https://mapy.cz/turisticka?x=16.60108&y=50.12752&z=16 &l=0 &source=coor&id=16.60108%2C50.12752 " target="_blank" title="Ukáže objekt na mapy.cz">mapy.cz</a> | 
+              <a href="http://maps.google.cz/?q=50.12752N,16.60108E&t=h&z=18&mrt=loc" target="_blank" title="Ukáže objekt na google.maps">Google.maps</a> |
+              <a href="#" onclick="x=(screen.availWidth-820)/2; y=(screen.availHeight-620)/2; window.open('http://mapy.ropiky.net/oleata.php?scale=1&x=587509&y=1057603&px=800&py=600&back=cenia', 'Mapa', 'width=820,height=620,menubar=no,resizable=no,left='+x+',top='+y);">Mapa-C</a> ]            </span>
+            Průměrné souřadnice objektu
+          </td>
+        </tr>
+        <tr>
+          <td class="cent">50,12751</td>
+          <td class="cent">16,60107</td>
+          <td class="cent">1,4 m</td>
+          <td class="cent">24.10.2012</td>
+          <td>Miloš Doležal</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="cent">50,12750</td>
+          <td class="cent">16,60108</td>
+          <td class="cent">2,4 m</td>
+          <td class="cent">6.10.2009</td>
+          <td>Jiří Fuchs</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="cent">50,12753</td>
+          <td class="cent">16,60108</td>
+          <td class="cent">1,7 m</td>
+          <td class="cent">27.7.2007</td>
+          <td>Zdeněk Hanáček</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="cent">50,12753</td>
+          <td class="cent">16,60109</td>
+          <td class="cent">1,7 m</td>
+          <td class="cent">19.6.2005</td>
+          <td>Tomáš Byl Fic</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="cent">50,12753</td>
+          <td class="cent">16,60109</td>
+          <td class="cent">1,7 m</td>
+          <td class="cent">20.4.2005</td>
+          <td>Petr Koláček</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="cent">50,12751</td>
+          <td class="cent">16,60107</td>
+          <td class="cent">1,4 m</td>
+          <td class="cent">10.8.2004</td>
+          <td>Vladimír Sýkora</td>
+          <td></td>
+        </tr>
+    </table>
+
+      <!-- tabulka s azimuty -->
+      <table class="objekt">
+        <caption>
+          <b>Azimuty střílen</b>
+        </caption>
+        <col style="width:80px;">
+        <col style="width:80px;">
+        <col style="width:80px;">
+        <col style="width:100px;">
+        <col style="width:150px;">
+        <col>
+        <tr>
+          <th>levý (°)</th>
+          <th>čelní (°)</th>
+          <th>pravý (°)</th>
+          <th>datum</th>
+          <th>autor</th>
+          <th>poznámka</th>
+        </tr>
+        <tr>
+          <td class="cent"><b>46</b></td>
+          <td class="cent">n/a</td>
+          <td class="cent"><b>96</b></td>
+          <td colspan="3">Průměrné azimuty střílen</td>
+        <tr>
+          <td class="cent">46</td>
+          <td class="cent">n/a</td>
+          <td class="cent">96</td>
+          <td class="cent">10.10.2009</td>
+          <td class="cent">Petr Koláček</td>
+          <td></td>
+        </tr>
+        <tr class="none">
+          <td class="cent">60</td>
+          <td class="cent">n/a</td>
+          <td class="cent">110</td>
+          <td class="cent">16.2.2009</td>
+          <td class="cent">Zdeněk Hanáček</td>
+          <td>odhad</td>
+        </tr>
+      </table>
+
+      <hr>
+    </div>
+    <!-- patička -->
+     
+	<a href='#'  onclick="alert('1. Jednotlivé příspěvky jsou osobními názory přispěvovatelů a nevyjadřují stanovisko provozovatelů serveru www.ropiky.net.\n2. Autoři stránek si vyhrazují právo na úpravu uživatelských příspěvků.\n3. Neuautorizované kopírování jakékoliv části této internetové prezentace je zakázáno.\n4. Linkování jakékoliv části této internetové prezentace je zakázáno.\n5. Všechna práva jsou vyhrazena.\n6. Veškerá data nacházející se na těchto stránkách (souřadnice, komentáře, fotografie) jsou majetkem jejich autorů a jsou určena pouze pro osobní použití. Bez souhlasu autorů nesmějí být žádná data kopírována, veřejně prezentována, publikována ani jinak komerčně využívána. Publikovaním údajov na www.ropiky.net ich autor – registrovaný používateľ udeľuje administrátorom právo ich publikovania na tomto fóre, pričom toto právo zostane zachované aj v prípade, ak používateľ požiada o zrušenie registrácie na fóre v zmysle nariadenia GDPR.\n7. Používateľ berie na vedomie, že pri využívaní služieb na serveri sa nesmie správatť v rozpore so všeobecne záväznými právnymi predpismi Českej republiky, Slovenskej republiky a Európskej únie, najmä nesmie žiadnym spôsobom: propagovať násilie a otvorene alebo skrytou formou podnecovať nenávisť na základe pohlavia, rasy, farby pleti, jazyka, viery a náboženstva, politického ci iného zmýšlania, národného alebo sociálneho pôvodu, príslušnosti k národnosti alebo k etnickej skupine, používať vulgarizmy, slovné spojenia alebo iné slovné alebo znakové výrazy, ktorých priamy alebo nepriamy význam je v rozpore so všeobecne akceptovateľnou spoločenskou morálkou a etikou!') ;">   
+	<div class="foot">    
+	<b>Copyright ropiky.net ©1999-2024&nbsp &nbsp</b> 
+   	</a>  
+	
+	<a href='##'  onclick="alert('GDPR_1. Fórum www.ropiky.net ukladá do databázy meno registrovaného používateľa, registrovanú mailovú adresu, nick, IP adresu posledného prihlásenia, prípadne iné údaje, ktoré o sebe užívateľ uviedol vo svojom používateľskom profile. Osobné údaje sú prihlásenému používateľovi dostupné v záložke Osobné údaje. Heslo je zašifrované, a nie je dostupné ani administrátorom. V zmysle nariadenia GDPR (General Data Protection Regulation) má každý registrovaný používateľ možnosť požiadať administráciu o zrušenie svojej registrácie a vymazanie svojich osobných údajov z databázy. Požiadavku o zrušenie registrácie je potrebné zaslať z registrovanej mailovej adresy ( z dôvodu identifikácie žiadateľa ) na admin@ropiky.net. V prípade zrušenia registrácie budú všetky príspevky daného používateľa anonimizované.') ;">   
+	<b>&nbsp &nbsp Ochrana osobních údajú (GDPR)</b> 
+    </div> 
+	</a> 
+	  </body>
+</html>
