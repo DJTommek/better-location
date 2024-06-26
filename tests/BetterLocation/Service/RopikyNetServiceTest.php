@@ -2,87 +2,97 @@
 
 namespace Tests\BetterLocation\Service;
 
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\RopikyNetService;
-use PHPUnit\Framework\TestCase;
+use DJTommek\MapyCzApi\MapyCzApi;
+use Tests\HttpTestClients;
 
-final class RopikyNetServiceTest extends TestCase
+final class RopikyNetServiceTest extends AbstractServiceTestCase
 {
-	public function testGenerateShareLink(): void
+	private readonly MapyCzService $mapyCzServiceMocked;
+
+	protected function setUp(): void
 	{
-		$this->expectException(NotSupportedException::class);
-		RopikyNetService::getLink(50.087451, 14.420671);
+		parent::setUp();
+
+		$httpTestClients = new HttpTestClients();
+		$this->mapyCzServiceMocked = new MapyCzService(
+			$httpTestClients->mockedRequestor,
+			(new MapyCzApi)->setClient($httpTestClients->mockedHttpClient),
+		);
 	}
 
-	public function testGenerateDriveLink(): void
+	protected function getServiceClass(): string
 	{
-		$this->expectException(NotSupportedException::class);
-		RopikyNetService::getLink(50.087451, 14.420671, true);
+		return RopikyNetService::class;
 	}
 
-	public function testIsValid(): void
+	protected function getShareLinks(): array
 	{
-		$this->assertTrue(RopikyNetService::validateStatic('https://www.ropiky.net/dbase_objekt.php?id=1183840757'));
-		$this->assertTrue(RopikyNetService::validateStatic('https://ropiky.net/dbase_objekt.php?id=1183840757'));
-		$this->assertTrue(RopikyNetService::validateStatic('http://www.ropiky.net/dbase_objekt.php?id=1183840757'));
-		$this->assertTrue(RopikyNetService::validateStatic('http://ropiky.net/dbase_objekt.php?id=1183840757'));
+		return [];
+	}
 
-		$this->assertTrue(RopikyNetService::validateStatic('https://www.ropiky.net/nerop_objekt.php?id=1397407312'));
-		$this->assertTrue(RopikyNetService::validateStatic('https://ropiky.net/nerop_objekt.php?id=1397407312'));
-		$this->assertTrue(RopikyNetService::validateStatic('http://www.ropiky.net/nerop_objekt.php?id=1397407312'));
-		$this->assertTrue(RopikyNetService::validateStatic('http://ropiky.net/nerop_objekt.php?id=1397407312'));
+	protected function getDriveLinks(): array
+	{
+		return [];
+	}
 
-		$this->assertFalse(RopikyNetService::validateStatic('https://www.ropiky.net/dbase_objekt.php?id=abcd'));
-		$this->assertFalse(RopikyNetService::validateStatic('https://www.ropiky.net/dbase_objekt.php?id='));
-		$this->assertFalse(RopikyNetService::validateStatic('https://www.ropiky.net/dbase_objekt.blabla?id=1183840757'));
-		$this->assertFalse(RopikyNetService::validateStatic('https://www.ropiky.net/nerop_objekt.php?id=abcd'));
-		$this->assertFalse(RopikyNetService::validateStatic('https://www.ropiky.net/nerop_objekt.php?id='));
-		$this->assertFalse(RopikyNetService::validateStatic('https://www.ropiky.net/nerop_objekt.blabla?id=1183840757'));
-		$this->assertFalse(RopikyNetService::validateStatic('https://www.ropiky.net/aaaaa.php?id=1183840757'));
-		$this->assertFalse(RopikyNetService::validateStatic('https://www.ropiky.net'));
+	public static function isValidProvider(): array
+	{
+		return [
+			[true, 'https://www.ropiky.net/dbase_objekt.php?id=1183840757'],
+			[true, 'https://ropiky.net/dbase_objekt.php?id=1183840757'],
+			[true, 'http://www.ropiky.net/dbase_objekt.php?id=1183840757'],
+			[true, 'http://ropiky.net/dbase_objekt.php?id=1183840757'],
 
-		$this->assertFalse(RopikyNetService::validateStatic('some invalid url'));
+			[true, 'https://www.ropiky.net/nerop_objekt.php?id=1397407312'],
+			[true, 'https://ropiky.net/nerop_objekt.php?id=1397407312'],
+			[true, 'http://www.ropiky.net/nerop_objekt.php?id=1397407312'],
+			[true, 'http://ropiky.net/nerop_objekt.php?id=1397407312'],
+
+			[false, 'https://www.ropiky.net/dbase_objekt.php?id=abcd'],
+			[false, 'https://www.ropiky.net/dbase_objekt.php?id='],
+			[false, 'https://www.ropiky.net/dbase_objekt.blabla?id=1183840757'],
+			[false, 'https://www.ropiky.net/nerop_objekt.php?id=abcd'],
+			[false, 'https://www.ropiky.net/nerop_objekt.php?id='],
+			[false, 'https://www.ropiky.net/nerop_objekt.blabla?id=1183840757'],
+			[false, 'https://www.ropiky.net/aaaaa.php?id=1183840757'],
+			[false, 'https://www.ropiky.net'],
+
+			[false, 'some invalid url'],
+		];
+	}
+
+	public static function processDBaseObjektProvider(): array
+	{
+		return [
+			[[[48.325750, 20.233450]], 'https://ropiky.net/dbase_objekt.php?id=1183840757'],
+			[[[48.331710, 20.240140]], 'https://ropiky.net/dbase_objekt.php?id=1183840760'],
+			[[[50.127520, 16.601080]], 'https://ropiky.net/dbase_objekt.php?id=1075717726'],
+			[[[49.346390, 16.974210]], 'https://ropiky.net/dbase_objekt.php?id=1075718529'],
+			[[[47.999410, 18.780630]], 'https://ropiky.net/dbase_objekt.php?id=1075728128'],
+
+			__FUNCTION__ . '-NoValidLocation' => [[], 'https://ropiky.net/dbase_objekt.php?id=1121190152'],
+			__FUNCTION__ . '-InvalidId' => [[], 'https://ropiky.net/dbase_objekt.php?id=123'],
+		];
+	}
+
+	/**
+	 * @dataProvider isValidProvider
+	 */
+	public function testIsValid(bool $expectedIsValid, string $input): void
+	{
+		$service = new RopikyNetService($this->mapyCzServiceMocked);
+		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
 	/**
 	 * @group request
+	 * @dataProvider processDBaseObjektProvider
 	 */
-	public function testProcessDBaseObjekt(): void
+	public function testProcess(array $expectedResults, string $input): void
 	{
-		$collection = RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1183840757')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('48.325750,20.233450', $collection[0]->__toString());
-
-		$collection = RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1183840760')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('48.331710,20.240140', $collection[0]->__toString());
-
-		$collection = RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1075717726')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.127520,16.601080', $collection[0]->__toString());
-
-		$collection = RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1075718529')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.346390,16.974210', $collection[0]->__toString());
-
-		$collection = RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1075728128')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('47.999410,18.780630', $collection[0]->__toString());
-	}
-
-	/**
-	 * @group request
-	 */
-	public function testMissingCoordinates(): void
-	{
-		$this->assertCount(0, RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=1121190152')->getCollection());
-	}
-
-	/**
-	 * @group request
-	 */
-	public function testInvalidId(): void
-	{
-		$this->assertCount(0, RopikyNetService::processStatic('https://ropiky.net/dbase_objekt.php?id=123')->getCollection());
+		$service = new RopikyNetService($this->mapyCzServiceMocked);
+		$this->assertServiceLocations($service, $input, $expectedResults);
 	}
 }
