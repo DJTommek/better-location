@@ -176,7 +176,10 @@ final readonly class HttpTestClients
 		$urlSafe = preg_replace('/[^A-Za-z0-9_\-]/', '_', $urlCleanString);
 		$urlSafeShort = substr($urlSafe, 0, 100);
 		$serialized = serialize($requestForFingerprint);
-		$requestFingerprint = hash(self::REQUEST_FINGERPRINT_HASH_ALGORITHM, $serialized);
+		$requestFingerprint = hash(
+			self::REQUEST_FINGERPRINT_HASH_ALGORITHM,
+			$serialized . $requestForFingerprint->getBody(),
+		);
 		$requestFingerprintShort = substr($requestFingerprint, 0, 32);
 
 		return sprintf(
