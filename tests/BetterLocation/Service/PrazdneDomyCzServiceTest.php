@@ -4,18 +4,25 @@ namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\PrazdneDomyCzService;
+use DJTommek\MapyCzApi\MapyCzApi;
 use Tests\HttpTestClients;
 
 final class PrazdneDomyCzServiceTest extends AbstractServiceTestCase
 {
 	private readonly HttpTestClients $httpTestClients;
+	private readonly MapyCzService $mapyCzServiceMocked;
 
 	protected function setUp(): void
 	{
 		parent::setUp();
 
 		$this->httpTestClients = new HttpTestClients();
+		$this->mapyCzServiceMocked = new MapyCzService(
+			$this->httpTestClients->mockedRequestor,
+			(new MapyCzApi())->setClient($this->httpTestClients->mockedHttpClient),
+		);
 	}
+
 
 	protected function getServiceClass(): string
 	{
@@ -68,7 +75,7 @@ final class PrazdneDomyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new PrazdneDomyCzService($this->httpTestClients->mockedRequestor, new MapyCzService());
+		$service = new PrazdneDomyCzService($this->httpTestClients->mockedRequestor, $this->mapyCzServiceMocked);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -78,7 +85,7 @@ final class PrazdneDomyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new PrazdneDomyCzService($this->httpTestClients->realRequestor, new MapyCzService());
+		$service = new PrazdneDomyCzService($this->httpTestClients->realRequestor, $this->mapyCzServiceMocked);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -87,7 +94,7 @@ final class PrazdneDomyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new PrazdneDomyCzService($this->httpTestClients->offlineRequestor, new MapyCzService());
+		$service = new PrazdneDomyCzService($this->httpTestClients->offlineRequestor, $this->mapyCzServiceMocked);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -97,7 +104,7 @@ final class PrazdneDomyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testInvalidIdReal(string $input): void
 	{
-		$service = new PrazdneDomyCzService($this->httpTestClients->realRequestor, new MapyCzService());
+		$service = new PrazdneDomyCzService($this->httpTestClients->realRequestor, $this->mapyCzServiceMocked);
 		$this->assertServiceNoLocation($service, $input);
 	}
 
@@ -106,7 +113,7 @@ final class PrazdneDomyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testInvalidIdOffline(string $input): void
 	{
-		$service = new PrazdneDomyCzService($this->httpTestClients->offlineRequestor, new MapyCzService());
+		$service = new PrazdneDomyCzService($this->httpTestClients->offlineRequestor, $this->mapyCzServiceMocked);
 		$this->assertServiceNoLocation($service, $input);
 	}
 }

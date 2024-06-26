@@ -15,6 +15,11 @@ final class RopikyNetService extends AbstractService
 
 	const LINK = 'https://ropiky.net';
 
+	public function __construct(
+		private readonly MapyCzService $mapyCzService,
+	) {
+	}
+
 	public function validate(): bool
 	{
 		return (
@@ -29,11 +34,10 @@ final class RopikyNetService extends AbstractService
 	{
 		$response = (new MiniCurl($this->url->getAbsoluteUrl()))->allowCache(Config::CACHE_TTL_ROPIKY_NET)->run()->getBody();
 		if (preg_match('/<a href=\"(https:\/\/mapy\.cz\/[^"]+)/', $response, $matches)) {
-			$mapyCzService = new MapyCzService();
-			$mapyCzService->setInput($matches[1]);
-			if ($mapyCzService->validate()) {
-				$mapyCzService->process();
-				if ($mapyCzLocation = $mapyCzService->getCollection()->getFirst()) {
+			$this->mapyCzService->setInput($matches[1]);
+			if ($this->mapyCzService->validate()) {
+				$this->mapyCzService->process();
+				if ($mapyCzLocation = $this->mapyCzService->getCollection()->getFirst()) {
 					$this->collection->add(new BetterLocation($this->inputUrl, $mapyCzLocation->getLat(), $mapyCzLocation->getLon(), self::class));
 				}
 			}

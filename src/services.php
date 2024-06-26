@@ -64,6 +64,8 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(TelegramEventFactory::class)
 		->arg('$events', tagged_iterator($tagTgEvents));
 
+	$services->set(\DJTommek\MapyCzApi\MapyCzApi::class);
+
 	$services->set(\Latte\Engine::class);
 	$services->set(\App\Factory\LatteFactory::class);
 	$services->set(\App\Web\Login\LoginFacade::class)

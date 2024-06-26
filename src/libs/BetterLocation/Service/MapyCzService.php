@@ -10,8 +10,8 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Interfaces\ShareCollectionLinkInterface;
 use App\BetterLocation\ServicesManager;
 use App\Icons;
-use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
+use App\Utils\Requestor;
 use App\Utils\Strict;
 use DJTommek\Coordinates\CoordinatesInterface;
 use DJTommek\MapyCzApi;
@@ -36,6 +36,12 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 	const TYPE_CUSTOM_POINT = 'Custom point';
 
 	private const CODE_NOT_FOUND = 404;
+
+	public function __construct(
+		private readonly Requestor $requestor,
+		private readonly MapyCzApi\MapyCzApi $mapyCzApi,
+	) {
+	}
 
 	public function validate(): bool
 	{
@@ -140,12 +146,11 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		if ($this->data->isShortUrl) {
 			$this->processShortUrl();
 		}
-		$mapyCzApi = new MapyCzApi\MapyCzApi();
 
 		// URL with Photo ID
 		if ($this->url->getQueryParameter('sourcep') && Strict::isPositiveInt($this->url->getQueryParameter('idp'))) {
 			try {
-				$mapyCzResponse = $mapyCzApi->loadPoiDetails($this->url->getQueryParameter('sourcep'), Strict::intval($this->url->getQueryParameter('idp')));
+				$mapyCzResponse = $this->mapyCzApi->loadPoiDetails($this->url->getQueryParameter('sourcep'), Strict::intval($this->url->getQueryParameter('idp')));
 				$betterLocation = new BetterLocation($this->inputUrl, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PHOTO);
 
 				// Query 'fl' parameter contains info, what should be resolution of requested image. If this parameter
@@ -177,7 +182,7 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		if (Strict::isPositiveInt($this->url->getQueryParameter('pid'))) {
 			try {
 				$panoramaId = Strict::intval($this->url->getQueryParameter('pid'));
-				$mapyCzResponse = $mapyCzApi->loadPanoramaDetails($panoramaId);
+				$mapyCzResponse = $this->mapyCzApi->loadPanoramaDetails($panoramaId);
 				$this->collection->add(new BetterLocation($this->inputUrl, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PANORAMA));
 			} catch (MapyCzApiException $exception) {
 				if ($exception->getCode() === self::CODE_NOT_FOUND) {
@@ -191,7 +196,7 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		// URL with Place ID
 		if ($this->url->getQueryParameter('source') && Strict::isPositiveInt($this->url->getQueryParameter('id'))) {
 			try {
-				$mapyCzResponse = $mapyCzApi->loadPoiDetails($this->url->getQueryParameter('source'), Strict::intval($this->url->getQueryParameter('id')));
+				$mapyCzResponse = $this->mapyCzApi->loadPoiDetails($this->url->getQueryParameter('source'), Strict::intval($this->url->getQueryParameter('id')));
 				$betterLocation = new BetterLocation($this->inputUrl, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PLACE_ID);
 				$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s %s</a>', $this->url, self::NAME, $mapyCzResponse->title));
 
@@ -237,7 +242,7 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 
 	private function processShortUrl(): void
 	{
-		$this->rawUrl = MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl());
+		$this->rawUrl = $this->requestor->loadFinalRedirectUrl($this->url);
 		$this->url = Strict::url($this->rawUrl);
 		if ($this->validate() === false) {
 			throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url, $this->inputUrl));

@@ -26,6 +26,7 @@ final class ZanikleObceCzService extends AbstractService
 
 	public function __construct(
 		private readonly Requestor $requestor,
+		private readonly MapyCzService $mapyCzService,
 	) {
 	}
 
@@ -84,11 +85,10 @@ final class ZanikleObceCzService extends AbstractService
 			Debugger::log($response, ILogger::DEBUG);
 			throw new InvalidLocationException(sprintf('Coordinates on obec page "%s" are missing.', $this->url));
 		}
-		$mapyCzService = new MapyCzService();
-		$mapyCzService->setInput($matches[1]);
-		if ($mapyCzService->validate()) {
-			$mapyCzService->process();
-			if ($mapyCzLocation = $mapyCzService->getCollection()->getFirst()) {
+		$this->mapyCzService->setInput($matches[1]);
+		if ($this->mapyCzService->validate()) {
+			$this->mapyCzService->process();
+			if ($mapyCzLocation = $this->mapyCzService->getCollection()->getFirst()) {
 				$this->collection->add(new BetterLocation($this->inputUrl, $mapyCzLocation->getLat(), $mapyCzLocation->getLon(), self::class));
 			}
 		} else {

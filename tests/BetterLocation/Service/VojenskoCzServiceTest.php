@@ -4,17 +4,23 @@ namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\VojenskoCzService;
+use DJTommek\MapyCzApi\MapyCzApi;
 use Tests\HttpTestClients;
 
 final class VojenskoCzServiceTest extends AbstractServiceTestCase
 {
 	private readonly HttpTestClients $httpTestClients;
+	private readonly MapyCzService $mapyCzServiceMocked;
 
 	protected function setUp(): void
 	{
 		parent::setUp();
 
 		$this->httpTestClients = new HttpTestClients();
+		$this->mapyCzServiceMocked = new MapyCzService(
+			$this->httpTestClients->mockedRequestor,
+			(new MapyCzApi())->setClient($this->httpTestClients->mockedHttpClient),
+		);
 	}
 
 	protected function getServiceClass(): string
@@ -94,7 +100,7 @@ final class VojenskoCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new VojenskoCzService($this->httpTestClients->mockedRequestor, new MapyCzService());
+		$service = new VojenskoCzService($this->httpTestClients->mockedRequestor, $this->mapyCzServiceMocked);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -104,7 +110,7 @@ final class VojenskoCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new VojenskoCzService($this->httpTestClients->realRequestor, new MapyCzService());
+		$service = new VojenskoCzService($this->httpTestClients->realRequestor, $this->mapyCzServiceMocked);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -113,7 +119,7 @@ final class VojenskoCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new VojenskoCzService($this->httpTestClients->offlineRequestor, new MapyCzService());
+		$service = new VojenskoCzService($this->httpTestClients->offlineRequestor, $this->mapyCzServiceMocked);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -123,7 +129,7 @@ final class VojenskoCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessNoLocationReal(string $input): void
 	{
-		$service = new VojenskoCzService($this->httpTestClients->realRequestor, new MapyCzService());
+		$service = new VojenskoCzService($this->httpTestClients->realRequestor, $this->mapyCzServiceMocked);
 		$this->assertServiceNoLocation($service, $input);
 	}
 
@@ -132,7 +138,7 @@ final class VojenskoCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessNoLocationOffline(string $input): void
 	{
-		$service = new VojenskoCzService($this->httpTestClients->offlineRequestor, new MapyCzService());
+		$service = new VojenskoCzService($this->httpTestClients->offlineRequestor, $this->mapyCzServiceMocked);
 		$this->assertServiceNoLocation($service, $input);
 	}
 }

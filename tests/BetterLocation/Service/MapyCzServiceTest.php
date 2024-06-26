@@ -5,9 +5,20 @@ namespace Tests\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\MapyCzService;
+use DJTommek\MapyCzApi\MapyCzApi;
+use Tests\HttpTestClients;
 
 final class MapyCzServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return MapyCzService::class;
@@ -123,10 +134,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 		];
 	}
 
-	/**
-	 * @group request
-	 */
-	public function processSourcePhotoProvider(): array
+	public static function processSourcePhotoProvider(): array
 	{
 		return [
 			[[[49.295782, 14.447919, MapyCzService::TYPE_PHOTO]], 'https://en.mapy.cz/fotografie?sourcep=foto&idp=3255831'],
@@ -169,7 +177,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 	/**
 	 * ID parameter is in coordinates format
 	 */
-	public function processValidCoordinatesMapyCzIdShortProvider(): array
+	public static function processValidCoordinatesMapyCzIdShortProvider(): array
 	{
 		return [
 			[[[48.873288, 14.578971, MapyCzService::TYPE_PLACE_COORDS]], 'https://mapy.cz/s/cekahebefu'],
@@ -197,8 +205,6 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 
 	/**
 	 * Translate MapyCZ panorama ID to coordinates
-	 *
-	 * @group request
 	 */
 	public static function processValidMapyCzPanoramaIdProvider(): array
 	{
@@ -225,8 +231,6 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 
 	/**
 	 * Translate MapyCZ INVALID place ID to coordinates
-	 *
-	 * @group request
 	 */
 	public static function processInvalidPanoramaIdProvider(): array
 	{
@@ -238,8 +242,6 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 
 	/**
 	 * Translate MapyCZ place ID to coordinates
-	 *
-	 * @group request
 	 */
 	public static function processValidMapyCzIdProvider(): array
 	{
@@ -260,7 +262,6 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 
 	/**
 	 * @see MapyCzServiceTest::processValidMapyCzIdProvider() exactly the same just shortened links
-	 * @group request
 	 */
 	public static function processValidMapyCzIdShortUrlProvider(): array
 	{
@@ -296,7 +297,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 		];
 	}
 
-	public function processValidMapyCzCustomPointsUrlProvider(): array
+	public static function processValidMapyCzCustomPointsUrlProvider(): array
 	{
 		return [
 			// shortest custom points url possible
@@ -327,10 +328,8 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 
 	/**
 	 * INVALID Place ID
-	 *
-	 * @group request
 	 */
-	public function processInvalidPlaceIdProvider(): array
+	public static function processInvalidPlaceIdProvider(): array
 	{
 		return [
 			[[[50.069524, 14.450824, MapyCzService::TYPE_MAP]], 'https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=1234'],
@@ -346,7 +345,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 	/**
 	 * INVALID Place coordinates
 	 */
-	public function processInvalidPlaceCoordinates1Provider(): array
+	public static function processInvalidPlaceCoordinatesProvider(): array
 	{
 		return [
 			[[[50.069524, 14.450824, MapyCzService::TYPE_MAP]], 'https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&source=coor&id=14.4508239,50.0695244aaa&z=15'],
@@ -361,29 +360,120 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new MapyCzService();
+		$mapyCzApi = (new MapyCzApi())->setClient($this->httpTestClients->mockedHttpClient);
+		$service = new MapyCzService($this->httpTestClients->mockedRequestor, $mapyCzApi);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
 	/**
-	 * @group request
-	 * @dataProvider processCoordsMapProvider
-	 * @dataProvider processSourcePhotoProvider
+	 * No API requests
+	 * No short URLs
+	 *
 	 * @dataProvider processValidCoordinatesMapyCzIdProvider
 	 * @dataProvider processMapyCzXYProvider
-	 * @dataProvider processValidCoordinatesMapyCzIdShortProvider
 	 * @dataProvider processInvalidLatCoordinatesMapyCzIdProvider
+	 * @dataProvider processValidMapyCzCustomPointsUrlProvider
+	 * @dataProvider processInvalidPlaceCoordinatesProvider
+	 * @dataProvider processCoordsMapProvider
+	 */
+	public function testProcessNoApiRequestsNoShortUrl(array $expectedResults, string $input): void
+	{
+		$mapyCzApi = (new MapyCzApi())->setClient($this->httpTestClients->mockedHttpClient);
+		$service = new MapyCzService($this->httpTestClients->mockedRequestor, $mapyCzApi);
+		$this->assertServiceLocations($service, $input, $expectedResults);
+	}
+
+	/**
+	 * Real API requests
+	 * No short URLs requests
+	 *
+	 * @group request
+	 *
+	 * @dataProvider processSourcePhotoProvider
 	 * @dataProvider processValidMapyCzPanoramaIdProvider
 	 * @dataProvider processInvalidPanoramaIdProvider
 	 * @dataProvider processValidMapyCzIdProvider
-	 * @dataProvider processValidMapyCzIdShortUrlProvider
-	 * @dataProvider processValidMapyCzCustomPointsUrlProvider
 	 * @dataProvider processInvalidPlaceIdProvider
-	 * @dataProvider processInvalidPlaceCoordinates1Provider
 	 */
-	public function testProcess(array $expectedResults, string $input): void
+	public function testProcessRealApiRequestsNoShortUrl(array $expectedResults, string $input): void
 	{
-		$service = new MapyCzService();
+		$mapyCzApi = (new MapyCzApi())->setClient($this->httpTestClients->realHttpClient);
+		$service = new MapyCzService($this->httpTestClients->mockedRequestor, $mapyCzApi);
+		$this->assertServiceLocations($service, $input, $expectedResults);
+	}
+
+	/**
+	 * Offline API requests
+	 * No short URLs requests
+	 *
+	 * @dataProvider processSourcePhotoProvider
+	 * @dataProvider processValidMapyCzPanoramaIdProvider
+	 * @dataProvider processInvalidPanoramaIdProvider
+	 * @dataProvider processValidMapyCzIdProvider
+	 * @dataProvider processInvalidPlaceIdProvider
+	 */
+	public function testProcessOfflineApiRequestsNoShortUrl(array $expectedResults, string $input): void
+	{
+		$mapyCzApi = (new MapyCzApi())->setClient($this->httpTestClients->offlineHttpClient);
+		$service = new MapyCzService($this->httpTestClients->mockedRequestor, $mapyCzApi);
+		$this->assertServiceLocations($service, $input, $expectedResults);
+	}
+
+	/**
+	 * No API requests
+	 * Real short URLs requests
+	 *
+	 * @group request
+	 *
+	 * @dataProvider processValidCoordinatesMapyCzIdShortProvider
+	 */
+	public function testProcessNoApiRequestsRealShortUrl(array $expectedResults, string $input): void
+	{
+		$mapyCzApi = (new MapyCzApi())->setClient($this->httpTestClients->mockedHttpClient);
+		$service = new MapyCzService($this->httpTestClients->realRequestor, $mapyCzApi);
+		$this->assertServiceLocations($service, $input, $expectedResults);
+	}
+
+	/**
+	 * No API requests
+	 * Offline short URLs requests
+	 *
+	 * @group request
+	 *
+	 * @dataProvider processValidCoordinatesMapyCzIdShortProvider
+	 */
+	public function testProcessNoApiRequestsOfflineShortUrl(array $expectedResults, string $input): void
+	{
+		$mapyCzApi = (new MapyCzApi())->setClient($this->httpTestClients->mockedHttpClient);
+		$service = new MapyCzService($this->httpTestClients->offlineRequestor, $mapyCzApi);
+		$this->assertServiceLocations($service, $input, $expectedResults);
+	}
+
+	/**
+	 * Real API requests
+	 * Real short URLs
+	 *
+	 * @group request
+	 *
+	 * @dataProvider processValidMapyCzIdShortUrlProvider
+	 */
+	public function testProcessRealApiRequestsShortUrl(array $expectedResults, string $input): void
+	{
+		$mapyCzApi = (new MapyCzApi())->setClient($this->httpTestClients->realHttpClient);
+		$service = new MapyCzService($this->httpTestClients->realRequestor, $mapyCzApi);
+		$this->assertServiceLocations($service, $input, $expectedResults);
+	}
+
+	/**
+	 * Offline API requests
+	 * Offline short URLs
+	 *
+	 * @dataProvider processValidMapyCzIdShortUrlProvider
+	 */
+	public function testProcessOfflineApiRequestsShortUrl(array $expectedResults, string $input): void
+	{
+		$mapyCzApi = (new MapyCzApi())->setClient($this->httpTestClients->offlineHttpClient);
+		$service = new MapyCzService($this->httpTestClients->offlineRequestor, $mapyCzApi);
 		$this->assertServiceLocations($service, $input, $expectedResults);
 	}
 }

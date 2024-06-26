@@ -3,19 +3,27 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
+use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\ZanikleObceCzService;
+use DJTommek\MapyCzApi\MapyCzApi;
 use Tests\HttpTestClients;
 
 final class ZanikleObceCzServiceTest extends AbstractServiceTestCase
 {
 	private readonly HttpTestClients $httpTestClients;
+	private readonly MapyCzService $mapyCzServiceMocked;
 
 	protected function setUp(): void
 	{
 		parent::setUp();
 
 		$this->httpTestClients = new HttpTestClients();
+		$this->mapyCzServiceMocked = new MapyCzService(
+			$this->httpTestClients->mockedRequestor,
+			(new MapyCzApi())->setClient($this->httpTestClients->mockedHttpClient),
+		);
 	}
+
 
 	protected function getServiceClass(): string
 	{
@@ -124,7 +132,7 @@ final class ZanikleObceCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new ZanikleObceCzService($this->httpTestClients->mockedRequestor);
+		$service = new ZanikleObceCzService($this->httpTestClients->mockedRequestor, $this->mapyCzServiceMocked);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -135,7 +143,7 @@ final class ZanikleObceCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new ZanikleObceCzService($this->httpTestClients->realRequestor);
+		$service = new ZanikleObceCzService($this->httpTestClients->realRequestor, $this->mapyCzServiceMocked);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -145,7 +153,7 @@ final class ZanikleObceCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new ZanikleObceCzService($this->httpTestClients->offlineRequestor);
+		$service = new ZanikleObceCzService($this->httpTestClients->offlineRequestor, $this->mapyCzServiceMocked);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -155,7 +163,7 @@ final class ZanikleObceCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testMissingCoordinatesReal(string $input): void
 	{
-		$service = new ZanikleObceCzService($this->httpTestClients->realRequestor);
+		$service = new ZanikleObceCzService($this->httpTestClients->realRequestor, $this->mapyCzServiceMocked);
 		$this->testMissingCoordinates($service, $input);
 	}
 
@@ -164,7 +172,7 @@ final class ZanikleObceCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testMissingCoordinatesOffline(string $input): void
 	{
-		$service = new ZanikleObceCzService($this->httpTestClients->offlineRequestor);
+		$service = new ZanikleObceCzService($this->httpTestClients->offlineRequestor, $this->mapyCzServiceMocked);
 		$this->testMissingCoordinates($service, $input);
 	}
 
