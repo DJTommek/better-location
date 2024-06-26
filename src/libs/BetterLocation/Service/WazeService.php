@@ -5,8 +5,8 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\ServicesManager;
-use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
+use App\Utils\Requestor;
 use App\Utils\Strict;
 
 final class WazeService extends AbstractService
@@ -21,6 +21,11 @@ final class WazeService extends AbstractService
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
 		ServicesManager::TAG_GENERATE_LINK_DRIVE,
 	];
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
@@ -78,7 +83,7 @@ final class WazeService extends AbstractService
 			// Example: https://www.waze.com/livemap/?zoom=11&lat=50.093652&lon=14.412417
 			$this->data->queryLatLon = Coordinates::safe(
 				$this->url->getQueryParameter('lat'),
-				$this->url->getQueryParameter('lon')
+				$this->url->getQueryParameter('lon'),
 			);
 
 			return ($this->data->ll || $this->data->latLng || $this->data->to || $this->data->from || $this->data->queryLatLon);
@@ -125,6 +130,6 @@ final class WazeService extends AbstractService
 	private function getRedirectUrl(): string
 	{
 		$urlToRequest = self::LINK . '/live-map?h=' . $this->data->shortUrlCode;
-		return self::LINK . MiniCurl::loadRedirectUrl($urlToRequest);
+		return $this->requestor->loadFinalRedirectUrl($urlToRequest);
 	}
 }
