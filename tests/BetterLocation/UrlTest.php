@@ -83,6 +83,8 @@ final class UrlTest extends TestCase
 
 			['https://en.wikipedia.org/wiki/Prague', 'https://buff.ly/2IzTY3W'],
 			['https://en.wikipedia.org/wiki/Prague', 'http://buff.ly/2IzTY3W'],
+
+			['https://mapy.cz/zakladni?source=base&id=1832651&x=14.4210031&y=50.0876166&z=18', 'https://mapy.cz/s/banafokecu'],
 		];
 	}
 

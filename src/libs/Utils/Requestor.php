@@ -108,7 +108,7 @@ class Requestor
 		// }
 
 		assert($this->httpClient instanceof \GuzzleHttp\Client);
-		$request = new \GuzzleHttp\Psr7\Request('HEAD', $urlString, $headers);
+		$request = new \GuzzleHttp\Psr7\Request('GET', $urlString, $headers);
 		$response = $this->httpClient->sendRequest($request);
 		$headersRedirect = $response->getHeader(\GuzzleHttp\RedirectMiddleware::HISTORY_HEADER);
 		if ($headersRedirect === []) {
