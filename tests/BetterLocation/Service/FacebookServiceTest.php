@@ -3,9 +3,19 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\FacebookService;
+use Tests\HttpTestClients;
 
 final class FacebookServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return FacebookService::class;
@@ -51,12 +61,11 @@ final class FacebookServiceTest extends AbstractServiceTestCase
 	public static function processUrlProvider(): array
 	{
 		return [
-
 			[50.087244, 14.469230, 'https://pt-br.facebook.com/burgerzelva/menu/?ref=page_internal'],
 			[50.061790, 14.437030, 'https://pt-br.facebook.com/fantaziecafe/'],
-			// [40.411600,-3.700390, 'https://www.facebook.com/Bodegas-Alfaro-730504807012751/'],
+			[40.411600, -3.700390, 'https://www.facebook.com/Bodegas-Alfaro-730504807012751/'],
 			[-43.538899, 172.652603, 'https://m.facebook.com/gentlegiantcafex/'],
-			// [-25.285736,-57.559743, 'https://www.facebook.com/Biggie-Express-251025431718109/about/?ref=page_internal'],
+			[-25.285736, -57.559743, 'https://www.facebook.com/Biggie-Express-251025431718109/about/?ref=page_internal'],
 			[-17.792721, -63.155202, 'https://www.facebook.com/FlotaVacaDiezSCZ/'],
 		];
 	}
@@ -73,7 +82,7 @@ final class FacebookServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new FacebookService();
+		$service = new FacebookService($this->httpTestClients->mockedRequestor);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -82,10 +91,22 @@ final class FacebookServiceTest extends AbstractServiceTestCase
 	 *
 	 * @dataProvider processUrlProvider
 	 */
-	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
+	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
-		//		$this->markTestSkipped('Disabled due to possibly too many requests to Facebook servers');
-		$service = new FacebookService();
+		$this->markTestSkipped('Scraping is currently not working.');
+
+		$service = new FacebookService($this->httpTestClients->realRequestor);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+	}
+
+	/**
+	 * @dataProvider processUrlProvider
+	 */
+	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
+	{
+		$this->markTestSkipped('Data for offline tests are not available, fix $this->>testProcessReal() first.');
+
+		$service = new FacebookService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 
@@ -94,10 +115,24 @@ final class FacebookServiceTest extends AbstractServiceTestCase
 	 *
 	 * @dataProvider processUrlNoLocationProvider
 	 */
-	public function testProcessNoLocation(string $input): void
+	public function testProcessNoLocationReal(string $input): void
 	{
-		//		$this->markTestSkipped('Disabled due to possibly too many requests to Facebook servers');
-		$service = new FacebookService();
+		$this->markTestSkipped('Scraping is currently not working.');
+
+		$service = new FacebookService($this->httpTestClients->realRequestor);
+		$this->assertServiceNoLocation($service, $input);
+	}
+
+	/**
+	 * @group request
+	 *
+	 * @dataProvider processUrlNoLocationProvider
+	 */
+	public function testProcessNoLocationOffline(string $input): void
+	{
+		$this->markTestSkipped('Data for offline tests are not available, fix $this->>testProcessNoLocationReal() first.');
+
+		$service = new FacebookService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceNoLocation($service, $input);
 	}
 }

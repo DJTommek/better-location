@@ -4,9 +4,8 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\Config;
-use App\MiniCurl\MiniCurl;
-use App\MiniCurl\Response;
-use App\Utils\Coordinates;
+use App\Utils\Requestor;
+use DJTommek\Coordinates\Coordinates;
 use Nette\Http\Url;
 use Nette\Utils\Arrays;
 
@@ -16,6 +15,11 @@ final class FacebookService extends AbstractService
 	const NAME = 'Facebook';
 
 	const LINK = 'https://facebook.com';
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public function validate(): bool
 	{
@@ -28,22 +32,19 @@ final class FacebookService extends AbstractService
 
 	public function process(): void
 	{
-		$pageHomeUrl = $this->getPageAboutUrl();
-		$response = (new MiniCurl($pageHomeUrl->getAbsoluteUrl()))
-			->allowCache(Config::CACHE_TTL_FACEBOOK)
-			->setHttpHeader('accept', 'text/html')
-			->run();
+		$pageAboutUrl = $this->getPageAboutUrl();
+		$body = $this->requestor->get($pageAboutUrl, Config::CACHE_TTL_FACEBOOK, headers: ['accept' => 'text/html']);
 
-		if ($coords = $this->findCoordinatesInJson($response) ?? $this->findCoordinatesFromMapMarker($response)) {
+		if ($coords = $this->findCoordinatesInJson($body) ?? $this->findCoordinatesFromMapMarker($body)) {
 			$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class);
-			if ($pageData = self::parseLdJson($response->getBody())) {
+			if ($pageData = self::parseLdJson($body)) {
 				switch ($pageData->{'@type'}) {
 					case 'BreadcrumbList':
 						$pageName = Arrays::last($pageData->itemListElement)->name;
-						$location->setPrefixMessage(sprintf('<a href="%s">%s</a> <a href="%s">%s</a>', $this->inputUrl, self::getName(), $pageHomeUrl, $pageName));
+						$location->setPrefixMessage(sprintf('<a href="%s">%s</a> <a href="%s">%s</a>', $this->inputUrl, self::getName(), $pageAboutUrl, $pageName));
 						break;
 					case 'LocalBusiness':
-						$location->setPrefixMessage(sprintf('<a href="%s">%s</a> <a href="%s">%s</a>', $this->inputUrl, self::getName(), $pageHomeUrl, $pageData->name));
+						$location->setPrefixMessage(sprintf('<a href="%s">%s</a> <a href="%s">%s</a>', $this->inputUrl, self::getName(), $pageAboutUrl, $pageData->name));
 						$location->setAddress($pageData->address->streetAddress . ', ' . $pageData->address->addressLocality);
 						if (isset($pageData->telephone)) {
 							$location->setDescription($pageData->telephone);
@@ -58,6 +59,7 @@ final class FacebookService extends AbstractService
 	/**
 	 * Generate URL to load homepage of some page instead of photos, reviews, etc since location is only on main page.
 	 * Also, if mobile version of page is requested, load desktop version instead since it is different in many ways
+	 *
 	 * @example https://www.facebook.com/Biggie-Express-251025431718109/about/?ref=page_internal -> https://facebook.com/Biggie-Express-251025431718109
 	 */
 	private function getPageAboutUrl(): Url
@@ -68,7 +70,8 @@ final class FacebookService extends AbstractService
 		$newPath = join('/', array_slice($explodedPath, 0, 2)); // get only first part of path
 		$newPath .= '/about';
 		$urlToRequest->setPath($newPath);
-		$urlToRequest->setHost('facebook.com');
+		$urlToRequest->setScheme('https');
+		$urlToRequest->setHost('www.facebook.com');
 		return $urlToRequest;
 	}
 
@@ -77,7 +80,7 @@ final class FacebookService extends AbstractService
 		$dom = new \DOMDocument();
 		@$dom->loadHTML($response);
 		$finder = new \DOMXPath($dom);
-//		$name = trim($finder->query('//h1[@id="seo_h1_tag"]/span')->item(0)->textContent);
+		//		$name = trim($finder->query('//h1[@id="seo_h1_tag"]/span')->item(0)->textContent);
 		$jsonEl = $finder->query('//script[@type="application/ld+json"]')->item(0);
 		return $jsonEl ? json_decode($jsonEl->textContent, false, 512, JSON_THROW_ON_ERROR) : null;
 	}
@@ -88,16 +91,14 @@ final class FacebookService extends AbstractService
 	 *
 	 * @return ?Coordinates
 	 */
-	private function findCoordinatesInJson(Response $response): ?Coordinates
+	private function findCoordinatesInJson(string $body): ?Coordinates
 	{
 		if (
-			preg_match('/"latitude"\s*:\s*(-?[0-9.]+)/', $response->getBody(), $matchesLat)
+			preg_match('/"latitude"\s*:\s*(-?[0-9.]+)/', $body, $matchesLat)
 			&&
-			preg_match('/"longitude"\s*:\s*(-?[0-9.]+)/', $response->getBody(), $matchesLon)
+			preg_match('/"longitude"\s*:\s*(-?[0-9.]+)/', $body, $matchesLon)
 		) {
-			if (Coordinates::isLat($matchesLat[1]) && Coordinates::isLon($matchesLon[1])) {
-				return new Coordinates($matchesLat[1], $matchesLon[1]);
-			}
+			return Coordinates::safe($matchesLat[1], $matchesLon[1]);
 		}
 		return null;
 	}
@@ -106,12 +107,10 @@ final class FacebookService extends AbstractService
 	 * Try to find coordinates hidden in static map URL, where are defined as marker, example:
 	 * https://external.fprg5-1.fna.fbcdn.net/static_map.php?v=2023&amp;ccb=4-4&amp;size=306x98&amp;zoom=15&amp;markers=50.06179000%2C14.43703000&amp;language=cs_CZ
 	 */
-	private function findCoordinatesFromMapMarker(Response $response): ?Coordinates
+	private function findCoordinatesFromMapMarker(string $body): ?Coordinates
 	{
-		if (preg_match('/markers=(-?[0-9.]+)%2C(-?[0-9.]+)/', $response->getBody(), $matches)) {
-			if (Coordinates::isLat($matches[1]) && Coordinates::isLon($matches[2])) {
-				return new Coordinates($matches[1], $matches[2]);
-			}
+		if (preg_match('/markers=(-?[0-9.]+)%2C(-?[0-9.]+)/', $body, $matches)) {
+			return Coordinates::safe($matches[1], $matches[2]);
 		}
 		return null;
 	}
