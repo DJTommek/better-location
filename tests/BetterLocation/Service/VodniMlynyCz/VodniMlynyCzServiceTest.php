@@ -22,34 +22,48 @@ final class VodniMlynyCzServiceTest extends AbstractServiceTestCase
 		return [];
 	}
 
-	public function testIsValid(): void
+	public static function isValidProvider(): array
 	{
-		$this->assertTrue(VodniMlynyCzService::validateStatic('https://www.vodnimlyny.cz/en/mlyny/estates/detail/1509-stukhejlsky-mlyn'));
-		$this->assertTrue(VodniMlynyCzService::validateStatic('http://vodnimlyny.cz/ru/mlyny/estates/detail/7673-schwarzenbersky-mlyn'));
+		return [
+			[true, 'https://www.vodnimlyny.cz/en/mlyny/estates/detail/1509-stukhejlsky-mlyn'],
+			[true, 'http://vodnimlyny.cz/ru/mlyny/estates/detail/7673-schwarzenbersky-mlyn'],
 
-		$this->assertFalse(VodniMlynyCzService::validateStatic('http://www.vodnimlyny.cz/'));
-		$this->assertFalse(VodniMlynyCzService::validateStatic('https://www.vodnimlyny.cz/en/mlyny/estates/map/?do=estateInfo&estateId=8286'));
-		$this->assertFalse(VodniMlynyCzService::validateStatic('http://www.vodnimlyny.cz/ru/mlyny/estates/detail/schwarzenbersky-mlyn'));
-		$this->assertFalse(VodniMlynyCzService::validateStatic('something random'));
+			[false, 'http://www.vodnimlyny.cz/'],
+			[false, 'https://www.vodnimlyny.cz/en/mlyny/estates/map/?do=estateInfo&estateId=8286'],
+			[false, 'http://www.vodnimlyny.cz/ru/mlyny/estates/detail/schwarzenbersky-mlyn'],
+			[false, 'something random'],
+		];
+	}
+
+	public static function processProvider(): array
+	{
+		return [
+			[[[49.592579, 15.686811]], 'https://www.vodnimlyny.cz/en/mlyny/estates/detail/1509-stukhejlsky-mlyn'],
+			[[[49.509421, 14.179542]], 'http://vodnimlyny.cz/ru/mlyny/estates/detail/7673-schwarzenbersky-mlyn'],
+
+			// Non existing estate
+			[[], 'https://www.vodnimlyny.cz/en/mlyny/estates/detail/9999999-stukhejlsky-mlyn'],
+		];
+	}
+
+	/**
+	 * @dataProvider isValidProvider
+	 */
+	public function testIsValid(bool $expectedIsValid, string $input): void
+	{
+		$service = new VodniMlynyCzService();
+		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
 	/**
 	 * @group request
-	 */
-	public function testProcess(): void
-	{
-		$this->assertLocation('https://www.vodnimlyny.cz/en/mlyny/estates/detail/1509-stukhejlsky-mlyn', 49.592579, 15.686811);
-		$this->assertLocation('http://vodnimlyny.cz/ru/mlyny/estates/detail/7673-schwarzenbersky-mlyn', 49.509421682, 14.179542392);
-	}
-
-	/**
-	 * Non existing estate
 	 *
-	 * @group request
+	 * @dataProvider processProvider
 	 */
-	public function testInvalid(): void
+	public function testProcess(array $expectedResults, string $input): void
 	{
-		$locations = VodniMlynyCzService::processStatic('https://www.vodnimlyny.cz/en/mlyny/estates/detail/9999999-stukhejlsky-mlyn')->getCollection();
-		$this->assertCount(0, $locations);
+		$service = new VodniMlynyCzService();
+		$this->assertServiceLocations($service, $input, $expectedResults);
 	}
+
 }
