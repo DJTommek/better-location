@@ -28,7 +28,7 @@ final class FacebookService extends AbstractService
 
 	public function process(): void
 	{
-		$pageHomeUrl = $this->getPageHomeUrl();
+		$pageHomeUrl = $this->getPageAboutUrl();
 		$response = (new MiniCurl($pageHomeUrl->getAbsoluteUrl()))
 			->allowCache(Config::CACHE_TTL_FACEBOOK)
 			->setHttpHeader('accept', 'text/html')
@@ -60,12 +60,13 @@ final class FacebookService extends AbstractService
 	 * Also, if mobile version of page is requested, load desktop version instead since it is different in many ways
 	 * @example https://www.facebook.com/Biggie-Express-251025431718109/about/?ref=page_internal -> https://facebook.com/Biggie-Express-251025431718109
 	 */
-	private function getPageHomeUrl(): Url
+	private function getPageAboutUrl(): Url
 	{
 		$urlToRequest = new Url($this->url);
 		$urlToRequest->setQuery('');
 		$explodedPath = explode('/', $urlToRequest->getPath());
 		$newPath = join('/', array_slice($explodedPath, 0, 2)); // get only first part of path
+		$newPath .= '/about';
 		$urlToRequest->setPath($newPath);
 		$urlToRequest->setHost('facebook.com');
 		return $urlToRequest;
