@@ -5,8 +5,8 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\ServicesManager;
-use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
+use App\Utils\Requestor;
 use App\Utils\Strict;
 use Nette\Utils\Arrays;
 use Nette\Utils\Strings;
@@ -27,6 +27,11 @@ final class OpenStreetMapService extends AbstractService
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
 		ServicesManager::TAG_GENERATE_LINK_DRIVE,
 	];
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
@@ -72,7 +77,7 @@ final class OpenStreetMapService extends AbstractService
 	{
 		if ($this->data->isShortUrl ?? false) {
 			$this->url->setHost('www.openstreetmap.org');
-			$this->url = Strict::url(MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl()));
+			$this->url = Strict::url($this->requestor->loadFinalRedirectUrl($this->url));
 			if ($this->validate() === false) {
 				throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url, $this->inputUrl));
 			}

@@ -3,9 +3,19 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\OpenStreetMapService;
+use Tests\HttpTestClients;
 
 final class OpenStreetMapServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return OpenStreetMapService::class;
@@ -118,7 +128,7 @@ final class OpenStreetMapServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new OpenStreetMapService();
+		$service = new OpenStreetMapService($this->httpTestClients->mockedRequestor);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -127,7 +137,7 @@ final class OpenStreetMapServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessNormalUrl(array $expectedResults, string $input): void
 	{
-		$service = new OpenStreetMapService();
+		$service = new OpenStreetMapService($this->httpTestClients->mockedRequestor);
 		$this->assertServiceLocations($service, $input, $expectedResults);
 	}
 
@@ -136,9 +146,20 @@ final class OpenStreetMapServiceTest extends AbstractServiceTestCase
 	 *
 	 * @dataProvider processShortUrlProvider
 	 */
-	public function testProcessShortUrl(array $expectedResults, string $input): void
+	public function testProcessShortUrlReal(array $expectedResults, string $input): void
 	{
-		$service = new OpenStreetMapService();
+		$service = new OpenStreetMapService($this->httpTestClients->realRequestor);
+		$this->assertServiceLocations($service, $input, $expectedResults);
+	}
+
+	/**
+	 * @group request
+	 *
+	 * @dataProvider processShortUrlProvider
+	 */
+	public function testProcessShortUrlOffline(array $expectedResults, string $input): void
+	{
+		$service = new OpenStreetMapService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceLocations($service, $input, $expectedResults);
 	}
 }
