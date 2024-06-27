@@ -16,9 +16,11 @@ final class OpenStreetMapService extends AbstractService
 	const NAME_SHORT = 'OSM';
 
 	const LINK = 'https://www.openstreetmap.org';
+	const API_LINK = 'https://api.openstreetmap.org/api/';
 
 	const TYPE_MAP = 'Map';
 	const TYPE_POINT = 'Point';
+	const TYPE_NOTE = 'Note';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,
@@ -42,7 +44,6 @@ final class OpenStreetMapService extends AbstractService
 
 	public function validate(): bool
 	{
-		$result = false;
 		if (
 			!$this->url
 			|| !in_array($this->url->getDomain(2), ['openstreetmap.org', 'osm.org'], true)
@@ -71,7 +72,11 @@ final class OpenStreetMapService extends AbstractService
 			}
 		}
 
-		return $this->data->pointCoord !== null || $this->data->mapCoord !== null;
+		if (preg_match('/^\/note\/([0-9]+)\/?$/', $this->url->getPath(), $matches)) {
+			$this->data->noteId = $matches[1];
+		}
+
+		return $this->data->pointCoord !== null || $this->data->mapCoord !== null || $this->data->noteId !== null;
 	}
 
 	public function process(): void
@@ -81,6 +86,14 @@ final class OpenStreetMapService extends AbstractService
 			$this->url = Strict::url($this->requestor->loadFinalRedirectUrl($this->url));
 			if ($this->validate() === false) {
 				throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url, $this->inputUrl));
+			}
+		}
+
+		if ($this->data->noteId !== null) {
+			$note = $this->requestor->getJson(sprintf('%s/0.6/notes/%d.json', self::API_LINK, $this->data->noteId));
+			if ($note !== null) {
+				assert($note->geometry->type === 'Point');
+				$this->collection->add(new BetterLocation($this->inputUrl, $note->geometry->coordinates[1], $note->geometry->coordinates[0], self::class, self::TYPE_NOTE));
 			}
 		}
 
@@ -98,6 +111,7 @@ final class OpenStreetMapService extends AbstractService
 		return [
 			self::TYPE_POINT,
 			self::TYPE_MAP,
+			self::TYPE_NOTE,
 		];
 	}
 }

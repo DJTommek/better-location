@@ -68,6 +68,21 @@ final class OpenStreetMapServiceTest extends AbstractServiceTestCase
 		];
 	}
 
+	public static function isValidNoteUrlProvider(): array
+	{
+		return [
+			[true, 'https://www.openstreetmap.org/note/3480481'],
+			[true, 'https://www.openstreetmap.org/note/3480481/'],
+			[true, 'https://openstreetmap.org/note/3480481'],
+
+			[false, 'https://www.openstreetmap.org/note/3480481a'],
+			[false, 'https://www.openstreetmap.org/note/3480481/something'],
+			[false, 'https://www.openstreetmap.org/note'],
+			[false, 'https://www.openstreetmap.org/note/'],
+			[false, 'https://www.openstreetmap.org/note/aa'],
+		];
+	}
+
 	public static function isValidGoUrlProvider(): array
 	{
 		return [
@@ -126,9 +141,39 @@ final class OpenStreetMapServiceTest extends AbstractServiceTestCase
 		];
 	}
 
+	public static function processNoteUrlProvider(): array
+	{
+		return [
+			[[[-36.9826866, 174.8747769, OpenStreetMapService::TYPE_NOTE]], 'https://www.openstreetmap.org/note/3480481/'],
+			[
+				[
+					[50.1075434, 14.2669984, OpenStreetMapService::TYPE_NOTE],
+					[50.10461, 14.26674, OpenStreetMapService::TYPE_MAP],
+				],
+				'https://www.openstreetmap.org/note/3324337#map=17/50.10461/14.26674&layers=N',
+			],
+			[[], 'https://www.openstreetmap.org/note/999999999999'],
+		];
+	}
+
+	public static function processNoteShortUrlProvider(): array
+	{
+		return [
+			[[[-36.9826866, 174.8747769, OpenStreetMapService::TYPE_NOTE]], 'https://osm.org/go/uuU2nQAN--?layers=N&note=3480481'],
+			[
+				[
+					[50.1075434, 14.2669984, OpenStreetMapService::TYPE_NOTE],
+					// [50.10461, 14.26674, OpenStreetMapService::TYPE_MAP], // @TODO info about map is for some reason lost but it is working via browser
+				],
+				'https://osm.org/go/0J0YJOoVR-?layers=N&note=3324337',
+			],
+		];
+	}
+
 	/**
 	 * @dataProvider isValidNormalUrlProvider
 	 * @dataProvider isValidGoUrlProvider
+	 * @dataProvider isValidNoteUrlProvider
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
@@ -139,7 +184,7 @@ final class OpenStreetMapServiceTest extends AbstractServiceTestCase
 	/**
 	 * @dataProvider processNormalUrlProvider
 	 */
-	public function testProcessNormalUrl(array $expectedResults, string $input): void
+	public function testProcessNoRequest(array $expectedResults, string $input): void
 	{
 		$service = new OpenStreetMapService($this->httpTestClients->mockedRequestor);
 		$this->assertServiceLocations($service, $input, $expectedResults);
@@ -149,19 +194,21 @@ final class OpenStreetMapServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 *
 	 * @dataProvider processShortUrlProvider
+	 * @dataProvider processNoteUrlProvider
+	 * @dataProvider processNoteShortUrlProvider
 	 */
-	public function testProcessShortUrlReal(array $expectedResults, string $input): void
+	public function testProcessRequestsReal(array $expectedResults, string $input): void
 	{
 		$service = new OpenStreetMapService($this->httpTestClients->realRequestor);
 		$this->assertServiceLocations($service, $input, $expectedResults);
 	}
 
 	/**
-	 * @group request
-	 *
 	 * @dataProvider processShortUrlProvider
+	 * @dataProvider processNoteUrlProvider
+	 * @dataProviderr processNoteShortUrlProvider
 	 */
-	public function testProcessShortUrlOffline(array $expectedResults, string $input): void
+	public function testProcessRequestsOffline(array $expectedResults, string $input): void
 	{
 		$service = new OpenStreetMapService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceLocations($service, $input, $expectedResults);
