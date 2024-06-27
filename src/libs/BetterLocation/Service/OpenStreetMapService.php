@@ -5,11 +5,9 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\ServicesManager;
-use App\Utils\Coordinates;
 use App\Utils\Requestor;
 use App\Utils\Strict;
-use Nette\Utils\Arrays;
-use Nette\Utils\Strings;
+use DJTommek\Coordinates\Coordinates;
 
 final class OpenStreetMapService extends AbstractService
 {
@@ -45,32 +43,35 @@ final class OpenStreetMapService extends AbstractService
 	public function validate(): bool
 	{
 		$result = false;
-		if ($this->url && Arrays::contains(['openstreetmap.org', 'osm.org'], $this->url->getDomain(2))) {
-			if (Strings::startsWith($this->url->getPath(), '/go/')) {
-				$this->data->isShortUrl = true;
-				$result = true;
-			} else {
-				if (Coordinates::isLat($this->url->getQueryParameter('mlat')) && Coordinates::isLon($this->url->getQueryParameter('mlon'))) {
-					$this->data->pointCoord = true;
-					$this->data->pointCoordLat = Strict::floatval($this->url->getQueryParameter('mlat'));
-					$this->data->pointCoordLon = Strict::floatval($this->url->getQueryParameter('mlon'));
-					$result = true;
-				}
-				if ($this->url->getFragment()) {
-					parse_str($this->url->getFragment(), $fragments);
-					if (isset($fragments['map'])) {
-						$coords = explode('/', $fragments['map']);
-						if (count($coords) >= 3 && Coordinates::isLat($coords[1]) && Coordinates::isLon($coords[2])) {
-							$this->data->mapCoord = true;
-							$this->data->mapCoordLat = Strict::floatval($coords[1]);
-							$this->data->mapCoordLon = Strict::floatval($coords[2]);
-							$result = true;
-						}
-					}
+		if (
+			!$this->url
+			|| !in_array($this->url->getDomain(2), ['openstreetmap.org', 'osm.org'], true)
+		) {
+			return false;
+		}
+
+		if (str_starts_with($this->url->getPath(), '/go/')) {
+			$this->data->isShortUrl = true;
+			return true;
+		}
+
+		$this->data->pointCoord = Coordinates::safe(
+			$this->url->getQueryParameter('mlat'),
+			$this->url->getQueryParameter('mlon'),
+		);
+
+		$this->data->mapCoord = null;
+		if ($this->url->getFragment()) {
+			parse_str($this->url->getFragment(), $fragments);
+			if (isset($fragments['map'])) {
+				$coords = explode('/', $fragments['map']);
+				if (count($coords) >= 3) {
+					$this->data->mapCoord = Coordinates::safe($coords[1], $coords[2]);
 				}
 			}
 		}
-		return $result;
+
+		return $this->data->pointCoord !== null || $this->data->mapCoord !== null;
 	}
 
 	public function process(): void
@@ -83,11 +84,12 @@ final class OpenStreetMapService extends AbstractService
 			}
 		}
 
-		if ($this->data->pointCoord ?? false) {
-			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->pointCoordLat, $this->data->pointCoordLon, self::class, self::TYPE_POINT));
+		if ($this->data->pointCoord !== null) {
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->pointCoord->lat, $this->data->pointCoord->lon, self::class, self::TYPE_POINT));
 		}
-		if ($this->data->mapCoord ?? false) {
-			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP));
+
+		if ($this->data->mapCoord !== null) {
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->mapCoord->lat, $this->data->mapCoord->lon, self::class, self::TYPE_MAP));
 		}
 	}
 

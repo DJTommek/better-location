@@ -59,6 +59,7 @@ final class OpenStreetMapServiceTest extends AbstractServiceTestCase
 
 			[true, 'https://osm.org/#map=17/49.355164/14.272819'],
 			[true, 'https://osm.org/?mlat=-36.9837&mlon=174.8765#map=15/-36.9837/174.8765&layers=N'],
+			[true, 'https://www.openstreetmap.org/?mlat=-30.12345&mlon=170.55555#map=15/-36.9837/174.8765&layers=N'],
 
 			[false, 'https://osmm.org/#map=17/49.355164/14.272819'], // invalid domain
 			[false, 'https://osm.org/#map=17/149.355164/14.272819'], // invalid lat
@@ -97,6 +98,7 @@ final class OpenStreetMapServiceTest extends AbstractServiceTestCase
 			[[[50.053280, 14.456400, OpenStreetMapService::TYPE_POINT], [50.053280, 14.456400, OpenStreetMapService::TYPE_MAP]], 'https://www.openstreetmap.org/?mlat=50.05328&mlon=14.45640#map=18/50.05328/14.45640'],
 			[[[-34.610100, -58.364100, OpenStreetMapService::TYPE_MAP]], 'https://www.openstreetmap.org/#map=15/-34.6101/-58.3641'],
 			[[[-36.983700, 174.876500, OpenStreetMapService::TYPE_POINT], [-36.983700, 174.876500, OpenStreetMapService::TYPE_MAP]], 'https://www.openstreetmap.org/?mlat=-36.9837&mlon=174.8765#map=15/-36.9837/174.8765&layers=N'],
+			[[[-30.12345, 170.55555, OpenStreetMapService::TYPE_POINT], [-36.983700, 174.876500, OpenStreetMapService::TYPE_MAP]], 'https://www.openstreetmap.org/?mlat=-30.12345&mlon=170.55555#map=15/-36.9837/174.8765&layers=N'],
 		];
 	}
 
@@ -119,6 +121,8 @@ final class OpenStreetMapServiceTest extends AbstractServiceTestCase
 			[[[-36.983725, 174.876509, OpenStreetMapService::TYPE_POINT], [-36.983725, 174.876509, OpenStreetMapService::TYPE_MAP]], 'https://osm.org/go/uuU2nmSl--?layers=N&m='],
 			// https://www.openstreetmap.org/?mlat=50.05296528339386&mlon=14.45624828338623#map=18/50.05296528339386/14.45624828338623
 			[[[50.052965, 14.456248, OpenStreetMapService::TYPE_POINT], [50.052965, 14.456248, OpenStreetMapService::TYPE_MAP]], 'https://openstreetmap.org/go/0J0kf83sQ--?m='],
+			// https://www.openstreetmap.org/?mlat=-30.12345&mlon=170.55555#map=15/-36.9837/174.8765&layers=N
+			[[[-36.983692, 174.871144, OpenStreetMapService::TYPE_MAP]], 'https://osm.org/go/uuU2nGYc--?layers=N'],
 		];
 	}
 

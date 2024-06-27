@@ -1,0 +1,353 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head data-locale="en" data-preferred-editor="id" data-preferred-languages="[]" data-location="{&quot;minlon&quot;:5.865639,&quot;minlat&quot;:47.275776,&quot;maxlon&quot;:15.039889,&quot;maxlat&quot;:55.055637}">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="/assets/es6-cc19e63b7a2e5f3f8c46ccc37c11ad86296fc884065d87953d54ce1ea036b383.js"></script>
+  <script src="/assets/turbo-b2dae3aea1052daaf4ab38a0ba073eae9c389be1b5d2230e401eb94ee89bac2f.js" type="module"></script>
+  <script src="/assets/application-f8bf019b9adcca8c5bdefb9025b88acf36576a9f4a0e9f4c454aa4e2931b0c07.js"></script>
+  <script src="/assets/i18n/en-1ee4543a4fe3b08b225392400c0a027aaa03be502ae5a31c7f6a1035b8bddacc.js"></script>
+  <link rel="stylesheet" href="/assets/screen-ltr-e5dd9fe41af1c91fc9bcb6f0395bb448e9fc1afd5a9ded065cd843180f8f8621.css" media="screen" />
+  <link rel="stylesheet" href="/assets/print-ltr-2b3d6571f8a48820d650d5ce29f567269af78d5158f89ecab755db8c5d3d62db.css" media="print" />
+  <link rel="stylesheet" href="/assets/leaflet-all-7224da9b323ba8c997b953386cd9f33bfe5f0860fab29e9e4c12b71f369b9dc9.css" media="screen, print" />
+  
+<link rel="apple-touch-icon" type="image/png" href="/assets/apple-touch-icon-57x57-0af2b52ac2b1a8cb0aba42f17aa901bfdedb9174bd978f838e3b3e1dd8602f52.png" sizes="57x57" />
+<link rel="apple-touch-icon" type="image/png" href="/assets/apple-touch-icon-60x60-cff74c9066d8e7fd08b29407712edbae5613cc9a4c03ee0398a89502a6a41d1f.png" sizes="60x60" />
+<link rel="apple-touch-icon" type="image/png" href="/assets/apple-touch-icon-72x72-63c6fdf3ddf65feebac1c0441bf6a378d1e4bde7107f598ae86733c402895eae.png" sizes="72x72" />
+<link rel="apple-touch-icon" type="image/png" href="/assets/apple-touch-icon-76x76-1740d6e7a59521693c496dd8fbe1caf3d5ad302017cb0f5073b6914b4f5b7544.png" sizes="76x76" />
+<link rel="apple-touch-icon" type="image/png" href="/assets/apple-touch-icon-114x114-20ba9df1a8f9b341040d661b7942b7b10288b9b4c4ce0663e10018958dc7f4a8.png" sizes="114x114" />
+<link rel="apple-touch-icon" type="image/png" href="/assets/apple-touch-icon-120x120-c304991e604d1be82639709b96fb87f7b6b6688cc0d04d5f6141604259299648.png" sizes="120x120" />
+<link rel="apple-touch-icon" type="image/png" href="/assets/apple-touch-icon-144x144-fbf20bdf9d2f7c1fe8eb85d7869a9bda285be88c93a39438150f5eb5955758ce.png" sizes="144x144" />
+<link rel="apple-touch-icon" type="image/png" href="/assets/apple-touch-icon-152x152-af45dc979e972cab863517b2cb33a3dcf3e04e02a2eb2734c6f93edc21fa395d.png" sizes="152x152" />
+<link rel="apple-touch-icon" type="image/png" href="/assets/apple-touch-icon-180x180-ea6361d7ae5b3f08c6290652ad703fa239364cc09c84873044f3299845f24652.png" sizes="180x180" />
+<link rel="icon" type="image/png" href="/assets/favicon-32x32-99b88fcadeef736889823c8a886b89d8cada9d4423a49a27de29bacc0a6bebd1.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="/assets/favicon-194x194-79d3fb0152c735866e64b1d7535d504483cd13c2fad0131a6142bd9629d30de2.png" sizes="194x194" />
+<link rel="icon" type="image/png" href="/assets/favicon-96x96-6ffbc38962fddb870f9577b76430a0ee4db5fb4eca485f850cd45436d7f3eb87.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/assets/android-chrome-192x192-f970b9be3965dfda6ea9481b305c39b2ec794e296f802235e30d4671f0f896e1.png" sizes="192x192" />
+<link rel="icon" type="image/png" href="/assets/favicon-16x16-474476c1b2381628a81361a9e2bf04b936d21f77c59e84b48c6c69ea376fb6cf.png" sizes="16x16" />
+<link rel="mask-icon" href="/assets/tab-icon-3e700a12d38a1bba06d674ed663824232025cd6b0ca5c439c846740a7468b302.svg" color="#7ebc6f">
+<link rel="manifest" href="/assets/manifest-b2cc1407226d3e16e6149425747239c259fbe44b41bff3aca36ca6d9e56a6e18.json">
+<meta name="msapplication-config" content="/assets/browserconfig-c59184dc0264731151cbf50ae58f7fa8ae5153138013f125203e1193800f862f.xml">
+<meta name="msapplication-TileColor" content="#00a300">
+<meta name="msapplication-TileImage" content="/assets/mstile-144x144-02723f6f7cb2c18e6f8041c93f80982decb52b24a7e447477bc2ce3136d75806.png">
+<meta name="theme-color" content="#ffffff">
+<meta name="turbo-refresh-method" content="morph">
+<meta name="turbo-refresh-scroll" content="preserve">
+<link href="https://www.openstreetmap.org/" rel="canonical" />
+<link rel="search" type="application/opensearchdescription+xml" title="OpenStreetMap Search" href="/assets/osm-42b7b3fbcee2193e455a773db6cd3d34a2f48ca94547fed54901dd9d8307b02b.xml">
+<meta name="description" content="OpenStreetMap is the free wiki world map.">
+<meta property="og:site_name" content="OpenStreetMap">
+<meta property="og:title" content="OpenStreetMap">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.openstreetmap.org/assets/osm_logo_256-ed028f90468224a272961c380ecee0cfb73b8048b34f4b4b204b7f0d1097875d.png">
+<meta property="og:url" content="https://www.openstreetmap.org/">
+<meta property="og:description" content="OpenStreetMap is a map of the world, created by people like you and free to use under an open license.">
+
+    <script src="/assets/index-8fadb98db786b215bca5c7362650dfe4bda302c7cb97a2c8dcfd9f4b30bced8a.js"></script>
+
+  
+  <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="4FURtXOQluwQr-pN_Nkagkh6Yokkx3zXTpOvGRKXKxOg2v3xjBRRmC0fs93cU8nVMoCtr2rPYJJfL9TbwCPXbA" />
+  <meta name="csp-nonce" content="FTif9LEoIM21+yXM6Rjr+GxikHK7SU55" />
+  <title>OpenStreetMap</title>
+</head>
+  <body class="map-layout">
+    <header class="d-flex bg-body text-nowrap closed z-3">
+  <h1 class="d-flex m-0 fw-semibold">
+    <a href="/" class="icon-link gap-1 text-body-emphasis text-decoration-none geolink">
+      <img alt="OpenStreetMap logo" src="/assets/osm_logo-4b074077c29e100f40ee64f5177886e36b570d4cc3ab10c7b263003d09642e3f.svg" width="30" height="30" />
+      OpenStreetMap
+    </a>
+  </h1>
+  <a href="#" id="menu-icon"></a>
+  <nav class='primary'>
+      <div class="search_forms">
+  <form method="GET" action="/search" class="search_form bg-body-secondary px-1 py-2">
+    <div class="row gx-2 mx-0">
+      <div class="col">
+        <div class="input-group flex-nowrap">
+          <input type="text" name="query" id="query" placeholder="Search" autocomplete="on" class="form-control z-0 py-1 px-2" dir="auto" />
+          <div class="input-group-text border-start-0 p-0 position-relative">
+            <button name="button" type="button" class="describe_location position-absolute end-0 top-0 bottom-0 m-1 btn btn-outline-primary border-0 p-1 bg-transparent text-primary link-body-emphasis link-opacity-100-hover" title="Describe the current location using the search engine">Where is this?</button>
+          </div>
+          <button name="button" type="submit" class="btn btn-primary p-1" title="Go">
+            <svg width="24" height="20">
+              <circle cx="13" cy="7" r="6.5" fill="#fff8" stroke="#fff" />
+              <path d="M9.75 12.629 A6.5 6.5 0 0 1 7.371 10.25" fill="none" stroke="#fff" stroke-width="1.5" />
+              <line x1="1" y1="19" x2="1.5" y2="18.5" stroke="#fff8" stroke-width="2" />
+              <line x1="1.5" y1="18.5" x2="6" y2="14" stroke="#fff" stroke-width="2.5" />
+              <line x1="6" y1="14" x2="6.5" y2="13.5" stroke="#fff8" stroke-width="2" />
+              <line x1="6.5" y1="13.5" x2="8.5" y2="11.5" stroke="#fff" stroke-width="1.5" />
+            </svg>
+</button>        </div>
+      </div>
+      <div class="col-auto">
+        <a class="btn btn-primary p-1 switch_link" title="Find directions between two points" href="/directions">
+          <svg width="28" height="24" viewBox="0 -2 28 24" class="align-bottom">
+            <path d="M11.5 9.5 v-3h3v-1l-5 -5l-5 5v1h3v6" fill="none" stroke="#fff8" />
+            <path d="M7.5 19.5h4v-5a1 1 0 0 1 1 -1h5v3h1l5 -5l-5 -5h-1v3h-6a4 4 0 0 0 -4 4z" fill="#fff8" stroke="#fff" />
+          </svg>
+</a>      </div>
+    </div>
+  </form>
+
+  <form method="GET" action="/directions" class="directions_form bg-body-secondary pb-2">
+    <div class="d-flex flex-row-reverse px-3 py-3"><button type="button" class="btn-close" aria-label="Close"></button></div>
+
+    <div class="d-flex flex-column mx-2 gap-1">
+      <div class="d-flex gap-1 align-items-center">
+        <div class="d-flex flex-column gap-1 flex-grow-1">
+          <div class="d-flex gap-2 align-items-center">
+            <div class="routing_marker_column flex-shrink-0">
+              <img class="img-fluid" data-type="from" draggable="true" src="/assets/marker-green-2de0354ac458a358b9925a8b7f5746324122ff884605073e1ee602fe8006e060.png" />
+            </div>
+            <input type="text" name="route_from" id="route_from" placeholder="From" autocomplete="on" class="form-control py-1 px-2" dir="auto" />
+          </div>
+          <div class="d-flex gap-2 align-items-center">
+            <div class="routing_marker_column flex-shrink-0">
+              <img class="img-fluid" data-type="to" draggable="true" src="/assets/marker-red-ea1f472cd753fdbe59b263a7dc4886006415079498be4d13a18c12ed33ac5b26.png" />
+            </div>
+            <input type="text" name="route_to" id="route_to" placeholder="To" autocomplete="on" class="form-control py-1 px-2" dir="auto" />
+          </div>
+        </div>
+        <div>
+          <button type="button" class="reverse_directions btn btn-outline-secondary border-0 p-2" title="Reverse Directions">
+            <svg class="d-block" width="20" height="20" viewBox="-10 -10 20 20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m-4 -2 0 10 m-4 -4 4 4 4 -4" />
+              <path d="m4 2 0 -10 m4 4 -4 -4 -4 4" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="d-flex gap-2 align-items-center">
+        <div class="routing_marker_column flex-shrink-0"></div>
+        <select class="routing_engines form-select py-1 px-2" name="routing_engines"></select>
+        <input type="submit" name="commit" value="Go" class="routing_go btn btn-primary py-1 px-2" />
+      </div>
+    </div>
+
+    <div class="loader_copy d-none">
+      <div class="text-center loader">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+    <div class="btn-group">
+      <div id="edit_tab" class="btn-group">
+        <a class="btn btn-outline-primary geolink editlink" id="editanchor" data-editor="id" href="/edit">Edit</a>
+        <button class='btn btn-outline-primary dropdown-toggle dropdown-toggle-split' type='button' data-bs-toggle='dropdown'></button>
+        <ul class='dropdown-menu'>
+            <li>
+              <a data-editor="id" class="geolink editlink dropdown-item" href="/edit?editor=id">Edit with iD (in-browser editor)</a>
+            </li>
+            <li>
+              <a data-editor="remote" class="geolink editlink dropdown-item" href="/edit?editor=remote">Edit with Remote Control (JOSM, Potlatch, Merkaartor)</a>
+            </li>
+        </ul>
+      </div>
+      <a class="btn btn-outline-primary geolink flex-grow-1" id="history_tab" href="/history">History</a>
+      <a class="btn btn-outline-primary geolink" id="export_tab" href="/export">Export</a>
+    </div>
+  </nav>
+  <nav class='secondary d-flex gap-2 align-items-center'>
+    <ul class='nav flex-nowrap'>
+      <li class="compact-hide nav-item">
+        <a class="nav-link text-secondary" href="/traces">GPS Traces</a>
+      </li>
+      <li class="compact-hide nav-item">
+        <a class="nav-link text-secondary" href="/diary">User Diaries</a>
+      </li>
+      <li class="compact-hide nav-item">
+        <a class="nav-link text-secondary" href="/communities">Communities</a>
+      </li>
+      <li class="compact-hide nav-item">
+        <a class="nav-link text-secondary" href="/copyright">Copyright</a>
+      </li>
+      <li class="compact-hide nav-item">
+        <a class="nav-link text-secondary" href="/help">Help</a>
+      </li>
+      <li class="compact-hide nav-item">
+        <a class="nav-link text-secondary" href="/about">About</a>
+      </li>
+      <li id="compact-secondary-nav" class="dropdown nav-item">
+        <button class="dropdown-toggle nav-link btn btn-outline-secondary border-0 bg-body text-secondary" type="button" data-bs-toggle="dropdown">More</button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/traces">GPS Traces</a></li>
+          <li><a class="dropdown-item" href="/diary">User Diaries</a></li>
+          <li><a class="dropdown-item" href="/communities">Communities</a></li>
+          <li><a class="dropdown-item" href="/copyright">Copyright</a></li>
+          <li><a class="dropdown-item" href="/help">Help</a></li>
+          <li><a class="dropdown-item" href="/about">About</a></li>
+        </ul>
+      </li>
+    </ul>
+      <div class="d-inline-flex btn-group login-menu" role="">
+        <a class="geolink btn btn-outline-secondary" href="/login?referer=%2F">Log In</a>
+        <a class="btn btn-outline-secondary" href="/user/new">Sign Up</a>
+      </div>
+  </nav>
+</header>
+
+    <div id="content" class="overlay-sidebar">
+      <div id="sidebar" class="bg-body z-1">
+    <div class="search_forms">
+  <form method="GET" action="/search" class="search_form bg-body-secondary px-1 py-2">
+    <div class="row gx-2 mx-0">
+      <div class="col">
+        <div class="input-group flex-nowrap">
+          <input type="text" name="query" id="query" placeholder="Search" autofocus="autofocus" autocomplete="on" class="form-control z-0 py-1 px-2" dir="auto" />
+          <div class="input-group-text border-start-0 p-0 position-relative">
+            <button name="button" type="button" class="describe_location position-absolute end-0 top-0 bottom-0 m-1 btn btn-outline-primary border-0 p-1 bg-transparent text-primary link-body-emphasis link-opacity-100-hover" title="Describe the current location using the search engine">Where is this?</button>
+          </div>
+          <button name="button" type="submit" class="btn btn-primary p-1" title="Go">
+            <svg width="24" height="20">
+              <circle cx="13" cy="7" r="6.5" fill="#fff8" stroke="#fff" />
+              <path d="M9.75 12.629 A6.5 6.5 0 0 1 7.371 10.25" fill="none" stroke="#fff" stroke-width="1.5" />
+              <line x1="1" y1="19" x2="1.5" y2="18.5" stroke="#fff8" stroke-width="2" />
+              <line x1="1.5" y1="18.5" x2="6" y2="14" stroke="#fff" stroke-width="2.5" />
+              <line x1="6" y1="14" x2="6.5" y2="13.5" stroke="#fff8" stroke-width="2" />
+              <line x1="6.5" y1="13.5" x2="8.5" y2="11.5" stroke="#fff" stroke-width="1.5" />
+            </svg>
+</button>        </div>
+      </div>
+      <div class="col-auto">
+        <a class="btn btn-primary p-1 switch_link" title="Find directions between two points" href="/directions">
+          <svg width="28" height="24" viewBox="0 -2 28 24" class="align-bottom">
+            <path d="M11.5 9.5 v-3h3v-1l-5 -5l-5 5v1h3v6" fill="none" stroke="#fff8" />
+            <path d="M7.5 19.5h4v-5a1 1 0 0 1 1 -1h5v3h1l5 -5l-5 -5h-1v3h-6a4 4 0 0 0 -4 4z" fill="#fff8" stroke="#fff" />
+          </svg>
+</a>      </div>
+    </div>
+  </form>
+
+  <form method="GET" action="/directions" class="directions_form bg-body-secondary pb-2">
+    <div class="d-flex flex-row-reverse px-3 py-3"><button type="button" class="btn-close" aria-label="Close"></button></div>
+
+    <div class="d-flex flex-column mx-2 gap-1">
+      <div class="d-flex gap-1 align-items-center">
+        <div class="d-flex flex-column gap-1 flex-grow-1">
+          <div class="d-flex gap-2 align-items-center">
+            <div class="routing_marker_column flex-shrink-0">
+              <img class="img-fluid" data-type="from" draggable="true" src="/assets/marker-green-2de0354ac458a358b9925a8b7f5746324122ff884605073e1ee602fe8006e060.png" />
+            </div>
+            <input type="text" name="route_from" id="route_from" placeholder="From" autocomplete="on" class="form-control py-1 px-2" dir="auto" />
+          </div>
+          <div class="d-flex gap-2 align-items-center">
+            <div class="routing_marker_column flex-shrink-0">
+              <img class="img-fluid" data-type="to" draggable="true" src="/assets/marker-red-ea1f472cd753fdbe59b263a7dc4886006415079498be4d13a18c12ed33ac5b26.png" />
+            </div>
+            <input type="text" name="route_to" id="route_to" placeholder="To" autocomplete="on" class="form-control py-1 px-2" dir="auto" />
+          </div>
+        </div>
+        <div>
+          <button type="button" class="reverse_directions btn btn-outline-secondary border-0 p-2" title="Reverse Directions">
+            <svg class="d-block" width="20" height="20" viewBox="-10 -10 20 20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m-4 -2 0 10 m-4 -4 4 4 4 -4" />
+              <path d="m4 2 0 -10 m4 4 -4 -4 -4 4" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="d-flex gap-2 align-items-center">
+        <div class="routing_marker_column flex-shrink-0"></div>
+        <select class="routing_engines form-select py-1 px-2" name="routing_engines"></select>
+        <input type="submit" name="commit" value="Go" class="routing_go btn btn-primary py-1 px-2" />
+      </div>
+    </div>
+
+    <div class="loader_copy d-none">
+      <div class="text-center loader">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+    <div id="flash">
+      
+
+
+    </div>
+
+    <div id="browse_status"></div>
+
+    <div id="sidebar_loader" class="my-3 text-center loader">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <div id="sidebar_content" class="p-3">
+      
+    </div>
+
+      <div class="welcome p-3" hidden>
+        <div class="d-flex">
+  <h2 class="flex-grow-1 text-break">Welcome to OpenStreetMap!</h2>
+  <div>
+    <button type="button" class="btn-close" aria-label="Close"></button>
+  </div>
+</div>
+
+        <p class="fs-6 fw-light">OpenStreetMap is a map of the world, created by people like you and free to use under an open license.</p>
+        <p class="fs-6 fw-light">Hosting is supported by <a href="https://www.fastly.com/">Fastly</a>, <a href="https://osmfoundation.org/wiki/Corporate_Members">OSMF corporate members</a>, and other <a href="https://hardware.openstreetmap.org/thanks/">partners</a>.
+        </p>
+        <div class="d-flex gap-2">
+          <a class="btn btn-primary w-100 d-flex align-items-center justify-content-center" href="/about">Learn More</a>
+          <a class="btn btn-primary w-100 d-flex align-items-center justify-content-center" href="/user/new">Start Mapping</a>
+        </div>
+      </div>
+
+      <div id="banner" class="position-relative" data-bs-theme="">
+    <a href="https://tobilet.pl/state-of-the-map-europe-2024.html"><img alt="State of the Map Europe 2024" title="State of the Map Europe 2024" src="/assets/banners/StateoftheMapEurope_2024-4b87f374799e8a6ecaf71aebe19301fe00c1b00f6e54a928bf49240e1ee07c0e.png" /></a>
+    <button type="button"
+            class="btn-close position-absolute top-0 end-0 m-4 opacity-100 bg-white bg-opacity-50"
+            id="_osm_banner_sotmeu_2024"
+            aria-label="Close"></button>
+</div>
+  </div>
+
+  <noscript>
+    <div class="mt-5 p-3">
+      <p>You are either using a browser that does not support JavaScript, or you have disabled JavaScript.</p>
+      <p>OpenStreetMap uses JavaScript for its slippy map.</p>
+    </div>
+  </noscript>
+
+  <div id="map-ui" class="bg-body z-2">
+  </div>
+
+  <div id="map" tabindex="2" class="bg-body-secondary z-0">
+  </div>
+
+  <div id="attribution" class="d-none">
+    <table>
+      <tr>
+        <td>https://openstreetmap.org/copyright</td>
+        <td>https://openstreetmap.org</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="attribution_notice">Copyright OpenStreetMap and contributors, under an open license</td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+    <noscript><p><img src="https://matomo.openstreetmap.org/matomo.php?idsite=1" class="matomo" alt="" /></p></noscript>
+  </body>
+</html>
+
