@@ -24,10 +24,15 @@ abstract class AbstractServiceTestCase extends TestCase
 	 * Generate share link from coordinates and check if that link is valid for service.
 	 */
 	protected bool $revalidateGeneratedShareLink = true;
+	/**
+	 * Generate drive link from coordinates and check if that link is valid for service.
+	 */
+	protected bool $revalidateGeneratedDriveLink = true;
 
 	public function tearDown(): void
 	{
 		$this->revalidateGeneratedShareLink = true;
+		$this->revalidateGeneratedDriveLink = true;
 	}
 
 	/**
@@ -87,7 +92,9 @@ abstract class AbstractServiceTestCase extends TestCase
 		foreach (self::EXAMPLE_COORDS as $i => [$lat, $lon]) {
 			$link = $service::getDriveLink($lat, $lon);
 			$this->assertSame($expectedShareLinks[$i], $link);
-			$this->assertTrue($service::validateStatic($link), sprintf('[%s] Automatically generated drive link "%s" is not valid location.', $service, $link));
+			if ($this->revalidateGeneratedDriveLink === true) {
+				$this->assertTrue($service::validateStatic($link), sprintf('[%s] Automatically generated drive link "%s" is not valid location.', $service, $link));
+			}
 		}
 	}
 
