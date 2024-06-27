@@ -5,7 +5,7 @@ namespace App\BetterLocation\Service\VodniMlynyCz;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\AbstractService;
 use App\Config;
-use App\MiniCurl\MiniCurl;
+use App\Utils\Requestor;
 use App\Utils\Strict;
 
 final class VodniMlynyCzService extends AbstractService
@@ -17,6 +17,11 @@ final class VodniMlynyCzService extends AbstractService
 	 * Database of all available estates on website
 	 */
 	private const ESTATE_LIST_URL = 'https://www.vodnimlyny.cz/en/mlyny/estates/map/?do=getEstates';
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public function validate(): bool
 	{
@@ -52,10 +57,7 @@ final class VodniMlynyCzService extends AbstractService
 	 */
 	private function getEstates(): array
 	{
-		$client = new MiniCurl(self::ESTATE_LIST_URL);
-		$client->allowCache(Config::CACHE_TTL_VODNIMLYNY_CZ);
-
-		return $client->run()->getBodyAsJson();
+		return $this->requestor->getJson(self::ESTATE_LIST_URL, Config::CACHE_TTL_VODNIMLYNY_CZ);
 	}
 
 	/**

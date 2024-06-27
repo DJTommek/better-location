@@ -4,9 +4,19 @@ namespace Tests\BetterLocation\Service\VodniMlynyCz;
 
 use App\BetterLocation\Service\VodniMlynyCz\VodniMlynyCzService;
 use Tests\BetterLocation\Service\AbstractServiceTestCase;
+use Tests\HttpTestClients;
 
 final class VodniMlynyCzServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return VodniMlynyCzService::class;
@@ -51,7 +61,7 @@ final class VodniMlynyCzServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new VodniMlynyCzService();
+		$service = new VodniMlynyCzService($this->httpTestClients->mockedRequestor);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -60,10 +70,18 @@ final class VodniMlynyCzServiceTest extends AbstractServiceTestCase
 	 *
 	 * @dataProvider processProvider
 	 */
-	public function testProcess(array $expectedResults, string $input): void
+	public function testProcessReal(array $expectedResults, string $input): void
 	{
-		$service = new VodniMlynyCzService();
+		$service = new VodniMlynyCzService($this->httpTestClients->realRequestor);
 		$this->assertServiceLocations($service, $input, $expectedResults);
 	}
 
+	/**
+	 * @dataProvider processProvider
+	 */
+	public function testProcessOffline(array $expectedResults, string $input): void
+	{
+		$service = new VodniMlynyCzService($this->httpTestClients->offlineRequestor);
+		$this->assertServiceLocations($service, $input, $expectedResults);
+	}
 }
