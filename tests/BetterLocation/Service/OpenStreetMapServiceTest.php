@@ -3,168 +3,142 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\OpenStreetMapService;
-use PHPUnit\Framework\TestCase;
 
-final class OpenStreetMapServiceTest extends TestCase
+final class OpenStreetMapServiceTest extends AbstractServiceTestCase
 {
-	public function testGenerateShareLink(): void
+	protected function getServiceClass(): string
 	{
-		$this->assertSame('https://www.openstreetmap.org/search?whereami=1&query=50.087451,14.420671&mlat=50.087451&mlon=14.420671#map=17/50.087451/14.420671', OpenStreetMapService::getLink(50.087451, 14.420671));
-		$this->assertSame('https://www.openstreetmap.org/search?whereami=1&query=50.100000,14.500000&mlat=50.100000&mlon=14.500000#map=17/50.100000/14.500000', OpenStreetMapService::getLink(50.1, 14.5));
-		$this->assertSame('https://www.openstreetmap.org/search?whereami=1&query=-50.200000,14.600000&mlat=-50.200000&mlon=14.600000#map=17/-50.200000/14.600000', OpenStreetMapService::getLink(-50.2, 14.6000001)); // round down
-		$this->assertSame('https://www.openstreetmap.org/search?whereami=1&query=50.300000,-14.700001&mlat=50.300000&mlon=-14.700001#map=17/50.300000/-14.700001', OpenStreetMapService::getLink(50.3, -14.7000009)); // round up
-		$this->assertSame('https://www.openstreetmap.org/search?whereami=1&query=-50.400000,-14.800008&mlat=-50.400000&mlon=-14.800008#map=17/-50.400000/-14.800008', OpenStreetMapService::getLink(-50.4, -14.800008));
+		return OpenStreetMapService::class;
 	}
 
-	public function testGenerateDriveLink(): void
+	protected function getShareLinks(): array
 	{
-		$this->assertSame('https://www.openstreetmap.org/directions?from=&to=50.087451,14.420671', OpenStreetMapService::getLink(50.087451, 14.420671, true));
-		$this->assertSame('https://www.openstreetmap.org/directions?from=&to=50.100000,14.500000', OpenStreetMapService::getLink(50.1, 14.5, true));
-		$this->assertSame('https://www.openstreetmap.org/directions?from=&to=-50.200000,14.600000', OpenStreetMapService::getLink(-50.2, 14.6000001, true)); // round down
-		$this->assertSame('https://www.openstreetmap.org/directions?from=&to=50.300000,-14.700001', OpenStreetMapService::getLink(50.3, -14.7000009, true)); // round up
-		$this->assertSame('https://www.openstreetmap.org/directions?from=&to=-50.400000,-14.800008', OpenStreetMapService::getLink(-50.4, -14.800008, true));
+		return [
+			'https://www.openstreetmap.org/search?whereami=1&query=50.087451,14.420671&mlat=50.087451&mlon=14.420671#map=17/50.087451/14.420671',
+			'https://www.openstreetmap.org/search?whereami=1&query=50.100000,14.500000&mlat=50.100000&mlon=14.500000#map=17/50.100000/14.500000',
+			'https://www.openstreetmap.org/search?whereami=1&query=-50.200000,14.600000&mlat=-50.200000&mlon=14.600000#map=17/-50.200000/14.600000', // round down
+			'https://www.openstreetmap.org/search?whereami=1&query=50.300000,-14.700001&mlat=50.300000&mlon=-14.700001#map=17/50.300000/-14.700001', // round up
+			'https://www.openstreetmap.org/search?whereami=1&query=-50.400000,-14.800008&mlat=-50.400000&mlon=-14.800008#map=17/-50.400000/-14.800008',
+		];
 	}
 
-	public function testIsValidNormalUrl(): void
+	protected function getDriveLinks(): array
 	{
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://www.openstreetmap.org/#map=17/49.355164/14.272819'));
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://openstreetmap.org/#map=17/49.355164/14.272819'));
-		$this->assertTrue(OpenStreetMapService::validateStatic('http://openstreetmap.org/#map=17/49.355164/14.272819'));
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://www.OPENstreetmap.org/#map=17/49.32085/14.16402&layers=N'));
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://www.openstreetmap.org/#map=18/50.05215/14.45283'));
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://www.openstreetmap.org/?mlat=50.05215&mlon=14.45283#map=18/50.05215/14.45283'));
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://www.openstreetmap.org/?mlat=50.05328&mlon=14.45640#map=18/50.05328/14.45640'));
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://www.openstreetmap.org/#map=15/-34.6101/-58.3641'));
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://www.openstreetmap.org/?mlat=-36.9837&mlon=174.8765#map=15/-36.9837/174.8765&layers=N'));
-
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://osm.org/#map=17/49.355164/14.272819'));
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://osm.org/?mlat=-36.9837&mlon=174.8765#map=15/-36.9837/174.8765&layers=N'));
-
-		$this->assertFalse(OpenStreetMapService::validateStatic('https://osmm.org/#map=17/49.355164/14.272819')); // invalid domain
-		$this->assertFalse(OpenStreetMapService::validateStatic('https://osm.org/#map=17/149.355164/14.272819')); // invalid lat
-		$this->assertFalse(OpenStreetMapService::validateStatic('https://osm.org/#map=17/49.355164/514.272819')); // invalid lon
-		$this->assertFalse(OpenStreetMapService::validateStatic('https://osm.org/#map=17/49.355164')); // missing lon
+		$this->revalidateGeneratedDriveLink = false;
+		return [
+			'https://www.openstreetmap.org/directions?from=&to=50.087451,14.420671',
+			'https://www.openstreetmap.org/directions?from=&to=50.100000,14.500000',
+			'https://www.openstreetmap.org/directions?from=&to=-50.200000,14.600000', // round down
+			'https://www.openstreetmap.org/directions?from=&to=50.300000,-14.700001', // round up
+			'https://www.openstreetmap.org/directions?from=&to=-50.400000,-14.800008',
+		];
 	}
 
-	public function testProcessNormalUrl(): void
+	public static function isValidNormalUrlProvider(): array
 	{
-		$collection = OpenStreetMapService::processStatic('https://www.openstreetmap.org/#map=17/49.355164/14.272819')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.355164,14.272819', $collection[0]->__toString());
-		$this->assertSame('Map', $collection[0]->getSourceType());
+		return [
+			[true, 'https://www.openstreetmap.org/#map=17/49.355164/14.272819'],
+			[true, 'https://openstreetmap.org/#map=17/49.355164/14.272819'],
+			[true, 'http://openstreetmap.org/#map=17/49.355164/14.272819'],
+			[true, 'https://www.OPENstreetmap.org/#map=17/49.32085/14.16402&layers=N'],
+			[true, 'https://www.openstreetmap.org/#map=18/50.05215/14.45283'],
+			[true, 'https://www.openstreetmap.org/?mlat=50.05215&mlon=14.45283#map=18/50.05215/14.45283'],
+			[true, 'https://www.openstreetmap.org/?mlat=50.05328&mlon=14.45640#map=18/50.05328/14.45640'],
+			[true, 'https://www.openstreetmap.org/#map=15/-34.6101/-58.3641'],
+			[true, 'https://www.openstreetmap.org/?mlat=-36.9837&mlon=174.8765#map=15/-36.9837/174.8765&layers=N'],
 
-		$collection = OpenStreetMapService::processStatic('https://www.openstreetmap.org/#map=17/49.32085/14.16402&layers=N')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('49.320850,14.164020', $collection[0]->__toString());
-		$this->assertSame('Map', $collection[0]->getSourceType());
+			[true, 'https://osm.org/#map=17/49.355164/14.272819'],
+			[true, 'https://osm.org/?mlat=-36.9837&mlon=174.8765#map=15/-36.9837/174.8765&layers=N'],
 
-		$collection = OpenStreetMapService::processStatic('https://www.openstreetmap.org/#map=18/50.05215/14.45283')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.052150,14.452830', $collection[0]->__toString());
-		$this->assertSame('Map', $collection[0]->getSourceType());
-
-		$collection = OpenStreetMapService::processStatic('https://www.openstreetmap.org/?mlat=50.05215&mlon=14.45283#map=18/50.05215/14.45283')->getCollection();
-		$this->assertCount(2, $collection);
-		$this->assertSame('50.052150,14.452830', $collection[0]->__toString());
-		$this->assertSame('Point', $collection[0]->getSourceType());
-		$this->assertSame('50.052150,14.452830', $collection[1]->__toString());
-		$this->assertSame('Map', $collection[1]->getSourceType());
-
-		$collection = OpenStreetMapService::processStatic('https://www.openstreetmap.org/?mlat=50.05328&mlon=14.45640#map=18/50.05328/14.45640')->getCollection();
-		$this->assertCount(2, $collection);
-		$this->assertSame('50.053280,14.456400', $collection[0]->__toString());
-		$this->assertSame('Point', $collection[0]->getSourceType());
-		$this->assertSame('50.053280,14.456400', $collection[1]->__toString());
-		$this->assertSame('Map', $collection[1]->getSourceType());
-
-		$collection = OpenStreetMapService::processStatic('https://www.openstreetmap.org/#map=15/-34.6101/-58.3641')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('-34.610100,-58.364100', $collection[0]->__toString());
-
-		$collection = OpenStreetMapService::processStatic('https://www.openstreetmap.org/?mlat=-36.9837&mlon=174.8765#map=15/-36.9837/174.8765&layers=N')->getCollection();
-		$this->assertCount(2, $collection);
-		$this->assertSame('-36.983700,174.876500', $collection[0]->__toString());
-		$this->assertSame('Point', $collection[0]->getSourceType());
-		$this->assertSame('-36.983700,174.876500', $collection[1]->__toString());
-		$this->assertSame('Map', $collection[1]->getSourceType());
+			[false, 'https://osmm.org/#map=17/49.355164/14.272819'], // invalid domain
+			[false, 'https://osm.org/#map=17/149.355164/14.272819'], // invalid lat
+			[false, 'https://osm.org/#map=17/49.355164/514.272819'], // invalid lon
+			[false, 'https://osm.org/#map=17/49.355164'], // missing lon
+		];
 	}
 
-	public function testIsValidGoUrl(): void
+	public static function isValidGoUrlProvider(): array
 	{
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://osm.org/go/0J0kf83sQ--?m='));
-		$this->assertTrue(OpenStreetMapService::validateStatic('http://osm.org/go/0EEQjE=='));
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://OSM.org/go/0EEQjEEb'));
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://osm.org/go/0J0kf3lAU--'));
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://osm.org/go/0J0kf3lAU--?m='));
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://osm.org/go/Mnx6vllJ--'));
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://www.osm.org/go/uuU2nmSl--?layers=N&m='));
+		return [
+			[true, 'https://osm.org/go/0J0kf83sQ--?m='],
+			[true, 'http://osm.org/go/0EEQjE=='],
+			[true, 'https://OSM.org/go/0EEQjEEb'],
+			[true, 'https://osm.org/go/0J0kf3lAU--'],
+			[true, 'https://osm.org/go/0J0kf3lAU--?m='],
+			[true, 'https://osm.org/go/Mnx6vllJ--'],
+			[true, 'https://www.osm.org/go/uuU2nmSl--?layers=N&m='],
 
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://openstreetmap.org/go/0J0kf83sQ--?m='));
-		$this->assertTrue(OpenStreetMapService::validateStatic('https://openstreetmap.org/go/uuU2nmSl--?layers=N&m='));
+			[true, 'https://openstreetmap.org/go/0J0kf83sQ--?m='],
+			[true, 'https://openstreetmap.org/go/uuU2nmSl--?layers=N&m='],
 
-		$this->assertFalse(OpenStreetMapService::validateStatic('https://openstreetmapp.org/go/uuU2nmSl--?layers=N&m=')); // invalid domain
-		$this->assertFalse(OpenStreetMapService::validateStatic('https://openstreetmap.org/goo/uuU2nmSl--?layers=N&m=')); // invalid path
+			[false, 'https://openstreetmapp.org/go/uuU2nmSl--?layers=N&m='], // invalid domain
+			[false, 'https://openstreetmap.org/goo/uuU2nmSl--?layers=N&m='], // invalid path
+		];
+	}
+
+	public static function processNormalUrlProvider(): array
+	{
+		return [
+			[[[49.355164, 14.272819, OpenStreetMapService::TYPE_MAP]], 'https://www.openstreetmap.org/#map=17/49.355164/14.272819'],
+			[[[49.320850, 14.164020, OpenStreetMapService::TYPE_MAP]], 'https://www.openstreetmap.org/#map=17/49.32085/14.16402&layers=N'],
+			[[[50.052150, 14.452830, OpenStreetMapService::TYPE_MAP]], 'https://www.openstreetmap.org/#map=18/50.05215/14.45283'],
+			[[[50.052150, 14.452830, OpenStreetMapService::TYPE_POINT], [50.052150, 14.452830, OpenStreetMapService::TYPE_MAP]], 'https://www.openstreetmap.org/?mlat=50.05215&mlon=14.45283#map=18/50.05215/14.45283'],
+
+			[[[50.053280, 14.456400, OpenStreetMapService::TYPE_POINT], [50.053280, 14.456400, OpenStreetMapService::TYPE_MAP]], 'https://www.openstreetmap.org/?mlat=50.05328&mlon=14.45640#map=18/50.05328/14.45640'],
+			[[[-34.610100, -58.364100, OpenStreetMapService::TYPE_MAP]], 'https://www.openstreetmap.org/#map=15/-34.6101/-58.3641'],
+			[[[-36.983700, 174.876500, OpenStreetMapService::TYPE_POINT], [-36.983700, 174.876500, OpenStreetMapService::TYPE_MAP]], 'https://www.openstreetmap.org/?mlat=-36.9837&mlon=174.8765#map=15/-36.9837/174.8765&layers=N'],
+		];
+	}
+
+	public static function processShortUrlProvider(): array
+	{
+		return [
+			// https://www.openstreetmap.org/?mlat=50.05296528339386&mlon=14.45624828338623#map=18/50.05296528339386/14.45624828338623
+			[[[50.052965, 14.456248, OpenStreetMapService::TYPE_POINT], [50.052965, 14.456248, OpenStreetMapService::TYPE_MAP]], 'https://osm.org/go/0J0kf83sQ--?m='],
+			// https://www.openstreetmap.org/#map=9/51.510772705078125/0.054931640625
+			[[[51.510773, 0.054932, OpenStreetMapService::TYPE_MAP]], 'https://osm.org/go/0EEQjE=='],
+			// https://www.openstreetmap.org/#map=16/51.510998010635376/0.05499601364135742
+			[[[51.510998, 0.054996, OpenStreetMapService::TYPE_MAP]], 'https://osm.org/go/0EEQjEEb'],
+			// https://www.openstreetmap.org/#map=18/50.05328983068466/14.454574584960938
+			[[[50.053290, 14.454575, OpenStreetMapService::TYPE_MAP]], 'https://osm.org/go/0J0kf3lAU--'],
+			// https://www.openstreetmap.org/?mlat=50.05328983068466&mlon=14.454574584960938#map=18/50.05328983068466/14.454574584960938
+			[[[50.053290, 14.454575, OpenStreetMapService::TYPE_POINT], [50.053290, 14.454575, OpenStreetMapService::TYPE_MAP]], 'https://osm.org/go/0J0kf3lAU--?m='],
+			// https://www.openstreetmap.org/#map=15/-34.61009860038757/-58.36413860321045
+			[[[-34.610099, -58.364139, OpenStreetMapService::TYPE_MAP]], 'https://osm.org/go/Mnx6vllJ--'],
+			// https://www.openstreetmap.org/?mlat=-36.98372483253479&mlon=174.87650871276855#map=15/-36.98372483253479/174.87650871276855&layers=N
+			[[[-36.983725, 174.876509, OpenStreetMapService::TYPE_POINT], [-36.983725, 174.876509, OpenStreetMapService::TYPE_MAP]], 'https://osm.org/go/uuU2nmSl--?layers=N&m='],
+			// https://www.openstreetmap.org/?mlat=50.05296528339386&mlon=14.45624828338623#map=18/50.05296528339386/14.45624828338623
+			[[[50.052965, 14.456248, OpenStreetMapService::TYPE_POINT], [50.052965, 14.456248, OpenStreetMapService::TYPE_MAP]], 'https://openstreetmap.org/go/0J0kf83sQ--?m='],
+		];
+	}
+
+	/**
+	 * @dataProvider isValidNormalUrlProvider
+	 * @dataProvider isValidGoUrlProvider
+	 */
+	public function testIsValid(bool $expectedIsValid, string $input): void
+	{
+		$service = new OpenStreetMapService();
+		$this->assertServiceIsValid($service, $input, $expectedIsValid);
+	}
+
+	/**
+	 * @dataProvider processNormalUrlProvider
+	 */
+	public function testProcessNormalUrl(array $expectedResults, string $input): void
+	{
+		$service = new OpenStreetMapService();
+		$this->assertServiceLocations($service, $input, $expectedResults);
 	}
 
 	/**
 	 * @group request
+	 *
+	 * @dataProvider processShortUrlProvider
 	 */
-	public function testProcessShortUrl(): void
+	public function testProcessShortUrl(array $expectedResults, string $input): void
 	{
-		// https://www.openstreetmap.org/?mlat=50.05296528339386&mlon=14.45624828338623#map=18/50.05296528339386/14.45624828338623
-		$collection = OpenStreetMapService::processStatic('https://osm.org/go/0J0kf83sQ--?m=')->getCollection();
-		$this->assertCount(2, $collection);
-		$this->assertSame('50.052965,14.456248', $collection[0]->__toString());
-		$this->assertSame('Point', $collection[0]->getSourceType());
-		$this->assertSame('50.052965,14.456248', $collection[1]->__toString());
-		$this->assertSame('Map', $collection[1]->getSourceType());
-
-		// https://www.openstreetmap.org/#map=9/51.510772705078125/0.054931640625
-		$collection = OpenStreetMapService::processStatic('https://osm.org/go/0EEQjE==')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('51.510773,0.054932', $collection[0]->__toString());
-		$this->assertSame('Map', $collection[0]->getSourceType());
-
-		// https://www.openstreetmap.org/#map=16/51.510998010635376/0.05499601364135742
-		$collection = OpenStreetMapService::processStatic('https://osm.org/go/0EEQjEEb')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('51.510998,0.054996', $collection[0]->__toString());
-		$this->assertSame('Map', $collection[0]->getSourceType());
-
-		// https://www.openstreetmap.org/#map=18/50.05328983068466/14.454574584960938
-		$collection = OpenStreetMapService::processStatic('https://osm.org/go/0J0kf3lAU--')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.053290,14.454575', $collection[0]->__toString());
-		$this->assertSame('Map', $collection[0]->getSourceType());
-
-		// https://www.openstreetmap.org/?mlat=50.05328983068466&mlon=14.454574584960938#map=18/50.05328983068466/14.454574584960938
-		$collection = OpenStreetMapService::processStatic('https://osm.org/go/0J0kf3lAU--?m=')->getCollection();
-		$this->assertCount(2, $collection);
-		$this->assertSame('50.053290,14.454575', $collection[0]->__toString());
-		$this->assertSame('Point', $collection[0]->getSourceType());
-		$this->assertSame('50.053290,14.454575', $collection[1]->__toString());
-		$this->assertSame('Map', $collection[1]->getSourceType());
-
-		// https://www.openstreetmap.org/#map=15/-34.61009860038757/-58.36413860321045
-		$collection = OpenStreetMapService::processStatic('https://osm.org/go/Mnx6vllJ--')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('-34.610099,-58.364139', $collection[0]->__toString());
-		$this->assertSame('Map', $collection[0]->getSourceType());
-
-		// https://www.openstreetmap.org/?mlat=-36.98372483253479&mlon=174.87650871276855#map=15/-36.98372483253479/174.87650871276855&layers=N
-		$collection = OpenStreetMapService::processStatic('https://osm.org/go/uuU2nmSl--?layers=N&m=')->getCollection();
-		$this->assertCount(2, $collection);
-		$this->assertSame('-36.983725,174.876509', $collection[0]->__toString());
-		$this->assertSame('Point', $collection[0]->getSourceType());
-		$this->assertSame('-36.983725,174.876509', $collection[1]->__toString());
-		$this->assertSame('Map', $collection[1]->getSourceType());
-
-		// https://www.openstreetmap.org/?mlat=50.05296528339386&mlon=14.45624828338623#map=18/50.05296528339386/14.45624828338623
-		$collection = OpenStreetMapService::processStatic('https://openstreetmap.org/go/0J0kf83sQ--?m=')->getCollection();
-		$this->assertCount(2, $collection);
-		$this->assertSame('50.052965,14.456248', $collection[0]->__toString());
-		$this->assertSame('Point', $collection[0]->getSourceType());
-		$this->assertSame('50.052965,14.456248', $collection[1]->__toString());
-		$this->assertSame('Map', $collection[1]->getSourceType());
+		$service = new OpenStreetMapService();
+		$this->assertServiceLocations($service, $input, $expectedResults);
 	}
 }
