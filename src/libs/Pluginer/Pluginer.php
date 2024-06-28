@@ -97,8 +97,8 @@ class Pluginer
 			uri: $this->pluginUrl->getAbsoluteUrl(),
 			body: Json::encode($requestBody),
 		);
-		$response = $this->httpClient->sendRequest($request);
 		SimpleLogger::log(SimpleLogger::NAME_PLUGINER_REQUEST, $requestBody);
+		$response = $this->httpClient->sendRequest($request);
 		$response = Json::decode((string)$response->getBody());
 		SimpleLogger::log(SimpleLogger::NAME_PLUGINER_RESPONSE, $response);
 		return $response;
