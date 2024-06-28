@@ -41,7 +41,7 @@ final readonly class HttpTestClients
 	/**
 	 * URL query parameters, that should not be used in generated path
 	 */
-	private const REQUEST_SENSITIVE_QUERY_PARAMS = ['key'];
+	private const REQUEST_SENSITIVE_QUERY_PARAMS = ['key', 'client_id', 'client_secret'];
 
 	/** HTTP client making real requests */
 	public ClientInterface $realHttpClient;
