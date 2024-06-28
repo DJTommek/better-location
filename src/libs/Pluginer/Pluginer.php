@@ -3,7 +3,6 @@
 namespace App\Pluginer;
 
 use App\BetterLocation\BetterLocationCollection;
-use App\MiniCurl\Exceptions\TimeoutException;
 use App\Utils\SimpleLogger;
 use GuzzleHttp\Psr7\Request;
 use Nette\Http\UrlImmutable;
@@ -55,9 +54,6 @@ class Pluginer
 				LOG_ID,
 			),
 				\Tracy\Debugger::DEBUG);
-
-		} catch (TimeoutException) {
-			throw new PluginerException('Request timeouted');
 		} catch (\JsonException $exception) {
 			throw new PluginerException(sprintf('Unable to parse response as JSON, error: "%s"', $exception->getMessage()));
 		} catch (\Exception $exception) {
