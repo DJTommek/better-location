@@ -239,7 +239,7 @@ gc12aBd
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new GeocachingService();
+		$service = new GeocachingService($this->httpTestClients->mockedRequestor);
 		$service->setInput($input);
 		$isValid = $service->validate();
 		$this->assertSame($expectedIsValid, $isValid);
@@ -253,19 +253,19 @@ gc12aBd
 	public function testProcessCoordsFromUrl(float $expectedLat, float $expectedLon, string $input, string $expectedSourceType): void
 	{
 		$geocachingClient = $this->createGeocachingClientMocked();
-		$service = new GeocachingService($geocachingClient);
+		$service = new GeocachingService($this->httpTestClients->mockedRequestor, $geocachingClient);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon, $expectedSourceType);
 	}
 
 	/**
-	 * @dataProvider geocacheIdUrlProvider
-	 * @dataProvider geocacheGuidUrlProvider
 	 * @group request
+	 *
+	 * @dataProvider geocacheGuidUrlProvider
 	 */
 	public function testProcessGeocacheIdFromUrlReal(float $expectedLat, float $expectedLon, string $input, string $expectedSourceType): void
 	{
 		$geocachingClient = $this->createGeocachingClientReal();
-		$service = new GeocachingService($geocachingClient);
+		$service = new GeocachingService($this->httpTestClients->realRequestor, $geocachingClient);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon, $expectedSourceType);
 	}
 
@@ -275,13 +275,36 @@ gc12aBd
 	public function testProcessGeocacheIdFromUrlOffline(float $expectedLat, float $expectedLon, string $input, string $expectedSourceType): void
 	{
 		$geocachingClient = $this->createGeocachingClientOffline();
-		$service = new GeocachingService($geocachingClient);
+		$service = new GeocachingService($this->httpTestClients->mockedRequestor, $geocachingClient);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon, $expectedSourceType);
 	}
 
 	/**
-	 * @dataProvider geocacheIdPremiumUrlProvider
 	 * @group request
+	 *
+	 * @dataProvider geocacheGuidUrlProvider
+	 */
+	public function testProcessGeocacheGuidFromUrlReal(float $expectedLat, float $expectedLon, string $input, string $expectedSourceType): void
+	{
+		$geocachingClient = $this->createGeocachingClientReal();
+		$service = new GeocachingService($this->httpTestClients->realRequestor, $geocachingClient);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon, $expectedSourceType);
+	}
+
+	/**
+	 * @dataProvider geocacheGuidUrlProvider
+	 */
+	public function testProcessGeocacheGuidFromUrlOffline(float $expectedLat, float $expectedLon, string $input, string $expectedSourceType): void
+	{
+		$geocachingClient = $this->createGeocachingClientOffline();
+		$service = new GeocachingService($this->httpTestClients->offlineRequestor, $geocachingClient);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon, $expectedSourceType);
+	}
+
+	/**
+	 * @group request
+	 *
+	 * @dataProvider geocacheIdPremiumUrlProvider
 	 */
 	public function testParseUrlPremiumReal(string $url): void
 	{
@@ -300,7 +323,7 @@ gc12aBd
 
 	private function testParseUrlPremium(\App\Geocaching\Client $geocachingClient, string $url): void
 	{
-		$service = new GeocachingService($geocachingClient);
+		$service = new GeocachingService($this->httpTestClients->mockedRequestor, $geocachingClient);
 
 		$service->setInput($url);
 		$this->assertTrue($service->validate());
@@ -312,8 +335,9 @@ gc12aBd
 	}
 
 	/**
-	 * @dataProvider geocacheIdFromTextProvider
 	 * @group request
+	 *
+	 * @dataProvider geocacheIdFromTextProvider
 	 */
 	public function testFindInText(array $expectedCoordsArray, string $text): void
 	{

@@ -11,8 +11,8 @@ use App\Factory;
 use App\Geocaching\Client;
 use App\Geocaching\Types\GeocachePreviewType;
 use App\Icons;
-use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
+use App\Utils\Requestor;
 use App\Utils\Strict;
 use App\Utils\StringUtils;
 use Nette\Http\Url;
@@ -52,6 +52,7 @@ final class GeocachingService extends AbstractService
 	const TYPE_MAP_COORD = 'coord map';
 
 	public function __construct(
+		private readonly Requestor $requestor,
 		private readonly ?Client $geocachingClient = null,
 	) {
 
@@ -266,16 +267,12 @@ final class GeocachingService extends AbstractService
 		}
 
 		if ($this->data->isUrlGuid ?? false) {
-			try {
-				$this->url = Strict::url(MiniCurl::loadRedirectUrl($this->input));
-				if ($this->validate() === false) {
-					throw new InvalidLocationException(sprintf('Unprocessable input: "%s"', $this->input));
-				}
-			} catch (InvalidLocationException $exception) {
-				throw $exception;
-			} catch (\Throwable $exception) {
-				Debugger::log($exception, ILogger::EXCEPTION);
-				throw new InvalidLocationException(sprintf('Error while processing %s URL, try again later.', self::NAME));
+			// Loading redirect URL of Geocache GUID URL reveals URL containing Geocaching ID
+			// https://www.geocaching.com/seek/cache_details.aspx?guid=df11c170-1af3-4ee1-853a-e97c1afe0722
+			// -> https://www.geocaching.com/geocache/GC3DYC4_find-the-bug
+			$this->url = Strict::url($this->requestor->loadFinalRedirectUrl($this->url));
+			if ($this->validate() === false) {
+				throw new InvalidLocationException(sprintf('Unprocessable input: "%s"', $this->input));
 			}
 		}
 
