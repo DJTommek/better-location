@@ -3,9 +3,19 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\HereWeGoService;
+use Tests\HttpTestClients;
 
 final class HereWeGoServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return HereWeGoService::class;
@@ -105,15 +115,26 @@ final class HereWeGoServiceTest extends AbstractServiceTestCase
 	{
 		return [
 			[
-				[[50.089340, 14.413640, HereWeGoService::TYPE_PLACE_ORIGINAL_ID], [50.089630, 14.412760, HereWeGoService::TYPE_MAP]],
+				[
+					[50.089340, 14.413640, HereWeGoService::TYPE_PLACE_ORIGINAL_ID],
+					[50.089630, 14.412760, HereWeGoService::TYPE_MAP],
+				],
 				'https://wego.here.com/czech-republic/prague/street-square/m%C3%A1nes%C5%AFv-most--loc-dmVyc2lvbj0xO3RpdGxlPU0lQzMlQTFuZXMlQzUlQUZ2K21vc3Q7bGF0PTUwLjA4OTM0O2xvbj0xNC40MTM2NDtzdHJlZXQ9TSVDMyVBMW5lcyVDNSVBRnYrbW9zdDtjaXR5PVByYWd1ZTtwb3N0YWxDb2RlPTExOCswMDtjb3VudHJ5PUNaRTtkaXN0cmljdD1QcmFoYSsxO3N0YXRlQ29kZT1QcmFndWU7Y291bnR5PVByYWd1ZTtjYXRlZ29yeUlkPXN0cmVldC1zcXVhcmU7c291cmNlU3lzdGVtPWludGVybmFs?map=50.08963,14.41276,16,satellite_traffic&msg=M%C3%A1nes%C5%AFv%20most',
 			],
 			[
-				[[50.105540, 14.475900, HereWeGoService::TYPE_PLACE_ORIGINAL_ID], [50.105540, 14.475900, HereWeGoService::TYPE_MAP]],
+				[
+					[50.105540, 14.475900, HereWeGoService::TYPE_PLACE_ORIGINAL_ID],
+					[50.105540, 14.475900, HereWeGoService::TYPE_MAP],
+				],
 				'https://wego.here.com/czech-republic/prague/street-square/na-hr%C3%A1zi-17825--loc-dmVyc2lvbj0xO3RpdGxlPU5hK0hyJUMzJUExemkrMTc4JTJGMjU7bGF0PTUwLjEwNTU0O2xvbj0xNC40NzU5O3N0cmVldD1OYStIciVDMyVBMXppO2hvdXNlPTE3OCUyRjI1O2NpdHk9UHJhZ3VlO3Bvc3RhbENvZGU9MTgwKzAwO2NvdW50cnk9Q1pFO2Rpc3RyaWN0PVByYWhhKzg7c3RhdGVDb2RlPVByYWd1ZTtjb3VudHk9UHJhZ3VlO2NhdGVnb3J5SWQ9YnVpbGRpbmc7c291cmNlU3lzdGVtPWludGVybmFs?map=50.10554,14.4759,15,normal&msg=Na%20Hr%C3%A1zi%20178%2F25',
 			],
-			// Negative coordinates, map center is on different location than selected place
-			[[[-15.978160, -5.712050, HereWeGoService::TYPE_PLACE_ORIGINAL_ID], [-15.994290, -5.756810, HereWeGoService::TYPE_MAP]], 'https://wego.here.com/saint-helena/sandy-bay/city-town-village/sandy-bay--loc-dmVyc2lvbj0xO3RpdGxlPVNhbmR5K0JheTtsYXQ9LTE1Ljk3ODE2O2xvbj0tNS43MTIwNTtjaXR5PVNhbmR5K0JheTtjb3VudHJ5PVNITjtjb3VudHk9U2FuZHkrQmF5O2NhdGVnb3J5SWQ9Y2l0eS10b3duLXZpbGxhZ2U7c291cmNlU3lzdGVtPWludGVybmFs?map=-15.99429,-5.75681,15,normal&msg=Sandy%20Bay'],
+			[ // Negative coordinates, map center is on different location than selected place
+				[
+					[-15.978160, -5.712050, HereWeGoService::TYPE_PLACE_ORIGINAL_ID],
+					[-15.994290, -5.756810, HereWeGoService::TYPE_MAP],
+				],
+				'https://wego.here.com/saint-helena/sandy-bay/city-town-village/sandy-bay--loc-dmVyc2lvbj0xO3RpdGxlPVNhbmR5K0JheTtsYXQ9LTE1Ljk3ODE2O2xvbj0tNS43MTIwNTtjaXR5PVNhbmR5K0JheTtjb3VudHJ5PVNITjtjb3VudHk9U2FuZHkrQmF5O2NhdGVnb3J5SWQ9Y2l0eS10b3duLXZpbGxhZ2U7c291cmNlU3lzdGVtPWludGVybmFs?map=-15.99429,-5.75681,15,normal&msg=Sandy%20Bay',
+			],
 		];
 	}
 
@@ -145,21 +166,38 @@ final class HereWeGoServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new HereWeGoService();
+		$service = new HereWeGoService($this->httpTestClients->mockedRequestor);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
 	/**
-	 * @group request
-	 * 
 	 * @dataProvider processRequestLocUrlProvider
 	 * @dataProvider processNormalUrlProvider
 	 * @dataProvider processStartPointUrlProvider
+	 */
+	public function testProcessNoRequest(array $expectedResults, string $input): void
+	{
+		$service = new HereWeGoService($this->httpTestClients->mockedRequestor);
+		$this->assertServiceLocations($service, $input, $expectedResults);
+	}
+
+	/**
+	 * @group request
+	 * *
 	 * @dataProvider processShortUrlProvider
 	 */
-	public function testProcess(array $expectedResults, string $input): void
+	public function testProcessRequestReal(array $expectedResults, string $input): void
 	{
-		$service = new HereWeGoService();
+		$service = new HereWeGoService($this->httpTestClients->realRequestor);
+		$this->assertServiceLocations($service, $input, $expectedResults);
+	}
+
+	/**
+	 * @dataProvider processShortUrlProvider
+	 */
+	public function testProcessRequestOffline(array $expectedResults, string $input): void
+	{
+		$service = new HereWeGoService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceLocations($service, $input, $expectedResults);
 	}
 }

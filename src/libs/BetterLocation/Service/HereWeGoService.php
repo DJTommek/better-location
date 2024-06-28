@@ -5,9 +5,9 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\ServicesManager;
-use App\MiniCurl\MiniCurl;
-use App\Utils\Coordinates;
+use App\Utils\Requestor;
 use App\Utils\Strict;
+use DJTommek\Coordinates\Coordinates;
 use Nette\Http\Url;
 
 final class HereWeGoService extends AbstractService
@@ -31,6 +31,11 @@ final class HereWeGoService extends AbstractService
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
 		ServicesManager::TAG_GENERATE_LINK_DRIVE,
 	];
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public static function getConstants(): array
 	{
@@ -127,9 +132,9 @@ final class HereWeGoService extends AbstractService
 	 */
 	private function processShortShareUrl(): void
 	{
-		$this->url = Strict::url(MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl()));
-		if ($this->url->getDomain(0) !== 'share.here.com') {
-			throw new InvalidLocationException(sprintf('Unexpected first redirect URL "%s".', $this->url));
+		$this->url = Strict::url($this->requestor->loadFinalRedirectUrl($this->url));
+		if ($this->validate() === false || $this->data->isShortUrl === true) {
+			throw new InvalidLocationException(sprintf('Unexpected redirect URL "%s" from short URL "%s".', $this->url, $this->inputUrl));
 		}
 	}
 
