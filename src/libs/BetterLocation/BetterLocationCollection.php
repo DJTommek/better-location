@@ -5,7 +5,6 @@ namespace App\BetterLocation;
 use App\Config;
 use App\Factory;
 use App\Icons;
-use App\MiniCurl\Exceptions\TimeoutException;
 use App\Utils\Coordinates;
 use App\Utils\Formatter;
 use Nette\Http\UrlImmutable;
@@ -217,7 +216,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	 */
 	public static function fromTelegramMessage(string $message, array $entities): self
 	{
-		$fromTelegramMessage = new FromTelegramMessage(Factory::servicesManager());
+		$fromTelegramMessage = new FromTelegramMessage(Factory::servicesManager(), Factory::requestor());
 		return $fromTelegramMessage->getCollection($message, $entities);
 	}
 

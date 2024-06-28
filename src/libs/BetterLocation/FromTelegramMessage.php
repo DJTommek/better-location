@@ -5,6 +5,7 @@ namespace App\BetterLocation;
 use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\TelegramCustomWrapper\TelegramHelper;
+use App\Utils\Requestor;
 use App\Utils\Strict;
 use App\Utils\StringUtils;
 use App\Utils\Utils;
@@ -15,6 +16,7 @@ class FromTelegramMessage
 {
 	public function __construct(
 		private readonly ServicesManager $servicesManager,
+		private readonly Requestor $requestor,
 	) {
 	}
 
@@ -36,7 +38,7 @@ class FromTelegramMessage
 				continue;
 			}
 
-			$url = self::handleShortUrl($url);
+			$url = $this->handleShortUrl($url);
 
 			$serviceCollection = $this->servicesManager->iterate($url);
 			if ($serviceCollection->filterTooClose) {
@@ -56,22 +58,12 @@ class FromTelegramMessage
 		return $betterLocationsCollection;
 	}
 
-	private static function handleShortUrl(string $url): string
+	private function handleShortUrl(string $url): string
 	{
-		$originalUrl = $url;
-		$tries = 0;
-		while (is_null($url) === false && Url::isShortUrl($url)) {
-			if ($tries >= 5) {
-				Debugger::log(sprintf('Too many tries (%d) for translating original URL "%s"', $tries, $originalUrl));
-				break;
-			}
-			$url = MiniCurl::loadRedirectUrl($url);
-			$tries++;
+		if (!Url::isShortUrl($url)) {
+			return $url;
 		}
-		if (is_null($url)) { // in case of some error, revert to original URL
-			$url = $originalUrl;
-		}
-		return $url;
+		return $this->requestor->loadFinalRedirectUrl($url);
 	}
 
 	private static function processHttpHeaders(string $url): BetterLocationCollection

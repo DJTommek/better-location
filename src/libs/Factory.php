@@ -61,6 +61,11 @@ class Factory
 		return self::getContainer()->get(\App\BetterLocation\ServicesManager::class);
 	}
 
+	public static function requestor(): \App\Utils\Requestor
+	{
+		return self::getContainer()->get(\App\Utils\Requestor::class);
+	}
+
 	public static function nominatim(): Nominatim\NominatimWrapper
 	{
 		return self::getContainer()->get(Nominatim\NominatimWrapper::class);
