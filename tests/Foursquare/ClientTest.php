@@ -5,17 +5,17 @@ namespace Tests\Foursquare;
 use App\Config;
 use App\Foursquare\Client as FoursquareClient;
 use PHPUnit\Framework\TestCase;
+use Tests\HttpTestClients;
 
-/**
- * @group request
- */
 final class ClientTest extends TestCase
 {
-	public static function setUpBeforeClass(): void
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
 	{
-		if (!Config::isFoursquare()) {
-			self::markTestSkipped('Missing Foursquare API credentials');
-		}
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
 	}
 
 	public static function loadVenueProvider(): array
@@ -29,9 +29,11 @@ final class ClientTest extends TestCase
 	}
 
 	/**
+	 * @group request
+	 *
 	 * @dataProvider loadVenueProvider
 	 */
-	public function testLoadVenue(
+	public function testLoadVenueReal(
 		string $expectedName,
 		float $expectedLat,
 		float $expectedLon,
@@ -39,8 +41,38 @@ final class ClientTest extends TestCase
 		string $expectedCanonicalUrl,
 		string $venueId,
 	): void {
+		if (!Config::isFoursquare()) {
+			self::markTestSkipped('Missing Foursquare API credentials');
+		}
 		// @phpstan-ignore-next-line API credentials might be null, in that case tests are skipped
-		$api = new FoursquareClient(Config::FOURSQUARE_CLIENT_ID, Config::FOURSQUARE_CLIENT_SECRET);
+		$api = new FoursquareClient($this->httpTestClients->realRequestor, Config::FOURSQUARE_CLIENT_ID, Config::FOURSQUARE_CLIENT_SECRET);
+		$this->testLoadVenue($api, $expectedName, $expectedLat, $expectedLon, $expectedAddress, $expectedCanonicalUrl, $venueId);
+	}
+
+	/**
+	 * @dataProvider loadVenueProvider
+	 */
+	public function testLoadVenueOffline(
+		string $expectedName,
+		float $expectedLat,
+		float $expectedLon,
+		string $expectedAddress,
+		string $expectedCanonicalUrl,
+		string $venueId,
+	): void {
+		$api = new FoursquareClient($this->httpTestClients->offlineRequestor, '', '');
+		$this->testLoadVenue($api, $expectedName, $expectedLat, $expectedLon, $expectedAddress, $expectedCanonicalUrl, $venueId);
+	}
+
+	private function testLoadVenue(
+		FoursquareClient $api,
+		string $expectedName,
+		float $expectedLat,
+		float $expectedLon,
+		string $expectedAddress,
+		string $expectedCanonicalUrl,
+		string $venueId,
+	): void {
 		$venue = $api->loadVenue($venueId);
 		$this->assertSame($venueId, $venue->id);
 		$this->assertSame($expectedName, $venue->name);

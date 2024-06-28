@@ -107,13 +107,10 @@ return static function (ContainerConfigurator $container): void {
 	}
 
 	if (Config::isFoursquare()) {
-		$services->set(\App\Factory\FoursquareApiFactory::class)
+		$services->set(App\Foursquare\Client::class)
 			->arg('$clientId', Config::FOURSQUARE_CLIENT_ID)
 			->arg('$clientSecret', Config::FOURSQUARE_CLIENT_SECRET)
 			->arg('$cacheTtl', Config::CACHE_TTL_FOURSQUARE_API);
-
-		$services->set(App\Foursquare\Client::class)
-			->factory([service(\App\Factory\FoursquareApiFactory::class), 'create']);
 	}
 
 	$services->set(\App\IngressLanchedRu\Client::class)

@@ -76,11 +76,6 @@ parameters:
 			path: src/libs/DummyLogger.php
 
 		-
-			message: "#^Method App\\\\Foursquare\\\\Client\\:\\:loadVenue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Foursquare/Client.php
-
-		-
 			message: "#^Method App\\\\Foursquare\\\\Types\\\\VenueLocationType\\:\\:getFormattedAddress\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/Foursquare/Types/VenueLocationType.php
