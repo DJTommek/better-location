@@ -100,13 +100,16 @@ final class HereWeGoService extends AbstractService
 	 *      Part of URL to decode: 'dmVyc2lvbj0xO3RpdGxlPVNhbmR5K0JheTtsYXQ9LTE1Ljk3ODE2O2xvbj0tNS43MTIwNTtjaXR5PVNhbmR5K0JheTtjb3VudHJ5PVNITjtjb3VudHk9U2FuZHkrQmF5O2NhdGVnb3J5SWQ9Y2l0eS10b3duLXZpbGxhZ2U7c291cmNlU3lzdGVtPWludGVybmFs'
 	 *      Base 64 decoded: 'version=1;title=Sandy+Bay;lat=-15.97816;lon=-5.71205;city=Sandy+Bay;country=SHN;county=Sandy+Bay;categoryId=city-town-village;sourceSystem=internal'
 	 *      Coordinates of place: -15.97816,-5.71205
+	 *
+	 * @internal Public for tests
 	 */
-	private static function extractPlaceInfo(Url $url): ?array
+	public static function extractPlaceInfo(Url $url): ?array
 	{
-		$urlPath = $url->getPath();
+		$base64regexChars = 'a-zA-Z0-9+=';
+		$urlPath = urldecode($url->getPath());
 		if (
-			!preg_match('/--loc-([a-zA-Z0-9]+)/', $urlPath, $matches)
-			&& !preg_match('/\/p\/s-([a-zA-Z0-9]+)/', $urlPath, $matches)
+			!preg_match('/--loc-([' . $base64regexChars . ']+)/', $urlPath, $matches)
+			&& !preg_match('/\/p\/s-([' . $base64regexChars . ']+)/', $urlPath, $matches)
 		) {
 			return null;
 		}

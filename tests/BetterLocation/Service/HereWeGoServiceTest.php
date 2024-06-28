@@ -3,6 +3,7 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\HereWeGoService;
+use Nette\Http\Url;
 use Tests\HttpTestClients;
 
 final class HereWeGoServiceTest extends AbstractServiceTestCase
@@ -108,9 +109,6 @@ final class HereWeGoServiceTest extends AbstractServiceTestCase
 		];
 	}
 
-	/**
-	 * @group request
-	 */
 	public static function processRequestLocUrlProvider(): array
 	{
 		return [
@@ -138,9 +136,6 @@ final class HereWeGoServiceTest extends AbstractServiceTestCase
 		];
 	}
 
-	/**
-	 * @group request
-	 */
 	public static function processShortUrlProvider(): array
 	{
 		return [
@@ -157,6 +152,71 @@ final class HereWeGoServiceTest extends AbstractServiceTestCase
 		];
 	}
 
+	public static function extractPlaceInfoProvider(): array
+	{
+		return [
+			[
+				[
+					'version' => '1',
+					'title' => 'M%C3%A1nes%C5%AFv+most',
+					'lat' => '50.08934',
+					'lon' => '14.41364',
+					'street' => 'M%C3%A1nes%C5%AFv+most',
+					'city' => 'Prague',
+					'postalCode' => '118+00',
+					'country' => 'CZE',
+					'district' => 'Praha+1',
+					'stateCode' => 'Prague',
+					'county' => 'Prague',
+					'categoryId' => 'street-square',
+					'sourceSystem' => 'internal',
+				],
+				'https://wego.here.com/czech-republic/prague/street-square/m%C3%A1nes%C5%AFv-most--loc-dmVyc2lvbj0xO3RpdGxlPU0lQzMlQTFuZXMlQzUlQUZ2K21vc3Q7bGF0PTUwLjA4OTM0O2xvbj0xNC40MTM2NDtzdHJlZXQ9TSVDMyVBMW5lcyVDNSVBRnYrbW9zdDtjaXR5PVByYWd1ZTtwb3N0YWxDb2RlPTExOCswMDtjb3VudHJ5PUNaRTtkaXN0cmljdD1QcmFoYSsxO3N0YXRlQ29kZT1QcmFndWU7Y291bnR5PVByYWd1ZTtjYXRlZ29yeUlkPXN0cmVldC1zcXVhcmU7c291cmNlU3lzdGVtPWludGVybmFs?map=50.08963,14.41276,16,satellite_traffic&msg=M%C3%A1nes%C5%AFv%20most',
+			],
+
+			[
+				[
+					'version' => '1',
+					'title' => 'Sandy+Bay',
+					'lat' => '-15.97816',
+					'lon' => '-5.71205',
+					'city' => 'Sandy+Bay',
+					'country' => 'SHN',
+					'county' => 'Sandy+Bay',
+					'categoryId' => 'city-town-village',
+					'sourceSystem' => 'internal',
+				],
+				'https://wego.here.com/saint-helena/sandy-bay/city-town-village/sandy-bay--loc-dmVyc2lvbj0xO3RpdGxlPVNhbmR5K0JheTtsYXQ9LTE1Ljk3ODE2O2xvbj0tNS43MTIwNTtjaXR5PVNhbmR5K0JheTtjb3VudHJ5PVNITjtjb3VudHk9U2FuZHkrQmF5O2NhdGVnb3J5SWQ9Y2l0eS10b3duLXZpbGxhZ2U7c291cmNlU3lzdGVtPWludGVybmFs?map=-15.99429,-5.75681,15,normal&msg=Sandy%20Bay',
+			],
+
+			[
+				[
+					'c' => 'postal-area',
+					'lat' => '50.09667',
+					'lon' => '14.44513',
+					'n' => 'Praha+7',
+					'h' => '735677',
+				],
+				'https://share.here.com/p/s-Yz1wb3N0YWwtYXJlYTtsYXQ9NTAuMDk2Njc7bG9uPTE0LjQ0NTEzO249UHJhaGErNztoPTczNTY3Nw?ref=here_com',
+			],
+		];
+	}
+
+
+	/**
+	 * @TODO Links generated on July 2024, currently not supported to extract place info, only map center.
+	 */
+	public static function extractPlaceInfoNotSupportedProvider(): array
+	{
+		return [
+			[
+				// should lead to coordinates 50.19712, 14.67446
+				// with title and address 'Mělnická 1423, 250 01 Brandýs nad Labem-Stará Boleslav, Czechia'
+				[],
+				'https://wego.here.com/p/eJydkL1OwzAUhV%2FF8hyqxPlrvCUhQ4BKSK2QYLs4l8Tg2pFtKGnVJ2HiWeDBaAsMrIznHJ1v%2BHYUhEDnKN9RBZ7yNJxFRVYkGZunKcvDOAmo0j3lUTLL8rhgeRrOo5xFRbwPKHSdPb3p4vNNaSmePt5JlLA4ICwNSRiRyoLuJkc0dOQK7nF9tvRggVRGoVPwEpB6i2KQQAMqwGNv7NR2B%2BAxm2ft7VSbDr8LeRwGtMjhgTtvEb1D4aXRvHTD63Wzwf5uYGNrluuLy60ued2Ltqrrlb%2Bttk3ZQHXehIvHxYE1KhC4msYf9GiU9FKAupG4%2Ba2cPLL%2F6cZLr%2FCPmeCkhu6%2FAC8ycmE%3D?map=50.18497,14.57861,13.5',
+			],
+		];
+	}
 
 	/**
 	 * @dataProvider isValidNormalUrlProvider
@@ -199,5 +259,14 @@ final class HereWeGoServiceTest extends AbstractServiceTestCase
 	{
 		$service = new HereWeGoService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceLocations($service, $input, $expectedResults);
+	}
+
+	/**
+	 * @dataProvider extractPlaceInfoProvider
+	 */
+	public function testExtractPlaceInfo(array $expectedPlaceInfo, string $url): void
+	{
+		$placeInfo = HereWeGoService::extractPlaceInfo(new Url($url));
+		$this->assertSame($expectedPlaceInfo, $placeInfo);
 	}
 }
