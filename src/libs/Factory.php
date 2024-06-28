@@ -3,6 +3,7 @@
 namespace App;
 
 use Psr\Container\ContainerInterface;
+use Psr\Http\Client\ClientInterface;
 
 /**
  * @deprecated All services here should be registered in \App\Container and loaded from there.
@@ -64,6 +65,11 @@ class Factory
 	public static function requestor(): \App\Utils\Requestor
 	{
 		return self::getContainer()->get(\App\Utils\Requestor::class);
+	}
+
+	public static function httpClient(): ClientInterface
+	{
+		return self::getContainer()->get(ClientInterface::class);
 	}
 
 	public static function nominatim(): Nominatim\NominatimWrapper

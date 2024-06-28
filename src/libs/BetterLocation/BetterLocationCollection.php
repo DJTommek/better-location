@@ -216,7 +216,11 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	 */
 	public static function fromTelegramMessage(string $message, array $entities): self
 	{
-		$fromTelegramMessage = new FromTelegramMessage(Factory::servicesManager(), Factory::requestor());
+		$fromTelegramMessage = new FromTelegramMessage(
+			Factory::servicesManager(),
+			Factory::requestor(),
+			Factory::httpClient(),
+		);
 		return $fromTelegramMessage->getCollection($message, $entities);
 	}
 

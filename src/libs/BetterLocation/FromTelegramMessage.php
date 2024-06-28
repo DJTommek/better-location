@@ -3,12 +3,13 @@
 namespace App\BetterLocation;
 
 use App\Config;
-use App\MiniCurl\MiniCurl;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Requestor;
 use App\Utils\Strict;
 use App\Utils\StringUtils;
 use App\Utils\Utils;
+use GuzzleHttp\Psr7\Request;
+use Psr\Http\Client\ClientInterface;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 
@@ -17,6 +18,7 @@ class FromTelegramMessage
 	public function __construct(
 		private readonly ServicesManager $servicesManager,
 		private readonly Requestor $requestor,
+		private readonly ClientInterface $httpClient,
 	) {
 	}
 
@@ -47,7 +49,7 @@ class FromTelegramMessage
 			$betterLocationsCollection->add($serviceCollection);
 
 			if ($serviceCollection->isEmpty()) { // process HTTP headers only if no location was found via iteration
-				$betterLocationsCollection->add(self::processHttpHeaders($url));
+				$betterLocationsCollection->add($this->processHttpHeaders($url));
 			}
 		}
 
@@ -66,13 +68,15 @@ class FromTelegramMessage
 		return $this->requestor->loadFinalRedirectUrl($url);
 	}
 
-	private static function processHttpHeaders(string $url): BetterLocationCollection
+	private function processHttpHeaders(string $url): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
 		try {
 			$contentType = null;
 			try {
-				$contentType = MiniCurl::loadHeader($url, 'content-type');
+				$request = new Request('GET', $url);
+				$response = $this->httpClient->sendRequest($request);
+				$contentType = $response->getHeaderLine('content-type');
 			} catch (\Throwable $exception) {
 				Debugger::log(sprintf('Error while loading headers for URL "%s": %s', $url, $exception->getMessage()));
 			}
