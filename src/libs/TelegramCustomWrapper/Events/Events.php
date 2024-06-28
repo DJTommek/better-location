@@ -18,6 +18,7 @@ use App\Utils\DateImmutableUtils;
 use App\Utils\SimpleLogger;
 use DJTommek\Coordinates\CoordinatesInterface;
 use Nette\Http\UrlImmutable;
+use Psr\Http\Client\ClientInterface;
 use React\EventLoop\Factory;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -38,6 +39,7 @@ abstract class Events
 	private readonly UserRepository $userRepository;
 	private readonly ChatRepository $chatRepository;
 	private readonly FavouritesRepository $favouritesRepository;
+	private readonly ClientInterface $httpClient;
 
 	protected readonly Update $update;
 	private readonly TgLog $tgLog;
@@ -65,10 +67,12 @@ abstract class Events
 		ChatRepository $chatRepository,
 		FavouritesRepository $favouritesRepository,
 		CustomTelegramLogger $customTelegramLogger,
+		ClientInterface $httpClient,
 	): self {
 		$this->userRepository = $userRepository;
 		$this->chatRepository = $chatRepository;
 		$this->favouritesRepository = $favouritesRepository;
+		$this->httpClient = $httpClient;
 
 		$this->loop = Factory::create();
 		$this->tgLog = new TgLog(
@@ -156,6 +160,7 @@ abstract class Events
 		}
 
 		return new Pluginer(
+			httpClient: $this->httpClient,
 			pluginUrl: $pluginUrl,
 			updateId: $this->getTgUpdateId(),
 			messageId: $this->hasTgMessage() ? $this->getTgMessageId() : null,

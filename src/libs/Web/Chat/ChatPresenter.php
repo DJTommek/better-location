@@ -16,6 +16,7 @@ use App\Utils\Strict;
 use App\Web\Flash;
 use App\Web\MainPresenter;
 use Nette\Http\UrlImmutable;
+use Psr\Http\Client\ClientInterface;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Exceptions\ClientException;
 use unreal4u\TelegramAPI\Telegram;
@@ -33,6 +34,7 @@ class ChatPresenter extends MainPresenter
 		private readonly ChatRepository $chatRepository,
 		private readonly TelegramCustomWrapper $telegramWrapper,
 		private readonly ServicesManager $servicesManager,
+		private readonly ClientInterface $httpClient,
 		ChatTemplate $template,
 	) {
 		$this->template = $template;
@@ -224,6 +226,7 @@ class ChatPresenter extends MainPresenter
 	private function pluginerFactory(UrlImmutable $url): Pluginer
 	{
 		return new Pluginer(
+			httpClient: $this->httpClient,
 			pluginUrl: $url,
 			updateId: random_int(1_000_000, 9_999_999),
 			messageId: random_int(1_000_000, 9_999_999),

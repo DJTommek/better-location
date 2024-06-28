@@ -3,24 +3,24 @@
 namespace App\Pluginer;
 
 use App\BetterLocation\BetterLocationCollection;
-use App\Config;
 use App\MiniCurl\Exceptions\TimeoutException;
-use App\MiniCurl\MiniCurl;
 use App\Utils\SimpleLogger;
+use GuzzleHttp\Psr7\Request;
 use Nette\Http\UrlImmutable;
 use Nette\Utils\Json;
+use Psr\Http\Client\ClientInterface;
 use unreal4u\TelegramAPI\Telegram;
 
 class Pluginer
 {
 	public function __construct(
-		private UrlImmutable         $pluginUrl,
-		private int                  $updateId,
-		private ?int                 $messageId,
-		private ?Telegram\Types\Chat $chat,
-		private Telegram\Types\User|Telegram\Types\Chat $user,
-	)
-	{
+		private readonly ClientInterface $httpClient,
+		private readonly UrlImmutable $pluginUrl,
+		private readonly int $updateId,
+		private readonly ?int $messageId,
+		private readonly ?Telegram\Types\Chat $chat,
+		private readonly Telegram\Types\User|Telegram\Types\Chat $user,
+	) {
 	}
 
 	public function process(BetterLocationCollection $collection): void
@@ -52,8 +52,9 @@ class Pluginer
 				'Pluginer requesting %s took %F seconds. Log ID = %d',
 				$this->pluginUrl->getDomain(0),
 				\Tracy\Debugger::timer($timerName),
-				LOG_ID
-			), \Tracy\Debugger::DEBUG);
+				LOG_ID,
+			),
+				\Tracy\Debugger::DEBUG);
 
 		} catch (TimeoutException) {
 			throw new PluginerException('Request timeouted');
@@ -68,7 +69,7 @@ class Pluginer
 		if ($validator->isValid() === false) {
 			throw new PluginerException(sprintf(
 				'Response JSON has some validation errors: "%s"',
-				implode('", "', $validator->getErrors())
+				implode('", "', $validator->getErrors()),
 			));
 		}
 
@@ -91,13 +92,14 @@ class Pluginer
 
 	private function callApi(array|\stdClass|\JsonSerializable $requestBody): \stdClass
 	{
-		$miniCurl = new MiniCurl($this->pluginUrl);
-		$miniCurl->allowCache(Config::PLUGINER_CACHE_TTL);
-		$miniCurl->allowAutoConvertEncoding(false);
-		$miniCurl->setPostJson($requestBody);
-		$response = $miniCurl->run();
+		$request = new Request(
+			method: 'POST',
+			uri: $this->pluginUrl->getAbsoluteUrl(),
+			body: Json::encode($requestBody),
+		);
+		$response = $this->httpClient->sendRequest($request);
 		SimpleLogger::log(SimpleLogger::NAME_PLUGINER_REQUEST, $requestBody);
-		$response = Json::decode($response->getBody());
+		$response = Json::decode((string)$response->getBody());
 		SimpleLogger::log(SimpleLogger::NAME_PLUGINER_RESPONSE, $response);
 		return $response;
 	}
