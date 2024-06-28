@@ -5,11 +5,10 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\ServicesManager;
-use App\Config;
 use App\MiniCurl\MiniCurl;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
-use Nette\Utils\Arrays;
+use Nette\Http\Url;
 
 final class HereWeGoService extends AbstractService
 {
@@ -60,19 +59,12 @@ final class HereWeGoService extends AbstractService
 
 	public function isShortUrl(): bool
 	{
-		if ($this->url && Arrays::contains(['her.is'], $this->url->getDomain(0))) {
-			$this->data->isShortUrl = true;
-			return true;
-		}
-		return false;
+		return $this->data->isShortUrl = $this->url?->getDomain(0) === 'her.is';
 	}
 
 	public function isNormalUrl(): bool
 	{
-		return $this->url && Arrays::contains([
-				'share.here.com',
-				'wego.here.com',
-			], $this->url->getDomain(0));
+		return $this->url && in_array($this->url->getDomain(0), ['share.here.com', 'wego.here.com']);
 	}
 
 	public function process(): void
@@ -85,49 +77,43 @@ final class HereWeGoService extends AbstractService
 		}
 	}
 
-	public function processNormalUrl(): void
+	private function placeLocationFromUrl(Url $url): ?Coordinates
 	{
-		$messageInUrl = $this->url->getQueryParameter('msg') ? htmlspecialchars($this->url->getQueryParameter('msg')) : null;
-
-		if (preg_match('/--loc-[a-zA-Z0-9]+/', $this->url->getPath())) {
-			$locationData = self::requestByLoc($this->url->getAbsoluteUrl());
-			// @TODO use property "name" or set of properties in "address.*" to better describe current location
-			$location = new BetterLocation($this->inputUrl, $locationData->geo->latitude, $locationData->geo->longitude, self::class, self::TYPE_PLACE_ORIGINAL_ID);
-			if ($messageInUrl) {
-				$location->setPrefixMessage($location->getPrefixMessage() . ' ' . $messageInUrl);
-			}
-			$this->collection->add($location);
-		}
-
-		// Short links always center map to point so there is no need to load page to get information about point
-		if (($this->data->isShortUrl ?? false) === false && preg_match('/^\/p\/s-[a-zA-Z0-9]+$/', $this->url->getPath())) { // from short links
-			// need to replace from "share" subdomain, otherwise there would be another redirect
-			$locationData = self::requestByLoc(str_replace('https://share.here.com/', 'https://wego.here.com/', $this->url->getAbsoluteUrl()));
-			// @TODO use property "name" or set of properties in "address.*" to better describe current location
-			$this->collection->add(new BetterLocation($this->inputUrl, $locationData->geo->latitude, $locationData->geo->longitude, self::class, self::TYPE_PLACE_SHARE));
-		}
-
-		if (preg_match(self::RE_COORDS_IN_MAP, $this->url->getPath(), $matches)) {
-			if (Coordinates::isLat($matches[1]) && Coordinates::isLon($matches[2])) {
-				$location = new BetterLocation($this->inputUrl, Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, self::TYPE_PLACE_COORDS);
-				if ($messageInUrl) {
-					$location->setPrefixMessage($location->getPrefixMessage() . ' ' . $messageInUrl);
-				}
-				$this->collection->add($location);
-			}
-		}
-		if (preg_match('/^(-?[0-9]{1,2}\.[0-9]{1,}),(-?[0-9]{1,3}\.[0-9]{1,}),/', $this->url->getQueryParameter('map') ?? '', $matches)) {
-			$type = ($this->data->isShortUrl ?? false) ? self::TYPE_PLACE_SHARE : self::TYPE_MAP;
-			$this->collection->add(new BetterLocation($this->inputUrl, floatval($matches[1]), floatval($matches[2]), self::class, $type));
-		}
+		$placeData = self::extractPlaceInfo($url);
+		return Coordinates::safe(
+			$placeData['lat'] ?? null,
+			$placeData['lon'] ?? null,
+		);
 	}
 
-	private static function requestByLoc(string $url): \stdClass
+	/**
+	 * Extract information from URL
+	 *
+	 * @return array<string, string>
+	 * @example
+	 *      Original URL: 'https://wego.here.com/saint-helena/sandy-bay/city-town-village/sandy-bay--loc-dmVyc2lvbj0xO3RpdGxlPVNhbmR5K0JheTtsYXQ9LTE1Ljk3ODE2O2xvbj0tNS43MTIwNTtjaXR5PVNhbmR5K0JheTtjb3VudHJ5PVNITjtjb3VudHk9U2FuZHkrQmF5O2NhdGVnb3J5SWQ9Y2l0eS10b3duLXZpbGxhZ2U7c291cmNlU3lzdGVtPWludGVybmFs?map=-15.99429,-5.75681,15,normal&msg=Sandy%20Bay'
+	 *      Part of URL to decode: 'dmVyc2lvbj0xO3RpdGxlPVNhbmR5K0JheTtsYXQ9LTE1Ljk3ODE2O2xvbj0tNS43MTIwNTtjaXR5PVNhbmR5K0JheTtjb3VudHJ5PVNITjtjb3VudHk9U2FuZHkrQmF5O2NhdGVnb3J5SWQ9Y2l0eS10b3duLXZpbGxhZ2U7c291cmNlU3lzdGVtPWludGVybmFs'
+	 *      Base 64 decoded: 'version=1;title=Sandy+Bay;lat=-15.97816;lon=-5.71205;city=Sandy+Bay;country=SHN;county=Sandy+Bay;categoryId=city-town-village;sourceSystem=internal'
+	 *      Coordinates of place: -15.97816,-5.71205
+	 */
+	private static function extractPlaceInfo(Url $url): ?array
 	{
-		$response = (new MiniCurl($url))->allowCache(Config::CACHE_TTL_HERE_WE_GO_LOC)->run()->getBody();
-		// @TODO probably could be solved somehow better. Needs more testing
-		preg_match('/<script type="application\/ld\+json">(.+?)<\/script>/s', $response, $matches);
-		return json_decode($matches[1]);
+		$urlPath = $url->getPath();
+		if (
+			!preg_match('/--loc-([a-zA-Z0-9]+)/', $urlPath, $matches)
+			&& !preg_match('/\/p\/s-([a-zA-Z0-9]+)/', $urlPath, $matches)
+		) {
+			return null;
+		}
+
+		$placeDataRaw = base64_decode($matches[1]);
+		$placeData = [];
+		foreach (explode(';', $placeDataRaw) as $dataRaw) {
+			[$key, $value] = explode('=', $dataRaw, 2);
+			$placeData[$key] = $value;
+		}
+
+		return $placeData;
 	}
 
 	/**
@@ -145,9 +131,30 @@ final class HereWeGoService extends AbstractService
 		if ($this->url->getDomain(0) !== 'share.here.com') {
 			throw new InvalidLocationException(sprintf('Unexpected first redirect URL "%s".', $this->url));
 		}
-		$this->url = Strict::url(MiniCurl::loadRedirectUrl($this->url->getAbsoluteUrl()));
-		if ($this->url->getDomain(0) !== 'wego.here.com') {
-			throw new InvalidLocationException(sprintf('Unexpected second redirect URL "%s".', $this->url));
+	}
+
+	public function processNormalUrl(): void
+	{
+		$messageInUrl = $this->url->getQueryParameter('msg') ? htmlspecialchars($this->url->getQueryParameter('msg')) : null;
+
+		$placeCoordsFromUrl = $this->placeLocationFromUrl($this->url);
+		if ($placeCoordsFromUrl) {
+			$location = new BetterLocation($this->inputUrl, $placeCoordsFromUrl->getLat(), $placeCoordsFromUrl->getLon(), self::class, self::TYPE_PLACE_ORIGINAL_ID);
+			$this->collection->add($location);
+		}
+
+		if (preg_match(self::RE_COORDS_IN_MAP, $this->url->getPath(), $matches)) {
+			if (Coordinates::isLat($matches[1]) && Coordinates::isLon($matches[2])) {
+				$location = new BetterLocation($this->inputUrl, Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, self::TYPE_PLACE_COORDS);
+				if ($messageInUrl) {
+					$location->setPrefixMessage($location->getPrefixMessage() . ' ' . $messageInUrl);
+				}
+				$this->collection->add($location);
+			}
+		}
+		if (preg_match('/^(-?[0-9]{1,2}\.[0-9]{1,}),(-?[0-9]{1,3}\.[0-9]{1,}),/', $this->url->getQueryParameter('map') ?? '', $matches)) {
+			$type = ($this->data->isShortUrl ?? false) ? self::TYPE_PLACE_SHARE : self::TYPE_MAP;
+			$this->collection->add(new BetterLocation($this->inputUrl, floatval($matches[1]), floatval($matches[2]), self::class, $type));
 		}
 	}
 }
