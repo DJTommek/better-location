@@ -1,0 +1,541 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head id="ctl00_Head1">
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-5SV2GZL');</script>
+    <!-- End Google Tag Manager -->
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="0eb92e1f-b515-4908-a5af-1e0658251e99" data-blockingmode="auto"  data-framework="IAB" type="text/javascript"></script><title>
+	Leopold Lažanský
+</title><meta name="description" content="Waymarking.com&#32;is&#32;a&#32;way&#32;to&#32;mark&#32;unique&#32;locations&#32;on&#32;the&#32;planet&#32;and&#32;give&#32;them&#32;a&#32;voice.&#32;While&#32;GPS&#32;technology&#32;allows&#32;us&#32;to&#32;pinpoint&#32;any&#32;location&#32;on&#32;the&#32;planet,&#32;mark&#32;the&#32;location,&#32;and&#32;share&#32;it&#32;with&#32;others,&#32;Waymarking&#32;is&#32;the&#32;toolset&#32;for&#32;categorizing&#32;and&#32;adding&#32;unique&#32;information&#32;for&#32;that&#32;location." /><meta name="keywords" content="waymarking,&#32;waymark,&#32;longitude,&#32;latitude,&#32;utm,&#32;coordinates,&#32;scavenger&#32;hunt,&#32;waymarks,&#32;GPS,&#32;global&#32;positioning&#32;system,&#32;garmin,&#32;magellan,&#32;mapping,&#32;geo,&#32;hiking,&#32;outdoors,&#32;hunt,&#32;cache,&#32;satellite,&#32;navigation,&#32;tracking" /><link rel="icon" href="/images/favicon.ico" type="image/x-icon" /><link rel="shortcut&#32;icon" href="/images/favicon.ico" type="image/x-icon" /><link rel="image_src" href="/preview.png" /><link rel="stylesheet" type="text/css" href="/css/main.css" /><link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
+    <script src="/js/reportAbuse.js" type="text/javascript" language="javascript"></script>
+    
+    
+    
+
+    <script
+        src='https://code.jquery.com/jquery-3.5.1.min.js'
+        integrity='sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0='
+        crossorigin='anonymous'
+        type='text/javascript'></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!--[if IE]>
+		<LINK href="/css/ie_main.css" type=text/css rel=stylesheet>
+		<![endif]-->
+    <!-- startup script here-->
+    <script type="text/javascript">
+        var sdkInstance = "appInsightsSDK"; window[sdkInstance] = "appInsights"; var aiName = window[sdkInstance], aisdk = window[aiName] || function (n) { var o = { config: n, initialize: !0 }, t = document, e = window, i = "script"; setTimeout(function () { var e = t.createElement(i); e.src = n.url || "https://az416426.vo.msecnd.net/scripts/b/ai.2.min.js", t.getElementsByTagName(i)[0].parentNode.appendChild(e) }); try { o.cookie = t.cookie } catch (e) { } function a(n) { o[n] = function () { var e = arguments; o.queue.push(function () { o[n].apply(o, e) }) } } o.queue = [], o.version = 2; for (var s = ["Event", "PageView", "Exception", "Trace", "DependencyData", "Metric", "PageViewPerformance"]; s.length;)a("track" + s.pop()); var r = "Track", c = r + "Page"; a("start" + c), a("stop" + c); var u = r + "Event"; if (a("start" + u), a("stop" + u), a("addTelemetryInitializer"), a("setAuthenticatedUserContext"), a("clearAuthenticatedUserContext"), a("flush"), o.SeverityLevel = { Verbose: 0, Information: 1, Warning: 2, Error: 3, Critical: 4 }, !(!0 === n.disableExceptionTracking || n.extensionConfig && n.extensionConfig.ApplicationInsightsAnalytics && !0 === n.extensionConfig.ApplicationInsightsAnalytics.disableExceptionTracking)) { a("_" + (s = "onerror")); var p = e[s]; e[s] = function (e, n, t, i, a) { var r = p && p(e, n, t, i, a); return !0 !== r && o["_" + s]({ message: e, url: n, lineNumber: t, columnNumber: i, error: a }), r }, n.autoExceptionInstrumented = !0 } return o }(
+            {
+                instrumentationKey: "ffbcac6d-9944-4aee-bc14-65b600960905",
+            }
+        );
+        (window[aiName] = aisdk).queue && 0 === aisdk.queue.length && aisdk.trackPageView({});
+        aisdk.setAuthenticatedUserContext(null);
+    </script>
+    
+    <link rel="stylesheet" href='../css/hoverbox.css' type="text/css" media="screen, projection" />
+    <!--[if IE]><link media="screen, projection" 
+href="../css/ie_fixes.css" type=text/css rel=stylesheet /><![endif]-->
+    <meta name="robots" content="noindex" />
+
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-5SV2GZL');</script>
+    <!-- End Google Tag Manager -->
+
+</head>
+<body id="ctl00_uxBody">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5SV2GZL"
+            height="0" width="0" style="display: none; visibility: hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <form method="post" action="/gallery/image.aspx?f=1&amp;guid=14f4cb4b-1c0a-4b35-834a-b42e6baf2816&amp;gid=3" id="aspnetForm">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTA0OTAwMjkwMg9kFgJmD2QWAgIED2QWAgIBEGRkFgwCAQ9kFghmDxYCHgdWaXNpYmxlZ2QCAQ8PFgIeBFRleHQFFnlvdSBhcmUgbm90IGxvZ2dlZCBpbi5kZAICDw8WAh8AaGRkAgMPDxYEHwEFCFtsb2cgaW5dHgtOYXZpZ2F0ZVVybAVpL2xvZ2luL2RlZmF1bHQuYXNweD9SRVNFVD1ZJnJlZGlyPS9nYWxsZXJ5L2ltYWdlLmFzcHg/Zj0xJmd1aWQ9MTRmNGNiNGItMWMwYS00YjM1LTgzNGEtYjQyZTZiYWYyODE2JmdpZD0zZGQCBA9kFgICAQ9kFggCAQ8WAh8BBeEBPGRpdiBpZD0nbGFyZ2VwaG90byc+PGEgaHJlZj0naHR0cHM6Ly9pbWcuZ2VvY2FjaGluZy5jb20vd2F5bWFya2luZy84NzNkYmI2ZC04ZGMzLTQ5ZGUtOTI2Ny03OTNmMWRiOWRiMzAuanBnJz48aW1nIHNyYz0naHR0cHM6Ly9pbWcuZ2VvY2FjaGluZy5jb20vd2F5bWFya2luZy9sYXJnZS84NzNkYmI2ZC04ZGMzLTQ5ZGUtOTI2Ny03OTNmMWRiOWRiMzAuanBnJyBib3JkZXI9MD48L2E+PC9kaXY+ZAIDDw8WBB8BBRhDYXRlZ29yeSAtIENvYXRzIG9mIEFybXMfAgVFL2NhdC9kZXRhaWxzLmFzcHg/Zj0xJmd1aWQ9N2Q1MzA0OTYtZDVhZi00MzFhLTgyZjMtMjc3ZmVjMmJmZjRjJmdpZD0zZGQCBA8PFgQfAQVLV2F5bWFyayAtIEVyYiBMZW9wb2xkYSBMYcW+YW5za8OpaG8sIE1vcmF2c2vDqSBuw6FtLiAtIEJybm8sIEN6ZWNoIFJlcHVibGljHwIFRS93YXltYXJrcy93bURQTUJfRXJiX0xlb3BvbGRhX0xhYW5za2hvX01vcmF2c2tfbm1fQnJub19DemVjaF9SZXB1YmxpY2RkAgcPZBYMAgEPDxYCHwBoZGQCAw8QDxYCHwBoZGRkZAIFDw8WAh8AaGRkAgcPEA8WAh8AaGRkZGQCCQ8QDxYCHwBoZGRkZAILDw8WAh8AaGRkAgUPDxYCHwBoZGQCBg9kFgQCAQ9kFgRmD2QWBAIDDw8WBB8BBTQ8aW1nIHNyYz0nL2ltYWdl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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=Dh2VENdI9XyWNN0f7DnYfR8WWRCRIzdVqal2y0yjiQ5nC_eHhLchYgnQDHIk0d3RCcSUMVZ36ciRD0qmhXKmeu3S_RE1&amp;t=638086160452977627" type="text/javascript"></script>
+
+
+<script src="/ScriptResource.axd?d=I9_m2Hb1Tv_B0qTMDG8bMbnkNSHUkv5oUaG9-V5NZ8qQ2VFlu60I8y8gfr3vPmZjbiPnu43MOQdFVDeYF-nDAEKBLmyxD3DCTGmes9NNbbvaDEHyEuuRWgccIkK3ik5TI48YGDxjHjqdn-gTK4Fkgd17LGw1&amp;t=49337fe8" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=8vNbe34dAujgZMPnfnacfjeoweX1vHgyns8KlAV4vpGpsZC9Cf3pro__lv8ekBa0NiCgXGMMolzOUNH__lrnEI_qjlNBIAuuLeemtAXV_i6E0QIMZa8nGSYmWGF5nQOJK3rmZzvTxsr2Mh4Ebdba_1ywGLUSH_U_XIe-jzecfRQwwvjZ0&amp;t=49337fe8" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="4A2443F8" />
+</div>
+        <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$uxScriptManager', 'aspnetForm', [], [], [], 90, 'ctl00');
+//]]>
+</script>
+
+
+        <div id="wrap">
+            
+<div id="header">
+    <!--[if lte IE 6]>
+    <div style="padding:5px;color:#B10022;background-color:#ffffff;zoom:1;text-align:center;margin-bottom:5px">
+        <p><img src="../images/stockholm/16x16/alert.gif" style="vertical-align:middle" />
+        Groundspeak is phasing out support for older browsers. Visit the <a href="http://support.groundspeak.com/index.php?pg=kb.page&id=215" title="View browser support information">Help Center</a> for more information.
+        </p>
+    </div>
+    <![endif]-->
+    <div id="header_logo">
+        <a href="">
+            <img src="/images/logo.gif" /></a></div>
+    <ul id="main_nav">
+        <li id="lnk_shop" title="Shop Geocaching"><a href="http://shop.geocaching.com">shop</a></li>
+        <li id="lnk_forums" title="Waymarking Forums"><a href="https://forums.geocaching.com/GC/index.php?/forum/52-waymarking/">forums</a></li>
+        <li id="lnk_waymarks" title="Waymarks"><a href="/waymarks.aspx">waymarks</a></li>
+        <li id="ctl00_HeaderControl1_lnk_scavenger_hunts" title="Scavenger&#32;Hunts"><a href="/games.aspx">
+            scavenger hunts</a></li>
+        <li id="lnk_groups" title="Groups"><a href="/groups.aspx">groups</a></li>
+        <li id="lnk_categories" title="Categories"><a href="/categories.aspx">categories</a></li>
+        <li id="lnk_mypage" title="Profile"><a href="/users/profile.aspx">profile</a></li>
+        <li id="lnk_home" title="Waymarking Home"><a href="/default.aspx">home</a></li>
+    </ul>
+    <div id="logowrap">
+        <div id="bc_wrap">
+            <p id="breadcrumb">
+                <a href='/default.aspx?f=1&gid=3' >Home</a>&nbsp;&gt; <a href='/default.aspx?f=1&gid=3' >Categories</a>&nbsp;&gt; <a href='/waymarks/wmDPMB_Erb_Leopolda_Laanskho_Moravsk_nm_Brno_Czech_Republic' >Waymark</a>&nbsp;&gt; <a href='/gallery/default.aspx?f=1&guid=9cc31753-8cfb-4b44-9c57-c2b303fd1a9b&gid=2&st=2' >Gallery</a>&nbsp;&gt; Image</p>
+            <p id="login">
+                <span id="ctl00_HeaderControl1_lblLogin">you are not logged in.</span>&nbsp;<a id="ctl00_HeaderControl1_lnkSignInUrl" href="/login/default.aspx?RESET=Y&amp;redir=/gallery/image.aspx?f=1&amp;guid=14f4cb4b-1c0a-4b35-834a-b42e6baf2816&amp;gid=3">[log in]</a></p>
+            <div class="clear">
+            </div>
+        </div>
+        <!-- end bc_wrap -->
+        <div id="titlediv">
+            <h1 id="title">
+                <span id="titletext">
+                    Leopold Lažanský</span></h1>
+        </div>
+        <!-- end titlediv -->
+    </div>
+    <!-- end logowrap -->
+</div>
+<!--end header-->
+
+            <div id="content">
+                <div class="gutter">
+                    <!--enter center content here-->
+                    
+                    
+                    <input name="__RequestVerificationToken" type="hidden" value="OCJ3OWwFnv1cs_cdwXXrzNBJNJHas9-MfGOSZBrcWxGT6-U1_t3nAZwXH7xo98fFEXo6ha6xQTJuHz752tUAOMnHZgQ1" />
+                    
+    <div id='largephoto'><a href='https://img.geocaching.com/waymarking/873dbb6d-8dc3-49de-9267-793f1db9db30.jpg'><img src='https://img.geocaching.com/waymarking/large/873dbb6d-8dc3-49de-9267-793f1db9db30.jpg' border=0></a></div>
+<div class="photolinks"><a id="ctl00_ContentBody_LargePhotoControl1_lnkCategory" class="largephoto_category" href="/cat/details.aspx?f=1&amp;guid=7d530496-d5af-431a-82f3-277fec2bff4c&amp;gid=3">Category - Coats of Arms</a><a id="ctl00_ContentBody_LargePhotoControl1_lnkWaymark" class="largephoto_waymark" href="/waymarks/wmDPMB_Erb_Leopolda_Laanskho_Moravsk_nm_Brno_Czech_Republic">Waymark - Erb Leopolda Lažanského, Moravské nám. - Brno, Czech Republic</a><a id="ctl00_ContentBody_LargePhotoControl1_lnkLog" class="largephoto_log"></a></div>
+<div id="ctl00_ContentBody_LargePhotoControl1_pnlEdit">
+	
+	<DIV class="photocheckboxes">
+		
+		
+		
+		
+		</DIV>
+	
+
+</div>
+
+
+                </div>
+                <!--end gutter-->
+            </div>
+            <!--end content-->
+            <div id="sidebar">
+                <div class="gutter">
+                    <!--enter side content here-->
+                    
+                    <!--end box-->
+                    
+    <div id="ctl00_ContentRightColumn_CategoryFilterControl1_uxGoogleMap">
+	
+    <div class="box">
+        <h3 id="searchbox">Map</h3>
+        <div id="categoryfilter">
+            <span id="ctl00_ContentRightColumn_CategoryFilterControl1_lblMessage"></span>
+            <h5>
+                
+            </h5>
+            
+<link rel="stylesheet" type="text/css" href="/css/leaflet.css" />
+<style>
+    #uxSearchFromHere 
+    {
+        margin: 7px 0 4px 10px;
+    }
+</style>
+
+
+    <div id="map_canvas" class="googlemap">
+    </div>
+
+    <div id="mapinfo">
+    </div>
+
+    <div>
+        <button id="uxSearchFromHere">Search from Here</button>
+    </div>
+
+    <div id="map_info">
+    </div>
+
+
+
+<div id="mapswitch">
+    
+</div>
+
+<script type="text/javascript" data-cookieconsent="ignore">
+
+    var map, marker, bounds;
+
+    function init_map() {
+        map = L.map('map_canvas', { attributionControl: false }).setView([47.648967, -122.348117], 13);
+
+        map.addControl(new L.Control.Attribution({
+            prefix: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+        }));
+
+        L.tileLayer('https://maptiles{s}.geocaching.com/tile/{z}/{x}/{y}.png?token={token}',
+            {
+                token: 'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3VzZXJkYXRhIjoiNDBjYzI5ZDAtNDdhZC00ZWZjLTkxZjYtYTdlNzk2YmFiOWQ4IiwibGdkIjoiMDA3YjhhZGMtNmI0ZC00ZGVlLWEyOWUtZTY2YTgwZTk2N2Q2Iiwic2NvcGUiOiJtYXB0aWxlIiwibmJmIjoxNzE5NTkwMzExLCJleHAiOjE3MTk1OTM5MTEsImlzcyI6Imh0dHBzOi8vb2F1dGguZ2VvY2FjaGluZy5jb20vdG9rZW4iLCJhdWQiOiI0MGNjMjlkMC00N2FkLTRlZmMtOTFmNi1hN2U3OTZiYWI5ZDgifQ.GQDVKbXHqCTsOWIeGv_Uup-iekRYNskdP5mmci89ecw',
+                subdomains: ['01', '02', '03', '04', '05', '06', '07', '08']
+            }).addTo(map);
+
+        bounds = new L.LatLngBounds([]);
+
+        if (typeof mapItems === "function") {
+            mapItems();
+        } else {
+            window.setTimeout(function () { mapItems(); }, 800);
+        }
+
+        window.setTimeout(function () {
+            map.fitBounds(bounds, { maxZoom: 15 });
+        }, 1000);
+    }
+
+    function wrapMarkers(markers) {
+        for (var x = 0, len = markers.length; x < len; x++) {
+            createMarker(markers[x]);
+        }
+    }
+
+    function htmlEntities(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function createMarker(item) {
+
+        var marker = L.marker([item.lat, item.lng], {
+            title: item.title,
+            icon: L.icon({
+                iconUrl: 'https://www.waymarking.com/dyn_img/bubble.aspx?path=' + item.icon,
+                iconSize: [37, 33], iconAnchor: [37, 33]
+            })
+        }).addTo(map);
+
+        marker.on("click", function () { showInfoPanel(item.icon, htmlEntities(item.title), item.code, htmlEntities(item.cat), htmlEntities(item.desc)); });
+
+        bounds.extend(L.latLng([item.lat, item.lng]));
+    }
+
+    function showInfoPanel(icon, title, code, category, desc) {
+        jQuery("#mapinfo").html("<table class='googlemap_wmtable'><tr><td class='googlemap_wmtd'><a href='/cat/details.aspx?f=1&guid=" + category + "'><img src='/images/cat_icons/" + icon + ".gif' width='24' border='0' valign='absmiddle'></a></td><td class='googlemap_wmtd'><a href='/waymarks/" + code + "'>" + title + "</a></td></tr><tr><td class='googlemap_wmtd2'></td><td class='googlemap_wmtd2'>" + desc + "</td></tr></table>");
+        jQuery("#mapinfo").show();
+    }
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+        init_map();
+
+        jQuery("#uxSearchFromHere").click(function (e) {
+            e.preventDefault();
+            if (map && searchUrl) {
+                var latLng = map.getCenter();
+
+                var newSearchUrl = new URI(searchUrl);
+
+                newSearchUrl
+                    .removeSearch('sg')
+                    .setSearch('lat', latLng.lat)
+                    .setSearch('lon', latLng.lng);
+
+                window.document.location.href = newSearchUrl.toString();
+            }
+            return false;
+        });
+
+    });
+
+</script>
+
+            
+        </div>
+    </div>
+
+</div>
+
+
+    
+<!--[if IE]><LINK href="../css/ie_main.css" type=text/css rel=stylesheet><![endif]-->
+<div class="box">
+    <h3 id="optionlinklist">
+        <span id="ctl00_ContentRightColumn_DynamicLinksControl1_lblTitle">Waymark Options</span></h3>
+    <div id="dynamiclinks">
+        <ul class='category_linkoptions'><li class='category_linkoption'><img src='/images/16X16/comment.gif'><a class="category_linkoption" href="/logs/default.aspx?f=1&amp;guid=9cc31753-8cfb-4b44-9c57-c2b303fd1a9b&amp;gid=3&amp;st=2">View Visits/Comments (2)</a></li><li class='category_linkoption'><img src='/images/16X16/file.gif'><a class="category_linkoption" href="/waymarks/wmDPMB_Erb_Leopolda_Laanskho_Moravsk_nm_Brno_Czech_Republic">View Waymark</a></li><li class='category_linkselected'><img src='/images/16X16/images.gif'><a class="category_linkselected" href="/gallery/default.aspx?f=1&amp;guid=9cc31753-8cfb-4b44-9c57-c2b303fd1a9b&amp;gid=2&amp;st=2">View Gallery (8)</a></li></ul>
+    </div>
+    <table cellpadding="0" cellspacing="0" width="100%" border="0">
+        <tr>
+            <td>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+                    
+<div class="box">
+    <h3 id="category_lists">
+        Quick Searches</h3>
+    <div class="catlist_options">
+        <span id="ctl00_CategoryListControl1_lblWaymark" class="wmlist_label">Waymark Searches:</span>
+        <ul>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkMyWaymarks" class="boldcontrols" href="/wm/search.aspx?f=1&amp;st=126&amp;wft=2">My Waymarks</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkFeaturedWM" href="/wm/search.aspx?f=1&amp;st=2&amp;wft=4">Featured Waymarks</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkRecentWM" href="/wm/search.aspx?f=1&amp;tp=3&amp;wst=6&amp;st=2">Newest Waymarks</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkSavedWM" href="/wm/search.aspx?f=1&amp;st=4&amp;wft=2">My Unfinished Waymarks</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkMyVisited" href="/wm/search.aspx?f=1&amp;wft=3&amp;st=66">Waymarks I've Visited</a></li>
+        </ul>
+        <ul>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkUncategorized" href="/wm/search.aspx?f=1&amp;wst=8&amp;st=128&amp;wft=6">Newest Uncategorized Waymarks</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkMyUncategorized" href="/wm/search.aspx?f=1&amp;wst=8&amp;st=640&amp;wft=2">My Uncategorized Waymarks</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkMyAssisted" href="/wm/search.aspx?f=1&amp;st=2&amp;ast=true">My Assisted Waymarks</a></li>
+        </ul>
+        <span id="ctl00_CategoryListControl1_lblCategory" class="catlist_label">Category Searches:</span>
+        <ul>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkMyCategories" class="boldcontrols" href="/cat/search.aspx?f=1&amp;cst=8&amp;gid=2&amp;st=2">My Categories</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkFavorites" href="/subscribe/default.aspx?f=1&amp;gid=2&amp;st=2&amp;feature=3">Favorites</a>
+                <img id="ctl00_CategoryListControl1_imgPrem1" src="/images/icons/ispremium.gif" alt="premium&#32;only" align="absmiddle" /></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkIgnored" href="/subscribe/default.aspx?f=1&amp;gid=2&amp;st=2&amp;feature=4">Ignore List</a>
+                <img id="ctl00_CategoryListControl1_imgPrem2" src="/images/icons/ispremium.gif" alt="premium&#32;only" align="absmiddle" /></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkLargest" href="/cat/search.aspx?f=1&amp;cst=1&amp;gid=2&amp;st=2">Largest</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkNewest" href="/cat/search.aspx?f=1&amp;cst=3&amp;gid=2&amp;st=2">Newest</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkReview" href="/subscribe/default.aspx?f=1&amp;gid=2&amp;st=2&amp;feature=2">Requiring Review</a>
+                <img id="ctl00_CategoryListControl1_imgPrem3" src="/images/icons/ispremium.gif" alt="premium&#32;only" align="absmiddle" />
+            </li>
+        </ul>
+        <span id="ctl00_CategoryListControl1_lblLogs" class="wmlist_label">Visit Searches:</span>
+        <ul>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkMyLogs" class="boldcontrols" href="/my/logs.aspx?f=1&amp;gid=2">My Visits</a></li>
+        </ul>
+        <span id="ctl00_CategoryListControl1_lblGroups" class="wmlist_label">Group Lists:</span>
+        <ul>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkMyGroups" class="boldcontrols" href="/groups/search.aspx?f=1&amp;gst=3&amp;gft=1&amp;st=2">Groups I Manage</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkMyRegGroups" href="/groups/search.aspx?f=1&amp;gst=3&amp;gft=2&amp;st=2">Groups I Belong To</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkNewestGroups" href="/groups/search.aspx?f=1&amp;gst=3&amp;gft=3&amp;st=2">Newest Groups</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkRecruiting" href="/groups/search.aspx?f=1&amp;gft=5&amp;st=2">Recruiting Groups</a></li>
+        </ul>
+        <div id="ctl00_CategoryListControl1_uxScavengerHuntPanel">
+	
+            <span id="ctl00_CategoryListControl1_uxScavengerHunts" class="wmlist_label">Scavenger Hunts:</span>
+            <ul>
+                <li>
+                    <a id="ctl00_CategoryListControl1_lnkMyHunts" class="boldcontrols" href="/hunt/list.aspx?pt=5&amp;ht=1">My Scavenger Hunts</a></li>
+                <li>
+                    <a id="ctl00_CategoryListControl1_lnkPublicHunts" href="/hunt/list.aspx?pt=5&amp;ht=4">Newest Public Hunts</a></li>
+                <li>
+                    <a id="ctl00_CategoryListControl1_lnkActiveHunts" href="/hunt/list.aspx?pt=5&amp;ht=2">My Active Hunts</a></li>
+                <li>
+                    <a id="ctl00_CategoryListControl1_lnkCompletedHunts" href="/hunt/list.aspx?pt=5&amp;ht=3">My Completed Hunts</a></li>
+            </ul>
+        
+</div>
+        <span id="ctl00_CategoryListControl1_lblMisc" class="wmlist_label">Miscellaneous:</span>
+        <ul>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkOrigins" class="boldcontrols" href="/my/origins.aspx?f=1&amp;gid=2">My Saved Searches</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkFullCategories" href="/cat/categorydirectory.aspx?f=1&amp;gid=2">Full Category List</a></li>
+            <li>
+                </li>
+        </ul>
+        
+    </div>
+</div>
+<!--end box-->
+
+                    <!--end side content-->
+                </div>
+                <!--end gutter-->
+            </div>
+            <!--end sidebar-->
+            
+<div id='footer'>
+    <p>
+        Copyright (c) 2024 Groundspeak, Inc. All Rights Reserved.
+    </p>
+</div>
+<div id='footerlinks'>
+    <a id="ctl00_FooterControl1_lnkHome" href="/">home</a>
+    &nbsp;|&nbsp;
+    <a id="ctl00_FooterControl1_lnkGroundspeak" href="https://www.geocaching.com/careers/">careers</a>
+    &nbsp;|&nbsp;
+    <a id="ctl00_FooterControl1_lnkNews" href="/news/default.aspx">news</a>
+    &nbsp;|&nbsp;
+    <a id="ctl00_FooterControl1_lnkTermsOfUse" href="https://www.geocaching.com/about/termsofuse.aspx">terms of use</a>
+    &nbsp;|&nbsp;
+    <a id="ctl00_FooterControl1_lnkPrivacyPolicy" href="https://www.geocaching.com/about/privacypolicy.aspx">privacy policy</a>
+    &nbsp;|&nbsp;
+    <a id="ctl00_FooterControl1_lnkContactUs" href="/contact">contact us</a>
+    &nbsp;|&nbsp;
+    <a id="ctl00_FooterControl1_lnkHelp" href="/help/start.aspx">help</a>
+</div>
+<!-- Server: WAYMARK-WEB02 -->
+<!--end footer-->
+        </div>
+        <!--end wrap-->
+        
+
+    
+
+<script type="text/javascript">
+//<![CDATA[
+var searchUrl = "/wm/search.aspx?f=1\u0026guid=14f4cb4b-1c0a-4b35-834a-b42e6baf2816\u0026wo=True\u0026gid=2\u0026st=2";//]]>
+</script>
+<script src='/js/leaflet-src.js' data-cookieconsent='ignore'></script><script src='/js/URI.js'></script>
+<script type="text/javascript">
+//<![CDATA[
+function mapItems() {
+map.panTo([49.19805,16.60753]);
+var markers = [{lat: 49.19805, lng: 16.60753, title: "Erb Leopolda Lažanského, Moravské nám. - Brno, Czech Republic", icon: "CoatsOfArms_24", code: "WMDPMB", cat: "7d530496-d5af-431a-82f3-277fec2bff4c", desc: "CS: Erb L. Lažanského na pomníku u severní zdi kostela sv. Tomáše.\u0026#13;\u0026#10;EN: CoA of L. Lažanský at monument located near north wall of St. Thomas church."},];
+wrapMarkers(markers);
+}
+//]]>
+</script>
+</form>
+    <script language="javascript" type="text/plain" data-cookieconsent="statistics">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-2020240-2']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.src = ('https:' == document.location.protocol ?
+                'https://ssl' : 'http://www') +
+                '.google-analytics.com/ga.js';
+            ga.setAttribute('async', 'true');
+            document.documentElement.firstChild.appendChild(ga);
+        })();
+    </script>
+    
+    <script type="text/javascript" src="/js/generic.js"></script>
+    
+<!-- The core Firebase JS SDK is always required and must be listed first-- >
+<!--TODO: Add SDKs for Firebase products that you want to use
+https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-performance.js"></script>
+<script>
+    const { initializeApp } = require("firebase/app");
+    const { initializeAppCheck, ReCaptchaV3Provider } = require("firebase/app-check");
+
+    const app = initializeApp({
+        // Your firebase configuration object
+    });
+
+    // Pass your reCAPTCHA v3 site key (public key) to activate(). Make sure this
+    // key is the counterpart to the secret key you set in the Firebase console.
+    const appCheck = initializeAppCheck(app, {
+        provider: new ReCaptchaV3Provider('6LcAu_UlAAAAAHdboCh0rp3mjHr1Ual1qy1FTSDO'),
+
+        // Optional argument. If true, the SDK automatically refreshes App Check
+        // tokens as needed.
+        isTokenAutoRefreshEnabled: true
+    });
+
+    // Your web app's Firebase configuration
+    var firebaseConfig = { 
+        apiKey: "AIzaSyBHfGCWidUrDmHDyXAOPQwNZpgSz718f94",
+        authDomain: "waymarking-production.firebaseapp.com",
+        databaseURL: "https://waymarking-production.firebaseio.com",
+        projectId: "waymarking-production",
+        storageBucket: "waymarking-production.appspot.com",
+        messagingSenderId: "20792087256",
+        appId: "1:20792087256:web:3e142ccf5feda5a5ca3dad",
+        measurementId: "G-LH6PJYGK3V"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+    var perf = firebase.performance();
+
+    function logEvent(value) {
+        firebase.analytics().logEvent(value);
+    }
+
+</script>
+
+</body>
+</html>

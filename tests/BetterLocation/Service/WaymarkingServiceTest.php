@@ -3,9 +3,19 @@
 namespace Tests\BetterLocation\Service;
 
 use App\BetterLocation\Service\WaymarkingService;
+use Tests\HttpTestClients;
 
 final class WaymarkingServiceTest extends AbstractServiceTestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	protected function getServiceClass(): string
 	{
 		return WaymarkingService::class;
@@ -103,7 +113,7 @@ final class WaymarkingServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new WaymarkingService();
+		$service = new WaymarkingService($this->httpTestClients->mockedRequestor);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -116,7 +126,18 @@ final class WaymarkingServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
 	{
-		$service = new WaymarkingService();
+		$service = new WaymarkingService($this->httpTestClients->realRequestor);
+		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+	}
+
+	/**
+	 * @dataProvider processWaymarkUrlProvider
+	 * @dataProvider processImageUrlProvider
+	 * @dataProvider processGalleryUrlProvider
+	 */
+	public function testProcessOffline(float $expectedLat, float $expectedLon, string $input): void
+	{
+		$service = new WaymarkingService($this->httpTestClients->offlineRequestor);
 		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
 	}
 }

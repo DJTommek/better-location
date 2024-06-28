@@ -1,0 +1,550 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head id="ctl00_Head1">
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-5SV2GZL');</script>
+    <!-- End Google Tag Manager -->
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="0eb92e1f-b515-4908-a5af-1e0658251e99" data-blockingmode="auto"  data-framework="IAB" type="text/javascript"></script><title>
+	Baldoon Mystery Image Gallery
+</title><meta name="description" content="Waymarking.com&#32;is&#32;a&#32;way&#32;to&#32;mark&#32;unique&#32;locations&#32;on&#32;the&#32;planet&#32;and&#32;give&#32;them&#32;a&#32;voice.&#32;While&#32;GPS&#32;technology&#32;allows&#32;us&#32;to&#32;pinpoint&#32;any&#32;location&#32;on&#32;the&#32;planet,&#32;mark&#32;the&#32;location,&#32;and&#32;share&#32;it&#32;with&#32;others,&#32;Waymarking&#32;is&#32;the&#32;toolset&#32;for&#32;categorizing&#32;and&#32;adding&#32;unique&#32;information&#32;for&#32;that&#32;location." /><meta name="keywords" content="waymarking,&#32;waymark,&#32;longitude,&#32;latitude,&#32;utm,&#32;coordinates,&#32;scavenger&#32;hunt,&#32;waymarks,&#32;GPS,&#32;global&#32;positioning&#32;system,&#32;garmin,&#32;magellan,&#32;mapping,&#32;geo,&#32;hiking,&#32;outdoors,&#32;hunt,&#32;cache,&#32;satellite,&#32;navigation,&#32;tracking" /><link rel="icon" href="/images/favicon.ico" type="image/x-icon" /><link rel="shortcut&#32;icon" href="/images/favicon.ico" type="image/x-icon" /><link rel="image_src" href="/preview.png" /><link rel="stylesheet" type="text/css" href="/css/main.css" /><link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
+    <script src="/js/reportAbuse.js" type="text/javascript" language="javascript"></script>
+    
+    
+    
+
+    <script
+        src='https://code.jquery.com/jquery-3.5.1.min.js'
+        integrity='sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0='
+        crossorigin='anonymous'
+        type='text/javascript'></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!--[if IE]>
+		<LINK href="/css/ie_main.css" type=text/css rel=stylesheet>
+		<![endif]-->
+    <!-- startup script here-->
+    <script type="text/javascript">
+        var sdkInstance = "appInsightsSDK"; window[sdkInstance] = "appInsights"; var aiName = window[sdkInstance], aisdk = window[aiName] || function (n) { var o = { config: n, initialize: !0 }, t = document, e = window, i = "script"; setTimeout(function () { var e = t.createElement(i); e.src = n.url || "https://az416426.vo.msecnd.net/scripts/b/ai.2.min.js", t.getElementsByTagName(i)[0].parentNode.appendChild(e) }); try { o.cookie = t.cookie } catch (e) { } function a(n) { o[n] = function () { var e = arguments; o.queue.push(function () { o[n].apply(o, e) }) } } o.queue = [], o.version = 2; for (var s = ["Event", "PageView", "Exception", "Trace", "DependencyData", "Metric", "PageViewPerformance"]; s.length;)a("track" + s.pop()); var r = "Track", c = r + "Page"; a("start" + c), a("stop" + c); var u = r + "Event"; if (a("start" + u), a("stop" + u), a("addTelemetryInitializer"), a("setAuthenticatedUserContext"), a("clearAuthenticatedUserContext"), a("flush"), o.SeverityLevel = { Verbose: 0, Information: 1, Warning: 2, Error: 3, Critical: 4 }, !(!0 === n.disableExceptionTracking || n.extensionConfig && n.extensionConfig.ApplicationInsightsAnalytics && !0 === n.extensionConfig.ApplicationInsightsAnalytics.disableExceptionTracking)) { a("_" + (s = "onerror")); var p = e[s]; e[s] = function (e, n, t, i, a) { var r = p && p(e, n, t, i, a); return !0 !== r && o["_" + s]({ message: e, url: n, lineNumber: t, columnNumber: i, error: a }), r }, n.autoExceptionInstrumented = !0 } return o }(
+            {
+                instrumentationKey: "ffbcac6d-9944-4aee-bc14-65b600960905",
+            }
+        );
+        (window[aiName] = aisdk).queue && 0 === aisdk.queue.length && aisdk.trackPageView({});
+        aisdk.setAuthenticatedUserContext(null);
+    </script>
+    
+    <link rel="stylesheet" href="/css/hoverbox.css" type="text/css" media="screen, projection" />
+    <!--[if IE]><link media="screen, projection" 
+href="/css/ie_fixes.css" type="text/css" rel="stylesheet" /><![endif]-->
+        <meta name="robots" content="noindex" />
+
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-5SV2GZL');</script>
+    <!-- End Google Tag Manager -->
+
+</head>
+<body id="ctl00_uxBody">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5SV2GZL"
+            height="0" width="0" style="display: none; visibility: hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <form method="post" action="/gallery/default.aspx?f=1&amp;guid=01645b8d-404c-41f1-a951-190032f55215&amp;gid=2" id="aspnetForm">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMjA0MTg0NTU4Mw9kFgJmD2QWAgIED2QWAgIBEGRkFgwCAQ9kFghmDxYCHgdWaXNpYmxlZ2QCAQ8PFgIeBFRleHQFFnlvdSBhcmUgbm90IGxvZ2dlZCBpbi5kZAICDw8WAh8AaGRkAgMPDxYEHwEFCFtsb2cgaW5dHgtOYXZpZ2F0ZVVybAVrL2xvZ2luL2RlZmF1bHQuYXNweD9SRVNFVD1ZJnJlZGlyPS9nYWxsZXJ5L2RlZmF1bHQuYXNweD9mPTEmZ3VpZD0wMTY0NWI4ZC00MDRjLTQxZjEtYTk1MS0xOTAwMzJmNTUyMTUmZ2lkPTJkZAIED2QWCgIDDxAPFgIeB0NoZWNrZWRnZGRkZAIFDw8WAh8AaGQWCmYPZBYGAgEPZBYCAgEPZBYCAgIPEGRkFgBkAgMPZBYCAgEPZBYCAgIPEGRkFgBkAgcPZBYCAgEPZBYCAgIPEGRkFgBkAgIPZBYEAgkPZBYCAgEPEGRkFgBkAg0PZBYmAgEPEA9kFgIeCG9uQ2hhbmdlBURjaGFuZ2VGb3JtYXQoJ2N0bDAwX0NvbnRlbnRCb2R5X0ZpbHRlckNvbnRyb2wxX0FqYXhMYXRMb25Db250cm9sMScpO2QWAQIBZAICDxAPZBYCHwQFjQFpc0NoYW5nZWQoJ2N0bDAwX0NvbnRlbnRCb2R5X0ZpbHRlckNvbnRyb2wxX0FqYXhMYXRMb25Db250cm9sMScpO2xhdFNpZ25DaGFuZ2VkKCdjdGwwMF9Db250ZW50Qm9keV9GaWx0ZXJDb250cm9sMV9BamF4TGF0TG9uQ29udHJvbDEnLCB0aGlzKTsQFQIBTgFTFQIBMAExFCsDAmdnFgFmZAIDDw8WAh8BBQIwMBYCHgpvbktleVByZXNzBUFpc0NoYW5nZWQoJ2N0bDAwX0NvbnRlbnRCb2R5X0ZpbHRlckNvbnRyb2wxX0FqYXhMYXRMb25Db250cm9sMScpO2QCBA8PFgIfAQUCMDAWAh8FBUFpc0NoYW5nZWQoJ2N0bDAwX0NvbnRlbnRCb2R5X0ZpbHRlckNvbnRyb2wxX0FqYXhMYXRMb25Db250cm9sMScpO2QCBQ8PFgIfAQUGMDAuMDAwFgIfBQVBaXNDaGFuZ2VkKCdjdGwwMF9Db250ZW50Qm9keV9GaWx0ZXJDb250cm9sMV9BamF4TGF0TG9uQ29udHJvbDEnKTtkAgYPEA9kFgIfBAWNAWlzQ2hhbmdlZCgnY3RsMDBfQ29udGVudEJvZHlfRmlsdGVyQ29udHJvbDFfQWpheExhdExvbkNvbnRyb2wxJyk7bG9uU2lnbkNoYW5nZWQoJ2N0bDAwX0NvbnRlbnRCb2R5X0ZpbHRlckNvbnRyb2wxX0FqYXhMYXRMb25Db250cm9sMScsIHRoaXMpOxAVAgFFAVcVAgEwATEUKwMCZ2cWAQIBZAIHDw8WAh8BBQMwMDAWAh8FBUFpc0NoYW5nZWQoJ2N0bDAwX0NvbnRlbnRCb2R5X0ZpbHRlckNvbnRyb2wxX0FqYXhMYXRMb25Db250cm9sMScpO2QCCA8PFgIfAQUCMDAWAh8FBUFpc0NoYW5nZWQoJ2N0bDAwX0NvbnRlbnRCb2R5X0ZpbHRlckNvbnRyb2wxX0FqYXhMYXRMb25Db250cm9sMScpO2QCCQ8PFgIfAQUGMDAuMDAwFgIfBQVBaXNDaGFuZ2VkKCdjdGwwMF9Db250ZW50Qm9keV9GaWx0ZXJDb250cm9sMV9BamF4TGF0TG9uQ29udHJvbDEnKTtkAgoPEA9kFgIfBAWNAWlzQ2hhbmdlZCgnY3RsMDBfQ29udGVudEJvZHlfRmlsdGVyQ29udHJvbDFfQWpheExhdExvbkNvbnRyb2wxJyk7bGF0U2lnbkNoYW5nZWQoJ2N0bDAwX0NvbnRlbnRCb2R5X0ZpbHRlckNvbnRyb2wxX0FqYXhMYXRMb25Db250cm9sMScsIHRoaXMpOxAVAgFOAVMVAgEwATEUKwMCZ2cWAWZkAgsPDxYCHwEFAjAwFgIfBQVBaXNDaGFuZ2VkKCdjdGwwMF9Db250ZW50Qm9keV9GaWx0ZXJDb250cm9sMV9BamF4TGF0TG9uQ29udHJvbDEnKTtkAgwPDxYCHwEFBjAwLjAwMBYCHwUFQWlzQ2hhbmdlZCgnY3RsMDBfQ29udGVudEJvZHlfRmlsdGVyQ29udHJvbDFfQWpheExhdExvbkNvbnRyb2wxJyk7ZAINDxAPZBYCHwQFjQFpc0NoYW5nZWQoJ2N0bDAwX0NvbnRlbnRCb2R5X0ZpbHRlckNvbnRyb2wxX0FqYXhMYXRMb25Db250cm9sMScpO2xvblNpZ25DaGFuZ2VkKCdjdGwwMF9Db250ZW50Qm9keV9GaWx0ZXJDb250cm9sMV9BamF4TGF0TG9uQ29udHJvbDEnLCB0aGlzKTsQFQIBRQFXFQIBMAExFCsDAmdnFgECAWQCDg8PFgIfAQUDMDAwFgIfBQVBaXNDaGFuZ2VkKCdjdGwwMF9Db250ZW50Qm9keV9GaWx0ZXJDb250cm9sMV9BamF4TGF0TG9uQ29udHJvbDEnKTtkAg8PDxYCHwEFBjAwLjAwMBYCHwUFQWlzQ2hhbmdlZCgnY3RsMDBfQ29udGVudEJvZHlfRmlsdGVyQ29udHJvbDFfQWpheExhdExvbkNvbnRyb2wxJyk7ZAIQDxAPZBYCHwQFjQFpc0NoYW5nZWQoJ2N0bDAwX0NvbnRlbnRCb2R5X0ZpbHRlckNvbnRyb2wxX0FqYXhMYXRMb25Db250cm9sMScpO2xhdFNpZ25DaGFuZ2VkKCdjdGwwMF9Db250ZW50Qm9keV9GaWx0ZXJDb250cm9sMV9BamF4TGF0TG9uQ29udHJvbDEnLCB0aGlzKTsQFQIBTgFTFQIBMAExFCsDAmdnFgFmZAIRDw8WAh8BBQkwMC4wMDAwMDAWAh8FBUFpc0NoYW5nZWQoJ2N0bDAwX0NvbnRlbnRCb2R5X0ZpbHRlckNvbnRyb2wxX0FqYXhMYXRMb25Db250cm9sMScpO2QCEg8QD2QWAh8EBY0BaXNDaGFuZ2VkKCdjdGwwMF9Db250ZW50Qm9keV9GaWx0ZXJDb250cm9sMV9BamF4TGF0TG9uQ29udHJvbDEnKTtsb25TaWduQ2hhbmdlZCgnY3RsMDBfQ29udGVudEJvZHlfRmlsdGVyQ29udHJvbDFfQWpheExhdExvbkNvbnRyb2wxJywgdGhpcyk7EBUCAUUBVxUCATABMRQrAwJnZxYBAgFkAhMPDxYCHwEFCjAwMC4wMDAwMDAWAh8FBUFpc0NoYW5nZWQoJ2N0bDAwX0NvbnRlbnRCb2R5X0ZpbHRlckNvbnRyb2wxX0FqYXhMYXRMb25Db250cm9sMScpO2QCAw9kFgICAw8QZGQWAGQCBQ9kFgICAw8QZGQWAGQCBg9kFgICAQ9kFgJmD2QWBAIDDxBkZBYAZAIHDxBkZBYAZAIHD2QWBmYPDxYCHwBoZGQCAg8WAh8BBe4MPGRpdiBpZD1nYWxsZXJ5Y29udHJvbD48dGFibGUgY2VsbHNwYWNpbmc9MCBjZWxscGFkZGluZz0wIHdpZHRoPTEwMCUgYm9yZGVyPTA+PHRyPjx0ZD48dWwgY2xhc3M9aG92ZXJib3g+PGxpPjxhIGhyZWY9Jy9nYWxsZXJ5L2ltYWdlLmFzcHg/Zj0xJmd1aWQ9NWY1NmVhYWUtNjU2Yy00OTYwLWI4NjAtNTgxYzhlYTcyZWQ1Jz48aW1nIGRhdGEtY29va2llY29uc2VudD0naWdub3JlJyBzcmM9J2h0dHBzOi8vaW1nLmdlb2NhY2hpbmcuY29tL3dheW1hcmtpbmcvbG9nL2xhbmRzY2FwZS8zMWU4Yjk5Yy0zMTI0LTQ0MGEtOGY2Ny1iMDAwOGM5MzMzMzcuanBnJyBhbHQ9J25vIGRlc2NyaXB0aW9uJyB0aXRsZT0nbm8gZGVzY3JpcHRpb24nIC8+PGltZyBkYXRhLWNvb2tpZWNvbnNlbnQ9J2lnbm9yZScgc3JjPSdodHRwczovL2ltZy5nZW9jYWNoaW5nLmNvbS93YXltYXJraW5nL2xvZy9kaXNwbGF5LzMxZThiOTljLTMxMjQtNDQwYS04ZjY3LWIwMDA4YzkzMzMzNy5qcGcnIGFsdD0nbm8gZGVzY3JpcHRpb24nIHRpdGxlPSdubyBkZXNjcmlwdGlvbicgY2xhc3M9cHJldmlldyAvPjwvYT48c3Bhbj4wNS8xMS8yMDE1PC9zcGFuPjwvbGk+PGxpPjxhIGhyZWY9Jy9nYWxsZXJ5L2ltYWdlLmFzcHg/Zj0xJmd1aWQ9ZTFhZmM3YWEtMWRlYS00MTEwLTlhZTktNGQyYjJjNmRlYjY4Jz48aW1nIGRhdGEtY29va2llY29uc2VudD0naWdub3JlJyBzcmM9J2h0dHBzOi8vaW1nLmdlb2NhY2hpbmcuY29tL3dheW1hcmtpbmcvbG9nL2xhbmRzY2FwZS9kNzYzNjM0My1mZDE1LTQzYzMtOTM0Mi0wMzFjMzkwOWM4ZTIuSlBHJyBhbHQ9J0JvbiBFY2hvIHZpc2l0ZWQgQmFsZG9vbiBNeXN0ZXJ5JyB0aXRsZT0nQm9uIEVjaG8gdmlzaXRlZCBCYWxkb29uIE15c3RlcnknIC8+PGltZyBkYXRhLWNvb2tpZWNvbnNlbnQ9J2lnbm9yZScgc3JjPSdodHRwczovL2ltZy5nZW9jYWNoaW5nLmNvbS93YXltYXJraW5nL2xvZy9kaXNwbGF5L2Q3NjM2MzQzLWZkMTUtNDNjMy05MzQyLTAzMWMzOTA5YzhlMi5KUEcnIGFsdD0nQm9uIEVjaG8gdmlzaXRlZCBCYWxkb29uIE15c3RlcnknIHRpdGxlPSdCb24gRWNobyB2aXNpdGVkIEJhbGRvb24gTXlzdGVyeScgY2xhc3M9cHJldmlldyAvPjwvYT48c3Bhbj4xMS8xOC8yMDE0PC9zcGFuPjwvbGk+PGxpPjxhIGhyZWY9Jy9nYWxsZXJ5L2ltYWdlLmFzcHg/Zj0xJmd1aWQ9MzI3YWJhYmEtZDNmNy00N2Q2LWI4N2UtODg4ZDg3NjI0NzI5Jz48aW1nIGRhdGEtY29va2llY29uc2VudD0naWdub3JlJyBzcmM9J2h0dHBzOi8vaW1nLmdlb2NhY2hpbmcuY29tL3dheW1hcmtpbmcvbG9nL2xhbmRzY2FwZS9jYmUyNWJkZi1mZGIwLTRmMjktYTJiYi0wMjY2NzI4MjM3ZmMuSlBHJyBhbHQ9J25vIGRlc2NyaXB0aW9uJyB0aXRsZT0nbm8gZGVzY3JpcHRpb24nIC8+PGltZyBkYXRhLWNvb2tpZWNvbnNlbnQ9J2lnbm9yZScgc3JjPSdodHRwczovL2ltZy5nZW9jYWNoaW5nLmNvbS93YXltYXJraW5nL2xvZy9kaXNwbGF5L2NiZTI1YmRmLWZkYjAtNGYyOS1hMmJiLTAyNjY3MjgyMzdmYy5KUEcnIGFsdD0nbm8gZGVzY3JpcHRpb24nIHRpdGxlPSdubyBkZXNjcmlwdGlvbicgY2xhc3M9cHJldmlldyAvPjwvYT48c3Bhbj4wMS8wNS8yMDExPC9zcGFuPjwvbGk+PC91bD48L3RkPjwvdHI+PC90YWJsZT48L2Rpdj5kAgQPZBYGAgEPDxYCHwEFATNkZAIDDw8WAh8BBQExZGQCBQ8PFgIfAQUBMWRkAgkPDxYCHwBoZGQCCw8PFgIfAGhkZAIFDw8WAh8AaGRkAgYPZBYEAgEPZBYEZg9kFgQCAw8PFgQfAQU0PGltZyBzcmM9Jy9pbWFnZXMvaWNvbnMvZmxhZy5naWYnIGFsaWduPSdhYnNtaWRkbGUnPh8AaGRkAgUPZBYCAgEPEA8WAh8AaGRkZGQCAg8PFgIfAGhkZAIDD2QWBGYPDxYCHwEFD1dheW1hcmsgT3B0aW9uc2RkAgIPDxYCHwBoZGQCBw9kFjoCAw8PFgIfAgUgL3dtL3NlYXJjaC5hc3B4P2Y9MSZzdD0xMjYmd2Z0PTJkZAIFDw8WAh8CBR4vd20vc2VhcmNoLmFzcHg/Zj0xJnN0PTImd2Z0PTRkZAIHDw8WAh8CBSMvd20vc2VhcmNoLmFzcHg/Zj0xJnRwPTMmd3N0PTYmc3Q9MmRkAgkPDxYCHwIFHi93bS9zZWFyY2guYXNweD9mPTEmc3Q9NCZ3ZnQ9MmRkAgsPDxYCHwIFHy93bS9zZWFyY2guYXNweD9mPTEmd2Z0PTMmc3Q9NjZkZAINDw8WAh8CBSYvd20vc2VhcmNoLmFzcHg/Zj0xJndzdD04JnN0PTEyOCZ3ZnQ9NmRkAg8PDxYCHwIFJi93bS9zZWFyY2guYXNweD9mPTEmd3N0PTgmc3Q9NjQwJndmdD0yZGQCEQ8PFgIfAgUhL3dtL3NlYXJjaC5hc3B4P2Y9MSZzdD0yJmFzdD10cnVlZGQCFQ8PFgIfAGhkZAIWDw8WAh8CBR8vY2F0L3NlYXJjaC5hc3B4P2Y9MSZjc3Q9OCZzdD0yZGQCGA8PFgQfAQUJRmF2b3JpdGVzHwIFKi9zdWJzY3JpYmUvZGVmYXVsdC5hc3B4P2Y9MSZzdD0yJmZlYXR1cmU9M2RkAhoPDxYGHghJbWFnZVVybAUbL2ltYWdlcy9pY29ucy9pc3ByZW1pdW0uZ2lmHg1BbHRlcm5hdGVUZXh0BQxwcmVtaXVtIG9ubHkfAGdkZAIcDw8WBB8BBQtJZ25vcmUgTGlzdB8CBSovc3Vic2NyaWJlL2RlZmF1bHQuYXNweD9mPTEmc3Q9MiZmZWF0dXJlPTRkZAIeDw8WBh8GBRsvaW1hZ2VzL2ljb25zL2lzcHJlbWl1bS5naWYfBwUMcHJlbWl1bSBvbmx5HwBnZGQCIA8PFgIfAgUfL2NhdC9zZWFyY2guYXNweD9mPTEmY3N0PTEmc3Q9MmRkAiIPDxYCHwIFHy9jYXQvc2VhcmNoLmFzcHg/Zj0xJmNzdD0zJnN0PTJkZAIkDw8WAh8AaGRkAiUPDxYEHwEFEFJlcXVpcmluZyBSZXZpZXcfAgUqL3N1YnNjcmliZS9kZWZhdWx0LmFzcHg/Zj0xJnN0PTImZmVhdHVyZT0yZGQCJw8PFgYfBgUbL2ltYWdlcy9pY29ucy9pc3ByZW1pdW0uZ2lmHwcFDHByZW1pdW0gb25seR8AZ2RkAisPDxYCHwIFES9teS9sb2dzLmFzcHg/Zj0xZGQCLw8PFgIfAgUoL2dyb3Vwcy9zZWFyY2guYXNweD9mPTEmZ3N0PTMmZ2Z0PTEmc3Q9MmRkAjEPDxYCHwIFKC9ncm91cHMvc2VhcmNoLmFzcHg/Zj0xJmdzdD0zJmdmdD0yJnN0PTJkZAIzDw8WAh8CBSgvZ3JvdXBzL3NlYXJjaC5hc3B4P2Y9MSZnc3Q9MyZnZnQ9MyZzdD0yZGQCNQ8PFgIfAgUiL2dyb3Vwcy9zZWFyY2guYXNweD9mPTEmZ2Z0PTUmc3Q9MmRkAjcPDxYCHwBnZBYIAgMPDxYCHwIFGS9odW50L2xpc3QuYXNweD9wdD01Jmh0PTFkZAIFDw8WAh8CBRkvaHVudC9saXN0LmFzcHg/cHQ9NSZodD00ZGQCBw8PFgIfAgUZL2h1bnQvbGlzdC5hc3B4P3B0PTUmaHQ9MmRkAgkPDxYCHwIFGS9odW50L2xpc3QuYXNweD9wdD01Jmh0PTNkZAI7Dw8WBB8BBRFNeSBTYXZlZCBTZWFyY2hlcx8CBRQvbXkvb3JpZ2lucy5hc3B4P2Y9MWRkAj0PDxYEHwEFEkZ1bGwgQ2F0ZWdvcnkgTGlzdB8CBR8vY2F0L2NhdGVnb3J5ZGlyZWN0b3J5LmFzcHg/Zj0xZGQCPw8PFgIfAGhkZAJBDw8WAh8AaGRkAggPZBYMZg8PFgIfAgUBL2RkAgEPDxYCHwIFI2h0dHBzOi8vd3d3Lmdlb2NhY2hpbmcuY29tL2NhcmVlcnMvZGQCAw8PFgIfAgUwaHR0cHM6Ly93d3cuZ2VvY2FjaGluZy5jb20vYWJvdXQvdGVybXNvZnVzZS5hc3B4ZGQCBQ8PFgIfAgU2aHR0cHM6Ly93d3cuZ2VvY2FjaGluZy5jb20vYWNjb3VudC9kb2N1bWVudHMvZG9ub3RzZWxsZGQCBg8PFgIfAgUIL2NvbnRhY3RkZAIHDw8WAh8CBRAvaGVscC9zdGFydC5hc3B4ZGQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgEFHGN0bDAwJENvbnRlbnRCb2R5JGNoa1ByZXZpZXeJ8zoT9D09eRDw7KdByrngVgmgnA==" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=Dh2VENdI9XyWNN0f7DnYfR8WWRCRIzdVqal2y0yjiQ5nC_eHhLchYgnQDHIk0d3RCcSUMVZ36ciRD0qmhXKmeu3S_RE1&amp;t=638086160452977627" type="text/javascript"></script>
+
+
+<script src="/ScriptResource.axd?d=I9_m2Hb1Tv_B0qTMDG8bMbnkNSHUkv5oUaG9-V5NZ8qQ2VFlu60I8y8gfr3vPmZjbiPnu43MOQdFVDeYF-nDAEKBLmyxD3DCTGmes9NNbbvaDEHyEuuRWgccIkK3ik5TI48YGDxjHjqdn-gTK4Fkgd17LGw1&amp;t=49337fe8" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=8vNbe34dAujgZMPnfnacfjeoweX1vHgyns8KlAV4vpGpsZC9Cf3pro__lv8ekBa0NiCgXGMMolzOUNH__lrnEI_qjlNBIAuuLeemtAXV_i6E0QIMZa8nGSYmWGF5nQOJK3rmZzvTxsr2Mh4Ebdba_1ywGLUSH_U_XIe-jzecfRQwwvjZ0&amp;t=49337fe8" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="0628AE0D" />
+</div>
+        <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$uxScriptManager', 'aspnetForm', [], [], [], 90, 'ctl00');
+//]]>
+</script>
+
+
+        <div id="wrap">
+            
+<div id="header">
+    <!--[if lte IE 6]>
+    <div style="padding:5px;color:#B10022;background-color:#ffffff;zoom:1;text-align:center;margin-bottom:5px">
+        <p><img src="../images/stockholm/16x16/alert.gif" style="vertical-align:middle" />
+        Groundspeak is phasing out support for older browsers. Visit the <a href="http://support.groundspeak.com/index.php?pg=kb.page&id=215" title="View browser support information">Help Center</a> for more information.
+        </p>
+    </div>
+    <![endif]-->
+    <div id="header_logo">
+        <a href="">
+            <img src="/images/logo.gif" /></a></div>
+    <ul id="main_nav">
+        <li id="lnk_shop" title="Shop Geocaching"><a href="http://shop.geocaching.com">shop</a></li>
+        <li id="lnk_forums" title="Waymarking Forums"><a href="https://forums.geocaching.com/GC/index.php?/forum/52-waymarking/">forums</a></li>
+        <li id="lnk_waymarks" title="Waymarks"><a href="/waymarks.aspx">waymarks</a></li>
+        <li id="ctl00_HeaderControl1_lnk_scavenger_hunts" title="Scavenger&#32;Hunts"><a href="/games.aspx">
+            scavenger hunts</a></li>
+        <li id="lnk_groups" title="Groups"><a href="/groups.aspx">groups</a></li>
+        <li id="lnk_categories" title="Categories"><a href="/categories.aspx">categories</a></li>
+        <li id="lnk_mypage" title="Profile"><a href="/users/profile.aspx">profile</a></li>
+        <li id="lnk_home" title="Waymarking Home"><a href="/default.aspx">home</a></li>
+    </ul>
+    <div id="logowrap">
+        <div id="bc_wrap">
+            <p id="breadcrumb">
+                <a href='/default.aspx?f=1' >Home</a>&nbsp;&gt; <a href='/categories.aspx?f=1' >Categories</a>&nbsp;&gt; <a href='/cat/details.aspx?f=1&guid=5dc5324b-37ef-48ab-83da-9d27758cd3b9'>Category</a>&nbsp;&gt; <a href='/waymarks/wm10_Baldoon_Mystery'>Waymark</a>&nbsp;&gt; Gallery</p>
+            <p id="login">
+                <span id="ctl00_HeaderControl1_lblLogin">you are not logged in.</span>&nbsp;<a id="ctl00_HeaderControl1_lnkSignInUrl" href="/login/default.aspx?RESET=Y&amp;redir=/gallery/default.aspx?f=1&amp;guid=01645b8d-404c-41f1-a951-190032f55215&amp;gid=2">[log in]</a></p>
+            <div class="clear">
+            </div>
+        </div>
+        <!-- end bc_wrap -->
+        <div id="titlediv">
+            <h1 id="title">
+                <span id="titletext">
+                    Baldoon Mystery Image Gallery</span></h1>
+        </div>
+        <!-- end titlediv -->
+    </div>
+    <!-- end logowrap -->
+</div>
+<!--end header-->
+
+            <div id="content">
+                <div class="gutter">
+                    <!--enter center content here-->
+                    
+                    
+                    <input name="__RequestVerificationToken" type="hidden" value="STOEdlRIWaumvWgYa-FIvM8V-ki_y0lwiHvvBODWEIETY6K-9oLvI7VYBkMTqf0yDgfnQVculcJlVOE-j524J5Bupgk1" />
+                    
+    <!--enter center content here-->
+    
+    <input id="ctl00_ContentBody_chkPreview" type="checkbox" name="ctl00$ContentBody$chkPreview" checked="checked" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentBody$chkPreview\&#39;,\&#39;\&#39;)&#39;,&#32;0)" /><label for="ctl00_ContentBody_chkPreview">image preview on</label>
+    
+    <br />
+    
+<div id=gallerycontrol><table cellspacing=0 cellpadding=0 width=100% border=0><tr><td><ul class=hoverbox><li><a href='/gallery/image.aspx?f=1&guid=5f56eaae-656c-4960-b860-581c8ea72ed5'><img data-cookieconsent='ignore' src='https://img.geocaching.com/waymarking/log/landscape/31e8b99c-3124-440a-8f67-b0008c933337.jpg' alt='no description' title='no description' /><img data-cookieconsent='ignore' src='https://img.geocaching.com/waymarking/log/display/31e8b99c-3124-440a-8f67-b0008c933337.jpg' alt='no description' title='no description' class=preview /></a><span>05/11/2015</span></li><li><a href='/gallery/image.aspx?f=1&guid=e1afc7aa-1dea-4110-9ae9-4d2b2c6deb68'><img data-cookieconsent='ignore' src='https://img.geocaching.com/waymarking/log/landscape/d7636343-fd15-43c3-9342-031c3909c8e2.JPG' alt='Bon Echo visited Baldoon Mystery' title='Bon Echo visited Baldoon Mystery' /><img data-cookieconsent='ignore' src='https://img.geocaching.com/waymarking/log/display/d7636343-fd15-43c3-9342-031c3909c8e2.JPG' alt='Bon Echo visited Baldoon Mystery' title='Bon Echo visited Baldoon Mystery' class=preview /></a><span>11/18/2014</span></li><li><a href='/gallery/image.aspx?f=1&guid=327ababa-d3f7-47d6-b87e-888d87624729'><img data-cookieconsent='ignore' src='https://img.geocaching.com/waymarking/log/landscape/cbe25bdf-fdb0-4f29-a2bb-0266728237fc.JPG' alt='no description' title='no description' /><img data-cookieconsent='ignore' src='https://img.geocaching.com/waymarking/log/display/cbe25bdf-fdb0-4f29-a2bb-0266728237fc.JPG' alt='no description' title='no description' class=preview /></a><span>01/05/2011</span></li></ul></td></tr></table></div>
+
+<table cellpadding="0" cellspacing="0" width="100%" border="0" class="pager">
+    <tr>
+        <td nowrap="nowrap" class="pagertotalrecords" align="left">
+            Total Records:&nbsp;<strong><span id="ctl00_ContentBody_GalleryControl1_PagerControl2_lblTotalRecords">3</span></strong> Page:&nbsp;<strong><span id="ctl00_ContentBody_GalleryControl1_PagerControl2_lblPage">1</span></strong> of <strong><span id="ctl00_ContentBody_GalleryControl1_PagerControl2_lblTotalPages">1</span></strong>
+        </td>
+        <td nowrap="nowrap" class="pagercontrols" align="right">
+            <a id="ctl00_ContentBody_GalleryControl1_PagerControl2_lnkPrevious" class="pagerlinksOff">prev</a><a id="ctl00_ContentBody_GalleryControl1_PagerControl2_lnkFirst" class="pagerlinksOff"><<</a><a id="ctl00_ContentBody_GalleryControl1_PagerControl2_lnkTenBack" class="pagerlinksOff"><</a>[<a class="pagerlinksCurrent">1</a>]<a id="ctl00_ContentBody_GalleryControl1_PagerControl2_lnkTenForward" class="pagerlinksOff">></a><a id="ctl00_ContentBody_GalleryControl1_PagerControl2_lnkLast" class="pagerlinksOff">>></a><a id="ctl00_ContentBody_GalleryControl1_PagerControl2_lnkNext" class="pagerlinksOff">next</a>
+        </td>
+    </tr>
+</table>
+
+    
+    
+    <!--end center content-->
+
+                </div>
+                <!--end gutter-->
+            </div>
+            <!--end content-->
+            <div id="sidebar">
+                <div class="gutter">
+                    <!--enter side content here-->
+                    
+                    <!--end box-->
+                    
+    <div id="ctl00_ContentRightColumn_CategoryFilterControl1_uxGoogleMap">
+	
+    <div class="box">
+        <h3 id="searchbox">Map</h3>
+        <div id="categoryfilter">
+            <span id="ctl00_ContentRightColumn_CategoryFilterControl1_lblMessage"></span>
+            <h5>
+                
+            </h5>
+            
+<link rel="stylesheet" type="text/css" href="/css/leaflet.css" />
+<style>
+    #uxSearchFromHere 
+    {
+        margin: 7px 0 4px 10px;
+    }
+</style>
+
+
+    <div id="map_canvas" class="googlemap">
+    </div>
+
+    <div id="mapinfo">
+    </div>
+
+    <div>
+        <button id="uxSearchFromHere">Search from Here</button>
+    </div>
+
+    <div id="map_info">
+    </div>
+
+
+
+<div id="mapswitch">
+    
+</div>
+
+<script type="text/javascript" data-cookieconsent="ignore">
+
+    var map, marker, bounds;
+
+    function init_map() {
+        map = L.map('map_canvas', { attributionControl: false }).setView([47.648967, -122.348117], 13);
+
+        map.addControl(new L.Control.Attribution({
+            prefix: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+        }));
+
+        L.tileLayer('https://maptiles{s}.geocaching.com/tile/{z}/{x}/{y}.png?token={token}',
+            {
+                token: 'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3VzZXJkYXRhIjoiNDBjYzI5ZDAtNDdhZC00ZWZjLTkxZjYtYTdlNzk2YmFiOWQ4IiwibGdkIjoiMDA3YjhhZGMtNmI0ZC00ZGVlLWEyOWUtZTY2YTgwZTk2N2Q2Iiwic2NvcGUiOiJtYXB0aWxlIiwibmJmIjoxNzE5NTkwMzE2LCJleHAiOjE3MTk1OTM5MTYsImlzcyI6Imh0dHBzOi8vb2F1dGguZ2VvY2FjaGluZy5jb20vdG9rZW4iLCJhdWQiOiI0MGNjMjlkMC00N2FkLTRlZmMtOTFmNi1hN2U3OTZiYWI5ZDgifQ.TAKfP6Q4t3ZlRranim8BH58r5ySRvWGpR3spMOg5IaE',
+                subdomains: ['01', '02', '03', '04', '05', '06', '07', '08']
+            }).addTo(map);
+
+        bounds = new L.LatLngBounds([]);
+
+        if (typeof mapItems === "function") {
+            mapItems();
+        } else {
+            window.setTimeout(function () { mapItems(); }, 800);
+        }
+
+        window.setTimeout(function () {
+            map.fitBounds(bounds, { maxZoom: 15 });
+        }, 1000);
+    }
+
+    function wrapMarkers(markers) {
+        for (var x = 0, len = markers.length; x < len; x++) {
+            createMarker(markers[x]);
+        }
+    }
+
+    function htmlEntities(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function createMarker(item) {
+
+        var marker = L.marker([item.lat, item.lng], {
+            title: item.title,
+            icon: L.icon({
+                iconUrl: 'https://www.waymarking.com/dyn_img/bubble.aspx?path=' + item.icon,
+                iconSize: [37, 33], iconAnchor: [37, 33]
+            })
+        }).addTo(map);
+
+        marker.on("click", function () { showInfoPanel(item.icon, htmlEntities(item.title), item.code, htmlEntities(item.cat), htmlEntities(item.desc)); });
+
+        bounds.extend(L.latLng([item.lat, item.lng]));
+    }
+
+    function showInfoPanel(icon, title, code, category, desc) {
+        jQuery("#mapinfo").html("<table class='googlemap_wmtable'><tr><td class='googlemap_wmtd'><a href='/cat/details.aspx?f=1&guid=" + category + "'><img src='/images/cat_icons/" + icon + ".gif' width='24' border='0' valign='absmiddle'></a></td><td class='googlemap_wmtd'><a href='/waymarks/" + code + "'>" + title + "</a></td></tr><tr><td class='googlemap_wmtd2'></td><td class='googlemap_wmtd2'>" + desc + "</td></tr></table>");
+        jQuery("#mapinfo").show();
+    }
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+        init_map();
+
+        jQuery("#uxSearchFromHere").click(function (e) {
+            e.preventDefault();
+            if (map && searchUrl) {
+                var latLng = map.getCenter();
+
+                var newSearchUrl = new URI(searchUrl);
+
+                newSearchUrl
+                    .removeSearch('sg')
+                    .setSearch('lat', latLng.lat)
+                    .setSearch('lon', latLng.lng);
+
+                window.document.location.href = newSearchUrl.toString();
+            }
+            return false;
+        });
+
+    });
+
+</script>
+
+            
+        </div>
+    </div>
+
+</div>
+
+
+    
+<!--[if IE]><LINK href="../css/ie_main.css" type=text/css rel=stylesheet><![endif]-->
+<div class="box">
+    <h3 id="optionlinklist">
+        <span id="ctl00_ContentRightColumn_DynamicLinksControl1_lblTitle">Waymark Options</span></h3>
+    <div id="dynamiclinks">
+        <ul class='category_linkoptions'><li class='category_linkoption'><img src='/images/16X16/comment.gif'><a class="category_linkoption" href="/logs/default.aspx?f=1&amp;guid=01645b8d-404c-41f1-a951-190032f55215&amp;st=2">View Visits/Comments (3)</a></li><li class='category_linkoption'><img src='/images/16X16/file.gif'><a class="category_linkoption" href="/waymarks/wm10_Baldoon_Mystery">View Waymark</a></li><li class='category_linkselected'><img src='/images/16X16/images.gif'><a class="category_linkselected" href="/gallery/default.aspx?f=1&amp;guid=01645b8d-404c-41f1-a951-190032f55215&amp;gid=2&amp;st=2">View Gallery (3)</a></li></ul>
+    </div>
+    <table cellpadding="0" cellspacing="0" width="100%" border="0">
+        <tr>
+            <td>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+                    
+<div class="box">
+    <h3 id="category_lists">
+        Quick Searches</h3>
+    <div class="catlist_options">
+        <span id="ctl00_CategoryListControl1_lblWaymark" class="wmlist_label">Waymark Searches:</span>
+        <ul>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkMyWaymarks" class="boldcontrols" href="/wm/search.aspx?f=1&amp;st=126&amp;wft=2">My Waymarks</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkFeaturedWM" href="/wm/search.aspx?f=1&amp;st=2&amp;wft=4">Featured Waymarks</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkRecentWM" href="/wm/search.aspx?f=1&amp;tp=3&amp;wst=6&amp;st=2">Newest Waymarks</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkSavedWM" href="/wm/search.aspx?f=1&amp;st=4&amp;wft=2">My Unfinished Waymarks</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkMyVisited" href="/wm/search.aspx?f=1&amp;wft=3&amp;st=66">Waymarks I've Visited</a></li>
+        </ul>
+        <ul>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkUncategorized" href="/wm/search.aspx?f=1&amp;wst=8&amp;st=128&amp;wft=6">Newest Uncategorized Waymarks</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkMyUncategorized" href="/wm/search.aspx?f=1&amp;wst=8&amp;st=640&amp;wft=2">My Uncategorized Waymarks</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkMyAssisted" href="/wm/search.aspx?f=1&amp;st=2&amp;ast=true">My Assisted Waymarks</a></li>
+        </ul>
+        <span id="ctl00_CategoryListControl1_lblCategory" class="catlist_label">Category Searches:</span>
+        <ul>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkMyCategories" class="boldcontrols" href="/cat/search.aspx?f=1&amp;cst=8&amp;st=2">My Categories</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkFavorites" href="/subscribe/default.aspx?f=1&amp;st=2&amp;feature=3">Favorites</a>
+                <img id="ctl00_CategoryListControl1_imgPrem1" src="/images/icons/ispremium.gif" alt="premium&#32;only" align="absmiddle" /></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkIgnored" href="/subscribe/default.aspx?f=1&amp;st=2&amp;feature=4">Ignore List</a>
+                <img id="ctl00_CategoryListControl1_imgPrem2" src="/images/icons/ispremium.gif" alt="premium&#32;only" align="absmiddle" /></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkLargest" href="/cat/search.aspx?f=1&amp;cst=1&amp;st=2">Largest</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkNewest" href="/cat/search.aspx?f=1&amp;cst=3&amp;st=2">Newest</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkReview" href="/subscribe/default.aspx?f=1&amp;st=2&amp;feature=2">Requiring Review</a>
+                <img id="ctl00_CategoryListControl1_imgPrem3" src="/images/icons/ispremium.gif" alt="premium&#32;only" align="absmiddle" />
+            </li>
+        </ul>
+        <span id="ctl00_CategoryListControl1_lblLogs" class="wmlist_label">Visit Searches:</span>
+        <ul>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkMyLogs" class="boldcontrols" href="/my/logs.aspx?f=1">My Visits</a></li>
+        </ul>
+        <span id="ctl00_CategoryListControl1_lblGroups" class="wmlist_label">Group Lists:</span>
+        <ul>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkMyGroups" class="boldcontrols" href="/groups/search.aspx?f=1&amp;gst=3&amp;gft=1&amp;st=2">Groups I Manage</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkMyRegGroups" href="/groups/search.aspx?f=1&amp;gst=3&amp;gft=2&amp;st=2">Groups I Belong To</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkNewestGroups" href="/groups/search.aspx?f=1&amp;gst=3&amp;gft=3&amp;st=2">Newest Groups</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkRecruiting" href="/groups/search.aspx?f=1&amp;gft=5&amp;st=2">Recruiting Groups</a></li>
+        </ul>
+        <div id="ctl00_CategoryListControl1_uxScavengerHuntPanel">
+	
+            <span id="ctl00_CategoryListControl1_uxScavengerHunts" class="wmlist_label">Scavenger Hunts:</span>
+            <ul>
+                <li>
+                    <a id="ctl00_CategoryListControl1_lnkMyHunts" class="boldcontrols" href="/hunt/list.aspx?pt=5&amp;ht=1">My Scavenger Hunts</a></li>
+                <li>
+                    <a id="ctl00_CategoryListControl1_lnkPublicHunts" href="/hunt/list.aspx?pt=5&amp;ht=4">Newest Public Hunts</a></li>
+                <li>
+                    <a id="ctl00_CategoryListControl1_lnkActiveHunts" href="/hunt/list.aspx?pt=5&amp;ht=2">My Active Hunts</a></li>
+                <li>
+                    <a id="ctl00_CategoryListControl1_lnkCompletedHunts" href="/hunt/list.aspx?pt=5&amp;ht=3">My Completed Hunts</a></li>
+            </ul>
+        
+</div>
+        <span id="ctl00_CategoryListControl1_lblMisc" class="wmlist_label">Miscellaneous:</span>
+        <ul>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkOrigins" class="boldcontrols" href="/my/origins.aspx?f=1">My Saved Searches</a></li>
+            <li>
+                <a id="ctl00_CategoryListControl1_lnkFullCategories" href="/cat/categorydirectory.aspx?f=1">Full Category List</a></li>
+            <li>
+                </li>
+        </ul>
+        
+    </div>
+</div>
+<!--end box-->
+
+                    <!--end side content-->
+                </div>
+                <!--end gutter-->
+            </div>
+            <!--end sidebar-->
+            
+<div id='footer'>
+    <p>
+        Copyright (c) 2024 Groundspeak, Inc. All Rights Reserved.
+    </p>
+</div>
+<div id='footerlinks'>
+    <a id="ctl00_FooterControl1_lnkHome" href="/">home</a>
+    &nbsp;|&nbsp;
+    <a id="ctl00_FooterControl1_lnkGroundspeak" href="https://www.geocaching.com/careers/">careers</a>
+    &nbsp;|&nbsp;
+    <a id="ctl00_FooterControl1_lnkNews" href="/news/default.aspx">news</a>
+    &nbsp;|&nbsp;
+    <a id="ctl00_FooterControl1_lnkTermsOfUse" href="https://www.geocaching.com/about/termsofuse.aspx">terms of use</a>
+    &nbsp;|&nbsp;
+    <a id="ctl00_FooterControl1_lnkPrivacyPolicy" href="https://www.geocaching.com/about/privacypolicy.aspx">privacy policy</a>
+    &nbsp;|&nbsp;
+    <a id="ctl00_FooterControl1_lnkContactUs" href="/contact">contact us</a>
+    &nbsp;|&nbsp;
+    <a id="ctl00_FooterControl1_lnkHelp" href="/help/start.aspx">help</a>
+</div>
+<!-- Server: WAYMARK-WEB02 -->
+<!--end footer-->
+        </div>
+        <!--end wrap-->
+        
+
+    
+
+<script type="text/javascript">
+//<![CDATA[
+var searchUrl = "/wm/search.aspx?f=1\u0026guid=01645b8d-404c-41f1-a951-190032f55215\u0026wo=True\u0026st=2";//]]>
+</script>
+<script src='/js/leaflet-src.js' data-cookieconsent='ignore'></script><script src='/js/URI.js'></script>
+<script type="text/javascript">
+//<![CDATA[
+function mapItems() {
+map.panTo([42.6187,-82.477967]);
+var markers = [{lat: 42.6187, lng: -82.477967, title: "Baldoon Mystery", icon: "weird_story", code: "WM10", cat: "5dc5324b-37ef-48ab-83da-9d27758cd3b9", desc: "The coordinates will take you to plaques marking the site of the Baldoon Mystery, a story of supernatural events which took place between 1830 and 1840."},];
+wrapMarkers(markers);
+}
+//]]>
+</script>
+</form>
+    <script language="javascript" type="text/plain" data-cookieconsent="statistics">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-2020240-2']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.src = ('https:' == document.location.protocol ?
+                'https://ssl' : 'http://www') +
+                '.google-analytics.com/ga.js';
+            ga.setAttribute('async', 'true');
+            document.documentElement.firstChild.appendChild(ga);
+        })();
+    </script>
+    
+    <script type="text/javascript" src="/js/generic.js"></script>
+    
+<!-- The core Firebase JS SDK is always required and must be listed first-- >
+<!--TODO: Add SDKs for Firebase products that you want to use
+https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-performance.js"></script>
+<script>
+    const { initializeApp } = require("firebase/app");
+    const { initializeAppCheck, ReCaptchaV3Provider } = require("firebase/app-check");
+
+    const app = initializeApp({
+        // Your firebase configuration object
+    });
+
+    // Pass your reCAPTCHA v3 site key (public key) to activate(). Make sure this
+    // key is the counterpart to the secret key you set in the Firebase console.
+    const appCheck = initializeAppCheck(app, {
+        provider: new ReCaptchaV3Provider('6LcAu_UlAAAAAHdboCh0rp3mjHr1Ual1qy1FTSDO'),
+
+        // Optional argument. If true, the SDK automatically refreshes App Check
+        // tokens as needed.
+        isTokenAutoRefreshEnabled: true
+    });
+
+    // Your web app's Firebase configuration
+    var firebaseConfig = { 
+        apiKey: "AIzaSyBHfGCWidUrDmHDyXAOPQwNZpgSz718f94",
+        authDomain: "waymarking-production.firebaseapp.com",
+        databaseURL: "https://waymarking-production.firebaseio.com",
+        projectId: "waymarking-production",
+        storageBucket: "waymarking-production.appspot.com",
+        messagingSenderId: "20792087256",
+        appId: "1:20792087256:web:3e142ccf5feda5a5ca3dad",
+        measurementId: "G-LH6PJYGK3V"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+    var perf = firebase.performance();
+
+    function logEvent(value) {
+        firebase.analytics().logEvent(value);
+    }
+
+</script>
+
+</body>
+</html>

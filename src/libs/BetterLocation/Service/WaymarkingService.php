@@ -7,8 +7,9 @@ use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use App\Config;
-use App\MiniCurl\MiniCurl;
+use App\Utils\Requestor;
 use App\Utils\StringUtils;
+use App\Utils\Utils;
 use Nette\Http\Url;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -30,6 +31,11 @@ final class WaymarkingService extends AbstractService
 		ServicesManager::TAG_GENERATE_OFFLINE,
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
 	];
+
+	public function __construct(
+		private readonly Requestor $requestor,
+	) {
+	}
 
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
@@ -111,11 +117,7 @@ final class WaymarkingService extends AbstractService
 	private function processWaymark(string $waymarkId): void
 	{
 		$waymarkPage = $this->loadWaymark($waymarkId);
-
-		$dom = new \DOMDocument();
-		// @HACK to force UTF-8 encoding. Page itself is in UTF-8 encoding but it is not saying explicitely so parser is confused.
-		// @Author: https://stackoverflow.com/a/18721144/3334403
-		@$dom->loadHTML('<?xml encoding="utf-8"?>' . $waymarkPage);
+		$dom = Utils::domFromUTF8($waymarkPage);
 		$xpath = new \DOMXPath($dom);
 
 		$coordsRaw = trim($xpath->query('//div[@id="wm_coordinates"]')->item(0)->textContent);
@@ -134,11 +136,8 @@ final class WaymarkingService extends AbstractService
 
 	private function processImage(): void
 	{
-		$imagePage = (new MiniCurl($this->url))->allowCache(Config::CACHE_TTL_WAYMARKING)->run()->getBody();
-		$dom = new \DOMDocument();
-		// @HACK to force UTF-8 encoding. Page itself is in UTF-8 encoding but it is not saying explicitely so parser is confused.
-		// @Author: https://stackoverflow.com/a/18721144/3334403
-		@$dom->loadHTML('<?xml encoding="utf-8"?>' . $imagePage);
+		$imagePage = $this->requestor->get($this->url, Config::CACHE_TTL_WAYMARKING);
+		$dom = Utils::domFromUTF8($imagePage);
 		$xpath = new \DOMXPath($dom);
 		$urlPath = $xpath->query('//a[@id="ctl00_ContentBody_LargePhotoControl1_lnkWaymark"]/@href')->item(0)->textContent;
 		$this->url = new Url($this->url->getHostUrl());
@@ -151,11 +150,8 @@ final class WaymarkingService extends AbstractService
 	private function processGallery(): void
 	{
 		$galleryUrl = $this->url;
-		$imagePage = (new MiniCurl($galleryUrl))->allowCache(Config::CACHE_TTL_WAYMARKING)->run()->getBody();
-		$dom = new \DOMDocument();
-		// @HACK to force UTF-8 encoding. Page itself is in UTF-8 encoding but it is not saying explicitely so parser is confused.
-		// @Author: https://stackoverflow.com/a/18721144/3334403
-		@$dom->loadHTML('<?xml encoding="utf-8"?>' . $imagePage);
+		$imagePage = $this->requestor->get($galleryUrl, Config::CACHE_TTL_WAYMARKING);
+		$dom = Utils::domFromUTF8($imagePage);
 		$xpath = new \DOMXPath($dom);
 		$urlsPathDom = $xpath->query('//p[@id="breadcrumb"]/a/@href');
 		foreach ($urlsPathDom as $urlPathDom) {
@@ -180,10 +176,6 @@ final class WaymarkingService extends AbstractService
 	private function loadWaymark(string $waymarkId): string
 	{
 		$waymarkUrl = (string)$this->buildWaymarkUrl($waymarkId);
-		return (new MiniCurl($waymarkUrl))
-			->allowCache(Config::CACHE_TTL_WAYMARKING)
-			->allowAutoConvertEncoding(false)
-			->run()
-			->getBody();
+		return $this->requestor->get($waymarkUrl, Config::CACHE_TTL_WAYMARKING);
 	}
 }
