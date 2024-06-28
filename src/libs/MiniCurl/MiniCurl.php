@@ -336,12 +336,4 @@ class MiniCurl
 		$keyLower = mb_strtolower($key);
 		return $headers[$keyLower] ?? null;
 	}
-
-	/**
-	 * @deprecated Use \App\Utils\Requestor::loadRedirectUrl() instead
-	 */
-	public static function loadRedirectUrl(string $url): ?string
-	{
-		return self::loadHeader($url, 'location');
-	}
 }

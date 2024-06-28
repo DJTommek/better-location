@@ -123,15 +123,7 @@ final class UrlTest extends TestCase
 
 	/**
 	 * @group request
-	 * @dataProvider redirectUrlProvider
-	 */
-	public function testGetRedirectUrlMiniCurl(string $expectedUrl, string $inputUrl): void
-	{
-		$this->assertSame($expectedUrl, \App\MiniCurl\MiniCurl::loadRedirectUrl($inputUrl));
-	}
-
-	/**
-	 * @group request
+	 *
 	 * @dataProvider redirectUrlProvider
 	 * @dataProvider redirectUrlMultipleProvider
 	 */
