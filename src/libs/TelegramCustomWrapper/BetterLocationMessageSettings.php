@@ -254,14 +254,13 @@ class BetterLocationMessageSettings
 		$params = array_merge($params, [$chatId, $this->getScreenshotLinkService()::ID, self::TYPE_SCREENSHOT, 0]);
 
 		$db = Factory::database();
-		$dbLink = $db->getLink();
-		$dbLink->beginTransaction();
+		$db->beginTransaction();
 		try {
 			$db->query('DELETE FROM better_location_chat_services WHERE chat_id = ?', $chatId);
 			$db->query($query, ...$params);
-			$db->getLink()->commit();
+			$db->commit();
 		} catch (\PDOException $exception) {
-			$dbLink->rollBack();
+			$db->rollback();
 			throw $exception;
 		}
 	}

@@ -81,7 +81,7 @@ class AdminTemplate extends LayoutTemplate
 	private function isDatabaseConnectionSet(): bool
 	{
 		try {
-			$this->database->getLink();
+			$this->database->query('SELECT 1');
 			$this->dbError = null;
 			return true;
 		} catch (\PDOException $exception) {

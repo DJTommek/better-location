@@ -13,6 +13,7 @@ class Database
 
 	/**
 	 * Lazy access - do not use directly, use getLink() instead.
+	 * @readonly
 	 */
 	private \PDO $link;
 
@@ -20,16 +21,15 @@ class Database
 		private readonly string $server,
 		private readonly string $schema,
 		private readonly string $user,
-		private readonly string $pass,
+		#[\SensitiveParameter] private readonly string $pass,
 		private readonly string $charset = 'utf8mb4',
 	) {
 	}
 
 	/**
 	 * Connect to the database, if connection wad not initialized, yet.
-	 * Manual call of this method is not necessary, it is made automatically with first query.
 	 */
-	public function getLink(): \PDO
+	private function getLink(): \PDO
 	{
 		if (!isset($this->link)) {
 			$this->connect();
@@ -70,6 +70,21 @@ class Database
 
 		assert(isset($exception));
 		throw $exception;
+	}
+
+	public function beginTransaction(): bool
+	{
+		return $this->getLink()->beginTransaction();
+	}
+
+	public function commit(): bool
+	{
+		return $this->getLink()->commit();
+	}
+
+	public function rollback(): bool
+	{
+		return $this->getLink()->rollBack();
 	}
 
 	/**
