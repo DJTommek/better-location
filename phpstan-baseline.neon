@@ -31,21 +31,6 @@ parameters:
 			path: src/libs/BingMaps/StaticMaps.php
 
 		-
-			message: "#^Method App\\\\Dashboard\\\\Tester\\:\\:isInput\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Dashboard/Tester.php
-
-		-
-			message: "#^Property App\\\\Dashboard\\\\Tester\\:\\:\\$outputButtons has no type specified\\.$#"
-			count: 1
-			path: src/libs/Dashboard/Tester.php
-
-		-
-			message: "#^Property App\\\\Dashboard\\\\Tester\\:\\:\\$outputText has no type specified\\.$#"
-			count: 1
-			path: src/libs/Dashboard/Tester.php
-
-		-
 			message: "#^Method App\\\\DummyLogger\\:\\:log\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/DummyLogger.php

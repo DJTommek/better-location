@@ -43,6 +43,7 @@ class AdminTemplate extends LayoutTemplate
 	public readonly array $simpleLogs;
 	/** @var array<string, list<string>> */
 	public readonly array $tracyLogs;
+	public readonly TesterResult $testerResult;
 
 	/**
 	 * @param array<string, list<\stdClass>> $simpleLogs
@@ -56,6 +57,7 @@ class AdminTemplate extends LayoutTemplate
 		\DateTimeInterface $simpleLogsDate,
 		array $simpleLogs,
 		array $tracyLogs,
+		TesterResult $testerResult,
 	): void {
 		$this->database = $database;
 		$this->request = $request;
@@ -64,6 +66,7 @@ class AdminTemplate extends LayoutTemplate
 		$this->simpleLogsDate = $simpleLogsDate;
 		$this->simpleLogs = $simpleLogs;
 		$this->tracyLogs = $tracyLogs;
+		$this->testerResult = $testerResult;
 
 		$this->appUrl = Config::getAppUrl();
 		$this->isAppUrlSet = $this->appUrl->isEqual(DefaultConfig::getAppUrl()) === false;

@@ -2,14 +2,20 @@
 
 namespace App\Web\Admin;
 
+use App\BetterLocation\FromTelegramMessage;
+use App\BetterLocation\GooglePlaceApi;
 use App\Config;
 use App\Database;
+use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Command\Command;
+use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramCustomWrapper;
+use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\SimpleLogger;
 use App\Utils\Utils;
 use App\Web\Flash;
 use App\Web\MainPresenter;
+use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Exceptions\ClientException;
 use unreal4u\TelegramAPI\Telegram\Methods\GetWebhookInfo;
@@ -21,9 +27,13 @@ class AdminPresenter extends MainPresenter
 {
 	private const MAX_LOG_LINES = 10;
 
+	private TesterResult $testerResult;
+
 	public function __construct(
-		private readonly TelegramCustomWrapper $telegramCustomWrapper,
 		private readonly Database $database,
+		private readonly TelegramCustomWrapper $telegramCustomWrapper,
+		private readonly FromTelegramMessage $fromTelegramMessage,
+		private readonly ?GooglePlaceApi $googlePlaceApi,
 		AdminTemplate $template,
 	) {
 		$this->template = $template;
@@ -56,6 +66,8 @@ class AdminPresenter extends MainPresenter
 		if ($this->request->getQuery('telegram-configure') !== null) {
 			$this->actionTelegramConfigure();
 		}
+
+		$this->testerResult = $this->handleTester();
 	}
 
 	public function actionDeleteTracyEmailFile(): never
@@ -114,6 +126,41 @@ class AdminPresenter extends MainPresenter
 		$this->redirect('/admin');
 	}
 
+	public function handleTester(): TesterResult
+	{
+		$testerInput = $this->request->getPost('input');
+		if ($testerInput === null) {
+			return new TesterResult('', 'Fill and send some data.', Flash::INFO);
+		}
+
+		$entities = TelegramHelper::generateEntities($testerInput);
+		$collection = $this->fromTelegramMessage->getCollection($testerInput, $entities);
+		if (
+			$collection->count() === 0
+			&& mb_strlen($testerInput) >= Config::GOOGLE_SEARCH_MIN_LENGTH
+			&& $this->googlePlaceApi !== null
+		) {
+			try {
+				$collection->add($this->googlePlaceApi->searchPlace($testerInput));
+			} catch (\Exception $exception) {
+				Debugger::log($exception, Debugger::EXCEPTION);
+			}
+		}
+
+		$processedCollection = new ProcessedMessageResult($collection, new BetterLocationMessageSettings());
+		$processedCollection->process(true);
+
+		if ($collection->isEmpty()) {
+			return new TesterResult($testerInput, 'No location was detected.', Flash::WARNING);
+		}
+
+		return new TesterResult(
+			input: $testerInput,
+			betterLocationTextHtml: trim($processedCollection->getText()),
+			betterLocationButtons: $processedCollection->getButtons(1),
+		);
+	}
+
 	public function beforeRender(): void
 	{
 		$this->setTemplateFilename('admin.latte');
@@ -135,6 +182,7 @@ class AdminPresenter extends MainPresenter
 			$simpleLogsDate,
 			$this->getLogs($simpleLogsDate, self::MAX_LOG_LINES),
 			$this->getTracyLogs(self::MAX_LOG_LINES),
+			$this->testerResult,
 		);
 	}
 
