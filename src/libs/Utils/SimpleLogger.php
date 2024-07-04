@@ -62,13 +62,16 @@ class SimpleLogger
 		return Utils::getClassConstants(self::class, 'NAME_');
 	}
 
-	private static function isLogNameValid(string $name)
+	private static function isLogNameValid(string $name): bool
 	{
 		$constants = Utils::getClassConstants(self::class, 'NAME_');
 		return in_array($name, $constants, true);
 	}
 
-	public static function getLogContent(string $name, \DateTimeInterface $date, int $numberOfLines)
+	/**
+	 * @return list<\stdClass>
+	 */
+	public static function getLogContent(string $name, \DateTimeInterface $date, int $numberOfLines): array
 	{
 		if (self::isLogNameValid($name) === false) {
 			throw new \InvalidArgumentException('Invalid log name.');

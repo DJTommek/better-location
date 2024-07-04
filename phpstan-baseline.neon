@@ -31,21 +31,6 @@ parameters:
 			path: src/libs/BingMaps/StaticMaps.php
 
 		-
-			message: "#^Method App\\\\Dashboard\\\\Logs\\:\\:getLogs\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Dashboard/Logs.php
-
-		-
-			message: "#^Method App\\\\Dashboard\\\\Logs\\:\\:getTracyLogContent\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/Dashboard/Logs.php
-
-		-
-			message: "#^Method App\\\\Dashboard\\\\Logs\\:\\:getTracyLogs\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Dashboard/Logs.php
-
-		-
 			message: "#^Method App\\\\Dashboard\\\\Tester\\:\\:isInput\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/Dashboard/Tester.php
@@ -431,17 +416,7 @@ parameters:
 			path: src/libs/Utils/Ge0Code.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\SimpleLogger\\:\\:getLogContent\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Utils/SimpleLogger.php
-
-		-
 			message: "#^Method App\\\\Utils\\\\SimpleLogger\\:\\:getLogNames\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Utils/SimpleLogger.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\SimpleLogger\\:\\:isLogNameValid\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/Utils/SimpleLogger.php
 

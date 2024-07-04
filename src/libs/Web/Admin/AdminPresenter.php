@@ -6,8 +6,11 @@ use App\Config;
 use App\Database;
 use App\TelegramCustomWrapper\Events\Command\Command;
 use App\TelegramCustomWrapper\TelegramCustomWrapper;
+use App\Utils\SimpleLogger;
+use App\Utils\Utils;
 use App\Web\Flash;
 use App\Web\MainPresenter;
+use Tracy\ILogger;
 use unreal4u\TelegramAPI\Exceptions\ClientException;
 use unreal4u\TelegramAPI\Telegram\Methods\GetWebhookInfo;
 use unreal4u\TelegramAPI\Telegram\Methods\SetMyCommands;
@@ -16,6 +19,8 @@ use unreal4u\TelegramAPI\Telegram\Types\BotCommandScope;
 
 class AdminPresenter extends MainPresenter
 {
+	private const MAX_LOG_LINES = 10;
+
 	public function __construct(
 		private readonly TelegramCustomWrapper $telegramCustomWrapper,
 		private readonly Database $database,
@@ -120,8 +125,58 @@ class AdminPresenter extends MainPresenter
 		} catch (ClientException $clientException) {
 			$webhookError = $clientException;
 		}
+		$simpleLogsDate = new \DateTime();
 
-		$this->template->prepare($this->database, $this->request, $webhookInfo, $webhookError);
+		$this->template->prepare(
+			$this->database,
+			$this->request,
+			$webhookInfo,
+			$webhookError,
+			$simpleLogsDate,
+			$this->getLogs($simpleLogsDate, self::MAX_LOG_LINES),
+			$this->getTracyLogs(self::MAX_LOG_LINES),
+		);
+	}
+
+	/**
+	 * @return array<string, list<\stdClass>>
+	 */
+	public function getLogs(\DateTimeInterface $date, int $maxLines): array
+	{
+		$logContents = [];
+		foreach (SimpleLogger::getLogNames() as $logName) {
+			$logContents[$logName] = SimpleLogger::getLogContent($logName, $date, $maxLines);
+		}
+		return $logContents;
+	}
+
+	/**
+	 * @return array<string, list<string>>
+	 */
+	public function getTracyLogs(int $maxLines): array
+	{
+		$logsContent = [];
+		foreach (Utils::getClassConstants(ILogger::class) as $logName) {
+			$logContent = self::getTracyLogContent($logName, $maxLines);
+			if (count($logContent) > 0) {
+				$logsContent[$logName] = $logContent;
+			}
+		}
+		return $logsContent;
+	}
+
+	/**
+	 * @return list<string>
+	 */
+	private function getTracyLogContent(string $logName, int $maxLines): array
+	{
+		$tracyLogPath = Config::getTracyPath() . '/' . $logName . '.log';
+		if (file_exists($tracyLogPath)) {
+			$fileContent = Utils::tail($tracyLogPath, $maxLines);
+			return explode(PHP_EOL, $fileContent);
+		} else {
+			return [];
+		}
 	}
 }
 

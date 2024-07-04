@@ -22,7 +22,6 @@
 
 	<h2>Tracy logs</h2>
 
-	{var $tracyLogs = \App\Dashboard\Logs::getTracyLogs(10)}
 	{if count($tracyLogs) === 0}
 		<p>No logs are available.</p>
 	{else}
@@ -37,12 +36,9 @@
 	{/if}
 
 	<h2>SimpleLogger logs</h2>
-	{var $maxLines = 10}
-	<p>Showing last {$maxLines} lines per log file, oldest lines first.</p>
-	{var $now = new \DateTimeImmutable()}
-	{var $logs = \App\Dashboard\Logs::getLogs($now, $maxLines)}
-	{foreach $logs as $logName => $logLines}
-		<h4>{$logName} <small>({$now->format(\App\Config::DATE_FORMAT)})</small></h4>
+	<p>Simple logs in jsonl format for day {$simpleLogsDate->format(\App\Config::DATE_FORMAT)}. Oldest lines first.</p>
+	{foreach $simpleLogs as $logName => $logLines}
+		<h4>{$logName}</h4>
 		{if (count($logLines) === 0)}
 			<p>No log for this day is available.</p>
 		{else}

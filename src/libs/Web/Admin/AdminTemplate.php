@@ -37,17 +37,33 @@ class AdminTemplate extends LayoutTemplate
 	public readonly \stdClass $webhookResponse;
 	public readonly ?ClientException $webhookError;
 	public readonly bool $webhookOk;
+	// Logs
+	public readonly \DateTimeInterface $simpleLogsDate;
+	/** @var array<string, list<\stdClass>> */
+	public readonly array $simpleLogs;
+	/** @var array<string, list<string>> */
+	public readonly array $tracyLogs;
 
+	/**
+	 * @param array<string, list<\stdClass>> $simpleLogs
+	 * @param array<string, list<string>> $tracyLogs
+	 */
 	public function prepare(
 		Database $database,
 		Request $request,
 		?WebhookInfo $webhookInfo,
 		?ClientException $webhookError,
+		\DateTimeInterface $simpleLogsDate,
+		array $simpleLogs,
+		array $tracyLogs,
 	): void {
 		$this->database = $database;
 		$this->request = $request;
 		$this->webhookResponseRaw = $webhookInfo;
 		$this->webhookError = $webhookError;
+		$this->simpleLogsDate = $simpleLogsDate;
+		$this->simpleLogs = $simpleLogs;
+		$this->tracyLogs = $tracyLogs;
 
 		$this->appUrl = Config::getAppUrl();
 		$this->isAppUrlSet = $this->appUrl->isEqual(DefaultConfig::getAppUrl()) === false;
