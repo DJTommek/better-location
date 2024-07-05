@@ -218,18 +218,6 @@ class GooglePlaceApi
 
 	}
 
-
-	/**
-	 * Helper method to do all logic and return collection of locations
-	 *
-	 * @deprecated Create instance via new or using Factory and call searchPlace()
-	 */
-	public static function search(string $queryInput, ?string $languageCode = null, ?CoordinatesInterface $location = null): BetterLocationCollection
-	{
-		$placeApi = Factory::googlePlaceApi();
-		return $placeApi->searchPlace($queryInput, $languageCode, $location);
-	}
-
 	/**
 	 * Replace newlines with spaces and remove whitespaces from beginning and end of string
 	 */

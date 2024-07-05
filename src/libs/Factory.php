@@ -135,11 +135,6 @@ class Factory
 		return self::getContainer()->get(\App\Google\StreetView\StaticApi::class);
 	}
 
-	public static function googlePlaceApi(): \App\BetterLocation\GooglePlaceApi
-	{
-		return self::getContainer()->get(\App\BetterLocation\GooglePlaceApi::class);
-	}
-
 	public static function staticMapProxyFactory(): \App\BetterLocation\StaticMapProxyFactory
 	{
 		return self::getContainer()->get(\App\BetterLocation\StaticMapProxyFactory::class);
