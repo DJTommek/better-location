@@ -6,23 +6,21 @@ use App\BetterLocation\GooglePlaceApi;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\VcardLocationParser;
 use App\Config;
-use App\Factory;
 use PHPUnit\Framework\TestCase;
+use Tests\HttpTestClients;
 use Tests\LocationTrait;
 
 final class VcardLocationParserTest extends TestCase
 {
 	use LocationTrait;
 
-	private static GooglePlaceApi $api;
+	private readonly HttpTestClients $httpTestClients;
 
-	public static function setUpBeforeClass(): void
+	protected function setUp(): void
 	{
-		if (!Config::isGooglePlaceApi()) {
-			self::markTestSkipped('Missing Google API key');
-		}
+		parent::setUp();
 
-		self::$api = Factory::googlePlaceApi();
+		$this->httpTestClients = new HttpTestClients();
 	}
 
 	public static function basicProvider(): array
@@ -43,15 +41,32 @@ final class VcardLocationParserTest extends TestCase
 		];
 	}
 
-
 	/**
 	 * @dataProvider basicProvider
 	 * @group request
 	 */
-	public function testBasic(string $filePath, array $expectedResults): void
+	public function testBasicReal(string $filePath, array $expectedResults): void
 	{
-		$fileContent = file_get_contents($filePath);
-		$parser = new VcardLocationParser($fileContent, self::$api);
+		if (!Config::isGooglePlaceApi()) {
+			$this->markTestSkipped('Google Place API key is missing.');
+		}
+
+		$googlePlaceApi = new GooglePlaceApi($this->httpTestClients->realRequestor, Config::GOOGLE_PLACE_API_KEY);
+		$this->testBasic($googlePlaceApi, $filePath, $expectedResults);
+	}
+
+	/**
+	 * @dataProvider basicProvider
+	 */
+	public function testBasicOffline(string $filePath, array $expectedResults): void
+	{
+		$googlePlaceApi = new GooglePlaceApi($this->httpTestClients->offlineRequestor, '');
+		$this->testBasic($googlePlaceApi, $filePath, $expectedResults);
+	}
+
+	private function testBasic(GooglePlaceApi $googlePlaceApi, string $filePath, array $expectedResults): void
+	{
+		$parser = new VcardLocationParser(file_get_contents($filePath), $googlePlaceApi);
 		$parser->process();
 
 		$this->assertCollection($parser->getCollection(), $expectedResults);
@@ -59,9 +74,11 @@ final class VcardLocationParserTest extends TestCase
 
 	public function testUnprocessedYet(): void
 	{
+		$googlePlaceApi = new GooglePlaceApi($this->httpTestClients->mockedRequestor, '');
+
 		$this->expectException(\RuntimeException::class);
 		$this->expectExceptionMessage('Run App\BetterLocation\VcardLocationParser::process() first.');
-		$parser = new VcardLocationParser('anything here', self::$api);
+		$parser = new VcardLocationParser('anything here', $googlePlaceApi);
 		$parser->getCollection();
 	}
 }

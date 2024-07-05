@@ -1,0 +1,32 @@
+{
+   "candidates" : 
+   [
+      {
+         "formatted_address" : "Mikulášská 22/8, 110 00 Staré Město, Czechia",
+         "geometry" : 
+         {
+            "location" : 
+            {
+               "lat" : 50.0874001,
+               "lng" : 14.4198574
+            },
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 50.08896607989272,
+                  "lng" : 14.42149812989272
+               },
+               "southwest" : 
+               {
+                  "lat" : 50.08626642010727,
+                  "lng" : 14.41879847010728
+               }
+            }
+         },
+         "name" : "Mikulášská 22/8",
+         "place_id" : "ChIJkSnqI-mUC0cR-4Di1x_m7VA"
+      }
+   ],
+   "status" : "OK"
+}

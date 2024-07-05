@@ -1,0 +1,32 @@
+{
+   "candidates" : 
+   [
+      {
+         "formatted_address" : "Stewart Duff Drive, Wellington 6022, New Zealand",
+         "geometry" : 
+         {
+            "location" : 
+            {
+               "lat" : -41.3305202,
+               "lng" : 174.8120662
+            },
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : -41.32917037010728,
+                  "lng" : 174.8134160298927
+               },
+               "southwest" : 
+               {
+                  "lat" : -41.33187002989272,
+                  "lng" : 174.8107163701073
+               }
+            }
+         },
+         "name" : "Stewart Duff Drive",
+         "place_id" : "ChIJ0ybWanmlOG0RvoBwRQgLQiE"
+      }
+   ],
+   "status" : "OK"
+}
