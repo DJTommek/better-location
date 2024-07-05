@@ -32,4 +32,34 @@ trait LocationTrait
 		$this->assertCoordsWithDelta($expectedLat, $expectedLon, $location);
 		$this->assertSame($sourceType, $location->getSourceType());
 	}
+
+	/**
+	 * @param list<list{float, float, ?string, ?string}> $expectedResults
+	 *      latitude
+	 *      longitude
+	 *      sourceType      Default is null
+	 *      prefixMessage   Not asserting if null or not provided
+	 */
+	protected function assertCollection(
+		BetterLocationCollection $collection,
+		array $expectedResults,
+		float $delta = 0.000_001,
+	): void
+	{
+		$this->assertCount(count($expectedResults), $collection);
+
+		foreach ($expectedResults as $key => $expectedResult) {
+			$expectedLat = $expectedResult[0];
+			$expectedLon = $expectedResult[1];
+			$location = $collection[$key];
+			$this->assertCoordsWithDelta($expectedLat, $expectedLon, $location, $delta);
+			$expectedSourceType = $expectedResult[2] ?? null;
+			$this->assertSame($expectedSourceType, $location->getSourceType());
+
+			$expectedPrefix = $expectedResult[3] ?? null;
+			if ($expectedPrefix !== null) {
+				$this->assertSame($expectedPrefix, $location->getPrefixMessage());
+			}
+		}
+	}
 }
