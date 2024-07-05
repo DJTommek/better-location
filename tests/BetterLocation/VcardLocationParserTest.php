@@ -3,13 +3,17 @@
 namespace Tests\BetterLocation;
 
 use App\BetterLocation\GooglePlaceApi;
+use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\VcardLocationParser;
 use App\Config;
 use App\Factory;
 use PHPUnit\Framework\TestCase;
+use Tests\LocationTrait;
 
 final class VcardLocationParserTest extends TestCase
 {
+	use LocationTrait;
+
 	private static GooglePlaceApi $api;
 
 	public static function setUpBeforeClass(): void
@@ -21,47 +25,36 @@ final class VcardLocationParserTest extends TestCase
 		self::$api = Factory::googlePlaceApi();
 	}
 
-	/**
-	 * @group request
-	 */
-	public function testBasic(): void
+	public static function basicProvider(): array
 	{
-		$parser = new VcardLocationParser('BEGIN:VCARD
-VERSION:3.0
-FN:Tomas Palider
-ADR;HOME;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:;;22 Mikul=C3=A1=C5=A1sk=C3=A1;;;;Czechia
-ADR;type=WORK:345 Spear Street;;;San Francisco;California;94105;
-ADR;OTHER:;;;Stewart Duff Drive;Wellington;;6022;NZ
-URL:https://tomas.palider.cz/
-BDAY:1993-07-25
-TEL;CELL;PREF:+420123456789
-END:VCARD', self::$api);
-		$parser->process();
-
-		$collection = $parser->getCollection();
-		$this->assertCount(3, $collection);
-
-		$this->assertSame('50.087400,14.419857', (string)$collection[0]);
-		$this->assertSame('Contact Tomas Palider HOME address', $collection[0]->getPrefixMessage());
-
-		$this->assertSame('37.790106,-122.390502', (string)$collection[1]);
-		$this->assertSame('Contact Tomas Palider WORK address', $collection[1]->getPrefixMessage());
-
-		$this->assertSame('-41.330520,174.812066', (string)$collection[2]);
-		$this->assertSame('Contact Tomas Palider OTHER address', $collection[2]->getPrefixMessage());
+		return [
+			[
+				__DIR__ . '/fixtures/contact1-multiple-addresses.vcf',
+				[
+					[50.087400, 14.419857, GoogleMapsService::TYPE_INLINE_SEARCH, 'Contact Tomas Palider HOME address'],
+					[37.790106, -122.390502, GoogleMapsService::TYPE_INLINE_SEARCH, 'Contact Tomas Palider WORK address'],
+					[-41.330520, 174.812066, GoogleMapsService::TYPE_INLINE_SEARCH, 'Contact Tomas Palider OTHER address'],
+				],
+			],
+			[
+				__DIR__ . '/fixtures/contact2-no-location.vcf',
+				[],
+			],
+		];
 	}
 
-	public function testEmpty(): void
+
+	/**
+	 * @dataProvider basicProvider
+	 * @group request
+	 */
+	public function testBasic(string $filePath, array $expectedResults): void
 	{
-		$parser = new VcardLocationParser('BEGIN:VCARD
-VERSION:3.0
-FN:Tomas Palider
-URL:https://tomas.palider.cz/
-END:VCARD', self::$api);
+		$fileContent = file_get_contents($filePath);
+		$parser = new VcardLocationParser($fileContent, self::$api);
 		$parser->process();
 
-		$collection = $parser->getCollection();
-		$this->assertTrue($collection->isEmpty());
+		$this->assertCollection($parser->getCollection(), $expectedResults);
 	}
 
 	public function testUnprocessedYet(): void

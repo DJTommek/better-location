@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Tomas Palider
+ADR;HOME;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:;;22 Mikul=C3=A1=C5=A1sk=C3=A1;;;;Czechia
+ADR;type=WORK:345 Spear Street;;;San Francisco;California;94105;
+ADR;OTHER:;;;Stewart Duff Drive;Wellington;;6022;NZ
+URL:https://tomas.palider.cz/
+BDAY:1993-07-25
+TEL;CELL;PREF:+420123456789
+END:VCARD
