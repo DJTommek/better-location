@@ -44,7 +44,7 @@ END:VCARD', self::$api);
 		$this->assertSame('50.087400,14.419857', (string)$collection[0]);
 		$this->assertSame('Contact Tomas Palider HOME address', $collection[0]->getPrefixMessage());
 
-		$this->assertSame('37.789955,-122.389913', (string)$collection[1]);
+		$this->assertSame('37.790106,-122.390502', (string)$collection[1]);
 		$this->assertSame('Contact Tomas Palider WORK address', $collection[1]->getPrefixMessage());
 
 		$this->assertSame('-41.330520,174.812066', (string)$collection[2]);
