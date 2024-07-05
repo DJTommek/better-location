@@ -38,6 +38,10 @@ final class VcardLocationParserTest extends TestCase
 				__DIR__ . '/fixtures/contact2-no-location.vcf',
 				[],
 			],
+			[
+				__DIR__ . '/fixtures/contact3-invalid-address.vcf',
+				[],
+			],
 		];
 	}
 

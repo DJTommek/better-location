@@ -1,0 +1,6 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Tomas Palider
+ADR;type=HOME:localhost;;;My room;My apartment;12345;
+URL:https://tomas.palider.cz/
+END:VCARD
