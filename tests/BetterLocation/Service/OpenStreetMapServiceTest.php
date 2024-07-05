@@ -206,7 +206,7 @@ final class OpenStreetMapServiceTest extends AbstractServiceTestCase
 	/**
 	 * @dataProvider processShortUrlProvider
 	 * @dataProvider processNoteUrlProvider
-	 * @dataProviderr processNoteShortUrlProvider
+	 * @dataProvider processNoteShortUrlProvider
 	 */
 	public function testProcessRequestsOffline(array $expectedResults, string $input): void
 	{
