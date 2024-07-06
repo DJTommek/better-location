@@ -92,6 +92,12 @@ parameters:
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Events.php
 
+		-
+			# There are multiple methods that are always called, but PHPStan is not able to handle multiple "additionalConstructors" for single class
+			message: "#^Readonly property Tests\\\\HttpTestClients\\:\\:\\$.+ is already assigned\\.$#"
+			count: 4
+			path: tests\HttpTestClients.php
+
 
 
 includes:

@@ -101,7 +101,7 @@ return static function (ContainerConfigurator $container): void {
 
 	if (Config::isW3W()) {
 		$services->set(\What3words\Geocoder\Geocoder::class)
-			->arg('$api_key', Config::W3W_API_KEY);
+			->arg('$apiKey', Config::W3W_API_KEY);
 
 		$services->set(\App\WhatThreeWord\Helper::class);
 	}
