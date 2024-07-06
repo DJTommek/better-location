@@ -330,8 +330,26 @@ abstract class Events
 	public function runSmart(TelegramMethods $objectToSend): ?TelegramTypes
 	{
 		try {
+			// Object must be cloned before sending it, because API wrapper adjusts some data
+			$objectToSend2 = clone $objectToSend;
 			return $this->run($objectToSend);
 		} catch (ClientException $exception) {
+			assert(
+				isset($objectToSend2->chat_id)
+				&& $objectToSend2->chat_id !== ''
+				&& $objectToSend2->chat_id !== 0,
+			);
+			if (
+				$exception->getMessage() === TelegramHelper::UPGRADED_TO_SUPERGROUP
+				&& $objectToSend2->chat_id
+			) {
+				$newChatId = $exception->getError()?->parameters?->migrate_to_chat_id ?? 0;
+				if ($newChatId !== 0) {
+					$objectToSend2->chat_id = $newChatId;
+					return $this->run($objectToSend2);
+				}
+			}
+
 			$ignoredExceptions = [
 				TelegramHelper::NOT_CHANGED,
 				TelegramHelper::TOO_OLD,
