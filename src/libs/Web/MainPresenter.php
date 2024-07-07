@@ -194,5 +194,11 @@ abstract class MainPresenter
 		];
 		$this->sendJson($data, $httpCode);
 	}
+
+	final protected function renderForbidden(): never {
+		$this->setTemplateFilename('403.latte');
+		$this->latteFactory->render($this->templatefile, $this->template);
+		die();
+	}
 }
 
