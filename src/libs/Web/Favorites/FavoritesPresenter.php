@@ -43,10 +43,7 @@ class FavoritesPresenter extends MainPresenter
 				return;
 			}
 			$this->favoritesRepository->remove($favorite->id);
-
-			$newTitle = $this->request->getPost('title') ?? '';
-			$this->favoritesRepository->rename($id, $newTitle);
-			$this->flashMessage(sprintf('Favorite <b>%s</b> deleted.', $newTitle), Flash::SUCCESS);
+			$this->flashMessage(sprintf('Favorite <b>%s</b> was deleted.', htmlspecialchars($favorite->title)), Flash::SUCCESS);
 			$this->redirect('/favorites');
 		} catch (\DomainException $exception) {
 			$this->flashMessage($exception->getMessage(), Flash::ERROR);
