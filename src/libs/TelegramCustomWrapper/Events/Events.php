@@ -334,15 +334,11 @@ abstract class Events
 			$objectToSend2 = clone $objectToSend;
 			return $this->run($objectToSend);
 		} catch (ClientException $exception) {
-			assert(
-				isset($objectToSend2->chat_id)
-				&& $objectToSend2->chat_id !== ''
-				&& $objectToSend2->chat_id !== 0,
-			);
 			if (
 				$exception->getMessage() === TelegramHelper::UPGRADED_TO_SUPERGROUP
-				&& $objectToSend2->chat_id
+				&& isset($objectToSend2->chat_id)
 			) {
+				assert($objectToSend2->chat_id !== '' && $objectToSend2->chat_id !== 0);
 				$newChatId = $exception->getError()?->parameters?->migrate_to_chat_id ?? 0;
 				if ($newChatId !== 0) {
 					$objectToSend2->chat_id = $newChatId;
