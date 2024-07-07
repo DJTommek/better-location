@@ -4,6 +4,8 @@ namespace App\Repository;
 
 class FavouritesRepository extends Repository
 {
+	private const MAX_LENGTH = 30;
+
 	/**
 	 * @param int $userId
 	 * @param int[] $statuses
@@ -47,10 +49,19 @@ class FavouritesRepository extends Repository
 		$this->db->query('UPDATE better_location_favourites SET title = ? WHERE id = ?', htmlspecialchars($title), $id);
 	}
 
-	public function renameByUserLatLon(int $userId, float $lat, float $lon, $title): void
+	public function renameByUserLatLon(int $userId, float $lat, float $lon, string $title): void
 	{
+		$title = trim($title);
+		if ($title === '') {
+			throw new \DomainException('Favorite title must not be empty.');
+		}
+
+		if (mb_strlen($title) > self::MAX_LENGTH) {
+			throw new \DomainException(sprintf('Favorite title is too long, maximum is %d characters.', self::MAX_LENGTH));
+		}
+
 		$this->db->query('UPDATE better_location_favourites SET title = ? WHERE user_id = ? AND lat = ? AND lon = ?',
-			htmlspecialchars($title), $userId, $lat, $lon
+			$title, $userId, $lat, $lon
 		);
 	}
 }

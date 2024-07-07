@@ -100,7 +100,12 @@ class User
 
 	public function renameFavourite(BetterLocation $location, string $title): BetterLocation
 	{
-		$this->favouritesRepository->renameByUserLatLon($this->userEntity->id, $location->getLat(), $location->getLon(), $title);
+		$this->favouritesRepository->renameByUserLatLon(
+			$this->userEntity->id,
+			$location->getLat(),
+			$location->getLon(),
+			htmlspecialchars($title),
+		);
 		$this->favourites = null; // clear cached favourites
 		return $this->getFavourite($location->getLat(), $location->getLon());
 	}
@@ -126,7 +131,7 @@ class User
 			$this->favourites = new BetterLocationCollection();
 			foreach ($this->favouritesRepository->byUserId($this->userEntity->id) as $favourite) {
 				$location = BetterLocation::fromLatLon($favourite->lat, $favourite->lon);
-				$location->setPrefixMessage(sprintf('%s %s', Icons::FAVOURITE, $favourite->title));
+				$location->setPrefixMessage(sprintf('%s %s', Icons::FAVOURITE, htmlspecialchars($favourite->title)));
 				$this->favourites->add($location);
 			}
 		}
