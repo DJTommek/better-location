@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
-class FavouritesEntity extends Entity
+use DJTommek\Coordinates\CoordinatesInterface;
+
+class FavouritesEntity extends Entity implements CoordinatesInterface
 {
 	/** @var int */
 	public $id;
@@ -27,5 +29,20 @@ class FavouritesEntity extends Entity
 		$entity->lon = $row['lon'];
 		$entity->title = $row['title'];
 		return $entity;
+	}
+
+	public function getLat(): float
+	{
+		return $this->lat;
+	}
+
+	public function getLon(): float
+	{
+		return $this->lon;
+	}
+
+	public function getLatLon(string $delimiter = ','): string
+	{
+		return sprintf('%F,%F', $this->lat, $this->lon);
 	}
 }
