@@ -1,0 +1,56 @@
+{templateType App\Web\Favorites\FavoritesTemplate}
+{layout '@layout.latte'}
+{block content}
+	<div id="content-favorites">
+		<h2>Favorites</h2>
+		{if $favorites}
+			<table class="table">
+				<thead>
+				<tr>
+					<th>Name</th>
+					<th>
+						<a href="{$basePath}/{allLatLon()}">
+							Coordinates
+						</a>
+					</th>
+					<th>Action</th>
+				</tr>
+				</thead>
+				<tbody>
+				{foreach $favorites as $favorite}
+					<form method="POST">
+						<input type="hidden" name="id" value="{$favorite->id}">
+						<tr>
+							<td>
+								<input type="text" name="title" value="{$favorite->title}">
+							</td>
+							<td>
+								<a href="{$basePath}/{$favorite->getLatLon()}">
+									{$favorite->getLatLon()}
+								</a>
+							</td>
+							<td>
+								<button type="submit" name="action" value="rename" class="btn btn-sm btn-primary">Rename</button>
+								<button
+										type="submit"
+										name="action"
+										value="delete"
+										class="btn btn-sm btn-danger"
+										onclick="return confirm('Are you sure you want to delete favorite {$favorite->title}?');">
+									Delete
+								</button>
+							</td>
+						</tr>
+					</form>
+				{/foreach}
+				</tbody>
+			</table>
+		{else}
+			No favorites, yet. Send some location
+		{/if}
+	</div>
+{/block}
+
+{block title}
+	Favorites
+{/block}

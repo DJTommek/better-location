@@ -22,6 +22,15 @@ class FavouritesRepository extends Repository
 		return FavouritesEntity::fromRows($rows);
 	}
 
+	public function byIdAndUserId(int $id, int $userId): ?FavouritesEntity
+	{
+		$row = $this->db->query('SELECT * FROM better_location_favourites WHERE id = ? AND user_id = ?', $id, $userId)->fetch();
+		if ($row === false) {
+			return null;
+		}
+		return FavouritesEntity::fromRow($row);
+	}
+
 	public function add(int $userId, float $lat, float $lon, string $title): void
 	{
 		$sql = 'INSERT INTO better_location_favourites (user_id, status, lat, lon, title) VALUES (?, ?, ?, ?, ?)';
@@ -46,7 +55,16 @@ class FavouritesRepository extends Repository
 
 	public function rename(int $id, string $title): void
 	{
-		$this->db->query('UPDATE better_location_favourites SET title = ? WHERE id = ?', htmlspecialchars($title), $id);
+		$title = trim($title);
+		if ($title === '') {
+			throw new \DomainException('Favorite title must not be empty.');
+		}
+
+		if (mb_strlen($title) > self::MAX_LENGTH) {
+			throw new \DomainException(sprintf('Favorite title is too long, maximum is %d characters.', self::MAX_LENGTH));
+		}
+
+		$this->db->query('UPDATE better_location_favourites SET title = ? WHERE id = ?', $title, $id);
 	}
 
 	public function renameByUserLatLon(int $userId, float $lat, float $lon, string $title): void

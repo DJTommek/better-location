@@ -16,6 +16,7 @@
 	# Nicer URL and for future compatibility if some router is implemented
 	RewriteRule webhook/telegram/([0-9a-zA-Z]+) webhook/telegram.php?password=$1 [L]
 	RewriteRule api/staticmap/([0-9a-f]+) api/staticmap.php?id=$1 [L]
+	RewriteRule favorites favorites.php
 	# One or more location(s) in URL. Examples:
 	# 50.123,14.456
 	# -50,-14
