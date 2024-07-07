@@ -12,6 +12,7 @@ use App\TelegramCustomWrapper\UniversalHandleLocationTrait;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram;
+use unreal4u\TelegramAPI\Telegram\Types;
 
 class FileEvent extends Special
 {
@@ -103,6 +104,14 @@ class FileEvent extends Special
 			return;
 		}
 
+		$isRefreshable = $this->collection->hasRefreshableLocation();
+		if ($isRefreshable) {
+			$markup = new Types\Inline\Keyboard\Markup();
+			$markup->inline_keyboard = [
+				BetterLocation::generateRefreshButtons(false),
+			];
+		}
+
 		$message = 'Hi there!' . PHP_EOL;
 		$message .= 'Thanks for the ';
 		if ($this->isTgForward()) {
@@ -114,7 +123,15 @@ class FileEvent extends Special
 		} else {
 			$message .= 'I\'m not sure, what to do... No location in EXIF was found.';
 		}
-		$this->reply($message);
+		$response = $this->reply($message, $markup ?? null);
+
+		if ($isRefreshable) {
+			$this->addToUpdateDb(
+				$response,
+				$message,
+				$markup,
+			);
+		}
 	}
 }
 

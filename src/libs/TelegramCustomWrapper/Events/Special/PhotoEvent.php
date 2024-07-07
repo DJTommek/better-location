@@ -2,9 +2,11 @@
 
 namespace App\TelegramCustomWrapper\Events\Special;
 
+use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\FromTelegramMessage;
 use App\TelegramCustomWrapper\UniversalHandleLocationTrait;
+use unreal4u\TelegramAPI\Telegram\Types;
 
 class PhotoEvent extends Special
 {
@@ -45,13 +47,30 @@ class PhotoEvent extends Special
 			return;
 		}
 
+		$isRefreshable = $this->collection->hasRefreshableLocation();
+		if ($isRefreshable) {
+			$markup = new Types\Inline\Keyboard\Markup();
+			$markup->inline_keyboard = [
+				BetterLocation::generateRefreshButtons(false),
+			];
+		}
+
 		$message = 'Hi there in PM!' . PHP_EOL;
 		$message .= 'Thanks for the ';
 		if ($this->isTgForward()) {
 			$message .= 'forwarded ';
 		}
 		$message .= 'photo but I\'m not sure, what to do... If you want to process location from EXIF, you have to send <b>uncompressed</b> photo (send as file).';
-		$this->reply($message);
+		$response = $this->reply($message, $markup ?? null);
+
+		if ($isRefreshable) {
+			$this->addToUpdateDb(
+				$response,
+				$message,
+				$markup,
+			);
+		}
+
 	}
 }
 

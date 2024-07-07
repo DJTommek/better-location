@@ -158,6 +158,12 @@ class DefaultConfig
 	const REFRESH_CRON_MIN_OLD = 300;
 
 	/**
+	 * @var int How many seconds has to elapse since last update, before automatic refresh is disabled, if collection
+	 * does not has any locations.
+	 */
+	const REFRESH_NO_LOCATION_DISABLE = 300;
+
+	/**
 	 * @var string URL for requests for Nominatim search engine.
 	 *
 	 * @link https://nominatim.openstreetmap.org/ui/about.html

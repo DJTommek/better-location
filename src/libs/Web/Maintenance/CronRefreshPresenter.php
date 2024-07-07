@@ -42,11 +42,13 @@ class CronRefreshPresenter extends MainPresenter
 
 	private function run2(): void
 	{
+		$now = new \DateTimeImmutable();
+
 		$messagesToRefresh = \App\TelegramUpdateDb::loadAll(
 			\App\TelegramUpdateDb::STATUS_ENABLED,
 			null,
 			Config::REFRESH_CRON_MAX_UPDATES,
-			(new \DateTime())->sub(new \DateInterval(sprintf('PT%dS', Config::REFRESH_CRON_MIN_OLD))),
+			$now->sub(new \DateInterval(sprintf('PT%dS', Config::REFRESH_CRON_MIN_OLD))),
 		);
 
 		if (count($messagesToRefresh) === 0) {
@@ -94,12 +96,15 @@ class CronRefreshPresenter extends MainPresenter
 					$lastAutorefreshMarkup->inline_keyboard[] = BetterLocation::generateRefreshButtons(false);
 				}
 
-				if (count($collection->getLocations()) === 0) {
+				if ($collection->isEmpty()) {
 					$this->printlog(sprintf('Update %s don\'t have any locations anymore, disabling autorefresh.', $id));
 					$msg->text = $messageToRefresh->getLastResponseText() . sprintf('%s Last autorefresh at %s didn\'t detect any locations. Autorefreshing was disabled but you can try to enable it again.', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
 					$msg->reply_markup = $lastAutorefreshMarkup;
-					$messageToRefresh->autorefreshDisable();
-					$this->telegramCustomWrapper->run($msg);
+					$updatedAgo = $now->getTimestamp() - $messageToRefresh->getLastUpdate()->getTimestamp();
+					if ($updatedAgo > Config::REFRESH_NO_LOCATION_DISABLE) {
+						$messageToRefresh->autorefreshDisable();
+						$this->telegramCustomWrapper->run($msg);
+					}
 				} else {
 					$replyMarkup = $processedCollection->getMarkup(1);
 					$text = $processedCollection->getText();

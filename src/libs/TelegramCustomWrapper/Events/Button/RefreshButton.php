@@ -107,7 +107,7 @@ class RefreshButton extends Button
 			$processedCollection->process();
 			$text = $processedCollection->getText();
 			$text .= sprintf('%s Last refresh: %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
-			if (count($collection->getLocations()) > 0) {
+			if ($collection->isEmpty() === false) {
 				$this->replyButton($text, $processedCollection->getMarkup(1), ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
 			} else {
 				// @TODO if returned location would remove refresh buttons (no refreshable location) or returned error, do not update

@@ -24,6 +24,12 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	private ?UrlImmutable $staticMapUrl = null;
 
 	/**
+	 * Set to true or false to override checking individual locations in this collection. Useful if collection
+	 * is empty.
+	 */
+	public ?bool $hasRefreshableLocation = null;
+
+	/**
 	 * @return BetterLocation[]
 	 */
 	public function __invoke(): array
@@ -140,23 +146,37 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 
 	public function offsetSet($offset, $value): void
 	{
-		if ($value instanceof BetterLocation) {
-			if (is_null($offset)) {
-				$this->locations[] = $value;
-			} else {
-				$this->locations[$offset] = $value;
+		try {
+			if ($value instanceof BetterLocation) {
+				if (is_null($offset)) {
+					$this->locations[] = $value;
+				} else {
+					$this->locations[$offset] = $value;
+				}
+				return;
 			}
-		} else if ($value instanceof BetterLocationCollection) {
-			foreach ($value->getLocations() as $betterLocation) {
-				$this->add($betterLocation);
+
+			if ($value instanceof BetterLocationCollection) {
+				foreach ($value->getLocations() as $betterLocation) {
+					$this->add($betterLocation);
+				}
+				if ($value->hasRefreshableLocation !== null) {
+					$this->hasRefreshableLocation = $value->hasRefreshableLocation;
+				}
+				return;
 			}
-		} else if ($value instanceof \Throwable) {
-			Debugger::log('Pushing exceptions to BetterLocationCollection is deprecated.', Debugger::WARNING);
-			Debugger::log($value, Debugger::WARNING);
-		} else {
-			throw new \InvalidArgumentException(sprintf('%s is accepting only "%s" and "%s" objects.', self::class, BetterLocation::class, BetterLocationCollection::class));
+
+			if ($value instanceof \Throwable) {
+				Debugger::log('Pushing exceptions to BetterLocationCollection is deprecated.', Debugger::WARNING);
+				Debugger::log($value, Debugger::WARNING);
+				return;
+			}
+
+		} finally {
+			$this->clearLazyLoad();
 		}
-		$this->clearLazyLoad();
+
+		throw new \InvalidArgumentException(sprintf('%s is accepting only "%s" and "%s" objects.', self::class, BetterLocation::class, BetterLocationCollection::class));
 	}
 
 	public function offsetUnset($offset): void
@@ -202,6 +222,10 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 
 	public function hasRefreshableLocation(): bool
 	{
+		if ($this->hasRefreshableLocation !== null) {
+			return $this->hasRefreshableLocation;
+		}
+
 		foreach ($this->locations as $location) {
 			if ($location->isRefreshable()) {
 				return true;

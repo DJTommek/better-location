@@ -2,6 +2,7 @@
 
 namespace App\TelegramCustomWrapper\Events\Special;
 
+use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\FromTelegramMessage;
 use App\BetterLocation\GooglePlaceApi;
@@ -10,6 +11,7 @@ use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
 use App\TelegramCustomWrapper\UniversalHandleLocationTrait;
 use Tracy\Debugger;
+use unreal4u\TelegramAPI\Telegram\Types;
 
 class MessageEvent extends Special
 {
@@ -70,6 +72,14 @@ class MessageEvent extends Special
 			return;
 		}
 
+		$isRefreshable = $this->collection->hasRefreshableLocation();
+		if ($isRefreshable) {
+			$markup = new Types\Inline\Keyboard\Markup();
+			$markup->inline_keyboard = [
+				BetterLocation::generateRefreshButtons(false),
+			];
+		}
+
 		$message = 'Hi there in PM!' . PHP_EOL;
 		$message .= 'Thanks for the ';
 		if ($this->isTgForward()) {
@@ -81,7 +91,15 @@ class MessageEvent extends Special
 		$message .= '- send me Telegram location' . PHP_EOL;
 		$message .= '- send me <b>uncompressed</b> photos (as file) to process location from EXIF' . PHP_EOL;
 		$message .= '- forward me any of above' . PHP_EOL;
-		$this->reply($message);
+		$response = $this->reply($message, $markup ?? null);
+
+		if ($isRefreshable) {
+			$this->addToUpdateDb(
+				$response,
+				$message,
+				$markup,
+			);
+		}
 	}
 }
 

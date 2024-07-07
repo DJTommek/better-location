@@ -62,8 +62,10 @@ final class GlympseService extends AbstractService
 		}
 
 		if ($this->data->inviteId ?? null) {
+			$this->collection->hasRefreshableLocation = true;
 			$this->processInvite();
 		} else if ($this->data->groupName ?? null) {
+			$this->collection->hasRefreshableLocation = true;
 			$this->processGroup();
 		} else {
 			throw new \LogicException(sprintf('Invalid %s link.', self::NAME));

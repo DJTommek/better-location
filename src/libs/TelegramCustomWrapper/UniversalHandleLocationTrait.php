@@ -79,7 +79,10 @@ trait UniversalHandleLocationTrait
 		$markup = $processedCollection->getMarkup(1, $this->includeRefreshRow());
 		$response = $this->reply($text, $markup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
 
-		$this->addToUpdateDb($processedCollection, $response, $text, $markup);
+		if ($processedCollection->getCollection()->hasRefreshableLocation()) {
+			$this->addToUpdateDb($response, $text, $markup);
+		}
+
 	}
 
 	private function outputNativeLocation(ProcessedMessageResult $processedCollection): void
@@ -127,17 +130,12 @@ trait UniversalHandleLocationTrait
 
 	}
 
-	private function addToUpdateDb(
-		ProcessedMessageResult $processedCollection,
+	public function addToUpdateDb(
 		?Telegram\Types\Message $response,
 		string $text,
 		Markup $markup,
 	): void {
 		if ($response === null) {
-			return;
-		}
-
-		if ($processedCollection->getCollection()->hasRefreshableLocation() === false) {
 			return;
 		}
 
