@@ -7,7 +7,6 @@ use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\Button\HelpButton;
-use App\TelegramCustomWrapper\Events\Command\StartCommand;
 use App\User;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
@@ -53,35 +52,20 @@ trait FavouritesTrait
 				$text .= $favourite->generateMessage($this->getMessageSettings());
 
 				$shareFavouriteButton = new Button();
-				$shareFavouriteButton->text = sprintf('Share %s', $favourite->getPrefixMessage());
-				$shareFavouriteButton->switch_inline_query = $favourite->__toString();
+				$shareFavouriteButton->text = sprintf('Share %s', htmlspecialchars_decode($favourite->getPrefixMessage()));
+				$shareFavouriteButton->switch_inline_query = (string)$favourite;
 
 				$replyMarkup->inline_keyboard[] = [$shareFavouriteButton];
-				$buttonRow = [];
-
-				$renameFavouriteButton = new Button();
-				$renameFavouriteButton->text = sprintf('%s Rename', Icons::CHANGE);
-				$renameFavouriteButton->switch_inline_query_current_chat = sprintf('%s %s %F %F %s',
-					StartCommand::FAVOURITE,
-					StartCommand::FAVOURITE_RENAME,
-					$favourite->getLat(),
-					$favourite->getLon(),
-					mb_substr($favourite->getPrefixMessage(), 2), // Remove favourites icon and space (@TODO should not use getPrefixMessage())
-				);
-				$buttonRow[] = $renameFavouriteButton;
-
-				$deleteFavouriteButton = new Button();
-				$deleteFavouriteButton->text = sprintf('%s Delete', Icons::DELETE);
-				$deleteFavouriteButton->callback_data = sprintf('%s %s %F %F', FavouritesButton::CMD, FavouritesButton::ACTION_DELETE, $favourite->getLat(), $favourite->getLon());
-				$buttonRow[] = $deleteFavouriteButton;
-
-				$replyMarkup->inline_keyboard[] = $buttonRow;
 			}
 		}
-		$text .= sprintf('%s To add a location to your favourites, just send any link, coordinates etc. to me via PM and click on the %s button in my response.', Icons::INFO, Icons::FAVOURITE) . PHP_EOL;
+		$text .= sprintf('%s To add a location to your favourites, open any link leading to BetterLocation website in any location and click on %s icon. Just make sure, that you are logged in.', Icons::INFO, Icons::FAVOURITE) . PHP_EOL;
 
-		return [$text, $replyMarkup, [
-			'disable_web_page_preview' => !$this->getChat()->settingsPreview()
-		]];
+		return [
+			$text,
+			$replyMarkup,
+			[
+				'disable_web_page_preview' => !$this->getChat()->settingsPreview(),
+			],
+		];
 	}
 }

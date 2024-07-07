@@ -131,26 +131,6 @@ class InlineQueryEvent extends Special
 				$answerInlineQuery->switch_pm_text = 'Search location (coordinates, link, etc)';
 				$answerInlineQuery->switch_pm_parameter = 'inline-empty';
 			}
-		} else if (preg_match(sprintf('/^%s %s (-?[0-9]{1,2}\.[0-9]{1,6}) (-?[0-9]{1,3}\.[0-9]{1,6}) (.+)$/', StartCommand::FAVOURITE, StartCommand::FAVOURITE_RENAME), $queryInput, $matches)) {
-			$newName = strip_tags($matches[3]);
-			$newNameCommandDecoded = TelegramHelper::InlineTextEncode(
-				sprintf('%s %s %F %F %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_RENAME, $matches[1], $matches[2], $newName),
-			);
-			if (mb_strlen($newNameCommandDecoded) > 64) {
-				$answerInlineQuery->switch_pm_text = sprintf('New name is too long.');
-				$answerInlineQuery->switch_pm_parameter = TelegramHelper::InlineTextEncode(
-					sprintf('%s %s %s', StartCommand::FAVOURITE, StartCommand::FAVOURITE_ERROR, StartCommand::FAVOURITE_ERROR_TOO_LONG),
-				);
-			} else {
-				$answerInlineQuery->switch_pm_text = sprintf('%s Rename to "%s"', Icons::CHANGE, $newName);
-				$answerInlineQuery->switch_pm_parameter = $newNameCommandDecoded;
-			}
-//		} else if (preg_match(sprintf('/^%s %s (-?[0-9]{1,2}\.[0-9]{1,6}) (-?[0-9]{1,3}\.[0-9]{1,6})$/', StartCommand::FAVOURITE, StartCommand::FAVOURITE_DELETE), $queryInput, $matches)) {
-//			list(, $lat, $lon) = $matches;
-//			$lat = floatval($lat);
-//			$lon = floatval($lon);
-//			$answerInlineQuery->switch_pm_text = sprintf('%s Delete %s,%s', \Icons::DELETE, $lat, $lon);
-//			$answerInlineQuery->switch_pm_parameter = TelegramHelper::InlineTextEncode(sprintf('%s %s %F %F', StartCommand::FAVOURITE, StartCommand::FAVOURITE_DELETE, $lat, $lon));
 		} else {
 			$entities = TelegramHelper::generateEntities($queryInput);
 			try {

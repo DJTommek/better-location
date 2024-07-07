@@ -161,11 +161,6 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Button/Button.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\FavouritesButton\\:\\:deleteFavourite\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Button/FavouritesButton.php
-
-		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\FavouritesButton\\:\\:processFavouritesList\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Button/FavouritesButton.php

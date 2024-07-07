@@ -66,20 +66,4 @@ class FavouritesRepository extends Repository
 
 		$this->db->query('UPDATE better_location_favourites SET title = ? WHERE id = ?', $title, $id);
 	}
-
-	public function renameByUserLatLon(int $userId, float $lat, float $lon, string $title): void
-	{
-		$title = trim($title);
-		if ($title === '') {
-			throw new \DomainException('Favorite title must not be empty.');
-		}
-
-		if (mb_strlen($title) > self::MAX_LENGTH) {
-			throw new \DomainException(sprintf('Favorite title is too long, maximum is %d characters.', self::MAX_LENGTH));
-		}
-
-		$this->db->query('UPDATE better_location_favourites SET title = ? WHERE user_id = ? AND lat = ? AND lon = ?',
-			$title, $userId, $lat, $lon
-		);
-	}
 }

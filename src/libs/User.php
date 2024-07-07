@@ -98,18 +98,6 @@ class User
 		$this->favourites = null; // clear cached favourites
 	}
 
-	public function renameFavourite(BetterLocation $location, string $title): BetterLocation
-	{
-		$this->favouritesRepository->renameByUserLatLon(
-			$this->userEntity->id,
-			$location->getLat(),
-			$location->getLon(),
-			htmlspecialchars($title),
-		);
-		$this->favourites = null; // clear cached favourites
-		return $this->getFavourite($location->getLat(), $location->getLon());
-	}
-
 	public function getId(): int
 	{
 		return $this->userEntity->id;
