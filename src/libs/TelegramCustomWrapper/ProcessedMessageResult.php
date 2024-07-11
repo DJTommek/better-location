@@ -29,6 +29,8 @@ class ProcessedMessageResult
 		private BetterLocationMessageSettings $messageSettings,
 		private ?Pluginer $pluginer = null,
 		private readonly ?bool $addressForce = null,
+		private readonly int $maxLocationsCount = Config::TELEGRAM_MAXIMUM_LOCATIONS,
+		private readonly int $maxTextLength = Config::TELEGRAM_BETTER_LOCATION_MESSAGE_LIMIT,
 	) {
 	}
 
@@ -89,8 +91,8 @@ class ProcessedMessageResult
 			$this->validLocationsCount++;
 
 			if (
-				strlen($this->resultText) >= Config::TELEGRAM_BETTER_LOCATION_MESSAGE_LIMIT
-				|| $this->validLocationsCount >= Config::TELEGRAM_MAXIMUM_LOCATIONS
+				strlen($this->resultText) >= $this->maxTextLength
+				|| $this->validLocationsCount >= $this->maxLocationsCount
 			) {
 				$this->resultText .= sprintf(
 					'Showing only first %d of %d detected locations. All at once can be opened with links on top of the message.',

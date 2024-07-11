@@ -6,6 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\WazeService;
+use App\Config;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use PHPUnit\Framework\TestCase;
@@ -101,6 +102,77 @@ final class ProcessedMessageResultTest extends TestCase
 				new BetterLocationMessageSettings(address: false),
 			],
 
+			// Default settings with multiple items but max location count limits result only to first location
+			[
+				'2 locations: <a href="https://better-location.palider.cz/50.087451,14.420671;36.826460,22.528715" target="_blank">BetterLocation</a> | <a href="https://mapy.cz/zakladni?vlastni-body&uc=9hAK0xXxOKu02Lcw61El" target="_blank">Mapy.cz</a>
+
+<a href="https://www.waze.com/ul?ll=50.087451123456789%2C14.420671123456789">Waze</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087451%26x%3D14.420671%26source%3Dcoor%26id%3D14.420671%252C50.087451%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>50.087451,14.420671</code>
+<a href="https://better-location.palider.cz/50.087451,14.420671" target="_blank">BetterLocation</a> | <a href="https://www.google.com/maps/place/50.087451,14.420671?q=50.087451,14.420671" target="_blank">Google</a> | <a href="https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451" target="_blank">Mapy.cz</a> | <a href="https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps" target="_blank">DDG</a> | <a href="https://www.waze.com/ul?ll=50.087451,14.420671" target="_blank">Waze</a> | <a href="https://share.here.com/l/50.087451,14.420671?p=yes" target="_blank">HERE</a> | <a href="https://www.openstreetmap.org/search?whereami=1&query=50.087451,14.420671&mlat=50.087451&mlon=14.420671#map=17/50.087451/14.420671" target="_blank">OSM</a>
+
+',
+				[
+					[
+						[
+							'text' => 'Google 🚗',
+							'url' => 'https://www.google.com/maps/dir/?api=1&destination=50.087451%2C14.420671&travelmode=driving&dir_action=navigate',
+						],
+						[
+							'text' => 'Waze 🚗',
+							'url' => 'https://www.waze.com/ul?ll=50.087451,14.420671&navigate=yes',
+						],
+						[
+							'text' => 'HERE 🚗',
+							'url' => 'https://share.here.com/r/50.087451,14.420671',
+						],
+						[
+							'text' => 'OsmAnd 🚗',
+							'url' => 'https://osmand.net/go.html?lat=50.087451&lon=14.420671',
+						],
+					],
+				],
+				(new BetterLocationCollection())
+					->add(new BetterLocation('https://www.waze.com/ul?ll=50.087451123456789,14.420671123456789', 50.087451123456789, 14.420671123456789, WazeService::class))
+					->add(new BetterLocation('https://www.google.cz/maps/@36.8264601,22.5287146,9.33z', 36.826460, 22.528715, WazeService::class)),
+				new BetterLocationMessageSettings(address: false),
+				1,
+			],
+
+			// Default settings with multiple items but maximum text length forcing only first location
+			[
+				'2 locations: <a href="https://better-location.palider.cz/50.087451,14.420671;36.826460,22.528715" target="_blank">BetterLocation</a> | <a href="https://mapy.cz/zakladni?vlastni-body&uc=9hAK0xXxOKu02Lcw61El" target="_blank">Mapy.cz</a>
+
+<a href="https://www.waze.com/ul?ll=50.087451123456789%2C14.420671123456789">Waze</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087451%26x%3D14.420671%26source%3Dcoor%26id%3D14.420671%252C50.087451%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>50.087451,14.420671</code>
+<a href="https://better-location.palider.cz/50.087451,14.420671" target="_blank">BetterLocation</a> | <a href="https://www.google.com/maps/place/50.087451,14.420671?q=50.087451,14.420671" target="_blank">Google</a> | <a href="https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451" target="_blank">Mapy.cz</a> | <a href="https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps" target="_blank">DDG</a> | <a href="https://www.waze.com/ul?ll=50.087451,14.420671" target="_blank">Waze</a> | <a href="https://share.here.com/l/50.087451,14.420671?p=yes" target="_blank">HERE</a> | <a href="https://www.openstreetmap.org/search?whereami=1&query=50.087451,14.420671&mlat=50.087451&mlon=14.420671#map=17/50.087451/14.420671" target="_blank">OSM</a>
+
+',
+				[
+					[
+						[
+							'text' => 'Google 🚗',
+							'url' => 'https://www.google.com/maps/dir/?api=1&destination=50.087451%2C14.420671&travelmode=driving&dir_action=navigate',
+						],
+						[
+							'text' => 'Waze 🚗',
+							'url' => 'https://www.waze.com/ul?ll=50.087451,14.420671&navigate=yes',
+						],
+						[
+							'text' => 'HERE 🚗',
+							'url' => 'https://share.here.com/r/50.087451,14.420671',
+						],
+						[
+							'text' => 'OsmAnd 🚗',
+							'url' => 'https://osmand.net/go.html?lat=50.087451&lon=14.420671',
+						],
+					],
+				],
+				(new BetterLocationCollection())
+					->add(new BetterLocation('https://www.waze.com/ul?ll=50.087451123456789,14.420671123456789', 50.087451123456789, 14.420671123456789, WazeService::class))
+					->add(new BetterLocation('https://www.google.cz/maps/@36.8264601,22.5287146,9.33z', 36.826460, 22.528715, WazeService::class)),
+				new BetterLocationMessageSettings(address: false),
+				null,
+				100,
+			],
+
 			// Empty collection
 			[
 				'',
@@ -114,9 +186,20 @@ final class ProcessedMessageResultTest extends TestCase
 	/**
 	 * @dataProvider basicProvider
 	 */
-	public function testBasic(string $expectedText, array $expectedButtons, BetterLocationCollection $collection, BetterLocationMessageSettings $settings): void
-	{
-		$processedCollection = new ProcessedMessageResult($collection, $settings);
+	public function testBasic(
+		string $expectedText,
+		array $expectedButtons,
+		BetterLocationCollection $collection,
+		BetterLocationMessageSettings $settings,
+		?int $maxLocationsCount = null,
+		?int $maxTextLength = null,
+	): void {
+		$processedCollection = new ProcessedMessageResult(
+			collection: $collection,
+			messageSettings: $settings,
+			maxLocationsCount: $maxLocationsCount ?? Config::TELEGRAM_MAXIMUM_LOCATIONS,
+			maxTextLength: $maxTextLength ?? Config::TELEGRAM_BETTER_LOCATION_MESSAGE_LIMIT,
+		);
 		$processedCollection->process();
 
 		$realText = preg_replace("/\R/u", PHP_EOL, $processedCollection->getText(false));
