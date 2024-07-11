@@ -109,7 +109,7 @@ final class ProcessedMessageResultTest extends TestCase
 <a href="https://www.waze.com/ul?ll=50.087451123456789%2C14.420671123456789">Waze</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087451%26x%3D14.420671%26source%3Dcoor%26id%3D14.420671%252C50.087451%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>50.087451,14.420671</code>
 <a href="https://better-location.palider.cz/50.087451,14.420671" target="_blank">BetterLocation</a> | <a href="https://www.google.com/maps/place/50.087451,14.420671?q=50.087451,14.420671" target="_blank">Google</a> | <a href="https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451" target="_blank">Mapy.cz</a> | <a href="https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps" target="_blank">DDG</a> | <a href="https://www.waze.com/ul?ll=50.087451,14.420671" target="_blank">Waze</a> | <a href="https://share.here.com/l/50.087451,14.420671?p=yes" target="_blank">HERE</a> | <a href="https://www.openstreetmap.org/search?whereami=1&query=50.087451,14.420671&mlat=50.087451&mlon=14.420671#map=17/50.087451/14.420671" target="_blank">OSM</a>
 
-',
+Showing only first 1 of 2 detected locations. All at once can be opened with links on top of the message.',
 				[
 					[
 						[
@@ -144,7 +144,7 @@ final class ProcessedMessageResultTest extends TestCase
 <a href="https://www.waze.com/ul?ll=50.087451123456789%2C14.420671123456789">Waze</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087451%26x%3D14.420671%26source%3Dcoor%26id%3D14.420671%252C50.087451%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>50.087451,14.420671</code>
 <a href="https://better-location.palider.cz/50.087451,14.420671" target="_blank">BetterLocation</a> | <a href="https://www.google.com/maps/place/50.087451,14.420671?q=50.087451,14.420671" target="_blank">Google</a> | <a href="https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451" target="_blank">Mapy.cz</a> | <a href="https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps" target="_blank">DDG</a> | <a href="https://www.waze.com/ul?ll=50.087451,14.420671" target="_blank">Waze</a> | <a href="https://share.here.com/l/50.087451,14.420671?p=yes" target="_blank">HERE</a> | <a href="https://www.openstreetmap.org/search?whereami=1&query=50.087451,14.420671&mlat=50.087451&mlon=14.420671#map=17/50.087451/14.420671" target="_blank">OSM</a>
 
-',
+Showing only first 1 of 2 detected locations. All at once can be opened with links on top of the message.',
 				[
 					[
 						[
