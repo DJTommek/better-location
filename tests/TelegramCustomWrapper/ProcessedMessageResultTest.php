@@ -63,7 +63,7 @@ final class ProcessedMessageResultTest extends TestCase
 		$processedCollection = new ProcessedMessageResult($collection, $settings);
 		$processedCollection->process();
 
-		$realText = str_replace("\n", PHP_EOL, $processedCollection->getText(false));
+		$realText = preg_replace("/\R/u", PHP_EOL, $processedCollection->getText(false));
 		$this->assertSame($expectedText, $realText);
 		$this->assertButtons($expectedButtons, $processedCollection->getButtons());
 	}
