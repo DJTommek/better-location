@@ -27,6 +27,18 @@ final class ProcessedMessageResultTest extends TestCase
 							'text' => 'Google 🚗',
 							'url' => 'https://www.google.com/maps/dir/?api=1&destination=49.000000%2C14.000000&travelmode=driving&dir_action=navigate',
 						],
+						[
+							'text' => 'Waze 🚗',
+							'url' => 'https://www.waze.com/ul?ll=49.000000,14.000000&navigate=yes',
+						],
+						[
+							'text' => 'HERE 🚗',
+							'url' => 'https://share.here.com/r/49.000000,14.000000',
+						],
+						[
+							'text' => 'OsmAnd 🚗',
+							'url' => 'https://osmand.net/go.html?lat=49.000000&lon=14.000000',
+						],
 					],
 				],
 				(new BetterLocationCollection())->add(new BetterLocation('abcd', 49, 14, WGS84DegreesService::class)),
@@ -58,8 +70,10 @@ final class ProcessedMessageResultTest extends TestCase
 
 	private function assertButtons(array $expectedButtons, array $realButtons): void
 	{
+		$this->assertCount(count($expectedButtons), $realButtons);
 		foreach ($expectedButtons as $rowKey => $expectedButtonRow) {
 			$realButtonRow = $realButtons[$rowKey];
+			$this->assertCount(count($expectedButtonRow), $realButtonRow);
 			foreach ($expectedButtonRow as $colKey => $expectedButton) {
 				$realButton = $realButtonRow[$colKey];
 				assert($realButton instanceof \unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button);
