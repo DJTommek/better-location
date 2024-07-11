@@ -5,6 +5,7 @@ namespace Tests\TelegramCustomWrapper;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
+use App\BetterLocation\Service\WazeService;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use PHPUnit\Framework\TestCase;
@@ -42,6 +43,61 @@ final class ProcessedMessageResultTest extends TestCase
 					],
 				],
 				(new BetterLocationCollection())->add(new BetterLocation('abcd', 49, 14, WGS84DegreesService::class)),
+				new BetterLocationMessageSettings(address: false),
+			],
+
+			// Default settings with multiple items
+			[
+				'2 locations: <a href="https://better-location.palider.cz/50.087451,14.420671;36.826460,22.528715" target="_blank">BetterLocation</a> | <a href="https://mapy.cz/zakladni?vlastni-body&uc=9hAK0xXxOKu02Lcw61El" target="_blank">Mapy.cz</a>
+
+<a href="https://www.waze.com/ul?ll=50.087451123456789%2C14.420671123456789">Waze</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087451%26x%3D14.420671%26source%3Dcoor%26id%3D14.420671%252C50.087451%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>50.087451,14.420671</code>
+<a href="https://better-location.palider.cz/50.087451,14.420671" target="_blank">BetterLocation</a> | <a href="https://www.google.com/maps/place/50.087451,14.420671?q=50.087451,14.420671" target="_blank">Google</a> | <a href="https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451" target="_blank">Mapy.cz</a> | <a href="https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps" target="_blank">DDG</a> | <a href="https://www.waze.com/ul?ll=50.087451,14.420671" target="_blank">Waze</a> | <a href="https://share.here.com/l/50.087451,14.420671?p=yes" target="_blank">HERE</a> | <a href="https://www.openstreetmap.org/search?whereami=1&query=50.087451,14.420671&mlat=50.087451&mlon=14.420671#map=17/50.087451/14.420671" target="_blank">OSM</a>
+
+<a href="https://www.google.cz/maps/@36.8264601,22.5287146,9.33z">Waze</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D36.826460%26x%3D22.528715%26source%3Dcoor%26id%3D22.528715%252C36.826460%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>36.826460,22.528715</code>
+<a href="https://better-location.palider.cz/36.826460,22.528715" target="_blank">BetterLocation</a> | <a href="https://www.google.com/maps/place/36.826460,22.528715?q=36.826460,22.528715" target="_blank">Google</a> | <a href="https://mapy.cz/zakladni?y=36.826460&x=22.528715&source=coor&id=22.528715%2C36.826460" target="_blank">Mapy.cz</a> | <a href="https://duckduckgo.com/?q=36.826460,22.528715&iaxm=maps" target="_blank">DDG</a> | <a href="https://www.waze.com/ul?ll=36.826460,22.528715" target="_blank">Waze</a> | <a href="https://share.here.com/l/36.826460,22.528715?p=yes" target="_blank">HERE</a> | <a href="https://www.openstreetmap.org/search?whereami=1&query=36.826460,22.528715&mlat=36.826460&mlon=22.528715#map=17/36.826460/22.528715" target="_blank">OSM</a>
+
+',
+				[
+					[
+						[
+							'text' => 'Google 🚗',
+							'url' => 'https://www.google.com/maps/dir/?api=1&destination=50.087451%2C14.420671&travelmode=driving&dir_action=navigate',
+						],
+						[
+							'text' => 'Waze 🚗',
+							'url' => 'https://www.waze.com/ul?ll=50.087451,14.420671&navigate=yes',
+						],
+						[
+							'text' => 'HERE 🚗',
+							'url' => 'https://share.here.com/r/50.087451,14.420671',
+						],
+						[
+							'text' => 'OsmAnd 🚗',
+							'url' => 'https://osmand.net/go.html?lat=50.087451&lon=14.420671',
+						],
+					],
+					[
+						[
+							'text' => 'Google 🚗',
+							'url' => 'https://www.google.com/maps/dir/?api=1&destination=36.826460%2C22.528715&travelmode=driving&dir_action=navigate',
+						],
+						[
+							'text' => 'Waze 🚗',
+							'url' => 'https://www.waze.com/ul?ll=36.826460,22.528715&navigate=yes',
+						],
+						[
+							'text' => 'HERE 🚗',
+							'url' => 'https://share.here.com/r/36.826460,22.528715',
+						],
+						[
+							'text' => 'OsmAnd 🚗',
+							'url' => 'https://osmand.net/go.html?lat=36.826460&lon=22.528715',
+						],
+					],
+				],
+				(new BetterLocationCollection())
+					->add(new BetterLocation('https://www.waze.com/ul?ll=50.087451123456789,14.420671123456789', 50.087451123456789, 14.420671123456789, WazeService::class))
+					->add(new BetterLocation('https://www.google.cz/maps/@36.8264601,22.5287146,9.33z', 36.826460, 22.528715, WazeService::class)),
 				new BetterLocationMessageSettings(address: false),
 			],
 
