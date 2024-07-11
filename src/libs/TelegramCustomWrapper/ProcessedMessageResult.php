@@ -123,13 +123,13 @@ class ProcessedMessageResult
 		return $markup;
 	}
 
-	public function getText(): string
+	public function getText(bool $includeStaticMapUrl = true): string
 	{
 		$result = '';
-		if ($this->collection->count()) {
-			$staticMapUrl = $this->collection->getStaticMapUrl();
-			if ($staticMapUrl !== null) {
-				$result = TelegramHelper::invisibleLink($staticMapUrl);
+		if ($includeStaticMapUrl === true && $this->collection->isEmpty() === false) {
+			$includeStaticMapUrl = $this->collection->getStaticMapUrl();
+			if ($includeStaticMapUrl !== null) {
+				$result = TelegramHelper::invisibleLink($includeStaticMapUrl);
 			}
 		}
 		return $result . $this->resultText;
