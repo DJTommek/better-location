@@ -14,7 +14,10 @@ use unreal4u\TelegramAPI\Telegram\Types;
 
 class ProcessedMessageResult
 {
-	private string $resultText = '';
+	/**
+	 * @var list<string>
+	 */
+	private array $resultTexts = [];
 	/** @var array<array<Types\Inline\Keyboard\Button>> */
 	private array $buttons = [];
 	private bool $autorefreshEnabled = false;
@@ -59,24 +62,6 @@ class ProcessedMessageResult
 			$this->collection->fillAddresses();
 		}
 
-		// If multiple locations are available, generate share bulk links
-		if ($this->collection->count() > 1) {
-			$bulkLinks = [];
-			foreach ($this->messageSettings->getBulkLinkServices() as $bulkLinkService) {
-				$bulkLinks[] = sprintf(
-					'<a href="%s" target="_blank">%s</a>',
-					$bulkLinkService::getShareCollectionLink($this->collection),
-					$bulkLinkService::getName(true),
-				);
-			}
-
-			$this->resultText .= sprintf(
-				'%d locations: %s' . PHP_EOL . PHP_EOL,
-				$this->collection->count(),
-				implode(' | ', $bulkLinks),
-			);
-		}
-
 		foreach ($this->collection->getLocations() as $betterLocation) {
 			if (
 				Config::ingressTryPortalLoad()
@@ -86,23 +71,24 @@ class ProcessedMessageResult
 				Ingress::setPortalDataDescription($ingressClient, $betterLocation);
 			}
 
-			$this->resultText .= $betterLocation->generateMessage($this->messageSettings);
+			$oneLocationResultText = $betterLocation->generateMessage($this->messageSettings);
 			$this->buttons[] = $betterLocation->generateDriveButtons($this->messageSettings);
 			$this->validLocationsCount++;
+			$this->resultTexts[] = $oneLocationResultText;
 
 			if (
-				strlen($this->resultText) >= $this->maxTextLength
+				$this->getTextLength() >= $this->maxTextLength
 				|| $this->validLocationsCount >= $this->maxLocationsCount
 			) {
-				$this->resultText .= sprintf(
-					'Showing only first %d of %d detected locations. All at once can be opened with links on top of the message.',
-					$this->validLocationsCount,
-					$this->collection->count(),
-				);
 				break;
 			}
 		}
 		return $this;
+	}
+
+	private function getTextLength(): int
+	{
+		return array_sum(array_map(fn(string $oneLocationText) => strlen($oneLocationText), $this->resultTexts));
 	}
 
 	/** @return array<array<Types\Inline\Keyboard\Button>> */
@@ -125,16 +111,51 @@ class ProcessedMessageResult
 		return $markup;
 	}
 
+	private function getBulkShareLinkText(): string
+	{
+		$bulkLinks = [];
+		foreach ($this->messageSettings->getBulkLinkServices() as $bulkLinkService) {
+			$bulkLinks[] = sprintf(
+				'<a href="%s" target="_blank">%s</a>',
+				$bulkLinkService::getShareCollectionLink($this->collection),
+				$bulkLinkService::getName(true),
+			);
+		}
+
+		return sprintf(
+			'%d locations: %s' . PHP_EOL . PHP_EOL,
+			$this->collection->count(),
+			implode(' | ', $bulkLinks),
+		);
+	}
+
 	public function getText(bool $includeStaticMapUrl = true): string
 	{
 		$result = '';
+
 		if ($includeStaticMapUrl === true && $this->collection->isEmpty() === false) {
 			$includeStaticMapUrl = $this->collection->getStaticMapUrl();
 			if ($includeStaticMapUrl !== null) {
-				$result = TelegramHelper::invisibleLink($includeStaticMapUrl);
+				$result .= TelegramHelper::invisibleLink($includeStaticMapUrl);
 			}
 		}
-		return $result . $this->resultText;
+
+		// If multiple locations are available, generate share bulk links
+		if ($this->collection->count() > 1) {
+			$result .= $this->getBulkShareLinkText();
+		}
+
+		$result .= implode('', $this->resultTexts);
+
+		if ($this->collection->count() > $this->validLocationsCount) {
+			$result .= sprintf(
+				'Showing only first %d of %d detected locations. All at once can be opened with links on top of the message.',
+				$this->validLocationsCount,
+				$this->collection->count(),
+			);
+		}
+
+		return $result;
 	}
 
 	public function validLocationsCount(): int
