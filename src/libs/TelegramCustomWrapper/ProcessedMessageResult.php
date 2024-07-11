@@ -21,13 +21,15 @@ class ProcessedMessageResult
 
 	private int $validLocationsCount = 0;
 
-
+	/**
+	 * @param ?bool $addressForce Set boolean to force enable or disable processing address, ignoring $messageSettings
+	 */
 	public function __construct(
-		private BetterLocationCollection      $collection,
+		private BetterLocationCollection $collection,
 		private BetterLocationMessageSettings $messageSettings,
-		private ?Pluginer                     $pluginer = null,
-	)
-	{
+		private ?Pluginer $pluginer = null,
+		private readonly ?bool $addressForce = null,
+	) {
 	}
 
 	public function setAutorefresh(bool $enabled = true): void
@@ -48,7 +50,10 @@ class ProcessedMessageResult
 			}
 		}
 
-		if ($this->messageSettings->showAddress()) {
+		if (
+			$this->addressForce !== false
+			&& ($this->addressForce === true || $this->messageSettings->showAddress())
+		) {
 			$this->collection->fillAddresses();
 		}
 
