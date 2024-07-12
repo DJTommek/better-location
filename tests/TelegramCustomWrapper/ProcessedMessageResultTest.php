@@ -4,7 +4,10 @@ namespace Tests\TelegramCustomWrapper;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
+use App\BetterLocation\Service\MapyCzService;
+use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\WazeService;
 use App\Config;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
@@ -13,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ProcessedMessageResultTest extends TestCase
 {
-	public static function basicProvider(): array
+	public static function defaultNoAddressProvider(): array
 	{
 		return [
 
@@ -183,8 +186,157 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 		];
 	}
 
+	public static function minimalNoAddressProvider(): array
+	{
+		return [
+
+			// One item, one button
+			[
+				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D49.000000%26x%3D14.000000%26source%3Dcoor%26id%3D14.000000%252C49.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>8FXP2222+22XX</code>
+<a href="https://better-location.palider.cz/49.000000,14.000000" target="_blank">BetterLocation</a>
+
+',
+				[
+					[
+						[
+							'text' => 'Mapy.cz 🚗',
+							'url' => 'https://mapy.cz/zakladni?y=49.000000&x=14.000000&source=coor&id=14.000000%2C49.000000',
+						],
+					],
+				],
+				(new BetterLocationCollection())->add(new BetterLocation('abcd', 49, 14, WGS84DegreesService::class)),
+				new BetterLocationMessageSettings(
+					shareServices: [BetterLocationService::class],
+					buttonServices: [MapyCzService::class],
+					textServices: [OpenLocationCodeService::class],
+					address: false,
+				),
+			],
+
+			// One item, no buttons
+			[
+				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D49.000000%26x%3D14.000000%26source%3Dcoor%26id%3D14.000000%252C49.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>49.000000,14.000000</code>
+<a href="https://better-location.palider.cz/49.000000,14.000000" target="_blank">BetterLocation</a>
+
+',
+				[
+					[],
+				],
+				(new BetterLocationCollection())->add(new BetterLocation('abcd', 49, 14, WGS84DegreesService::class)),
+				new BetterLocationMessageSettings(shareServices: [BetterLocationService::class], buttonServices: [], address: false),
+			],
+		];
+	}
+
+	public static function oneLocationNoAddressProvider(): array
+	{
+		$collection = (new BetterLocationCollection())
+			->add(new BetterLocation('First location', 49, 14, WGS84DegreesService::class))
+			->add(new BetterLocation('Second location', 50, 13, WGS84DegreesService::class))
+			->add(new BetterLocation('Third', -51, -13, WGS84DegreesService::class));
+		$minimalSettings = new BetterLocationMessageSettings(
+			shareServices: [BetterLocationService::class],
+			buttonServices: [MapyCzService::class],
+			textServices: [OpenLocationCodeService::class],
+			address: false,
+		);
+
+
+		return [
+
+			// One item, one button
+			[
+				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D49.000000%26x%3D14.000000%26source%3Dcoor%26id%3D14.000000%252C49.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>8FXP2222+22XX</code>
+<a href="https://better-location.palider.cz/49.000000,14.000000" target="_blank">BetterLocation</a>
+
+',
+				[
+					[
+						[
+							'text' => 'Mapy.cz 🚗',
+							'url' => 'https://mapy.cz/zakladni?y=49.000000&x=14.000000&source=coor&id=14.000000%2C49.000000',
+						],
+					],
+				],
+				(new BetterLocationCollection())->add(new BetterLocation('abcd', 49, 14, WGS84DegreesService::class)),
+				$minimalSettings,
+				0,
+			],
+
+			// One item, no buttons
+			[
+				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D49.000000%26x%3D14.000000%26source%3Dcoor%26id%3D14.000000%252C49.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>49.000000,14.000000</code>
+<a href="https://better-location.palider.cz/49.000000,14.000000" target="_blank">BetterLocation</a>
+
+',
+				[
+					[],
+				],
+				(new BetterLocationCollection())->add(new BetterLocation('abcd', 49, 14, WGS84DegreesService::class)),
+				new BetterLocationMessageSettings(shareServices: [BetterLocationService::class], buttonServices: [], address: false),
+				0,
+			],
+
+			// Multiple locations (first location)
+			[
+				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D49.000000%26x%3D14.000000%26source%3Dcoor%26id%3D14.000000%252C49.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>8FXP2222+22XX</code>
+<a href="https://better-location.palider.cz/49.000000,14.000000" target="_blank">BetterLocation</a>
+
+',
+				[
+					[
+						[
+							'text' => 'Mapy.cz 🚗',
+							'url' => 'https://mapy.cz/zakladni?y=49.000000&x=14.000000&source=coor&id=14.000000%2C49.000000',
+						],
+					],
+				],
+				$collection,
+				$minimalSettings,
+				0,
+			],
+			// Multiple locations (second location)
+			[
+				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.000000%26x%3D13.000000%26source%3Dcoor%26id%3D13.000000%252C50.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>9F2M2222+22XX</code>
+<a href="https://better-location.palider.cz/50.000000,13.000000" target="_blank">BetterLocation</a>
+
+',
+				[
+					[
+						[
+							'text' => 'Mapy.cz 🚗',
+							'url' => 'https://mapy.cz/zakladni?y=50.000000&x=13.000000&source=coor&id=13.000000%2C50.000000',
+						],
+					],
+				],
+				$collection,
+				$minimalSettings,
+				1,
+			],
+			// Multiple locations (third location)
+			[
+				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D-51.000000%26x%3D-13.000000%26source%3Dcoor%26id%3D-13.000000%252C-51.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>3CX92222+22XX</code>
+<a href="https://better-location.palider.cz/-51.000000,-13.000000" target="_blank">BetterLocation</a>
+
+',
+				[
+					[
+						[
+							'text' => 'Mapy.cz 🚗',
+							'url' => 'https://mapy.cz/zakladni?y=-51.000000&x=-13.000000&source=coor&id=-13.000000%2C-51.000000',
+						],
+					],
+				],
+				$collection,
+				$minimalSettings,
+				2,
+			],
+		];
+	}
+
 	/**
-	 * @dataProvider basicProvider
+	 * @dataProvider defaultNoAddressProvider
+	 * @dataProvider minimalNoAddressProvider
 	 */
 	public function testBasic(
 		string $expectedText,
@@ -203,8 +355,30 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 		$processedCollection->process();
 
 		$realText = preg_replace("/\R/u", PHP_EOL, $processedCollection->getText(false));
+		$realButtons = $processedCollection->getButtons();
+
 		$this->assertSame($expectedText, $realText);
-		$this->assertButtons($expectedButtons, $processedCollection->getButtons());
+		$this->assertButtons($expectedButtons, $realButtons);
+	}
+
+	/**
+	 * @dataProvider oneLocationNoAddressProvider
+	 */
+	public function testSelectOneLocation(
+		string $expectedText,
+		array $expectedButtons,
+		BetterLocationCollection $collection,
+		BetterLocationMessageSettings $settings,
+		int $locationIndex,
+	): void {
+		$processedCollection = new ProcessedMessageResult($collection, $settings);
+		$processedCollection->process();
+
+		$realText = preg_replace("/\R/u", PHP_EOL, $processedCollection->getOneLocationText($locationIndex, false));
+		$realButtons = $processedCollection->getOneLocationButtonRow($locationIndex);
+
+		$this->assertSame($expectedText, $realText);
+		$this->assertButtons($expectedButtons, $realButtons);
 	}
 
 	private function assertButtons(array $expectedButtons, array $realButtons): void

@@ -104,6 +104,25 @@ class ProcessedMessageResult
 		return $result;
 	}
 
+	/** @return array<array<Types\Inline\Keyboard\Button>> */
+	public function getOneLocationButtonRow(int $locationIndex, bool $includeRefreshRow = true): array
+	{
+		$location = $this->collection->offsetGet($locationIndex);
+		if ($location === null) {
+			throw new \OutOfBoundsException(sprintf('Location with key %d does not exists', $locationIndex));
+		}
+		assert(array_key_exists($locationIndex, $this->buttons));
+
+		$result = [
+			$this->buttons[$locationIndex]
+		];
+
+		if ($includeRefreshRow && $location->isRefreshable()) {
+			$result[] = BetterLocation::generateRefreshButtons($this->autorefreshEnabled);
+		}
+		return $result;
+	}
+
 	public function getMarkup(?int $maxRows = null, bool $includeRefreshRow = true): Types\Inline\Keyboard\Markup
 	{
 		$markup = new Types\Inline\Keyboard\Markup();
@@ -134,9 +153,9 @@ class ProcessedMessageResult
 		$result = '';
 
 		if ($includeStaticMapUrl === true && $this->collection->isEmpty() === false) {
-			$includeStaticMapUrl = $this->collection->getStaticMapUrl();
-			if ($includeStaticMapUrl !== null) {
-				$result .= TelegramHelper::invisibleLink($includeStaticMapUrl);
+			$staticMapUrl = $this->collection->getStaticMapUrl();
+			if ($staticMapUrl !== null) {
+				$result .= TelegramHelper::invisibleLink($staticMapUrl);
 			}
 		}
 
@@ -154,6 +173,28 @@ class ProcessedMessageResult
 				$this->collection->count(),
 			);
 		}
+
+		return $result;
+	}
+
+	public function getOneLocationText(int $locationIndex, bool $includeStaticMapUrl = true): string
+	{
+		$location = $this->collection->offsetGet($locationIndex);
+		if ($location === null) {
+			throw new \OutOfBoundsException(sprintf('Location with key %d does not exists', $locationIndex));
+		}
+		assert(array_key_exists($locationIndex, $this->resultTexts));
+
+		$result = '';
+
+		if ($includeStaticMapUrl === true) {
+			$staticMapUrl = $location->getStaticMapUrl();
+			if ($staticMapUrl !== null) {
+				$result .= TelegramHelper::invisibleLink($staticMapUrl);
+			}
+		}
+
+		$result .= $this->resultTexts[$locationIndex];
 
 		return $result;
 	}
