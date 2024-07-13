@@ -19,9 +19,7 @@ final class ProcessedMessageResultTest extends TestCase
 	public static function defaultNoAddressProvider(): array
 	{
 		return [
-
-			// Default settings with one item
-			[
+			__FUNCTION__ . ' - Default settings with one item' => [
 				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D49.000000%26x%3D14.000000%26source%3Dcoor%26id%3D14.000000%252C49.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>49.000000,14.000000</code>
 <a href="https://better-location.palider.cz/49.000000,14.000000" target="_blank">BetterLocation</a> | <a href="https://www.google.com/maps/place/49.000000,14.000000?q=49.000000,14.000000" target="_blank">Google</a> | <a href="https://mapy.cz/zakladni?y=49.000000&x=14.000000&source=coor&id=14.000000%2C49.000000" target="_blank">Mapy.cz</a> | <a href="https://duckduckgo.com/?q=49.000000,14.000000&iaxm=maps" target="_blank">DDG</a> | <a href="https://www.waze.com/ul?ll=49.000000,14.000000" target="_blank">Waze</a> | <a href="https://share.here.com/l/49.000000,14.000000?p=yes" target="_blank">HERE</a> | <a href="https://www.openstreetmap.org/search?whereami=1&query=49.000000,14.000000&mlat=49.000000&mlon=14.000000#map=17/49.000000/14.000000" target="_blank">OSM</a>
 
@@ -50,8 +48,7 @@ final class ProcessedMessageResultTest extends TestCase
 				new BetterLocationMessageSettings(address: false),
 			],
 
-			// Default settings with multiple items
-			[
+			__FUNCTION__ . ' - Default settings with multiple items' => [
 				'2 locations: <a href="https://better-location.palider.cz/50.087451,14.420671;36.826460,22.528715" target="_blank">BetterLocation</a> | <a href="https://mapy.cz/zakladni?vlastni-body&uc=9hAK0xXxOKu02Lcw61El" target="_blank">Mapy.cz</a>
 
 <a href="https://www.waze.com/ul?ll=50.087451123456789%2C14.420671123456789">Waze</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087451%26x%3D14.420671%26source%3Dcoor%26id%3D14.420671%252C50.087451%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>50.087451,14.420671</code>
@@ -105,8 +102,7 @@ final class ProcessedMessageResultTest extends TestCase
 				new BetterLocationMessageSettings(address: false),
 			],
 
-			// Default settings with multiple items but max location count limits result only to first location
-			[
+			__FUNCTION__ . ' - Default settings with multiple items but max location count limits result only to first location' => [
 				'2 locations: <a href="https://better-location.palider.cz/50.087451,14.420671;36.826460,22.528715" target="_blank">BetterLocation</a> | <a href="https://mapy.cz/zakladni?vlastni-body&uc=9hAK0xXxOKu02Lcw61El" target="_blank">Mapy.cz</a>
 
 <a href="https://www.waze.com/ul?ll=50.087451123456789%2C14.420671123456789">Waze</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087451%26x%3D14.420671%26source%3Dcoor%26id%3D14.420671%252C50.087451%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>50.087451,14.420671</code>
@@ -140,8 +136,7 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 				1,
 			],
 
-			// Default settings with multiple items but maximum text length forcing only first location
-			[
+			__FUNCTION__ . ' - Default settings with multiple items but maximum text length forcing only first location' => [
 				'2 locations: <a href="https://better-location.palider.cz/50.087451,14.420671;36.826460,22.528715" target="_blank">BetterLocation</a> | <a href="https://mapy.cz/zakladni?vlastni-body&uc=9hAK0xXxOKu02Lcw61El" target="_blank">Mapy.cz</a>
 
 <a href="https://www.waze.com/ul?ll=50.087451123456789%2C14.420671123456789">Waze</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087451%26x%3D14.420671%26source%3Dcoor%26id%3D14.420671%252C50.087451%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>50.087451,14.420671</code>
@@ -176,8 +171,7 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 				100,
 			],
 
-			// Empty collection
-			[
+			__FUNCTION__ . ' - Empty collection' => [
 				'',
 				[],
 				new BetterLocationCollection(),
@@ -190,8 +184,7 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 	{
 		return [
 
-			// One item, one button
-			[
+			__FUNCTION__ . ' - One item, one button' => [
 				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D49.000000%26x%3D14.000000%26source%3Dcoor%26id%3D14.000000%252C49.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>8FXP2222+22XX</code>
 <a href="https://better-location.palider.cz/49.000000,14.000000" target="_blank">BetterLocation</a>
 
@@ -213,8 +206,7 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 				),
 			],
 
-			// One item, no buttons
-			[
+			__FUNCTION__ . ' - One item, no buttons' => [
 				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D49.000000%26x%3D14.000000%26source%3Dcoor%26id%3D14.000000%252C49.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>49.000000,14.000000</code>
 <a href="https://better-location.palider.cz/49.000000,14.000000" target="_blank">BetterLocation</a>
 
@@ -244,8 +236,7 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 
 		return [
 
-			// One item, one button
-			[
+			__FUNCTION__ . ' - One item, one button' => [
 				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D49.000000%26x%3D14.000000%26source%3Dcoor%26id%3D14.000000%252C49.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>8FXP2222+22XX</code>
 <a href="https://better-location.palider.cz/49.000000,14.000000" target="_blank">BetterLocation</a>
 
@@ -263,8 +254,7 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 				0,
 			],
 
-			// One item, no buttons
-			[
+			__FUNCTION__ . ' - One item, no buttons' => [
 				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D49.000000%26x%3D14.000000%26source%3Dcoor%26id%3D14.000000%252C49.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>49.000000,14.000000</code>
 <a href="https://better-location.palider.cz/49.000000,14.000000" target="_blank">BetterLocation</a>
 
@@ -277,8 +267,7 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 				0,
 			],
 
-			// Multiple locations (first location)
-			[
+			__FUNCTION__ . ' - Multiple locations (first location)' => [
 				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D49.000000%26x%3D14.000000%26source%3Dcoor%26id%3D14.000000%252C49.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>8FXP2222+22XX</code>
 <a href="https://better-location.palider.cz/49.000000,14.000000" target="_blank">BetterLocation</a>
 
@@ -295,8 +284,8 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 				$minimalSettings,
 				0,
 			],
-			// Multiple locations (second location)
-			[
+
+			__FUNCTION__ . ' - Multiple locations (second location)' => [
 				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.000000%26x%3D13.000000%26source%3Dcoor%26id%3D13.000000%252C50.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>9F2M2222+22XX</code>
 <a href="https://better-location.palider.cz/50.000000,13.000000" target="_blank">BetterLocation</a>
 
@@ -313,8 +302,8 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 				$minimalSettings,
 				1,
 			],
-			// Multiple locations (third location)
-			[
+
+			__FUNCTION__ . ' - Multiple locations (third location)' => [
 				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D-51.000000%26x%3D-13.000000%26source%3Dcoor%26id%3D-13.000000%252C-51.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>3CX92222+22XX</code>
 <a href="https://better-location.palider.cz/-51.000000,-13.000000" target="_blank">BetterLocation</a>
 
