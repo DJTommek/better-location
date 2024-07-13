@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\Config;
+use App\Factory\GlympseApiFactory;
 use App\Icons;
 use App\Utils\Utils;
 use DJTommek\GlympseApi\GlympseApi;
@@ -24,8 +25,13 @@ final class GlympseService extends AbstractService
 	const TYPE_INVITE = 'invite';
 	const TYPE_DESTINATION = 'destination';
 
+	/**
+	 * Lazyload. Do not use this variable directly, use `$this->getGlympseApi()` instead
+	 */
+	private GlympseApi $glympseApi;
+
 	public function __construct(
-		private readonly ?GlympseApi $glympseApi = null,
+		private readonly ?GlympseApiFactory $glympseApiFactory = null,
 	) {
 	}
 
@@ -57,7 +63,7 @@ final class GlympseService extends AbstractService
 
 	public function process(): void
 	{
-		if ($this->glympseApi === null) {
+		if ($this->glympseApiFactory === null) {
 			throw new \RuntimeException('Glympse API is not available.');
 		}
 
@@ -87,7 +93,7 @@ final class GlympseService extends AbstractService
 			$currentLocationDescriptions[] = sprintf('%s Glympse expired at %s (%s ago)',
 				Icons::WARNING,
 				$invite->properties->endTime->format(Config::DATETIME_FORMAT_ZONE),
-				preg_replace('/ [0-9]+s$/', '', Utils::sToHuman($diff * -1))
+				preg_replace('/ [0-9]+s$/', '', Utils::sToHuman($diff * -1)),
 			);
 		} else if ($invite->properties->endTime < ((clone $now)->add($willExpireWarningInterval))) {
 			$currentLocationDescriptions[] = sprintf('%s Glympse will expire soon, at %s', Icons::WARNING, $invite->properties->endTime->format(Config::TIME_FORMAT_ZONE));
@@ -103,7 +109,7 @@ final class GlympseService extends AbstractService
 			$lastUpdateText = sprintf('%s Last location update: %s (%s ago)',
 				Icons::WARNING,
 				$lastLocation->timestamp->format(Config::DATETIME_FORMAT_ZONE),
-				preg_replace('/ [0-9]+s$/', '', Utils::sToHuman($diff))
+				preg_replace('/ [0-9]+s$/', '', Utils::sToHuman($diff)),
 			);
 			$currentLocationDescriptions[] = $lastUpdateText;
 		}
@@ -115,7 +121,7 @@ final class GlympseService extends AbstractService
 				$this->inputUrl->getAbsoluteUrl(), // assuming, that this url is https://glympse.com/!someTag
 				self::getGroupIdFromUrl($this->inputUrl->getAbsoluteUrl()),
 				$invite->getInviteIdUrl(),
-				$invite->properties->name
+				$invite->properties->name,
 			);
 		} else {
 			$prefix = sprintf('Glympse (<a href="%s">%s</a>)', $invite->getInviteIdUrl(), $invite->properties->name);
@@ -165,7 +171,7 @@ final class GlympseService extends AbstractService
 	public function processInvite(): void
 	{
 		try {
-			$inviteResponse = $this->glympseApi->invites($this->data->inviteId, null, null, null, true);
+			$inviteResponse = $this->getGlympseApi()->invites($this->data->inviteId, null, null, null, true);
 			$inviteLocation = $this->processInviteLocation(self::TYPE_INVITE, $inviteResponse);
 			$this->collection->add($inviteLocation);
 			if ($inviteResponse->properties->destination) {
@@ -178,7 +184,7 @@ final class GlympseService extends AbstractService
 					'Error while processing %s invite code "%s": "%s"',
 					self::NAME,
 					htmlentities($this->data->inviteId),
-					$exception->getMessage()
+					$exception->getMessage(),
 				));
 			}
 		} catch (\Throwable $exception) {
@@ -190,10 +196,10 @@ final class GlympseService extends AbstractService
 	public function processGroup(): void
 	{
 		try {
-			$groupsResponse = $this->glympseApi->groups($this->data->groupName);
+			$groupsResponse = $this->getGlympseApi()->groups($this->data->groupName);
 			foreach ($groupsResponse->members as $member) {
 				try {
-					$inviteResponse = $this->glympseApi->invites($member->invite, null, null, null, true);
+					$inviteResponse = $this->getGlympseApi()->invites($member->invite, null, null, null, true);
 					$inviteLocation = $this->processInviteLocation(self::TYPE_GROUP, $inviteResponse);
 					$this->collection->add($inviteLocation);
 					if ($inviteResponse->properties->destination) {
@@ -211,7 +217,7 @@ final class GlympseService extends AbstractService
 				'Error while processing %s tag "!%s": "%s"',
 				self::NAME,
 				htmlentities($this->data->groupName),
-				$exception->getMessage()
+				$exception->getMessage(),
 			));
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);
@@ -245,5 +251,13 @@ final class GlympseService extends AbstractService
 			$exception instanceof GlympseApiException
 			&& str_contains($exception->getMessage(), 'The specified invite code is no longer available')
 		);
+	}
+
+	private function getGlympseApi(): GlympseApi
+	{
+		if (!isset($this->glympseApi)) {
+			$this->glympseApi = $this->glympseApiFactory->create();
+		}
+		return $this->glympseApi;
 	}
 }
