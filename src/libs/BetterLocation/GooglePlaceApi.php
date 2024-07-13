@@ -4,7 +4,6 @@ namespace App\BetterLocation;
 
 use App\BetterLocation\Service\GoogleMapsService;
 use App\Config;
-use App\Factory;
 use App\Google\Geocoding\GeocodeResponse;
 use App\Google\RunGoogleApiRequestTrait;
 use App\Icons;
@@ -80,6 +79,12 @@ class GooglePlaceApi
 	}
 
 	/**
+	 * A Find Place request takes a text input and returns a place. The input can be any kind of Places text data, such
+	 * as a name, address, or phone number. The request must be a string. A Find Place request using non-string data
+	 * such as a lat/lng coordinate or plus code generates an error.
+	 *
+	 * @link https://developers.google.com/maps/documentation/places/web-service/search-find-place
+	 *
 	 * @param string $input What should be searched
 	 * @param string[] $outputFields @see https://developers.google.com/places/web-service/search#Fields
 	 * @param string $language @see https://developers.google.com/maps/faq#languagesupport
@@ -99,6 +104,16 @@ class GooglePlaceApi
 	}
 
 	/**
+	 * A Text Search returns information about a set of places based on a string — for example "pizza in New York" or
+	 * "shoe stores near Ottawa" or "123 Main Street". The service responds with a list of places matching the text
+	 * string and any location bias that has been set.
+	 *
+	 * The service is especially useful for making ambiguous address queries in an automated system, and non-address
+	 * components of the string may match businesses as well as addresses. Examples of ambiguous address queries are
+	 * poorly-formatted addresses or requests that include non-address components such as business names.
+	 *
+	 * @link https://developers.google.com/maps/documentation/places/web-service/search-text
+	 *
 	 * @param string $input What should be searched
 	 * @param string $language @see https://developers.google.com/maps/faq#languagesupport
 	 * @param CoordinatesInterface|null $location @see https://developers.google.com/places/web-service/search#FindPlaceRequests -> Optional parameters
