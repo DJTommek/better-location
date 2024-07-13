@@ -77,24 +77,6 @@ final class ProcessedMessageResultTest extends TestCase
 							'url' => 'https://osmand.net/go.html?lat=50.087451&lon=14.420671',
 						],
 					],
-					[
-						[
-							'text' => 'Google 🚗',
-							'url' => 'https://www.google.com/maps/dir/?api=1&destination=36.826460%2C22.528715&travelmode=driving&dir_action=navigate',
-						],
-						[
-							'text' => 'Waze 🚗',
-							'url' => 'https://www.waze.com/ul?ll=36.826460,22.528715&navigate=yes',
-						],
-						[
-							'text' => 'HERE 🚗',
-							'url' => 'https://share.here.com/r/36.826460,22.528715',
-						],
-						[
-							'text' => 'OsmAnd 🚗',
-							'url' => 'https://osmand.net/go.html?lat=36.826460&lon=22.528715',
-						],
-					],
 				],
 				(new BetterLocationCollection())
 					->add(new BetterLocation('https://www.waze.com/ul?ll=50.087451123456789,14.420671123456789', 50.087451123456789, 14.420671123456789, WazeService::class))
@@ -338,12 +320,16 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 		$processedCollection = new ProcessedMessageResult(
 			collection: $collection,
 			messageSettings: $settings,
-			maxLocationsCount: $maxLocationsCount ?? Config::TELEGRAM_MAXIMUM_LOCATIONS,
-			maxTextLength: $maxTextLength ?? Config::TELEGRAM_BETTER_LOCATION_MESSAGE_LIMIT,
 		);
+		$maxLocationsCount ??= Config::TELEGRAM_MAXIMUM_LOCATIONS;
+		$maxTextLength ??= Config::TELEGRAM_BETTER_LOCATION_MESSAGE_LIMIT;
 		$processedCollection->process();
 
-		$realText = preg_replace("/\R/u", PHP_EOL, $processedCollection->getText(false));
+		$realText = preg_replace("/\R/u", PHP_EOL, $processedCollection->getText(
+			includeStaticMapUrl: false,
+			maxTextLength: $maxTextLength,
+			maxLocationsCount: $maxLocationsCount,
+		));
 		$realButtons = $processedCollection->getButtons();
 
 		$this->assertSame($expectedText, $realText);

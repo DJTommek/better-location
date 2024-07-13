@@ -32,8 +32,6 @@ class ProcessedMessageResult
 		private BetterLocationMessageSettings $messageSettings,
 		private ?Pluginer $pluginer = null,
 		private readonly ?bool $addressForce = null,
-		private readonly int $maxLocationsCount = Config::TELEGRAM_MAXIMUM_LOCATIONS,
-		private readonly int $maxTextLength = Config::TELEGRAM_BETTER_LOCATION_MESSAGE_LIMIT,
 	) {
 	}
 
@@ -75,33 +73,28 @@ class ProcessedMessageResult
 			$this->buttons[] = $betterLocation->generateDriveButtons($this->messageSettings);
 			$this->validLocationsCount++;
 			$this->resultTexts[] = $oneLocationResultText;
-
-			if (
-				$this->getTextLength() >= $this->maxTextLength
-				|| $this->validLocationsCount >= $this->maxLocationsCount
-			) {
-				break;
-			}
 		}
+
+		assert($this->collection->count() === count($this->resultTexts));
+		assert(count($this->resultTexts) === count($this->buttons));
+		assert(count($this->buttons) === $this->validLocationsCount);
+
 		return $this;
 	}
 
-	private function getTextLength(): int
-	{
-		return array_sum(array_map(fn(string $oneLocationText) => strlen($oneLocationText), $this->resultTexts));
-	}
-
-	/** @return array<array<Types\Inline\Keyboard\Button>> */
+	/**
+	 * @return array<array<Types\Inline\Keyboard\Button>>
+	 */
 	public function getButtons(?int $maxRows = null, bool $includeRefreshRow = true): array
 	{
-		$result = $this->buttons;
-		if ($maxRows > 0) {
-			$result = array_slice($result, 0, $maxRows);
+		// @TODO getButtons() is always used with $maxRows = 1 so code was simplified to return only first row of
+		//       buttons, keeping parameter for backward compatibility.
+		assert($maxRows === null || $maxRows === 1, 'Add support for returning multiple rows.');
+
+		if ($this->getCollection()->isEmpty()) {
+			return [];
 		}
-		if ($includeRefreshRow && $this->collection->hasRefreshableLocation()) {
-			$result[] = BetterLocation::generateRefreshButtons($this->autorefreshEnabled);
-		}
-		return $result;
+		return $this->getOneLocationButtonRow(0, $includeRefreshRow);
 	}
 
 	/** @return array<array<Types\Inline\Keyboard\Button>> */
@@ -114,7 +107,7 @@ class ProcessedMessageResult
 		assert(array_key_exists($locationIndex, $this->buttons));
 
 		$result = [
-			$this->buttons[$locationIndex]
+			$this->buttons[$locationIndex],
 		];
 
 		if ($includeRefreshRow && $location->isRefreshable()) {
@@ -148,8 +141,11 @@ class ProcessedMessageResult
 		);
 	}
 
-	public function getText(bool $includeStaticMapUrl = true): string
-	{
+	public function getText(
+		bool $includeStaticMapUrl = true,
+		int $maxTextLength = Config::TELEGRAM_BETTER_LOCATION_MESSAGE_LIMIT,
+		int $maxLocationsCount = Config::TELEGRAM_MAXIMUM_LOCATIONS,
+	): string {
 		$result = '';
 
 		if ($includeStaticMapUrl === true && $this->collection->isEmpty() === false) {
@@ -164,14 +160,22 @@ class ProcessedMessageResult
 			$result .= $this->getBulkShareLinkText();
 		}
 
-		$result .= implode('', $this->resultTexts);
+		foreach ($this->resultTexts as $i => $resultText) {
+			$result .= $resultText;
 
-		if ($this->collection->count() > $this->validLocationsCount) {
-			$result .= sprintf(
-				'Showing only first %d of %d detected locations. All at once can be opened with links on top of the message.',
-				$this->validLocationsCount,
-				$this->collection->count(),
-			);
+			if (
+				strlen($result) >= $maxTextLength // Text is already too long
+				|| ($i + 1) >= $maxLocationsCount // Already too many locations
+			) {
+				$result .= sprintf(
+					'Showing only first %d of %d detected locations. All at once can be opened with links on top of the message.',
+					$i + 1,
+					count($this->resultTexts),
+				);
+
+				break;
+			}
+
 		}
 
 		return $result;
