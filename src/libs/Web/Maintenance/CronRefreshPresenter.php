@@ -5,6 +5,7 @@ namespace App\Web\Maintenance;
 use App\BetterLocation\BetterLocation;
 use App\Config;
 use App\Icons;
+use App\IngressLanchedRu\Client as LanchedRuClient;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramCustomWrapper;
 use App\TelegramCustomWrapper\TelegramHelper;
@@ -21,6 +22,7 @@ class CronRefreshPresenter extends MainPresenter
 
 	public function __construct(
 		private readonly TelegramCustomWrapper $telegramCustomWrapper,
+		private readonly ?LanchedRuClient $lanchedRuClient,
 	) {
 	}
 
@@ -79,7 +81,12 @@ class CronRefreshPresenter extends MainPresenter
 					continue;
 				}
 
-				$processedCollection = new ProcessedMessageResult($collection, $event->getMessageSettings(), $event->getPluginer());
+				$processedCollection = new ProcessedMessageResult(
+					collection: $collection,
+					messageSettings: $event->getMessageSettings(),
+					pluginer: $event->getPluginer(),
+					lanchedRuClient: $this->lanchedRuClient,
+				);
 				$processedCollection->setAutorefresh(true);
 				$processedCollection->process();
 

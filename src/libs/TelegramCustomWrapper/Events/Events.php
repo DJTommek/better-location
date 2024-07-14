@@ -5,6 +5,7 @@ namespace App\TelegramCustomWrapper\Events;
 use App\BetterLocation\BetterLocationCollection;
 use App\Chat;
 use App\Config;
+use App\IngressLanchedRu\Client as IngressLanchedRuClient;
 use App\Logger\CustomTelegramLogger;
 use App\Pluginer\Pluginer;
 use App\Repository\ChatRepository;
@@ -40,6 +41,7 @@ abstract class Events
 	private readonly ChatRepository $chatRepository;
 	private readonly FavouritesRepository $favouritesRepository;
 	private readonly ClientInterface $httpClient;
+	private readonly ?IngressLanchedRuClient $lanchedRuClient;
 
 	protected readonly Update $update;
 	private readonly TgLog $tgLog;
@@ -68,11 +70,13 @@ abstract class Events
 		FavouritesRepository $favouritesRepository,
 		CustomTelegramLogger $customTelegramLogger,
 		ClientInterface $httpClient,
+		IngressLanchedRuClient $lanchedRuClient,
 	): self {
 		$this->userRepository = $userRepository;
 		$this->chatRepository = $chatRepository;
 		$this->favouritesRepository = $favouritesRepository;
 		$this->httpClient = $httpClient;
+		$this->lanchedRuClient = $lanchedRuClient;
 
 		$this->loop = Factory::create();
 		$this->tgLog = new TgLog(
@@ -167,6 +171,11 @@ abstract class Events
 			chat: $this->hasTgMessage() ? $this->getTgChat() : null,
 			user: $this->getTgFrom(),
 		);
+	}
+
+	protected function getIngressLanchedRuClient(): IngressLanchedRuClient
+	{
+		return $this->lanchedRuClient;
 	}
 
 	public function getTgFrom(): Telegram\Types\User|Telegram\Types\Chat

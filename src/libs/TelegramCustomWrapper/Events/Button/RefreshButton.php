@@ -93,7 +93,7 @@ class RefreshButton extends Button
 			$text .= sprintf('%s Last refresh: %s', Icons::REFRESH, $this->telegramUpdateDb->getLastUpdate()->format(Config::DATETIME_FORMAT_ZONE));
 
 			$markup = $this->telegramUpdateDb->getLastResponseReplyMarkup(true);
-			unset($markup->inline_keyboard[count($markup->inline_keyboard)-1]); // refresh buttons are always last row
+			unset($markup->inline_keyboard[count($markup->inline_keyboard) - 1]); // refresh buttons are always last row
 			$markup->inline_keyboard[] = BetterLocation::generateRefreshButtons($autorefreshEnabled);
 
 			$this->replyButton($text, $markup, ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
@@ -102,7 +102,7 @@ class RefreshButton extends Button
 				$this->telegramUpdateDb->originalUpdateObject->message->text,
 				$this->telegramUpdateDb->originalUpdateObject->message->entities,
 			);
-			$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
+			$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer(), $this->getIngressLanchedRuClient());
 			$processedCollection->setAutorefresh($autorefreshEnabled);
 			$processedCollection->process();
 			$text = $processedCollection->getText();

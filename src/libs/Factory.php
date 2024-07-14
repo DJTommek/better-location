@@ -46,11 +46,6 @@ class Factory
 		return self::getContainer()->get(\App\Geocaching\Client::class);
 	}
 
-	public static function ingressLanchedRu(): \App\IngressLanchedRu\Client
-	{
-		return self::getContainer()->get(\App\IngressLanchedRu\Client::class);
-	}
-
 	/** Not cached */
 	public static function bingStaticMaps(): \App\BingMaps\StaticMaps
 	{

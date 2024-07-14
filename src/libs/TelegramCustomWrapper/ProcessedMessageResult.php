@@ -5,7 +5,7 @@ namespace App\TelegramCustomWrapper;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\Config;
-use App\Factory;
+use App\IngressLanchedRu\Client as LanchedRuClient;
 use App\Pluginer\Pluginer;
 use App\Pluginer\PluginerException;
 use App\Utils\Ingress;
@@ -28,9 +28,10 @@ class ProcessedMessageResult
 	 * @param ?bool $addressForce Set boolean to force enable or disable processing address, ignoring $messageSettings
 	 */
 	public function __construct(
-		private BetterLocationCollection $collection,
-		private BetterLocationMessageSettings $messageSettings,
-		private ?Pluginer $pluginer = null,
+		private readonly BetterLocationCollection $collection,
+		private readonly BetterLocationMessageSettings $messageSettings,
+		private readonly ?Pluginer $pluginer = null,
+		private readonly ?LanchedRuClient $lanchedRuClient = null,
 		private readonly ?bool $addressForce = null,
 	) {
 	}
@@ -63,10 +64,10 @@ class ProcessedMessageResult
 		foreach ($this->collection->getLocations() as $betterLocation) {
 			if (
 				Config::ingressTryPortalLoad()
+				&& $this->lanchedRuClient !== null
 				&& $betterLocation->hasDescription(Ingress::BETTER_LOCATION_KEY_PORTAL) === false
 			) {
-				$ingressClient = Factory::ingressLanchedRu();
-				Ingress::setPortalDataDescription($ingressClient, $betterLocation);
+				Ingress::setPortalDataDescription($this->lanchedRuClient, $betterLocation);
 			}
 
 			$oneLocationResultText = $betterLocation->generateMessage($this->messageSettings);

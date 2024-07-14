@@ -2,12 +2,8 @@
 
 namespace App\TelegramCustomWrapper\Events\Command;
 
-use App\BetterLocation\BetterLocation;
-use App\BetterLocation\FavouriteNameGenerator;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
-use App\Config;
 use App\Icons;
-use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\FavouritesTrait;
 use App\TelegramCustomWrapper\Events\HelpTrait;
 use App\TelegramCustomWrapper\Events\LoginTrait;
@@ -18,7 +14,6 @@ use App\Utils\Coordinates;
 use App\Utils\Strict;
 use Tracy\Debugger;
 use Tracy\ILogger;
-use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class StartCommand extends Command
 {
@@ -77,7 +72,7 @@ class StartCommand extends Command
 		} else {
 			try {
 				$collection = WGS84DegreesService::processStatic($lat . ',' . $lon)->getCollection();
-				$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
+				$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer(), $this->getIngressLanchedRuClient());
 				$processedCollection->process();
 				$this->reply($processedCollection->getText(), $processedCollection->getMarkup(1), ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
 			} catch (\Throwable $exception) {

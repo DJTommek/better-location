@@ -66,7 +66,7 @@ class LocationEdit extends Edit
 			return;
 		}
 
-		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
+		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer(), $this->getIngressLanchedRuClient());
 		$processedCollection->process();
 		$text = $processedCollection->getText();
 

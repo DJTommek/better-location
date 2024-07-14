@@ -6,6 +6,7 @@ use App\BetterLocation\FromTelegramMessage;
 use App\BetterLocation\GooglePlaceApi;
 use App\Config;
 use App\Database;
+use App\IngressLanchedRu\Client as LanchedRuClient;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Command\Command;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
@@ -34,6 +35,7 @@ class AdminPresenter extends MainPresenter
 		private readonly TelegramCustomWrapper $telegramCustomWrapper,
 		private readonly FromTelegramMessage $fromTelegramMessage,
 		private readonly ?GooglePlaceApi $googlePlaceApi,
+		private readonly ?LanchedRuClient $lanchedRuClient,
 		AdminTemplate $template,
 	) {
 		$this->template = $template;
@@ -147,7 +149,11 @@ class AdminPresenter extends MainPresenter
 			}
 		}
 
-		$processedCollection = new ProcessedMessageResult($collection, new BetterLocationMessageSettings());
+		$processedCollection = new ProcessedMessageResult(
+			collection: $collection,
+			messageSettings: new BetterLocationMessageSettings(),
+			lanchedRuClient: $this->lanchedRuClient,
+		);
 		$processedCollection->process(true);
 
 		if ($collection->isEmpty()) {
