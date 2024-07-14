@@ -46,6 +46,15 @@ class Chat
 		return $this->chatEntity->settingsShowAddress;
 	}
 
+	public function settingsTryLoadIngressPortal(?bool $enable = null): bool
+	{
+		if ($enable !== null) {
+			$this->chatEntity->settingsTryLoadIngressPortal = $enable;
+			$this->update();
+		}
+		return $this->chatEntity->settingsTryLoadIngressPortal;
+	}
+
 	public function setLastUpdate(\DateTimeInterface $lastUpdate): void
 	{
 		$this->chatEntity->lastUpdate = \DateTimeImmutable::createFromInterface($lastUpdate);
@@ -88,6 +97,7 @@ class Chat
 		if ($this->messageSettings === null) {
 			$this->messageSettings = BetterLocationMessageSettings::loadByChatId($this->chatEntity->id);
 			$this->messageSettings->showAddress($this->settingsShowAddress());
+			$this->messageSettings->tryLoadIngressPortal($this->settingsTryLoadIngressPortal());
 		}
 		return $this->messageSettings;
 	}

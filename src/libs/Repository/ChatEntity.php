@@ -37,6 +37,7 @@ class ChatEntity extends Entity
 	public bool $settingsPreview;
 	private int $settingsOutputType;
 	public bool $settingsShowAddress;
+	public bool $settingsTryLoadIngressPortal;
 	public ?UrlImmutable $pluginUrl;
 
 	public static function fromRow(array $row): self
@@ -51,6 +52,7 @@ class ChatEntity extends Entity
 		$entity->settingsPreview = Strict::boolval($row['chat_settings_preview']);
 		$entity->setSettingsOutputType($row['chat_settings_output_type']);
 		$entity->settingsShowAddress = Strict::boolval($row['chat_settings_show_address']);
+		$entity->settingsTryLoadIngressPortal = Strict::boolval($row['chat_settings_try_load_ingress_portal']);
 		$entity->pluginUrl = $row['chat_plugin_url'] === null ? null : new UrlImmutable($row['chat_plugin_url']);
 		return $entity;
 	}

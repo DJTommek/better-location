@@ -64,6 +64,7 @@ class ProcessedMessageResult
 		foreach ($this->collection->getLocations() as $betterLocation) {
 			if (
 				Config::ingressTryPortalLoad()
+				&& $this->messageSettings->tryLoadIngressPortal()
 				&& $this->lanchedRuClient !== null
 				&& $betterLocation->hasDescription(Ingress::BETTER_LOCATION_KEY_PORTAL) === false
 			) {

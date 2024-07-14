@@ -83,22 +83,27 @@ class BetterLocationMessageSettings
 	 * If address for locations should be generated and displayed in Better Location message
 	 */
 	private bool $showAddress;
+	/**
+	 * Search if on given coordinates is Ingress portal and append info about it.
+	 */
+	private bool $tryLoadIngressPortal;
 
 	public function __construct(
-		array  $shareServices = self::DEFAULT_SHARE_SERVICES,
-		array  $bulkLinkServices = self::DEFAULT_BULK_SHARE_SERVICES,
-		array  $buttonServices = self::DEFAULT_DRIVE_SERVICES,
-		array  $textServices = self::DEFAULT_TEXT_SERVICES,
+		array $shareServices = self::DEFAULT_SHARE_SERVICES,
+		array $bulkLinkServices = self::DEFAULT_BULK_SHARE_SERVICES,
+		array $buttonServices = self::DEFAULT_DRIVE_SERVICES,
+		array $textServices = self::DEFAULT_TEXT_SERVICES,
 		string $screenshotLinkService = self::DEFAULT_SCREENSHOT_SERVICE,
-		bool   $address = true
-	)
-	{
+		bool $address = true,
+		bool $tryLoadIngressPortal = true,
+	) {
 		$this->linkServices = $shareServices;
 		$this->bulkLinkServices = $bulkLinkServices;
 		$this->buttonServices = $buttonServices;
 		$this->textServices = $textServices;
 		$this->screenshotLinkService = $screenshotLinkService;
 		$this->showAddress = $address;
+		$this->tryLoadIngressPortal = $tryLoadIngressPortal;
 	}
 
 	public static function loadByChatId(int $chatId): self
@@ -225,6 +230,14 @@ class BetterLocationMessageSettings
 			$this->showAddress = $showAddress;
 		}
 		return $this->showAddress;
+	}
+
+	public function tryLoadIngressPortal(?bool $tryLoadIngressPortal = null): bool
+	{
+		if ($tryLoadIngressPortal !== null) {
+			$this->tryLoadIngressPortal = $tryLoadIngressPortal;
+		}
+		return $this->tryLoadIngressPortal;
 	}
 
 	public function saveToDb(int $chatId): void

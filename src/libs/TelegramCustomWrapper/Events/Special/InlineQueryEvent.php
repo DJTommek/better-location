@@ -63,6 +63,7 @@ class InlineQueryEvent extends Special
 	{
 		$messageSettings = parent::getMessageSettings();
 		$messageSettings->showAddress($this->getUserPrivateChatEntity()->settingsShowAddress());
+		$messageSettings->tryLoadIngressPortal($this->getUserPrivateChatEntity()->settingsTryLoadIngressPortal());
 		return $messageSettings;
 	}
 

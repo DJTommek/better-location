@@ -157,6 +157,7 @@ class ChatPresenter extends MainPresenter
 	{
 		$this->chat->settingsPreview(isset($_POST['map-preview']));
 		$this->chat->settingsShowAddress(isset($_POST['show-address']));
+		$this->chat->settingsTryLoadIngressPortal(isset($_POST['try-load-ingress-portal']));
 
 		if (isset($_POST['output-type'])) {
 			try {

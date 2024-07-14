@@ -131,7 +131,7 @@ class DefaultConfig
 	 *
 	 * @var bool
 	 */
-	const INGRESS_TRY_PORTAL_LOAD = false;
+	const INGRESS_TRY_PORTAL_LOAD = true;
 
 	/**
 	 * If some input (URL) has multiple different locations, how far it has to be from main coordinate to add special line

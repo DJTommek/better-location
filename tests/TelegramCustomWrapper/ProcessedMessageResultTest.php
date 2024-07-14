@@ -10,12 +10,23 @@ use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\WazeService;
 use App\Config;
+use App\IngressLanchedRu\Client;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use PHPUnit\Framework\TestCase;
+use Tests\HttpTestClients;
 
 final class ProcessedMessageResultTest extends TestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	public static function defaultNoAddressProvider(): array
 	{
 		return [
@@ -305,6 +316,52 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 		];
 	}
 
+	public static function tryLoadIngressPortalProvider(): array
+	{
+		$collection = (new BetterLocationCollection())
+			->add(new BetterLocation('Some portal', 50.087805, 14.42116, WGS84DegreesService::class))
+			->add(new BetterLocation('Another portal', 8.437575, 98.235749, WGS84DegreesService::class))
+			->add(new BetterLocation('No portal', -51, -13, WGS84DegreesService::class));
+		$minimalSettings = new BetterLocationMessageSettings(
+			shareServices: [BetterLocationService::class],
+			address: false,
+			tryLoadIngressPortal: true,
+		);
+
+
+		return [
+			__FUNCTION__ . ' - Multiple locations (first location, portal yes)' => [
+				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087805%26x%3D14.421160%26source%3Dcoor%26id%3D14.421160%252C50.087805%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>50.087805,14.421160</code>
+<a href="https://better-location.palider.cz/50.087805,14.421160" target="_blank">BetterLocation</a>
+Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F3f45fb115df8449686cf6826073ec1f0.12&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.087805%2C14.421160">Jan Hus Monument 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087805,14.421160">🖥</a> <a href="https://lh3.googleusercontent.com/FZXlrGIcPc1tKr5KeudSrAO7NQBZxGv4hJzLZuhR3ysx2YvfEwjLA485u8V2p3Ecg-47y1yjKneEyXUi1qyAl7T9v50=s10000">🖼</a>
+
+',
+				$collection,
+				$minimalSettings,
+				0,
+			],
+			__FUNCTION__ . ' - Multiple locations (second location, portal yes)' => [
+				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D8.437575%26x%3D98.235749%26source%3Dcoor%26id%3D98.235749%252C8.437575%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>8.437575,98.235749</code>
+<a href="https://better-location.palider.cz/8.437575,98.235749" target="_blank">BetterLocation</a>
+Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F9dfcf50cad0e39638e8c6a0eca10fdae.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D8.437575%2C98.235749">อุทยานแห่งชาติเขาลำปี-หาดท้ายเหมือง 📱</a> <a href="https://intel.ingress.com/intel?pll=8.437575,98.235749">🖥</a> <a href="https://lh3.googleusercontent.com/maROY6EbR4HWX5CVfw4q6ZAZyxXMNt0iFsBdob_ZWE5l7f09_FjHmzjzfBRLgJDpfxNiBqOSdQ2bzmlB-_jzQKav9fC45JAb152vKmQ=s10000">🖼</a>
+
+',
+				$collection,
+				$minimalSettings,
+				1,
+			],
+			__FUNCTION__ . ' - Multiple locations (third location, portal no)' => [
+				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D-51.000000%26x%3D-13.000000%26source%3Dcoor%26id%3D-13.000000%252C-51.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>-51.000000,-13.000000</code>
+<a href="https://better-location.palider.cz/-51.000000,-13.000000" target="_blank">BetterLocation</a>
+
+',
+				$collection,
+				$minimalSettings,
+				2,
+			],
+		];
+	}
+
 	/**
 	 * @dataProvider defaultNoAddressProvider
 	 * @dataProvider minimalNoAddressProvider
@@ -325,15 +382,17 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 		$maxTextLength ??= Config::TELEGRAM_BETTER_LOCATION_MESSAGE_LIMIT;
 		$processedCollection->process();
 
-		$realText = preg_replace("/\R/u", PHP_EOL, $processedCollection->getText(
+		$realText = $processedCollection->getText(
 			includeStaticMapUrl: false,
 			maxTextLength: $maxTextLength,
 			maxLocationsCount: $maxLocationsCount,
-		));
-		$realButtons = $processedCollection->getButtons();
-
-		$this->assertSame($expectedText, $realText);
-		$this->assertButtons($expectedButtons, $realButtons);
+		);
+		$this->assertResult(
+			$expectedText,
+			$expectedButtons,
+			$realText,
+			$processedCollection->getButtons(),
+		);
 	}
 
 	/**
@@ -349,8 +408,63 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 		$processedCollection = new ProcessedMessageResult($collection, $settings);
 		$processedCollection->process();
 
-		$realText = preg_replace("/\R/u", PHP_EOL, $processedCollection->getOneLocationText($locationIndex, false));
-		$realButtons = $processedCollection->getOneLocationButtonRow($locationIndex);
+		$this->assertResult(
+			$expectedText,
+			$expectedButtons,
+			$processedCollection->getOneLocationText($locationIndex, false),
+			$processedCollection->getOneLocationButtonRow($locationIndex),
+		);
+	}
+
+	/**
+	 * @dataProvider tryLoadIngressPortalProvider
+	 * @group request
+	 */
+	public function testTryIngressReal(
+		string $expectedText,
+		BetterLocationCollection $collection,
+		BetterLocationMessageSettings $settings,
+		int $locationIndex,
+	): void {
+		$lanchedRuClient = new Client($this->httpTestClients->realRequestor);
+		$this->testTryIngress($expectedText, $collection, $settings, $locationIndex, $lanchedRuClient);
+	}
+
+	/**
+	 * @dataProvider tryLoadIngressPortalProvider
+	 * @group request
+	 */
+	public function testTryIngressOffline(
+		string $expectedText,
+		BetterLocationCollection $collection,
+		BetterLocationMessageSettings $settings,
+		int $locationIndex,
+	): void {
+		$lanchedRuClient = new Client($this->httpTestClients->offlineRequestor);
+		$this->testTryIngress($expectedText, $collection, $settings, $locationIndex, $lanchedRuClient);
+	}
+
+	private function testTryIngress(
+		string $expectedText,
+		BetterLocationCollection $collection,
+		BetterLocationMessageSettings $settings,
+		int $locationIndex,
+		Client $lanchedRuClient,
+	): void {
+		$processedCollection = new ProcessedMessageResult($collection, $settings, lanchedRuClient: $lanchedRuClient);
+		$processedCollection->process();
+
+		$this->assertResult(
+			$expectedText,
+			[],
+			$processedCollection->getOneLocationText($locationIndex, false),
+			[],
+		);
+	}
+
+	private function assertResult(string $expectedText, array $expectedButtons, string $realText, array $realButtons): void
+	{
+		$realText = preg_replace("/\R/u", PHP_EOL, $realText);
 
 		$this->assertSame($expectedText, $realText);
 		$this->assertButtons($expectedButtons, $realButtons);

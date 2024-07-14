@@ -23,13 +23,20 @@ class ChatRepository extends Repository
 
 	public function update(ChatEntity $entity): void
 	{
-		$this->db->query('UPDATE better_location_chat 
-				SET chat_telegram_name = ?, chat_settings_preview = ?, chat_settings_output_type = ?, chat_settings_show_address = ?, chat_plugin_url = ?, chat_last_update = ? 
+		$this->db->query('UPDATE better_location_chat SET 
+                                chat_telegram_name = ?, 
+                                chat_settings_preview = ?, 
+                                chat_settings_output_type = ?, 
+                                chat_settings_show_address = ?,
+                                chat_settings_try_load_ingress_portal = ? ,
+                                chat_plugin_url = ?, 
+                                chat_last_update = ? 
 				WHERE chat_id = ?',
 			$entity->telegramName,
 			$entity->settingsPreview ? 1 : 0,
 			$entity->getSettingsOutputType(),
 			$entity->settingsShowAddress ? 1 : 0,
+			$entity->settingsTryLoadIngressPortal ? 1 : 0,
 			$entity->pluginUrl?->getAbsoluteUrl(),
 			$entity->lastUpdate->setTimezone(new \DateTimeZone('UTC'))->format(self::DATETIME_FORMAT),
 			$entity->id
