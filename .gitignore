@@ -1,3 +1,4 @@
 /data/config.local.php
 /vendor/
 .phpunit.result.cache
+/data/glympse-access-token.txt

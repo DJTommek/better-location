@@ -294,6 +294,11 @@ class DefaultConfig
 		);
 	}
 
+	public static function glympseAccessTokenPath(): string
+	{
+		return static::FOLDER_DATA . '/glympse-access-token.txt';
+	}
+
 	public static function isAdminPasswordSet(): bool
 	{
 		return static::ADMIN_PASSWORD !== null;

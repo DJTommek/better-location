@@ -87,7 +87,8 @@ return static function (ContainerConfigurator $container): void {
 		$services->set(\App\Factory\GlympseApiFactory::class)
 			->arg('$apiKey', Config::GLYMPSE_API_KEY)
 			->arg('$username', Config::GLYMPSE_API_USERNAME)
-			->arg('$password', Config::GLYMPSE_API_PASSWORD);
+			->arg('$password', Config::GLYMPSE_API_PASSWORD)
+			->arg('$accessTokenPath', Config::glympseAccessTokenPath());
 
 		$services->set(\DJTommek\GlympseApi\GlympseApi::class)
 			->factory([service(\App\Factory\GlympseApiFactory::class), 'create']);
