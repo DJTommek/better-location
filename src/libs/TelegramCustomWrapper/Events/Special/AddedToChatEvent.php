@@ -7,6 +7,7 @@ use App\BetterLocation\Service\WazeService;
 use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
+use App\TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Telegram;
@@ -33,6 +34,11 @@ class AddedToChatEvent extends Special
 			$text .= $betterLocationLocalGroup->generateMessage($this->getMessageSettings());
 			$markup->inline_keyboard[] = $betterLocationLocalGroup->generateDriveButtons($this->getMessageSettings());
 		}
+
+		$chatSettingsUrl = Config::getAppUrl('/chat/' . $this->getTgChatId());
+		$markup->inline_keyboard[] = [
+			TelegramHelper::loginUrlButton('Open settings', $chatSettingsUrl),
+		];
 
 		$this->reply($text, $markup, [
 			'disable_web_page_preview' => true,
