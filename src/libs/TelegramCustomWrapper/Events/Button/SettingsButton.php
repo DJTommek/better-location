@@ -2,6 +2,7 @@
 
 namespace App\TelegramCustomWrapper\Events\Button;
 
+use App\BetterLocation\ProcessExample;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
 use App\TelegramCustomWrapper\Events\SettingsTrait;
@@ -16,6 +17,11 @@ class SettingsButton extends Button
 	const ACTION_SETTINGS_PREVIEW = 'preview';
 	const ACTION_SETTINGS_SEND_NATIVE_LOCATION = 'send_native_location';
 	const ACTION_SETTINGS_SHOW_ADDRESS = 'show_address';
+
+	public function __construct(
+		private readonly ProcessExample $processExample,
+	) {
+	}
 
 	public function handleWebhookUpdate(): void
 	{

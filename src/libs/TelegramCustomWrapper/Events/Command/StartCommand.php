@@ -2,6 +2,7 @@
 
 namespace App\TelegramCustomWrapper\Events\Command;
 
+use App\BetterLocation\ProcessExample;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\FavouritesTrait;
@@ -29,6 +30,11 @@ class StartCommand extends Command
 
 	const SETTINGS = SettingsCommand::CMD;
 	const LOGIN = LoginCommand::CMD;
+
+	public function __construct(
+		private readonly ProcessExample $processExample,
+	) {
+	}
 
 	public function handleWebhookUpdate(): void
 	{

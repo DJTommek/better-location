@@ -2,6 +2,7 @@
 
 namespace App\TelegramCustomWrapper\Events\Command;
 
+use App\BetterLocation\ProcessExample;
 use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\SettingsTrait;
@@ -17,6 +18,11 @@ class SettingsCommand extends Command
 	const CMD = '/settings';
 	const ICON = Icons::SETTINGS;
 	const DESCRIPTION = 'Adjust your settings';
+
+	public function __construct(
+		private readonly ProcessExample $processExample,
+	) {
+	}
 
 	public function handleWebhookUpdate(): void
 	{

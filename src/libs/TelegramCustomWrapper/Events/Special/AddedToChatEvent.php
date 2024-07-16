@@ -3,10 +3,13 @@
 namespace App\TelegramCustomWrapper\Events\Special;
 
 use App\BetterLocation\BetterLocation;
-use App\BetterLocation\Service\WazeService;
+use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\ProcessExample;
 use App\Config;
 use App\Icons;
+use App\IngressLanchedRu\Client as LanchedRuClient;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
+use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -15,29 +18,50 @@ use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 class AddedToChatEvent extends Special
 {
+	public function __construct(
+		private readonly ProcessExample $processExample,
+		private readonly LanchedRuClient $lanchedRuClient,
+	) {
+	}
+
 	public function handleWebhookUpdate(): void
 	{
 		$markup = new Markup();
 		$markup->inline_keyboard = [];
 
-		$text = sprintf('%s Hi <b>%s</b>, @%s here!', Icons::LOCATION, $this->getTgChatDisplayname(), Config::TELEGRAM_BOT_NAME) . PHP_EOL;
-		$text .= sprintf('Thanks for adding me to this chat. I will be checking every message here if it contains any form of location (coordinates, links, photos with EXIF...) and send a nicely formatted message. More info in %s.', HelpCommand::getTgCmd(!$this->isTgPm())) . PHP_EOL;
+		$text = sprintf(
+				'%s Hi <b>%s</b>, @%s here!',
+				Icons::LOCATION,
+				$this->getTgChatDisplayname(),
+				Config::TELEGRAM_BOT_NAME,
+			) . PHP_EOL;
+		$text .= sprintf(
+				'Thanks for adding me to this chat. I will be checking every message here if it contains any form of location (coordinates, links, photos with EXIF...) and send a nicely formatted message. More info in %s.',
+				HelpCommand::getTgCmd(!$this->isTgPm()),
+			) . PHP_EOL;
 
 		$betterLocationLocalGroup = $this->getChatLocation();
 		if ($betterLocationLocalGroup === null) {
-			$lat = 50.087451;
-			$lon = 14.420671;
-			$wazeLink = WazeService::getShareLink($lat, $lon);
-			$betterLocationWaze = WazeService::processStatic($wazeLink)->getFirst();
-			$markup->inline_keyboard[] = $betterLocationWaze->generateDriveButtons($this->getMessageSettings());
-
-			$text .= sprintf('For example if you send %s I will respond with this:', $wazeLink) . PHP_EOL;
-			$text .= $betterLocationWaze->generateMessage($this->getMessageSettings());
+			$text .= sprintf('For example if you send %s I will respond with this:', $this->processExample->getExampleInput()) . PHP_EOL;
+			$collection = $this->processExample->getExampleCollection();
 		} else {
 			$text .= 'I noticed, that this is local group so here is nice message as example:' . PHP_EOL;
-			$text .= $betterLocationLocalGroup->generateMessage($this->getMessageSettings());
-			$markup->inline_keyboard[] = $betterLocationLocalGroup->generateDriveButtons($this->getMessageSettings());
+			$collection = (new BetterLocationCollection())->add($betterLocationLocalGroup);
 		}
+
+		$processedCollection = new ProcessedMessageResult(
+			$collection,
+			$this->getMessageSettings(),
+			$this->getPluginer(),
+			$this->lanchedRuClient,
+		);
+		$processedCollection->process();
+
+		$text .= PHP_EOL;
+		$text .= $processedCollection->getText();
+		$rows = $processedCollection->getOneLocationButtonRow(0, false);
+		assert(count($rows) === 1);
+		$markup->inline_keyboard[] = $rows[0];
 
 		$chatSettingsUrl = Config::getAppUrl('/chat/' . $this->getTgChatId());
 		$markup->inline_keyboard[] = [

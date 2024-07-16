@@ -2,7 +2,6 @@
 
 namespace App\TelegramCustomWrapper\Events;
 
-use App\BetterLocation\Service\WazeService;
 use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
@@ -22,16 +21,15 @@ trait HelpTrait
 	 */
 	protected function processHelp(): array
 	{
-		$lat = 50.087451;
-		$lon = 14.420671;
-		$wazeLink = WazeService::getShareLink($lat, $lon);
-		$betterLocationWaze = WazeService::processStatic($wazeLink)->getFirst();
-
 		$text = sprintf('%s Welcome to @%s!', Icons::LOCATION, Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('I\'m a simple but smart bot to catch all possible location formats in any chats you invite me to, and generate links to your favourite location services such as Google maps, Waze, OpenStreetMap etc.') . PHP_EOL;
-		$text .= sprintf('For example, if you send a message containing the coordinates "<code>%f,%f</code>" or the link "%s" I will respond with this:', $lat, $lon, $wazeLink) . PHP_EOL;
+		$text .= sprintf(
+				'For example, if you send a message containing the coordinates "<code>%s</code>" or the link "%s" I will respond with this:',
+				$this->processExample->getLatLon(),
+				$this->processExample->getExampleInput(),
+			) . PHP_EOL;
 		$text .= PHP_EOL;
-		$text .= $betterLocationWaze->generateMessage($this->getMessageSettings());
+		$text .= $this->processExample->getExampleLocation()->generateMessage($this->getMessageSettings());
 		// @TODO newline is filled in $result (yeah, it shouldn't be like that..)
 		$text .= sprintf('%s <b>Formats I can read:</b>', Icons::FEATURES) . PHP_EOL;
 		$text .= sprintf('- coordinates: <a href="%s">WGS84</a>, <a href="%s">USNG</a>, <a href="%s">MGRS</a>, <a href="%s">UTM</a>, ...',
@@ -81,9 +79,13 @@ trait HelpTrait
 
 		$markup = $this->getHelpButtons();
 
-		return [$text, $markup, [
-			'disable_web_page_preview' => true,
-		]];
+		return [
+			$text,
+			$markup,
+			[
+				'disable_web_page_preview' => true,
+			],
+		];
 	}
 
 	private function getHelpButtons(): Markup
@@ -95,7 +97,8 @@ trait HelpTrait
 					'text' => sprintf('%s Help', Icons::REFRESH),
 					'callback_data' => HelpButton::CMD,
 				]),
-			], [ // second row
+			],
+			[ // second row
 				new Button([
 					'text' => sprintf('%s Try inline searching', Icons::INLINE),
 					'switch_inline_query_current_chat' => 'Czechia Prague',

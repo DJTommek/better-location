@@ -2,7 +2,7 @@
 
 namespace App\Web\Chat;
 
-use App\BetterLocation\Service\WazeService;
+use App\BetterLocation\ProcessExample;
 use App\BetterLocation\ServicesManager;
 use App\Chat;
 use App\Config;
@@ -35,6 +35,7 @@ class ChatPresenter extends MainPresenter
 		private readonly TelegramCustomWrapper $telegramWrapper,
 		private readonly ServicesManager $servicesManager,
 		private readonly ClientInterface $httpClient,
+		private readonly ProcessExample $processExample,
 		ChatTemplate $template,
 	) {
 		$this->template = $template;
@@ -78,8 +79,8 @@ class ChatPresenter extends MainPresenter
 		}
 
 		$this->template->telegramChatId = $this->chatTelegramId;
-		$this->template->exampleInput = $this->exampleInput;
-		$exampleCollection = WazeService::processStatic($this->exampleInput)->getCollection();
+		$this->template->exampleInput = $this->processExample->getExampleInput();
+		$exampleCollection = $this->processExample->getExampleCollection();
 
 		// Do not process Pluginer if it's POST request (form is being saved), validation is done there
 		if ($this->isPostRequest() === false && $this->chat->getPluginerUrl() !== null) {
@@ -180,7 +181,7 @@ class ChatPresenter extends MainPresenter
 			}
 
 			if ($url !== null) {
-				$collection = WazeService::processStatic($this->exampleInput)->getCollection();
+				$collection = $this->processExample->getExampleCollection();
 				$pluginer = $this->pluginerFactory($url);
 				try {
 					$pluginer->process($collection);

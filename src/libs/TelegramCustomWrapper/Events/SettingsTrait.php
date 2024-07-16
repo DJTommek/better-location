@@ -2,7 +2,6 @@
 
 namespace App\TelegramCustomWrapper\Events;
 
-use App\BetterLocation\Service\WazeService;
 use App\Chat;
 use App\Config;
 use App\Icons;
@@ -27,8 +26,11 @@ trait SettingsTrait
 
 	protected function processSettings(): array
 	{
-		$collection = WazeService::processStatic(WazeService::getShareLink(50.087451, 14.420671))->getCollection();
-		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer());
+		$processedCollection = new ProcessedMessageResult(
+			$this->processExample->getExampleCollection(),
+			$this->getMessageSettings(),
+			$this->getPluginer(),
+		);
 		$processedCollection->process();
 
 		$text = sprintf('%s <b>Chat settings</b> for @%s. ', Icons::SETTINGS, Config::TELEGRAM_BOT_NAME);
@@ -72,11 +74,15 @@ trait SettingsTrait
 		$replyMarkup->inline_keyboard[] = $buttonRow;
 		$chatSettingsUrl = Config::getAppUrl('/chat/' . $this->getTgChatId());
 		$replyMarkup->inline_keyboard[] = [
-			TelegramHelper::loginUrlButton('More settings', $chatSettingsUrl)
+			TelegramHelper::loginUrlButton('More settings', $chatSettingsUrl),
 		];
 
-		return [$text, $replyMarkup, [
-			'disable_web_page_preview' => !$this->getChat()->settingsPreview()
-		]];
+		return [
+			$text,
+			$replyMarkup,
+			[
+				'disable_web_page_preview' => !$this->getChat()->settingsPreview(),
+			],
+		];
 	}
 }
