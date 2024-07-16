@@ -17,20 +17,24 @@ class AddedToChatEvent extends Special
 {
 	public function handleWebhookUpdate(): void
 	{
-		$lat = 50.087451;
-		$lon = 14.420671;
-		$wazeLink = WazeService::getShareLink($lat, $lon);
-		$betterLocationWaze = WazeService::processStatic($wazeLink)->getFirst();
-
 		$markup = new Markup();
-		$markup->inline_keyboard = [$betterLocationWaze->generateDriveButtons($this->getMessageSettings())];
+		$markup->inline_keyboard = [];
 
 		$text = sprintf('%s Hi <b>%s</b>, @%s here!', Icons::LOCATION, $this->getTgChatDisplayname(), Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('Thanks for adding me to this chat. I will be checking every message here if it contains any form of location (coordinates, links, photos with EXIF...) and send a nicely formatted message. More info in %s.', HelpCommand::getTgCmd(!$this->isTgPm())) . PHP_EOL;
-		$text .= sprintf('For example if you send %s I will respond with this:', $wazeLink) . PHP_EOL;
-		$text .= $betterLocationWaze->generateMessage($this->getMessageSettings());
-		if ($betterLocationLocalGroup = $this->getChatLocation()) {
-			$text .= sprintf('I noticed, that this is local group so here is nice message:') . PHP_EOL;
+
+		$betterLocationLocalGroup = $this->getChatLocation();
+		if ($betterLocationLocalGroup === null) {
+			$lat = 50.087451;
+			$lon = 14.420671;
+			$wazeLink = WazeService::getShareLink($lat, $lon);
+			$betterLocationWaze = WazeService::processStatic($wazeLink)->getFirst();
+			$markup->inline_keyboard[] = $betterLocationWaze->generateDriveButtons($this->getMessageSettings());
+
+			$text .= sprintf('For example if you send %s I will respond with this:', $wazeLink) . PHP_EOL;
+			$text .= $betterLocationWaze->generateMessage($this->getMessageSettings());
+		} else {
+			$text .= 'I noticed, that this is local group so here is nice message as example:' . PHP_EOL;
 			$text .= $betterLocationLocalGroup->generateMessage($this->getMessageSettings());
 			$markup->inline_keyboard[] = $betterLocationLocalGroup->generateDriveButtons($this->getMessageSettings());
 		}
