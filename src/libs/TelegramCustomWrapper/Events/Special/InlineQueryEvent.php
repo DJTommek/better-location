@@ -192,6 +192,7 @@ class InlineQueryEvent extends Special
 		$answerInlineQuery = new AnswerInlineQuery();
 		$answerInlineQuery->inline_query_id = $this->update->inline_query->id;
 		$answerInlineQuery->cache_time = Config::TELEGRAM_INLINE_CACHE;
+		$answerInlineQuery->is_personal = true;
 
 		// If user agrees to share location, and is using device, where is possible to get location (typically mobile devices)
 		$userInlineLocation = $this->update->inline_query->location;
