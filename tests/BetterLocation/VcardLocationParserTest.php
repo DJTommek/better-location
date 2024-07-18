@@ -42,6 +42,12 @@ final class VcardLocationParserTest extends TestCase
 				__DIR__ . '/fixtures/contact3-invalid-address.vcf',
 				[],
 			],
+			[
+				__DIR__ . '/fixtures/contact4-missing-fullname.vcf',
+				[
+					[37.790106, -122.390502, GoogleMapsService::TYPE_INLINE_SEARCH, 'Contact WORK address'],
+				]
+			],
 		];
 	}
 

@@ -1,0 +1,6 @@
+BEGIN:VCARD
+VERSION:3.0
+ADR;type=HOME:localhost;;;My room;My apartment;12345;
+URL:https://tomas.palider.cz/
+ADR;type=WORK:345 Spear Street;;;San Francisco;California;94105;
+END:VCARD

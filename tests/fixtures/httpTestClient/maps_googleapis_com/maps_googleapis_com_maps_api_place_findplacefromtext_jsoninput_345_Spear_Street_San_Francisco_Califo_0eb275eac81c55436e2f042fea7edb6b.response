@@ -1,0 +1,32 @@
+{
+   "candidates" : 
+   [
+      {
+         "formatted_address" : "345 Spear St, San Francisco, CA 94105, USA",
+         "geometry" : 
+         {
+            "location" : 
+            {
+               "lat" : 37.7901057,
+               "lng" : -122.3905019
+            },
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 37.79135662989273,
+                  "lng" : -122.3892780701073
+               },
+               "southwest" : 
+               {
+                  "lat" : 37.78865697010728,
+                  "lng" : -122.3919777298927
+               }
+            }
+         },
+         "name" : "345 Spear St",
+         "place_id" : "ChIJ5xL2xKCBhYARbcbV3CGNeI0"
+      }
+   ],
+   "status" : "OK"
+}

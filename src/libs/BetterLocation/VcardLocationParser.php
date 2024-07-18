@@ -47,11 +47,13 @@ class VcardLocationParser
 
 					$location = $result->getFirst();
 
+					$displayname = $this->cardDisplayname($card);
 					$prefix = sprintf(
-						'Contact %s %s address',
-						htmlspecialchars($this->cardDisplayname($card)),
-						htmlspecialchars($addressGroupKey)
+						'Contact %s%s address',
+						$displayname === null ? '' : trim($displayname) . ' ',
+						htmlspecialchars($addressGroupKey),
 					);
+
 					$location->setPrefixMessage($prefix);
 					$this->collection->add($location);
 					break;
@@ -68,9 +70,9 @@ class VcardLocationParser
 		return $this->collection;
 	}
 
-	private function cardDisplayname(\stdClass $card): string
+	private function cardDisplayname(\stdClass $card): ?string
 	{
-		return $card->fullname;
+		return $card->fullname ?? null;
 	}
 
 	private function stringifyAddress(\stdClass $address): string
