@@ -22,7 +22,7 @@ class VcardLocationParser
 		$this->collection = new BetterLocationCollection();
 
 		foreach ($parser->getCards() as $card) {
-			foreach ($card->address as $addressGroupKey => $addressGroup) {
+			foreach ($card->address ?? [] as $addressGroupKey => $addressGroup) {
 				foreach ($addressGroup as $address) {
 					$addressToSearch = $this->stringifyAddress($address);
 					if ($addressToSearch === '') {
