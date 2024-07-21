@@ -7,9 +7,7 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\ProcessExample;
 use App\Config;
 use App\Icons;
-use App\IngressLanchedRu\Client as LanchedRuClient;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
-use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -20,7 +18,6 @@ class AddedToChatEvent extends Special
 {
 	public function __construct(
 		private readonly ProcessExample $processExample,
-		private readonly LanchedRuClient $lanchedRuClient,
 	) {
 	}
 
@@ -49,11 +46,10 @@ class AddedToChatEvent extends Special
 			$collection = (new BetterLocationCollection())->add($betterLocationLocalGroup);
 		}
 
-		$processedCollection = new ProcessedMessageResult(
+		$processedCollection = $this->processedMessageResultFactory->create(
 			$collection,
 			$this->getMessageSettings(),
 			$this->getPluginer(),
-			$this->lanchedRuClient,
 		);
 		$processedCollection->process();
 

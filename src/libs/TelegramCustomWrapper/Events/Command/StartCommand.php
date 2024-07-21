@@ -9,7 +9,6 @@ use App\TelegramCustomWrapper\Events\FavouritesTrait;
 use App\TelegramCustomWrapper\Events\HelpTrait;
 use App\TelegramCustomWrapper\Events\LoginTrait;
 use App\TelegramCustomWrapper\Events\SettingsTrait;
-use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Coordinates;
 use App\Utils\Strict;
@@ -78,7 +77,7 @@ class StartCommand extends Command
 		} else {
 			try {
 				$collection = WGS84DegreesService::processStatic($lat . ',' . $lon)->getCollection();
-				$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer(), $this->getIngressLanchedRuClient());
+				$processedCollection = $this->processedMessageResultFactory->create($collection, $this->getMessageSettings(), $this->getPluginer());
 				$processedCollection->process();
 				$this->reply($processedCollection->getText(), $processedCollection->getMarkup(1), ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
 			} catch (\Throwable $exception) {

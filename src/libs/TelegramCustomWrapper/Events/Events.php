@@ -5,6 +5,7 @@ namespace App\TelegramCustomWrapper\Events;
 use App\BetterLocation\BetterLocationCollection;
 use App\Chat;
 use App\Config;
+use App\Factory\ProcessedMessageResultFactory;
 use App\IngressLanchedRu\Client as IngressLanchedRuClient;
 use App\Logger\CustomTelegramLogger;
 use App\Pluginer\Pluginer;
@@ -42,6 +43,7 @@ abstract class Events
 	private readonly FavouritesRepository $favouritesRepository;
 	private readonly ClientInterface $httpClient;
 	private readonly ?IngressLanchedRuClient $lanchedRuClient;
+	protected readonly ProcessedMessageResultFactory $processedMessageResultFactory;
 
 	protected readonly Update $update;
 	private readonly TgLog $tgLog;
@@ -71,12 +73,14 @@ abstract class Events
 		CustomTelegramLogger $customTelegramLogger,
 		ClientInterface $httpClient,
 		IngressLanchedRuClient $lanchedRuClient,
+		ProcessedMessageResultFactory $processedMessageResultFactory,
 	): self {
 		$this->userRepository = $userRepository;
 		$this->chatRepository = $chatRepository;
 		$this->favouritesRepository = $favouritesRepository;
 		$this->httpClient = $httpClient;
 		$this->lanchedRuClient = $lanchedRuClient;
+		$this->processedMessageResultFactory = $processedMessageResultFactory;
 
 		$this->loop = Factory::create();
 		$this->tgLog = new TgLog(

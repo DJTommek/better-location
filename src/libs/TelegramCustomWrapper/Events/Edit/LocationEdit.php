@@ -7,7 +7,6 @@ use App\BetterLocation\BetterLocationCollection;
 use App\Config;
 use App\Geonames\Geonames;
 use App\Icons;
-use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\TelegramUpdateDb;
 use Tracy\Debugger;
@@ -66,7 +65,7 @@ class LocationEdit extends Edit
 			return;
 		}
 
-		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer(), $this->getIngressLanchedRuClient());
+		$processedCollection = $this->processedMessageResultFactory->create($collection, $this->getMessageSettings(), $this->getPluginer());
 		$processedCollection->process();
 		$text = $processedCollection->getText();
 

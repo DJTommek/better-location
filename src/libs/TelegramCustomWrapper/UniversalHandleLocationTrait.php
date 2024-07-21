@@ -62,7 +62,7 @@ trait UniversalHandleLocationTrait
 	{
 		$collection = $this->getCollection();
 
-		$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer(), $this->getIngressLanchedRuClient());
+		$processedCollection = $this->processedMessageResultFactory->create($collection, $this->getMessageSettings(), $this->getPluginer());
 		$processedCollection->process();
 
 		if ($collection->isEmpty()) {

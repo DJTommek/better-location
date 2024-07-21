@@ -46,6 +46,7 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(StaticMapProxyFactory::class);
 	$services->set(\App\BetterLocation\ServicesManager::class);
 	$services->set(\App\BetterLocation\ProcessExample::class);
+	$services->set(\App\Factory\ProcessedMessageResultFactory::class);
 
 	$services->set(Database::class)
 		->arg('$server', Config::DB_SERVER)

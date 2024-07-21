@@ -6,7 +6,6 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\FromTelegramMessage;
 use App\Config;
 use App\Icons;
-use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\TelegramUpdateDb;
 use Tracy\Debugger;
@@ -102,7 +101,7 @@ class RefreshButton extends Button
 				$this->telegramUpdateDb->originalUpdateObject->message->text,
 				$this->telegramUpdateDb->originalUpdateObject->message->entities,
 			);
-			$processedCollection = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer(), $this->getIngressLanchedRuClient());
+			$processedCollection = $this->processedMessageResultFactory->create($collection, $this->getMessageSettings(), $this->getPluginer());
 			$processedCollection->setAutorefresh($autorefreshEnabled);
 			$processedCollection->process();
 			$text = $processedCollection->getText();

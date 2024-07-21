@@ -8,7 +8,6 @@ use App\Icons;
 use App\Pluginer\Pluginer;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Button\SettingsButton;
-use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
 use unreal4u\TelegramAPI\Telegram;
 
@@ -26,7 +25,7 @@ trait SettingsTrait
 
 	protected function processSettings(): array
 	{
-		$processedCollection = new ProcessedMessageResult(
+		$processedCollection = $this->processedMessageResultFactory->create(
 			$this->processExample->getExampleCollection(),
 			$this->getMessageSettings(),
 			$this->getPluginer(),

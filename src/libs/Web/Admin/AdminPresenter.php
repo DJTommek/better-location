@@ -6,10 +6,9 @@ use App\BetterLocation\FromTelegramMessage;
 use App\BetterLocation\GooglePlaceApi;
 use App\Config;
 use App\Database;
-use App\IngressLanchedRu\Client as LanchedRuClient;
+use App\Factory\ProcessedMessageResultFactory;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\Events\Command\Command;
-use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramCustomWrapper;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\SimpleLogger;
@@ -35,7 +34,7 @@ class AdminPresenter extends MainPresenter
 		private readonly TelegramCustomWrapper $telegramCustomWrapper,
 		private readonly FromTelegramMessage $fromTelegramMessage,
 		private readonly ?GooglePlaceApi $googlePlaceApi,
-		private readonly ?LanchedRuClient $lanchedRuClient,
+		private readonly ProcessedMessageResultFactory $processedMessageResultFactory,
 		AdminTemplate $template,
 	) {
 		$this->template = $template;
@@ -149,10 +148,9 @@ class AdminPresenter extends MainPresenter
 			}
 		}
 
-		$processedCollection = new ProcessedMessageResult(
+		$processedCollection = $this->processedMessageResultFactory->create(
 			collection: $collection,
 			messageSettings: new BetterLocationMessageSettings(),
-			lanchedRuClient: $this->lanchedRuClient,
 		);
 		$processedCollection->process(true);
 

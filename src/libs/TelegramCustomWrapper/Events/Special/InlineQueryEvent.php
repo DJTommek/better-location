@@ -203,7 +203,7 @@ class InlineQueryEvent extends Special
 
 		try {
 			$collection = $this->getCollection();
-			$processedMessageResult = new ProcessedMessageResult($collection, $this->getMessageSettings(), $this->getPluginer(), $this->getIngressLanchedRuClient());
+			$processedMessageResult = $this->processedMessageResultFactory->create($collection, $this->getMessageSettings(), $this->getPluginer());
 			$processedMessageResult->process();
 
 			if ($processedMessageResult->getCollection()->isEmpty()) {

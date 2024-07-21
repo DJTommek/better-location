@@ -405,7 +405,10 @@ Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingr
 		BetterLocationMessageSettings $settings,
 		int $locationIndex,
 	): void {
-		$processedCollection = new ProcessedMessageResult($collection, $settings);
+		$processedCollection = new ProcessedMessageResult(
+			collection: $collection,
+			messageSettings: $settings,
+		);
 		$processedCollection->process();
 
 		$this->assertResult(
@@ -451,7 +454,11 @@ Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingr
 		int $locationIndex,
 		Client $lanchedRuClient,
 	): void {
-		$processedCollection = new ProcessedMessageResult($collection, $settings, lanchedRuClient: $lanchedRuClient);
+		$processedCollection = new ProcessedMessageResult(
+			collection: $collection,
+			messageSettings: $settings,
+			lanchedRuClient: $lanchedRuClient
+		);
 		$processedCollection->process();
 
 		$this->assertResult(
