@@ -2,6 +2,7 @@
 
 namespace App\TelegramCustomWrapper;
 
+use App\Address\AddressProvider;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\Config;
@@ -32,6 +33,7 @@ class ProcessedMessageResult
 		private readonly BetterLocationMessageSettings $messageSettings,
 		private readonly ?Pluginer $pluginer = null,
 		private readonly ?LanchedRuClient $lanchedRuClient = null,
+		private readonly ?AddressProvider $addressProvider = null,
 		private readonly ?bool $addressForce = null,
 	) {
 	}
@@ -39,6 +41,15 @@ class ProcessedMessageResult
 	public function setAutorefresh(bool $enabled = true): void
 	{
 		$this->autorefreshEnabled = $enabled;
+	}
+
+	private function shouldFillAddress(BetterLocation $location): bool
+	{
+		return (
+			$location->hasAddress() === false
+			&& $this->addressForce !== false
+			&& ($this->addressForce === true || $this->messageSettings->showAddress())
+		);
 	}
 
 	public function process(bool $printAllErrors = false): self
@@ -54,14 +65,16 @@ class ProcessedMessageResult
 			}
 		}
 
-		if (
-			$this->addressForce !== false
-			&& ($this->addressForce === true || $this->messageSettings->showAddress())
-		) {
-			$this->collection->fillAddresses();
-		}
-
 		foreach ($this->collection->getLocations() as $betterLocation) {
+			if ($this->shouldFillAddress($betterLocation)) {
+				try {
+					$address = $this->addressProvider?->reverse($betterLocation)?->getAddress();
+					$betterLocation->setAddress($address);
+				} catch (\Throwable $exception) {
+					Debugger::log($exception);
+				}
+			}
+
 			if (
 				Config::ingressTryPortalLoad()
 				&& $this->messageSettings->tryLoadIngressPortal()

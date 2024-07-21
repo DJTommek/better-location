@@ -10,6 +10,8 @@ use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\WazeService;
 use App\Config;
+use App\Factory;
+use App\Google\Geocoding\StaticApi;
 use App\IngressLanchedRu\Client;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
@@ -19,6 +21,18 @@ use Tests\HttpTestClients;
 final class ProcessedMessageResultTest extends TestCase
 {
 	private readonly HttpTestClients $httpTestClients;
+	private static ?StaticApi $googleGeocodeApi = null;
+
+	public static function setUpBeforeClass(): void
+	{
+		parent::setUpBeforeClass();
+
+		if (Config::isGooglePlaceApi()) {
+			self::$googleGeocodeApi = Factory::googleGeocodingApi();
+		}
+
+	}
+
 
 	protected function setUp(): void
 	{
@@ -456,9 +470,14 @@ Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingr
 		?int $maxLocationsCount = null,
 		?int $maxTextLength = null,
 	): void {
+		if (self::$googleGeocodeApi === null) {
+			self::markTestSkipped('Missing Google API key');
+		}
+
 		$processedCollection = new ProcessedMessageResult(
 			collection: $collection,
 			messageSettings: $settings,
+			addressProvider: self::$googleGeocodeApi,
 		);
 		$maxLocationsCount ??= Config::TELEGRAM_MAXIMUM_LOCATIONS;
 		$maxTextLength ??= Config::TELEGRAM_BETTER_LOCATION_MESSAGE_LIMIT;
@@ -539,7 +558,7 @@ Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingr
 		$processedCollection = new ProcessedMessageResult(
 			collection: $collection,
 			messageSettings: $settings,
-			lanchedRuClient: $lanchedRuClient
+			lanchedRuClient: $lanchedRuClient,
 		);
 		$processedCollection->process();
 

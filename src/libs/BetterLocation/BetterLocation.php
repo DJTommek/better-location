@@ -137,36 +137,6 @@ class BetterLocation implements CoordinatesInterface
 		return $this->address?->getAddress() !== null;
 	}
 
-	public function generateAddress(): void
-	{
-		if ($this->hasAddress()) {
-			return;
-		}
-
-		if (Config::isGoogleGeocodingApi()) {
-			try {
-				$googleGeocoding = Factory::googleGeocodingApi();
-				$result = $googleGeocoding->reverse($this);
-				if ($result?->getAddress() !== null) {
-					$this->setAddress($result);
-					return;
-				}
-			} catch (\GuzzleHttp\Exception\GuzzleException $exception) {
-				Debugger::log($exception, Debugger::EXCEPTION);
-			}
-		}
-
-		try {
-			$result = Factory::nominatim()->reverse($this);
-			if ($result?->getAddress() !== null) {
-				$this->setAddress($result);
-				return;
-			}
-		} catch (NominatimException|\GuzzleHttp\Exception\GuzzleException $exception) {
-			Debugger::log($exception, Debugger::EXCEPTION);
-		}
-	}
-
 	public function generateDateTimeZone(): ?TimezoneType
 	{
 		if (is_null($this->timezoneData)) {

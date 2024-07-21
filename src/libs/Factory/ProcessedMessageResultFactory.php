@@ -2,6 +2,7 @@
 
 namespace App\Factory;
 
+use App\Address\AddressProvider;
 use App\BetterLocation\BetterLocationCollection;
 use App\IngressLanchedRu\Client as LanchedRuClient;
 use App\Pluginer\Pluginer;
@@ -12,6 +13,7 @@ final readonly class ProcessedMessageResultFactory
 {
 	public function __construct(
 		private ?LanchedRuClient $lanchedRuClient = null,
+		private ?AddressProvider $addressProvider = null,
 	) {
 	}
 
@@ -22,11 +24,12 @@ final readonly class ProcessedMessageResultFactory
 		?bool $addressForce = null,
 	): ProcessedMessageResult {
 		return new ProcessedMessageResult(
-			$collection,
-			$messageSettings,
-			$pluginer,
-			$this->lanchedRuClient,
-			$addressForce,
+			collection: $collection,
+			messageSettings: $messageSettings,
+			pluginer: $pluginer,
+			lanchedRuClient: $this->lanchedRuClient,
+			addressProvider: $this->addressProvider,
+			addressForce: $addressForce,
 		);
 	}
 }

@@ -47,6 +47,8 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(\App\BetterLocation\ServicesManager::class);
 	$services->set(\App\BetterLocation\ProcessExample::class);
 	$services->set(\App\Factory\ProcessedMessageResultFactory::class);
+	$services->set(\App\Address\AddressProvider::class)
+		->alias(\App\Address\AddressProvider::class, \App\Google\Geocoding\StaticApi::class);
 
 	$services->set(Database::class)
 		->arg('$server', Config::DB_SERVER)

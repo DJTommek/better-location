@@ -2,6 +2,7 @@
 
 namespace App\Web\Locations;
 
+use App\Address\AddressProvider;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\FavouriteNameGenerator;
@@ -34,6 +35,7 @@ class LocationsPresenter extends MainPresenter
 		private readonly ServicesManager $servicesManager,
 		private readonly FavouriteNameGenerator $favouriteNameGenerator,
 		private readonly OpenElevation $openElevation,
+		private readonly AddressProvider $addressProvider,
 		LocationsTemplate $template,
 	) {
 		$this->template = $template;
@@ -83,7 +85,15 @@ class LocationsPresenter extends MainPresenter
 		}
 
 		if (Utils::globalGetToBool('address') === true) {
-			$this->collection->fillAddresses();
+			foreach ($this->collection as $location) {
+				if ($location->hasAddress() === false) {
+					try {
+						$location->setAddress($this->addressProvider->reverse($location)?->getAddress());
+					} catch (\Throwable $exception) {
+						Debugger::log($exception, Debugger::EXCEPTION);
+					}
+				}
+			}
 		}
 		if (Utils::globalGetToBool('datetimezone') === true) {
 			$this->collection->fillDatetimeZone();
@@ -137,7 +147,15 @@ class LocationsPresenter extends MainPresenter
 
 		// For backward compatbitility, loading address in JSON is enabled by default
 		if (in_array(Utils::globalGetToBool('address'), [true, null], true)) {
-			$this->collection->fillAddresses();
+			foreach ($this->collection as $location) {
+				if ($location->hasAddress() === false) {
+					try {
+						$location->setAddress($this->addressProvider->reverse($location)?->getAddress());
+					} catch (\Throwable $exception) {
+						Debugger::log($exception);
+					}
+				}
+			}
 		}
 
 		$result->locations = array_map(function (BetterLocation $location) {
