@@ -45,6 +45,8 @@ class LocationsPresenter extends MainPresenter
 
 	public function action(): void
 	{
+		$this->format = mb_strtolower($_GET['format'] ?? 'html');
+
 		$regex = '/^' . Coordinates::RE_BASIC . '(;' . Coordinates::RE_BASIC . ')*$/';
 		$input = $_GET['coords'] ?? '';
 		if ($input && preg_match($regex, $input)) {
@@ -84,7 +86,7 @@ class LocationsPresenter extends MainPresenter
 			$this->redirect($this->collection->getLink());
 		}
 
-		if (Utils::globalGetToBool('address') === true) {
+		if ($this->shouldLoadAddress($this->format)) {
 			foreach ($this->collection as $location) {
 				if ($location->hasAddress() === false) {
 					try {
@@ -117,7 +119,6 @@ class LocationsPresenter extends MainPresenter
 			$services = array_values(array_filter($services));
 			$this->services[$location->getLatLon()] = $services;
 		}
-		$this->format = mb_strtolower($_GET['format'] ?? 'html');
 	}
 
 	public function render(): void
@@ -144,19 +145,6 @@ class LocationsPresenter extends MainPresenter
 	public function renderJson(): void
 	{
 		$result = new \stdClass();
-
-		// For backward compatbitility, loading address in JSON is enabled by default
-		if (in_array(Utils::globalGetToBool('address'), [true, null], true)) {
-			foreach ($this->collection as $location) {
-				if ($location->hasAddress() === false) {
-					try {
-						$location->setAddress($this->addressProvider->reverse($location)?->getAddress());
-					} catch (\Throwable $exception) {
-						Debugger::log($exception);
-					}
-				}
-			}
-		}
 
 		$result->locations = array_map(function (BetterLocation $location) {
 			$resultLocation = new \stdClass();
@@ -244,5 +232,21 @@ class LocationsPresenter extends MainPresenter
 			$location?->setElevation($coordinates->getElevation());
 		}
 	}
+
+	private function shouldLoadAddress(string $format): bool
+	{
+		$globalGet = Utils::globalGetToBool('address');
+		if ($globalGet === true) {
+			return true;
+		}
+
+		// For backward compatbitility, loading address in JSON is enabled by default
+		if ($format === 'json' && $globalGet === null) {
+			return true;
+		}
+
+		return false;
+	}
+
 }
 
