@@ -89,11 +89,7 @@ class LocationsPresenter extends MainPresenter
 		if ($this->shouldLoadAddress($this->format)) {
 			foreach ($this->collection as $location) {
 				if ($location->hasAddress() === false) {
-					try {
-						$location->setAddress($this->addressProvider->reverse($location)?->getAddress());
-					} catch (\Throwable $exception) {
-						Debugger::log($exception, Debugger::EXCEPTION);
-					}
+					$location->setAddress($this->addressProvider->reverse($location)?->getAddress());
 				}
 			}
 		}

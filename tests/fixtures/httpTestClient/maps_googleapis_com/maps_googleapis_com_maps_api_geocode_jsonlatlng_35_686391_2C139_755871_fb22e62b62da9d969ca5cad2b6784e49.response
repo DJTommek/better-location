@@ -1,0 +1,988 @@
+{
+   "plus_code" : 
+   {
+      "compound_code" : "MQP4+H85 Chiyoda City, Tokyo, Japan",
+      "global_code" : "8Q7XMQP4+H85"
+   },
+   "results" : 
+   [
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "Site of Edo Castle Honmaru (Main Hall)",
+               "short_name" : "Site of Edo Castle Honmaru (Main Hall)",
+               "types" : 
+               [
+                  "establishment",
+                  "park",
+                  "point_of_interest"
+               ]
+            },
+            {
+               "long_name" : "1",
+               "short_name" : "1",
+               "types" : 
+               [
+                  "political",
+                  "sublocality",
+                  "sublocality_level_4"
+               ]
+            },
+            {
+               "long_name" : "Chiyoda",
+               "short_name" : "Chiyoda",
+               "types" : 
+               [
+                  "political",
+                  "sublocality",
+                  "sublocality_level_2"
+               ]
+            },
+            {
+               "long_name" : "Chiyoda City",
+               "short_name" : "Chiyoda City",
+               "types" : 
+               [
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "100-0001",
+               "short_name" : "100-0001",
+               "types" : 
+               [
+                  "postal_code"
+               ]
+            }
+         ],
+         "formatted_address" : "Site of Edo Castle Honmaru (Main Hall), 1 Chiyoda, Chiyoda City, Tokyo 100-0001, Japan",
+         "geometry" : 
+         {
+            "location" : 
+            {
+               "lat" : 35.6861796,
+               "lng" : 139.7559891
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.68752858029151,
+                  "lng" : 139.7573380802915
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.68483061970851,
+                  "lng" : 139.7546401197085
+               }
+            }
+         },
+         "place_id" : "ChIJx2PyZgyMGGARfFpOJaTv_Rk",
+         "plus_code" : 
+         {
+            "compound_code" : "MQP4+F9 Chiyoda City, Tokyo, Japan",
+            "global_code" : "8Q7XMQP4+F9"
+         },
+         "types" : 
+         [
+            "establishment",
+            "park",
+            "point_of_interest"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "3",
+               "short_name" : "3",
+               "types" : 
+               [
+                  "premise"
+               ]
+            },
+            {
+               "long_name" : "1",
+               "short_name" : "1",
+               "types" : 
+               [
+                  "political",
+                  "sublocality",
+                  "sublocality_level_4"
+               ]
+            },
+            {
+               "long_name" : "Chiyoda",
+               "short_name" : "Chiyoda",
+               "types" : 
+               [
+                  "political",
+                  "sublocality",
+                  "sublocality_level_2"
+               ]
+            },
+            {
+               "long_name" : "Chiyoda City",
+               "short_name" : "Chiyoda City",
+               "types" : 
+               [
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "100-0001",
+               "short_name" : "100-0001",
+               "types" : 
+               [
+                  "postal_code"
+               ]
+            }
+         ],
+         "formatted_address" : "1-3 Chiyoda, Chiyoda City, Tokyo 100-0001, Japan",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.6864824,
+                  "lng" : 139.7565996
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.6862678,
+                  "lng" : 139.7563966
+               }
+            },
+            "location" : 
+            {
+               "lat" : 35.6863751,
+               "lng" : 139.7564981
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.6877240802915,
+                  "lng" : 139.7578470802915
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.6850261197085,
+                  "lng" : 139.7551491197085
+               }
+            }
+         },
+         "place_id" : "ChIJobe-8wuMGGARkDDMNVsISHM",
+         "types" : 
+         [
+            "premise"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "MQP4+H8",
+               "short_name" : "MQP4+H8",
+               "types" : 
+               [
+                  "plus_code"
+               ]
+            },
+            {
+               "long_name" : "Chiyoda City",
+               "short_name" : "Chiyoda City",
+               "types" : 
+               [
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            }
+         ],
+         "formatted_address" : "MQP4+H8 Chiyoda City, Tokyo, Japan",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.6865,
+                  "lng" : 139.755875
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.686375,
+                  "lng" : 139.75575
+               }
+            },
+            "location" : 
+            {
+               "lat" : 35.686391,
+               "lng" : 139.755871
+            },
+            "location_type" : "GEOMETRIC_CENTER",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.6877864802915,
+                  "lng" : 139.7571614802915
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.6850885197085,
+                  "lng" : 139.7544635197085
+               }
+            }
+         },
+         "place_id" : "GhIJZqIIqdvXQUAR1R9hGDB4YUA",
+         "plus_code" : 
+         {
+            "compound_code" : "MQP4+H8 Chiyoda City, Tokyo, Japan",
+            "global_code" : "8Q7XMQP4+H8"
+         },
+         "types" : 
+         [
+            "plus_code"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "Unnamed Road",
+               "short_name" : "Unnamed Road",
+               "types" : 
+               [
+                  "route"
+               ]
+            },
+            {
+               "long_name" : "1",
+               "short_name" : "1",
+               "types" : 
+               [
+                  "political",
+                  "sublocality",
+                  "sublocality_level_4"
+               ]
+            },
+            {
+               "long_name" : "Chiyoda",
+               "short_name" : "Chiyoda",
+               "types" : 
+               [
+                  "political",
+                  "sublocality",
+                  "sublocality_level_2"
+               ]
+            },
+            {
+               "long_name" : "Chiyoda City",
+               "short_name" : "Chiyoda City",
+               "types" : 
+               [
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "100-0001",
+               "short_name" : "100-0001",
+               "types" : 
+               [
+                  "postal_code"
+               ]
+            }
+         ],
+         "formatted_address" : "Unnamed Road, 1 Chiyoda, Chiyoda City, Tokyo 100-0001, Japan",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.6868751,
+                  "lng" : 139.756509
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.6855542,
+                  "lng" : 139.7561063
+               }
+            },
+            "location" : 
+            {
+               "lat" : 35.6862115,
+               "lng" : 139.7563138
+            },
+            "location_type" : "GEOMETRIC_CENTER",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.68756363029149,
+                  "lng" : 139.7576566302915
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.6848656697085,
+                  "lng" : 139.7549586697085
+               }
+            }
+         },
+         "place_id" : "ChIJb8nZ8guMGGARFjnL2_0L3l4",
+         "types" : 
+         [
+            "route"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "Chiyoda",
+               "short_name" : "Chiyoda",
+               "types" : 
+               [
+                  "political",
+                  "sublocality",
+                  "sublocality_level_2"
+               ]
+            },
+            {
+               "long_name" : "1",
+               "short_name" : "1",
+               "types" : 
+               [
+                  "political",
+                  "sublocality",
+                  "sublocality_level_4"
+               ]
+            },
+            {
+               "long_name" : "Chiyoda City",
+               "short_name" : "Chiyoda City",
+               "types" : 
+               [
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "100-0001",
+               "short_name" : "100-0001",
+               "types" : 
+               [
+                  "postal_code"
+               ]
+            }
+         ],
+         "formatted_address" : "1 Chiyoda, Chiyoda City, Tokyo 100-0001, Japan",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.6907185,
+                  "lng" : 139.7616247
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.6771708,
+                  "lng" : 139.7441045
+               }
+            },
+            "location" : 
+            {
+               "lat" : 35.6844651,
+               "lng" : 139.7537082
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.6907185,
+                  "lng" : 139.7616247
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.6771708,
+                  "lng" : 139.7441045
+               }
+            }
+         },
+         "place_id" : "ChIJ4bzvNguMGGARUXRpAo8Oi6s",
+         "types" : 
+         [
+            "political",
+            "sublocality",
+            "sublocality_level_2"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "100-0001",
+               "short_name" : "100-0001",
+               "types" : 
+               [
+                  "postal_code"
+               ]
+            },
+            {
+               "long_name" : "Chiyoda",
+               "short_name" : "Chiyoda",
+               "types" : 
+               [
+                  "political",
+                  "sublocality",
+                  "sublocality_level_2"
+               ]
+            },
+            {
+               "long_name" : "Chiyoda City",
+               "short_name" : "Chiyoda City",
+               "types" : 
+               [
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            }
+         ],
+         "formatted_address" : "100-0001, Japan",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.6907185,
+                  "lng" : 139.7616247
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.6771708,
+                  "lng" : 139.7441045
+               }
+            },
+            "location" : 
+            {
+               "lat" : 35.6844651,
+               "lng" : 139.7537082
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.6907185,
+                  "lng" : 139.7616247
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.6771708,
+                  "lng" : 139.7441045
+               }
+            }
+         },
+         "place_id" : "ChIJrz12GQuMGGAREHEwXdRa8tg",
+         "types" : 
+         [
+            "postal_code"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "1",
+               "short_name" : "1",
+               "types" : 
+               [
+                  "political",
+                  "sublocality",
+                  "sublocality_level_4"
+               ]
+            },
+            {
+               "long_name" : "Chiyoda",
+               "short_name" : "Chiyoda",
+               "types" : 
+               [
+                  "political",
+                  "sublocality",
+                  "sublocality_level_2"
+               ]
+            },
+            {
+               "long_name" : "Chiyoda City",
+               "short_name" : "Chiyoda City",
+               "types" : 
+               [
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "100-0001",
+               "short_name" : "100-0001",
+               "types" : 
+               [
+                  "postal_code"
+               ]
+            }
+         ],
+         "formatted_address" : "1 Chiyoda, Chiyoda City, Tokyo 100-0001, Japan",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.6907185,
+                  "lng" : 139.7616247
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.6771708,
+                  "lng" : 139.7441045
+               }
+            },
+            "location" : 
+            {
+               "lat" : 35.6844651,
+               "lng" : 139.7537082
+            },
+            "location_type" : "GEOMETRIC_CENTER",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.6907185,
+                  "lng" : 139.7616247
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.6771708,
+                  "lng" : 139.7441045
+               }
+            }
+         },
+         "place_id" : "ChIJX7jvNguMGGARZAE1ufgeXdw",
+         "types" : 
+         [
+            "political",
+            "sublocality",
+            "sublocality_level_4"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "Chiyoda City",
+               "short_name" : "Chiyoda City",
+               "types" : 
+               [
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            }
+         ],
+         "formatted_address" : "Chiyoda City, Tokyo, Japan",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.7052304,
+                  "lng" : 139.7828509
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.668537,
+                  "lng" : 139.7299079
+               }
+            },
+            "location" : 
+            {
+               "lat" : 35.6940309,
+               "lng" : 139.7537719
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.7052304,
+                  "lng" : 139.7828509
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.668537,
+                  "lng" : 139.7299079
+               }
+            }
+         },
+         "place_id" : "ChIJTfUTCwyMGGARiIHk7juVMLY",
+         "types" : 
+         [
+            "locality",
+            "political"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : 
+               [
+                  "colloquial_area",
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            }
+         ],
+         "formatted_address" : "Tokyo, Japan",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.8174453,
+                  "lng" : 139.9188743
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.519042,
+                  "lng" : 139.5628611
+               }
+            },
+            "location" : 
+            {
+               "lat" : 35.6803997,
+               "lng" : 139.7690174
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.8174453,
+                  "lng" : 139.9188743
+               },
+               "southwest" : 
+               {
+                  "lat" : 35.519042,
+                  "lng" : 139.5628611
+               }
+            }
+         },
+         "place_id" : "ChIJXSModoWLGGARILWiCfeu2M0",
+         "types" : 
+         [
+            "colloquial_area",
+            "locality",
+            "political"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            }
+         ],
+         "formatted_address" : "Tokyo, Japan",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.8984074,
+                  "lng" : 153.9867945
+               },
+               "southwest" : 
+               {
+                  "lat" : 20.4231216,
+                  "lng" : 136.0696826
+               }
+            },
+            "location" : 
+            {
+               "lat" : 35.6764225,
+               "lng" : 139.650027
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 35.8984074,
+                  "lng" : 153.9867945
+               },
+               "southwest" : 
+               {
+                  "lat" : 20.4231216,
+                  "lng" : 136.0696826
+               }
+            }
+         },
+         "place_id" : "ChIJ51cu8IcbXWARiRtXIothAS4",
+         "types" : 
+         [
+            "administrative_area_level_1",
+            "political"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            }
+         ],
+         "formatted_address" : "Japan",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 45.6412626,
+                  "lng" : 154.0031455
+               },
+               "southwest" : 
+               {
+                  "lat" : 20.3585295,
+                  "lng" : 122.8554688
+               }
+            },
+            "location" : 
+            {
+               "lat" : 36.204824,
+               "lng" : 138.252924
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 45.6412626,
+                  "lng" : 154.0031455
+               },
+               "southwest" : 
+               {
+                  "lat" : 20.3585295,
+                  "lng" : 122.8554688
+               }
+            }
+         },
+         "place_id" : "ChIJLxl_1w9OZzQRRFJmfNR1QvU",
+         "types" : 
+         [
+            "country",
+            "political"
+         ]
+      }
+   ],
+   "status" : "OK"
+}

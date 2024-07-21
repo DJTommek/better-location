@@ -30,13 +30,15 @@ final class TestUtils
 	/**
 	 * @return array{\GuzzleHttp\Client, MockHandler}
 	 */
-	public static function createMockedHttpClient(): array
+	public static function createMockedHttpClient(array $defaultConfig = []): array
 	{
 		$mockHandler = new \GuzzleHttp\Handler\MockHandler();
 		$handlerStack = \GuzzleHttp\HandlerStack::create($mockHandler);
-		$httpClient = new \GuzzleHttp\Client([
-			'handler' => $handlerStack,
-		]);
+
+		assert(array_key_exists('handler', $defaultConfig) === false);
+		$defaultConfig['handler'] = $handlerStack;
+
+		$httpClient = new \GuzzleHttp\Client($defaultConfig);
 
 		return [$httpClient, $mockHandler];
 	}

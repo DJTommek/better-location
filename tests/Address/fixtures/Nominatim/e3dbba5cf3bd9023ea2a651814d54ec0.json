@@ -1,0 +1,29 @@
+{
+	"place_id": 228363511,
+	"licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/osm.org\/copyright",
+	"osm_type": "way",
+	"osm_id": 43932740,
+	"lat": "35.68666670166329",
+	"lon": "139.75574686113592",
+	"class": "highway",
+	"type": "pedestrian",
+	"place_rank": 26,
+	"importance": 0.10000999999999993,
+	"addresstype": "road",
+	"name": "",
+	"display_name": "\u5343\u4ee3\u7530, \u5343\u4ee3\u7530\u533a, \u6771\u4eac\u90fd, 100-0001, \u65e5\u672c",
+	"address": {
+		"neighbourhood": "\u5343\u4ee3\u7530",
+		"city": "\u5343\u4ee3\u7530\u533a",
+		"ISO3166-2-lvl4": "JP-13",
+		"postcode": "100-0001",
+		"country": "\u65e5\u672c",
+		"country_code": "jp"
+	},
+	"boundingbox": [
+		"35.6860522",
+		"35.6868644",
+		"139.7552630",
+		"139.7561069"
+	]
+}

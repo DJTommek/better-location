@@ -48,6 +48,7 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(\App\BetterLocation\ProcessExample::class);
 	$services->set(\App\Factory\ProcessedMessageResultFactory::class);
 	$services->set(\App\Address\AddressProvider::class);
+	$services->set(\App\Address\UniversalAddressProvider::class);
 
 	$services->set(Database::class)
 		->arg('$server', Config::DB_SERVER)
@@ -62,14 +63,10 @@ return static function (ContainerConfigurator $container): void {
 			->arg('$apiKey', Config::GOOGLE_PLACE_API_KEY);
 		$services->set(\App\BetterLocation\GooglePlaceApi::class)
 			->arg('$apiKey', Config::GOOGLE_PLACE_API_KEY);
-
-		$mainAddressProvider = \App\Google\Geocoding\StaticApi::class;
-	} else {
-		$mainAddressProvider = \App\Nominatim\NominatimWrapper::class;
 	}
 
 	$services->set(\App\Address\AddressProvider::class)
-		->alias(\App\Address\AddressProvider::class, $mainAddressProvider);
+		->alias(\App\Address\AddressProvider::class, \App\Address\UniversalAddressProvider::class);
 
 
 	$services->set(TelegramEventFactory::class)

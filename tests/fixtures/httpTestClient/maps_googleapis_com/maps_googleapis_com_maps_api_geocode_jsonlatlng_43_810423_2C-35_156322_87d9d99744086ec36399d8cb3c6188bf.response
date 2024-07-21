@@ -1,0 +1,68 @@
+{
+   "plus_code" : 
+   {
+      "global_code" : "89M6RR6V+5F7"
+   },
+   "results" : 
+   [
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "89M6RR6V+5F",
+               "short_name" : "89M6RR6V+5F",
+               "types" : 
+               [
+                  "plus_code"
+               ]
+            }
+         ],
+         "formatted_address" : "89M6RR6V+5F",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 43.8105,
+                  "lng" : -35.15625
+               },
+               "southwest" : 
+               {
+                  "lat" : 43.81037500000001,
+                  "lng" : -35.156375
+               }
+            },
+            "location" : 
+            {
+               "lat" : 43.810423,
+               "lng" : -35.156322
+            },
+            "location_type" : "GEOMETRIC_CENTER",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 43.8117864802915,
+                  "lng" : -35.1549635197085
+               },
+               "southwest" : 
+               {
+                  "lat" : 43.8090885197085,
+                  "lng" : -35.1576614802915
+               }
+            }
+         },
+         "place_id" : "GhIJjnbc8LvnRUARmdL6WwKUQcA",
+         "plus_code" : 
+         {
+            "global_code" : "89M6RR6V+5F"
+         },
+         "types" : 
+         [
+            "plus_code"
+         ]
+      }
+   ],
+   "status" : "OK"
+}

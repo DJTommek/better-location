@@ -1,0 +1,873 @@
+{
+   "plus_code" : 
+   {
+      "compound_code" : "3QVX+FGQ Tegucigalpa, Honduras",
+      "global_code" : "766J3QVX+FGQ"
+   },
+   "results" : 
+   [
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "Monumento a la Paz - Cerro Juana Lainez",
+               "short_name" : "Monumento a la Paz - Cerro Juana Lainez",
+               "types" : 
+               [
+                  "establishment",
+                  "park",
+                  "point_of_interest"
+               ]
+            },
+            {
+               "long_name" : "CESCCO",
+               "short_name" : "CESCCO",
+               "types" : 
+               [
+                  "premise"
+               ]
+            },
+            {
+               "long_name" : "1",
+               "short_name" : "1",
+               "types" : 
+               [
+                  "street_number"
+               ]
+            },
+            {
+               "long_name" : "Paseo Juana Lainez",
+               "short_name" : "P.º Juana Lainez",
+               "types" : 
+               [
+                  "route"
+               ]
+            },
+            {
+               "long_name" : "Tegucigalpa",
+               "short_name" : "TGU",
+               "types" : 
+               [
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Distrito Central",
+               "short_name" : "Distrito Central",
+               "types" : 
+               [
+                  "administrative_area_level_2",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Departamento de Francisco Morazán",
+               "short_name" : "Departamento de Francisco Morazán",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Honduras",
+               "short_name" : "HN",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            }
+         ],
+         "formatted_address" : "Monumento a la Paz - Cerro Juana Lainez, CESCCO, 1 P.º Juana Lainez, Tegucigalpa, Francisco Morazán, Honduras",
+         "geometry" : 
+         {
+            "location" : 
+            {
+               "lat" : 14.0941929,
+               "lng" : -87.2012963
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 14.0955418802915,
+                  "lng" : -87.1999473197085
+               },
+               "southwest" : 
+               {
+                  "lat" : 14.0928439197085,
+                  "lng" : -87.20264528029151
+               }
+            }
+         },
+         "place_id" : "ChIJDaIxFsiib48RSBTiGipEO6M",
+         "plus_code" : 
+         {
+            "compound_code" : "3QVX+MF Tegucigalpa, Honduras",
+            "global_code" : "766J3QVX+MF"
+         },
+         "types" : 
+         [
+            "establishment",
+            "park",
+            "point_of_interest"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "1",
+               "short_name" : "1",
+               "types" : 
+               [
+                  "street_number"
+               ]
+            },
+            {
+               "long_name" : "Paseo Juana Lainez",
+               "short_name" : "P.º Juana Lainez",
+               "types" : 
+               [
+                  "route"
+               ]
+            },
+            {
+               "long_name" : "Tegucigalpa",
+               "short_name" : "TGU",
+               "types" : 
+               [
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Distrito Central",
+               "short_name" : "Distrito Central",
+               "types" : 
+               [
+                  "administrative_area_level_2",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Departamento de Francisco Morazán",
+               "short_name" : "Departamento de Francisco Morazán",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Honduras",
+               "short_name" : "HN",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            }
+         ],
+         "formatted_address" : "1 P.º Juana Lainez, Tegucigalpa, Francisco Morazán, Honduras",
+         "geometry" : 
+         {
+            "location" : 
+            {
+               "lat" : 14.0942966,
+               "lng" : -87.20129159999999
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 14.0956455802915,
+                  "lng" : -87.19994261970848
+               },
+               "southwest" : 
+               {
+                  "lat" : 14.0929476197085,
+                  "lng" : -87.20264058029149
+               }
+            }
+         },
+         "place_id" : "ChIJA-JWFsiib48RQIXXQxFXTTg",
+         "plus_code" : 
+         {
+            "compound_code" : "3QVX+PF Tegucigalpa, Honduras",
+            "global_code" : "766J3QVX+PF"
+         },
+         "types" : 
+         [
+            "street_address"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "1",
+               "short_name" : "1",
+               "types" : 
+               [
+                  "street_number"
+               ]
+            },
+            {
+               "long_name" : "Paseo Juana Lainez",
+               "short_name" : "P.º Juana Lainez",
+               "types" : 
+               [
+                  "route"
+               ]
+            },
+            {
+               "long_name" : "Tegucigalpa",
+               "short_name" : "TGU",
+               "types" : 
+               [
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Distrito Central",
+               "short_name" : "Distrito Central",
+               "types" : 
+               [
+                  "administrative_area_level_2",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Departamento de Francisco Morazán",
+               "short_name" : "Departamento de Francisco Morazán",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Honduras",
+               "short_name" : "HN",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            }
+         ],
+         "formatted_address" : "1 P.º Juana Lainez, Tegucigalpa, Francisco Morazán, Honduras",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 14.0945498,
+                  "lng" : -87.1994122
+               },
+               "southwest" : 
+               {
+                  "lat" : 14.0909263,
+                  "lng" : -87.20196989999999
+               }
+            },
+            "location" : 
+            {
+               "lat" : 14.0924482,
+               "lng" : -87.20168249999999
+            },
+            "location_type" : "GEOMETRIC_CENTER",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 14.0945498,
+                  "lng" : -87.19934206970849
+               },
+               "southwest" : 
+               {
+                  "lat" : 14.0909263,
+                  "lng" : -87.20204003029151
+               }
+            }
+         },
+         "place_id" : "ChIJwdn9y8mib48R_jRaY1wVQGo",
+         "types" : 
+         [
+            "route"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "3QVX+FG",
+               "short_name" : "3QVX+FG",
+               "types" : 
+               [
+                  "plus_code"
+               ]
+            },
+            {
+               "long_name" : "Tegucigalpa",
+               "short_name" : "TGU",
+               "types" : 
+               [
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Distrito Central",
+               "short_name" : "Distrito Central",
+               "types" : 
+               [
+                  "administrative_area_level_2",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Francisco Morazán Department",
+               "short_name" : "Francisco Morazán Department",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Honduras",
+               "short_name" : "HN",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            }
+         ],
+         "formatted_address" : "3QVX+FG Tegucigalpa, Honduras",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 14.09375,
+                  "lng" : -87.20112499999999
+               },
+               "southwest" : 
+               {
+                  "lat" : 14.093625,
+                  "lng" : -87.20125
+               }
+            },
+            "location" : 
+            {
+               "lat" : 14.093724,
+               "lng" : -87.201128
+            },
+            "location_type" : "GEOMETRIC_CENTER",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 14.0950364802915,
+                  "lng" : -87.19983851970849
+               },
+               "southwest" : 
+               {
+                  "lat" : 14.0923385197085,
+                  "lng" : -87.2025364802915
+               }
+            }
+         },
+         "place_id" : "GhIJW7OVl_wvLEAR1ZP5R9_MVcA",
+         "plus_code" : 
+         {
+            "compound_code" : "3QVX+FG Tegucigalpa, Honduras",
+            "global_code" : "766J3QVX+FG"
+         },
+         "types" : 
+         [
+            "plus_code"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "1",
+               "short_name" : "1",
+               "types" : 
+               [
+                  "street_number"
+               ]
+            },
+            {
+               "long_name" : "Paseo Juana Lainez",
+               "short_name" : "P.º Juana Lainez",
+               "types" : 
+               [
+                  "route"
+               ]
+            },
+            {
+               "long_name" : "Tegucigalpa",
+               "short_name" : "TGU",
+               "types" : 
+               [
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Distrito Central",
+               "short_name" : "Distrito Central",
+               "types" : 
+               [
+                  "administrative_area_level_2",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Departamento de Francisco Morazán",
+               "short_name" : "Departamento de Francisco Morazán",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Honduras",
+               "short_name" : "HN",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            }
+         ],
+         "formatted_address" : "1 P.º Juana Lainez, Tegucigalpa, Francisco Morazán, Honduras",
+         "geometry" : 
+         {
+            "location" : 
+            {
+               "lat" : 14.0945308,
+               "lng" : -87.20145979999999
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 14.0958797802915,
+                  "lng" : -87.20011081970848
+               },
+               "southwest" : 
+               {
+                  "lat" : 14.0931818197085,
+                  "lng" : -87.20280878029151
+               }
+            }
+         },
+         "place_id" : "EioxIFAuwrogSnVhbmEgTGFpbmV6LCBUZWd1Y2lnYWxwYSwgSG9uZHVyYXMiGhIYChQKEgnB2f3LyaJvjxH-NFpjXBVAahAB",
+         "types" : 
+         [
+            "street_address"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "3RV2+VF7",
+               "short_name" : "3RV2+VF7",
+               "types" : 
+               [
+                  "plus_code"
+               ]
+            },
+            {
+               "long_name" : "Boulevard Suyapa",
+               "short_name" : "Boulevard Suyapa",
+               "types" : 
+               [
+                  "route"
+               ]
+            },
+            {
+               "long_name" : "Tegucigalpa",
+               "short_name" : "TGU",
+               "types" : 
+               [
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Distrito Central",
+               "short_name" : "Distrito Central",
+               "types" : 
+               [
+                  "administrative_area_level_2",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Francisco Morazán Department",
+               "short_name" : "Francisco Morazán Department",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Honduras",
+               "short_name" : "HN",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "11101",
+               "short_name" : "11101",
+               "types" : 
+               [
+                  "postal_code"
+               ]
+            }
+         ],
+         "formatted_address" : "3RV2+VF7, Boulevard Suyapa, 11101 Tegucigalpa, Francisco Morazán, Honduras",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 14.0946832,
+                  "lng" : -87.19884949999999
+               },
+               "southwest" : 
+               {
+                  "lat" : 14.0945351,
+                  "lng" : -87.19896679999999
+               }
+            },
+            "location" : 
+            {
+               "lat" : 14.094632,
+               "lng" : -87.1989274
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 14.0959581302915,
+                  "lng" : -87.1975591697085
+               },
+               "southwest" : 
+               {
+                  "lat" : 14.0932601697085,
+                  "lng" : -87.2002571302915
+               }
+            }
+         },
+         "place_id" : "ChIJhfa6kciib48Ra2AqLTra1jg",
+         "types" : 
+         [
+            "premise"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "Tegucigalpa",
+               "short_name" : "TGU",
+               "types" : 
+               [
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Distrito Central",
+               "short_name" : "Distrito Central",
+               "types" : 
+               [
+                  "administrative_area_level_2",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Francisco Morazán Department",
+               "short_name" : "Francisco Morazán Department",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Honduras",
+               "short_name" : "HN",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            }
+         ],
+         "formatted_address" : "Tegucigalpa, Francisco Morazán, Honduras",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 14.1426974,
+                  "lng" : -87.1321295
+               },
+               "southwest" : 
+               {
+                  "lat" : 14.0251335,
+                  "lng" : -87.27781589999999
+               }
+            },
+            "location" : 
+            {
+               "lat" : 14.065049,
+               "lng" : -87.1715002
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 14.1426974,
+                  "lng" : -87.1321295
+               },
+               "southwest" : 
+               {
+                  "lat" : 14.0251335,
+                  "lng" : -87.27781589999999
+               }
+            }
+         },
+         "place_id" : "ChIJUT10v7qib48R08lqIDgiz2g",
+         "types" : 
+         [
+            "locality",
+            "political"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "Distrito Central",
+               "short_name" : "Distrito Central",
+               "types" : 
+               [
+                  "administrative_area_level_2",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Departamento de Francisco Morazán",
+               "short_name" : "Departamento de Francisco Morazán",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Honduras",
+               "short_name" : "HN",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            }
+         ],
+         "formatted_address" : "Distrito Central, Francisco Morazán, Honduras",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 14.3719417,
+                  "lng" : -87.0053954
+               },
+               "southwest" : 
+               {
+                  "lat" : 13.8951315,
+                  "lng" : -87.4724653
+               }
+            },
+            "location" : 
+            {
+               "lat" : 14.1311004,
+               "lng" : -87.26183279999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 14.3719417,
+                  "lng" : -87.0053954
+               },
+               "southwest" : 
+               {
+                  "lat" : 13.8951315,
+                  "lng" : -87.4724653
+               }
+            }
+         },
+         "place_id" : "ChIJ0SNaUoqYb48RklWuQ1MsTFw",
+         "types" : 
+         [
+            "administrative_area_level_2",
+            "political"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "Francisco Morazán Department",
+               "short_name" : "Francisco Morazán Department",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Honduras",
+               "short_name" : "HN",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            }
+         ],
+         "formatted_address" : "Francisco Morazán, Honduras",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 15.0332918,
+                  "lng" : -86.7106493
+               },
+               "southwest" : 
+               {
+                  "lat" : 13.6532101,
+                  "lng" : -87.65005169999999
+               }
+            },
+            "location" : 
+            {
+               "lat" : 14.0650449,
+               "lng" : -87.17150389999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 15.0332918,
+                  "lng" : -86.7106493
+               },
+               "southwest" : 
+               {
+                  "lat" : 13.6532101,
+                  "lng" : -87.65005169999999
+               }
+            }
+         },
+         "place_id" : "ChIJca634Kbmbo8Rg8NsIfH6LBY",
+         "types" : 
+         [
+            "administrative_area_level_1",
+            "political"
+         ]
+      },
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "Honduras",
+               "short_name" : "HN",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            }
+         ],
+         "formatted_address" : "Honduras",
+         "geometry" : 
+         {
+            "bounds" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 17.4677999,
+                  "lng" : -83.06210009999999
+               },
+               "southwest" : 
+               {
+                  "lat" : 12.9808201,
+                  "lng" : -89.3564822
+               }
+            },
+            "location" : 
+            {
+               "lat" : 15.199999,
+               "lng" : -86.241905
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 17.4677999,
+                  "lng" : -83.06210009999999
+               },
+               "southwest" : 
+               {
+                  "lat" : 12.9808201,
+                  "lng" : -89.3564822
+               }
+            }
+         },
+         "place_id" : "ChIJzzG3cxp1ao8RZIL7toLe0X4",
+         "types" : 
+         [
+            "country",
+            "political"
+         ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,32 @@
+{
+	"place_id": 116048695,
+	"licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/osm.org\/copyright",
+	"osm_type": "relation",
+	"osm_id": 8759581,
+	"lat": "50.08731755",
+	"lon": "14.421382771476797",
+	"class": "highway",
+	"type": "pedestrian",
+	"place_rank": 26,
+	"importance": 0.05341768291752495,
+	"addresstype": "road",
+	"name": "",
+	"display_name": "Star\u00e9 M\u011bsto, Praha 1, Praha, obvod Praha 1, Hlavn\u00ed m\u011bsto Praha, Praha, 110 00, \u010cesko",
+	"address": {
+		"suburb": "Star\u00e9 M\u011bsto",
+		"borough": "Praha 1",
+		"city_district": "obvod Praha 1",
+		"city": "Hlavn\u00ed m\u011bsto Praha",
+		"ISO3166-2-lvl6": "CZ-10",
+		"state": "Praha",
+		"postcode": "110 00",
+		"country": "\u010cesko",
+		"country_code": "cz"
+	},
+	"boundingbox": [
+		"50.0864772",
+		"50.0881549",
+		"14.4197917",
+		"14.4221791"
+	]
+}

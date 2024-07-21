@@ -67,12 +67,8 @@ class ProcessedMessageResult
 
 		foreach ($this->collection->getLocations() as $betterLocation) {
 			if ($this->shouldFillAddress($betterLocation)) {
-				try {
-					$address = $this->addressProvider?->reverse($betterLocation)?->getAddress();
-					$betterLocation->setAddress($address);
-				} catch (\Throwable $exception) {
-					Debugger::log($exception);
-				}
+				$address = $this->addressProvider?->reverse($betterLocation)?->getAddress();
+				$betterLocation->setAddress($address);
 			}
 
 			if (
