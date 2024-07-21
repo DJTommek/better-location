@@ -2,11 +2,12 @@
 
 namespace App\Nominatim;
 
+use App\Address\AddressProvider;
 use DJTommek\Coordinates\CoordinatesInterface;
 use maxh\Nominatim\Exceptions\NominatimException;
 use Psr\SimpleCache\CacheInterface;
 
-class NominatimWrapper
+class NominatimWrapper implements AddressProvider
 {
 	const ERRORS_WHITELIST = [
 		'Unable to geocode',

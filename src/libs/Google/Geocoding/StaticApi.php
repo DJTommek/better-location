@@ -2,11 +2,12 @@
 
 namespace App\Google\Geocoding;
 
+use App\Address\AddressProvider;
 use App\Config;
 use App\Google\RunGoogleApiRequestTrait;
 use DJTommek\Coordinates\CoordinatesInterface;
 
-class StaticApi
+class StaticApi implements AddressProvider
 {
 	use RunGoogleApiRequestTrait;
 
