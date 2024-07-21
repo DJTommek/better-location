@@ -213,6 +213,55 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 		];
 	}
 
+	public static function minimalWithAddressProvider(): array
+	{
+		return [
+			__FUNCTION__ . ' - One item, one button' => [
+				'<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087451%26x%3D14.420671%26source%3Dcoor%26id%3D14.420671%252C50.087451%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>9F2P3CPC+X7M3</code>
+<a href="https://better-location.palider.cz/50.087451,14.420671" target="_blank">BetterLocation</a>
+🇨🇿 Mikulášská 22, 110 00 Praha 1-Staré Město, Czechia
+
+',
+				[
+					[
+						[
+							'text' => 'Mapy.cz 🚗',
+							'url' => 'https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451',
+						],
+					],
+				],
+				(new BetterLocationCollection())->add(new BetterLocation('abcd', 50.087451, 14.420671, WGS84DegreesService::class)),
+				new BetterLocationMessageSettings(
+					shareServices: [BetterLocationService::class],
+					buttonServices: [MapyCzService::class],
+					textServices: [OpenLocationCodeService::class],
+					address: true,
+				),
+			],
+
+			__FUNCTION__ . ' - Multiple items, no buttons' => [
+				'2 locations: <a href="https://better-location.palider.cz/49.000000,14.000000;-53.163196,-70.892391" target="_blank">BetterLocation</a> | <a href="https://mapy.cz/zakladni?vlastni-body&uc=9fqfrxSnSnqsSWop6ctn" target="_blank">Mapy.cz</a>
+
+<a href="https://mapy.cz/turisticka?source=coor&id=16.60807216711808%2C49.19523769907402&x=16.6078214&y=49.1951089&z=19">Mapy.cz Place coords</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D49.000000%26x%3D14.000000%26source%3Dcoor%26id%3D14.000000%252C49.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>49.000000,14.000000</code>
+<a href="https://better-location.palider.cz/49.000000,14.000000" target="_blank">BetterLocation</a>
+🇨🇿 Lázně 1129, 383 01 Prachatice-Prachatice II, Czechia
+
+<a href="">WGS84</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D-53.163196%26x%3D-70.892391%26source%3Dcoor%26id%3D-70.892391%252C-53.163196%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>-53.163196,-70.892391</code>
+<a href="https://better-location.palider.cz/-53.163196,-70.892391" target="_blank">BetterLocation</a>
+🇨🇱 Mejicana 1480, 6213229 Punta Arenas, Magallanes y la Antártica Chilena, Chile
+
+',
+				[
+					[],
+				],
+				(new BetterLocationCollection())
+					->add(new BetterLocation('https://mapy.cz/turisticka?source=coor&id=16.60807216711808%2C49.19523769907402&x=16.6078214&y=49.1951089&z=19', 49, 14, MapyCzService::class, MapyCzService::TYPE_PLACE_COORDS))
+					->add(new BetterLocation('abcd', -53.1631958, -70.8923906, WGS84DegreesService::class)),
+				new BetterLocationMessageSettings(shareServices: [BetterLocationService::class], buttonServices: []),
+			],
+		];
+	}
+
 	public static function oneLocationNoAddressProvider(): array
 	{
 		$collection = (new BetterLocationCollection())
@@ -367,6 +416,39 @@ Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingr
 	 * @dataProvider minimalNoAddressProvider
 	 */
 	public function testBasic(
+		string $expectedText,
+		array $expectedButtons,
+		BetterLocationCollection $collection,
+		BetterLocationMessageSettings $settings,
+		?int $maxLocationsCount = null,
+		?int $maxTextLength = null,
+	): void {
+		$processedCollection = new ProcessedMessageResult(
+			collection: $collection,
+			messageSettings: $settings,
+		);
+		$maxLocationsCount ??= Config::TELEGRAM_MAXIMUM_LOCATIONS;
+		$maxTextLength ??= Config::TELEGRAM_BETTER_LOCATION_MESSAGE_LIMIT;
+		$processedCollection->process();
+
+		$realText = $processedCollection->getText(
+			includeStaticMapUrl: false,
+			maxTextLength: $maxTextLength,
+			maxLocationsCount: $maxLocationsCount,
+		);
+		$this->assertResult(
+			$expectedText,
+			$expectedButtons,
+			$realText,
+			$processedCollection->getButtons(),
+		);
+	}
+
+	/**
+	 * @group request
+	 * @dataProvider minimalWithAddressProvider
+	 */
+	public function testBasicWithAddress(
 		string $expectedText,
 		array $expectedButtons,
 		BetterLocationCollection $collection,
