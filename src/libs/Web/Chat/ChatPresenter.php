@@ -2,6 +2,7 @@
 
 namespace App\Web\Chat;
 
+use App\Address\AddressProvider;
 use App\BetterLocation\ProcessExample;
 use App\BetterLocation\ServicesManager;
 use App\Chat;
@@ -36,6 +37,7 @@ class ChatPresenter extends MainPresenter
 		private readonly ServicesManager $servicesManager,
 		private readonly ClientInterface $httpClient,
 		private readonly ProcessExample $processExample,
+		private readonly AddressProvider $addressProvider,
 		ChatTemplate $template,
 	) {
 		$this->template = $template;
@@ -99,7 +101,12 @@ class ChatPresenter extends MainPresenter
 			}
 		}
 
-		$this->template->exampleLocation = $exampleCollection->getFirst();
+		$location = $exampleCollection->getFirst();
+		if ($this->chat->settingsShowAddress() && $location->hasAddress() === false) {
+			$location->setAddress($this->addressProvider->reverse($location)->getAddress());
+		}
+
+		$this->template->exampleLocation = $location;
 		$this->template->prepareOk($this->chatResponse, $this->servicesManager);
 		$this->template->chat = $this->chat;
 
