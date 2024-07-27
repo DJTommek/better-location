@@ -49,6 +49,14 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	{
 		return [
 			[true, 'https://www.google.com/maps/place/Velk%C3%BD+Meheln%C3%ADk,+397+01+Pisek/@49.2941662,14.2258333,14z/data=!4m2!3m1!1s0x470b5087ca84a6e9:0xfeb1428d8c8334da'],
+			[true, 'https://www.google.com/maps/place/50%C2%B006\'04.6%22N+14%C2%B031\'44.0%22E/@50.101271,14.5281082,18z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d50.1012711!4d14.5288824?shorturl=1'],
+			[true, 'https://www.google.com/maps/place/Jan+Hus+monument/@50.0868596,14.4201333,19z/data=!4m6!3m5!1s0x470b94e96b3ad9c1:0x4d05ec8957b56640!8m2!3d50.0877215!4d14.4211422!16s%2Fm%2F03bzzqx!11m1!6b1?hl=en&entry=ttu'],
+			[true, 'https://www.google.com/maps/place/49%C2%B050\'19.5%22N+18%C2%B023\'29.9%22E/@49.8387187,18.3912988,88m/data=!3m1!1e3!4m14!1m7!3m6!1s0x4713fdb643f28f71:0xcbeec5757ed37704!2zT2Rib3LFrywgNzM1IDQxIFBldMWZdmFsZA!3b1!8m2!3d49.8386455!4d18.39618!3m5!1s0x0:0x0!7e2!8m2!3d49.8387596!4d18.3916417'],
+			[true, 'https://www.google.com/maps/place/49%C2%B050\'19.5%22N+18%C2%B023\'29.9%22E/@49.8387187,18.3912988,88m/data=!3m1!1e3!4m6!3m5!1s0x0:0x0!7e2!8m2!3d49.8387596!4d18.3916417?shorturl=1'],
+
+			// Place name changed to 'some<b>bold</b>text'
+			[true, 'https://www.google.com/maps/place/some%3Cb%3Ebold%3C/b%3Etext/@50.0868596,14.4201333,19z/data=!4m6!3m5!1s0x470b94e96b3ad9c1:0x4d05ec8957b56640!8m2!3d50.0877215!4d14.4211422!16s%2Fm%2F03bzzqx!11m1!6b1?hl=en&entry=ttu'],
+
 			[true, 'https://www.google.com/maps/place/Zelend%C3%A1rky/@49.2069545,14.2495123,15z/data=!4m5!3m4!1s0x0:0x3ad3965c4ecb9e51!8m2!3d49.2113282!4d14.2553488'],
 			[true, 'https://www.google.cz/maps/@36.8264601,22.5287146,9.33z'],
 			[true, 'https://www.google.cz/maps/place/49%C2%B020\'00.6%22N+14%C2%B017\'46.2%22E/@49.3339819,14.2956352,18.4z/data=!4m5!3m4!1s0x0:0x0!8m2!3d49.333511!4d14.296174'],
@@ -82,6 +90,7 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	{
 		return [
 			[true, 'https://goo.gl/maps/rgZZt125tpvf2rnCA'],
+			[true, 'https://goo.gl/maps/aTQGPSpepT2EDCrT8'],
 			[true, 'http://goo.gl/maps/rgZZt125tpvf2rnCA'],
 			[true, 'https://goo.gl/maps/eUYMwABdpv9NNSDX7'],
 			[true, 'https://GoO.GL/maps/hEbUKxSuMjA2'],
@@ -117,6 +126,42 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 			[[[49.333511, 14.296174, GoogleMapsService::TYPE_PLACE]], 'https://www.google.cz/maps/place/49%C2%B020\'00.6%22N+14%C2%B017\'46.2%22E/@49.3339819,14.2956352,18.4z/data=!4m5!3m4!1s0x0:0x0!8m2!3d49.333511!4d14.296174'],
 			[[[49.308853, 14.146589, GoogleMapsService::TYPE_PLACE]], 'https://www.google.cz/maps/place/Hrad+P%C3%ADsek/@49.3088543,14.1454615,391m/data=!3m1!1e3!4m12!1m6!3m5!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!2sHrad+P%C3%ADsek!8m2!3d49.3088525!4d14.1465894!3m4!1s0x470b4ff494c201db:0x4f78e2a2eaa0955b!8m2!3d49.3088525!4d14.1465894'],
 			[[[50.101271, 14.528882, GoogleMapsService::TYPE_PLACE]], 'https://www.google.com/maps/place/50%C2%B006\'04.6%22N+14%C2%B031\'44.0%22E/@50.101271,14.5281082,18z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d50.1012711!4d14.5288824?shorturl=1'],
+
+			[
+				[
+					[50.101271, 14.528882, GoogleMapsService::TYPE_PLACE, '<a href="https://www.google.com/maps/place/50%C2%B006\'04.6%22N+14%C2%B031\'44.0%22E/@50.101271,14.5281082,18z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d50.1012711!4d14.5288824?shorturl=1">Google 50°06&#039;04.6&quot;N 14°31&#039;44.0&quot;E</a>'],
+				],
+				'https://www.google.com/maps/place/50%C2%B006\'04.6%22N+14%C2%B031\'44.0%22E/@50.101271,14.5281082,18z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d50.1012711!4d14.5288824?shorturl=1',
+			],
+
+			[
+				[
+					[50.0877215, 14.4211422, GoogleMapsService::TYPE_PLACE, '<a href="https://www.google.com/maps/place/Jan+Hus+monument/@50.0868596,14.4201333,19z/data=!4m6!3m5!1s0x470b94e96b3ad9c1:0x4d05ec8957b56640!8m2!3d50.0877215!4d14.4211422!16s%2Fm%2F03bzzqx!11m1!6b1?hl=en&entry=ttu">Google Jan Hus monument</a>'],
+				],
+				'https://www.google.com/maps/place/Jan+Hus+monument/@50.0868596,14.4201333,19z/data=!4m6!3m5!1s0x470b94e96b3ad9c1:0x4d05ec8957b56640!8m2!3d50.0877215!4d14.4211422!16s%2Fm%2F03bzzqx!11m1!6b1?hl=en&entry=ttu',
+			],
+
+			[
+				[
+					[49.8387596, 18.3916417, GoogleMapsService::TYPE_PLACE, '<a href="https://www.google.com/maps/place/49%C2%B050\'19.5%22N+18%C2%B023\'29.9%22E/@49.8387187,18.3912988,88m/data=!3m1!1e3!4m14!1m7!3m6!1s0x4713fdb643f28f71:0xcbeec5757ed37704!2zT2Rib3LFrywgNzM1IDQxIFBldMWZdmFsZA!3b1!8m2!3d49.8386455!4d18.39618!3m5!1s0x0:0x0!7e2!8m2!3d49.8387596!4d18.3916417">Google 49°50&#039;19.5&quot;N 18°23&#039;29.9&quot;E</a>'],
+				],
+				'https://www.google.com/maps/place/49%C2%B050\'19.5%22N+18%C2%B023\'29.9%22E/@49.8387187,18.3912988,88m/data=!3m1!1e3!4m14!1m7!3m6!1s0x4713fdb643f28f71:0xcbeec5757ed37704!2zT2Rib3LFrywgNzM1IDQxIFBldMWZdmFsZA!3b1!8m2!3d49.8386455!4d18.39618!3m5!1s0x0:0x0!7e2!8m2!3d49.8387596!4d18.3916417',
+			],
+
+			[
+				[
+					[49.8387596, 18.3916417, GoogleMapsService::TYPE_PLACE, '<a href="https://www.google.com/maps/place/49%C2%B050\'19.5%22N+18%C2%B023\'29.9%22E/@49.8387187,18.3912988,88m/data=!3m1!1e3!4m6!3m5!1s0x0:0x0!7e2!8m2!3d49.8387596!4d18.3916417?shorturl=1">Google 49°50&#039;19.5&quot;N 18°23&#039;29.9&quot;E</a>'],
+				],
+				'https://www.google.com/maps/place/49%C2%B050\'19.5%22N+18%C2%B023\'29.9%22E/@49.8387187,18.3912988,88m/data=!3m1!1e3!4m6!3m5!1s0x0:0x0!7e2!8m2!3d49.8387596!4d18.3916417?shorturl=1',
+			],
+
+			// Place name changed to 'some<b>bold</b>text'
+			[
+				[
+					[50.0877215, 14.4211422, GoogleMapsService::TYPE_PLACE, '<a href="https://www.google.com/maps/place/some%3Cb%3Ebold%3C/b%3Etext/@50.0868596,14.4201333,19z/data=!4m6!3m5!1s0x470b94e96b3ad9c1:0x4d05ec8957b56640!8m2!3d50.0877215!4d14.4211422!16s%2Fm%2F03bzzqx!11m1!6b1?hl=en&entry=ttu">Google some&lt;b&gt;bold&lt;</a>'],
+				],
+				'https://www.google.com/maps/place/some%3Cb%3Ebold%3C/b%3Etext/@50.0868596,14.4201333,19z/data=!4m6!3m5!1s0x470b94e96b3ad9c1:0x4d05ec8957b56640!8m2!3d50.0877215!4d14.4211422!16s%2Fm%2F03bzzqx!11m1!6b1?hl=en&entry=ttu',
+			],
 		];
 	}
 
@@ -291,7 +336,7 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	public function testProcessWithoutRequest(array $expectedResults, string $input): void
 	{
 		$service = new GoogleMapsService($this->httpTestClients->mockedRequestor);
-		$this->testProcess($service, $expectedResults, $input);
+		$this->assertServiceLocations($service, $input, $expectedResults);
 	}
 
 	/**

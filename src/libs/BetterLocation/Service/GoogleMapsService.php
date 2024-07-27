@@ -147,7 +147,8 @@ final class GoogleMapsService extends AbstractService
 	{
 		// https://www.google.com/maps/place/50%C2%B006'04.6%22N+14%C2%B031'44.0%22E/@50.101271,14.5281082,18z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d50.1012711!4d14.5288824?shorturl=1
 		// Regex is matching "!3d50.1012711!4d14.5288824"
-		if (preg_match_all('/!3d(-?[0-9]{1,3}\.[0-9]+)!4d(-?[0-9]{1,3}\.[0-9]+)/', $this->url->getPath(), $matches)) {
+		// https://www.google.com/maps/place/Jan+Hus+monument/@50.0868596,14.4201333,19z/data=!4m6!3m5!1s0x470b94e96b3ad9c1:0x4d05ec8957b56640!8m2!3d50.0877215!4d14.4211422!16s%2Fm%2F03bzzqx!11m1!6b1?hl=en&entry=ttu
+		if (preg_match_all('/\/maps\/place\/([^\/]+)\/.+!3d(-?[0-9]{1,3}\.[0-9]+)!4d(-?[0-9]{1,3}\.[0-9]+)/', $this->url->getPath(), $matches)) {
 			/**
 			 * There might be more than just one parameter to match, example:
 			 * https://www.google.com/maps/place/49%C2%B050'19.5%22N+18%C2%B023'29.9%22E/@49.8387187,18.3912988,88m/data=!3m1!1e3!4m14!1m7!3m6!1s0x4713fdb643f28f71:0xcbeec5757ed37704!2zT2Rib3LFrywgNzM1IDQxIFBldMWZdmFsZA!3b1!8m2!3d49.8386455!4d18.39618!3m5!1s0x0:0x0!7e2!8m2!3d49.8387596!4d18.3916417
@@ -155,8 +156,12 @@ final class GoogleMapsService extends AbstractService
 			 * https://www.google.com/maps/place/49%C2%B050'19.5%22N+18%C2%B023'29.9%22E/@49.8387187,18.3912988,88m/data=!3m1!1e3!4m6!3m5!1s0x0:0x0!7e2!8m2!3d49.8387596!4d18.3916417?shorturl=1
 			 * In this URL is only one parameter to match. Strange...
 			 */
-			if (Coordinates::isLat(end($matches[1])) && Coordinates::isLon(end($matches[2]))) {
-				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval(end($matches[1])), Strict::floatval(end($matches[2])), self::class, self::TYPE_PLACE));
+			$coords = \DJTommek\Coordinates\Coordinates::safe(end($matches[2]), end($matches[3]));
+			if ($coords !== null) {
+				$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class, self::TYPE_PLACE);
+				$title = urldecode(end($matches[1]));
+				$location->setPrefixTextInLink(htmlspecialchars($title));
+				$this->collection->add($location);
 			}
 		}
 
