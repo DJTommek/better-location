@@ -48,7 +48,8 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(\App\BetterLocation\ProcessExample::class);
 	$services->set(\App\Factory\ProcessedMessageResultFactory::class);
 	$services->set(\App\Address\AddressProvider::class);
-	$services->set(\App\Address\UniversalAddressProvider::class);
+	$services->set(\App\Address\UniversalAddressProvider::class)
+		->arg('$cache', service(\App\Cache\StorageInterface::class));
 
 	$services->set(Database::class)
 		->arg('$server', Config::DB_SERVER)
@@ -156,6 +157,17 @@ return static function (ContainerConfigurator $container): void {
 		->factory([service(\App\Factory\NetteCacheFileStorageFactory::class), 'create'])
 		->alias(\Nette\Caching\Storage::class, \Nette\Caching\Storages\FileStorage::class);
 
+	$tempCachePath = Config::FOLDER_TEMP . '/nette-cache';
+	$permaCachePath = Config::FOLDER_DATA . '/perma-cache';
+
 	$services->set(\App\Factory\NetteCacheFileStorageFactory::class)
-		->arg('$dir', Config::FOLDER_TEMP . '/nette-cache');
+		->arg('$dir', $tempCachePath);
+
+	$services->set(\App\Factory\TempCacheFactory::class)
+		->arg('$dir', $tempCachePath);
+
+	$services->set(\App\Cache\StorageInterface::class)
+		->factory([service(\App\Factory\PermaCacheFactory::class), 'create']);
+	$services->set(\App\Factory\PermaCacheFactory::class)
+		->arg('$dir', $permaCachePath);
 };

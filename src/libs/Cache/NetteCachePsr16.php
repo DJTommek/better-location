@@ -4,9 +4,8 @@ namespace App\Cache;
 
 use Nette\Caching\Cache;
 use Nette\Caching\Storage;
-use Psr\SimpleCache\CacheInterface;
 
-readonly class NetteCachePsr16 implements CacheInterface
+readonly class NetteCachePsr16 implements \Psr\SimpleCache\CacheInterface, StorageInterface
 {
 	public function __construct(
 		private Storage $storage,

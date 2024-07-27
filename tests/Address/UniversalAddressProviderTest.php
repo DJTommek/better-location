@@ -48,6 +48,7 @@ final class UniversalAddressProviderTest extends TestCase
 		$provider = new UniversalAddressProvider(
 			google: $this->createGoogleClientReal(),
 			nominatim: $this->createNominatimClientReal(),
+			cache: TestUtils::createDevNullCache(),
 		);
 		$this->testInner($expectedAddress, $provider, $coordinates);
 	}
@@ -61,6 +62,7 @@ final class UniversalAddressProviderTest extends TestCase
 		$provider = new UniversalAddressProvider(
 			google: $this->createGoogleClientOffline(),
 			nominatim: $this->createNominatimClientMocked('this should not be used'),
+			cache: TestUtils::createDevNullCache(),
 		);
 		$this->testInner($expectedAddress, $provider, $coordinates);
 	}
@@ -75,6 +77,7 @@ final class UniversalAddressProviderTest extends TestCase
 		$provider = new UniversalAddressProvider(
 			google: null,
 			nominatim: $this->createNominatimClientReal(),
+			cache: TestUtils::createDevNullCache(),
 		);
 		$this->testInner($expectedAddress, $provider, $coordinates);
 	}
@@ -90,6 +93,7 @@ final class UniversalAddressProviderTest extends TestCase
 		$provider = new UniversalAddressProvider(
 			google: null,
 			nominatim: $this->createNominatimClientMocked($mockedResponseBody),
+			cache: TestUtils::createDevNullCache(),
 		);
 
 		$this->testInner($expectedAddress, $provider, $coordinates);
@@ -109,6 +113,7 @@ final class UniversalAddressProviderTest extends TestCase
 		$provider = new UniversalAddressProvider(
 			google: $this->createGoogleClientReal(),
 			nominatim: null,
+			cache: TestUtils::createDevNullCache(),
 		);
 		$this->testInner($expectedAddress, $provider, $coordinates);
 	}
@@ -122,6 +127,7 @@ final class UniversalAddressProviderTest extends TestCase
 		$provider = new UniversalAddressProvider(
 			google: $this->createGoogleClientOffline(),
 			nominatim: null,
+			cache: TestUtils::createDevNullCache(),
 		);
 		$this->testInner($expectedAddress, $provider, $coordinates);
 	}
