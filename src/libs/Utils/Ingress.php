@@ -48,7 +48,10 @@ class Ingress
 					self::BETTER_LOCATION_KEY_PORTAL
 				);
 
-				if (in_array($portal->address, ['', 'undefined', '[Unknown Location]'], true) === false) { // show portal address only if it makes sense
+				if (
+					$location->hasAddress() === false
+					&& in_array($portal->address, ['', 'undefined', '[Unknown Location]'], true) === false // show portal address only if it makes sense
+				) {
 					$location->setAddress(htmlspecialchars($portal->address));
 				}
 			}
