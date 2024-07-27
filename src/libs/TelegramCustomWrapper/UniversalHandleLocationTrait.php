@@ -26,7 +26,17 @@ trait UniversalHandleLocationTrait
 
 	abstract function getIngressLanchedRuClient(): IngressLanchedRuClient;
 
-	abstract function replyLocation(CoordinatesInterface $location, ?Markup $markup = null): ?Telegram\Types\Message;
+	abstract function replyLocation(
+		CoordinatesInterface $location,
+		?Markup $markup = null,
+	): ?Telegram\Types\Message;
+
+	abstract function replyVenue(
+		CoordinatesInterface $location,
+		string $title,
+		string $address,
+		?Markup $markup = null,
+	): ?Telegram\Types\Message;
 
 	abstract function reply(string $text, ?Markup $markup = null, array $options = []): ?Telegram\Types\Message;
 
@@ -92,7 +102,19 @@ trait UniversalHandleLocationTrait
 	{
 		$location = $processedCollection->getCollection()->getFirst();
 		$markup = $processedCollection->getMarkup(1, false);
-		$response = $this->replyLocation($location, $markup,);
+
+		$titleString = trim(strip_tags($location->getInlinePrefixMessage() ?? $location->getPrefixMessage()));
+
+		$addressString = $location->hasAddress()
+			? sprintf('%s%s%s', $location->getAddress(), TelegramHelper::NEW_LINE, $location->getLatLon())
+			: $location->getLatLon();
+
+		$this->replyVenue(
+			location: $location,
+			title: $titleString,
+			address: $addressString,
+			markup: $markup,
+		);
 	}
 
 	private function outputSneakyButtons(ProcessedMessageResult $processedCollection): void

@@ -336,6 +336,26 @@ abstract class Events
 		return $response;
 	}
 
+	public function replyVenue(
+		CoordinatesInterface $location,
+		string $title,
+		string $address,
+		?Markup $markup = null,
+	): ?Telegram\Types\Message {
+		assert(trim($title) !== '' && trim($address) !== '');
+		$venueMessage = new Telegram\Methods\SendVenue();
+		$venueMessage->chat_id = $this->getTgChatId();
+		$venueMessage->latitude = $location->getLat();
+		$venueMessage->longitude = $location->getLon();
+		$venueMessage->reply_to_message_id = $this->getTgMessageId();
+		$venueMessage->reply_markup = $markup;
+		$venueMessage->title = $title;
+		$venueMessage->address = $address;
+		$response = $this->runSmart($venueMessage);
+		assert($response === null || $response instanceof Telegram\Types\Message);
+		return $response;
+	}
+
 	/**
 	 * @return ?TelegramTypes null if whitelisted exception
 	 * @throws ClientException|\Exception
