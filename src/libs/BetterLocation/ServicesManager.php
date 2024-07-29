@@ -45,6 +45,7 @@ use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\OpenStreetMapService;
 use App\BetterLocation\Service\OrganicMapsService;
 use App\BetterLocation\Service\OsmAndService;
+use App\BetterLocation\Service\Park4NightService;
 use App\BetterLocation\Service\PrazdneDomyCzService;
 use App\BetterLocation\Service\RopikyNetService;
 use App\BetterLocation\Service\SumavaCzService;
@@ -136,6 +137,7 @@ class ServicesManager
 		$services[] = WikipediaService::class;
 		$services[] = AirbnbService::class;
 		$services[] = BookingService::class;
+		$services[] = Park4NightService::class;
 		$services[] = DuckDuckGoService::class;
 		$services[] = AppleMapsService::class;
 		$services[] = FoursquareService::class;

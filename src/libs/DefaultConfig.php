@@ -247,6 +247,7 @@ class DefaultConfig
 	const CACHE_TTL_VODNIMLYNY_CZ = 60 * 60 * 24;
 	const CACHE_TTL_AIRBNB = 60 * 60 * 24;
 	const CACHE_TTL_BOOKING = 60 * 60 * 24;
+	const CACHE_TTL_PARK4NIGHT = 60 * 60 * 24;
 
 	/** @var string[] */
 	const API_KEYS = [];
