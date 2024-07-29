@@ -52,10 +52,10 @@ final class Park4NightService extends AbstractService
 		$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class);
 		if ($placeName = self::getPlaceName($finder)) {
 			$location->setPrefixMessage(sprintf(
-				'<a href="%s">%s</a> - <a href="">%s</a>',
+				'<a href="%s">%s</a> - <a href="%s">%s</a>',
 				$this->inputUrl,
-				$cleanEnUrl,
 				self::NAME,
+				$cleanEnUrl,
 				$placeName,
 			));
 		}
