@@ -27,7 +27,7 @@ final class Park4NightService extends AbstractService
 		if (
 			$this->url &&
 			$this->url->getDomain(2) === 'park4night.com' &&
-			preg_match('/^\/[a-z]{2}\/place\/([0-9]+)/', $this->url->getPath(), $matches)
+			preg_match('/^\/[a-z]{2}\/(?:place|lieu)\/([0-9]+)/', $this->url->getPath(), $matches)
 		) {
 			$this->data->placeId = $matches[1];
 			return true;
