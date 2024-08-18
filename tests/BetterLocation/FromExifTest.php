@@ -4,12 +4,20 @@ namespace Tests\BetterLocation;
 
 use App\BetterLocation\Description;
 use App\BetterLocation\FromExif;
+use App\Exif\Exif;
 use App\Icons;
 use App\Utils\Formatter;
 use PHPUnit\Framework\TestCase;
 
 final class FromExifTest extends TestCase
 {
+	public static function setUpBeforeClass(): void
+	{
+		if (!Exif::isAvailable()) {
+			self::markTestSkipped('Internal library to read EXIF data is not available.');
+		}
+	}
+
 	/**
 	 * Images from public image gallery https://github.com/DJTommek/pldr-gallery
 	 */

@@ -29,6 +29,10 @@ class Exif implements \JsonSerializable
 
 	public function __construct(string $input)
 	{
+		if (!self::isAvailable()) {
+			throw new ExifException('Internal library to read EXIF data is not available.');
+		}
+
 		$this->raw = self::exifReadData($input);
 	}
 
@@ -126,6 +130,11 @@ class Exif implements \JsonSerializable
 		$lon = ExifUtils::exifToDecimal($this->raw['GPSLongitude'], $this->raw['GPSLongitudeRef']);
 
 		return CoordinatesImmutable::safe($lat, $lon);
+	}
+
+	public static function isAvailable(): bool
+	{
+		return function_exists('exif_read_data');
 	}
 
 	/**

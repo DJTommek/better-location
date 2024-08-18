@@ -10,6 +10,14 @@ use PHPUnit\Framework\TestCase;
 
 final class ExifTest extends TestCase
 {
+	public static function setUpBeforeClass(): void
+	{
+		if (!Exif::isAvailable()) {
+			self::markTestSkipped('Internal library to read EXIF data is not available.');
+			self::markAsRisky();
+		}
+	}
+
 	public static function validFilesProvider(): \Generator
 	{
 		$data = [
