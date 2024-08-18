@@ -282,10 +282,11 @@
 				{/foreach}
 
                 {if $chat->settingsShowAddress()}
-					<br>
-					{$exampleLocation->getAddress()}
+					<br>{$exampleLocation->getAddress()}
 				{/if}
-
+				{foreach $exampleLocation->getDescriptions() as $description}
+						<br>{$description|noescape}
+				{/foreach}
 			</div>
 		</div>
 		<a n:if="$chat->settingsPreview()" href="https://better-location.palider.cz/api/staticmap.php?id=ad9d66a6c079f762" target="_blank">
