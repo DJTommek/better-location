@@ -30,6 +30,15 @@ if (defined('PHPUNIT_RUNNING') && PHPUNIT_RUNNING === true) {
 	}
 }
 
+$assertionRequested = \App\Config::isAssertEnabled();
+$assertionCurrent = ini_get('zend.assertions');
+if (
+	($assertionRequested === true && $assertionCurrent !== '1')
+	|| ($assertionRequested === false && $assertionCurrent === '1')
+) {
+	ini_set('zend.assertions', $assertionRequested ? '1' : '0');
+}
+
 if (@date_default_timezone_set(App\Config::TIMEZONE) === false) {
 	throw new InvalidArgumentException(sprintf('Timezone "%s" is invalid. Update constant TIMEZONE to valid timezone ID or remove to set to default "%s".', App\Config::TIMEZONE, App\DefaultConfig::TIMEZONE));
 }

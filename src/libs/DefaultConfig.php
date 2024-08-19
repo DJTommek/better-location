@@ -36,6 +36,9 @@ class DefaultConfig
 	const TRACY_DEBUGGER_EMAIL = null;  // null to disable
 	// const TRACY_DEBUGGER_EMAIL = 'admin@your-domain.com';
 
+	/** @var bool Enabling or disabling PHP function assert(). Should be disabled on production and enabled in development. */
+	const ASSERT_ENABLED = false;
+
 	const WEB_COOKIES_PREFIX = 'blb-';
 	const WEB_COOKIES_LOGIN_EXPIRATION = 'P14D'; // 14 days
 
@@ -419,5 +422,10 @@ class DefaultConfig
 	public static function getTracyEmailPath(): string
 	{
 		return static::getTracyPath() . '/email-sent';
+	}
+
+	public static function isAssertEnabled(): bool
+	{
+		return static::ASSERT_ENABLED;
 	}
 }
