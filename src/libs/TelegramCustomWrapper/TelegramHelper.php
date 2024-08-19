@@ -4,6 +4,7 @@ namespace App\TelegramCustomWrapper;
 
 use App\Config;
 use App\Utils\Strict;
+use App\Utils\StringUtils;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
 use Nette\Utils\Strings;
@@ -27,7 +28,7 @@ class TelegramHelper
 	/**
 	 * Newline character
 	 */
-	public const NEW_LINE = "\n";
+	public const NEW_LINE = StringUtils::NEWLINE_UNIX;
 
 	/**
 	 * Newline character (shortcut alias)

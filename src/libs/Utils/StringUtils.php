@@ -4,6 +4,10 @@ namespace App\Utils;
 
 class StringUtils
 {
+	public const NEWLINE_WIN = "\r\n";
+	public const NEWLINE_UNIX = "\n";
+	public const NEWLINE_MAC = "\r";
+
 	/** Replace or remove some characters */
 	public static function translit(string $text): string
 	{
@@ -59,5 +63,10 @@ class StringUtils
 	public static function camelize(string $input, string $separator = '_'): string
 	{
 		return str_replace($separator, '', lcfirst(ucwords($input, $separator)));
+	}
+
+	public static function replaceNewlines(string $input, string $replace = ''): string
+	{
+		return str_replace([self::NEWLINE_WIN, self::NEWLINE_UNIX, self::NEWLINE_MAC], $replace, $input);
 	}
 }
