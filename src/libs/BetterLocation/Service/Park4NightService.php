@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\Config;
 use App\Utils\Requestor;
+use App\Utils\StringUtils;
 use App\Utils\Utils;
 use DJTommek\Coordinates\Coordinates;
 use DJTommek\Coordinates\CoordinatesInterface;
@@ -59,6 +60,12 @@ final class Park4NightService extends AbstractService
 				$placeName,
 			));
 		}
+
+		$description = self::extractDescription($finder);
+		if ($description !== null) {
+			$location->addDescription($description);
+		}
+
 		$this->collection->add($location);
 	}
 
@@ -78,5 +85,29 @@ final class Park4NightService extends AbstractService
 		$googleNavigationUrl = new Url($link);
 		$coordsRaw = $googleNavigationUrl->getQueryParameter('destination');
 		return Coordinates::fromString($coordsRaw);
+	}
+
+	private static function extractDescription(\DOMXPath $finder): ?string
+	{
+		$xpaths = [
+			'//div[contains(@class, "place-info-description")]/p[@lang="en"]', // English
+			'//div[contains(@class, "place-info-description")]/p', // First available language
+		];
+
+		foreach ($xpaths as $xpath) {
+			$placeDescriptionEn = $finder->query($xpath);
+			if ($placeDescriptionEn->count() === 0) {
+				continue;
+			}
+
+			$description = $placeDescriptionEn->item(0)->textContent;
+			$description = htmlspecialchars($description);
+			$description = StringUtils::replaceNewlines($description, '');
+			if (mb_strlen($description) > 250) {
+				$description = trim(mb_substr($description, 0, 200)) . StringUtils::ELLIPSIS;
+			}
+			return $description;
+		}
+		return null;
 	}
 }

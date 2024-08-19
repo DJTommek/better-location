@@ -8,6 +8,8 @@ class StringUtils
 	public const NEWLINE_UNIX = "\n";
 	public const NEWLINE_MAC = "\r";
 
+	public const ELLIPSIS = '&#8230';
+
 	/** Replace or remove some characters */
 	public static function translit(string $text): string
 	{
