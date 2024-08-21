@@ -24,7 +24,8 @@ class ProcessExample implements CoordinatesInterface
 	{
 		if (!isset($this->exampleCollection)) {
 			$this->wazeService->setInput($this->getExampleInput());
-			assert($this->wazeService->validate() === true);
+			$isValid = $this->wazeService->validate();
+			assert($isValid);
 			$this->wazeService->process();
 			$collection = $this->wazeService->getCollection();
 			assert($collection->count() === 1);
