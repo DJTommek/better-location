@@ -14,6 +14,7 @@ h1, h2, h3 {
 #webhook-formatted table tr td:first-child {
 	text-align: right;
 	font-weight: bold;
+	vertical-align: middle;
 }
 
 #webhook-formatted table tr td:last-child {
