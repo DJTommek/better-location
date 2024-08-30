@@ -55,7 +55,10 @@ class StaticMaps implements StaticMapsProviderInterface
 		$coordinates = [];
 		foreach ($markers as $marker) {
 			assert($marker instanceof CoordinatesInterface);
-			$coordinates[] = [$marker->getLon(), $marker->getLat()];
+			$coordinates[] = [
+				round($marker->getLon(), 6),
+				round($marker->getLat(), 6),
+			];
 		}
 
 		$this->geojson = [
