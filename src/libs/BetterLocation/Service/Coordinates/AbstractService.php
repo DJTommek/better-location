@@ -56,6 +56,28 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 					Coordinates::EAST // Temporary fill default value
 				);
 				break;
+			case WGS84DegreesSecondsService::class:
+				list($input, $latHemisphere1, $latCoordDegrees, $latCoordSeconds, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonCoordSeconds, $lonHemisphere2) = array_pad($this->data->matches, 9, '');
+				$latCoordSeconds = Strict::floatval($latCoordSeconds);
+				$lonCoordSeconds = Strict::floatval($lonCoordSeconds);
+
+				$latCoordMinutes = $latCoordSeconds / 60;
+				$latCoordSeconds = fmod($latCoordSeconds,60);
+				$lonCoordMinutes = $lonCoordSeconds / 60;
+				$lonCoordSeconds = fmod($lonCoordSeconds, 60);
+				$latCoord = Coordinates::wgs84DegreesMinutesSecondsToDecimal(
+					Strict::floatval($latCoordDegrees),
+					Strict::floatval($latCoordMinutes),
+					Strict::floatval($latCoordSeconds),
+					Coordinates::NORTH // Temporary fill default value
+				);
+				$lonCoord = Coordinates::wgs84DegreesMinutesSecondsToDecimal(
+					Strict::floatval($lonCoordDegrees),
+					Strict::floatval($lonCoordMinutes),
+					Strict::floatval($lonCoordSeconds),
+					Coordinates::EAST // Temporary fill default value
+				);
+				break;
 			default:
 				throw new \InvalidArgumentException(sprintf('"%s" is invalid service class name', static::class));
 		}
