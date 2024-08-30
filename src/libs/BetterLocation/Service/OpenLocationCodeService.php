@@ -6,6 +6,8 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
+use App\Icons;
+use DJTommek\Coordinates\Coordinates;
 use OpenLocationCode\OpenLocationCode;
 
 final class OpenLocationCodeService extends AbstractService
@@ -17,6 +19,7 @@ final class OpenLocationCodeService extends AbstractService
 	const LINK = 'https://plus.codes/';
 
 	const DEFAULT_CODE_LENGTH = 12;
+	private const TOO_BIG_AREA_WARNING = 20;
 
 	const RE = '/^([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,4})$/i';
 	const RE_IN_STRING = '/(?:^|\s)([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,4})(?:\s|$)/i';
@@ -45,13 +48,23 @@ final class OpenLocationCodeService extends AbstractService
 
 	public function process(): void
 	{
-		$coords = OpenLocationCode::decode($this->data->plusCode);
-		$betterLocation = new BetterLocation($this->input, $coords['latitudeCenter'], $coords['longitudeCenter'], self::class);
+		$data = OpenLocationCode::decode($this->data->plusCode);
+		$coordsCenter = new Coordinates($data['latitudeCenter'], $data['longitudeCenter']);
+
+		$betterLocation = new BetterLocation($this->input, $coordsCenter->getLat(), $coordsCenter->getLon(), self::class);
 		$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s</a> <code>%s</code>: ',
-			self::getShareLink($coords['latitudeCenter'], $coords['longitudeCenter']),
+			self::getShareLink($coordsCenter->getLat(), $coordsCenter->getLon()),
 			self::NAME,
 			$this->data->plusCode
 		));
+
+		$coordsLo = new Coordinates($data['latitudeLo'], $data['longitudeLo']);
+		$coordsHi = new Coordinates($data['latitudeHi'], $data['longitudeHi']);
+		$distance = $coordsLo->distance($coordsHi);
+		if ($distance > self::TOO_BIG_AREA_WARNING) {
+			$betterLocation->addDescription(sprintf('%s Area is too big (%d meters)', Icons::WARNING, $distance));
+		}
+
 		$this->collection->add($betterLocation);
 	}
 

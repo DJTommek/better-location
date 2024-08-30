@@ -87,6 +87,40 @@ final class OpenLocationCodeServiceTest extends TestCase
 		$this->assertSame('-41.296062,174.794313', $collection->getFirst()->__toString());
 	}
 
+	public static function tooBigAreaProvider(): array
+	{
+		return [
+			[49.296249999999986, 14.126249999999999, '⚠ Area is too big (331 meters)', 'https://plus.codes/8FXP74WG+'],
+		];
+	}
+
+	/**
+	 * @dataProvider tooBigAreaProvider
+	 */
+	public function testTooBigArea(
+		float $expectedLat,
+		float $expectedLon,
+		string $expectedDescription,
+		string $input,
+	): void {
+		$service = new OpenLocationCodeService();
+		$service->setInput($input);
+		$service->validate();
+		$service->process();
+		$collection = $service->getCollection();
+
+		$this->assertCount(1, $collection);
+		$location = $collection->getFirst();
+
+		$this->assertSame($expectedLat, $location->getLat());
+		$this->assertSame($expectedLon, $location->getLon());
+
+		$descriptions = $location->getDescriptions();
+		$this->assertCount(1, $descriptions);
+
+		$this->assertSame($expectedDescription, $descriptions[0]->content);
+	}
+
 	/**
 	 * Full codes from https://github.com/google/open-location-code/blob/d47d9f9b95e9f306628396e1b30aaf275f83a5d4/test_data/validityTests.csv
 	 */
