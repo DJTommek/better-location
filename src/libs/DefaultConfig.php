@@ -128,6 +128,9 @@ class DefaultConfig
 	/** @var ?string https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key */
 	const BING_STATIC_MAPS_TOKEN = null;
 
+	/** @var ?string https://docs.mapbox.com/api/accounts/tokens/ */
+	const MAPBOX_STATIC_MAPS_TOKEN = null;
+
 	/**
 	 * Try to load Ingress portal details for every detected coordinate. If portal exists, append basic information
 	 * about that portal to the BetterLocation message description.
@@ -384,6 +387,11 @@ class DefaultConfig
 	public static function isBingStaticMaps(): bool
 	{
 		return is_null(static::BING_STATIC_MAPS_TOKEN) === false;
+	}
+
+	public static function isMapBoxStaticMaps(): bool
+	{
+		return is_null(static::MAPBOX_STATIC_MAPS_TOKEN) === false;
 	}
 
 	public final static function getAppUrl(string $path = null): UrlImmutable

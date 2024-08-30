@@ -3,19 +3,20 @@
 namespace App\BetterLocation;
 
 use App\Repository\StaticMapCacheRepository;
+use App\StaticMaps\StaticMapsProviderInterface;
 use DJTommek\Coordinates\CoordinatesInterface;
 
 class StaticMapProxyFactory
 {
 	public function __construct(
 		private readonly StaticMapCacheRepository $staticMapCacheRepository,
-	)
-	{
+		private readonly ?StaticMapsProviderInterface $staticMapsProvider,
+	) {
 	}
 
 	public function fromCacheId(string $cacheId): ?StaticMapProxy
 	{
-		$result = new StaticMapProxy($this->staticMapCacheRepository);
+		$result = new StaticMapProxy($this->staticMapCacheRepository, $this->staticMapsProvider);
 		$result->initFromCacheId($cacheId);
 		return $result->exists() ? $result : null;
 	}
@@ -35,7 +36,7 @@ class StaticMapProxyFactory
 	 */
 	public function fromLocations(array|BetterLocationCollection $locations): ?StaticMapProxy
 	{
-		$result = new StaticMapProxy($this->staticMapCacheRepository);
+		$result = new StaticMapProxy($this->staticMapCacheRepository, $this->staticMapsProvider);
 		$result->initFromLocations($locations);
 		return $result->exists() ? $result : null;
 	}

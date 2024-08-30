@@ -4,8 +4,8 @@ namespace App\BetterLocation;
 
 use App\BingMaps\StaticMaps;
 use App\Config;
-use App\Factory;
 use App\Repository\StaticMapCacheRepository;
+use App\StaticMaps\StaticMapsProviderInterface;
 use DJTommek\Coordinates\CoordinatesInterface;
 use GuzzleHttp\RequestOptions;
 use Nette\Http\UrlImmutable;
@@ -27,6 +27,7 @@ class StaticMapProxy
 
 	public function __construct(
 		private readonly StaticMapCacheRepository $staticMapCacheRepository,
+		private readonly ?StaticMapsProviderInterface $staticMapsProvider,
 	) {
 		$this->dir = Config::getDataTempDir() . '/staticmap';
 		FileSystem::createDir($this->dir);
@@ -63,7 +64,7 @@ class StaticMapProxy
 	 */
 	public function initFromLocations(array|BetterLocationCollection $locations): self
 	{
-		if (!Config::isBingStaticMaps()) {
+		if ($this->staticMapsProvider === null) {
 			return $this;
 		}
 
@@ -76,7 +77,7 @@ class StaticMapProxy
 			$markers[] = $location;
 		}
 
-		$this->privateUrl = self::generatePrivateUrl($markers);
+		$this->privateUrl = $this->staticMapsProvider->generatePrivateUrl($markers);
 		$this->cacheId = hash(self::HASH_ALGORITHM, $this->privateUrl());
 
 		// If does not exists in database, yet, create new
@@ -112,16 +113,6 @@ class StaticMapProxy
 	private function privateUrl(): string
 	{
 		return $this->privateUrl;
-	}
-
-	/** @param CoordinatesInterface[] $markers */
-	private static function generatePrivateUrl(array $markers): string
-	{
-		$api = Factory::bingStaticMaps();
-		foreach ($markers as $key => $marker) {
-			$api->addPushpin($marker->getLat(), $marker->getLon(), null, (string)($key + 1));
-		}
-		return $api->generateLink();
 	}
 
 	public function isCached(): bool

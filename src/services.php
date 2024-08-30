@@ -51,6 +51,26 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(\App\Address\UniversalAddressProvider::class)
 		->arg('$cache', service(\App\Cache\StorageInterface::class));
 
+	// Static map providers
+	$staticMapDefaultProvider = null;
+	if (Config::isBingStaticMaps()) {
+		$services->set(\App\BingMaps\StaticMaps::class)
+			->arg('$apiKey', Config::BING_STATIC_MAPS_TOKEN);
+		$staticMapDefaultProvider = \App\BingMaps\StaticMaps::class;
+	}
+
+	if (Config::isMapBoxStaticMaps()) {
+		$services->set(\App\MapBox\StaticMaps::class)
+			->arg('$apiKey', Config::MAPBOX_STATIC_MAPS_TOKEN);
+		$staticMapDefaultProvider = \App\MapBox\StaticMaps::class;
+	}
+
+	if ($staticMapDefaultProvider !== null) {
+		// Set interface and default provider
+		$services->set(\App\StaticMaps\StaticMapsProviderInterface::class)
+			->alias(\App\StaticMaps\StaticMapsProviderInterface::class, $staticMapDefaultProvider);
+	}
+
 	$services->set(Database::class)
 		->arg('$server', Config::DB_SERVER)
 		->arg('$schema', Config::DB_NAME)

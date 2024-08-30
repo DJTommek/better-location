@@ -46,12 +46,6 @@ class Factory
 		return self::getContainer()->get(\App\Geocaching\Client::class);
 	}
 
-	/** Not cached */
-	public static function bingStaticMaps(): \App\BingMaps\StaticMaps
-	{
-		return new \App\BingMaps\StaticMaps(Config::BING_STATIC_MAPS_TOKEN);
-	}
-
 	public static function servicesManager(): \App\BetterLocation\ServicesManager
 	{
 		return self::getContainer()->get(\App\BetterLocation\ServicesManager::class);

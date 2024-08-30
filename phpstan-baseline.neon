@@ -21,16 +21,6 @@ parameters:
 			path: src/libs/BetterLocation/Service/FacebookService.php
 
 		-
-			message: "#^Method App\\\\BingMaps\\\\StaticMaps\\:\\:generateLink\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/BingMaps/StaticMaps.php
-
-		-
-			message: "#^Property App\\\\BingMaps\\\\StaticMaps\\:\\:\\$pushPinsStr has no type specified\\.$#"
-			count: 1
-			path: src/libs/BingMaps/StaticMaps.php
-
-		-
 			message: "#^Method App\\\\DummyLogger\\:\\:log\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/DummyLogger.php
