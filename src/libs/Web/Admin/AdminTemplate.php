@@ -229,7 +229,7 @@ class AdminTemplate extends LayoutTemplate
 				);
 			} else if ($key === 'ip_address') {
 				$responseFormatted->{$key} = sprintf('<a href="http://%1$s/" target="_blank">%1$s</a>', $value);
-			} else if ($key === 'last_error_date') {
+			} else if ($key === 'last_error_date' || $key === 'last_synchronization_error_date') {
 				if ($value === 0) {
 					$responseFormatted->{$key} = Icons::SUCCESS . ' Never';
 				} else {
