@@ -6,6 +6,7 @@ final class WGS84DegreesSecondsService extends WGS84AbstractService
 {
 	const ID = 55;
 	const NAME = 'WGS84 DS';
+	const TAGS = [];
 
 	public function process(): void
 	{
