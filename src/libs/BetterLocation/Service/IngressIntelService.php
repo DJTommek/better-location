@@ -7,6 +7,8 @@ use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use App\Utils\Ingress;
 use DJTommek\Coordinates\Coordinates;
+use Tracy\Debugger;
+use Tracy\ILogger;
 
 final class IngressIntelService extends AbstractService
 {
@@ -59,9 +61,13 @@ final class IngressIntelService extends AbstractService
 		if ($this->data->portalCoords !== null) {
 			$location = new BetterLocation($this->input, $this->data->portalCoords->lat, $this->data->portalCoords->lon, self::class, self::TYPE_PORTAL);
 
-			if ($portal = $this->ingressClient->getPortalByCoords($location->getLat(), $location->getLon())) {
-				Ingress::rewritePrefixes($location, $portal);
-				$location->addDescription('', Ingress::BETTER_LOCATION_KEY_PORTAL); // Prevent generating Ingress description
+			try {
+				if ($portal = $this->ingressClient->getPortalByCoords($location->getLat(), $location->getLon())) {
+					Ingress::rewritePrefixes($location, $portal);
+					$location->addDescription('', Ingress::BETTER_LOCATION_KEY_PORTAL); // Prevent generating Ingress description
+				}
+			} catch (\Throwable $exception) {
+				Debugger::log($exception, ILogger::EXCEPTION);
 			}
 			$this->collection->add($location);
 		}
@@ -69,9 +75,13 @@ final class IngressIntelService extends AbstractService
 		if ($this->data->mapCoords !== null) {
 			$location = new BetterLocation($this->input, $this->data->mapCoords->lat, $this->data->mapCoords->lon, self::class, self::TYPE_MAP);
 
-			if ($portal = $this->ingressClient->getPortalByCoords($location->getLat(), $location->getLon())) {
-				Ingress::rewritePrefixes($location, $portal);
-				$location->addDescription('', Ingress::BETTER_LOCATION_KEY_PORTAL); // Prevent generating Ingress description
+			try {
+				if ($portal = $this->ingressClient->getPortalByCoords($location->getLat(), $location->getLon())) {
+					Ingress::rewritePrefixes($location, $portal);
+					$location->addDescription('', Ingress::BETTER_LOCATION_KEY_PORTAL); // Prevent generating Ingress description
+				}
+			} catch (\Throwable $exception) {
+				Debugger::log($exception, ILogger::EXCEPTION);
 			}
 			$this->collection->add($location);
 		}
