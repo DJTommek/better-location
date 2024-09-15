@@ -2,177 +2,310 @@
 
 namespace Tests\BetterLocation\Service;
 
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\IngressIntelService;
-use PHPUnit\Framework\TestCase;
+use App\IngressLanchedRu\Client;
+use App\Utils\Ingress;
+use Tests\HttpTestClients;
 
-final class IngressIntelServiceTest extends TestCase
+final class IngressIntelServiceTest extends AbstractServiceTestCase
 {
-	public function testGenerateShareLink(): void
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
 	{
-		$this->assertSame('https://intel.ingress.com/?ll=50.087451,14.420671&pll=50.087451,14.420671', IngressIntelService::getLink(50.087451, 14.420671));
-		$this->assertSame('https://intel.ingress.com/?ll=50.100000,14.500000&pll=50.100000,14.500000', IngressIntelService::getLink(50.1, 14.5));
-		$this->assertSame('https://intel.ingress.com/?ll=-50.200000,14.600000&pll=-50.200000,14.600000', IngressIntelService::getLink(-50.2, 14.6000001)); // round down
-		$this->assertSame('https://intel.ingress.com/?ll=50.300000,-14.700001&pll=50.300000,-14.700001', IngressIntelService::getLink(50.3, -14.7000009)); // round up
-		$this->assertSame('https://intel.ingress.com/?ll=-50.400000,-14.800008&pll=-50.400000,-14.800008', IngressIntelService::getLink(-50.4, -14.800008));
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
 	}
 
-	public function testGenerateDriveLink(): void
+	protected function getServiceClass(): string
 	{
-		$this->expectException(NotSupportedException::class);
-		IngressIntelService::getLink(50.087451, 14.420671, true);
+		return IngressIntelService::class;
 	}
 
-	public function testIsValidMap(): void
+	protected function getShareLinks(): array
 	{
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,144.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=-50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=-50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/?ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/?ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/intel?ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,14'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.123456789,14.987654321'));
-
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,14.420671a'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451a,14.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=150.087451,14.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,214.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=-150.087451,14.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,214.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.08.7451,14.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,14.420.671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.08745114.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451-14.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?l=50.087451,14.420671'));
+		return [
+			'https://intel.ingress.com/?ll=50.087451,14.420671&pll=50.087451,14.420671',
+			'https://intel.ingress.com/?ll=50.100000,14.500000&pll=50.100000,14.500000',
+			'https://intel.ingress.com/?ll=-50.200000,14.600000&pll=-50.200000,14.600000', // round down
+			'https://intel.ingress.com/?ll=50.300000,-14.700001&pll=50.300000,-14.700001', // round up
+			'https://intel.ingress.com/?ll=-50.400000,-14.800008&pll=-50.400000,-14.800008',
+		];
 	}
 
-	public function testIsValidPortal(): void
+	protected function getDriveLinks(): array
 	{
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,144.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=-50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=-50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/?pll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/?pll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/intel?pll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14'));
-
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14.420671a'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451a,14.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=150.087451,14.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,214.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=-150.087451,14.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,214.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.08.7451,14.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14.420.671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.08745114.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451-14.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?l=50.087451,14.420671'));
+		return [];
 	}
 
-	public function testIsValidPortalAndMap(): void
+	public static function isValidMapProvider(): array
 	{
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,144.420671&ll=50.087451,144.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,-14.420671&ll=50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=-50.087451,14.420671&ll=-50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/intel?pll=50.087451,14.420671&ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50,14.420671&ll=50,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14&ll=50.087451,14'));
+		return [
+			[true, 'https://intel.ingress.com/?ll=50.087451,14.420671'],
+			[true, 'https://intel.ingress.com/?ll=50.087451,144.420671'],
+			[true, 'https://intel.ingress.com/?ll=50.087451,-14.420671'],
+			[true, 'https://intel.ingress.com/?ll=-50.087451,14.420671'],
+			[true, 'https://intel.ingress.com/?ll=-50.087451,-14.420671'],
+			[true, 'http://intel.ingress.com/?ll=50.087451,14.420671'],
+			[true, 'http://intel.ingress.com/?ll=50.087451,14.420671'],
+			[true, 'http://intel.ingress.com/intel?ll=50.087451,14.420671'],
+			[true, 'https://intel.ingress.com/?ll=50,14.420671'],
+			[true, 'https://intel.ingress.com/?ll=50.087451,14'],
+			[true, 'https://intel.ingress.com/?ll=50.123456789,14.987654321'],
 
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14.420671a&ll=50.087451,14.420671a'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451a,14.420671&ll=50.087451a,14.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=150.087451,14.420671&ll=150.087451,14.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,214.420671&ll=50.087451,214.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=-150.087451,14.420671&ll=-150.087451,14.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,214.420671&ll=50.087451,214.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.08.7451,14.420671&ll=50.08.7451,14.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14.420.671&ll=50.087451,14.420.671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.08745114.420671&ll=50.08745114.420671'));
-		$this->assertFalse(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451-14.420671&ll=50.087451-14.420671'));
+			[false, 'https://intel.ingress.com/?ll=50.087451,14.420671a'],
+			[false, 'https://intel.ingress.com/?ll=50.087451a,14.420671'],
+			[false, 'https://intel.ingress.com/?ll=150.087451,14.420671'],
+			[false, 'https://intel.ingress.com/?ll=50.087451,214.420671'],
+			[false, 'https://intel.ingress.com/?ll=-150.087451,14.420671'],
+			[false, 'https://intel.ingress.com/?ll=50.087451,214.420671'],
+			[false, 'https://intel.ingress.com/?ll=50.08.7451,14.420671'],
+			[false, 'https://intel.ingress.com/?ll=50.087451,14.420.671'],
+			[false, 'https://intel.ingress.com/?ll=50.08745114.420671'],
+			[false, 'https://intel.ingress.com/?ll=50.087451-14.420671'],
+			[false, 'https://intel.ingress.com/?l=50.087451,14.420671'],
+		];
 	}
 
-	public function testIsValidOnlyPortal(): void
+	public static function isValidPortalProvider(): array
 	{
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14.420671&ll=fdassafd'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?pll=50.087451,14.420671&ll=50.087451----14.420671'));
+		return [
+			[true, 'https://intel.ingress.com/?pll=50.087451,14.420671'],
+			[true, 'https://intel.ingress.com/?pll=50.087451,144.420671'],
+			[true, 'https://intel.ingress.com/?pll=50.087451,-14.420671'],
+			[true, 'https://intel.ingress.com/?pll=-50.087451,14.420671'],
+			[true, 'https://intel.ingress.com/?pll=-50.087451,-14.420671'],
+			[true, 'http://intel.ingress.com/?pll=50.087451,14.420671'],
+			[true, 'http://intel.ingress.com/?pll=50.087451,14.420671'],
+			[true, 'http://intel.ingress.com/intel?pll=50.087451,14.420671'],
+			[true, 'https://intel.ingress.com/?pll=50,14.420671'],
+			[true, 'https://intel.ingress.com/?pll=50.087451,14'],
+
+			[false, 'https://intel.ingress.com/?pll=50.087451,14.420671a'],
+			[false, 'https://intel.ingress.com/?pll=50.087451a,14.420671'],
+			[false, 'https://intel.ingress.com/?pll=150.087451,14.420671'],
+			[false, 'https://intel.ingress.com/?pll=50.087451,214.420671'],
+			[false, 'https://intel.ingress.com/?pll=-150.087451,14.420671'],
+			[false, 'https://intel.ingress.com/?pll=50.087451,214.420671'],
+			[false, 'https://intel.ingress.com/?pll=50.08.7451,14.420671'],
+			[false, 'https://intel.ingress.com/?pll=50.087451,14.420.671'],
+			[false, 'https://intel.ingress.com/?pll=50.08745114.420671'],
+			[false, 'https://intel.ingress.com/?pll=50.087451-14.420671'],
+			[false, 'https://intel.ingress.com/?l=50.087451,14.420671'],
+		];
 	}
 
-	public function testIsValidOnlyMap(): void
+	public static function isValidPortalAndMapProvider(): array
 	{
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,14.420671&pll=fdassafd'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/?ll=50.087451,14.420671&pll=50.087451----14.420671'));
+		return [
+
+			[true, 'https://intel.ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'],
+			[true, 'https://intel.ingress.com/?pll=50.087451,144.420671&ll=50.087451,144.420671'],
+			[true, 'https://intel.ingress.com/?pll=50.087451,-14.420671&ll=50.087451,-14.420671'],
+			[true, 'https://intel.ingress.com/?pll=-50.087451,14.420671&ll=-50.087451,14.420671'],
+			[true, 'https://intel.ingress.com/?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'],
+			[true, 'http://intel.ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'],
+			[true, 'http://intel.ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'],
+			[true, 'http://intel.ingress.com/intel?pll=50.087451,14.420671&ll=50.087451,14.420671'],
+			[true, 'https://intel.ingress.com/?pll=50,14.420671&ll=50,14.420671'],
+			[true, 'https://intel.ingress.com/?pll=50.087451,14&ll=50.087451,14'],
+
+			[false, 'https://intel.ingress.com/?pll=50.087451,14.420671a&ll=50.087451,14.420671a'],
+			[false, 'https://intel.ingress.com/?pll=50.087451a,14.420671&ll=50.087451a,14.420671'],
+			[false, 'https://intel.ingress.com/?pll=150.087451,14.420671&ll=150.087451,14.420671'],
+			[false, 'https://intel.ingress.com/?pll=50.087451,214.420671&ll=50.087451,214.420671'],
+			[false, 'https://intel.ingress.com/?pll=-150.087451,14.420671&ll=-150.087451,14.420671'],
+			[false, 'https://intel.ingress.com/?pll=50.087451,214.420671&ll=50.087451,214.420671'],
+			[false, 'https://intel.ingress.com/?pll=50.08.7451,14.420671&ll=50.08.7451,14.420671'],
+			[false, 'https://intel.ingress.com/?pll=50.087451,14.420.671&ll=50.087451,14.420.671'],
+			[false, 'https://intel.ingress.com/?pll=50.08745114.420671&ll=50.08745114.420671'],
+			[false, 'https://intel.ingress.com/?pll=50.087451-14.420671&ll=50.087451-14.420671'],
+		];
 	}
 
-	/**
-	 * @group request
-	 */
-	public function testProcessMap(): void
+	public static function isValidOnlyPortalProvider(): array
 	{
-		$collection = IngressIntelService::processStatic('https://intel.ingress.com/?ll=50.087451,14.420671')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.087451,14.420671', $collection[0]->__toString());
+		return [
 
-		$collection = IngressIntelService::processStatic('https://intel.ingress.com/?ll=50.123456789,14.987654321')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.123457,14.987654', $collection[0]->__toString());
+			[true, 'https://intel.ingress.com/?pll=50.087451,14.420671&ll=fdassafd'],
+			[true, 'https://intel.ingress.com/?pll=50.087451,14.420671&ll=50.087451----14.420671'],
+		];
 	}
 
-	/**
-	 * @group request
-	 */
-	public function testProcessCoords(): void
+	public static function isValidOnlyMapProvider(): array
 	{
-		$collection = IngressIntelService::processStatic('https://intel.ingress.com/?pll=50.087451,14.420671')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.087451,14.420671', $collection[0]->__toString());
+		return [
 
-		$collection = IngressIntelService::processStatic('https://intel.ingress.com/?pll=50.123456789,14.987654321')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.123457,14.987654', $collection[0]->__toString());
-	}
-
-	/**
-	 * @group request
-	 */
-	public function testProcessMapAndCoords(): void
-	{
-		$collection = IngressIntelService::processStatic('https://intel.ingress.com/?ll=50.123456789,14.987654321&pll=43.123456789,12.987654321')->getCollection();
-		$this->assertCount(2, $collection);
-		$this->assertSame('43.123457,12.987654', $collection[0]->__toString());
-		$this->assertSame('50.123457,14.987654', $collection[1]->__toString());
-
-		$collection = IngressIntelService::processStatic('https://intel.ingress.com/?pll=-0.11,14.987654321&ll=89.123456789,12.987654321')->getCollection();
-		$this->assertCount(2, $collection);
-		$this->assertSame('-0.110000,14.987654', $collection[0]->__toString());
-		$this->assertSame('89.123457,12.987654', $collection[1]->__toString());
+			[true, 'https://intel.ingress.com/?ll=50.087451,14.420671&pll=fdassafd'],
+			[true, 'https://intel.ingress.com/?ll=50.087451,14.420671&pll=50.087451----14.420671'],
+		];
 	}
 
 	/**
 	 * Old format without subdomain "intel." but with path "/intel".
 	 * As of 2022-05-22 "/intel" redirects to "intel.ingress.com/intel"
 	 */
-	public function testIsValidOldFormat(): void
+	public static function isValidOldFormatProvider(): array
 	{
-		$this->assertTrue(IngressIntelService::validateStatic('https://ingress.com/intel?ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://ingress.com/intel?pll=50.087451,14.420671&ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('http://ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://intel.ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('http://intel.ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'));
+		return [
+			[true, 'https://ingress.com/intel?ll=50.087451,14.420671'],
+			[true, 'https://ingress.com/intel?pll=50.087451,14.420671&ll=50.087451,14.420671'],
+			[true, 'https://ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'],
+			[true, 'http://ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'],
+			[true, 'https://intel.ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'],
+			[true, 'http://intel.ingress.com/intel?pll=-50.087451,-14.420671&ll=-50.087451,-14.420671'],
 
-		// As of 2022-05-22 links are not valid, but process them as ok
-		$this->assertTrue(IngressIntelService::validateStatic('https://ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://ingress.com/?ll=50.087451,14.420671'));
-		$this->assertTrue(IngressIntelService::validateStatic('https://ingress.com/?pll=50.087451,14.420671'));
+			// As of 2022-05-22 links are not valid, but process them as ok
+			[true, 'https://ingress.com/?pll=50.087451,14.420671&ll=50.087451,14.420671'],
+			[true, 'https://ingress.com/?ll=50.087451,14.420671'],
+			[true, 'https://ingress.com/?pll=50.087451,14.420671'],
+		];
+	}
+
+	public static function processMapProvider(): array
+	{
+		return [
+			[
+				[
+					[
+						50.087451,
+						14.420671,
+						IngressIntelService::TYPE_MAP,
+						'<a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F0bd94fac5de84105b6eef6e7e1639ad9.12&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.087451%2C14.420671">Staroměstské náměstí 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087451,14.420671">🖥</a> <a href="https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm=s10000">🖼</a>',
+						[
+							Ingress::BETTER_LOCATION_KEY_PORTAL => '',
+						],
+					],
+				],
+				'https://intel.ingress.com/?ll=50.087451,14.420671',
+			],
+			[
+				[
+					[
+						50.123456789,
+						14.987654321,
+						IngressIntelService::TYPE_MAP,
+						'<a href="https://intel.ingress.com/?ll=50.123456789%2C14.987654321">Ingress map</a>',
+						[],
+					],
+				],
+				'https://intel.ingress.com/?ll=50.123456789,14.987654321',
+			],
+		];
+	}
+
+	public static function processPortalProvider(): array
+	{
+		return [
+			[
+				[
+					[
+						50.087451,
+						14.420671,
+						IngressIntelService::TYPE_PORTAL,
+						'<a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F0bd94fac5de84105b6eef6e7e1639ad9.12&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.087451%2C14.420671">Staroměstské náměstí 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087451,14.420671">🖥</a> <a href="https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm=s10000">🖼</a>',
+						[
+							Ingress::BETTER_LOCATION_KEY_PORTAL => '',
+						],
+					],
+				],
+				'https://intel.ingress.com/?pll=50.087451,14.420671',
+			],
+			[
+				[
+					[
+						50.123456789,
+						14.987654321,
+						IngressIntelService::TYPE_PORTAL,
+						'<a href="https://intel.ingress.com/?pll=50.123456789%2C14.987654321">Ingress portal</a>',
+						[],
+					],
+				],
+				'https://intel.ingress.com/?pll=50.123456789,14.987654321',
+			],
+		];
+	}
+
+	public static function processMapAndPortalProvider(): array
+	{
+		return [
+			[
+				[
+					[
+						43.123456789,
+						12.987654321,
+						IngressIntelService::TYPE_PORTAL,
+						'<a href="https://intel.ingress.com/?ll=50.123456789%2C14.987654321&pll=43.123456789%2C12.987654321">Ingress portal</a>',
+						[],
+					],
+					[
+						50.123456789,
+						14.987654321,
+						IngressIntelService::TYPE_MAP,
+						'<a href="https://intel.ingress.com/?ll=50.123456789%2C14.987654321&pll=43.123456789%2C12.987654321">Ingress map</a>',
+						[],
+					],
+				],
+				'https://intel.ingress.com/?ll=50.123456789,14.987654321&pll=43.123456789,12.987654321',
+			],
+			[
+				[
+					[
+						-0.11,
+						14.987654321,
+						IngressIntelService::TYPE_PORTAL,
+						'<a href="https://intel.ingress.com/?pll=-0.11%2C14.987654321&ll=89.123456789%2C12.987654321">Ingress portal</a>',
+						[],
+					],
+					[
+						89.123456789,
+						12.987654321,
+						IngressIntelService::TYPE_MAP,
+						'<a href="https://intel.ingress.com/?pll=-0.11%2C14.987654321&ll=89.123456789%2C12.987654321">Ingress map</a>',
+						[],
+					],
+				],
+				'https://intel.ingress.com/?pll=-0.11,14.987654321&ll=89.123456789,12.987654321',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider isValidMapProvider
+	 * @dataProvider isValidPortalProvider
+	 * @dataProvider isValidPortalAndMapProvider
+	 * @dataProvider isValidOnlyPortalProvider
+	 * @dataProvider isValidOnlyMapProvider
+	 * @dataProvider isValidOldFormatProvider
+	 */
+	public function testIsValid(bool $expectedIsValid, string $input): void
+	{
+		$service = new IngressIntelService(new Client($this->httpTestClients->mockedRequestor));
+		$this->assertServiceIsValid($service, $input, $expectedIsValid);
+	}
+
+	/**
+	 * @dataProvider processMapProvider
+	 * @dataProvider processPortalProvider
+	 * @dataProvider processMapAndPortalProvider
+	 * @group request
+	 */
+	public function testProcessReal(array $expectedResults,
+		string $input,
+	): void {
+		$service = new IngressIntelService(new Client($this->httpTestClients->realRequestor));
+		$this->assertServiceLocations($service, $input, $expectedResults);
+	}
+
+	/**
+	 * @dataProvider processMapProvider
+	 * @dataProvider processPortalProvider
+	 * @dataProvider processMapAndPortalProvider
+	 */
+	public function testProcessOffline(array $expectedResults, string $input): void
+	{
+		$service = new IngressIntelService(new Client($this->httpTestClients->offlineRequestor));
+		$this->assertServiceLocations($service, $input, $expectedResults);
 	}
 }
