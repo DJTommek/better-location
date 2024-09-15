@@ -5,9 +5,8 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
-use App\Utils\Coordinates;
 use App\Utils\Ingress;
-use App\Utils\Strict;
+use DJTommek\Coordinates\Coordinates;
 
 final class IngressIntelService extends AbstractService
 {
@@ -41,43 +40,35 @@ final class IngressIntelService extends AbstractService
 
 	public function validate(): bool
 	{
-		$result = false;
 		if ($this->url && $this->url->getDomain(2) === 'ingress.com') {
-			if ($param = $this->inputUrl->getQueryParameter('pll')) { // portal coordinates
-				$coords = explode(',', $param);
-				if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
-					$this->data->portalCoord = true;
-					$this->data->portalCoordLat = Strict::floatval($coords[0]);
-					$this->data->portalCoordLon = Strict::floatval($coords[1]);
-					$result = true;
-				}
-			}
 
-			if ($param = $this->inputUrl->getQueryParameter('ll')) { // map coordinates
-				$coords = explode(',', $param);
-				if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
-					$this->data->mapCoord = true;
-					$this->data->mapCoordLat = Strict::floatval($coords[0]);
-					$this->data->mapCoordLon = Strict::floatval($coords[1]);
-					$result = true;
-				}
-			}
+			$this->data->portalCoords = Coordinates::fromString(
+				$this->inputUrl->getQueryParameter('pll') ?? '',
+			);
+
+			$this->data->mapCoords = Coordinates::fromString(
+				$this->inputUrl->getQueryParameter('ll') ?? '',
+			);
 		}
-		return $result;
+
+		return $this->data->portalCoords !== null || $this->data->mapCoords !== null;
 	}
 
 	public function process(): void
 	{
-		if ($this->data->portalCoord ?? false) {
-			$location = new BetterLocation($this->input, $this->data->portalCoordLat, $this->data->portalCoordLon, self::class, self::TYPE_PORTAL);
+		if ($this->data->portalCoords !== null) {
+			$location = new BetterLocation($this->input, $this->data->portalCoords->lat, $this->data->portalCoords->lon, self::class, self::TYPE_PORTAL);
+
 			if ($portal = $this->ingressClient->getPortalByCoords($location->getLat(), $location->getLon())) {
 				Ingress::rewritePrefixes($location, $portal);
 				$location->addDescription('', Ingress::BETTER_LOCATION_KEY_PORTAL); // Prevent generating Ingress description
 			}
 			$this->collection->add($location);
 		}
-		if ($this->data->mapCoord ?? false) {
-			$location = new BetterLocation($this->input, $this->data->mapCoordLat, $this->data->mapCoordLon, self::class, self::TYPE_MAP);
+
+		if ($this->data->mapCoords !== null) {
+			$location = new BetterLocation($this->input, $this->data->mapCoords->lat, $this->data->mapCoords->lon, self::class, self::TYPE_MAP);
+
 			if ($portal = $this->ingressClient->getPortalByCoords($location->getLat(), $location->getLon())) {
 				Ingress::rewritePrefixes($location, $portal);
 				$location->addDescription('', Ingress::BETTER_LOCATION_KEY_PORTAL); // Prevent generating Ingress description
