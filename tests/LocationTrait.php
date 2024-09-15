@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\Description;
 use DJTommek\Coordinates\CoordinatesInterface;
 
 trait LocationTrait
@@ -59,6 +60,20 @@ trait LocationTrait
 			$expectedPrefix = $expectedResult[3] ?? null;
 			if ($expectedPrefix !== null) {
 				$this->assertSame($expectedPrefix, $location->getPrefixMessage());
+			}
+
+			$expectedDescriptions = $expectedResult[4] ?? null;
+			if ($expectedDescriptions !== null) {
+				$this->assertSame($expectedPrefix, $location->getPrefixMessage());
+
+				$this->assertCount(count($expectedDescriptions), $location->getDescriptions());
+
+				foreach ($expectedDescriptions as $expectedDescriptionKey => $expectedDescriptionText) {
+					$realDescription = $location->getDescription($expectedDescriptionKey);
+					$this->assertInstanceOf(Description::class, $realDescription);
+					$this->assertSame($expectedDescriptionKey, $realDescription->key);
+					$this->assertSame($expectedDescriptionText, $realDescription->content);
+				}
 			}
 		}
 	}
