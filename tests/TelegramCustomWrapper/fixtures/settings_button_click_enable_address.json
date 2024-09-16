@@ -1,0 +1,181 @@
+{
+	"update_id": 918318221,
+	"callback_query": {
+		"id": "639749490193103129",
+		"from": {
+			"id": 148953285,
+			"is_bot": false,
+			"first_name": "DJTommek",
+			"last_name": "[Tomas Palider]",
+			"username": "DJTommek",
+			"language_code": "en"
+		},
+		"message": {
+			"message_id": 22524,
+			"from": {
+				"id": 1382240789,
+				"is_bot": true,
+				"first_name": "DEVEL bot",
+				"username": "BetterLocationBot"
+			},
+			"chat": {
+				"id": -4501349423,
+				"title": "DEVEL mig chat 4",
+				"type": "group",
+				"all_members_are_administrators": true
+			},
+			"date": 1726518196,
+			"reply_to_message": {
+				"message_id": 22523,
+				"from": {
+					"id": 148953285,
+					"is_bot": false,
+					"first_name": "DJTommek",
+					"last_name": "[Tomas Palider]",
+					"username": "DJTommek",
+					"language_code": "en"
+				},
+				"chat": {
+					"id": -4501349423,
+					"title": "DEVEL mig chat 4",
+					"type": "group",
+					"all_members_are_administrators": true
+				},
+				"date": 1726518193,
+				"text": "/settings@BetterLocationBot",
+				"entities": [
+					{
+						"offset": 0,
+						"length": 21,
+						"type": "bot_command"
+					}
+				]
+			},
+			"text": "⚙ Chat settings for @BetterLocationBot. Example message:\n Waze 🗺 50.087451,14.420671\nBetterLocation | Google | Mapy.cz | DDG | Waze | HERE | OSM\n🇨🇿 Mikulášská 22, 110 00 Praha 1-Staré Město, Czechia",
+			"entities": [
+				{
+					"offset": 2,
+					"length": 13,
+					"type": "bold"
+				},
+				{
+					"offset": 20,
+					"length": 12,
+					"type": "mention"
+				},
+				{
+					"offset": 51,
+					"length": 1,
+					"type": "text_link",
+					"url": "https://better-location.palider.cz/api/staticmap.php?id=ad9d66a6c079f762"
+				},
+				{
+					"offset": 52,
+					"length": 4,
+					"type": "text_link",
+					"url": "https://www.waze.com/ul?ll=50.087451%2C14.420671"
+				},
+				{
+					"offset": 57,
+					"length": 2,
+					"type": "text_link",
+					"url": "https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087451%26x%3D14.420671%26source%3Dcoor%26id%3D14.420671%252C50.087451%26p%3D3%26l%3D0"
+				},
+				{
+					"offset": 60,
+					"length": 19,
+					"type": "code"
+				},
+				{
+					"offset": 80,
+					"length": 14,
+					"type": "text_link",
+					"url": "https://better-location.palider.cz/50.087451,14.420671"
+				},
+				{
+					"offset": 97,
+					"length": 6,
+					"type": "text_link",
+					"url": "https://www.google.com/maps/place/50.087451,14.420671?q=50.087451,14.420671"
+				},
+				{
+					"offset": 106,
+					"length": 7,
+					"type": "text_link",
+					"url": "https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451"
+				},
+				{
+					"offset": 116,
+					"length": 3,
+					"type": "text_link",
+					"url": "https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps"
+				},
+				{
+					"offset": 122,
+					"length": 4,
+					"type": "text_link",
+					"url": "https://www.waze.com/ul?ll=50.087451,14.420671"
+				},
+				{
+					"offset": 129,
+					"length": 4,
+					"type": "text_link",
+					"url": "https://share.here.com/l/50.087451,14.420671?p=yes"
+				},
+				{
+					"offset": 136,
+					"length": 3,
+					"type": "text_link",
+					"url": "https://www.openstreetmap.org/search?whereami=1&query=50.087451,14.420671&mlat=50.087451&mlon=14.420671#map=17/50.087451/14.420671"
+				}
+			],
+			"link_preview_options": {
+				"is_disabled": true
+			},
+			"reply_markup": {
+				"inline_keyboard": [
+					[
+						{
+							"text": "Google 🚗",
+							"url": "https://www.google.com/maps/dir/?api=1&destination=50.087451%2C14.420671&travelmode=driving&dir_action=navigate"
+						},
+						{
+							"text": "Waze 🚗",
+							"url": "https://www.waze.com/ul?ll=50.087451,14.420671&navigate=yes"
+						},
+						{
+							"text": "HERE 🚗",
+							"url": "https://share.here.com/r/50.087451,14.420671"
+						},
+						{
+							"text": "OsmAnd 🚗",
+							"url": "https://osmand.net/go.html?lat=50.087451&lon=14.420671"
+						}
+					],
+					[
+						{
+							"text": "❌ Map preview",
+							"callback_data": "/settings preview true"
+						},
+						{
+							"text": "✅ Address",
+							"callback_data": "/settings show_address false"
+						},
+						{
+							"text": "❌ Native location",
+							"callback_data": "/settings send_native_location true"
+						}
+					],
+					[
+						{
+							"text": "More settings",
+							"url": "https://better-location.palider.cz/login.php?redirect=https%3A%2F%2Fbetter-location.palider.cz%2Fchat%2F-4501349423"
+						}
+					]
+				]
+			}
+		},
+		"chat_instance": "-4718787439325230074",
+		"data": "/settings show_address false"
+	}
+}

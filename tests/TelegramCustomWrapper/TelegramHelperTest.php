@@ -7,6 +7,7 @@ use App\TelegramCustomWrapper\TelegramHelper;
 use PHPUnit\Framework\TestCase;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
+use unreal4u\TelegramAPI\Telegram\Types\Update;
 
 final class TelegramHelperTest extends TestCase
 {
@@ -75,5 +76,18 @@ final class TelegramHelperTest extends TestCase
 		$this->assertSame($expectedMessage, $result);
 	}
 
+	public function testIsMigrate(): void
+	{
+		$updateChatMigrateFrom = new Update(json_decode(file_get_contents(__DIR__ . '/fixtures/chat_migrate_from.json'), true));
+		$updateChatMigrateTo = new Update(json_decode(file_get_contents(__DIR__ . '/fixtures/chat_migrate_to.json'), true));
+		$updateChatSettingsButtonClickEnableAddress = new Update(json_decode(file_get_contents(__DIR__ . '/fixtures/settings_button_click_enable_address.json'), true));
 
+		$this->assertTrue(TelegramHelper::isChatMigrateFrom($updateChatMigrateFrom));
+		$this->assertFalse(TelegramHelper::isChatMigrateFrom($updateChatMigrateTo));
+		$this->assertFalse(TelegramHelper::isChatMigrateFrom($updateChatSettingsButtonClickEnableAddress));
+
+		$this->assertTrue(TelegramHelper::isChatMigrateTo($updateChatMigrateTo));
+		$this->assertFalse(TelegramHelper::isChatMigrateTo($updateChatMigrateFrom));
+		$this->assertFalse(TelegramHelper::isChatMigrateTo($updateChatSettingsButtonClickEnableAddress));
+	}
 }

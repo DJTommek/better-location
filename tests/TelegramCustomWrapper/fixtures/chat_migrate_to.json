@@ -1,0 +1,22 @@
+{
+	"update_id": 918318210,
+	"message": {
+		"message_id": 22519,
+		"from": {
+			"id": 148953285,
+			"is_bot": false,
+			"first_name": "DJTommek",
+			"last_name": "[Tomas Palider]",
+			"username": "DJTommek",
+			"language_code": "en"
+		},
+		"chat": {
+			"id": -4505099406,
+			"title": "DEVEL mig chat 3",
+			"type": "group",
+			"all_members_are_administrators": false
+		},
+		"date": 1726515055,
+		"migrate_to_chat_id": -1002300979251
+	}
+}

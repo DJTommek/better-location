@@ -1,0 +1,24 @@
+{
+	"update_id": 918318209,
+	"message": {
+		"message_id": 1,
+		"from": {
+			"id": 1087968824,
+			"is_bot": true,
+			"first_name": "Group",
+			"username": "GroupAnonymousBot"
+		},
+		"sender_chat": {
+			"id": -1002300979251,
+			"title": "DEVEL mig chat 3",
+			"type": "supergroup"
+		},
+		"chat": {
+			"id": -1002300979251,
+			"title": "DEVEL mig chat 3",
+			"type": "supergroup"
+		},
+		"date": 1726515055,
+		"migrate_from_chat_id": -4505099406
+	}
+}

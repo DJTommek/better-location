@@ -207,6 +207,16 @@ class TelegramHelper
 		return $update->edited_channel_post !== null;
 	}
 
+	public static function isChatMigrateTo(Update $update): bool
+	{
+		return ($update->message?->migrate_to_chat_id ?? 0) !== 0;
+	}
+
+	public static function isChatMigrateFrom(Update $update): bool
+	{
+		return ($update->message?->migrate_from_chat_id ?? 0) !== 0;
+	}
+
 	public static function hasDocument(Update $update): bool
 	{
 		return self::getMessage($update)?->document !== null;
