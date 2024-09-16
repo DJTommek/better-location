@@ -142,6 +142,18 @@ final class IngressIntelServiceTest extends AbstractServiceTestCase
 		];
 	}
 
+	public static function isValidProvider(): array
+	{
+		return [
+			[false, 'https://ingress.com/'],
+			[false, 'https://intel.ingress.com/'],
+			[false, 'http://intel.ingress.com'],
+			[false, 'https://intel.ingress.com/intel'],
+			[false, 'https://ingress.com/intel'],
+			[false, 'http://ingress.com/intel'],
+		];
+	}
+
 	/**
 	 * Old format without subdomain "intel." but with path "/intel".
 	 * As of 2022-05-22 "/intel" redirects to "intel.ingress.com/intel"
@@ -278,6 +290,7 @@ final class IngressIntelServiceTest extends AbstractServiceTestCase
 	 * @dataProvider isValidOnlyPortalProvider
 	 * @dataProvider isValidOnlyMapProvider
 	 * @dataProvider isValidOldFormatProvider
+	 * @dataProvider isValidProvider
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
