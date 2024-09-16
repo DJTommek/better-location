@@ -28,7 +28,6 @@ class ChatEntity extends Entity
 
 	/** @readonly */
 	public int $id;
-	/** @readonly */
 	public int $telegramId;
 	public string $telegramName;
 	public string $telegramChatType;

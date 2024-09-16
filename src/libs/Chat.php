@@ -6,6 +6,7 @@ use App\Repository\ChatEntity;
 use App\Repository\ChatRepository;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use Nette\Http\UrlImmutable;
+use Tracy\Debugger;
 
 class Chat
 {
@@ -121,4 +122,17 @@ class Chat
 		return $this->chatEntity;
 	}
 
+	public function tgMigrateTo(int $newTgChatId): void
+	{
+		$oldTelegramChatId = $this->chatEntity->telegramId;
+		$this->chatEntity->telegramId = $newTgChatId;
+		$this->update();
+
+		Debugger::log(sprintf(
+			'Telegram chat ID %d was migrated from TG ID %d to TG ID %d.',
+			$this->chatEntity->id,
+			$oldTelegramChatId,
+			$newTgChatId,
+		), Debugger::INFO);
+	}
 }

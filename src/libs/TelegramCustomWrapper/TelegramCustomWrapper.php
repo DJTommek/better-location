@@ -23,6 +23,8 @@ use App\TelegramCustomWrapper\Events\EventFactory;
 use App\TelegramCustomWrapper\Events\Events;
 use App\TelegramCustomWrapper\Events\Special\AddedToChatEvent;
 use App\TelegramCustomWrapper\Events\Special\ChannelPostEvent;
+use App\TelegramCustomWrapper\Events\Special\ChatMigrateFromEvent;
+use App\TelegramCustomWrapper\Events\Special\ChatMigrateToEvent;
 use App\TelegramCustomWrapper\Events\Special\ContactEvent;
 use App\TelegramCustomWrapper\Events\Special\FileEvent;
 use App\TelegramCustomWrapper\Events\Special\InlineQueryEvent;
@@ -98,6 +100,16 @@ class TelegramCustomWrapper
 
 		if (TelegramHelper::isInlineQuery($update)) {
 			return $this->eventFactory->create(InlineQueryEvent::class, $update);
+		}
+
+		// If chat is migrated, two messages are sent in this order:
+		// 1. from new chat (chat.id is new)
+		// 2. from old chat (chat.id is old)
+		if (TelegramHelper::isChatMigrateTo($update)) {
+			return $this->eventFactory->create(ChatMigrateToEvent::class, $update);
+		}
+		if (TelegramHelper::isChatMigrateFrom($update)) {
+			throw new EventNotSupportedException('Update message "migrate from" chat is ignored. Logic is in "migrate to" instead.');
 		}
 
 		$isChannelPost = TelegramHelper::isChannelPost($update);

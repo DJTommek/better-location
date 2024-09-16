@@ -34,6 +34,7 @@ class ChatRepository extends Repository
 	{
 		$this->db->query('UPDATE better_location_chat SET 
                                 chat_telegram_name = ?, 
+                                chat_telegram_id = ?, 
                                 chat_settings_preview = ?, 
                                 chat_settings_output_type = ?, 
                                 chat_settings_show_address = ?,
@@ -42,6 +43,7 @@ class ChatRepository extends Repository
                                 chat_last_update = ? 
 				WHERE chat_id = ?',
 			$entity->telegramName,
+			$entity->telegramId,
 			$entity->settingsPreview ? 1 : 0,
 			$entity->getSettingsOutputType(),
 			$entity->settingsShowAddress ? 1 : 0,
