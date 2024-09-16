@@ -17,8 +17,7 @@ class Chat
 		int $telegramChatId,
 		string $telegramChatType,
 		string $telegramChatName,
-	)
-	{
+	) {
 		$chatEntity = $this->chatRepository->fromTelegramId($telegramChatId);
 		if ($chatEntity === null) {
 			$this->chatRepository->insert($telegramChatId, $telegramChatType, $telegramChatName);
@@ -73,7 +72,7 @@ class Chat
 	private function update(): void
 	{
 		$this->chatRepository->update($this->chatEntity);
-		$this->chatEntity = $this->chatRepository->fromTelegramId($this->chatEntity->telegramId);
+		$this->chatEntity = $this->chatRepository->getById($this->chatEntity->id);
 	}
 
 	public function getTelegramChatName(): ?string

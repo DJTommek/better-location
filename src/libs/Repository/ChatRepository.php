@@ -4,6 +4,13 @@ namespace App\Repository;
 
 class ChatRepository extends Repository
 {
+	public function getById(int $chatId): ChatEntity
+	{
+		$sql = 'SELECT * FROM better_location_chat WHERE chat_id = ?';
+		$row = $this->db->query($sql, $chatId)->fetch();
+		return ChatEntity::fromRow($row);
+	}
+
 	public function fromTelegramId(int $telegramId): ?ChatEntity
 	{
 		$sql = 'SELECT * FROM better_location_chat WHERE chat_telegram_id = ?';
@@ -17,7 +24,9 @@ class ChatRepository extends Repository
     			(chat_telegram_id, chat_telegram_type, chat_telegram_name, chat_last_update, chat_registered) 
     			VALUES 
                 (?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())',
-			$telegramId, $telegramChatType, $displayName
+			$telegramId,
+			$telegramChatType,
+			$displayName,
 		);
 	}
 
@@ -39,7 +48,7 @@ class ChatRepository extends Repository
 			$entity->settingsTryLoadIngressPortal ? 1 : 0,
 			$entity->pluginUrl?->getAbsoluteUrl(),
 			$entity->lastUpdate->setTimezone(new \DateTimeZone('UTC'))->format(self::DATETIME_FORMAT),
-			$entity->id
+			$entity->id,
 		);
 	}
 }
