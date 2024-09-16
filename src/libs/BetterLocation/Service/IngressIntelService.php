@@ -42,6 +42,9 @@ final class IngressIntelService extends AbstractService
 
 	public function validate(): bool
 	{
+		$this->data->portalCoords = null;
+		$this->data->mapCoords = null;
+
 		if ($this->url && $this->url->getDomain(2) === 'ingress.com') {
 
 			$this->data->portalCoords = Coordinates::fromString(
