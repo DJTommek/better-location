@@ -3,6 +3,7 @@
 namespace App;
 
 use App\TelegramCustomWrapper\Events\Command\Command;
+use App\TelegramCustomWrapper\Events\Command\DebugCommand;
 use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use App\TelegramCustomWrapper\Events\Command\FeedbackCommand;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
@@ -82,6 +83,7 @@ class DefaultConfig
 			FavouritesCommand::class,
 			SettingsCommand::class,
 			LoginCommand::class,
+			DebugCommand::class,
 		],
 		'all_group_chats' => [
 			HelpCommand::class,
@@ -91,6 +93,7 @@ class DefaultConfig
 			HelpCommand::class,
 			FeedbackCommand::class,
 			SettingsCommand::class,
+			DebugCommand::class,
 		],
 	];
 

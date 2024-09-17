@@ -8,6 +8,8 @@ use App\Icons;
 class DebugCommand extends Command
 {
 	const CMD = '/debug';
+	const ICON = Icons::SETTINGS;
+	const DESCRIPTION = 'Basic technical information';
 
 	public function handleWebhookUpdate(): void
 	{
