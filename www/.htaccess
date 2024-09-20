@@ -25,6 +25,7 @@
 	RewriteRule ^(-?[0-9]{1,2}(\.[0-9]{1,99})?,-?[0-9]{1,3}(\.[0-9]{1,99})?(;-?[0-9]{1,2}(\.[0-9]{1,99})?,-?[0-9]{1,3}(\.[0-9]{1,99})?)*)$ locations.php?coords=$1 [L,QSA,NE]
 	RewriteRule ^chat/(-?[0-9]{1,64})$ settings/chat.php?telegramId=$1 [L,QSA,NE]
 	RewriteRule ^chat/(-?[0-9]{1,64})/history$ chatHistory.php?telegramId=$1 [L,QSA,NE]
+	RewriteRule ^chats$ settings/chatsList.php [L,QSA,NE]
 	# @TODO maybe add support for more formats? Such as:
 	# NXX.XXX,EYY.YYY
 	# XX.XXXN,YY.YYYW

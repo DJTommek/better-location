@@ -30,6 +30,21 @@ class ChatRepository extends Repository
 		);
 	}
 
+	/**
+	 * Find all chats, that given user ID can manage
+	 *
+	 * @return list<ChatEntity>
+	 */
+	public function findByAdminId(int $userId): array
+	{
+		$rows = $this->db->query('SELECT c.* FROM better_location_chat c
+LEFT JOIN better_location_chat_members cm ON c.chat_id = cm.chat_member_chat_id
+WHERE cm.chat_member_user_id = ?
+ORDER BY chat_registered DESC',
+			$userId)->fetchAll();
+		return ChatEntity::fromRows($rows);
+	}
+
 	public function update(ChatEntity $entity): void
 	{
 		$this->db->query('UPDATE better_location_chat SET 

@@ -241,3 +241,24 @@ a {
 #content-chat-history #location-history-table tr td:nth-child(5) {
 	word-break: break-all;
 }
+
+#content-user-settings table thead tr th {
+	vertical-align: middle;
+	text-align: center;
+}
+
+#content-user-settings table tbody tr td {
+	vertical-align: middle;
+}
+
+#content-user-settings table td[data-property-name="settingsPreview"],
+#content-user-settings table td[data-property-name="settingsShowAddress"],
+#content-user-settings table td[data-property-name="settingsTryLoadIngressPortal"],
+#content-user-settings table td[data-property-name="pluginUrl"] {
+	text-align: center;
+}
+
+#content-user-settings table td[data-property-name="telegramName"] {
+	min-width: 15em;
+}
+

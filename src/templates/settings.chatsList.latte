@@ -1,0 +1,80 @@
+{templateType App\Web\User\ChatsListTemplate}
+{layout '@layout.latte'}
+{block content}
+	<div id="content-user-settings">
+		<h2 class="text-center"><a href="{$basePath}/settings/user.php">Managed chats</a></h2>
+		<p>
+			List of chats where
+			<a href="https://t.me/{\App\Config::TELEGRAM_BOT_NAME}" target="_blank">@{\App\Config::TELEGRAM_BOT_NAME}</a>
+			is added and you have administrator rights. For changes and more detailed information about chat click on it's Telegram ID.
+		</p>
+		<div class="table-responsive">
+			<table class="table" id="chats-list">
+				<thead>
+				<tr>
+					<th>Telegram ID</th>
+					<th>Telegram name</th>
+					<th>Type</th>
+					<th>Output</th>
+					<th title="Show map preview">{\App\Icons::MAP_SCREEN}</th>
+					<th title="Show Address">🏘</th>
+					<th title="Try to load Ingress portal">{\App\Icons::INGRESS_PRIME}</th>
+					<th title="Has set Pluginer URL">🎛</th>
+					<th>Registered</th>
+					<th>Last change</th>
+				</tr>
+				</thead>
+				<tbody n:foreach="$chats as $chat">
+				<tr>
+					<td data-property-name="telegramId">
+						<a href="{$basePath}/chat/{$chat->telegramId}">
+							{$chat->telegramId}
+						</a>
+					</td>
+					<td data-property-name="telegramName">{$chat->telegramName}</td>
+					<td data-property-name="telegramChatType">{$chat->telegramChatType}</td>
+					<td data-property-name="outputType">
+						{switch $chat->getSettingsOutputType()}
+							{case App\Repository\ChatEntity::OUTPUT_TYPE_MESSAGE}
+							Message
+							{case App\Repository\ChatEntity::OUTPUT_TYPE_LOCATION}
+							Location
+							{case App\Repository\ChatEntity::OUTPUT_TYPE_FILE_GPX}
+							GPX file
+							{case App\Repository\ChatEntity::OUTPUT_TYPE_FILE_KML}
+							KML file
+							{case App\Repository\ChatEntity::OUTPUT_TYPE_SNEAK_BUTTONS}
+							Sneaky buttons
+						{/switch}
+					</td>
+					<td data-property-name="settingsPreview">{$chat->settingsPreview ? App\Icons::ENABLED : App\Icons::DISABLED}</td>
+					<td data-property-name="settingsShowAddress">{$chat->settingsShowAddress ? App\Icons::ENABLED : App\Icons::DISABLED}</td>
+					<td data-property-name="settingsTryLoadIngressPortal">{$chat->settingsTryLoadIngressPortal ? App\Icons::ENABLED : App\Icons::DISABLED}</td>
+					<td data-property-name="pluginUrl">{$chat->pluginUrl !== null ? App\Icons::ENABLED : App\Icons::DISABLED}</td>
+					<td data-property-name="registered">
+						<span class="text-nowrap">{$chat->registered->format(\App\Config::DATETIME_FORMAT)}</span>
+						<span class="text-nowrap">({\App\Utils\Formatter::seconds(time() - $chat->registered->getTimestamp(), true)} ago)</span>
+					</td>
+					<td data-property-name="lastUpdate">
+						<span class="text-nowrap">{$chat->lastUpdate->format(\App\Config::DATETIME_FORMAT)}</span>
+						<span class="text-nowrap">({\App\Utils\Formatter::seconds(time() - $chat->lastUpdate->getTimestamp(), true)} ago)</span>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<h4>What icons mean?</h4>
+			{\App\Icons::MAP_SCREEN} Show map preview<br>
+			🏘 Show address<br>
+			{\App\Icons::INGRESS_PRIME} Try to load Ingress portal<br>
+			🎛 Has set Pluginer URL<br>
+			{\App\Icons::ENABLED} Feature is enabled<br>
+			{\App\Icons::DISABLED} Feature is disabled<br>
+		</div>
+	</div>
+{/block}
+
+{block title}
+	User settings
+{/block}
