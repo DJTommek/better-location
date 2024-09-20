@@ -55,4 +55,15 @@ class ChatRepository extends Repository
 			$entity->id,
 		);
 	}
+
+	/**
+	 * @return \Generator<ChatEntity>
+	 */
+	public function getAll(): \Generator
+	{
+		$query = $this->db->query('SELECT * FROM better_location_chat WHERE chat_status = ? ORDER BY chat_id DESC', Repository::ENABLED);
+		while ($row = $query->fetch(\PDO::FETCH_LAZY)) {
+			yield ChatEntity::fromRow($row);
+		}
+	}
 }

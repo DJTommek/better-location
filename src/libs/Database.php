@@ -6,6 +6,8 @@ use Tracy\Debugger;
 
 class Database
 {
+	public const PDO_CODE_INTEGRITY_CONSTRAINT_VIOLATION = '23000';
+
 	/** @var string Randomly occuring error on WEDOS webhosting */
 	private const PDO_REPREPARED_ERROR = 'SQLSTATE[HY000]: General error: 1615 Prepared statement needs to be re-prepared';
 

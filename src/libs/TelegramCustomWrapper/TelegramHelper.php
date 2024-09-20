@@ -86,6 +86,10 @@ class TelegramHelper
 	const MESSAGE_CANNOT_BE_EDITED = 'Bad Request: message can\'t be edited';
 	const UPGRADED_TO_SUPERGROUP = 'Bad Request: group chat was upgraded to a supergroup chat';
 	const BOT_CANNOT_INITIATE_PM = 'Forbidden: bot can\'t initiate conversation with a user';
+	const CHAT_GROUP_DELETED = 'Forbidden: the group chat was deleted';
+	const CHAT_GROUP_KICKED = 'Forbidden: bot was kicked from the group chat';
+	const CHAT_SUPERGROUP_KICKED = 'Forbidden: bot was kicked from the supergroup chat';
+	const CHAT_NOT_FOUND = 'Bad Request: chat not found';
 
 	/**
 	 * @param User|Chat $from If chat is private, User and Chat have similar properties
