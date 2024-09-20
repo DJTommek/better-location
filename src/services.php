@@ -42,6 +42,7 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(StaticMapProxy::class);
 	$services->set(\App\BetterLocation\FromTelegramMessage::class);
 	$services->set(TelegramCustomWrapper::class);
+	$services->set(\App\TelegramCustomWrapper\ChatMemberRecalculator::class);
 	$services->set(CustomTelegramLogger::class);
 	$services->set(StaticMapProxyFactory::class);
 	$services->set(\App\BetterLocation\ServicesManager::class);
