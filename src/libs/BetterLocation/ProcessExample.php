@@ -2,6 +2,7 @@
 
 namespace App\BetterLocation;
 
+use App\Address\AddressProvider;
 use App\BetterLocation\Service\WazeService;
 use DJTommek\Coordinates\CoordinatesInterface;
 use unreal4u\TelegramAPI\Telegram;
@@ -17,6 +18,7 @@ class ProcessExample implements CoordinatesInterface
 
 	public function __construct(
 		private readonly WazeService $wazeService,
+		private readonly AddressProvider $addressProvider,
 	) {
 	}
 
@@ -29,6 +31,11 @@ class ProcessExample implements CoordinatesInterface
 			$this->wazeService->process();
 			$collection = $this->wazeService->getCollection();
 			assert($collection->count() === 1);
+
+			$location = $collection->getFirst();
+			$address = $this->addressProvider->reverse($location);
+			$location->setAddress($address);
+
 			$this->exampleCollection = $collection;
 		}
 		return $this->exampleCollection;
