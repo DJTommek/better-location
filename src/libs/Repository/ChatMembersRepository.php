@@ -9,11 +9,13 @@ class ChatMembersRepository extends Repository
 		$this->db->query('DELETE FROM better_location_chat_members WHERE chat_member_chat_id = ?', $chatId);
 	}
 
-	public function insert(int $chatId, int $userId): void
+	public function insert(int $chatId, int $userId, string $role): void
 	{
-		$this->db->query('INSERT INTO better_location_chat_members (chat_member_chat_id, chat_member_user_id) VALUES (?, ?)',
+		$this->db->query(
+			'INSERT INTO better_location_chat_members (chat_member_chat_id, chat_member_user_id, chat_member_role) VALUES (?, ?, ?)',
 			$chatId,
 			$userId,
+			$role,
 		);
 	}
 }

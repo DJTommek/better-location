@@ -40,8 +40,12 @@ class ChatRepository extends Repository
 		$rows = $this->db->query('SELECT c.* FROM better_location_chat c
 LEFT JOIN better_location_chat_members cm ON c.chat_id = cm.chat_member_chat_id
 WHERE cm.chat_member_user_id = ?
+AND chat_member_role IN (?, ?)
 ORDER BY chat_registered DESC',
-			$userId)->fetchAll();
+			$userId,
+			ChatMemberEntity::ROLE_CREATOR,
+			ChatMemberEntity::ROLE_ADMINISTRATOR,
+		)->fetchAll();
 		return ChatEntity::fromRows($rows);
 	}
 

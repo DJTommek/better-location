@@ -4,6 +4,7 @@ namespace App\Web\Maintenance;
 
 use App\Database;
 use App\Repository\ChatEntity;
+use App\Repository\ChatMemberEntity;
 use App\Repository\ChatMembersRepository;
 use App\Repository\ChatRepository;
 use App\Repository\Repository;
@@ -17,6 +18,10 @@ use unreal4u\TelegramAPI\Exceptions\ClientException;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Types\Custom\ChatMembersArray;
 
+/**
+ * Iterate via every detected chat, load administrators and create links between internally stored Users and Chats.
+ * Mapping only chat Administrators and Owners.
+ */
 class CronChatAdministratorsPresenter extends MainPresenter
 {
 	public function __construct(
@@ -73,7 +78,7 @@ class CronChatAdministratorsPresenter extends MainPresenter
 	{
 		$this->chatMembersRepository->deleteByChatId($chat->id);
 		$user = $this->getUserEntity($chat->telegramId, $chat->telegramName);
-		$this->chatMembersRepository->insert($chat->id, $user->id);
+		$this->chatMembersRepository->insert($chat->id, $user->id, ChatMemberEntity::ROLE_CREATOR);
 		return 1;
 	}
 
@@ -106,7 +111,7 @@ class CronChatAdministratorsPresenter extends MainPresenter
 			);
 			$user = $this->getUserEntity($chatAdministrator->user->id, TelegramHelper::getUserDisplayname($chatAdministrator->user));
 
-			$this->chatMembersRepository->insert($chat->id, $user->id);
+			$this->chatMembersRepository->insert($chat->id, $user->id, $chatAdministrator->status);
 			$counter++;
 		}
 
