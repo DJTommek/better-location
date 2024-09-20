@@ -12,6 +12,7 @@ use App\Repository\UserEntity;
 use App\Repository\UserRepository;
 use App\TelegramCustomWrapper\TelegramCustomWrapper;
 use App\TelegramCustomWrapper\TelegramHelper;
+use App\Utils\Formatter;
 use App\Web\MainPresenter;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Exceptions\ClientException;
@@ -40,16 +41,21 @@ class CronChatAdministratorsPresenter extends MainPresenter
 
 		$this->chatRepository->db->beginTransaction();
 
+		Debugger::timer(self::class);
 		try {
-			$counter = $this->processAllChats();
+			$chatsCounter = $this->processAllChats();
 		} catch (\Throwable $exception) {
+			$elapsedSeconds = Debugger::timer(self::class);
 			$this->chatRepository->db->rollback();
 			Debugger::log($exception, Debugger::EXCEPTION);
-			$this->apiResponse(true, 'Exception occured, check logs for more details.', httpCode: self::HTTP_INTERNAL_SERVER_ERROR);
+			$this->apiResponse(true, 'Exception occured, check logs for more details.', ['elapsedSeconds' => $elapsedSeconds], httpCode: self::HTTP_INTERNAL_SERVER_ERROR);
 		}
 
+		$elapsedSeconds = Debugger::timer(self::class);
+		$resultMessage = sprintf('Processing chat administrators: processed %d chats in %s.', $chatsCounter, Formatter::seconds($elapsedSeconds));
+		Debugger::log('[CRON] ' . $resultMessage, Debugger::DEBUG);
 		$this->chatRepository->db->commit();
-		$this->apiResponse(false, sprintf('Processed %d chats', $counter));
+		$this->apiResponse(false, $resultMessage, ['elapsedSeconds' => $elapsedSeconds, 'chatsCounter' => $chatsCounter]);
 	}
 
 	private function processAllChats(): int
