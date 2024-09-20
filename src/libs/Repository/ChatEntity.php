@@ -38,11 +38,16 @@ class ChatEntity extends Entity
 	public bool $settingsShowAddress;
 	public bool $settingsTryLoadIngressPortal;
 	public ?UrlImmutable $pluginUrl;
+	/** @var Repository::DISABLED|Repository::ENABLED|Repository::DELETED */
+	public int $status;
 
 	public static function fromRow(array $row): self
 	{
 		$entity = new self();
 		$entity->id = $row['chat_id'];
+		$status = (int)$row['chat_status'];
+		assert(in_array($status, [Repository::DISABLED, Repository::ENABLED, Repository::DELETED], true));
+		$entity->status = $status;
 		$entity->telegramId = $row['chat_telegram_id'];
 		$entity->telegramName = $row['chat_telegram_name'];
 		$entity->telegramChatType = $row['chat_telegram_type'];
