@@ -42,11 +42,15 @@ LEFT JOIN better_location_chat_members cm ON c.chat_id = cm.chat_member_chat_id
 WHERE cm.chat_member_user_id = ?
 AND chat_member_role IN (?, ?)
 AND chat_status = ?
-ORDER BY chat_registered DESC',
+ORDER BY
+    (CASE WHEN chat_telegram_type = ? then 1 else 0 END) DESC,
+    chat_registered DESC
+    ',
 			$userId,
 			ChatMemberEntity::ROLE_CREATOR,
 			ChatMemberEntity::ROLE_ADMINISTRATOR,
 			Repository::ENABLED,
+			ChatEntity::CHAT_TYPE_PRIVATE,
 		)->fetchAll();
 		return ChatEntity::fromRows($rows);
 	}
