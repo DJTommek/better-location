@@ -38,7 +38,7 @@ readonly class ChatMemberRecalculator
 	/**
 	 * Returns count of members
 	 */
-	private function processOneChat(ChatEntity $chat): int
+	public function processOneChat(ChatEntity $chat): int
 	{
 		if ($chat->telegramChatType === ChatEntity::CHAT_TYPE_PRIVATE) {
 			return $this->processPrivateChat($chat);

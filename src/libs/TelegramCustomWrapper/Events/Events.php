@@ -13,6 +13,7 @@ use App\Repository\ChatRepository;
 use App\Repository\FavouritesRepository;
 use App\Repository\UserRepository;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
+use App\TelegramCustomWrapper\ChatMemberRecalculator;
 use App\TelegramCustomWrapper\SendMessage;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\User;
@@ -44,6 +45,7 @@ abstract class Events
 	private readonly ClientInterface $httpClient;
 	private readonly ?IngressLanchedRuClient $lanchedRuClient;
 	protected readonly ProcessedMessageResultFactory $processedMessageResultFactory;
+	private readonly ChatMemberRecalculator $chatMemberRecalculator;
 
 	protected readonly Update $update;
 	private readonly TgLog $tgLog;
@@ -74,6 +76,7 @@ abstract class Events
 		ClientInterface $httpClient,
 		IngressLanchedRuClient $lanchedRuClient,
 		ProcessedMessageResultFactory $processedMessageResultFactory,
+		ChatMemberRecalculator $chatMemberRecalculator,
 	): self {
 		$this->userRepository = $userRepository;
 		$this->chatRepository = $chatRepository;
@@ -81,6 +84,7 @@ abstract class Events
 		$this->httpClient = $httpClient;
 		$this->lanchedRuClient = $lanchedRuClient;
 		$this->processedMessageResultFactory = $processedMessageResultFactory;
+		$this->chatMemberRecalculator = $chatMemberRecalculator;
 
 		$this->loop = Factory::create();
 		$this->tgLog = new TgLog(
@@ -432,6 +436,20 @@ abstract class Events
 			}
 		}
 		return $this->isAdmin;
+	}
+
+	final protected function recalculateChatMembers(): void
+	{
+		try {
+			$chatEntity = $this->getChat()?->getEntity()
+				?? $this->chatRepository->fromTelegramId($this->getTgChatId());
+			if ($chatEntity === null) {
+				return;
+			}
+			$this->chatMemberRecalculator->processOneChat($chatEntity);
+		} catch (\Exception $exception) {
+			Debugger::log($exception, Debugger::EXCEPTION);
+		}
 	}
 
 	/**

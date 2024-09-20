@@ -31,6 +31,8 @@ class MyChatMemberEvent extends Special
 
 	public function handleWebhookUpdate(): void
 	{
+		$this->recalculateChatMembers();
+
 		$chat = $this->getTgChat();
 		$old = $this->update->my_chat_member->old_chat_member;
 		$new = $this->update->my_chat_member->new_chat_member;

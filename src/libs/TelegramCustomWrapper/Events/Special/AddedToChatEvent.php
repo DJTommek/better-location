@@ -23,6 +23,8 @@ class AddedToChatEvent extends Special
 
 	public function handleWebhookUpdate(): void
 	{
+		$this->recalculateChatMembers();
+
 		$markup = new Markup();
 		$markup->inline_keyboard = [];
 
