@@ -48,6 +48,7 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(\App\BetterLocation\ProcessExample::class);
 	$services->set(\App\Factory\ProcessedMessageResultFactory::class);
 	$services->set(\App\Address\AddressProvider::class);
+	$services->set(\App\Address\NullAddressProvider::class);
 	$services->set(\App\Address\UniversalAddressProvider::class)
 		->arg('$cache', service(\App\Cache\StorageInterface::class));
 
