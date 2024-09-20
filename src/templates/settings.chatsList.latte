@@ -12,7 +12,6 @@
 			<table class="table" id="chats-list">
 				<thead>
 				<tr>
-					<th>Telegram ID</th>
 					<th>Telegram name</th>
 					<th>Type</th>
 					<th>Output</th>
@@ -26,12 +25,11 @@
 				</thead>
 				<tbody n:foreach="$chats as $chat">
 				<tr>
-					<td data-property-name="telegramId">
+					<td data-property-name="telegramName">
 						<a href="{$basePath}/chat/{$chat->telegramId}">
-							{$chat->telegramId}
+							{$chat->telegramName}
 						</a>
 					</td>
-					<td data-property-name="telegramName">{$chat->telegramName}</td>
 					<td data-property-name="telegramChatType">{$chat->telegramChatType}</td>
 					<td data-property-name="outputType">
 						{switch $chat->getSettingsOutputType()}
