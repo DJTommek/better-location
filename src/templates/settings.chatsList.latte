@@ -89,6 +89,7 @@
 			document.querySelectorAll('.ajax-change-settings').forEach(function (element, key) {
 				element.addEventListener('click', async function () {
 					const element = this;
+					element.innerHTML = '<div class="spinner-border spinner-border-sm text-primary" role="status"><span class="visually-hidden">Loading...</span></div>';
 					const requestBody = {
 						chatId: JSON.parse(element.closest('tr').dataset.chatId),
 						name: element.dataset.propertyName,
@@ -102,6 +103,7 @@
 
 					const responseBody = await response.json();
 					if (response.status !== 200) {
+						element.textContent = '?';
 						flashMessage('Unable to change settings: "' + (responseBody.message ?? 'Unknown error') + '"', 'danger');
 						return;
 					}
