@@ -6,7 +6,7 @@
 		<p>
 			List of chats where
 			<a href="https://t.me/{\App\Config::TELEGRAM_BOT_NAME}" target="_blank">@{\App\Config::TELEGRAM_BOT_NAME}</a>
-			is added and you have administrator rights. For changes and more detailed information about chat click on it's Telegram ID.
+			is added and you have administrator rights. For changes and more detailed information about chat, click on it's Telegram ID.
 		</p>
 		<div class="table-responsive">
 			<table class="table" id="chats-list">
@@ -75,12 +75,17 @@
 		</div>
 		<div>
 			<h4>What icons mean?</h4>
-			{\App\Icons::MAP_SCREEN} Show map preview<br>
-			🏘 Show address<br>
-			{\App\Icons::INGRESS_PRIME} Try to load Ingress portal<br>
-			🎛 Has set Pluginer URL<br>
-			{\App\Icons::ENABLED} Feature is enabled<br>
-			{\App\Icons::DISABLED} Feature is disabled<br>
+			<ul class="list-unstyled">
+				<li>{\App\Icons::MAP_SCREEN} Show map preview<sup>*1</sup></li>
+				<li>🏘 Show address<sup>*1</sup></li>
+				<li>{\App\Icons::INGRESS_PRIME} Try to load Ingress portal<sup>*1</sup></li>
+				<li>🎛 Has set Pluginer URL</li>
+				<li>{\App\Icons::ENABLED} Feature is enabled</li>
+				<li>{\App\Icons::DISABLED} Feature is disabled</li>
+			</ul>
+			<p>
+				*1: These features can be enabled or disabled by clicking on icons in this table - {\App\Icons::ENABLED} to disable or {\App\Icons::DISABLED} to enable.
+			</p>
 		</div>
 	</div>
 
