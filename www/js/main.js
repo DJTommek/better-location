@@ -131,3 +131,30 @@ function isNumeric(numeric) {
 
 	window.Settings = Settings;
 })(window);
+
+/**
+ * Show flash message.
+ *
+ * Keep HTML structure in sync with flash messages generated from server (PHP, Latte)
+ *
+ * @param {string} html Content of flash message
+ * @param {string} [type] format of message based on Bootstrap predefined colors (info, warning, danger, primary etc)
+ * @param {?number} [fadeTimeout] hide message after x miliseconds. Null to disable auto-hide
+ */
+function flashMessage(html, type = 'info', fadeTimeout = 4_000) {
+	const flashMessageIndex = Math.floor(Math.random() * 10000);
+
+	const result = '<div id="alert-' + flashMessageIndex + '" class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' + html +
+		'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+
+	document.getElementById('flash-message').insertAdjacentHTML('afterbegin', result);
+
+	if (fadeTimeout > 0) {
+		setTimeout(function () {
+			const alert = document.getElementById('alert-' + flashMessageIndex);
+			if (alert) {
+				alert.remove();
+			}
+		}, fadeTimeout);
+	}
+}
