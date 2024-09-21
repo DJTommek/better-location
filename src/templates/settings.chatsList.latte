@@ -24,7 +24,7 @@
 				</tr>
 				</thead>
 				<tbody n:foreach="$chats as $chat">
-				<tr>
+				<tr data-chat-id="{json_encode($chat->id)}">
 					<td data-property-name="telegramName">
 						<a href="{$basePath}/chat/{$chat->telegramId}">
 							{$chat->telegramName}
@@ -45,9 +45,21 @@
 							Sneaky buttons
 						{/switch}
 					</td>
-					<td data-property-name="settingsPreview">{$chat->settingsPreview ? App\Icons::ENABLED : App\Icons::DISABLED}</td>
-					<td data-property-name="settingsShowAddress">{$chat->settingsShowAddress ? App\Icons::ENABLED : App\Icons::DISABLED}</td>
-					<td data-property-name="settingsTryLoadIngressPortal">{$chat->settingsTryLoadIngressPortal ? App\Icons::ENABLED : App\Icons::DISABLED}</td>
+					<td
+							data-property-name="settingsPreview"
+							class="ajax-change-settings"
+							data-new-value="{json_encode(!$chat->settingsPreview)}"
+					>{$chat->settingsPreview ? App\Icons::ENABLED : App\Icons::DISABLED}</td>
+					<td
+							data-property-name="settingsShowAddress"
+							class="ajax-change-settings"
+							data-new-value="{json_encode(!$chat->settingsShowAddress)}"
+					>{$chat->settingsShowAddress ? App\Icons::ENABLED : App\Icons::DISABLED}</td>
+					<td
+							data-property-name="settingsTryLoadIngressPortal"
+							class="ajax-change-settings"
+							data-new-value="{json_encode(!$chat->settingsTryLoadIngressPortal)}"
+					>{$chat->settingsTryLoadIngressPortal ? App\Icons::ENABLED : App\Icons::DISABLED}</td>
 					<td data-property-name="pluginUrl">{$chat->pluginUrl !== null ? App\Icons::ENABLED : App\Icons::DISABLED}</td>
 					<td data-property-name="registered">
 						<span class="text-nowrap">{$chat->registered->format(\App\Config::DATETIME_FORMAT)}</span>
@@ -71,6 +83,37 @@
 			{\App\Icons::DISABLED} Feature is disabled<br>
 		</div>
 	</div>
+
+	<script>
+		(function () {
+			document.querySelectorAll('.ajax-change-settings').forEach(function (element, key) {
+				element.addEventListener('click', async function () {
+					const element = this;
+					const requestBody = {
+						chatId: JSON.parse(element.closest('tr').dataset.chatId),
+						name: element.dataset.propertyName,
+						newValue: JSON.parse(element.dataset.newValue),
+					}
+
+					const response = await fetch({$basePath} + '/chats', {
+						method: 'POST',
+						body: JSON.stringify(requestBody),
+					});
+
+					const responseBody = await response.json();
+					if (response.status !== 200) {
+						flashMessage('Unable to change settings: "' + (responseBody.message ?? 'Unknown error') + '"', 'danger');
+						return;
+					}
+
+					// Currently only boolean values is supported.
+					console.assert(typeof responseBody.result.newValue === 'boolean');
+					element.textContent = responseBody.result.newValue ? {\App\Icons::ENABLED} : {\App\Icons::DISABLED}
+					element.dataset.newValue = JSON.stringify(!responseBody.result.newValue);
+				});
+			});
+		})();
+	</script>
 {/block}
 
 {block title}

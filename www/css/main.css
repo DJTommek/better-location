@@ -251,6 +251,10 @@ a {
 	vertical-align: middle;
 }
 
+#content-user-settings .ajax-change-settings {
+	cursor: pointer;
+}
+
 #content-user-settings table td[data-property-name="settingsPreview"],
 #content-user-settings table td[data-property-name="settingsShowAddress"],
 #content-user-settings table td[data-property-name="settingsTryLoadIngressPortal"],

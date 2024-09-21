@@ -18,4 +18,17 @@ class ChatMembersRepository extends Repository
 			$role,
 		);
 	}
+
+	public function isAdmin(int $chatId, int $userId): bool
+	{
+		$query = $this->db->query(
+			'SELECT 1 FROM better_location_chat_members WHERE chat_member_chat_id = ? AND chat_member_user_id = ? AND chat_member_role IN (?, ?)',
+			$chatId,
+			$userId,
+			ChatMemberEntity::ROLE_CREATOR,
+			ChatMemberEntity::ROLE_ADMINISTRATOR,
+		);
+
+		return $query->rowCount() > 0;
+	}
 }
