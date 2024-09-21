@@ -89,6 +89,12 @@
 			document.querySelectorAll('.ajax-change-settings').forEach(function (element, key) {
 				element.addEventListener('click', async function () {
 					const element = this;
+
+					if (element.dataset.loading === 'true') {
+						return;
+					}
+					element.dataset.loading = 'true';
+
 					element.innerHTML = '<div class="spinner-border spinner-border-sm text-primary" role="status"><span class="visually-hidden">Loading...</span></div>';
 					const requestBody = {
 						chatId: JSON.parse(element.closest('tr').dataset.chatId),
@@ -104,6 +110,7 @@
 					const responseBody = await response.json();
 					if (response.status !== 200) {
 						element.textContent = '?';
+						delete element.dataset.loading;
 						flashMessage('Unable to change settings: "' + (responseBody.message ?? 'Unknown error') + '"', 'danger');
 						return;
 					}
@@ -112,6 +119,7 @@
 					console.assert(typeof responseBody.result.newValue === 'boolean');
 					element.textContent = responseBody.result.newValue ? {\App\Icons::ENABLED} : {\App\Icons::DISABLED}
 					element.dataset.newValue = JSON.stringify(!responseBody.result.newValue);
+					delete element.dataset.loading;
 				});
 			});
 		})();
