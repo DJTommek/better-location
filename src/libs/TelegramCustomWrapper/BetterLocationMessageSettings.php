@@ -109,7 +109,7 @@ class BetterLocationMessageSettings
 	public static function loadByChatId(int $chatId): self
 	{
 		$db = Factory::database();
-		$rows = $db->query('SELECT * FROM better_location_chat_services WHERE chat_id = ? ORDER BY type, service_id DESC', $chatId)->fetchAll();
+		$rows = $db->query('SELECT * FROM `better_location_chat_services` WHERE `chat_id` = ? ORDER BY `type`, `order`', $chatId)->fetchAll();
 		$result = new self();
 		$services = Factory::servicesManager()->getServices();
 		if ($filtered = self::processRows($services, $rows, self::TYPE_SHARE)) {
