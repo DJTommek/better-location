@@ -32,9 +32,10 @@ class StaticmapPresenter extends MainPresenter
 
 		header('Content-Description: File Transfer');
 		header('Content-Type: image/jpeg');
-		header('Cache-Control: public, immutable');
+		header('Cache-Control: public, immutable, max-age=31536000'); // 1 year
 		header('Pragma: public');
 		header('Content-Length: ' . filesize($file));
+		header('Expires: ' . (new \DateTime())->modify('+1 year')->format(DATE_RFC7231));
 		readfile($file);
 		exit;
 	}
