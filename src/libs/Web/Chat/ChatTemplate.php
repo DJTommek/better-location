@@ -88,32 +88,5 @@ class ChatTemplate extends LayoutTemplate
 		}
 		return $choices;
 	}
-
-	/**
-	 * @param array<class-string<AbstractService>> $allowedServices
-	 * @param array<class-string<AbstractService>> $storedServices
-	 * @param ?callable(class-string<AbstractService>): string $exampleText
-	 * @return array<SelectizeItem>
-	 */
-	private function generateSelectizeItems(array $allowedServices, array $storedServices, ?callable $exampleText = null): array
-	{
-		$allTextServicesSorted = [
-			...$storedServices,
-			...array_diff($allowedServices, $storedServices),
-		];
-
-		$choices = [];
-		foreach ($allTextServicesSorted as $service) {
-			$choice = new SelectizeItem();
-			$choice->serviceId = $service::ID;
-			$choice->serviceLabel = $service::getName();
-			if ($exampleText !== null) {
-				$choice->exampleText = $exampleText($service);
-			}
-			$choice->selected = in_array($service, $storedServices, true);
-			$choices[] = $choice;
-		}
-		return $choices;
-	}
 }
 
