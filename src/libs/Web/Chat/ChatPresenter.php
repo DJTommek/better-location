@@ -4,6 +4,7 @@ namespace App\Web\Chat;
 
 use App\Address\AddressProvider;
 use App\BetterLocation\ProcessExample;
+use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\ServicesManager;
 use App\Chat;
 use App\Config;
@@ -107,8 +108,8 @@ class ChatPresenter extends MainPresenter
 		}
 
 		$this->template->exampleLocation = $location;
-		$this->template->prepareOk($this->chatResponse, $this->servicesManager);
 		$this->template->chat = $this->chat;
+		$this->template->prepareOk($this->chatResponse, $this->servicesManager);
 
 		$this->setTemplateFilename('chat.latte');
 	}
@@ -209,23 +210,20 @@ class ChatPresenter extends MainPresenter
 
 		$services = $this->servicesManager->getServices();
 
-		$linkServicesToSave = [];
-		foreach ($_POST['link-services'] ?? [] as $linkserviceId) {
-			$linkServicesToSave[$linkserviceId] = $services[$linkserviceId];
+		$linkServicesToSave = $this->getServicesFromPost($services, 'link-services-real');
+		if ($linkServicesToSave !== null) {
+			$this->chat->getMessageSettings()->setLinkServices($linkServicesToSave);
 		}
-		$this->chat->getMessageSettings()->setLinkServices($linkServicesToSave);
 
-		$buttonServicesToSave = [];
-		foreach ($_POST['button-services'] ?? [] as $buttonService) {
-			$buttonServicesToSave[$buttonService] = $services[$buttonService];
+		$buttonServicesToSave = $this->getServicesFromPost($services, 'button-services-real');
+		if ($buttonServicesToSave !== null) {
+			$this->chat->getMessageSettings()->setButtonServices($buttonServicesToSave);
 		}
-		$this->chat->getMessageSettings()->setButtonServices($buttonServicesToSave);
 
-		$textServicesToSave = [];
-		foreach ($_POST['text-services'] ?? [] as $textServiceId) {
-			$textServicesToSave[$textServiceId] = $services[$textServiceId];
+		$textServicesToSave = $this->getServicesFromPost($services, 'text-services-real');
+		if ($textServicesToSave !== null) {
+			$this->chat->getMessageSettings()->setTextServices($textServicesToSave);
 		}
-		$this->chat->getMessageSettings()->setTextServices($textServicesToSave);
 
 		$this->chat->getMessageSettings()->saveToDb($this->chat->getEntity()->id);
 		$this->flashMessage('Settings was updated.');
@@ -242,6 +240,25 @@ class ChatPresenter extends MainPresenter
 			chat: $this->chatResponse,
 			user: $this->chatMemberUser->user,
 		);
+	}
+
+	/**
+	 * @param array<int,class-string<AbstractService>> $services
+	 * @return array<int,class-string<AbstractService>>|null Null if requested data is not available in request. Empty
+	 * array represents that user does not want any service to be selected.
+	 */
+	private function getServicesFromPost(array $services, string $postKey): ?array
+	{
+		$idsRaw = $this->request->getPost($postKey);
+		if ($idsRaw === null) {
+			return null;
+		}
+		if (trim($idsRaw) === '') {
+			return [];
+		}
+		$ids = explode(',', $idsRaw);
+
+		return array_filter(array_map(fn($id) => $services[$id] ?? null, $ids));
 	}
 }
 

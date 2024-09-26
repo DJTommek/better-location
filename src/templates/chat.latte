@@ -160,43 +160,47 @@
 					</tr>
 					<tr>
 						<td>Text services</td>
-						<td>
-							<select name="text-services[]" multiple size="4" class="form-select">
-								{foreach $services->getServices([\App\BetterLocation\ServicesManager::TAG_GENERATE_TEXT]) as $service}
-									<option
-											value="{$service::ID}"
-											n:attr="selected: in_array($service, $chat->getMessageSettings()->getTextServices(), true)"
-									>
-										{$service::getName()} ({$service::getShareText($lat, $lon)})
-									</option>
-								{/foreach}
-							</select>
+						<td class="services-selector-wrapper">
+							<input type="hidden" name="text-services-real" class="services-real-input">
+							<span class="selector-loading">Loading...</span>
+							<select
+									id="text-services-selector"
+									name="text-services[]"
+									multiple
+									class="form-select"
+									style="display: none"
+									data-choices="{json_encode($chatTextChoices)}"
+							></select>
 						</td>
 					</tr>
 					<tr>
 						<td>Link services</td>
-						<td>
-							<select name="link-services[]" multiple size="10" class="form-select">
-								{foreach $services->getServices([\App\BetterLocation\ServicesManager::TAG_GENERATE_LINK_SHARE]) as $service}
-									<option
-											value="{$service::ID}"
-											n:attr="selected: in_array($service, $chat->getMessageSettings()->getLinkServices(), true)"
-									>{$service::getName()}</option>
-								{/foreach}
-							</select>
+						<td class="services-selector-wrapper">
+							<input type="hidden" name="link-services-real" class="services-real-input">
+							<span class="selector-loading">Loading...</span>
+							<select
+									id="link-services-selector"
+									name="link-services[]"
+									multiple
+									class="form-select"
+									style="display: none"
+									data-choices="{json_encode($chatLinkChoices)}"
+							></select>
 						</td>
 					</tr>
 					<tr>
 						<td>Drive button services</td>
-						<td>
-							<select name="button-services[]" multiple size="8" class="form-select">
-								{foreach $services->getServices([\App\BetterLocation\ServicesManager::TAG_GENERATE_LINK_DRIVE]) as $service}
-									<option
-											value="{$service::ID}"
-											n:attr="selected: in_array($service, $chat->getMessageSettings()->getButtonServices(), true)"
-									>{$service::getName()}</option>
-								{/foreach}
-							</select>
+						<td class="services-selector-wrapper">
+							<span class="selector-loading">Loading...</span>
+							<input type="hidden" name="button-services-real" class="services-real-input">
+							<select
+									id="button-services-selector"
+									name="button-services[]"
+									multiple
+									class="form-select"
+									style="display: none"
+									data-choices="{json_encode($chatButtonChoices)}"
+							></select>
 						</td>
 					</tr>
 					<tr>
@@ -285,7 +289,7 @@
 					<br>{$exampleLocation->getAddress()}
 				{/if}
 				{foreach $exampleLocation->getDescriptions() as $description}
-						<br>{$description|noescape}
+					<br>{$description|noescape}
 				{/foreach}
 			</div>
 		</div>
@@ -305,4 +309,59 @@
 			</div>
 		</div>
 	</div>
+	<script n:syntax=off>
+		window.addEventListener('load', function () {
+			['text-services-selector', 'link-services-selector', 'button-services-selector'].forEach(function (elementId) {
+				console.debug('init choices to element ID #' + elementId)
+				const element = document.getElementById(elementId);
+				const inputReal = element.parentElement.querySelector('.services-real-input');
+				const choicesItems = JSON.parse(element.dataset.choices);
+				console.debug(choicesItems);
+				const choices = new Choices(element, {
+					removeItemButton: true,
+					removeItemButtonAlignLeft: true,
+					paste: false,
+					searchEnabled: false,
+					searchChoices: false,
+					shouldSort: true,
+					itemSelectText: '',
+					allowHTML: true,
+					noChoicesText: "All available location services are already selected.",
+					choices: choicesItems,
+				});
+
+				/**
+				 * Sync values from selector into hidden input, which keeps order of selected items when submitted to the server.
+				 */
+				function syncValues() {
+					const selectedValues = choices.getValue(true);
+					inputReal.value = selectedValues.join(',');
+
+					// Remove "No choices to choose from" when it should not be visible
+					// @HOTFIX workaround until https://github.com/Choices-js/Choices/issues/1212 is resolved
+					if (selectedValues.length !== choicesItems.length) {
+						choices._clearNotice();
+					}
+				}
+
+				element.addEventListener('change', syncValues);
+				syncValues();
+
+				// @HOTFIX Property 'searchEnabled: false' is not working, so it is necessary to remove it manually
+				// @see https://github.com/Choices-js/Choices/issues/1202
+				element.parentElement.querySelector('input[type=search]').remove();
+			});
+			[...document.getElementsByClassName('selector-loading')].forEach(function (loadingEl) {
+				loadingEl.remove();
+			});
+		});
+	</script>
+{/block}
+
+{block cssLibs}
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@11.0.2/public/assets/styles/choices.min.css" integrity="sha256-g0uAHC+YSeiS2X/1GuQ3OMQkSR0wd82xvcbPtWlOG5I=" crossorigin="anonymous">
+{/block}
+
+{block js}
+	<script src="https://cdn.jsdelivr.net/npm/choices.js@11.0.2/public/assets/scripts/choices.min.js" integrity="sha256-LEANHJz7is1Js5pEyiuEOrUu2Tcd+hweXXT/DBdC+RQ=" crossorigin="anonymous"></script>
 {/block}

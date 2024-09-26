@@ -233,10 +233,12 @@ a {
 #content-chat-history #location-history-table tr td:nth-child(1) {
 	width: 10em;
 }
+
 /* Address */
 #content-chat-history #location-history-table tr td:nth-child(4) {
 	min-width: 10em;
 }
+
 /* Input */
 #content-chat-history #location-history-table tr td:nth-child(5) {
 	word-break: break-all;
@@ -255,14 +257,52 @@ a {
 	cursor: pointer;
 }
 
-#content-user-settings table td[data-property-name="settingsPreview"],
-#content-user-settings table td[data-property-name="settingsShowAddress"],
-#content-user-settings table td[data-property-name="settingsTryLoadIngressPortal"],
-#content-user-settings table td[data-property-name="pluginUrl"] {
+#content-user-settings table td[data-property-name='settingsPreview'],
+#content-user-settings table td[data-property-name='settingsShowAddress'],
+#content-user-settings table td[data-property-name='settingsTryLoadIngressPortal'],
+#content-user-settings table td[data-property-name='pluginUrl'] {
 	text-align: center;
 }
 
-#content-user-settings table td[data-property-name="telegramName"] {
+#content-user-settings table td[data-property-name='telegramName'] {
 	min-width: 15em;
+}
+
+.services-selector-wrapper .choices__inner {
+	border: none;
+}
+
+.services-selector-wrapper .choices__inner,
+.services-selector-wrapper .choices__list--dropdown, .choices__list {
+	background-color: inherit;
+}
+
+.services-selector-wrapper .choices__list--dropdown .choices__item--selectable.is-highlighted,
+.services-selector-wrapper .choices__list[aria-expanded] .choices__item--selectable.is-highlighted {
+	background-color: var(--bs-secondary-bg);
+}
+
+
+.services-selector-wrapper .choices__list--dropdown,
+.services-selector-wrapper .choices__list[aria-expanded] {
+	background-color: var(--bs-body-bg);
+}
+
+.services-selector-wrapper .choices__list--multiple .choices__item.is-highlighted,
+.services-selector-wrapper .choices__list--multiple .choices__item {
+	width: 100%;
+	border-radius: 0;
+	border: none;
+	background-color: inherit;
+	font-size: inherit;
+}
+
+/* Fixing bad displaying of close button when it is aligned to the left */
+.services-selector-wrapper .choices[data-type*=select-multiple] .choices__button,
+.services-selector-wrapper .choices[data-type*=text] .choices__button {
+	border-left: none;
+	padding-left: inherit;
+	padding-right: 1em;
+	margin: 0 0.5em 0 0;
 }
 

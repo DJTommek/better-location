@@ -3,6 +3,7 @@
 namespace App\Web\Chat;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\ServicesManager;
 use App\Chat;
 use App\Web\ChatErrorTrait;
@@ -27,6 +28,13 @@ class ChatTemplate extends LayoutTemplate
 	public ServicesManager $services;
 	public string $formPluginerUrl = '';
 
+	/** @var array<ChoiceItem> */
+	public array $chatTextChoices;
+	/** @var array<ChoiceItem> */
+	public array $chatLinkChoices;
+	/** @var array<ChoiceItem> */
+	public array $chatButtonChoices;
+
 	public function prepareOk(
 		Telegram\Types\Chat $chatResponse,
 		ServicesManager $servicesManager,
@@ -35,6 +43,77 @@ class ChatTemplate extends LayoutTemplate
 		$this->lon = $this->exampleLocation->getLon();
 		$this->chatResponse = $chatResponse;
 		$this->services = $servicesManager;
+
+		$chatMessageSettings = $this->chat->getMessageSettings();
+
+		$this->chatTextChoices = $this->generateChoices(
+			$servicesManager->getServices([ServicesManager::TAG_GENERATE_TEXT]),
+			$chatMessageSettings->getTextServices(),
+			fn($service) => sprintf('%s <small class="text-muted">%s</small>', $service::getName(), $service::getShareText($this->lat, $this->lon)),
+		);
+
+		$this->chatLinkChoices = $this->generateChoices(
+			$servicesManager->getServices([ServicesManager::TAG_GENERATE_LINK_SHARE]),
+			$chatMessageSettings->getLinkServices(),
+			fn($service) => $service::getName(),
+		);
+
+		$this->chatButtonChoices = $this->generateChoices(
+			$servicesManager->getServices([ServicesManager::TAG_GENERATE_LINK_DRIVE]),
+			$chatMessageSettings->getButtonServices(),
+			fn($service) => $service::getName(),
+		);
+	}
+
+	/**
+	 * @param array<class-string<AbstractService>> $allowedServices
+	 * @param array<class-string<AbstractService>> $storedServices
+	 * @param callable(class-string<AbstractService>): string $label
+	 * @return array<ChoiceItem>
+	 */
+	private function generateChoices(array $allowedServices, array $storedServices, callable $label): array
+	{
+		$allTextServicesSorted = [
+			...$storedServices,
+			...array_diff($allowedServices, $storedServices),
+		];
+
+		$choices = [];
+		foreach ($allTextServicesSorted as $service) {
+			$choice = new ChoiceItem();
+			$choice->value = $service::ID;
+			$choice->label = $label($service);
+			$choice->selected = in_array($service, $storedServices, true);
+			$choices[] = $choice;
+		}
+		return $choices;
+	}
+
+	/**
+	 * @param array<class-string<AbstractService>> $allowedServices
+	 * @param array<class-string<AbstractService>> $storedServices
+	 * @param ?callable(class-string<AbstractService>): string $exampleText
+	 * @return array<SelectizeItem>
+	 */
+	private function generateSelectizeItems(array $allowedServices, array $storedServices, ?callable $exampleText = null): array
+	{
+		$allTextServicesSorted = [
+			...$storedServices,
+			...array_diff($allowedServices, $storedServices),
+		];
+
+		$choices = [];
+		foreach ($allTextServicesSorted as $service) {
+			$choice = new SelectizeItem();
+			$choice->serviceId = $service::ID;
+			$choice->serviceLabel = $service::getName();
+			if ($exampleText !== null) {
+				$choice->exampleText = $exampleText($service);
+			}
+			$choice->selected = in_array($service, $storedServices, true);
+			$choices[] = $choice;
+		}
+		return $choices;
 	}
 }
 
