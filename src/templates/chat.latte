@@ -333,7 +333,7 @@
 				/**
 				 * Sync values from selector into hidden input, which keeps order of selected items when submitted to the server.
 				 */
-				function syncValues() {
+				function onChangeValue() {
 					const selectedValues = choices.getValue(true);
 					inputReal.value = selectedValues.join(',');
 
@@ -344,8 +344,26 @@
 					}
 				}
 
-				element.addEventListener('change', syncValues);
-				syncValues();
+				element.addEventListener('change', onChangeValue);
+				onChangeValue();
+
+				if (elementId === 'link-services-selector') {
+					// Force first item (BetterLocation) to be always selected as first in link-services
+					element.addEventListener('change', function () {
+						const firstItem = choicesItems[0];
+						const selectedItems = choices.getValue(true);
+
+						if (
+							selectedItems.length === 0
+							|| selectedItems[0] !== firstItem.value
+							|| selectedItems.includes(firstItem.value) === false
+						) {
+							flashMessage(firstItem.label + ' service must be always selected on first position.', 'warning');
+							choices.removeActiveItems();
+							choices.setChoiceByValue([firstItem.value, ...selectedItems]);
+						}
+					});
+				}
 
 				// @HOTFIX Property 'searchEnabled: false' is not working, so it is necessary to remove it manually
 				// @see https://github.com/Choices-js/Choices/issues/1202
