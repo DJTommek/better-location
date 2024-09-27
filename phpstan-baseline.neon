@@ -516,11 +516,6 @@ parameters:
 			path: src/libs/Web/Admin/AdminTemplate.php
 
 		-
-			message: "#^Method App\\\\Web\\\\Chat\\\\ChatPresenter\\:\\:handleSettingsForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/Web/Chat/ChatPresenter.php
-
-		-
 			message: "#^Method App\\\\Web\\\\Chat\\\\ChatTemplate\\:\\:prepareOk\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/Web/Chat/ChatTemplate.php

@@ -7,34 +7,29 @@ use App\BetterLocation\ProcessExample;
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\ServicesManager;
 use App\Chat;
-use App\Config;
 use App\Pluginer\Pluginer;
 use App\Pluginer\PluginerException;
 use App\Repository\ChatEntity;
+use App\Repository\ChatMembersRepository;
 use App\Repository\ChatRepository;
-use App\TelegramCustomWrapper\TelegramCustomWrapper;
-use App\TelegramCustomWrapper\TelegramHelper;
+use App\Repository\UserEntity;
 use App\Utils\Strict;
 use App\Web\Flash;
 use App\Web\MainPresenter;
 use Nette\Http\UrlImmutable;
 use Psr\Http\Client\ClientInterface;
 use Tracy\Debugger;
-use unreal4u\TelegramAPI\Exceptions\ClientException;
 use unreal4u\TelegramAPI\Telegram;
 
 class ChatPresenter extends MainPresenter
 {
 	private int $chatTelegramId;
-	private ?Telegram\Types\Chat $chatResponse = null;
 	private ?Chat $chat = null;
-	private ?Telegram\Types\ChatMember $chatMemberUser = null;
-	public string $exampleInput = 'https://www.waze.com/ul?ll=50.087451%2C14.420671';
 	private bool $isUserAdmin = false;
 
 	public function __construct(
 		private readonly ChatRepository $chatRepository,
-		private readonly TelegramCustomWrapper $telegramWrapper,
+		private readonly ChatMembersRepository $chatMembersRepository,
 		private readonly ServicesManager $servicesManager,
 		private readonly ClientInterface $httpClient,
 		private readonly ProcessExample $processExample,
@@ -53,20 +48,28 @@ class ChatPresenter extends MainPresenter
 		if (Strict::isInt($_GET['telegramId'] ?? null) === false) {
 			return;
 		}
-
 		$this->chatTelegramId = Strict::intval($_GET['telegramId']);
-		$this->loadChatData();
 
-		if ($this->isUserAdmin === false) {
+		// @TODO Chat() is requesting this data too, deduplicate this call somehow
+		$chatEntity = $this->chatRepository->findByTelegramId($this->chatTelegramId);
+		if ($chatEntity === null) {
 			return;
 		}
+
+		if (!$this->chatMembersRepository->isAdmin($chatEntity->id, $this->user->getId())) {
+			return;
+		}
+		$this->isUserAdmin = true;
+
+		// @TODO load info and set $this->>template->canBotEditMessagesOfOthers;
 
 		$this->chat = new Chat(
 			$this->chatRepository,
 			$this->chatTelegramId,
-			$this->chatResponse->type,
-			TelegramHelper::getChatDisplayname($this->chatResponse),
+			$chatEntity->telegramChatType,
+			$chatEntity->telegramName,
 		);
+
 		$this->template->formPluginerUrl = $this->chat->getPluginerUrl()?->getAbsoluteUrl() ?? '';
 		if ($this->isPostRequest()) {
 			$this->handleSettingsForm();
@@ -109,59 +112,14 @@ class ChatPresenter extends MainPresenter
 
 		$this->template->exampleLocation = $location;
 		$this->template->chat = $this->chat;
-		$this->template->prepareOk($this->chatResponse, $this->servicesManager);
+		$this->template->prepareOk($this->tgChatFromEntity($this->chat->getEntity()), $this->servicesManager);
 
 		$this->setTemplateFilename('chat.latte');
 	}
 
-	private function loadChatData(): void
-	{
-		try {
-			$userTgId = $this->user->getTelegramId();
-
-			$getChat = new Telegram\Methods\GetChat();
-			$getChat->chat_id = $this->chatTelegramId;
-			$response = $this->telegramWrapper->run($getChat);
-			assert($response instanceof Telegram\Types\Chat);
-			$this->chatResponse = $response;
-
-			if ($response->type === ChatEntity::CHAT_TYPE_PRIVATE) {
-				$getChatMember = new Telegram\Methods\GetChatMember();
-				$getChatMember->chat_id = $this->chatTelegramId;
-				$getChatMember->user_id = $userTgId;
-				$chatMember = $this->telegramWrapper->run($getChatMember);
-				assert($chatMember instanceof Telegram\Types\ChatMember);
-				if ($chatMember->user->id !== $userTgId) {
-					throw new \RuntimeException('Invalid state - Telegram ID ID of logged user must match');
-				}
-				$this->isUserAdmin = true;
-				$this->chatMemberUser = $chatMember;
-			} else {
-				$getchatAdmins = new Telegram\Methods\GetChatAdministrators();
-				$getchatAdmins->chat_id = $this->chatTelegramId;
-				$response = $this->telegramWrapper->run($getchatAdmins);
-				assert($response instanceof Telegram\Types\Custom\ChatMembersArray);
-				foreach ($response as $admin) {
-					assert($admin instanceof Telegram\Types\ChatMember);
-					if ($admin->user->id === $userTgId) {
-						$this->isUserAdmin = true;
-						$this->chatMemberUser = $admin;
-					}
-					if (
-						$admin->user->username === Config::TELEGRAM_BOT_NAME
-						&& $admin instanceof Telegram\Types\ChatMember\ChatMemberAdministrator
-						&& $admin->can_edit_messages
-					) {
-						$this->template->canBotEditMessagesOfOthers = true;
-					}
-				}
-			}
-
-		} catch (ClientException $exception) {
-			// do nothing, user probable just does not have permission
-		}
-	}
-
+	/**
+	 * @return void|never
+	 */
 	private function handleSettingsForm()
 	{
 		$this->chat->settingsPreview(isset($_POST['map-preview']));
@@ -237,8 +195,8 @@ class ChatPresenter extends MainPresenter
 			pluginUrl: $url,
 			updateId: random_int(1_000_000, 9_999_999),
 			messageId: random_int(1_000_000, 9_999_999),
-			chat: $this->chatResponse,
-			user: $this->chatMemberUser->user,
+			chat: $this->tgChatFromEntity($this->chat->getEntity()),
+			user: $this->tgUserFromEntity($this->user->getEntity()),
 		);
 	}
 
@@ -259,6 +217,27 @@ class ChatPresenter extends MainPresenter
 		$ids = explode(',', $idsRaw);
 
 		return array_filter(array_map(fn($id) => $services[$id] ?? null, $ids));
+	}
+
+	private function tgChatFromEntity(ChatEntity $chatEntity): Telegram\Types\Chat
+	{
+		$tgChat = new Telegram\Types\Chat();
+		$tgChat->id = $this->chat->getEntity()->telegramId;
+		$tgChat->type = $this->chat->getEntity()->telegramChatType;
+		return $tgChat;
+	}
+
+	private function tgUserFromEntity(UserEntity $userEntity): Telegram\Types\User
+	{
+		$tgUser = new Telegram\Types\User();
+		$tgUser->id = $userEntity->telegramId;
+		$telegramDisplayname = $userEntity->telegramName;
+		if (str_starts_with($telegramDisplayname, '@')) {
+			$tgUser->username = mb_substr($telegramDisplayname, 1);
+		} else {
+			$tgUser->first_name = $telegramDisplayname;
+		}
+		return $tgUser;
 	}
 }
 
