@@ -6,6 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\ServicesManager;
 use App\Chat;
+use App\Icons;
 use App\Web\ChatErrorTrait;
 use App\Web\LayoutTemplate;
 use unreal4u\TelegramAPI\Telegram;
@@ -61,7 +62,7 @@ class ChatTemplate extends LayoutTemplate
 		$this->chatButtonChoices = $this->generateChoices(
 			$servicesManager->getServices([ServicesManager::TAG_GENERATE_LINK_DRIVE]),
 			$chatMessageSettings->getButtonServices(),
-			fn($service) => $service::getName(),
+			fn($service) => Icons::CAR . ' ' . $service::getName(),
 		);
 	}
 
