@@ -270,6 +270,7 @@ a {
 
 .services-selector-wrapper .choices__inner {
 	border: none;
+	font-size: inherit;
 }
 
 .services-selector-wrapper .choices__inner,
