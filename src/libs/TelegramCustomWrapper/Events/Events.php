@@ -442,7 +442,7 @@ abstract class Events
 	{
 		try {
 			$chatEntity = $this->getChat()?->getEntity()
-				?? $this->chatRepository->fromTelegramId($this->getTgChatId());
+				?? $this->chatRepository->findByTelegramId($this->getTgChatId());
 			if ($chatEntity === null) {
 				return;
 			}

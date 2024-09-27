@@ -30,12 +30,12 @@ class User
 		int $telegramId,
 		string $telegramDisplayname,
 	) {
-		$userEntity = $this->userRepository->fromTelegramId($telegramId);
+		$userEntity = $this->userRepository->findByTelegramId($telegramId);
 
 		if ($userEntity === null) {
 			// Does not exists, yet, create new
 			$this->userRepository->insert($telegramId, $telegramDisplayname);
-			$userEntity = $this->userRepository->fromTelegramId($telegramId);
+			$userEntity = $this->userRepository->findByTelegramId($telegramId);
 		}
 
 		assert($userEntity instanceof UserEntity);
@@ -46,7 +46,7 @@ class User
 	{
 		if (!isset($this->userPrivateChatEntity)) {
 			$userTgId = $this->getTelegramId();
-			$chatEntity = $this->chatRepository->fromTelegramId($userTgId);
+			$chatEntity = $this->chatRepository->findByTelegramId($userTgId);
 			if ($chatEntity === null) {
 				throw new \RuntimeException(sprintf('User ID %d (TG ID = %d) does not has private chat settings, yet.', $this->getId(), $userTgId));
 			}
@@ -65,7 +65,7 @@ class User
 	private function update(): void
 	{
 		$this->userRepository->update($this->userEntity);
-		$this->userEntity = $this->userRepository->fromTelegramId($this->userEntity->telegramId);
+		$this->userEntity = $this->userRepository->findByTelegramId($this->userEntity->telegramId);
 	}
 
 	public function setLastKnownLocation(float $lat, float $lon, \DateTimeInterface $datetime = null): void
@@ -117,7 +117,7 @@ class User
 	{
 		if ($this->favourites === null) {
 			$this->favourites = new BetterLocationCollection();
-			foreach ($this->favouritesRepository->byUserId($this->userEntity->id) as $favourite) {
+			foreach ($this->favouritesRepository->findByUser($this->userEntity->id) as $favourite) {
 				$location = BetterLocation::fromLatLon($favourite->lat, $favourite->lon);
 				$location->setPrefixMessage(sprintf('%s %s', Icons::FAVOURITE, htmlspecialchars($favourite->title)));
 				$this->favourites->add($location);

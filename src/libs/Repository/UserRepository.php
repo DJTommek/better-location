@@ -4,7 +4,7 @@ namespace App\Repository;
 
 class UserRepository extends Repository
 {
-	public function fromTelegramId(int $telegramId): ?UserEntity
+	public function findByTelegramId(int $telegramId): ?UserEntity
 	{
 		$sql = 'SELECT * FROM better_location_user WHERE user_telegram_id = ?';
 		$row = $this->db->query($sql, $telegramId)->fetch();

@@ -9,7 +9,7 @@ class ChatLocationHistoryRepository extends Repository
 	/**
 	 * @return list<ChatLocationHistoryEntity>
 	 */
-	public function loadByTelegramChatId(int $telegramChatId): array
+	public function findByTelegramChatId(int $telegramChatId): array
 	{
 		$sql = 'SELECT clh.id, clh.telegram_update_id, clh.timestamp, clh.latitude, clh.longitude, clh.input, clh.address, user.*, chat.*
 		FROM better_location_chat_location_history clh 

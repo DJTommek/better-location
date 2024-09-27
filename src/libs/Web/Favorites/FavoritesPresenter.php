@@ -22,7 +22,7 @@ class FavoritesPresenter extends MainPresenter
 			$this->renderForbidden();
 		}
 
-		$this->template->favorites = $this->favoritesRepository->byUserId($this->user->getId());
+		$this->template->favorites = $this->favoritesRepository->findByUser($this->user->getId());
 		if ($this->isPostRequest()) {
 			$action = $this->request->getPost('action');
 			match ($action) {
@@ -37,7 +37,7 @@ class FavoritesPresenter extends MainPresenter
 	{
 		try {
 			$id = (int)$this->request->getPost('id');
-			$favorite = $this->favoritesRepository->byIdAndUserId($id, $this->user->getId());
+			$favorite = $this->favoritesRepository->findByIdAndUser($id, $this->user->getId());
 			if ($favorite == null) {
 				$this->flashMessage(sprintf('Favorite ID <b>%s</b> was not found.', $id), Flash::ERROR);
 				return;
@@ -61,7 +61,7 @@ class FavoritesPresenter extends MainPresenter
 	{
 		try {
 			$id = (int)$this->request->getPost('id');
-			$favorite = $this->favoritesRepository->byIdAndUserId($id, $this->user->getId());
+			$favorite = $this->favoritesRepository->findByIdAndUser($id, $this->user->getId());
 			if ($favorite == null) {
 				$this->flashMessage(sprintf('Favorite ID <b>%s</b> was not found.', $id), Flash::ERROR);
 				return;

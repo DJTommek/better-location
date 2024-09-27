@@ -7,7 +7,7 @@ use Nette\Http\UrlImmutable;
 
 class WebLoginRepository extends Repository
 {
-	public function fromHash(string $hash): ?WebLoginEntity
+	public function findByHash(string $hash): ?WebLoginEntity
 	{
 		$sql = 'SELECT * FROM better_location_web_login WHERE hash = ?';
 		$row = $this->db->query($sql, $hash)->fetch();

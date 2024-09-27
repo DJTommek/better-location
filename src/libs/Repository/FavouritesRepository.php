@@ -11,7 +11,7 @@ class FavouritesRepository extends Repository
 	 * @param int[] $statuses
 	 * @return FavouritesEntity[]
 	 */
-	public function byUserId(int $userId, array $statuses = [self::ENABLED]): array
+	public function findByUser(int $userId, array $statuses = [self::ENABLED]): array
 	{
 		if ($statuses === []) {
 			throw new \InvalidArgumentException('At least one status is required');
@@ -22,7 +22,7 @@ class FavouritesRepository extends Repository
 		return FavouritesEntity::fromRows($rows);
 	}
 
-	public function byIdAndUserId(int $id, int $userId): ?FavouritesEntity
+	public function findByIdAndUser(int $id, int $userId): ?FavouritesEntity
 	{
 		$row = $this->db->query('SELECT * FROM better_location_favourites WHERE id = ? AND user_id = ?', $id, $userId)->fetch();
 		if ($row === false) {

@@ -4,7 +4,7 @@ namespace App\Repository;
 
 class StaticMapCacheRepository extends Repository
 {
-	public function fromId(string $id): ?StaticMapCacheEntity
+	public function findById(string $id): ?StaticMapCacheEntity
 	{
 		$row = $this->db->query('SELECT * FROM better_location_static_map_cache WHERE id = ?', $id)->fetch();
 		return $row ? StaticMapCacheEntity::fromRow($row) : null;

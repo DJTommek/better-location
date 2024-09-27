@@ -11,7 +11,7 @@ class ChatRepository extends Repository
 		return ChatEntity::fromRow($row);
 	}
 
-	public function fromTelegramId(int $telegramId): ?ChatEntity
+	public function findByTelegramId(int $telegramId): ?ChatEntity
 	{
 		$sql = 'SELECT * FROM better_location_chat WHERE chat_telegram_id = ?';
 		$row = $this->db->query($sql, $telegramId)->fetch();
@@ -43,7 +43,7 @@ WHERE cm.chat_member_user_id = ?
 AND chat_member_role IN (?, ?)
 AND chat_status = ?
 ORDER BY
-    (CASE WHEN chat_telegram_type = ? then 1 else 0 END) DESC,
+    (CASE WHEN chat_telegram_type = ? THEN 1 ELSE 0 END) DESC,
     chat_registered DESC
     ',
 			$userId,

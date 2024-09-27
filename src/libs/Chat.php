@@ -19,10 +19,10 @@ class Chat
 		string $telegramChatType,
 		string $telegramChatName,
 	) {
-		$chatEntity = $this->chatRepository->fromTelegramId($telegramChatId);
+		$chatEntity = $this->chatRepository->findByTelegramId($telegramChatId);
 		if ($chatEntity === null) {
 			$this->chatRepository->insert($telegramChatId, $telegramChatType, $telegramChatName);
-			$chatEntity = $this->chatRepository->fromTelegramId($telegramChatId);
+			$chatEntity = $this->chatRepository->findByTelegramId($telegramChatId);
 		}
 		assert($chatEntity instanceof ChatEntity);
 		$this->chatEntity = $chatEntity;

@@ -46,7 +46,7 @@ class StaticMapProxy
 
 	public function initFromCacheId(string $cacheId): self
 	{
-		$entity = $this->staticMapCacheRepository->fromId($cacheId);
+		$entity = $this->staticMapCacheRepository->findById($cacheId);
 
 		if ($entity === null) {
 			return $this;
@@ -81,7 +81,7 @@ class StaticMapProxy
 		$this->cacheId = hash(self::HASH_ALGORITHM, $this->privateUrl());
 
 		// If does not exists in database, yet, create new
-		$entity = $this->staticMapCacheRepository->fromId($this->cacheId);
+		$entity = $this->staticMapCacheRepository->findById($this->cacheId);
 		if ($entity === null) {
 			$this->staticMapCacheRepository->save($this->cacheId, $this->privateUrl());
 		}

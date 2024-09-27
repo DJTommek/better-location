@@ -42,8 +42,8 @@ class ChatHistoryPresenter extends MainPresenter
 			return;
 		}
 
-		$this->chatEntity = $this->chatRepository->fromTelegramId($telegramChatId);
-		$chatHistory = $this->chatLocationHistoryRepository->loadByTelegramChatId($telegramChatId);
+		$this->chatEntity = $this->chatRepository->findByTelegramId($telegramChatId);
+		$chatHistory = $this->chatLocationHistoryRepository->findByTelegramChatId($telegramChatId);
 		$this->template->prepareOk($this->chatEntity, $chatHistory);
 	}
 

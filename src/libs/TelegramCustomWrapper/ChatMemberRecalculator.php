@@ -137,13 +137,12 @@ readonly class ChatMemberRecalculator
 
 	private function getUserEntity(int $userTelegramId, string $userDisplayname): UserEntity
 	{
-		$user = $this->userRepository->fromTelegramId($userTelegramId);
+		$user = $this->userRepository->findByTelegramId($userTelegramId);
 		if ($user !== null) {
 			return $user;
 		}
 
 		$this->userRepository->insert($userTelegramId, $userDisplayname);
-		return $this->userRepository->fromTelegramId($userTelegramId);
-
+		return $this->userRepository->findByTelegramId($userTelegramId);
 	}
 }

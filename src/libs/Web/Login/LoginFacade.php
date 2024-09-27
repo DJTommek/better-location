@@ -19,7 +19,7 @@ class LoginFacade
 		private readonly WebLoginRepository $webLoginRepository,
 	) {
 		if ($cookie = $this->getCookie()) {
-			if ($this->entity = $this->webLoginRepository->fromHash($cookie)) {
+			if ($this->entity = $this->webLoginRepository->findByHash($cookie)) {
 				$this->isLogged = true;
 			}
 		}

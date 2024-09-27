@@ -4,6 +4,12 @@ namespace App\Repository;
 
 use App\Database;
 
+/**
+ * Methods that
+ * - must always return instance must be named with prefix `getBy`, eg. `getById()`, `getByTelegramId()`
+ * - might return instance or null must be named with prefix `findBy`, eg. `findByTelegramId()`
+ * - is returning array of instances (including empty array) also must be named with prefix `findBy`
+ */
 abstract class Repository
 {
 	public const TRUE = 1;
