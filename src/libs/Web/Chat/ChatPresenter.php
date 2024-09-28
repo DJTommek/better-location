@@ -7,6 +7,7 @@ use App\BetterLocation\ProcessExample;
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\ServicesManager;
 use App\Chat;
+use App\Factory\ChatFactory;
 use App\Pluginer\Pluginer;
 use App\Pluginer\PluginerException;
 use App\Repository\ChatEntity;
@@ -34,6 +35,7 @@ class ChatPresenter extends MainPresenter
 		private readonly ClientInterface $httpClient,
 		private readonly ProcessExample $processExample,
 		private readonly AddressProvider $addressProvider,
+		private readonly ChatFactory $chatFactory,
 		ChatTemplate $template,
 	) {
 		$this->template = $template;
@@ -61,14 +63,9 @@ class ChatPresenter extends MainPresenter
 		}
 		$this->isUserAdmin = true;
 
-		// @TODO load info and set $this->>template->canBotEditMessagesOfOthers;
+		$this->chat = $this->chatFactory->create($chatEntity);
 
-		$this->chat = new Chat(
-			$this->chatRepository,
-			$this->chatTelegramId,
-			$chatEntity->telegramChatType,
-			$chatEntity->telegramName,
-		);
+		// @TODO load info and set $this->>template->canBotEditMessagesOfOthers;
 
 		$this->template->formPluginerUrl = $this->chat->getPluginerUrl()?->getAbsoluteUrl() ?? '';
 		if ($this->isPostRequest()) {

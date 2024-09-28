@@ -11,21 +11,11 @@ use Tracy\Debugger;
 class Chat
 {
 	private ?BetterLocationMessageSettings $messageSettings = null;
-	private ChatEntity $chatEntity;
 
 	public function __construct(
 		private readonly ChatRepository $chatRepository,
-		int $telegramChatId,
-		string $telegramChatType,
-		string $telegramChatName,
+		private ChatEntity $chatEntity,
 	) {
-		$chatEntity = $this->chatRepository->findByTelegramId($telegramChatId);
-		if ($chatEntity === null) {
-			$this->chatRepository->insert($telegramChatId, $telegramChatType, $telegramChatName);
-			$chatEntity = $this->chatRepository->findByTelegramId($telegramChatId);
-		}
-		assert($chatEntity instanceof ChatEntity);
-		$this->chatEntity = $chatEntity;
 	}
 
 	public function settingsPreview(?bool $enable = null): bool

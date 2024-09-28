@@ -4,8 +4,6 @@ namespace App;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
-use App\Repository\ChatEntity;
-use App\Repository\ChatRepository;
 use App\Repository\FavouritesRepository;
 use App\Repository\UserEntity;
 use App\Repository\UserRepository;
@@ -14,10 +12,6 @@ use DJTommek\Coordinates\CoordinatesImmutable;
 
 class User
 {
-	private UserEntity $userEntity;
-	/** Lazy (should be accessed only via getPrivateChatEntity()) */
-	private ChatEntity $userPrivateChatEntity;
-
 	/** Lazy list of Favourites (should be accessed only via getFavourites()) */
 	private ?BetterLocationCollection $favourites = null;
 	/** Lazy (should be accessed only via getMessageSettings()) */
@@ -25,35 +19,10 @@ class User
 
 	public function __construct(
 		private readonly UserRepository $userRepository,
-		private readonly ChatRepository $chatRepository,
 		private readonly FavouritesRepository $favouritesRepository,
-		int $telegramId,
-		string $telegramDisplayname,
+		private UserEntity $userEntity,
+		private Chat $privateChat,
 	) {
-		$userEntity = $this->userRepository->findByTelegramId($telegramId);
-
-		if ($userEntity === null) {
-			// Does not exists, yet, create new
-			$this->userRepository->insert($telegramId, $telegramDisplayname);
-			$userEntity = $this->userRepository->findByTelegramId($telegramId);
-		}
-
-		assert($userEntity instanceof UserEntity);
-		$this->userEntity = $userEntity;
-	}
-
-	public function getPrivateChatEntity(): ChatEntity
-	{
-		if (!isset($this->userPrivateChatEntity)) {
-			$userTgId = $this->getTelegramId();
-			$chatEntity = $this->chatRepository->findByTelegramId($userTgId);
-			if ($chatEntity === null) {
-				throw new \RuntimeException(sprintf('User ID %d (TG ID = %d) does not has private chat settings, yet.', $this->getId(), $userTgId));
-			}
-			$this->userPrivateChatEntity = $chatEntity;
-		}
-		return $this->userPrivateChatEntity;
-
 	}
 
 	public function setLastUpdate(\DateTimeInterface $lastUpdate): void
@@ -139,8 +108,7 @@ class User
 	public function getMessageSettings(): BetterLocationMessageSettings
 	{
 		if ($this->messageSettings === null) {
-			$chatEntity = $this->getPrivateChatEntity();
-			$this->messageSettings = BetterLocationMessageSettings::loadByChatId($chatEntity->id);
+			$this->messageSettings = BetterLocationMessageSettings::loadByChatId($this->getPrivateChat()->getEntity()->id);
 		}
 		return $this->messageSettings;
 	}
@@ -148,5 +116,10 @@ class User
 	public function getEntity(): UserEntity
 	{
 		return $this->userEntity;
+	}
+
+	public function getPrivateChat(): Chat
+	{
+		return $this->privateChat;
 	}
 }

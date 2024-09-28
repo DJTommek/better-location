@@ -4,9 +4,7 @@ namespace App\Web;
 
 use App\Config;
 use App\Factory\LatteFactory;
-use App\Repository\ChatRepository;
-use App\Repository\FavouritesRepository;
-use App\Repository\UserRepository;
+use App\Factory\UserFactory;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\User;
 use App\Utils\Strict;
@@ -28,6 +26,7 @@ abstract class MainPresenter
 	public const HTTP_INTERNAL_SERVER_ERROR = 500;
 
 	private readonly LatteFactory $latteFactory;
+	private readonly UserFactory $userFactory;
 	protected readonly Request $request;
 	protected readonly LoginFacade $login;
 	protected ?User $user = null;
@@ -39,33 +38,31 @@ abstract class MainPresenter
 	 * __construct() method.
 	 */
 	public final function setDependencies(
-		UserRepository $userRepository,
-		ChatRepository $chatRepository,
-		FavouritesRepository $favouritesRepository,
+		UserFactory $userFactory,
 		LatteFactory $latteFactory,
 		LoginFacade $loginFacade,
 		Request $request,
 	): void {
 		$this->latteFactory = $latteFactory;
+		$this->userFactory = $userFactory;
 		$this->request = $request;
 		$this->login = $loginFacade;
 
 		if (!isset($this->template)) { // load default template if any was provided
 			$this->template = new LayoutTemplate();
 		}
-		if ($this->login->isLogged()) {
-			$this->user = new User(
-				$userRepository,
-				$chatRepository,
-				$favouritesRepository,
-				$this->login->getTelegramId(),
-				$this->login->getDisplayName(),
-			);
-		}
 	}
 
 	public final function run(): void
 	{
+		if ($this->login->isLogged()) {
+			$loginEntity = $this->login->getEntity();
+			$this->user = $this->userFactory->createOrRegisterFromTelegram(
+				$loginEntity->userTelegramId,
+				$loginEntity->displayname(),
+			);
+		}
+
 		$this->template->login = $this->login;
 		$this->template->user = $this->user;
 		$this->template->cachebusterMainCss = filemtime(__DIR__ . '/../../../www/css/main.css');
@@ -195,7 +192,8 @@ abstract class MainPresenter
 		$this->sendJson($data, $httpCode);
 	}
 
-	final protected function renderForbidden(): never {
+	final protected function renderForbidden(): never
+	{
 		$this->setTemplateFilename('403.latte');
 		$this->latteFactory->render($this->templatefile, $this->template);
 		die();

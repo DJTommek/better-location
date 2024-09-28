@@ -7,12 +7,9 @@ use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\FromTelegramMessage;
 use App\BetterLocation\GooglePlaceApi;
 use App\BetterLocation\Service\MapyCzService;
-use App\Chat;
 use App\Config;
 use App\Geonames\Geonames;
 use App\Icons;
-use App\Repository\ChatEntity;
-use App\Repository\ChatRepository;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
 use App\TelegramCustomWrapper\TelegramHelper;
@@ -41,18 +38,10 @@ class InlineQueryEvent extends Special
 	 */
 	private const LIVE_LOCATION_THRESHOLD = 600;
 
-	/**
-	 * Instance of Chat for this user's private chat (only for lazy load)
-	 *
-	 * @internal Only for lazy load, do not use directly. Use $this->getUserPrivateChatEntity() instead
-	 * @see getMessageSettings()
-	 */
-	private ?Chat $userPrivateChatEntity = null;
 	private BetterLocationCollection $collection;
 
 	public function __construct(
 		private readonly FromTelegramMessage $fromTelegramMessage,
-		private readonly ChatRepository $chatRepository,
 		private readonly MapyCzService $mapyCzService,
 		private readonly Geonames $geonames,
 		private readonly ?GooglePlaceApi $googlePlaceApi = null,
@@ -62,24 +51,10 @@ class InlineQueryEvent extends Special
 	public function getMessageSettings(): BetterLocationMessageSettings
 	{
 		$messageSettings = parent::getMessageSettings();
-		$messageSettings->showAddress($this->getUserPrivateChatEntity()->settingsShowAddress());
-		$messageSettings->tryLoadIngressPortal($this->getUserPrivateChatEntity()->settingsTryLoadIngressPortal());
+		$messageSettings->showAddress($this->user->getPrivateChat()->settingsShowAddress());
+		$messageSettings->tryLoadIngressPortal($this->user->getPrivateChat()->settingsTryLoadIngressPortal());
 		return $messageSettings;
 	}
-
-	private function getUserPrivateChatEntity(): Chat
-	{
-		if ($this->userPrivateChatEntity === null) {
-			$this->userPrivateChatEntity = new Chat(
-				$this->chatRepository,
-				$this->getTgFromId(),
-				ChatEntity::CHAT_TYPE_PRIVATE,
-				$this->getTgFromDisplayname(),
-			);
-		}
-		return $this->userPrivateChatEntity;
-	}
-
 
 	public function getCollection(): BetterLocationCollection
 	{
@@ -220,7 +195,7 @@ class InlineQueryEvent extends Special
 
 			if (
 				$processedMessageResult->validLocationsCount() > 1
-				&& $this->getUserPrivateChatEntity()->getSendNativeLocation() === false // There cannot be multiple locations at once if sending native location
+				&& $this->user->getPrivateChat()->getSendNativeLocation() === false // There cannot be multiple locations at once if sending native location
 			) {
 				$answerInlineQuery->addResult($this->getAllLocationsInlineQueryResultArticle($processedMessageResult));
 			}
@@ -274,7 +249,7 @@ class InlineQueryEvent extends Special
 		Inline\Keyboard\Markup $replyMarkup,
 		bool $calculateDistance = true,
 	): Inline\Query\Result\Location|Inline\Query\Result\Article {
-		if ($this->getUserPrivateChatEntity()->getSendNativeLocation()) {
+		if ($this->user->getPrivateChat()->getSendNativeLocation()) {
 			return $this->getInlineQueryResultNativeLocation($betterLocation, $replyMarkup, $calculateDistance);
 		} else {
 			return $this->getInlineQueryResultArticle($betterLocation, $text, $replyMarkup, $calculateDistance);
@@ -323,7 +298,7 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->input_message_content = new Text();
 		$inlineQueryResult->input_message_content->message_text = $text;
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
-		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->getUserPrivateChatEntity()->settingsPreview();
+		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->user->getPrivateChat()->settingsPreview();
 		return $inlineQueryResult;
 	}
 
@@ -360,12 +335,12 @@ class InlineQueryEvent extends Special
 		$inlineQueryResult->input_message_content = new Text();
 		$inlineQueryResult->input_message_content->message_text = $processedCollection->getText();
 		$inlineQueryResult->input_message_content->parse_mode = 'HTML';
-		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->getUserPrivateChatEntity()->settingsPreview();
+		$inlineQueryResult->input_message_content->disable_web_page_preview = !$this->user->getPrivateChat()->settingsPreview();
 		return $inlineQueryResult;
 	}
 
 	private function showAddress(): bool
 	{
-		return $this->getUserPrivateChatEntity()->settingsShowAddress();
+		return $this->user->getPrivateChat()->settingsShowAddress();
 	}
 }

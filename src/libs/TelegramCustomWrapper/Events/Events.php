@@ -5,13 +5,13 @@ namespace App\TelegramCustomWrapper\Events;
 use App\BetterLocation\BetterLocationCollection;
 use App\Chat;
 use App\Config;
+use App\Factory\ChatFactory;
 use App\Factory\ProcessedMessageResultFactory;
+use App\Factory\UserFactory;
 use App\IngressLanchedRu\Client as IngressLanchedRuClient;
 use App\Logger\CustomTelegramLogger;
 use App\Pluginer\Pluginer;
 use App\Repository\ChatRepository;
-use App\Repository\FavouritesRepository;
-use App\Repository\UserRepository;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\ChatMemberRecalculator;
 use App\TelegramCustomWrapper\SendMessage;
@@ -39,13 +39,13 @@ use function Clue\React\Block\await;
 
 abstract class Events
 {
-	private readonly UserRepository $userRepository;
 	private readonly ChatRepository $chatRepository;
-	private readonly FavouritesRepository $favouritesRepository;
 	private readonly ClientInterface $httpClient;
 	private readonly ?IngressLanchedRuClient $lanchedRuClient;
 	protected readonly ProcessedMessageResultFactory $processedMessageResultFactory;
 	private readonly ChatMemberRecalculator $chatMemberRecalculator;
+	private readonly ChatFactory $chatFactory;
+	private readonly UserFactory $userFactory;
 
 	protected readonly Update $update;
 	private readonly TgLog $tgLog;
@@ -69,22 +69,22 @@ abstract class Events
 	abstract public function handleWebhookUpdate(): void;
 
 	final public function setDependencies(
-		UserRepository $userRepository,
 		ChatRepository $chatRepository,
-		FavouritesRepository $favouritesRepository,
 		CustomTelegramLogger $customTelegramLogger,
 		ClientInterface $httpClient,
 		IngressLanchedRuClient $lanchedRuClient,
 		ProcessedMessageResultFactory $processedMessageResultFactory,
 		ChatMemberRecalculator $chatMemberRecalculator,
+		ChatFactory $chatFactory,
+		UserFactory $userFactory,
 	): self {
-		$this->userRepository = $userRepository;
 		$this->chatRepository = $chatRepository;
-		$this->favouritesRepository = $favouritesRepository;
 		$this->httpClient = $httpClient;
 		$this->lanchedRuClient = $lanchedRuClient;
 		$this->processedMessageResultFactory = $processedMessageResultFactory;
 		$this->chatMemberRecalculator = $chatMemberRecalculator;
+		$this->chatFactory = $chatFactory;
+		$this->userFactory = $userFactory;
 
 		$this->loop = Factory::create();
 		$this->tgLog = new TgLog(
@@ -99,17 +99,13 @@ abstract class Events
 	{
 		$this->update = $update;
 
-		$this->user = new User(
-			$this->userRepository,
-			$this->chatRepository,
-			$this->favouritesRepository,
+		$this->user = $this->userFactory->createOrRegisterFromTelegram(
 			$this->getTgFromId(),
 			$this->getTgFromDisplayname(),
 		);
 
 		if ($this->hasTgMessage()) {
-			$this->chat = new Chat(
-				$this->chatRepository,
+			$this->chat = $this->chatFactory->createOrRegisterFromTelegram(
 				$this->getTgChatId(),
 				$this->getTgChat()->type,
 				$this->getTgChatDisplayname(),
@@ -161,7 +157,7 @@ abstract class Events
 		}
 
 		// Fallback, try to load user's private chat entity
-		return $this->user->getPrivateChatEntity()->pluginUrl;
+		return $this->user->getPrivateChat()->getEntity()->pluginUrl;
 	}
 
 	public function getPluginer(): ?Pluginer
