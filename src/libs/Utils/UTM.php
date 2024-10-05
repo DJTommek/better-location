@@ -2,6 +2,8 @@
 
 namespace App\Utils;
 
+use DJTommek\Coordinates\CoordinatesImmutable;
+
 /**
  * Converter between WGS84 and UTM coordinate systems.
  *
@@ -21,8 +23,7 @@ class UTM implements \DJTommek\Coordinates\CoordinatesInterface
 	public const BANDS_NORTH = ['X', 'W', 'V', 'U', 'T', 'S', 'R', 'Q', 'P', 'N'];
 	public const BANDS_SOUTH = ['C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M'];
 
-	private float $lat;
-	private float $lon;
+	private CoordinatesImmutable $coordinates;
 
 	public readonly Hemisphere $hemisphere;
 
@@ -92,8 +93,8 @@ class UTM implements \DJTommek\Coordinates\CoordinatesInterface
 				+ tan($lat / 180 * M_PI) / pow(1 - 0.00669438 * pow(sin($lat / 180 * M_PI), 2), 0.5) * (self::northing($A, $T, $C)));
 
 		$result = new self($zonenumber, $zoneBand, $y, $x);
-		$result->lat = $lat;
-		$result->lon = $lon;
+		$result->coordinates = new CoordinatesImmutable($lat, $lon);
+
 		return $result;
 	}
 
@@ -158,7 +159,7 @@ class UTM implements \DJTommek\Coordinates\CoordinatesInterface
 		return pow($A, 2) / 2 + (5 - $T + 9 * $C + 4 * pow($C, 2)) * pow($A, 4) / 24 + (61 - 58 * $T + pow($T, 2) + 600 * $C - 2.22403) * pow($A, 6) / 720;
 	}
 
-	public function format(UTMFormat $format = UTMFormat::ZONE_COORDS): string
+	public function format(UTMFormat $format): string
 	{
 		return match ($format) {
 			UTMFormat::ZONE_COORDS => sprintf('%d%s %d %d', $this->zoneNumber, $this->zoneBand, $this->easting, $this->northing),
@@ -168,7 +169,7 @@ class UTM implements \DJTommek\Coordinates\CoordinatesInterface
 
 	private function calculateLatLon(): void
 	{
-		if (isset($this->lat, $this->lon)) {
+		if (isset($this->coordinates)) {
 			return;
 		}
 
@@ -235,24 +236,23 @@ class UTM implements \DJTommek\Coordinates\CoordinatesInterface
 
 		$lon = Rad2Deg($lon);
 
-		$this->lat = $lat;
-		$this->lon = $lon;
+		$this->coordinates = new CoordinatesImmutable($lat, $lon);
 	}
 
 	public function getLat(): float
 	{
 		$this->calculateLatLon();
-		return $this->lat;
+		return $this->coordinates->getLat();
 	}
 
 	public function getLon(): float
 	{
 		$this->calculateLatLon();
-		return $this->lon;
+		return $this->coordinates->getLon();
 	}
 
 	public function getLatLon(string $delimiter = ','): string
 	{
-		return sprintf('%F%s%F', $this->getLat(), $delimiter, $this->getLon());
+		return $this->coordinates->getLatLon($delimiter);
 	}
 }
