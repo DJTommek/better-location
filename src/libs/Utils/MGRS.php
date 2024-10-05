@@ -164,7 +164,9 @@ class MGRS
 		$regex .= '([A-Z])';
 		$regex .= '([A-Z])';
 		$regex .= ' ?';
-		$regex .= '((?:[0-9][0-9]){' . $minimumPrecision . ',5})';
+		$regex .= '((?:[0-9]){' . $minimumPrecision . ',5})';
+		$regex .= ' ?';
+		$regex .= '((?:[0-9]){' . $minimumPrecision . ',5})';
 		if ($end) {
 			$regex .= '$/';
 		}
@@ -514,12 +516,14 @@ class MGRS
 			throw new \LogicException('Invalid format of MGRS string which should be catched by self::isMGRS().');
 		}
 
-		[, $zone, $letter, $sqr1, $sqr2, $eastingNorthingString] = $matches;
+		[, $zone, $letter, $sqr1, $sqr2, $easting, $northing] = $matches;
+
+		$eastingNorthingString = $easting . $northing;
+		[$easting, $northing] = str_split($eastingNorthingString, strlen($eastingNorthingString) / 2);
 
 		$self = new self();
 		$self->setGridZone($zone, $letter);
 		$self->setGridSquareId($sqr1, $sqr2);
-		[$easting, $northing] = str_split($eastingNorthingString, strlen($eastingNorthingString) / 2);
 		$self->setNumericalIng($easting, $northing);
 
 		$UTM = $self->MGRStoUTM($self->getZoneNumber(), $self->getZoneBand(), $self->getGridSquareId1(), $self->getGridSquareId2(), $self->getEasting(), $self->getNorthing());

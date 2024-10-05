@@ -22,7 +22,7 @@ final class MGRSService extends AbstractService
 		if (preg_match_all($inStringRegex, $text, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				$mgrsRaw = $matches[0][$i];
-				$service = Factory::getContainer()->get(self::class);
+				$service = new MGRSService();
 				$service->setInput($mgrsRaw);
 				try {
 					if ($service->validate()) {
