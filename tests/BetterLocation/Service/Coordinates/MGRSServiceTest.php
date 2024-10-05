@@ -3,30 +3,60 @@
 namespace Tests\BetterLocation\Service\Coordinates;
 
 use App\BetterLocation\Service\Coordinates\MGRSService;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
-use PHPUnit\Framework\TestCase;
+use Tests\BetterLocation\Service\AbstractServiceTestCase;
 
-final class MGRSServiceTest extends TestCase
+final class MGRSServiceTest extends AbstractServiceTestCase
 {
-	public function testGenerateShareLink(): void
+	protected function getServiceClass(): string
 	{
-		$this->expectException(NotSupportedException::class);
-		MGRSService::getShareLink(50.087451, 14.420671);
+		return MGRSService::class;
 	}
 
-	public function testGenerateDriveLink(): void
+	protected function getShareLinks(): array
 	{
-		$this->expectException(NotSupportedException::class);
-		MGRSService::getDriveLink(50.087451, 14.420671);
+		return [];
 	}
 
-	public function testGenerateShareText(): void
+	protected function getDriveLinks(): array
 	{
-		$this->assertSame('33UVR5855748515', MGRSService::getShareText(50.087451, 14.420671));
-		$this->assertSame('49RGK1217767738', MGRSService::getShareText(26.815085, 113.134776));
-		$this->assertSame('2EMS6007970914', MGRSService::getShareText(-61.593128, -171.752183));
+		return [];
+	}
 
-		$this->assertNull(MGRSService::getShareText(-86.744805, -44.77887)); // Out of calculable range
+	public function generateShareTextProvider(): array
+	{
+		return [
+			['33UVR5855748515', 50.087451, 14.420671],
+			['49RGK1217767738', 26.815085, 113.134776],
+			['2EMS6007970914', -61.593128, -171.752183],
+			[null, -86.744805, -44.77887], // Out of calculable range
+		];
+	}
+
+	public static function emptyInputProvider(): array
+	{
+		return [
+			['Nothing valid'],
+			'UTM with spaces' => ['33U 458557 5548515'],
+			'UTM without spaces' => ['33U4585575548515'],
+		];
+	}
+
+	public static function textProvider(): array
+	{
+		return [
+			[[], 'Nothing valid is here'],
+			[[[50.087453, 14.420675]], 'Hi there, do you know this? 33U 458557 5548515 This is coordinate in UTM system.'],
+			[
+				[[50.087453, 14.420675], [43.642561, -79.387142], [-34.305675650139, 84.483499618096]],
+				'Location 1: 33U 458557 5548515, Location 2: 17N 630084 4833438 and third is here too 45H 268415 6201083',
+			],
+			[[[49.123244, 15.555552]], 'Without spaces it works too 33U5405345441305, see?'],
+			[[[43.642561, -79.387142]], 'Lowercased zone letter like this 17n 630084 4833438 is supported too'],
+			[[], 'Not enough numbers in easting 17n 12 1234567'],
+			[[], 'This is valid coordinate, but not enough numbers in northing 17n 123456 48'],
+			[[], 'These are valid MGRS coordinates 33UVR12341234 which should not be validated as UTM coordinates'],
+			[[], 'These are valid MGRS coordinates with spaces 33U VR 1234 1234 which should not be validated as UTM coordinates'],
+		];
 	}
 
 	public function testValidLocation(): void
@@ -47,8 +77,23 @@ final class MGRSServiceTest extends TestCase
 		$this->assertSame('38.976260,-76.491525', MGRSService::processStatic('18SUJ708152')->getFirst()->__toString());
 	}
 
-	public function testNothingInText(): void
+	/**
+	 * @dataProvider emptyInputProvider
+	 */
+	public function testEmpty(string $input): void
 	{
-		$this->assertSame([], MGRSService::findInText('Nothing valid')->getLocations());
+		$service = new MGRSService();
+		$service->setInput($input);
+		$this->assertFalse($service->validate());
+	}
+
+	/**
+	 * @dataProvider generateShareTextProvider
+	 */
+	public function testGenerateShareText(?string $expected, float $lat, float $lon): void
+	{
+		$real = MGRSService::getShareText($lat, $lon);
+
+		$this->assertSame($expected, $real);
 	}
 }
