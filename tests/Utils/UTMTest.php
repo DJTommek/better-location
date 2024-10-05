@@ -139,14 +139,15 @@ final class UTMTest extends TestCase
 	public final function testInvalidUtm(int $zoneNumber, string $zoneBand, int $easting, int $northing, string $expectedMessage): void
 	{
 		$this->expectException(\InvalidArgumentException::class);
-//		$this->expectExceptionMessageMatches('/^Latitude .+ is out of range$/');
 		$this->expectExceptionMessage($expectedMessage);
 		new UTM($zoneNumber, $zoneBand, $easting, $northing);
 	}
 
 	private function utmFromString(string $utmString): UTM
 	{
-		assert((bool)preg_match('/^([0-9]{1,2})([A-Z]) ([0-9]{6}) ([0-9]{1,7})$/', $utmString, $matches));
+		if ((bool)preg_match('/^([0-9]{1,2})([A-Z]) ([0-9]{6}) ([0-9]{1,7})$/', $utmString, $matches) === false) {
+			throw new \InvalidArgumentException(sprintf('Provided tests "%s" case is not valid.', $utmString));
+		}
 		return new UTM(
 			zoneNumber: (int)$matches[1],
 			zoneBand: $matches[2],
