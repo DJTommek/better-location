@@ -3,30 +3,30 @@
 namespace Tests\BetterLocation\Service\Coordinates;
 
 use App\BetterLocation\Service\Coordinates\USNGService;
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
-use PHPUnit\Framework\TestCase;
+use Tests\BetterLocation\Service\AbstractServiceTestCase;
 
-final class USNGServiceTest extends TestCase
+final class USNGServiceTest extends AbstractServiceTestCase
 {
-	public function testGenerateShareLink(): void
+	protected function getServiceClass(): string
 	{
-		$this->expectException(NotSupportedException::class);
-		USNGService::getLink(50.087451, 14.420671);
+		return USNGService::class;
 	}
 
-	public function testGenerateDriveLink(): void
+	protected function getShareLinks(): array
 	{
-		$this->expectException(NotSupportedException::class);
-		USNGService::getLink(50.087451, 14.420671, true);
+		return [];
+	}
+
+	protected function getDriveLinks(): array
+	{
+		return [];
 	}
 
 	public function testValidLocation(): void
 	{
-		$this->assertSame('50.083718,14.400509', USNGService::processStatic('33 N 457111 5548111')->getFirst()->__toString()); // Prague
-		$this->assertSame('50.083718,14.400509', USNGService::processStatic('33N 457111 5548111')->getFirst()->__toString()); // Prague
-		$this->assertSame('50.083718,14.400509', USNGService::processStatic('33N457111 5548111')->getFirst()->__toString()); // Prague
+		$service = new USNGService();
+		$this->assertServiceIsValid($service, 'Nothing valid', false);
 	}
-
 
 	public function testNothingInText(): void
 	{
