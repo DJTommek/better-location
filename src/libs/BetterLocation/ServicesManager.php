@@ -12,6 +12,7 @@ use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\BookingService;
 use App\BetterLocation\Service\Coordinates\MGRSService;
 use App\BetterLocation\Service\Coordinates\USNGService;
+use App\BetterLocation\Service\Coordinates\UTMService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesSecondsService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesSecondsService;
@@ -116,6 +117,7 @@ class ServicesManager
 		$services[] = WGS84DegreesSecondsService::class;
 		$services[] = MGRSService::class;
 		$services[] = USNGService::class;
+		$services[] = UTMService::class;
 		$services[] = GoogleMapsService::class;
 		$services[] = GoogleEarthService::class;
 		$services[] = GoogleMapsStreetViewGeneratorService::class;
