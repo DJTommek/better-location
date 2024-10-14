@@ -10,9 +10,9 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Interfaces\ShareCollectionLinkInterface;
 use App\BetterLocation\ServicesManager;
 use App\Icons;
-use App\Utils\Coordinates;
 use App\Utils\Requestor;
 use App\Utils\Strict;
+use DJTommek\Coordinates\CoordinatesImmutable;
 use DJTommek\Coordinates\CoordinatesInterface;
 use DJTommek\MapyCzApi;
 use DJTommek\MapyCzApi\MapyCzApiException;
@@ -27,15 +27,23 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 	const NAME = 'Mapy.cz';
 	const LINK = 'https://mapy.cz';
 
-	const TYPE_UNKNOWN = 'unknown';
+	const TYPE_MAP_V2 = 'Map center';
 	const TYPE_MAP = 'Map center';
 	const TYPE_PLACE_ID = 'Place';
 	const TYPE_PLACE_COORDS = 'Place coords';
 	const TYPE_PANORAMA = 'Panorama';
 	const TYPE_PHOTO = 'Photo';
 	const TYPE_CUSTOM_POINT = 'Custom point';
+	const TYPE_SEARCH_COORDS = 'Search coords';
 
 	private const CODE_NOT_FOUND = 404;
+
+	private bool $isShortUrl;
+
+	private ?CoordinatesImmutable $placeIdCoords = null;
+	private ?CoordinatesImmutable $mapCoords = null;
+	private ?CoordinatesImmutable $mapCoordsV2 = null;
+	private ?CoordinatesImmutable $searchCoords = null;
 
 	public function __construct(
 		private readonly Requestor $requestor,
@@ -62,6 +70,20 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		ServicesManager::TAG_GENERATE_LINK_IMAGE,
 	];
 
+	public static function getConstants(): array
+	{
+		return [
+			self::TYPE_PANORAMA,
+			self::TYPE_PLACE_ID,
+			self::TYPE_PLACE_COORDS,
+			self::TYPE_MAP,
+			self::TYPE_MAP_V2,
+			self::TYPE_PHOTO,
+			self::TYPE_CUSTOM_POINT,
+			self::TYPE_SEARCH_COORDS,
+		];
+	}
+
 	private function isShortUrl(): bool
 	{
 		// Mapy.cz short link:
@@ -69,7 +91,7 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		// https://en.mapy.cz/s/porumejene
 		// https://en.mapy.cz/s/3ql7u
 		// https://en.mapy.cz/s/faretabotu
-		return $this->data->isShortUrl = (bool)preg_match(
+		return $this->isShortUrl = (bool)preg_match(
 			'/^\/s\/[a-zA-Z0-9]+$/',
 			$this->url->getPath(),
 		);
@@ -83,37 +105,40 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		// https://en.mapy.cz/zakladni?x=14.3139613&y=49.1487367&z=15&pano=1&pid=30158941&yaw=1.813&fov=1.257&pitch=-0.026
 		// $parsedUrl = parse_url(urldecode($url)); // @TODO why it is used urldecode?
 
-		if ($this->url->getQueryParameter('source') === 'coor' && $this->url->getQueryParameter('id')) { // coordinates in place ID
-			$coords = explode(',', $this->url->getQueryParameter('id'));
-			if (count($coords) === 2 && Coordinates::isLat($coords[1]) && Coordinates::isLon($coords[0])) {
-				$this->data->placeIdCoord = true;
-				$this->data->placeIdCoordLat = Strict::floatval($coords[1]);
-				$this->data->placeIdCoordLon = Strict::floatval($coords[0]);
+		$queryId = $this->url->getQueryParameter('id');
+		$querySource = $this->url->getQueryParameter('source');
+		$queryQ = $this->url->getQueryParameter('q');
+
+		if ($querySource === MapyCzApi\MapyCzApi::SOURCE_COOR && $queryId) { // coordinates in place ID
+			$this->placeIdCoords = self::fromLonLatString($queryId);
+			if ($this->placeIdCoords !== null) {
 				return true;
 			}
 		}
 
-		return (
-			Coordinates::isLat($this->url->getQueryParameter('x')) && Coordinates::isLon($this->url->getQueryParameter('y')) || // map position
-			($this->url->getQueryParameter('sourcep') && Strict::isPositiveInt($this->url->getQueryParameter('idp'))) || // photo ID
-			Strict::isPositiveInt($this->url->getQueryParameter('id')) && $this->url->getQueryParameter('source') || // place ID
-			Strict::isPositiveInt($this->url->getQueryParameter('pid')) || // panorama ID
-			($this->url->getQueryParameter('vlastni-body') !== null && $this->url->getQueryParameter('uc')) || // custom points
-			Coordinates::isLat($this->url->getQueryParameter('ma_x')) && Coordinates::isLon($this->url->getQueryParameter('ma_y')) // not sure what is this...
-		);
-	}
+		if ($queryQ !== null) { // Searching is is using standard "lat,lon" format
+			$this->searchCoords = CoordinatesImmutable::fromString($queryQ);
+		}
 
-	public static function getConstants(): array
-	{
-		return [
-			self::TYPE_PANORAMA,
-			self::TYPE_PLACE_ID,
-			self::TYPE_PLACE_COORDS,
-			self::TYPE_MAP,
-			self::TYPE_UNKNOWN,
-			self::TYPE_PHOTO,
-			self::TYPE_CUSTOM_POINT,
-		];
+		$this->mapCoords = CoordinatesImmutable::safe(
+			$this->url->getQueryParameter('y'),
+			$this->url->getQueryParameter('x'),
+		);
+
+		$this->mapCoordsV2 = CoordinatesImmutable::safe(
+			$this->url->getQueryParameter('ma_y'),
+			$this->url->getQueryParameter('ma_x'),
+		);
+
+		return (
+			$this->searchCoords !== null
+			|| $this->mapCoords !== null
+			|| $this->mapCoordsV2 !== null // not sure what is this...
+			|| ($this->url->getQueryParameter('sourcep') && Strict::isPositiveInt($this->url->getQueryParameter('idp'))) // photo ID
+			|| Strict::isPositiveInt($queryId) && $querySource // place ID
+			|| Strict::isPositiveInt($this->url->getQueryParameter('pid')) // panorama ID
+			|| ($this->url->getQueryParameter('vlastni-body') !== null && $this->url->getQueryParameter('uc')) // custom points
+		);
 	}
 
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
@@ -143,14 +168,18 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 
 	public function process(): void
 	{
-		if ($this->data->isShortUrl) {
+		if ($this->isShortUrl) {
 			$this->processShortUrl();
 		}
 
+		$querySource = $this->url->getQueryParameter('source');
+		$querySourceP = $this->url->getQueryParameter('sourcep');
+		$queryId = $this->url->getQueryParameter('id');
+
 		// URL with Photo ID
-		if ($this->url->getQueryParameter('sourcep') && Strict::isPositiveInt($this->url->getQueryParameter('idp'))) {
+		if ($querySourceP !== null && Strict::isPositiveInt($this->url->getQueryParameter('idp'))) {
 			try {
-				$mapyCzResponse = $this->mapyCzApi->loadPoiDetails($this->url->getQueryParameter('sourcep'), Strict::intval($this->url->getQueryParameter('idp')));
+				$mapyCzResponse = $this->mapyCzApi->loadPoiDetails($querySourceP, Strict::intval($this->url->getQueryParameter('idp')));
 				$betterLocation = new BetterLocation($this->inputUrl, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PHOTO);
 
 				// Query 'fl' parameter contains info, what should be resolution of requested image. If this parameter
@@ -194,9 +223,9 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		}
 
 		// URL with Place ID
-		if ($this->url->getQueryParameter('source') && Strict::isPositiveInt($this->url->getQueryParameter('id'))) {
+		if ($querySource && Strict::isPositiveInt($queryId)) {
 			try {
-				$mapyCzResponse = $this->mapyCzApi->loadPoiDetails($this->url->getQueryParameter('source'), Strict::intval($this->url->getQueryParameter('id')));
+				$mapyCzResponse = $this->mapyCzApi->loadPoiDetails($querySource, Strict::intval($queryId));
 				$betterLocation = new BetterLocation($this->inputUrl, $mapyCzResponse->getLat(), $mapyCzResponse->getLon(), self::class, self::TYPE_PLACE_ID);
 				$betterLocation->setPrefixMessage(sprintf('<a href="%s">%s %s</a>', $this->url, self::NAME, $mapyCzResponse->title));
 
@@ -216,8 +245,13 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		}
 
 		// MapyCZ URL has ID in format of coordinates
-		if (($this->data->placeIdCoord ?? false) === true) {
-			$this->collection->add(new BetterLocation($this->inputUrl, $this->data->placeIdCoordLat, $this->data->placeIdCoordLon, self::class, self::TYPE_PLACE_COORDS));
+		if ($this->placeIdCoords !== null) {
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->placeIdCoords->lat, $this->placeIdCoords->lon, self::class, self::TYPE_PLACE_COORDS));
+		}
+
+		// MapyCZ URL has search parameter 'q' in format of coordinates
+		if ($this->collection->isEmpty() && $this->searchCoords !== null) {
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->searchCoords->lat, $this->searchCoords->lon, self::class, self::TYPE_SEARCH_COORDS));
 		}
 
 		// Custom points
@@ -226,17 +260,13 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		}
 
 		// Process map center only if no valid location was detected (place, photo, panorama..)
-		if ($this->collection->isEmpty()) {
-			if (Strict::isFloat($this->url->getQueryParameter('ma_x')) && Strict::isFloat($this->url->getQueryParameter('ma_y'))) {
-				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($this->url->getQueryParameter('ma_y')), Strict::floatval($this->url->getQueryParameter('ma_x')), self::class, self::TYPE_UNKNOWN));
-			}
+		if ($this->collection->isEmpty() && $this->mapCoordsV2 !== null) {
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->mapCoordsV2->lat, $this->mapCoordsV2->lon, self::class, self::TYPE_MAP_V2));
 		}
 
 		// Process map center only if no valid location was detected (place, photo, panorama..)
-		if ($this->collection->isEmpty()) {
-			if (Coordinates::isLon($this->url->getQueryParameter('x')) && Coordinates::isLat($this->url->getQueryParameter('y'))) {
-				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($this->url->getQueryParameter('y')), Strict::floatval($this->url->getQueryParameter('x')), self::class, self::TYPE_MAP));
-			}
+		if ($this->collection->isEmpty() && $this->mapCoords !== null) {
+			$this->collection->add(new BetterLocation($this->inputUrl, $this->mapCoords->lat, $this->mapCoords->lon, self::class, self::TYPE_MAP));
 		}
 	}
 
@@ -328,5 +358,15 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 			// throws 'League\ISO3166\Exception\DomainException : Not a valid numeric key: 32'
 			return null;
 		}
+	}
+
+	private static function fromLonLatString(string $input): ?CoordinatesImmutable
+	{
+		$parsed = explode(',', $input);
+		if (count($parsed) !== 2) {
+			return null;
+		}
+		[$lon, $lat] = $parsed; // Mapy.cz is using different order
+		return CoordinatesImmutable::safe($lat, $lon);
 	}
 }

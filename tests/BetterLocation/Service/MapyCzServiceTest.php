@@ -67,6 +67,9 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 			[true, 'http://mapy.cz/zemepisna?x=14.4508239&y=50.0695244'],
 			[true, 'http://mapy.cz/textova?x=14.4508239&y=50.0695244'],
 			[true, 'http://mapy.cz/zemepisna?x=14&y=50'],
+			[true, 'http://mapy.cz/zakladni?x=114.4508239&y=50.0695244&'],
+			[true, 'https://mapy.cz/?ma_x=15.278244&ma_y=49.691235'],
+			[true, 'https://mapy.cz/?ma_x=-115.278244&ma_y=-49.691235'],
 
 			[false, 'http://mapy.cz/zemepisna?xx=14.4508239&y=50.0695244'],
 			[false, 'http://mapy.cz/zemepisna?y=50.0695244'],
@@ -76,9 +79,11 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 			[false, 'http://mapy.cz/zemepisna?x=14.4508239a&y=50.0695244'],
 			[false, 'http://mapy.cz/zemepisna?x=14.4508239a&y=50.0695244a'],
 			[false, 'http://mapy.cz/zemepisna?x=14.a4508239&y=50.a0695244'],
-			[false, 'http://mapy.cz/zakladni?x=114.4508239&y=50.0695244&'],
+			[false, 'http://mapy.cz/zakladni?x=14.4508239&y=150.0695244&'],
 			[false, 'http://mapy.cz/zakladni?x=14.4508239&y=250.0695244'],
 			[false, 'https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.0695244aaa&z=15'],
+			[false, 'https://mapy.cz/?ma_x=15.278244&ma_y=149.691235'],
+			[false, 'https://mapy.cz/?ma_x=-215.278244&ma_y=49.691235'],
 		];
 	}
 
@@ -144,6 +149,13 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 		];
 	}
 
+	public static function processSearchCoordinateProvider(): array
+	{
+		return [
+			[[[50.080658862378314, 14.436680347203437, MapyCzService::TYPE_SEARCH_COORDS]], 'https://mapy.cz?q=50.080658862378314%2C14.436680347203437'],
+		];
+	}
+
 	/**
 	 * ID parameter is in coordinates format
 	 */
@@ -171,6 +183,8 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 		return [
 			[[[50.069524, 14.450824, MapyCzService::TYPE_MAP]], 'https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15'],
 			[[[50.069524, 14.450824, MapyCzService::TYPE_MAP]], 'https://en.mapy.cz/zakladni?y=50.0695244&x=14.4508239&z=15'],
+
+			[[[49.691235, 15.278244, MapyCzService::TYPE_MAP_V2]], 'https://mapy.cz/?ma_x=15.278244&ma_y=49.691235'],
 		];
 	}
 
@@ -297,6 +311,21 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 		];
 	}
 
+	public static function isValidSearchCoordinateProvider(): array
+	{
+		return [
+			[true, 'https://mapy.cz?q=50.0806%2C14.4366'],
+			[true, 'https://mapy.cz?q=-50.0806%2C14.4366'],
+			[true, 'https://mapy.cz?q=50.0806%2C-14.4366'],
+			[true, 'https://mapy.cz?q=50.0806%2C114.4366'],
+
+			[false, 'https://mapy.cz?q=hello%2C14.4366'],
+			[false, 'https://mapy.cz?q=50.0806%2Cworld'],
+			[false, 'https://mapy.cz?q=150.0806%2C14.4366'],
+			[false, 'https://mapy.cz?q=someSearchString'],
+		];
+	}
+
 	public static function processValidMapyCzCustomPointsUrlProvider(): array
 	{
 		return [
@@ -357,6 +386,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 	 * @dataProvider isValidCoordIdProvider
 	 * @dataProvider isValidSourcePhotoProvider
 	 * @dataProvider isValidMapyCzCustomPointsUrlProvider
+	 * @dataProvider isValidSearchCoordinateProvider
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
@@ -375,6 +405,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 	 * @dataProvider processValidMapyCzCustomPointsUrlProvider
 	 * @dataProvider processInvalidPlaceCoordinatesProvider
 	 * @dataProvider processCoordsMapProvider
+	 * @dataProvider processSearchCoordinateProvider
 	 */
 	public function testProcessNoApiRequestsNoShortUrl(array $expectedResults, string $input): void
 	{
