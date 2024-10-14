@@ -59,7 +59,10 @@ abstract class AbstractService
 
 	protected BetterLocationCollection $collection;
 
-	/** Helper to store data between methods, eg. isValid() and process() */
+	/**
+	 * Helper to store data between methods, eg. isValid() and process()
+	 * @deprecated Create private/protected property directly in service class
+	 */
 	protected \stdClass $data;
 
 	public function setInput(string $input): self
