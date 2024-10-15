@@ -112,18 +112,17 @@ final class WhatThreeWordsServiceTest extends TestCase
 	 */
 	public function testGeneralReal(): void
 	{
+		$this->assertApiKeyExists();
 		$this->testGeneral($this->httpTestClients->realRequestor, $this->httpTestClients->realHttpClient);
 	}
 
 	public function testGeneralOffline(): void
 	{
-		$this->testGeneral($this->httpTestClients->offlineRequestor, $this->httpTestClients->offlineHttpClient);
+		$this->markTestSkipped('Offline requests are not possible, because What3Words library is used and that is using real HTTP requests.');
 	}
 
 	private function testGeneral(Requestor $requestor, ClientInterface $httpClient): void
 	{
-		$this->assertApiKeyExists();
-
 		$servicesManager = new ServicesManager();
 		$fromTelegramMessage = new FromTelegramMessage($servicesManager, $requestor, $httpClient);
 
