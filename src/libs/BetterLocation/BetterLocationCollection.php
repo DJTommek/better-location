@@ -9,7 +9,6 @@ use App\Utils\Coordinates;
 use App\Utils\Formatter;
 use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
-use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 
 /**
  * @implements \ArrayAccess<int,BetterLocation>
@@ -232,20 +231,6 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 			}
 		}
 		return false;
-	}
-
-	/**
-	 * @param MessageEntity[] $entities
-	 * @deprecated use \App\BetterLocation\FromTelegramMessage::getCollection() instead
-	 */
-	public static function fromTelegramMessage(string $message, array $entities): self
-	{
-		$fromTelegramMessage = new FromTelegramMessage(
-			Factory::servicesManager(),
-			Factory::requestor(),
-			Factory::httpClient(),
-		);
-		return $fromTelegramMessage->getCollection($message, $entities);
 	}
 
 	public function getStaticMapUrl(): ?UrlImmutable

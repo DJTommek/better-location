@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- basic settings -->
+	<title>Tomas Palider - Curriculum Vitae</title>
+	<meta name="description" content="Public presentation and curriculum vitae of Tomas Palider, backend developer in PHP and Node.JS">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Open graph meta data https://ogp.me/ -->
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="profile-photo-original.jpg">
+	<meta property="og:image:type" content="image/jpg">
+	<!-- css styles -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="index.css?5" rel="stylesheet" type="text/css"/>
+	<link href="print.css?3" rel="stylesheet" type="text/css"/>
+	<!-- favicons settings -->
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=1">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=1">
+	<link rel="manifest" href="site.webmanifest?v=1">
+	<link rel="mask-icon" href="safari-pinned-tab.svg?v=1" color="#5bbad5">
+	<link rel="shortcut icon" href="favicon.ico?v=1">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<script>
+	// apply dark theme as soon as possible to prevent blink of default theme
+	let darkTheme = false;
+	try {
+		const darkThemeSaved = localStorage.getItem('dark-theme');
+		if (darkThemeSaved) {
+			darkTheme = (darkThemeSaved === 'true');
+		} else if (window.matchMedia) {
+			// User's browser settings prefers specific theme
+			// @see https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme
+			if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+				darkTheme = false;
+			} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				darkTheme = true;
+			}
+		}
+	} catch (error) {
+		// Local storage is not working (disabled, unsupported, ...)
+	}
+	if (darkTheme) {
+		document.body.classList.add('dark');
+	}
+</script>
+<div class="container-xl">
+	<div class="row">
+		<div class="col-12 col-md-4 col-lg-3" id="panel">
+			<a href="#" title="Toggle theme" id="toggle-theme" class="d-print-none"><i class="fa fa-fw fa-2x fa-lightbulb-o"></i></a>
+			<a href="Tomas Palider - Curriculum Vitae.pdf" target="_blank" title="Download as PDF" id="download-pdf" class="d-print-none"><i class="fa fa-fw fa-2x fa-file-pdf-o"></i></a>
+			<a href="profile-photo-original.jpg" target="_blank" id="panel-photo">
+				<img src="profile-photo-thumbnail.png" class="rounded-circle" alt="Profile foto">
+			</a>
+			<div class="text-center">
+				<h1>Tomas Palider</h1>
+				<p>Full-Stack Web Developer</p>
+			</div>
+			<div id="general-info">
+				<p><i class="fa fa-fw fa-birthday-cake"></i> <span id="birth-date" data-placement="top" title="25 July 1993" data-birth-date="743551200000">25 July 1993</span> <span id="age" class="small"></span></p>
+				<p><i class="fa fa-fw fa-address-book"></i> <a href="https://tomas.palider.cz/" target="_blank" title="Home website">tomas.palider.cz</a></p>
+				<p>
+					<i class="fa fa-fw fa-envelope-open"></i>
+					<a href="mailto:tomas@palider.cz" target="_blank" title="Contact email">tomas@palider.cz</a>
+					<a href="mailto:tomas@palider.cz" title="Copy to clipboard" class="copy-to-clipboard d-print-none" data-to-copy="tomas@palider.cz">
+						<i class="fa fa-clipboard" aria-hidden="true"></i>
+					</a>
+				</p>
+				<p>
+					<i class="fa fa-fw fa-id-card"></i>
+					<span class="text-dotted" title="Company ID">IČO</span>:
+					08374767
+					<a href="#" title="Copy company ID 08374767 to clipboard" class="copy-to-clipboard d-print-none" data-to-copy="08374767">
+						<i class="fa fa-clipboard" aria-hidden="true"></i>
+					</a>
+				</p>
+				<p class="d-print-none" id="panel-social-links">
+					<a href="https://www.linkedin.com/in/tomas-palider/" target="_blank" title="LinkedIn Tomas Palider"><i class="fa fa-fw fa-linkedin"></i></a>
+					<a href="https://t.me/DJTommek" target="_blank" title="Telegram DJTommek"><i class="fa fa-fw fa-telegram"></i></a>
+					<a href="https://github.com/DJTommek" target="_blank" title="Github DJTommek"><i class="fa fa-fw fa-github"></i></a>
+				</p>
+				<div class="tooltip" role="tooltip">
+					<div class="arrow"></div>
+					<div class="tooltip-inner"></div>
+				</div>
+			</div>
+			<div id="skills">
+				<h2>Skills</h2>
+				<div>
+					<h5>PHP</h5>
+					<p class="small">
+						<a href="https://nette.org/" target="_blank" title="Nette - family of mature and stand-alone components for PHP">Nette</a>,
+						<a href="https://latte.nette.org/" target="_blank" title="Latte - the safest & trully intuitive templates for PHP">Latte</a>,
+						<a href="https://getcomposer.org/" target="_blank" title="Composer - A Dependency Manager for PHP">Composer</a>,
+						<a href="https://phpunit.de/" target="_blank" title="PHPUnit - Programmer-oriented testing framework for PHP">PHPUnit</a>,
+						<a href="https://phpstan.org/" target="_blank" title="PHPStan - Find bugs in your code without writing tests">PHPStan</a>
+					</p>
+				</div>
+				<div>
+					<h5>Node.JS</h5>
+					<p class="small">
+						<a href="https://expressjs.com/" target="_blank" title="Express - Fast, unopinionated, minimalist web framework for Node.js">Express</a>,
+						<a href="https://mochajs.org/" target="_blank" title="Mocha is a feature-rich JavaScript test framework">Mocha</a>,
+						<a href="https://www.npmjs.com/" target="_blank" title="Node package manager">npm</a>,
+						modules
+					</p>
+				</div>
+				<div>
+					<h5>Javascript</h5>
+					<p class="small">
+						<a href="https://jquery.com/" target="_blank" title="jQuery - fast, small, and feature-rich JavaScript library">jQuery</a>,
+						<a href="https://developers.google.com/maps/documentation/javascript/" target="_blank" title="Web mapping platform from Google">Google&nbsp;Maps&nbsp;API</a>,
+						<a href="https://leafletjs.com/" target="_blank" title="JavaScript library for mobile-friendly interactive maps">Leaflet</a>,
+						<a href="https://docs.mapbox.com/mapbox-gl-js/" target="_blank" title="JavaScript library for building web maps and web applications with Mapbox's modern mapping technology">Mapbox&nbsp;GL</a>,
+						AJAX,
+						WebSocket
+					</p>
+				</div>
+				<div>
+					<h5>Database</h5>
+					<p class="small">
+						<a href="https://www.mysql.com/" target="_blank" title="MySQL - the world's most popular open source database">MySQL</a>,
+						<a href="https://mariadb.org/" target="_blank" title="MariaDB Server - one of the most popular database servers in the world">MariaDB</a>,
+						<a href="https://www.oracle.com/database/" target="_blank" title="Oracle Database multi-model database management system">Oracle Database</a>,
+						<a href="https://www.microsoft.com/sql-server/" target="_blank" title="MSSQL - relational database management system">MSSQL</a>,
+						<a href="https://www.mongodb.com/" target="_blank" title="The most popular database for modern apps">MongoDB</a>,
+						<a href="https://redis.io/" target="_blank" title="In-memory data structure store">Redis</a>,
+						<a href="https://www.sqlite.org/" target="_blank" title="Small, fast, self-contained, high-reliability, full-featured, SQL database engine">SQLite</a>,
+						database design,
+						procedures
+					</p>
+				</div>
+				<div>
+					<h5>HTML, CSS</h5>
+					<p class="small">
+						<a href="https://getbootstrap.com/" target="_blank" title="Bootstrap - open source toolkit for developing with HTML, CSS, and JS">Bootstrap</a>,
+						<a href="https://foundation.zurb.com/" target="_blank" title="Foundation - The most advanced responsive front-end framework in the world">Foundation</a>,
+						<a href="https://bulma.io/" target="_blank" title="Bulma: the modern CSS framework that just works">Bulma</a>,
+						<a href="https://fontawesome.com/" target="_blank" title="Get vector icons and social logos on your website">Font&nbsp;Awesome</a>,
+						<a href="https://lesscss.org/" target="_blank" title="Less - It's CSS, with just a little more">LESS</a>,
+						responsive design,
+						CSS sprites
+					</p>
+				</div>
+				<div>
+					<h5>Other</h5>
+					<!-- Personally some items I would not put here, but they are HR buzzwords/keywords so it's for their satisfaction :) -->
+					<p class="small">
+						<a href="https://git-scm.com/" target="_blank" title="Free and open source distributed version control system">GIT</a>,
+						<a href="https://www.python.org/" target="_blank" title="Programming language that lets you work more quickly and integrate your systems more effectively">Python</a>,
+						<a href="https://www.nginx.com/" target="_blank" title="Web server that can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache">Nginx</a>,
+						<a href="https://scrapy.org/" target="_blank" title="An open source and collaborative framework for extracting the data you need from websites">Scrapy</a>,
+						<a href="https://core.telegram.org/bots/api" target="_blank" title="The Bot API is an HTTP-based interface created for developers keen on building bots for Telegram">Telegram&nbsp;Bot&nbsp;API</a>,
+						<a href="https://www.raspberrypi.org/" target="_blank" title="Single-board computer">Raspberry&nbsp;Pi</a>,
+						<a href="https://json-schema.org/" target="_blank" title="JSON Schema is a vocabulary that allows you to annotate and validate JSON documents">JSON&nbsp;Schema</a>,
+						<a href="https://www.rabbitmq.com/" target="_blank" title="Open source message broker">RabbitMQ</a>,
+						<a href="https://www.docker.com/" target="_blank" title=" OS-level virtualization to deliver software in packages called containers">Docker</a>,
+						Linux server management,
+						OAuth 2,
+						OOP,
+						Code review,
+						BASH
+					</p>
+				</div>
+
+			</div>
+			<div id="languages">
+				<h2>Languages</h2>
+				Czech <small>(native speaker)</small><br>
+				English <small>(B2)</small>
+			</div>
+		</div>
+		<div class="col" id="main">
+			<div id="about">
+				<h3>About me</h3>
+				<p>
+					Tech enthusiast and freelancer from the Ostrava region who moved to Prague to study right after high school.
+				</p>
+				<p>
+					My area of interest are web technologies focused on backend languages like PHP or Node.js.
+					In my free time, I'm constantly working on several small projects which are constantly pushing my knowledge straight up, just check
+					<a href="https://github.com/DJTommek" target="_blank" title="Github DJTommek" class="text-nowrap">my&nbsp;Github</a>.
+					I’m focusing on good readability and universal solutions instead of some MacGyvering, to be proud of my commits.
+				</p>
+				<p>
+					When away from the keyboard, my love is playing the location-based games
+					<a href="https://ingress.com/" target="_blank" title="Geolocation based augmented reality">Ingress</a>
+					and
+					<a href="https://www.geocaching.com/" target="_blank" title="World's largest treasure hunt">Geocaching</a>
+					which both are keeping me walking outside around cities all over the world. I also enjoy escape-rooms,
+					solving ciphers and puzzles and mostly attending cipher-related competitions, especially in combination with car driving.
+				</p>
+			</div>
+			<div id="experience">
+				<h3>Experience</h3>
+				<table>
+
+					<tr>
+						<td>2022&nbsp;-&nbsp;now</td>
+						<td>PHP developer</td>
+						<td><a href="https://www.myq-solution.com/" target="_blank" title="MyQ, spol. s.&nbsp;r.&nbsp;o.">MyQ</a></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td colspan="2">
+							Development of award-winning managed print solution
+							<a href="https://www.myq-solution.com/en/get-your-plan/myq-x" target="_blank" title="Award-winning Managed Print Solution">MyQ X</a>.
+							<span class="small">PHP, Firebird, MSSQL.</span>
+						</td>
+					</tr>
+
+					<tr>
+						<td>2019&nbsp;-&nbsp;2022</td>
+						<td>PHP and Python developer</td>
+						<td><a href="https://csfd.cz/" target="_blank" title="POMO Media Group s.&nbsp;r.&nbsp;o.">ČSFD.cz</a></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td colspan="2">Development of <a href="https://csfd.cz/" target="_blank" title="Czech and Slovakia Movie Database">csfd.cz</a> website and it's background applications. <span class="small">PHP&nbsp;(Nette), Postgre SQL, Python.</span></td>
+					</tr>
+
+					<tr>
+						<td>2017&nbsp;-&nbsp;2019</td>
+						<td>PHP developer</td>
+						<td><a href="https://www.stringdata.cz/" target="_blank" title="StringData s.&nbsp;r.&nbsp;o.">StringData s.&nbsp;r.&nbsp;o.</a></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td colspan="2">Development and administration of large scale banking applications. <span class="small">PHP&nbsp;(Nette), Oracle SQL, MSSQL, communicating with clients.</span></td>
+					</tr>
+
+					<tr>
+						<td>2015&nbsp;-&nbsp;2017</td>
+						<td>PHP developer</td>
+						<td><a href="https://www.movisio.com/" target="_blank" title="CTECH&nbsp;s.&nbsp;r.&nbsp;o.">CTECH&nbsp;s.&nbsp;r.&nbsp;o.</a></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td colspan="2">Development of real-estate management tool. <span class="small">PHP&nbsp;(Nette), HTML, CSS, Javascript, Node.js</span></td>
+					</tr>
+
+					<!-- Old experiences
+					<tr>
+						<td>2014&nbsp;-&nbsp;2015</td>
+						<td>PHP developer</td>
+						<td><a href="https://www.casablanca.cz/" target="_blank" title="Casablanca&nbsp;s.&nbsp;r.&nbsp;o.">Casablanca&nbsp;s.&nbsp;r.&nbsp;o.</a></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td colspan="2">Developing tools for real-time processing of CCTV data. <span class="small">PHP&nbsp;(CodeIgniter), HTML, CSS, Javascript</span></td>
+					</tr>
+
+					<tr>
+						<td>2012</td>
+						<td>Internship</td>
+						<td><a href="https://atlasconsulting.cz/" target="_blank" title="Atlas&nbsp;Consulting&nbsp;s.&nbsp;r.&nbsp;o.">Atlas&nbsp;Consulting&nbsp;s.&nbsp;r.&nbsp;o.</a></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td colspan="2">Networking, collecting data, visualisations and working with OCR software</td>
+					</tr>
+					-->
+				</table>
+			</div>
+			<div id="education">
+				<h3>Education</h3>
+				<table>
+					<tr>
+						<td>2014&nbsp;-&nbsp;2015</td>
+						<td>University</td>
+						<td><a href="https://fis.vse.cz/" target="_blank" title="University of Economics, Prague">University of Economics, Prague</a></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td colspan="2">Faculty of Informatics and Statistics, Applied Informatics</td>
+					</tr>
+
+					<tr>
+						<td>2013&nbsp;-&nbsp;2014</td>
+						<td>University</td>
+						<td><a href="https://fit.cvut.cz/" target="_blank" title="Czech Technical University in Prague">Czech Technical University in Prague</a></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td colspan="2">Faculty of Information Technology, Informatics</td>
+					</tr>
+
+					<tr>
+						<td>2009&nbsp;-&nbsp;2013</td>
+						<td>High school</td>
+						<td><a href="https://www.goa-orlova.cz/" target="_blank" title="Business academy with focus on IT">Business academy with focus on IT, Orlová</a></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td colspan="2">Matura exam in Physics, Informatics, English and Czech language</td>
+					</tr>
+				</table>
+			</div>
+			<div id="references">
+				<h3>References</h3>
+				<table>
+					<tr>
+						<td><a href="https://tomas.palider.cz/" target="_blank" title="Tomas Palider's home website">tomas.palider.cz</a></td>
+						<td>Personal website built with Bootstrap, HTML, CSS and Javascript <span class="d-print-none">(<a href="https://github.com/DJTommek/curriculum-vitae" target="_blank" title="Curriculum Vitae of Tomas Palider on Github">source code</a>)</span></td>
+					</tr>
+					<tr>
+						<td><a href="https://ladislav.palider.cz/" target="_blank" title="Ladislav Palider's home website">ladislav.palider.cz</a></td>
+						<td>Same as above but for my father, Ladislav Palider <span class="d-print-none">(<a href="https://github.com/kefacz" target="_blank" title="Ladislav Palider on Github">Github</a>)</span></td>
+					</tr>
+					<tr>
+						<td><a href="https://dita.paliderova.cz/" target="_blank" title="Dita Hollmann's home website">dita.paliderova.cz</a></td>
+						<td>Another curriculum vitae <span class="d-print-none">(<a href="https://github.com/draliii/web-cv" target="_blank" title="Curriculum Vitae of Dita Hollmannova on Github">source code</a>)</span></td>
+					</tr>
+					<!-- Currently long-term offline
+					<tr>
+						<td><a href="https://mc-miners.eu/" target="_blank" title="Minecraft server">mc-miners.eu</a></td>
+						<td>Web page of the Minecraft server I have administrated</td>
+					</tr>
+					<tr>
+						<td><a href="https://mc-miners.eu/images/" target="_blank" title="MC-Miners.eu gallery">minPHPgallery</a></td>
+						<td>Image gallery in one PHP file with optional Google log-in <span class="d-print-none">(<a href="https://github.com/DJTommek/minPHPgallery" target="_blank" title="minPHPgallery Github">source code</a>)</span></td>
+					</tr>
+					-->
+					<tr>
+						<td><a href="https://pldr-gallery.redilap.cz/#/" target="_blank" title="Palider's gallery">pldrGallery</a></td>
+						<td>Very advanced version of <a href="https://github.com/DJTommek/minPHPgallery" target="_blank" title="minPHPgallery Github">minPHPgallery</a> rewritten in Node.js <span class="d-print-none">(<a href="https://github.com/DJTommek/pldr-gallery" target="_blank" title="pldrGallery Github">source code</a>)</span></td>
+					</tr>
+					<tr>
+						<td><a href="https://better-location.palider.cz/" target="_blank" title="Better Location">Better Location</a></td>
+						<td>
+							Tool for processing various of location formats also integrated as
+							<a href="https://t.me/BetterLocationBot" target="_blank" title="Telegram Bot @BetterLocationBot">Telegram bot</a>
+							<span class="d-print-none">(<a href="https://github.com/DJTommek/better-location" target="_blank" title="BetterLocationBot on Github">source code</a>)</span>
+						</td>
+					</tr>
+					<tr>
+						<td><a href="https://t.me/AreYouGreen" target="_blank" title="AreYouGreenBot channel">AreYouGreenBot</a></td>
+						<td>Multilanguage Telegram bot to manage members in Ingress communities</td>
+					</tr>
+				</table>
+				<p id="references-other">
+					I have also developed <b>many</b> other mostly private projects such as
+					<a href="https://github.com/DJTommek/php-template" target="_blank" title="Basic template for quick start">php-template</a>,
+					single pages
+					<a href="https://tomas.palider.cz/projects/PavlovSobe/" target="_blank" title="Single page for communal elections Pavlov sobě">Pavlov sobě</a>
+					and
+					<a href="http://www.tech4industry.cz/" target="_blank" title="Single page for company Tech4Industry">Tech4Industry.cz</a>,
+					Ingress profile image <a href="https://ipg.palider.cz/" target="_blank" title="Visualisation of Ingress game profiles">generator</a>,
+					anonymous <a href="https://paster.palider.cz" target="_blank" title="Simple text saver">Pastebin alternative</a>,
+					Raspberry projects such as car infotainment or autonomous network timelapse camera,
+					tools for managing my own cloud network and other apps between multiple physical locations,
+					realtime parsing and filtering emails,
+					custom monitoring,
+					PHP API wrappers
+					(<a href="https://github.com/DJTommek/mapycz-api" target="_blank" title="Source code of PHP implementation of Mapy.cz API">Mapy.cz</a>,
+					<a href="https://github.com/DJTommek/glympse-api" target="_blank" title="Source code of PHP implementation of Glympse.com API">Glympse</a>)
+					and much more.
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<script src="index.js?4"></script>
+<!-- As you can see, I love Twitter Bootstrap -->
+</body>
+</html>

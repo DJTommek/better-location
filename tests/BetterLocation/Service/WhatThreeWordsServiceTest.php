@@ -2,15 +2,28 @@
 
 namespace Tests\BetterLocation\Service;
 
-use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\FromTelegramMessage;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\WhatThreeWordService;
+use App\BetterLocation\ServicesManager;
 use App\Config;
+use App\Utils\Requestor;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Client\ClientInterface;
+use Tests\HttpTestClients;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 
 final class WhatThreeWordsServiceTest extends TestCase
 {
+	private readonly HttpTestClients $httpTestClients;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->httpTestClients = new HttpTestClients();
+	}
+
 	private function assertApiKeyExists(): void
 	{
 		if (!Config::isW3W()) {
@@ -97,9 +110,22 @@ final class WhatThreeWordsServiceTest extends TestCase
 	/**
 	 * @group request
 	 */
-	public function testGeneral(): void
+	public function testGeneralReal(): void
+	{
+		$this->testGeneral($this->httpTestClients->realRequestor, $this->httpTestClients->realHttpClient);
+	}
+
+	public function testGeneralOffline(): void
+	{
+		$this->testGeneral($this->httpTestClients->offlineRequestor, $this->httpTestClients->offlineHttpClient);
+	}
+
+	private function testGeneral(Requestor $requestor, ClientInterface $httpClient): void
 	{
 		$this->assertApiKeyExists();
+
+		$servicesManager = new ServicesManager();
+		$fromTelegramMessage = new FromTelegramMessage($servicesManager, $requestor, $httpClient);
 
 		$entity = new MessageEntity();
 		$entity->type = 'url';
@@ -111,7 +137,7 @@ final class WhatThreeWordsServiceTest extends TestCase
 		$entity->offset = 49;
 		$entity->length = 25;
 		$entities[] = $entity;
-		$result = BetterLocationCollection::fromTelegramMessage('Hello ///smaller.biggest.money there! Random URL https://tomas.palider.cz/ there...', $entities);
+		$result = $fromTelegramMessage->getCollection('Hello ///smaller.biggest.money there! Random URL https://tomas.palider.cz/ there...', $entities);
 		$this->assertCount(1, $result);
 		$this->assertSame('50.086258,14.423709', $result[0]->__toString());
 	}
