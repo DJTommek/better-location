@@ -32,3 +32,14 @@ if (file_exists($tracyEmailSent)) {
 	\Nette\Utils\FileSystem::delete($tracyEmailSent);
 	printf('Deleted Tracy\'s "%s".' . PHP_EOL, basename($tracyEmailSent));
 }
+
+$logArchiver = new \App\Maintenance\LogArchiver();
+
+print('Creating backup of all logs...' . PHP_EOL);
+printf('Logs were backed up and saved as \'%s\'.' . PHP_EOL, $logArchiver->createLogArchive());
+
+print('Deleting old log files...' . PHP_EOL);
+printf('Deleted %d old log files.' . PHP_EOL, $logArchiver->deleteOldFiles());
+
+print('Deleting Tracy logs...' . PHP_EOL);
+printf('Deleted %d Tracy logs.' . PHP_EOL, $logArchiver->deleteTracyLogs());
