@@ -150,5 +150,26 @@ class LogArchiver
 		}
 		return $deletedLogFilesCount;
 	}
+
+	public function deleteTracyLogs(): int
+	{
+		$tracyLogs = Config::getTracyPath();
+		$deletedFilesCount = 0;
+
+		$iterator = new \FilesystemIterator($tracyLogs, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::UNIX_PATHS);
+		foreach ($iterator as $fileInfo) {
+			assert($fileInfo instanceof \SplFileInfo);
+			if ($fileInfo->isFile() === false) {
+				continue;
+			}
+			if (in_array($fileInfo->getExtension(), self::WHITELISTED_EXTENSIONS, true) === false) {
+				continue;
+			}
+
+			FileSystem::delete($fileInfo->getRealPath());
+			$deletedFilesCount++;
+		}
+		return $deletedFilesCount;
+	}
 }
 

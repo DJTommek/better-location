@@ -23,6 +23,7 @@ class LogPresenter extends MainPresenter
 		$result = new \stdClass();
 		$result->archiveName = null;
 		$result->deletedLogFilesCount = null;
+		$result->deletedTracyLogsCount = null;
 
 		try {
 			if (Utils::globalGetToBool('createArchive', true) === true) {
@@ -30,6 +31,9 @@ class LogPresenter extends MainPresenter
 			}
 			if (Utils::globalGetToBool('deleteOldLogs', false) === true) {
 				$result->deletedLogFilesCount = $this->logArchiver->deleteOldFiles();
+			}
+			if (Utils::globalGetToBool('deleteTracyLogs', false) === true) {
+				$result->deletedTracyLogsCount = $this->logArchiver->deleteTracyLogs();
 			}
 		} catch (\Throwable $exception) {
 			$this->apiResponse(
