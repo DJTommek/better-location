@@ -22,7 +22,7 @@ class LogPresenter extends MainPresenter
 
 		$result = new \stdClass();
 		$result->archiveName = null;
-		$result->deletedLogFilesCount = 0;
+		$result->deletedLogFilesCount = null;
 
 		try {
 			if (Utils::globalGetToBool('createArchive', true) === true) {
