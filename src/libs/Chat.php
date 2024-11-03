@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\IgnoreFilter\IgnoreFilter;
 use App\Repository\ChatEntity;
 use App\Repository\ChatRepository;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
@@ -11,11 +12,13 @@ use Tracy\Debugger;
 class Chat
 {
 	private ?BetterLocationMessageSettings $messageSettings = null;
+	public readonly IgnoreFilter $ignoreFilter;
 
 	public function __construct(
 		private readonly ChatRepository $chatRepository,
 		private ChatEntity $chatEntity,
 	) {
+		$this->ignoreFilter = new IgnoreFilter($this->chatEntity->ignoreFilterParams);
 	}
 
 	public function settingsPreview(?bool $enable = null): bool
