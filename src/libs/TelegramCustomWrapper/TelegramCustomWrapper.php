@@ -7,6 +7,7 @@ use App\Logger\CustomTelegramLogger;
 use App\Repository\ChatLocationHistoryRepository;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
 use App\TelegramCustomWrapper\Events\Button\HelpButton;
+use App\TelegramCustomWrapper\Events\Button\IgnoreButton;
 use App\TelegramCustomWrapper\Events\Button\InvalidButton;
 use App\TelegramCustomWrapper\Events\Button\RefreshButton;
 use App\TelegramCustomWrapper\Events\Button\SettingsButton;
@@ -14,6 +15,7 @@ use App\TelegramCustomWrapper\Events\Command\DebugCommand;
 use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use App\TelegramCustomWrapper\Events\Command\FeedbackCommand;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
+use App\TelegramCustomWrapper\Events\Command\IgnoreCommand;
 use App\TelegramCustomWrapper\Events\Command\LoginCommand;
 use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
 use App\TelegramCustomWrapper\Events\Command\StartCommand;
@@ -125,6 +127,7 @@ class TelegramCustomWrapper
 				FavouritesButton::CMD => $this->eventFactory->create(FavouritesButton::class, $update),
 				RefreshButton::CMD => $this->eventFactory->create(RefreshButton::class, $update),
 				SettingsButton::CMD => $this->eventFactory->create(SettingsButton::class, $update),
+				IgnoreButton::CMD => $this->eventFactory->create(IgnoreButton::class, $update),
 				default => $this->eventFactory->create(InvalidButton::class, $update),
 			};
 		}
@@ -164,6 +167,7 @@ class TelegramCustomWrapper
 			FavouritesCommand::CMD => $this->eventFactory->create(FavouritesCommand::class, $update),
 			FeedbackCommand::CMD => $this->eventFactory->create(FeedbackCommand::class, $update),
 			LoginCommand::CMD => $this->eventFactory->create(LoginCommand::class, $update),
+			IgnoreCommand::CMD => $this->eventFactory->create(IgnoreCommand::class, $update),
 			default => $this->eventFactory->create(UnknownCommand::class, $update),
 		};
 	}
