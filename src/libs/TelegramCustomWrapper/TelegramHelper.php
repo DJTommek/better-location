@@ -148,9 +148,14 @@ class TelegramHelper
 		return $update->callback_query?->message !== null;
 	}
 
+	public static function getForwardFrom(Update $update): ?User
+	{
+		return self::getMessage($update)?->forward_from;
+	}
+
 	public static function isForward(Update $update): bool
 	{
-		return self::getMessage($update)?->forward_from !== null;
+		return self::getForwardFrom($update) !== null;
 	}
 
 	public static function isInlineQuery(Update $update): bool
