@@ -101,6 +101,7 @@ jobs:
         with:
           url: 'https://better-location.palider.cz/post-deploy.php?password=${{ secrets.SCRIPT_PASSWORD }}'
           method: 'DELETE'
+          timeout: 20000
 
       - name: 🧹 Post deploy script - show output
         run: |
