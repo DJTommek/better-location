@@ -61,7 +61,9 @@ class LogArchiver
 
 			foreach ($iterator as $fileInfo) {
 				assert($fileInfo instanceof \SplFileInfo);
-				assert($fileInfo->isFile());
+				if ($fileInfo->isFile() === false) {
+					continue;
+				}
 				if (in_array($fileInfo->getExtension(), self::WHITELISTED_EXTENSIONS, true) === false) {
 					continue;
 				}
