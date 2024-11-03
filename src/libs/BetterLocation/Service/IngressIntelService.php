@@ -25,6 +25,9 @@ final class IngressIntelService extends AbstractService
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
 	];
 
+	private ?Coordinates $portalCoords = null;
+	private ?Coordinates $mapCoords = null;
+
 	public function __construct(
 		private readonly \App\IngressLanchedRu\Client $ingressClient,
 	) {
@@ -42,27 +45,24 @@ final class IngressIntelService extends AbstractService
 
 	public function validate(): bool
 	{
-		$this->data->portalCoords = null;
-		$this->data->mapCoords = null;
-
 		if ($this->url && $this->url->getDomain(2) === 'ingress.com') {
 
-			$this->data->portalCoords = Coordinates::fromString(
+			$this->portalCoords = Coordinates::fromString(
 				$this->inputUrl->getQueryParameter('pll') ?? '',
 			);
 
-			$this->data->mapCoords = Coordinates::fromString(
+			$this->mapCoords = Coordinates::fromString(
 				$this->inputUrl->getQueryParameter('ll') ?? '',
 			);
 		}
 
-		return $this->data->portalCoords !== null || $this->data->mapCoords !== null;
+		return $this->portalCoords !== null || $this->mapCoords !== null;
 	}
 
 	public function process(): void
 	{
-		if ($this->data->portalCoords !== null) {
-			$location = new BetterLocation($this->input, $this->data->portalCoords->lat, $this->data->portalCoords->lon, self::class, self::TYPE_PORTAL);
+		if ($this->portalCoords !== null) {
+			$location = new BetterLocation($this->input, $this->portalCoords->lat, $this->portalCoords->lon, self::class, self::TYPE_PORTAL);
 
 			try {
 				if ($portal = $this->ingressClient->getPortalByCoords($location->getLat(), $location->getLon())) {
@@ -75,8 +75,8 @@ final class IngressIntelService extends AbstractService
 			$this->collection->add($location);
 		}
 
-		if ($this->data->mapCoords !== null) {
-			$location = new BetterLocation($this->input, $this->data->mapCoords->lat, $this->data->mapCoords->lon, self::class, self::TYPE_MAP);
+		if ($this->mapCoords !== null) {
+			$location = new BetterLocation($this->input, $this->mapCoords->lat, $this->mapCoords->lon, self::class, self::TYPE_MAP);
 
 			try {
 				if ($portal = $this->ingressClient->getPortalByCoords($location->getLat(), $location->getLon())) {
