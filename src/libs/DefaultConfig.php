@@ -7,6 +7,7 @@ use App\TelegramCustomWrapper\Events\Command\DebugCommand;
 use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use App\TelegramCustomWrapper\Events\Command\FeedbackCommand;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
+use App\TelegramCustomWrapper\Events\Command\IgnoreCommand;
 use App\TelegramCustomWrapper\Events\Command\LoginCommand;
 use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
 use Nette\Http\UrlImmutable;
@@ -93,6 +94,7 @@ class DefaultConfig
 			HelpCommand::class,
 			FeedbackCommand::class,
 			SettingsCommand::class,
+			IgnoreCommand::class,
 			DebugCommand::class,
 		],
 	];
