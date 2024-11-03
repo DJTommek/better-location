@@ -14,6 +14,7 @@ use App\Repository\ChatEntity;
 use App\Repository\ChatMembersRepository;
 use App\Repository\ChatRepository;
 use App\Repository\UserEntity;
+use App\Repository\UserRepository;
 use App\Utils\Strict;
 use App\Web\Flash;
 use App\Web\MainPresenter;
@@ -30,6 +31,7 @@ class ChatPresenter extends MainPresenter
 
 	public function __construct(
 		private readonly ChatRepository $chatRepository,
+		private readonly UserRepository $userRepository,
 		private readonly ChatMembersRepository $chatMembersRepository,
 		private readonly ServicesManager $servicesManager,
 		private readonly ClientInterface $httpClient,
@@ -109,6 +111,8 @@ class ChatPresenter extends MainPresenter
 
 		$this->template->exampleLocation = $location;
 		$this->template->chat = $this->chat;
+
+		$this->template->ignoredTelegramSenders = $this->userRepository->findTelegramNamesByTelegramIds($this->chat->ignoreFilter->params->ignoredTelegramSenderIds);
 		$this->template->prepareOk($this->tgChatFromEntity($this->chat->getEntity()), $this->servicesManager);
 
 		$this->setTemplateFilename('chat.latte');

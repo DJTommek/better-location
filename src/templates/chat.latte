@@ -209,6 +209,39 @@
 							{$chat->getMessageSettings()->getScreenshotLinkService()::NAME}
 						</td>
 					</tr>
+					<tr n:if="($chatResponse->type === App\Repository\ChatEntity::CHAT_TYPE_SUPERGROUP || $chatResponse->type === App\Repository\ChatEntity::CHAT_TYPE_GROUP)">
+						<td>Ignore filter</td>
+						<td>
+							{foreach $ignoredTelegramSenders as $id => $name}
+								{first}
+									Ignored senders:
+									<ul>
+								{/first}
+								<li>
+									{if str_starts_with($name, '@')}
+										<a href="{\App\TelegramCustomWrapper\TelegramHelper::userLink($name)}" target="_blank">{$name}</a>
+									{else}
+										{$name}
+									{/if}
+									<small class="text-muted">
+										(TG ID <code class="copy-to-clipboard" data-clipboard-text="{$id}" title="Click to copy ID to the clipboard">{$id}</code>)
+									</small>
+								</li>
+								{last}
+									</ul>
+								{/last}
+							{else}
+								No senders are on ignore list.
+							{/foreach}
+							<div class="form-text">
+								<p>
+									Messages sent from users on this list will be ignored and no location will be processed.<br>
+									To add someone to the list, use <code>{\App\TelegramCustomWrapper\Events\Command\IgnoreCommand::getTgCmd(true)}</code> as reply to it's message.<br>
+									This settings is available only for groups.
+								</p>
+							</div>
+						</td>
+					</tr>
 					<tr>
 						<td>Pluginer webhook URL</td>
 						<td>

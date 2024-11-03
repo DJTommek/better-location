@@ -11,6 +11,21 @@ class UserRepository extends Repository
 		return $row ? UserEntity::fromRow($row) : null;
 	}
 
+	/**
+	 * @param list<int> $telegramIds
+	 * @return array<int, string> Telegram ID as key, Telegram displayname as value
+	 */
+	public function findTelegramNamesByTelegramIds(array $telegramIds): array
+	{
+		$sql = 'SELECT user_telegram_id, user_telegram_name FROM better_location_user WHERE user_telegram_id IN (' . self::inHelper($telegramIds) . ') ORDER BY user_telegram_name';
+		$query = $this->db->query($sql, ...$telegramIds);
+		$result = [];
+		while($row = $query->fetch()) {
+			$result[$row['user_telegram_id']] = $row['user_telegram_name'];
+		}
+		return $result;
+	}
+
 	public function insert(int $telegramId, string $displayName): void
 	{
 		$this->db->query('INSERT INTO better_location_user 
