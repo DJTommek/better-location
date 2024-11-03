@@ -33,6 +33,10 @@ class PhotoEvent extends Special
 
 	public function handleWebhookUpdate(): void
 	{
+		if ($this->matchesIgnoreFilter()) {
+			return;
+		}
+
 		if ($this->getCollection()->isEmpty()) {
 			$this->replyEmpty();
 			return;

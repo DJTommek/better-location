@@ -489,4 +489,32 @@ abstract class Events
 	{
 		return $this->messageGenerator;
 	}
+
+	final protected function matchesIgnoreFilter(): bool
+	{
+		if ($this->isTgPm() === true) {
+			return false;
+		}
+
+		$ignoreFilter = $this->chat?->ignoreFilter;
+		if ($ignoreFilter === null) {
+			return false;
+		}
+
+		$tgSenderId = $this->getTgFromId();
+	    if ($ignoreFilter->matches($tgSenderId)) {
+			return true;
+	    }
+
+		$tgForwardFrom = TelegramHelper::getForwardFrom($this->update);
+		if ($tgForwardFrom === null) {
+			return false;
+		}
+
+	    if ($ignoreFilter->matches($tgForwardFrom->id)) {
+			return true;
+	    }
+
+		return false;
+	}
 }
