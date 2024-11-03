@@ -38,6 +38,10 @@ class MessageEvent extends Special
 
 	public function handleWebhookUpdate(): void
 	{
+		if ($this->matchesIgnoreFilter()) {
+			return;
+		}
+
 		$collection = $this->getCollection();
 
 		if (
