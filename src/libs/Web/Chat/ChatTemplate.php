@@ -35,6 +35,8 @@ class ChatTemplate extends LayoutTemplate
 	public array $chatLinkChoices;
 	/** @var array<ChoiceItem> */
 	public array $chatButtonChoices;
+	/** @var array<int, string> */
+	public array $ignoredTelegramSenders;
 
 	public function prepareOk(
 		Telegram\Types\Chat $chatResponse,
