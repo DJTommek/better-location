@@ -104,6 +104,15 @@ abstract class Events
 			$this->getTgFromDisplayname(),
 		);
 
+		// If message is forwarded, original sender must be registered in database too
+		if ($this->isTgForward()) {
+			$forwardFrom = TelegramHelper::getForwardFrom($update);
+			$this->userFactory->createOrRegisterFromTelegram(
+				$forwardFrom->id,
+				TelegramHelper::getUserDisplayname($forwardFrom),
+			);
+		}
+
 		if ($this->hasTgMessage()) {
 			$this->chat = $this->chatFactory->createOrRegisterFromTelegram(
 				$this->getTgChatId(),
