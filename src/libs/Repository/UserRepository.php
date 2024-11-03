@@ -17,6 +17,9 @@ class UserRepository extends Repository
 	 */
 	public function findTelegramNamesByTelegramIds(array $telegramIds): array
 	{
+		if ($telegramIds === []) {
+			return [];
+		}
 		$sql = 'SELECT user_telegram_id, user_telegram_name FROM better_location_user WHERE user_telegram_id IN (' . self::inHelper($telegramIds) . ') ORDER BY user_telegram_name';
 		$query = $this->db->query($sql, ...$telegramIds);
 		$result = [];
