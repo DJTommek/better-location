@@ -31,11 +31,34 @@
 				<a href="https://t.me/{\App\Config::TELEGRAM_BOT_NAME}" target="_blank">Telegram bot</a>
 			</li>
 		</ul>
+
 		<ul class="navbar-nav">
+			<li n:if="$login->isLogged()" class="nav-item">
+				<a class="nav-link" href="{$basePath}/chat/{$login->getTelegramId()}">
+					<i class="fa fa-fw fa-wrench" aria-hidden="true"></i>
+					Private chat
+				</a>
+			</li>
+
+			<li n:if="$login->isLogged()" class="nav-item">
+				<a class="nav-link" href="{$basePath}/chats">
+					<i class="fa fa-fw fa-list-alt" aria-hidden="true"></i>
+					Chats
+				</a>
+			</li>
+
+			<li n:if="$login->isLogged()" class="nav-item">
+				<a class="nav-link" href="{$basePath}/favorites">
+					<i class="fa fa-fw fa-heart-o" aria-hidden="true"></i>
+					Favorites
+				</a>
+			</li>
+
 			<li class="nav-item dropdown" id="theme-selector">
-				<span class="nav-link dropdown-toggle" data-bs-toggle="dropdown" title="Toggle theme">
+				<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" title="Toggle theme" href="#">
 					<i class="bi bi-circle-half"></i>
-				</span>
+					Theme
+				</a>
 				<ul class="dropdown-menu dropdown-menu-end">
 					<li title="Select Light theme">
 						<a href="#" class="dropdown-item" data-theme="light">
@@ -68,29 +91,6 @@
 						<img src="{$login->getPhotoUrl()}" class="rounded-circle">
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-{*						<li>*}
-{*							<a class="dropdown-item link-primary" href="#">*}
-{*								<i class="fa fa-fw fa-heart" aria-hidden="true"></i>*}
-{*								Favorites*}
-{*							</a>*}
-{*						</li>*}
-						<li>
-							<a class="dropdown-item" href="{$basePath}/chat/{$login->getTelegramId()}">
-								<i class="fa fa-fw fa-wrench" aria-hidden="true"></i>
-								Private chat settings
-							</a>
-							<a class="dropdown-item" href="{$basePath}/chats">
-								<i class="fa fa-fw fa-list-alt" aria-hidden="true"></i>
-								List of chats
-							</a>
-							<a class="dropdown-item" href="{$basePath}/favorites">
-								<i class="fa fa-fw fa-heart-o" aria-hidden="true"></i>
-								Favorites
-							</a>
-						</li>
-						<li>
-							<hr class="dropdown-divider">
-						</li>
 						<li>
 							<a class="dropdown-item link-danger" href="{$basePath}/logout.php">
 								<i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>
@@ -99,9 +99,10 @@
 						</li>
 					</ul>
 				{else}
-					<span class="nav-link">
-						<a href="{$basePath}/login.php">Login</a>
-					</span>
+					<a class="nav-link" href="{$basePath}/login.php">
+						<i class="fa fa-fw fa-user" aria-hidden="true"></i>
+						Login
+					</a>
 				{/if}
 			</li>
 		</ul>
@@ -115,17 +116,17 @@
 				{$flashMessage->content|noescape}
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
-			{if $flashMessage->dismiss !== null}
-				<script>
-					setTimeout(function () {
-						const alertEl = document.getElementById('alert-{$key}');
-						alertEl.classList.remove('show');
-						setTimeout(function () { // wait for hide animation is finished, then destroy element
-							alertEl.remove();
-						}, 1_000)
-					}, {$flashMessage->dismiss});
-				</script>
-			{/if}
+		{if $flashMessage->dismiss !== null}
+			<script>
+				setTimeout(function () {
+					const alertEl = document.getElementById('alert-{$key}');
+					alertEl.classList.remove('show');
+					setTimeout(function () { // wait for hide animation is finished, then destroy element
+						alertEl.remove();
+					}, 1_000)
+				}, {$flashMessage->dismiss});
+			</script>
+		{/if}
 		{/foreach}
 	</div>
 	<div id="content">

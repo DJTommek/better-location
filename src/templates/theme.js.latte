@@ -22,11 +22,11 @@
 	setThemeBasic(localStorage.getItem(localStorageKey) ?? 'auto');
 
 	document.addEventListener('DOMContentLoaded', function() {
-		const selector = document.getElementById('theme-selector')
-		if (selector === null) { // eg. page is in headless mode
+		const selectorEl = document.getElementById('theme-selector');
+		if (selectorEl === null) { // eg. page is in headless mode
 			return;
 		}
-		const selectorButtons = selector.querySelectorAll('a')
+		const selectorButtons = selectorEl.querySelectorAll('[data-theme]')
 
 		const themeIconMap = {
 			auto: 'bi-circle-half',
@@ -48,9 +48,8 @@
 			}
 
 			// Change main icon in selector
-			const themeSelectorClassList = document
-				.getElementById('theme-selector')
-				.querySelector('span.dropdown-toggle .bi')
+			const themeSelectorClassList = selectorEl
+				.querySelector('.bi')
 				.classList;
 
 			for (const themeName of Object.keys(themeIconMap)) {
