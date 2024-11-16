@@ -122,12 +122,15 @@ class Exif implements \JsonSerializable
 
 	private function processCoordinates(): ?CoordinatesImmutable
 	{
-		if ($this->has('GPSLatitude', 'GPSLongitude', 'GPSLatitudeRef', 'GPSLongitudeRef') === false) {
+		if ($this->has('GPSLatitude', 'GPSLongitude') === false) {
 			return null;
 		}
 
-		$lat = ExifUtils::exifToDecimal($this->raw['GPSLatitude'], $this->raw['GPSLatitudeRef']);
-		$lon = ExifUtils::exifToDecimal($this->raw['GPSLongitude'], $this->raw['GPSLongitudeRef']);
+		$gpsLatitudeRef = $this->get('GPSLatitudeRef') ?? ExifUtils::NORTH;
+		$gpsLongitudeRef = $this->get('GPSLongitudeRef') ?? ExifUtils::EAST;
+
+		$lat = ExifUtils::exifToDecimal($this->get('GPSLatitude'), $gpsLatitudeRef);
+		$lon = ExifUtils::exifToDecimal($this->get('GPSLongitude'), $gpsLongitudeRef);
 
 		return CoordinatesImmutable::safe($lat, $lon);
 	}
