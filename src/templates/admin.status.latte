@@ -20,7 +20,7 @@
 		{/capture}
 
 		{if $isDatabaseConnectionSet}
-			<li>{$dbTextPrefix}: {\App\Icons::SUCCESS} Connected to <b>\App\Config::DB_NAME</b></li>
+			<li>{$dbTextPrefix}: {\App\Icons::SUCCESS} Connected to <b>{\App\Config::DB_NAME}</b></li>
 			{if $isDatabaseTablesSet}
 				<li>{$tablesTextPrefix}: {\App\Icons::CHECKED} All tables and columns are set.</li>
 			{else}
