@@ -41,8 +41,8 @@ trait RunGoogleApiRequestTrait
 			Debugger::log($content, ILogger::DEBUG);
 			throw new \Exception(sprintf(
 				'Invalid status "%s" from %s. Error: "%s". See debug.log for more info.',
-				self::class,
 				$content->status,
+				self::class,
 				$content->error_message ?? 'Not provided',
 			));
 		}
