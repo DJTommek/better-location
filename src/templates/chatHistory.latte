@@ -42,10 +42,12 @@
 {block cssLibs}
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@v0.74.0/dist/L.Control.Locate.min.css"/>
+	<link rel="stylesheet" href="{$basePath}/libs/leaflet.fullscreen-3.0.2/Control.FullScreen.css">
 {/block}
 {block jsLibs}
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 	<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@v0.74.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+	<script src="{$basePath}/libs/leaflet.fullscreen-3.0.2/Control.FullScreen.js"></script>
 {/block}
 
 {block js}
@@ -157,7 +159,9 @@
 			}
 		}
 		$(function () {
-			mapData.map = L.map('map-dynamic-leaflet').setView(locations[0]['coords'], 13);
+			mapData.map = L.map('map-dynamic-leaflet', {
+				fullscreenControl: true,
+			}).setView(locations[0]['coords'], 13);
 			mapData.map.fitBounds(new L.LatLngBounds({$allCoords}), {'maxZoom': 13});
 
 			const baseLayer = Settings.load('dynamicMapBaseLayer');
