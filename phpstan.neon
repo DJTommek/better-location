@@ -66,6 +66,12 @@ parameters:
 			path: src/libs/Factory.php
 			reportUnmatched: false
 		-
+			# Wrongly recognized class constant types for Config vs DefaultConfig - they might be string or null but in Default config is defined only as null
+			# @see https://github.com/phpstan/phpstan/issues/9218
+			message: "#^Parameter .+ \\$apiKey of .+ expects .+, null given\\.$#"
+			path: tests
+			reportUnmatched: false
+		-
 			# False-negative. One method is called twice and PHPStan does not know, that output might be different
 			message: "#^Strict comparison using \\=\\=\\= between true and false will always evaluate to false\\.$#"
 			count: 1
