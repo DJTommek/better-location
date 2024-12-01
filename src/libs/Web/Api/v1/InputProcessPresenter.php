@@ -10,8 +10,12 @@ use Tracy\Debugger;
 
 class InputProcessPresenter extends MainPresenter
 {
+	/**
+	 * @param list<string> $apiKeys
+	 */
 	public function __construct(
 		private readonly FromTelegramMessage $fromTelegramMessage,
+		#[\SensitiveParameter] private readonly array $apiKeys,
 		private readonly ?GooglePlaceApi $googlePlaceApi = null,
 	) {
 	}
@@ -24,7 +28,7 @@ class InputProcessPresenter extends MainPresenter
 		if ($apiKey === null) {
 			$this->apiResponse(true, 'API key is missing.', httpCode: self::HTTP_UNAUTHORIZED);
 		}
-		if (!in_array($apiKey, \App\Config::API_KEYS, true)) {
+		if (!in_array($apiKey, $this->apiKeys, true)) {
 			$this->apiResponse(true, 'API key is not valid.', httpCode: self::HTTP_UNAUTHORIZED);
 		}
 

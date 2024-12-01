@@ -24,6 +24,9 @@ return static function (ContainerConfigurator $container): void {
 	$services->load('App\\Web\\', __DIR__ . '/libs/Web/**/*Presenter.php')
 		->call('setDependencies');
 
+	$services->set(\App\Web\Api\v1\InputProcessPresenter::class)
+		->arg('$apiKeys', Config::API_KEYS);
+
 	$services->load('App\\Repository\\', __DIR__ . '/libs/Repository/*Repository.php');
 
 	// Register all BetterLocation services
