@@ -39,6 +39,11 @@ return static function (ContainerConfigurator $container): void {
 		->call('setDependencies')
 		->tag($tagTgEvents);
 
+	$services->set(\App\Web\Locations\LocationsTemplate::class)
+		->arg('$mapyCzApiKey', Config::MAPY_CZ_TILES_API_KEY);
+	$services->set(\App\Web\ChatHistory\ChatHistoryTemplate::class)
+		->arg('$mapyCzApiKey', Config::MAPY_CZ_TILES_API_KEY);
+
 	$services->set(StaticMapProxy::class);
 	$services->set(\App\BetterLocation\FromTelegramMessage::class);
 	$services->set(TelegramCustomWrapper::class);

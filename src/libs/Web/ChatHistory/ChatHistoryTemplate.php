@@ -27,6 +27,10 @@ class ChatHistoryTemplate extends LayoutTemplate
 	 */
 	public array $allCoords = [];
 
+	public function __construct(public readonly string $mapyCzApiKey)
+	{
+	}
+
 	/**
 	 * @param list<ChatLocationHistoryEntity> $chatHistoryLocations
 	 */

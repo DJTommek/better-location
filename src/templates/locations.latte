@@ -196,6 +196,7 @@
 
 		const locations = {$locationsJs};
 		const listGroupTabs = {};
+		const mapyCzApiKey = {$mapyCzApiKey};
 		const mapData = {
 			map: null,
 			markers: {
@@ -232,33 +233,25 @@
 						zoomOffset: 0,
 						subdomains: '1234',
 					}),
-					'Mapy.cz base': L.tileLayer('https://mapserver.mapy.cz/base--en/{z}-{x}-{y}', {
-						minZoom: 2,
-						maxZoom: 18,
-						attribution: '<a href="https://o.seznam.cz" target="_blank" rel="noopener">Seznam.cz, a.s.</a>',
-						tileSize: 256,
-						zoomOffset: 0,
+					'Mapy.cz base': L.tileLayer('https://api.mapy.cz/v1/maptiles/basic/256/{z}/{x}/{y}?apikey=' + mapyCzApiKey, {
+						minZoom: 0,
+						maxZoom: 19,
+						attribution: '<a href="https://api.mapy.cz/copyright" target="_blank">&copy; Seznam.cz a.s. a další</a>',
 					}),
 					'Mapy.cz base (alternative)': L.tileLayer('https://palider.cz/api/map-server/mapy-cz/base-en/{z}/{x}/{y}', {
-						minZoom: 2,
-						maxZoom: 18,
+						minZoom: 0,
+						maxZoom: 19,
 						attribution: '<a href="https://o.seznam.cz" target="_blank" rel="noopener">Seznam.cz, a.s.</a>',
-						tileSize: 256,
-						zoomOffset: 0,
 					}),
-					'Mapy.cz hiking': L.tileLayer('https://mapserver.mapy.cz/turist-m/{z}-{x}-{y}', {
-						minZoom: 2,
-						maxZoom: 18,
-						attribution: '<a href="https://o.seznam.cz" target="_blank" rel="noopener">Seznam.cz, a.s.</a>',
-						tileSize: 256,
-						zoomOffset: 0,
+					'Mapy.cz hiking': L.tileLayer('https://api.mapy.cz/v1/maptiles/outdoor/256/{z}/{x}/{y}?apikey=' + mapyCzApiKey, {
+						minZoom: 0,
+						maxZoom: 19,
+						attribution: '<a href="https://api.mapy.cz/copyright" target="_blank">&copy; Seznam.cz a.s. a další</a>',
 					}),
 					'Mapy.cz hiking (alternative)': L.tileLayer('https://palider.cz/api/map-server/mapy-cz/turist-m/{z}/{x}/{y}', {
-						minZoom: 2,
-						maxZoom: 18,
+						minZoom: 0,
+						maxZoom: 19,
 						attribution: '<a href="https://o.seznam.cz" target="_blank" rel="noopener">Seznam.cz, a.s.</a>',
-						tileSize: 256,
-						zoomOffset: 0,
 					}),
 				},
 				{/syntax}

@@ -193,6 +193,14 @@ class DefaultConfig
 	const GEONAMES_USERNAME = 'BetterLocation';
 
 	/**
+	 * Mapy.cz API key, that is used to render tiles. This key will be publicly visible and should be limited only to
+	 * specific domain using referer.
+	 *
+	 * @link https://developer.mapy.cz/portal-muj-ucet/projekty-a-api-klice/
+	 */
+	const MAPY_CZ_TILES_API_KEY = '';
+
+	/**
 	 * Maximum timeout of request (connect, read and general timeout).
 	 * @var positive-int In seconds, default 5 seconds
 	 * @see https://docs.guzzlephp.org/en/7.0/request-options.html#connect-timeout

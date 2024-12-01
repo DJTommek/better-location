@@ -33,6 +33,10 @@ class LocationsTemplate extends LayoutTemplate
 	public bool $showingTimezoneData = false;
 	public bool $showingElevation = false;
 
+	public function __construct(public readonly string $mapyCzApiKey)
+	{
+	}
+
 	/**
 	 * @param array<string,array<array{name: string, share?: string, drive?: string, text?: string, static?: string}>> $websites
 	 */
