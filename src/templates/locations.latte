@@ -271,7 +271,11 @@
 			mapData.map.fitBounds(new L.LatLngBounds({$allCoords}), {'maxZoom': 13});
 
 			const baseLayer = Settings.load('dynamicMapBaseLayer');
-			mapData.layers.baseLayers[baseLayer].addTo(mapData.map);
+			if (baseLayer in mapData.layers.baseLayers) {
+				mapData.layers.baseLayers[baseLayer].addTo(mapData.map);
+			} else {
+				mapData.layers.baseLayers['OSM default'].addTo(mapData.map);
+			}
 			L.control.layers(mapData.layers.baseLayers, mapData.layers.overlays).addTo(mapData.map);
 
 			mapData.map.on('baselayerchange', function (event) {
