@@ -25,6 +25,7 @@ return static function (ContainerConfigurator $container): void {
 		->call('setDependencies');
 
 	$services->set(\App\Web\Api\v1\InputProcessPresenter::class)
+		->call('setDependencies')
 		->arg('$apiKeys', Config::API_KEYS);
 
 	$services->load('App\\Repository\\', __DIR__ . '/libs/Repository/*Repository.php');
