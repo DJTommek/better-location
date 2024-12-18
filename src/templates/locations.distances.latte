@@ -27,7 +27,7 @@
 								<td>/</td>
 							{else}
 							{var $distanceColor = 120 - \App\Utils\Utils::recalculateRangeOne($distance, $distanceSmallest, $distanceGreatest, 0, 120)}
-								<td style="background-color: hsl({$distanceColor|noescape}deg 100% 80%);">
+								<td style="background-color: hsl({$distanceColor|noescape}deg 100% 80%); color: black;" title="{$distance} meters">
 									<b n:tag-if="$distance === $distanceGreatest || $distance === $distanceSmallest">
 										{\App\Utils\Formatter::distance($distance)}
 									</b>
