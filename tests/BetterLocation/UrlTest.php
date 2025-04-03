@@ -99,8 +99,8 @@ final class UrlTest extends TestCase
 			['https://en.wikipedia.org/wiki/Prague', 'https://t.co/F9s19A9pU2'],
 
 			// tiny.cc
-			['https://en.wikipedia.org/wiki/Prague', 'http://tiny.cc/v050vz'],
-			['https://en.wikipedia.org/wiki/Prague', 'https://tiny.cc/v050vz'],
+			['https://en.wikipedia.org/wiki/Prague', 'http://tiny.cc/m5cf001'],
+			['https://en.wikipedia.org/wiki/Prague', 'https://tiny.cc/m5cf001'],
 
 			['https://en.wikipedia.org/wiki/Prague', 'http://tiny.cc/BetterLocationTest'], // custom URL
 			['https://en.wikipedia.org/wiki/Prague', 'https://tiny.cc/BetterLocationTest'], // custom URL
