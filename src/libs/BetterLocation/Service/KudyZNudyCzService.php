@@ -46,7 +46,7 @@ final class KudyZNudyCzService extends AbstractService
 	{
 		$response = $this->requestor->get($this->url, Config::CACHE_TTL_KUDY_Z_NUDY_CZ);
 		$dom = Utils::domFromUTF8($response);
-		$element = $dom->getElementById('szn-map');
+		$element = $dom->getElementById('mapContainer');
 		if ($element === null) {
 			return;
 		}
