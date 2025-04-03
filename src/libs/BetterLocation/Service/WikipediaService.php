@@ -54,7 +54,7 @@ final class WikipediaService extends AbstractService
 		$body = $this->requestor->get($this->url, Config::CACHE_TTL_WIKIPEDIA);
 
 		$startString = ';RLCONF=';
-		$endString = ';RLSTATE=';
+		$endString = 'RLSTATE=';
 		$posStart = mb_strpos($body, $startString);
 		$posEnd = mb_strpos($body, $endString);
 		$jsonText = mb_substr(
