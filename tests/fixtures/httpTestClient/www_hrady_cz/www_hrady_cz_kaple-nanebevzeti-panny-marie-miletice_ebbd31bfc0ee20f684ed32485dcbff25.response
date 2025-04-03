@@ -13,7 +13,7 @@
   <meta name="ROBOTS" content="index, follow" />
   <meta name="verify-v1" content="QSjl1bwVrvMIEIlvbFrcrTmjvWT5a3T51T9d8rj0t8Y=" />
   <meta name="resource-type" content="document" />
-  <meta name="description" lang="cs" content="Kaple Nanebevzetí Panny Marie. Kaple Nanebevzetí Panny Marie pochází z roku 1894. Stojí na místě, kde původně stála zvon..." />
+  <meta name="description" lang="cs" content="kaple Nanebevzetí Panny Marie, Miletice Kaple Nanebevzetí Panny Marie. Kaple Nanebevzetí Panny Marie pochází z roku 1894. Sto..." />
   <!-- RSS mista a clanky -->
   <link rel="alternate" type="application/rss+xml" title="Hrady.cz -nová místa" href="http://rss.hrady.cz" />
   <link rel="alternate" type="application/rss+xml" title="Hrady.cz -články serveru" href="https://www.hrady.cz/feed_seznam_generator.php" />
@@ -38,12 +38,10 @@
    <!-- next css/js in page -->
 <!-- JSON-LD -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Place","name":"kaple Nanebevzet\u00ed Panny Marie","alternateName":"","additionalType":"sakr\u00e1ln\u00ed pam\u00e1tky","geo":{"@type":"GeoCoordinates","latitude":"50.30551900","longitude":"14.23541500"},"url":"https://www.hrady.cz/kraj-stredocesky","description":"Kaple Nanebevzet\u00ed Panny Marie poch\u00e1z\u00ed z roku 1894. Stoj\u00ed na m\u00edst\u011b, kde p\u016fvodn\u011b st\u00e1la zvonice. Kaple opravena r. 1991.","image":{"@type":"ImageObject","caption":"Kaple Nanebevzet\u00ed Panny Marie v Miletic\u00edch u \u010cernuce","author":"\u00a9 Pavel V\u00edtek 2014","url":"https://www.hrady.cz/data_g/11862/140928.800.jpg","height":640,"width":800}}
+{"@context":"https://schema.org","@type":"Place","name":"kaple Nanebevzet\u00ed Panny Marie, Miletice kaple Nanebevzet\u00ed Panny Marie","alternateName":"","additionalType":"sakr\u00e1ln\u00ed pam\u00e1tky","geo":{"@type":"GeoCoordinates","latitude":"50.30551900","longitude":"14.23541500"},"url":"https://www.hrady.cz/kraj-stredocesky","description":"Kaple Nanebevzet\u00ed Panny Marie poch\u00e1z\u00ed z roku 1894. Stoj\u00ed na m\u00edst\u011b, kde p\u016fvodn\u011b st\u00e1la zvonice. Kaple opravena r. 1991.","image":{"@type":"ImageObject","caption":"Kaple Nanebevzet\u00ed Panny Marie v Miletic\u00edch u \u010cernuce","author":"\u00a9 Pavel V\u00edtek 2014","url":"https://www.hrady.cz/data_g/11862/140928.800.jpg","height":640,"width":800}}
 </script>
 <link rel="stylesheet" href="/css/css-oid.css" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="/css/hrady_new.css">
-
-
 <!-- sada ikon FA-->
 <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css" />
 
@@ -62,45 +60,22 @@
 </script>
 
 <link rel="stylesheet" type="text/css" href="/css/fastsimple.css" />
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8297851691976478" crossorigin="anonymous"></script>        <!-- font pro clanky na titl -->
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&display=swap" rel="stylesheet">
-<!-- Seznam Mapy 20190806, odchod od google maps-->
-<script src="https://api.mapy.cz/loader.js"></script>
-<script>Loader.load(null, {suggest: true})</script>
-<style>
-    #hrady-main-body::after { background-image: url("/img/bg-gustejn.jpg");}
-</style>
-<!-- Global site tag (gtag.js) - Google Analytics nasazeno 29/09/2020 -->
-<!--script async src="https://www.googletagmanager.com/gtag/js?id=UA-1811054-1"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8297851691976478" crossorigin="anonymous"></script>      <!-- font pro clanky na titl -->
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&display=swap" rel="stylesheet">
+			<style>
+			    #hrady-main-body::after { background-image: url("/img/bg-rukstejn.jpg");}
+			</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZRQ684H6R1"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-1811054-1');
-</script-->
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-<!-- Google tag (gtag.js) 21/09/2022-->
-<!--script async src="https://www.googletagmanager.com/gtag/js?id=G-ZRQ684H6R1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-ZRQ684H6R1');
-</script-->
-
-
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1811054-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-1811054-1');
+    gtag('config', 'G-ZRQ684H6R1');
 </script>
-
+<script src="https://ssp.seznam.cz/static/js/ssp.js"></script>
 </head>
 <body id="hrady-main-body">
 <style>
@@ -144,7 +119,7 @@
                 role="search" >
                 <div class="input-group">
                     <input type="text" id=top_searchWord name="searchWord"  placeholder="Hledat"
-                           class="form-control form-control-lg" type="search"/>
+                           class="form-control form-control-lg" />
                     <div class="input-group-append" id="button-addon4">
                         <button class="btn btn-success btn-lg"
                            type="submit"><i class="hi hi-search"></i></button>
@@ -248,8 +223,6 @@ function googleTranslateElementInit() {
   <ul class="nav nav-tabs">
      <li class="nav-item">
         <a class="nav-link active" href="/kaple-nanebevzeti-panny-marie-miletice/"><span class="hi hi-111"></span></a>
-    </li><li class="nav-item">
-        <a class="nav-link" href="/kaple-nanebevzeti-panny-marie-miletice/mapa">Mapa</a>
     </li><li class="nav-item">
         <a class="nav-link" href="/kaple-nanebevzeti-panny-marie-miletice/komentare">Komentáře</a>
     </li><li class="nav-item">
@@ -498,9 +471,10 @@ input::placeholder, textarea::placeholder {
 
 
 
-                          <div class="thumbMapa">
-                <a href="/kaple-nanebevzeti-panny-marie-miletice/mapa" title="Ukaž místo na mapě" >
-                    <div id="mapa" style="height:250px; width:100%; z-index: 0;"></div>
+                          <div class="thumbMapa" style="position:relative;">
+								<a href="/mapa/kaple-nanebevzeti-panny-marie-miletice" title="Ukaž místo na mapě" >
+                    <img src="https://api.mapy.cz/v1/static/map?lat=50.30551900&lon=14.23541500&zoom=14&height=250&width=350&mapset=outdoor&apikey=6yUTjRyCEoPGucx-Q6so3csQMfi8It2BNFdY_Vyjgso" style="height:250px; width:100%; z-index: 0;">
+                    <i class="hi hi-111 hi-vyrazne mapIcons"  style="position: absolute; top:45%; left:45%;"></i>
                 </a>
               </div>
 
@@ -522,6 +496,11 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">2.4&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-hospodarsky-dvur" title="hospodářský dvůr">hospodářský dvůr</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">2.4&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
                                     &nbsp;<a href="/kaple-sv-petra-pavla" title="kaple sv. Petra Pavla">kaple sv. Petra Pavla</a>
                                 </div>
@@ -531,9 +510,9 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/kaple-sv-linharta" title="kaple sv. Linharta">kaple sv. Linharta</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">2.4&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-18"></span>
-                                    &nbsp;<a href="/technicka-pamatka-hospodarsky-dvur" title="hospodářský dvůr">hospodářský dvůr</a>
+                                    <div class="MenuListMistaDist">2.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/socha-panny-marie-cernuc" title="socha Panny Marie">socha Panny Marie</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">2.5&nbsp;km&nbsp;</div>
@@ -541,9 +520,9 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/palac-dum-panska-hospoda" title="Panská hospoda">Panská hospoda</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">2.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-119"></span>
-                                    &nbsp;<a href="/socha-panny-marie-cernuc" title="socha Panny Marie">socha Panny Marie</a>
+                                    <div class="MenuListMistaDist">2.6&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-20"></span>
+                                    &nbsp;<a href="/palac-dum-brana-u-domu" title="brána u domu">brána u domu</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">2.6&nbsp;km&nbsp;</div>
@@ -567,11 +546,6 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">2.6&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-20"></span>
-                                    &nbsp;<a href="/palac-dum-brana-u-domu" title="brána u domu">brána u domu</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">2.6&nbsp;km&nbsp;</div>
                                     <span class="hi hi-119"></span>
                                     &nbsp;<a href="/socha-sv-jana-nepomuckeho-cernuc" title="socha sv. Jana Nepomuckého">socha sv. Jana Nepomuckého</a>
                                 </div>
@@ -587,13 +561,13 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">2.8&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-sv-klimenta-chrzin" title="kostel sv. Klimenta">kostel sv. Klimenta</a>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/socha-panny-marie-bolestne" title="socha Panny Marie Bolestné">socha Panny Marie Bolestné</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">2.8&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-119"></span>
-                                    &nbsp;<a href="/socha-panny-marie-bolestne" title="socha Panny Marie Bolestné">socha Panny Marie Bolestné</a>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-sv-klimenta-chrzin" title="kostel sv. Klimenta">kostel sv. Klimenta</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">2.9&nbsp;km&nbsp;</div>
@@ -612,23 +586,18 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">3.1&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-119"></span>
-                                    &nbsp;<a href="/socha-sv-jana-nepomuckeho-velvary" title="socha sv. Jana Nepomuckého">socha sv. Jana Nepomuckého</a>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-sv-jiri-velvary" title="kostel sv. Jiří">kostel sv. Jiří</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">3.1&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-sv-jiri-velvary" title="kostel sv. Jiří">kostel sv. Jiří</a>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/socha-sv-jana-nepomuckeho-velvary" title="socha sv. Jana Nepomuckého">socha sv. Jana Nepomuckého</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">3.3&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
                                     &nbsp;<a href="/kaple-nejsvetejsi-trojice-a-studanka-svecenka" title="kaple Nejsvětější Trojice a studánka Svěcenka">kaple Nejsvětější Trojice a studánka Svěcenka</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">3.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-3"></span>
-                                    &nbsp;<a href="/zamek-uhy-kladno" title="Uhy">Uhy</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">3.5&nbsp;km&nbsp;</div>
@@ -639,6 +608,11 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">3.5&nbsp;km&nbsp;</div>
                                     <span class="hi hi-18"></span>
                                     &nbsp;<a href="/technicka-pamatka-zvonicka" title="zvonička">zvonička</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">3.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-3"></span>
+                                    &nbsp;<a href="/zamek-uhy-kladno" title="Uhy">Uhy</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">3.6&nbsp;km&nbsp;</div>
@@ -652,18 +626,18 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">3.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-113"></span>
-                                    &nbsp;<a href="/mariansky-sloup-a-drevena-zvonicka" title="mariánský sloup a dřevěná zvonička">mariánský sloup a dřevěná zvonička</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">3.7&nbsp;km&nbsp;</div>
                                     <span class="hi hi-105"></span>
                                     &nbsp;<a href="/rozhledna-radovic" title="Radovič">Radovič</a>
                                 </div>
 <div>
+                                    <div class="MenuListMistaDist">3.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-113"></span>
+                                    &nbsp;<a href="/mariansky-sloup-a-drevena-zvonicka" title="mariánský sloup a dřevěná zvonička">mariánský sloup a dřevěná zvonička</a>
+                                </div>
+<div>
                                     <div class="MenuListMistaDist">3.8&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-7"></span>
-                                    &nbsp;<a href="/most-kamenny-most-sazena" title="kamenný most">kamenný most</a>
+                                    <span class="hi hi-17"></span>
+                                    &nbsp;<a href="/hradiste-sazena" title="Sazená">Sazená</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">3.8&nbsp;km&nbsp;</div>
@@ -672,8 +646,8 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">3.8&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-17"></span>
-                                    &nbsp;<a href="/hradiste-sazena" title="Sazená">Sazená</a>
+                                    <span class="hi hi-7"></span>
+                                    &nbsp;<a href="/most-kamenny-most-sazena" title="kamenný most">kamenný most</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">3.9&nbsp;km&nbsp;</div>
@@ -702,8 +676,8 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">4.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-119"></span>
-                                    &nbsp;<a href="/sousosi-sv-jana-a-pavla" title="sousoší sv. Jana a Pavla">sousoší sv. Jana a Pavla</a>
+                                    <span class="hi hi-113"></span>
+                                    &nbsp;<a href="/kamenny-kriz-hospozin" title="kamenný kříž">kamenný kříž</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">4.5&nbsp;km&nbsp;</div>
@@ -712,8 +686,8 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">4.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-113"></span>
-                                    &nbsp;<a href="/kamenny-kriz-hospozin" title="kamenný kříž">kamenný kříž</a>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/sousosi-sv-jana-a-pavla" title="sousoší sv. Jana a Pavla">sousoší sv. Jana a Pavla</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">4.6&nbsp;km&nbsp;</div>
@@ -757,13 +731,13 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">6.4&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-lesany-melnik" title="kaple">kaple</a>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-vodni-dilo-mirejovice" title="vodní dílo Miřejovice">vodní dílo Miřejovice</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">6.4&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-18"></span>
-                                    &nbsp;<a href="/technicka-pamatka-vodni-dilo-mirejovice" title="vodní dílo Miřejovice">vodní dílo Miřejovice</a>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-lesany-melnik" title="kaple">kaple</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">6.6&nbsp;km&nbsp;</div>
@@ -782,6 +756,11 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">6.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-sv-ondreje-nelahozeves" title="kostel sv. Ondřeje">kostel sv. Ondřeje</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">6.7&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
                                     &nbsp;<a href="/kaple-sv-jana" title="kaple sv. Jana">kaple sv. Jana</a>
                                 </div>
@@ -797,8 +776,13 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">6.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-sv-ondreje-nelahozeves" title="kostel sv. Ondřeje">kostel sv. Ondřeje</a>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-socha-antonina-dvoraka" title="socha Antonína Dvořáka">socha Antonína Dvořáka</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">6.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-poesiomat" title="poesiomat">poesiomat</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">6.8&nbsp;km&nbsp;</div>
@@ -808,17 +792,22 @@ input::placeholder, textarea::placeholder {
 <div>
                                     <div class="MenuListMistaDist">7.1&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-postovice-kladno" title="kaple">kaple</a>
+                                    &nbsp;<a href="/kaple-neumerice-kladno" title="kaple">kaple</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">7.1&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-neumerice-kladno" title="kaple">kaple</a>
+                                    &nbsp;<a href="/kaple-postovice-kladno" title="kaple">kaple</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">7.3&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
                                     &nbsp;<a href="/kaplicka-kamenny-most" title="kaplička">kaplička</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">7.4&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-3"></span>
+                                    &nbsp;<a href="/zamek-veltrusy-melnik" title="Veltrusy">Veltrusy</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">7.4&nbsp;km&nbsp;</div>
@@ -831,19 +820,14 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/megalit-menhir-menhir" title="menhir">menhir</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">7.4&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-3"></span>
-                                    &nbsp;<a href="/zamek-veltrusy-melnik" title="Veltrusy">Veltrusy</a>
+                                    <div class="MenuListMistaDist">7.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-113"></span>
+                                    &nbsp;<a href="/karbanuv-pomnicek-kralupy-nad-vltavou" title="Karbanův pomníček">Karbanův pomníček</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">7.5&nbsp;km&nbsp;</div>
                                     <span class="hi hi-110"></span>
                                     &nbsp;<a href="/kostel-narozeni-sv-jana-krtitele-veltrusy" title="kostel Narození sv. Jana Křtitele">kostel Narození sv. Jana Křtitele</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">7.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-113"></span>
-                                    &nbsp;<a href="/karbanuv-pomnicek-kralupy-nad-vltavou" title="Karbanův pomníček">Karbanův pomníček</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">7.6&nbsp;km&nbsp;</div>
@@ -868,6 +852,11 @@ input::placeholder, textarea::placeholder {
 <div>
                                     <div class="MenuListMistaDist">7.8&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-lunikov-kladno" title="kaple">kaple</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">7.8&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
                                     &nbsp;<a href="/kaple-vrazkov-litomerice" title="kaple">kaple</a>
                                 </div>
 <div>
@@ -881,11 +870,6 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/pomnik-pamatnik-pomnik-josefa-jungmanna" title="pomník Josefa Jungmanna">pomník Josefa Jungmanna</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">7.8&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-lunikov-kladno" title="kaple">kaple</a>
-                                </div>
-<div>
                                     <div class="MenuListMistaDist">7.9&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
                                     &nbsp;<a href="/kaple-nejsvetejsi-trojice-tman" title="kaple Nejsvětější Trojice">kaple Nejsvětější Trojice</a>
@@ -897,13 +881,13 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">8.0&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaplicka-sv-jiri" title="kaplička sv. Jiří">kaplička sv. Jiří</a>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-sv-bartolomeje-cernoucek" title="kostel sv. Bartoloměje">kostel sv. Bartoloměje</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">8.0&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-sv-bartolomeje-cernoucek" title="kostel sv. Bartoloměje">kostel sv. Bartoloměje</a>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaplicka-sv-jiri" title="kaplička sv. Jiří">kaplička sv. Jiří</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">8.2&nbsp;km&nbsp;</div>
@@ -917,13 +901,18 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">8.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/hrbitovni-kaple-sv-prokopa" title="hřbitovní kaple sv. Prokopa">hřbitovní kaple sv. Prokopa</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">8.5&nbsp;km&nbsp;</div>
                                     <span class="hi hi-119"></span>
                                     &nbsp;<a href="/socha-sv-jana-nepomuckeho-kralupy-nad-vltavou" title="socha sv. Jana Nepomuckého">socha sv. Jana Nepomuckého</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">8.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/hrbitovni-kaple-sv-prokopa" title="hřbitovní kaple sv. Prokopa">hřbitovní kaple sv. Prokopa</a>
+                                    <div class="MenuListMistaDist">8.6&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-narozeni-sv-jana-krtitele-zemechy" title="kostel Narození sv. Jana Křtitele">kostel Narození sv. Jana Křtitele</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">8.6&nbsp;km&nbsp;</div>
@@ -946,16 +935,6 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/pevnost-bunkr-hostibejk" title="Hostibejk">Hostibejk</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">8.6&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-narozeni-sv-jana-krtitele-zemechy" title="kostel Narození sv. Jana Křtitele">kostel Narození sv. Jana Křtitele</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">8.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-15"></span>
-                                    &nbsp;<a href="/pomnik-pamatnik-pomnik-mistra-jana-husa-kralupy-nad-vltavou" title="pomník Mistra Jana Husa">pomník Mistra Jana Husa</a>
-                                </div>
-<div>
                                     <div class="MenuListMistaDist">8.7&nbsp;km&nbsp;</div>
                                     <span class="hi hi-15"></span>
                                     &nbsp;<a href="/pomnik-pamatnik-pamatnik-obetem-armenske-genocidy" title="památník obětem arménské genocidy">památník obětem arménské genocidy</a>
@@ -966,19 +945,24 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/pomnik-pamatnik-pomnik-jaroslava-seiferta" title="pomník Jaroslava Seiferta">pomník Jaroslava Seiferta</a>
                                 </div>
 <div>
+                                    <div class="MenuListMistaDist">8.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-15"></span>
+                                    &nbsp;<a href="/pomnik-pamatnik-pomnik-mistra-jana-husa-kralupy-nad-vltavou" title="pomník Mistra Jana Husa">pomník Mistra Jana Husa</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">8.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-most-t-g-masaryka" title="most T. G. Masaryka">most T. G. Masaryka</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">8.8&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-regulator-otacek-z-mirejovicke-elektrarny" title="regulátor otáček z Miřejovické elektrárny">regulátor otáček z Miřejovické elektrárny</a>
+                                </div>
+<div>
                                     <div class="MenuListMistaDist">8.8&nbsp;km&nbsp;</div>
                                     <span class="hi hi-110"></span>
                                     &nbsp;<a href="/kaple-brestany-kladno" title="kaple">kaple</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">8.9&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-15"></span>
-                                    &nbsp;<a href="/pomnik-pamatnik-pomnik-obetem-svetovych-valek" title="pomník obětem světových válek">pomník obětem světových válek</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">8.9&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-15"></span>
-                                    &nbsp;<a href="/pomnik-pamatnik-socha-svejka" title="socha Švejka">socha Švejka</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">8.9&nbsp;km&nbsp;</div>
@@ -1001,6 +985,46 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/kostel-nanebevzeti-panny-marie-charvatce" title="kostel Nanebevzetí Panny Marie">kostel Nanebevzetí Panny Marie</a>
                                 </div>
 <div>
+                                    <div class="MenuListMistaDist">8.9&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-15"></span>
+                                    &nbsp;<a href="/pomnik-pamatnik-pomnik-obetem-svetovych-valek" title="pomník obětem světových válek">pomník obětem světových válek</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">8.9&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-15"></span>
+                                    &nbsp;<a href="/pomnik-pamatnik-socha-svejka" title="socha Švejka">socha Švejka</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">8.9&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-20"></span>
+                                    &nbsp;<a href="/palac-dum-byvala-telocvicna-a-kino" title="bývalá tělocvična a kino">bývalá tělocvična a kino</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">8.9&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-20"></span>
+                                    &nbsp;<a href="/palac-dum-jodluv-dum" title="Jodlův dům">Jodlův dům</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">9.0&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-panny-marie-lurdske-berovice" title="kaple Panny Marie Lurdské">kaple Panny Marie Lurdské</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">9.0&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-99"></span>
+                                    &nbsp;<a href="/sypka-brestany-kladno" title="sýpka">sýpka</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">9.0&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-15"></span>
+                                    &nbsp;<a href="/pomnik-pamatnik-pomnik-georga-karse" title="pomník Georga Karse">pomník Georga Karse</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">9.0&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-sv-vojtecha-slatina" title="kostel sv. Vojtěcha">kostel sv. Vojtěcha</a>
+                                </div>
+<div>
                                     <div class="MenuListMistaDist">9.0&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
                                     &nbsp;<a href="/kaple-sv-floriana-slapanice" title="kaple sv. Floriána">kaple sv. Floriána</a>
@@ -1012,28 +1036,13 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">9.0&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-99"></span>
-                                    &nbsp;<a href="/sypka-brestany-kladno" title="sýpka">sýpka</a>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-slunecni-hodiny" title="sluneční hodiny">sluneční hodiny</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">9.0&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-sv-vojtecha-slatina" title="kostel sv. Vojtěcha">kostel sv. Vojtěcha</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">9.0&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-panny-marie-lurdske-berovice" title="kaple Panny Marie Lurdské">kaple Panny Marie Lurdské</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">9.0&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-15"></span>
-                                    &nbsp;<a href="/pomnik-pamatnik-pomnik-georga-karse" title="pomník Georga Karse">pomník Georga Karse</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">9.1&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-119"></span>
-                                    &nbsp;<a href="/mariansky-sloup-kralupy-nad-vltavou" title="mariánský sloup ">mariánský sloup </a>
+                                    <span class="hi hi-113"></span>
+                                    &nbsp;<a href="/pametni-kriz-rychtare-slabeho" title="pamětní kříž rychtáře Slabého">pamětní kříž rychtáře Slabého</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">9.1&nbsp;km&nbsp;</div>
@@ -1051,9 +1060,24 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/zamek-zvoleneves-kladno" title="Zvoleněves">Zvoleněves</a>
                                 </div>
 <div>
+                                    <div class="MenuListMistaDist">9.1&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/mariansky-sloup-kralupy-nad-vltavou" title="mariánský sloup ">mariánský sloup </a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">9.1&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-poulicni-hodiny" title="pouliční hodiny">pouliční hodiny</a>
+                                </div>
+<div>
                                     <div class="MenuListMistaDist">9.2&nbsp;km&nbsp;</div>
                                     <span class="hi hi-15"></span>
                                     &nbsp;<a href="/pomnik-pamatnik-socha-promethea" title="socha Promethea">socha Promethea</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">9.2&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-112"></span>
+                                    &nbsp;<a href="/zvonicka-kralupy-nad-vltavou" title="zvonička">zvonička</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">9.3&nbsp;km&nbsp;</div>
@@ -1072,11 +1096,6 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">9.6&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-99"></span>
-                                    &nbsp;<a href="/hrob-jaroslava-seiferta" title="hrob Jaroslava Seiferta">hrob Jaroslava Seiferta</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">9.6&nbsp;km&nbsp;</div>
                                     <span class="hi hi-116"></span>
                                     &nbsp;<a href="/zamek-martineves-litomerice" title="Martiněves">Martiněves</a>
                                 </div>
@@ -1091,6 +1110,16 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/hrbitovni-kaple-kralupy-nad-vltavou" title="hřbitovní kaple">hřbitovní kaple</a>
                                 </div>
 <div>
+                                    <div class="MenuListMistaDist">9.6&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-99"></span>
+                                    &nbsp;<a href="/hrob-jaroslava-seiferta" title="hrob Jaroslava Seiferta">hrob Jaroslava Seiferta</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">9.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/vyklenkova-kaple-berovice" title="výklenková kaple">výklenková kaple</a>
+                                </div>
+<div>
                                     <div class="MenuListMistaDist">9.7&nbsp;km&nbsp;</div>
                                     <span class="hi hi-2"></span>
                                     &nbsp;<a href="/tvrz-budenice" title="Budenice">Budenice</a>
@@ -1102,23 +1131,13 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">9.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/vyklenkova-kaple-berovice" title="výklenková kaple">výklenková kaple</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">9.7&nbsp;km&nbsp;</div>
                                     <span class="hi hi-113"></span>
                                     &nbsp;<a href="/hrbitovni-kriz-kralupy-nad-vltavou" title="hřbitovní kříž">hřbitovní kříž</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">9.8&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-20"></span>
-                                    &nbsp;<a href="/palac-dum-sypka-slapanice" title="sýpka">sýpka</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">9.8&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-15"></span>
-                                    &nbsp;<a href="/pomnik-pamatnik-socha-sv-onufria" title="socha sv. Onufria">socha sv. Onufria</a>
+                                    <span class="hi hi-126"></span>
+                                    &nbsp;<a href="/zidovsky-hrbitov-spomischel" title="židovský hřbitov">židovský hřbitov</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">9.8&nbsp;km&nbsp;</div>
@@ -1132,8 +1151,28 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">9.8&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-126"></span>
-                                    &nbsp;<a href="/zidovsky-hrbitov-spomischel" title="židovský hřbitov">židovský hřbitov</a>
+                                    <span class="hi hi-20"></span>
+                                    &nbsp;<a href="/palac-dum-sypka-slapanice" title="sýpka">sýpka</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">9.8&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-15"></span>
+                                    &nbsp;<a href="/pomnik-pamatnik-socha-sv-onufria" title="socha sv. Onufria">socha sv. Onufria</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">10.0&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-byvaly-zeleznicni-most" title="bývalý železniční most">bývalý železniční most</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">10.0&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-sv-jakuba-vetsiho-minice" title="kostel sv. Jakuba Většího">kostel sv. Jakuba Většího</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">10.0&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-3"></span>
+                                    &nbsp;<a href="/zamek-horni-berkovice" title="Horní Beřkovice">Horní Beřkovice</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">10.0&nbsp;km&nbsp;</div>
@@ -1149,21 +1188,6 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">10.0&nbsp;km&nbsp;</div>
                                     <span class="hi hi-20"></span>
                                     &nbsp;<a href="/palac-dum-fara-minice" title="fara">fara</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">10.0&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-sv-jakuba-vetsiho-minice" title="kostel sv. Jakuba Většího">kostel sv. Jakuba Většího</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">10.0&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-3"></span>
-                                    &nbsp;<a href="/zamek-horni-berkovice" title="Horní Beřkovice">Horní Beřkovice</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">10.0&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-18"></span>
-                                    &nbsp;<a href="/technicka-pamatka-byvaly-zeleznicni-most" title="bývalý železniční most">bývalý železniční most</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">10.1&nbsp;km&nbsp;</div>
@@ -1197,6 +1221,21 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">10.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaplicka-blevice-kladno" title="kaplička">kaplička</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">10.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-99"></span>
+                                    &nbsp;<a href="/pamatnik-antonina-dvoraka" title="Památník Antonína Dvořáka">Památník Antonína Dvořáka</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">10.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-nanebevzeti-panny-marie-zlonice" title="kostel Nanebevzetí Panny Marie">kostel Nanebevzetí Panny Marie</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">10.5&nbsp;km&nbsp;</div>
                                     <span class="hi hi-99"></span>
                                     &nbsp;<a href="/studanka-rusavka-iii" title="studánka Rusavka III">studánka Rusavka III</a>
                                 </div>
@@ -1211,21 +1250,6 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/technicka-pamatka-knizeci-pivovar" title="Knížecí pivovar">Knížecí pivovar</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">10.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-99"></span>
-                                    &nbsp;<a href="/pamatnik-antonina-dvoraka" title="Památník Antonína Dvořáka">Památník Antonína Dvořáka</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">10.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-nanebevzeti-panny-marie-zlonice" title="kostel Nanebevzetí Panny Marie">kostel Nanebevzetí Panny Marie</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">10.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaplicka-blevice-kladno" title="kaplička">kaplička</a>
-                                </div>
-<div>
                                     <div class="MenuListMistaDist">10.6&nbsp;km&nbsp;</div>
                                     <span class="hi hi-119"></span>
                                     &nbsp;<a href="/socha-sv-jana-nepomuckeho-zlonice" title="socha sv. Jana Nepomuckého">socha sv. Jana Nepomuckého</a>
@@ -1234,11 +1258,6 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">10.6&nbsp;km&nbsp;</div>
                                     <span class="hi hi-113"></span>
                                     &nbsp;<a href="/bozi-muka-zlonice" title="boží muka">boží muka</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">10.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-sv-jana-nepomuckeho-jarpice" title="kaple sv. Jana Nepomuckého">kaple sv. Jana Nepomuckého</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">10.7&nbsp;km&nbsp;</div>
@@ -1261,9 +1280,9 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/hradiste-minice-melnik" title="Minice">Minice</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">10.8&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-2"></span>
-                                    &nbsp;<a href="/tvrz-bakov-kladno" title="Bakov">Bakov</a>
+                                    <div class="MenuListMistaDist">10.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-sv-jana-nepomuckeho-jarpice" title="kaple sv. Jana Nepomuckého">kaple sv. Jana Nepomuckého</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">10.8&nbsp;km&nbsp;</div>
@@ -1276,9 +1295,9 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/technicka-pamatka-sypka-zelevcice" title="sýpka">sýpka</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">10.9&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-sv-isidora-jarpice" title="kaple sv. Isidora">kaple sv. Isidora</a>
+                                    <div class="MenuListMistaDist">10.8&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-2"></span>
+                                    &nbsp;<a href="/tvrz-bakov-kladno" title="Bakov">Bakov</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">10.9&nbsp;km&nbsp;</div>
@@ -1286,9 +1305,14 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/kostel-sv-petra-a-pavla-kostomlaty-pod-ripem" title="kostel sv. Petra a Pavla">kostel sv. Petra a Pavla</a>
                                 </div>
 <div>
+                                    <div class="MenuListMistaDist">10.9&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-sv-isidora-jarpice" title="kaple sv. Isidora">kaple sv. Isidora</a>
+                                </div>
+<div>
                                     <div class="MenuListMistaDist">11.0&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-7"></span>
-                                    &nbsp;<a href="/most-zeleznicni-viadukt-podlesin" title="železniční viadukt">železniční viadukt</a>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-bakov" title="kaple">kaple</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">11.0&nbsp;km&nbsp;</div>
@@ -1297,8 +1321,13 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">11.0&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-7"></span>
+                                    &nbsp;<a href="/most-zeleznicni-viadukt-podlesin" title="železniční viadukt">železniční viadukt</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">11.1&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-bakov" title="kaple">kaple</a>
+                                    &nbsp;<a href="/kaple-sv-panny-marie-a-sv-krystofa" title="kaple sv. Panny Marie a sv. Kryštofa">kaple sv. Panny Marie a sv. Kryštofa</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">11.1&nbsp;km&nbsp;</div>
@@ -1311,11 +1340,6 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/zamek-blahotice-kladno" title="Blahotice">Blahotice</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">11.1&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-sv-panny-marie-a-sv-krystofa" title="kaple sv. Panny Marie a sv. Kryštofa">kaple sv. Panny Marie a sv. Kryštofa</a>
-                                </div>
-<div>
                                     <div class="MenuListMistaDist">11.2&nbsp;km&nbsp;</div>
                                     <span class="hi hi-119"></span>
                                     &nbsp;<a href="/socha-krista" title="socha Krista">socha Krista</a>
@@ -1323,17 +1347,12 @@ input::placeholder, textarea::placeholder {
 <div>
                                     <div class="MenuListMistaDist">11.4&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-sv-jana-uzice" title="kaple sv. Jána">kaple sv. Jána</a>
+                                    &nbsp;<a href="/hrbitovni-kaple-boziho-tela" title="hřbitovní kaple Božího Těla">hřbitovní kaple Božího Těla</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">11.4&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/hrbitovni-kaple-boziho-tela" title="hřbitovní kaple Božího Těla">hřbitovní kaple Božího Těla</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">11.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-sv-vaclava-debrno" title="kaple sv. Václava">kaple sv. Václava</a>
+                                    &nbsp;<a href="/kaple-sv-jana-uzice" title="kaple sv. Jána">kaple sv. Jána</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">11.5&nbsp;km&nbsp;</div>
@@ -1346,6 +1365,11 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/kostel-nanebevzeti-panny-marie-hostin-u-vojkovic" title="kostel Nanebevzetí Panny Marie">kostel Nanebevzetí Panny Marie</a>
                                 </div>
 <div>
+                                    <div class="MenuListMistaDist">11.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-sv-vaclava-debrno" title="kaple sv. Václava">kaple sv. Václava</a>
+                                </div>
+<div>
                                     <div class="MenuListMistaDist">11.6&nbsp;km&nbsp;</div>
                                     <span class="hi hi-112"></span>
                                     &nbsp;<a href="/zvonice-zelenice-kladno" title="zvonice">zvonice</a>
@@ -1356,14 +1380,19 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/kostel-sv-jakuba-vetsiho-zelenice" title="kostel sv. Jakuba Většího">kostel sv. Jakuba Většího</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">11.8&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-zakolany-kladno" title="kaple">kaple</a>
+                                    <div class="MenuListMistaDist">11.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-15"></span>
+                                    &nbsp;<a href="/pomnik-pamatnik-pomnik-obetem-vlakoveho-nestesti" title="pomník obětem vlakového neštěstí">pomník obětem vlakového neštěstí</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">11.8&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
                                     &nbsp;<a href="/vyklenkova-kaplicka-sv-gotharda" title="výklenková kaplička sv. Gotharda">výklenková kaplička sv. Gotharda</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">11.8&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-zakolany-kladno" title="kaple">kaple</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">11.9&nbsp;km&nbsp;</div>
@@ -1392,11 +1421,6 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">12.1&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-ceskobratrske-cirkve-evangelicke-libkovice-pod-ripem" title="kostel Českobratrské církve evangelické">kostel Českobratrské církve evangelické</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">12.1&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
                                     &nbsp;<a href="/kaple-trebusice-kladno" title="kaple">kaple</a>
                                 </div>
@@ -1406,9 +1430,14 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/pomnik-pamatnik-pomnik-mistra-jana-husa-trebusice" title="pomník Mistra Jana Husa">pomník Mistra Jana Husa</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">12.2&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-2"></span>
-                                    &nbsp;<a href="/tvrz-udesice" title="Údešice">Údešice</a>
+                                    <div class="MenuListMistaDist">12.1&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-ceskobratrske-cirkve-evangelicke-libkovice-pod-ripem" title="kostel Českobratrské církve evangelické">kostel Českobratrské církve evangelické</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">12.1&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-113"></span>
+                                    &nbsp;<a href="/pametni-kriz-pod-budci" title="pamětní kříž pod Budčí">pamětní kříž pod Budčí</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">12.2&nbsp;km&nbsp;</div>
@@ -1422,6 +1451,11 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">12.2&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-2"></span>
+                                    &nbsp;<a href="/tvrz-udesice" title="Údešice">Údešice</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">12.2&nbsp;km&nbsp;</div>
                                     <span class="hi hi-113"></span>
                                     &nbsp;<a href="/bozi-muka-tynec" title="boží muka">boží muka</a>
                                 </div>
@@ -1429,16 +1463,6 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">12.2&nbsp;km&nbsp;</div>
                                     <span class="hi hi-18"></span>
                                     &nbsp;<a href="/technicka-pamatka-pansky-dvur" title="panský dvůr">panský dvůr</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">12.3&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-sv-martina-nizebohy" title="kostel sv. Martina">kostel sv. Martina</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">12.3&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-126"></span>
-                                    &nbsp;<a href="/zidovsky-hrbitov-budyne-nad-ohri" title="židovský hřbitov">židovský hřbitov</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">12.3&nbsp;km&nbsp;</div>
@@ -1452,8 +1476,23 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">12.3&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-126"></span>
+                                    &nbsp;<a href="/zidovsky-hrbitov-budyne-nad-ohri" title="židovský hřbitov">židovský hřbitov</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">12.3&nbsp;km&nbsp;</div>
                                     <span class="hi hi-119"></span>
                                     &nbsp;<a href="/mariansky-sloup-kozomin" title="mariánský sloup">mariánský sloup</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">12.3&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-sv-martina-nizebohy" title="kostel sv. Martina">kostel sv. Martina</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">12.3&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-drevena-zvonicka" title="dřevěná zvonička">dřevěná zvonička</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">12.4&nbsp;km&nbsp;</div>
@@ -1462,13 +1501,13 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">12.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-sv-petra-a-pavla-na-budci" title="kostel sv. Petra a Pavla na Budči">kostel sv. Petra a Pavla na Budči</a>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-svate-rodiny-roudnice-nad-labem" title="kaple Svaté rodiny">kaple Svaté rodiny</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">12.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-svate-rodiny-roudnice-nad-labem" title="kaple Svaté rodiny">kaple Svaté rodiny</a>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-sv-petra-a-pavla-na-budci" title="kostel sv. Petra a Pavla na Budči">kostel sv. Petra a Pavla na Budči</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">12.5&nbsp;km&nbsp;</div>
@@ -1479,11 +1518,6 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">12.6&nbsp;km&nbsp;</div>
                                     <span class="hi hi-110"></span>
                                     &nbsp;<a href="/kostel-vsech-svatych-knoviz" title="kostel Všech svatých">kostel Všech svatých</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">12.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-sv-lukase-drinov" title="kostel sv. Lukáše">kostel sv. Lukáše</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">12.7&nbsp;km&nbsp;</div>
@@ -1501,14 +1535,9 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/kaple-sv-michaela-archandela-kozinec" title="kaple sv. Michaela archanděla">kaple sv. Michaela archanděla</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">12.8&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-3"></span>
-                                    &nbsp;<a href="/zamek-jenisovice-melnik" title="Jenišovice">Jenišovice</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">12.8&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-narozeni-panny-marie-jenisovice" title="kaple Narození Panny Marie">kaple Narození Panny Marie</a>
+                                    <div class="MenuListMistaDist">12.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-sv-lukase-drinov" title="kostel sv. Lukáše">kostel sv. Lukáše</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">12.8&nbsp;km&nbsp;</div>
@@ -1536,14 +1565,19 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/rozhledna-kratochvilova-rozhledna" title="Kratochvílova rozhledna">Kratochvílova rozhledna</a>
                                 </div>
 <div>
+                                    <div class="MenuListMistaDist">12.8&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-3"></span>
+                                    &nbsp;<a href="/zamek-jenisovice-melnik" title="Jenišovice">Jenišovice</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">12.8&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-narozeni-panny-marie-jenisovice" title="kaple Narození Panny Marie">kaple Narození Panny Marie</a>
+                                </div>
+<div>
                                     <div class="MenuListMistaDist">12.9&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
                                     &nbsp;<a href="/kaple-sv-josefa-roudnice-nad-labem" title="kaple sv. Josefa">kaple sv. Josefa</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.0&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-20"></span>
-                                    &nbsp;<a href="/palac-dum-rolnicka-zalozna-podripska" title="Rolnická záložna Podřipská">Rolnická záložna Podřipská</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">13.0&nbsp;km&nbsp;</div>
@@ -1556,14 +1590,9 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/voda-slany-pramen-a-zanikle-lazne" title="slaný pramen a zaniklé lázně">slaný pramen a zaniklé lázně</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">13.1&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-sv-jakuba-vetsiho-lidice-u-otrub" title="kostel sv. Jakuba Většího">kostel sv. Jakuba Většího</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.1&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-119"></span>
-                                    &nbsp;<a href="/sloup-se-sochou-sv-vavrince" title="sloup se sochou sv. Vavřince">sloup se sochou sv. Vavřince</a>
+                                    <div class="MenuListMistaDist">13.0&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-20"></span>
+                                    &nbsp;<a href="/palac-dum-rolnicka-zalozna-podripska" title="Rolnická záložna Podřipská">Rolnická záložna Podřipská</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">13.1&nbsp;km&nbsp;</div>
@@ -1576,6 +1605,16 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/skanzen-lidicky-dvur" title="Lidický Dvůr">Lidický Dvůr</a>
                                 </div>
 <div>
+                                    <div class="MenuListMistaDist">13.1&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-sv-jakuba-vetsiho-lidice-u-otrub" title="kostel sv. Jakuba Většího">kostel sv. Jakuba Většího</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.1&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/sloup-se-sochou-sv-vavrince" title="sloup se sochou sv. Vavřince">sloup se sochou sv. Vavřince</a>
+                                </div>
+<div>
                                     <div class="MenuListMistaDist">13.2&nbsp;km&nbsp;</div>
                                     <span class="hi hi-109"></span>
                                     &nbsp;<a href="/klaster-kapucinu-s-kostelem-sv-vaclava" title="klášter kapucínů s kostelem sv. Václava">klášter kapucínů s kostelem sv. Václava</a>
@@ -1584,6 +1623,21 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">13.2&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
                                     &nbsp;<a href="/kaple-sv-rozalie-roudnice-nad-labem" title="kaple sv. Rozálie">kaple sv. Rozálie</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.2&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/socha-panny-marie-bolestne-slany" title="socha Panny Marie Bolestné">socha Panny Marie Bolestné</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.2&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/socha-sv-frantiska-z-assisi" title="socha sv. Františka z Assisi">socha sv. Františka z Assisi</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.2&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/socha-sv-bonaventury" title="socha sv. Bonaventury">socha sv. Bonaventury</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">13.2&nbsp;km&nbsp;</div>
@@ -1606,26 +1660,6 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/zamek-roudnice-nad-labem" title="Roudnice nad Labem">Roudnice nad Labem</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">13.2&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-119"></span>
-                                    &nbsp;<a href="/socha-panny-marie-bolestne-slany" title="socha Panny Marie Bolestné">socha Panny Marie Bolestné</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.2&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-119"></span>
-                                    &nbsp;<a href="/socha-sv-frantiska-z-assisi" title="socha sv. Františka z Assisi">socha sv. Františka z Assisi</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.2&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-119"></span>
-                                    &nbsp;<a href="/socha-sv-bonaventury" title="socha sv. Bonaventury">socha sv. Bonaventury</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.3&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-126"></span>
-                                    &nbsp;<a href="/novy-zidovsky-hrbitov-roudnice-nad-labem" title="nový židovský hřbitov">nový židovský hřbitov</a>
-                                </div>
-<div>
                                     <div class="MenuListMistaDist">13.3&nbsp;km&nbsp;</div>
                                     <span class="hi hi-18"></span>
                                     &nbsp;<a href="/technicka-pamatka-pivovar-roudnice-nad-labem" title="pivovar">pivovar</a>
@@ -1634,6 +1668,16 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">13.3&nbsp;km&nbsp;</div>
                                     <span class="hi hi-118"></span>
                                     &nbsp;<a href="/brana-opevneni-vez-mestskeho-opevneni" title="věž městského opevnění">věž městského opevnění</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.3&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/socha-sv-antonina-paduanskeho-slany" title="socha sv. Antonína Paduánského">socha sv. Antonína Paduánského</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.3&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-15"></span>
+                                    &nbsp;<a href="/pomnik-pamatnik-busta-antonina-dvoraka-slany" title="busta Antonína Dvořáka">busta Antonína Dvořáka</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">13.3&nbsp;km&nbsp;</div>
@@ -1662,38 +1706,8 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">13.3&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-119"></span>
-                                    &nbsp;<a href="/socha-sv-antonina-paduanskeho-slany" title="socha sv. Antonína Paduánského">socha sv. Antonína Paduánského</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.3&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-15"></span>
-                                    &nbsp;<a href="/pomnik-pamatnik-busta-antonina-dvoraka-slany" title="busta Antonína Dvořáka">busta Antonína Dvořáka</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.4&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-20"></span>
-                                    &nbsp;<a href="/palac-dum-sypka-slany" title="sýpka">sýpka</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.4&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-20"></span>
-                                    &nbsp;<a href="/palac-dum-nedvedovsky-dum" title="Nedvědovský dům">Nedvědovský dům</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.4&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-20"></span>
-                                    &nbsp;<a href="/palac-dum-dekanstvi-slany" title="děkanství">děkanství</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.4&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-20"></span>
-                                    &nbsp;<a href="/palac-dum-modleticky-dum" title="Modletický dům">Modletický dům</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.4&nbsp;km&nbsp;</div>
                                     <span class="hi hi-126"></span>
-                                    &nbsp;<a href="/zidovske-ghetto-roudnice-nad-labem" title="židovské ghetto">židovské ghetto</a>
+                                    &nbsp;<a href="/novy-zidovsky-hrbitov-roudnice-nad-labem" title="nový židovský hřbitov">nový židovský hřbitov</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">13.4&nbsp;km&nbsp;</div>
@@ -1731,19 +1745,29 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/kaplicka-panny-marie-dretovice" title="kaplička Panny Marie">kaplička Panny Marie</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">13.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-postrizin-melnik" title="kaple">kaple</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.5&nbsp;km&nbsp;</div>
+                                    <div class="MenuListMistaDist">13.4&nbsp;km&nbsp;</div>
                                     <span class="hi hi-20"></span>
-                                    &nbsp;<a href="/palac-dum-ungelt" title="Ungelt">Ungelt</a>
+                                    &nbsp;<a href="/palac-dum-sypka-slany" title="sýpka">sýpka</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">13.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-7"></span>
-                                    &nbsp;<a href="/most-silnicni-most-roudnice-nad-labem" title="silniční most">silniční most</a>
+                                    <div class="MenuListMistaDist">13.4&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-20"></span>
+                                    &nbsp;<a href="/palac-dum-nedvedovsky-dum" title="Nedvědovský dům">Nedvědovský dům</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.4&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-20"></span>
+                                    &nbsp;<a href="/palac-dum-dekanstvi-slany" title="děkanství">děkanství</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.4&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-20"></span>
+                                    &nbsp;<a href="/palac-dum-modleticky-dum" title="Modletický dům">Modletický dům</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.4&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-126"></span>
+                                    &nbsp;<a href="/zidovske-ghetto-roudnice-nad-labem" title="židovské ghetto">židovské ghetto</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">13.5&nbsp;km&nbsp;</div>
@@ -1754,6 +1778,11 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">13.5&nbsp;km&nbsp;</div>
                                     <span class="hi hi-20"></span>
                                     &nbsp;<a href="/palac-dum-radnice-slany" title="radnice">radnice</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-15"></span>
+                                    &nbsp;<a href="/pomnik-pamatnik-socha-bedricha-smetany" title="socha Bedřicha Smetany">socha Bedřicha Smetany</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">13.5&nbsp;km&nbsp;</div>
@@ -1772,8 +1801,23 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">13.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-15"></span>
-                                    &nbsp;<a href="/pomnik-pamatnik-socha-bedricha-smetany" title="socha Bedřicha Smetany">socha Bedřicha Smetany</a>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-postrizin-melnik" title="kaple">kaple</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-20"></span>
+                                    &nbsp;<a href="/palac-dum-ungelt" title="Ungelt">Ungelt</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-7"></span>
+                                    &nbsp;<a href="/most-silnicni-most-roudnice-nad-labem" title="silniční most">silniční most</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.6&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-2"></span>
+                                    &nbsp;<a href="/tvrz-lukov" title="Lukov">Lukov</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">13.6&nbsp;km&nbsp;</div>
@@ -1791,9 +1835,29 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/kaple-panny-marie-ujezdec" title="kaple Panny Marie">kaple Panny Marie</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">13.6&nbsp;km&nbsp;</div>
+                                    <div class="MenuListMistaDist">13.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-hole" title="kaple">kaple</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-116"></span>
+                                    &nbsp;<a href="/zamek-citov-melnik" title="Cítov">Cítov</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-sv-linharta-citov" title="kostel sv. Linharta">kostel sv. Linharta</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.7&nbsp;km&nbsp;</div>
                                     <span class="hi hi-2"></span>
-                                    &nbsp;<a href="/tvrz-lukov" title="Lukov">Lukov</a>
+                                    &nbsp;<a href="/tvrz-stradonice" title="Stradonice">Stradonice</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">13.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-hrazdeny-spychar" title="hrázděný špýchar">hrázděný špýchar</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">13.7&nbsp;km&nbsp;</div>
@@ -1816,29 +1880,9 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/palac-dum-okresni-hospodarska-zalozna" title="Okresní hospodářská záložna">Okresní hospodářská záložna</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">13.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-116"></span>
-                                    &nbsp;<a href="/zamek-citov-melnik" title="Cítov">Cítov</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-sv-linharta-citov" title="kostel sv. Linharta">kostel sv. Linharta</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-2"></span>
-                                    &nbsp;<a href="/tvrz-stradonice" title="Stradonice">Stradonice</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-hole" title="kaple">kaple</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-18"></span>
-                                    &nbsp;<a href="/technicka-pamatka-hrazdeny-spychar" title="hrázděný špýchar">hrázděný špýchar</a>
+                                    <div class="MenuListMistaDist">13.8&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-17"></span>
+                                    &nbsp;<a href="/hradiste-hradiste-ripec" title="hradiště Řípec">hradiště Řípec</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">13.8&nbsp;km&nbsp;</div>
@@ -1859,11 +1903,6 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">13.8&nbsp;km&nbsp;</div>
                                     <span class="hi hi-20"></span>
                                     &nbsp;<a href="/palac-dum-spychar" title="špýchar">špýchar</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">13.8&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-17"></span>
-                                    &nbsp;<a href="/hradiste-hradiste-ripec" title="hradiště Řípec">hradiště Řípec</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">13.9&nbsp;km&nbsp;</div>
@@ -1897,11 +1936,6 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">14.3&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-sv-floriana-podbradec" title="kaple sv. Floriána">kaple sv. Floriána</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">14.3&nbsp;km&nbsp;</div>
                                     <span class="hi hi-126"></span>
                                     &nbsp;<a href="/zidovsky-hrbitov-postrizin" title="židovský hřbitov">židovský hřbitov</a>
                                 </div>
@@ -1916,9 +1950,14 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/kostel-sv-vaclava-bechlin" title="kostel sv. Václava">kostel sv. Václava</a>
                                 </div>
 <div>
+                                    <div class="MenuListMistaDist">14.3&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-sv-floriana-podbradec" title="kaple sv. Floriána">kaple sv. Floriána</a>
+                                </div>
+<div>
                                     <div class="MenuListMistaDist">14.4&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-sv-anezky-ceske" title="kaple sv. Anežky České">kaple sv. Anežky České</a>
+                                    &nbsp;<a href="/kaple-netovice" title="kaple">kaple</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">14.4&nbsp;km&nbsp;</div>
@@ -1928,7 +1967,27 @@ input::placeholder, textarea::placeholder {
 <div>
                                     <div class="MenuListMistaDist">14.4&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-netovice" title="kaple">kaple</a>
+                                    &nbsp;<a href="/kaple-sv-anezky-ceske" title="kaple sv. Anežky České">kaple sv. Anežky České</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">14.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-17"></span>
+                                    &nbsp;<a href="/hradiste-certovka" title="Čertovka">Čertovka</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">14.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-boziho-hrobu-kvicek" title="kaple Božího hrobu">kaple Božího hrobu</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">14.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-sv-mikulase-zalezlice" title="kostel sv. Mikuláše">kostel sv. Mikuláše</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">14.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-15"></span>
+                                    &nbsp;<a href="/pomnik-pamatnik-socha-vodnika" title="socha vodníka">socha vodníka</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">14.5&nbsp;km&nbsp;</div>
@@ -1946,39 +2005,9 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/hradiste-stehelceves-homolka-steinbruche" title="Stehelčeves">Stehelčeves</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">14.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-boziho-hrobu-kvicek" title="kaple Božího hrobu">kaple Božího hrobu</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">14.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-sv-mikulase-zalezlice" title="kostel sv. Mikuláše">kostel sv. Mikuláše</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">14.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-17"></span>
-                                    &nbsp;<a href="/hradiste-certovka" title="Čertovka">Čertovka</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">14.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-15"></span>
-                                    &nbsp;<a href="/pomnik-pamatnik-socha-vodnika" title="socha vodníka">socha vodníka</a>
-                                </div>
-<div>
                                     <div class="MenuListMistaDist">14.6&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
                                     &nbsp;<a href="/kaple-sv-jana-nepomuckeho-chvalin" title="kaple sv. Jana Nepomuckého">kaple sv. Jana Nepomuckého</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">14.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-7"></span>
-                                    &nbsp;<a href="/most-zeleznicni-most-noutonice" title="železniční most">železniční most</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">14.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-23"></span>
-                                    &nbsp;<a href="/zoo-akvarium-zoopark-zelcin" title="Zoopark Zelčín">Zoopark Zelčín</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">14.7&nbsp;km&nbsp;</div>
@@ -1991,6 +2020,16 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/bozi-muka-svrkyne" title="boží muka">boží muka</a>
                                 </div>
 <div>
+                                    <div class="MenuListMistaDist">14.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-7"></span>
+                                    &nbsp;<a href="/most-zeleznicni-most-noutonice" title="železniční most">železniční most</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">14.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-23"></span>
+                                    &nbsp;<a href="/zoo-akvarium-zoopark-zelcin" title="Zoopark Zelčín">Zoopark Zelčín</a>
+                                </div>
+<div>
                                     <div class="MenuListMistaDist">14.8&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
                                     &nbsp;<a href="/kaple-sv-vojtecha-maslovice" title="kaple sv. Vojtěcha">kaple sv. Vojtěcha</a>
@@ -2001,19 +2040,14 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/kostel-navstiveni-panny-marie-palecek" title="kostel Navštívení Panny Marie">kostel Navštívení Panny Marie</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">14.9&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-119"></span>
-                                    &nbsp;<a href="/sloup-se-sochou-panny-marie-odolena-voda" title="sloup se sochou Panny Marie">sloup se sochou Panny Marie</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">14.9&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-107"></span>
-                                    &nbsp;<a href="/prirodni-scenerie-prirodni-rezervace-myslivna" title="přírodní rezervace Myslivna">přírodní rezervace Myslivna</a>
+                                    <div class="MenuListMistaDist">14.8&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-99"></span>
+                                    &nbsp;<a href="/baronsky-hrbitov" title="Baronský hřbitov">Baronský hřbitov</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">14.9&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-panny-marie-brezany-nad-ohri" title="kaple Panny Marie">kaple Panny Marie</a>
+                                    &nbsp;<a href="/kaple-cvrcovice-kladno" title="kaple">kaple</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">14.9&nbsp;km&nbsp;</div>
@@ -2032,8 +2066,18 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">14.9&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/sloup-se-sochou-panny-marie-odolena-voda" title="sloup se sochou Panny Marie">sloup se sochou Panny Marie</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">14.9&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-107"></span>
+                                    &nbsp;<a href="/prirodni-scenerie-prirodni-rezervace-myslivna" title="přírodní rezervace Myslivna">přírodní rezervace Myslivna</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">14.9&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-cvrcovice-kladno" title="kaple">kaple</a>
+                                    &nbsp;<a href="/kaple-panny-marie-brezany-nad-ohri" title="kaple Panny Marie">kaple Panny Marie</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">15.0&nbsp;km&nbsp;</div>
@@ -2042,13 +2086,13 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">15.2&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-sv-michala-svrkyne" title="kostel sv. Michala">kostel sv. Michala</a>
+                                    <span class="hi hi-115"></span>
+                                    &nbsp;<a href="/vodarenska-vez-vodarna" title="vodárna">vodárna</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">15.2&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-115"></span>
-                                    &nbsp;<a href="/vodarenska-vez-vodarna" title="vodárna">vodárna</a>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-sv-michala-svrkyne" title="kostel sv. Michala">kostel sv. Michala</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">15.3&nbsp;km&nbsp;</div>
@@ -2077,13 +2121,18 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">15.6&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-2"></span>
+                                    &nbsp;<a href="/tvrz-neprobylice-hradek-horni-tvrz" title="Neprobylice">Neprobylice</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">15.6&nbsp;km&nbsp;</div>
                                     <span class="hi hi-110"></span>
                                     &nbsp;<a href="/kostel-sv-klimenta-murykliment" title="kostel sv. Klimenta">kostel sv. Klimenta</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">15.6&nbsp;km&nbsp;</div>
+                                    <div class="MenuListMistaDist">15.7&nbsp;km&nbsp;</div>
                                     <span class="hi hi-2"></span>
-                                    &nbsp;<a href="/tvrz-neprobylice-hradek-horni-tvrz" title="Neprobylice">Neprobylice</a>
+                                    &nbsp;<a href="/tvrz-neprobylice-dolni-tvrz" title="Neprobylice">Neprobylice</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">15.7&nbsp;km&nbsp;</div>
@@ -2094,11 +2143,6 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">15.7&nbsp;km&nbsp;</div>
                                     <span class="hi hi-112"></span>
                                     &nbsp;<a href="/zvonice-neprobylice-kladno" title="zvonice">zvonice</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">15.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-2"></span>
-                                    &nbsp;<a href="/tvrz-neprobylice-dolni-tvrz" title="Neprobylice">Neprobylice</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">15.9&nbsp;km&nbsp;</div>
@@ -2127,13 +2171,13 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">16.1&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-15"></span>
-                                    &nbsp;<a href="/pomnik-pamatnik-rodny-domek-vitezslava-halka" title="rodný domek Vítězslava Hálka">rodný domek Vítězslava Hálka</a>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaplicka-bysen-kladno" title="kaplička">kaplička</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">16.1&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaplicka-bysen-kladno" title="kaplička">kaplička</a>
+                                    <span class="hi hi-15"></span>
+                                    &nbsp;<a href="/pomnik-pamatnik-rodny-domek-vitezslava-halka" title="rodný domek Vítězslava Hálka">rodný domek Vítězslava Hálka</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">16.3&nbsp;km&nbsp;</div>
@@ -2157,6 +2201,11 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">16.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-vodni-elektrarna" title="vodní elektrárna">vodní elektrárna</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">16.7&nbsp;km&nbsp;</div>
                                     <span class="hi hi-2"></span>
                                     &nbsp;<a href="/tvrz-drasty-praha-vychod" title="Drasty">Drasty</a>
                                 </div>
@@ -2166,19 +2215,14 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/hradiste-poplze" title="Poplze">Poplze</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">16.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-18"></span>
-                                    &nbsp;<a href="/technicka-pamatka-vodni-elektrarna" title="vodní elektrárna">vodní elektrárna</a>
+                                    <div class="MenuListMistaDist">16.8&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaplicka-u-cesty-do-turan" title="kaplička">kaplička</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">16.8&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
                                     &nbsp;<a href="/kaple-sv-vaclava-rez" title="kaple sv. Václava">kaple sv. Václava</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">16.8&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaplicka-u-cesty-do-turan" title="kaplička">kaplička</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">16.9&nbsp;km&nbsp;</div>
@@ -2212,6 +2256,11 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">17.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-pivovar-libochovice" title="pivovar">pivovar</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">17.5&nbsp;km&nbsp;</div>
                                     <span class="hi hi-119"></span>
                                     &nbsp;<a href="/socha-sv-jana-nepomuckeho-libochovice" title="socha sv. Jana Nepomuckého">socha sv. Jana Nepomuckého</a>
                                 </div>
@@ -2219,16 +2268,6 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">17.5&nbsp;km&nbsp;</div>
                                     <span class="hi hi-119"></span>
                                     &nbsp;<a href="/sochy-pod-libochovickym-zamkem" title="sochy pod libochovickým zámkem">sochy pod libochovickým zámkem</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">17.5&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-18"></span>
-                                    &nbsp;<a href="/technicka-pamatka-pivovar-libochovice" title="pivovar">pivovar</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">17.6&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-15"></span>
-                                    &nbsp;<a href="/pomnik-pamatnik-pomnik-j-e-purkyne" title="pomník J. E. Purkyně">pomník J. E. Purkyně</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">17.6&nbsp;km&nbsp;</div>
@@ -2246,14 +2285,9 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/zamek-libochovice-litomerice" title="Libochovice">Libochovice</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">17.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-narozeni-svateho-jana-krtitele" title="kaple Narození svatého Jana Křtitele">kaple Narození svatého Jana Křtitele</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">17.7&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-motycin-kladno-svermov" title="kaple">kaple</a>
+                                    <div class="MenuListMistaDist">17.6&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-15"></span>
+                                    &nbsp;<a href="/pomnik-pamatnik-pomnik-j-e-purkyne" title="pomník J. E. Purkyně">pomník J. E. Purkyně</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">17.7&nbsp;km&nbsp;</div>
@@ -2276,14 +2310,14 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/zamek-panenske-brezany" title="Panenské Břežany">Panenské Břežany</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">17.8&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-18"></span>
-                                    &nbsp;<a href="/technicka-pamatka-solnice" title="solnice">solnice</a>
+                                    <div class="MenuListMistaDist">17.7&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-narozeni-svateho-jana-krtitele" title="kaple Narození svatého Jana Křtitele">kaple Narození svatého Jana Křtitele</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">17.8&nbsp;km&nbsp;</div>
+                                    <div class="MenuListMistaDist">17.7&nbsp;km&nbsp;</div>
                                     <span class="hi hi-111"></span>
-                                    &nbsp;<a href="/kaple-sv-anny-panenske-brezany" title="kaple sv. Anny">kaple sv. Anny</a>
+                                    &nbsp;<a href="/kaple-motycin-kladno-svermov" title="kaple">kaple</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">17.8&nbsp;km&nbsp;</div>
@@ -2307,18 +2341,23 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">17.8&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/socha-sv-jana-nepomuckeho-panenske-brezany" title="socha sv. Jana Nepomuckého">socha sv. Jana Nepomuckého</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">17.8&nbsp;km&nbsp;</div>
                                     <span class="hi hi-3"></span>
                                     &nbsp;<a href="/zamek-panenske-brezany-dolni-zamek" title="Panenské Břežany">Panenské Břežany</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">17.8&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-119"></span>
-                                    &nbsp;<a href="/socha-sv-jana-nepomuckeho-panenske-brezany" title="socha sv. Jana Nepomuckého">socha sv. Jana Nepomuckého</a>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-solnice" title="solnice">solnice</a>
                                 </div>
 <div>
-                                    <div class="MenuListMistaDist">17.9&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-17"></span>
-                                    &nbsp;<a href="/hradiste-levy-hradec" title="Levý Hradec">Levý Hradec</a>
+                                    <div class="MenuListMistaDist">17.8&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-sv-anny-panenske-brezany" title="kaple sv. Anny">kaple sv. Anny</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">17.9&nbsp;km&nbsp;</div>
@@ -2326,9 +2365,19 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/kostel-sv-klimenta-levy-hradec" title="kostel sv. Klimenta">kostel sv. Klimenta</a>
                                 </div>
 <div>
+                                    <div class="MenuListMistaDist">17.9&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-17"></span>
+                                    &nbsp;<a href="/hradiste-levy-hradec" title="Levý Hradec">Levý Hradec</a>
+                                </div>
+<div>
                                     <div class="MenuListMistaDist">18.0&nbsp;km&nbsp;</div>
                                     <span class="hi hi-119"></span>
                                     &nbsp;<a href="/socha-sv-vaclava-libochovice" title="socha sv. Václava">socha sv. Václava</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">18.2&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-110"></span>
+                                    &nbsp;<a href="/kostel-sv-vavrince-libochovice" title="kostel sv. Vavřince">kostel sv. Vavřince</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">18.2&nbsp;km&nbsp;</div>
@@ -2339,11 +2388,6 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">18.2&nbsp;km&nbsp;</div>
                                     <span class="hi hi-110"></span>
                                     &nbsp;<a href="/kostel-nanebevzeti-panny-marie-chotesov" title="kostel Nanebevzetí Panny Marie">kostel Nanebevzetí Panny Marie</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">18.2&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-110"></span>
-                                    &nbsp;<a href="/kostel-sv-vavrince-libochovice" title="kostel sv. Vavřince">kostel sv. Vavřince</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">18.4&nbsp;km&nbsp;</div>
@@ -2382,11 +2426,6 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">19.1&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-18"></span>
-                                    &nbsp;<a href="/technicka-pamatka-pansky-pivovar-smecno" title="panský pivovar">panský pivovar</a>
-                                </div>
-<div>
-                                    <div class="MenuListMistaDist">19.1&nbsp;km&nbsp;</div>
                                     <span class="hi hi-20"></span>
                                     &nbsp;<a href="/palac-dum-dekanstvi-smecno" title="děkanství">děkanství</a>
                                 </div>
@@ -2411,6 +2450,11 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/zamek-smecno-kladno" title="Smečno">Smečno</a>
                                 </div>
 <div>
+                                    <div class="MenuListMistaDist">19.1&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-pansky-pivovar-smecno" title="panský pivovar">panský pivovar</a>
+                                </div>
+<div>
                                     <div class="MenuListMistaDist">19.2&nbsp;km&nbsp;</div>
                                     <span class="hi hi-119"></span>
                                     &nbsp;<a href="/pametni-obelisk-jaroslava-bority-z-martinic" title="pamětní obelisk Jaroslava Bořity z Martinic">pamětní obelisk Jaroslava Bořity z Martinic</a>
@@ -2422,13 +2466,13 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">19.3&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-16"></span>
-                                    &nbsp;<a href="/pevnost-bunkr-bunkr-lo-vz-37-a-341b2-80z" title="bunkr LO vz. 37 A-3/41/B2-80Z">bunkr LO vz. 37 A-3/41/B2-80Z</a>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-sypka" title="sýpka">sýpka</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">19.3&nbsp;km&nbsp;</div>
-                                    <span class="hi hi-18"></span>
-                                    &nbsp;<a href="/technicka-pamatka-sypka" title="sýpka">sýpka</a>
+                                    <span class="hi hi-16"></span>
+                                    &nbsp;<a href="/pevnost-bunkr-bunkr-lo-vz-37-a-341b2-80z" title="bunkr LO vz. 37 A-3/41/B2-80Z">bunkr LO vz. 37 A-3/41/B2-80Z</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">19.7&nbsp;km&nbsp;</div>
@@ -2478,98 +2522,125 @@ input::placeholder, textarea::placeholder {
                         <a href="index.php?editOID=11862" class="btn btn-success">Upravit, vložit informace</a>
             </div>
     </div>
-
-
-
-
-    
 </div>
+
+
+
+
 <div class="container"> <!-- second block -->
     <div class="row display-flex">
-        <div class="col-md-8">
-            <h3>Články</h3>
-          <hr class="article-hr" /><div class="card mb-3" style="border: none; margin-left: 10px;">
-	<div class="row no-gutters">
-		<div class="col-md-4">
-			<a href="/clanky/po-stopach-troskovy-trilogie-slunce-seno" class="title_article_link">
-				<img src="/data_g/voxpic/2346/3628.800r.jpg" class="card-img" alt="Dům s jelenem v Hošticích">
-			</a>
-		</div>
-		<div class="col-md-8">
-			<div class="card-body-title" style="margin-top: 0;">
-				<a href="/clanky/po-stopach-troskovy-trilogie-slunce-seno" class="title_articlex ">
-					<h5 class="card-title" >Po stopách Troškovy trilogie Slunce, seno...</h5>
-				</a>
-				<small class="text-muted"><a href="/clanky/zajimavosti" target="_top">Zajímavosti</a> | Dana Kaiserová | 24.6.2024</small>
-				<p class="card-text">Kdo by neznal tři úžasné díly filmu Slunce, seno.... Natáčení probíhalo v jihočeských Hošticích a okolních vesnicích. Nejvíce míst, která se v&hellip; </p>
+        <div class="col-md-12">
 
-			</div>
-		</div>
-	</div>
-</div><hr class="article-hr" /><div class="card mb-3" style="border: none; margin-left: 10px;">
-	<div class="row no-gutters">
-		<div class="col-md-4">
-			<a href="/clanky/kam-na-vylet-ve-zlinskem-kraji-cast-viii" class="title_article_link">
-				<img src="/data_g/voxpic/2519/4772.800r.jpg" class="card-img" alt="">
-			</a>
-		</div>
-		<div class="col-md-8">
-			<div class="card-body-title" style="margin-top: 0;">
-				<a href="/clanky/kam-na-vylet-ve-zlinskem-kraji-cast-viii" class="title_articlex ">
-					<h5 class="card-title" >Kam na výlet ve Zlínském kraji - část VIII.</h5>
-				</a>
-				<small class="text-muted"><a href="/clanky/vylety" target="_top">Výlety</a> | Tereza Jámborová | 23.6.2024</small>
-				<p class="card-text">Zlínský kraj je posetý zámky, jež kdysi bývaly hrady. Čas a pohodlí však šly kupředu, a tak většina šlechticů z hradů odešla nebo je předělala na&hellip; </p>
 
-			</div>
-		</div>
-	</div>
-</div><hr class="article-hr" /><div class="card mb-3" style="border: none; margin-left: 10px;">
-	<div class="row no-gutters">
-		<div class="col-md-4">
-			<a href="/clanky/kam-na-vylet-ve-zlinskem-kraji-cast-iv" class="title_article_link">
-				<img src="/data_g/voxpic/2389/3908.800r.jpg" class="card-img" alt="Arcibiskupský zámek">
-			</a>
-		</div>
-		<div class="col-md-8">
-			<div class="card-body-title" style="margin-top: 0;">
-				<a href="/clanky/kam-na-vylet-ve-zlinskem-kraji-cast-iv" class="title_articlex ">
-					<h5 class="card-title" >Kam na výlet ve Zlínském kraji - část IV.</h5>
-				</a>
-				<small class="text-muted"><a href="/clanky/vylety" target="_top">Výlety</a> | Tereza Jámborová | 21.6.2024</small>
-				<p class="card-text">Kroměřížsko, region plný nejen kulturních, ale i přírodních památek. Zámky se svými zahradami a parky, hrady a zříceniny schované v lesích i na&hellip; </p>
 
-			</div>
-		</div>
-	</div>
-</div><hr class="article-hr" /><div class="card mb-3" style="border: none; margin-left: 10px;">
-	<div class="row no-gutters">
-		<div class="col-md-4">
-			<a href="/clanky/skalni-brana-u-ralska-podoba-se-te-pravcicke" class="title_article_link">
-				<img src="/data_g/voxpic/2312/3460.800r.jpg" class="card-img" alt="Skalní brána u Ralska">
-			</a>
-		</div>
-		<div class="col-md-8">
-			<div class="card-body-title" style="margin-top: 0;">
-				<a href="/clanky/skalni-brana-u-ralska-podoba-se-te-pravcicke" class="title_articlex ">
-					<h5 class="card-title" >Skalní brána u Ralska - podobá se té Pravčické?</h5>
-				</a>
-				<small class="text-muted"><a href="/clanky/zajimavosti" target="_top">Zajímavosti</a> | Dana Kaiserová | 19.6.2024</small>
-				<p class="card-text">Když se vysloví sousloví skalní brána, asi většina z nás si vybaví Pravčickou bránu v českém Švýcarsku. V Čechách je více skalních bran. Ačkoli&hellip; </p>
 
-			</div>
-		</div>
-	</div>
-</div>        <div class="text-center">
-              <div id="ssp-zone-123547"></div>
-              <div id="ssp-zone-123557"></div>
-          </div>
+          <h3>A další sakrální památky v okolí</h3><div class="card-group title-card">
+		<div class="card">
+        <div class="card-image">
+        <span class="zapisnikAdd hi hi-heart-o" data-oid="11982" mode="add"
+            data-toggle="tooltip"
+            title="Vložit do oblíbených"
+            data-placement="left"></span> 
+        <a href="/kaplicka-dolni-kamenice">
+            <img src="./data_g/11982/143974.r.jpg" class="card-img-top" alt="kaplička">
+        </a>
         </div>
 
+        <div class="card-body">
+            <a href="/kaplicka-dolni-kamenice">
+                <h2 class="card-title">kaplička</h2>
+                <p class="card-text d-sm-none d-md-block"></p>
+            </a>
+        </div><div class="card-footer">
+            <small class="text-muted"><a href="/mapa//kaplicka-dolni-kamenice" style="color:#707070"><span class="hi hi-map-point"></span>  1.4 km</a></small>
+      		  </div></div>
+		<div class="card">
+        <div class="card-image">
+        <span class="zapisnikAdd hi hi-heart-o" data-oid="12002" mode="add"
+            data-toggle="tooltip"
+            title="Vložit do oblíbených"
+            data-placement="left"></span> 
+        <a href="/kaple-sv-petra-pavla">
+            <img src="./data_g/12002/144261.r.jpg" class="card-img-top" alt="kaple sv. Petra Pavla">
+        </a>
+        </div>
 
-        <div class="col-md-4 sticky-wrapper">
+        <div class="card-body">
+            <a href="/kaple-sv-petra-pavla">
+                <h2 class="card-title">kaple sv. Petra Pavla</h2>
+                <p class="card-text d-sm-none d-md-block"></p>
+            </a>
+        </div><div class="card-footer">
+            <small class="text-muted"><a href="/mapa//kaple-sv-petra-pavla" style="color:#707070"><span class="hi hi-map-point"></span>  2.4 km</a></small>
+      		  </div></div>
+		<div class="card">
+        <div class="card-image">
+        <span class="zapisnikAdd hi hi-heart-o" data-oid="11875" mode="add"
+            data-toggle="tooltip"
+            title="Vložit do oblíbených"
+            data-placement="left"></span> 
+        <a href="/kaple-sv-linharta">
+            <img src="./data_g/11875/141522.r.jpg" class="card-img-top" alt="kaple sv. Linharta">
+        </a>
+        </div>
 
-			<h4>Naposledy navštívené</h4>
+        <div class="card-body">
+            <a href="/kaple-sv-linharta">
+                <h2 class="card-title">kaple sv. Linharta</h2>
+                <p class="card-text d-sm-none d-md-block"></p>
+            </a>
+        </div><div class="card-footer">
+            <small class="text-muted"><a href="/mapa//kaple-sv-linharta" style="color:#707070"><span class="hi hi-map-point"></span>  2.4 km</a></small>
+      		  </div></div>
+		<div class="card">
+        <div class="card-image">
+        <span class="zapisnikAdd hi hi-heart-o" data-oid="13782" mode="add"
+            data-toggle="tooltip"
+            title="Vložit do oblíbených"
+            data-placement="left"></span> 
+        <a href="/socha-panny-marie-cernuc">
+            <img src="./data_g/13782/181569.r.jpg" class="card-img-top" alt="socha Panny Marie">
+        </a>
+        </div>
+
+        <div class="card-body">
+            <a href="/socha-panny-marie-cernuc">
+                <h2 class="card-title">socha Panny Marie</h2>
+                <p class="card-text d-sm-none d-md-block"></p>
+            </a>
+        </div><div class="card-footer">
+            <small class="text-muted"><a href="/mapa//socha-panny-marie-cernuc" style="color:#707070"><span class="hi hi-map-point"></span>  2.5 km</a></small>
+      		  </div></div>
+		<div class="card">
+        <div class="card-image">
+        <span class="zapisnikAdd hi hi-heart-o" data-oid="3554" mode="add"
+            data-toggle="tooltip"
+            title="Vložit do oblíbených"
+            data-placement="left"></span> 
+        <a href="/mariansky-sloup-velvary">
+            <img src="./data_g/3554/117295.r.jpg" class="card-img-top" alt="mariánský sloup">
+        </a>
+        </div>
+
+        <div class="card-body">
+            <a href="/mariansky-sloup-velvary">
+                <h2 class="card-title">mariánský sloup</h2>
+                <p class="card-text d-sm-none d-md-block"></p>
+            </a>
+        </div><div class="card-footer">
+            <small class="text-muted"><a href="/mapa//mariansky-sloup-velvary" style="color:#707070"><span class="hi hi-map-point"></span>  2.6 km</a></small>
+      		  </div></div></div>        <div class="text-center">
+              <div id="ssp-zone-123547"></div>
+              <div id="ssp-zone-123557"></div>
+        </div>
+      </div>
+    </div>
+
+ 		<div class="row display-flex">
+      <div class="col-md-8">
+      	      </div>
+		  <div class="col-md-4 sticky-wrapper">
+				<h4>Naposledy navštívené</h4>
             <div class="well">
               	<div style="max-height: 200px; overflow: auto; scrollbar-width: thin;">
 		 		<a href="/kaple-nanebevzeti-panny-marie-miletice" title="kaple Nanebevzetí Panny Marie"><span class="hi hi-111"></span> kaple Nanebevzetí Panny Marie</a><br>              </div>
@@ -2586,6 +2657,11 @@ input::placeholder, textarea::placeholder {
 <style>
 #pageModal{
 
+}
+
+
+h2.card-title{
+	font-size: 80%;
 }
 
      .timeLine {
@@ -2928,21 +3004,21 @@ $("document").ready(function(){
 })    */
 
 //css ikona mista
-var cssIconMisto = "hi hi-111";
-var center = SMap.Coords.fromWGS84(14.23541500, 50.30551900);
+//var cssIconMisto = "hi hi-111";
+//var center = SMap.Coords.fromWGS84(14.23541500, 50.30551900);
 //var center = SMap.Coords.fromWGS84(14.41790, 50.12655);
-var m = new SMap(JAK.gel("mapa"), center, 13);
-m.addDefaultLayer(SMap.DEF_BASE).enable();
+//var m = new SMap(JAK.gel("mapa"), center, 13);
+//m.addDefaultLayer(SMap.DEF_BASE).enable();
 
 //vlozit ikonu do mapy
-var layer = new SMap.Layer.Marker();
+/*var layer = new SMap.Layer.Marker();
 m.addLayer(layer);
 layer.enable();
 var znacka = JAK.mel("div");
 znacka.innerHTML = "<span class='"+cssIconMisto+" hi-vyrazne mapIcons'></span>";
 var marker = new SMap.Marker(m.getCenter(), null, {url:znacka});
 layer.addMarker(marker);
-
+	*/
 
 
 
@@ -3120,10 +3196,12 @@ function printPlace(code) {
                     <li><a href="/historicke-pohlednice">Historické pohledice</a></li>
                     <li><a href="/video_archiv">Video archiv</a></li>
                     <li><br></li>
-					<li><a href="/adv-off">Vypnout reklamy</a></li>
+										<li><a href="/mince">Stříbrná pamětní mice 25let </a></li>
+										<li><a href="https://sedlacek.hrady.cz" target="_blank">August Sedláček, Hrady, zámky a tvrze </a></li>
+										<li><a href="/adv-off">Vypnout reklamy</a></li>
                     <li><a href="/extmapa">Mapa pro vaše stránky</a></li>
                     <!--li><a href="/index.php?p=main_info_share">Poskytování informací</a></li-->
-                    <li><a href="/konupek">Jna Konůpek - soutěž</a></li>
+										<li><a href="/konupek">Jna Konůpek - soutěž</a></li>
                     <li><a href="/ubytovani">Kontrola přiřazení ubytování</a></li>
                 </ul>
 
@@ -3138,6 +3216,7 @@ function printPlace(code) {
                     <li><a href="/index.php?p=main_propagace" title="Propagace serveru">Propagujte server</a></li>
                     <li><a href="/statistiky" title="Statistiky serveru">Statistiky serveru</a></li>
                     <li><a href="/index.php?p=kontakt" title="Kontakt">Kontakt</a></li>
+                    <li><a href="#" id="open-cmp-btn">Spravovat souhlas s nastavením osobních údajů</a> </li>
                 </ul>
             </div>
             <div class="col-md-3">
@@ -3156,7 +3235,7 @@ function printPlace(code) {
         </div>
 
         <div class="text-right" style="color: #DEDEDE;">
-                    © <a href="index.php?p=main_copyright">Copyright</a> 1995-2024 Hrady.cz (Jiří Čížek), <strong>ISSN 1803-0076</strong><br>        </div>
+                    © <a href="index.php?p=main_copyright">Copyright</a> 1995(1998)-2025 Hrady.cz (Jiří Čížek), <strong>ISSN 1803-0076</strong><br>        </div>
 
     <div class="text-center hidden">
 
@@ -3188,7 +3267,7 @@ function printPlace(code) {
      color: #FFFFFF;
  }
 
-</style><script src="/js/js.zapisnik.js?ver=071146"></script>
+</style><script src="/js/js.zapisnik.js?ver=102602"></script>
 
 <!-- Modal login window-->
 <div class="modal fade" id="loginBox" role="dialog">
@@ -3333,7 +3412,8 @@ img.media-object{
 <!-- hrady -->
 <script src="/js/js.help.js"></script>
 <script src="/js/hrady_all.js?ver=2"></script>
-<script src="/js/blockadblock.js?ver=2"></script>
+<!--script src="/js/blockadblock.js?ver=2"></script-->
+
 <script type="text/javascript" src="/js/fastsimple.js"></script>
 
   <script>
@@ -3393,21 +3473,23 @@ $(document).ready(function(){
                     $(divElmnt).load( value.advJsBlock );
 
                 }else{
-                    //jinak interni reklama
+                    //jinak pokud je interni reklama
                     //podle extenze vkladame html emelement
                     //pokud mp4 tak jinak
-                    var ext = value.url.substr(value.url.length - 3);
-                    //console.log ("extenze " + ext);
-                    var advTag = '<img src="'+value.url+'" alt="'+value.name+'" style="width:99%">';
-                    if (ext == 'mp4'){
+										if (value.url){
+                    	var ext = value.url.substr(value.url.length - 3);
+                    	//console.log ("extenze " + ext);
+                    	var advTag = '<img src="'+value.url+'" alt="'+value.name+'" style="width:99%">';
+                    	if (ext == 'mp4'){
                         advTag = '<video autoplay loop width="300"><source src="'+value.url+'" type="video/mp4">Your browser does not support the video tag.</video> ';
-                    }
-                    var banner = '<a href="advredir.php?aid='+value.aid+'" target="_blank">'+advTag+'</a>';
-                    var divElmnt = "#"+i;
-					//console.log("plnime DIV element: " + divElmnt);
-                    $(divElmnt).html(banner);
-					//jne pokud podstrana tak show
-					$(divElmnt).show(100);
+                    	}
+                    	var banner = '<a href="advredir.php?aid='+value.aid+'" target="_blank">'+advTag+'</a>';
+                    	var divElmnt = "#"+i;
+											//console.log("plnime DIV element: " + divElmnt);
+                    	$(divElmnt).html(banner);
+                      //jne pokud podstrana tak show
+											$(divElmnt).show(100);
+										}
                }
 
             });
@@ -3421,6 +3503,7 @@ $(document).ready(function(){
 
 <script>
 // Function called if AdBlock is detected
+/*
 if(typeof blockAdBlock === 'undefined') {
 	//adBlockDetected();
     console.log('------------------------------------------------------------\nAdBlock is enabled');
@@ -3436,6 +3519,24 @@ if(typeof blockAdBlock === 'undefined') {
 function adBlockDetected() {
 	console.log('------------------------------------------------------------\nAdBlock is enabled');
 }
+*/
+</script>
+
+
+<script>
+  sssp.config({webId: 40722})
+  addEventListener('load', (event) => {
+    //scmp.open();
+  });
+</script>
+
+
+<script>
+  document.getElementById('open-cmp-btn').addEventListener('click', function(event){
+    event.preventDefault();
+    event.stopPropagation();
+    //scmp.open();
+  })
 </script>
 
  </body>

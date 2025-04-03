@@ -13,7 +13,7 @@
   <meta name="ROBOTS" content="index, follow" />
   <meta name="verify-v1" content="QSjl1bwVrvMIEIlvbFrcrTmjvWT5a3T51T9d8rj0t8Y=" />
   <meta name="resource-type" content="document" />
-  <meta name="description" lang="cs" content="Čertovy hlavy. Ojedinělá památka romantismu vytvořil v pískovcových masivech v letech 1841-1846 sochař V áclav Levý. Vol..." />
+  <meta name="description" lang="cs" content="Čertovy hlavy, Želízy Čertovy hlavy. Ojedinělá památka romantismu vytvořil v pískovcových masivech v letech 1841-1846 so..." />
   <!-- RSS mista a clanky -->
   <link rel="alternate" type="application/rss+xml" title="Hrady.cz -nová místa" href="http://rss.hrady.cz" />
   <link rel="alternate" type="application/rss+xml" title="Hrady.cz -články serveru" href="https://www.hrady.cz/feed_seznam_generator.php" />
@@ -38,12 +38,10 @@
    <!-- next css/js in page -->
 <!-- JSON-LD -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Place","name":"\u010certovy hlavy","alternateName":"\u017del\u00edzy","additionalType":"ostatn\u00ed","geo":{"@type":"GeoCoordinates","latitude":"50.42054000","longitude":"14.46440500"},"url":"https://www.hrady.cz/kraj-stredocesky","description":"Ojedin\u011bl\u00e1 pam\u00e1tka romantismu vytvo\u0159il v p\u00edskovcov\u00fdch masivech v letech 1841-1846 socha\u0159 V \u00e1clav Lev\u00fd. Voln\u011b p\u0159\u00edstupn\u00e9, obrovsk\u00e9, dev\u011bt metr\u016f vysok\u00e9 skaln\u00ed bloky, dotvo\u0159en\u00e9 do podoby dvou hlav zvan\u00fdch \u010certov\u00fdmi hlavami.","image":{"@type":"ImageObject","caption":"\u010certovy hlavy","author":"\u00a9 V\u00e1clav \u010cerm\u00e1k, 06/2008","url":"https://www.hrady.cz/data_g/5046/86471.800.jpg","height":640,"width":800}}
+{"@context":"https://schema.org","@type":"Place","name":"\u010certovy hlavy, \u017del\u00edzy \u010certovy hlavy","alternateName":"\u017del\u00edzy","additionalType":"ostatn\u00ed","geo":{"@type":"GeoCoordinates","latitude":"50.42054000","longitude":"14.46440500"},"url":"https://www.hrady.cz/kraj-stredocesky","description":"Ojedin\u011bl\u00e1 pam\u00e1tka romantismu vytvo\u0159il v p\u00edskovcov\u00fdch masivech v letech 1841-1846 socha\u0159 V \u00e1clav Lev\u00fd. Voln\u011b p\u0159\u00edstupn\u00e9, obrovsk\u00e9, dev\u011bt metr\u016f vysok\u00e9 skaln\u00ed bloky, dotvo\u0159en\u00e9 do podoby dvou hlav zvan\u00fdch \u010certov\u00fdmi hlavami.","image":{"@type":"ImageObject","caption":"\u010certovy hlavy","author":"\u00a9 Dita Kacerovsk\u00e1, 02/2007","url":"https://www.hrady.cz/data_g/5046/43017.800.jpg","height":640,"width":800}}
 </script>
 <link rel="stylesheet" href="/css/css-oid.css" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="/css/hrady_new.css">
-
-
 <!-- sada ikon FA-->
 <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css" />
 
@@ -62,45 +60,22 @@
 </script>
 
 <link rel="stylesheet" type="text/css" href="/css/fastsimple.css" />
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8297851691976478" crossorigin="anonymous"></script>        <!-- font pro clanky na titl -->
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&display=swap" rel="stylesheet">
-<!-- Seznam Mapy 20190806, odchod od google maps-->
-<script src="https://api.mapy.cz/loader.js"></script>
-<script>Loader.load(null, {suggest: true})</script>
-<style>
-    #hrady-main-body::after { background-image: url("/img/bg-cimburk.jpg");}
-</style>
-<!-- Global site tag (gtag.js) - Google Analytics nasazeno 29/09/2020 -->
-<!--script async src="https://www.googletagmanager.com/gtag/js?id=UA-1811054-1"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8297851691976478" crossorigin="anonymous"></script>      <!-- font pro clanky na titl -->
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&display=swap" rel="stylesheet">
+			<style>
+			    #hrady-main-body::after { background-image: url("/img/bg-gustejn.jpg");}
+			</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZRQ684H6R1"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-1811054-1');
-</script-->
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-<!-- Google tag (gtag.js) 21/09/2022-->
-<!--script async src="https://www.googletagmanager.com/gtag/js?id=G-ZRQ684H6R1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-ZRQ684H6R1');
-</script-->
-
-
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1811054-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-1811054-1');
+    gtag('config', 'G-ZRQ684H6R1');
 </script>
-
+<script src="https://ssp.seznam.cz/static/js/ssp.js"></script>
 </head>
 <body id="hrady-main-body">
 <style>
@@ -144,7 +119,7 @@
                 role="search" >
                 <div class="input-group">
                     <input type="text" id=top_searchWord name="searchWord"  placeholder="Hledat"
-                           class="form-control form-control-lg" type="search"/>
+                           class="form-control form-control-lg" />
                     <div class="input-group-append" id="button-addon4">
                         <button class="btn btn-success btn-lg"
                            type="submit"><i class="hi hi-search"></i></button>
@@ -248,8 +223,6 @@ function googleTranslateElementInit() {
   <ul class="nav nav-tabs">
      <li class="nav-item">
         <a class="nav-link active" href="/certovy-hlavy-zelizy/"><span class="hi hi-99"></span></a>
-    </li><li class="nav-item">
-        <a class="nav-link" href="/certovy-hlavy-zelizy/mapa">Mapa</a>
     </li><li class="nav-item">
         <a class="nav-link" href="/certovy-hlavy-zelizy/komentare">Komentáře</a>
     </li><li class="nav-item">
@@ -505,9 +478,10 @@ input::placeholder, textarea::placeholder {
 
 
 
-                          <div class="thumbMapa">
-                <a href="/certovy-hlavy-zelizy/mapa" title="Ukaž místo na mapě" >
-                    <div id="mapa" style="height:250px; width:100%; z-index: 0;"></div>
+                          <div class="thumbMapa" style="position:relative;">
+								<a href="/mapa/certovy-hlavy-zelizy" title="Ukaž místo na mapě" >
+                    <img src="https://api.mapy.cz/v1/static/map?lat=50.42054000&lon=14.46440500&zoom=14&height=250&width=350&mapset=outdoor&apikey=6yUTjRyCEoPGucx-Q6so3csQMfi8It2BNFdY_Vyjgso" style="height:250px; width:100%; z-index: 0;">
+                    <i class="hi hi-99 hi-vyrazne mapIcons"  style="position: absolute; top:45%; left:45%;"></i>
                 </a>
               </div>
 
@@ -556,6 +530,11 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">2.3&nbsp;km&nbsp;</div>
                                     <span class="hi hi-15"></span>
                                     &nbsp;<a href="/pomnik-pamatnik-kamenny-milnik" title="kamenný milník">kamenný milník</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">2.9&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-105"></span>
+                                    &nbsp;<a href="/rozhledna-vyhlidka-straznice" title="vyhlídka Strážnice">vyhlídka Strážnice</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">2.9&nbsp;km&nbsp;</div>
@@ -624,6 +603,11 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">6.2&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-sypka-brocno" title="sýpka">sýpka</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">6.2&nbsp;km&nbsp;</div>
                                     <span class="hi hi-1"></span>
                                     &nbsp;<a href="/hrad-stary-zamek" title="Starý zámek">Starý zámek</a>
                                 </div>
@@ -631,6 +615,16 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">6.2&nbsp;km&nbsp;</div>
                                     <span class="hi hi-116"></span>
                                     &nbsp;<a href="/zamek-brocno-litomerice" title="Brocno">Brocno</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">6.3&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-sv-prokopa-brocno" title="kaple sv. Prokopa">kaple sv. Prokopa</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">6.3&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/socha-sv-prokopa-brocno" title="socha sv. Prokopa">socha sv. Prokopa</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">6.3&nbsp;km&nbsp;</div>
@@ -658,6 +652,16 @@ input::placeholder, textarea::placeholder {
                                     &nbsp;<a href="/hrad-klemperka-melnik" title="Klemperka">Klemperka</a>
                                 </div>
 <div>
+                                    <div class="MenuListMistaDist">6.9&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/mariansky-sloup-brocno" title="mariánský sloup">mariánský sloup</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">7.0&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/socha-sv-ludmily" title="socha sv. Ludmily">socha sv. Ludmily</a>
+                                </div>
+<div>
                                     <div class="MenuListMistaDist">7.0&nbsp;km&nbsp;</div>
                                     <span class="hi hi-3"></span>
                                     &nbsp;<a href="/zamek-neuberk-melnik" title="Neuberk">Neuberk</a>
@@ -666,6 +670,11 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">7.1&nbsp;km&nbsp;</div>
                                     <span class="hi hi-110"></span>
                                     &nbsp;<a href="/kostel-sv-linharta-citov" title="kostel sv. Linharta">kostel sv. Linharta</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">7.2&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-sv-antonina-paduanskeho-steti" title="kaple sv. Antonína Paduánského">kaple sv. Antonína Paduánského</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">7.2&nbsp;km&nbsp;</div>
@@ -681,6 +690,11 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">7.4&nbsp;km&nbsp;</div>
                                     <span class="hi hi-109"></span>
                                     &nbsp;<a href="/klaster-kapucinu-s-kostelem-ctrnacti-svatych-pomocniku" title="klášter kapucínů s kostelem Čtrnácti svatých pomocníků">klášter kapucínů s kostelem Čtrnácti svatých pomocníků</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">7.5&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/sochy-sv-jana-nepomuckeho" title="sochy sv. Jana Nepomuckého">sochy sv. Jana Nepomuckého</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">7.5&nbsp;km&nbsp;</div>
@@ -749,6 +763,11 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">7.8&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-nejsvetejsi-trojice-steti" title="kaple Nejsvětější Trojice">kaple Nejsvětější Trojice</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">7.8&nbsp;km&nbsp;</div>
                                     <span class="hi hi-20"></span>
                                     &nbsp;<a href="/palac-dum-myslivna" title="myslivna">myslivna</a>
                                 </div>
@@ -769,8 +788,18 @@ input::placeholder, textarea::placeholder {
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">7.9&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-119"></span>
+                                    &nbsp;<a href="/socha-sv-floriana-radoun" title="socha sv. Floriána">socha sv. Floriána</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">7.9&nbsp;km&nbsp;</div>
                                     <span class="hi hi-1"></span>
                                     &nbsp;<a href="/hrad-kokorin-staraky" title="Kokořín-Staráky">Kokořín-Staráky</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">8.0&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-18"></span>
+                                    &nbsp;<a href="/technicka-pamatka-silnicni-a-zeleznicni-most" title="silniční a železniční most">silniční a železniční most</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">8.1&nbsp;km&nbsp;</div>
@@ -876,6 +905,11 @@ input::placeholder, textarea::placeholder {
                                     <div class="MenuListMistaDist">9.7&nbsp;km&nbsp;</div>
                                     <span class="hi hi-18"></span>
                                     &nbsp;<a href="/technicka-pamatka-zdymadlo-hadik" title="zdymadlo Hadík">zdymadlo Hadík</a>
+                                </div>
+<div>
+                                    <div class="MenuListMistaDist">9.8&nbsp;km&nbsp;</div>
+                                    <span class="hi hi-111"></span>
+                                    &nbsp;<a href="/kaple-sv-jana-a-pavla-cakovice" title="kaple sv. Jana a Pavla">kaple sv. Jana a Pavla</a>
                                 </div>
 <div>
                                     <div class="MenuListMistaDist">9.8&nbsp;km&nbsp;</div>
@@ -1615,98 +1649,125 @@ input::placeholder, textarea::placeholder {
                         <a href="index.php?editOID=5046" class="btn btn-success">Upravit, vložit informace</a>
             </div>
     </div>
-
-
-
-
-    
 </div>
+
+
+
+
 <div class="container"> <!-- second block -->
     <div class="row display-flex">
-        <div class="col-md-8">
-            <h3>Články</h3>
-          <hr class="article-hr" /><div class="card mb-3" style="border: none; margin-left: 10px;">
-	<div class="row no-gutters">
-		<div class="col-md-4">
-			<a href="/clanky/po-stopach-troskovy-trilogie-slunce-seno" class="title_article_link">
-				<img src="/data_g/voxpic/2346/3628.800r.jpg" class="card-img" alt="Dům s jelenem v Hošticích">
-			</a>
-		</div>
-		<div class="col-md-8">
-			<div class="card-body-title" style="margin-top: 0;">
-				<a href="/clanky/po-stopach-troskovy-trilogie-slunce-seno" class="title_articlex ">
-					<h5 class="card-title" >Po stopách Troškovy trilogie Slunce, seno...</h5>
-				</a>
-				<small class="text-muted"><a href="/clanky/zajimavosti" target="_top">Zajímavosti</a> | Dana Kaiserová | 24.6.2024</small>
-				<p class="card-text">Kdo by neznal tři úžasné díly filmu Slunce, seno.... Natáčení probíhalo v jihočeských Hošticích a okolních vesnicích. Nejvíce míst, která se v&hellip; </p>
+        <div class="col-md-12">
 
-			</div>
-		</div>
-	</div>
-</div><hr class="article-hr" /><div class="card mb-3" style="border: none; margin-left: 10px;">
-	<div class="row no-gutters">
-		<div class="col-md-4">
-			<a href="/clanky/kam-na-vylet-ve-zlinskem-kraji-cast-viii" class="title_article_link">
-				<img src="/data_g/voxpic/2519/4772.800r.jpg" class="card-img" alt="">
-			</a>
-		</div>
-		<div class="col-md-8">
-			<div class="card-body-title" style="margin-top: 0;">
-				<a href="/clanky/kam-na-vylet-ve-zlinskem-kraji-cast-viii" class="title_articlex ">
-					<h5 class="card-title" >Kam na výlet ve Zlínském kraji - část VIII.</h5>
-				</a>
-				<small class="text-muted"><a href="/clanky/vylety" target="_top">Výlety</a> | Tereza Jámborová | 23.6.2024</small>
-				<p class="card-text">Zlínský kraj je posetý zámky, jež kdysi bývaly hrady. Čas a pohodlí však šly kupředu, a tak většina šlechticů z hradů odešla nebo je předělala na&hellip; </p>
 
-			</div>
-		</div>
-	</div>
-</div><hr class="article-hr" /><div class="card mb-3" style="border: none; margin-left: 10px;">
-	<div class="row no-gutters">
-		<div class="col-md-4">
-			<a href="/clanky/kam-na-vylet-ve-zlinskem-kraji-cast-iv" class="title_article_link">
-				<img src="/data_g/voxpic/2389/3908.800r.jpg" class="card-img" alt="Arcibiskupský zámek">
-			</a>
-		</div>
-		<div class="col-md-8">
-			<div class="card-body-title" style="margin-top: 0;">
-				<a href="/clanky/kam-na-vylet-ve-zlinskem-kraji-cast-iv" class="title_articlex ">
-					<h5 class="card-title" >Kam na výlet ve Zlínském kraji - část IV.</h5>
-				</a>
-				<small class="text-muted"><a href="/clanky/vylety" target="_top">Výlety</a> | Tereza Jámborová | 21.6.2024</small>
-				<p class="card-text">Kroměřížsko, region plný nejen kulturních, ale i přírodních památek. Zámky se svými zahradami a parky, hrady a zříceniny schované v lesích i na&hellip; </p>
 
-			</div>
-		</div>
-	</div>
-</div><hr class="article-hr" /><div class="card mb-3" style="border: none; margin-left: 10px;">
-	<div class="row no-gutters">
-		<div class="col-md-4">
-			<a href="/clanky/skalni-brana-u-ralska-podoba-se-te-pravcicke" class="title_article_link">
-				<img src="/data_g/voxpic/2312/3460.800r.jpg" class="card-img" alt="Skalní brána u Ralska">
-			</a>
-		</div>
-		<div class="col-md-8">
-			<div class="card-body-title" style="margin-top: 0;">
-				<a href="/clanky/skalni-brana-u-ralska-podoba-se-te-pravcicke" class="title_articlex ">
-					<h5 class="card-title" >Skalní brána u Ralska - podobá se té Pravčické?</h5>
-				</a>
-				<small class="text-muted"><a href="/clanky/zajimavosti" target="_top">Zajímavosti</a> | Dana Kaiserová | 19.6.2024</small>
-				<p class="card-text">Když se vysloví sousloví skalní brána, asi většina z nás si vybaví Pravčickou bránu v českém Švýcarsku. V Čechách je více skalních bran. Ačkoli&hellip; </p>
 
-			</div>
-		</div>
-	</div>
-</div>        <div class="text-center">
-              <div id="ssp-zone-123547"></div>
-              <div id="ssp-zone-123557"></div>
-          </div>
+          <h3>A další ostatní v okolí</h3><div class="card-group title-card">
+		<div class="card">
+        <div class="card-image">
+        <span class="zapisnikAdd hi hi-heart-o" data-oid="8933" mode="add"
+            data-toggle="tooltip"
+            title="Vložit do oblíbených"
+            data-placement="left"></span> 
+        <a href="/had-tupadly-melnik">
+            <img src="./data_g/8933/93636.r.jpg" class="card-img-top" alt="Had">
+        </a>
         </div>
 
+        <div class="card-body">
+            <a href="/had-tupadly-melnik">
+                <h2 class="card-title">Had</h2>
+                <p class="card-text d-sm-none d-md-block"></p>
+            </a>
+        </div><div class="card-footer">
+            <small class="text-muted"><a href="/mapa//had-tupadly-melnik" style="color:#707070"><span class="hi hi-map-point"></span>  2.2 km</a></small>
+      		  </div></div>
+		<div class="card">
+        <div class="card-image">
+        <span class="zapisnikAdd hi hi-heart-o" data-oid="11685" mode="add"
+            data-toggle="tooltip"
+            title="Vložit do oblíbených"
+            data-placement="left"></span> 
+        <a href="/palac-dum-vila-karola">
+            <img src="./data_g/11685/136713.r.jpg" class="card-img-top" alt="vila Karola">
+        </a>
+        </div>
 
-        <div class="col-md-4 sticky-wrapper">
+        <div class="card-body">
+            <a href="/palac-dum-vila-karola">
+                <h2 class="card-title">vila Karola</h2>
+                <p class="card-text d-sm-none d-md-block"></p>
+            </a>
+        </div><div class="card-footer">
+            <small class="text-muted"><a href="/mapa//palac-dum-vila-karola" style="color:#707070"><span class="hi hi-map-point"></span>  7.5 km</a></small>
+      		  </div></div>
+		<div class="card">
+        <div class="card-image">
+        <span class="zapisnikAdd hi hi-heart-o" data-oid="2306" mode="add"
+            data-toggle="tooltip"
+            title="Vložit do oblíbených"
+            data-placement="left"></span> 
+        <a href="/brana-opevneni-hlaska">
+            <img src="./data_g/2306/6840.r.jpg" class="card-img-top" alt="Hláska">
+        </a>
+        </div>
 
-			<h4>Naposledy navštívené</h4>
+        <div class="card-body">
+            <a href="/brana-opevneni-hlaska">
+                <h2 class="card-title">Hláska</h2>
+                <p class="card-text d-sm-none d-md-block"></p>
+            </a>
+        </div><div class="card-footer">
+            <small class="text-muted"><a href="/mapa//brana-opevneni-hlaska" style="color:#707070"><span class="hi hi-map-point"></span>  7.6 km</a></small>
+      		  </div></div>
+		<div class="card">
+        <div class="card-image">
+        <span class="zapisnikAdd hi hi-heart-o" data-oid="2260" mode="add"
+            data-toggle="tooltip"
+            title="Vložit do oblíbených"
+            data-placement="left"></span> 
+        <a href="/brana-opevneni-prazska-brana-melnik">
+            <img src="./data_g/2260/6837.r.jpg" class="card-img-top" alt="Pražská brána">
+        </a>
+        </div>
+
+        <div class="card-body">
+            <a href="/brana-opevneni-prazska-brana-melnik">
+                <h2 class="card-title">Pražská brána</h2>
+                <p class="card-text d-sm-none d-md-block"></p>
+            </a>
+        </div><div class="card-footer">
+            <small class="text-muted"><a href="/mapa//brana-opevneni-prazska-brana-melnik" style="color:#707070"><span class="hi hi-map-point"></span>  7.6 km</a></small>
+      		  </div></div>
+		<div class="card">
+        <div class="card-image">
+        <span class="zapisnikAdd hi hi-heart-o" data-oid="2307" mode="add"
+            data-toggle="tooltip"
+            title="Vložit do oblíbených"
+            data-placement="left"></span> 
+        <a href="/stara-skola-melnik">
+            <img src="./data_g/2307/127572.r.jpg" class="card-img-top" alt="Stará škola">
+        </a>
+        </div>
+
+        <div class="card-body">
+            <a href="/stara-skola-melnik">
+                <h2 class="card-title">Stará škola</h2>
+                <p class="card-text d-sm-none d-md-block"></p>
+            </a>
+        </div><div class="card-footer">
+            <small class="text-muted"><a href="/mapa//stara-skola-melnik" style="color:#707070"><span class="hi hi-map-point"></span>  7.7 km</a></small>
+      		  </div></div></div>        <div class="text-center">
+              <div id="ssp-zone-123547"></div>
+              <div id="ssp-zone-123557"></div>
+        </div>
+      </div>
+    </div>
+
+ 		<div class="row display-flex">
+      <div class="col-md-8">
+      	      </div>
+		  <div class="col-md-4 sticky-wrapper">
+				<h4>Naposledy navštívené</h4>
             <div class="well">
               	<div style="max-height: 200px; overflow: auto; scrollbar-width: thin;">
 		 		<a href="/certovy-hlavy-zelizy" title="Čertovy hlavy"><span class="hi hi-99"></span> Čertovy hlavy</a><br>              </div>
@@ -1723,6 +1784,11 @@ input::placeholder, textarea::placeholder {
 <style>
 #pageModal{
 
+}
+
+
+h2.card-title{
+	font-size: 80%;
 }
 
      .timeLine {
@@ -2065,21 +2131,21 @@ $("document").ready(function(){
 })    */
 
 //css ikona mista
-var cssIconMisto = "hi hi-99";
-var center = SMap.Coords.fromWGS84(14.46440500, 50.42054000);
+//var cssIconMisto = "hi hi-99";
+//var center = SMap.Coords.fromWGS84(14.46440500, 50.42054000);
 //var center = SMap.Coords.fromWGS84(14.41790, 50.12655);
-var m = new SMap(JAK.gel("mapa"), center, 13);
-m.addDefaultLayer(SMap.DEF_BASE).enable();
+//var m = new SMap(JAK.gel("mapa"), center, 13);
+//m.addDefaultLayer(SMap.DEF_BASE).enable();
 
 //vlozit ikonu do mapy
-var layer = new SMap.Layer.Marker();
+/*var layer = new SMap.Layer.Marker();
 m.addLayer(layer);
 layer.enable();
 var znacka = JAK.mel("div");
 znacka.innerHTML = "<span class='"+cssIconMisto+" hi-vyrazne mapIcons'></span>";
 var marker = new SMap.Marker(m.getCenter(), null, {url:znacka});
 layer.addMarker(marker);
-
+	*/
 
 
 
@@ -2257,10 +2323,12 @@ function printPlace(code) {
                     <li><a href="/historicke-pohlednice">Historické pohledice</a></li>
                     <li><a href="/video_archiv">Video archiv</a></li>
                     <li><br></li>
-					<li><a href="/adv-off">Vypnout reklamy</a></li>
+										<li><a href="/mince">Stříbrná pamětní mice 25let </a></li>
+										<li><a href="https://sedlacek.hrady.cz" target="_blank">August Sedláček, Hrady, zámky a tvrze </a></li>
+										<li><a href="/adv-off">Vypnout reklamy</a></li>
                     <li><a href="/extmapa">Mapa pro vaše stránky</a></li>
                     <!--li><a href="/index.php?p=main_info_share">Poskytování informací</a></li-->
-                    <li><a href="/konupek">Jna Konůpek - soutěž</a></li>
+										<li><a href="/konupek">Jna Konůpek - soutěž</a></li>
                     <li><a href="/ubytovani">Kontrola přiřazení ubytování</a></li>
                 </ul>
 
@@ -2275,6 +2343,7 @@ function printPlace(code) {
                     <li><a href="/index.php?p=main_propagace" title="Propagace serveru">Propagujte server</a></li>
                     <li><a href="/statistiky" title="Statistiky serveru">Statistiky serveru</a></li>
                     <li><a href="/index.php?p=kontakt" title="Kontakt">Kontakt</a></li>
+                    <li><a href="#" id="open-cmp-btn">Spravovat souhlas s nastavením osobních údajů</a> </li>
                 </ul>
             </div>
             <div class="col-md-3">
@@ -2293,7 +2362,7 @@ function printPlace(code) {
         </div>
 
         <div class="text-right" style="color: #DEDEDE;">
-                    © <a href="index.php?p=main_copyright">Copyright</a> 1995-2024 Hrady.cz (Jiří Čížek), <strong>ISSN 1803-0076</strong><br>        </div>
+                    © <a href="index.php?p=main_copyright">Copyright</a> 1995(1998)-2025 Hrady.cz (Jiří Čížek), <strong>ISSN 1803-0076</strong><br>        </div>
 
     <div class="text-center hidden">
 
@@ -2325,7 +2394,7 @@ function printPlace(code) {
      color: #FFFFFF;
  }
 
-</style><script src="/js/js.zapisnik.js?ver=071146"></script>
+</style><script src="/js/js.zapisnik.js?ver=102601"></script>
 
 <!-- Modal login window-->
 <div class="modal fade" id="loginBox" role="dialog">
@@ -2470,7 +2539,8 @@ img.media-object{
 <!-- hrady -->
 <script src="/js/js.help.js"></script>
 <script src="/js/hrady_all.js?ver=2"></script>
-<script src="/js/blockadblock.js?ver=2"></script>
+<!--script src="/js/blockadblock.js?ver=2"></script-->
+
 <script type="text/javascript" src="/js/fastsimple.js"></script>
 
   <script>
@@ -2530,21 +2600,23 @@ $(document).ready(function(){
                     $(divElmnt).load( value.advJsBlock );
 
                 }else{
-                    //jinak interni reklama
+                    //jinak pokud je interni reklama
                     //podle extenze vkladame html emelement
                     //pokud mp4 tak jinak
-                    var ext = value.url.substr(value.url.length - 3);
-                    //console.log ("extenze " + ext);
-                    var advTag = '<img src="'+value.url+'" alt="'+value.name+'" style="width:99%">';
-                    if (ext == 'mp4'){
+										if (value.url){
+                    	var ext = value.url.substr(value.url.length - 3);
+                    	//console.log ("extenze " + ext);
+                    	var advTag = '<img src="'+value.url+'" alt="'+value.name+'" style="width:99%">';
+                    	if (ext == 'mp4'){
                         advTag = '<video autoplay loop width="300"><source src="'+value.url+'" type="video/mp4">Your browser does not support the video tag.</video> ';
-                    }
-                    var banner = '<a href="advredir.php?aid='+value.aid+'" target="_blank">'+advTag+'</a>';
-                    var divElmnt = "#"+i;
-					//console.log("plnime DIV element: " + divElmnt);
-                    $(divElmnt).html(banner);
-					//jne pokud podstrana tak show
-					$(divElmnt).show(100);
+                    	}
+                    	var banner = '<a href="advredir.php?aid='+value.aid+'" target="_blank">'+advTag+'</a>';
+                    	var divElmnt = "#"+i;
+											//console.log("plnime DIV element: " + divElmnt);
+                    	$(divElmnt).html(banner);
+                      //jne pokud podstrana tak show
+											$(divElmnt).show(100);
+										}
                }
 
             });
@@ -2558,6 +2630,7 @@ $(document).ready(function(){
 
 <script>
 // Function called if AdBlock is detected
+/*
 if(typeof blockAdBlock === 'undefined') {
 	//adBlockDetected();
     console.log('------------------------------------------------------------\nAdBlock is enabled');
@@ -2573,6 +2646,24 @@ if(typeof blockAdBlock === 'undefined') {
 function adBlockDetected() {
 	console.log('------------------------------------------------------------\nAdBlock is enabled');
 }
+*/
+</script>
+
+
+<script>
+  sssp.config({webId: 40722})
+  addEventListener('load', (event) => {
+    //scmp.open();
+  });
+</script>
+
+
+<script>
+  document.getElementById('open-cmp-btn').addEventListener('click', function(event){
+    event.preventDefault();
+    event.stopPropagation();
+    //scmp.open();
+  })
 </script>
 
  </body>

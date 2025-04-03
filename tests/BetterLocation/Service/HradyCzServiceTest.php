@@ -58,9 +58,9 @@ final class HradyCzServiceTest extends AbstractServiceTestCase
 	public static function processProvider(): array
 	{
 		return [
-			[[[50.420540, 14.464405, null, '<a href="https://www.hrady.cz/certovy-hlavy-zelizy">Hrady.cz Čertovy hlavy</a>']], 'https://www.hrady.cz/certovy-hlavy-zelizy'],
-			[[[50.306440, 14.288090, null, '<a href="https://www.hrady.cz/pevnost-bunkr-lo-vz-37-a-124az1z-vaha">Hrady.cz LO vz. 37 A-1/24a/Z1Z Váha</a>']], 'https://www.hrady.cz/pevnost-bunkr-lo-vz-37-a-124az1z-vaha'],
-			[[[50.305519, 14.235415, null, '<a href="https://www.hrady.cz/kaple-nanebevzeti-panny-marie-miletice/ubytovani">Hrady.cz</a> <a href="https://www.hrady.cz/kaple-nanebevzeti-panny-marie-miletice">kaple Nanebevzetí Panny Marie</a>']], 'https://www.hrady.cz/kaple-nanebevzeti-panny-marie-miletice/ubytovani'],
+			[[[50.420540, 14.464405, null, '<a href="https://www.hrady.cz/certovy-hlavy-zelizy">Hrady.cz Čertovy hlavy, Želízy Čertovy hlavy</a>']], 'https://www.hrady.cz/certovy-hlavy-zelizy'],
+			[[[50.306440, 14.288090, null, '<a href="https://www.hrady.cz/pevnost-bunkr-lo-vz-37-a-124az1z-vaha">Hrady.cz LO vz. 37 A-1/24a/Z1Z Váha, Sazená LO vz. 37 A-1/24a/Z1Z Váha</a>']], 'https://www.hrady.cz/pevnost-bunkr-lo-vz-37-a-124az1z-vaha'],
+			[[[50.305519, 14.235415, null, '<a href="https://www.hrady.cz/kaple-nanebevzeti-panny-marie-miletice/ubytovani">Hrady.cz</a> <a href="https://www.hrady.cz/kaple-nanebevzeti-panny-marie-miletice">kaple Nanebevzetí Panny Marie, Miletice kaple Nanebevzetí Panny Marie</a>']], 'https://www.hrady.cz/kaple-nanebevzeti-panny-marie-miletice/ubytovani'],
 		];
 	}
 
