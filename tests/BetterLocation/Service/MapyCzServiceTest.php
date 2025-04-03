@@ -70,7 +70,10 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 			[true, 'http://mapy.cz/zakladni?x=114.4508239&y=50.0695244&'],
 			[true, 'https://mapy.cz/?ma_x=15.278244&ma_y=49.691235'],
 			[true, 'https://mapy.cz/?ma_x=-115.278244&ma_y=-49.691235'],
+			'mapy.com default link' => [true, 'https://mapy.com/en/zakladni?x=13.8866508&y=50.0603764&z=9'],
+			'mapy.com haptic maps' => [true, 'https://hapticke.mapy.cz/?x=14.81028&y=49.52817&z=15&lang=en'],
 
+			[false, 'http://mapy.cz/'],
 			[false, 'http://mapy.cz/zemepisna?xx=14.4508239&y=50.0695244'],
 			[false, 'http://mapy.cz/zemepisna?y=50.0695244'],
 			[false, 'http://mapy.cz/zemepisna?x=50.0695244'],
@@ -84,6 +87,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 			[false, 'https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.0695244aaa&z=15'],
 			[false, 'https://mapy.cz/?ma_x=15.278244&ma_y=149.691235'],
 			[false, 'https://mapy.cz/?ma_x=-215.278244&ma_y=49.691235'],
+			[false, 'https://mapy.com/'],
 		];
 	}
 
@@ -98,6 +102,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 			[[[50.069524, 14.450824, MapyCzService::TYPE_MAP]], 'http://mapy.cz/zemepisna?x=14.4508239&y=50.0695244'],
 			[[[50.069524, 14.450824, MapyCzService::TYPE_MAP]], 'http://mapy.cz/textova?x=14.4508239&y=50.0695244'],
 			[[[50.000000, 14.000000, MapyCzService::TYPE_MAP]], 'http://mapy.cz/zemepisna?x=14&y=50'],
+			'mapy.com default link' => [[[50.0603764, 13.8866508, MapyCzService::TYPE_MAP]], 'https://mapy.com/en/zakladni?x=13.8866508&y=50.0603764&z=9'],
 		];
 	}
 
@@ -112,6 +117,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 			[true, 'https://en.mapy.cz/zakladni?source=coor&id=14.4508239,-50.0695244'],
 			[true, 'https://en.mapy.cz/zakladni?source=coor&id=-14.4508239,50.0695244'],
 			[true, 'https://en.mapy.cz/zakladni?source=coor&id=-14.4508239,-50.0695244'],
+			'mapy.com point at coordinates' => [true, 'https://mapy.com/en/turisticka?source=coor&id=14.540299245643524%2C49.577679153649974&x=14.5411120&y=49.5770548&z=19&ovl=8'],
 
 			[false, 'https://en.mapy.cz/zakladni?source=coor&id=14.4508239,50.0695244a'],
 			[false, 'https://en.mapy.cz/zakladni?source=coor&id=14.4508239a,50.0695244'],
@@ -132,6 +138,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 		return [
 			[true, 'https://en.mapy.cz/fotografie?sourcep=foto&idp=3255831'],
 			[true, 'https://en.mapy.cz/fotografie?x=14.4569172&y=49.2930016&z=16&q=bo%C5%BE%C3%AD%20muka&source=base&id=2273700&ds=2&sourcep=foto&idp=3255831'],
+			'mapy.com image of place' => [true, 'https://mapy.com/en/zakladni?source=base&id=2137432&gallery=1&x=14.8099400&y=49.5231500&z=15'],
 
 			[false, 'https://en.mapy.cz/fotografie?sourcep=foto'],
 			[false, 'https://en.mapy.cz/fotografie?idp=3255831'],
@@ -146,6 +153,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 			[[[49.295782, 14.447919, MapyCzService::TYPE_PHOTO], [49.292865, 14.466637, MapyCzService::TYPE_PLACE_ID]], 'https://en.mapy.cz/fotografie?x=14.4569172&y=49.2930016&z=16&q=bo%C5%BE%C3%AD%20muka&source=base&id=2273700&ds=2&sourcep=foto&idp=3255831'],
 			[[[50.209226, 15.832547, MapyCzService::TYPE_PHOTO]], 'https://en.mapy.cz/fotografie?sourcep=foto&idp=4769603'],
 			[[[50.209226, 15.832547, MapyCzService::TYPE_PHOTO], [49.295782, 14.447919, MapyCzService::TYPE_PLACE_COORDS]], 'https://en.mapy.cz/fotografie?x=15.8324297&y=50.2090275&z=19&q=49.295782%2C14.447919&source=coor&id=14.447919%2C49.295782&ds=1&sourcep=foto&idp=4769603'],
+			'mapy.com image of place' => [[[49.5318497, 14.8126764, MapyCzService::TYPE_PHOTO], [49.5318497, 14.8126764, MapyCzService::TYPE_PLACE_ID]], 'https://mapy.com/en/zakladni?source=base&id=2137432&gallery=1&sourcep=foto&idp=1291893&x=14.8099400&y=49.5231500&z=15'],
 		];
 	}
 
@@ -153,6 +161,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 	{
 		return [
 			[[[50.080658862378314, 14.436680347203437, MapyCzService::TYPE_SEARCH_COORDS]], 'https://mapy.cz?q=50.080658862378314%2C14.436680347203437'],
+			[[[50.080658862378314, 14.436680347203437, MapyCzService::TYPE_SEARCH_COORDS]], 'https://mapy.com?q=50.080658862378314%2C14.436680347203437'],
 		];
 	}
 
@@ -175,6 +184,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 			[[[7.731071, -80.551001, MapyCzService::TYPE_PLACE_COORDS]], 'https://en.mapy.cz/zakladni?x=-80.5308310&y=7.7192491&z=15&source=coor&id=-80.55100118168951%2C7.731071318967728'],
 			[[[65.608884, -168.088871, MapyCzService::TYPE_PLACE_COORDS]], 'https://en.mapy.cz/zakladni?x=-168.0916515&y=65.6066015&z=15&source=coor&id=-168.08887063564356%2C65.60888429109842'],
 			[[[-1.138011, 9.034823, MapyCzService::TYPE_PLACE_COORDS]], 'https://en.mapy.cz/zakladni?x=8.9726814&y=-1.2094073&z=11&source=coor&id=9.034822831066833%2C-1.1380111329277875'],
+			'mapy.com point at coordinates' => [[[49.5776792, 14.5402992, MapyCzService::TYPE_PLACE_COORDS]], 'https://mapy.com/en/turisticka?source=coor&id=14.540299245643524%2C49.577679153649974&x=14.5411120&y=49.5770548&z=19&ovl=8'],
 		];
 	}
 
@@ -183,8 +193,10 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 		return [
 			[[[50.069524, 14.450824, MapyCzService::TYPE_MAP]], 'https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15'],
 			[[[50.069524, 14.450824, MapyCzService::TYPE_MAP]], 'https://en.mapy.cz/zakladni?y=50.0695244&x=14.4508239&z=15'],
+			[[[50.069524, 14.450824, MapyCzService::TYPE_MAP]], 'https://mapy.com/zakladni?y=50.0695244&x=14.4508239&z=15'],
 
 			[[[49.691235, 15.278244, MapyCzService::TYPE_MAP_V2]], 'https://mapy.cz/?ma_x=15.278244&ma_y=49.691235'],
+			[[[49.691235, 15.278244, MapyCzService::TYPE_MAP_V2]], 'https://mapy.com/?ma_x=15.278244&ma_y=49.691235'],
 		];
 	}
 
@@ -200,6 +212,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 			[[[7.731071, -80.551001, MapyCzService::TYPE_PLACE_COORDS]], 'https://en.mapy.cz/s/godumokefu'],
 			[[[65.608884, -168.088871, MapyCzService::TYPE_PLACE_COORDS]], 'https://en.mapy.cz/s/nopovehuhu'],
 			[[[-1.138011, 9.034823, MapyCzService::TYPE_PLACE_COORDS]], 'https://en.mapy.cz/s/lozohefobu'],
+			[[[-1.138011, 9.034823, MapyCzService::TYPE_PLACE_COORDS]], 'https://mapy.com/s/judebusepu'],
 		];
 	}
 
@@ -240,6 +253,13 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 			],
 			// First neighbour of this panorama ID don't have original neighbour, so coordinates are little off (Original test using "get neighbour of neighbour" result was '50.078499,14.488475')
 			[[[50.078496, 14.488369, MapyCzService::TYPE_PANORAMA]], 'https://en.mapy.cz/zakladni?x=14.4883693&y=50.0784958&z=15&pano=1&pid=70254688&yaw=0.424&fov=1.257&pitch=0.088'],
+			'mapy.com streeetview' => [
+				[
+					[49.5778687, 14.5403717, MapyCzService::TYPE_PANORAMA],
+					[49.5779597505, 14.5404130797, MapyCzService::TYPE_PLACE_ID]
+				],
+				'https://mapy.com/en/turisticka?source=base&id=1920943&pid=92682479&newest=1&yaw=0.233&fov=0.234&pitch=0.152&x=14.5403717&y=49.5778687&z=19&ovl=8'
+			],
 		];
 	}
 
@@ -271,6 +291,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 			[[[54.766918, -101.873729, MapyCzService::TYPE_PLACE_ID]], 'https://en.mapy.cz/zakladni?x=-101.8754373&y=54.7693842&z=15&source=osm&id=1000536418'],
 			[[[-18.917167, 47.535756, MapyCzService::TYPE_PLACE_ID]], 'https://en.mapy.cz/zakladni?x=47.5323757&y=-18.9155159&z=16&source=osm&id=1040985945'],
 			[[[-45.870289, -67.507777, MapyCzService::TYPE_PLACE_ID]], 'https://en.mapy.cz/zakladni?x=-67.5159386&y=-45.8711989&z=15&source=osm&id=17164289'],
+			'mapy.com point at place' => [[[49.5318497, 14.8126764, MapyCzService::TYPE_PLACE_ID]], 'https://mapy.com/en/zakladni?source=base&id=2137432&x=14.8099400&y=49.5231500&z=15'],
 		];
 	}
 
@@ -291,6 +312,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 			//			$this->assertSame('-18.917167,47.535756', MapyCzServiceNew::processStatic('https://en.mapy.cz/s/maposedeso')->getFirst()->__toString());
 			[[[-18.917167, 47.535756, MapyCzService::TYPE_PLACE_ID]], 'https://en.mapy.cz/s/maposedeso'],
 			[[[-45.870289, -67.507777, MapyCzService::TYPE_PLACE_ID]], 'https://en.mapy.cz/s/robelevuja'],
+			'mapy.com point at place' => [[[49.5318497, 14.8126764, MapyCzService::TYPE_PLACE_ID]], 'https://mapy.com/s/casapototu'],
 		];
 	}
 
@@ -318,11 +340,13 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 			[true, 'https://mapy.cz?q=-50.0806%2C14.4366'],
 			[true, 'https://mapy.cz?q=50.0806%2C-14.4366'],
 			[true, 'https://mapy.cz?q=50.0806%2C114.4366'],
+			[true, 'https://mapy.com?q=50.0806%2C114.4366'],
 
 			[false, 'https://mapy.cz?q=hello%2C14.4366'],
 			[false, 'https://mapy.cz?q=50.0806%2Cworld'],
 			[false, 'https://mapy.cz?q=150.0806%2C14.4366'],
 			[false, 'https://mapy.cz?q=someSearchString'],
+			[false, 'https://mapy.com?q=someSearchString'],
 		];
 	}
 
@@ -350,8 +374,17 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 				'https://en.mapy.cz/letecka?vlastni-body&x=-76.8527877&y=20.8861373&z=4&ut=New%20%20POI&ut=New%20%20POI&uc=9fJgGxW.Hqq9U8G9AbhW&ud=49%C2%B055%2710.378%22N%2C%2013%C2%B046%2749.078%22E&ud=Kolumbie',
 			],
 
+			[
+				[
+					[49.919550, 13.780299, MapyCzService::TYPE_CUSTOM_POINT],
+					[0.270943, -70.173100, MapyCzService::TYPE_CUSTOM_POINT],
+				],
+				'https://mapy.com/letecka?vlastni-body&x=-76.8527877&y=20.8861373&z=4&ut=New%20%20POI&ut=New%20%20POI&uc=9fJgGxW.Hqq9U8G9AbhW&ud=49%C2%B055%2710.378%22N%2C%2013%C2%B046%2749.078%22E&ud=Kolumbie',
+			],
+
 			// Invalid encoded coordinates
 			[[], 'https://en.mapy.cz/turisticka?vlastni-body&uc=1'],
+			[[], 'https://mapy.com/turisticka?vlastni-body&uc=1'],
 		];
 	}
 
@@ -364,6 +397,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 			[[[50.069524, 14.450824, MapyCzService::TYPE_MAP]], 'https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=1234'],
 
 			[[], 'https://en.mapy.cz/zakladni?source=base&id=1234'],
+			[[], 'https://mapy.com/zakladni?source=base&id=1234'],
 
 			// Method is using constant from local config, which can't be changed, so "fake" place ID and put some non-numeric char there which is invalid and it will run fallback to X/Y
 			// @TODO refactor this to be able to run true tests
@@ -378,6 +412,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 	{
 		return [
 			[[[50.069524, 14.450824, MapyCzService::TYPE_MAP]], 'https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&source=coor&id=14.4508239,50.0695244aaa&z=15'],
+			[[[50.069524, 14.450824, MapyCzService::TYPE_MAP]], 'https://mapy.com/zakladni?x=14.4508239&y=50.0695244&source=coor&id=14.4508239,50.0695244aaa&z=15'],
 		];
 	}
 
