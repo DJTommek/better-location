@@ -15,6 +15,8 @@ final class ZniceneKostelyCzService extends AbstractService
 
 	const LINK = 'http://znicenekostely.cz';
 
+	private int $objectId;
+
 	public function __construct(
 		private readonly Requestor $requestor,
 	) {
@@ -22,18 +24,34 @@ final class ZniceneKostelyCzService extends AbstractService
 
 	public function validate(): bool
 	{
-		return (
-			$this->url &&
-			$this->url->getDomain(2) === 'znicenekostely.cz' &&
-			$this->url->getQueryParameter('load') === 'detail' &&
-			Strict::isPositiveInt($this->url->getQueryParameter('id'))
-		);
+		if ($this->url?->getDomain(2) !== 'znicenekostely.cz') {
+			return false;
+		}
+
+		// URLs format since year 2025, eg https://www.znicenekostely.cz/objekt/detail/8139
+		if (preg_match('/^\/objekt\/detail\/([0-9]+)/', $this->url->getPath(), $matches)) {
+			$this->objectId = (int)$matches[1];
+			return true;
+		}
+
+		// URL format before year 2025, eg http://www.znicenekostely.cz/?load=detail&id=18231
+		if ($this->url->getQueryParameter('load') !== 'detail') {
+			return false;
+		}
+		$objectId = $this->url->getQueryParameter('id');
+		if (Strict::isPositiveInt($objectId)) {
+			$this->objectId = (int)$objectId;
+			return true;
+		}
+
+		return false;
 	}
 
 	public function process(): void
 	{
-		$response = $this->requestor->get($this->url, Config::CACHE_TTL_ZNICENE_KOSTELY_CZ);
-		if (!preg_match('/WGS84 souřadnice objektu: ([0-9.]+)°N, ([0-9.]+)°E/', $response, $matches)) {
+		$url = $this->objectUrl($this->objectId);
+		$response = $this->requestor->get($url, Config::CACHE_TTL_ZNICENE_KOSTELY_CZ);
+		if (!preg_match('/WGS84 souřadnice objektu: <b>([0-9.]+)°N, ([0-9.]+)°E/', $response, $matches)) {
 			return;
 		}
 		$coords = CoordinatesImmutable::safe($matches[1], $matches[2]);
@@ -43,5 +61,10 @@ final class ZniceneKostelyCzService extends AbstractService
 
 		$location = new BetterLocation($this->inputUrl, $coords->lat, $coords->lon, self::class);
 		$this->collection->add($location);
+	}
+
+	private function objectUrl(int $objectId): string
+	{
+		return 'https://www.znicenekostely.cz/objekt/detail/' . $objectId;
 	}
 }
