@@ -27,22 +27,22 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 	protected function getShareLinks(): array
 	{
 		return [
-			'https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451',
-			'https://mapy.cz/zakladni?y=50.100000&x=14.500000&source=coor&id=14.500000%2C50.100000',
-			'https://mapy.cz/zakladni?y=-50.200000&x=14.600000&source=coor&id=14.600000%2C-50.200000',
-			'https://mapy.cz/zakladni?y=50.300000&x=-14.700001&source=coor&id=-14.700001%2C50.300000',
-			'https://mapy.cz/zakladni?y=-50.400000&x=-14.800008&source=coor&id=-14.800008%2C-50.400000',
+			'https://mapy.com/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451',
+			'https://mapy.com/zakladni?y=50.100000&x=14.500000&source=coor&id=14.500000%2C50.100000',
+			'https://mapy.com/zakladni?y=-50.200000&x=14.600000&source=coor&id=14.600000%2C-50.200000',
+			'https://mapy.com/zakladni?y=50.300000&x=-14.700001&source=coor&id=-14.700001%2C50.300000',
+			'https://mapy.com/zakladni?y=-50.400000&x=-14.800008&source=coor&id=-14.800008%2C-50.400000',
 		];
 	}
 
 	protected function getDriveLinks(): array
 	{
 		return [
-			'https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451',
-			'https://mapy.cz/zakladni?y=50.100000&x=14.500000&source=coor&id=14.500000%2C50.100000',
-			'https://mapy.cz/zakladni?y=-50.200000&x=14.600000&source=coor&id=14.600000%2C-50.200000',
-			'https://mapy.cz/zakladni?y=50.300000&x=-14.700001&source=coor&id=-14.700001%2C50.300000',
-			'https://mapy.cz/zakladni?y=-50.400000&x=-14.800008&source=coor&id=-14.800008%2C-50.400000',
+			'https://mapy.com/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451',
+			'https://mapy.com/zakladni?y=50.100000&x=14.500000&source=coor&id=14.500000%2C50.100000',
+			'https://mapy.com/zakladni?y=-50.200000&x=14.600000&source=coor&id=14.600000%2C-50.200000',
+			'https://mapy.com/zakladni?y=50.300000&x=-14.700001&source=coor&id=-14.700001%2C50.300000',
+			'https://mapy.com/zakladni?y=-50.400000&x=-14.800008&source=coor&id=-14.800008%2C-50.400000',
 		];
 
 	}
@@ -52,7 +52,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 		$collection = new BetterLocationCollection();
 		$collection->add(BetterLocation::fromLatLon(50.087451, 14.420671));
 		$collection->add(BetterLocation::fromLatLon(50.3, -14.7000009));
-		$this->assertSame('https://mapy.cz/zakladni?vlastni-body&uc=9hAK0xXxOKtSIx3xZH5y', MapyCzService::getShareCollectionLink($collection));
+		$this->assertSame('https://mapy.com/zakladni?vlastni-body&uc=9hAK0xXxOKtSIx3xZH5y', MapyCzService::getShareCollectionLink($collection));
 	}
 
 	public static function isValidMapProvider(): array
