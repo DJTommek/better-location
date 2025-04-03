@@ -5,6 +5,7 @@ namespace Tests\Google\StreetView;
 use App\Config;
 use App\Factory;
 use App\Google\StreetView\StaticApi;
+use DJTommek\Coordinates\CoordinatesInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -26,16 +27,18 @@ final class StaticApiTest extends TestCase
 	public function testLookup(): void
 	{
 		$result = self::$api->loadPanoaramaMetadataByCoords(50.087451, 14.420671);
-		$this->assertInstanceOf(\stdClass::class, $result);
+		$this->assertNotNull($result);
 		$this->assertSame('CAoSLEFGMVFpcE04SXAyM09fVmlDTHZXSk9MX29oWFNtU3ZGRVFpZ1hvN0VSR3Z0', $result->pano_id);
-		$this->assertSame(50.0874665, $result->location->lat);
-		$this->assertSame(14.4206834, $result->location->lng);
+		$this->assertInstanceOf(CoordinatesInterface::class, $result->location);
+		$this->assertSame(50.08746650987292, $result->location->lat);
+		$this->assertSame(14.42068342255011, $result->location->lon);
 
 		$result = self::$api->loadPanoaramaMetadataByCoords(-34.570368, -58.415685);
-		$this->assertInstanceOf(\stdClass::class, $result);
+		$this->assertNotNull($result);
 		$this->assertSame('5W1yriPMzz1yKJdN6AKXEw', $result->pano_id);
-		$this->assertSame(-34.57018683196506, $result->location->lat);
-		$this->assertSame(-58.4156017326442, $result->location->lng);
+		$this->assertInstanceOf(CoordinatesInterface::class, $result->location);
+		$this->assertSame(-34.57018089509875, $result->location->lat);
+		$this->assertSame(-58.41562184772004, $result->location->lon);
 
 		$result = self::$api->loadPanoaramaMetadataByCoords(55.123456, -31.123456);
 		$this->assertNull($result);
