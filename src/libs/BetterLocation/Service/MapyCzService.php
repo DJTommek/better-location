@@ -53,14 +53,16 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 
 	public function validate(): bool
 	{
-		return (
-			$this->url &&
-			$this->url->getDomain(2) === 'mapy.cz' &&
-			(
-				$this->isShortUrl() ||
-				$this->isNormalUrl()
-			)
-		);
+		if (!isset($this->url)) {
+			return false;
+		}
+
+		$domain = $this->url->getDomain(2);
+		if (in_array($domain, ['mapy.com', 'mapy.cz'], true) === false) {
+			return false;
+		}
+
+		return $this->isShortUrl() || $this->isNormalUrl();
 	}
 
 	public const TAGS = [

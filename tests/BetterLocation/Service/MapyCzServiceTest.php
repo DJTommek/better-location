@@ -262,7 +262,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 		return [
 			[[[50.073784, 14.422105, MapyCzService::TYPE_PLACE_ID]], 'https://en.mapy.cz/zakladni?x=14.4508239&y=50.0695244&z=15&source=base&id=2111676'],
 			[[[50.084007, 14.440339, MapyCzService::TYPE_PLACE_ID]], 'https://en.mapy.cz/zakladni?x=14.4527551&y=50.0750056&z=15&source=pubt&id=15308193'],
-			[[[50.084748, 14.454012, MapyCzService::TYPE_PLACE_ID]], 'https://mapy.cz/zakladni?x=14.4651576&y=50.0796325&z=15&source=firm&id=468797'],
+			[[[50.084748, 14.454010, MapyCzService::TYPE_PLACE_ID]], 'https://mapy.cz/zakladni?x=14.4651576&y=50.0796325&z=15&source=firm&id=468797'],
 			[[[49.993611, 14.205278, MapyCzService::TYPE_PLACE_ID]], 'https://en.mapy.cz/fotografie?x=14.2029782&y=49.9929235&z=17&source=foto&id=1080344'],
 			[[[50.106624, 14.366203, MapyCzService::TYPE_PLACE_ID]], 'https://en.mapy.cz/zakladni?x=14.3596717&y=50.0997874&z=15&source=base&id=1833337'], // area
 			// some other places than Czechia (source OSM)
@@ -282,7 +282,7 @@ final class MapyCzServiceTest extends AbstractServiceTestCase
 		return [
 			[[[50.533111, 16.155906, MapyCzService::TYPE_PLACE_ID]], 'https://en.mapy.cz/s/devevemoje'],
 			[[[50.084007, 14.440339, MapyCzService::TYPE_PLACE_ID]], 'https://en.mapy.cz/s/degogalazo'],
-			[[[50.084748, 14.454012, MapyCzService::TYPE_PLACE_ID]], 'https://en.mapy.cz/s/cavukepuba'],
+			[[[50.084748, 14.454010, MapyCzService::TYPE_PLACE_ID]], 'https://en.mapy.cz/s/cavukepuba'],
 			[[[50.106624, 14.366203, MapyCzService::TYPE_PLACE_ID]], 'https://en.mapy.cz/s/gesaperote'], // area
 			// some other places than Czechia (source OSM)
 			[[[49.444980, 11.109055, MapyCzService::TYPE_PLACE_ID]], 'https://en.mapy.cz/s/hozogeruvo'],

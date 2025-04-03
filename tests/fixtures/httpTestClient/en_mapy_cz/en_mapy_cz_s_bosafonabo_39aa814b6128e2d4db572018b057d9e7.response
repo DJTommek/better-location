@@ -13,104 +13,105 @@
 		-->
 		<meta charset="utf-8" />
 		<meta http-equiv="x-ua-compatible" content="ie=edge" />
-		<meta name="description" content="Nejpoužívanější mapový portál v ČR s celou řadou tématických map - základní, turistickou, cyklistickou, dopravní a plno dalších. Nabízí možnost reálného leteckého, panoramatického nebo 3D pohledu. Rozsáhlé množství obsahu, firem a turistických bodů zájmu. Umožňuje vyhledávání, plánování tras, měření a tvorbu vlastních značek." />
-		<meta name="keywords" content="Mapy, mapy online, mapa ČR, hrady a zámky mapa" />
+		<meta name="description" content="The Mapy.cz service is growing into a new portal, Mapy.com. It offers detailed search on maps of the entire world. It displays hiking trails, cycling paths, detailed maps of all cities and towns, and allows for route planning." />
+		<meta name="keywords" content="Maps, online maps, hiking map, cycling map, winter map, aerial map, world map, outdoor map, travel guide, trip planning" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<meta property="og:title" content="Mapy.cz" />
+		<meta property="og:title" content="Mapy.com" />
 		
-		<meta name="fragment" content="!" />
+		<meta name="fragment" content="!" /><meta name="apple-itunes-app" content="app-id=411411020" />
 
-		<meta name="msapplication-TileColor" content="#da532c" />
-		<meta name="msapplication-config" content="/browserconfig.xml?2.62.8">
-		<meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png?2.62.8">
-		<meta name="apple-itunes-app" content="app-id=411411020" />
+<link rel="mask-icon" href="/img/favicon/safari-pinned.svg" color="#1EAE00" />
+<meta name="theme-color" content="#1EAE00">
+<link rel="icon" type="image/png" href="/img/favicon/common/plain/favicon-16x16.png" sizes="16x16" id="favicon-16x16" />
+<link rel="icon" type="image/png" href="/img/favicon/common/plain/favicon-32x32.png" sizes="32x32" id="favicon-32x32" />
+<link rel="icon" type="image/png" href="/img/favicon/common/plain/favicon-96x96.png" sizes="96x96" id="favicon-96x96" />
+<link rel="shortcut icon" href="/img/favicon/common/plain/favicon.ico" id="favicon-ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/common/apple-touch-icon.png" id="favicon-apple" />
+<meta name="apple-mobile-web-app-title" content="Mapy.com" />
+<link rel="manifest" href="/img/favicon/common/manifest.webmanifest" crossorigin="use-credentials" id="favicon-manifest" />
 
-		<link rel="shortcut icon" type="image/x-icon" href="/img/favicon/favicon.ico?2.62.8" />
-		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png?2.62.8" />
-		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png?2.62.8" />
-		<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png?2.62.8" />
-		<link rel="manifest" href="/img/favicon/manifest.json?2.62.8">
-		<link rel="apple-touch-icon" sizes="192x192" href="/img/favicon/apple-icon.png?2.62.8" />
-		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png?2.62.8" />
-		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png?2.62.8" />
-		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png?2.62.8" />
-		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-icon-76x76.png?2.62.8" />
-		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-icon-114x114.png?2.62.8" />
-		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-icon-120x120.png?2.62.8" />
-		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-icon-144x144.png?2.62.8" />
-		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-icon-152x152.png?2.62.8" />
-		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-icon-180x180.png?2.62.8" />
-		<link rel="apple-touch-icon-precomposed" sizes="192x192" href="/img/favicon/apple-icon-precomposed.png?2.62.8" />
-		<link rel="mask-icon" href="/img/favicon/safari-pinned.svg" color="#29ac07" />
 
 		<meta name="format-detection" content="telephone=no" />
 
-		<meta name="theme-color" content="#29ac07">
-
 		
 
 		
 		
 		
 
-<meta property="og:image" content="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fen.mapy.cz%2Fzakladni%3Fx%3D14.3985113%26y%3D50.0696783%26z%3D15%26source%3Dcoor%26id%3D14.371989590930184%252C50.07788610486586%26p%3D3%26l%3D0&width=1200&height=630"/>
+<meta property="og:image" content="https://mapy.com/screenshoter?url=https%3A%2F%2Fmapy.com%2Fen%2Fzakladni%3Fx%3D14.3985113%26y%3D50.0696783%26z%3D15%26source%3Dcoor%26id%3D14.371989590930184%252C50.07788610486586%26p%3D3%26l%3D0&width=1200&height=630"/>
 
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 
-<link rel="image_src" type="image/png" href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fen.mapy.cz%2Fzakladni%3Fx%3D14.3985113%26y%3D50.0696783%26z%3D15%26source%3Dcoor%26id%3D14.371989590930184%252C50.07788610486586%26p%3D3%26l%3D0&width=1200&height=630" />
+<link rel="image_src" type="image/png" href="https://mapy.com/screenshoter?url=https%3A%2F%2Fmapy.com%2Fen%2Fzakladni%3Fx%3D14.3985113%26y%3D50.0696783%26z%3D15%26source%3Dcoor%26id%3D14.371989590930184%252C50.07788610486586%26p%3D3%26l%3D0&width=1200&height=630" />
 
 <meta name="twitter:card" content="photo">
-<meta name="twitter:url" content="https://en.mapy.cz/zakladni?x=14.3985113&amp;y=50.0696783&amp;z=15&amp;source=coor&amp;id=14.371989590930184%2C50.07788610486586">
+<meta name="twitter:url" content="https://mapy.com/en/zakladni?x=14.3985113&amp;y=50.0696783&amp;z=15&amp;source=coor&amp;id=14.371989590930184%2C50.07788610486586">
 
-<meta property="og:site_name" content="Mapy.cz"/>
-<meta property="og:description" content="Nejpoužívanější mapový portál v ČR s celou řadou tématických map - základní, turistickou, cyklistickou, dopravní a plno dalších. Nabízí možnost reálného leteckého, panoramatického nebo 3D pohledu. Rozsáhlé množství obsahu, firem a turistických bodů zájmu. Umožňuje vyhledávání, plánování tras, měření a tvorbu vlastních značek."/>
-<meta property="og:url" content="https://en.mapy.cz/zakladni?x=14.3985113&amp;y=50.0696783&amp;z=15&amp;source=coor&amp;id=14.371989590930184%2C50.07788610486586" />
+<meta property="og:site_name" content="Mapy.com"/>
+<meta property="og:description" content="Popular map portal covering whole world by wide range of maps - basic, outdoor (hiking/cycling), traffic, winter. It offers possibility of aerial and 3D view. Extensive amount of travel points of interest. Users are able to search places, plan routes, measure ground and create and share own content. Tourists worldwide use map portal for detailed hiking and cycling maps and extensive tourist guides."/>
+<meta property="og:url" content="https://mapy.com/en/zakladni?x=14.3985113&amp;y=50.0696783&amp;z=15&amp;source=coor&amp;id=14.371989590930184%2C50.07788610486586" />
 
 
 		<link rel="alternate" hreflang="cs" href="https://mapy.cz/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586">
-		<link rel="alternate" hreflang="en" href="https://en.mapy.cz/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586">
-		<link rel="alternate" hreflang="de" href="https://de.mapy.cz/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586">
-		<link rel="alternate" hreflang="sk" href="https://sk.mapy.cz/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586">
-		<link rel="alternate" hreflang="pl" href="https://pl.mapy.cz/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586">
-		<link rel="alternate" hreflang="x-default" href="https://mapy.cz/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586" />
+		<link rel="alternate" hreflang="en" href="https://mapy.com/en/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586">
+		<link rel="alternate" hreflang="de" href="https://mapy.com/de/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586">
+		<link rel="alternate" hreflang="sk" href="https://mapy.com/sk/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586">
+		<link rel="alternate" hreflang="pl" href="https://mapy.com/pl/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586">
+		<link rel="alternate" hreflang="it" href="https://mapy.com/it/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586">
+		<link rel="alternate" hreflang="ru" href="https://mapy.com/ru/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586">
+		<link rel="alternate" hreflang="uk" href="https://mapy.com/uk/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586">
+		<link rel="alternate" hreflang="x-default" href="https://mapy.com/en/zakladni?x=14.3985113&y=50.0696783&z=15&source=coor&id=14.371989590930184%2C50.07788610486586" />
 
 		<noscript>
-			<meta http-equiv="refresh" content="0; url=https://en.mapy.cz/zakladni?x=14.3985113&amp;y=50.0696783&amp;z=15&amp;source=coor&amp;id=14.371989590930184%2C50.07788610486586&amp;_escaped_fragment_=" />
+			<meta http-equiv="refresh" content="0; url=https://mapy.com/en/zakladni?x=14.3985113&amp;y=50.0696783&amp;z=15&amp;source=coor&amp;id=14.371989590930184%2C50.07788610486586&amp;_escaped_fragment_=" />
 		</noscript>
 		<meta name="szn:status" content="">
 
-		<title>Mapy.cz</title><script>
-	window.onerror = function(e) {
-		window.mapyTestFailed = true;
+		<title>Mapy.cz is moving to Mapy.com</title><script>
+	window.MapyConfig = {"lang":"en","filesVersion":"2.74.5","environment":"stable","inFrame":false,"printMode":0,"mapsets":[],"poiicons":null,"location":null,"locationMeta":null,"initialMap":{"lon":15.625233,"lat":49.8022514,"zoom":8},"isMapyczApp":0,"dontShowAndroidPromo":false,"history":{},"isEditorial":false,"authData":null,"initialMapset":"zakladni","mapSuppression":true,"initialOverlays":[],"map":null,"routeDefaultCriterion":0,"abCountry":"DE","mapserver":null,"cookiesExpiration":0,"TLD":"cz","jsCompress":true,"apiCompress":true,"apiUrl":"https://api.mapy.cz","DOMAIN":"mapy","BASE_DOMAIN":"mapy.com","BASE_COM_DOMAIN":"mapy.com","BASE_URL":"mapy.com/en","version":"2.74.5","mapiKey":"lg5ZalppPu2Npg_CNogecHAiRn7fFEY_Fumq7Ye4H28","UserwebSetting":{"userweb":{"firmDebug":0,"abTestsString":"","firmy-search-in-reviews":0,"actualDate":"","deepllang":"","newDetail":0,"badgeWCMapGreen":0,"routeNewHD":0,"grpcLocation":0,"grpcLocationDebug":0,"generalSharePosition":0,"wasm":0,"bookingLink":1,"reportLocalChanges":1,"photoBeautyScore":0,"photoBeautySort":0,"ribbon":0,"searchSponsored":0,"userSpeed":1,"userSpeedv2":1,"moreActivityTypes":1},"ribbon":{"enabled":0,"debug":0,"user":0},"search":{"showProfileQuality":0,"titleTextBlockWidth":125,"searchLimitOnPage":15,"searchLocationBBoxTolerance":0,"searchLimit":200,"searchViewport":0,"searchViewportBackend":0,"searchViewportTop":70,"searchViewportRight":12,"searchViewportBottom":58,"searchViewportLeft":12},"review":{"webcomponent":0},"route":{"anotherCriterion":1,"anotherPUBTCriterion":0,"anotherCriterionDebug":0,"azimuth":0,"datetimeForAll":0},"lang":{"franc":0,"spain":0,"italian":1},"mapybox":{"limitOnPage":50,"description":1,"noteV2":1,"pathTypes":1,"alwaysOnMap":0},"gallery":{"limit":100},"history":{"sid":1024},"user":{"premiumPay":1,"freemium":1,"premiumReport":1,"premiumProfile":1,"premiumCrowns":1,"premiumDashboard":1,"premiumHooray":1,"premiumNote":0},"editorial":{"interface":0}},"requestUrl":"https://pro.mapy.com","loginUrl":"https://login.mapy.com","authInterval":120000,"loadMapLoginTimeout":2000,"panoCompose":"//panorama-mapserver.mapy.cz/compose_pano","frameUrl":"https://en.frame.mapy.cz","loginLang":"en","mapsetsBlackList":["hapticka","atlas"],"mapsetsIDsMenuList":[1,2,21,7,3],"mapyURL":"https://mapy.com/en","urlData":"","Left3d":{"url":"https://mapserver-3d.mapy.cz/scenes/latest/mapConfig.json","allowed":1},"paddleToken":"","paddleEnvironment":"production","detectLang":"","geoConfig":{"x":60,"y":480,"mobileMinWidth":789},"ophotoTimeline":""};
+
+	window.MapyHead = {
+		isLegacy: !("isConnected" in Node.prototype),
 	};
-</script>
-<script>
-	(function() {
-		const fce = () => {};
-	})();
-</script>
-<script>
-	(function() {
-		function isLegacy() {
-			return !!window.mapyTestFailed || !("isConnected" in Node.prototype);
+
+	window.MapyHead.loadScript = function(src, crossorigin) {
+		return new Promise(resolve => {
+			const script = document.createElement("script");
+
+			script.src = src;
+			script.type = "text/javascript";
+			script.async = true;
+			script.onload = function() {
+				resolve();
+			};
+
+			if (crossorigin) {
+				script.setAttribute("crossorigin", "anonymous");
+			}
+
+			document.head.appendChild(script);
+		});
+	};
+
+	if (!MapyConfig.inFrame) {
+		window._sspDoNotInit = true;
+
+		if (!window.MapyHead.isLegacy) {
+			window.MapyHead.loadScript("https://c.seznam.cz/js/rc.js", true);
+			window.MapyHead.loadScript("https://ssp.seznam.cz/static/js/ssp.js", true);
 		}
-
-		// promenne
-		window.MapyIsLegacy = isLegacy();
-	})();
-
-	window.onerror = undefined;
+	}
 </script>
 
 		<script src="https://h.seznam.cz/js/dot-small.js" crossorigin></script>
 		<script>
-			var curLang = "en";
 			// geo lokace config
 			window.geoConfig = {
 				showDialogs: true,
 				// cs, en, uk
-				language: ["cs", "sk"].indexOf(curLang) === -1
+				language: ["cs", "sk"].indexOf("en") === -1
 					? "en"
 					: "cs",
 			};
@@ -124,147 +125,106 @@
 				});
 			}
 
-			// nacteni scriptu
-			var loadScript = function(src, cb, crossorigin) {
-				var script = document.createElement("script");
-
-				script.src = src;
-				script.type = "text/javascript";
-				script.async = true;
-				script.onload = function() {
-					cb && cb();
-				};
-
-				if (crossorigin) {
-					script.setAttribute("crossorigin", "");
-				}
-
-				document.head.appendChild(script);
-			};
+			// jazyk pro scmp-lite
+			window.cmpLanguage = "en";
 		</script>
 		
-		<script>
-			window._sspDoNotInit = true;
-
-			(function() {
-				if (!window.MapyIsLegacy) {
-					loadScript("https://c.seznam.cz/js/rc.js", undefined, true);
-					loadScript("https://ssp.seznam.cz/static/js/ssp.js", undefined, true);
-				}
-			})();
-		</script>
 		<script src="https://login.szn.cz/js/api/3/login.js" async crossorigin></script>
 		<script src="https://geo.seznam.cz/static/js/geo.js" async crossorigin></script>
-					<link rel="stylesheet" type="text/css" href="/css/main.2.62.8.css?s">
-			<link rel="stylesheet" type="text/css" media="print" href="/css/print.2.62.8.css?s">
-<script src="/js/lang-en.2.62.8.js?"></script>
+		<script src="https://h.seznam.cz/js/cmp2/scmp-lite.js" async crossorigin></script>
+					<link rel="stylesheet" type="text/css" href="/css/main.2.74.5.css?s">
+			<link rel="stylesheet" type="text/css" media="print" href="/css/print.2.74.5.css?s">
 
-<script>
-	(function() {
-		var compress =  true ;
-		var TLD = "cz";
-		var DOMAIN = "mapy";
-		var requestUrl = "https://pro.mapy.cz";
-		window.MapyConfig = {
-			version: "2.62.8",
-			jsCompress: compress,
-			apiUrl: "https://api.mapy.cz",
-			TLD: TLD,
-			DOMAIN: DOMAIN,
-			mapyURL: "https://" + (Userweb.defaultLang != "cs" ? Userweb.defaultLang + "." : "") + DOMAIN +"." + TLD,
-			frameUrl: "https://" + (Userweb.defaultLang != "cs" ? Userweb.defaultLang + "." : "") + "frame." + DOMAIN +"." + TLD,
-			requestUrl: requestUrl,
-			loginUrl: "https://login.mapy.cz",
-			media: requestUrl + "/mediarpc",
-			april19URL: "https://staredobre.mapy.cz",
-			authInterval: parseInt("120000", 10) || 120000,
-			loadMapLoginTimeout: parseInt("2000", 10) || 2000,
-			
-			inFrame: false,
-			UserwebSetting: JSON.parse('{"userweb":{"firmDebug":0,"abTestsString":"","firmy-search-in-reviews":0,"actualDate":"","deepllang":"","newDetail":0,"badgeWCMapGreen":0,"routeNewHD":0,"grpcLocation":0,"grpcLocationDebug":0,"generalSharePosition":0,"wasm":0,"bookingLink":1,"twinsReplaceId":1},"ribbon":{"enabled":0,"debug":0,"user":0},"search":{"showProfileQuality":0,"titleTextBlockWidth":125,"searchLimitOnPage":15,"searchLocationBBoxTolerance":0,"searchLimit":200,"searchViewport":0,"searchViewportBackend":0,"searchViewportTop":70,"searchViewportRight":12,"searchViewportBottom":58,"searchViewportLeft":12},"review":{"webcomponent":0},"route":{"anotherCriterion":0,"azimuth":0,"datetimeForAll":0},"lang":{"rusia":0,"franc":0,"spain":0,"italian":0},"mapybox":{"limitOnPage":50},"gallery":{"limit":100},"history":{"sid":1024},"editorial":{"interface":0}}'),
-			rating: parseFloat('0'),
-			filesVersion: "2.62.8",
-			environment: "stable",
-			initialMap: {
-				lon: 15.625233,
-				lat: 49.8022514,
-				zoom: 8,
-			},
-			initialMapset: "zakladni",
-			mapSuppression: true,
-			userHistory: {},
-			mapsets: [],
-			mapsetsIDsMenuList: [1,2,21,7,3],
-			mapsetsBlackList: ["hapticka","atlas"],
-			
-			
-			
-			
-				dontShowAndroidPromo: 0,
-			
-			abCountry: "DE",
-		};
-		// config pro grpc, geo lokace [m]
-		window.GEO_CONFIG = {
-			x: 60,
-			y: 60 * 8,
-		};
-
-		MapyConfig.Left3d = {
-	url: "https://mapserver-3d.mapy.cz/scenes/latest/mapConfig.json",
-	allowed:1
-};
-
-
-		// hlavni callback pro userweb js
-		var loadCb = function() {
-			
-			if (window.geo) {
-				geo.conf.showDialogs = true;
-			}
-			
-
-			if ("login" in window) {
-				const loginCFG = {
-					serviceId: "mapy",
-					lang: ["cs", "sk", "de", "uk"].indexOf(Userweb.defaultLang) > -1 ? Userweb.defaultLang : "en",
-					onDebugChange: show => {
-						Mapy.getComponent("profile").checkDebug(show);
-					},
-				};
-
-				if (window.MapyConfigBE?.abTest?.flags.includes("login")) {
-					loginCFG.test = `${window.MapyConfigBE?.abTest.flags}_DE`;
+		<script src="/js/lang-en.2.74.5.js?"></script><script>
+	function loadApi() {
+		return new Promise(resolve => {
+			window.MapyHead.loadScript("https://api.mapy.cz/v5/loader.js", true).then(() => {
+				if (!window.MapyConfig.apiCompress) {
+					Loader.mode = "multi";
 				}
 
-				login.cfg(loginCFG);
-			}
+				Loader.async = true;
+				// nastavime jazyk do api
+				Loader.lang = Userweb.defaultLang;
+				// nacteme async soubory s api
+				Loader.load(null, { poi:true, pano:true, suggest: true }, function() {
+					// TODO potom odebrat, az bude komplet prechod hotovy
+					SMap.CONFIG.mapyczDomain = "https://mapy.com/en";
+					SMap.CONFIG.mapyUrl.route = "https://mapy.com/en/?planovani-trasy";
+					resolve();
+				});
+			});
+		});
+	};
 
-			SMap.CONFIG.pano.compose = "//panorama-mapserver.mapy.cz/compose_pano";
+	function loadMapData() {
+		return new Promise(resolve => {
+			let grpc = false;
 
-			
-
-
-			
-			(function() {
-	window.addEventListener("load", function() {
-		Mapy.showAndroidAppPromotion();
-	});
-})();
-
-			
-
+			// klikatko - kdyz je nastavene, hrabeme do kese
 			try {
-				Mapy.init().then(function() {
-				
-				}, function() {});
+				const userwebConfigSettings = sessionStorage.getItem("UserwebConfigSettings");
+
+				if (userwebConfigSettings) {
+					const json = JSON.parse(userwebConfigSettings);
+
+					grpc = json.userweb?.grpcLocation === 1 || json.userweb?.grpcLocationDebug === 1;
+				}
 			} catch (exc) {
-				console.log("Init exception");
-				console.log(exc);
 			}
 
+			// pro responzive
+			const mobile = window.innerWidth <= window.MapyConfig.geoConfig.mobileMinWidth;
+			const usp = new URLSearchParams();
+			const curUsp = new URLSearchParams(location.search);
+			const country = curUsp.get("custom-country") || "";
 
-			<!-- GEMIUS --><!-- analytika si po nacteni upravi pp_gemius_identifier - prida na zacatek USED_, my to chceme volat bez, proto se bude pouzivat promenna s velkymi pismeny -->
+			usp.append("lang", Userweb.defaultLang);
+			usp.append("grpc", grpc ? 1 : 0);
+			usp.append("mobile", mobile ? 1 : 0);
+			// minuty - upravy
+			usp.append("x", window.MapyConfig.geoConfig.x);
+			usp.append("y", window.MapyConfig.geoConfig.y);
+
+			if (country) {
+				usp.append("country", country);
+			}
+
+			fetch(`/mapLoad?${usp.toString()}`).then(response => {
+				response.json().then(json => {
+					resolve(json);
+				}, () => resolve(null));
+			}, () => resolve(null));
+		});
+	};
+
+	if (window.MapyHead.isLegacy) {
+		const legacySrc = "/js/ie11-banner.2.74.5.js?" + (window.MapyConfig.jsCompress ? "" : Math.random());
+
+		window.MapyHead.loadScript(legacySrc).then(() => {
+			if (window.MapyczIE11Banner) {
+				MapyczIE11Banner.config({
+					enabled: true,
+					variant: 3,
+					lang: "en",
+					force: true,
+					styleUrl: "/css/ie11-banner.2.74.5.css",
+				});
+			}
+		});
+	} else {
+		const userwebSrc = `/js/userweb.2.74.5.js?${window.MapyConfig.jsCompress ? "" : Math.random()}`;
+
+		Promise.allSettled([
+			loadMapData().then(mapData => {
+				window.MapyConfigBE = mapData;
+			}, () => {}),
+			loadApi(),
+		]).then(() => {
+			window.MapyHead.loadScript(userwebSrc).then(() => {
+				// spustime aplikaci
+				Mapy.runApp();
+				<!-- analytika si po nacteni upravi pp_gemius_identifier - prida na zacatek USED_, my to chceme volat bez, proto se bude pouzivat promenna s velkymi pismeny -->
 
 	window.PP_GEMIUS_IDENTIFIER = "ofVA4j_YDzfC81mdmfx2KMVHfeC1heOUDvVvHfpn10..H7";
 
@@ -283,117 +243,20 @@ gt.setAttribute('async','async'); gt.setAttribute('defer','defer');
 gt.src=location.protocol+'//gacz.hit.gemius.pl/xgemius.js';
 s.parentNode.insertBefore(gt,s);} catch (e) {}})(document,'script');
 
-		};
-
-		// nacteme async api
-		if (window.MapyIsLegacy) {
-			var legacySrc = "/js/ie11-banner.2.62.8.js?" + (compress ? "" : Math.random());
-
-			loadScript(legacySrc, function() {
-				if (window.MapyczIE11Banner) {
-					MapyczIE11Banner.config({
-						enabled: true,
-						variant: 3,
-						lang: "en",
-						force: true,
-						styleUrl: "/css/ie11-banner.2.62.8.css",
-					});
-				}
+				
+			}, () => {
+				// nenacetl se userweb
 			});
-		} else {
-			function loadScriptProm(src, crossorigin) {
-				return new Promise(resolve => {
-					const script = document.createElement("script");
+		});
+	}
 
-					script.src = src;
-					script.type = "text/javascript";
-					script.async = true;
-					script.onload = function() {
-						resolve();
-					};
-
-					if (crossorigin) {
-						script.setAttribute("crossorigin", "");
-					}
-
-					document.head.appendChild(script);
-				});
-			}
-
-			function loadApi() {
-				return new Promise(resolve => {
-					loadScriptProm("https://api.mapy.cz/v5/loader.js", true).then(() => {
-						
-						Loader.async = true;
-						// nastavime jazyk do api
-						Loader.lang = Userweb.defaultLang;
-						// nacteme async soubory s api
-						Loader.load(null, { poi:true, pano:true, suggest: true }, function() {
-							resolve();
-						});
-					});
-				});
-			}
-
-			function loadMapData() {
-				return new Promise(resolve => {
-					let grpc = false;
-
-					// klikatko - kdyz je nastavene, hrabeme do kese
-					try {
-						const userwebConfigSettings = sessionStorage.getItem("UserwebConfigSettings");
-
-						if (userwebConfigSettings) {
-							const json = JSON.parse(userwebConfigSettings);
-
-							grpc = json.userweb?.grpcLocation === 1 || json.userweb?.grpcLocationDebug === 1;
-						}
-					} catch (exc) {
-					}
-
-					// pro responzive
-					const mobile = window.innerWidth <= 789;
-					const usp = new URLSearchParams();
-
-					usp.append("lang", Userweb.defaultLang);
-					usp.append("grpc", grpc ? 1 : 0);
-					usp.append("mobile", mobile ? 1 : 0);
-					// minuty - upravy
-					usp.append("x", GEO_CONFIG.x);
-					usp.append("y", GEO_CONFIG.y);
-
-					fetch(`/mapLoad?${usp.toString()}`).then(response => {
-						response.json().then(json => {
-							resolve(json);
-						}, () => resolve(null));
-					}, () => resolve(null));
-				});
-			}
-
-			const userwebSrc = `/js/userweb.2.62.8.js?${compress ? "" : Math.random()}`;
-
-			Promise.allSettled([
-				loadMapData().then(mapData => {
-					window.MapyConfigBE = mapData;
-				}, () => {}),
-				loadApi(),
-			]).then(() => {
-				loadScriptProm(userwebSrc).then(() => {
-					loadCb();
-				}, () => {
-					// nenacetl se userweb
-				});
-			});
-		}
-
-		// ! zakazani nacitani scmp pres ssp.js
-		window._sspDoNotLoadCMP = true;
-	})();
+	// ! zakazani nacitani scmp pres ssp.js
+	window._sspDoNotLoadCMP = true;
 </script>
 
 
 
-		<link rel="search" type="application/opensearchdescription+xml" title="Mapy.cz" href="/opensearch-mapycz.xml" />
+		<link rel="search" type="application/opensearchdescription+xml" title="Mapy.com" href="/opensearch-mapycom.xml" />
 	</head>
 	<body>
 		<div id="mapycz">
