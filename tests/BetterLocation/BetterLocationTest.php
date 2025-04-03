@@ -79,7 +79,7 @@ final class BetterLocationTest extends TestCase
 			$this->assertInstanceOf(Telegram\Types\Inline\Keyboard\Button::class, $button);
 		}
 		$this->assertCount(2, $buttons);
-		$this->assertSame('Mapy.cz 🚗', $buttons[0]->text);
+		$this->assertSame('Mapy.com 🚗', $buttons[0]->text);
 		$this->assertSame('https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451', $buttons[0]->url);
 
 		$this->assertSame('Google 🚗', $buttons[1]->text);

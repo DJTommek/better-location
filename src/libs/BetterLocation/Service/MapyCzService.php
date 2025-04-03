@@ -24,7 +24,7 @@ use Tracy\Debugger;
 final class MapyCzService extends AbstractService implements ShareCollectionLinkInterface
 {
 	const ID = 8;
-	const NAME = 'Mapy.cz';
+	const NAME = 'Mapy.com';
 	const LINK = 'https://mapy.cz';
 
 	const TYPE_MAP_V2 = 'Map center';
