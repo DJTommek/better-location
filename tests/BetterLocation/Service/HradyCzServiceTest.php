@@ -84,10 +84,10 @@ final class HradyCzServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 * @dataProvider processProvider
 	 */
-	public function testProcessReal(float $expectedLat, float $expectedLon, string $input): void
+	public function testProcessReal(array $expectedResults, string $input): void
 	{
 		$service = new HradyCzService($this->httpTestClients->realRequestor);
-		$this->assertServiceLocation($service, $input, $expectedLat, $expectedLon);
+		$this->assertServiceLocations($service, $input, $expectedResults);
 	}
 
 	/**
