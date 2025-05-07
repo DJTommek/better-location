@@ -25,7 +25,7 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 {
 	const ID = 8;
 	const NAME = 'Mapy.com';
-	const LINK = 'https://mapy.com';
+	const LINK = 'https://mapy.cz';
 
 	const TYPE_MAP_V2 = 'Map center';
 	const TYPE_MAP = 'Map center';
@@ -165,7 +165,7 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		// p=1 disable right panel (can't be opened) and disable bottom left panorama view screenshot
 		// p=2 show right panel and (can't be hidden) and disable bottom left panorama view screenshot
 		// p=3 disable right panel (can't be opened) and enable bottom left panorama view screenshot
-		return 'https://mapy.com/screenshoter?url=' . urlencode(self::getShareLink($coordinates->getLat(), $coordinates->getLon()) . '&p=3&l=0');
+		return 'https://en.mapy.cz/screenshoter?url=' . urlencode(self::getShareLink($coordinates->getLat(), $coordinates->getLon()) . '&p=3&l=0');
 	}
 
 	public function process(): void
