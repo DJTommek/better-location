@@ -54,4 +54,6 @@ class Icons
 	public const LOCATION_GPS = "\u{1F6F0}"; // https://emojipedia.org/satellite
 	public const LOCATION_CELL_ID = "\u{1F5FC}"; // https://emojipedia.org/tokyo-tower
 	public const LOCATION_WLAN = "\u{1F6DC}"; // https://emojipedia.org/wireless
+
+	public const MAGIC = "\u{1FA84}"; // https://emojipedia.org/magic-wand
 }

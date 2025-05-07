@@ -60,6 +60,7 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(\App\Factory\ChatFactory::class);
 	$services->set(\App\Factory\UserFactory::class);
 	$services->set(\App\Maintenance\LogArchiver::class);
+	$services->set(\App\BetterLocation\Service\UniversalWebsiteService\LdJsonProcessor::class);
 	$services->set(\App\Address\AddressProvider::class);
 	$services->set(\App\Address\NullAddressProvider::class);
 	$services->set(\App\Address\UniversalAddressProvider::class)

@@ -10,8 +10,8 @@ use App\BetterLocation\Service\Bannergress\BannergressService;
 use App\BetterLocation\Service\Bannergress\OpenBannersService;
 use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\BookingService;
-use App\BetterLocation\Service\Coordinates\MGRSService;
 use App\BetterLocation\Service\Coordinates\MaidenheadLocatorService;
+use App\BetterLocation\Service\Coordinates\MGRSService;
 use App\BetterLocation\Service\Coordinates\USNGService;
 use App\BetterLocation\Service\Coordinates\UTMService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesSecondsService;
@@ -53,6 +53,7 @@ use App\BetterLocation\Service\PrazdneDomyCzService;
 use App\BetterLocation\Service\RopikyNetService;
 use App\BetterLocation\Service\SumavaCzService;
 use App\BetterLocation\Service\SygicService;
+use App\BetterLocation\Service\UniversalWebsiteService\UniversalWebsiteService;
 use App\BetterLocation\Service\VodniMlynyCz\VodniMlynyCzService;
 use App\BetterLocation\Service\VojenskoCzService;
 use App\BetterLocation\Service\WaymarkingService;
@@ -61,7 +62,6 @@ use App\BetterLocation\Service\WhatThreeWordService;
 use App\BetterLocation\Service\WikipediaService;
 use App\BetterLocation\Service\ZanikleObceCzService;
 use App\BetterLocation\Service\ZniceneKostelyCzService;
-use App\Config;
 use App\Factory;
 use Psr\Container\ContainerInterface;
 use Tracy\Debugger;
@@ -164,6 +164,7 @@ class ServicesManager
 		$services[] = PrazdneDomyCzService::class;
 		$services[] = KudyZNudyCzService::class;
 		$services[] = VodniMlynyCzService::class;
+		$services[] = UniversalWebsiteService::class; // Should be last
 
 		return $services;
 	}
