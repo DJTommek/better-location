@@ -31,6 +31,12 @@ final class LdJsonProcessorTest extends TestCase
 			],
 			[
 				[
+					new LdJsonCoordinates(21.0140338034431, 105.83156603015266, new Address('Xã Đàn 2, Nam Đồng, Đống Đa 100000 Hanoi Capital VN', new Country('VN')), 'VietNamNet'),
+				],
+				__DIR__ . '/fixtures/jsonld/vietnam.net.html',
+			],
+			[
+				[
 					new LdJsonCoordinates(40.761293, -73.982294, new Address('900 Linton Blvd 33444 Delray Beach US', new Country('US')), 'Pat\'s Crab Shack'),
 				],
 				__DIR__ . '/fixtures/jsonld/local-business-1.html', // https://jsonld.com/local-business/

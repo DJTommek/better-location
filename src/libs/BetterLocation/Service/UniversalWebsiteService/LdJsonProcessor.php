@@ -25,7 +25,8 @@ final class LdJsonProcessor
 				foreach ($objects as $object) {
 					try {
 
-						$place = LdJsonCoordinates::safe($object->geo?->latitude ?? null, $object->geo?->longitude ?? null);
+						$place = LdJsonCoordinates::safe($object->geo?->latitude ?? null, $object->geo?->longitude ?? null)
+							?? LdJsonCoordinates::safe($object->location?->geo?->latitude ?? null, $object->location?->geo?->longitude ?? null);
 						if ($place === null) {
 							continue; // @TODO add support for extracting coordinates from address $object->address->streetAddress
 						}

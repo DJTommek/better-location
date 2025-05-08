@@ -54,6 +54,7 @@ final class UniversalWebsiteServiceTest extends AbstractServiceTestCase
 			'hornbach.sk Bratislava - Devínska Nová Ves' => [[[48.2056, 17.020494, UniversalWebsiteService::TYPE_SCHEMA_JSON_GEO, '🪄<a href="https://www.hornbach.sk/moja-predajna/predajna-hornbach-bratislava-devinska-nova-ves/">HORNBACH Bratislava - Devínska Nová Ves</a>']], 'https://www.hornbach.sk/moja-predajna/predajna-hornbach-bratislava-devinska-nova-ves/'],
 			'hornbach.ch Luzern-Littau' => [[[47.057755, 8.257341, UniversalWebsiteService::TYPE_SCHEMA_JSON_GEO, '🪄<a href="https://www.hornbach.ch/mein-markt/baumarkt-hornbach-luzern-littau/">HORNBACH Luzern-Littau</a>']], 'https://www.hornbach.ch/mein-markt/baumarkt-hornbach-luzern-littau/'],
 			'pronto-ny.com' => [[[40.770766050505, -73.96467034232786, UniversalWebsiteService::TYPE_SCHEMA_JSON_GEO, '🪄<a href="https://www.pronto-ny.com/">Restaurant Pronto</a>']], 'https://www.pronto-ny.com/'],
+			'vietnamnet.vn' => [[[21.0140338034431, 105.83156603015266, UniversalWebsiteService::TYPE_SCHEMA_JSON_GEO, '🪄<a href="https://vietnamnet.vn/">VietNamNet</a>']], 'https://vietnamnet.vn/'],
 			'JSON available but no location' => [[], 'https://restauraceoaza.cz'],
 			'No json available' => [[], 'https://tomas.palider.cz'],
 		];
