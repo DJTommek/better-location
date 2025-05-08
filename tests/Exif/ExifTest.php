@@ -141,6 +141,24 @@ final class ExifTest extends TestCase
 		$this->innerTestValid($expectedJsonDataPath, $expectedCoordinates, $expectedCoordinatesPrecision, $expectedGpsProcessingMethod, $inputPath);
 	}
 
+	/**
+	 * Read EXIF data from file as binary string.
+	 *
+	 * @author https://stackoverflow.com/a/5465741/3334403
+	 * @dataProvider validFilesProvider
+	 */
+	public function testValidFileContentAsString(
+		?string $expectedJsonDataPath,
+		?CoordinatesInterface $expectedCoordinates,
+		?float $expectedCoordinatesPrecision,
+		?string $expectedGpsProcessingMethod,
+		string $inputPath,
+	): void {
+		$fileContent = file_get_contents($inputPath);
+		$fileContentForExif = 'data://image/jpeg;base64,' . base64_encode($fileContent);
+		$this->innerTestValid($expectedJsonDataPath, $expectedCoordinates, $expectedCoordinatesPrecision, $expectedGpsProcessingMethod, $fileContentForExif);
+	}
+
 	private function innerTestValid(
 		?string $expectedJsonDataPath,
 		?CoordinatesInterface $expectedCoordinates,
@@ -154,11 +172,13 @@ final class ExifTest extends TestCase
 
 		if ($expectedJsonDataPath !== null) {
 
-			// Ignore FileDateTime which is not real EXIF information but rather information from filesystem.
+			// Ignore FileName and FileDateTime which is not real EXIF information but rather information from filesystem.
 			$realJson = (object)$exif->getAll();
 			$expectedJsonDataRaw = file_get_contents($expectedJsonDataPath);
 			$expectedJson = json_decode($expectedJsonDataRaw);
 
+			unset($realJson->FileName);
+			unset($expectedJson->FileName);
 			unset($realJson->FileDateTime);
 			unset($expectedJson->FileDateTime);
 

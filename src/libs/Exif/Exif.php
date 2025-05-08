@@ -144,8 +144,12 @@ class Exif implements \JsonSerializable
 	 * Read the EXIF headers from and image file. Works similarly as native exif_read_data()
 	 * but throws exception if notice or warning occure.
 	 *
-	 * @param string $input Path or URL
+	 * @param string $input Path, URL or data as pseudo-url
 	 * @return ExifData
+	 *
+	 * @example Exif::exifReadData(__DIR__ . '/some/path.jpg');
+	 * @example Exif::exifReadData('https://tomas.palider.cz/profile-photo-original.jpg');
+	 * @example Exif::exifReadData('data://image/jpeg;base64,' . base64_encode($imageAsString)));
 	 *
 	 * @throws ExifException No file, unsupported file, ...
 	 * @see https://www.php.net/manual/en/function.exif-read-data.php
