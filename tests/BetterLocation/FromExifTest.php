@@ -60,10 +60,16 @@ final class FromExifTest extends TestCase
 		];
 	}
 
-	public static function fileInvalidProvider(): array
+	public static function fileInvalidNotExistsProvider(): array
 	{
 		return [
 			'File does not exists' => [null, null, null, '/file/does/not-exists.jpg'],
+		];
+	}
+
+	public static function fileInvalidNotImageProvider(): array
+	{
+		return [
 			'File exists but it is not image' => [null, null, null, __FILE__],
 		];
 	}
@@ -86,15 +92,31 @@ final class FromExifTest extends TestCase
 
 	/**
 	 * @dataProvider fileValidProvider
-	 * @dataProvider fileInvalidProvider
+	 * @dataProvider fileInvalidNotExistsProvider
+	 * @dataProvider fileInvalidNotImageProvider
 	 */
 	public function testBasicFile(
 		?string $expectedCoordsKey,
 		?float $expectedPrecision,
 		?string $expectedPrefixMessage,
-		string $url,
+		string $filePath,
 	): void {
-		$this->innerTest($expectedCoordsKey, $expectedPrecision, $expectedPrefixMessage, $url);
+		$this->innerTest($expectedCoordsKey, $expectedPrecision, $expectedPrefixMessage, $filePath);
+	}
+
+	/**
+	 * @dataProvider fileValidProvider
+	 * @dataProvider fileInvalidNotImageProvider
+	 */
+	public function testFileContentAsString(
+		?string $expectedCoordsKey,
+		?float $expectedPrecision,
+		?string $expectedPrefixMessage,
+		string $filePath,
+	): void {
+		$fileContent = file_get_contents($filePath);
+		$fileContentForExif = 'data://image/jpeg;base64,' . base64_encode($fileContent);
+		$this->innerTest($expectedCoordsKey, $expectedPrecision, $expectedPrefixMessage, $fileContentForExif);
 	}
 
 	private function innerTest(
