@@ -66,6 +66,14 @@ final class UniversalWebsiteServiceTest extends AbstractServiceTestCase
 		];
 	}
 
+	public static function processExifProvider(): array
+	{
+		return [
+			'tomas.palider.cz profile photo' => [[[48.137297777778, 11.575583388889, UniversalWebsiteService::TYPE_EXIF, '<a href="https://tomas.palider.cz/profile-photo-original.jpg" target="_blank">EXIF</a>']], 'https://tomas.palider.cz/profile-photo-original.jpg'],
+			'image in pldr-gallery.palider.cz' => [[[50.698351222222, 15.736727416667, UniversalWebsiteService::TYPE_EXIF, '<a href="https://pldr-gallery.palider.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMTE5MjEuanBn" target="_blank">EXIF</a>']], 'https://pldr-gallery.palider.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDE5MDgxMV8xMTE5MjEuanBn'],
+		];
+	}
+
 	/**
 	 * @dataProvider isValidProvider
 	 */
@@ -79,6 +87,7 @@ final class UniversalWebsiteServiceTest extends AbstractServiceTestCase
 	 * @group request
 	 *
 	 * @dataProvider processLdJsonGeoProvider
+	 * @dataProvider processExifProvider
 	 */
 	public function testProcessReal(array $expectedResults, string $input): void
 	{
@@ -88,6 +97,7 @@ final class UniversalWebsiteServiceTest extends AbstractServiceTestCase
 
 	/**
 	 * @dataProvider processLdJsonGeoProvider
+	 * @dataProvider processExifProvider
 	 */
 	public function testProcessOffline(array $expectedResults, string $input): void
 	{

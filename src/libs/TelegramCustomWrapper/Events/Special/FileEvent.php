@@ -75,7 +75,7 @@ class FileEvent extends Special
 			assert($response instanceof Telegram\Types\File);
 			$fileLink = TelegramHelper::getFileUrl(Config::TELEGRAM_BOT_TOKEN, $response->file_path);
 			$fromExif = new FromExif($fileLink);
-			$fromExif->run(false);
+			$fromExif->run();
 			return $fromExif->location;
 		} catch (\Throwable $exception) {
 			Debugger::log($exception, ILogger::EXCEPTION);

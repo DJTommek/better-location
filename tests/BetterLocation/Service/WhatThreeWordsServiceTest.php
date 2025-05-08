@@ -9,7 +9,6 @@ use App\BetterLocation\ServicesManager;
 use App\Config;
 use App\Utils\Requestor;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Client\ClientInterface;
 use Tests\HttpTestClients;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 
@@ -113,7 +112,7 @@ final class WhatThreeWordsServiceTest extends TestCase
 	public function testGeneralReal(): void
 	{
 		$this->assertApiKeyExists();
-		$this->testGeneral($this->httpTestClients->realRequestor, $this->httpTestClients->realHttpClient);
+		$this->testGeneral($this->httpTestClients->realRequestor);
 	}
 
 	public function testGeneralOffline(): void
@@ -121,10 +120,10 @@ final class WhatThreeWordsServiceTest extends TestCase
 		$this->markTestSkipped('Offline requests are not possible, because What3Words library is used and that is using real HTTP requests.');
 	}
 
-	private function testGeneral(Requestor $requestor, ClientInterface $httpClient): void
+	private function testGeneral(Requestor $requestor): void
 	{
 		$servicesManager = new ServicesManager();
-		$fromTelegramMessage = new FromTelegramMessage($servicesManager, $requestor, $httpClient);
+		$fromTelegramMessage = new FromTelegramMessage($servicesManager, $requestor);
 
 		$entity = new MessageEntity();
 		$entity->type = 'url';

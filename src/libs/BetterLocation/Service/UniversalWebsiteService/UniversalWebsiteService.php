@@ -3,6 +3,7 @@
 namespace App\BetterLocation\Service\UniversalWebsiteService;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\FromExif;
 use App\BetterLocation\Service\AbstractService;
 use App\Config;
 use App\Http\UserAgents;
@@ -14,6 +15,7 @@ use GuzzleHttp\Psr7\Response;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\SimpleCache\CacheInterface;
+use Tracy\Debugger;
 
 /**
  * Universal Website service loads actual content of the page and search for various location formats.
@@ -25,6 +27,25 @@ final class UniversalWebsiteService extends AbstractService
 	public const TAGS = [];
 
 	const TYPE_SCHEMA_JSON_GEO = 'Schema JSON GEO';
+	const TYPE_EXIF = 'EXIF';
+
+	private const CONTENT_TYPE_HTML = [
+		'text/html',
+	];
+
+	/**
+	 * List of content types for images supporting EXIF
+	 *
+	 * @see https://www.iana.org/assignments/media-types/media-types.xhtml#image
+	 */
+	private const CONTENT_TYPE_IMAGE_EXIF = [
+		'image/jpeg',
+		'image/png',
+		'image/tiff',
+		'image/tiff-x',
+		'image/webp',
+	];
+
 
 	public function __construct(
 		private readonly ClientInterface $httpClient,
@@ -44,7 +65,18 @@ final class UniversalWebsiteService extends AbstractService
 		$response = $this->loadUrl();
 		$dom = Utils::domFromUTF8((string)$response->getBody());
 		$finder = new \DOMXPath($dom);
-		$this->processLdJson($finder);
+		if ($this->canProcessExif($response)) {
+			$this->processExif($response);
+		}
+		if ($this->canProcessLdJson($response)) {
+			$this->processLdJson($finder);
+		}
+	}
+
+	private function canProcessLdJson(ResponseInterface $response): bool
+	{
+		$contentType = $response->getHeaderLine('Content-Type');
+		return $contentType !== null && Utils::checkIfValueInHeaderMatchArray($contentType, self::CONTENT_TYPE_HTML);
 	}
 
 	private function processLdJson(\DOMXPath $domFinder): void
@@ -66,6 +98,30 @@ final class UniversalWebsiteService extends AbstractService
 			);
 			$location->addDescription($disclaimer, self::class . '-disclaimer');
 			$this->collection->add($location);
+		}
+	}
+
+	private function canProcessExif(ResponseInterface $response): bool
+	{
+		$contentType = $response->getHeaderLine('Content-Type');
+		return $contentType !== null && Utils::checkIfValueInHeaderMatchArray($contentType, self::CONTENT_TYPE_IMAGE_EXIF);
+	}
+
+	private function processExif(ResponseInterface $response): void
+	{
+		try {
+			$wrappedFileContent = 'data://image/jpeg;base64,' . base64_encode((string)$response->getBody());
+			$fromExif = new FromExif($wrappedFileContent);
+			$fromExif->run(
+				linkInMessage: (string)$this->url,
+				sourceService: self::class,
+				sourceType: self::TYPE_EXIF,
+			);
+			if ($fromExif->location !== null) {
+				$this->collection->add($fromExif->location);
+			}
+		} catch (\Exception $exception) {
+			Debugger::log($exception, Debugger::EXCEPTION);
 		}
 	}
 
@@ -120,6 +176,7 @@ final class UniversalWebsiteService extends AbstractService
 	{
 		return [
 			self::TYPE_SCHEMA_JSON_GEO,
+			self::TYPE_EXIF,
 		];
 	}
 }

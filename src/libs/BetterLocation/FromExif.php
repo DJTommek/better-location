@@ -41,8 +41,11 @@ class FromExif
 		$this->input = $input;
 	}
 
-	public function run(bool $linkInMessage): self
-	{
+	public function run(
+		?string $linkInMessage = null,
+		string $sourceService = WGS84DegreesService::class,
+		?string $sourceType = null,
+	): self {
 		try {
 			$this->exif = new Exif($this->input);
 		} catch (ExifException $exception) {
@@ -63,11 +66,12 @@ class FromExif
 			'EXIF ' . $coords->getLatLon(),
 			$coords->getLat(),
 			$coords->getLon(),
-			WGS84DegreesService::class,
+			$sourceService,
+			$sourceType,
 		);
 
-		if ($linkInMessage) {
-			$this->location->setPrefixMessage(sprintf('<a href="%s" target="_blank">EXIF</a>', htmlentities($this->input)));
+		if ($linkInMessage !== null) {
+			$this->location->setPrefixMessage(sprintf('<a href="%s" target="_blank">EXIF</a>', htmlentities($linkInMessage)));
 		} else {
 			$this->location->setPrefixMessage('EXIF');
 		}

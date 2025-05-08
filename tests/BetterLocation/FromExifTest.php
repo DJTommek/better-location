@@ -126,7 +126,7 @@ final class FromExifTest extends TestCase
 		string $input,
 	): void {
 		$fromExif = new FromExif($input);
-		$fromExif->run(false);
+		$fromExif->run();
 		$location = $fromExif->location;
 
 		if ($expectedCoordsKey === null) {
@@ -161,13 +161,13 @@ final class FromExifTest extends TestCase
 		$this->markTestSkipped('All files on wikipedia is now returning "content-type: text/html; charset=utf-8" so decoding EXIF is not working.');
 
 		// https://cs.wikipedia.org/wiki/Praha#/media/Soubor:Vltava_in_Prague.jpg
-		$this->assertSame('50.093652,14.412417', (string)(new FromExif('https://upload.wikimedia.org/wikipedia/commons/5/51/Vltava_river_in_Prague.jpg'))->run(false)->location->getCoordinates());
+		$this->assertSame('50.093652,14.412417', (string)(new FromExif('https://upload.wikimedia.org/wikipedia/commons/5/51/Vltava_river_in_Prague.jpg'))->run()->location->getCoordinates());
 
 		// https://en.wikipedia.org/wiki/Geotagged_photograph#/media/File:GPS_location_stamped_with_GPStamper.jpg
-		$this->assertSame('41.888948,-87.624494', (string)(new FromExif('https://upload.wikimedia.org/wikipedia/commons/d/db/GPS_location_stamped_with_GPStamper.jpg'))->run(false)->location->getCoordinates());
+		$this->assertSame('41.888948,-87.624494', (string)(new FromExif('https://upload.wikimedia.org/wikipedia/commons/d/db/GPS_location_stamped_with_GPStamper.jpg'))->run()->location->getCoordinates());
 
 		// no EXIF data
 		// https://cs.wikipedia.org/wiki/Praha#/media/Soubor:Praga_0003.JPG
-		$this->assertNull((string)(new FromExif('https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Praga_0003.JPG/800px-Praga_0003.JPG'))->run(false)->location);
+		$this->assertNull((string)(new FromExif('https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Praga_0003.JPG/800px-Praga_0003.JPG'))->run()->location);
 	}
 }
