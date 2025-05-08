@@ -63,6 +63,10 @@ final class LdJsonProcessorTest extends TestCase
 				__DIR__ . '/fixtures/jsonld/job-training-1.html', // https://jsonld.com/json-ld-course/job-training-vocational-training/
 			],
 			[
+				[], // @TODO location can be extracted from address in jobLocation.address
+				__DIR__ . '/fixtures/jsonld/job-posting-1.html', // https://jsonld.com/job-posting/
+			],
+			[
 				[], // probably the smallest example of valid LD JSON file
 				__DIR__ . '/fixtures/jsonld/table-1.html', // https://jsonld.com/table/
 			],
