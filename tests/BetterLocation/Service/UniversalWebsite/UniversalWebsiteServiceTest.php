@@ -4,6 +4,9 @@ namespace Tests\BetterLocation\Service\UniversalWebsite;
 
 use App\BetterLocation\Service\UniversalWebsiteService\LdJsonProcessor;
 use App\BetterLocation\Service\UniversalWebsiteService\UniversalWebsiteService;
+use App\Cache\NetteCachePsr16;
+use Nette\Caching\Storages\DevNullStorage;
+use Psr\SimpleCache\CacheInterface;
 use Tests\BetterLocation\Service\AbstractServiceTestCase;
 use Tests\HttpTestClients;
 
@@ -11,12 +14,15 @@ final class UniversalWebsiteServiceTest extends AbstractServiceTestCase
 {
 	private readonly HttpTestClients $httpTestClients;
 	private readonly LdJsonProcessor $ldJsonProcessor;
+	private readonly CacheInterface $cache;
 
 	protected function setUp(): void
 	{
 		parent::setUp();
 
 		$this->httpTestClients = new HttpTestClients();
+		$storage = new DevNullStorage();
+		$this->cache = new NetteCachePsr16($storage);
 		$this->ldJsonProcessor = new LdJsonProcessor();
 	}
 
@@ -65,7 +71,7 @@ final class UniversalWebsiteServiceTest extends AbstractServiceTestCase
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$service = new UniversalWebsiteService($this->httpTestClients->mockedRequestor, $this->ldJsonProcessor);
+		$service = new UniversalWebsiteService($this->httpTestClients->mockedHttpClient, $this->cache, $this->ldJsonProcessor);
 		$this->assertServiceIsValid($service, $input, $expectedIsValid);
 	}
 
@@ -76,7 +82,7 @@ final class UniversalWebsiteServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessReal(array $expectedResults, string $input): void
 	{
-		$service = new UniversalWebsiteService($this->httpTestClients->realRequestor, $this->ldJsonProcessor);
+		$service = new UniversalWebsiteService($this->httpTestClients->realHttpClient, $this->cache, $this->ldJsonProcessor);
 		$this->assertServiceLocations($service, $input, $expectedResults);
 	}
 
@@ -85,7 +91,7 @@ final class UniversalWebsiteServiceTest extends AbstractServiceTestCase
 	 */
 	public function testProcessOffline(array $expectedResults, string $input): void
 	{
-		$service = new UniversalWebsiteService($this->httpTestClients->offlineRequestor, $this->ldJsonProcessor);
+		$service = new UniversalWebsiteService($this->httpTestClients->offlineHttpClient, $this->cache, $this->ldJsonProcessor);
 		$this->assertServiceLocations($service, $input, $expectedResults);
 	}
 }

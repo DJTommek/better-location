@@ -5,10 +5,15 @@ namespace App\BetterLocation\Service\UniversalWebsiteService;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\AbstractService;
 use App\Config;
+use App\Http\UserAgents;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Command\FeedbackCommand;
-use App\Utils\Requestor;
 use App\Utils\Utils;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\SimpleCache\CacheInterface;
 
 /**
  * Universal Website service loads actual content of the page and search for various location formats.
@@ -22,7 +27,8 @@ final class UniversalWebsiteService extends AbstractService
 	const TYPE_SCHEMA_JSON_GEO = 'Schema JSON GEO';
 
 	public function __construct(
-		private readonly Requestor $requestor,
+		private readonly ClientInterface $httpClient,
+		private readonly CacheInterface $cache,
 		private readonly LdJsonProcessor $ldJsonProcessor,
 	) {
 	}
@@ -35,12 +41,8 @@ final class UniversalWebsiteService extends AbstractService
 
 	public function process(): void
 	{
-		$response = $this->requestor->get(
-			url: $this->url,
-			cacheTtl: Config::CACHE_TTL_UNIVERSAL_WEBSITE,
-			randommizeUserAgent: $this->randomizeUserAgent(),
-		);
-		$dom = Utils::domFromUTF8($response);
+		$response = $this->loadUrl();
+		$dom = Utils::domFromUTF8((string)$response->getBody());
 		$finder = new \DOMXPath($dom);
 		$this->processLdJson($finder);
 	}
@@ -65,6 +67,37 @@ final class UniversalWebsiteService extends AbstractService
 			$location->addDescription($disclaimer, self::class . '-disclaimer');
 			$this->collection->add($location);
 		}
+	}
+
+	private function loadUrl(): ResponseInterface
+	{
+		assert($this->url !== null);
+		$cacheKey = md5(self::class . $this->url);
+		$cachedResult = $this->cache->get($cacheKey);
+		if ($cachedResult !== null) {
+			[$statusCode, $headers, $body, $protocolVersion] = $cachedResult;
+			return new Response($statusCode, $headers, $body, $protocolVersion);
+		}
+
+		$response = $this->doRequest();
+		$contentToCache = [
+			$response->getStatusCode(),
+			$response->getHeaders(),
+			(string)$response->getBody(),
+			$response->getProtocolVersion(),
+		];
+		$this->cache->set($cacheKey, $contentToCache, Config::CACHE_TTL_UNIVERSAL_WEBSITE);
+		return $response;
+	}
+
+	private function doRequest(): ResponseInterface
+	{
+		$requestHeaders = [];
+		if ($this->randomizeUserAgent()) {
+			$requestHeaders['User-Agent'] = UserAgents::getRandom();
+		}
+		$request = new Request('GET', (string)$this->url, $requestHeaders);
+		return $this->httpClient->sendRequest($request);
 	}
 
 	private function randomizeUserAgent(): bool
