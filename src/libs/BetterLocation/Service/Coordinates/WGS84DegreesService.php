@@ -26,6 +26,6 @@ final class WGS84DegreesService extends WGS84AbstractService
 
 	protected static function getReCoords(): string
 	{
-		return '([0-9]{1,3}\.[0-9]{1,20})';
+		return '([0-9]{1,3}\.[0-9]{4,20})';
 	}
 }

@@ -10,6 +10,21 @@ use Tests\BetterLocation\Service\AbstractServiceTestCase;
 
 final class WGS84DegreesServiceTest extends AbstractServiceTestCase
 {
+	public static function isValidProvider(): array
+	{
+		return [
+			[true, '50.636144, 14.337469'],
+			[true, '-50.636144, -14.337469'],
+			[true, '50.636144°, 14.337469°'],
+			[true, '-50.636144°, -14.337469°'],
+			[true, 'N 50.636144°, E 14.337469°'],
+			[true, 'S 50.636144°, W 14.337469°'],
+
+			[false, 'random text'],
+			[false, '50.636, 14.337'], // Too short
+		];
+
+	}
 
 	protected function getServiceClass(): string
 	{
@@ -26,9 +41,12 @@ final class WGS84DegreesServiceTest extends AbstractServiceTestCase
 		return [];
 	}
 
-	public function testIsValid(): void
+	/**
+	 * @dataProvider isValidProvider
+	 */
+	public function testIsValid(bool $expectedValid, string $input): void
 	{
-		$this->assertTrue(WGS84DegreesService::validateStatic('50.636144°N, 14.337469°E'));
+		$this->assertServiceIsValid(new WGS84DegreesService(), $input, $expectedValid);
 	}
 
 	public function testProcess(): void
@@ -257,15 +275,15 @@ final class WGS84DegreesServiceTest extends AbstractServiceTestCase
 		$this->assertSame('-89.999999,179.999999', WGS84DegreesService::processStatic('-89.999999 179.999999')->getFirst()->__toString());
 		$this->assertSame('-89.999999,-179.999999', WGS84DegreesService::processStatic('-89.999999 -179.999999')->getFirst()->__toString());
 
-		$this->assertSame('89.999999,180.000000', WGS84DegreesService::processStatic('89.999999 180.0')->getFirst()->__toString());
-		$this->assertSame('89.999999,-180.000000', WGS84DegreesService::processStatic('89.999999 -180.0')->getFirst()->__toString());
-		$this->assertSame('-89.999999,180.000000', WGS84DegreesService::processStatic('-89.999999 180.0')->getFirst()->__toString());
-		$this->assertSame('-89.999999,-180.000000', WGS84DegreesService::processStatic('-89.999999 -180.0')->getFirst()->__toString());
+		$this->assertSame('89.999999,180.000000', WGS84DegreesService::processStatic('89.999999 180.0000')->getFirst()->__toString());
+		$this->assertSame('89.999999,-180.000000', WGS84DegreesService::processStatic('89.999999 -180.0000')->getFirst()->__toString());
+		$this->assertSame('-89.999999,180.000000', WGS84DegreesService::processStatic('-89.999999 180.0000')->getFirst()->__toString());
+		$this->assertSame('-89.999999,-180.000000', WGS84DegreesService::processStatic('-89.999999 -180.0000')->getFirst()->__toString());
 
-		$this->assertSame('90.000000,180.000000', WGS84DegreesService::processStatic('90.0 180.0')->getFirst()->__toString());
-		$this->assertSame('90.000000,-180.000000', WGS84DegreesService::processStatic('90.0 -180.0')->getFirst()->__toString());
-		$this->assertSame('-90.000000,180.000000', WGS84DegreesService::processStatic('-90.0 180.0')->getFirst()->__toString());
-		$this->assertSame('-90.000000,-180.000000', WGS84DegreesService::processStatic('-90.0 -180.0')->getFirst()->__toString());
+		$this->assertSame('90.000000,180.000000', WGS84DegreesService::processStatic('90.0000 180.0000')->getFirst()->__toString());
+		$this->assertSame('90.000000,-180.000000', WGS84DegreesService::processStatic('90.0000 -180.0000')->getFirst()->__toString());
+		$this->assertSame('-90.000000,180.000000', WGS84DegreesService::processStatic('-90.0000 180.0000')->getFirst()->__toString());
+		$this->assertSame('-90.000000,-180.000000', WGS84DegreesService::processStatic('-90.0000 -180.0000')->getFirst()->__toString());
 	}
 
 	public function testNothingInText(): void
@@ -291,9 +309,16 @@ final class WGS84DegreesServiceTest extends AbstractServiceTestCase
 		$text .= '18.2222E 58.1111S' . PHP_EOL;     // -/+
 		$text .= '19.2222W 59.1111N' . PHP_EOL;     // +/-
 		$text .= PHP_EOL;
-		$text .= 'Invalid:';
-		$text .= '20.2222S 60.1111S' . PHP_EOL;     // Both coordinates are north-south hemisphere
-		$text .= '21.2222W 61.1111E' . PHP_EOL;     // Both coordinates are east-west hemisphere
+		$text .= 'Invalid - Both coordinates are north-south hemisphere:';
+		$text .= '20.2222S 60.1111S' . PHP_EOL;
+		$text .= 'Invalid - Both coordinates are east-west hemisphere:';
+		$text .= '21.2222W 61.1111E' . PHP_EOL;
+		$text .= 'Invalid - too short coordinates';
+		$text .= '50.1111 10.222' . PHP_EOL;
+		$text .= '50.111 10.2222' . PHP_EOL;
+		$text .= 'Invalid - date format commonly used in Czechia';
+		$text .= 'something less 28.11.2016 - 27.11.2017 something more' . PHP_EOL;
+		$text .= 'something less 28.11.1925 - 27.11.1955 something more' . PHP_EOL;
 
 		$betterLocations = WGS84DegreesService::findInText($text);
 		$this->assertCount(10, $betterLocations);
