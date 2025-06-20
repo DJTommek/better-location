@@ -22,6 +22,7 @@ final class WGS84DegreesServiceTest extends AbstractServiceTestCase
 
 			[false, 'random text'],
 			[false, '50.636, 14.337'], // Too short
+			[false, '24.4. - 30.4.'], // Too short
 		];
 
 	}
@@ -319,6 +320,8 @@ final class WGS84DegreesServiceTest extends AbstractServiceTestCase
 		$text .= 'Invalid - date format commonly used in Czechia';
 		$text .= 'something less 28.11.2016 - 27.11.2017 something more' . PHP_EOL;
 		$text .= 'something less 28.11.1925 - 27.11.1955 something more' . PHP_EOL;
+		$text .= 'Invalid - part of message that contains date format commonly used in Czechia';
+		$text .= '...mezi 24.4. - 30.4. :D' . PHP_EOL;
 
 		$betterLocations = WGS84DegreesService::findInText($text);
 		$this->assertCount(10, $betterLocations);
