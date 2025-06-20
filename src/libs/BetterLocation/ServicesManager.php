@@ -54,6 +54,7 @@ use App\BetterLocation\Service\RopikyNetService;
 use App\BetterLocation\Service\SumavaCzService;
 use App\BetterLocation\Service\SygicService;
 use App\BetterLocation\Service\UniversalWebsiteService\UniversalWebsiteService;
+use App\BetterLocation\Service\VetsCzService;
 use App\BetterLocation\Service\VodniMlynyCz\VodniMlynyCzService;
 use App\BetterLocation\Service\VojenskoCzService;
 use App\BetterLocation\Service\WaymarkingService;
@@ -160,6 +161,7 @@ class ServicesManager
 		$services[] = FevGamesService::class;
 		$services[] = EStudankyEuService::class;
 		$services[] = HradyCzService::class;
+		$services[] = VetsCzService::class;
 		$services[] = VojenskoCzService::class;
 		$services[] = PrazdneDomyCzService::class;
 		$services[] = KudyZNudyCzService::class;

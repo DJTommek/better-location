@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+		<title>Pamětní deska Václav Kratochvíl | Spolek pro vojenská pietní místa</title>
+
+		<link rel="shortcut icon" href="/vpm/favicon.ico" type="image/x-icon">
+
+		<link rel="stylesheet" media="screen,projection,tv" href="/vpm/www-data/css/reset.css" type="text/css">
+                <link rel="stylesheet" href="//www.vets.cz/wp-content/themes/revolution-code-blue/style.css" type="text/css" media="screen">
+                <link rel="stylesheet" media="screen,projection,tv" href="/vpm/www-data/css/frontscreen.css" type="text/css">
+		<link rel="stylesheet" media="print" href="/vpm/www-data/css/print.css" type="text/css">
+		<link rel="stylesheet" media="screen" href="/vpm/www-data/css/ipub.visualPaginator.css" type="text/css">
+		<link rel="stylesheet" href="/vpm/bower_components/jquery-ui/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" type="text/css" href="/vpm/www-data/shadowbox/shadowbox.css">
+
+		<script src="/vpm/bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="/vpm/bower_components/jquery-migrate-301/jquery-migrate-3.0.1.min.js"></script> 
+		<script src="/vpm/bower_components/jquery-ui/jquery-ui.min.js"></script>
+		<script src="/vpm/bower_components/nette-forms/src/assets/netteForms.min.js"></script>
+		<script src="/vpm/bower_components/nette.ajax.js/nette.ajax.js"></script>
+		<script type="text/javascript" src="/vpm/www-data/js/jquery.collapse.js"></script>
+		<script type="text/javascript" src="/vpm/www-data/shadowbox/shadowbox.js"></script>
+		<script type="text/javascript" src="/vpm/www-data/jcarousel/jquery.jcarousel.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/vpm/www-data/jcarousel/skin.css">
+		<script type="text/javascript" src="/vpm/www-data/js/frontend.js"></script>
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=G-9J16S3MXB8"></script>
+			<script>
+			  window.dataLayer = window.dataLayer || [];
+			  function gtag(){dataLayer.push(arguments);}
+			  gtag('js', new Date());
+
+			  gtag('config', 'G-9J16S3MXB8');
+			</script>
+
+		
+		
+		<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+		<style>
+		.cc-window.cc-banner {padding-top: 0.5em; padding-bottom: 0.5em;}
+		.cc-btn { padding-top: 0.2em; padding-bottom: 0.2em; }
+		</style>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+		<script>
+		window.addEventListener("load", function(){
+		window.cookieconsent.initialise({
+		  "palette": {
+			"popup": {
+			  "background": "#edeff5",
+			  "text": "#838391"
+			},
+			"button": {
+			  "background": "#4b81e8"
+			}
+		  },
+		  "theme": "classic",
+		  "content": {
+			"message": "Tyto stránky používají k poskytování služeb a sledování návštěvnosti cookies.",
+			"dismiss": "Rozumím",
+			"link": "Více informací"
+		  }
+		})});
+		</script>
+    </head>
+
+    <body>
+		<div id="header" style="position: relative;">
+			<div class="headerleft">
+				<h1><a href="http://www.vets.cz/">Spolek pro vojenská pietní místa</a></h1>
+				vets.cz
+			</div>
+		</div>
+
+		<div id="navbar">
+			<div id="navbarcenter">
+<ul id="nav">
+	<div class="menu-vedlejsi-container">
+		<ul id="menu-vedlejsi" class="menu">
+			<li id="menu-item-123" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-123"><a href="/aktuality/">Aktuality</a></li>
+			<li id="menu-item-42" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42"><a href="/vpm/mista/stat/1-ceska-republika/">Česká republika</a>
+				<ul class="sub-menu">
+					<li id="menu-item-41" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-41"><a href="/vpm/mista/kraj/10-praha/">hl. m. Praha</a></li>
+					<li id="menu-item-61" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-61"><a href="/vpm/mista/kraj/1-jihocesky/">Jihočeský kraj</a></li>
+					<li id="menu-item-62" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-62"><a href="/vpm/mista/kraj/2-jihomoravsky/">Jihomoravský kraj</a></li>
+
+					<li id="menu-item-75" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-75"><a href="/vpm/mista/kraj/3-karlovarsky/">Karlovarský kraj</a></li>
+					<li id="menu-item-63" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-63"><a href="/vpm/mista/kraj/4-kralovehradecky/">Královéhradecký kraj</a></li>
+					<li id="menu-item-76" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-76"><a href="/vpm/mista/kraj/5-liberecky/">Liberecký kraj</a></li>
+					<li id="menu-item-77" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-77"><a href="/vpm/mista/kraj/6-moravskoslezsky/">Moravskoslezský kraj</a></li>
+					<li id="menu-item-78" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-78"><a href="/vpm/mista/kraj/7-olomoucky/">Olomoucký kraj</a></li>
+					<li id="menu-item-79" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-79"><a href="/vpm/mista/kraj/8-pardubicky/">Pardubický kraj</a></li>
+
+					<li id="menu-item-80" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-80"><a href="/vpm/mista/kraj/9-plzensky/">Plzeňský kraj</a></li>
+					<li id="menu-item-81" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="/vpm/mista/kraj/11-stredocesky/">Středočeský kraj</a></li>
+					<li id="menu-item-82" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-82"><a href="/vpm/mista/kraj/12-ustecky/">Ústecký kraj</a></li>
+					<li id="menu-item-43" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-43"><a href="/vpm/mista/kraj/13-vysocina/">kraj Vysočina</a></li>
+					<li id="menu-item-83" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-83"><a href="/vpm/mista/kraj/14-zlinsky/">Zlínský kraj</a></li>
+				</ul>
+			</li>
+
+			<li id="menu-item-44" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-44"><a href="/vpm/mista/stat/2-slovenska-republika/">Slovensko</a>
+				<ul class="sub-menu">
+					<li id="menu-item-84" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-84"><a href="/vpm/mista/kraj/15-banskobystricky-kraj/">Banskobystrický kraj</a></li>
+					<li id="menu-item-64" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-64"><a href="/vpm/mista/kraj/16-bratislavsky-kraj/">Bratislavský kraj</a></li>
+					<li id="menu-item-85" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-85"><a href="/vpm/mista/kraj/17-kosicky-kraj/">Košický kraj</a></li>
+					<li id="menu-item-86" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-86"><a href="/vpm/mista/kraj/18-nitriansky-kraj/">Nitriansky kraj</a></li>
+					<li id="menu-item-87" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-87"><a href="/vpm/mista/kraj/19-presovsky-kraj/">Prešovský kraj</a></li>
+
+					<li id="menu-item-88" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-88"><a href="/vpm/mista/kraj/20-trenciansky-kraj/">Trenčiansky kraj</a></li>
+					<li id="menu-item-89" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-89"><a href="/vpm/mista/kraj/21-trnavsky-kraj/">Trnavský kraj</a></li>
+					<li id="menu-item-90" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-90"><a href="/vpm/mista/kraj/22-zilinsky-kraj/">Žilinský kraj</a></li>
+				</ul>
+			</li>
+			<li id="menu-item-45" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-45"><a href="/vpm/mista/staty/">Zahraničí</a></li>
+			<li id="menu-item-70" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-70"><a href="/vpm/hrdina/">Jména z pomníků</a></li>
+			<li id="menu-item-51" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-51"><a href="/vyhledavani/">Vyhledávání</a></li>
+
+			<li id="menu-item-52" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-52"><a href="/jak-se-zapojit/">Jak se zapojit?</a></li>
+			<li id="menu-item-71" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71"><a href="http://diskuze.vets.cz">Diskuze</a></li>
+		</ul>
+	</div>	
+</ul>			</div>
+		</div>
+
+		<div id="wrap">
+			<div id="content">
+				<div id="l_sidebar">
+<ul id="l_sidebarwidgeted">
+	<li id="menu_vertical">
+		<h2>Menu</h2>
+		<div class="menu-hlavni-container">
+			<ul id="menu-hlavni" class="menu">
+				<li id="menu-item-9" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9"><a href="/">Úvod</a></li>
+				<li id="menu-item-11899" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11899"><a href="/spolek/">Spolek</a></li>
+				<li id="menu-item-4013" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-4013"><a href="/4011-o-projektu-rozcestnik/">O projektu</a></li>
+				<li id="menu-item-11344" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11344"><a href="/vpm/statistika/">Statistika VPM</a></li>
+				<li id="menu-item-15264" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15264"><a href="/vpm/badatelna/">Badatelna</a></li>
+				<li id="menu-item-15265" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15265"><a href="/vpm/ostatni/">Ostatní</a></li>
+				<li id="menu-item-7140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7140"><a href="/vase-dotazy/">Vaše dotazy</a></li>
+				<li id="menu-item-15444" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15444"><a href="/poradna/">Poradna</a></li>
+				<li id="menu-item-1315" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1315"><a href="/233-obecne-o-geocachingu/">Geocaching</a></li>
+                                <li id="menu-item-28720" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-28720"><a href="/vpm/mapa/">Mapa</a></li>
+				<li id="menu-item-5915" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5915"><a href="/monument/">Monument</a></li>
+				<li id="menu-item-2066" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2066"><a href="/1971-publikace/">Publikace</a></li>
+				<!--<li id="menu-item-3000" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3000"><a href="/vpm/projekt-drazdany/">Projekt Drážďany</a></li>-->
+			</ul>
+		</div>
+	</li>
+	<li id="links">
+        <h2>Odkazy</h2>
+        <ul>
+			<li><a href="http://www.vets.cz/6215-nase-bannery/" title="Naše bannery">Naše bannery</a></li>
+			<li><a href="http://www.vets.cz/odkazy" title="Seznam odkazů">Seznam odkazů</a></li>
+			<li><a href="http://www.vets.estranky.cz/clanky/jednota-csol-cesky-brod.html" title="Stránky jednoty ČSOL Český Brod" target="_blank">ČSOL Český Brod</a></li>
+			<li><a href="http://vets.estranky.cz/" title="původní verze webu" target="_blank">Starý web</a></li>
+        </ul>
+	</li>
+</ul>
+
+
+<h2>&nbsp;</h2>
+<ul>
+	<center>
+			<a href="http://www.toplist.cz/stat/184393"><script language="JavaScript" type="text/javascript">
+				<!--
+				document.write('<img src="https://toplist.cz/count.asp?id=184393&logo=mc&http=' + escape(document.referrer) + '&t=' + escape(document.title) +
+						'&wi=' + escape(window.screen.width) + '&he=' + escape(window.screen.height) + '&cd=' + escape(window.screen.colorDepth) + '" width="88" height="60" border=0 alt="TOPlist" />');
+				//--></script><noscript><img src="https://toplist.cz/count.asp?id=184393&logo=mc" border="0" alt="TOPlist" width="88" height="60"></noscript></a>
+			<br><br>
+		<a href="/?p=4090" title="WebArchiv a Spolek pro vojenská pietní místa, o.s.">
+			<img src="/vpm/www-data/images/webarchiv.gif" width="88" height="88" alt="WebArchiv a Spolek pro vojenská pietní místa, o.s.">
+		</a>
+		<br><br>
+		<a href="https://www.facebook.com/groups/191163113584/" title="Facebook skupina Spolek pro vojenská pietní místa, o.s.">
+			<img src="/vpm/www-data/images/facebook.png" width="88" height="88" alt="Facebook skupina">
+		</a>
+	</center>
+</ul>				</div>
+
+				<div id="contentleft">
+					<div id="drobeckovanavbar">&nbsp;
+							>> <a href="/vpm/mista/stat/1-ceska-republika/">Česká republika</a>
+																>> <a href="/vpm/mista/kraj/12-ustecky-kraj/">Ústecký kraj</a>
+							
+																>> <a href="/vpm/mista/okres/64-litomerice/">okres Litoměřice</a>
+							
+							>> <a href="/vpm/mista/obec/3912-roudnice-nad-labem/">Roudnice nad Labem</a>
+
+
+
+
+					</div>        
+
+<h3>Roudnice nad Labem</h3>
+<div id="vpmcontent">
+
+					<div class="vpmone" id="17581-pomnik-obetem-1-a-2-svetove-valky">
+						<h4 class="center">
+							<a href="/vpm/17581-pomnik-obetem-1-a-2-svetove-valky/#17581-pomnik-obetem-1-a-2-svetove-valky">Pomník Obětem 1. a 2. světové války</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/17581_celek.jpg" title="Arno Glaser, 10.2.2014" rel="shadowbox[vpm17581]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/17581_celek.jpg"></a>
+							<div class="info">
+								Autor: Arno Glaser, 
+							10.02.2014
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, 9. května, část Podlusky<br>
+
+					<div class="vpmonenapis">Nápis:<br>1914 - 1918<br />
+BROFT  ANTONÍN<br />
+BROŽ  JAROSLAV<br />
+DOBIÁŠ  JAN<br />
+DOBROVSKÝ  JOSEF<br />
+DRAHOŇOVSKÝ  JOSEF<br />
+FARY  FRANTIŠEK<br />
+FIŠER  JOSEF<br />
+GRŮBER  FRANTIŠEK<br />
+HELCL  JOSEF<br />
+HORÁK  JOSEF<br />
+HROUDA  VÁCLAV<br />
+MERHAUT  ADOLF<br />
+NOVOTNÝ   FRANTIŠEK<br />
+ODKOLEK JIŘÍ<br />
+PANEŠ  FERDINAND<br />
+PANEŠ  FRANTIŠEK<br />
+PÁTEK  JOSEF<br />
+PECH  VÁCLAV<br />
+PIBL  JOSEF<br />
+PROCHÁZKA  FRANT.<br />
+RAMPÁK  VÁCLAV<br />
+RICHTR  JINDŘICH<br />
+SLEZÁK  JAROSLAV<br />
+SOUKUP  JAROSLAV<br />
+<br />
+SVOBODA  FRANTIŠEK<br />
+SVOBODA  VÁCLAV<br />
+SÝKORA  FRANTIŠEK<br />
+SRBA  JOSEF<br />
+ŠPALEK  OLDŘICH<br />
+TESAŘ  BEDŘICH<br />
+TOMS  JOSEF<br />
+VAJDL  JOSEF<br />
+VESELÝ  JOSEF<br />
+VYHNÁLEK  VÁCLAV<br />
+OBĚTEM<br />
+SVĚTOVÉ  VÁLKY<br />
+VĚNOVALI<br />
+OBČANÉ  Z  PODLUSK<br />
+1930<br />
+vojín  JAROSLAV  BROŽ<br />
+*20. 7. 1913  padl na barikádě<br />
+v Praze   7. 5 . 1945<br />
+V upomínku věnují občané.</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Helcl Josef:  FJB.Nr.1    1891 – 1914<br>
+Pibl Josef:  Inft.,IR.Nr.42    1882 – 1914<br>
+Fišer Josef:  Pion.,PionB.Nr.9    1883 – 1915<br>
+Soukup Jaroslav:  LstInft.,IR.Nr.42    1881 – 1916<br>
+Paneš Ferdinand:  LstInft.,IR.Nr.73    1873 – 1916  v italském zajetí.<br>
+Pátek Josef:  LstInft.,IR.Nr.42    1897 – 1917<br>
+Vajdl Josef:  ErsRes.,k.k.LstIR.Nr.30    1878 – 1917 (?)  v ruském zajetí.<br>
+Fary František:  LstInft.,IR.Nr.42    1893 – 1917 (?)  v ruském zajetí.<br>
+Drahoňovský Josef:  ErsRes.,Minenwerfer    1877 – 1917<br>
+Odkolek Jiří:  Korp.,FstAB.Nr.5    1895 - 1917<br>
+Není uveden na pomníku:<br>
+Pištora František: Inft.,IR.Nr.42    1895 - 1914<br>
+(zdroj:  VHÚ,VHA)</p>
+					<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE-4211-00649<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42317&amp;lon=14.22963">N50°25'23.41'' E14°13'46.67''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Arno Glaser<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+					<div class="jcarousel-wrapper">
+						<div class="jcarousel">
+							<ul>
+									<li class="first"><a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/17581_detail-1.jpg" title="Arno Glaser, 10.2.2014" rel="shadowbox[vpm17581]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/17581_detail-1.jpg" height="68px"></a></li>	
+									<li><a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/17581_detail-2.jpg" title="Arno Glaser, 10.2.2014" rel="shadowbox[vpm17581]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/17581_detail-2.jpg" height="68px"></a></li>	
+									<li><a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/17581_detail-3.jpg" title="Arno Glaser, 10.2.2014" rel="shadowbox[vpm17581]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/17581_detail-3.jpg" height="68px"></a></li>	
+									<li class="last"><a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/17581_detail-4.jpg" title="Arno Glaser, 10.2.2014" rel="shadowbox[vpm17581]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/17581_detail-4.jpg" height="68px"></a></li>	
+							</ul>
+						</div>
+
+						<a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+						<a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+						<!--					<p class="jcarousel-pagination">
+											</p>-->
+					</div>
+			</div>
+					<div class="vpmone" id="54842-pametni-deska-vaclav-kratochvil">
+						<h4 class="center">
+							<a href="/vpm/54842-pametni-deska-vaclav-kratochvil/#54842-pametni-deska-vaclav-kratochvil">Pamětní deska Václav Kratochvíl</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/54842_roudnice-nad-labem-kratochvilova-rozhledna-nevusabepe-23-03.2025-2.jpg" title="František Nový, 23.3.2025" rel="shadowbox[vpm54842]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/54842_roudnice-nad-labem-kratochvilova-rozhledna-nevusabepe-23-03.2025-2.jpg"></a>
+							<div class="info">
+								Autor: František Nový, 
+							23.03.2025
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, Dr. Slavíka, Kratochvílova rozhledna<br>
+
+					<div class="vpmonenapis">Nápis:<br>VÁCLAV<br />
+KRATOCHVÍL<br />
+vůdce a buditel<br />
+podřipského lidu<br />
+první předseda<br />
+Rolnické Záložny Podřipské<br />
+v Roudnici n/L</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Václav Kratochvíl (24.6.1820 – 4.8.1893) • statkář, regionální politik a organizátor veřejného života na Roudnicku, poslanec zemského sněmu. <br>
+Roku 1848 byl vyslýchán pro účast na svatodušních bouřích v Praze a během Bachova absolutismu podporoval perzekvované účastníky revoluce. V roce 1868 svolal tábor lidu na Říp, za což byl odsouzen na šest měsíců <br>
+(zdroj: Wikipedia)</p>
+					<br>
+                                        
+				
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.421639&amp;lon=14.261083">N50°25'17.9'' E14°15'39.9''</a>
+                                        
+					<em>(pamětní deska)</em>
+					<br>
+
+
+				VPM přidal: František Nový<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+					<div class="jcarousel-wrapper">
+						<div class="jcarousel">
+							<ul>
+									<li class="first last"><a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/54842_roudnice-nad-labem-kratochvilova-rozhledna-nevusabepe-23-03.2025-1.jpg" title="František Nový, 23.3.2025" rel="shadowbox[vpm54842]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/54842_roudnice-nad-labem-kratochvilova-rozhledna-nevusabepe-23-03.2025-1.jpg" height="68px"></a></li>	
+							</ul>
+						</div>
+
+						<a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+						<a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+						<!--					<p class="jcarousel-pagination">
+											</p>-->
+					</div>
+			</div>
+					<div class="vpmone" id="38300-pomnik-jan-hus">
+						<h4 class="center">
+							<a href="/vpm/38300-pomnik-jan-hus/#38300-pomnik-jan-hus">Pomník Jan Hus</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38300_img-20200307-143724.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38300]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38300_img-20200307-143724.jpg"></a>
+							<div class="info">
+								Autor: Marek Lanzendorf, 
+							07.03.2020
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, Husovo náměstí<br>
+
+					<div class="vpmonenapis">Nápis:<br>JAN HUS<br />
+PRAVDA-VÍTĚZÍ<br />
+6.VII.1415<br />
+V POZNANÉ PRAVDĚ<br />
+STŮJTEŽ!</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Bronzová plastika z roku 1928 je umístěna na žulovém soklu. Autorem je Rudolf Březa, žák Stanislava Suchardy.<br>
+(zdroj: <a href="http://socharstvi.info/">http://socharstvi.info/</a> ) </p>
+					<br>
+                                        
+				
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42445&amp;lon=14.25841">N50°25'28.02'' E14°15'30.28''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Marek Lanzendorf<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+					<div class="jcarousel-wrapper">
+						<div class="jcarousel">
+							<ul>
+									<li class="first"><a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38300_img-20200307-143735.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38300]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38300_img-20200307-143735.jpg" height="68px"></a></li>	
+									<li><a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38300_img-20200307-143750.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38300]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38300_img-20200307-143750.jpg" height="68px"></a></li>	
+									<li class="last"><a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38300_img-20200307-143725.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38300]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38300_img-20200307-143725.jpg" height="68px"></a></li>	
+							</ul>
+						</div>
+
+						<a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+						<a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+						<!--					<p class="jcarousel-pagination">
+											</p>-->
+					</div>
+			</div>
+					<div class="vpmone" id="38298-pametni-deska-josef-masin">
+						<h4 class="center">
+							<a href="/vpm/38298-pametni-deska-josef-masin/#38298-pametni-deska-josef-masin">Pamětní deska Josef Mašín</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38298_img-20200307-143909.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38298]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38298_img-20200307-143909.jpg"></a>
+							<div class="info">
+								Autor: Marek Lanzendorf, 
+							07.03.2020
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, Husovo náměstí 45<br>
+
+					<div class="vpmonenapis">Nápis:<br>V TOMTO DOMĚ BYDLEL<br />
+PO DOBU STUDIÍ V ROUDNICI NAD LABEM<br />
+HRDINA PROTINACISTICKÉHO ODBOJE<br />
+GEN. <a href="/vpm/josef-vladimir-masin-750/">JOSEF MAŠÍN</a><br />
+OTEC HRDINŮ PROTIKOMUNISTICKÉHO ODBOJE CTIRADA A JOSEFA MAŠÍNOVÝCH<br />
+PŘÍSLUŠNÍK ČESKOSLOVENSKÝCH LEGIÍ V RUSKU<br />
+ČLEN ODBOJOVÉ ORGANIZACE OBRANA NÁRODA<br />
+NAROZEN 26.8.1896<br />
+POPRAVEN NACISTY 30.6.1942 </div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">V pátek 26. 8. 2016 byla slavnostně odhalena pamětní deska Josefu Mašínovi v Roudnici nad Labem v den jeho 120. výročí narození. <br>
+Účastník protinacistického odboje v domě na Husově náměstí pobýval během studií na Královské české zemské škole hospodářské. <br>
+Vznik pamětní desky inicioval roudnický spolek Nezapomínejme!. Autorkou jednoduché desky je sochařka Paulina Skavová a vyrobila ji slévárna HVH v Horní Kalné. Náklady na výrobu desky činily zhruba 60 000 korun, část uhradilo město.<br>
+(zdroj: <a href="https://www.novinky.cz/">https://www.novinky.cz/</a> ) </p>
+					<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE4211-53863<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42445&amp;lon=14.25841">N50°25'28.02'' E14°15'30.28''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Marek Lanzendorf<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+					<div class="jcarousel-wrapper">
+						<div class="jcarousel">
+							<ul>
+									<li class="first"><a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38298_img-20200307-143923.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38298]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38298_img-20200307-143923.jpg" height="68px"></a></li>	
+									<li class="last"><a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38298_img-20200307-143946.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38298]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38298_img-20200307-143946.jpg" height="68px"></a></li>	
+							</ul>
+						</div>
+
+						<a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+						<a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+						<!--					<p class="jcarousel-pagination">
+											</p>-->
+					</div>
+			</div>
+					<div class="vpmone" id="38302-pametni-deska-sametove-revoluce-1989">
+						<h4 class="center">
+							<a href="/vpm/38302-pametni-deska-sametove-revoluce-1989/#38302-pametni-deska-sametove-revoluce-1989">Pamětní deska Sametové revoluce 1989</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38302_img-20200307-143707.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38302]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38302_img-20200307-143707.jpg"></a>
+							<div class="info">
+								Autor: Marek Lanzendorf, 
+							07.03.2020
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, Husovo náměstí, deska je umístěna na zemi vedle pomníku Mistra Jana Husa<br>
+
+					<div class="vpmonenapis">Nápis:<br>ZDE SE V LISTOPADU 1989<br />
+SCHÁZELI ROUDNIČANÉ<br />
+NA PODPORU SAMETOVÉ REVOLUCE<br />
+A SVRŽENÍ KOMUNISTICKÉ DIKTATURY</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">U příležitosti stého výročí založení republiky byla 17. listopadu 2018 z iniciativy zastupitelstva města odhalena měděná deska upomínající na průběh událostí v listopadu a prosinci 1989 v Roudnici.<br>
+(zdroj: <a href="http://www.pametnimista.usd.cas.cz/">http://www.pametnimista.usd.cas.cz/</a> ) </p>
+					<br>
+                                        
+				
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42445&amp;lon=14.25841">N50°25'28.02'' E14°15'30.28''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Marek Lanzendorf<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+					<div class="jcarousel-wrapper">
+						<div class="jcarousel">
+							<ul>
+									<li class="first last"><a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38302_img-20200307-143724.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38302]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38302_img-20200307-143724.jpg" height="68px"></a></li>	
+							</ul>
+						</div>
+
+						<a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+						<a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+						<!--					<p class="jcarousel-pagination">
+											</p>-->
+					</div>
+			</div>
+					<div class="vpmone" id="39739-pomnik-obeti-komunistickeho-rezimu">
+						<h4 class="center">
+							<a href="/vpm/39739-pomnik-obeti-komunistickeho-rezimu/#39739-pomnik-obeti-komunistickeho-rezimu">Pomník Oběti komunistického režimu</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/39739_img-20200307-144356.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm39739]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/39739_img-20200307-144356.jpg"></a>
+							<div class="info">
+								Autor: Marek Lanzendorf, 
+							07.03.2020
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, Karlovo náměstí 22, chodník před budovou České spořitelny<br>
+
+					<div class="vpmonenapis">Nápis:<br><a href="/vpm/bedriska-synkova-hoffmannova-1091/">Bez nápisu.</a></div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Na chodníku je zobrazena mince s portrétem v té době vězněné oběti nespravedlivého procesu se skauty, Bedřišky Synkové. Odsouzena byla za vlastizradu, protože vedla skautský oddíl. Ve vězení měla být deset let. Její osud vybudil sochařku Marii Uchytilovou, aby použila její portrét v návrhu nové jednokorunové mince. Shodou okolností se pak s touto mincí platilo až do rozdělení Československa 1993.</p>
+					<br>
+                                        
+				
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42445&amp;lon=14.26103">N50°25'28.02'' E14°15'39.71''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Marek Lanzendorf<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+					<div class="jcarousel-wrapper">
+						<div class="jcarousel">
+							<ul>
+									<li class="first last"><a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/39739_img-20200307-144415.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm39739]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/39739_img-20200307-144415.jpg" height="68px"></a></li>	
+							</ul>
+						</div>
+
+						<a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+						<a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+						<!--					<p class="jcarousel-pagination">
+											</p>-->
+					</div>
+			</div>
+					<div class="vpmone" id="12458-pametni-deska-obetem-2-svetove-valky">
+						<h4 class="center">
+							<a href="/vpm/12458-pametni-deska-obetem-2-svetove-valky/#12458-pametni-deska-obetem-2-svetove-valky">Pamětní deska Obětem 2. světové války</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/12458_roudnice-n.l.-001-lt.jpg" title="Vladimír a Diana Štruplovi, 24.7.2009" rel="shadowbox[vpm12458]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/12458_roudnice-n.l.-001-lt.jpg"></a>
+							<div class="info">
+								Autor: Vladimír a Diana Štruplovi, 
+							24.07.2009
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, Karlovo náměstí 22, v hale České spořitelny<br>
+
+					<div class="vpmonenapis">Nápis:<br>1939 1945<br />
+NA VĚČNOU PAMÁTKU NAŠICH<br />
+UMUČENÝCH SPOLUPRACOVNÍKŮ<br />
+<br />
+ANTONÍNA HERYNKA, PŘEDSEDY SPOŘITELNÍHO VÝBORU <br />
+POPRAVEN 30.5.1942 - PRAHA<br />
+KARLA KRÁLÍKA, VRCH. ŘEDITELE SPOŘITELNY<br />
++12.5.1945 - TEREZÍN<br />
+VOJTĚCHA MILOTY, ČLENA SPRÁVNÍ KOMISE SPOŘITELNY<br />
++24.5.1943 - OSVĚTIM<br />
+KARLA ZELENKY, PŘEDSEDY ŘEDITELSTVA SPOŘITELNY<br />
+POPRAVEN 18.6.1942 - PANKRÁC</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Antonín Herynk: *9.6.1884 Butovice u Prahy, bývalý starosta Roudnice 1935 – 1939,ředitel školy, 23.6.1942 na udání zatčen gestapem a popraven na Kobyliské střelnici 30.6.1942 společně s ním dalších 68 odbojářů, mimo jiné pplk.. Josef Mašín.<br>
+Vojtěch Milota: *24.7.1897 Strakonice, č.ú.l. 20896/1943<br>
+Karel Zelenka: *20.6.1897 Vojkovice n/O, obchodník, popraven na Kobyliské střelnici 18.6.1942 v 18:45, společně s ním dalších 8 odbojářů.<br>
+Králík Karel: *26.7.1875 Roudnice, do věznice Terezín předán 4.12.1944. Patrně zemřel na nákazu tyfem.<br>
+(lidice.cz/obec/historie, muzeumpolicie.cz, Death books from Auschwitz, pamatnik-terezin.cz )</p>
+					<br>
+                                        
+				
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42445&amp;lon=14.26103">N50°25'28.02'' E14°15'39.71''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Vladimír a Diana Štruplovi<br>
+				Doplnění informací: Arno Glaser<br>
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+					<div class="vpmone" id="30662-pametni-deska-obetem-2-svetove-valky">
+						<h4 class="center">
+							<a href="/vpm/30662-pametni-deska-obetem-2-svetove-valky/#30662-pametni-deska-obetem-2-svetove-valky">Pamětní deska Obětem 2. světové války</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/30662_roudnice-nad-labem-lt-karlovo-namesti-21-2014-04-23-cze4211-616.jpg" title="Vladimír Štrupl, 23.4.2014" rel="shadowbox[vpm30662]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/30662_roudnice-nad-labem-lt-karlovo-namesti-21-2014-04-23-cze4211-616.jpg"></a>
+							<div class="info">
+								Autor: Vladimír Štrupl, 
+							23.04.2014
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, Karlovo náměstí 21, v budově MÚ<br>
+
+					<div class="vpmonenapis">Nápis:<br>VZPOMÍNÁME<br />
+VDĚČNĚ A S ÚCTOU NA TY,<br />
+KTĚŘÍ V BOJI<br />
+PROTI NĚMECKÉMU NACIZMU<br />
+V LETECH<br />
+1939 - 1945<br />
+ZA NAŠI SVOBODU<br />
+POLOŽILI SVÉ ŽIVOTY.<br />
+<br />
+Český svaz bojovníků za svobodu<br />
+Z. O. Roudnice n. L.</div> 
+										<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE4211-616<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42445&amp;lon=14.26103">N50°25'28.02'' E14°15'39.71''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Diana a Vladimír Štruplovi<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+					<div class="jcarousel-wrapper">
+						<div class="jcarousel">
+							<ul>
+									<li class="first last"><a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/30662_roudnice-nad-labem-lt-karlovo-namesti-21-v-budove-mu-2014-04-23-1-.jpg" title="Vladimír Štrupl, 23.4.2014" rel="shadowbox[vpm30662]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/30662_roudnice-nad-labem-lt-karlovo-namesti-21-v-budove-mu-2014-04-23-1-.jpg" height="68px"></a></li>	
+							</ul>
+						</div>
+
+						<a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+						<a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+						<!--					<p class="jcarousel-pagination">
+											</p>-->
+					</div>
+			</div>
+					<div class="vpmone" id="30663-pametni-deska-obetem-komunismu">
+						<h4 class="center">
+							<a href="/vpm/30663-pametni-deska-obetem-komunismu/#30663-pametni-deska-obetem-komunismu">Pamětní deska Obětem komunismu</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/30663_roudnice-nad-labem-lt-karlovo-namesti-21-2014-04-23-cze4211-617.jpg" title="Vladimír Štrupl, 23.4.2014" rel="shadowbox[vpm30663]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/30663_roudnice-nad-labem-lt-karlovo-namesti-21-2014-04-23-cze4211-617.jpg"></a>
+							<div class="info">
+								Autor: Vladimír Štrupl, 
+							23.04.2014
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, Karlovo náměstí 21, v budově MÚ<br>
+
+					<div class="vpmonenapis">Nápis:<br>OBČANÉ!<br />
+<br />
+NEZAPOMEŇTE<br />
+NA ZLOČINY<br />
+SPÁCHANÉ<br />
+KOMUNISTICKÝM<br />
+REŽIMEM<br />
+NA NAŠICH<br />
+SPOLUOBČANECH<br />
+V LETECH<br />
+1948-1989<br />
+<br />
+My nezapomínáme!<br />
+Konfederace politických vězňů ČR</div> 
+										<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE4211-617<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42445&amp;lon=14.26103">N50°25'28.02'' E14°15'39.71''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Diana a Vladimír Štruplovi<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+					<div class="jcarousel-wrapper">
+						<div class="jcarousel">
+							<ul>
+									<li class="first last"><a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/30663_roudnice-nad-labem-lt-karlovo-namesti-21-v-budove-mu-2014-04-23-1-.jpg" title="Vladimír Štrupl, 23.4.2014" rel="shadowbox[vpm30663]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/30663_roudnice-nad-labem-lt-karlovo-namesti-21-v-budove-mu-2014-04-23-1-.jpg" height="68px"></a></li>	
+							</ul>
+						</div>
+
+						<a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+						<a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+						<!--					<p class="jcarousel-pagination">
+											</p>-->
+					</div>
+			</div>
+					<div class="vpmone" id="30664-pametni-deska-obetem-holocaustu">
+						<h4 class="center">
+							<a href="/vpm/30664-pametni-deska-obetem-holocaustu/#30664-pametni-deska-obetem-holocaustu">Pamětní deska Obětem holocaustu</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/30664_roudnice-nad-labem-lt-karlovo-namesti-21-cze4211-26883-z-cevh-odhalena-2008-02.jpg" title="CEVH MO, 23.4.2014" rel="shadowbox[vpm30664]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/30664_roudnice-nad-labem-lt-karlovo-namesti-21-cze4211-26883-z-cevh-odhalena-2008-02.jpg"></a>
+							<div class="info">
+								Autor: CEVH MO, 
+							23.04.2014
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, Karlovo náměstí 21, v budově MÚ<br>
+
+					<div class="vpmonenapis">Nápis:<br>NA PAMÁTKU<br />
+ŽIDOVSKÝM SPOLUOBČANŮM<br />
+Z ROUDNICE NAD LABEM<br />
+UMUČENÝM<br />
+ZA NACISTICKÉ HRŮZOVLÁDY<br />
+V DOBĚ<br />
+DRUHÉ SVĚTOVÉ VÁLKY</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">pamětní deska byla odhalena v únoru 2008</p>
+					<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE4211-26883<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42445&amp;lon=14.26103">N50°25'28.02'' E14°15'39.71''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Vladimír Štrupl<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+		<div class="center"><div class="pagination">
+	<ul>
+		<li><a>«</a></li>
+
+			<li class="active"><a>1</a></li>
+		
+			<li><a href="/vpm/mista/obec/3912-/?vp-page=2" class="ajax">2</a></li>
+		
+			<li><a href="/vpm/mista/obec/3912-/?vp-page=3" class="ajax">3</a></li>
+		
+			<li><a href="/vpm/mista/obec/3912-/?vp-page=4" class="ajax">4</a></li>
+		<li class="disabled"><a>…</a></li>
+			<li><a href="/vpm/mista/obec/3912-/?vp-page=6" class="ajax">6</a></li>
+		<li class="disabled"><a>…</a></li>
+			<li><a href="/vpm/mista/obec/3912-/?vp-page=9" class="ajax">9</a></li>
+		<li class="disabled"><a>…</a></li>
+			<li><a href="/vpm/mista/obec/3912-/?vp-page=11" class="ajax">11</a></li>
+		
+
+		<li><a href="/vpm/mista/obec/3912-/?vp-page=2" class="ajax">»</a></li>
+	</ul>
+</div>
+</div>
+		<div class="center"></div>
+	</div>
+					<div style="clear:both;"></div>			
+				</div>			
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+
+		<div id="footerbg">
+			<div id="footer">
+				<div class="footerleft">
+					<p><a href="http://www.briangardner.com" >Design - Brian Gardner</a> / <a href="https://www.josefrypacek.cz">&COPY; 2014 Josef Rypáček</a></p>
+				</div>
+				<div class="footerright">
+					<p><a href="/vpm/admin/stranka/">Administrace</a></p>
+				</div>
+			</div>
+		</div>
+
+    </body>
+</html>

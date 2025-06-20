@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+		<title>Pamětní deska Josef Balcar | Spolek pro vojenská pietní místa</title>
+
+		<link rel="shortcut icon" href="/vpm/favicon.ico" type="image/x-icon">
+
+		<link rel="stylesheet" media="screen,projection,tv" href="/vpm/www-data/css/reset.css" type="text/css">
+                <link rel="stylesheet" href="//www.vets.cz/wp-content/themes/revolution-code-blue/style.css" type="text/css" media="screen">
+                <link rel="stylesheet" media="screen,projection,tv" href="/vpm/www-data/css/frontscreen.css" type="text/css">
+		<link rel="stylesheet" media="print" href="/vpm/www-data/css/print.css" type="text/css">
+		<link rel="stylesheet" media="screen" href="/vpm/www-data/css/ipub.visualPaginator.css" type="text/css">
+		<link rel="stylesheet" href="/vpm/bower_components/jquery-ui/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" type="text/css" href="/vpm/www-data/shadowbox/shadowbox.css">
+
+		<script src="/vpm/bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="/vpm/bower_components/jquery-migrate-301/jquery-migrate-3.0.1.min.js"></script> 
+		<script src="/vpm/bower_components/jquery-ui/jquery-ui.min.js"></script>
+		<script src="/vpm/bower_components/nette-forms/src/assets/netteForms.min.js"></script>
+		<script src="/vpm/bower_components/nette.ajax.js/nette.ajax.js"></script>
+		<script type="text/javascript" src="/vpm/www-data/js/jquery.collapse.js"></script>
+		<script type="text/javascript" src="/vpm/www-data/shadowbox/shadowbox.js"></script>
+		<script type="text/javascript" src="/vpm/www-data/jcarousel/jquery.jcarousel.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/vpm/www-data/jcarousel/skin.css">
+		<script type="text/javascript" src="/vpm/www-data/js/frontend.js"></script>
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=G-9J16S3MXB8"></script>
+			<script>
+			  window.dataLayer = window.dataLayer || [];
+			  function gtag(){dataLayer.push(arguments);}
+			  gtag('js', new Date());
+
+			  gtag('config', 'G-9J16S3MXB8');
+			</script>
+
+		
+		
+		<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+		<style>
+		.cc-window.cc-banner {padding-top: 0.5em; padding-bottom: 0.5em;}
+		.cc-btn { padding-top: 0.2em; padding-bottom: 0.2em; }
+		</style>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+		<script>
+		window.addEventListener("load", function(){
+		window.cookieconsent.initialise({
+		  "palette": {
+			"popup": {
+			  "background": "#edeff5",
+			  "text": "#838391"
+			},
+			"button": {
+			  "background": "#4b81e8"
+			}
+		  },
+		  "theme": "classic",
+		  "content": {
+			"message": "Tyto stránky používají k poskytování služeb a sledování návštěvnosti cookies.",
+			"dismiss": "Rozumím",
+			"link": "Více informací"
+		  }
+		})});
+		</script>
+    </head>
+
+    <body>
+		<div id="header" style="position: relative;">
+			<div class="headerleft">
+				<h1><a href="http://www.vets.cz/">Spolek pro vojenská pietní místa</a></h1>
+				vets.cz
+			</div>
+		</div>
+
+		<div id="navbar">
+			<div id="navbarcenter">
+<ul id="nav">
+	<div class="menu-vedlejsi-container">
+		<ul id="menu-vedlejsi" class="menu">
+			<li id="menu-item-123" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-123"><a href="/aktuality/">Aktuality</a></li>
+			<li id="menu-item-42" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42"><a href="/vpm/mista/stat/1-ceska-republika/">Česká republika</a>
+				<ul class="sub-menu">
+					<li id="menu-item-41" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-41"><a href="/vpm/mista/kraj/10-praha/">hl. m. Praha</a></li>
+					<li id="menu-item-61" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-61"><a href="/vpm/mista/kraj/1-jihocesky/">Jihočeský kraj</a></li>
+					<li id="menu-item-62" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-62"><a href="/vpm/mista/kraj/2-jihomoravsky/">Jihomoravský kraj</a></li>
+
+					<li id="menu-item-75" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-75"><a href="/vpm/mista/kraj/3-karlovarsky/">Karlovarský kraj</a></li>
+					<li id="menu-item-63" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-63"><a href="/vpm/mista/kraj/4-kralovehradecky/">Královéhradecký kraj</a></li>
+					<li id="menu-item-76" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-76"><a href="/vpm/mista/kraj/5-liberecky/">Liberecký kraj</a></li>
+					<li id="menu-item-77" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-77"><a href="/vpm/mista/kraj/6-moravskoslezsky/">Moravskoslezský kraj</a></li>
+					<li id="menu-item-78" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-78"><a href="/vpm/mista/kraj/7-olomoucky/">Olomoucký kraj</a></li>
+					<li id="menu-item-79" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-79"><a href="/vpm/mista/kraj/8-pardubicky/">Pardubický kraj</a></li>
+
+					<li id="menu-item-80" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-80"><a href="/vpm/mista/kraj/9-plzensky/">Plzeňský kraj</a></li>
+					<li id="menu-item-81" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="/vpm/mista/kraj/11-stredocesky/">Středočeský kraj</a></li>
+					<li id="menu-item-82" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-82"><a href="/vpm/mista/kraj/12-ustecky/">Ústecký kraj</a></li>
+					<li id="menu-item-43" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-43"><a href="/vpm/mista/kraj/13-vysocina/">kraj Vysočina</a></li>
+					<li id="menu-item-83" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-83"><a href="/vpm/mista/kraj/14-zlinsky/">Zlínský kraj</a></li>
+				</ul>
+			</li>
+
+			<li id="menu-item-44" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-44"><a href="/vpm/mista/stat/2-slovenska-republika/">Slovensko</a>
+				<ul class="sub-menu">
+					<li id="menu-item-84" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-84"><a href="/vpm/mista/kraj/15-banskobystricky-kraj/">Banskobystrický kraj</a></li>
+					<li id="menu-item-64" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-64"><a href="/vpm/mista/kraj/16-bratislavsky-kraj/">Bratislavský kraj</a></li>
+					<li id="menu-item-85" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-85"><a href="/vpm/mista/kraj/17-kosicky-kraj/">Košický kraj</a></li>
+					<li id="menu-item-86" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-86"><a href="/vpm/mista/kraj/18-nitriansky-kraj/">Nitriansky kraj</a></li>
+					<li id="menu-item-87" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-87"><a href="/vpm/mista/kraj/19-presovsky-kraj/">Prešovský kraj</a></li>
+
+					<li id="menu-item-88" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-88"><a href="/vpm/mista/kraj/20-trenciansky-kraj/">Trenčiansky kraj</a></li>
+					<li id="menu-item-89" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-89"><a href="/vpm/mista/kraj/21-trnavsky-kraj/">Trnavský kraj</a></li>
+					<li id="menu-item-90" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-90"><a href="/vpm/mista/kraj/22-zilinsky-kraj/">Žilinský kraj</a></li>
+				</ul>
+			</li>
+			<li id="menu-item-45" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-45"><a href="/vpm/mista/staty/">Zahraničí</a></li>
+			<li id="menu-item-70" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-70"><a href="/vpm/hrdina/">Jména z pomníků</a></li>
+			<li id="menu-item-51" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-51"><a href="/vyhledavani/">Vyhledávání</a></li>
+
+			<li id="menu-item-52" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-52"><a href="/jak-se-zapojit/">Jak se zapojit?</a></li>
+			<li id="menu-item-71" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71"><a href="http://diskuze.vets.cz">Diskuze</a></li>
+		</ul>
+	</div>	
+</ul>			</div>
+		</div>
+
+		<div id="wrap">
+			<div id="content">
+				<div id="l_sidebar">
+<ul id="l_sidebarwidgeted">
+	<li id="menu_vertical">
+		<h2>Menu</h2>
+		<div class="menu-hlavni-container">
+			<ul id="menu-hlavni" class="menu">
+				<li id="menu-item-9" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9"><a href="/">Úvod</a></li>
+				<li id="menu-item-11899" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11899"><a href="/spolek/">Spolek</a></li>
+				<li id="menu-item-4013" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-4013"><a href="/4011-o-projektu-rozcestnik/">O projektu</a></li>
+				<li id="menu-item-11344" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11344"><a href="/vpm/statistika/">Statistika VPM</a></li>
+				<li id="menu-item-15264" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15264"><a href="/vpm/badatelna/">Badatelna</a></li>
+				<li id="menu-item-15265" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15265"><a href="/vpm/ostatni/">Ostatní</a></li>
+				<li id="menu-item-7140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7140"><a href="/vase-dotazy/">Vaše dotazy</a></li>
+				<li id="menu-item-15444" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15444"><a href="/poradna/">Poradna</a></li>
+				<li id="menu-item-1315" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1315"><a href="/233-obecne-o-geocachingu/">Geocaching</a></li>
+                                <li id="menu-item-28720" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-28720"><a href="/vpm/mapa/">Mapa</a></li>
+				<li id="menu-item-5915" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5915"><a href="/monument/">Monument</a></li>
+				<li id="menu-item-2066" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2066"><a href="/1971-publikace/">Publikace</a></li>
+				<!--<li id="menu-item-3000" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3000"><a href="/vpm/projekt-drazdany/">Projekt Drážďany</a></li>-->
+			</ul>
+		</div>
+	</li>
+	<li id="links">
+        <h2>Odkazy</h2>
+        <ul>
+			<li><a href="http://www.vets.cz/6215-nase-bannery/" title="Naše bannery">Naše bannery</a></li>
+			<li><a href="http://www.vets.cz/odkazy" title="Seznam odkazů">Seznam odkazů</a></li>
+			<li><a href="http://www.vets.estranky.cz/clanky/jednota-csol-cesky-brod.html" title="Stránky jednoty ČSOL Český Brod" target="_blank">ČSOL Český Brod</a></li>
+			<li><a href="http://vets.estranky.cz/" title="původní verze webu" target="_blank">Starý web</a></li>
+        </ul>
+	</li>
+</ul>
+
+
+<h2>&nbsp;</h2>
+<ul>
+	<center>
+			<a href="http://www.toplist.cz/stat/184393"><script language="JavaScript" type="text/javascript">
+				<!--
+				document.write('<img src="https://toplist.cz/count.asp?id=184393&logo=mc&http=' + escape(document.referrer) + '&t=' + escape(document.title) +
+						'&wi=' + escape(window.screen.width) + '&he=' + escape(window.screen.height) + '&cd=' + escape(window.screen.colorDepth) + '" width="88" height="60" border=0 alt="TOPlist" />');
+				//--></script><noscript><img src="https://toplist.cz/count.asp?id=184393&logo=mc" border="0" alt="TOPlist" width="88" height="60"></noscript></a>
+			<br><br>
+		<a href="/?p=4090" title="WebArchiv a Spolek pro vojenská pietní místa, o.s.">
+			<img src="/vpm/www-data/images/webarchiv.gif" width="88" height="88" alt="WebArchiv a Spolek pro vojenská pietní místa, o.s.">
+		</a>
+		<br><br>
+		<a href="https://www.facebook.com/groups/191163113584/" title="Facebook skupina Spolek pro vojenská pietní místa, o.s.">
+			<img src="/vpm/www-data/images/facebook.png" width="88" height="88" alt="Facebook skupina">
+		</a>
+	</center>
+</ul>				</div>
+
+				<div id="contentleft">
+					<div id="drobeckovanavbar">&nbsp;
+							>> <a href="/vpm/mista/stat/1-ceska-republika/">Česká republika</a>
+																>> <a href="/vpm/mista/kraj/10-hl-m-praha/">hl. m. Praha</a>
+							
+																>> <a href="/vpm/mista/okres/81-praha-4/">okres Praha 4</a>
+							
+							>> <a href="/vpm/mista/obec/1006-praha-4/">Praha 4</a>
+
+
+
+
+					</div>        
+
+<h3>Praha 4</h3>
+<div id="vpmcontent">
+
+					<div class="vpmone" id="4707-pametni-deska-josef-balcar">
+						<h4 class="center">
+							<a href="/vpm/4707-pametni-deska-josef-balcar/#4707-pametni-deska-josef-balcar">Pamětní deska Josef Balcar</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4707_p04-291-nusle-5.-kvetna-781-46.jpg" title="Vladimír Štrupl, 22.4.2010" rel="shadowbox[vpm4707]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4707_p04-291-nusle-5.-kvetna-781-46.jpg"></a>
+							<div class="info">
+								Autor: Vladimír Štrupl, 
+							22.04.2010
+						</div>
+					</div>
+
+					Umístění: Praha 4, 5. května 781/46, Nusle<br>
+
+					<div class="vpmonenapis">Nápis:<br>ZDE PADL 7.5.1945. ZA ČSR<br />
+JOSEF BALCAR<br />
+VRCH. ÚČ. ŘED. HL. M. PRAHY<br />
+ČEST HRDINOVI</div> 
+										<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE-0004-20676<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.04418&amp;lon=14.45979">N50°2'39.05'' E14°27'35.24''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Vladimír Štrupl<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+					<div class="jcarousel-wrapper">
+						<div class="jcarousel">
+							<ul>
+									<li class="first last"><a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4707_praha-4-5.-kvetna-781-46-2010-04-1-.jpg" title="Vladimír Štrupl, 1.4.2010" rel="shadowbox[vpm4707]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4707_praha-4-5.-kvetna-781-46-2010-04-1-.jpg" height="68px"></a></li>	
+							</ul>
+						</div>
+
+						<a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+						<a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+						<!--					<p class="jcarousel-pagination">
+											</p>-->
+					</div>
+			</div>
+					<div class="vpmone" id="12116-pametni-deska-zdenek-vohradsky">
+						<h4 class="center">
+							<a href="/vpm/12116-pametni-deska-zdenek-vohradsky/#12116-pametni-deska-zdenek-vohradsky">Pamětní deska  Zdeněk Vohradský</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-3/praha-3-323/12116_5-kvetna-29-853-pde.jpg" title="Josef Kareš, 29.5.2011" rel="shadowbox[vpm12116]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-3/praha-3-323/12116_5-kvetna-29-853-pde.jpg"></a>
+							<div class="info">
+								Autor: Josef Kareš, 
+							29.05.2011
+						</div>
+					</div>
+
+					Umístění: Praha 4, 5. května 853/29<br>
+
+					<div class="vpmonenapis">Nápis:<br>ZDENĚK VOHRADSKÝ<br />
+NAR. 26.5.1924   PADL 7.5.1945<br />
+<br />
+VOLALA REVOLUCE A TYS POSLECHL JEJÍ HLAS<br />
+ŠELS DO BOJE PRO VŠE CO JSI MĚL RÁD<br />
+BOJOVAL JSI STATEČNĚ, JAK MNOHÝ Z NÁS<br />
+DALS VÍC NEŽ MY - MY ŽIJEME A TY JSI PAD</div> 
+										<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE-0004-20630<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.04418&amp;lon=14.45979">N50°2'39.05'' E14°27'35.24''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Josef Kareš<br>
+				
+				Příprava dat: Jiří Porteš<br>
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+					<div class="vpmone" id="12117-pametni-deska-obetem-2-svetove-valky">
+						<h4 class="center">
+							<a href="/vpm/12117-pametni-deska-obetem-2-svetove-valky/#12117-pametni-deska-obetem-2-svetove-valky">Pamětní deska Obětem 2. světové  války</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-3/praha-3-323/12117_5-kvetna-38-1040-pde.jpg" title="Josef Kareš, 29.5.2011" rel="shadowbox[vpm12117]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-3/praha-3-323/12117_5-kvetna-38-1040-pde.jpg"></a>
+							<div class="info">
+								Autor: Josef Kareš, 
+							29.05.2011
+						</div>
+					</div>
+
+					Umístění: Praha 4, 5. května 38/1040<br>
+
+					<div class="vpmonenapis">Nápis:<br>OBĚTEM OKUPACE A HRDINŮM REVOLUCE <br />
+<br />
+FRANTIŠEK PELIKÁN, FRANTIŠEK ONDŘEJ, LADISLAV PAZDERA, VÁCLAV SILBRNÁGL, VÁCLAV KŘIŠŤÁL, VOJTĚCH ŠVEJDA, OTTO BATLIČKA, ANTONÍN CÍSAŘ, JOSEF JELÍNEK, JAN KOZLOVSKÝ, VOJTĚCH MAŠEK, VÁCLAV MUSIL, JOSEF ZÁRUBA, JOSEF TVRDÝ, ALOIS HORA, ADAM KAPIC, FRANTIŠEK BRACHTL, FRANTIŠEK NEKOVÁŘ, MARIE DOUŠANOVÁ, ANTONÍN HAMÁČEK, VLADIMÍR CÍLEK, ANTONÍN MAREŠ, LADISLAV PÖSL, LUDVÍK MACÍK, OLDŘICH ŘIHA, JOSEF ŠRÁMEK, JOSEF JOUZA, KAREL SECKÝ, KAREL ŠPIRK, JOSEF WURM, JAN PÁNEK <br />
+<br />
+1938 – 1945 <br />
+<br />
+VĚNUJÍ DÍLČÍ ODBOROVÉ SKUPINY VOZOVNY PANKRÁC </div> 
+										<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE-0004-28760<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.04418&amp;lon=14.45979">N50°2'39.05'' E14°27'35.24''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Josef Kareš<br>
+				
+				Příprava dat: Aleš Zahradníček<br>
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+					<div class="vpmone" id="4930-pomniky-obetem-2-svetove-valky">
+						<h4 class="center">
+							<a href="/vpm/4930-pomniky-obetem-2-svetove-valky/#4930-pomniky-obetem-2-svetove-valky">Pomníky Obětem 2. světové války</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4930_dsc01980.jpg" title="Jiří Porteš, 2.6.2012" rel="shadowbox[vpm4930]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4930_dsc01980.jpg"></a>
+							<div class="info">
+								Autor: Jiří Porteš, 
+							02.06.2012
+						</div>
+					</div>
+
+					Umístění: Praha 4, Antala Staška, Krč, na rohu ulic Antala Staška a Na Strži, kousek od nákupního střediska Norma<br>
+
+					<div class="vpmonenapis">Nápis:<br>pomník vlevo<br />
+ZA NACISTICKÉ OKUPACE BYLI ZA ODBOJOVOU ČINNOST POPRAVENI A UMUČENI ZDEJŠÍ OBČANÉ:<br />
+JOSEF BOHUSLAV, ANTONÍN BRABEC, VÁCLAV DUŠEK, FRANTIŠEK KODÝDEK, HYNEK KREJČÍ, LADISLAV MATĚCHA, BOHUMIL MISTERKA, ANTONÍN ŠTĚTKA, <a href="/vpm/jaroslav-volf-3437/">JAROSLAV VOLF</a><br />
+ČEST JEJICH PAMÁTCE!<br />
+ONV 4<br />
+<br />
+pomník vpravo:<br />
+V KVĚTNU 1945 PADLI V TĚCHTO MÍSTECH:<br />
+FRANTIŠEK ADAM, KOSTADIN D. ARIVANOV, JAN BAČUVČÍK, <a href="/vpm/antonin-hanus-3979/">ANTONÍN HANUŠ</a>, CHRISTO N. JORDANOV, DIMITR G. KARAIVANOVA, MIROSLAV KOMEDA, LADISLAV KULFÁNEK, KOSTADIN A. PETROV, ADOLF POPPER, JINDŘICH SMETANA, FRANTIŠEK ŠMÍD, DVA NEZNÁMÍ<br />
+ČEST JEJICH PAMÁTCE!<br />
+ONV 4</div> 
+										<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE-0004-28224, CZE-0004-20675<br>
+				
+				
+
+				Toto místo je počítáno jako 2 VPM<br>
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.041531&amp;lon=14.444">N50°2'29.51'' E14°26'38.4''</a>
+                                        
+					
+					<br>
+
+
+				VPM přidal: Vladimír Štrupl<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+					<div class="jcarousel-wrapper">
+						<div class="jcarousel">
+							<ul>
+									<li class="first"><a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4930_1006-001-praha-4-antala-staska-2.jpg" title="Vladimír Štrupl, 16.4.2005" rel="shadowbox[vpm4930]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4930_1006-001-praha-4-antala-staska-2.jpg" height="68px"></a></li>	
+									<li><a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4930_dsc01987.jpg" title="Jiří Porteš, 2.6.2012" rel="shadowbox[vpm4930]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4930_dsc01987.jpg" height="68px"></a></li>	
+									<li class="last"><a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4930_17759793-10208955990118612-2302411584233265591-n.jpg" title="Filip Vojtášek, 9.4.2017" rel="shadowbox[vpm4930]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4930_17759793-10208955990118612-2302411584233265591-n.jpg" height="68px"></a></li>	
+							</ul>
+						</div>
+
+						<a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+						<a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+						<!--					<p class="jcarousel-pagination">
+											</p>-->
+					</div>
+			</div>
+					<div class="vpmone" id="12118-pametni-deska-obeti-2-svetove-valky">
+						<h4 class="center">
+							<a href="/vpm/12118-pametni-deska-obeti-2-svetove-valky/#12118-pametni-deska-obeti-2-svetove-valky">Pamětní deska Oběti 2. světové války</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/12118_antala-staska-48-374-pde.jpg" title="Josef Kareš, 26.5.2011" rel="shadowbox[vpm12118]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/12118_antala-staska-48-374-pde.jpg"></a>
+							<div class="info">
+								Autor: Josef Kareš, 
+							26.05.2011
+						</div>
+					</div>
+
+					Umístění: Praha 4, Antala Staška 374/48, na sloupku vrat<br>
+
+					<div class="vpmonenapis">Nápis:<br>V KVĚTNU 1945<br />
+BYLA ZDE ZAVRAŽDĚNA<br />
+NEZNÁMÁ ŽENA<br />
+ČEST JEJÍ PAMÁTCE!<br />
+ONV 4</div> 
+										<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE-0004-28225<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.04153&amp;lon=14.444">N50°2'29.51'' E14°26'38.4''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Josef Kareš<br>
+				
+				Příprava dat: Jiří Porteš<br>
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+					<div class="vpmone" id="44534-pametni-deska-josef-plesnivy">
+						<h4 class="center">
+							<a href="/vpm/44534-pametni-deska-josef-plesnivy/#44534-pametni-deska-josef-plesnivy">Pamětní deska Josef Plesnivý</a>
+							 - <span class="red">místo je zrušené</span>
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/44534_vets-bez-fotky.jpg" title="vets, 1.1.1111" rel="shadowbox[vpm44534]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/44534_vets-bez-fotky.jpg"></a>
+							<div class="info">
+								Autor: vets, 
+							archiv
+						</div>
+					</div>
+
+					Umístění: Praha 4, Antala Staška 410/27<br>
+
+					<div class="vpmonenapis">Nápis:<br>V květnu 1945 zde padl<br />
+Josef Plesnivý<br />
+Čest jeho památce!<br />
+<br />
+ONV 4</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Josef Plesnivý se narodil 24.10.1906 a padl 5.5.1945. Byl obuvníkem a bydlel U Krčské vodárny čp. 410. Deska byla instalována v roce 1970 a nahradila desku původní, poválečnou. Sejmuta byla definitivně zřejmě na začátku devadesátých let.<br>
+(zdroj: kniha MAREK, Jindřich - PEJČOCH, Ivo - PLACHÝ, Jiří - JAKL, Tomáš: Padli na barikádách, VHÚ, Praha 2015, strojopis Soupis památek na pražské povstání na Praze 4, OV ČSPB, Praha)</p>
+					<br>
+                                        
+				
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.040756&amp;lon=14.439181">N50°2'26.72'' E14°26'21.05''</a>
+                                        
+					
+					<br>
+
+
+				VPM přidal: Jiří Padevět<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+					<div class="vpmone" id="4932-pomnik-obetem-1-a-2-svetove-valky">
+						<h4 class="center">
+							<a href="/vpm/4932-pomnik-obetem-1-a-2-svetove-valky/#4932-pomnik-obetem-1-a-2-svetove-valky">Pomník  Obětem 1. a  2. světové války</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-12.jpg" title="Stanislav Kain, 6.9.2006" rel="shadowbox[vpm4932]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-12.jpg"></a>
+							<div class="info">
+								Autor: Stanislav Kain, 
+							06.09.2006
+						</div>
+					</div>
+
+					Umístění: Praha 4, Baarova 24/360<br>
+
+					<div class="vpmonenapis">Nápis:<br>VĚČNÁ PAMÁTKA PADLÝM A MUČEDNÍKŮM<br />
+<br />
+1914 - 1918<br />
+1938 - 1945<br />
+<br />
+Bareš Frant., Bartoněk Frant., Bejček Josef, Bílek Petr, Brousil Jaromír, Dinec Josef, Dymič Justin, Dzedzyk Filip, Dzedzyk Ladislav, Dzedzyk Miroslav, Fafejta Václav, Haramal Václav, Hatlová Antonie, Herman Zdeněk, Homenaj Jiří, Hozák Josef, Hruška Václav, Hůzl Vojtěch, Jangl Jiří, Keřlík Bohumil, Kohout Václav, Kopáček Antonín, Kopilov Michael, Kožla Adolf, Kromberg Jaroslav, Kromberg Josef, Kudrhalt Matěj, Lexa Jan, Machulda Jaroslav, Mareš Ferdinand, Nekovář František, Nemanský Jaroslav, Neznámá žena, Neznámý muž, Pech František, Pražák, Pražák Jan, Pražák Zdeněk, Prošek Václav, Purket Josef, Rozumný Václav, Rybazuk Jan, Rynd František, Seifert Josef, Sladký Gustav, Smutný Josef, Šesták Rudolf, Štefan František, Tomeš Josef, Trávníčková Anděla, Tschebotaj, Vacek Josef, Vokáč Josef, Zajíček Antonín </div> 
+										<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE-0004-20691<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.05006&amp;lon=14.45585">N50°3'0.22'' E14°27'21.06''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Stanislav Kain<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+					<div class="jcarousel-wrapper">
+						<div class="jcarousel">
+							<ul>
+									<li class="first"><a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-03.jpg" title="Stanislav Kain" rel="shadowbox[vpm4932]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-03.jpg" height="68px"></a></li>	
+									<li><a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-06.jpg" title="Stanislav Kain" rel="shadowbox[vpm4932]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-06.jpg" height="68px"></a></li>	
+									<li><a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-08.jpg" title="Stanislav Kain" rel="shadowbox[vpm4932]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-08.jpg" height="68px"></a></li>	
+									<li><a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-09.jpg" title="Stanislav Kain" rel="shadowbox[vpm4932]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-09.jpg" height="68px"></a></li>	
+									<li><a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-07.jpg" title="Stanislav Kain" rel="shadowbox[vpm4932]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-07.jpg" height="68px"></a></li>	
+									<li><a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_0809-040-praha-barrova-24-cp360-x4.jpg" title="" rel="shadowbox[vpm4932]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_0809-040-praha-barrova-24-cp360-x4.jpg" height="68px"></a></li>	
+									<li><a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-02.jpg" title="" rel="shadowbox[vpm4932]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-02.jpg" height="68px"></a></li>	
+									<li><a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-10.jpg" title="" rel="shadowbox[vpm4932]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-10.jpg" height="68px"></a></li>	
+									<li class="last"><a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-11.jpg" title="" rel="shadowbox[vpm4932]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4932_barrova-24-cp360-11.jpg" height="68px"></a></li>	
+							</ul>
+						</div>
+
+						<a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+						<a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+						<!--					<p class="jcarousel-pagination">
+											</p>-->
+					</div>
+			</div>
+					<div class="vpmone" id="4931-pametni-deska-vacla-kobik">
+						<h4 class="center">
+							<a href="/vpm/4931-pametni-deska-vacla-kobik/#4931-pametni-deska-vacla-kobik">Pamětní deska Václa Kobík</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4931_0704-1-barrova-57-7-a.jpg" title="Stanislav Kain, 2.4.2006" rel="shadowbox[vpm4931]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4931_0704-1-barrova-57-7-a.jpg"></a>
+							<div class="info">
+								Autor: Stanislav Kain, 
+							02.04.2006
+						</div>
+					</div>
+
+					Umístění: Praha 4, Baarova 57/7, Michle<br>
+
+					<div class="vpmonenapis">Nápis:<br>ZDE BYL ZÁKEŘNĚ ZASTŘELEN <br />
+V REVOLUČNÍCH DNECH 8.5.1945 <br />
+VÁCLAV KOBÍK <br />
+VE VĚKU 63 R.<br />
+ČEST JEHO PAMÁTCE.</div> 
+										<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE-0004-20569<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.049819&amp;lon=14.450361">N50°2'59.35'' E14°27'1.3''</a>
+                                        
+					
+					<br>
+
+
+				VPM přidal: Stanislav Kain<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+					<div class="jcarousel-wrapper">
+						<div class="jcarousel">
+							<ul>
+									<li class="first last"><a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4931_barrova-57-7-b.jpg" title="" rel="shadowbox[vpm4931]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/4931_barrova-57-7-b.jpg" height="68px"></a></li>	
+							</ul>
+						</div>
+
+						<a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+						<a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+						<!--					<p class="jcarousel-pagination">
+											</p>-->
+					</div>
+			</div>
+					<div class="vpmone" id="44535-pametni-deska-josef-vacek">
+						<h4 class="center">
+							<a href="/vpm/44535-pametni-deska-josef-vacek/#44535-pametni-deska-josef-vacek">Pamětní deska Josef Vacek</a>
+							 - <span class="red">místo je zrušené</span>
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/44535_vets-bez-fotky.jpg" title="vets, 1.1.1111" rel="shadowbox[vpm44535]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/44535_vets-bez-fotky.jpg"></a>
+							<div class="info">
+								Autor: vets, 
+							archiv
+						</div>
+					</div>
+
+					Umístění: Praha 4, Baarova 1026/2<br>
+
+					<div class="vpmonenapis">Nápis:<br>Zde padl za oběť něm. nacismu<br />
+dne 7.V.1945, při hájení Prahy,<br />
+Josef Vacek<br />
+tudíž čest jeho památce.<br />
+Věnují vděční občané z domu 348.</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Josef Vacek se narodil 5.7. nebo 5.8.1903, bydlel v Kostelní čp.288 v Praze Michli a pracoval jako dílovedoucí.<br>
+(zdroj: kniha MAREK, Jindřich - PEJČOCH, Ivo - PLACHÝ, Jiří - JAKL, Tomáš: Padli na barikádách, VHÚ, Praha 2015, strojopis Soupis památek na pražské povstání na Praze 4, OV ČSPB, Praha)</p>
+					<br>
+                                        
+				
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.049653&amp;lon=14.449922">N50°2'58.75'' E14°26'59.72''</a>
+                                        
+					
+					<br>
+
+
+				VPM přidal: Jiří Padevět<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+					<div class="vpmone" id="12119-pametni-deska-obetem-2-svetove-valky">
+						<h4 class="center">
+							<a href="/vpm/12119-pametni-deska-obetem-2-svetove-valky/#12119-pametni-deska-obetem-2-svetove-valky">Pamětní deska Obětem 2. světové  války</a>
+							
+						</h4>
+
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/hl-m-praha/praha-4/praha-4-1006/12119_bartoskova-22-1411-pde.jpg" title="Josef Kareš, 15.5.2011" rel="shadowbox[vpm12119]"><img src="/vpm/foto/mista/nahled/ceska-republika/hl-m-praha/praha-4/praha-4-1006/12119_bartoskova-22-1411-pde.jpg"></a>
+							<div class="info">
+								Autor: Josef Kareš, 
+							15.05.2011
+						</div>
+					</div>
+
+					Umístění: Praha 4, Bartoškova 1411/22, Nusle, za branou vjezdu do závodu Regula<br>
+
+					<div class="vpmonenapis">Nápis:<br>OBĚTEM KONCENTRÁKŮ <br />
+A REVOLUČNÍCH BOJŮ <br />
+5.V. – 9.5.1945 <br />
+<br />
+BÁRTA JAN, CALTA JIŘÍ, FLAJŠNER LEOPOLD, HAVELKA DUŠAN, CHÁB KAREL, JEŘÁBEK JOSEF, NEDVĚD ZDENĚK, OTČENÁŠEK KAREL, SNOPER ANTONÍN, ŠVITORKA VLADIMÍR <br />
+<br />
+TAM, KDE NEPŘÍTEL ŘÁDIL NEJVÍCE <br />
+NEZDOLNÍ STÁLI JSTE NA HRADBÁCH BARIKÁD.</div> 
+										<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE-0004-28227<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.06396&amp;lon=14.44581">N50°3'50.26'' E14°26'44.92''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Josef Kareš<br>
+				
+				Příprava dat: Jiří Porteš<br>
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+		<div class="center"><div class="pagination">
+	<ul>
+		<li><a>«</a></li>
+
+			<li class="active"><a>1</a></li>
+		
+			<li><a href="/vpm/mista/obec/1006-/?vp-page=2" class="ajax">2</a></li>
+		
+			<li><a href="/vpm/mista/obec/1006-/?vp-page=3" class="ajax">3</a></li>
+		
+			<li><a href="/vpm/mista/obec/1006-/?vp-page=4" class="ajax">4</a></li>
+		<li class="disabled"><a>…</a></li>
+			<li><a href="/vpm/mista/obec/1006-/?vp-page=14" class="ajax">14</a></li>
+		<li class="disabled"><a>…</a></li>
+			<li><a href="/vpm/mista/obec/1006-/?vp-page=27" class="ajax">27</a></li>
+		<li class="disabled"><a>…</a></li>
+			<li><a href="/vpm/mista/obec/1006-/?vp-page=40" class="ajax">40</a></li>
+		<li class="disabled"><a>…</a></li>
+			<li><a href="/vpm/mista/obec/1006-/?vp-page=53" class="ajax">53</a></li>
+		
+
+		<li><a href="/vpm/mista/obec/1006-/?vp-page=2" class="ajax">»</a></li>
+	</ul>
+</div>
+</div>
+		<div class="center"></div>
+	</div>
+					<div style="clear:both;"></div>			
+				</div>			
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+
+		<div id="footerbg">
+			<div id="footer">
+				<div class="footerleft">
+					<p><a href="http://www.briangardner.com" >Design - Brian Gardner</a> / <a href="https://www.josefrypacek.cz">&COPY; 2014 Josef Rypáček</a></p>
+				</div>
+				<div class="footerright">
+					<p><a href="/vpm/admin/stranka/">Administrace</a></p>
+				</div>
+			</div>
+		</div>
+
+    </body>
+</html>

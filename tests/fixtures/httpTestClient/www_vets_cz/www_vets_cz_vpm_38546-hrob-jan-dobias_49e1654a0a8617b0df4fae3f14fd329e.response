@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+		<title>Hrob Jan Dobiáš | Spolek pro vojenská pietní místa</title>
+
+		<link rel="shortcut icon" href="/vpm/favicon.ico" type="image/x-icon">
+
+		<link rel="stylesheet" media="screen,projection,tv" href="/vpm/www-data/css/reset.css" type="text/css">
+                <link rel="stylesheet" href="//www.vets.cz/wp-content/themes/revolution-code-blue/style.css" type="text/css" media="screen">
+                <link rel="stylesheet" media="screen,projection,tv" href="/vpm/www-data/css/frontscreen.css" type="text/css">
+		<link rel="stylesheet" media="print" href="/vpm/www-data/css/print.css" type="text/css">
+		<link rel="stylesheet" media="screen" href="/vpm/www-data/css/ipub.visualPaginator.css" type="text/css">
+		<link rel="stylesheet" href="/vpm/bower_components/jquery-ui/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" type="text/css" href="/vpm/www-data/shadowbox/shadowbox.css">
+
+		<script src="/vpm/bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="/vpm/bower_components/jquery-migrate-301/jquery-migrate-3.0.1.min.js"></script> 
+		<script src="/vpm/bower_components/jquery-ui/jquery-ui.min.js"></script>
+		<script src="/vpm/bower_components/nette-forms/src/assets/netteForms.min.js"></script>
+		<script src="/vpm/bower_components/nette.ajax.js/nette.ajax.js"></script>
+		<script type="text/javascript" src="/vpm/www-data/js/jquery.collapse.js"></script>
+		<script type="text/javascript" src="/vpm/www-data/shadowbox/shadowbox.js"></script>
+		<script type="text/javascript" src="/vpm/www-data/jcarousel/jquery.jcarousel.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/vpm/www-data/jcarousel/skin.css">
+		<script type="text/javascript" src="/vpm/www-data/js/frontend.js"></script>
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=G-9J16S3MXB8"></script>
+			<script>
+			  window.dataLayer = window.dataLayer || [];
+			  function gtag(){dataLayer.push(arguments);}
+			  gtag('js', new Date());
+
+			  gtag('config', 'G-9J16S3MXB8');
+			</script>
+
+		
+		
+		<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+		<style>
+		.cc-window.cc-banner {padding-top: 0.5em; padding-bottom: 0.5em;}
+		.cc-btn { padding-top: 0.2em; padding-bottom: 0.2em; }
+		</style>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+		<script>
+		window.addEventListener("load", function(){
+		window.cookieconsent.initialise({
+		  "palette": {
+			"popup": {
+			  "background": "#edeff5",
+			  "text": "#838391"
+			},
+			"button": {
+			  "background": "#4b81e8"
+			}
+		  },
+		  "theme": "classic",
+		  "content": {
+			"message": "Tyto stránky používají k poskytování služeb a sledování návštěvnosti cookies.",
+			"dismiss": "Rozumím",
+			"link": "Více informací"
+		  }
+		})});
+		</script>
+    </head>
+
+    <body>
+		<div id="header" style="position: relative;">
+			<div class="headerleft">
+				<h1><a href="http://www.vets.cz/">Spolek pro vojenská pietní místa</a></h1>
+				vets.cz
+			</div>
+		</div>
+
+		<div id="navbar">
+			<div id="navbarcenter">
+<ul id="nav">
+	<div class="menu-vedlejsi-container">
+		<ul id="menu-vedlejsi" class="menu">
+			<li id="menu-item-123" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-123"><a href="/aktuality/">Aktuality</a></li>
+			<li id="menu-item-42" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42"><a href="/vpm/mista/stat/1-ceska-republika/">Česká republika</a>
+				<ul class="sub-menu">
+					<li id="menu-item-41" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-41"><a href="/vpm/mista/kraj/10-praha/">hl. m. Praha</a></li>
+					<li id="menu-item-61" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-61"><a href="/vpm/mista/kraj/1-jihocesky/">Jihočeský kraj</a></li>
+					<li id="menu-item-62" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-62"><a href="/vpm/mista/kraj/2-jihomoravsky/">Jihomoravský kraj</a></li>
+
+					<li id="menu-item-75" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-75"><a href="/vpm/mista/kraj/3-karlovarsky/">Karlovarský kraj</a></li>
+					<li id="menu-item-63" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-63"><a href="/vpm/mista/kraj/4-kralovehradecky/">Královéhradecký kraj</a></li>
+					<li id="menu-item-76" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-76"><a href="/vpm/mista/kraj/5-liberecky/">Liberecký kraj</a></li>
+					<li id="menu-item-77" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-77"><a href="/vpm/mista/kraj/6-moravskoslezsky/">Moravskoslezský kraj</a></li>
+					<li id="menu-item-78" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-78"><a href="/vpm/mista/kraj/7-olomoucky/">Olomoucký kraj</a></li>
+					<li id="menu-item-79" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-79"><a href="/vpm/mista/kraj/8-pardubicky/">Pardubický kraj</a></li>
+
+					<li id="menu-item-80" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-80"><a href="/vpm/mista/kraj/9-plzensky/">Plzeňský kraj</a></li>
+					<li id="menu-item-81" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="/vpm/mista/kraj/11-stredocesky/">Středočeský kraj</a></li>
+					<li id="menu-item-82" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-82"><a href="/vpm/mista/kraj/12-ustecky/">Ústecký kraj</a></li>
+					<li id="menu-item-43" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-43"><a href="/vpm/mista/kraj/13-vysocina/">kraj Vysočina</a></li>
+					<li id="menu-item-83" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-83"><a href="/vpm/mista/kraj/14-zlinsky/">Zlínský kraj</a></li>
+				</ul>
+			</li>
+
+			<li id="menu-item-44" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-44"><a href="/vpm/mista/stat/2-slovenska-republika/">Slovensko</a>
+				<ul class="sub-menu">
+					<li id="menu-item-84" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-84"><a href="/vpm/mista/kraj/15-banskobystricky-kraj/">Banskobystrický kraj</a></li>
+					<li id="menu-item-64" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-64"><a href="/vpm/mista/kraj/16-bratislavsky-kraj/">Bratislavský kraj</a></li>
+					<li id="menu-item-85" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-85"><a href="/vpm/mista/kraj/17-kosicky-kraj/">Košický kraj</a></li>
+					<li id="menu-item-86" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-86"><a href="/vpm/mista/kraj/18-nitriansky-kraj/">Nitriansky kraj</a></li>
+					<li id="menu-item-87" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-87"><a href="/vpm/mista/kraj/19-presovsky-kraj/">Prešovský kraj</a></li>
+
+					<li id="menu-item-88" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-88"><a href="/vpm/mista/kraj/20-trenciansky-kraj/">Trenčiansky kraj</a></li>
+					<li id="menu-item-89" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-89"><a href="/vpm/mista/kraj/21-trnavsky-kraj/">Trnavský kraj</a></li>
+					<li id="menu-item-90" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-90"><a href="/vpm/mista/kraj/22-zilinsky-kraj/">Žilinský kraj</a></li>
+				</ul>
+			</li>
+			<li id="menu-item-45" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-45"><a href="/vpm/mista/staty/">Zahraničí</a></li>
+			<li id="menu-item-70" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-70"><a href="/vpm/hrdina/">Jména z pomníků</a></li>
+			<li id="menu-item-51" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-51"><a href="/vyhledavani/">Vyhledávání</a></li>
+
+			<li id="menu-item-52" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-52"><a href="/jak-se-zapojit/">Jak se zapojit?</a></li>
+			<li id="menu-item-71" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71"><a href="http://diskuze.vets.cz">Diskuze</a></li>
+		</ul>
+	</div>	
+</ul>			</div>
+		</div>
+
+		<div id="wrap">
+			<div id="content">
+				<div id="l_sidebar">
+<ul id="l_sidebarwidgeted">
+	<li id="menu_vertical">
+		<h2>Menu</h2>
+		<div class="menu-hlavni-container">
+			<ul id="menu-hlavni" class="menu">
+				<li id="menu-item-9" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9"><a href="/">Úvod</a></li>
+				<li id="menu-item-11899" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11899"><a href="/spolek/">Spolek</a></li>
+				<li id="menu-item-4013" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-4013"><a href="/4011-o-projektu-rozcestnik/">O projektu</a></li>
+				<li id="menu-item-11344" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11344"><a href="/vpm/statistika/">Statistika VPM</a></li>
+				<li id="menu-item-15264" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15264"><a href="/vpm/badatelna/">Badatelna</a></li>
+				<li id="menu-item-15265" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15265"><a href="/vpm/ostatni/">Ostatní</a></li>
+				<li id="menu-item-7140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7140"><a href="/vase-dotazy/">Vaše dotazy</a></li>
+				<li id="menu-item-15444" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15444"><a href="/poradna/">Poradna</a></li>
+				<li id="menu-item-1315" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1315"><a href="/233-obecne-o-geocachingu/">Geocaching</a></li>
+                                <li id="menu-item-28720" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-28720"><a href="/vpm/mapa/">Mapa</a></li>
+				<li id="menu-item-5915" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5915"><a href="/monument/">Monument</a></li>
+				<li id="menu-item-2066" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2066"><a href="/1971-publikace/">Publikace</a></li>
+				<!--<li id="menu-item-3000" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3000"><a href="/vpm/projekt-drazdany/">Projekt Drážďany</a></li>-->
+			</ul>
+		</div>
+	</li>
+	<li id="links">
+        <h2>Odkazy</h2>
+        <ul>
+			<li><a href="http://www.vets.cz/6215-nase-bannery/" title="Naše bannery">Naše bannery</a></li>
+			<li><a href="http://www.vets.cz/odkazy" title="Seznam odkazů">Seznam odkazů</a></li>
+			<li><a href="http://www.vets.estranky.cz/clanky/jednota-csol-cesky-brod.html" title="Stránky jednoty ČSOL Český Brod" target="_blank">ČSOL Český Brod</a></li>
+			<li><a href="http://vets.estranky.cz/" title="původní verze webu" target="_blank">Starý web</a></li>
+        </ul>
+	</li>
+</ul>
+
+
+<h2>&nbsp;</h2>
+<ul>
+	<center>
+			<a href="http://www.toplist.cz/stat/184393"><script language="JavaScript" type="text/javascript">
+				<!--
+				document.write('<img src="https://toplist.cz/count.asp?id=184393&logo=mc&http=' + escape(document.referrer) + '&t=' + escape(document.title) +
+						'&wi=' + escape(window.screen.width) + '&he=' + escape(window.screen.height) + '&cd=' + escape(window.screen.colorDepth) + '" width="88" height="60" border=0 alt="TOPlist" />');
+				//--></script><noscript><img src="https://toplist.cz/count.asp?id=184393&logo=mc" border="0" alt="TOPlist" width="88" height="60"></noscript></a>
+			<br><br>
+		<a href="/?p=4090" title="WebArchiv a Spolek pro vojenská pietní místa, o.s.">
+			<img src="/vpm/www-data/images/webarchiv.gif" width="88" height="88" alt="WebArchiv a Spolek pro vojenská pietní místa, o.s.">
+		</a>
+		<br><br>
+		<a href="https://www.facebook.com/groups/191163113584/" title="Facebook skupina Spolek pro vojenská pietní místa, o.s.">
+			<img src="/vpm/www-data/images/facebook.png" width="88" height="88" alt="Facebook skupina">
+		</a>
+	</center>
+</ul>				</div>
+
+				<div id="contentleft">
+					<div id="drobeckovanavbar">&nbsp;
+							>> <a href="/vpm/mista/stat/1-ceska-republika/">Česká republika</a>
+																>> <a href="/vpm/mista/kraj/12-ustecky-kraj/">Ústecký kraj</a>
+							
+																>> <a href="/vpm/mista/okres/64-litomerice/">okres Litoměřice</a>
+							
+							>> <a href="/vpm/mista/obec/3912-roudnice-nad-labem/">Roudnice nad Labem</a>
+
+
+
+
+					</div>        
+
+<h3>Roudnice nad Labem</h3>
+<div id="vpmcontent">
+
+					<div class="vpmone" id="38545-hrob-jan-ladys">
+						<h4 class="center">
+							<a href="/vpm/38545-hrob-jan-ladys/#38545-hrob-jan-ladys">Hrob Jan Ládyš</a>
+							 - <span class="red">místo je zrušené</span>
+						</h4>
+
+						<ul id="collapser">
+							<li>+ o skupině VPM (LT, Roudnice nad Labem, hřbitov)
+								<ul>
+									<li>Roudnice nad Labem, U Hřbitova, <br>
+střed hřbitova:<br>
+50°25'40.72"N 14°14'25.38"E</li>
+									<li><a href="/vpm/mista/skupina/80-lt-roudnice-nad-labem-hrbitov/">Zobrazit všechna VPM ve skupině</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38545_komprim.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38545]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38545_komprim.jpg"></a>
+							<div class="info">
+								Autor: Marek Lanzendorf, 
+							07.03.2020
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, U Hřbitova, hrob číslo 206 pole IV<br>
+
+					<div class="vpmonenapis">Nápis:<br>Bez nápisu.</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Ládyš Jan: *1868 Nová Ves, okr. Kolín. Ženatý, zedník. LstInft., IR. Nr. 42, 8. ErsKomp. +24.3.1916 marodní pokoj hotelu Pošta, Roudnice n/L, zánět ledvin. Následky polní služby. 26.3.1916 zde pohřben.<br>
+(zdroj: VHÚ, soalitomerice.cz )<br>
+Hroby roztroušeny jednotlivě po pohřebišti, jsou zatravněny.<br>
+(zdroj: CEVH MO ČR)</p>
+					<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE4211-27400<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42686&amp;lon=14.24216">N50°25'36.7'' E14°14'31.78''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Marek Lanzendorf<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+					<div class="vpmone" id="38546-hrob-jan-dobias">
+						<h4 class="center">
+							<a href="/vpm/38546-hrob-jan-dobias/#38546-hrob-jan-dobias">Hrob Jan Dobiáš</a>
+							 - <span class="red">místo je zrušené</span>
+						</h4>
+
+						<ul id="collapser">
+							<li>+ o skupině VPM (LT, Roudnice nad Labem, hřbitov)
+								<ul>
+									<li>Roudnice nad Labem, U Hřbitova, <br>
+střed hřbitova:<br>
+50°25'40.72"N 14°14'25.38"E</li>
+									<li><a href="/vpm/mista/skupina/80-lt-roudnice-nad-labem-hrbitov/">Zobrazit všechna VPM ve skupině</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38546_komprim.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38546]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38546_komprim.jpg"></a>
+							<div class="info">
+								Autor: Marek Lanzendorf, 
+							07.03.2020
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, U Hřbitova, číslo hrobu 312 pole IV<br>
+
+					<div class="vpmonenapis">Nápis:<br>Bez nápisu.</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Dobiáš Jan: *16.10.1879 Dlouhopolsko, okr. Poděbrady (dnes okr. Nymburk). Ženatý. Vojín v polní službě. +21.9.1916 nemocnice Roudnice, zánět ledvin. 23.9.1916 zde pohřben.<br>
+(zdroj: soalitomerice.cz )<br>
+Hroby roztroušeny jednotlivě po pohřebišti, jsou zatravněny.<br>
+(zdroj: CEVH MO ČR)</p>
+					<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE4211-27406<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42686&amp;lon=14.24216">N50°25'36.7'' E14°14'31.78''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Marek Lanzendorf<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+					<div class="vpmone" id="38547-hrob-frantisek-slankov">
+						<h4 class="center">
+							<a href="/vpm/38547-hrob-frantisek-slankov/#38547-hrob-frantisek-slankov">Hrob František Šlankov</a>
+							 - <span class="red">místo je zrušené</span>
+						</h4>
+
+						<ul id="collapser">
+							<li>+ o skupině VPM (LT, Roudnice nad Labem, hřbitov)
+								<ul>
+									<li>Roudnice nad Labem, U Hřbitova, <br>
+střed hřbitova:<br>
+50°25'40.72"N 14°14'25.38"E</li>
+									<li><a href="/vpm/mista/skupina/80-lt-roudnice-nad-labem-hrbitov/">Zobrazit všechna VPM ve skupině</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38547_komprim.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38547]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38547_komprim.jpg"></a>
+							<div class="info">
+								Autor: Marek Lanzendorf, 
+							07.03.2020
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, U Hřbitova, hrob číslo 31 pole VI<br>
+
+					<div class="vpmonenapis">Nápis:<br>Bez nápisu.</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Vojín, zemřel 1917.<br>
+Vojenské hroby roztroušeny jednotlivě po pohřebišti, jsou zatravněny, neoznačeny.<br>
+(zdroj: CEVH MO ČR)</p>
+					<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE4211-27413<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42686&amp;lon=14.24216">N50°25'36.7'' E14°14'31.78''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Marek Lanzendorf<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+					<div class="vpmone" id="38548-hrob-alois-falta">
+						<h4 class="center">
+							<a href="/vpm/38548-hrob-alois-falta/#38548-hrob-alois-falta">Hrob Alois Falta</a>
+							 - <span class="red">místo je zrušené</span>
+						</h4>
+
+						<ul id="collapser">
+							<li>+ o skupině VPM (LT, Roudnice nad Labem, hřbitov)
+								<ul>
+									<li>Roudnice nad Labem, U Hřbitova, <br>
+střed hřbitova:<br>
+50°25'40.72"N 14°14'25.38"E</li>
+									<li><a href="/vpm/mista/skupina/80-lt-roudnice-nad-labem-hrbitov/">Zobrazit všechna VPM ve skupině</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38548_img-3883.jpg" title="Arno Glaser, 16.1.2024" rel="shadowbox[vpm38548]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38548_img-3883.jpg"></a>
+							<div class="info">
+								Autor: Arno Glaser, 
+							16.01.2024
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, U Hřbitova, hrob číslo 367 pole IV<br>
+
+					<div class="vpmonenapis">Nápis:<br>Bez nápisu.</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Falta Vácslav Alois: *20.6.1884 Žamberk, č. p. 299, jako nemanželský syn Marie Faltové. Ženatý (9.11.1912) s Ludmilou, roz. Štěpánkovou. Vojín nasazený u firmy Pracner. +30.1.1917 nemocnice Roudnice n/L. Zápal mozkových blan. 1.2.1917 zde pohřben. Odd. IV, č. 367.<br>
+(zdroj: <a href="https://aron.vychodoceskearchivy.cz">https://aron.vychodoceskearchivy.cz</a> , <a href="http://vademecum.soalitomerice.cz">http://vademecum.soalitomerice.cz</a> , hřbitovní kniha Roudnice n/L)</p>
+					<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE4211-27408<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42686&amp;lon=14.24216">N50°25'36.7'' E14°14'31.78''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Marek Lanzendorf<br>
+				Doplnění informací: A. Glaser<br>
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+					<div class="vpmone" id="38549-hrob-jaroslav-michalec">
+						<h4 class="center">
+							<a href="/vpm/38549-hrob-jaroslav-michalec/#38549-hrob-jaroslav-michalec">Hrob Jaroslav Michalec</a>
+							 - <span class="red">místo je zrušené</span>
+						</h4>
+
+						<ul id="collapser">
+							<li>+ o skupině VPM (LT, Roudnice nad Labem, hřbitov)
+								<ul>
+									<li>Roudnice nad Labem, U Hřbitova, <br>
+střed hřbitova:<br>
+50°25'40.72"N 14°14'25.38"E</li>
+									<li><a href="/vpm/mista/skupina/80-lt-roudnice-nad-labem-hrbitov/">Zobrazit všechna VPM ve skupině</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38549_komprim.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38549]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38549_komprim.jpg"></a>
+							<div class="info">
+								Autor: Marek Lanzendorf, 
+							07.03.2020
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, U Hřbitova, číslo hrobu 233 pole IV<br>
+
+					<div class="vpmonenapis">Nápis:<br>Bez nápisu.</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Michalec Jaroslav: *1886 Vamberk. Kovář, ženatý. Vojín, útvar neuveden. +23.4.1916 nemocnice Roudnice n/L, TBC. 26.4.1916 zde pohřben.<br>
+(zdroj: soalitomerice.cz )<br>
+Vojenské hroby roztroušeny jednotlivě po pohřebišti, jsou zatravněny, neoznačeny.<br>
+(zdroj: CEVH MO ČR)</p>
+					<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE4211-27402<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42686&amp;lon=14.24216">N50°25'36.7'' E14°14'31.78''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Marek Lanzendorf<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+					<div class="vpmone" id="38550-hrob-jaroslav-marsalek">
+						<h4 class="center">
+							<a href="/vpm/38550-hrob-jaroslav-marsalek/#38550-hrob-jaroslav-marsalek">Hrob Jaroslav Maršálek</a>
+							 - <span class="red">místo je zrušené</span>
+						</h4>
+
+						<ul id="collapser">
+							<li>+ o skupině VPM (LT, Roudnice nad Labem, hřbitov)
+								<ul>
+									<li>Roudnice nad Labem, U Hřbitova, <br>
+střed hřbitova:<br>
+50°25'40.72"N 14°14'25.38"E</li>
+									<li><a href="/vpm/mista/skupina/80-lt-roudnice-nad-labem-hrbitov/">Zobrazit všechna VPM ve skupině</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38550_komprim.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38550]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38550_komprim.jpg"></a>
+							<div class="info">
+								Autor: Marek Lanzendorf, 
+							07.03.2020
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, U Hřbitova, hrob č.34 pole VI<br>
+
+					<div class="vpmonenapis">Nápis:<br>Bez nápisu.</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Maršálek Jaroslav: *1893 Roudnice n/L. Svobodný, zámečnický dělník. Vojín, útvar neuveden. +22.4.1917 nemocnice Roudnice n/L, TBC. 24.4.1917 zde pohřben.<br>
+(zdroj: soalitomerice.cz )<br>
+Hroby roztroušeny jednotlivě po pohřebišti, jsou zatravněny.<br>
+(zdroj: CEVH MO ČR)</p>
+					<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE4211-27415<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42686&amp;lon=14.24216">N50°25'36.7'' E14°14'31.78''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Marek Lanzendorf<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+					<div class="vpmone" id="38672-hrob-josef-srba">
+						<h4 class="center">
+							<a href="/vpm/38672-hrob-josef-srba/#38672-hrob-josef-srba">Hrob Josef Srba</a>
+							 - <span class="red">místo je zrušené</span>
+						</h4>
+
+						<ul id="collapser">
+							<li>+ o skupině VPM (LT, Roudnice nad Labem, hřbitov)
+								<ul>
+									<li>Roudnice nad Labem, U Hřbitova, <br>
+střed hřbitova:<br>
+50°25'40.72"N 14°14'25.38"E</li>
+									<li><a href="/vpm/mista/skupina/80-lt-roudnice-nad-labem-hrbitov/">Zobrazit všechna VPM ve skupině</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38672_komprim.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38672]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38672_komprim.jpg"></a>
+							<div class="info">
+								Autor: Marek Lanzendorf, 
+							07.03.2020
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, U Hřbitova, hrob číslo 106 pole VI<br>
+
+					<div class="vpmonenapis">Nápis:<br>Bez nápisu.</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Josef Srba, narozen 1876 ve Spomyšli, topič, ženatý, zemřel 27. 9. 1917 v nemocnici, Tetanus po střelné ráně, pohřben 29. 9. 1917.<br>
+(zdroj: soalitomerice.cz )<br>
+Hroby roztroušeny jednotlivě po pohřebišti, jsou zatravněny.<br>
+(zdroj: CEVH MO ČR)</p>
+					<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE4211-27418<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42686&amp;lon=14.24216">N50°25'36.7'' E14°14'31.78''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Marek Lanzendorf<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+					<div class="vpmone" id="38682-hrob-josef-frank">
+						<h4 class="center">
+							<a href="/vpm/38682-hrob-josef-frank/#38682-hrob-josef-frank">Hrob Josef Frank</a>
+							 - <span class="red">místo je zrušené</span>
+						</h4>
+
+						<ul id="collapser">
+							<li>+ o skupině VPM (LT, Roudnice nad Labem, hřbitov)
+								<ul>
+									<li>Roudnice nad Labem, U Hřbitova, <br>
+střed hřbitova:<br>
+50°25'40.72"N 14°14'25.38"E</li>
+									<li><a href="/vpm/mista/skupina/80-lt-roudnice-nad-labem-hrbitov/">Zobrazit všechna VPM ve skupině</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38682_komprim.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38682]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38682_komprim.jpg"></a>
+							<div class="info">
+								Autor: Marek Lanzendorf, 
+							07.03.2020
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, U Hřbitova, hrob číslo 81 pole I<br>
+
+					<div class="vpmonenapis">Nápis:<br>Bez nápisu.</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Josef Frank, narozen 1887 v Kutné Hoře, strojní zámečník, ženatý, penzionovaný invalida, dříve těžké dělostřelectvo, zemřel 14. 7. 1918, lazaret Červeného Kříže Roudnice č. 727, Tuberkulosa plic, pohřben 16. 7. 1918.<br>
+(zdroj: soalitomerice.cz )<br>
+Hroby roztroušeny jednotlivě po pohřebišti, jsou zatravněny.<br>
+(zdroj: CEVH MO ČR)</p>
+					<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE4211-27384<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42686&amp;lon=14.24216">N50°25'36.7'' E14°14'31.78''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Marek Lanzendorf<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+					<div class="vpmone" id="38683-hrob-josef-zlesak">
+						<h4 class="center">
+							<a href="/vpm/38683-hrob-josef-zlesak/#38683-hrob-josef-zlesak">Hrob Josef Zlesák</a>
+							 - <span class="red">místo je zrušené</span>
+						</h4>
+
+						<ul id="collapser">
+							<li>+ o skupině VPM (LT, Roudnice nad Labem, hřbitov)
+								<ul>
+									<li>Roudnice nad Labem, U Hřbitova, <br>
+střed hřbitova:<br>
+50°25'40.72"N 14°14'25.38"E</li>
+									<li><a href="/vpm/mista/skupina/80-lt-roudnice-nad-labem-hrbitov/">Zobrazit všechna VPM ve skupině</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38683_komprim.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38683]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38683_komprim.jpg"></a>
+							<div class="info">
+								Autor: Marek Lanzendorf, 
+							07.03.2020
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, U Hřbitova, hrob číslo 160 pole VI<br>
+
+					<div class="vpmonenapis">Nápis:<br>Bez nápisu.</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Josef Zlesák, narozen 1867 v Horce okr. Chrudim, hospodář, ženatý, vojín, zemřel 5. 1. 1918, lazaret odbočky Červeného Kříže v Roudnici-Hracholusky, zánět plic, pohřben 7. 1. 1918.<br>
+(zdroj: soalitomerice.cz )<br>
+Hroby roztroušeny jednotlivě po pohřebišti, jsou zatravněny.<br>
+(zdroj: CEVH MO ČR)</p>
+					<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE4211-27420<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42686&amp;lon=14.24216">N50°25'36.7'' E14°14'31.78''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Marek Lanzendorf<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+					<div class="vpmone" id="38684-hrob-vaclav-kulhavy">
+						<h4 class="center">
+							<a href="/vpm/38684-hrob-vaclav-kulhavy/#38684-hrob-vaclav-kulhavy">Hrob Václav Kulhavý</a>
+							 - <span class="red">místo je zrušené</span>
+						</h4>
+
+						<ul id="collapser">
+							<li>+ o skupině VPM (LT, Roudnice nad Labem, hřbitov)
+								<ul>
+									<li>Roudnice nad Labem, U Hřbitova, <br>
+střed hřbitova:<br>
+50°25'40.72"N 14°14'25.38"E</li>
+									<li><a href="/vpm/mista/skupina/80-lt-roudnice-nad-labem-hrbitov/">Zobrazit všechna VPM ve skupině</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="misto_main_photo">
+							<a href="/vpm/foto/mista/normal/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38684_komprim.jpg" title="Marek Lanzendorf, 7.3.2020" rel="shadowbox[vpm38684]"><img src="/vpm/foto/mista/nahled/ceska-republika/ustecky-kraj/litomerice/roudnice-nad-labem-3912/38684_komprim.jpg"></a>
+							<div class="info">
+								Autor: Marek Lanzendorf, 
+							07.03.2020
+						</div>
+					</div>
+
+					Umístění: Roudnice nad Labem, U Hřbitova, hrob číslo 251 pole IV<br>
+
+					<div class="vpmonenapis">Nápis:<br>Bez nápisu.</div> 
+					Poznámka: <br>
+						<p style="color:#1A4E88;">Václav Kulhavý, narozen 1895 ve Spomyšli u Roudnice, svobodný, vojín, Inf. Reg. 57, zemřel 29. 5. 1916 Terezín, Tuberkulosa plic, pohřben 31. 5. 1916.<br>
+(zdroj: soalitomerice.cz )<br>
+Hroby roztroušeny jednotlivě po pohřebišti, jsou zatravněny.<br>
+(zdroj: CEVH MO ČR)</p>
+					<br>
+                                        
+				Centrální evidence válečných hrobů: je evidován, CZE4211-27403<br>
+				
+				
+
+				
+
+				Souřadnice:
+                                        <a href="/vpm/mapa/?lat=50.42686&amp;lon=14.24216">N50°25'36.7'' E14°14'31.78''</a>
+                                         - přibližná pozice dle adresy
+					
+					<br>
+
+
+				VPM přidal: Marek Lanzendorf<br>
+				
+				
+
+				<br style="clear:both;">
+
+
+
+
+
+			</div>
+		<div class="center"><div class="pagination">
+	<ul>
+		<li><a href="/vpm/mista/obec/3912-/?vp-page=5" class="ajax">«</a></li>
+
+			<li><a href="/vpm/mista/obec/3912-/?vp-page=1" class="ajax">1</a></li>
+		<li class="disabled"><a>…</a></li>
+			<li><a href="/vpm/mista/obec/3912-/?vp-page=3" class="ajax">3</a></li>
+		
+			<li><a href="/vpm/mista/obec/3912-/?vp-page=4" class="ajax">4</a></li>
+		
+			<li><a href="/vpm/mista/obec/3912-/?vp-page=5" class="ajax">5</a></li>
+		
+			<li class="active"><a>6</a></li>
+		
+			<li><a href="/vpm/mista/obec/3912-/?vp-page=7" class="ajax">7</a></li>
+		
+			<li><a href="/vpm/mista/obec/3912-/?vp-page=8" class="ajax">8</a></li>
+		
+			<li><a href="/vpm/mista/obec/3912-/?vp-page=9" class="ajax">9</a></li>
+		<li class="disabled"><a>…</a></li>
+			<li><a href="/vpm/mista/obec/3912-/?vp-page=11" class="ajax">11</a></li>
+		
+
+		<li><a href="/vpm/mista/obec/3912-/?vp-page=7" class="ajax">»</a></li>
+	</ul>
+</div>
+</div>
+		<div class="center"></div>
+	</div>
+					<div style="clear:both;"></div>			
+				</div>			
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+
+		<div id="footerbg">
+			<div id="footer">
+				<div class="footerleft">
+					<p><a href="http://www.briangardner.com" >Design - Brian Gardner</a> / <a href="https://www.josefrypacek.cz">&COPY; 2014 Josef Rypáček</a></p>
+				</div>
+				<div class="footerright">
+					<p><a href="/vpm/admin/stranka/">Administrace</a></p>
+				</div>
+			</div>
+		</div>
+
+    </body>
+</html>
