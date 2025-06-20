@@ -88,6 +88,17 @@ final class FevGamesServiceTest extends AbstractServiceTestCase
 				],
 				'https://fevgames.net/ifs/event/?e=27087',
 			],
+
+			[
+				49.68188,
+				18.359514,
+				'<a href="https://fevgames.net/ifs/event/?e=28084">#IngressFS - Frýdek-Místek, Czechia - June 2025</a>',
+				[
+					'Base portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Fa75f266581c341b9b140ae8ef1cd2fae.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D49.681880%2C18.359514">Kobra 📱</a> <a href="https://intel.ingress.com/intel?pll=49.681880,18.359514">🖥</a> <a href="https://lh3.googleusercontent.com/dAPXWLMCxK0quXp7Pmi5T3Ca2qwUIN1y8USFKdH65OuhBmyZbs-Jq0wjnv77choSSPG2XfkqhzAuyh4WcksN4I78B599=s10000">🖼</a>',
+					'Restock portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F92d47d8d1050305eabb7d6b7d20ec4bf.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D49.681438%2C18.359742">Pinpongové stoly 📱</a> <a href="https://intel.ingress.com/intel?pll=49.681438,18.359742">🖥</a> <a href="https://lh3.googleusercontent.com/aGvsse6ffNpehfj2ruOKRThgvsoxscbbTP9AM9bS2LRpDB33zpM_0kiqtfJ9vXMRG3hGjqzrHKBNVGDqiLKstpkGaLNyI5KEHIzN7TSOOg=s10000">🖼</a>',
+				],
+				'https://fevgames.net/ifs/event/?e=28084',
+			],
 		];
 	}
 

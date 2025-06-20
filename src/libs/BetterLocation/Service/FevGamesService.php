@@ -8,6 +8,7 @@ use App\Icons;
 use App\Utils\Ingress;
 use App\Utils\Requestor;
 use App\Utils\Strict;
+use App\Utils\Utils;
 use DJTommek\Coordinates\CoordinatesInterface;
 use Tracy\Debugger;
 
@@ -38,9 +39,7 @@ final class FevGamesService extends AbstractService
 	public function process(): void
 	{
 		$body = $this->requestor->get($this->url, Config::CACHE_TTL_FEVGAMES);
-		$dom = new \DOMDocument();
-		@$dom->loadHTML($body);
-
+		$dom = Utils::domFromUTF8($body);
 		$eventName = $dom->getElementsByTagName('h2')->item(0)->textContent;
 
 		$basePortalLocation = null;
@@ -84,8 +83,7 @@ final class FevGamesService extends AbstractService
 			$portalLink->getLon(),
 			self::class,
 		);
-//		$location->setPrefixTextInLink(htmlentities($eventName));
-		$location->setPrefixMessage(sprintf('<a href="%s">%s</a>', $this->inputUrl, htmlentities($eventName)));
+		$location->setPrefixMessage(sprintf('<a href="%s">%s</a>', $this->inputUrl, htmlspecialchars($eventName)));
 		$this->injectPortalDataIntoEventLocation($location, $basePortalLocation, 'Base portal', $basePortalName ?? 'Unknown name');
 		$this->injectPortalDataIntoEventLocation($location, $restockPortalLocation, 'Restock portal', $restockPortalName ?? 'Unknown name');
 		$this->collection->add($location);
