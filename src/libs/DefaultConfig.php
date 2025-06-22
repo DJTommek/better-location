@@ -211,6 +211,8 @@ class DefaultConfig
 
 	/**
 	 * Proxy for Guzzle HTTP Client. Leave null for no proxy.
+	 * Due to technical limitation, GUZZLE_OPTION_DEFAULT_PROXY must be set to false to use this option, see
+	 * https://github.com/guzzle/guzzle/issues/1484#issuecomment-2252320572 for more related discussion.
 	 *
 	 * Example for local SOCKS5 proxy:
 	 * @example 'socks5h://127.0.0.1:1080';
@@ -222,6 +224,19 @@ class DefaultConfig
 	 * @see https://docs.guzzlephp.org/en/7.0/request-options.html#proxy
 	 */
 	const GUZZLE_OPTION_DEFAULT_PROXY = null;
+
+	/**
+	 * If content of page should be downloaded in batches or all at once.
+	 * This option will not work if sock5h proxy is set, see GUZZLE_OPTION_DEFAULT_PROXY option for more information.
+	 *
+	 * @see https://docs.guzzlephp.org/en/7.0/request-options.html#stream
+	 */
+	const GUZZLE_OPTION_STREAM = true;
+
+	/**
+	 * When downloading site or file to analyze it, only first x bytes will be downloaded instead of full response.
+	 */
+	const HTTP_MAX_DOWNLOAD_SIZE = 5 * 1024 * 1024; // 5 MB
 
 	const DATE_FORMAT = 'Y-m-d';
 	const TIME_FORMAT = 'H:i:s';

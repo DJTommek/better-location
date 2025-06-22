@@ -231,4 +231,12 @@ abstract class AbstractService
 	{
 		return in_array($tag, static::TAGS, true);
 	}
+
+	/**
+	 * If location is validated but processing does not returns
+	 */
+	public function canReturnEmptyCollection(): bool
+	{
+		return true;
+	}
 }

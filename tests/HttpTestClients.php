@@ -3,11 +3,13 @@
 namespace Tests;
 
 use App\Cache\NetteCachePsr16;
+use App\Config;
 use App\Factory\GuzzleClientFactory;
 use App\Http\Guzzle\Middlewares\AlwaysRedirectMiddleware;
+use App\Http\Guzzle\Middlewares\TruncateResponseBodyMiddleware;
 use App\Utils\Requestor;
-use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Handler\StreamHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Promise\PromiseInterface;
@@ -70,9 +72,13 @@ final readonly class HttpTestClients
 	private function createRealHttpClient(GuzzleClientFactory $guzzleClientFactory, CacheInterface $cache): void
 	{
 		$realHandlerStack = new HandlerStack();
-		$realHandlerStack->setHandler(new CurlHandler());
+		$realHandlerStack->setHandler(new StreamHandler());
 		$realHandlerStack->push(Middleware::redirect(), 'allow_redirects');
-		$realHandlerStack->push(new AlwaysRedirectMiddleware(), 'always_allow_redirects');
+		$realHandlerStack->push(new AlwaysRedirectMiddleware(), AlwaysRedirectMiddleware::class);
+		$realHandlerStack->push(
+			new TruncateResponseBodyMiddleware(Config::HTTP_MAX_DOWNLOAD_SIZE),
+			TruncateResponseBodyMiddleware::class,
+		);
 		$realHandlerStack->unshift($this->saveResponseBodyToFileMiddleware(...));
 
 		$this->realHttpClient = $guzzleClientFactory->create([

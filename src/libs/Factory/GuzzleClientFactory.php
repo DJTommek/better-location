@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Config;
 use App\Http\Guzzle\Middlewares\AlwaysRedirectMiddleware;
+use App\Http\Guzzle\Middlewares\TruncateResponseBodyMiddleware;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\RequestOptions;
 
@@ -17,12 +18,22 @@ class GuzzleClientFactory
 		RequestOptions::READ_TIMEOUT => Config::GUZZLE_OPTION_DEFAULT_TIMEOUT,
 		RequestOptions::TIMEOUT => Config::GUZZLE_OPTION_DEFAULT_TIMEOUT,
 		RequestOptions::PROXY => Config::GUZZLE_OPTION_DEFAULT_PROXY,
+		RequestOptions::STREAM => Config::GUZZLE_OPTION_STREAM,
 	];
 
 	public function createDefaultHandlerStack(): HandlerStack
 	{
 		$handlerStack = HandlerStack::create();
-		$handlerStack->after('allow_redirects', new AlwaysRedirectMiddleware(), 'always_allow_redirects');
+		$handlerStack->after(
+			'allow_redirects',
+			new AlwaysRedirectMiddleware(),
+			AlwaysRedirectMiddleware::class,
+		);
+		$handlerStack->after(
+			AlwaysRedirectMiddleware::class,
+			new TruncateResponseBodyMiddleware(Config::HTTP_MAX_DOWNLOAD_SIZE),
+			TruncateResponseBodyMiddleware::class,
+		);
 		return $handlerStack;
 	}
 

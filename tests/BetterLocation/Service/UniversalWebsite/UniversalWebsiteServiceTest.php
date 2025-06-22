@@ -63,6 +63,8 @@ final class UniversalWebsiteServiceTest extends AbstractServiceTestCase
 			'vietnamnet.vn' => [[[21.0140338034431, 105.83156603015266, UniversalWebsiteService::TYPE_SCHEMA_JSON_GEO, '🪄<a href="https://vietnamnet.vn/">VietNamNet</a>']], 'https://vietnamnet.vn/'],
 			'JSON available but no location' => [[], 'https://restauraceoaza.cz'],
 			'No json available' => [[], 'https://tomas.palider.cz'],
+			'Big file (27 MB)' => [[[49.495514199971, 18.25647, UniversalWebsiteService::TYPE_EXIF, '<a href="https://pldr-gallery.palider.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDIwMDUwOF8xMzUzMTElMjAoYmlnJTIwZmlsZSkuanBn&amp;compress=false" target="_blank">EXIF</a>']], 'https://pldr-gallery.palider.cz/api/image?path=JTJGbWFwJTIwZnJvbSUyMEVYSUYlMkYyMDIwMDUwOF8xMzUzMTElMjAoYmlnJTIwZmlsZSkuanBn&compress=false'],
+			'Big file (286 MB) without any coordinates' => [[], 'https://download.gimp.org/gimp/v3.0/windows/gimp-3.0.4-setup.exe'],
 		];
 	}
 
