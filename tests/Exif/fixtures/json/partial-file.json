@@ -1,0 +1,47 @@
+{
+	"ApertureValue": "184/100",
+	"COMPUTED": {
+		"ApertureFNumber": "f/1.9",
+		"ByteOrderMotorola": 1,
+		"Height": 6936,
+		"IsColor": 1,
+		"Width": 9248,
+		"html": "width=\"9248\" height=\"6936\""
+	},
+	"DateTime": "2020:05:08 13:53:13",
+	"ExifImageLength": 6936,
+	"ExifImageWidth": 9248,
+	"Exif_IFD_Pointer": 156,
+	"ExposureTime": "977000/1000000000",
+	"FNumber": "189/100",
+	"FileSize": 106110,
+	"FileType": 2,
+	"Flash": 0,
+	"FocalLength": "543/100",
+	"GPSLatitude": [
+		"49/1",
+		"29/1",
+		"33283/759"
+	],
+	"GPSLatitudeRef": "N",
+	"GPSLongitude": [
+		"18/1",
+		"15/1",
+		"5823/250"
+	],
+	"GPSLongitudeRef": "E",
+	"GPSVersion": "\u0002\u0003\u0000\u0000",
+	"GPS_IFD_Pointer": 412,
+	"ISOSpeedRatings": 100,
+	"ImageLength": 6936,
+	"ImageWidth": 9248,
+	"Make": "Xiaomi",
+	"MimeType": "image/jpeg",
+	"Model": "Redmi Note 8 Pro",
+	"Orientation": 1,
+	"SectionsFound": "ANY_TAG, IFD0, EXIF, GPS",
+	"ShutterSpeedValue": "-999/100",
+	"SubSecTime": "128",
+	"UndefinedTag:0x8895": 0,
+	"UndefinedTag:0x9999": "{\"mirror\":false,\"sensor_type\":\"rear\",\"Hdr\":\"off\",\"OpMode\":36868}"
+}

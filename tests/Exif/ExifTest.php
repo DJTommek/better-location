@@ -26,6 +26,8 @@ final class ExifTest extends TestCase
 			['fujifilm-no-gps', null, null, null],
 			['pixel-with-gps', new CoordinatesImmutable(50.087451, 14.420670999999999), 1234.5670103092784, 'GPS'],
 			['pixel-with-cellid', new CoordinatesImmutable(50.087451, 14.420670999999999), 1234.5670103092784, 'CELLID'],
+			// First 100 KB of regular JPG file with coordinates in EXIF
+			['partial-file', new CoordinatesImmutable(49.49551419997072,  18.25647), null, null],
 		];
 
 		foreach ($data as $item) {
