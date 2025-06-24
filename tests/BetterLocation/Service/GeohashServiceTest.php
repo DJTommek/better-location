@@ -14,11 +14,11 @@ final class GeohashServiceTest extends AbstractServiceTestCase
 	protected function getShareLinks(): array
 	{
 		return [
-			'http://geohash.org/u2fkbnhu9cxe',
-			'http://geohash.org/u2fm1bqtdkzt',
-			'http://geohash.org/hr46kjr7u9tp',
-			'http://geohash.org/g8vw1kzf9psg',
-			'http://geohash.org/5xj3r0yywz41',
+			'https://geohash.softeng.co/u2fkbnhu9cxe',
+			'https://geohash.softeng.co/u2fm1bqtdkzt',
+			'https://geohash.softeng.co/hr46kjr7u9tp',
+			'https://geohash.softeng.co/g8vw1kzf9psg',
+			'https://geohash.softeng.co/5xj3r0yywz41',
 		];
 	}
 
@@ -42,7 +42,7 @@ final class GeohashServiceTest extends AbstractServiceTestCase
 		];
 	}
 
-	public static function isValidUrlProvider(): array
+	public static function isValidUrlOldProvider(): array
 	{
 		return [
 			[true, 'http://geohash.org/u2fkbnhu9cxe'],
@@ -60,6 +60,24 @@ final class GeohashServiceTest extends AbstractServiceTestCase
 		];
 	}
 
+	public static function isValidUrlNewProvider(): array
+	{
+		return [
+			[true, 'https://geohash.softeng.co/u2fkbnhu9cxe'],
+			[true, 'http://geohash.softeng.co/u2fkbnhu9cxe'],
+			[true, 'https://geohash.softeng.co/6gkzwgjzn820'],
+			[true, 'https://geohash.softeng.co/6gkzwgjzn820'],
+			[true, 'https://geohash.softeng.co/6gkzmg1w'],
+			[true, 'https://geohash.softeng.co/b'],
+			[true, 'https://geohash.softeng.co/9'],
+			[true, 'https://geohash.softeng.co/uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu'],
+			[true, 'https://geohash.softeng.co/c216ne:Mt_Hood'],  // with name in url
+
+			[false, 'https://geohash.softeng.co/'],
+			[false, 'https://geohash.softeng.co/abcdefgh'],  // invalid character a
+		];
+	}
+
 	public static function processCodeProvider(): array {
 		return [
 			[50.087451,14.420671, 'u2fkbnhu9cxe'],
@@ -72,7 +90,7 @@ final class GeohashServiceTest extends AbstractServiceTestCase
 		];
 	}
 
-	public static function processUrlProvider(): array {
+	public static function processUrlOldProvider(): array {
 		return [
 			[50.087451,14.420671, 'http://geohash.org/u2fkbnhu9cxe'],
 			[45.370789,-121.701050, 'http://geohash.org/c216ne:Mt_Hood'], // with name
@@ -81,9 +99,19 @@ final class GeohashServiceTest extends AbstractServiceTestCase
 		];
 	}
 
+	public static function processUrlNewProvider(): array {
+		return [
+			[50.087451,14.420671, 'https://geohash.softeng.co/u2fkbnhu9cxe'],
+			[45.370789,-121.701050, 'https://geohash.softeng.co/c216ne:Mt_Hood'], // with name
+			[-25.382708,-49.265506, 'https://geohash.softeng.co/6gkzwgjzn820'],
+			[-25.426741,-49.315395, 'https://geohash.softeng.co/6gkzmg1w'],
+		];
+	}
+
 	/**
 	 * @dataProvider isValidCodeProvider
-	 * @dataProvider isValidUrlProvider
+	 * @dataProvider isValidUrlOldProvider
+	 * @dataProvider isValidUrlNewProvider
 	 */
 	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
@@ -92,7 +120,8 @@ final class GeohashServiceTest extends AbstractServiceTestCase
 
 	/**
 	 * @dataProvider processCodeProvider
-	 * @dataProvider processUrlProvider
+	 * @dataProvider processUrlOldProvider
+	 * @dataProvider processUrlNewProvider
 	 */
 	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
 	{

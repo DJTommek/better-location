@@ -11,7 +11,8 @@ use Lvht\GeoHash;
 
 /**
  * Class GeohashService
- * @link http://geohash.org
+ * @link http://geohash.org (as of 2025-06-24 domain has different content)
+ * @link https://geohash.softeng.co/
  * @link https://en.wikipedia.org/wiki/Geohash
  */
 final class GeohashService extends AbstractService
@@ -19,7 +20,12 @@ final class GeohashService extends AbstractService
 	const ID = 19;
 	const NAME = 'Geohash';
 
-	const LINK = 'http://geohash.org';
+	const LINK = 'https://geohash.softeng.co';
+
+	private const DOMAINS = [
+		'geohash.org',
+		'geohash.softeng.co',
+	];
 
 	const DEFAULT_PRECISION = 0.000001;  // precision to 6 decimal places in WGS84 format
 	const RE = '[0123456789bcdefghjkmnpqrstuvwxyz]';
@@ -59,15 +65,24 @@ final class GeohashService extends AbstractService
 		$this->collection->add($betterLocation);
 	}
 
-	/** @example http://geohash.org/u2fkbnhu9cxe */
+	/**
+	 * @example http://geohash.org/u2fkbnhu9cxe
+	 * @example https://geohash.softeng.co/u2fkbnhu9cxe
+	 */
 	public function isUrl(): bool
 	{
-		if ($this->url && $this->url->getDomain(0) === 'geohash.org') {
-			if (preg_match('/^\/(' . self::RE . '{1,})/', $this->url->getPath(), $matches)) {
-				$this->data->code = $matches[1];
-				$this->data->coords = self::codeToCoords($this->data->code);
-				return true;
-			}
+		if ($this->url === null) {
+			return false;
+		}
+
+		if (in_array($this->url->getDomain(0), self::DOMAINS, true) === false) {
+			return false;
+		}
+
+		if (preg_match('/^\/(' . self::RE . '{1,})/', $this->url->getPath(), $matches)) {
+			$this->data->code = $matches[1];
+			$this->data->coords = self::codeToCoords($this->data->code);
+			return true;
 		}
 		return false;
 	}
