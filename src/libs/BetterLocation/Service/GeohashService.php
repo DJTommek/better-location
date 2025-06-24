@@ -6,11 +6,12 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
-use App\Utils\Coordinates;
+use DJTommek\Coordinates\CoordinatesImmutable;
 use Lvht\GeoHash;
 
 /**
  * Class GeohashService
+ *
  * @link http://geohash.org (as of 2025-06-24 domain has different content)
  * @link https://geohash.softeng.co/
  * @link https://en.wikipedia.org/wiki/Geohash
@@ -38,6 +39,9 @@ final class GeohashService extends AbstractService
 		ServicesManager::TAG_GENERATE_TEXT_OFFLINE,
 	];
 
+	private string $code;
+	private CoordinatesImmutable $coords;
+
 	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
@@ -55,12 +59,15 @@ final class GeohashService extends AbstractService
 
 	public function process(): void
 	{
-		assert($this->data->coords instanceof Coordinates);
-		$lat = $this->data->coords->getLat();
-		$lon = $this->data->coords->getLon();
-		$betterLocation = new BetterLocation($this->input, $lat, $lon, self::class);
+		assert(isset($this->coords));
+		assert(isset($this->code));
+
+		$betterLocation = new BetterLocation($this->input, $this->coords->getLat(), $this->coords->getLon(), self::class);
 		$betterLocation->setPrefixMessage(sprintf('<a href="%s/%s">%s</a> <code>%s</code>: ',
-			self::LINK, $this->data->code, self::NAME, $this->data->code
+			self::LINK,
+			$this->code,
+			self::NAME,
+			$this->code,
 		));
 		$this->collection->add($betterLocation);
 	}
@@ -79,9 +86,9 @@ final class GeohashService extends AbstractService
 			return false;
 		}
 
-		if (preg_match('/^\/(' . self::RE . '{1,})/', $this->url->getPath(), $matches)) {
-			$this->data->code = $matches[1];
-			$this->data->coords = self::codeToCoords($this->data->code);
+		if (preg_match('/^\/(' . self::RE . '+)/', $this->url->getPath(), $matches)) {
+			$this->code = $matches[1];
+			$this->coords = self::codeToCoords($this->code);
 			return true;
 		}
 		return false;
@@ -90,9 +97,9 @@ final class GeohashService extends AbstractService
 	/** @example u2fkbnhu9cxe */
 	public function isCode(): bool
 	{
-		if (preg_match('/^(' . self::RE . '{1,})$/', $this->input, $matches)) {
-			$this->data->code = $matches[1];
-			$this->data->coords = self::codeToCoords($this->data->code);
+		if (preg_match('/^(' . self::RE . '+)$/', $this->input, $matches)) {
+			$this->code = $matches[1];
+			$this->coords = self::codeToCoords($this->code);
 			return true;
 		}
 		return false;
@@ -118,10 +125,10 @@ final class GeohashService extends AbstractService
 	}
 
 	/** Get restult from Geohash library and return point in the middle between two coordinates */
-	public static function codeToCoords(string $code): Coordinates
+	public static function codeToCoords(string $code): CoordinatesImmutable
 	{
-		list($lonMin, $lonMax, $latMin, $latMax) = GeoHash::decode($code);
-		return new Coordinates(
+		[$lonMin, $lonMax, $latMin, $latMax] = GeoHash::decode($code);
+		return new CoordinatesImmutable(
 			($latMin + $latMax) / 2,
 			($lonMin + $lonMax) / 2,
 		);
