@@ -2,112 +2,106 @@
 
 namespace Tests\BetterLocation\Service;
 
-use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\GeohashService;
-use PHPUnit\Framework\TestCase;
 
-final class GeohashServiceTest extends TestCase
+final class GeohashServiceTest extends AbstractServiceTestCase
 {
-	public function testGenerateShareLink(): void
+	protected function getServiceClass(): string
 	{
-		$this->assertSame('http://geohash.org/u2fkbnhu9cxe', GeohashService::getLink(50.087451, 14.420671));
-		$this->assertSame('http://geohash.org/u2fm1bqtdkzt', GeohashService::getLink(50.1, 14.5));
-		$this->assertSame('http://geohash.org/hr46kjr7u9tp', GeohashService::getLink(-50.2, 14.6000001)); // round down
-		$this->assertSame('http://geohash.org/g8vw1kzf9psg', GeohashService::getLink(50.3, -14.7000009)); // round up
-		$this->assertSame('http://geohash.org/5xj3r0yywz41', GeohashService::getLink(-50.4, -14.800008));
+		return GeohashService::class;
 	}
 
-	public function testGenerateDriveLink(): void
+	protected function getShareLinks(): array
 	{
-		$this->expectException(NotSupportedException::class);
-		GeohashService::getLink(50.087451, 14.420671, true);
+		return [
+			'http://geohash.org/u2fkbnhu9cxe',
+			'http://geohash.org/u2fm1bqtdkzt',
+			'http://geohash.org/hr46kjr7u9tp',
+			'http://geohash.org/g8vw1kzf9psg',
+			'http://geohash.org/5xj3r0yywz41',
+		];
 	}
 
-	public function testIsValidUrl(): void
+	protected function getDriveLinks(): array
 	{
-		$this->assertTrue(GeohashService::validateStatic('http://geohash.org/u2fkbnhu9cxe'));
-		$this->assertTrue(GeohashService::validateStatic('https://geohash.org/u2fkbnhu9cxe'));
-		$this->assertTrue(GeohashService::validateStatic('http://geohash.org/6gkzwgjzn820'));
-		$this->assertTrue(GeohashService::validateStatic('http://geohash.org/6gkzwgjzn820'));
-		$this->assertTrue(GeohashService::validateStatic('http://geohash.org/6gkzmg1w'));
-		$this->assertTrue(GeohashService::validateStatic('http://geohash.org/b'));
-		$this->assertTrue(GeohashService::validateStatic('http://geohash.org/9'));
-		$this->assertTrue(GeohashService::validateStatic('http://geohash.org/uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu'));
-		$this->assertTrue(GeohashService::validateStatic('http://geohash.org/c216ne:Mt_Hood')); // with name in url
-
-		$this->assertFalse(GeohashService::validateStatic('http://geohash.org/'));
-		$this->assertFalse(GeohashService::validateStatic('http://geohash.org/abcdefgh')); // invalid character a
+		return [];
 	}
 
-	public function testIsValidCode(): void
+	public static function isValidCodeProvider(): array
 	{
-		$this->assertTrue(GeohashService::validateStatic('u2fkbnhu9cxe'));
-		$this->assertTrue(GeohashService::validateStatic('6gkzwgjzn820'));
-		$this->assertTrue(GeohashService::validateStatic('6gkzmg1w'));
-		$this->assertTrue(GeohashService::validateStatic('u'));
-		$this->assertTrue(GeohashService::validateStatic('uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu'));
+		return [
+		[true, 'u2fkbnhu9cxe'],
+		[true, '6gkzwgjzn820'],
+		[true, '6gkzmg1w'],
+		[true, 'u'],
+		[true, 'uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu'],
 
-		$this->assertFalse(GeohashService::validateStatic('a')); // invalid number of characters
-		$this->assertFalse(GeohashService::validateStatic('uuuuuuuu1uuuuua')); // invalid character, number a
-		$this->assertFalse(GeohashService::validateStatic('c216ne:Mt_Hood')); // do not allow name, it is not part of code but it is ok in URL
+		[false, 'a'], // invalid number of characters
+		[false, 'uuuuuuuu1uuuuua'], // invalid character, number a
+		[false, 'c216ne:Mt_Hood'], // do not allow name, it is not part of code but it is ok in URL
+		];
 	}
 
-	public function testProcessUrl(): void
+	public static function isValidUrlProvider(): array
 	{
-		$collection = GeohashService::processStatic('http://geohash.org/u2fkbnhu9cxe')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.087451,14.420671', $collection->getFirst()->__toString());
+		return [
+			[true, 'http://geohash.org/u2fkbnhu9cxe'],
+			[true, 'https://geohash.org/u2fkbnhu9cxe'],
+			[true, 'http://geohash.org/6gkzwgjzn820'],
+			[true, 'http://geohash.org/6gkzwgjzn820'],
+			[true, 'http://geohash.org/6gkzmg1w'],
+			[true, 'http://geohash.org/b'],
+			[true, 'http://geohash.org/9'],
+			[true, 'http://geohash.org/uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu'],
+			[true, 'http://geohash.org/c216ne:Mt_Hood'],  // with name in url
 
-		// with name
-		$collection = GeohashService::processStatic('http://geohash.org/c216ne:Mt_Hood')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('45.370789,-121.701050', $collection->getFirst()->__toString());
-
-		$collection = GeohashService::processStatic('http://geohash.org/6gkzwgjzn820')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('-25.382708,-49.265506', $collection->getFirst()->__toString());
-
-		$collection = GeohashService::processStatic('http://geohash.org/6gkzmg1w')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('-25.426741,-49.315395', $collection->getFirst()->__toString());
+			[false, 'http://geohash.org/'],
+			[false, 'http://geohash.org/abcdefgh'],  // invalid character a
+		];
 	}
 
-	public function testProcessCode(): void
-	{
-		$collection = GeohashService::processStatic('u2fkbnhu9cxe')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('50.087451,14.420671', $collection->getFirst()->__toString());
+	public static function processCodeProvider(): array {
+		return [
+			[50.087451,14.420671, 'u2fkbnhu9cxe'],
+			[-25.382708,-49.265506,'6gkzwgjzn820'],
+			[-25.426741,-49.315395,'6gkzmg1w'],
 
-		$collection = GeohashService::processStatic('6gkzwgjzn820')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('-25.382708,-49.265506', $collection->getFirst()->__toString());
+			// Due to ignoring above certaing precision, these coordinates are same even if geohash is different
+			'precision test part 1' => [72.580645,40.645161,'uuuuuuuuuuu'],
+			'precision test part 2' => [72.580645,40.645161,'uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu'],
+		];
+	}
 
-		$collection = GeohashService::processStatic('6gkzmg1w')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame('-25.426741,-49.315395', $collection->getFirst()->__toString());
-
+	public static function processUrlProvider(): array {
+		return [
+			[50.087451,14.420671, 'http://geohash.org/u2fkbnhu9cxe'],
+			[45.370789,-121.701050, 'http://geohash.org/c216ne:Mt_Hood'], // with name
+			[-25.382708,-49.265506, 'http://geohash.org/6gkzwgjzn820'],
+			[-25.426741,-49.315395, 'http://geohash.org/6gkzmg1w'],
+		];
 	}
 
 	/**
-	 * Due to ignoring above certaing precision, these coordinates are same even if geohash is different
+	 * @dataProvider isValidCodeProvider
+	 * @dataProvider isValidUrlProvider
 	 */
-	public function testProcessUrlPrecision(): void
+	public function testIsValid(bool $expectedIsValid, string $input): void
 	{
-		$coords = '72.580645,40.645161';
+		$this->assertServiceIsValid(new GeohashService(), $input, $expectedIsValid);
+	}
 
-		$collection = GeohashService::processStatic('http://geohash.org/uuuuuuuuuuu')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame($coords, $collection->getFirst()->__toString());
-
-		$collection = GeohashService::processStatic('http://geohash.org/uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu')->getCollection();
-		$this->assertCount(1, $collection);
-		$this->assertSame($coords, $collection->getFirst()->__toString());
-
+	/**
+	 * @dataProvider processCodeProvider
+	 * @dataProvider processUrlProvider
+	 */
+	public function testProcess(float $expectedLat, float $expectedLon, string $input): void
+	{
+		$this->assertServiceLocation(new GeohashService(), $input, $expectedLat, $expectedLon);
 	}
 
 	public function testSearchInText(): void
 	{
 		$collection = GeohashService::findInText('some random text');
-		$this->assertCount(0, $collection); // searching in string is currently disabled, because it is too similar to normal words
+		$this->assertCount(0, $collection, 'Searching in string is currently disabled, because it is too similar to normal words');
 	}
 }
