@@ -33,7 +33,9 @@
 		"psr/container": "^2.0",
 		"psr/http-client": "^1.0",
 		"psr/simple-cache": "^3.0",
-		"symfony/finder": "^7.1"
+		"symfony/finder": "^7.1",
+		"team-reflex/discord-php": "^10.0",
+		"monolog/monolog": "^2.10"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^9",
@@ -59,7 +61,8 @@
 		"test-quick": "phpunit --exclude-group request",
 		"test-request": "phpunit --group request",
 		"rector": "rector process --config ./src/rector.php",
-		"rector-dry": "rector process --config ./src/rector.php --dry-run"
+		"rector-dry": "rector process --config ./src/rector.php --dry-run",
+		"discord": "@php ./src/discord.cli.php"
 	},
     "repositories": [
         {

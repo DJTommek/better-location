@@ -6,7 +6,6 @@ use App\Config;
 use App\Database;
 use App\Logger\CustomTelegramLogger;
 use App\TelegramCustomWrapper\Events\EventFactory as TelegramEventFactory;
-use App\TelegramCustomWrapper\TelegramCustomWrapper;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
@@ -52,9 +51,12 @@ return static function (ContainerConfigurator $container): void {
 
 	$services->set(\App\BetterLocation\HtmlMessageGenerator::class);
 	$services->set(\App\TelegramCustomWrapper\TelegramHtmlMessageGenerator::class);
+	$services->set(\App\DiscordCustomWrapper\DiscordMessageGenerator::class);
+
+	$services->set(App\TelegramCustomWrapper\TelegramCustomWrapper::class);
+	$services->set(\App\DiscordCustomWrapper\DiscordCustomWrapper::class);
 
 	$services->set(\App\BetterLocation\FromTelegramMessage::class);
-	$services->set(TelegramCustomWrapper::class);
 	$services->set(\App\TelegramCustomWrapper\ChatMemberRecalculator::class);
 	$services->set(CustomTelegramLogger::class);
 	$services->set(StaticMapProxyFactory::class);
@@ -130,6 +132,14 @@ return static function (ContainerConfigurator $container): void {
 		->arg('$cacheTtl', Config::CACHE_TTL_OPEN_ELEVATION);
 
 	$services->set(\App\BetterLocation\FavouriteNameGenerator::class);
+
+	if (Config::isDiscord()) {
+		$services->set(\App\Factory\DiscordFactory::class)
+			->arg('$token', Config::DISCORD_TOKEN);
+
+		$services->set(\Discord\Discord::class)
+			->factory([service(\App\Factory\DiscordFactory::class), 'create']);
+	}
 
 	if (Config::isGlympse()) {
 		$services->set(\App\Factory\GlympseApiFactory::class)

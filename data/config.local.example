@@ -31,6 +31,12 @@ final class Config extends DefaultConfig
 	 */
 	const TELEGRAM_WEBHOOK_PASSWORD = 'someRandomPassword';
 
+	/**
+	 * Discord bot token generated for your application. Use null to disable Discord bot. See PHPDocs in DefaultConfig
+	 * for more information.
+	 */
+	const DISCORD_TOKEN = null;
+
 	const ADMIN_PASSWORD = null; // Set to some random string and use it as ?password=YourRandomPassword to get access to Admin dashboard
 }
 
