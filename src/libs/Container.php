@@ -7,9 +7,9 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
-class Container implements ContainerInterface
+readonly class Container implements ContainerInterface
 {
-	public readonly ContainerBuilder $containerBuilder;
+	public ContainerBuilder $containerBuilder;
 
 	public function __construct()
 	{
@@ -23,11 +23,19 @@ class Container implements ContainerInterface
 		$this->containerBuilder->compile();
 	}
 
+	/**
+	 * @template T of object
+	 * @param class-string<T> $id
+	 * @return T|null
+	 */
 	public function get(string $id)
 	{
 		return $this->containerBuilder->get($id);
 	}
 
+	/**
+	 * @param class-string $id
+	 */
 	public function has(string $id): bool
 	{
 		return $this->containerBuilder->has($id);
