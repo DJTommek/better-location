@@ -5,6 +5,7 @@ namespace App\TelegramCustomWrapper;
 use App\Address\AddressProvider;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\MessageGeneratorInterface;
 use App\Config;
 use App\IngressLanchedRu\Client as LanchedRuClient;
 use App\Pluginer\Pluginer;
@@ -31,6 +32,7 @@ class ProcessedMessageResult
 	public function __construct(
 		private readonly BetterLocationCollection $collection,
 		private readonly BetterLocationMessageSettings $messageSettings,
+		private readonly MessageGeneratorInterface $messageGenerator,
 		private readonly ?Pluginer $pluginer = null,
 		private readonly ?LanchedRuClient $lanchedRuClient = null,
 		private readonly ?AddressProvider $addressProvider = null,
@@ -80,7 +82,10 @@ class ProcessedMessageResult
 				Ingress::setPortalDataDescription($this->lanchedRuClient, $betterLocation);
 			}
 
-			$oneLocationResultText = $betterLocation->generateMessage($this->messageSettings);
+			$oneLocationResultText = $betterLocation->generateMessage(
+				settings: $this->messageSettings,
+				generator: $this->messageGenerator,
+			);
 			$this->buttons[] = $betterLocation->generateDriveButtons($this->messageSettings);
 			$this->validLocationsCount++;
 			$this->resultTexts[] = $oneLocationResultText;

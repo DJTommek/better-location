@@ -178,7 +178,12 @@ class InlineQueryEvent extends Special
 
 		try {
 			$collection = $this->getCollection();
-			$processedMessageResult = $this->processedMessageResultFactory->create($collection, $this->getMessageSettings(), $this->getPluginer());
+			$processedMessageResult = $this->processedMessageResultFactory->create(
+				collection: $collection,
+				messageSettings: $this->getMessageSettings(),
+				messageGenerator: $this->getMessageGenerator(),
+				pluginer: $this->getPluginer(),
+			);
 			$processedMessageResult->process();
 
 			if ($processedMessageResult->getCollection()->isEmpty()) {

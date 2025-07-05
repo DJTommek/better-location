@@ -6,14 +6,15 @@ use App\Address\AddressInterface;
 use App\BetterLocation\Service\AbstractService;
 use App\Icons;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
-use App\TelegramCustomWrapper\TelegramHelper as TG;
 use DJTommek\Coordinates\CoordinatesInterface;
 use Tracy\Debugger;
 
-class MessageGenerator
+readonly class HtmlMessageGenerator implements MessageGeneratorInterface
 {
+	protected const NEWLINE = '<br>';
+
 	public function __construct(
-		private readonly ServicesManager $servicesManager,
+		private ServicesManager $servicesManager,
 	) {
 	}
 
@@ -43,21 +44,21 @@ class MessageGenerator
 		if ($coordinatesSuffixMessage !== null) {
 			$result .= ' ' . $coordinatesSuffixMessage;
 		}
-		$result .= TG::NL;
+		$result .= static::NEWLINE;
 
 		// Generate share links
 		$textLinks = $this->generateLinks($coordinates, $settings, $pregeneratedLinks);
-		$result .= join(' | ', $textLinks) . TG::NL;
+		$result .= join(' | ', $textLinks) . static::NEWLINE;
 
 		if ($settings->showAddress() && $address !== null) {
-			$result .= $address->getAddress()->toString(true) . TG::NL;
+			$result .= $address->getAddress()->toString(true) . static::NEWLINE;
 		}
 
 		foreach ($descriptions as $description) {
-			$result .= $description . TG::NL;
+			$result .= $description . static::NEWLINE;
 		}
 
-		return $result . TG::NL;
+		return $result . static::NEWLINE;
 	}
 
 	private function generateScreenshotLink(CoordinatesInterface $coordinates, BetterLocationMessageSettings $settings): ?string

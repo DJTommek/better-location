@@ -4,6 +4,7 @@ namespace App\Web\Admin;
 
 use App\BetterLocation\FromTelegramMessage;
 use App\BetterLocation\GooglePlaceApi;
+use App\BetterLocation\HtmlMessageGenerator;
 use App\Config;
 use App\Database;
 use App\Factory\ProcessedMessageResultFactory;
@@ -35,6 +36,7 @@ class AdminPresenter extends MainPresenter
 		private readonly FromTelegramMessage $fromTelegramMessage,
 		private readonly ?GooglePlaceApi $googlePlaceApi,
 		private readonly ProcessedMessageResultFactory $processedMessageResultFactory,
+		private readonly HtmlMessageGenerator $messageGenerator,
 		AdminTemplate $template,
 	) {
 		$this->template = $template;
@@ -151,6 +153,7 @@ class AdminPresenter extends MainPresenter
 		$processedCollection = $this->processedMessageResultFactory->create(
 			collection: $collection,
 			messageSettings: new BetterLocationMessageSettings(),
+			messageGenerator: $this->messageGenerator,
 		);
 		$processedCollection->process(true);
 

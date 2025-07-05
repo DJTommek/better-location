@@ -19,7 +19,6 @@ use App\Utils\Coordinates;
 use App\Utils\Formatter;
 use App\Utils\Strict;
 use DJTommek\Coordinates\CoordinatesInterface;
-use maxh\Nominatim\Exceptions\NominatimException;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
@@ -154,10 +153,10 @@ class BetterLocation implements CoordinatesInterface
 		return $this->timezoneData;
 	}
 
-	public function generateMessage(BetterLocationMessageSettings $settings): string
-	{
-		$serviceManager = new ServicesManager();
-		$generator = new MessageGenerator($serviceManager);
+	public function generateMessage(
+		BetterLocationMessageSettings $settings,
+		MessageGeneratorInterface $generator,
+	): string {
 		return $generator->generate(
 			$this->coords,
 			$settings,

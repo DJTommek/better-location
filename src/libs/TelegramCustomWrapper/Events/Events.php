@@ -3,6 +3,7 @@
 namespace App\TelegramCustomWrapper\Events;
 
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\MessageGeneratorInterface;
 use App\Chat;
 use App\Config;
 use App\Factory\ChatFactory;
@@ -46,6 +47,7 @@ abstract class Events
 	private readonly ChatMemberRecalculator $chatMemberRecalculator;
 	private readonly ChatFactory $chatFactory;
 	private readonly UserFactory $userFactory;
+	private readonly MessageGeneratorInterface $messageGenerator;
 
 	protected readonly Update $update;
 	private readonly TgLog $tgLog;
@@ -77,6 +79,7 @@ abstract class Events
 		ChatMemberRecalculator $chatMemberRecalculator,
 		ChatFactory $chatFactory,
 		UserFactory $userFactory,
+		MessageGeneratorInterface $messageGenerator,
 	): self {
 		$this->chatRepository = $chatRepository;
 		$this->httpClient = $httpClient;
@@ -85,6 +88,7 @@ abstract class Events
 		$this->chatMemberRecalculator = $chatMemberRecalculator;
 		$this->chatFactory = $chatFactory;
 		$this->userFactory = $userFactory;
+		$this->messageGenerator = $messageGenerator;
 
 		$this->loop = Factory::create();
 		$this->tgLog = new TgLog(
@@ -479,5 +483,10 @@ abstract class Events
 	public function getUpdate(): Update
 	{
 		return $this->update;
+	}
+
+	public function getMessageGenerator(): MessageGeneratorInterface
+	{
+		return $this->messageGenerator;
 	}
 }

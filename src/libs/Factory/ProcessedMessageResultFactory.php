@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Address\AddressProvider;
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\MessageGeneratorInterface;
 use App\IngressLanchedRu\Client as LanchedRuClient;
 use App\Pluginer\Pluginer;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
@@ -20,12 +21,14 @@ final readonly class ProcessedMessageResultFactory
 	public function create(
 		BetterLocationCollection $collection,
 		BetterLocationMessageSettings $messageSettings,
+		MessageGeneratorInterface $messageGenerator,
 		?Pluginer $pluginer = null,
 		?bool $addressForce = null,
 	): ProcessedMessageResult {
 		return new ProcessedMessageResult(
 			collection: $collection,
 			messageSettings: $messageSettings,
+			messageGenerator: $messageGenerator,
 			pluginer: $pluginer,
 			lanchedRuClient: $this->lanchedRuClient,
 			addressProvider: $this->addressProvider,

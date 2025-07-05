@@ -10,6 +10,7 @@ use App\BetterLocation\Service\GeohashService;
 use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\WazeService;
+use App\BetterLocation\ServicesManager;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use PHPUnit\Framework\TestCase;
 use unreal4u\TelegramAPI\Telegram;
@@ -55,7 +56,8 @@ final class BetterLocationTest extends TestCase
 
 		$msgSettings = $this->generateMessageSettings();
 
-		$this->checkMessage($location->generateMessage($msgSettings));
+		$messageGenerator = new \App\TelegramCustomWrapper\TelegramHtmlMessageGenerator(new ServicesManager());
+		$this->checkMessage($location->generateMessage($msgSettings, $messageGenerator));
 		$this->checkButtons($location->generateDriveButtons($msgSettings));
 	}
 

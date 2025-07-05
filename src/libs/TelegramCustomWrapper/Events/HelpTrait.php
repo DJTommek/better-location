@@ -2,6 +2,7 @@
 
 namespace App\TelegramCustomWrapper\Events;
 
+use App\BetterLocation\MessageGeneratorInterface;
 use App\Config;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Button\FavouritesButton;
@@ -16,6 +17,8 @@ use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 
 trait HelpTrait
 {
+	abstract function getMessageGenerator(): MessageGeneratorInterface;
+
 	/**
 	 * @throws \App\BetterLocation\Service\Exceptions\NotSupportedException
 	 */
@@ -29,7 +32,7 @@ trait HelpTrait
 				$this->processExample->getExampleInput(),
 			) . PHP_EOL;
 		$text .= PHP_EOL;
-		$text .= $this->processExample->getExampleLocation()->generateMessage($this->getMessageSettings());
+		$text .= $this->processExample->getExampleLocation()->generateMessage($this->getMessageSettings(), $this->getMessageGenerator());
 		// @TODO newline is filled in $result (yeah, it shouldn't be like that..)
 		$text .= sprintf('%s <b>Formats I can read:</b>', Icons::FEATURES) . PHP_EOL;
 		$text .= sprintf('- coordinates: <a href="%s">WGS84</a>, <a href="%s">USNG</a>, <a href="%s">MGRS</a>, <a href="%s">UTM</a>, ...',

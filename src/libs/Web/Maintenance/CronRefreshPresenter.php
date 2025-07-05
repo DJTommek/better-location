@@ -8,6 +8,7 @@ use App\Factory\ProcessedMessageResultFactory;
 use App\Icons;
 use App\TelegramCustomWrapper\TelegramCustomWrapper;
 use App\TelegramCustomWrapper\TelegramHelper;
+use App\TelegramCustomWrapper\TelegramHtmlMessageGenerator;
 use App\Utils\Formatter;
 use App\Web\MainPresenter;
 use unreal4u\TelegramAPI\Telegram;
@@ -19,9 +20,13 @@ class CronRefreshPresenter extends MainPresenter
 	 */
 	private array $log;
 
+	/**
+	 * @TODO should request for MessageGeneratorInterface instead
+	 */
 	public function __construct(
 		private readonly TelegramCustomWrapper $telegramCustomWrapper,
 		private readonly ProcessedMessageResultFactory $processedMessageResultFactory,
+		private readonly TelegramHtmlMessageGenerator $messageGenerator,
 	) {
 	}
 
@@ -83,6 +88,7 @@ class CronRefreshPresenter extends MainPresenter
 				$processedCollection = $this->processedMessageResultFactory->create(
 					collection: $collection,
 					messageSettings: $event->getMessageSettings(),
+					messageGenerator: $this->messageGenerator,
 					pluginer: $event->getPluginer(),
 				);
 				$processedCollection->setAutorefresh(true);

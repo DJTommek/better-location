@@ -3,6 +3,7 @@
 namespace App\TelegramCustomWrapper;
 
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\MessageGeneratorInterface;
 use App\Chat;
 use App\IngressLanchedRu\Client as IngressLanchedRuClient;
 use App\Pluginer\Pluginer;
@@ -25,6 +26,8 @@ trait UniversalHandleLocationTrait
 	abstract function getPluginer(): ?Pluginer;
 
 	abstract function getIngressLanchedRuClient(): IngressLanchedRuClient;
+
+	abstract function getMessageGenerator(): MessageGeneratorInterface;
 
 	abstract function replyLocation(
 		CoordinatesInterface $location,
@@ -72,7 +75,12 @@ trait UniversalHandleLocationTrait
 	{
 		$collection = $this->getCollection();
 
-		$processedCollection = $this->processedMessageResultFactory->create($collection, $this->getMessageSettings(), $this->getPluginer());
+		$processedCollection = $this->processedMessageResultFactory->create(
+			collection: $collection,
+			messageSettings: $this->getMessageSettings(),
+			messageGenerator: $this->getMessageGenerator(),
+			pluginer: $this->getPluginer(),
+		);
 		$processedCollection->process();
 
 		if ($collection->isEmpty()) {

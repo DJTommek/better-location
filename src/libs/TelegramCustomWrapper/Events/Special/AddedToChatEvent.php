@@ -51,6 +51,7 @@ class AddedToChatEvent extends Special
 		$processedCollection = $this->processedMessageResultFactory->create(
 			$collection,
 			$this->getMessageSettings(),
+			$this->getMessageGenerator(),
 			$this->getPluginer(),
 		);
 		$processedCollection->process();

@@ -2,6 +2,7 @@
 
 namespace App\TelegramCustomWrapper\Events;
 
+use App\BetterLocation\MessageGeneratorInterface;
 use App\Chat;
 use App\Config;
 use App\Icons;
@@ -17,6 +18,8 @@ trait FavouritesTrait
 	abstract function getUser(): User;
 
 	abstract function getChat(): ?Chat;
+
+	abstract function getMessageGenerator(): MessageGeneratorInterface;
 
 	protected function processFavouritesList(): array
 	{
@@ -49,7 +52,7 @@ trait FavouritesTrait
 			}
 			$text .= sprintf(' You have %d favourite location(s):', count($this->getUser()->getFavourites())) . PHP_EOL;
 			foreach ($this->getUser()->getFavourites() as $favourite) {
-				$text .= $favourite->generateMessage($this->getMessageSettings());
+				$text .= $favourite->generateMessage($this->getMessageSettings(), $this->getMessageGenerator());
 
 				$shareFavouriteButton = new Button();
 				$shareFavouriteButton->text = sprintf('Share %s', htmlspecialchars_decode($favourite->getPrefixMessage()));

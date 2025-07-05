@@ -65,7 +65,12 @@ class LocationEdit extends Edit
 			return;
 		}
 
-		$processedCollection = $this->processedMessageResultFactory->create($collection, $this->getMessageSettings(), $this->getPluginer());
+		$processedCollection = $this->processedMessageResultFactory->create(
+			collection: $collection,
+			messageSettings: $this->getMessageSettings(),
+			messageGenerator: $this->getMessageGenerator(),
+			pluginer: $this->getPluginer()
+		);
 		$processedCollection->process();
 		$text = $processedCollection->getText();
 

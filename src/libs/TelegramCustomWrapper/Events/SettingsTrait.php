@@ -2,6 +2,7 @@
 
 namespace App\TelegramCustomWrapper\Events;
 
+use App\BetterLocation\MessageGeneratorInterface;
 use App\Chat;
 use App\Config;
 use App\Icons;
@@ -23,12 +24,15 @@ trait SettingsTrait
 
 	abstract function getTgChatId(): int;
 
+	abstract function getMessageGenerator(): MessageGeneratorInterface;
+
 	protected function processSettings(): array
 	{
 		$processedCollection = $this->processedMessageResultFactory->create(
-			$this->processExample->getExampleCollection(),
-			$this->getMessageSettings(),
-			$this->getPluginer(),
+			collection: $this->processExample->getExampleCollection(),
+			messageSettings: $this->getMessageSettings(),
+			messageGenerator: $this->getMessageGenerator(),
+			pluginer: $this->getPluginer(),
 		);
 		$processedCollection->process();
 

@@ -77,7 +77,12 @@ class StartCommand extends Command
 		} else {
 			try {
 				$collection = WGS84DegreesService::processStatic($lat . ',' . $lon)->getCollection();
-				$processedCollection = $this->processedMessageResultFactory->create($collection, $this->getMessageSettings(), $this->getPluginer());
+				$processedCollection = $this->processedMessageResultFactory->create(
+					collection: $collection,
+					messageSettings: $this->getMessageSettings(),
+					messageGenerator: $this->getMessageGenerator(),
+					pluginer: $this->getPluginer(),
+				);
 				$processedCollection->process();
 				$this->reply($processedCollection->getText(), $processedCollection->getMarkup(1), ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
 			} catch (\Throwable $exception) {

@@ -40,7 +40,7 @@ return static function (ContainerConfigurator $container): void {
 	// @TODO {rqd9s3z9i9} fix this to NOT tag classes, that does not inherit from App\TelegramCustomWrapper\Events\Events::class
 	$services
 		->load('App\\TelegramCustomWrapper\\Events\\', __DIR__ . '/libs/TelegramCustomWrapper/Events/')
-		->call('setDependencies')
+		->call('setDependencies', ['$messageGenerator' => service(\App\TelegramCustomWrapper\TelegramHtmlMessageGenerator::class)])
 		->tag($tagTgEvents);
 
 	$services->set(\App\Web\Locations\LocationsTemplate::class)
@@ -49,6 +49,10 @@ return static function (ContainerConfigurator $container): void {
 		->arg('$mapyCzApiKey', Config::MAPY_CZ_TILES_API_KEY);
 
 	$services->set(StaticMapProxy::class);
+
+	$services->set(\App\BetterLocation\HtmlMessageGenerator::class);
+	$services->set(\App\TelegramCustomWrapper\TelegramHtmlMessageGenerator::class);
+
 	$services->set(\App\BetterLocation\FromTelegramMessage::class);
 	$services->set(TelegramCustomWrapper::class);
 	$services->set(\App\TelegramCustomWrapper\ChatMemberRecalculator::class);

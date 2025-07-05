@@ -4,23 +4,28 @@ namespace Tests\TelegramCustomWrapper;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
+use App\BetterLocation\MessageGeneratorInterface;
 use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\OpenLocationCodeService;
 use App\BetterLocation\Service\WazeService;
+use App\BetterLocation\ServicesManager;
 use App\Config;
 use App\Factory;
 use App\Google\Geocoding\StaticApi;
 use App\IngressLanchedRu\Client;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
+use App\TelegramCustomWrapper\TelegramHtmlMessageGenerator;
 use PHPUnit\Framework\TestCase;
 use Tests\HttpTestClients;
 
 final class ProcessedMessageResultTest extends TestCase
 {
 	private readonly HttpTestClients $httpTestClients;
+	private readonly MessageGeneratorInterface $messageGenerator;
+
 	private static ?StaticApi $googleGeocodeApi = null;
 
 	public static function setUpBeforeClass(): void
@@ -39,6 +44,7 @@ final class ProcessedMessageResultTest extends TestCase
 		parent::setUp();
 
 		$this->httpTestClients = new HttpTestClients();
+		$this->messageGenerator = new TelegramHtmlMessageGenerator(new ServicesManager());
 	}
 
 	public static function defaultNoAddressProvider(): array
@@ -440,6 +446,7 @@ Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingr
 		$processedCollection = new ProcessedMessageResult(
 			collection: $collection,
 			messageSettings: $settings,
+			messageGenerator: $this->messageGenerator,
 		);
 		$maxLocationsCount ??= Config::TELEGRAM_MAXIMUM_LOCATIONS;
 		$maxTextLength ??= Config::TELEGRAM_BETTER_LOCATION_MESSAGE_LIMIT;
@@ -477,6 +484,7 @@ Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingr
 		$processedCollection = new ProcessedMessageResult(
 			collection: $collection,
 			messageSettings: $settings,
+			messageGenerator: $this->messageGenerator,
 			addressProvider: self::$googleGeocodeApi,
 		);
 		$maxLocationsCount ??= Config::TELEGRAM_MAXIMUM_LOCATIONS;
@@ -509,6 +517,7 @@ Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingr
 		$processedCollection = new ProcessedMessageResult(
 			collection: $collection,
 			messageSettings: $settings,
+			messageGenerator: $this->messageGenerator,
 		);
 		$processedCollection->process();
 
@@ -558,6 +567,7 @@ Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingr
 		$processedCollection = new ProcessedMessageResult(
 			collection: $collection,
 			messageSettings: $settings,
+			messageGenerator: $this->messageGenerator,
 			lanchedRuClient: $lanchedRuClient,
 		);
 		$processedCollection->process();
