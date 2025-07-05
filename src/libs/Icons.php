@@ -34,7 +34,7 @@ class Icons
 	public const PICTURE = "\u{1F5BC}"; // https://emojipedia.org/framed-picture/
 	public const MAP_SCREEN = "\u{1F5FA}"; // https://emojipedia.org/world-map/
 
-	public const INGRESS_PORTAL = "\u{1F5BC}"; // https://emojipedia.org/framed-picture/
+	public const INGRESS_PORTAL_IMAGE = "\u{1F5BC}"; // https://emojipedia.org/framed-picture/
 	public const INGRESS_PRIME = "\u{1F4F1}"; // https://emojipedia.org/mobile-phone/
 	public const INGRESS_INTEL = "\u{1F5A5}"; // https://emojipedia.org/desktop-computer/
 
