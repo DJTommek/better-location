@@ -1,10 +1,11 @@
 # [BetterLocation]([https://github.com/DJTommek/better-location])
 
-Simple but very smart Telegram bot for processing various types of location format and converting them to user-defined formats.
+Simple but very smart Telegram and Discord bot for processing various types of location format and converting them to user-defined formats.
 
-Available publicly on
-Telegram as [@BetterLocationBot](https://t.me/BetterLocationBot)
-and web [better-location.palider.cz](https://better-location.palider.cz/).
+Available publicly on:
+- Web [better-location.palider.cz](https://better-location.palider.cz/).
+- Telegram as [@BetterLocationBot](https://t.me/BetterLocationBot)
+- Discord as [BetterLocation#0881](https://discord.com/oauth2/authorize?client_id=1391122758523551744&permissions=67584&integration_type=0&scope=bot)
 
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/DJTommek/better-location/main.yml?label=Website%20deployment)](https://better-location.palider.cz/) 
 
@@ -12,18 +13,28 @@ and web [better-location.palider.cz](https://better-location.palider.cz/).
 
 ## Requirements
 
+### Website and Telegram bot
+
 - PHP webserver (written and tested with PHP 8.2)
 - Database server (written and tested with MariaDB 10)
 - Domain with SSL certificate (might be self-signed). Detailed requirements are described on [Telegram's webhook page](https://core.telegram.org/bots/webhooks).
 
+### Discord bot
+
+- PHP (written and tested with PHP 8.2)
+
 ## Installation
 
 1. Download/clone [BetterLocation repository](https://github.com/DJTommek/better-location).
-1. Install production dependencies via `composer install --no-dev` - you need [Composer](https://getcomposer.org/) to do that.
-1. Update `APP_URL` and all `DB_*` and `TELEGRAM_*` constants in `data/config.local.php`.
-1. Create database using [structure.sql](asset/sql/structure.sql) script.
-1. **Optional**: In case you are not doing this installation directly on your (web)hosting, copy all files there now.
-1. Follow instructions on [/admin/index.php](www/admin/index.php).
+2. Install production dependencies via `composer install --no-dev` - you need [Composer](https://getcomposer.org/) to do that.
+3. To setup website and Telegram:
+   1. Update `APP_URL` and all `DB_*` and `TELEGRAM_*` constants in `data/config.local.php`.
+   2. Create database using [structure.sql](asset/sql/structure.sql) script.
+   3. **Optional**: In case you are not doing this installation directly on your (web)hosting, copy all files there now.
+   4. Follow instructions on [/admin/index.php](www/admin/index.php).
+4. To setup Discord bot:
+   1. Update `DISCORD_*` constants in `data/config.local.php`.
+   2. Start discord bot by executing [/src/discord.cli.php](/src/discord.cli.php) file in PHP in command line (eg `php /src/discord.cli.php`) as long-running process.
 
 ## Development and testing
 
@@ -47,7 +58,7 @@ Run [PHPUnit](https://phpunit.de/) tests via `composer test` which will run all 
 - All tests, that are doing **ANY** request to external service must be labeled as `@group request` (more in [PHPUnit docs](https://phpunit.readthedocs.io/en/stable/annotations.html#group))
 - Some tests may be skipped if missing configuration (Glympse, What3Words, ...)
 
-## Deep linking
+## Telegram Deep linking
 
 This bot is supporting Telegram's [deep linking](https://core.telegram.org/bots#deep-linking) using `?start=parameter` or `?startgroup=parameter` so you can create links from your website or app to directly perform one of actions listed below (currently only [Show location](#show-location)).
 

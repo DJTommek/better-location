@@ -8,6 +8,80 @@ use PHPUnit\Framework\TestCase;
 
 final class UtilsTest extends TestCase
 {
+	public static function htmlToMarkdownProvider(): array
+	{
+		return [
+			['', ''],
+			// Simple tags
+			['some plaintext', 'some plaintext'],
+			['příliš žluťoučký kůň', 'příliš žluťoučký kůň'],
+			['příliš **žluťoučký** kůň', 'příliš <b>žluťoučký</b> kůň'],
+			['aaa **bbb** ccc', 'aaa <b>bbb</b> ccc'],
+			['aaa *bbb* ccc', 'aaa <i>bbb</i> ccc'],
+			['aaa [bbb](https://tomas.palider.cz) ccc', 'aaa <a href="https://tomas.palider.cz">bbb</a> ccc'],
+			// Combined tags
+			['aaa ***bbb*** ccc', 'aaa <b><i>bbb</i></b> ccc'],
+			['aaa **[bbb](https://tomas.palider.cz)** ccc', 'aaa <b><a href="https://tomas.palider.cz">bbb</a></a></b> ccc'],
+			['aaa **[bbb](<https://tomas.palider.cz>)** ccc', 'aaa <b><a href="https://tomas.palider.cz">bbb</a></a></b> ccc', '', false],
+			['aaa [**bbb**](https://tomas.palider.cz) ccc', 'aaa <a href="https://tomas.palider.cz"><b>bbb</b></a> ccc'],
+			[
+				'aaa [plain link, *italic link*, **bold link**, ***italic and bold link***](https://tomas.palider.cz) ccc',
+				'aaa <a href="https://tomas.palider.cz">plain link, <i>italic link</i>, <b>bold link</b>, <b><i>italic and bold link</i></b></a> ccc',
+			],
+			// Remove emojis from link text
+			['aaa [someemoji](https://tomas.palider.cz) bbb', 'aaa <a href="https://tomas.palider.cz">some😈emoji</a> bbb'],
+			['aaa [some!!!emoji](https://tomas.palider.cz) bbb', 'aaa <a href="https://tomas.palider.cz">some😈emoji</a> bbb', '!!!'],
+			[
+				'aaa [emoji1 red heart and emoji2 green heart](https://dita.paliderova.cz/) bbb',
+				'aaa <a href="https://dita.paliderova.cz/">emoji1 🏰 and emoji2 💚</a> bbb',
+				fn($matches) => match ($matches[0]) {
+					"\u{1F3F0}" => 'red heart',
+					'💚' => 'green heart',
+					default => 'EEE'
+				},
+				//				[self::class, 'emojiReplacement']
+			],
+			//			[
+			//				'[Il Campanone📱](https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Fadafff0f75f24144905ecfec3c662d42.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D45.703997%2C9.662381) [🖥](https://intel.ingress.com/intel?pll=45.703997,9.662381) [🖼](https://lh3.googleusercontent.com/IG9TGatrqDFj6WE7KDFNdmhbUcyXgH9jH5jUDeT01NkQ2MoNvMB9M395GjbwAdfK4zj0h0ouSdFWxTxWcRWU8-44tVw9=s10000) [🗺](https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D45.703997%26x%3D9.662381%26source%3Dcoor%26id%3D9.662381%252C45.703997%26p%3D3%26l%3D0) `45.703997,9.662381`',
+			//				'<a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Fadafff0f75f24144905ecfec3c662d42.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D45.703997%2C9.662381">Il Campanone📱</a> <a href="https://intel.ingress.com/intel?pll=45.703997,9.662381">🖥</a> <a href="https://lh3.googleusercontent.com/IG9TGatrqDFj6WE7KDFNdmhbUcyXgH9jH5jUDeT01NkQ2MoNvMB9M395GjbwAdfK4zj0h0ouSdFWxTxWcRWU8-44tVw9=s10000">🖼</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D45.703997%26x%3D9.662381%26source%3Dcoor%26id%3D9.662381%252C45.703997%26p%3D3%26l%3D0">🗺</a> <code>45.703997,9.662381</code>',
+			//				fn($a) => match($a[0]) { '📱' => '', '💚' => 'green heart', default=> 'EEE'},
+			//			]
+			[
+				'[Il Campanone ](https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Fadafff0f75f24144905ecfec3c662d42.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D45.703997%2C9.662381) [Intel](https://intel.ingress.com/intel?pll=45.703997,9.662381) [Image](https://lh3.googleusercontent.com/IG9TGatrqDFj6WE7KDFNdmhbUcyXgH9jH5jUDeT01NkQ2MoNvMB9M395GjbwAdfK4zj0h0ouSdFWxTxWcRWU8-44tVw9=s10000) [](https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D45.703997%26x%3D9.662381%26source%3Dcoor%26id%3D9.662381%252C45.703997%26p%3D3%26l%3D0) `45.703997,9.662381`',
+				'<a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Fadafff0f75f24144905ecfec3c662d42.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D45.703997%2C9.662381">Il Campanone 📱</a> <a href="https://intel.ingress.com/intel?pll=45.703997,9.662381">🖥</a> <a href="https://lh3.googleusercontent.com/IG9TGatrqDFj6WE7KDFNdmhbUcyXgH9jH5jUDeT01NkQ2MoNvMB9M395GjbwAdfK4zj0h0ouSdFWxTxWcRWU8-44tVw9=s10000">🖼</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D45.703997%26x%3D9.662381%26source%3Dcoor%26id%3D9.662381%252C45.703997%26p%3D3%26l%3D0">🗺</a> <code>45.703997,9.662381</code>',
+				[self::class, 'emojiReplacement']
+			],
+		];
+	}
+
+	/**
+	 * @param list{string} $matches
+	 * @return string
+	 */
+	public static function emojiReplacement(array $matches): string
+	{
+		return match ($matches[0]) {
+			'📱', '🗺' => '',
+			'🖼' => 'Image',
+			'🖥' => 'Intel',
+			default => 'EEE'
+		};
+	}
+
+	/**
+	 * @dataProvider htmlToMarkdownProvider
+	 */
+	public function testHtmlToMarkdown(
+		string $expected,
+		string $html,
+		string|callable $emojiReplacement = '',
+		bool $allowLinkPreview = true
+	): void
+	{
+		$result = Utils::htmlToMarkdown($html, $emojiReplacement, $allowLinkPreview);
+		$this->assertSame($expected, $result);
+	}
+
 	public function testCheckIfValueInHeaderMatchArray(): void
 	{
 		$this->assertTrue(Utils::checkIfValueInHeaderMatchArray('image/webp;charset=utf-8', ['image/jpeg', 'image/webp']));
@@ -35,9 +109,11 @@ final class UtilsTest extends TestCase
 		$this->assertSame('-48.890900,-13.485400', Utils::findMapyCzApiCoords('var center = SMap.Coords.fromWGS84(-13.4854,-48.8909);')->__toString());
 		$this->assertSame('48.890900,13.485400', Utils::findMapyCzApiCoords('some text blabla SMap.Coords.fromWGS84(13.4854, 48.8909) some more text')->__toString());
 		$this->assertSame('48.890900,13.485400', Utils::findMapyCzApiCoords('some text blabla SMap.Coords.fromWGS84(   13.4854,    48.8909  )')->__toString());
-		$this->assertSame('48.890900,13.485400', Utils::findMapyCzApiCoords('some text blabla SMap.Coords.fromWGS84(13.4854, 
+		$this->assertSame('48.890900,13.485400',
+			Utils::findMapyCzApiCoords('some text blabla SMap.Coords.fromWGS84(13.4854, 
 48.8909) some text')->__toString());
-		$this->assertSame('48.890900,13.485400', Utils::findMapyCzApiCoords('some text blabla SMap.Coords.fromWGS84(
+		$this->assertSame('48.890900,13.485400',
+			Utils::findMapyCzApiCoords('some text blabla SMap.Coords.fromWGS84(
 		13.4854, 
   48.8909
 ) some text')->__toString());

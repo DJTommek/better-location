@@ -7,6 +7,7 @@ use App\Address\Country;
 use App\BetterLocation\HtmlMessageGenerator;
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\ServicesManager;
+use App\DiscordCustomWrapper\DiscordMessageGenerator;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\TelegramHtmlMessageGenerator;
 use DJTommek\Coordinates\Coordinates;
@@ -92,6 +93,50 @@ Some nice address here
 		$this->assertSame($expected4, $result4);
 	}
 
+	public function testBasicDiscord(): void
+	{
+		$generator = new DiscordMessageGenerator();
+
+		$coords = new Coordinates(50.087451, 14.420671);
+		$settings = new BetterLocationMessageSettings();
+
+		// Minimum requirements, everything is by default
+		$expected1 = 'Some prefix `50.087451,14.420671`
+[BetterLocation](<https://better-location.palider.cz/50.087451,14.420671>) | [Google](<https://www.google.com/maps/place/50.087451,14.420671?q=50.087451,14.420671>) | [Mapy.com](<https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451>) | [DDG](<https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps>) | [Waze](<https://www.waze.com/ul?ll=50.087451,14.420671>) | [HERE](<https://share.here.com/l/50.087451,14.420671?p=yes>) | [OSM](<https://www.openstreetmap.org/search?whereami=1&query=50.087451,14.420671&mlat=50.087451&mlon=14.420671#map=17/50.087451/14.420671>)
+
+';
+		$result1 = $generator->generate($coords, $settings, 'Some prefix');
+		$this->assertSame($expected1, $result1);
+
+		// Tests with showing address
+		$settings->showAddress(true);
+
+		// Address is allowed, but not available
+		$expected2 = $expected1;
+		$result2 = $generator->generate($coords, $settings, 'Some prefix');
+		$this->assertSame($expected2, $result2);
+
+		// Address is allowed but only address without country is available
+		$expected3 = 'Some [prefix](<https://tomas.palider.cz/>) `50.087451,14.420671`
+[BetterLocation](<https://better-location.palider.cz/50.087451,14.420671>) | [Google](<https://www.google.com/maps/place/50.087451,14.420671?q=50.087451,14.420671>) | [Mapy.com](<https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451>) | [DDG](<https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps>) | [Waze](<https://www.waze.com/ul?ll=50.087451,14.420671>) | [HERE](<https://share.here.com/l/50.087451,14.420671?p=yes>) | [OSM](<https://www.openstreetmap.org/search?whereami=1&query=50.087451,14.420671&mlat=50.087451&mlon=14.420671#map=17/50.087451/14.420671>)
+Some nice address here
+
+';
+		$address = new Address('Some nice address here');
+		$result3 = $generator->generate($coords, $settings, 'Some <a href="https://tomas.palider.cz/">prefix</a>', address: $address);
+		$this->assertSame($expected3, $result3);
+
+		// Address is allowed and full address including country is available, emoji is generated
+		$expected4 = 'Some prefix `50.087451,14.420671`
+[BetterLocation](<https://better-location.palider.cz/50.087451,14.420671>) | [Google](<https://www.google.com/maps/place/50.087451,14.420671?q=50.087451,14.420671>) | [Mapy.com](<https://mapy.cz/zakladni?y=50.087451&x=14.420671&source=coor&id=14.420671%2C50.087451>) | [DDG](<https://duckduckgo.com/?q=50.087451,14.420671&iaxm=maps>) | [Waze](<https://www.waze.com/ul?ll=50.087451,14.420671>) | [HERE](<https://share.here.com/l/50.087451,14.420671?p=yes>) | [OSM](<https://www.openstreetmap.org/search?whereami=1&query=50.087451,14.420671&mlat=50.087451&mlon=14.420671#map=17/50.087451/14.420671>)
+🇨🇿 Some nice address here
+
+';
+		$address = new Address('Some nice address here', new Country('CZ', 'Czechia'));
+		$result4 = $generator->generate($coords, $settings, 'Some prefix', address: $address);
+		$this->assertSame($expected4, $result4);
+	}
+
 	public function testMinimalTelegramHtml(): void
 	{
 		$generator = new TelegramHtmlMessageGenerator(new ServicesManager());
@@ -116,6 +161,22 @@ Some nice address here
 		$settings = new BetterLocationMessageSettings([], [], [], [], MapyCzService::class);
 
 		$expected = 'Some prefix <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D-1.000000%26x%3D-2.000000%26source%3Dcoor%26id%3D-2.000000%252C-1.000000%26p%3D3%26l%3D0" target="_blank">🗺</a> <br><br><br>';
+		$result = $generator->generate($coords, $settings, 'Some prefix');
+
+		$this->assertSame($expected, $result);
+	}
+
+	public function testMinimalDiscord(): void
+	{
+		$generator = new DiscordMessageGenerator();
+
+		$coords = new Coordinates(-1, -2);
+		$settings = new BetterLocationMessageSettings([], [], [], [], MapyCzService::class);
+
+		$expected = 'Some prefix 
+
+
+';
 		$result = $generator->generate($coords, $settings, 'Some prefix');
 
 		$this->assertSame($expected, $result);

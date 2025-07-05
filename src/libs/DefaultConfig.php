@@ -60,6 +60,7 @@ class DefaultConfig
 	/**
 	 * Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery.
 	 * Use lower values to limit the load on your bot‘s server, and higher values to increase your bot’s throughput.
+	 *
 	 * @var int 1-100, Defauts to 40
 	 */
 	const TELEGRAM_MAX_CONNECTIONS = 40;
@@ -96,6 +97,24 @@ class DefaultConfig
 			DebugCommand::class,
 		],
 	];
+
+	/**
+	 * Discord bot token generated for your application. Use null to disable Discord bot.
+	 *
+	 * Steps how to obtain token and setup bot correctly
+	 * 1. Create application on https://discord.com/developers/applications
+	 * 2. Generate Discord Bot token on `https://discord.com/developers/applications/<your-application-id>/bot` page
+	 *    and paste it here
+	 * 3. Generate OAuth2 URL on `https://discord.com/developers/applications/<your-application-id>/oauth2` by checking
+	 *    at least:
+	 *    - scope: `bot`
+	 *    - bot permissions: `Send Messages` and `Read Message History`
+	 *    - select "Guild Install"
+	 *    Generated URL will look like this: `https://discord.com/oauth2/authorize?client_id=<your-application-id>&permissions=67584&integration_type=0&scope=bot`
+	 * 4. Open this URL to trigger Discord popup which helps you to add bot to your server (guild).
+	 * 5. Share this URL to anyone, who want's to add it to it's own server (guild).
+	 */
+	const DISCORD_TOKEN = null;
 
 	/**
 	 * Delete logs older than this number in seconds
@@ -188,6 +207,7 @@ class DefaultConfig
 
 	/**
 	 * Identificator to requests to Geonames API. Registration is required.
+	 *
 	 * @link https://www.geonames.org/export/
 	 */
 	const GEONAMES_USERNAME = 'BetterLocation';
@@ -202,6 +222,7 @@ class DefaultConfig
 
 	/**
 	 * Maximum timeout of request (connect, read and general timeout).
+	 *
 	 * @var positive-int In seconds, default 5 seconds
 	 * @see https://docs.guzzlephp.org/en/7.0/request-options.html#connect-timeout
 	 * @see https://docs.guzzlephp.org/en/7.0/request-options.html#read-timeout
@@ -215,6 +236,7 @@ class DefaultConfig
 	 * https://github.com/guzzle/guzzle/issues/1484#issuecomment-2252320572 for more related discussion.
 	 *
 	 * Example for local SOCKS5 proxy:
+	 *
 	 * @example 'socks5h://127.0.0.1:1080';
 	 * @example [
 	 *   'http'  => 'socks5h://127.0.0.1:1080',
@@ -326,6 +348,11 @@ class DefaultConfig
 			is_null(static::GLYMPSE_API_PASSWORD) === false &&
 			is_null(static::GLYMPSE_API_KEY) === false
 		);
+	}
+
+	public static function isDiscord(): bool
+	{
+		return static::DISCORD_TOKEN !== null;
 	}
 
 	public static function glympseAccessTokenPath(): string
