@@ -1,0 +1,16 @@
+FROM php:8.2-cli
+
+# Setup environment
+RUN apt-get update
+COPY --from=ghcr.io/mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN install-php-extensions zip exif
+
+# Setup application
+WORKDIR /app
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+COPY composer.json composer.lock /app/
+COPY . /app/
+RUN composer install
+
+# Start Discord bot application
+CMD ["php", "/app/src/discord.cli.php"]
