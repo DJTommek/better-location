@@ -13,6 +13,8 @@ use unreal4u\TelegramAPI\Telegram;
 
 readonly class DiscordCustomWrapper
 {
+	private const MESSAGE_MAX_LENGTH = 2000;
+
 	public function __construct(
 		private Discord $discord,
 		private FromTelegramMessage $fromTelegramMessage,
@@ -69,20 +71,33 @@ readonly class DiscordCustomWrapper
 					$location->setAddress($this->addressProvider?->reverse($location)?->getAddress());
 				}
 
-				$replyContent .= PHP_EOL . $location->generateMessage(
+				$locationMessage = $location->generateMessage(
 						settings: $settings,
 						generator: $this->discordMessageGenerator,
 					);
-			}
-			SimpleLogger::log(SimpleLogger::NAME_DISCORD_OUTPUT, $replyContent);
 
-			$message->reply(MessageBuilder::new()->setContent($replyContent));
+				if (mb_strlen($replyContent . $locationMessage) > self::MESSAGE_MAX_LENGTH) {
+					$this->reply($message, $replyContent);
+					$replyContent = '';
+				}
+
+				$replyContent .= $locationMessage;
+			}
+
+			$this->reply($message, $replyContent);
+
 		} catch (\Throwable $exception) {
 			$this->discord->getLogger()->error(
 				sprintf('[%s] Error when handling event: "%s".', __FUNCTION__, $exception->getMessage()),
 				['exception' => $exception],
 			);
 		}
+	}
+
+	private function reply(\Discord\Parts\Channel\Message $originalMessage, string $replyContent): void
+	{
+		SimpleLogger::log(SimpleLogger::NAME_DISCORD_OUTPUT, $replyContent);
+		$originalMessage->reply(MessageBuilder::new()->setContent($replyContent));
 	}
 
 	private function refreshGuilds(): void
