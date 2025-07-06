@@ -450,8 +450,8 @@ class BetterLocation implements CoordinatesInterface
 		$texts[] = $text;
 		$htmlText = trim(implode(' ', array_filter($texts)));
 		assert($htmlText !== '');
-		$htmlTag = Formatter::htmlLink((string)$this->inputUrl, $htmlText);
-		$this->setPrefixMessage($htmlTag);
+		$prefix = ($this->inputUrl === null) ? $htmlText : Formatter::htmlLink((string)$this->inputUrl, $htmlText);
+		$this->setPrefixMessage($prefix);
 		return $this;
 	}
 

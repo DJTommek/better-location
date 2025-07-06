@@ -4,6 +4,7 @@ namespace Tests\BetterLocation;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Description;
+use App\BetterLocation\HtmlMessageGenerator;
 use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeCompactService;
 use App\BetterLocation\Service\GeohashService;
@@ -11,6 +12,7 @@ use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\WazeService;
 use App\BetterLocation\ServicesManager;
+use App\DiscordCustomWrapper\DiscordMessageGenerator;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use PHPUnit\Framework\TestCase;
 use unreal4u\TelegramAPI\Telegram;
@@ -152,5 +154,12 @@ final class BetterLocationTest extends TestCase
 		$this->assertCount(4, $location->getDescriptions());
 		$location->clearDescriptions();
 		$this->assertCount(0, $location->getDescriptions());
+
+		$messageSettings = new BetterLocationMessageSettings(
+			shareServices: [],
+			buttonServices: [],
+		);
+		$generatedMessage = $location->generateMessage($messageSettings, new HtmlMessageGenerator(new ServicesManager()));
+		$this->assertSame('WGS84 <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D34.151600%26x%3D-118.076700%26source%3Dcoor%26id%3D-118.076700%252C34.151600%26p%3D3%26l%3D0" target="_blank">🗺</a> <code>34.151600,-118.076700</code><br><br><br>', $generatedMessage);
 	}
 }
