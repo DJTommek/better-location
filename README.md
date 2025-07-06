@@ -9,7 +9,7 @@ Available publicly on:
 
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/DJTommek/better-location/main.yml?label=Website%20deployment)](https://better-location.palider.cz/) 
 
-![@BetterLocationBot example](www/img/better-location-bot-example.png "@BetterLocationBot example")
+![@BetterLocationBot example](www/img/better-location-bot-example-telegram.png "@BetterLocationBot example")
 
 ## Requirements
 
