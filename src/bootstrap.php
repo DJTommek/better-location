@@ -13,7 +13,7 @@ $localConfigFilePath = __DIR__ . '/../data/config.local.php';
 if (file_exists($localConfigFilePath)) {
 	require_once $localConfigFilePath;
 } else {
-	throw new \Exception(sprintf('Missing local config in "%s". Tip: Did you try to run "composer install" command?', $vendorAutoloadFilePath));
+	throw new \Exception(sprintf('Missing local config in "%s". Tip: Did you try to run "composer install" command?', $localConfigFilePath));
 }
 
 if (defined('PHPUNIT_RUNNING') && PHPUNIT_RUNNING === true) {
