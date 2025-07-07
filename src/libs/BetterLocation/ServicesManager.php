@@ -23,7 +23,8 @@ use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeMinutesCompactServic
 use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeMinutesSecondsCompactService;
 use App\BetterLocation\Service\DrobnePamatkyCzService;
 use App\BetterLocation\Service\DuckDuckGoService;
-use App\BetterLocation\Service\EitaaMapsService;
+use App\BetterLocation\Service\EitaaSnappMaps\EitaaMapsService;
+use App\BetterLocation\Service\EitaaSnappMaps\SnappMapsService;
 use App\BetterLocation\Service\EStudankyEuService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
@@ -132,6 +133,7 @@ class ServicesManager
 		$services[] = NeshanOrgService::class;
 		$services[] = BaladIrService::class;
 		$services[] = EitaaMapsService::class;
+		$services[] = SnappMapsService::class;
 		$services[] = FacebookService::class;
 		$services[] = MapyCzService::class;
 		$services[] = MapyCzPanoramaGeneratorService::class;

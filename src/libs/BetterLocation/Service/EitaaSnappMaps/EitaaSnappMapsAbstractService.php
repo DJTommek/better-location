@@ -1,26 +1,25 @@
 <?php declare(strict_types=1);
 
-namespace App\BetterLocation\Service;
+namespace App\BetterLocation\Service\EitaaSnappMaps;
 
 use App\BetterLocation\BetterLocation;
+use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use DJTommek\Coordinates\CoordinatesImmutable;
 use DJTommek\Coordinates\CoordinatesInterface;
 
-final class EitaaMapsService extends AbstractService
+abstract class EitaaSnappMapsAbstractService extends AbstractService
 {
-	public const ID = 60;
-	public const NAME = 'Eitaa Maps';
-	public const LINK = 'https://map.eitaa.com';
-
 	private ?CoordinatesInterface $mapCenterCoords = null;
+
+	protected abstract static function getDomain(): string;
 
 	public function validate(): bool
 	{
 		return (
 			$this->url
-			&& $this->url->getDomain(0) === 'map.eitaa.com'
+			&& $this->url->getDomain(0) === static::getDomain()
 			&& $this->isMapUrl()
 		);
 	}
@@ -33,7 +32,9 @@ final class EitaaMapsService extends AbstractService
 	private function isMapUrl(): bool
 	{
 		// https://map.eitaa.com/#13.29/34.64018/50.90336/5.1/46
-		[$zoom, $lat, $lon, $bearing, $tilt] = explode('/', $this->url->getFragment());
+		// https://tile.snappmaps.ir/styles/en-snapp-style/#13.29/34.64018/50.90336/5.1/46
+		// https://tile.snappmaps.ir/#13.29/34.64018/50.90336/5.1/46
+		[$zoom, $lat, $lon, $bearing, $tilt] = array_pad(explode('/', $this->url->getFragment()), 5, '');
 		$this->mapCenterCoords = CoordinatesImmutable::safe($lat, $lon);
 		return $this->mapCenterCoords !== null;
 	}
@@ -44,18 +45,19 @@ final class EitaaMapsService extends AbstractService
 			throw new NotSupportedException('Drive link is not supported.');
 		}
 
-		$params = [
+		return sprintf(
+			'https://%s/#%s/%F/%F',
+			static::getDomain(),
 			'13.0', // default zoom
-			sprintf('%F', $lat),
-			sprintf('%F', $lon),
-		];
-		return self::LINK . '/#' . implode('/', $params);
+			$lat,
+			$lon,
+		);
 	}
 
 	public function process(): void
 	{
 		if ($this->mapCenterCoords !== null) {
-			$location = new BetterLocation($this->input, $this->mapCenterCoords->getLat(), $this->mapCenterCoords->getLon(), self::class);
+			$location = new BetterLocation($this->input, $this->mapCenterCoords->getLat(), $this->mapCenterCoords->getLon(), static::class);
 			$this->collection->add($location);
 		}
 	}
