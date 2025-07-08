@@ -5,7 +5,7 @@ namespace App\BetterLocation\Service\EitaaSnappMaps;
 final class SnappMapsService extends EitaaSnappMapsAbstractService
 {
 	public const ID = 61;
-	public const NAME = 'Eitaa Maps';
+	public const NAME = 'Snapp Maps';
 	public const DOMAIN = 'tile.snappmaps.ir';
 
 	protected static function getDomain(): string
