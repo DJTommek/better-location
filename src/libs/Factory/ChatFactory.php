@@ -5,6 +5,7 @@ namespace App\Factory;
 use App\Chat;
 use App\Repository\ChatEntity;
 use App\Repository\ChatRepository;
+use App\Repository\ChatUserRepository;
 use App\TelegramCustomWrapper\ChatMemberRecalculator;
 use unreal4u\TelegramAPI\Telegram;
 
@@ -12,6 +13,7 @@ final readonly class ChatFactory
 {
 	public function __construct(
 		private ChatRepository $chatRepository,
+		private ChatUserRepository $chatUserRepository,
 		private ChatMemberRecalculator $chatMemberRecalculator,
 	) {
 	}
@@ -20,6 +22,7 @@ final readonly class ChatFactory
 	{
 		return new Chat(
 			$this->chatRepository,
+			$this->chatUserRepository,
 			$chatEntity,
 		);
 	}

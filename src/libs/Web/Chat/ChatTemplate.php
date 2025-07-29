@@ -7,6 +7,7 @@ use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\ServicesManager;
 use App\Chat;
 use App\Icons;
+use App\Repository\UserEntity;
 use App\Web\ChatErrorTrait;
 use App\Web\LayoutTemplate;
 use unreal4u\TelegramAPI\Telegram;
@@ -35,8 +36,8 @@ class ChatTemplate extends LayoutTemplate
 	public array $chatLinkChoices;
 	/** @var array<ChoiceItem> */
 	public array $chatButtonChoices;
-	/** @var array<int, string> */
-	public array $ignoredTelegramSenders;
+	/** @var list<UserEntity>|null Null if not supported in this chat */
+	public ?array $ignoreFilterSenders;
 
 	public function prepareOk(
 		Telegram\Types\Chat $chatResponse,

@@ -66,7 +66,6 @@ ORDER BY
                                 chat_settings_show_address = ?,
                                 chat_settings_try_load_ingress_portal = ? ,
                                 chat_plugin_url = ?,
-                                chat_ignore_filter = ?,
                                 chat_last_update = ?
 				WHERE chat_id = ?',
 			$entity->status,
@@ -77,7 +76,6 @@ ORDER BY
 			$entity->settingsShowAddress ? 1 : 0,
 			$entity->settingsTryLoadIngressPortal ? 1 : 0,
 			$entity->pluginUrl?->getAbsoluteUrl(),
-			$entity->ignoreFilterParams?->toSQL(),
 			$entity->lastUpdate->setTimezone(new \DateTimeZone('UTC'))->format(self::DATETIME_FORMAT),
 			$entity->id,
 		);

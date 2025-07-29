@@ -2,16 +2,26 @@
 
 namespace App\IgnoreFilter;
 
+use App\User;
+
 final readonly class IgnoreFilter
 {
+	/**
+	 * @param list<int> $ignoredSenderIds
+	 */
 	public function __construct(
-		public IgnoreFilterParams $params,
+		public array $ignoredSenderIds,
 	) {
 	}
 
-	public function matches(int|string $telegramSenderId): bool
+	public function isSenderIgnored(int $userId): bool
 	{
-		if (in_array($telegramSenderId, $this->params->ignoredTelegramSenderIds, true)) {
+		return in_array($userId, $this->ignoredSenderIds, true);
+	}
+
+	public function matches(User $user): bool
+	{
+		if ($this->isSenderIgnored($user->getId())) {
 			return true;
 		}
 

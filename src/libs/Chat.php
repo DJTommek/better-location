@@ -5,20 +5,46 @@ namespace App;
 use App\IgnoreFilter\IgnoreFilter;
 use App\Repository\ChatEntity;
 use App\Repository\ChatRepository;
+use App\Repository\ChatUserRelation;
+use App\Repository\ChatUserRepository;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
+use unreal4u\TelegramAPI\Telegram;
 
 class Chat
 {
-	private ?BetterLocationMessageSettings $messageSettings = null;
-	public readonly IgnoreFilter $ignoreFilter;
+	/** Lazy loading, use getMessageSettings() instead. */
+	private BetterLocationMessageSettings $messageSettings;
+	/** Lazy loading, use getIgnoreFilter() instead. */
+	private IgnoreFilter $ignoreFilter;
 
 	public function __construct(
 		private readonly ChatRepository $chatRepository,
+		private readonly ChatUserRepository $chatUserRepository,
 		private ChatEntity $chatEntity,
 	) {
-		$this->ignoreFilter = new IgnoreFilter($this->chatEntity->ignoreFilterParams);
+	}
+
+	public function getIgnoreFilter(): IgnoreFilter
+	{
+		if (isset($this->ignoreFilter) === false) {
+			$ignoredSenderIds = $this->chatUserRepository->findUserIds(ChatUserRelation::IGNORE_SENDER, $this->chatEntity->id);
+			$this->ignoreFilter = new IgnoreFilter($ignoredSenderIds);
+		}
+		return $this->ignoreFilter;
+	}
+
+	public function addSenderToIgnoreFilter(int $userId): void
+	{
+		$this->chatUserRepository->add(ChatUserRelation::IGNORE_SENDER, $this->getEntity()->id, $userId);
+		unset($this->ignoreFilter);
+	}
+
+	public function removeSenderFromIgnoreFilter(int $userId): void
+	{
+		$this->chatUserRepository->delete(ChatUserRelation::IGNORE_SENDER, $this->getEntity()->id, $userId);
+		unset($this->ignoreFilter);
 	}
 
 	public function settingsPreview(?bool $enable = null): bool
@@ -67,6 +93,7 @@ class Chat
 	{
 		$this->chatRepository->update($this->chatEntity);
 		$this->chatEntity = $this->chatRepository->getById($this->chatEntity->id);
+		unset($this->ignoreFilter);
 	}
 
 	public function getTelegramChatName(): ?string
@@ -85,9 +112,14 @@ class Chat
 		$this->update();
 	}
 
+	public function getChatSettingsUrl(): UrlImmutable
+	{
+		return Config::getAppUrl('/chat/' . $this->chatEntity->telegramId);
+	}
+
 	public function getMessageSettings(): BetterLocationMessageSettings
 	{
-		if ($this->messageSettings === null) {
+		if (isset($this->messageSettings) === false) {
 			$this->messageSettings = BetterLocationMessageSettings::loadByChatId($this->chatEntity->id);
 			$this->messageSettings->showAddress($this->settingsShowAddress());
 			$this->messageSettings->tryLoadIngressPortal($this->settingsTryLoadIngressPortal());
@@ -126,6 +158,7 @@ class Chat
 			$this->chatEntity->id,
 			$oldTelegramChatId,
 			$newTgChatId,
-		), Debugger::INFO);
+		),
+			Debugger::INFO);
 	}
 }

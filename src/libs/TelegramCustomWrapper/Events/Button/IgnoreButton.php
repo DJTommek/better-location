@@ -2,47 +2,62 @@
 
 namespace App\TelegramCustomWrapper\Events\Button;
 
+use App\Config;
 use App\Icons;
-use App\Repository\ChatRepository;
+use App\Repository\UserRepository;
 use App\TelegramCustomWrapper\Events\Command\IgnoreCommand;
 use App\TelegramCustomWrapper\TelegramHelper;
+use unreal4u\TelegramAPI\Telegram;
 
 class IgnoreButton extends Button
 {
 	const CMD = IgnoreCommand::CMD;
 
-	const ACTION_ADD = 'add';
-	const ACTION_ADD_USER = 'user';
+	const ACTION_SENDER = 'sender';
 
-	public function __construct(private readonly ChatRepository $chatRepository) { }
+	const SUBACTION_ADD = 'add';
+
+	public function __construct(private readonly UserRepository $userRepository) { }
 
 	public function handleWebhookUpdate(): void
 	{
-		$params = TelegramHelper::getParams($this->update);
-		$action = array_shift($params);
+		if ($this->isAdmin() === false) {
+			$this->flash(sprintf('%s You are not admin of this chat.', Icons::ERROR), true);
+			return;
+		}
 
-		match ($action) {
-			self::ACTION_ADD => $this->actionAddUser(array_shift($params), array_shift($params)),
-			default => $this->replyInvalidButton(),
-		};
-	}
-
-	private function actionAddUser(?string $subAction, ?string $userId): void
-	{
-		if (
-			$subAction !== self::ACTION_ADD_USER
-			|| $userId === null
-			|| is_numeric($userId) === false
-		) {
+		$chatType = $this->getChat()?->getEntity()->telegramChatType;
+		if (in_array($chatType, Config::IGNORE_FILTER_ALLOWED_CHAT_TYPES, true) === false) {
 			$this->replyInvalidButton();
 			return;
 		}
 
-		$chatEntity = $this->chat->getEntity();
-		$chatEntity->ignoreFilterParams->addTelegramSender((int)$userId);
-		$this->chatRepository->update($chatEntity);
+		$params = TelegramHelper::getParams($this->update);
+		$action = array_shift($params);
 
-		$this->flash('User was added to the ignore list for this chat.', true);
+		match ($action) {
+			self::ACTION_SENDER => $this->actionSender(array_shift($params), array_shift($params)),
+			default => $this->replyInvalidButton(),
+		};
+	}
+
+	private function actionSender(?string $subAction, ?string $userIdToIgnoreStr): void
+	{
+		if ($subAction !== self::SUBACTION_ADD || is_numeric($userIdToIgnoreStr) === false) {
+			$this->replyInvalidButton();
+			return;
+		}
+
+		$userIdToIgnore = (int)$userIdToIgnoreStr;
+		$userToIgnore = $this->userRepository->findById($userIdToIgnore);
+		if ($userToIgnore === null) {
+			$this->flash('This user does not exists or cannot be ignored.', true);
+			return;
+		}
+
+		$this->getChat()->addSenderToIgnoreFilter($userToIgnore->id);
+
+		$this->flash(sprintf('User "%s" was added to the ignore list for this chat.', $userToIgnore->telegramName), true);
 	}
 
 	private function replyInvalidButton(): void

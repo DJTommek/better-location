@@ -209,27 +209,29 @@
 							{$chat->getMessageSettings()->getScreenshotLinkService()::NAME}
 						</td>
 					</tr>
-					<tr n:if="($chatResponse->type === App\Repository\ChatEntity::CHAT_TYPE_SUPERGROUP || $chatResponse->type === App\Repository\ChatEntity::CHAT_TYPE_GROUP)">
+					<tr n:if="$ignoreFilterSenders !== null">
 						<td>Ignore filter</td>
-						<td>
-							{foreach $ignoredTelegramSenders as $id => $name}
+						<td id="ignore-filter-senders">
+							{foreach $ignoreFilterSenders as $ignoredSender}
 								{first}
-									Ignored senders:
-									<ul>
+									<h6>Ignored senders</h6>
 								{/first}
-								<li>
-									{if str_starts_with($name, '@')}
-										<a href="{\App\TelegramCustomWrapper\TelegramHelper::userLink($name)}" target="_blank">{$name}</a>
+									<input type="hidden" name="ignore-filter-sender-remove[]" value="{$ignoredSender->id}" disabled="disabled">
+									<button class="btn btn-outline-danger btn-sm" type="button" data-action="remove" data-sender-id="{$ignoredSender->id}">
+										Remove
+									</button>
+									<button class="btn btn-outline-info btn-sm" type="button" data-action="undo" data-sender-id="{$ignoredSender->id}" style="display: none">
+										Removed (undo)
+									</button>
+									{if str_starts_with($ignoredSender->telegramName, '@')}
+										<a href="{\App\TelegramCustomWrapper\TelegramHelper::userLink($ignoredSender->telegramName)}" target="_blank">{$ignoredSender->telegramName}</a>
 									{else}
-										{$name}
+										{$ignoredSender->telegramName}
 									{/if}
 									<small class="text-muted">
-										(TG ID <code class="copy-to-clipboard" data-clipboard-text="{$id}" title="Click to copy ID to the clipboard">{$id}</code>)
+										(TG ID <code class="copy-to-clipboard" data-clipboard-text="{$ignoredSender->telegramId}" title="Click to copy ID to the clipboard">{$ignoredSender->telegramId}</code>)
 									</small>
-								</li>
-								{last}
-									</ul>
-								{/last}
+								<br>
 							{else}
 								No senders are on ignore list.
 							{/foreach}
@@ -343,6 +345,33 @@
 		</div>
 	</div>
 	<script n:syntax=off>
+		window.addEventListener('load', function () {
+			const parentId = '#ignore-filter-senders';
+			document.querySelectorAll(parentId + ' button').forEach(function(element) {
+				const action = element.dataset.action;
+				const senderId = element.dataset.senderId;
+				console.log(element, action, senderId)
+				if (action === undefined || senderId === undefined) {
+					return;
+				}
+				element.addEventListener('click', function(event) {
+					const hiddenInput = document.querySelector(parentId + ' input[value="' + senderId + '"]');
+
+					if (action === 'remove') {
+						hiddenInput.removeAttribute('disabled');
+						const elementUndo = document.querySelector(parentId + ' button[data-action="undo"][data-sender-id="' + senderId + '"]');
+						elementUndo.style.display = null;
+					} else if (action === 'undo') {
+						// When disabled, value is not sent to the server
+						hiddenInput.setAttribute('disabled', 'disabled')
+						const elementRemove = document.querySelector(parentId + ' button[data-action="remove"][data-sender-id="' + senderId + '"]');
+						elementRemove.style.display = null;
+					}
+
+					element.style.display = 'none';
+				});
+			});
+		});
 		window.addEventListener('load', function () {
 			['text-services-selector', 'link-services-selector', 'button-services-selector'].forEach(function (elementId) {
 				console.debug('init choices to element ID #' + elementId)
