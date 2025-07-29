@@ -31,6 +31,11 @@ final readonly class UserFactory
 		}
 		assert($userEntity instanceof UserEntity);
 
+		if ($telegramUserDisplayname !== $userEntity->telegramName) { // User has changed it's name on Telegram
+			$userEntity->telegramName = $telegramUserDisplayname;
+			$this->userRepository->update($userEntity);
+		}
+
 		// Every user has also private chat with identical Telegram ID, so if not exists, must be created.
 		$chat = $this->chatFactory->createOrRegisterFromTelegram(
 			telegramChatId: $telegramUserId,
