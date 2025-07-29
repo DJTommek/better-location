@@ -7,14 +7,16 @@ use App\BetterLocation\ProcessExample;
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\ServicesManager;
 use App\Chat;
+use App\Config;
 use App\Factory\ChatFactory;
 use App\Pluginer\Pluginer;
 use App\Pluginer\PluginerException;
 use App\Repository\ChatEntity;
 use App\Repository\ChatMembersRepository;
 use App\Repository\ChatRepository;
+use App\Repository\ChatUserRelation;
+use App\Repository\ChatUserRepository;
 use App\Repository\UserEntity;
-use App\Repository\UserRepository;
 use App\Utils\Strict;
 use App\Web\Flash;
 use App\Web\MainPresenter;
@@ -31,7 +33,7 @@ class ChatPresenter extends MainPresenter
 
 	public function __construct(
 		private readonly ChatRepository $chatRepository,
-		private readonly UserRepository $userRepository,
+		private readonly ChatUserRepository $chatUserRepository,
 		private readonly ChatMembersRepository $chatMembersRepository,
 		private readonly ServicesManager $servicesManager,
 		private readonly ClientInterface $httpClient,
@@ -111,11 +113,32 @@ class ChatPresenter extends MainPresenter
 
 		$this->template->exampleLocation = $location;
 		$this->template->chat = $this->chat;
+		$chatEntity = $this->chat->getEntity();
+		$this->template->ignoreFilterSenders = in_array($chatEntity->telegramChatType, Config::IGNORE_FILTER_ALLOWED_CHAT_TYPES, true)
+			? $this->chatUserRepository->findUsers(ChatUserRelation::IGNORE_SENDER, $chatEntity->id)
+			: null;
 
-		$this->template->ignoredTelegramSenders = $this->userRepository->findTelegramNamesByTelegramIds($this->chat->ignoreFilter->params->ignoredTelegramSenderIds);
-		$this->template->prepareOk($this->tgChatFromEntity($this->chat->getEntity()), $this->servicesManager);
+		$this->template->prepareOk($this->tgChatFromEntity($chatEntity), $this->servicesManager);
 
 		$this->setTemplateFilename('chat.latte');
+	}
+
+	private function handleIgnoreFilterSender(mixed $removeSenderIdsRaw): void
+	{
+		if (
+			$removeSenderIdsRaw === [] // Nothing to remove
+			|| is_array($removeSenderIdsRaw) === false // Invalid request
+		) {
+			return;
+		}
+
+		$ignoreFilter = $this->chat->getIgnoreFilter();
+		foreach ($removeSenderIdsRaw as $removeSenderIdRaw) {
+			$removeSenderId = (int)$removeSenderIdRaw;
+			if ($ignoreFilter->isSenderIgnored($removeSenderId)) {
+				$this->chat->removeSenderFromIgnoreFilter($removeSenderId);
+			}
+		}
 	}
 
 	/**
@@ -126,6 +149,7 @@ class ChatPresenter extends MainPresenter
 		$this->chat->settingsPreview(isset($_POST['map-preview']));
 		$this->chat->settingsShowAddress(isset($_POST['show-address']));
 		$this->chat->settingsTryLoadIngressPortal(isset($_POST['try-load-ingress-portal']));
+		$this->handleIgnoreFilterSender($_POST['ignore-filter-sender-remove'] ?? []);
 
 		if (isset($_POST['output-type'])) {
 			try {

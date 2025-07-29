@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\IgnoreFilter\IgnoreFilterParams;
 use App\Utils\Strict;
 use Nette\Http\UrlImmutable;
 
@@ -39,7 +38,6 @@ class ChatEntity extends Entity
 	public bool $settingsShowAddress;
 	public bool $settingsTryLoadIngressPortal;
 	public ?UrlImmutable $pluginUrl;
-	public ?IgnoreFilterParams $ignoreFilterParams;
 	/** @var Repository::DISABLED|Repository::ENABLED|Repository::DELETED */
 	public int $status;
 
@@ -60,7 +58,6 @@ class ChatEntity extends Entity
 		$entity->settingsShowAddress = Strict::boolval($row['chat_settings_show_address']);
 		$entity->settingsTryLoadIngressPortal = Strict::boolval($row['chat_settings_try_load_ingress_portal']);
 		$entity->pluginUrl = $row['chat_plugin_url'] === null ? null : new UrlImmutable($row['chat_plugin_url']);
-		$entity->ignoreFilterParams = IgnoreFilterParams::fromSQL($row['chat_ignore_filter']);
 		return $entity;
 	}
 

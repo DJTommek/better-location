@@ -4,6 +4,13 @@ namespace App\Repository;
 
 class UserRepository extends Repository
 {
+	public function findById(int $id): ?UserEntity
+	{
+		$sql = 'SELECT * FROM better_location_user WHERE user_id = ?';
+		$row = $this->db->query($sql, $id)->fetch();
+		return $row ? UserEntity::fromRow($row) : null;
+	}
+
 	public function findByTelegramId(int $telegramId): ?UserEntity
 	{
 		$sql = 'SELECT * FROM better_location_user WHERE user_telegram_id = ?';

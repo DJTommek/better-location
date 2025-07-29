@@ -54,6 +54,8 @@ abstract class Events
 	/** @readonly */
 	protected $loop;
 	protected User $user;
+	protected ?User $userForwardFrom = null;
+	protected ?User $userViaBot = null;
 	/**
 	 * Might not be accessible for some situations (send via Telegram inline)
 	 */
@@ -111,7 +113,7 @@ abstract class Events
 		// If message is forwarded, original sender must be registered in database too
 		if ($this->isTgForward()) {
 			$forwardFrom = TelegramHelper::getForwardFrom($update);
-			$this->userFactory->createOrRegisterFromTelegram(
+			$this->userForwardFrom = $this->userFactory->createOrRegisterFromTelegram(
 				$forwardFrom->id,
 				TelegramHelper::getUserDisplayname($forwardFrom),
 			);
@@ -120,7 +122,7 @@ abstract class Events
 		// Message was actually created by bot but shared by user using inline mode
 		$viaBot = $this->getViaBot();
 		if ($viaBot !== null) {
-			$this->userFactory->createOrRegisterFromTelegram(
+			$this->userViaBot = $this->userFactory->createOrRegisterFromTelegram(
 				$viaBot->id,
 				TelegramHelper::getUserDisplayname($viaBot),
 			);
@@ -309,6 +311,11 @@ abstract class Events
 		return TelegramHelper::isForward($this->update);
 	}
 
+	public function getViaBot(): ?Telegram\Types\User
+	{
+		return TelegramHelper::getViaBot($this->update);
+	}
+
 	/**
 	 * @return true|null
 	 *  - true: if action was successfully send
@@ -489,6 +496,16 @@ abstract class Events
 		return $this->user;
 	}
 
+	public function getUserForward(): ?User
+	{
+		return $this->userForwardFrom;
+	}
+
+	public function getUserViaBot(): ?User
+	{
+		return $this->userViaBot;
+	}
+
 	public function getUpdate(): Update
 	{
 		return $this->update;
@@ -501,28 +518,25 @@ abstract class Events
 
 	final protected function matchesIgnoreFilter(): bool
 	{
-		if ($this->isTgPm() === true) {
-			return false;
-		}
-
-		$ignoreFilter = $this->chat?->ignoreFilter;
+		$ignoreFilter = $this->chat?->getIgnoreFilter();
 		if ($ignoreFilter === null) {
 			return false;
 		}
 
-		$tgSenderId = $this->getTgFromId();
-	    if ($ignoreFilter->matches($tgSenderId)) {
+		$senderUser = $this->getUser();
+		if ($ignoreFilter->matches($senderUser)) {
 			return true;
-	    }
-
-		$tgForwardFrom = TelegramHelper::getForwardFrom($this->update);
-		if ($tgForwardFrom === null) {
-			return false;
 		}
 
-	    if ($ignoreFilter->matches($tgForwardFrom->id)) {
+		$forwardUser = $this->getUserForward();
+		if ($forwardUser !== null && $ignoreFilter->matches($forwardUser)) {
 			return true;
-	    }
+		}
+
+		$viaBotUser = $this->getUserViaBot();
+		if ($viaBotUser !== null && $ignoreFilter->matches($viaBotUser)) {
+			return true;
+		}
 
 		return false;
 	}

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Repository\ChatEntity;
 use App\TelegramCustomWrapper\Events\Command\Command;
 use App\TelegramCustomWrapper\Events\Command\DebugCommand;
 use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
@@ -314,6 +315,11 @@ class DefaultConfig
 		self::CACHE_NAMESPACE_GEONAMES,
 		self::CACHE_NAMESPACE_NOMINATIM,
 		self::CACHE_NAMESPACE_HTTP_CLIENT,
+	];
+
+	public final const IGNORE_FILTER_ALLOWED_CHAT_TYPES = [
+		ChatEntity::CHAT_TYPE_GROUP,
+		ChatEntity::CHAT_TYPE_SUPERGROUP,
 	];
 
 	public static function getDataTempDir(): string

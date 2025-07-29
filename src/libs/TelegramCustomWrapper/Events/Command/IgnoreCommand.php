@@ -3,9 +3,11 @@
 namespace App\TelegramCustomWrapper\Events\Command;
 
 use App\Config;
+use App\Factory\UserFactory;
 use App\Icons;
 use App\TelegramCustomWrapper\Events\Button\IgnoreButton;
 use App\TelegramCustomWrapper\TelegramHelper;
+use App\User;
 use unreal4u\TelegramAPI\Telegram;
 
 class IgnoreCommand extends Command
@@ -14,52 +16,95 @@ class IgnoreCommand extends Command
 	const ICON = Icons::SETTINGS;
 	const DESCRIPTION = 'Add sender to the ignore list';
 
+	public function __construct(
+		private readonly UserFactory $userFactory,
+	) {
+	}
+
 	public function handleWebhookUpdate(): void
 	{
 		if ($this->isAdmin() === false) {
 			return;
 		}
 
-		if ($this->isTgPm()) {
+		$chatType = $this->getChat()?->getEntity()->telegramChatType;
+		if (in_array($chatType, Config::IGNORE_FILTER_ALLOWED_CHAT_TYPES, true) === false) {
 			$this->reply(Icons::ERROR . ' This command can be used in only groups and channels.');
 			return;
 		}
 
 		if ($this->isTgMessageReply() === false) {
-			$this->reply(Icons::ERROR . ' This command can be used only as reply to specific message.');
+			$this->reply($this->helpMessage() . 'Run this command again as reply to some message and confirm adding user to the ignore list.');
 			return;
 		}
 
-		$message = $this->getTgMessage();
-
 		$markup = new Telegram\Types\Inline\Keyboard\Markup();
 
-		$senderButton = $this->createIgnoreUserButton($this->getTgFrom());
-		$markup->inline_keyboard[] = [$senderButton];
+		$detectedTgUsers = [];
 
-		$replyForwardFrom = $message->reply_to_message?->forward_from;
-		if ($replyForwardFrom !== null) {
-			$forwarderButton = $this->createIgnoreUserButton($replyForwardFrom);
-			$markup->inline_keyboard[] = [$forwarderButton];
+		// Actual sender of marked message to this chat (always available)
+		$replyFromTgUser = $this->getTgMessage()->reply_to_message->from;
+		$detectedTgUsers[$replyFromTgUser->id] = $replyFromTgUser;
+
+		// Actual creator of marked message (someone forwarded its message)
+		// @TODO `forward_from` is obsolete since December 29, 2023 (Bot API 7.0), use `forward_origin`.
+		// @see https://core.telegram.org/bots/api-changelog#december-29-2023
+		$replyForwardFromTgUser = $this->getTgMessage()?->reply_to_message?->forward_from;
+		if ($replyForwardFromTgUser !== null) {
+			$detectedTgUsers[$replyForwardFromTgUser->id] = $replyForwardFromTgUser;
 		}
 
-		$text = sprintf('Add sender to the ignore list for this chat. Even if sender\'s messages will contain some location, @%s will ignore it.', Config::TELEGRAM_BOT_NAME);
+		// Actual creator of the message is bot and message was sent to this chat via inline mode
+		$replyViaBotTgUser =  $this->getTgMessage()?->reply_to_message?->via_bot;
+		if ($replyViaBotTgUser !== null) {
+			$detectedTgUsers[$replyViaBotTgUser->id] = $replyViaBotTgUser;
+		}
+
+		$buttonRows = [];
+		foreach ($detectedTgUsers as $detectedTgUser) {
+			assert($detectedTgUser instanceof Telegram\Types\User);
+			$detectedUser = $this->userFactory->createOrRegisterFromTelegram(
+				$detectedTgUser->id,
+				TelegramHelper::getUserDisplayname($detectedTgUser),
+			);
+
+			$buttonRows[] = [
+				$this->createIgnoreUserButton($detectedUser),
+			];
+		}
+		$markup->inline_keyboard = $buttonRows;
+
+		$text = $this->helpMessage() . 'Click on button below to add someone to the ignore list.';
 		$this->reply($text, $markup);
 	}
 
-	private function createIgnoreUserButton(Telegram\Types\User $user): Telegram\Types\Inline\Keyboard\Button
+	private function helpMessage(): string
+	{
+		$text = '<b>Ignore filter</b> is feature, which limits which messages will be analyzed for potential locations. ';
+		$text .= sprintf(
+			'If user is on ignore list, @%s will simply ignore all messages shared by this user to this chat, even if it contains some location.',
+			Config::TELEGRAM_BOT_NAME,
+		);
+		$text .= TelegramHelper::NEW_LINE;
+		$text .= sprintf(
+			'Ignore filter can be managed in <a href="%s" target="_blank">chat settings</a>.',
+			$this->getChat()->getChatSettingsUrl(),
+		);
+		$text .= TelegramHelper::NEW_LINE;
+		$text .= TelegramHelper::NEW_LINE;
+		return $text;
+	}
+
+	private function createIgnoreUserButton(User $user): Telegram\Types\Inline\Keyboard\Button
 	{
 		$button = new Telegram\Types\Inline\Keyboard\Button();
-		$button->text = sprintf(
-			'Ignore user %s',
-			TelegramHelper::getUserDisplayname($user),
-		);
+		$button->text = $user->getTelegramDisplayname();
 		$button->callback_data = sprintf(
 			'%s %s %s %d',
 			IgnoreButton::CMD,
-			IgnoreButton::ACTION_ADD,
-			IgnoreButton::ACTION_ADD_USER,
-			$user->id
+			IgnoreButton::ACTION_SENDER,
+			IgnoreButton::SUBACTION_ADD,
+			$user->getId(),
 		);
 		return $button;
 	}
