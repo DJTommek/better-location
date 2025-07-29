@@ -326,11 +326,6 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\TelegramHelper\\:\\:getParams\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
-
-		-
 			message: "#^Method App\\\\Utils\\\\Coordinates\\:\\:isInPolygon\\(\\) has parameter \\$polygon with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/Utils/Coordinates.php

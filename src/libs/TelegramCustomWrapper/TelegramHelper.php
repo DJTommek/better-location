@@ -353,6 +353,9 @@ class TelegramHelper
 		}
 	}
 
+	/**
+	 * @return list<non-empty-string>
+	 */
 	public static function getParams($update): array
 	{
 		if (self::isButtonClick($update)) {
