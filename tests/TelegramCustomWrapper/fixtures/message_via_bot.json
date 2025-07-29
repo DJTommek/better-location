@@ -1,0 +1,105 @@
+{
+	"update_id": 918318596,
+	"message": {
+		"message_id": 3573,
+		"from": {
+			"id": 148953285,
+			"is_bot": false,
+			"first_name": "DJTommek",
+			"last_name": "[Tomas Palider]",
+			"username": "DJTommek",
+			"language_code": "en"
+		},
+		"chat": {
+			"id": -100123456789,
+			"title": "DEVEL group",
+			"type": "supergroup"
+		},
+		"date": 1753823066,
+		"text": " Old Town Square 🗺 50.087569,14.421188\nBetterLocation | Google | Street view | Mapy.com | Panorama | Ingress\nStaroměstské nám., 110 00 Josefov, Czechia",
+		"entities": [
+			{
+				"offset": 0,
+				"length": 1,
+				"type": "text_link",
+				"url": "https://better-location.palider.cz/api/staticmap.php?id=55ec0e2b0ceaf7f9"
+			},
+			{
+				"offset": 1,
+				"length": 15,
+				"type": "text_link",
+				"url": "https://www.prague.eu/cs/objekt/mista/183/staromestske-namesti"
+			},
+			{
+				"offset": 17,
+				"length": 2,
+				"type": "text_link",
+				"url": "https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D50.087569%26x%3D14.421188%26source%3Dcoor%26id%3D14.421188%252C50.087569%26p%3D3%26l%3D0"
+			},
+			{
+				"offset": 20,
+				"length": 19,
+				"type": "code"
+			},
+			{
+				"offset": 40,
+				"length": 14,
+				"type": "text_link",
+				"url": "https://better-location.palider.cz/50.087569,14.421188"
+			},
+			{
+				"offset": 57,
+				"length": 6,
+				"type": "text_link",
+				"url": "https://www.google.com/maps/place/50.087569,14.421188?q=50.087569,14.421188"
+			},
+			{
+				"offset": 66,
+				"length": 11,
+				"type": "text_link",
+				"url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=CAoSFkNJSE0wb2dLRUlDQWdJRDZ2cXJHR0E.&viewpoint=50.0875692%2C14.4211875"
+			},
+			{
+				"offset": 80,
+				"length": 8,
+				"type": "text_link",
+				"url": "https://mapy.cz/zakladni?y=50.087569&x=14.421188&source=coor&id=14.421188%2C50.087569"
+			},
+			{
+				"offset": 91,
+				"length": 8,
+				"type": "text_link",
+				"url": "https://mapy.cz/zakladni?x=14.421503860625&y=50.087684412756&pano=1&pid=104046735&yaw=4.2050679390513&source=coor&id=14.4211875%2C50.0875692&ovl=8"
+			},
+			{
+				"offset": 102,
+				"length": 7,
+				"type": "text_link",
+				"url": "https://intel.ingress.com/?ll=50.087569,14.421188&pll=50.087569,14.421188"
+			}
+		],
+		"link_preview_options": {
+			"url": "https://better-location.palider.cz/api/staticmap.php?id=55ec0e2b0ceaf7f9"
+		},
+		"reply_markup": {
+			"inline_keyboard": [
+				[
+					{
+						"text": "Google 🚗",
+						"url": "https://www.google.com/maps/dir/?api=1&destination=50.087569%2C14.421188&travelmode=driving&dir_action=navigate"
+					},
+					{
+						"text": "Mapy.com 🚗",
+						"url": "https://mapy.cz/zakladni?y=50.087569&x=14.421188&source=coor&id=14.421188%2C50.087569"
+					}
+				]
+			]
+		},
+		"via_bot": {
+			"id": 1382240789,
+			"is_bot": true,
+			"first_name": "📍 Better Location Bot",
+			"username": "BetterLocationBot"
+		}
+	}
+}
