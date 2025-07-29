@@ -223,8 +223,8 @@ class ChatPresenter extends MainPresenter
 	private function tgChatFromEntity(ChatEntity $chatEntity): Telegram\Types\Chat
 	{
 		$tgChat = new Telegram\Types\Chat();
-		$tgChat->id = $this->chat->getEntity()->telegramId;
-		$tgChat->type = $this->chat->getEntity()->telegramChatType;
+		$tgChat->id = $chatEntity->telegramId;
+		$tgChat->type = $chatEntity->telegramChatType;
 		return $tgChat;
 	}
 
