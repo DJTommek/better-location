@@ -40,9 +40,11 @@ final readonly class ChatFactory
 		}
 		assert($chatEntity instanceof ChatEntity);
 
-		return new Chat(
-			$this->chatRepository,
-			$chatEntity,
-		);
+		if ($telegramChatName !== $chatEntity->telegramName) { // Administrator has changed chat's name on Telegram
+			$chatEntity->telegramName = $telegramChatName;
+			$this->chatRepository->update($chatEntity);
+		}
+
+		return $this->create($chatEntity);
 	}
 }
