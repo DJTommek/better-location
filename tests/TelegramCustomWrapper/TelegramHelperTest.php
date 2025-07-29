@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
+use unreal4u\TelegramAPI\Telegram\Types\User;
 
 final class TelegramHelperTest extends TestCase
 {
@@ -78,9 +79,9 @@ final class TelegramHelperTest extends TestCase
 
 	public function testIsMigrate(): void
 	{
-		$updateChatMigrateFrom = new Update(json_decode(file_get_contents(__DIR__ . '/fixtures/chat_migrate_from.json'), true));
-		$updateChatMigrateTo = new Update(json_decode(file_get_contents(__DIR__ . '/fixtures/chat_migrate_to.json'), true));
-		$updateChatSettingsButtonClickEnableAddress = new Update(json_decode(file_get_contents(__DIR__ . '/fixtures/settings_button_click_enable_address.json'), true));
+		$updateChatMigrateFrom = self::fromFile(__DIR__ . '/fixtures/chat_migrate_from.json');
+		$updateChatMigrateTo = self::fromFile(__DIR__ . '/fixtures/chat_migrate_to.json');
+		$updateChatSettingsButtonClickEnableAddress = self::fromFile(__DIR__ . '/fixtures/settings_button_click_enable_address.json');
 
 		$this->assertTrue(TelegramHelper::isChatMigrateFrom($updateChatMigrateFrom));
 		$this->assertFalse(TelegramHelper::isChatMigrateFrom($updateChatMigrateTo));
@@ -89,5 +90,29 @@ final class TelegramHelperTest extends TestCase
 		$this->assertTrue(TelegramHelper::isChatMigrateTo($updateChatMigrateTo));
 		$this->assertFalse(TelegramHelper::isChatMigrateTo($updateChatMigrateFrom));
 		$this->assertFalse(TelegramHelper::isChatMigrateTo($updateChatSettingsButtonClickEnableAddress));
+	}
+
+	public function testViaBot(): void
+	{
+		$updateViaBot = self::fromFile(__DIR__ . '/fixtures/message_via_bot.json');
+		$this->assertTrue(TelegramHelper::isViaBot($updateViaBot));
+		$this->assertTrue(TelegramHelper::isViaBot($updateViaBot, 'BetterLocationBot'));
+		$this->assertFalse(TelegramHelper::isViaBot($updateViaBot, 'Different username'));
+
+		$viaBot = TelegramHelper::getViaBot($updateViaBot);
+		$this->assertInstanceOf(User::class, $viaBot);
+		$this->assertTrue($viaBot->is_bot);
+		$this->assertSame($viaBot->id, 1382240789);
+		$this->assertSame($viaBot->username, 'BetterLocationBot');
+
+		// Random other update
+		$updateChatMigrateFrom = self::fromFile(__DIR__ . '/fixtures/chat_migrate_from.json');
+		$this->assertFalse(TelegramHelper::isViaBot($updateChatMigrateFrom));
+		$this->assertNull(TelegramHelper::getViaBot($updateChatMigrateFrom));
+	}
+
+	private static function fromFile(string $file): Update
+	{
+		return new Update(json_decode(file_get_contents($file), true));
 	}
 }

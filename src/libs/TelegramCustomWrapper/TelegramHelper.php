@@ -241,12 +241,17 @@ class TelegramHelper
 		return (self::getMessage($update)?->photo ?? []) !== [];
 	}
 
+	public static function getViaBot(Update $update): ?User
+	{
+		return self::getMessage($update)?->via_bot;
+	}
+
 	/**
 	 * @param string|null $botUsername Message sender must match this username
 	 */
 	public static function isViaBot(Update $update, ?string $botUsername = null): bool
 	{
-		$viaBot = self::getMessage($update)?->via_bot;
+		$viaBot = self::getViaBot($update);
 		if ($viaBot === null) {
 			return false;
 		}
