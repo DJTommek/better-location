@@ -117,6 +117,15 @@ abstract class Events
 			);
 		}
 
+		// Message was actually created by bot but shared by user using inline mode
+		$viaBot = $this->getViaBot();
+		if ($viaBot !== null) {
+			$this->userFactory->createOrRegisterFromTelegram(
+				$viaBot->id,
+				TelegramHelper::getUserDisplayname($viaBot),
+			);
+		}
+
 		if ($this->hasTgMessage()) {
 			$this->chat = $this->chatFactory->createOrRegisterFromTelegram(
 				$this->getTgChatId(),
