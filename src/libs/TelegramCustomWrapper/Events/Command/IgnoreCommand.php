@@ -29,7 +29,7 @@ class IgnoreCommand extends Command
 
 		$chatType = $this->getChat()?->getEntity()->telegramChatType;
 		if (in_array($chatType, Config::IGNORE_FILTER_ALLOWED_CHAT_TYPES, true) === false) {
-			$this->reply(Icons::ERROR . ' This command can be used in only groups and channels.');
+			$this->reply(Icons::ERROR . ' This command can be used in only groups.');
 			return;
 		}
 

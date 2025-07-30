@@ -10,6 +10,7 @@ use App\TelegramCustomWrapper\Events\Button\HelpButton;
 use App\TelegramCustomWrapper\Events\Command\FavouritesCommand;
 use App\TelegramCustomWrapper\Events\Command\FeedbackCommand;
 use App\TelegramCustomWrapper\Events\Command\HelpCommand;
+use App\TelegramCustomWrapper\Events\Command\IgnoreCommand;
 use App\TelegramCustomWrapper\Events\Command\SettingsCommand;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Button;
@@ -73,6 +74,7 @@ trait HelpTrait
 		$text .= sprintf('%s - %s Learn more about me (this text)', HelpCommand::getTgCmd(!$this->isTgPm()), Icons::INFO) . PHP_EOL;
 		$text .= sprintf('%s - %s Report invalid location or just contact the author', FeedbackCommand::getTgCmd(!$this->isTgPm()), Icons::FEEDBACK) . PHP_EOL;
 		$text .= sprintf('%s - %s Manage your saved favourite locations (works only in PM)', FavouritesCommand::getTgCmd(!$this->isTgPm()), Icons::FAVOURITE) . PHP_EOL;
+		$text .= sprintf('%s - %s Manage ignore filter (works only in groups)', IgnoreCommand::getTgCmd(!$this->isTgPm()), Icons::IGNORE_FILTER) . PHP_EOL;
 		$text .= sprintf('%s - %s Adjust your settings', SettingsCommand::getTgCmd(!$this->isTgPm()), Icons::SETTINGS) . PHP_EOL;
 		$text .= PHP_EOL;
 		$text .= sprintf('%s For more info check out the <a href="%s">@BetterLocationInfo</a> channel.', Icons::INFO, 'https://t.me/BetterLocationInfo/3') . PHP_EOL;
