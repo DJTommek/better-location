@@ -80,7 +80,7 @@ class IgnoreCommand extends Command
 
 	private function helpMessage(): string
 	{
-		$text = '<b>Ignore filter</b> is feature, which limits which messages will be analyzed for potential locations. ';
+		$text = Icons::IGNORE_FILTER . ' <b>Ignore filter</b> is feature, which limits which messages will be analyzed for potential locations. ';
 		$text .= sprintf(
 			'If user is on ignore list, @%s will simply ignore all messages shared by this user to this chat, even if it contains some location.',
 			Config::TELEGRAM_BOT_NAME,
