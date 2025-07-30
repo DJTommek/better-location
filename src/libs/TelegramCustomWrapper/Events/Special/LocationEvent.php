@@ -64,6 +64,10 @@ class LocationEvent extends Special
 
 	public function handleWebhookUpdate(): void
 	{
+		if ($this->matchesIgnoreFilter()) {
+			return;
+		}
+
 		if ($this->isLive) {
 			$lastUpdate = $this->getTgMessageSentDate();
 			if ($lastUpdate !== null) {
