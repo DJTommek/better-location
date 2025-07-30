@@ -47,6 +47,10 @@ class LocationEdit extends Edit
 
 	public function handleWebhookUpdate(): void
 	{
+		if ($this->matchesIgnoreFilter()) {
+			return;
+		}
+
 		$tgMessage = $this->getTgMessage();
 		$messageEditDate = $this->getTgMessageEditDate();
 

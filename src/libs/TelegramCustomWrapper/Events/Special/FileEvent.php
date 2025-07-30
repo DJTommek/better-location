@@ -86,6 +86,10 @@ class FileEvent extends Special
 
 	public function handleWebhookUpdate(): void
 	{
+		if ($this->matchesIgnoreFilter()) {
+			return;
+		}
+
 		if ($this->isTgChannelPost() === false && $this->getProcessableDocument() !== null) {
 			$this->sendAction();
 		}
