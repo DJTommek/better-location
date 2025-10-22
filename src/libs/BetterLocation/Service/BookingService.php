@@ -57,21 +57,7 @@ final class BookingService extends AbstractService
 		$coords = self::getCoordsFromDom($json);
 		$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class);
 
-		$location->appendToPrefixMessage(sprintf(
-			' <a href="%s" target="_blank">%s</a>',
-			$json->url,
-			htmlspecialchars($json->name),
-		));
-
-		$country = $this->getCountryFromUrl($json->url);
-		$address = new Address($json->address->streetAddress, $country);
-		$location->setAddress($address);
-
-		$location->addDescription(sprintf(
-			'★%s %s',
-			number_format($json->aggregateRating->ratingValue, 1, '.'),
-			htmlspecialchars($json->description),
-		));
+		$this->populateAdditionalInfo($location, $json);
 		$this->collection->add($location);
 	}
 
@@ -87,6 +73,27 @@ final class BookingService extends AbstractService
 		$url = new Url($ldJson->hasMap);
 		$coordsRaw = $url->getQueryParameter('center');
 		return Coordinates::fromString($coordsRaw);
+	}
+
+	private function populateAdditionalInfo(BetterLocation $location, \stdClass $json): void
+	{
+		$location->appendToPrefixMessage(sprintf(
+			' <a href="%s" target="_blank">%s</a>',
+			$json->url,
+			htmlspecialchars($json->name),
+		));
+
+		$country = $this->getCountryFromUrl($json->url);
+		$address = new Address($json->address->streetAddress, $country);
+		$location->setAddress($address);
+
+		$description = '';
+		if (isset($json->aggregateRating->ratingValue)) {
+			$description .= '★' . number_format($json->aggregateRating->ratingValue, 1, '.');
+		}
+		$description .= ' ' . htmlspecialchars($json->description);
+
+		$location->addDescription(trim($description));
 	}
 
 	private static function getCountryFromUrl(string $url): ?Country

@@ -93,6 +93,13 @@ final class BookingServiceTest extends AbstractServiceTestCase
 				'★8.3 Set 300 metres from Koyasu Tenman-gu Sugawara Shrine and 400 metres from Sugamo Park, No4マンション#JR大塚駅徒歩5分 築浅 池袋 自主隔離やテレワークOK 固定Wifi 靠近池袋和新宿 從山手線大塚站步行5分鐘...',
 				'https://www.booking.com/hotel/jp/satiberumannan-da-zhong-di-4mansiyon.en-gb.html?aid=304142&label=gen173nr-1FCAEoggI46AdIM1gEaDqIAQKYATG4AQnIAQ_YAQHoAQH4AQKIAgGoAgO4AovVg68GwAIB0gIkOTlmNTVkZDYtNGNhZi00NTcyLThiYmMtNGUyMTdlNDUzMzBl2AIF4AIB-Share-xuMgWp%401709239146&sid=c01c544eed324ddc9971041d2ce7b978&all_sr_blocks=714926413_328497140_3_0_0%3Bcheckin%3D2024-04-23%3Bcheckout%3D2024-04-25%3Bdist%3D0%3Bgroup_adults%3D2%3Bgroup_children%3D0%3Bhapos%3D1%3Bhighlighted_blocks%3D714926413_328497140_3_0_0%3Bhpos%3D1%3Bmatching_block_id%3D714926413_328497140_3_0_0%3Bno_rooms%3D1%3Breq_adults%3D2%3Breq_children%3D0%3Broom1%3DA%2CA%3Bsb_price_type%3Dtotal%3Bsr_order%3Dpopularity%3Bsr_pri_blocks%3D714926413_328497140_3_0_0__3025000%3Bsrepoch%3D1709569552%3Bsrpvid%3Ddeb173854b1001d0%3Btype%3Dtotal%3Bucfs%3D1#hotelTmpl',
 			],
+			[ // Review score is missing
+				53.5479056,
+				9.9611475,
+				'🇩🇪 Gerhardstraße, 20359 Hamburg, Germany',
+				'2 Great Apartment near Hans Albers Platz offers accommodations in Hamburg, 1.5 miles from Hamburg Fair and 1.6 miles from Miniatur Wunderland.',
+				'https://www.booking.com/hotel/de/great-apartment-near-hans-albers-platz-hamburg.html?label=gen173nr-10CAEoggI46AdIM1gEaDqIAQGYATO4ARnIAQzYAQPoAQH4AQGIAgGoAgG4AvKy48cGwAIB0gIkODU2YTIyYjQtZWE1NS00MjM5LWE0MzktMTI0ZTliODc0MTE52AIB4AIB&aid=304142&ucfs=1&checkin=2025-12-27&checkout=2025-12-30&dest_id=-1785434&dest_type=city&group_adults=6&no_rooms=1&group_children=0&nflt=oos%3D1%3Bprice%3DCZK-min-13000-1%3Bentire_place_bedroom_count%3D3&srpvid=fa2b5da83be80582&srepoch=1761140047&matching_block_id=1474509001_419198816_6_0_0&atlas_src=sr_iw_title',
+			],
 		];
 	}
 
