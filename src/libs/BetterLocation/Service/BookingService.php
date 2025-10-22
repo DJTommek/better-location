@@ -12,6 +12,7 @@ use DJTommek\Coordinates\Coordinates;
 use DJTommek\Coordinates\CoordinatesInterface;
 use Nette\Http\Url;
 use Nette\Utils\Json;
+use Tracy\Debugger;
 
 final class BookingService extends AbstractService
 {
@@ -57,7 +58,12 @@ final class BookingService extends AbstractService
 		$coords = self::getCoordsFromDom($json);
 		$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class);
 
-		$this->populateAdditionalInfo($location, $json);
+		try {
+			$this->populateAdditionalInfo($location, $json);
+		} catch (\Throwable $exception) {
+			Debugger::log($exception);
+		}
+
 		$this->collection->add($location);
 	}
 
