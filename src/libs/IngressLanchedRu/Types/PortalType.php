@@ -24,6 +24,8 @@ class PortalType implements CoordinatesInterface
 	private ?string $intelLink = null;
 	/** Filled on for lazy load */
 	private ?string $primeLink = null;
+	/** Filled on for lazy load */
+	private ?string $lightshipLink = null;
 
 	public static function createFromVariable(\stdClass $variables): self
 	{
@@ -58,6 +60,14 @@ class PortalType implements CoordinatesInterface
 			$this->primeLink = (string)Ingress::generatePrimePortalLink($this->guid, $this->lat, $this->lng);
 		}
 		return $this->primeLink;
+	}
+
+	public function getLightshipLink(): string
+	{
+		if ($this->lightshipLink === null) {
+			$this->lightshipLink = (string)Ingress::generateNianticLightshipLink($this, guid: $this->guid);
+		}
+		return $this->lightshipLink;
 	}
 
 	/**

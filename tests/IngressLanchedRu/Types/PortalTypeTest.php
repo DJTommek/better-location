@@ -72,6 +72,7 @@ final class PortalTypeTest extends TestCase
 		$this->assertSame(1.415113, self::$getPortalsExample[39]->getLon());
 		$this->assertNull(self::$getPortalsExample[39]->address);
 		$this->assertNull(self::$getPortalsExample[39]->image);
+		$this->assertSame('https://lightship.dev/account/geospatial-browser/50.048833,1.415113,12.66,,5278d69739ae40628f9078b41b39e1bd.16', self::$getPortalsExample[39]->getLightshipLink());
 	}
 
 	public function testPortalPrague(): void
@@ -88,6 +89,7 @@ final class PortalTypeTest extends TestCase
 		$this->assertSame('https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm', self::$portalPrague->getImageLink());
 		$this->assertSame('https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm=s1234', self::$portalPrague->getImageLink(1234));
 		$this->assertSame(self::$portalPrague->getImageLink(), self::$portalPrague->image);
+		$this->assertSame('https://lightship.dev/account/geospatial-browser/50.087451,14.420671,12.66,,0bd94fac5de84105b6eef6e7e1639ad9.12', self::$portalPrague->getLightshipLink());
 	}
 
 	public function testPortalNameAsInt(): void
