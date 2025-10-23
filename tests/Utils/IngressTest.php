@@ -3,6 +3,7 @@
 namespace Tests\Utils;
 
 use App\Utils\Ingress;
+use DJTommek\Coordinates\CoordinatesImmutable;
 use PHPUnit\Framework\TestCase;
 
 final class IngressTest extends TestCase
@@ -22,12 +23,50 @@ final class IngressTest extends TestCase
 		];
 	}
 
+	public static function generateNianticLightshipLinkDataProvider(): array
+	{
+		return [
+			[
+				'https://lightship.dev/account/geospatial-browser/50.0830485,14.4282095,15.69,13102D0F2EDC41BAB400A4D3FD672CEF,6a01961a5fc54df8b7efe45fc1f983f9.16',
+				50.0830485,
+				14.4282095,
+				15.69,
+				'13102D0F2EDC41BAB400A4D3FD672CEF',
+				'6a01961a5fc54df8b7efe45fc1f983f9.16',
+			],
+			['https://lightship.dev/account/geospatial-browser/-50.4,-14.800008,12.66', -50.4, -14.800008],
+			['https://lightship.dev/account/geospatial-browser/-50.4,-14.800008,12.66', -50.4, -14.800008, 12.66],
+			[
+				'https://lightship.dev/account/geospatial-browser/37.4271971,-122.14444,12.66,,fdaa23231c2a375db81fb5d1e32e96d5.16',
+				37.4271971,
+				-122.14444,
+				null,
+				null,
+				'fdaa23231c2a375db81fb5d1e32e96d5.16',
+			],
+		];
+	}
+
 	/**
 	 * @dataProvider isGuidDataProvider
 	 */
 	public function testIsGuid(bool $expectedIsValid, string $guid): void
 	{
 		$this->assertSame($expectedIsValid, Ingress::isGuid($guid));
+	}
+
+	/**
+	 * @dataProvider generateNianticLightshipLinkDataProvider
+	 */
+	public function testGenerateNianticLightshipLinkDataProvider(
+		string $expected,
+		float $lat,
+		float $lon,
+		float|null $zoom = null,
+		string|null $meshId = null,
+		string $venueGuid = null,
+	): void {
+		$this->assertSame($expected, (string)Ingress::generateNianticLightshipLink(new CoordinatesImmutable($lat, $lon), $zoom, $meshId, $venueGuid));
 	}
 
 	public function testGenerateIntelMissionLink(): void

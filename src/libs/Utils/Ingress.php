@@ -18,7 +18,7 @@ class Ingress
 
 	public static function generatePortalLinkMessage(PortalType $portal): string
 	{
-		return sprintf('<a href="%s">%s %s</a> <a href="%s">%s</a> <a href="%s">%s</a>',
+		return sprintf('<a href="%s">%s %s</a> <a href="%s">%s</a> <a href="%s">%s</a> <a href="%s">%s</a>',
 			$portal->getPrimeLink(),
 			htmlspecialchars($portal->name),
 			Icons::INGRESS_PRIME,
@@ -26,6 +26,8 @@ class Ingress
 			Icons::INGRESS_INTEL,
 			$portal->getImageLink(10_000),
 			Icons::INGRESS_PORTAL_IMAGE,
+			$portal->getLightshipLink(),
+			Icons::INGRESS_SCAN,
 		);
 	}
 
@@ -78,6 +80,27 @@ class Ingress
 		$url->setQueryParameter('ibi', 'com.google.ingress');
 		$url->setQueryParameter('ifl', 'https://apps.apple.com/app/ingress/id576505181');
 		$url->setQueryParameter('ofl', self::generateIntelPortalLink($lat, $lon));
+		return $url;
+	}
+
+	public static function generateNianticLightshipLink(
+		\DJTommek\Coordinates\CoordinatesInterface $coordinates,
+		float|null $zoom = null,
+		string|null $meshId = null,
+		string|null $guid = null,
+	): Url {
+		// https://lightship.dev/account/geospatial-browser/50.0830485642698,14.42820958675955,15.69,13102D0F2EDC41BAB400A4D3FD672CEF,6a01961a5fc54df8b7efe45fc1f983f9.16
+
+		$url = new Url('https://lightship.dev/account/geospatial-browser/');
+		$params = [
+			$coordinates->getLat(),
+			$coordinates->getLon(),
+			round($zoom ?? 12.66, 2), // As of 2025-10-23 web is behaving weird by centering to completely different venue when it has more than 2 digits or if zoom is missing
+			$meshId ?? '',
+			$guid ?? '',
+		];
+		$glue = ',';
+		$url->path .= trim(implode($glue, $params), $glue);
 		return $url;
 	}
 
