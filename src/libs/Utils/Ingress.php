@@ -4,10 +4,8 @@ namespace App\Utils;
 
 use App\BetterLocation\BetterLocation;
 use App\Icons;
-use App\IngressLanchedRu\Client;
 use App\IngressLanchedRu\Types\PortalType;
 use Nette\Http\Url;
-use Tracy\Debugger;
 
 class Ingress
 {
@@ -41,27 +39,18 @@ class Ingress
 		$location->setPrefixMessage(self::generatePortalLinkMessage($portal));
 	}
 
-	/**
-	 * Check if there is portal on exact coordinates of location and eventually ppend portal links as description.
-	 */
-	public static function setPortalDataDescription(Client $ingressClient, BetterLocation $location): void
+	public static function appendPortalDataDescription(BetterLocation $location, PortalType $portal): void
 	{
-		try {
-			if ($portal = $ingressClient->getPortalByCoords($location->getLat(), $location->getLon())) {
-				$location->addDescription(
-					'Ingress portal: ' . self::generatePortalLinkMessage($portal),
-					self::BETTER_LOCATION_KEY_PORTAL
-				);
+		$location->addDescription(
+			'Ingress portal: ' . self::generatePortalLinkMessage($portal),
+			self::BETTER_LOCATION_KEY_PORTAL,
+		);
 
-				if (
-					$location->hasAddress() === false
-					&& in_array($portal->address, ['', 'undefined', '[Unknown Location]'], true) === false // show portal address only if it makes sense
-				) {
-					$location->setAddress(htmlspecialchars($portal->address));
-				}
-			}
-		} catch (\Throwable $exception) {
-			Debugger::log($exception, Debugger::EXCEPTION);
+		if (
+			$location->hasAddress() === false
+			&& in_array($portal->address, ['', 'undefined', '[Unknown Location]'], true) === false // show portal address only if it makes sense
+		) {
+			$location->setAddress(htmlspecialchars($portal->address));
 		}
 	}
 
@@ -80,6 +69,8 @@ class Ingress
 	 */
 	public static function generatePrimePortalLink(string $guid, float $lat, float $lon): Url
 	{
+		// https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F3e9f17ce6a824e67a1179961f175fe62.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.11747%2C14.405216
+
 		$url = new Url('https://link.ingress.com/');
 		$url->setQueryParameter('link', 'https://intel.ingress.com/portal/' . $guid);
 		$url->setQueryParameter('apn', 'com.nianticproject.ingress');

@@ -79,7 +79,14 @@ class ProcessedMessageResult
 				&& $this->lanchedRuClient !== null
 				&& $betterLocation->hasDescription(Ingress::BETTER_LOCATION_KEY_PORTAL) === false
 			) {
-				Ingress::setPortalDataDescription($this->lanchedRuClient, $betterLocation);
+				try {
+					$portal = $this->lanchedRuClient->getPortalByCoords($betterLocation->getLat(), $betterLocation->getLon());
+					if ($portal !== null) {
+						Ingress::appendPortalDataDescription($betterLocation, $portal);
+					}
+				} catch (\Throwable $exception) {
+					Debugger::log($exception, Debugger::EXCEPTION);
+				}
 			}
 
 			$oneLocationResultText = $betterLocation->generateMessage(
