@@ -13,6 +13,11 @@ class Ingress
 {
 	public const BETTER_LOCATION_KEY_PORTAL = 'ingressPortal';
 
+	public static function isGuid(string $input): bool
+	{
+		return preg_match('/^([0-9a-z]{32}\.[0-9a-f]{1,2})$/i', $input) === 1;
+	}
+
 	public static function generatePortalLinkMessage(PortalType $portal): string
 	{
 		return sprintf('<a href="%s">%s %s</a> <a href="%s">%s</a> <a href="%s">%s</a>',
