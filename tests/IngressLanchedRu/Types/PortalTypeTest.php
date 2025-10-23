@@ -68,6 +68,8 @@ final class PortalTypeTest extends TestCase
 		$this->assertSame('Glacière Du Château', self::$getPortalsExample[39]->name); // trimmed and UTF-8 characters
 		$this->assertSame(50.048833, self::$getPortalsExample[39]->lat);
 		$this->assertSame(1.415113, self::$getPortalsExample[39]->lng);
+		$this->assertSame(50.048833, self::$getPortalsExample[39]->getLat());
+		$this->assertSame(1.415113, self::$getPortalsExample[39]->getLon());
 		$this->assertNull(self::$getPortalsExample[39]->address);
 		$this->assertNull(self::$getPortalsExample[39]->image);
 	}
@@ -79,6 +81,8 @@ final class PortalTypeTest extends TestCase
 		$this->assertSame('Staroměstské náměstí', self::$portalPrague->name);
 		$this->assertSame(50.087451, self::$portalPrague->lat);
 		$this->assertSame(14.420671, self::$portalPrague->lng);
+		$this->assertSame(50.087451, self::$portalPrague->getLat());
+		$this->assertSame(14.420671, self::$portalPrague->getLon());
 		$this->assertSame('Old Town Square 1/4, 110 00 Prague-Prague 1, Czech Republic', self::$portalPrague->address);
 		$this->assertSame('https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm', self::$portalPrague->image);
 		$this->assertSame('https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm', self::$portalPrague->getImageLink());
@@ -93,6 +97,8 @@ final class PortalTypeTest extends TestCase
 		$this->assertSame('1737', self::$portalNameAsInt->name); // in JSON it is int
 		$this->assertSame(49.456762, self::$portalNameAsInt->lat);
 		$this->assertSame(13.784239, self::$portalNameAsInt->lng);
+		$this->assertSame(49.456762, self::$portalNameAsInt->getLat());
+		$this->assertSame(13.784239, self::$portalNameAsInt->getLon());
 		$this->assertSame('Lnáře 177, 387 42 Lnáře, Czechia', self::$portalNameAsInt->address);
 		$this->assertSame('https://lh3.googleusercontent.com/_OKdqcvDYCBJAXpN5_vud7KaQ_7jsmpc1Fm5kBWB7fv-CzWNB63b7eI-QNr2WQ3jEqJUNOeRU4Dtm1TYx5q38NbomQE', self::$portalNameAsInt->image);
 	}

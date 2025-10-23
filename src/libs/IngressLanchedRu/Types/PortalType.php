@@ -3,9 +3,10 @@
 namespace App\IngressLanchedRu\Types;
 
 use App\Utils\Ingress;
+use DJTommek\Coordinates\CoordinatesInterface;
 use Tracy\Debugger;
 
-class PortalType
+class PortalType implements CoordinatesInterface
 {
 	/** @var string */
 	public $guid;
@@ -69,5 +70,20 @@ class PortalType
 			$result .= '=s' . $size;
 		}
 		return $result;
+	}
+
+	public function getLat(): float
+	{
+		return $this->lat;
+	}
+
+	public function getLon(): float
+	{
+		return $this->lng;
+	}
+
+	public function getLatLon(string $delimiter = ','): string
+	{
+		return sprintf('%F%s%F', $this->getLat(), $delimiter, $this->getLon());
 	}
 }
