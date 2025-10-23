@@ -66,7 +66,11 @@ trait LocationTrait
 			if ($expectedDescriptions !== null) {
 				$this->assertSame($expectedPrefix, $location->getPrefixMessage());
 
-				$this->assertCount(count($expectedDescriptions), $location->getDescriptions());
+				$this->assertCount(
+					count($expectedDescriptions),
+					$location->getDescriptions(),
+					'Location description count mismatch.'
+				);
 
 				foreach ($expectedDescriptions as $expectedDescriptionKey => $expectedDescriptionText) {
 					$realDescription = $location->getDescription($expectedDescriptionKey);
