@@ -1,6 +1,21 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Deprecated in PHP 8\\.4\\: Parameter \\#2 \\$displayname \\(string\\) is implicitly nullable via default value null\\.$#"
+			count: 1
+			path: src/libs/Address/Country.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.4\\: Parameter \\#1 \\$format \\(string\\) is implicitly nullable via default value null\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/BetterLocation.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.4\\: Parameter \\#1 \\$format \\(string\\) is implicitly nullable via default value null\\.$#"
+			count: 1
+			path: src/libs/BetterLocation/BetterLocationCollection.php
+
+		-
 			message: "#^Method App\\\\BetterLocation\\\\FromExif\\:\\:run\\(\\) return type with generic class App\\\\BetterLocation\\\\FromExif does not specify its types\\: Input$#"
 			count: 1
 			path: src/libs/BetterLocation/FromExif.php
@@ -16,9 +31,19 @@ parameters:
 			path: src/libs/BetterLocation/FromExif.php
 
 		-
-			message: "#^Unable to resolve the template type T in call to method static method Nette\\\\Utils\\\\Arrays\\:\\:last\\(\\)$#"
+			message: "#^Unable to resolve the template type V in call to method static method Nette\\\\Utils\\\\Arrays\\:\\:last\\(\\)$#"
 			count: 1
 			path: src/libs/BetterLocation/Service/FacebookService.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.4\\: Parameter \\#1 \\$path \\(string\\) is implicitly nullable via default value null\\.$#"
+			count: 1
+			path: src/libs/DefaultConfig.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.4\\: Parameter \\#1 \\$redirectUrl \\(Nette\\\\Http\\\\UrlImmutable\\) is implicitly nullable via default value null\\.$#"
+			count: 1
+			path: src/libs/DefaultConfig.php
 
 		-
 			message: "#^Method App\\\\DummyLogger\\:\\:log\\(\\) has no return type specified\\.$#"
@@ -104,6 +129,11 @@ parameters:
 			message: "#^Method App\\\\Repository\\\\StaticMapCacheEntity\\:\\:fromRow\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/Repository/StaticMapCacheEntity.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.4\\: Parameter \\#2 \\$datetime \\(DateTimeInterface\\) is implicitly nullable via default value null\\.$#"
+			count: 1
+			path: src/libs/Repository/UserEntity.php
 
 		-
 			message: "#^Method App\\\\Repository\\\\UserEntity\\:\\:fromRow\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
@@ -321,9 +351,34 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/SendMessage.php
 
 		-
+			message: "#^Deprecated in PHP 8\\.4\\: Parameter \\#2 \\$redirectUrl \\(Nette\\\\Http\\\\UrlImmutable\\) is implicitly nullable via default value null\\.$#"
+			count: 1
+			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
+
+		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\TelegramHelper\\:\\:getParams\\(\\) has parameter \\$update with no type specified\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.4\\: Parameter \\#2 \\$chatId \\(int\\) is implicitly nullable via default value null\\.$#"
+			count: 1
+			path: src/libs/TelegramUpdateDb.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.4\\: Parameter \\#3 \\$limit \\(int\\) is implicitly nullable via default value null\\.$#"
+			count: 1
+			path: src/libs/TelegramUpdateDb.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.4\\: Parameter \\#4 \\$olderThan \\(DateTimeInterface\\) is implicitly nullable via default value null\\.$#"
+			count: 1
+			path: src/libs/TelegramUpdateDb.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.4\\: Parameter \\#3 \\$datetime \\(DateTimeInterface\\) is implicitly nullable via default value null\\.$#"
+			count: 1
+			path: src/libs/User.php
 
 		-
 			message: "#^Method App\\\\Utils\\\\Coordinates\\:\\:isInPolygon\\(\\) has parameter \\$polygon with no value type specified in iterable type array\\.$#"
@@ -356,6 +411,11 @@ parameters:
 			path: src/libs/Utils/Coordinates.php
 
 		-
+			message: "#^Deprecated in PHP 8\\.4\\: Parameter \\#2 \\$timezone \\(DateTimeZone\\) is implicitly nullable via default value null\\.$#"
+			count: 2
+			path: src/libs/Utils/DateImmutableUtils.php
+
+		-
 			message: "#^Method App\\\\Utils\\\\DateImmutableUtils\\:\\:fromTimestampMs\\(\\) has parameter \\$timestampMs with no type specified\\.$#"
 			count: 1
 			path: src/libs/Utils/DateImmutableUtils.php
@@ -374,6 +434,16 @@ parameters:
 			message: "#^Method App\\\\Utils\\\\Ge0Code\\:\\:maxPointBits\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/libs/Utils/Ge0Code.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.4\\: Parameter \\#2 \\$cacheTtl \\(int\\) is implicitly nullable via default value null\\.$#"
+			count: 2
+			path: src/libs/Utils/Requestor.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.4\\: Parameter \\#2 \\$date \\(DateTimeInterface\\) is implicitly nullable via default value null\\.$#"
+			count: 1
+			path: src/libs/Utils/SimpleLogger.php
 
 		-
 			message: "#^Method App\\\\Utils\\\\SimpleLogger\\:\\:getLogNames\\(\\) has no return type specified\\.$#"
@@ -519,3 +589,8 @@ parameters:
 			message: "#^Parameter \\#2 \\$cookieToken of class App\\\\Geocaching\\\\Client constructor expects string, null given\\.$#"
 			count: 1
 			path: tests/BetterLocation/Service/GeocachingServiceTest.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.4\\: Parameter \\#6 \\$venueGuid \\(string\\) is implicitly nullable via default value null\\.$#"
+			count: 1
+			path: tests/Utils/IngressTest.php

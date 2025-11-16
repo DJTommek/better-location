@@ -11,8 +11,8 @@
 				{var $results = []}
 				{var $totalCount = 0}
 				{foreach getChatsStats() as $groupType => $groupCount}
-					{var $results[] = sprintf('%s = <b>%d</b>', $groupType, $groupCount)}
-					{var $totalCount += $groupCount}
+					{$results[] = sprintf('%s = <b>%d</b>', $groupType, $groupCount)}
+					{$totalCount += $groupCount}
 				{/foreach}
 				<li>
 						<b>{$totalCount}</b> detected chats ({join(', ', $results)|noescape})

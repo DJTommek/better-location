@@ -119,7 +119,8 @@
 		{if $flashMessage->dismiss !== null}
 			<script>
 				setTimeout(function () {
-					const alertEl = document.getElementById('alert-{$key}');
+					const alertId = 'alert-' + {$key};
+					const alertEl = document.getElementById(alertId);
 					alertEl.classList.remove('show');
 					setTimeout(function () { // wait for hide animation is finished, then destroy element
 						alertEl.remove();

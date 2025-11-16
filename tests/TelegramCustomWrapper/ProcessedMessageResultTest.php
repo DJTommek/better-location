@@ -583,6 +583,7 @@ Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingr
 	private function assertResult(string $expectedText, array $expectedButtons, string $realText, array $realButtons): void
 	{
 		$realText = preg_replace("/\R/u", PHP_EOL, $realText);
+		$expectedText = preg_replace("/\R/u", PHP_EOL, $expectedText);
 
 		$this->assertSame($expectedText, $realText);
 		$this->assertButtons($expectedButtons, $realButtons);
