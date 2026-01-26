@@ -16,13 +16,13 @@ Available publicly on:
 
 ### Website and Telegram bot
 
-- PHP webserver (written and tested with PHP 8.2)
+- PHP webserver (written and tested with PHP 8.4)
 - Database server (written and tested with MariaDB 10)
 - Domain with SSL certificate (might be self-signed). Detailed requirements are described on [Telegram's webhook page](https://core.telegram.org/bots/webhooks).
 
 ### Discord bot
 
-- PHP (written and tested with PHP 8.2)
+- PHP (written and tested with PHP 8.4)
 
 ## Installation
 
