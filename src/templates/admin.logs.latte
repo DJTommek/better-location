@@ -31,7 +31,7 @@
 				{var $className = 'danger'}
 			{/if}
 			<h4 class="text-{$className}">{$tracyLogName}</h4>
-			<pre>{join(PHP_EOL, $tracyLogContent)}</pre>
+			<pre>{join(\PHP_EOL, $tracyLogContent)}</pre>
 		{/foreach}
 	{/if}
 
@@ -46,7 +46,7 @@
 				Copy content of newest log
 			</button>
 			<span style="display: none;">Copied!</span>
-			<pre>{join(PHP_EOL, array_map('json_encode', $logLines))}</pre>
+			<pre>{join(\PHP_EOL, array_map('json_encode', $logLines))}</pre>
 		{/if}
 	{/foreach}
 {/block}

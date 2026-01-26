@@ -58,7 +58,7 @@
 		{if \App\Config::isTelegram()}
 			{if $webhookError}
 				{capture $jsonText}
-					<pre>{json_encode(get_object_vars($webhookError->getError()), JSON_PRETTY_PRINT)}</pre>
+					<pre>{json_encode(get_object_vars($webhookError->getError()), \JSON_PRETTY_PRINT)}</pre>
 				{/capture}
 				{capture $webhookDetailStatus}
 					{\App\Icons::ERROR} Something is wrong: <b>{$webhookError->getMessage()}</b>:'{$jsonText}
@@ -102,7 +102,7 @@
 			</div>
 			<div class="tab-pane fade" id="webhook-raw">
 				{var $json = get_object_vars($webhookResponseRaw)}
-				<pre>{json_encode($json, JSON_PRETTY_PRINT)}</pre>
+				<pre>{json_encode($json, \JSON_PRETTY_PRINT)}</pre>
 			</div>
 		</div>
 	{/if}
