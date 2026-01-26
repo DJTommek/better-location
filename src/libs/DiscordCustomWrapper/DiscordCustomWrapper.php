@@ -13,7 +13,7 @@ use unreal4u\TelegramAPI\Telegram;
 
 readonly class DiscordCustomWrapper
 {
-	private const MESSAGE_MAX_LENGTH = 2000;
+	private const int MESSAGE_MAX_LENGTH = 2000;
 
 	public function __construct(
 		private Discord $discord,
@@ -72,9 +72,9 @@ readonly class DiscordCustomWrapper
 				}
 
 				$locationMessage = $location->generateMessage(
-						settings: $settings,
-						generator: $this->discordMessageGenerator,
-					);
+					settings: $settings,
+					generator: $this->discordMessageGenerator,
+				);
 
 				if (mb_strlen($replyContent . $locationMessage) > self::MESSAGE_MAX_LENGTH) {
 					$this->reply($message, $replyContent);

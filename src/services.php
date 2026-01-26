@@ -54,7 +54,6 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(\App\DiscordCustomWrapper\DiscordMessageGenerator::class);
 
 	$services->set(App\TelegramCustomWrapper\TelegramCustomWrapper::class);
-	$services->set(\App\DiscordCustomWrapper\DiscordCustomWrapper::class);
 
 	$services->set(\App\BetterLocation\FromTelegramMessage::class);
 	$services->set(\App\TelegramCustomWrapper\ChatMemberRecalculator::class);
@@ -134,6 +133,7 @@ return static function (ContainerConfigurator $container): void {
 	$services->set(\App\BetterLocation\FavouriteNameGenerator::class);
 
 	if (Config::isDiscord()) {
+		$services->set(\App\DiscordCustomWrapper\DiscordCustomWrapper::class);
 		$services->set(\App\Factory\DiscordFactory::class)
 			->arg('$token', Config::DISCORD_TOKEN);
 

@@ -12,7 +12,6 @@ use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\MapyCzService;
 use App\BetterLocation\Service\WazeService;
 use App\BetterLocation\ServicesManager;
-use App\DiscordCustomWrapper\DiscordMessageGenerator;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use PHPUnit\Framework\TestCase;
 use unreal4u\TelegramAPI\Telegram;
