@@ -22,8 +22,18 @@ trait LocationTrait
 
 	protected function assertCoordsWithDelta(float $expectedLat, float $expectedLon, CoordinatesInterface $location, float $delta = 0.000_001): void
 	{
-		$this->assertEqualsWithDelta($expectedLat, $location->getLat(), $delta);
-		$this->assertEqualsWithDelta($expectedLon, $location->getLon(), $delta);
+		$this->assertEqualsWithDelta(
+			$expectedLat,
+			$location->getLat(),
+			$delta,
+			'Failed asserting latitude. Expected: ' . sprintf('%.6f,%.6f', $expectedLat, $expectedLon) . ', actual: ' . sprintf('%.6f,%.6f', $location->getLat(), $location->getLon()) . '.',
+		);
+		$this->assertEqualsWithDelta(
+			$expectedLon,
+			$location->getLon(),
+			$delta,
+			'Failed asserting longitude. Expected: ' . sprintf('%.6f,%.6f', $expectedLat, $expectedLon) . ', actual: ' . sprintf('%.6f,%.6f', $location->getLat(), $location->getLon()) . '.',
+		);
 	}
 
 	protected function assertOneInCollection(float $expectedLat, float $expectedLon, ?string $sourceType, BetterLocationCollection $collection): void
