@@ -36,7 +36,7 @@ class UserEntity extends Entity
 		return $entity;
 	}
 
-	public function setLastLocation(CoordinatesInterface $coords, \DateTimeInterface $datetime = null): void
+	public function setLastLocation(CoordinatesInterface $coords, ?\DateTimeInterface $datetime = null): void
 	{
 		if ($coords instanceof CoordinatesImmutable === false) {
 			$coords = new CoordinatesImmutable($coords->getLat(), $coords->getLon());

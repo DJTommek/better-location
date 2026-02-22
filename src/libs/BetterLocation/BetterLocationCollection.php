@@ -271,7 +271,7 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		}
 	}
 
-	public function getLink(string $format = null): UrlImmutable
+	public function getLink(?string $format = null): UrlImmutable
 	{
 		$keys = $this->getKeys();
 		if (count($keys) === 0) {

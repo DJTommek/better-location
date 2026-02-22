@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use Rector\Php81\Rector\Property\ReadOnlyPropertyRector;
+use Rector\Php84\Rector\Param\ExplicitNullableParamTypeRector;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -12,6 +14,7 @@ return RectorConfig::configure()
     ])
 //    ->withPhpSets()
     ->withRules([
-        \Rector\Php81\Rector\Property\ReadOnlyPropertyRector::class,
+        ReadOnlyPropertyRector::class,
+        ExplicitNullableParamTypeRector::class,
     ])
     ->withTypeCoverageLevel(0);

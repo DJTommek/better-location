@@ -456,7 +456,7 @@ class DefaultConfig
 		return is_null(static::MAPBOX_STATIC_MAPS_TOKEN) === false;
 	}
 
-	public final static function getAppUrl(string $path = null): UrlImmutable
+	public final static function getAppUrl(?string $path = null): UrlImmutable
 	{
 		$appUrl = new UrlImmutable(static::APP_URL);
 		if ($path !== null && str_starts_with($path, '/')) {
@@ -465,7 +465,7 @@ class DefaultConfig
 		return $appUrl;
 	}
 
-	public final static function getLoginUrl(UrlImmutable $redirectUrl = null): UrlImmutable
+	public final static function getLoginUrl(?UrlImmutable $redirectUrl = null): UrlImmutable
 	{
 		$loginURl = static::getAppUrl('/login.php');
 		if ($redirectUrl) {

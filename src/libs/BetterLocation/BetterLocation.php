@@ -475,7 +475,7 @@ class BetterLocation implements CoordinatesInterface
 		return $this->coords->getLatLon($delimiter);
 	}
 
-	public function getLink(string $format = null): UrlImmutable
+	public function getLink(?string $format = null): UrlImmutable
 	{
 		$result = Config::getAppUrl('/' . $this->getLatLon());
 		return $result->withQueryParameter('format', $format);

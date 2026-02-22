@@ -4,12 +4,12 @@ namespace App\Utils;
 
 class DateImmutableUtils
 {
-	public static function fromTimestampMs($timestampMs, \DateTimeZone $timezone = null): \DateTimeImmutable
+	public static function fromTimestampMs($timestampMs, ?\DateTimeZone $timezone = null): \DateTimeImmutable
 	{
 		return self::fromTimestamp(intval($timestampMs / 1000), $timezone);
 	}
 
-	public static function fromTimestamp(int $timestamp, \DateTimeZone $timezone = null): \DateTimeImmutable
+	public static function fromTimestamp(int $timestamp, ?\DateTimeZone $timezone = null): \DateTimeImmutable
 	{
 		if (is_null($timezone)) {
 			$timezone = new \DateTimeZone(date_default_timezone_get());

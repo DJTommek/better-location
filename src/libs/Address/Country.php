@@ -16,7 +16,7 @@ class Country implements \Stringable
 	 */
 	public function __construct(
 		string $code,
-		string $displayname = null,
+		?string $displayname = null,
 	) {
 		if (!preg_match('/^[a-z]{2}$/i', $code)) {
 			throw new \InvalidArgumentException('Country code must be two characters within A-Z range.');

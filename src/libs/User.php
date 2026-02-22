@@ -37,7 +37,7 @@ class User
 		$this->userEntity = $this->userRepository->findByTelegramId($this->userEntity->telegramId);
 	}
 
-	public function setLastKnownLocation(float $lat, float $lon, \DateTimeInterface $datetime = null): void
+	public function setLastKnownLocation(float $lat, float $lon, ?\DateTimeInterface $datetime = null): void
 	{
 		$coords = new CoordinatesImmutable($lat, $lon);
 		$this->userEntity->setLastLocation($coords, $datetime);

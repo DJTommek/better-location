@@ -64,7 +64,7 @@ final class IngressTest extends TestCase
 		float $lon,
 		float|null $zoom = null,
 		string|null $meshId = null,
-		string $venueGuid = null,
+		?string $venueGuid = null,
 	): void {
 		$this->assertSame($expected, (string)Ingress::generateNianticLightshipLink(new CoordinatesImmutable($lat, $lon), $zoom, $meshId, $venueGuid));
 	}

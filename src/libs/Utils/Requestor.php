@@ -30,7 +30,7 @@ class Requestor
 	 */
 	public function get(
 		\Nette\Http\Url|\Nette\Http\UrlImmutable|string $url,
-		int $cacheTtl = null,
+		?int $cacheTtl = null,
 		bool $randommizeUserAgent = true,
 		array $headers = [],
 	): string {
@@ -89,7 +89,7 @@ class Requestor
 	 */
 	public function loadFinalRedirectUrl(
 		\Nette\Http\Url|\Nette\Http\UrlImmutable|string $url,
-		int $cacheTtl = null,
+		?int $cacheTtl = null,
 		bool $randommizeUserAgent = true,
 		array $headers = [],
 	): string {

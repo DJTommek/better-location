@@ -472,7 +472,7 @@ class TelegramHelper
 		return $text;
 	}
 
-	public static function loginUrlButton(string $text, UrlImmutable $redirectUrl = null): Telegram\Types\Inline\Keyboard\Button
+	public static function loginUrlButton(string $text, ?UrlImmutable $redirectUrl = null): Telegram\Types\Inline\Keyboard\Button
 	{
 		return new Telegram\Types\Inline\Keyboard\Button([
 			'text' => $text,

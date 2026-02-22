@@ -45,7 +45,7 @@ class SimpleLogger
 		file_put_contents($filePath, $stringToWrite . self::LINE_SEPARATOR, FILE_APPEND);
 	}
 
-	private static function getFilePath(string $logName, \DateTimeInterface $date = null): string
+	private static function getFilePath(string $logName, ?\DateTimeInterface $date = null): string
 	{
 		if (is_null($date)) {
 			$date = new \DateTimeImmutable();

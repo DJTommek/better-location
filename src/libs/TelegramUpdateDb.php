@@ -123,7 +123,7 @@ WHERE chat_id = ? AND bot_reply_message_id = ?',
 	}
 
 	/** @return self[] */
-	public static function loadAll(int $status, int $chatId = null, int $limit = null, \DateTimeInterface $olderThan = null): array
+	public static function loadAll(int $status, ?int $chatId = null, ?int $limit = null, ?\DateTimeInterface $olderThan = null): array
 	{
 		$results = [];
 		$sqlQuery = 'SELECT * FROM better_location_telegram_updates WHERE autorefresh_status = ?';
