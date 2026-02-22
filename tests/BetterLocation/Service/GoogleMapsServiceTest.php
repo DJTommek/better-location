@@ -206,9 +206,12 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 			[[[49.3066028, 14.1467086, GoogleMapsService::TYPE_STREET_VIEW]], 'https://goo.gl/maps/eUYMwABdpv9NNSDX7'],
 			[[[49.3062328, 14.1466707, GoogleMapsService::TYPE_STREET_VIEW]], 'https://goo.GL/maps/hEbUKxSuMjA2'],
 			[[[49.2702263, 14.0462163, GoogleMapsService::TYPE_PLACE]], 'https://goo.gl/maps/pPZ91TfW2edvejbb6'],
-			[[[49.296449499999994, 14.4803612, GoogleMapsService::TYPE_HIDDEN]], 'https://maps.app.goo.gl/W5wPRJ5FMJxgaisf9'],
-			[[[49.296449499999994, 14.4803612, GoogleMapsService::TYPE_HIDDEN]], 'http://maps.app.goo.gl/W5wPRJ5FMJxgaisf9'],
-			[[[49.2677196, 14.0031687, GoogleMapsService::TYPE_HIDDEN]], 'https://maps.app.goo.gl/nJqTbFow1HtofApTA'],
+
+			// Disabled, see https://github.com/DJTommek/better-location/issues/154
+			// [[[49.296449499999994, 14.4803612, GoogleMapsService::TYPE_HIDDEN]], 'https://maps.app.goo.gl/W5wPRJ5FMJxgaisf9'],
+			// [[[49.296449499999994, 14.4803612, GoogleMapsService::TYPE_HIDDEN]], 'http://maps.app.goo.gl/W5wPRJ5FMJxgaisf9'],
+			// [[[49.2677196, 14.0031687, GoogleMapsService::TYPE_HIDDEN]], 'https://maps.app.goo.gl/nJqTbFow1HtofApTA'],
+			// [[[49.7020195, 14.8939137, GoogleMapsService::TYPE_HIDDEN]], 'https://maps.app.goo.gl/iu6R2nSaADjRKg4P6'],
 		];
 	}
 
@@ -241,6 +244,8 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	 */
 	public static function processShareNormalUrlPhoneProvider(): array
 	{
+		return []; // Disabled, see https://github.com/DJTommek/better-location/issues/154
+
 		$datasets = [
 			__FUNCTION__ . ' Baumax' => [
 				[[50.056156, 14.472952, GoogleMapsService::TYPE_PLACE, '<a href="https://www.baumax.cz/">bauMax</a>']],
@@ -272,6 +277,8 @@ final class GoogleMapsServiceTest extends AbstractServiceTestCase
 	 */
 	public static function processShareShortUrlPhoneProvider(): array
 	{
+		return []; // Disabled, see https://github.com/DJTommek/better-location/issues/154
+
 		$datasets = [
 			__FUNCTION__ . ' Baumax' => [ // same as previous but short URL
 				[[50.056156, 14.472952, GoogleMapsService::TYPE_PLACE, '<a href="https://www.baumax.cz/">bauMax</a>']],

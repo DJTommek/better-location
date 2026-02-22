@@ -8,10 +8,10 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
 use App\Config;
-use App\Utils\Coordinates;
 use App\Utils\Formatter;
 use App\Utils\Requestor;
 use App\Utils\Strict;
+use DJTommek\Coordinates\CoordinatesImmutable;
 use DJTommek\Coordinates\CoordinatesInterface;
 
 /**
@@ -156,7 +156,7 @@ final class GoogleMapsService extends AbstractService
 			 * https://www.google.com/maps/place/49%C2%B050'19.5%22N+18%C2%B023'29.9%22E/@49.8387187,18.3912988,88m/data=!3m1!1e3!4m6!3m5!1s0x0:0x0!7e2!8m2!3d49.8387596!4d18.3916417?shorturl=1
 			 * In this URL is only one parameter to match. Strange...
 			 */
-			$coords = \DJTommek\Coordinates\Coordinates::safe(end($matches[2]), end($matches[3]));
+			$coords = CoordinatesImmutable::safe(end($matches[2]), end($matches[3]));
 			if ($coords !== null) {
 				$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class, self::TYPE_PLACE);
 				$title = urldecode(end($matches[1]));
@@ -167,28 +167,28 @@ final class GoogleMapsService extends AbstractService
 
 		// https://www.google.cz/maps/place/50.02261,14.525433
 		if (preg_match('/\/maps\/place\/(-?[0-9.]+),(-?[0-9.]+)/', urldecode($this->url->getPath()), $matches)) {
-			if (Coordinates::isLat($matches[1]) && Coordinates::isLon($matches[2])) {
+			if (CoordinatesImmutable::isLat($matches[1]) && CoordinatesImmutable::isLon($matches[2])) {
 				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($matches[1]), Strict::floatval($matches[2]), self::class, self::TYPE_PLACE));
 			}
 		}
 
 		if ($this->url->getQueryParameter('ll')) {
 			$coords = explode(',', $this->url->getQueryParameter('ll'));
-			if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
+			if (count($coords) === 2 && CoordinatesImmutable::isLat($coords[0]) && CoordinatesImmutable::isLon($coords[1])) {
 				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($coords[0]), Strict::floatval($coords[1]), self::class, self::TYPE_UNKNOWN));
 			}
 		}
 
 		if ($this->url->getQueryParameter('daddr')) {
 			$coords = explode(',', $this->url->getQueryParameter('daddr'));
-			if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
+			if (count($coords) === 2 && CoordinatesImmutable::isLat($coords[0]) && CoordinatesImmutable::isLon($coords[1])) {
 				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($coords[0]), Strict::floatval($coords[1]), self::class, self::TYPE_DRIVE));
 			}
 		}
 
 		if ($this->url->getQueryParameter('q')) {
 			$coords = explode(',', $this->url->getQueryParameter('q'));
-			if (count($coords) === 2 && Coordinates::isLat($coords[0]) && Coordinates::isLon($coords[1])) {
+			if (count($coords) === 2 && CoordinatesImmutable::isLat($coords[0]) && CoordinatesImmutable::isLon($coords[1])) {
 				$this->collection->add(new BetterLocation($this->inputUrl, Strict::floatval($coords[0]), Strict::floatval($coords[1]), self::class, self::TYPE_SEARCH));
 				// Warning: coordinates in URL in format "@50.00,15.00" is position of the map, not selected/shared point.
 			}
@@ -199,8 +199,8 @@ final class GoogleMapsService extends AbstractService
 		//		                         \___coordinates___/   \_street_view__/
 		if (preg_match('/@(-?[0-9.]+),(-?[0-9.]+)/', $this->url->getPath(), $matches)) {
 			if (
-				Coordinates::isLat($matches[1]) &&
-				Coordinates::isLon($matches[2]) &&
+				CoordinatesImmutable::isLat($matches[1]) &&
+				CoordinatesImmutable::isLon($matches[2]) &&
 				preg_match('/,[0-9.]+a/', $this->url->getPath()) &&
 				preg_match('/,[0-9.]+y/', $this->url->getPath()) &&
 				preg_match('/,[0-9.]+h/', $this->url->getPath()) &&
@@ -258,22 +258,32 @@ final class GoogleMapsService extends AbstractService
 		}
 
 		if ($this->collection->isEmpty() === false) {
-			return;
-		}
+			$coords = $this->trySourceCodeSearch($content);
 
-		// search for coordinates hidden in page in some of brutal multi-array
-		if (preg_match('/",null,\[null,null,(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)]/', $content, $matches)) {
-			// Example: ',"",null,[null,null,50.0641584,14.468139599999999]';
-			$coords = Coordinates::safe($matches[1], $matches[2]);
-		} else if (preg_match('/window\.APP_INITIALIZATION_STATE=\[\[\[[0-9.+]+,([-0-9.+]+),([-0-9.+]+)],\[/', $content, $matches)) {
-			// example: '...wvRvJsOMw"]];window.APP_INITIALIZATION_STATE=[[[2564.4475005591294,14.569239800000005,50.002965700000004],[0,0,0],[1024,768],13.1],[[["m...'
-			$coords = Coordinates::safe($matches[2], $matches[1]);
-		}
-
-		if ($coords) {
+			// @TODO disabled for too many bad locations, see https://github.com/DJTommek/better-location/issues/154
+			return; // @phpstan-ignore-next-line
 			$location = new BetterLocation($this->inputUrl, $coords->getLat(), $coords->getLon(), self::class, self::TYPE_HIDDEN);
 			$location->setPrefixTextInLink('', true, false);
 			$this->collection->add($location);
 		}
+	}
+
+	/**
+	 * Search in the source code for coordinates.
+	 */
+	private function trySourceCodeSearch(string $content): ?CoordinatesInterface
+	{
+		// search for coordinates hidden in page in some of brutal multi-array
+		if (preg_match('/",null,\[null,null,(-?[0-9]{1,3}\.[0-9]+),(-?[0-9]{1,3}\.[0-9]+)]/', $content, $matches)) {
+			// Example: ',"",null,[null,null,50.0641584,14.468139599999999]';
+			return CoordinatesImmutable::safe($matches[1], $matches[2]);
+		}
+
+		if (preg_match('/window\.APP_INITIALIZATION_STATE=\[\[\[[0-9.+]+,([-0-9.+]+),([-0-9.+]+)],\[/', $content, $matches)) {
+			// example: '...wvRvJsOMw"]];window.APP_INITIALIZATION_STATE=[[[2564.4475005591294,14.569239800000005,50.002965700000004],[0,0,0],[1024,768],13.1],[[["m...'
+			return CoordinatesImmutable::safe($matches[2], $matches[1]);
+		}
+
+		return null;
 	}
 }
