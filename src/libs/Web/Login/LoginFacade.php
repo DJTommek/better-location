@@ -10,7 +10,7 @@ use Nette\Http\UrlImmutable;
 
 class LoginFacade
 {
-	private const COOKIE_NAME = Config::WEB_COOKIES_PREFIX . 'login';
+	private const string COOKIE_NAME = Config::WEB_COOKIES_PREFIX . 'login';
 
 	private bool $isLogged = false;
 	private ?WebLoginEntity $entity = null;

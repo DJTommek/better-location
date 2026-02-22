@@ -9,8 +9,8 @@ use DJTommek\Coordinates\Coordinates;
 
 final class GoogleEarthService extends AbstractService
 {
-	const ID = 50;
-	const NAME = 'Google Earth';
+	const int ID = 50;
+	const string NAME = 'Google Earth';
 
 	/**
 	 * https://earth.google.com/web/@50.087451,14.420671,0a,100000.00d,0y,0h,0t,0r
@@ -19,7 +19,7 @@ final class GoogleEarthService extends AbstractService
 	 *
 	 * * Note 1: Distance from Earth in meters (zoom level)
 	 */
-	const LINK = 'https://earth.google.com/web/@%1$F,%2$F,0a,100000.00d,35y,0h,0t,0r';
+	const string LINK = 'https://earth.google.com/web/@%1$F,%2$F,0a,100000.00d,35y,0h,0t,0r';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

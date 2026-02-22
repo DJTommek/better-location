@@ -14,13 +14,13 @@ use Nette\Utils\Json;
 
 final class BaladIrService extends AbstractService
 {
-	public const ID = 46;
-	public const NAME = 'Balad.ir';
-	public const LINK = 'https://balad.ir/';
+	public const int ID = 46;
+	public const string NAME = 'Balad.ir';
+	public const string LINK = 'https://balad.ir/';
 
-	public const TYPE_MAP_CENTER = 'Map center';
-	public const TYPE_PLACE_COORDS = 'Place coords';
-	public const TYPE_PLACE = 'Place';
+	public const string TYPE_MAP_CENTER = 'Map center';
+	public const string TYPE_PLACE_COORDS = 'Place coords';
+	public const string TYPE_PLACE = 'Place';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

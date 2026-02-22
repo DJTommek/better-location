@@ -11,16 +11,16 @@ use DJTommek\Coordinates\Coordinates;
 
 final class OpenStreetMapService extends AbstractService
 {
-	const ID = 7;
-	const NAME = 'OpenStreetMap';
-	const NAME_SHORT = 'OSM';
+	const int ID = 7;
+	const string NAME = 'OpenStreetMap';
+	const string NAME_SHORT = 'OSM';
 
-	const LINK = 'https://www.openstreetmap.org';
-	const API_LINK = 'https://api.openstreetmap.org/api/';
+	const string LINK = 'https://www.openstreetmap.org';
+	const string API_LINK = 'https://api.openstreetmap.org/api/';
 
-	const TYPE_MAP = 'Map';
-	const TYPE_POINT = 'Point';
-	const TYPE_NOTE = 'Note';
+	const string TYPE_MAP = 'Map';
+	const string TYPE_POINT = 'Point';
+	const string TYPE_NOTE = 'Note';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

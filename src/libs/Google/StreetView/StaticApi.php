@@ -9,7 +9,7 @@ class StaticApi
 {
 	use RunGoogleApiRequestTrait;
 
-	private const METADATA_URL = 'https://maps.googleapis.com/maps/api/streetview/metadata';
+	private const string METADATA_URL = 'https://maps.googleapis.com/maps/api/streetview/metadata';
 
 	/**
 	 * @param ?string $location Can be either a text string (such as Chagrin Falls, OH) or a comma-separated pair of latitude/longitude coordinates (40.457375,-80.009353).

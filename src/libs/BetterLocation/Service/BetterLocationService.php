@@ -12,12 +12,12 @@ use App\Utils\Coordinates;
 
 final class BetterLocationService extends AbstractService implements ShareCollectionLinkInterface
 {
-	const ID = 1;
-	const NAME = 'BetterLocation';
+	const int ID = 1;
+	const string NAME = 'BetterLocation';
 
-	const LINK = 'https://better-location.palider.cz';
+	const string LINK = 'https://better-location.palider.cz';
 
-	const URL_PATH_REGEX = '/^\/(-?[0-9.]+),(-?[0-9.]+)$/';
+	const string URL_PATH_REGEX = '/^\/(-?[0-9.]+),(-?[0-9.]+)$/';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

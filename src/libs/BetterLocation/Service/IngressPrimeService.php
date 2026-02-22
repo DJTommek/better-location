@@ -13,11 +13,11 @@ use Nette\Http\UrlImmutable;
  */
 final class IngressPrimeService extends AbstractService
 {
-	const ID = 40;
-	const NAME = 'Ingress Prime';
+	const int ID = 40;
+	const string NAME = 'Ingress Prime';
 
-	const TYPE_PORTAL = 'portal';
-	const TYPE_MISSION = 'mission';
+	const string TYPE_PORTAL = 'portal';
+	const string TYPE_MISSION = 'mission';
 
 	public function __construct(
 		private readonly \App\IngressLanchedRu\Client $ingressClient,

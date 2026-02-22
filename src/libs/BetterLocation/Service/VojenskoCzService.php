@@ -8,10 +8,10 @@ use App\Utils\Requestor;
 
 final class VojenskoCzService extends AbstractService
 {
-	const ID = 35;
-	const NAME = 'Vojensko.cz';
+	const int ID = 35;
+	const string NAME = 'Vojensko.cz';
 
-	const LINK = 'http://www.vojensko.cz';
+	const string LINK = 'http://www.vojensko.cz';
 
 	public function __construct(
 		private readonly Requestor $requestor,

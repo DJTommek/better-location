@@ -10,10 +10,10 @@ use Nette\Utils\Arrays;
 
 final class OsmAndService extends AbstractService
 {
-	const ID = 15;
-	const NAME = 'OsmAnd';
+	const int ID = 15;
+	const string NAME = 'OsmAnd';
 
-	const LINK = 'https://osmand.net';
+	const string LINK = 'https://osmand.net';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,
@@ -21,9 +21,9 @@ final class OsmAndService extends AbstractService
 		ServicesManager::TAG_GENERATE_LINK_DRIVE,
 	];
 
-	const TYPE_GO = 'Go';
-	const TYPE_PIN = 'Pin';
-	const TYPE_MAP_CENTER = 'Map center';
+	const string TYPE_GO = 'Go';
+	const string TYPE_PIN = 'Pin';
+	const string TYPE_MAP_CENTER = 'Map center';
 
 	public static function getConstants(): array
 	{

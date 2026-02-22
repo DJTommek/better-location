@@ -9,9 +9,9 @@ class Database
 	public const PDO_CODE_INTEGRITY_CONSTRAINT_VIOLATION = '23000';
 
 	/** @var string Randomly occuring error on WEDOS webhosting */
-	private const PDO_REPREPARED_ERROR = 'SQLSTATE[HY000]: General error: 1615 Prepared statement needs to be re-prepared';
+	private const string PDO_REPREPARED_ERROR = 'SQLSTATE[HY000]: General error: 1615 Prepared statement needs to be re-prepared';
 
-	private const CONNECTION_MAX_TRIES = 3;
+	private const int CONNECTION_MAX_TRIES = 3;
 
 	/**
 	 * Lazy access - do not use directly, use getLink() instead.

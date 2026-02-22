@@ -12,7 +12,7 @@ class Client
 	const LINK_CACHE_API = self::LINK . '/api/proxy/web/search/geocachepreview/';
 	const LINK_SHARE = 'https://coord.info';
 
-	private const LOGIN_COOKIE_NAME = 'gspkauth';
+	private const string LOGIN_COOKIE_NAME = 'gspkauth';
 
 	public function __construct(
 		private readonly Requestor $requestor,

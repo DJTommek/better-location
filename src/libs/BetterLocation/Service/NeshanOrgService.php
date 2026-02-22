@@ -9,12 +9,12 @@ use App\Utils\Coordinates;
 
 final class NeshanOrgService extends AbstractService
 {
-	public const ID = 44;
-	public const NAME = 'Neshan.org';
-	public const LINK = 'https://neshan.org/maps';
+	public const int ID = 44;
+	public const string NAME = 'Neshan.org';
+	public const string LINK = 'https://neshan.org/maps';
 
-	public const TYPE_MAP = 'Map center';
-	public const TYPE_PLACE_ID = 'Place';
+	public const string TYPE_MAP = 'Map center';
+	public const string TYPE_PLACE_ID = 'Place';
 
 	public function validate(): bool
 	{

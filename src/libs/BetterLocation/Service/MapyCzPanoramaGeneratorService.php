@@ -9,10 +9,10 @@ use Nette\Http\Url;
 
 final class MapyCzPanoramaGeneratorService extends AbstractService
 {
-	const ID = 42;
-	const NAME = 'Mapy.cz Panorama';
-	const NAME_SHORT = 'Panorama';
-	const LINK = 'https://mapy.cz';
+	const int ID = 42;
+	const string NAME = 'Mapy.cz Panorama';
+	const string NAME_SHORT = 'Panorama';
+	const string LINK = 'https://mapy.cz';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_ONLINE,

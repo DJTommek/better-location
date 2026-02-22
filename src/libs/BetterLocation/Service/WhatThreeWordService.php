@@ -11,9 +11,9 @@ use App\WhatThreeWord;
 
 final class WhatThreeWordService extends AbstractService
 {
-	const ID = 30;
-	const NAME = 'What3Words';
-	const NAME_SHORT = 'W3W';
+	const int ID = 30;
+	const string NAME = 'What3Words';
+	const string NAME_SHORT = 'W3W';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_ONLINE,
@@ -23,8 +23,8 @@ final class WhatThreeWordService extends AbstractService
 		ServicesManager::TAG_GENERATE_TEXT_ONLINE,
 	];
 
-	const LINK = 'https://what3words.com/';
-	const LINK_SHORT = 'https://w3w.co/';
+	const string LINK = 'https://what3words.com/';
+	const string LINK_SHORT = 'https://w3w.co/';
 
 	public function __construct(
 		private readonly ?WhatThreeWord\Helper $w3wHelper = null,

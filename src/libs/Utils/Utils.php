@@ -7,7 +7,7 @@ namespace App\Utils;
  */
 class Utils
 {
-	private const EMOJI_COUNTRY_CODE_OFFSET = 127397;
+	private const int EMOJI_COUNTRY_CODE_OFFSET = 127397;
 
 	/**
 	 * Format seconds into human readable format

@@ -26,7 +26,7 @@ use unreal4u\TelegramAPI\Telegram\Types\BotCommandScope;
 
 class AdminPresenter extends MainPresenter
 {
-	private const MAX_LOG_LINES = 10;
+	private const int MAX_LOG_LINES = 10;
 
 	private TesterResult $testerResult;
 

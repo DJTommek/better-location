@@ -10,10 +10,10 @@ use DJTommek\Coordinates\Coordinates;
 
 final class HradyCzService extends AbstractService
 {
-	const ID = 34;
-	const NAME = 'Hrady.cz';
+	const int ID = 34;
+	const string NAME = 'Hrady.cz';
 
-	const LINK = 'https://www.hrady.cz';
+	const string LINK = 'https://www.hrady.cz';
 
 	public function __construct(
 		private readonly Requestor $requestor,

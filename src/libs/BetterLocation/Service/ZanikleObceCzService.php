@@ -14,10 +14,10 @@ use Tracy\ILogger;
 
 final class ZanikleObceCzService extends AbstractService
 {
-	const ID = 31;
-	const NAME = 'ZanikleObce.cz';
+	const int ID = 31;
+	const string NAME = 'ZanikleObce.cz';
 
-	const LINK = 'http://zanikleobce.cz';
+	const string LINK = 'http://zanikleobce.cz';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

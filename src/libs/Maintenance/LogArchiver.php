@@ -13,9 +13,9 @@ use unreal4u\TelegramAPI\Telegram;
  */
 class LogArchiver
 {
-	private const ARCHIVE_FILE_FORMAT = 'U_' . Config::DATETIME_FILE_FORMAT;
-	private const DIR_TO_SAVE_ARCHIVE = Config::FOLDER_DATA . '/archived-logs';
-	private const WHITELISTED_EXTENSIONS = [
+	private const string ARCHIVE_FILE_FORMAT = 'U_' . Config::DATETIME_FILE_FORMAT;
+	private const string DIR_TO_SAVE_ARCHIVE = Config::FOLDER_DATA . '/archived-logs';
+	private const array WHITELISTED_EXTENSIONS = [
 		'jsonl',
 		'html',
 		'log',

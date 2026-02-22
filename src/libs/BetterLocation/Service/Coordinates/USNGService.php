@@ -12,8 +12,8 @@ final class USNGService extends AbstractService
 {
 	const TAGS = [];
 
-	const ID = 13;
-	const NAME = 'USNG';
+	const int ID = 13;
+	const string NAME = 'USNG';
 
 	public static function findInText(string $text): BetterLocationCollection
 	{

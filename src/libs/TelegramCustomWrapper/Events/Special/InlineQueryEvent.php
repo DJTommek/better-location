@@ -36,7 +36,7 @@ class InlineQueryEvent extends Special
 	 *
 	 * @var int in seconds
 	 */
-	private const LIVE_LOCATION_THRESHOLD = 600;
+	private const int LIVE_LOCATION_THRESHOLD = 600;
 
 	private BetterLocationCollection $collection;
 

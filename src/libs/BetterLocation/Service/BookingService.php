@@ -16,10 +16,10 @@ use Tracy\Debugger;
 
 final class BookingService extends AbstractService
 {
-	const ID = 52;
-	const NAME = 'Booking';
+	const int ID = 52;
+	const string NAME = 'Booking';
 
-	const LINK = 'https://booking.com/';
+	const string LINK = 'https://booking.com/';
 
 	public function __construct(
 		private readonly Requestor $requestor,

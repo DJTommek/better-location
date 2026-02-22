@@ -15,14 +15,14 @@ use Nette\Http\Url;
 
 final class VetsCzService extends AbstractService
 {
-	const ID = 59;
-	const NAME = 'vets.cz';
+	const int ID = 59;
+	const string NAME = 'vets.cz';
 
-	const LINK = 'https://' . self::HOST;
-	const HOST = 'www.vets.cz';
+	const string LINK = 'https://' . self::HOST;
+	const string HOST = 'www.vets.cz';
 
-	const TYPE_MAP = 'map';
-	const TYPE_PLACE = 'place';
+	const string TYPE_MAP = 'map';
+	const string TYPE_PLACE = 'place';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

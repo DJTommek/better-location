@@ -6,12 +6,12 @@ use App\BetterLocation\ServicesManager;
 
 final class SygicService extends AbstractService
 {
-	const ID = 4;
-	const NAME = 'Sygic';
+	const int ID = 4;
+	const string NAME = 'Sygic';
 
-	const LINK = 'https://sygic.com';
-	const DRIVE_LINK = 'https://go.sygic.com';
-	const SHARE_LINK = 'https://maps.sygic.com';
+	const string LINK = 'https://sygic.com';
+	const string DRIVE_LINK = 'https://go.sygic.com';
+	const string SHARE_LINK = 'https://maps.sygic.com';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

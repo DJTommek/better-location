@@ -10,10 +10,10 @@ use DJTommek\Coordinates\CoordinatesImmutable;
 
 final class ZniceneKostelyCzService extends AbstractService
 {
-	const ID = 53;
-	const NAME = 'ZniceneKostely.cz';
+	const int ID = 53;
+	const string NAME = 'ZniceneKostely.cz';
 
-	const LINK = 'http://znicenekostely.cz';
+	const string LINK = 'http://znicenekostely.cz';
 
 	private int $objectId;
 

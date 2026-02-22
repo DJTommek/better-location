@@ -8,12 +8,12 @@ use DJTommek\MapyCzApi\MapyCzApi;
 
 final class FirmyCzService extends AbstractService
 {
-	const ID = 25;
-	const NAME = 'Firmy.cz';
+	const int ID = 25;
+	const string NAME = 'Firmy.cz';
 
-	const LINK = 'https://firmy.cz';
+	const string LINK = 'https://firmy.cz';
 
-	const URL_PATH_REGEX = '/^\/detail\/([0-9]+)/';
+	const string URL_PATH_REGEX = '/^\/detail\/([0-9]+)/';
 
 	public function validate(): bool
 	{

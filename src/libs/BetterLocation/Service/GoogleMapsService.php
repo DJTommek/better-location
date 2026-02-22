@@ -22,20 +22,20 @@ use DJTommek\Coordinates\CoordinatesInterface;
  */
 final class GoogleMapsService extends AbstractService
 {
-	const ID = 2;
-	const NAME = 'Google';
+	const int ID = 2;
+	const string NAME = 'Google';
 
-	const LINK = 'https://www.google.com/maps/place/%1$F,%2$F?q=%1$F,%2$F';
-	const LINK_DRIVE = 'https://www.google.com/maps/dir/?api=1&destination=%1$F%%2C%2$F&travelmode=driving&dir_action=navigate';
+	const string LINK = 'https://www.google.com/maps/place/%1$F,%2$F?q=%1$F,%2$F';
+	const string LINK_DRIVE = 'https://www.google.com/maps/dir/?api=1&destination=%1$F%%2C%2$F&travelmode=driving&dir_action=navigate';
 
-	const TYPE_UNKNOWN = 'unknown';
-	const TYPE_MAP = 'Map center';
-	const TYPE_PLACE = 'Place';
-	const TYPE_STREET_VIEW = 'Street view';
-	const TYPE_SEARCH = 'search';
-	const TYPE_INLINE_SEARCH = 'inline search';
-	const TYPE_HIDDEN = 'hidden';
-	const TYPE_DRIVE = 'drive';
+	const string TYPE_UNKNOWN = 'unknown';
+	const string TYPE_MAP = 'Map center';
+	const string TYPE_PLACE = 'Place';
+	const string TYPE_STREET_VIEW = 'Street view';
+	const string TYPE_SEARCH = 'search';
+	const string TYPE_INLINE_SEARCH = 'inline search';
+	const string TYPE_HIDDEN = 'hidden';
+	const string TYPE_DRIVE = 'drive';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

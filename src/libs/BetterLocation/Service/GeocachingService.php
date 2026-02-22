@@ -21,35 +21,35 @@ use Tracy\ILogger;
 
 final class GeocachingService extends AbstractService
 {
-	const ID = 26;
-	const NAME = 'Geocaching';
+	const int ID = 26;
+	const string NAME = 'Geocaching';
 
-	const LINK = Client::LINK;
-	const LINK_SHARE = Client::LINK_SHARE;
+	const string LINK = Client::LINK;
+	const string LINK_SHARE = Client::LINK_SHARE;
 
-	const CACHE_REGEX = 'GC[A-Z0-9]{1,5}'; // keep limit as low as possible to best match and eliminate false positive
-	const LOG_REGEX = 'GL[A-Z0-9]{1,7}'; // keep limit as low as possible to best match and eliminate false positive
+	const string CACHE_REGEX = 'GC[A-Z0-9]{1,5}'; // keep limit as low as possible to best match and eliminate false positive
+	const string LOG_REGEX = 'GL[A-Z0-9]{1,7}'; // keep limit as low as possible to best match and eliminate false positive
 
-	const CACHE_IN_TEXT_REGEX = '/(?:^|\W)(' . self::CACHE_REGEX . ')(?=(?:$|\W))/ims';
-
-	/**
-	 * https://www.geocaching.com/geocache/GC3DYC4_find-the-bug
-	 * https://www.geocaching.com/geocache/GC3DYC4
-	 * https://www.geocaching.com/geocache/GC3DYC4_find-the-bug?guid=df11c170-1af3-4ee1-853a-e97c1afe0722
-	 */
-	const URL_PATH_GEOCACHE_REGEX = '/^\/geocache\/(' . self::CACHE_REGEX . ')($|_)/i'; // end or character "_"
+	const string CACHE_IN_TEXT_REGEX = '/(?:^|\W)(' . self::CACHE_REGEX . ')(?=(?:$|\W))/ims';
 
 	/**
 	 * https://www.geocaching.com/geocache/GC3DYC4_find-the-bug
 	 * https://www.geocaching.com/geocache/GC3DYC4
 	 * https://www.geocaching.com/geocache/GC3DYC4_find-the-bug?guid=df11c170-1af3-4ee1-853a-e97c1afe0722
 	 */
-	const URL_PATH_MAP_GEOCACHE_REGEX = '/^\/play\/map\/(' . self::CACHE_REGEX . ')$/i';
+	const string URL_PATH_GEOCACHE_REGEX = '/^\/geocache\/(' . self::CACHE_REGEX . ')($|_)/i'; // end or character "_"
 
-	const TYPE_CACHE = 'cache';
-	const TYPE_MAP_BROWSE = 'browse map';
-	const TYPE_MAP_SEARCH = 'search map';
-	const TYPE_MAP_COORD = 'coord map';
+	/**
+	 * https://www.geocaching.com/geocache/GC3DYC4_find-the-bug
+	 * https://www.geocaching.com/geocache/GC3DYC4
+	 * https://www.geocaching.com/geocache/GC3DYC4_find-the-bug?guid=df11c170-1af3-4ee1-853a-e97c1afe0722
+	 */
+	const string URL_PATH_MAP_GEOCACHE_REGEX = '/^\/play\/map\/(' . self::CACHE_REGEX . ')$/i';
+
+	const string TYPE_CACHE = 'cache';
+	const string TYPE_MAP_BROWSE = 'browse map';
+	const string TYPE_MAP_SEARCH = 'search map';
+	const string TYPE_MAP_COORD = 'coord map';
 
 	public function __construct(
 		private readonly Requestor $requestor,

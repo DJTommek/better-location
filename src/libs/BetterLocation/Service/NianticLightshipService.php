@@ -11,11 +11,11 @@ use DJTommek\Coordinates\CoordinatesInterface;
 
 final class NianticLightshipService extends AbstractService
 {
-	const ID = 62;
-	const NAME = 'Lightship';
+	const int ID = 62;
+	const string NAME = 'Lightship';
 
-	const TYPE_MAP_CENTER = 'map center';
-	const TYPE_VENUE = 'venue';
+	const string TYPE_MAP_CENTER = 'map center';
+	const string TYPE_VENUE = 'venue';
 
 	private CoordinatesInterface|null $mapCenterCoords = null;
 	private string|null $venueGuid = null;

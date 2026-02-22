@@ -6,8 +6,8 @@ use App\Utils\Coordinates;
 
 final class WGS84DegreesMinutesSecondsService extends WGS84AbstractService
 {
-	const ID = 12;
-	const NAME = 'WGS84 DMS';
+	const int ID = 12;
+	const string NAME = 'WGS84 DMS';
 
 	public function process(): void
 	{

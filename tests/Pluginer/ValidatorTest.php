@@ -7,9 +7,9 @@ use PHPUnit\Framework\TestCase;
 
 final class ValidatorTest extends TestCase
 {
-	private const FIXTURES_PATH = __DIR__ . '/fixtures';
-	private const FIXTURES_VALID_PATH = self::FIXTURES_PATH . '/valid';
-	private const FIXTURES_INVALID_PATH = self::FIXTURES_PATH . '/invalid';
+	private const string FIXTURES_PATH = __DIR__ . '/fixtures';
+	private const string FIXTURES_VALID_PATH = self::FIXTURES_PATH . '/valid';
+	private const string FIXTURES_INVALID_PATH = self::FIXTURES_PATH . '/invalid';
 
 	/**
 	 * @dataProvider validJsonProvider

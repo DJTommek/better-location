@@ -13,10 +13,10 @@ use Nette\Http\Url;
 
 final class Park4NightService extends AbstractService
 {
-	const ID = 54;
-	const NAME = 'park4night';
+	const int ID = 54;
+	const string NAME = 'park4night';
 
-	const LINK = 'https://park4night.com';
+	const string LINK = 'https://park4night.com';
 
 	public function __construct(
 		private readonly Requestor $requestor,

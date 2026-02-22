@@ -13,8 +13,8 @@ use Tracy\ILogger;
 
 final class UTMService extends AbstractService
 {
-	const ID = 56;
-	const NAME = 'UTM';
+	const int ID = 56;
+	const string NAME = 'UTM';
 
 	private UTM $utm;
 

@@ -16,9 +16,9 @@ class GooglePlaceApi
 {
 	use RunGoogleApiRequestTrait;
 
-	private const TEXT_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
-	private const PLACE_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json';
-	private const PLACE_DETAILS_URL = 'https://maps.googleapis.com/maps/api/place/details/json';
+	private const string TEXT_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
+	private const string PLACE_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json';
+	private const string PLACE_DETAILS_URL = 'https://maps.googleapis.com/maps/api/place/details/json';
 
 	// https://developers.google.com/maps/documentation/places/web-service/details#Place-business_status
 	public const BUSINESS_STATUS_OPERATIONAL = 'OPERATIONAL';

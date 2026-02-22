@@ -14,10 +14,10 @@ use Tracy\Debugger;
 
 final class FevGamesService extends AbstractService
 {
-	const ID = 24;
-	const NAME = 'FevGames';
+	const int ID = 24;
+	const string NAME = 'FevGames';
 
-	const LINK = 'https://fevgames.net';
+	const string LINK = 'https://fevgames.net';
 
 	public function __construct(
 		private readonly \App\IngressLanchedRu\Client $ingressClient,

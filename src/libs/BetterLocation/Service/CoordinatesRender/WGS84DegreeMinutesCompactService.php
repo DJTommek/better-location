@@ -6,8 +6,8 @@ use App\Utils\Coordinates;
 
 final class WGS84DegreeMinutesCompactService extends AbstractService
 {
-	const ID = 37;
-	const NAME = 'WGS84 DM Compact';
+	const int ID = 37;
+	const string NAME = 'WGS84 DM Compact';
 
 	public static function getShareText(float $lat, float $lon): ?string
 	{

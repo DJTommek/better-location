@@ -11,17 +11,17 @@ use App\Foursquare\Types\VenueType;
 
 final class FoursquareService extends AbstractService
 {
-	const ID = 22;
-	const NAME = 'Foursquare';
+	const int ID = 22;
+	const string NAME = 'Foursquare';
 
-	const LINK = Client::LINK;
+	const string LINK = Client::LINK;
 
-	const VENUE_ID_REGEX = '[a-f0-9]{24}';
+	const string VENUE_ID_REGEX = '[a-f0-9]{24}';
 
 	/**
 	 * https://foursquare.com/v/typika/5bfe5f9e54b7a90025543a66
 	 */
-	const URL_PATH_VENUE_REGEX = '/^\/v\/[^\/]+\/(' . self::VENUE_ID_REGEX . ')$/i';
+	const string URL_PATH_VENUE_REGEX = '/^\/v\/[^\/]+\/(' . self::VENUE_ID_REGEX . ')$/i';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

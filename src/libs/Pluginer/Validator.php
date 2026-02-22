@@ -7,7 +7,7 @@ use unreal4u\TelegramAPI\Telegram;
 
 class Validator
 {
-	private const SCHEMA_PATH = __DIR__ . '/request.schema.json';
+	private const string SCHEMA_PATH = __DIR__ . '/request.schema.json';
 
 	private ?\stdClass $schema = null;
 	private readonly \JsonSchema\Validator $validator;

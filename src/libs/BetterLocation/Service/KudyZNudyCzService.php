@@ -10,13 +10,13 @@ use DJTommek\Coordinates\Coordinates;
 
 final class KudyZNudyCzService extends AbstractService
 {
-	const ID = 48;
-	const NAME = 'kudyznudy.cz';
+	const int ID = 48;
+	const string NAME = 'kudyznudy.cz';
 
-	const LINK = 'https://kudyznudy.cz';
+	const string LINK = 'https://kudyznudy.cz';
 
-	const TYPE_ACTIVITY = 'activity';
-	const TYPE_EVENT = 'event';
+	const string TYPE_ACTIVITY = 'activity';
+	const string TYPE_EVENT = 'event';
 
 	public function __construct(
 		private readonly Requestor $requestor,

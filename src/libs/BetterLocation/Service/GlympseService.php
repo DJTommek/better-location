@@ -16,14 +16,14 @@ use Tracy\ILogger;
 
 final class GlympseService extends AbstractService
 {
-	const ID = 27;
-	const NAME = 'Glympse';
+	const int ID = 27;
+	const string NAME = 'Glympse';
 
-	const LINK = 'https://glympse.com';
+	const string LINK = 'https://glympse.com';
 
-	const TYPE_GROUP = 'group';
-	const TYPE_INVITE = 'invite';
-	const TYPE_DESTINATION = 'destination';
+	const string TYPE_GROUP = 'group';
+	const string TYPE_INVITE = 'invite';
+	const string TYPE_DESTINATION = 'destination';
 
 	/**
 	 * Lazyload. Do not use this variable directly, use `$this->getGlympseApi()` instead
@@ -44,8 +44,8 @@ final class GlympseService extends AbstractService
 		];
 	}
 
-	const PATH_INVITE_ID_REGEX = '/^\/([0-9a-z]+-[0-9a-z]+)$/i';
-	const PATH_GROUP_REGEX = '/^\/!(.+)$/i';
+	const string PATH_INVITE_ID_REGEX = '/^\/([0-9a-z]+-[0-9a-z]+)$/i';
+	const string PATH_GROUP_REGEX = '/^\/!(.+)$/i';
 
 	public function validate(): bool
 	{

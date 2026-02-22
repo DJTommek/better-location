@@ -13,8 +13,8 @@ use DJTommek\Coordinates\CoordinatesImmutable;
  */
 class MaidenheadLocator implements \DJTommek\Coordinates\CoordinatesInterface
 {
-	private const CHARACTERS_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWX';
-	private const DIVIDERS = [10, 1, 1 / 24, 1 / 240, 1 / 240 / 24];
+	private const string CHARACTERS_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWX';
+	private const array DIVIDERS = [10, 1, 1 / 24, 1 / 240, 1 / 240 / 24];
 
 	private string $code;
 	private CoordinatesImmutable $coordinates;

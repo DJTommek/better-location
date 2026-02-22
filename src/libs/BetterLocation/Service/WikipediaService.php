@@ -10,10 +10,10 @@ use Nette\Utils\Json;
 
 final class WikipediaService extends AbstractService
 {
-	const ID = 20;
-	const NAME = 'Wikipedia';
+	const int ID = 20;
+	const string NAME = 'Wikipedia';
 
-	const LINK = 'https://wikipedia.org';
+	const string LINK = 'https://wikipedia.org';
 
 	public function __construct(
 		private readonly Requestor $requestor,

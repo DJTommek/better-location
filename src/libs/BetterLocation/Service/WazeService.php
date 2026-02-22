@@ -11,10 +11,10 @@ use App\Utils\Strict;
 
 final class WazeService extends AbstractService
 {
-	const ID = 3;
-	const NAME = 'Waze';
+	const int ID = 3;
+	const string NAME = 'Waze';
 
-	const LINK = 'https://www.waze.com';
+	const string LINK = 'https://www.waze.com';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

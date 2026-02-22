@@ -10,13 +10,13 @@ use App\Utils\Strict;
 
 final class VodniMlynyCzService extends AbstractService
 {
-	public const ID = 32;
-	public const NAME = 'vodnimlyny.cz';
-	public const LINK = 'http://vodnimlyny.cz';
+	public const int ID = 32;
+	public const string NAME = 'vodnimlyny.cz';
+	public const string LINK = 'http://vodnimlyny.cz';
 	/**
 	 * Database of all available estates on website
 	 */
-	private const ESTATE_LIST_URL = 'https://www.vodnimlyny.cz/en/mlyny/estates/map/?do=getEstates';
+	private const string ESTATE_LIST_URL = 'https://www.vodnimlyny.cz/en/mlyny/estates/map/?do=getEstates';
 
 	public function __construct(
 		private readonly Requestor $requestor,

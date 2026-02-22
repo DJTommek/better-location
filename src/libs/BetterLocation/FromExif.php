@@ -19,7 +19,7 @@ class FromExif
 	/**
 	 * What is the limit if location is still considered accurate in meters.
 	 */
-	private const PRECISION_THRESHOLD = 50;
+	private const int PRECISION_THRESHOLD = 50;
 
 	/**
 	 * @var Input

@@ -9,15 +9,15 @@ use App\Utils\Utils;
 
 final class SumavaCzService extends AbstractService
 {
-	const ID = 29;
-	const NAME = 'Šumava.cz';
+	const int ID = 29;
+	const string NAME = 'Šumava.cz';
 
-	const LINK = 'http://www.sumava.cz';
+	const string LINK = 'http://www.sumava.cz';
 
-	const TYPE_ACCOMODATION = 'Accomodation';
-	const TYPE_PLACE = 'Place';
-	const TYPE_GALLERY = 'Gallery';
-	const TYPE_COMPANY = 'Company';
+	const string TYPE_ACCOMODATION = 'Accomodation';
+	const string TYPE_PLACE = 'Place';
+	const string TYPE_GALLERY = 'Gallery';
+	const string TYPE_COMPANY = 'Company';
 
 	public function __construct(
 		private readonly Requestor $requestor,

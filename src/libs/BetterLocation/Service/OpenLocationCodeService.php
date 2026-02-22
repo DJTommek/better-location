@@ -12,17 +12,17 @@ use OpenLocationCode\OpenLocationCode;
 
 final class OpenLocationCodeService extends AbstractService
 {
-	const ID = 17;
-	const NAME = 'OpenLocationCode';
-	const NAME_SHORT = 'OLC';
+	const int ID = 17;
+	const string NAME = 'OpenLocationCode';
+	const string NAME_SHORT = 'OLC';
 
-	const LINK = 'https://plus.codes/';
+	const string LINK = 'https://plus.codes/';
 
-	const DEFAULT_CODE_LENGTH = 12;
-	private const TOO_BIG_AREA_WARNING = 20;
+	const int DEFAULT_CODE_LENGTH = 12;
+	private const int TOO_BIG_AREA_WARNING = 20;
 
-	const RE = '/^([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,4})$/i';
-	const RE_IN_STRING = '/(?:^|\s)([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,4})(?:\s|$)/i';
+	const string RE = '/^([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,4})$/i';
+	const string RE_IN_STRING = '/(?:^|\s)([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,4})(?:\s|$)/i';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

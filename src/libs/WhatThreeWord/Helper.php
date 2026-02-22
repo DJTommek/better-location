@@ -9,15 +9,15 @@ use Nette\Caching\Cache;
 class Helper
 {
 	// https://developer.what3words.com/tutorial/detecting-if-text-is-in-the-format-of-a-3-word-address/
-	private const REGEX_PREFIX = '(?:\/{3})';
-	private const REGEX_WORD = '(?:\p{L}\p{M}*){1,}';
-	private const REGEX_WORD_DIVIDER = '[・.。]';
+	private const string REGEX_PREFIX = '(?:\/{3})';
+	private const string REGEX_WORD = '(?:\p{L}\p{M}*){1,}';
+	private const string REGEX_WORD_DIVIDER = '[・.。]';
 
-	private const LANG = 'en';
+	private const string LANG = 'en';
 
-	private const REGEX_WORDS = '(' . self::REGEX_WORD . self::REGEX_WORD_DIVIDER . self::REGEX_WORD . self::REGEX_WORD_DIVIDER . self::REGEX_WORD . ')';
-	private const REGEX_WORDS_PREFIX_REQUIRED = self::REGEX_PREFIX . self::REGEX_WORDS;
-	private const REGEX_WORDS_PREFIX_OPTIONAL = self::REGEX_PREFIX . '?' . self::REGEX_WORDS;
+	private const string REGEX_WORDS = '(' . self::REGEX_WORD . self::REGEX_WORD_DIVIDER . self::REGEX_WORD . self::REGEX_WORD_DIVIDER . self::REGEX_WORD . ')';
+	private const string REGEX_WORDS_PREFIX_REQUIRED = self::REGEX_PREFIX . self::REGEX_WORDS;
+	private const string REGEX_WORDS_PREFIX_OPTIONAL = self::REGEX_PREFIX . '?' . self::REGEX_WORDS;
 
 	public function __construct(
 		private readonly \What3words\Geocoder\Geocoder $apiClient,

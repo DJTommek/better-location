@@ -10,10 +10,10 @@ use Nette\Utils\Arrays;
 
 final class RopikyNetService extends AbstractService
 {
-	const ID = 28;
-	const NAME = 'Řopíky.net';
+	const int ID = 28;
+	const string NAME = 'Řopíky.net';
 
-	const LINK = 'https://ropiky.net';
+	const string LINK = 'https://ropiky.net';
 
 	public function __construct(
 		private readonly Requestor $requestor,

@@ -12,13 +12,13 @@ use Tracy\ILogger;
 
 final class IngressIntelService extends AbstractService
 {
-	const ID = 9;
-	const NAME = 'Ingress';
+	const int ID = 9;
+	const string NAME = 'Ingress';
 
-	const TYPE_MAP = 'map';
-	const TYPE_PORTAL = 'portal';
+	const string TYPE_MAP = 'map';
+	const string TYPE_PORTAL = 'portal';
 
-	const LINK = 'https://intel.ingress.com';
+	const string LINK = 'https://intel.ingress.com';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

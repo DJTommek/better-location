@@ -8,10 +8,10 @@ use App\Utils\Requestor;
 
 final class PrazdneDomyCzService extends AbstractService
 {
-	const ID = 39;
-	const NAME = 'Prazdnedomy.cz';
+	const int ID = 39;
+	const string NAME = 'Prazdnedomy.cz';
 
-	const LINK = 'https://prazdnedomy.cz';
+	const string LINK = 'https://prazdnedomy.cz';
 
 	public function __construct(
 		private readonly Requestor $requestor,

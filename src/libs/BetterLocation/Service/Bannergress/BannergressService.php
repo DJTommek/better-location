@@ -7,8 +7,8 @@ use App\BetterLocation\ServicesManager;
 
 final class BannergressService extends BannergressAbstractService
 {
-	const ID = 23;
-	const NAME = 'Bannergress';
+	const int ID = 23;
+	const string NAME = 'Bannergress';
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,
 		ServicesManager::TAG_GENERATE_LINK_SHARE,

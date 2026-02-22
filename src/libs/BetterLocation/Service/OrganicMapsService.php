@@ -13,11 +13,11 @@ use App\Utils\Ge0Code;
  */
 final class OrganicMapsService extends AbstractService
 {
-	const ID = 18;
-	const NAME = 'Organic Maps';
+	const int ID = 18;
+	const string NAME = 'Organic Maps';
 
-	const LINK = 'https://organicmaps.app';
-	const LINK_SHARE = 'https://omaps.app';
+	const string LINK = 'https://organicmaps.app';
+	const string LINK_SHARE = 'https://omaps.app';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

@@ -7,11 +7,11 @@ use App\BetterLocation\ServicesManager;
 
 final class DuckDuckGoService extends AbstractService
 {
-	const ID = 21;
-	const NAME = 'DuckDuckGo';
-	const NAME_SHORT = 'DDG';
+	const int ID = 21;
+	const string NAME = 'DuckDuckGo';
+	const string NAME_SHORT = 'DDG';
 
-	const LINK = 'https://duckduckgo.com';
+	const string LINK = 'https://duckduckgo.com';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

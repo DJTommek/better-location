@@ -4,7 +4,7 @@ namespace App\Repository;
 
 class FavouritesRepository extends Repository
 {
-	private const MAX_LENGTH = 30;
+	private const int MAX_LENGTH = 30;
 
 	/**
 	 * @param int $userId

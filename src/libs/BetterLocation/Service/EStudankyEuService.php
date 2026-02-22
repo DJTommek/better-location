@@ -9,10 +9,10 @@ use App\Utils\Utils;
 
 final class EStudankyEuService extends AbstractService
 {
-	const ID = 33;
-	const NAME = 'estudanky.eu';
+	const int ID = 33;
+	const string NAME = 'estudanky.eu';
 
-	const LINK = 'https://estudanky.eu';
+	const string LINK = 'https://estudanky.eu';
 
 	public function __construct(
 		private readonly Requestor $requestor,

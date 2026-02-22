@@ -10,10 +10,10 @@ use Nette\Http\Url;
 
 final class GoogleMapsStreetViewGeneratorService extends AbstractService
 {
-	const ID = 43;
-	const NAME = 'Google Maps Street view';
-	const NAME_SHORT = 'Street view';
-	const LINK = 'https://www.google.com/maps';
+	const int ID = 43;
+	const string NAME = 'Google Maps Street view';
+	const string NAME_SHORT = 'Street view';
+	const string LINK = 'https://www.google.com/maps';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_ONLINE,

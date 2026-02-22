@@ -10,18 +10,18 @@ use Nette\Http\UrlImmutable;
 
 final class AppleMapsService extends AbstractService
 {
-	const ID = 47;
-	const NAME = 'AppleMaps';
-	const NAME_SHORT = 'Apple';
+	const int ID = 47;
+	const string NAME = 'AppleMaps';
+	const string NAME_SHORT = 'Apple';
 
-	const LINK = 'https://maps.apple.com';
+	const string LINK = 'https://maps.apple.com';
 
-	const LINK_SHARE = 'https://maps.apple.com/?ll=%1$F,%2$F&q=%1$F,%2$F';
-	const LINK_DRIVE = 'https://maps.apple.com/?daddr=%1$F,%2$F&dirflg=d';
+	const string LINK_SHARE = 'https://maps.apple.com/?ll=%1$F,%2$F&q=%1$F,%2$F';
+	const string LINK_DRIVE = 'https://maps.apple.com/?daddr=%1$F,%2$F&dirflg=d';
 
-	const TYPE_MAP_CENTER = 'Map center';
-	const TYPE_PLACE = 'Place';
-	const TYPE_DESTINATION = 'Destination';
+	const string TYPE_MAP_CENTER = 'Map center';
+	const string TYPE_PLACE = 'Place';
+	const string TYPE_DESTINATION = 'Destination';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

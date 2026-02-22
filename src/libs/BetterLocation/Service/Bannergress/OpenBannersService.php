@@ -4,8 +4,8 @@ namespace App\BetterLocation\Service\Bannergress;
 
 final class OpenBannersService extends BannergressAbstractService
 {
-	const ID = 49;
-	const NAME = 'OpenBanners';
+	const int ID = 49;
+	const string NAME = 'OpenBanners';
 	public const TAGS = [];
 
 	protected function isValidDomain(): bool

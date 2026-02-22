@@ -18,19 +18,19 @@ use Lvht\GeoHash;
  */
 final class GeohashService extends AbstractService
 {
-	const ID = 19;
-	const NAME = 'Geohash';
+	const int ID = 19;
+	const string NAME = 'Geohash';
 
-	const LINK = 'https://geohash.softeng.co';
+	const string LINK = 'https://geohash.softeng.co';
 
-	private const DOMAINS = [
+	private const array DOMAINS = [
 		'geohash.org',
 		'geohash.softeng.co',
 	];
 
-	const DEFAULT_PRECISION = 0.000001;  // precision to 6 decimal places in WGS84 format
-	const RE = '[0123456789bcdefghjkmnpqrstuvwxyz]';
-	const RE_IN_STRING = '/(^|\s)(' . self::RE . '{8,})(\s|$)/i';
+	const float DEFAULT_PRECISION = 0.000001;  // precision to 6 decimal places in WGS84 format
+	const string RE = '[0123456789bcdefghjkmnpqrstuvwxyz]';
+	const string RE_IN_STRING = '/(^|\s)(' . self::RE . '{8,})(\s|$)/i';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

@@ -4,8 +4,8 @@ namespace App\BetterLocation\Service\Coordinates;
 
 final class WGS84DegreesSecondsService extends WGS84AbstractService
 {
-	const ID = 55;
-	const NAME = 'WGS84 DS';
+	const int ID = 55;
+	const string NAME = 'WGS84 DS';
 	const TAGS = [];
 
 	public function process(): void

@@ -327,19 +327,19 @@ class DefaultConfig
 	/**
 	 * Internal configuration, do not change or overwrite.
 	 */
-	public final const CACHE_NAMESPACE_W3W = 'w3w';
-	public final const CACHE_NAMESPACE_GEONAMES = 'geonames';
-	public final const CACHE_NAMESPACE_NOMINATIM = 'nominatim';
-	public final const CACHE_NAMESPACE_HTTP_CLIENT = 'http-client';
+	public final const string CACHE_NAMESPACE_W3W = 'w3w';
+	public final const string CACHE_NAMESPACE_GEONAMES = 'geonames';
+	public final const string CACHE_NAMESPACE_NOMINATIM = 'nominatim';
+	public final const string CACHE_NAMESPACE_HTTP_CLIENT = 'http-client';
 
-	public final const CACHE_NAMESPACES = [
+	public final const array CACHE_NAMESPACES = [
 		self::CACHE_NAMESPACE_W3W,
 		self::CACHE_NAMESPACE_GEONAMES,
 		self::CACHE_NAMESPACE_NOMINATIM,
 		self::CACHE_NAMESPACE_HTTP_CLIENT,
 	];
 
-	public final const IGNORE_FILTER_ALLOWED_CHAT_TYPES = [
+	public final const array IGNORE_FILTER_ALLOWED_CHAT_TYPES = [
 		ChatEntity::CHAT_TYPE_GROUP,
 		ChatEntity::CHAT_TYPE_SUPERGROUP,
 	];

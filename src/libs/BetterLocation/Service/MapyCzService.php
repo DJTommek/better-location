@@ -23,20 +23,20 @@ use Tracy\Debugger;
 
 final class MapyCzService extends AbstractService implements ShareCollectionLinkInterface
 {
-	const ID = 8;
-	const NAME = 'Mapy.com';
-	const LINK = 'https://mapy.cz';
+	const int ID = 8;
+	const string NAME = 'Mapy.com';
+	const string LINK = 'https://mapy.cz';
 
-	const TYPE_MAP_V2 = 'Map center';
-	const TYPE_MAP = 'Map center';
-	const TYPE_PLACE_ID = 'Place';
-	const TYPE_PLACE_COORDS = 'Place coords';
-	const TYPE_PANORAMA = 'Panorama';
-	const TYPE_PHOTO = 'Photo';
-	const TYPE_CUSTOM_POINT = 'Custom point';
-	const TYPE_SEARCH_COORDS = 'Search coords';
+	const string TYPE_MAP_V2 = 'Map center';
+	const string TYPE_MAP = 'Map center';
+	const string TYPE_PLACE_ID = 'Place';
+	const string TYPE_PLACE_COORDS = 'Place coords';
+	const string TYPE_PANORAMA = 'Panorama';
+	const string TYPE_PHOTO = 'Photo';
+	const string TYPE_CUSTOM_POINT = 'Custom point';
+	const string TYPE_SEARCH_COORDS = 'Search coords';
 
-	private const CODE_NOT_FOUND = 404;
+	private const int CODE_NOT_FOUND = 404;
 
 	private bool $isShortUrl;
 

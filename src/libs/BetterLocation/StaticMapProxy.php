@@ -16,7 +16,7 @@ use Nette\Utils\FileSystem;
  */
 class StaticMapProxy
 {
-	private const HASH_ALGORITHM = 'fnv1a64';
+	private const string HASH_ALGORITHM = 'fnv1a64';
 
 	private readonly string $dir;
 

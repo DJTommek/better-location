@@ -12,10 +12,10 @@ namespace App\Utils;
  */
 class Ge0Code
 {
-	private const BASE64_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+	private const string BASE64_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
 
-	private const MAX_ZOOM = 19.75;
-	private const MIN_ZOOM = 4;
+	private const float MAX_ZOOM = 19.75;
+	private const int MIN_ZOOM = 4;
 
 	/**
 	 * @var int Count of characters used to save encoded coordinates in Ge0 format. Higher number, better precision

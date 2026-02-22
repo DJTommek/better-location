@@ -16,16 +16,16 @@ use Tracy\ILogger;
 
 final class WaymarkingService extends AbstractService
 {
-	const ID = 41;
-	const NAME = 'Waymarking';
+	const int ID = 41;
+	const string NAME = 'Waymarking';
 
-	const WAYMARK_REGEX = 'WM[A-Z0-9]{1,5}'; // keep limit as low as possible to best match and eliminate false positive
+	const string WAYMARK_REGEX = 'WM[A-Z0-9]{1,5}'; // keep limit as low as possible to best match and eliminate false positive
 
 	/**
 	 * https://www.waymarking.com/waymarks/wm16APD_Dane_Gregg_Boonville_MO
 	 * https://www.waymarking.com/waymarks/wm16APD
 	 */
-	const URL_PATH_WAYMARK_REGEX = '/^\/waymarks\/(' . self::WAYMARK_REGEX . ')($|_)/i'; // end or character "_"
+	const string URL_PATH_WAYMARK_REGEX = '/^\/waymarks\/(' . self::WAYMARK_REGEX . ')($|_)/i'; // end or character "_"
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

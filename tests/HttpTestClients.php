@@ -30,12 +30,12 @@ final readonly class HttpTestClients
 	/**
 	 * Some requests can contain sensitive information (credentials, login cookies), so hash must not be weak.
 	 */
-	private const REQUEST_FINGERPRINT_HASH_ALGORITHM = 'sha3-512';
+	private const string REQUEST_FINGERPRINT_HASH_ALGORITHM = 'sha3-512';
 
 	/**
 	 * HTTP request headers, that should not be used in generated path or in data file data
 	 */
-	private const REQUEST_SENSITIVE_HTTP_HEADERS = [
+	private const array REQUEST_SENSITIVE_HTTP_HEADERS = [
 		'Cookie',
 		'Authorization',
 		'User-Agent', // User agents might be randomized, ignore them for fingerprint
@@ -43,7 +43,7 @@ final readonly class HttpTestClients
 	/**
 	 * URL query parameters, that should not be used in generated path
 	 */
-	private const REQUEST_SENSITIVE_QUERY_PARAMS = ['key', 'client_id', 'client_secret'];
+	private const array REQUEST_SENSITIVE_QUERY_PARAMS = ['key', 'client_id', 'client_secret'];
 
 	/** HTTP client making real requests */
 	public ClientInterface $realHttpClient;

@@ -12,19 +12,19 @@ use Nette\Http\Url;
 
 final class HereWeGoService extends AbstractService
 {
-	const ID = 5;
-	const NAME = 'HERE WeGo';
-	const NAME_SHORT = 'HERE';
+	const int ID = 5;
+	const string NAME = 'HERE WeGo';
+	const string NAME_SHORT = 'HERE';
 
-	const LINK = 'https://wego.here.com';
-	const LINK_SHARE = 'https://share.here.com';
+	const string LINK = 'https://wego.here.com';
+	const string LINK_SHARE = 'https://share.here.com';
 
-	const RE_COORDS_IN_MAP = '/(?:[,:\/]|^)(-?[0-9]{1,2}\.[0-9]{1,})[,\/](-?[0-9]{1,3}\.[0-9]{1,})(?:[,\/]|$)/';
+	const string RE_COORDS_IN_MAP = '/(?:[,:\/]|^)(-?[0-9]{1,2}\.[0-9]{1,})[,\/](-?[0-9]{1,3}\.[0-9]{1,})(?:[,\/]|$)/';
 
-	const TYPE_MAP = 'Map center';
-	const TYPE_PLACE_COORDS = 'Place coords';
-	const TYPE_PLACE_SHARE = 'Place share';
-	const TYPE_PLACE_ORIGINAL_ID = 'Place';
+	const string TYPE_MAP = 'Map center';
+	const string TYPE_PLACE_COORDS = 'Place coords';
+	const string TYPE_PLACE_SHARE = 'Place share';
+	const string TYPE_PLACE_ORIGINAL_ID = 'Place';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

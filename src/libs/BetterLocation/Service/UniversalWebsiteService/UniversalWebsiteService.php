@@ -22,14 +22,14 @@ use Tracy\Debugger;
  */
 final class UniversalWebsiteService extends AbstractService
 {
-	const ID = 58;
-	const NAME = 'Universal website';
+	const int ID = 58;
+	const string NAME = 'Universal website';
 	public const TAGS = [];
 
-	const TYPE_SCHEMA_JSON_GEO = 'Schema JSON GEO';
-	const TYPE_EXIF = 'EXIF';
+	const string TYPE_SCHEMA_JSON_GEO = 'Schema JSON GEO';
+	const string TYPE_EXIF = 'EXIF';
 
-	private const CONTENT_TYPE_HTML = [
+	private const array CONTENT_TYPE_HTML = [
 		'text/html',
 	];
 
@@ -38,7 +38,7 @@ final class UniversalWebsiteService extends AbstractService
 	 *
 	 * @see https://www.iana.org/assignments/media-types/media-types.xhtml#image
 	 */
-	private const CONTENT_TYPE_IMAGE_EXIF = [
+	private const array CONTENT_TYPE_IMAGE_EXIF = [
 		'image/jpeg',
 		'image/png',
 		'image/tiff',

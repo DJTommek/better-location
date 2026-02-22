@@ -18,7 +18,7 @@ class FileEvent extends Special
 {
 	use UniversalHandleLocationTrait;
 
-	private const MIME_TYPE_IMAGE_JPEG = 'image/jpeg';
+	private const string MIME_TYPE_IMAGE_JPEG = 'image/jpeg';
 	private const MAX_FILE_SIZE_DOWNLOAD = 20 * 1024 * 1024; // in bytes
 
 	private bool $fileTooBig = false;

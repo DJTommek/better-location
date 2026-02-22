@@ -14,12 +14,12 @@ use Tracy\ILogger;
 
 final class DrobnePamatkyCzService extends AbstractService
 {
-	const ID = 16;
-	const NAME = 'DrobnePamatky.cz';
+	const int ID = 16;
+	const string NAME = 'DrobnePamatky.cz';
 
-	const LINK = 'https://www.drobnepamatky.cz';
+	const string LINK = 'https://www.drobnepamatky.cz';
 
-	const PATH_REGEX = '/^\/node\/[0-9]+$/';
+	const string PATH_REGEX = '/^\/node\/[0-9]+$/';
 
 	public const TAGS = [
 		ServicesManager::TAG_GENERATE_OFFLINE,

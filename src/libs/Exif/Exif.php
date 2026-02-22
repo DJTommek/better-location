@@ -13,12 +13,12 @@ class Exif implements \JsonSerializable
 	 * Also called as 'GPSHPositioningError' or 'GPS Horizontal Positioning Error' (in exiftool)
 	 * @link https://exiftool.org/TagNames/GPS.html
 	 */
-	private const TAG_GPS_HORIZONZAL_POSITIONING_ERROR = 'UndefinedTag:0x001F';
+	private const string TAG_GPS_HORIZONZAL_POSITIONING_ERROR = 'UndefinedTag:0x001F';
 
 	/**
 	 * According EXIF specification it is 'GPSProcessingMethod' but in PHP parser it is called 'GPSProcessingMode'
 	 */
-	private const TAG_GPS_PROCESSING_METHOD = 'GPSProcessingMode';
+	private const string TAG_GPS_PROCESSING_METHOD = 'GPSProcessingMode';
 
 	/**
 	 * @var ExifData

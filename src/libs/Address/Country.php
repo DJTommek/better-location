@@ -6,7 +6,7 @@ use League\ISO3166\ISO3166;
 
 class Country implements \Stringable
 {
-	private const EMOJI_COUNTRY_CODE_OFFSET = 127397;
+	private const int EMOJI_COUNTRY_CODE_OFFSET = 127397;
 
 	public readonly string $code;
 	public readonly string $displayname;

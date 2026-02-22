@@ -17,7 +17,7 @@ use unreal4u\TelegramAPI\Telegram;
  */
 class CronUserChatSyncPresenter extends MainPresenter
 {
-	private const LOG_PREFIX = '[CRON UserChat syncer] ';
+	private const string LOG_PREFIX = '[CRON UserChat syncer] ';
 
 	public function __construct(
 		private readonly Database $db,

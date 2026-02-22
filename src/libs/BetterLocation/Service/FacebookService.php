@@ -11,10 +11,10 @@ use Nette\Utils\Arrays;
 
 final class FacebookService extends AbstractService
 {
-	const ID = 6;
-	const NAME = 'Facebook';
+	const int ID = 6;
+	const string NAME = 'Facebook';
 
-	const LINK = 'https://facebook.com';
+	const string LINK = 'https://facebook.com';
 
 	public function __construct(
 		private readonly Requestor $requestor,

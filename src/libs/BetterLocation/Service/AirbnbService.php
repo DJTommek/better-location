@@ -11,10 +11,10 @@ use Nette\Utils\Json;
 
 final class AirbnbService extends AbstractService
 {
-	const ID = 51;
-	const NAME = 'Airbnb';
+	const int ID = 51;
+	const string NAME = 'Airbnb';
 
-	const LINK = 'https://www.airbnb.cz/';
+	const string LINK = 'https://www.airbnb.cz/';
 
 	public function __construct(
 		private readonly Requestor $requestor,
