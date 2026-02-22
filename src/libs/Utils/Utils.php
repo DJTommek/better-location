@@ -227,7 +227,7 @@ class Utils
 	{
 		$oldMax = max($range);
 		$oldMin = min($range);
-		array_walk($range, function (&$number) use ($oldMax, $oldMin, $newMin, $newMax) {
+		array_walk($range, function (&$number) use ($oldMax, $oldMin, $newMin, $newMax): void {
 			$number = self::recalculateRangeOne($number, $oldMin, $oldMax, $newMin, $newMax);
 		});
 		return $range;

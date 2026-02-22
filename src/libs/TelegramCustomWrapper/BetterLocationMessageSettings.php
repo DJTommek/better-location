@@ -65,7 +65,7 @@ class BetterLocationMessageSettings
 	 * @var array<int,class-string<AbstractService&ShareCollectionLinkInterface>> Ordered list of services, to show multiple locations at once
 	 * There will be always at least one item which is BetterLocationService, reserved as index 0
 	 */
-	private array $bulkLinkServices;
+	private readonly array $bulkLinkServices;
 	/**
 	 * @var array<int,class-string<AbstractService>> Ordered list of services, to show as buttons.
 	 * Might be empty

@@ -21,7 +21,7 @@ use Tracy\Debugger;
 
 class LocationsPresenter extends MainPresenter
 {
-	private BetterLocationCollection $collection;
+	private readonly BetterLocationCollection $collection;
 	/**
 	 * Multidimensional array of all structures, where is possible to generate something (share link, drive link, ...)
 	 *
@@ -29,7 +29,7 @@ class LocationsPresenter extends MainPresenter
 	 */
 	private array $services = [];
 	private string $format = 'html';
-	private string $nowFileText;
+	private readonly string $nowFileText;
 
 	public function __construct(
 		private readonly ServicesManager $servicesManager,

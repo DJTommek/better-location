@@ -10,7 +10,7 @@ class Validator
 	private const SCHEMA_PATH = __DIR__ . '/request.schema.json';
 
 	private ?\stdClass $schema = null;
-	private \JsonSchema\Validator $validator;
+	private readonly \JsonSchema\Validator $validator;
 	private bool $executed = false;
 
 	public function __construct()

@@ -21,7 +21,7 @@ class User
 		private readonly UserRepository $userRepository,
 		private readonly FavouritesRepository $favouritesRepository,
 		private UserEntity $userEntity,
-		private Chat $privateChat,
+		private readonly Chat $privateChat,
 	) {
 	}
 

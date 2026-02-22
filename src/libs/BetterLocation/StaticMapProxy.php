@@ -18,7 +18,7 @@ class StaticMapProxy
 {
 	private const HASH_ALGORITHM = 'fnv1a64';
 
-	private string $dir;
+	private readonly string $dir;
 
 	private string $privateUrl;
 	private string $cacheId;

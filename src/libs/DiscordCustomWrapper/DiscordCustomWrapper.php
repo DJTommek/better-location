@@ -103,7 +103,7 @@ readonly class DiscordCustomWrapper
 	private function refreshGuilds(): void
 	{
 		$this->discord->getLogger()->debug('Refreshing guilds...');
-		$this->discord->guilds->freshen()->then(function () {
+		$this->discord->guilds->freshen()->then(function (): void {
 			$guilds = $this->discord->guilds;
 			$this->discord->getLogger()->debug(sprintf('List of guilds refreshed, found %d guilds.', $guilds->count()));
 			foreach ($guilds as $guild) {
@@ -115,7 +115,7 @@ readonly class DiscordCustomWrapper
 					$guild->member_count,
 				));
 			}
-		}, function (\Throwable $exception) {
+		}, function (\Throwable $exception): void {
 			$this->discord->getLogger()->error(
 				sprintf('Unable to refresh guilds: "%s"', $exception->getMessage()),
 				['exception' => $exception],
