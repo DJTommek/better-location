@@ -84,8 +84,8 @@ final class FevGamesService extends AbstractService
 			self::class,
 		);
 		$location->setPrefixMessage(sprintf('<a href="%s">%s</a>', $this->inputUrl, htmlspecialchars($eventName)));
-		$this->injectPortalDataIntoEventLocation($location, $basePortalLocation, 'Base portal', $basePortalName ?? 'Unknown name');
-		$this->injectPortalDataIntoEventLocation($location, $restockPortalLocation, 'Restock portal', $restockPortalName ?? 'Unknown name');
+		$this->injectPortalDataIntoEventLocation($location, $basePortalLocation, 'Base portal', $basePortalName ?? 'Unknown name', usePortalAddress: true);
+		$this->injectPortalDataIntoEventLocation($location, $restockPortalLocation, 'Restock portal', $restockPortalName ?? 'Unknown name', usePortalAddress: false);
 		$this->collection->add($location);
 	}
 
@@ -120,6 +120,7 @@ final class FevGamesService extends AbstractService
 		?CoordinatesInterface $portalLocation,
 		string $descriptionPrefix,
 		string $portalName,
+		bool $usePortalAddress,
 	): void {
 		if ($portalLocation === null) {
 			return;
@@ -148,7 +149,11 @@ final class FevGamesService extends AbstractService
 			(!$eventLocation->hasDescription(Ingress::BETTER_LOCATION_KEY_PORTAL) ? Ingress::BETTER_LOCATION_KEY_PORTAL : null),
 		);
 
-		if ($portal !== null && in_array($portal->address, ['', 'undefined', '[Unknown Location]'], true) === false) { // show portal address only if it makes sense
+		if (
+			$usePortalAddress
+			&& $portal !== null
+			&& in_array($portal->address, ['', 'undefined', '[Unknown Location]'], true) === false // show portal address only if it makes sense
+		) {
 			$eventLocation->setAddress(htmlspecialchars($portal->address));
 		}
 	}
