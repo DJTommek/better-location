@@ -243,7 +243,24 @@
 						maxZoom: 19,
 						attribution: '<a href="https://api.mapy.cz/copyright" target="_blank">&copy; Seznam.cz a.s. a další</a>',
 					}),
+					'Mapy.cz satellite': L.tileLayer('https://api.mapy.cz/v1/maptiles/aerial/256/{z}/{x}/{y}?apikey=' + mapyCzApiKey, {
+						minZoom: 2,
+						maxZoom: 20,
+						attribution: '<a href="https://api.mapy.cz/copyright" target="_blank">&copy; Seznam.cz a.s. a další</a>',
+						tileSize: 256,
+						zoomOffset: 0,
+					}),
 				},
+				overlays: {
+					['Mapy.cz satellite overlay']: L.tileLayer('https://api.mapy.cz/v1/maptiles/names-overlay/256/{z}/{x}/{y}?apikey=' + mapyCzApiKey, {
+						minZoom: 2,
+						maxZoom: 20,
+						attribution: '<a href="https://api.mapy.cz/copyright" target="_blank">&copy; Seznam.cz a.s. a další</a>',
+						tileSize: 256,
+						zoomOffset: 0,
+					}),
+
+				}
 				{/syntax}
 			}
 		}
