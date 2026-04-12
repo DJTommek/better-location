@@ -40,6 +40,7 @@ use App\BetterLocation\Service\GoogleMapsService;
 use App\BetterLocation\Service\GoogleMapsStreetViewGeneratorService;
 use App\BetterLocation\Service\HereWeGoService;
 use App\BetterLocation\Service\HradyCzService;
+use App\BetterLocation\Service\IKatastrCzService;
 use App\BetterLocation\Service\IngressIntelService;
 use App\BetterLocation\Service\IngressPrimeService;
 use App\BetterLocation\Service\KudyZNudyCzService;
@@ -169,6 +170,7 @@ class ServicesManager
 		$services[] = HradyCzService::class;
 		$services[] = VetsCzService::class;
 		$services[] = VojenskoCzService::class;
+		$services[] = IKatastrCzService::class;
 		$services[] = PrazdneDomyCzService::class;
 		$services[] = KudyZNudyCzService::class;
 		$services[] = VodniMlynyCzService::class;
