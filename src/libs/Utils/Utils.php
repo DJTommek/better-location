@@ -2,6 +2,10 @@
 
 namespace App\Utils;
 
+use proj4php\Point;
+use proj4php\Proj;
+use proj4php\Proj4php;
+
 /**
  * @template EmojiReplaceCallable of string|callable(array{string}): string
  */
@@ -395,5 +399,30 @@ class Utils
 			}
 		}
 		return $result;
+	}
+
+	/**
+	 * @return array{float, float}
+	 */
+	public static function WgsToSjtsk(\DJTommek\Coordinates\CoordinatesInterface $coordinates): array
+	{
+		$proj4 = new Proj4php();
+
+		$wgs84 = new Proj('EPSG:4326', $proj4);
+		$sjtsk = new Proj('EPSG:5514', $proj4);
+
+		$point = new Point($coordinates->getLon(), $coordinates->getLat());
+		$proj4->transform($wgs84, $sjtsk, $point);
+
+		[$x, $y, $z] = $point->toArray();
+
+		if (
+			is_float($x) === false
+			|| is_float($y) === false
+		) {
+			throw new \Exception('Unable to convert WGS84 into S-JTSK coordinates');
+		}
+
+		return [$x, $y];
 	}
 }

@@ -47,6 +47,7 @@ use App\BetterLocation\Service\IngressPrimeService;
 use App\BetterLocation\Service\KudyZNudyCzService;
 use App\BetterLocation\Service\MapyCzPanoramaGeneratorService;
 use App\BetterLocation\Service\MapyCzService;
+use App\BetterLocation\Service\NahlizeniCuzkCzService;
 use App\BetterLocation\Service\NeshanOrgService;
 use App\BetterLocation\Service\NianticLightshipService;
 use App\BetterLocation\Service\OpenLocationCodeService;
@@ -172,6 +173,7 @@ class ServicesManager
 		$services[] = HradyCzService::class;
 		$services[] = VetsCzService::class;
 		$services[] = VojenskoCzService::class;
+		$services[] = NahlizeniCuzkCzService::class;
 		$services[] = IKatastrCzService::class;
 		$services[] = PrazdneDomyCzService::class;
 		$services[] = KudyZNudyCzService::class;
