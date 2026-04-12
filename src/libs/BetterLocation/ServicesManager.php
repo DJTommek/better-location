@@ -12,6 +12,7 @@ use App\BetterLocation\Service\BetterLocationService;
 use App\BetterLocation\Service\BookingService;
 use App\BetterLocation\Service\Coordinates\MaidenheadLocatorService;
 use App\BetterLocation\Service\Coordinates\MGRSService;
+use App\BetterLocation\Service\Coordinates\SJTSKService;
 use App\BetterLocation\Service\Coordinates\USNGService;
 use App\BetterLocation\Service\Coordinates\UTMService;
 use App\BetterLocation\Service\Coordinates\WGS84DegreesMinutesSecondsService;
@@ -124,6 +125,7 @@ class ServicesManager
 		$services[] = MGRSService::class;
 		$services[] = USNGService::class;
 		$services[] = UTMService::class;
+		$services[] = SJTSKService::class;
 		$services[] = MaidenheadLocatorService::class;
 		$services[] = GoogleMapsService::class;
 		$services[] = GoogleEarthService::class;
