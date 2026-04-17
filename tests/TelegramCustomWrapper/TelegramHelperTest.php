@@ -3,6 +3,7 @@
 namespace Tests\TelegramCustomWrapper;
 
 use App\Config;
+use App\TelegramCustomWrapper\DatetimeFormat;
 use App\TelegramCustomWrapper\TelegramHelper;
 use PHPUnit\Framework\TestCase;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
@@ -12,6 +13,23 @@ use unreal4u\TelegramAPI\Telegram\Types\User;
 
 final class TelegramHelperTest extends TestCase
 {
+	public static function datetimeFormatProvider(): array
+	{
+		return [
+			['<tg-time unix="1647531900" format="r">2022-03-17 15:45:00 UTC</tg-time>', 1647531900, [DatetimeFormat::RELATIVE]],
+			['<tg-time unix="743551200">1993-07-24 22:00:00 UTC</tg-time>', 743551200, []],
+			['<tg-time unix="-25605885" format="Dt">1969-03-10 15:15:15 UTC</tg-time>', -25605885, [DatetimeFormat::DATE_LONG, DatetimeFormat::TIME_SHORT]],
+		];
+	}
+
+	public static function datetimeFormatSmartProvider(): array
+	{
+		return [
+			['<tg-time unix="1647531900" format="DT">2022-03-17 15:45:00 UTC</tg-time> (<tg-time unix="1647531900" format="r">2022-03-17 15:45:00 UTC</tg-time>)', 1647531900],
+			['<tg-time unix="-25605885" format="DT">1969-03-10 15:15:15 UTC</tg-time> (<tg-time unix="-25605885" format="r">1969-03-10 15:15:15 UTC</tg-time>)', -25605885],
+		];
+	}
+
 	public function testGenerateStartLocation(): void
 	{
 		$this->assertSame(TelegramHelper::generateStartLocation(50.087451, 14.420671), sprintf('https://t.me/%s?start=50087451_14420671', Config::TELEGRAM_BOT_NAME));
@@ -114,5 +132,23 @@ final class TelegramHelperTest extends TestCase
 	private static function fromFile(string $file): Update
 	{
 		return new Update(json_decode(file_get_contents($file), true));
+	}
+
+	/**
+	 * @dataProvider datetimeFormatProvider
+	 */
+	public function testDatetimeFormat(string $expected, int $datetimeUnix, array $format): void
+	{
+		$datetime = (new \DateTime())->setTimestamp($datetimeUnix);
+		$this->assertSame($expected, TelegramHelper::datetimeFormat($datetime, $format));
+	}
+
+	/**
+	 * @dataProvider datetimeFormatSmartProvider
+	 */
+	public function testDatetimeFormatSmart(string $expected, int $datetimeUnix): void
+	{
+		$datetime = (new \DateTime())->setTimestamp($datetimeUnix);
+		$this->assertSame($expected, TelegramHelper::datetimeFormatSmart($datetime));
 	}
 }

@@ -504,4 +504,36 @@ class TelegramHelper
 	{
 		return ($markup->inline_keyboard[0] ?? []) === [];
 	}
+
+	/**
+	 * Render datetime as special HTML Telegram tag. In Telegram clients this is properly formatted based on user locale
+	 * settings and timezone. For relative format it is automatically realtime updated.
+	 *
+	 * Warning: as of 2026-04-17 it seems, that datetime before timestamp 0 (before year 1970) is not formatted at all.
+	 *
+	 * @link https://core.telegram.org/bots/api#date-time-entity-formatting
+	 *
+	 * @param \DateTimeInterface $datetime
+	 * @param array<DatetimeFormat> $format
+	 */
+	public static function datetimeFormat(\DateTimeInterface $datetime, array $format): string
+	{
+		$result = sprintf('<tg-time unix="%d"', $datetime->getTimestamp());
+
+		if ($format !== []) {
+			$formatString = implode('', array_map(fn(DatetimeFormat $format) => $format->value, $format));
+			$result .= sprintf(' format="%s"', $formatString);
+		}
+		$result .= sprintf('>%s</tg-time>', $datetime->format(Config::DATETIME_FORMAT_ZONE));
+
+		return $result;
+	}
+
+	public static function datetimeFormatSmart(\DateTimeInterface $datetime): string
+	{
+		return sprintf('%s (%s)',
+			TelegramHelper::datetimeFormat($datetime, [DatetimeFormat::DATE_LONG, DatetimeFormat::TIME_LONG]),
+			TelegramHelper::datetimeFormat($datetime, [DatetimeFormat::RELATIVE]),
+		);
+	}
 }
