@@ -109,7 +109,11 @@ class CronRefreshPresenter extends MainPresenter
 
 				if ($collection->isEmpty()) {
 					$this->printlog(sprintf('Update %s don\'t have any locations anymore, disabling autorefresh.', $id));
-					$msg->text = $messageToRefresh->getLastResponseText() . sprintf('%s Last autorefresh at %s didn\'t detect any locations. Autorefreshing was disabled but you can try to enable it again.', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
+					$msg->text = $messageToRefresh->getLastResponseText() . sprintf(
+							'%s Last autorefresh at %s didn\'t detect any locations. Autorefreshing was disabled but you can try to enable it again.',
+							Icons::REFRESH,
+							TelegramHelper::datetimeFormatSmart(new \DateTimeImmutable()),
+						);
 					$msg->reply_markup = $lastAutorefreshMarkup;
 					$updatedAgo = $now->getTimestamp() - $messageToRefresh->getLastUpdate()->getTimestamp();
 					if ($updatedAgo > Config::REFRESH_NO_LOCATION_DISABLE) {
@@ -119,7 +123,7 @@ class CronRefreshPresenter extends MainPresenter
 				} else {
 					$replyMarkup = $processedCollection->getMarkup(1);
 					$text = $processedCollection->getText();
-					$msg->text = $text . sprintf('%s Autorefreshed: %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
+					$msg->text = $text . Icons::REFRESH . ' Autorefreshed: ' . TelegramHelper::datetimeFormatSmart((new \DateTimeImmutable()));
 					$msg->reply_markup = $replyMarkup;
 					$this->telegramCustomWrapper->run($msg);
 					$messageToRefresh->setLastSendData($text, $replyMarkup, true);
