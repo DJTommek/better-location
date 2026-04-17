@@ -4,9 +4,10 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
-use App\Config;
 use App\Factory\GlympseApiFactory;
 use App\Icons;
+use App\TelegramCustomWrapper\TelegramHelper;
+use App\Utils\Formatter;
 use App\Utils\Utils;
 use DJTommek\GlympseApi\GlympseApi;
 use DJTommek\GlympseApi\GlympseApiException;
@@ -44,7 +45,11 @@ final class GlympseService extends AbstractService
 		];
 	}
 
-	const string PATH_INVITE_ID_REGEX = '/^\/([0-9a-z]+-[0-9a-z]+)$/i';
+	/**
+	 * @example aaaa-aaaa
+	 * @example aaa--aaaa
+	 */
+	const string PATH_INVITE_ID_REGEX = '/^\/([0-9a-z-]+-[0-9a-z-]+)$/i';
 	const string PATH_GROUP_REGEX = '/^\/!(.+)$/i';
 
 	public function validate(): bool
@@ -86,32 +91,25 @@ final class GlympseService extends AbstractService
 		$now = new \DateTimeImmutable();
 		$currentLocationDescriptions = [];
 		$willExpireWarningInterval = new \DateInterval('PT30M');
-		$diff = $invite->properties->endTime->getTimestamp() - $now->getTimestamp();
+		$endTimeDiff = $invite->properties->endTime->getTimestamp() - $now->getTimestamp();
 		$glympseExpired = false;
-		if ($diff <= 0) {
+
+		$endTimeFormatted = TelegramHelper::datetimeFormatSmart($invite->properties->endTime);
+		if ($endTimeDiff <= 0) {
 			$glympseExpired = true;
-			$currentLocationDescriptions[] = sprintf('%s Glympse expired at %s (%s ago)',
-				Icons::WARNING,
-				$invite->properties->endTime->format(Config::DATETIME_FORMAT_ZONE),
-				preg_replace('/ [0-9]+s$/', '', Utils::sToHuman($diff * -1)),
-			);
+			$currentLocationDescriptions[] = Icons::WARNING . ' Glympse expired at ' . $endTimeFormatted;
 		} else if ($invite->properties->endTime < ((clone $now)->add($willExpireWarningInterval))) {
-			$currentLocationDescriptions[] = sprintf('%s Glympse will expire soon, at %s', Icons::WARNING, $invite->properties->endTime->format(Config::TIME_FORMAT_ZONE));
+			$currentLocationDescriptions[] = Icons::WARNING . ' Glympse expires soon at ' . $endTimeFormatted;
 		}
 		$lastLocation = $invite->getLastLocation();
 		$currentLocation = new BetterLocation($this->inputUrl, $lastLocation->latitude, $lastLocation->longtitude, self::class, $type);
 		$currentLocation->setRefreshable(true);
-		$diff = $now->getTimestamp() - $lastLocation->timestamp->getTimestamp();
+		$locationTimeDiff = $now->getTimestamp() - $lastLocation->timestamp->getTimestamp();
 		if (
-			$diff > 600 &&  // show last update message only if it was updated long ago.
+			$locationTimeDiff > 600 &&  // show last update message only if it was updated long ago.
 			$glympseExpired === false // If Glympse is expired, there is already warning message so no need to duplicate that info
 		) {
-			$lastUpdateText = sprintf('%s Last location update: %s (%s ago)',
-				Icons::WARNING,
-				$lastLocation->timestamp->format(Config::DATETIME_FORMAT_ZONE),
-				preg_replace('/ [0-9]+s$/', '', Utils::sToHuman($diff)),
-			);
-			$currentLocationDescriptions[] = $lastUpdateText;
+			$currentLocationDescriptions[] = Icons::WARNING . ' Last update ' . TelegramHelper::datetimeFormatSmart($lastLocation->timestamp);
 		}
 		if ($invite->properties->message) {
 			$currentLocationDescriptions[] = sprintf('Glympse message: %s', htmlentities($invite->properties->message));
@@ -145,24 +143,11 @@ final class GlympseService extends AbstractService
 			$destinationDescriptions[] = $invite->properties->destination->name;
 		}
 		if ($invite->properties->eta && $invite->properties->route) {
-			if ($invite->properties->route->distance >= 100000) { // 100 km
-				$distanceString = sprintf('%d km', round($invite->properties->route->distance / 1000));
-			} else if ($invite->properties->route->distance >= 100) { // 1 km
-				$distanceString = sprintf('%s km', round($invite->properties->route->distance / 1000, 2));
-			} else {
-				$distanceString = sprintf('%d m', $invite->properties->route->distance);
-			}
-
-			$etaInfo = sprintf('Distance: %s, ETA: %s (%s)',
-				$distanceString,
-				Utils::sToHuman(intval($invite->properties->eta->eta->format('%s'))),
-				$invite->properties->eta->etaTs->add($invite->properties->eta->eta)->format(Config::TIME_FORMAT_ZONE),
+			$eta = $invite->properties->eta->etaTs->add($invite->properties->eta->eta);
+			$destinationDescriptions[] = sprintf('Distance: %s, ETA: %s',
+				Formatter::distance($invite->properties->route->distance),
+				TelegramHelper::datetimeFormatSmart($eta),
 			);
-			$diff = $now->getTimestamp() - $invite->properties->eta->etaTs->getTimestamp();
-			if ($diff > 600) {
-				$etaInfo .= sprintf(' %s Calculated %s ago', Icons::WARNING, preg_replace('/ [0-9]+s$/', '', Utils::sToHuman($diff)));
-			}
-			$destinationDescriptions[] = $etaInfo;
 		}
 		$destination->setDescription(join(PHP_EOL, $destinationDescriptions));
 		return $destination;
