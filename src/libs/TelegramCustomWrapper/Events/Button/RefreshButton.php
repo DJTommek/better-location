@@ -6,6 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\FromTelegramMessage;
 use App\Config;
 use App\Icons;
+use App\TelegramCustomWrapper\DatetimeFormat;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\TelegramUpdateDb;
 use Tracy\Debugger;
@@ -85,11 +86,11 @@ class RefreshButton extends Button
 	/**
 	 * @throws \Exception
 	 */
-	private function processRefresh(bool $autorefreshEnabled, bool $fromCache)
+	private function processRefresh(bool $autorefreshEnabled, bool $fromCache): void
 	{
 		if ($fromCache) {
 			$text = $this->telegramUpdateDb->getLastResponseText();
-			$text .= sprintf('%s Last refresh: %s', Icons::REFRESH, $this->telegramUpdateDb->getLastUpdate()->format(Config::DATETIME_FORMAT_ZONE));
+			$text .= $this->renderLastRefresh($this->telegramUpdateDb->getLastUpdate());
 
 			$markup = $this->telegramUpdateDb->getLastResponseReplyMarkup(true);
 			unset($markup->inline_keyboard[count($markup->inline_keyboard) - 1]); // refresh buttons are always last row
@@ -110,7 +111,7 @@ class RefreshButton extends Button
 			$processedCollection->setAutorefresh($autorefreshEnabled);
 			$processedCollection->process();
 			$text = $processedCollection->getText();
-			$text .= sprintf('%s Last refresh: %s', Icons::REFRESH, (new \DateTimeImmutable())->format(Config::DATETIME_FORMAT_ZONE));
+			$text .= $this->renderLastRefresh(new \DateTimeImmutable());
 			if ($collection->isEmpty() === false) {
 				$this->replyButton($text, $processedCollection->getMarkup(1), ['disable_web_page_preview' => !$this->chat->settingsPreview()]);
 			} else {
@@ -120,5 +121,15 @@ class RefreshButton extends Button
 			}
 			$this->telegramUpdateDb->touchLastUpdate();
 		}
+	}
+
+	private function renderLastRefresh(\DateTimeInterface $datetime): string
+	{
+		return sprintf(
+			'%s Last refresh: %s (%s)',
+			Icons::REFRESH,
+			TelegramHelper::datetimeFormat($datetime, [DatetimeFormat::DATE_LONG, DatetimeFormat::TIME_LONG]),
+			TelegramHelper::datetimeFormat($datetime, [DatetimeFormat::RELATIVE]), // @TODO Should fallback-text of this relative format be "xx ago" or "in xx" instead of absolute format?
+		);
 	}
 }

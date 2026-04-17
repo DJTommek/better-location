@@ -161,11 +161,6 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Button/HelpButton.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\RefreshButton\\:\\:processRefresh\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Button/RefreshButton.php
-
-		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\SettingsButton\\:\\:processSettings\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Button/SettingsButton.php
