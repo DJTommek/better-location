@@ -65,7 +65,10 @@ abstract class MainPresenter
 
 		$this->template->login = $this->login;
 		$this->template->user = $this->user;
+
 		$this->template->cachebusterMainCss = filemtime(__DIR__ . '/../../../www/css/main.css');
+		$this->template->cachebusterMainJs = filemtime(__DIR__ . '/../../../www/js/main.js');
+
 		$appUrl = Config::getAppUrl();
 		$this->template->baseUrl = rtrim($appUrl->getAbsoluteUrl(), '/');
 		$this->template->basePath = rtrim($appUrl->getPath(), '/');

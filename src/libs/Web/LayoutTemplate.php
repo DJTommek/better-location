@@ -9,7 +9,10 @@ class LayoutTemplate
 {
 	public LoginFacade $login;
 	public ?User $user;
+
 	public int $cachebusterMainCss;
+	public int $cachebusterMainJs;
+
 	/**
 	 * @var string Full URL including path without trailing slash
 	 * @example https://better-location.palider.cz/better-location/www
