@@ -253,8 +253,15 @@ a {
 	vertical-align: middle;
 }
 
-#content-user-settings .ajax-change-settings {
-	cursor: pointer;
+#content-user-settings table td {
+	white-space: nowrap;
+}
+
+#content-user-settings table td[data-property-name='telegramName'] {
+	white-space: nowrap;
+	max-width: 30em;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 #content-user-settings table td[data-property-name='settingsPreview'],
@@ -266,6 +273,10 @@ a {
 
 #content-user-settings table td[data-property-name='telegramName'] {
 	min-width: 15em;
+}
+
+#content-user-settings .ajax-change-settings {
+	cursor: pointer;
 }
 
 .services-selector-wrapper .choices__inner {
