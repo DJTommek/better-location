@@ -26,6 +26,8 @@
 				<tbody n:foreach="$chats as $chat">
 				<tr data-chat-id="{json_encode($chat->id)}">
 					<td data-property-name="telegramName">
+				<tbody>
+				<tr n:foreach="$chats as $chat" data-chat-id="{json_encode($chat->id)}">
 						<a href="{$basePath}/chat/{$chat->telegramId}">
 							{$chat->telegramName}
 						</a>
