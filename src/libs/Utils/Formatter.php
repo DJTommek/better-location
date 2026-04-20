@@ -4,9 +4,14 @@ namespace App\Utils;
 
 class Formatter
 {
+	private const int MINUTES = 60;
+	private const int HOURS = 3600;
+	private const int DAYS = 86400;
+	private const int MONTHS = 2592000;
+	private const int YEARS = 31536000;
 
 	/**
-	 * Format seconds into human readable format
+	 * Format seconds into human readable format. To format higher numbers (months and higher) {@see self::secondsShort}.
 	 *
 	 * @param float|int $input In seconds. If float with non-zero decimal it might return milliseconds too.
 	 * @param bool $short Set to true to return only the largest part of formatted number.
@@ -57,6 +62,47 @@ class Formatter
 		} else {
 			return join(' ', $parts);
 		}
+	}
+
+	/**
+	 * Format seconds into human readable format
+	 *
+	 * @param float|int $input In seconds. If float with non-zero decimal it might return milliseconds too.
+	 * @return string Human readable formatted string
+	 * @example 65 -> 1 minute
+	 * @example 1386203 -> 16 days
+	 * @example 63072000 -> 2 years
+	 */
+	public static function secondsShort(float|int $input): string
+	{
+		if ($input < 0) {
+			throw new \InvalidArgumentException('Input must be higher or equal zero.');
+		}
+		if ($input < 1) {
+			return '0 seconds';
+		}
+
+		if ($input >= self::YEARS) {
+			$value = floor($input / self::YEARS);
+			$unit = 'year';
+		} else if ($input >= self::MONTHS) {
+			$value = floor($input / self::MONTHS);
+			$unit = 'month';
+		} else if ($input >= self::DAYS) {
+			$value = floor($input / self::DAYS);
+			$unit = 'day';
+		} else if ($input >= self::HOURS) {
+			$value = floor($input / self::HOURS);
+			$unit = 'hour';
+		} else if ($input >= self::MINUTES) {
+			$value = floor($input / self::MINUTES);
+			$unit = 'minute';
+		} else {
+			$value = floor($input);
+			$unit = 'second';
+		}
+
+		return $value . ' ' . $unit . ($value > 1 ? 's' : '');
 	}
 
 	/**

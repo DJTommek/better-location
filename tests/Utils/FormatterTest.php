@@ -7,6 +7,37 @@ use PHPUnit\Framework\TestCase;
 
 final class FormatterTest extends TestCase
 {
+	public static function secondsShortNewProvider(): array
+	{
+		return [
+			['0 seconds', 0],
+			['0 seconds', 0.5],
+			['1 second', 1],
+			['1 second', 1.5],
+			['59 seconds', 59],
+			['59 seconds', 59.9],
+			['1 minute', 60],
+			['1 minute', 61],
+			['59 minutes', 3599],
+			['1 hour', 3600],
+			['1 hour', 3601],
+			['23 hours', 82800],
+			['23 hours', 86399],
+			['1 day', 86400],
+			['1 day', 86401],
+			['29 days', 2505600],
+			['29 days', 2591999], // 30 days * 86400 = 2592000 (MONTHS)
+			['1 month', 2592000],
+			['1 month', 2592001],
+			['12 months', 31104000], // 12 months * 2592000 = 31104000
+			['12 months', 31535999], // 365 days = 31536000 (YEARS)
+			['1 year', 31536000],
+			['1 year', 31536001],
+			['2 years', 63072000],
+			['3 years', 123456789],
+		];
+	}
+
 	public function testSeconds(): void
 	{
 		$this->assertSame('0s', Formatter::seconds(0));
@@ -54,6 +85,21 @@ final class FormatterTest extends TestCase
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Input must be higher or equal zero.');
 		Formatter::seconds(-1);
+	}
+
+	/**
+	 * @dataProvider secondsShortNewProvider
+	 */
+	public final function testSecondsShortNew(string $expected, float|int $input): void
+	{
+		$this->assertSame($expected, Formatter::secondsShort($input));
+	}
+
+	public final function testSecondsShortInvalid1(): void
+	{
+		$this->expectException(\InvalidArgumentException::class);
+		$this->expectExceptionMessage('Input must be higher or equal zero.');
+		Formatter::secondsShort(-1);
 	}
 
 	public function testDistance(): void
