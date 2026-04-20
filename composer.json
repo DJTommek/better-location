@@ -61,8 +61,8 @@
 		"test": "phpunit",
 		"test-quick": "phpunit --exclude-group request",
 		"test-request": "phpunit --group request",
-		"rector": "rector process --config ./src/rector.php",
-		"rector-dry": "rector process --config ./src/rector.php --dry-run",
+		"rector": "rector process --config ./rector.php",
+		"rector-dry": "rector process --config ./rector.php --dry-run",
 		"discord": "@php ./src/discord.cli.php"
 	},
     "repositories": [

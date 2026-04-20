@@ -54,7 +54,7 @@ final class MaidenheadLocatorTest extends TestCase
 	public function testFromCode(string $code, float $expectedLat, float $expectedLon): void
 	{
 		$result = MaidenheadLocator::fromCode($code);
-		$delta = pow(0.1, $result->getPrecision());
+		$delta = 0.1 ** $result->getPrecision();
 		$this->assertSame($code, $result->getCode());
 		$this->assertEqualsWithDelta($expectedLat, $result->getLat(), $delta);
 		$this->assertEqualsWithDelta($expectedLat, $result->getLat(), $delta);

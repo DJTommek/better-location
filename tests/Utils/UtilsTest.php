@@ -49,7 +49,7 @@ final class UtilsTest extends TestCase
 			[
 				'[Il Campanone ](https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Fadafff0f75f24144905ecfec3c662d42.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D45.703997%2C9.662381) [Intel](https://intel.ingress.com/intel?pll=45.703997,9.662381) [Image](https://lh3.googleusercontent.com/IG9TGatrqDFj6WE7KDFNdmhbUcyXgH9jH5jUDeT01NkQ2MoNvMB9M395GjbwAdfK4zj0h0ouSdFWxTxWcRWU8-44tVw9=s10000) [](https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D45.703997%26x%3D9.662381%26source%3Dcoor%26id%3D9.662381%252C45.703997%26p%3D3%26l%3D0) `45.703997,9.662381`',
 				'<a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Fadafff0f75f24144905ecfec3c662d42.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D45.703997%2C9.662381">Il Campanone 📱</a> <a href="https://intel.ingress.com/intel?pll=45.703997,9.662381">🖥</a> <a href="https://lh3.googleusercontent.com/IG9TGatrqDFj6WE7KDFNdmhbUcyXgH9jH5jUDeT01NkQ2MoNvMB9M395GjbwAdfK4zj0h0ouSdFWxTxWcRWU8-44tVw9=s10000">🖼</a> <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakladni%3Fy%3D45.703997%26x%3D9.662381%26source%3Dcoor%26id%3D9.662381%252C45.703997%26p%3D3%26l%3D0">🗺</a> <code>45.703997,9.662381</code>',
-				[self::class, 'emojiReplacement']
+				self::emojiReplacement(...)
 			],
 		];
 	}

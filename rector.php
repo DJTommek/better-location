@@ -3,20 +3,22 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Php81\Rector\Property\ReadOnlyPropertyRector;
-use Rector\Php83\Rector\ClassConst\AddTypeToConstRector;
-use Rector\Php84\Rector\Param\ExplicitNullableParamTypeRector;
+use Rector\Set\ValueObject\LevelSetList;
 
-return RectorConfig::configure()
-    ->withPaths([
-        __DIR__ . '/src',
-        __DIR__ . '/tests',
-        __DIR__ . '/www',
-    ])
-//    ->withPhpSets()
-    ->withRules([
-        ReadOnlyPropertyRector::class,
-        ExplicitNullableParamTypeRector::class,
-        AddTypeToConstRector::class,
-    ])
-    ->withTypeCoverageLevel(0);
+return static function (RectorConfig $rectorConfig): void {
+	$rectorConfig->paths([
+//		__DIR__ . '/src',
+		__DIR__ . '/tests',
+		__DIR__ . '/www',
+	]);
+
+	// define sets of rules
+	$rectorConfig->sets([
+		LevelSetList::UP_TO_PHP_82,
+	]);
+
+	$rectorConfig->skip([
+		\Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector::class,
+		\Rector\DeadCode\Rector\StaticCall\RemoveParentCallWithoutParentRector::class
+	]);
+};
