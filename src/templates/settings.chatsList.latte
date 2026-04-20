@@ -9,7 +9,7 @@
 			is added and you have administrator rights. For changes and more detailed information about chat, click on chat name.
 		</p>
 		<div class="table-responsive">
-			<table class="table" id="chats-list">
+			<table class="table table-sort" id="chats-list">
 				<thead>
 				<tr>
 					<th>Telegram name</th>
@@ -23,11 +23,9 @@
 					<th>Last change</th>
 				</tr>
 				</thead>
-				<tbody n:foreach="$chats as $chat">
-				<tr data-chat-id="{json_encode($chat->id)}">
-					<td data-property-name="telegramName">
 				<tbody>
 				<tr n:foreach="$chats as $chat" data-chat-id="{json_encode($chat->id)}">
+					<td data-property-name="telegramName" data-sort="{$chat->telegramName}">
 						<a href="{$basePath}/chat/{$chat->telegramId}">
 							{$chat->telegramName}
 						</a>
@@ -63,11 +61,11 @@
 							data-new-value="{json_encode(!$chat->settingsTryLoadIngressPortal)}"
 					>{$chat->settingsTryLoadIngressPortal ? App\Icons::ENABLED : App\Icons::DISABLED}</td>
 					<td data-property-name="pluginUrl">{$chat->pluginUrl !== null ? App\Icons::ENABLED : App\Icons::DISABLED}</td>
-					<td data-property-name="registered">
+					<td data-property-name="registered" data-sort="{$chat->registered->getTimestamp()}">
 						<span class="text-nowrap">{$chat->registered->format(\App\Config::DATETIME_FORMAT)}</span>
 						<span class="text-nowrap">({\App\Utils\Formatter::seconds(time() - $chat->registered->getTimestamp(), true)} ago)</span>
 					</td>
-					<td data-property-name="lastUpdate">
+					<td data-property-name="lastUpdate" data-sort="{$chat->lastUpdate->getTimestamp()}">
 						<span class="text-nowrap">{$chat->lastUpdate->format(\App\Config::DATETIME_FORMAT)}</span>
 						<span class="text-nowrap">({\App\Utils\Formatter::seconds(time() - $chat->lastUpdate->getTimestamp(), true)} ago)</span>
 					</td>

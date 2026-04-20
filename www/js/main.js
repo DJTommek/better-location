@@ -41,6 +41,19 @@ window.onload = function () {
 };
 
 /**
+ * Automatically enable table sort library on tables with .table-sort class.
+ *
+ * @link https://github.com/tristen/tablesort
+ * @link https://tristen.ca/tablesort/demo/
+ */
+window.onload = function () {
+	const sortableTablesEl = document.querySelectorAll('table.table-sort');
+	for (const sortableTableEl of sortableTablesEl) {
+		new Tablesort(sortableTableEl);
+	}
+};
+
+/**
  * Check, if value can be converted to number
  *
  * @param {*} numeric
