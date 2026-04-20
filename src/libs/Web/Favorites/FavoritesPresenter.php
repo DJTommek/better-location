@@ -16,7 +16,8 @@ class FavoritesPresenter extends MainPresenter
 		$this->template = $template;
 	}
 
-	public function action(): void
+	#[\Override]
+ public function action(): void
 	{
 		if ($this->login->isLogged() === false) {
 			$this->renderForbidden();
@@ -84,7 +85,8 @@ class FavoritesPresenter extends MainPresenter
 		}
 	}
 
-	public function beforeRender(): void
+	#[\Override]
+ public function beforeRender(): void
 	{
 		$this->setTemplateFilename('favorites.latte');
 	}

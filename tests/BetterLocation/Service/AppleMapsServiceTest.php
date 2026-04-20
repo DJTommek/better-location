@@ -6,12 +6,14 @@ use App\BetterLocation\Service\AppleMapsService;
 
 final class AppleMapsServiceTest extends AbstractServiceTestCase
 {
-	protected function getServiceClass(): string
+	#[\Override]
+ protected function getServiceClass(): string
 	{
 		return AppleMapsService::class;
 	}
 
-	protected function getShareLinks(): array
+	#[\Override]
+ protected function getShareLinks(): array
 	{
 		return [
 			'https://maps.apple.com/?ll=50.087451,14.420671&q=50.087451,14.420671',
@@ -22,7 +24,8 @@ final class AppleMapsServiceTest extends AbstractServiceTestCase
 		];
 	}
 
-	protected function getDriveLinks(): array
+	#[\Override]
+ protected function getDriveLinks(): array
 	{
 		return [
 			'https://maps.apple.com/?daddr=50.087451,14.420671&dirflg=d',

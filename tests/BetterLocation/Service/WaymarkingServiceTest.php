@@ -9,19 +9,22 @@ final class WaymarkingServiceTest extends AbstractServiceTestCase
 {
 	private readonly HttpTestClients $httpTestClients;
 
-	protected function setUp(): void
+	#[\Override]
+ protected function setUp(): void
 	{
 		parent::setUp();
 
 		$this->httpTestClients = new HttpTestClients();
 	}
 
-	protected function getServiceClass(): string
+	#[\Override]
+ protected function getServiceClass(): string
 	{
 		return WaymarkingService::class;
 	}
 
-	protected function getShareLinks(): array
+	#[\Override]
+ protected function getShareLinks(): array
 	{
 		$this->revalidateGeneratedShareLink = false;
 
@@ -34,7 +37,8 @@ final class WaymarkingServiceTest extends AbstractServiceTestCase
 		];
 	}
 
-	protected function getDriveLinks(): array
+	#[\Override]
+ protected function getDriveLinks(): array
 	{
 		return [];
 	}

@@ -13,7 +13,8 @@ final class ZanikleObceCzServiceTest extends AbstractServiceTestCase
 	private readonly HttpTestClients $httpTestClients;
 	private readonly MapyCzService $mapyCzServiceMocked;
 
-	protected function setUp(): void
+	#[\Override]
+ protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -25,12 +26,14 @@ final class ZanikleObceCzServiceTest extends AbstractServiceTestCase
 	}
 
 
-	protected function getServiceClass(): string
+	#[\Override]
+ protected function getServiceClass(): string
 	{
 		return ZanikleObceCzService::class;
 	}
 
-	protected function getShareLinks(): array
+	#[\Override]
+ protected function getShareLinks(): array
 	{
 		$this->revalidateGeneratedShareLink = false;
 
@@ -43,7 +46,8 @@ final class ZanikleObceCzServiceTest extends AbstractServiceTestCase
 		];
 	}
 
-	protected function getDriveLinks(): array
+	#[\Override]
+ protected function getDriveLinks(): array
 	{
 		return [];
 	}

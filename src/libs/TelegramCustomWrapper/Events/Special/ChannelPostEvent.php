@@ -18,12 +18,14 @@ class ChannelPostEvent extends Special
 	) {
 	}
 
-	public function getTgMessage(): Telegram\Types\Message
+	#[\Override]
+ public function getTgMessage(): Telegram\Types\Message
 	{
 		return $this->update->channel_post;
 	}
 
-	public function getCollection(): BetterLocationCollection
+	#[\Override]
+ public function getCollection(): BetterLocationCollection
 	{
 		if ($this->collection === null) {
 			$this->collection = $this->fromTelegramMessage->getCollection(
@@ -34,7 +36,8 @@ class ChannelPostEvent extends Special
 		return $this->collection;
 	}
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		if ($this->matchesIgnoreFilter()) {
 			return;

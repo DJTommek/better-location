@@ -154,17 +154,20 @@ class MaidenheadLocator implements \DJTommek\Coordinates\CoordinatesInterface
 		return $this->code;
 	}
 
-	public function getLat(): float
+	#[\Override]
+ public function getLat(): float
 	{
 		return $this->getCoordinates()->getLat();
 	}
 
-	public function getLon(): float
+	#[\Override]
+ public function getLon(): float
 	{
 		return $this->getCoordinates()->getLon();
 	}
 
-	public function getLatLon(string $delimiter = ','): string
+	#[\Override]
+ public function getLatLon(string $delimiter = ','): string
 	{
 		return $this->getCoordinates()->getLatLon($delimiter);
 	}

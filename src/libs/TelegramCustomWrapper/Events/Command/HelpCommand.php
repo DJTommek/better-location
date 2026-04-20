@@ -20,7 +20,8 @@ class HelpCommand extends Command
 	) {
 	}
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		[$text, $markup, $options] = $this->processHelp();
 		$this->reply($text, $markup, $options);

@@ -7,17 +7,20 @@ use Tests\BetterLocation\Service\AbstractServiceTestCase;
 
 final class USNGServiceTest extends AbstractServiceTestCase
 {
-	protected function getServiceClass(): string
+	#[\Override]
+ protected function getServiceClass(): string
 	{
 		return USNGService::class;
 	}
 
-	protected function getShareLinks(): array
+	#[\Override]
+ protected function getShareLinks(): array
 	{
 		return [];
 	}
 
-	protected function getDriveLinks(): array
+	#[\Override]
+ protected function getDriveLinks(): array
 	{
 		return [];
 	}

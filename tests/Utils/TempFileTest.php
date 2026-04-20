@@ -24,7 +24,8 @@ final class TempFileTest extends TestCase
 	 */
 	private static array $expectedNonDeletedItems = [];
 
-	public static function setUpBeforeClass(): void
+	#[\Override]
+ public static function setUpBeforeClass(): void
 	{
 		self::$tempDir = FileSystem::normalizePath(TempFile::TEMP_DIR);
 
@@ -161,7 +162,8 @@ final class TempFileTest extends TestCase
 	/**
 	 * Cleanup: delete intentionally not deleted files and then check if temporary directory is empty.
 	 */
-	public static function tearDownAfterClass(): void
+	#[\Override]
+ public static function tearDownAfterClass(): void
 	{
 		// Some files and directories were not deleted because of permission denied errors...
 		self::assertCount(3, self::$expectedNonDeletedItems);

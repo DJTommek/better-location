@@ -72,7 +72,8 @@ class StaticMaps implements StaticMapsProviderInterface
 	/**
 	 * @param array<CoordinatesInterface> $markers
 	 */
-	public function generatePrivateUrl(array $markers): string
+	#[\Override]
+ public function generatePrivateUrl(array $markers): string
 	{
 		$this->reset();
 

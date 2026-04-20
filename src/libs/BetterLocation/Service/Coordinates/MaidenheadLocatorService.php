@@ -11,12 +11,14 @@ final class MaidenheadLocatorService extends AbstractService
 	const string NAME = 'Mainhead Locator (QTH)';
 	const string NAME_SHORT = 'QTH';
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return false;
 	}
 
-	public static function getShareText(float $lat, float $lon): ?string
+	#[\Override]
+ public static function getShareText(float $lat, float $lon): ?string
 	{
 		return MaidenheadLocator::fromCoordinates(new Coordinates($lat, $lon))->getCode();
 	}

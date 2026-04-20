@@ -6,7 +6,8 @@ use unreal4u\TelegramAPI\Telegram;
 
 class ChatMigrateToEvent extends Special
 {
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		assert($this->chat !== null);
 

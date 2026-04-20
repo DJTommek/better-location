@@ -14,7 +14,8 @@ final class BannergressService extends BannergressAbstractService
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
 	];
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -23,12 +24,14 @@ final class BannergressService extends BannergressAbstractService
 		}
 	}
 
-	protected function isValidDomain(): bool
+	#[\Override]
+ protected function isValidDomain(): bool
 	{
 		return $this->url->getDomain(0) === 'bannergress.com';
 	}
 
-	protected function mosaicUrl(string $mosaicId): string
+	#[\Override]
+ protected function mosaicUrl(string $mosaicId): string
 	{
 		return 'https://bannergress.com/banner/' . $mosaicId;
 	}

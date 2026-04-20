@@ -19,7 +19,8 @@ final class VojenskoCzService extends AbstractService
 	) {
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return (
 			$this->url &&
@@ -31,7 +32,8 @@ final class VojenskoCzService extends AbstractService
 		);
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$response = $this->requestor->get($this->url, Config::CACHE_TTL_VOJENSKO_CZ);
 		$dom = new \DOMDocument();

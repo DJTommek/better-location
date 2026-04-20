@@ -10,12 +10,14 @@ use unreal4u\TelegramAPI\Telegram\Methods\AnswerCallbackQuery;
 abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 {
 	/** @return bool False if clicked on button in shared in message created from inline (in "via @BotName") */
-	public function hasTgMessage(): bool
+	#[\Override]
+ public function hasTgMessage(): bool
 	{
 		return TelegramHelper::hasButtonMessage($this->update);
 	}
 
-	public function getTgMessage(): Telegram\Types\Message
+	#[\Override]
+ public function getTgMessage(): Telegram\Types\Message
 	{
 		if ($this->hasTgMessage()) {
 			return $this->update->callback_query->message;
@@ -27,7 +29,8 @@ abstract class Button extends \App\TelegramCustomWrapper\Events\Events
 	/**
 	 * Can't use from in getMessage, because that's message where was clicked on button which is message from bot.
 	 */
-	public function getTgFrom(): Telegram\Types\User
+	#[\Override]
+ public function getTgFrom(): Telegram\Types\User
 	{
 		return $this->update->callback_query->from;
 	}

@@ -26,7 +26,8 @@ final class FevGamesService extends AbstractService
 	) {
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return (
 			$this->url &&
@@ -36,7 +37,8 @@ final class FevGamesService extends AbstractService
 		);
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$body = $this->requestor->get($this->url, Config::CACHE_TTL_FEVGAMES);
 		$dom = Utils::domFromUTF8($body);

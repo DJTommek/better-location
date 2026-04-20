@@ -42,7 +42,8 @@ final class GeohashService extends AbstractService
 	private string $code;
 	private CoordinatesImmutable $coords;
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -52,12 +53,14 @@ final class GeohashService extends AbstractService
 		}
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return $this->isUrl() || $this->isCode();
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		assert(isset($this->coords));
 		assert(isset($this->code));
@@ -105,7 +108,8 @@ final class GeohashService extends AbstractService
 		return false;
 	}
 
-	public static function findInText(string $input): BetterLocationCollection
+	#[\Override]
+ public static function findInText(string $input): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
 
@@ -119,7 +123,8 @@ final class GeohashService extends AbstractService
 		return $collection;
 	}
 
-	public static function getShareText(float $lat, float $lon): ?string
+	#[\Override]
+ public static function getShareText(float $lat, float $lon): ?string
 	{
 		return GeoHash::encode($lon, $lat, self::DEFAULT_PRECISION);
 	}

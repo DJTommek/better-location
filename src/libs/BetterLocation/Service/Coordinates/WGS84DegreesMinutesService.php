@@ -9,13 +9,15 @@ final class WGS84DegreesMinutesService extends WGS84AbstractService
 	const int ID = 11;
 	const string NAME = 'WGS84 DM';
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$location = self::processWGS84();
 		$this->collection->add($location);
 	}
 
-	public static function getShareText(float $lat, float $lon): ?string
+	#[\Override]
+ public static function getShareText(float $lat, float $lon): ?string
 	{
 		$coords = new Coordinates($lat, $lon);
 		[$degreesLat, $minutesLat] = Coordinates::wgs84DegreesToDegreesMinutes($lat);
@@ -26,7 +28,8 @@ final class WGS84DegreesMinutesService extends WGS84AbstractService
 		);
 	}
 
-	protected static function getReCoords(): string
+	#[\Override]
+ protected static function getReCoords(): string
 	{
 		return '([0-9]{1,3})[° ]{1,3}([0-9]{1,3}\.[0-9]{1,20}) ?\'?';
 	}

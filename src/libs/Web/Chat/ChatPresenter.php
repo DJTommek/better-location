@@ -45,7 +45,8 @@ class ChatPresenter extends MainPresenter
 		$this->template = $template;
 	}
 
-	public function action(): void
+	#[\Override]
+ public function action(): void
 	{
 		if ($this->login->isLogged() === false) {
 			return;
@@ -77,7 +78,8 @@ class ChatPresenter extends MainPresenter
 		}
 	}
 
-	public function beforeRender(): void
+	#[\Override]
+ public function beforeRender(): void
 	{
 		if ($this->isUserAdmin === false) {
 			$this->template->prepareError(requireAdmin: true);

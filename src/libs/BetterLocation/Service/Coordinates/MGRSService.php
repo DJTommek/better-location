@@ -15,7 +15,8 @@ final class MGRSService extends AbstractService
 	const int ID = 14;
 	const string NAME = 'MGRS';
 
-	public static function findInText(string $text): BetterLocationCollection
+	#[\Override]
+ public static function findInText(string $text): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
 		$inStringRegex = '/' . MGRS::getMgrsRegex(3, false, false) . '/';
@@ -39,18 +40,21 @@ final class MGRSService extends AbstractService
 		return $collection;
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return MGRS::isMGRS($this->input);
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$mgrs = MGRS::fromMGRS($this->input);
 		$this->collection->add(new BetterLocation($this->input, $mgrs->getLat(), $mgrs->getLon(), self::class));
 	}
 
-	public static function getShareText(float $lat, float $lon): ?string
+	#[\Override]
+ public static function getShareText(float $lat, float $lon): ?string
 	{
 		$mgrs = new MGRS();
 		return $mgrs->LLtoMGRS($lat, $lon, 5);

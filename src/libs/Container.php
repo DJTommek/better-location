@@ -28,7 +28,8 @@ readonly class Container implements ContainerInterface
 	 * @param class-string<T> $id
 	 * @return T|null
 	 */
-	public function get(string $id)
+	#[\Override]
+ public function get(string $id)
 	{
 		return $this->containerBuilder->get($id);
 	}
@@ -36,7 +37,8 @@ readonly class Container implements ContainerInterface
 	/**
 	 * @param class-string $id
 	 */
-	public function has(string $id): bool
+	#[\Override]
+ public function has(string $id): bool
 	{
 		return $this->containerBuilder->has($id);
 	}

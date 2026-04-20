@@ -16,7 +16,8 @@ final class SJTSKService extends \App\BetterLocation\Service\AbstractService
 		ServicesManager::TAG_GENERATE_TEXT_OFFLINE,
 	];
 
-	public static function getShareText(float $lat, float $lon): ?string
+	#[\Override]
+ public static function getShareText(float $lat, float $lon): ?string
 	{
 		[$x, $y] = Utils::WgsToSjtsk(new CoordinatesImmutable($lat, $lon));
 

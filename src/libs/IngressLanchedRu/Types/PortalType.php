@@ -81,17 +81,20 @@ class PortalType implements CoordinatesInterface
 		return $result;
 	}
 
-	public function getLat(): float
+	#[\Override]
+ public function getLat(): float
 	{
 		return $this->lat;
 	}
 
-	public function getLon(): float
+	#[\Override]
+ public function getLon(): float
 	{
 		return $this->lng;
 	}
 
-	public function getLatLon(string $delimiter = ','): string
+	#[\Override]
+ public function getLatLon(string $delimiter = ','): string
 	{
 		return sprintf('%F%s%F', $this->getLat(), $delimiter, $this->getLon());
 	}

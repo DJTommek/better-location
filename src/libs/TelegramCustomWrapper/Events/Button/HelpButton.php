@@ -18,7 +18,8 @@ class HelpButton extends Button
 	) {
 	}
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		[$text, $markup, $options] = $this->processHelp();
 		$this->replyButton($text, $markup, $options);

@@ -8,12 +8,14 @@ final class OpenBannersService extends BannergressAbstractService
 	const string NAME = 'OpenBanners';
 	public const TAGS = [];
 
-	protected function isValidDomain(): bool
+	#[\Override]
+ protected function isValidDomain(): bool
 	{
 		return $this->url->getDomain() === 'openbanners.org';
 	}
 
-	protected function mosaicUrl(string $mosaicId): string
+	#[\Override]
+ protected function mosaicUrl(string $mosaicId): string
 	{
 		return 'https://www.openbanners.org/banner/' . $mosaicId;
 	}

@@ -37,7 +37,8 @@ final class VetsCzService extends AbstractService
 	) {
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -46,7 +47,8 @@ final class VetsCzService extends AbstractService
 		return sprintf(self::LINK . '/vpm/mapa/?lat=%1$F&lon=%2$F', $lat, $lon);
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if (
 			$this->url === null
@@ -70,7 +72,8 @@ final class VetsCzService extends AbstractService
 		return isset($this->placeId) || isset($this->mapCoords);
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$this->processMapCoords();
 		$this->processPlace();
@@ -134,7 +137,8 @@ final class VetsCzService extends AbstractService
 		$this->collection->add($location);
 	}
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_MAP,

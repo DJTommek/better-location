@@ -21,7 +21,8 @@ class UserEntity extends Entity
 	public ?\DateTimeImmutable $lastLocationUpdate = null;
 	public ?CoordinatesImmutable $lastLocation = null;
 
-	public static function fromRow(array|\PDORow $row): self
+	#[\Override]
+ public static function fromRow(array|\PDORow $row): self
 	{
 		$entity = new self();
 		$entity->id = $row['user_id'];

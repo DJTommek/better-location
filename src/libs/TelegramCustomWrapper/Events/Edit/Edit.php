@@ -10,7 +10,8 @@ use unreal4u\TelegramAPI\Telegram\Methods\EditMessageText;
 
 abstract class Edit extends \App\TelegramCustomWrapper\Events\Events
 {
-	public function getTgMessage(): Telegram\Types\Message
+	#[\Override]
+ public function getTgMessage(): Telegram\Types\Message
 	{
 		return TelegramHelper::getMessage($this->update, true);
 	}

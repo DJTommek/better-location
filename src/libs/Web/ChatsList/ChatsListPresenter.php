@@ -19,7 +19,8 @@ class ChatsListPresenter extends MainPresenter
 		$this->template = $template;
 	}
 
-	public function action(): void
+	#[\Override]
+ public function action(): void
 	{
 		if ($this->isPostRequest()) {
 			try {
@@ -71,7 +72,8 @@ class ChatsListPresenter extends MainPresenter
 		$this->template->chats = $this->chatRepository->findByAdminId($this->user->getId());
 	}
 
-	public function beforeRender(): void
+	#[\Override]
+ public function beforeRender(): void
 	{
 		$this->setTemplateFilename('settings.chatsList.latte');
 	}

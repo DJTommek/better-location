@@ -17,7 +17,8 @@ class FavouritesCommand extends Command
 	const ICON = Icons::FAVOURITE;
 	const DESCRIPTION = 'Manage your saved favourite locations';
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		if ($this->isTgPm() === true) {
 			[$text, $markup, $options] = $this->processFavouritesList();

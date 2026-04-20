@@ -26,7 +26,8 @@ final class GoogleEarthService extends AbstractService
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
 	];
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -36,7 +37,8 @@ final class GoogleEarthService extends AbstractService
 	}
 
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if ($this->url === null) {
 			return false;
@@ -60,7 +62,8 @@ final class GoogleEarthService extends AbstractService
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if (isset($this->data->basicCoords)) {
 			$coords = $this->data->basicCoords;

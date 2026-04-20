@@ -33,7 +33,8 @@ final class OpenStreetMapService extends AbstractService
 	) {
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			return self::LINK . sprintf('/directions?from=&to=%1$F,%2$F', $lat, $lon);
@@ -42,7 +43,8 @@ final class OpenStreetMapService extends AbstractService
 		}
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if (
 			!$this->url
@@ -79,7 +81,8 @@ final class OpenStreetMapService extends AbstractService
 		return $this->data->pointCoord !== null || $this->data->mapCoord !== null || $this->data->noteId !== null;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if ($this->data->isShortUrl ?? false) {
 			$this->url->setHost('www.openstreetmap.org');
@@ -106,7 +109,8 @@ final class OpenStreetMapService extends AbstractService
 		}
 	}
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_POINT,

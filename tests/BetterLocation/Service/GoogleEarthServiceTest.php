@@ -6,12 +6,14 @@ use App\BetterLocation\Service\GoogleEarthService;
 
 final class GoogleEarthServiceTest extends AbstractServiceTestCase
 {
-	protected function getServiceClass(): string
+	#[\Override]
+ protected function getServiceClass(): string
 	{
 		return GoogleEarthService::class;
 	}
 
-	protected function getShareLinks(): array
+	#[\Override]
+ protected function getShareLinks(): array
 	{
 		return [
 			'https://earth.google.com/web/@50.087451,14.420671,0a,100000.00d,35y,0h,0t,0r',
@@ -22,7 +24,8 @@ final class GoogleEarthServiceTest extends AbstractServiceTestCase
 		];
 	}
 
-	protected function getDriveLinks(): array
+	#[\Override]
+ protected function getDriveLinks(): array
 	{
 		return [];
 	}

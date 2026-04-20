@@ -67,7 +67,8 @@ class ReverseResponseDto extends AbstractDto implements AddressInterface, Coordi
 	 */
 	public readonly array $boundingbox;
 
-	public function getAddress(): ?Address
+	#[\Override]
+ public function getAddress(): ?Address
 	{
 		$country = null;
 		$countryCode = $this->address['country_code'] ?? null;
@@ -78,22 +79,26 @@ class ReverseResponseDto extends AbstractDto implements AddressInterface, Coordi
 		return new Address($this->display_name, $country);
 	}
 
-	public function getLat(): float
+	#[\Override]
+ public function getLat(): float
 	{
 		return $this->lat;
 	}
 
-	public function getLon(): float
+	#[\Override]
+ public function getLon(): float
 	{
 		return $this->lon;
 	}
 
-	public function getLatLon(string $delimiter = ','): string
+	#[\Override]
+ public function getLatLon(string $delimiter = ','): string
 	{
 		return sprintf('%F%s%F', $this->getLat(), $delimiter,  $this->getLon());
 	}
 
-	public function set(string $name, mixed $value): void
+	#[\Override]
+ public function set(string $name, mixed $value): void
 	{
 		$this->{$name} = match ($name) {
 			'lat', 'lon' => (float)$value,

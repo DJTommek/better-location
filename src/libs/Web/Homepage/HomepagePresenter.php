@@ -6,7 +6,8 @@ use App\Web\MainPresenter;
 
 class HomepagePresenter extends MainPresenter
 {
-	public function beforeRender(): void
+	#[\Override]
+ public function beforeRender(): void
 	{
 		$this->setTemplateFilename('homepage.latte');
 	}

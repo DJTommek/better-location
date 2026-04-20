@@ -12,7 +12,8 @@ final class TimezoneTypeTest extends TestCase
 	private static TimezoneType $newYork;
 	private static TimezoneType $tehran;
 
-	public static function setUpBeforeClass(): void
+	#[\Override]
+ public static function setUpBeforeClass(): void
 	{
 		$content = file_get_contents(__DIR__ . '/../fixtures/prague.json');
 		$json = json_decode($content, false, 512, JSON_THROW_ON_ERROR);

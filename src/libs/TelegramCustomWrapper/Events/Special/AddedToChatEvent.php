@@ -21,7 +21,8 @@ class AddedToChatEvent extends Special
 	) {
 	}
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		$this->recalculateChatMembers();
 

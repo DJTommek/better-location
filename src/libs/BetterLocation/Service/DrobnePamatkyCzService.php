@@ -31,7 +31,8 @@ final class DrobnePamatkyCzService extends AbstractService
 	) {
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -40,7 +41,8 @@ final class DrobnePamatkyCzService extends AbstractService
 		}
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return (
 			$this->url &&
@@ -49,7 +51,8 @@ final class DrobnePamatkyCzService extends AbstractService
 		);
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$body = $this->requestor->get($this->url, Config::CACHE_TTL_DROBNE_PAMATKY_CZ);
 

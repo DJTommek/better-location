@@ -8,12 +8,14 @@ final class NahlizeniCuzkCzServiceTest extends AbstractServiceTestCase
 {
 	protected bool $revalidateGeneratedShareLink = false;
 
-	protected function getServiceClass(): string
+	#[\Override]
+ protected function getServiceClass(): string
 	{
 		return NahlizeniCuzkCzService::class;
 	}
 
-	protected function getShareLinks(): array
+	#[\Override]
+ protected function getShareLinks(): array
 	{
 		return [
 			'https://nahlizenidokn.cuzk.gov.cz/MapaIdentifikace.aspx?l=KN&x=-742851&y=-1043009',
@@ -24,7 +26,8 @@ final class NahlizeniCuzkCzServiceTest extends AbstractServiceTestCase
 		];
 	}
 
-	protected function getDriveLinks(): array
+	#[\Override]
+ protected function getDriveLinks(): array
 	{
 		return [];
 	}

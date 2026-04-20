@@ -20,7 +20,8 @@ final class WikipediaService extends AbstractService
 	) {
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return (
 			$this->url &&
@@ -32,7 +33,8 @@ final class WikipediaService extends AbstractService
 		);
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$response = $this->requestLocationFromWikipediaPage();
 		if (isset($response->wgCoordinates) === false) {

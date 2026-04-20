@@ -19,7 +19,8 @@ class IgnoreButton extends Button
 
 	public function __construct(private readonly UserRepository $userRepository) { }
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		if ($this->isAdmin() === false) {
 			$this->flash(sprintf('%s You are not admin of this chat.', Icons::ERROR), true);

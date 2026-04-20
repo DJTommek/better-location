@@ -41,7 +41,8 @@ class StaticApi
 		return StreetViewResponse::cast($response);
 	}
 
-	function cacheTtl(): int
+	#[\Override]
+ function cacheTtl(): int
 	{
 		return Config::CACHE_TTL_GOOGLE_STREETVIEW_API;
 	}

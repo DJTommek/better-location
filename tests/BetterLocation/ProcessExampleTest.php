@@ -17,7 +17,8 @@ final class ProcessExampleTest extends TestCase
 {
 	private readonly HttpTestClients $httpTestClients;
 
-	protected function setUp(): void
+	#[\Override]
+ protected function setUp(): void
 	{
 		parent::setUp();
 

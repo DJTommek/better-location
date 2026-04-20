@@ -133,17 +133,20 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		$this->clearLazyLoad();
 	}
 
-	public function offsetExists($offset): bool
+	#[\Override]
+ public function offsetExists($offset): bool
 	{
 		return isset($this->locations[$offset]);
 	}
 
-	public function offsetGet($offset): ?BetterLocation
+	#[\Override]
+ public function offsetGet($offset): ?BetterLocation
 	{
 		return $this->locations[$offset] ?? null;
 	}
 
-	public function offsetSet($offset, $value): void
+	#[\Override]
+ public function offsetSet($offset, $value): void
 	{
 		try {
 			if ($value instanceof BetterLocation) {
@@ -178,38 +181,45 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 		throw new \InvalidArgumentException(sprintf('%s is accepting only "%s" and "%s" objects.', self::class, BetterLocation::class, BetterLocationCollection::class));
 	}
 
-	public function offsetUnset($offset): void
+	#[\Override]
+ public function offsetUnset($offset): void
 	{
 		unset($this->locations[$offset]);
 		$this->clearLazyLoad();
 	}
 
-	public function current(): BetterLocation
+	#[\Override]
+ public function current(): BetterLocation
 	{
 		return $this->locations[$this->position];
 	}
 
-	public function next(): void
+	#[\Override]
+ public function next(): void
 	{
 		$this->position++;
 	}
 
-	public function key(): int
+	#[\Override]
+ public function key(): int
 	{
 		return $this->position;
 	}
 
-	public function valid(): bool
+	#[\Override]
+ public function valid(): bool
 	{
 		return isset($this->locations[$this->position]);
 	}
 
-	public function rewind(): void
+	#[\Override]
+ public function rewind(): void
 	{
 		$this->position = 0;
 	}
 
-	public function count(): int
+	#[\Override]
+ public function count(): int
 	{
 		return count($this->locations);
 	}

@@ -21,7 +21,8 @@ final class FacebookService extends AbstractService
 	) {
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return (
 			$this->url &&
@@ -30,7 +31,8 @@ final class FacebookService extends AbstractService
 		);
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$pageAboutUrl = $this->getPageAboutUrl();
 		$body = $this->requestor->get($pageAboutUrl, Config::CACHE_TTL_FACEBOOK, headers: ['accept' => 'text/html']);

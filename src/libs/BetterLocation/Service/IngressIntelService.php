@@ -34,7 +34,8 @@ final class IngressIntelService extends AbstractService
 	}
 
 	/** @throws NotSupportedException */
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -43,7 +44,8 @@ final class IngressIntelService extends AbstractService
 		}
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if ($this->url && $this->url->getDomain(2) === 'ingress.com') {
 
@@ -59,7 +61,8 @@ final class IngressIntelService extends AbstractService
 		return $this->portalCoords !== null || $this->mapCoords !== null;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if ($this->portalCoords !== null) {
 			$location = new BetterLocation($this->input, $this->portalCoords->lat, $this->portalCoords->lon, self::class, self::TYPE_PORTAL);
@@ -90,7 +93,8 @@ final class IngressIntelService extends AbstractService
 		}
 	}
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_PORTAL,

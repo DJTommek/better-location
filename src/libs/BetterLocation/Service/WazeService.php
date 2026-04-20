@@ -27,7 +27,8 @@ final class WazeService extends AbstractService
 	) {
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		$link = sprintf(self::LINK . '/ul?ll=%1$F,%2$F', $lat, $lon);
 		if ($drive) {
@@ -36,7 +37,8 @@ final class WazeService extends AbstractService
 		return $link;
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return $this->isShortUrl() || $this->isNormalUrl();
 	}
@@ -92,7 +94,8 @@ final class WazeService extends AbstractService
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if ($this->data->isShortUrl ?? false) {
 			$this->url = Strict::url($this->getRedirectUrl());

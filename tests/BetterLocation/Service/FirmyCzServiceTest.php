@@ -7,17 +7,20 @@ use App\BetterLocation\Service\FirmyCzService;
 final class FirmyCzServiceTest extends AbstractServiceTestCase
 {
 
-	protected function getServiceClass(): string
+	#[\Override]
+ protected function getServiceClass(): string
 	{
 		return FirmyCzService::class;
 	}
 
-	protected function getShareLinks(): array
+	#[\Override]
+ protected function getShareLinks(): array
 	{
 		return [];
 	}
 
-	protected function getDriveLinks(): array
+	#[\Override]
+ protected function getDriveLinks(): array
 	{
 		return [];
 	}

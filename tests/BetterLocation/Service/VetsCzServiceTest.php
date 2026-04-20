@@ -9,19 +9,22 @@ final class VetsCzServiceTest extends AbstractServiceTestCase
 {
 	private readonly HttpTestClients $httpTestClients;
 
-	protected function setUp(): void
+	#[\Override]
+ protected function setUp(): void
 	{
 		parent::setUp();
 
 		$this->httpTestClients = new HttpTestClients();
 	}
 
-	protected function getServiceClass(): string
+	#[\Override]
+ protected function getServiceClass(): string
 	{
 		return VetsCzService::class;
 	}
 
-	protected function getShareLinks(): array
+	#[\Override]
+ protected function getShareLinks(): array
 	{
 		return [
 			'https://www.vets.cz/vpm/mapa/?lat=50.087451&lon=14.420671',
@@ -32,7 +35,8 @@ final class VetsCzServiceTest extends AbstractServiceTestCase
 		];
 	}
 
-	protected function getDriveLinks(): array
+	#[\Override]
+ protected function getDriveLinks(): array
 	{
 		return [];
 	}

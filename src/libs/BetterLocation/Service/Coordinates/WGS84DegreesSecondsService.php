@@ -8,13 +8,15 @@ final class WGS84DegreesSecondsService extends WGS84AbstractService
 	const string NAME = 'WGS84 DS';
 	const TAGS = [];
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$location = self::processWGS84();
 		$this->collection->add($location);
 	}
 
-	protected static function getReCoords(): string
+	#[\Override]
+ protected static function getReCoords(): string
 	{
 		$degSymbol = '(?: ?° ?)';
 		$degText = '(?: ?deg ?)';

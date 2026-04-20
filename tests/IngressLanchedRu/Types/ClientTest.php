@@ -10,7 +10,8 @@ final class ClientTest extends TestCase
 {
 	private readonly HttpTestClients $httpTestClients;
 
-	protected function setUp(): void
+	#[\Override]
+ protected function setUp(): void
 	{
 		parent::setUp();
 

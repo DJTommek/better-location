@@ -8,7 +8,8 @@ final class SnappMapsService extends EitaaSnappMapsAbstractService
 	public const string NAME = 'Snapp Maps';
 	public const string DOMAIN = 'tile.snappmaps.ir';
 
-	protected static function getDomain(): string
+	#[\Override]
+ protected static function getDomain(): string
 	{
 		return self::DOMAIN;
 	}

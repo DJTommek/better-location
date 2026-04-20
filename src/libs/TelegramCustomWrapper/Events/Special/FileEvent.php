@@ -29,7 +29,8 @@ class FileEvent extends Special
 	) {
 	}
 
-	public function getCollection(): BetterLocationCollection
+	#[\Override]
+ public function getCollection(): BetterLocationCollection
 	{
 		if ($this->collection === null) {
 			$this->collection = new BetterLocationCollection();
@@ -84,7 +85,8 @@ class FileEvent extends Special
 		return null;
 	}
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		if ($this->matchesIgnoreFilter()) {
 			return;

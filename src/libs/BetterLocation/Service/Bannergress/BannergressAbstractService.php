@@ -22,7 +22,8 @@ abstract class BannergressAbstractService extends AbstractService
 
 	abstract protected function mosaicUrl(string $mosaicId): string;
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if (
 			$this->url
@@ -35,7 +36,8 @@ abstract class BannergressAbstractService extends AbstractService
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$mosaic = $this->loadApi($this->data->mosaicId);
 		if ($mosaic === null) {

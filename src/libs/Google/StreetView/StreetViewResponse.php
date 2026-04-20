@@ -13,7 +13,8 @@ class StreetViewResponse extends AbstractDto
 	public string $pano_id;
 	public string $status;
 
-	public function set(string $name, mixed $value): void
+	#[\Override]
+ public function set(string $name, mixed $value): void
 	{
 		$this->{$name} = match ($name) {
 			'location' => new CoordinatesImmutable($value->lat, $value->lng),

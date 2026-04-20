@@ -13,7 +13,8 @@ class Description implements \Stringable
 	{
 	}
 
-	public function __toString(): string
+	#[\Override]
+ public function __toString(): string
 	{
 		return $this->content;
 	}

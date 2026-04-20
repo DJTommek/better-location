@@ -10,7 +10,8 @@ class StaticMapCacheEntity extends Entity
 	 */
 	public readonly string $url;
 
-	public static function fromRow(array $row): self
+	#[\Override]
+ public static function fromRow(array $row): self
 	{
 		$entity = new self();
 		$entity->id = $row['id'];

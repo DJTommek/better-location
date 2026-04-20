@@ -11,7 +11,8 @@ final class GeocachePreviewTypeTest extends TestCase
 	private static GeocachePreviewType $GC7X2M6;
 	private static GeocachePreviewType $GC7B7HB;
 
-	public static function setUpBeforeClass(): void
+	#[\Override]
+ public static function setUpBeforeClass(): void
 	{
 		$content = file_get_contents(__DIR__ . '/../fixtures/GC3DYC4.json');
 		$json = json_decode($content, false, 512, JSON_THROW_ON_ERROR);

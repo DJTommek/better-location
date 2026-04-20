@@ -24,7 +24,8 @@ final class OrganicMapsService extends AbstractService
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
 	];
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -34,12 +35,14 @@ final class OrganicMapsService extends AbstractService
 		}
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return $this->isUrl();
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		assert($this->data->ge0 instanceof Ge0Code);
 		$lat = $this->data->ge0->lat;

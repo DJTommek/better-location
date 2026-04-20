@@ -16,7 +16,8 @@ final class WhatThreeWordsServiceTest extends TestCase
 {
 	private readonly HttpTestClients $httpTestClients;
 
-	protected function setUp(): void
+	#[\Override]
+ protected function setUp(): void
 	{
 		parent::setUp();
 

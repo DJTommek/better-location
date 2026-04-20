@@ -7,12 +7,14 @@ use Tests\HttpTestClients;
 
 final class IKatastrCzServiceTest extends AbstractServiceTestCase
 {
-	protected function getServiceClass(): string
+	#[\Override]
+ protected function getServiceClass(): string
 	{
 		return IKatastrCzService::class;
 	}
 
-	protected function getShareLinks(): array
+	#[\Override]
+ protected function getShareLinks(): array
 	{
 		return [
 			'https://www.ikatastr.cz/#kde=50.087451,14.420671,17&info=50.087451,14.420671',
@@ -23,7 +25,8 @@ final class IKatastrCzServiceTest extends AbstractServiceTestCase
 		];
 	}
 
-	protected function getDriveLinks(): array
+	#[\Override]
+ protected function getDriveLinks(): array
 	{
 		return [];
 	}

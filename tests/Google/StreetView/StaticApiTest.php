@@ -15,7 +15,8 @@ final class StaticApiTest extends TestCase
 {
 	private static StaticApi $api;
 
-	public static function setUpBeforeClass(): void
+	#[\Override]
+ public static function setUpBeforeClass(): void
 	{
 		if (!Config::isGoogleStreetViewStaticApi()) {
 			self::markTestSkipped('Missing Google API key');

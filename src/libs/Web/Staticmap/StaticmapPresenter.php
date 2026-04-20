@@ -14,7 +14,8 @@ class StaticmapPresenter extends MainPresenter
 	{
 	}
 
-	public function action(): never
+	#[\Override]
+ public function action(): never
 	{
 		$id = $this->request->getQuery('id');
 		if ($id === null) {

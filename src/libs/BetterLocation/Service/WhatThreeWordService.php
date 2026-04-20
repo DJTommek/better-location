@@ -32,7 +32,8 @@ final class WhatThreeWordService extends AbstractService
 	}
 
 	/** @throws NotSupportedException|\Exception */
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -42,12 +43,14 @@ final class WhatThreeWordService extends AbstractService
 		}
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return $this->isWords() || $this->isUrl();
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if ($this->w3wHelper === null) {
 			throw new \RuntimeException('What3Words API is not available.');
@@ -94,7 +97,8 @@ final class WhatThreeWordService extends AbstractService
 		return false;
 	}
 
-	public static function getShareText(float $lat, float $lon): ?string
+	#[\Override]
+ public static function getShareText(float $lat, float $lon): ?string
 	{
 		$helper = Factory::whatThreeWordsHelper();
 		if ($helper === null) {
@@ -105,7 +109,8 @@ final class WhatThreeWordService extends AbstractService
 		return '///' . $data->words;
 	}
 
-	public static function findInText(string $text): BetterLocationCollection
+	#[\Override]
+ public static function findInText(string $text): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
 		$wordsAddresses = WhatThreeWord\Helper::findInText($text);

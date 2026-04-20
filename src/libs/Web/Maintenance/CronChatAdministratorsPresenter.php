@@ -21,7 +21,8 @@ class CronChatAdministratorsPresenter extends MainPresenter
 	) {
 	}
 
-	public function action(): void
+	#[\Override]
+ public function action(): void
 	{
 		if ($this->request->getQuery('password') !== \App\Config::CRON_PASSWORD) {
 			$this->apiResponse(true, 'Invalid password', httpCode: self::HTTP_FORBIDDEN);

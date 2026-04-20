@@ -31,7 +31,8 @@ final class ZanikleObceCzService extends AbstractService
 	}
 
 	/**@throws NotSupportedException */
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -41,7 +42,8 @@ final class ZanikleObceCzService extends AbstractService
 		}
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if ($this->url && $this->url->getDomain(2) === 'zanikleobce.cz') {
 			// if both query parameters ('detail' + 'obec') are available, 'detail' has higher priority (as of 2021.03.08)
@@ -56,7 +58,8 @@ final class ZanikleObceCzService extends AbstractService
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if ($this->data->isPageDetail ?? false) {
 			$this->url = Strict::url($this->getObecUrlFromDetail());

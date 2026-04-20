@@ -28,7 +28,8 @@ class RefreshButton extends Button
 	) {
 	}
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		try {
 			$params = TelegramHelper::getParams($this->update);

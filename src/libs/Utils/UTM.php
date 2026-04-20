@@ -239,19 +239,22 @@ class UTM implements \DJTommek\Coordinates\CoordinatesInterface
 		$this->coordinates = new CoordinatesImmutable($lat, $lon);
 	}
 
-	public function getLat(): float
+	#[\Override]
+ public function getLat(): float
 	{
 		$this->calculateLatLon();
 		return $this->coordinates->getLat();
 	}
 
-	public function getLon(): float
+	#[\Override]
+ public function getLon(): float
 	{
 		$this->calculateLatLon();
 		return $this->coordinates->getLon();
 	}
 
-	public function getLatLon(string $delimiter = ','): string
+	#[\Override]
+ public function getLatLon(string $delimiter = ','): string
 	{
 		return $this->coordinates->getLatLon($delimiter);
 	}

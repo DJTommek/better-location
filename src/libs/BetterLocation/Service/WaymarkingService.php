@@ -37,7 +37,8 @@ final class WaymarkingService extends AbstractService
 	) {
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -46,7 +47,8 @@ final class WaymarkingService extends AbstractService
 		}
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return $this->isUrl();
 	}
@@ -99,7 +101,8 @@ final class WaymarkingService extends AbstractService
 		}
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if ($this->data->waymarkIsImage ?? false) {
 			$this->processImage();

@@ -20,7 +20,8 @@ class InputProcessPresenter extends MainPresenter
 	) {
 	}
 
-	public function action(): never
+	#[\Override]
+ public function action(): never
 	{
 		Debugger::$showBar = false;
 

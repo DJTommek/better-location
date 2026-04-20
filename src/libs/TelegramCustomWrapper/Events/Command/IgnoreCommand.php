@@ -21,7 +21,8 @@ class IgnoreCommand extends Command
 	) {
 	}
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		if ($this->isAdmin() === false) {
 			return;

@@ -28,7 +28,8 @@ final class ProcessedMessageResultTest extends TestCase
 
 	private static ?StaticApi $googleGeocodeApi = null;
 
-	public static function setUpBeforeClass(): void
+	#[\Override]
+ public static function setUpBeforeClass(): void
 	{
 		parent::setUpBeforeClass();
 
@@ -39,7 +40,8 @@ final class ProcessedMessageResultTest extends TestCase
 	}
 
 
-	protected function setUp(): void
+	#[\Override]
+ protected function setUp(): void
 	{
 		parent::setUp();
 

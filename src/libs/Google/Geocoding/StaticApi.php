@@ -13,7 +13,8 @@ class StaticApi implements AddressProvider
 
 	private const string API_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 
-	public function reverse(CoordinatesInterface $coordinates): ?GeocodeResponse
+	#[\Override]
+ public function reverse(CoordinatesInterface $coordinates): ?GeocodeResponse
 	{
 		$queryParams = [
 			'key' => $this->apiKey,
@@ -27,7 +28,8 @@ class StaticApi implements AddressProvider
 		return GeocodeResponse::cast($response);
 	}
 
-	function cacheTtl(): int
+	#[\Override]
+ function cacheTtl(): int
 	{
 		return Config::CACHE_TTL_GOOGLE_GEOCODE_API;
 	}

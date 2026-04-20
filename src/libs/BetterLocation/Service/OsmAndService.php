@@ -25,7 +25,8 @@ final class OsmAndService extends AbstractService
 	const string TYPE_PIN = 'Pin';
 	const string TYPE_MAP_CENTER = 'Map center';
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_PIN,
@@ -34,12 +35,14 @@ final class OsmAndService extends AbstractService
 		];
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		return self::LINK . sprintf('/go.html?lat=%1$F&lon=%2$F', $lat, $lon);
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		$result = false;
 		if ($this->url && $this->url->getDomain(2) === 'osmand.net') {
@@ -70,7 +73,8 @@ final class OsmAndService extends AbstractService
 		return $result;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$coords = $this->data->goCoords ?? null;
 		if ($coords instanceof CoordinatesInterface) {

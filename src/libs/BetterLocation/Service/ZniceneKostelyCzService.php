@@ -22,7 +22,8 @@ final class ZniceneKostelyCzService extends AbstractService
 	) {
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if ($this->url?->getDomain(2) !== 'znicenekostely.cz') {
 			return false;
@@ -47,7 +48,8 @@ final class ZniceneKostelyCzService extends AbstractService
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$url = $this->objectUrl($this->objectId);
 		$response = $this->requestor->get($url, Config::CACHE_TTL_ZNICENE_KOSTELY_CZ);

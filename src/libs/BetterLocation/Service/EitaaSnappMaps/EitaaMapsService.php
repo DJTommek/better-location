@@ -8,7 +8,8 @@ final class EitaaMapsService extends EitaaSnappMapsAbstractService
 	public const string NAME = 'Eitaa Maps';
 	public const string DOMAIN = 'map.eitaa.com';
 
-	protected static function getDomain(): string
+	#[\Override]
+ protected static function getDomain(): string
 	{
 		return self::DOMAIN;
 	}

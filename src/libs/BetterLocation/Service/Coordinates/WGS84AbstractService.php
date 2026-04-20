@@ -57,7 +57,8 @@ abstract class WGS84AbstractService extends AbstractService
 			self::RE_OPTIONAL_HEMISPHERE;
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		$input = str_replace('\'\'', '"', $this->input); // Replace two quotes as one doublequote
 		if (preg_match('/^' . static::getRegex() . '$/iu', $input, $matches)) {
@@ -68,7 +69,8 @@ abstract class WGS84AbstractService extends AbstractService
 	}
 
 
-	public static function findInText(string $text): BetterLocationCollection
+	#[\Override]
+ public static function findInText(string $text): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
 		$text = str_replace('\'\'', '"', $text); // Replace two quotes as one doublequote

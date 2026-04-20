@@ -55,12 +55,14 @@ final class UniversalWebsiteService extends AbstractService
 	}
 
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return isset($this->url);
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$response = $this->loadUrl();
 		$dom = Utils::domFromUTF8((string)$response->getBody());
@@ -172,7 +174,8 @@ final class UniversalWebsiteService extends AbstractService
 		return true;
 	}
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_SCHEMA_JSON_GEO,

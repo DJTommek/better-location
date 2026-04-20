@@ -24,7 +24,8 @@ class ChatLocationHistoryEntity extends Entity implements CoordinatesInterface
 	/**
 	 * @param array<string, mixed> $row
 	 */
-	public static function fromRow(array $row): self
+	#[\Override]
+ public static function fromRow(array $row): self
 	{
 		$entity = new self();
 		$entity->id = $row['id'];
@@ -41,17 +42,20 @@ class ChatLocationHistoryEntity extends Entity implements CoordinatesInterface
 		return $entity;
 	}
 
-	public function getLat(): float
+	#[\Override]
+ public function getLat(): float
 	{
 		return $this->latitude;
 	}
 
-	public function getLon(): float
+	#[\Override]
+ public function getLon(): float
 	{
 		return $this->longitude;
 	}
 
-	public function getLatLon(string $delimiter = ','): string
+	#[\Override]
+ public function getLatLon(string $delimiter = ','): string
 	{
 		return $this->coordinates->getLatLon($delimiter);
 	}

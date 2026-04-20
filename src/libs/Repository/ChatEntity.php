@@ -41,7 +41,8 @@ class ChatEntity extends Entity
 	/** @var Repository::DISABLED|Repository::ENABLED|Repository::DELETED */
 	public int $status;
 
-	public static function fromRow(array|\PDORow $row): self
+	#[\Override]
+ public static function fromRow(array|\PDORow $row): self
 	{
 		$entity = new self();
 		$entity->id = $row['chat_id'];

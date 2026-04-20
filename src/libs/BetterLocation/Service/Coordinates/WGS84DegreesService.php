@@ -9,13 +9,15 @@ final class WGS84DegreesService extends WGS84AbstractService
 	const int ID = 10;
 	const string NAME = 'WGS84';
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$location = self::processWGS84();
 		$this->collection->add($location);
 	}
 
-	public static function getShareText(float $lat, float $lon): ?string
+	#[\Override]
+ public static function getShareText(float $lat, float $lon): ?string
 	{
 		$coords = new Coordinates($lat, $lon);
 		return sprintf('%s %F°, %s %F°',
@@ -24,7 +26,8 @@ final class WGS84DegreesService extends WGS84AbstractService
 		);
 	}
 
-	protected static function getReCoords(): string
+	#[\Override]
+ protected static function getReCoords(): string
 	{
 		return '([0-9]{1,3}\.[0-9]{4,20})';
 	}

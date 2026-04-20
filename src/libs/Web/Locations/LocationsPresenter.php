@@ -43,7 +43,8 @@ class LocationsPresenter extends MainPresenter
 		$this->nowFileText = DateImmutableUtils::nowUtc()->format(Config::DATETIME_FILE_FORMAT);
 	}
 
-	public function action(): void
+	#[\Override]
+ public function action(): void
 	{
 		$this->format = mb_strtolower($_GET['format'] ?? 'html');
 
@@ -117,7 +118,8 @@ class LocationsPresenter extends MainPresenter
 		}
 	}
 
-	public function render(): void
+	#[\Override]
+ public function render(): void
 	{
 		if ($this->collection->isEmpty()) {
 			$this->setTemplateFilename('locations.latte');

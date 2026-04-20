@@ -35,7 +35,8 @@ class StartCommand extends Command
 	) {
 	}
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		$encodedParams = TelegramHelper::getParams($this->update);
 		if (count($encodedParams) === 0) {

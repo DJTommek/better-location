@@ -23,7 +23,8 @@ final class KudyZNudyCzService extends AbstractService
 	) {
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if (
 			$this->url
@@ -42,7 +43,8 @@ final class KudyZNudyCzService extends AbstractService
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$response = $this->requestor->get($this->url, Config::CACHE_TTL_KUDY_Z_NUDY_CZ);
 		$dom = Utils::domFromUTF8($response);
@@ -81,7 +83,8 @@ final class KudyZNudyCzService extends AbstractService
 		);
 	}
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_ACTIVITY,

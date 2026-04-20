@@ -33,7 +33,8 @@ final class FoursquareService extends AbstractService
 	) {
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -42,7 +43,8 @@ final class FoursquareService extends AbstractService
 		}
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if (
 			$this->url &&
@@ -55,7 +57,8 @@ final class FoursquareService extends AbstractService
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if ($this->foursquareClient === null) {
 			throw new \RuntimeException('Foursquare API is not available.');

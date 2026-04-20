@@ -23,7 +23,8 @@ class SettingsButton extends Button
 	) {
 	}
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		if ($this->isAdmin()) {
 			if (count($this->params) > 1) {

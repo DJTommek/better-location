@@ -15,7 +15,8 @@ class FavouritesButton extends Button
 
 	const ACTION_REFRESH = 'refresh';
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		$params = TelegramHelper::getParams($this->update);
 		$action = array_shift($params);

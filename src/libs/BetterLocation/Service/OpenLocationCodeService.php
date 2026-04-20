@@ -31,7 +31,8 @@ final class OpenLocationCodeService extends AbstractService
 		ServicesManager::TAG_GENERATE_TEXT_OFFLINE,
 	];
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -41,12 +42,14 @@ final class OpenLocationCodeService extends AbstractService
 		}
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return $this->isUrl() || $this->isPlusCode();
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$data = OpenLocationCode::decode($this->data->plusCode);
 		$coordsCenter = new Coordinates($data['latitudeCenter'], $data['longitudeCenter']);
@@ -91,7 +94,8 @@ final class OpenLocationCodeService extends AbstractService
 		return false;
 	}
 
-	public static function findInText(string $text): BetterLocationCollection
+	#[\Override]
+ public static function findInText(string $text): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
 		if (preg_match_all(self::RE_IN_STRING, $text, $matches)) {
@@ -102,7 +106,8 @@ final class OpenLocationCodeService extends AbstractService
 		return $collection;
 	}
 
-	public static function getShareText(float $lat, float $lon): ?string
+	#[\Override]
+ public static function getShareText(float $lat, float $lon): ?string
 	{
 		return OpenLocationCode::encode($lat, $lon, self::DEFAULT_CODE_LENGTH);
 	}

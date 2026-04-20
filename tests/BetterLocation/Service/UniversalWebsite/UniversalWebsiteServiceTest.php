@@ -16,7 +16,8 @@ final class UniversalWebsiteServiceTest extends AbstractServiceTestCase
 	private readonly LdJsonProcessor $ldJsonProcessor;
 	private readonly CacheInterface $cache;
 
-	protected function setUp(): void
+	#[\Override]
+ protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -26,17 +27,20 @@ final class UniversalWebsiteServiceTest extends AbstractServiceTestCase
 		$this->ldJsonProcessor = new LdJsonProcessor();
 	}
 
-	protected function getServiceClass(): string
+	#[\Override]
+ protected function getServiceClass(): string
 	{
 		return UniversalWebsiteService::class;
 	}
 
-	protected function getShareLinks(): array
+	#[\Override]
+ protected function getShareLinks(): array
 	{
 		return [];
 	}
 
-	protected function getDriveLinks(): array
+	#[\Override]
+ protected function getDriveLinks(): array
 	{
 		return [];
 	}

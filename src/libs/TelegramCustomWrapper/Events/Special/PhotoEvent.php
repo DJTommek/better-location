@@ -19,7 +19,8 @@ class PhotoEvent extends Special
 	) {
 	}
 
-	public function getCollection(): BetterLocationCollection
+	#[\Override]
+ public function getCollection(): BetterLocationCollection
 	{
 		if ($this->collection === null) {
 			$this->collection = $this->fromTelegramMessage->getCollection(
@@ -31,7 +32,8 @@ class PhotoEvent extends Special
 		return $this->collection;
 	}
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		if ($this->matchesIgnoreFilter()) {
 			return;

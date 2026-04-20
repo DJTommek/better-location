@@ -12,7 +12,8 @@ abstract class EitaaSnappMapsAbstract extends AbstractServiceTestCase
 
 	abstract protected static function processExtraProvider(): array;
 
-	final protected function getShareLinks(): array
+	#[\Override]
+ final protected function getShareLinks(): array
 	{
 		$domain = static::getDomain();
 		return [
@@ -24,7 +25,8 @@ abstract class EitaaSnappMapsAbstract extends AbstractServiceTestCase
 		];
 	}
 
-	final protected function getDriveLinks(): array
+	#[\Override]
+ final protected function getDriveLinks(): array
 	{
 		return [];
 	}

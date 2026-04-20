@@ -15,7 +15,8 @@ final class FirmyCzService extends AbstractService
 
 	const string URL_PATH_REGEX = '/^\/detail\/([0-9]+)/';
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if (
 			$this->url &&
@@ -28,7 +29,8 @@ final class FirmyCzService extends AbstractService
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$mapyCzApi = new MapyCzApi();
 		$firmDetail = $mapyCzApi->loadPoiDetails('firm', $this->data->firmId);

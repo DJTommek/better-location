@@ -9,7 +9,8 @@ use Tracy\ILogger;
  */
 class DummyLogger implements ILogger
 {
-	public function log($value, $level = ILogger::INFO)
+	#[\Override]
+ public function log($value, $level = ILogger::INFO)
 	{
 		// Do nothing
 	}

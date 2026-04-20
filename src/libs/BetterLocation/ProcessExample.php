@@ -54,17 +54,20 @@ class ProcessExample implements CoordinatesInterface
 		return $this->exampleInput;
 	}
 
-	public function getLat(): float
+	#[\Override]
+ public function getLat(): float
 	{
 		return $this->getExampleLocation()->getLat();
 	}
 
-	public function getLon(): float
+	#[\Override]
+ public function getLon(): float
 	{
 		return $this->getExampleLocation()->getLon();
 	}
 
-	public function getLatLon(string $delimiter = ','): string
+	#[\Override]
+ public function getLatLon(string $delimiter = ','): string
 	{
 		return $this->getExampleLocation()->getCoordinates()->getLatLon($delimiter);
 	}

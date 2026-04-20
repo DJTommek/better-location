@@ -23,7 +23,8 @@ final class VodniMlynyCzService extends AbstractService
 	) {
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if (
 			$this->url
@@ -36,7 +37,8 @@ final class VodniMlynyCzService extends AbstractService
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$estates = $this->getEstates();
 		$estate = $this->searchInEstates($estates, $this->data->id);

@@ -31,7 +31,8 @@ final class IngressPrimeService extends AbstractService
 	}
 
 	/** @throws NotSupportedException */
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -40,7 +41,8 @@ final class IngressPrimeService extends AbstractService
 		}
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if (
 			!$this->url
@@ -113,7 +115,8 @@ final class IngressPrimeService extends AbstractService
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$mainCoords = null;
 
@@ -143,7 +146,8 @@ final class IngressPrimeService extends AbstractService
 		}
 	}
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_PORTAL,

@@ -25,7 +25,8 @@ final class BetterLocationService extends AbstractService implements ShareCollec
 	];
 
 	/** @throws NotSupportedException */
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -34,12 +35,14 @@ final class BetterLocationService extends AbstractService implements ShareCollec
 		}
 	}
 
-	static public function getShareCollectionLink(BetterLocationCollection $collection): ?string
+	#[\Override]
+ static public function getShareCollectionLink(BetterLocationCollection $collection): ?string
 	{
 		return self::LINK . '/' . implode(';', $collection->getKeys());
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if (
 			$this->url &&
@@ -56,7 +59,8 @@ final class BetterLocationService extends AbstractService implements ShareCollec
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$location = new BetterLocation($this->input, $this->data->coords->getLat(), $this->data->coords->getLon(), self::class);
 		$this->collection->add($location);

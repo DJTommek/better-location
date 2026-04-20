@@ -170,7 +170,8 @@ class Exif implements \JsonSerializable
 	/**
 	 * @return ExifData
 	 */
-	public function jsonSerialize(): array
+	#[\Override]
+ public function jsonSerialize(): array
 	{
 		return $this->raw;
 	}

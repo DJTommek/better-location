@@ -18,7 +18,8 @@ class ContactEvent extends Special
 	) {
 	}
 
-	public function getCollection(): BetterLocationCollection
+	#[\Override]
+ public function getCollection(): BetterLocationCollection
 	{
 		if ($this->collection === null) {
 			$this->collection = $this->getCollectionFromContact();
@@ -45,7 +46,8 @@ class ContactEvent extends Special
 		return $parser->getCollection();
 	}
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		if ($this->matchesIgnoreFilter()) {
 			return;

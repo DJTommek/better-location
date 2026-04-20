@@ -36,7 +36,8 @@ final class GlympseService extends AbstractService
 	) {
 	}
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_INVITE,
@@ -52,7 +53,8 @@ final class GlympseService extends AbstractService
 	const string PATH_INVITE_ID_REGEX = '/^\/([0-9a-z-]+-[0-9a-z-]+)$/i';
 	const string PATH_GROUP_REGEX = '/^\/!(.+)$/i';
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if ($this->url && $this->url->getDomain() === 'glympse.com') {
 			if (preg_match(self::PATH_INVITE_ID_REGEX, $this->url->getPath(), $matches)) {
@@ -66,7 +68,8 @@ final class GlympseService extends AbstractService
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if ($this->glympseApiFactory === null) {
 			throw new \RuntimeException('Glympse API is not available.');

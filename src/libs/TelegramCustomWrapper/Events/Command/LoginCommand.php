@@ -14,7 +14,8 @@ class LoginCommand extends Command
 	const ICON = Icons::LOGIN;
 	const DESCRIPTION = 'Sign in to website';
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		[$text, $markup, $options] = $this->processLogin2();
 		$this->reply($text, $markup, $options);

@@ -9,7 +9,8 @@ use DJTommek\Coordinates\CoordinatesInterface;
  */
 final readonly class NullAddressProvider implements AddressProvider
 {
-	public function reverse(CoordinatesInterface $coordinates): ?AddressInterface
+	#[\Override]
+ public function reverse(CoordinatesInterface $coordinates): ?AddressInterface
 	{
 		return null;
 	}

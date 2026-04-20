@@ -15,7 +15,8 @@ abstract class EitaaSnappMapsAbstractService extends AbstractService
 
 	protected abstract static function getDomain(): string;
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return (
 			$this->url
@@ -39,7 +40,8 @@ abstract class EitaaSnappMapsAbstractService extends AbstractService
 		return $this->mapCenterCoords !== null;
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -54,7 +56,8 @@ abstract class EitaaSnappMapsAbstractService extends AbstractService
 		);
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if ($this->mapCenterCoords !== null) {
 			$location = new BetterLocation($this->input, $this->mapCenterCoords->getLat(), $this->mapCenterCoords->getLon(), static::class);

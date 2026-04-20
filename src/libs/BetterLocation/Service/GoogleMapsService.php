@@ -49,7 +49,8 @@ final class GoogleMapsService extends AbstractService
 	) {
 	}
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_INLINE_SEARCH,
@@ -63,12 +64,14 @@ final class GoogleMapsService extends AbstractService
 		];
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		return sprintf($drive ? self::LINK_DRIVE : self::LINK, $lat, $lon);
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if ($this->url === null) {
 			return false;
@@ -110,7 +113,8 @@ final class GoogleMapsService extends AbstractService
 		return false;
 	}
 
-	public function getScreenshotLink(CoordinatesInterface $coordinates, array $options = []): ?string
+	#[\Override]
+ public function getScreenshotLink(CoordinatesInterface $coordinates, array $options = []): ?string
 	{
 		if (is_null(Config::GOOGLE_MAPS_STATIC_API_KEY)) {
 			throw new NotSupportedException('Google Maps Static API key is not defined.');
@@ -126,7 +130,8 @@ final class GoogleMapsService extends AbstractService
 		return 'https://maps.googleapis.com/maps/api/staticmap?' . http_build_query($params);
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if ($this->data->isShort ?? false) {
 			$urlToRequest = $this->url->setScheme('https'); // Optimalization by skipping one extra redirecting from http to https

@@ -18,7 +18,8 @@ final class UTMService extends AbstractService
 
 	private UTM $utm;
 
-	public static function findInText(string $text): BetterLocationCollection
+	#[\Override]
+ public static function findInText(string $text): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
 		$inStringRegex = '/' . self::generateRegex(3) . '/i';
@@ -42,7 +43,8 @@ final class UTMService extends AbstractService
 		return $collection;
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if (isset($this->inputUrl)) {
 			return false;
@@ -69,14 +71,16 @@ final class UTMService extends AbstractService
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$this->collection->add(
 			new BetterLocation($this->input, $this->utm->getLat(), $this->utm->getLon(), self::class),
 		);
 	}
 
-	public static function getShareText(float $lat, float $lon): ?string
+	#[\Override]
+ public static function getShareText(float $lat, float $lon): ?string
 	{
 		try {
 			$utm = UTM::fromCoordinates(new Coordinates($lat, $lon));

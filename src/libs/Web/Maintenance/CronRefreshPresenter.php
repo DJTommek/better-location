@@ -30,7 +30,8 @@ class CronRefreshPresenter extends MainPresenter
 	) {
 	}
 
-	public function action(): void
+	#[\Override]
+ public function action(): void
 	{
 		$this->log = [];
 

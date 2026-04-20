@@ -16,7 +16,8 @@ final class NeshanOrgService extends AbstractService
 	public const string TYPE_MAP = 'Map center';
 	public const string TYPE_PLACE_ID = 'Place';
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return (
 			$this->url &&
@@ -60,7 +61,8 @@ final class NeshanOrgService extends AbstractService
 		return $valid;
 	}
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_MAP,
@@ -68,7 +70,8 @@ final class NeshanOrgService extends AbstractService
 		];
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -83,7 +86,8 @@ final class NeshanOrgService extends AbstractService
 		}
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if ($this->data->mapCoords instanceof Coordinates) {
 			$coords = $this->data->mapCoords;

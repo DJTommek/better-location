@@ -41,12 +41,14 @@ class Coordinates implements CoordinatesInterface, \JsonSerializable, \Stringabl
 		$this->setElevation($elevation);
 	}
 
-	public function getLat(): float
+	#[\Override]
+ public function getLat(): float
 	{
 		return $this->lat;
 	}
 
-	public function getLon(): float
+	#[\Override]
+ public function getLon(): float
 	{
 		return $this->lon;
 	}
@@ -137,12 +139,14 @@ class Coordinates implements CoordinatesInterface, \JsonSerializable, \Stringabl
 		return md5($this->__toString());
 	}
 
-	public function key(): string
+	#[\Override]
+ public function key(): string
 	{
 		return sprintf('%F,%F', $this->lat, $this->lon);
 	}
 
-	public function __toString(): string
+	#[\Override]
+ public function __toString(): string
 	{
 		return $this->getLatLon();
 	}
@@ -262,7 +266,8 @@ class Coordinates implements CoordinatesInterface, \JsonSerializable, \Stringabl
 	/**
 	 * @return array{lat: float, lon: float, elevation?: float}
 	 */
-	public function jsonSerialize(): array
+	#[\Override]
+ public function jsonSerialize(): array
 	{
 		$result = [
 			'lat' => $this->getLat(),
@@ -274,7 +279,8 @@ class Coordinates implements CoordinatesInterface, \JsonSerializable, \Stringabl
 		return $result;
 	}
 
-	public function getLatLon(string $delimiter = ','): string
+	#[\Override]
+ public function getLatLon(string $delimiter = ','): string
 	{
 		return sprintf('%F%s%F', $this->getLat(), $delimiter, $this->getLon());
 	}

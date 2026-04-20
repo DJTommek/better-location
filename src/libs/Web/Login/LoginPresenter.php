@@ -15,7 +15,8 @@ class LoginPresenter extends MainPresenter
 		$this->template = $template;
 	}
 
-	public function action(): void
+	#[\Override]
+ public function action(): void
 	{
 		if (Strict::isUrl($_GET['redirect'] ?? null)) {
 			$redirectUrl = new UrlImmutable($_GET['redirect']);
@@ -64,7 +65,8 @@ class LoginPresenter extends MainPresenter
 		$this->flashMessage(sprintf('You were logged in as <b>%s</b>.', $tgLoginWrapper->displayname()), Flash::SUCCESS);
 	}
 
-	public function beforeRender(): void
+	#[\Override]
+ public function beforeRender(): void
 	{
 		$this->template->prepare();
 		$this->setTemplateFilename('login.latte');

@@ -19,7 +19,8 @@ class NominatimWrapper implements AddressProvider
 	) {
 	}
 
-	public function reverse(CoordinatesInterface $coordinates): ?ReverseResponseDto
+	#[\Override]
+ public function reverse(CoordinatesInterface $coordinates): ?ReverseResponseDto
 	{
 		$cacheKey = sprintf('reverse-%F-%F', $coordinates->getLat(), $coordinates->getLon());
 

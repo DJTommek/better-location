@@ -9,7 +9,8 @@ final class WGS84DegreeMinutesSecondsCompactService extends AbstractService
 	const int ID = 38;
 	const string NAME = 'WGS84 DMS Compact';
 
-	public static function getShareText(float $lat, float $lon): ?string
+	#[\Override]
+ public static function getShareText(float $lat, float $lon): ?string
 	{
 		[$degreesLat, $minutesLat, $secondsLat] = Coordinates::wgs84DegreesToDegreesMinutesSeconds($lat);
 		[$degreesLon, $minutesLon, $secondsLon] = Coordinates::wgs84DegreesToDegreesMinutesSeconds($lon);

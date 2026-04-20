@@ -13,7 +13,8 @@ final class LdJsonProcessorTest extends TestCase
 {
 	private readonly LdJsonProcessor $ldJsonProcessor;
 
-	protected function setUp(): void
+	#[\Override]
+ protected function setUp(): void
 	{
 		parent::setUp();
 

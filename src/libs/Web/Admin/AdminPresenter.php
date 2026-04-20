@@ -42,7 +42,8 @@ class AdminPresenter extends MainPresenter
 		$this->template = $template;
 	}
 
-	public function action(): void
+	#[\Override]
+ public function action(): void
 	{
 		if (!Config::isAdminPasswordSet()) {
 			die('Set ADMIN_PASSWORD in your local config file first');
@@ -168,7 +169,8 @@ class AdminPresenter extends MainPresenter
 		);
 	}
 
-	public function beforeRender(): void
+	#[\Override]
+ public function beforeRender(): void
 	{
 		$this->setTemplateFilename('admin.latte');
 

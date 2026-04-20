@@ -16,7 +16,8 @@ class ChatMemberEntity extends Entity
 	/**
 	 * @param array<string, mixed> $row
 	 */
-	static function fromRow(array $row): ChatMemberEntity
+	#[\Override]
+ static function fromRow(array $row): ChatMemberEntity
 	{
 		throw new \RuntimeException(self::class . ' is not supported');
 	}

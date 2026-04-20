@@ -25,7 +25,8 @@ class ChatHistoryPresenter extends MainPresenter
 		$this->template = $template;
 	}
 
-	public function action(): void
+	#[\Override]
+ public function action(): void
 	{
 		if ($this->login->isLogged() === false) {
 			return;
@@ -61,7 +62,8 @@ class ChatHistoryPresenter extends MainPresenter
 		}
 	}
 
-	public function beforeRender(): void
+	#[\Override]
+ public function beforeRender(): void
 	{
 		if ($this->chatEntity === null) {
 			$this->template->prepareError(requireAdmin: false);

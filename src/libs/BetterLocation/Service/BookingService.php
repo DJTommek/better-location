@@ -26,7 +26,8 @@ final class BookingService extends AbstractService
 	) {
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if ($this->url === null) {
 			return false;
@@ -46,7 +47,8 @@ final class BookingService extends AbstractService
 		return (bool)preg_match('/^\/hotel\/[a-z]{2}\/.+/i', $path);
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$responseBody = $this->loadUrl($this->url);
 		$dom = Utils::domFromUTF8($responseBody);

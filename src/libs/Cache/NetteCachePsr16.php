@@ -12,12 +12,14 @@ readonly class NetteCachePsr16 implements \Psr\SimpleCache\CacheInterface, Stora
 	) {
 	}
 
-	public function get(string $key, mixed $default = null): mixed
+	#[\Override]
+ public function get(string $key, mixed $default = null): mixed
 	{
 		return $this->storage->read($key) ?? $default;
 	}
 
-	public function set(string $key, mixed $value, \DateInterval|int|null $ttl = null): bool
+	#[\Override]
+ public function set(string $key, mixed $value, \DateInterval|int|null $ttl = null): bool
 	{
 		$ttl = $this->ttlToSeconds($ttl);
 
@@ -28,13 +30,15 @@ readonly class NetteCachePsr16 implements \Psr\SimpleCache\CacheInterface, Stora
 		return true;
 	}
 
-	public function delete(string $key): bool
+	#[\Override]
+ public function delete(string $key): bool
 	{
 		$this->storage->remove($key);
 		return true;
 	}
 
-	public function clear(): bool
+	#[\Override]
+ public function clear(): bool
 	{
 		$this->storage->clean([Cache::All => true]);
 		return true;
@@ -43,7 +47,8 @@ readonly class NetteCachePsr16 implements \Psr\SimpleCache\CacheInterface, Stora
 	/**
 	 * @param iterable<string> $keys
 	 */
-	public function getMultiple(iterable $keys, mixed $default = null): iterable
+	#[\Override]
+ public function getMultiple(iterable $keys, mixed $default = null): iterable
 	{
 		foreach ($keys as $key) {
 			yield $key => $this->get($key, $default);
@@ -53,7 +58,8 @@ readonly class NetteCachePsr16 implements \Psr\SimpleCache\CacheInterface, Stora
 	/**
 	 * @param iterable<string, mixed> $values
 	 */
-	public function setMultiple(iterable $values, \DateInterval|int|null $ttl = null): bool
+	#[\Override]
+ public function setMultiple(iterable $values, \DateInterval|int|null $ttl = null): bool
 	{
 		foreach ($values as $key => $value) {
 			$this->set($key, $value, $ttl);
@@ -64,7 +70,8 @@ readonly class NetteCachePsr16 implements \Psr\SimpleCache\CacheInterface, Stora
 	/**
 	 * @param iterable<string> $keys
 	 */
-	public function deleteMultiple(iterable $keys): bool
+	#[\Override]
+ public function deleteMultiple(iterable $keys): bool
 	{
 		foreach ($keys as $key) {
 			$this->storage->remove($key);
@@ -72,7 +79,8 @@ readonly class NetteCachePsr16 implements \Psr\SimpleCache\CacheInterface, Stora
 		return true;
 	}
 
-	public function has(string $key): bool
+	#[\Override]
+ public function has(string $key): bool
 	{
 		return $this->storage->read($key) !== null;
 	}

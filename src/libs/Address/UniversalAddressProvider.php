@@ -30,7 +30,8 @@ final readonly class UniversalAddressProvider implements AddressProvider
 		]));
 	}
 
-	public function reverse(CoordinatesInterface $coordinates): ?AddressInterface
+	#[\Override]
+ public function reverse(CoordinatesInterface $coordinates): ?AddressInterface
 	{
 		$key = sprintf('address-%F-%F', $coordinates->getLat(), $coordinates->getLon());
 		$result = $this->cache->get($key);

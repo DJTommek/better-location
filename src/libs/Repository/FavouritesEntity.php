@@ -19,7 +19,8 @@ class FavouritesEntity extends Entity implements CoordinatesInterface
 	/** @var string */
 	public $title;
 
-	public static function fromRow(array $row): self
+	#[\Override]
+ public static function fromRow(array $row): self
 	{
 		$entity = new self();
 		$entity->id = $row['id'];
@@ -31,17 +32,20 @@ class FavouritesEntity extends Entity implements CoordinatesInterface
 		return $entity;
 	}
 
-	public function getLat(): float
+	#[\Override]
+ public function getLat(): float
 	{
 		return $this->lat;
 	}
 
-	public function getLon(): float
+	#[\Override]
+ public function getLon(): float
 	{
 		return $this->lon;
 	}
 
-	public function getLatLon(string $delimiter = ','): string
+	#[\Override]
+ public function getLatLon(string $delimiter = ','): string
 	{
 		return sprintf('%F,%F', $this->lat, $this->lon);
 	}

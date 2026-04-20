@@ -51,7 +51,8 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 	) {
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if (!isset($this->url)) {
 			return false;
@@ -72,7 +73,8 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		ServicesManager::TAG_GENERATE_LINK_IMAGE,
 	];
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_PANORAMA,
@@ -143,7 +145,8 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		);
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		// 2021-07-14: Drive link is "kind of" available using planner and on Android device it will open correctly target destination,
 		// but empty deparature, so user has to choose current location manually. That is more clicks, than using classic,
@@ -151,14 +154,16 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		return sprintf('%s/zakladni?y=%2$F&x=%3$f&source=coor&id=%3$f%%2C%2$F', self::LINK, $lat, $lon);
 	}
 
-	public static function getShareCollectionLink(BetterLocationCollection $collection): ?string
+	#[\Override]
+ public static function getShareCollectionLink(BetterLocationCollection $collection): ?string
 	{
 		$coordsReformatted = array_map(fn($coords) => [$coords->getLon(), $coords->getLat()], $collection->getCoordinates());
 		$coordsEncoded = MapyCzApi\JAK\Coords::coordsToString($coordsReformatted);
 		return sprintf('%s/zakladni?vlastni-body&uc=%s', self::LINK, $coordsEncoded);
 	}
 
-	public function getScreenshotLink(CoordinatesInterface $coordinates, array $options = []): ?string
+	#[\Override]
+ public function getScreenshotLink(CoordinatesInterface $coordinates, array $options = []): ?string
 	{
 		// URL Parameters to screenshoter (Mapy.cz website is using it with p=3 and l=0):
 		// l=0 hide right panel (can be opened via arrow icon)
@@ -168,7 +173,8 @@ final class MapyCzService extends AbstractService implements ShareCollectionLink
 		return 'https://en.mapy.cz/screenshoter?url=' . urlencode(self::getShareLink($coordinates->getLat(), $coordinates->getLon()) . '&p=3&l=0');
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if ($this->isShortUrl) {
 			$this->processShortUrl();

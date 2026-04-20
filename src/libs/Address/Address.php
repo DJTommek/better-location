@@ -24,7 +24,8 @@ readonly class Address implements AddressInterface, \Stringable
 	/**
 	 * @return non-empty-string
 	 */
-	public function __toString(): string
+	#[\Override]
+ public function __toString(): string
 	{
 		return $this->toString();
 	}
@@ -42,7 +43,8 @@ readonly class Address implements AddressInterface, \Stringable
 		return $result;
 	}
 
-	public function getAddress(): Address
+	#[\Override]
+ public function getAddress(): Address
 	{
 		return $this;
 	}

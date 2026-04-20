@@ -9,7 +9,8 @@ final class ServiceManagerTest extends TestCase
 {
 	private static \App\BetterLocation\ServicesManager $manager;
 
-	public static function setUpBeforeClass(): void
+	#[\Override]
+ public static function setUpBeforeClass(): void
 	{
 		self::$manager = Factory::servicesManager();
 	}

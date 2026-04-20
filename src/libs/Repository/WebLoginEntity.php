@@ -23,7 +23,8 @@ class WebLoginEntity extends Entity
 	/** @var UrlImmutable */
 	public $userPhotoUrl;
 
-	public static function fromRow(array $row): self
+	#[\Override]
+ public static function fromRow(array $row): self
 	{
 		$entity = new self();
 		$entity->hash = $row['hash'];

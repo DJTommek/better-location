@@ -29,13 +29,15 @@ final class AppleMapsService extends AbstractService
 		ServicesManager::TAG_GENERATE_LINK_DRIVE,
 	];
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		return sprintf($drive ? self::LINK_DRIVE : self::LINK_SHARE, $lat, $lon);
 	}
 
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		$result = false;
 
@@ -72,7 +74,8 @@ final class AppleMapsService extends AbstractService
 		return $result;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if ($this->data->mapCoords ?? false) {
 			$location = new BetterLocation($this->input, $this->data->mapCoords->getLat(), $this->data->mapCoords->getLon(), self::class, self::TYPE_MAP_CENTER);
@@ -97,7 +100,8 @@ final class AppleMapsService extends AbstractService
 		return $title === null ? null : trim(urldecode($title));
 	}
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_MAP_CENTER,

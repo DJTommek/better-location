@@ -26,7 +26,8 @@ class Country implements \Stringable
 		$this->displayname = trim($displayname ?? $this->code);
 	}
 
-	public function __toString(): string
+	#[\Override]
+ public function __toString(): string
 	{
 		return $this->displayname;
 	}

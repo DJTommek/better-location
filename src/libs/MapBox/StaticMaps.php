@@ -48,7 +48,8 @@ class StaticMaps implements StaticMapsProviderInterface
 		$this->geojson = null;
 	}
 
-	public function generatePrivateUrl(array $markers): string
+	#[\Override]
+ public function generatePrivateUrl(array $markers): string
 	{
 		$this->reset();
 

@@ -24,7 +24,8 @@ final class SumavaCzService extends AbstractService
 	) {
 	}
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_ACCOMODATION,
@@ -34,7 +35,8 @@ final class SumavaCzService extends AbstractService
 		];
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if (
 			$this->url &&
@@ -69,7 +71,8 @@ final class SumavaCzService extends AbstractService
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$body = $this->requestor->get($this->url, Config::CACHE_TTL_SUMAVA_CZ);
 

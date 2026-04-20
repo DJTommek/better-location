@@ -15,7 +15,8 @@ final class USNGService extends AbstractService
 	const int ID = 13;
 	const string NAME = 'USNG';
 
-	public static function findInText(string $text): BetterLocationCollection
+	#[\Override]
+ public static function findInText(string $text): BetterLocationCollection
 	{
 		return new BetterLocationCollection();
 	}

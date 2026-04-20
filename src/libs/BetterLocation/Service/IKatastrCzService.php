@@ -28,7 +28,8 @@ final class IKatastrCzService extends AbstractService
 	private ?CoordinatesImmutable $coordsMap = null;
 	private ?CoordinatesImmutable $coordsInfo = null;
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_MAP,
@@ -36,7 +37,8 @@ final class IKatastrCzService extends AbstractService
 		];
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -49,7 +51,8 @@ final class IKatastrCzService extends AbstractService
 		return self::LINK . '#' . $query;
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if ($this->url?->getDomain(2) !== 'ikatastr.cz') {
 			return false;
@@ -70,7 +73,8 @@ final class IKatastrCzService extends AbstractService
 		return $this->coordsMap !== null || $this->coordsInfo !== null;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		assert($this->coordsMap !== null || $this->coordsInfo !== null);
 

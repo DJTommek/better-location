@@ -11,7 +11,8 @@ use PHPUnit\Framework\TestCase;
 
 final class FromExifTest extends TestCase
 {
-	public static function setUpBeforeClass(): void
+	#[\Override]
+ public static function setUpBeforeClass(): void
 	{
 		if (!Exif::isAvailable()) {
 			self::markTestSkipped('Internal library to read EXIF data is not available.');

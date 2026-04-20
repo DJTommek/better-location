@@ -32,7 +32,8 @@ final class BaladIrService extends AbstractService
 	) {
 	}
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_MAP_CENTER,
@@ -41,7 +42,8 @@ final class BaladIrService extends AbstractService
 		];
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return (
 			$this->url &&
@@ -103,7 +105,8 @@ final class BaladIrService extends AbstractService
 		return false;
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -117,7 +120,8 @@ final class BaladIrService extends AbstractService
 		}
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if (isset($this->data->placeCoords)) {
 			$coords = $this->data->placeCoords;

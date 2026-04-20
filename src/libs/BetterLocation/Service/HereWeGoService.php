@@ -37,7 +37,8 @@ final class HereWeGoService extends AbstractService
 	) {
 	}
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_PLACE_ORIGINAL_ID,
@@ -48,7 +49,8 @@ final class HereWeGoService extends AbstractService
 	}
 
 	/** @see https://developer.here.com/documentation/deeplink-web/dev_guide/topics/key-concepts.html */
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) { // https://developer.here.com/documentation/deeplink-web/dev_guide/topics/share-route.html
 			return self::LINK_SHARE . sprintf('/r/%1$F,%2$F', $lat, $lon);
@@ -57,7 +59,8 @@ final class HereWeGoService extends AbstractService
 		}
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return $this->isShortUrl() || $this->isNormalUrl();
 	}
@@ -72,7 +75,8 @@ final class HereWeGoService extends AbstractService
 		return $this->url && in_array($this->url->getDomain(0), ['share.here.com', 'wego.here.com']);
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if ($this->isShortUrl()) {
 			$this->processShortShareUrl();

@@ -19,7 +19,8 @@ readonly class DiscordMessageGenerator implements MessageGeneratorInterface
 	 * @param array<class-string<AbstractService>,string> $pregeneratedLinks
 	 * @param list<Description> $descriptions
 	 */
-	public function generate(
+	#[\Override]
+ public function generate(
 		CoordinatesInterface $coordinates,
 		BetterLocationMessageSettings $settings,
 		string $prefixMessage,

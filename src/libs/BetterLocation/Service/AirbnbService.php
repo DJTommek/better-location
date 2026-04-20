@@ -21,7 +21,8 @@ final class AirbnbService extends AbstractService
 	) {
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if ($this->url === null) {
 			return false;
@@ -46,7 +47,8 @@ final class AirbnbService extends AbstractService
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$roomId = $this->data->roomId;
 		$apiResponse = $this->requestLocationFromAirbnbApi($roomId);

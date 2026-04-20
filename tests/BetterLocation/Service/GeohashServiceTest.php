@@ -6,12 +6,14 @@ use App\BetterLocation\Service\GeohashService;
 
 final class GeohashServiceTest extends AbstractServiceTestCase
 {
-	protected function getServiceClass(): string
+	#[\Override]
+ protected function getServiceClass(): string
 	{
 		return GeohashService::class;
 	}
 
-	protected function getShareLinks(): array
+	#[\Override]
+ protected function getShareLinks(): array
 	{
 		return [
 			'https://geohash.softeng.co/u2fkbnhu9cxe',
@@ -22,7 +24,8 @@ final class GeohashServiceTest extends AbstractServiceTestCase
 		];
 	}
 
-	protected function getDriveLinks(): array
+	#[\Override]
+ protected function getDriveLinks(): array
 	{
 		return [];
 	}

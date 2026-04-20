@@ -15,12 +15,14 @@ class LocationEvent extends Special
 	private bool $isLive;
 	private ?BetterLocationCollection $collection = null;
 
-	protected function afterInit(): void
+	#[\Override]
+ protected function afterInit(): void
 	{
 		$this->isLive = TelegramHelper::isLocation($this->update, true);
 	}
 
-	public function getCollection(): BetterLocationCollection
+	#[\Override]
+ public function getCollection(): BetterLocationCollection
 	{
 		if ($this->collection === null) {
 			$this->collection = new BetterLocationCollection();
@@ -62,7 +64,8 @@ class LocationEvent extends Special
 		return true;
 	}
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		if ($this->matchesIgnoreFilter()) {
 			return;

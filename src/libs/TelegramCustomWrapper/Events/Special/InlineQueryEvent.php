@@ -48,7 +48,8 @@ class InlineQueryEvent extends Special
 	) {
 	}
 
-	public function getMessageSettings(): BetterLocationMessageSettings
+	#[\Override]
+ public function getMessageSettings(): BetterLocationMessageSettings
 	{
 		$messageSettings = parent::getMessageSettings();
 		$messageSettings->showAddress($this->user->getPrivateChat()->settingsShowAddress());
@@ -56,7 +57,8 @@ class InlineQueryEvent extends Special
 		return $messageSettings;
 	}
 
-	public function getCollection(): BetterLocationCollection
+	#[\Override]
+ public function getCollection(): BetterLocationCollection
 	{
 		if (isset($this->collection) === false) {
 			$this->collection = $this->getCollectionInner();
@@ -162,7 +164,8 @@ class InlineQueryEvent extends Special
 		$collection->add($googleCollection);
 	}
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		$answerInlineQuery = new AnswerInlineQuery();
 		$answerInlineQuery->inline_query_id = $this->update->inline_query->id;
@@ -233,17 +236,20 @@ class InlineQueryEvent extends Special
 		return trim(preg_replace('/\s+/', ' ', $this->update->inline_query->query));
 	}
 
-	public function hasTgMessage(): bool
+	#[\Override]
+ public function hasTgMessage(): bool
 	{
 		return false;
 	}
 
-	public function getTgMessage(): Telegram\Types\Message
+	#[\Override]
+ public function getTgMessage(): Telegram\Types\Message
 	{
 		throw new \Exception(sprintf('Type %s doesn\'t support getMessage().', static::class));
 	}
 
-	public function getTgFrom(): Telegram\Types\User
+	#[\Override]
+ public function getTgFrom(): Telegram\Types\User
 	{
 		return $this->update->inline_query->from;
 	}

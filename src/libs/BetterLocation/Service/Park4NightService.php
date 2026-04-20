@@ -23,7 +23,8 @@ final class Park4NightService extends AbstractService
 	) {
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		if (
 			$this->url &&
@@ -37,7 +38,8 @@ final class Park4NightService extends AbstractService
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$cleanEnUrl = self::LINK . '/en/place/' . $this->data->placeId;
 

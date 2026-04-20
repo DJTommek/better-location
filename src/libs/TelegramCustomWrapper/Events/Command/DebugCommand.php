@@ -11,7 +11,8 @@ class DebugCommand extends Command
 	const ICON = Icons::SETTINGS;
 	const DESCRIPTION = 'Basic technical information';
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		$text = sprintf('%s <b>Debug</b> for @%s.', Icons::COMMAND, Config::TELEGRAM_BOT_NAME) . PHP_EOL;
 		$text .= sprintf('This chat ID <code>%s</code>!', $this->getTgChatId()) . PHP_EOL;

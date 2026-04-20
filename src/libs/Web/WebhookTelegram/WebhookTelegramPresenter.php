@@ -22,7 +22,8 @@ class WebhookTelegramPresenter extends MainPresenter
 
 	}
 
-	public function action(): void
+	#[\Override]
+ public function action(): void
 	{
 		\Tracy\Debugger::enable(\Tracy\Debugger::Production, Config::getTracyPath());
 
@@ -80,7 +81,8 @@ class WebhookTelegramPresenter extends MainPresenter
 		die($message);
 	}
 
-	public function beforeRender(): never
+	#[\Override]
+ public function beforeRender(): never
 	{
 		$this->renderReply(self::HTTP_OK, 'End.');
 	}

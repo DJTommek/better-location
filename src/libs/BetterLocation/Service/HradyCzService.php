@@ -20,7 +20,8 @@ final class HradyCzService extends AbstractService
 	) {
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return (
 			$this->url &&
@@ -30,7 +31,8 @@ final class HradyCzService extends AbstractService
 		);
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		$paths = explode('/', $this->url->getPath());
 		$this->url->setPath($paths[1]);

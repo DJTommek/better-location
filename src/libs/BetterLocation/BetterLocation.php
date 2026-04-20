@@ -249,12 +249,14 @@ class BetterLocation implements CoordinatesInterface, \Stringable
 		return $this->coordinateSuffixMessage;
 	}
 
-	public function getLat(): float
+	#[\Override]
+ public function getLat(): float
 	{
 		return $this->coords->getLat();
 	}
 
-	public function getLon(): float
+	#[\Override]
+ public function getLon(): float
 	{
 		return $this->coords->getLon();
 	}
@@ -267,7 +269,8 @@ class BetterLocation implements CoordinatesInterface, \Stringable
 		return [$this->getLat(), $this->getLon()];
 	}
 
-	public function __toString(): string
+	#[\Override]
+ public function __toString(): string
 	{
 		return $this->coords->__toString();
 	}
@@ -470,7 +473,8 @@ class BetterLocation implements CoordinatesInterface, \Stringable
 		$this->elevation = $elevation;
 	}
 
-	public function getLatLon(string $delimiter = ','): string
+	#[\Override]
+ public function getLatLon(string $delimiter = ','): string
 	{
 		return $this->coords->getLatLon($delimiter);
 	}

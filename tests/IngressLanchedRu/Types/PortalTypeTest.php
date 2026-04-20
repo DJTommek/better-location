@@ -13,7 +13,8 @@ final class PortalTypeTest extends TestCase
 	private static PortalType $portalPrague;
 	private static PortalType $portalNameAsInt;
 
-	public static function setUpBeforeClass(): void
+	#[\Override]
+ public static function setUpBeforeClass(): void
 	{
 		$content = file_get_contents(__DIR__ . '/../fixtures/getPortalsExample.json');
 		$json = json_decode($content, false, 512, JSON_THROW_ON_ERROR);

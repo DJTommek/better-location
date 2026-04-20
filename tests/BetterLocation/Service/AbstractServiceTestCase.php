@@ -29,7 +29,8 @@ abstract class AbstractServiceTestCase extends TestCase
 	 */
 	protected bool $revalidateGeneratedDriveLink = true;
 
-	public function tearDown(): void
+	#[\Override]
+ public function tearDown(): void
 	{
 		$this->revalidateGeneratedShareLink = true;
 		$this->revalidateGeneratedDriveLink = true;

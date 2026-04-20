@@ -25,7 +25,8 @@ final class NianticLightshipService extends AbstractService
 	) {
 	}
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -35,7 +36,8 @@ final class NianticLightshipService extends AbstractService
 		}
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 
 		// https://lightship.dev/account/geospatial-browser/50.0830485642698,14.42820958675955,15.69,13102D0F2EDC41BAB400A4D3FD672CEF,6a01961a5fc54df8b7efe45fc1f983f9.16
@@ -65,7 +67,8 @@ final class NianticLightshipService extends AbstractService
 		return $this->mapCenterCoords !== null || $this->venueGuid !== null;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if ($this->venueGuid !== null) {
 			$portal = $this->ingressClient->getPortalByGUID($this->venueGuid);
@@ -92,7 +95,8 @@ final class NianticLightshipService extends AbstractService
 		}
 	}
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_MAP_CENTER,

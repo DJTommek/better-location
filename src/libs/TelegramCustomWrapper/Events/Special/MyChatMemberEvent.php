@@ -14,22 +14,26 @@ use unreal4u\TelegramAPI\Telegram;
  */
 class MyChatMemberEvent extends Special
 {
-	public function getTgFrom(): Telegram\Types\User
+	#[\Override]
+ public function getTgFrom(): Telegram\Types\User
 	{
 		return $this->update->my_chat_member->from;
 	}
 
-	public function getTgChat(): Telegram\Types\Chat
+	#[\Override]
+ public function getTgChat(): Telegram\Types\Chat
 	{
 		return $this->update->my_chat_member->chat;
 	}
 
-	public function hasTgMessage(): bool
+	#[\Override]
+ public function hasTgMessage(): bool
 	{
 		return false;
 	}
 
-	public function handleWebhookUpdate(): void
+	#[\Override]
+ public function handleWebhookUpdate(): void
 	{
 		$this->recalculateChatMembers();
 

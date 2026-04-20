@@ -17,7 +17,8 @@ class GeocodeResponse extends AbstractDto implements AddressInterface
 	public array $results;
 	public string $status;
 
-	public function getAddress(): ?Address
+	#[\Override]
+ public function getAddress(): ?Address
 	{
 		$address = $this->findFormattedAddress();
 		if ($address === null) {

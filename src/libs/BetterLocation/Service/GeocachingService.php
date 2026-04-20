@@ -58,7 +58,8 @@ final class GeocachingService extends AbstractService
 
 	}
 
-	public static function getConstants(): array
+	#[\Override]
+ public static function getConstants(): array
 	{
 		return [
 			self::TYPE_CACHE,
@@ -73,7 +74,8 @@ final class GeocachingService extends AbstractService
 		ServicesManager::TAG_GENERATE_LINK_SHARE,
 	];
 
-	public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
+	#[\Override]
+ public static function getLink(float $lat, float $lon, bool $drive = false, array $options = []): ?string
 	{
 		if ($drive) {
 			throw new NotSupportedException('Drive link is not supported.');
@@ -97,7 +99,8 @@ final class GeocachingService extends AbstractService
 		return $geocaches;
 	}
 
-	public static function findInText(string $text): BetterLocationCollection
+	#[\Override]
+ public static function findInText(string $text): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
 		foreach (self::getGeocachesIdFromText($text) as $geocacheId) {
@@ -112,7 +115,8 @@ final class GeocachingService extends AbstractService
 		return $collection;
 	}
 
-	public function validate(): bool
+	#[\Override]
+ public function validate(): bool
 	{
 		return $this->isUrl() || self::isGeocacheId($this->input);
 	}
@@ -260,7 +264,8 @@ final class GeocachingService extends AbstractService
 		return false;
 	}
 
-	public function process(): void
+	#[\Override]
+ public function process(): void
 	{
 		if ($this->geocachingClient === null) {
 			throw new \RuntimeException('Geocaching API is not available.');
