@@ -79,9 +79,9 @@ class UTM implements \DJTommek\Coordinates\CoordinatesInterface
 		$k_0 = 0.9996;
 		$a = 6378137;
 		$A = ($lon - ceil($lon / 6) * 6 + 3) / 180 * M_PI * cos($lat / 180 * M_PI);
-		$T = pow(tan($lat / 180 * M_PI), 2);
-		$C = pow(0.0067394968 * cos($lat / 180 * M_PI), 2);
-		$y = 500000 + $k_0 * $a / pow(1 - 0.00669438 * pow(sin($lat / 180 * M_PI), 2), 0.5) * self::easting($A, $T, $C);
+		$T = tan($lat / 180 * M_PI) ** 2;
+		$C = (0.0067394968 * cos($lat / 180 * M_PI)) ** 2;
+		$y = 500000 + $k_0 * $a / (1 - 0.00669438 * sin($lat / 180 * M_PI) ** 2) ** 0.5 * self::easting($A, $T, $C);
 		if ($lat < 0) {
 			$x1 = 1;
 		} else {
@@ -90,7 +90,7 @@ class UTM implements \DJTommek\Coordinates\CoordinatesInterface
 
 		$x = $x1 * 10000000 + $k_0 * $a * (0.9983243 * ($lat / 180 * M_PI) - 2.51460708e-3 * sin(2 * $lat / 180 * M_PI)
 				+ 2.63904664e-6 * sin(4 * $lat / 180 * M_PI) - 3.41804618e-9 * sin(6 * $lat / 180 * M_PI)
-				+ tan($lat / 180 * M_PI) / pow(1 - 0.00669438 * pow(sin($lat / 180 * M_PI), 2), 0.5) * (self::northing($A, $T, $C)));
+				+ tan($lat / 180 * M_PI) / (1 - 0.00669438 * sin($lat / 180 * M_PI) ** 2) ** 0.5 * (self::northing($A, $T, $C)));
 
 		$result = new self($zonenumber, $zoneBand, $y, $x);
 		$result->coordinates = new CoordinatesImmutable($lat, $lon);
@@ -151,12 +151,12 @@ class UTM implements \DJTommek\Coordinates\CoordinatesInterface
 
 	private static function easting(float $A, float $T, float $C): float
 	{
-		return $A + (1 - $T + $C) * pow($A, 3) / 6 + (5 - 18 * ($T) + pow($T, 2) + 72 * ($C) - 0.39089) * pow($A, 5) / 120;
+		return $A + (1 - $T + $C) * $A ** 3 / 6 + (5 - 18 * ($T) + $T ** 2 + 72 * ($C) - 0.39089) * $A ** 5 / 120;
 	}
 
 	private static function northing(float $A, float $T, float $C): float
 	{
-		return pow($A, 2) / 2 + (5 - $T + 9 * $C + 4 * pow($C, 2)) * pow($A, 4) / 24 + (61 - 58 * $T + pow($T, 2) + 600 * $C - 2.22403) * pow($A, 6) / 720;
+		return $A ** 2 / 2 + (5 - $T + 9 * $C + 4 * $C ** 2) * $A ** 4 / 24 + (61 - 58 * $T + $T ** 2 + 600 * $C - 2.22403) * $A ** 6 / 720;
 	}
 
 	public function format(UTMFormat $format): string
@@ -211,7 +211,7 @@ class UTM implements \DJTommek\Coordinates\CoordinatesInterface
 			+ (1097.0 * $E14 / 512.0) * sin(8.0 * $Mu1);
 
 		$sin2phi1 = sin($Phi1) * sin($Phi1);
-		$Rho1 = ($SemiMajor * (1.0 - $EccSq)) / pow(1.0 - $EccSq * $sin2phi1, 1.5);
+		$Rho1 = ($SemiMajor * (1.0 - $EccSq)) / (1.0 - $EccSq * $sin2phi1) ** 1.5;
 		$Nu1 = $SemiMajor / sqrt(1.0 - $EccSq * $sin2phi1);
 
 		// Compute parameters as defined in the POSC specification.  T, C and D

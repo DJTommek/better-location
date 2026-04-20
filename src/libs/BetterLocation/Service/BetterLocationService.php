@@ -49,7 +49,7 @@ final class BetterLocationService extends AbstractService implements ShareCollec
 			try {
 				$this->data->coords = new Coordinates($matches[1], $matches[2]);
 				return true;
-			} catch (InvalidLocationException $exception) {
+			} catch (InvalidLocationException) {
 				return false;
 			}
 		}

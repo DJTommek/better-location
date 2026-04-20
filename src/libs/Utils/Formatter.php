@@ -150,9 +150,9 @@ class Formatter
 	 */
 	public static function size(int $bytes): string
 	{
-		$units = array('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+		$units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 		$power = $bytes > 0 ? floor(log($bytes, 1024)) : 0;
-		return number_format($bytes / pow(1024, $power), 2, '.', ' ') . ' ' . $units[$power];
+		return number_format($bytes / 1024 ** $power, 2, '.', ' ') . ' ' . $units[$power];
 	}
 
 	/**
@@ -171,7 +171,7 @@ class Formatter
 		string|null|false $title = false,
 		string|null|false $target = false,
 	): string {
-		$text = $text ?? $link;
+		$text ??= $link;
 
 		$result = sprintf('<a href="%s"', $link);
 

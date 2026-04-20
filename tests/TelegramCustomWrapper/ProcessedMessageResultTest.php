@@ -76,7 +76,7 @@ final class ProcessedMessageResultTest extends TestCase
 					],
 				],
 				(new BetterLocationCollection())->add(new BetterLocation('abcd', 49, 14, WGS84DegreesService::class)),
-				new BetterLocationMessageSettings(address: false),
+				new BetterLocationMessageSettings(showAddress: false),
 			],
 
 			__FUNCTION__ . ' - Default settings with multiple items' => [
@@ -112,7 +112,7 @@ final class ProcessedMessageResultTest extends TestCase
 				(new BetterLocationCollection())
 					->add(new BetterLocation('https://www.waze.com/ul?ll=50.087451123456789,14.420671123456789', 50.087451123456789, 14.420671123456789, WazeService::class))
 					->add(new BetterLocation('https://www.google.cz/maps/@36.8264601,22.5287146,9.33z', 36.826460, 22.528715, WazeService::class)),
-				new BetterLocationMessageSettings(address: false),
+				new BetterLocationMessageSettings(showAddress: false),
 			],
 
 			__FUNCTION__ . ' - Default settings with multiple items but max location count limits result only to first location' => [
@@ -145,7 +145,7 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 				(new BetterLocationCollection())
 					->add(new BetterLocation('https://www.waze.com/ul?ll=50.087451123456789,14.420671123456789', 50.087451123456789, 14.420671123456789, WazeService::class))
 					->add(new BetterLocation('https://www.google.cz/maps/@36.8264601,22.5287146,9.33z', 36.826460, 22.528715, WazeService::class)),
-				new BetterLocationMessageSettings(address: false),
+				new BetterLocationMessageSettings(showAddress: false),
 				1,
 			],
 
@@ -179,7 +179,7 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 				(new BetterLocationCollection())
 					->add(new BetterLocation('https://www.waze.com/ul?ll=50.087451123456789,14.420671123456789', 50.087451123456789, 14.420671123456789, WazeService::class))
 					->add(new BetterLocation('https://www.google.cz/maps/@36.8264601,22.5287146,9.33z', 36.826460, 22.528715, WazeService::class)),
-				new BetterLocationMessageSettings(address: false),
+				new BetterLocationMessageSettings(showAddress: false),
 				null,
 				100,
 			],
@@ -188,7 +188,7 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 				'',
 				[],
 				new BetterLocationCollection(),
-				new BetterLocationMessageSettings(address: false),
+				new BetterLocationMessageSettings(showAddress: false),
 			],
 		];
 	}
@@ -215,7 +215,7 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 					shareServices: [BetterLocationService::class],
 					buttonServices: [MapyCzService::class],
 					textServices: [OpenLocationCodeService::class],
-					address: false,
+					showAddress: false,
 				),
 			],
 
@@ -228,7 +228,7 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 					[],
 				],
 				(new BetterLocationCollection())->add(new BetterLocation('abcd', 49, 14, WGS84DegreesService::class)),
-				new BetterLocationMessageSettings(shareServices: [BetterLocationService::class], buttonServices: [], address: false),
+				new BetterLocationMessageSettings(shareServices: [BetterLocationService::class], buttonServices: [], showAddress: false),
 			],
 		];
 	}
@@ -255,7 +255,7 @@ Showing only first 1 of 2 detected locations. All at once can be opened with lin
 					shareServices: [BetterLocationService::class],
 					buttonServices: [MapyCzService::class],
 					textServices: [OpenLocationCodeService::class],
-					address: true,
+					showAddress: true,
 				),
 			],
 
@@ -292,7 +292,7 @@ WGS84 <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakla
 			shareServices: [BetterLocationService::class],
 			buttonServices: [MapyCzService::class],
 			textServices: [OpenLocationCodeService::class],
-			address: false,
+			showAddress: false,
 		);
 
 
@@ -325,7 +325,7 @@ WGS84 <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakla
 					[],
 				],
 				(new BetterLocationCollection())->add(new BetterLocation('abcd', 49, 14, WGS84DegreesService::class)),
-				new BetterLocationMessageSettings(shareServices: [BetterLocationService::class], buttonServices: [], address: false),
+				new BetterLocationMessageSettings(shareServices: [BetterLocationService::class], buttonServices: [], showAddress: false),
 				0,
 			],
 
@@ -393,7 +393,7 @@ WGS84 <a href="https://en.mapy.cz/screenshoter?url=https%3A%2F%2Fmapy.cz%2Fzakla
 			->add(new BetterLocation('No portal', -51, -13, WGS84DegreesService::class));
 		$minimalSettings = new BetterLocationMessageSettings(
 			shareServices: [BetterLocationService::class],
-			address: false,
+			showAddress: false,
 			tryLoadIngressPortal: true,
 		);
 

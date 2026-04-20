@@ -14,8 +14,8 @@ class TelegramUpdateDb
 
 	private readonly Database $db;
 
-	private ?string $lastResponseText;
-	private ?Telegram\Types\Inline\Keyboard\Markup $lastResponseReplyMarkup;
+	private ?string $lastResponseText = null;
+	private ?Telegram\Types\Inline\Keyboard\Markup $lastResponseReplyMarkup = null;
 
 	public function __construct(
 		public readonly Telegram\Types\Update $originalUpdateObject,

@@ -23,18 +23,6 @@ class StringUtils
 		return $text;
 	}
 
-	/** @author https://stackoverflow.com/a/10473026/3334403 */
-	public static function startWith(string $haystack, string $needle): bool
-	{
-		return substr_compare($haystack, $needle, 0, strlen($needle)) === 0;
-	}
-
-	/** @author https://stackoverflow.com/a/10473026/3334403 */
-	public static function endWith(string $haystack, string $needle): bool
-	{
-		return substr_compare($haystack, $needle, -strlen($needle)) === 0;
-	}
-
 	public static function isGuid(string $guid, bool $supportParenthess = true): bool
 	{
 		$regex = '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}';

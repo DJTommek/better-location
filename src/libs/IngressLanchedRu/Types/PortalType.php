@@ -40,8 +40,7 @@ class PortalType implements CoordinatesInterface
 		return $class;
 	}
 
-	/** @param mixed $value */
-	public function __set(string $name, $value): void
+	public function __set(string $name, mixed $value): void
 	{
 		Debugger::log(sprintf('Property "%s$%s" of type "%s" is not predefined.', static::class, $name, gettype($value)), Debugger::WARNING);
 	}

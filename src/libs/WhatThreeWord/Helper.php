@@ -64,9 +64,7 @@ class Helper
 		}
 
 		$cacheKey = sprintf('words-to-coords-%s', $words);
-		return self::cache()->load($cacheKey, function () use ($words) {
-			return $this->wordsToCoordsReal($words);
-		});
+		return self::cache()->load($cacheKey, fn() => $this->wordsToCoordsReal($words));
 	}
 
 	public function wordsToCoordsReal(string $words): \stdClass
@@ -89,9 +87,7 @@ class Helper
 	public function coordsToWords(float $lat, float $lon, string $lang = self::LANG): \stdClass
 	{
 		$cacheKey = sprintf('coords-to-words-%F-%F-%s', $lat, $lon, $lang);
-		return self::cache()->load($cacheKey, function () use ($lat, $lon, $lang) {
-			return $this->coordsToWordsReal($lat, $lon, $lang);
-		});
+		return self::cache()->load($cacheKey, fn() => $this->coordsToWordsReal($lat, $lon, $lang));
 	}
 
 	private function coordsToWordsReal(float $lat, float $lon, string $lang): \stdClass

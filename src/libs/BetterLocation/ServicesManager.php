@@ -222,7 +222,7 @@ class ServicesManager
 			}
 
 			if ($service->getCollection()->isEmpty()) {
-				Debugger::log(sprintf('Input "%s" was validated for "%s", but it was unable to get any valid location.', $input, get_class($service)), ILogger::WARNING);
+				Debugger::log(sprintf('Input "%s" was validated for "%s", but it was unable to get any valid location.', $input, $service::class), ILogger::WARNING);
 			}
 
 			return $service->getCollection();
@@ -258,9 +258,7 @@ class ServicesManager
 		if (empty($tags)) {
 			return $this->services;
 		} else {
-			return array_filter($this->services, function ($service) use ($tags) {
-				return !array_diff($tags, $service::TAGS);
-			});
+			return array_filter($this->services, fn($service) => !array_diff($tags, $service::TAGS));
 		}
 	}
 

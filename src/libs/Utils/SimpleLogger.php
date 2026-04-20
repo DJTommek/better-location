@@ -82,9 +82,7 @@ class SimpleLogger
 		if (file_exists($fileName)) {
 			$fileContent = Utils::tail($fileName, $numberOfLines);
 			$lines = explode(self::LINE_SEPARATOR, $fileContent);
-			return array_map(function ($line) {
-				return json_decode($line, false, 512, JSON_THROW_ON_ERROR);
-			}, $lines);
+			return array_map(fn($line) => json_decode($line, false, 512, JSON_THROW_ON_ERROR), $lines);
 		} else {
 			return [];
 		}

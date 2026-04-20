@@ -37,7 +37,7 @@ class ChatEntity extends Entity
 	private int $settingsOutputType;
 	public bool $settingsShowAddress;
 	public bool $settingsTryLoadIngressPortal;
-	public ?UrlImmutable $pluginUrl;
+	public ?UrlImmutable $pluginUrl = null;
 	/** @var Repository::DISABLED|Repository::ENABLED|Repository::DELETED */
 	public int $status;
 

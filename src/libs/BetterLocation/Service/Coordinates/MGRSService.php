@@ -47,7 +47,7 @@ final class MGRSService extends AbstractService
 	public function process(): void
 	{
 		$mgrs = MGRS::fromMGRS($this->input);
-		$this->collection->add(new BetterLocation($this->input, $mgrs->getLat(), $mgrs->getLon(), get_called_class()));
+		$this->collection->add(new BetterLocation($this->input, $mgrs->getLat(), $mgrs->getLon(), self::class));
 	}
 
 	public static function getShareText(float $lat, float $lon): ?string

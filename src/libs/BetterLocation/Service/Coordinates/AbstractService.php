@@ -24,12 +24,12 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 	{
 		switch (static::class) {
 			case WGS84DegreesService::class:
-				list($input, $latHemisphere1, $latCoordDegrees, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonHemisphere2) = array_pad($this->data->matches, 7, '');
+				[$input, $latHemisphere1, $latCoordDegrees, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonHemisphere2] = array_pad($this->data->matches, 7, '');
 				$latCoord = Strict::floatval($latCoordDegrees);
 				$lonCoord = Strict::floatval($lonCoordDegrees);
 				break;
 			case WGS84DegreesMinutesService::class:
-				list($input, $latHemisphere1, $latCoordDegrees, $latCoordMinutes, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonCoordMinutes, $lonHemisphere2) = array_pad($this->data->matches, 9, '');
+				[$input, $latHemisphere1, $latCoordDegrees, $latCoordMinutes, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonCoordMinutes, $lonHemisphere2] = array_pad($this->data->matches, 9, '');
 				$latCoord = Coordinates::wgs84DegreesMinutesToDecimal(
 					Strict::floatval($latCoordDegrees),
 					Strict::floatval($latCoordMinutes),
@@ -42,7 +42,7 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 				);
 				break;
 			case WGS84DegreesMinutesSecondsService::class:
-				list($input, $latHemisphere1, $latCoordDegrees, $latCoordMinutes, $latCoordSeconds, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonCoordMinutes, $lonCoordSeconds, $lonHemisphere2) = array_pad($this->data->matches, 11, '');
+				[$input, $latHemisphere1, $latCoordDegrees, $latCoordMinutes, $latCoordSeconds, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonCoordMinutes, $lonCoordSeconds, $lonHemisphere2] = array_pad($this->data->matches, 11, '');
 				$latCoord = Coordinates::wgs84DegreesMinutesSecondsToDecimal(
 					Strict::floatval($latCoordDegrees),
 					Strict::floatval($latCoordMinutes),
@@ -57,7 +57,7 @@ abstract class AbstractService extends \App\BetterLocation\Service\AbstractServi
 				);
 				break;
 			case WGS84DegreesSecondsService::class:
-				list($input, $latHemisphere1, $latCoordDegrees, $latCoordSeconds, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonCoordSeconds, $lonHemisphere2) = array_pad($this->data->matches, 9, '');
+				[$input, $latHemisphere1, $latCoordDegrees, $latCoordSeconds, $latHemisphere2, $lonHemisphere1, $lonCoordDegrees, $lonCoordSeconds, $lonHemisphere2] = array_pad($this->data->matches, 9, '');
 				$latCoordSeconds = Strict::floatval($latCoordSeconds);
 				$lonCoordSeconds = Strict::floatval($lonCoordSeconds);
 

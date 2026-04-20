@@ -13,9 +13,6 @@ class Login
 	const ALLOWED_INPUTS = ['last_name', 'username', 'photo_url'];
 	const MAX_OLD = 86400;
 
-	/** @var array */
-	private $raw;
-
 	/** @var ?bool */
 	private $verified = null;
 
@@ -34,9 +31,8 @@ class Login
 	/** @var ?UrlImmutable */
 	private $userPhotoUrl;
 
-	public function __construct(array $raw)
+	public function __construct(private array $raw)
 	{
-		$this->raw = $raw;
 		$this->fillFromRaw();
 	}
 

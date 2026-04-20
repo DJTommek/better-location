@@ -24,7 +24,7 @@ use Nette\Http\UrlImmutable;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Telegram\Types;
 
-class BetterLocation implements CoordinatesInterface
+class BetterLocation implements CoordinatesInterface, \Stringable
 {
 	private Coordinates $coords;
 	/**

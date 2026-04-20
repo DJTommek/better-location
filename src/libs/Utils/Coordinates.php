@@ -8,7 +8,7 @@ use App\BetterLocation\Service\Exceptions\InvalidLocationException;
  * @deprecated Use \DJTommek\Coordinates\Coordinates
  * @deprecated Use \DJTommek\Coordinates\CoordinatesImmutable
  */
-class Coordinates implements CoordinatesInterface, \JsonSerializable
+class Coordinates implements CoordinatesInterface, \JsonSerializable, \Stringable
 {
 	public const RE_BASIC_LAT = '-?[0-9]{1,2}(?:\.[0-9]{1,99})?';
 	public const RE_BASIC_LON = '-?[0-9]{1,3}(?:\.[0-9]{1,99})?';
@@ -26,7 +26,7 @@ class Coordinates implements CoordinatesInterface, \JsonSerializable
 
 	private float $lat;
 	private float $lon;
-	private ?float $elevation; // in meters
+	private ?float $elevation = null; // in meters
 
 	/**
 	 * @param string|int|float $lat Latitude coordinate in WGS-84 format
@@ -191,7 +191,7 @@ class Coordinates implements CoordinatesInterface, \JsonSerializable
 		$lonTo = deg2rad($coords->lon);
 
 		$lonDelta = $lonTo - $lonFrom;
-		$a = pow(cos($latTo) * sin($lonDelta), 2) + pow(cos($latFrom) * sin($latTo) - sin($latFrom) * cos($latTo) * cos($lonDelta), 2);
+		$a = (cos($latTo) * sin($lonDelta)) ** 2 + (cos($latFrom) * sin($latTo) - sin($latFrom) * cos($latTo) * cos($lonDelta)) ** 2;
 		$b = sin($latFrom) * sin($latTo) + cos($latFrom) * cos($latTo) * cos($lonDelta);
 
 		$angle = atan2(sqrt($a), $b);

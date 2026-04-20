@@ -49,7 +49,7 @@ class ChatsListPresenter extends MainPresenter
 				$chatEntity = $this->chatRepository->getById($body->chatId);
 				try {
 					$chatEntity->{$propertyName} = $body->newValue;
-				} catch (\Throwable $exception) {
+				} catch (\Throwable) {
 					$this->apiResponse(true, 'Invalid property value.', httpCode: self::HTTP_BAD_REQUEST);
 				}
 				$this->chatRepository->update($chatEntity);

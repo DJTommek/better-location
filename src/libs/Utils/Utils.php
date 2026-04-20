@@ -63,11 +63,8 @@ class Utils
 
 	/**
 	 * Swap content of two variables with each other
-	 *
-	 * @param mixed $var1
-	 * @param mixed $var2
 	 */
-	public static function swap(&$var1, &$var2): void
+	public static function swap(mixed &$var1, mixed &$var2): void
 	{
 		$tmp = $var1;
 		$var1 = $var2;
@@ -97,9 +94,7 @@ class Utils
 		if (is_null($prefix)) {
 			return $constants;
 		} else {
-			return array_filter($constants, function ($constant) use ($prefix) {
-				return StringUtils::startWith($constant, $prefix);
-			}, ARRAY_FILTER_USE_KEY);
+			return array_filter($constants, fn($constant) => str_starts_with($constant, $prefix), ARRAY_FILTER_USE_KEY);
 		}
 	}
 

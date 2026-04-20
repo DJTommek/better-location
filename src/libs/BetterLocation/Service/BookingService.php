@@ -89,7 +89,7 @@ final class BookingService extends AbstractService
 			htmlspecialchars($json->name),
 		));
 
-		$country = $this->getCountryFromUrl($json->url);
+		$country = self::getCountryFromUrl($json->url);
 		$address = new Address($json->address->streetAddress, $country);
 		$location->setAddress($address);
 

@@ -7,7 +7,6 @@ use App\Utils\Strict;
 use App\Utils\StringUtils;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
-use Nette\Utils\Strings;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Types\Chat;
 use unreal4u\TelegramAPI\Telegram\Types\MessageEntity;
@@ -441,7 +440,7 @@ class TelegramHelper
 			$url16 = mb_convert_encoding($url, 'UTF-16', 'UTF-8');
 			$entity = new MessageEntity();
 			$entity->type = 'url';
-			$entity->offset = strpos($message16, $url16) / 2;
+			$entity->offset = strpos($message16, (string)$url16) / 2;
 			$entity->length = strlen($url16) / 2;
 			$entities[] = $entity;
 		}
@@ -489,7 +488,7 @@ class TelegramHelper
 
 	public static function userLinkTag(string $username): string
 	{
-		if (Strings::startsWith($username, '@') === false) {
+		if (\str_starts_with($username, '@') === false) {
 			$username = '@' . $username;
 		}
 		return sprintf('<a href="%s" target="_blank">%s</a>', self::userLink($username), $username);

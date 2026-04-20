@@ -116,26 +116,6 @@ parameters:
 			path: src/libs/Repository/WebLoginEntity.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\BetterLocationMessageSettings\\:\\:__construct\\(\\) has parameter \\$bulkLinkServices with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
-
-		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\BetterLocationMessageSettings\\:\\:__construct\\(\\) has parameter \\$buttonServices with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
-
-		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\BetterLocationMessageSettings\\:\\:__construct\\(\\) has parameter \\$shareServices with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
-
-		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\BetterLocationMessageSettings\\:\\:__construct\\(\\) has parameter \\$textServices with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
-
-		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\BetterLocationMessageSettings\\:\\:processRows\\(\\) has parameter \\$rows with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
@@ -252,11 +232,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\TelegramCustomWrapper\\\\Login\\:\\:hasRequiredGetParams\\(\\) has parameter \\$getParams with no type specified\\.$#"
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Login.php
-
-		-
-			message: "#^Property App\\\\TelegramCustomWrapper\\\\Login\\:\\:\\$raw type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Login.php
 

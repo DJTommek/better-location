@@ -51,7 +51,8 @@ class LoginFacade
 	public function deleteCookie(): void
 	{
 		$expires = (new \DateTime())->sub(new \DateInterval('P14D'));
-		setcookie(self::COOKIE_NAME, '', $this->getCookieOptions($expires));
+		$options = $this->getCookieOptions($expires);
+		setcookie(self::COOKIE_NAME, '', $options);
 	}
 
 	private function getCookie(): ?string

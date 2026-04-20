@@ -56,7 +56,7 @@ class ChatHistoryPresenter extends MainPresenter
 			$chatMember = $this->telegramWrapper->run($getChatMember);
 			assert($chatMember instanceof Telegram\Types\ChatMember);
 			return $chatMember;
-		} catch (ClientException $exception) {
+		} catch (ClientException) {
 			return null;
 		}
 	}

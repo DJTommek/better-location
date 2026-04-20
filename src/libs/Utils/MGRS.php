@@ -379,8 +379,8 @@ class MGRS
 		$USNGEasting = round($utmEasting) % self::BLOCK_SIZE;
 
 		// added... truncate digits to achieve specified precision
-		$USNGNorthing = floor($USNGNorthing / pow(10, (5 - $precision)));
-		$USNGEasting = floor($USNGEasting / pow(10, (5 - $precision)));
+		$USNGNorthing = floor($USNGNorthing / 10 ** (5 - $precision));
+		$USNGEasting = floor($USNGEasting / 10 ** (5 - $precision));
 		$USNG = self::generateZoneNumber($lat, $lon) . self::UTMLetterDesignator($lat) . ' ' . $USNGLetters . ' ';
 
 		// REVISIT: Modify to incorporate dynamic precision ?
@@ -436,7 +436,7 @@ class MGRS
 		$N1 = self::EQUATORIAL_RADIUS / sqrt(1 - self::ECC_SQUARED * sin($phi1Rad) * sin($phi1Rad));
 		$T1 = tan($phi1Rad) * tan($phi1Rad);
 		$C1 = self::ECC_PRIME_SQUARED * cos($phi1Rad) * cos($phi1Rad);
-		$R1 = self::EQUATORIAL_RADIUS * (1 - self::ECC_SQUARED) / pow(1 - self::ECC_SQUARED * sin($phi1Rad) * sin($phi1Rad), 1.5);
+		$R1 = self::EQUATORIAL_RADIUS * (1 - self::ECC_SQUARED) / (1 - self::ECC_SQUARED * sin($phi1Rad) * sin($phi1Rad)) ** 1.5;
 		$D = $xUTM / ($N1 * self::k0);
 
 		// Calculate latitude, in decimal degrees
@@ -499,8 +499,8 @@ class MGRS
 		}
 
 		$UTM = new \stdClass();
-		$UTM->N = $appxNorth * 1000000 + $north * pow(10, 5 - strlen($north));
-		$UTM->E = $appxEast * 100000 + $east * pow(10, 5 - strlen($east));
+		$UTM->N = $appxNorth * 1000000 + $north * 10 ** (5 - strlen($north));
+		$UTM->E = $appxEast * 100000 + $east * 10 ** (5 - strlen($east));
 		$UTM->zone = $zone;
 		$UTM->letter = $letter;
 		return $UTM;
@@ -648,22 +648,15 @@ class MGRS
 
 	private function findSet($zoneNum): int
 	{
-		switch (intval($zoneNum) % 6) {
-			case 0:
-				return 6;
-			case 1:
-				return 1;
-			case 2:
-				return 2;
-			case 3:
-				return 3;
-			case 4:
-				return 4;
-			case 5:
-				return 5;
-			default:
-				return -1;
-		}
+		return match (intval($zoneNum) % 6) {
+			0 => 6,
+			1 => 1,
+			2 => 2,
+			3 => 3,
+			4 => 4,
+			5 => 5,
+			default => -1,
+		};
 	}
 
 	/**

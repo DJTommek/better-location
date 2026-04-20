@@ -162,7 +162,7 @@ class Strict
 
 			try {
 				$input = new Nette\Http\Url($input);
-			} catch (\Nette\InvalidArgumentException $exception) {
+			} catch (\Nette\InvalidArgumentException) {
 				return false;
 			}
 		}

@@ -250,17 +250,13 @@ class BetterLocationCollection implements \ArrayAccess, \Iterator, \Countable
 	 */
 	public function getKeys(): array
 	{
-		return array_map(function (BetterLocation $location) {
-			return $location->getLatLon();
-		}, $this->getLocations());
+		return array_map(fn(BetterLocation $location) => $location->getLatLon(), $this->getLocations());
 	}
 
 	/** @return Coordinates[] */
 	public function getCoordinates(): array
 	{
-		return array_map(function (BetterLocation $location) {
-			return $location->getCoordinates();
-		}, $this->getLocations());
+		return array_map(fn(BetterLocation $location) => $location->getCoordinates(), $this->getLocations());
 	}
 
 	/** Load datetime zone info for all locations in this collection */

@@ -37,7 +37,7 @@ class ChatTemplate extends LayoutTemplate
 	/** @var array<ChoiceItem> */
 	public array $chatButtonChoices;
 	/** @var list<UserEntity>|null Null if not supported in this chat */
-	public ?array $ignoreFilterSenders;
+	public ?array $ignoreFilterSenders = null;
 
 	public function prepareOk(
 		Telegram\Types\Chat $chatResponse,

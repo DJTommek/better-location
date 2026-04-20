@@ -2,7 +2,7 @@
 
 namespace App\BetterLocation;
 
-class Description
+class Description implements \Stringable
 {
 	public const KEY_PRECISION = 'precision';
 

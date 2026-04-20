@@ -56,54 +56,25 @@ class BetterLocationMessageSettings
 	];
 
 	/**
-	 *
-	 * @var array<int,class-string<AbstractService>> Ordered list of services, to show as links.
+	 * @param array<int,class-string<AbstractService>> $shareServices Ordered list of services, to show as links.
 	 * There will be always at least one item which is BetterLocationService, reserved as 0
-	 */
-	private array $linkServices;
-	/**
-	 * @var array<int,class-string<AbstractService&ShareCollectionLinkInterface>> Ordered list of services, to show multiple locations at once
+	 * @param array<int,class-string<AbstractService&ShareCollectionLinkInterface>> $bulkLinkServices Ordered list of services, to show multiple locations at once
 	 * There will be always at least one item which is BetterLocationService, reserved as index 0
+	 * @param array<int,class-string<AbstractService>> $buttonServices Ordered list of services, to show as buttons. Might be empty
+	 * @param array<int,class-string<AbstractService>> $textServices List of services, to show as text representing location.
+	 * @param class-string<AbstractService> $screenshotLinkService Service, which is providing static map image of location
+	 * @param bool $showAddress If address for locations should be generated and displayed in Better Location message
+	 * @param bool $tryLoadIngressPortal Search if on given coordinates is Ingress portal and append info about it.
 	 */
-	private readonly array $bulkLinkServices;
-	/**
-	 * @var array<int,class-string<AbstractService>> Ordered list of services, to show as buttons.
-	 * Might be empty
-	 */
-	private array $buttonServices;
-	/**
-	 * @var array<int,class-string<AbstractService>> List of services, to show as text representing location.
-	 */
-	private array $textServices;
-	/**
-	 * @var class-string<AbstractService> Service, which is providing static map image of location
-	 */
-	private string $screenshotLinkService;
-	/**
-	 * If address for locations should be generated and displayed in Better Location message
-	 */
-	private bool $showAddress;
-	/**
-	 * Search if on given coordinates is Ingress portal and append info about it.
-	 */
-	private bool $tryLoadIngressPortal;
-
 	public function __construct(
-		array $shareServices = self::DEFAULT_SHARE_SERVICES,
-		array $bulkLinkServices = self::DEFAULT_BULK_SHARE_SERVICES,
-		array $buttonServices = self::DEFAULT_DRIVE_SERVICES,
-		array $textServices = self::DEFAULT_TEXT_SERVICES,
-		string $screenshotLinkService = self::DEFAULT_SCREENSHOT_SERVICE,
-		bool $address = true,
-		bool $tryLoadIngressPortal = true,
+		private array $shareServices = self::DEFAULT_SHARE_SERVICES,
+		private readonly array $bulkLinkServices = self::DEFAULT_BULK_SHARE_SERVICES,
+		private array $buttonServices = self::DEFAULT_DRIVE_SERVICES,
+		private array $textServices = self::DEFAULT_TEXT_SERVICES,
+		private string $screenshotLinkService = self::DEFAULT_SCREENSHOT_SERVICE,
+		private bool $showAddress = true,
+		private bool $tryLoadIngressPortal = true,
 	) {
-		$this->linkServices = $shareServices;
-		$this->bulkLinkServices = $bulkLinkServices;
-		$this->buttonServices = $buttonServices;
-		$this->textServices = $textServices;
-		$this->screenshotLinkService = $screenshotLinkService;
-		$this->showAddress = $address;
-		$this->tryLoadIngressPortal = $tryLoadIngressPortal;
 	}
 
 	public static function loadByChatId(int $chatId): self
@@ -141,9 +112,7 @@ class BetterLocationMessageSettings
 	 */
 	private static function processRows(array $services, array $rows, int $serviceType): array
 	{
-		$filteredRows = array_filter($rows, function ($row) use ($serviceType) {
-			return Strict::intval($row['type']) === $serviceType;
-		});
+		$filteredRows = array_filter($rows, fn($row) => Strict::intval($row['type']) === $serviceType);
 		$result = [];
 		foreach ($filteredRows as $filteredRow) {
 			$order = Strict::intval($filteredRow['order']);
@@ -159,18 +128,16 @@ class BetterLocationMessageSettings
 		// Ensure, that first service is always BetterLocation, even if it is already set
 		$services = array_unique(array_merge([BetterLocationService::class], $services));
 
-		$services = array_filter($services, function ($service) { // remove services, that can't generate share link
-			return $service::hasTag(ServicesManager::TAG_GENERATE_LINK_SHARE);
-		});
-		$this->linkServices = $services;
+		// remove services, that can't generate share link
+		$services = array_filter($services, fn($service) => $service::hasTag(ServicesManager::TAG_GENERATE_LINK_SHARE));
+		$this->shareServices = $services;
 	}
 
 	/** @param array<class-string<AbstractService>> $services */
 	public function setButtonServices(array $services): void
 	{
-		$services = array_filter($services, function ($service) { // remove services, that can't generate drive link
-			return $service::hasTag(ServicesManager::TAG_GENERATE_LINK_DRIVE);
-		});
+		// remove services, that can't generate drive link
+		$services = array_filter($services, fn($service) => $service::hasTag(ServicesManager::TAG_GENERATE_LINK_DRIVE));
 		$services = array_slice($services, 0, TelegramHelper::INLINE_KEYBOARD_MAX_BUTTON_PER_ROW);
 		$this->buttonServices = $services;
 	}
@@ -188,16 +155,15 @@ class BetterLocationMessageSettings
 	/** @param array<class-string<AbstractService>> $services */
 	public function setTextServices(array $services): void
 	{
-		$services = array_filter($services, function ($service) { // remove services, that can't generate text
-			return $service::hasTag(ServicesManager::TAG_GENERATE_TEXT);
-		});
+		// remove services, that can't generate text
+		$services = array_filter($services, fn($service) => $service::hasTag(ServicesManager::TAG_GENERATE_TEXT));
 		$this->textServices = $services;
 	}
 
 	/** @return array<class-string<AbstractService>> */
 	public function getLinkServices(): array
 	{
-		return $this->linkServices;
+		return $this->shareServices;
 	}
 
 	/** @return array<class-string<AbstractService&ShareCollectionLinkInterface>> */

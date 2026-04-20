@@ -52,7 +52,7 @@ final class OrganicMapsService extends AbstractService
 	public function isUrl(): bool
 	{
 		if ($this->url && $this->url->getDomain(0) === 'omaps.app') {
-			list(, $ge0code) = explode('/', $this->url->getPath());
+			[, $ge0code] = explode('/', $this->url->getPath());
 			if (Ge0Code::isValid($ge0code)) {
 				$this->data->ge0 = Ge0Code::decode($ge0code);
 				return true;

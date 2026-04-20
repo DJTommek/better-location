@@ -71,7 +71,7 @@ final class LdJsonProcessor
 	{
 		try {
 			return new Country($object->address->addressCountry);
-		} catch (\Throwable $exception) {
+		} catch (\Throwable) {
 			return null; // swallow
 		}
 	}

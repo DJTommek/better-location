@@ -452,7 +452,7 @@ abstract class Events
 				$chatMember = $this->runSmart($getChatMember);
 				if ($chatMember instanceof Telegram\Types\ChatMember === false) {
 					throw new \LogicException(sprintf('Unexpected type "%s" returned from getChatMember(), chat_id = "%s", user_id = "%s"',
-						get_class($chatMember),
+						$chatMember::class,
 						$this->getTgChatId(),
 						$this->getTgFromId()),
 					);

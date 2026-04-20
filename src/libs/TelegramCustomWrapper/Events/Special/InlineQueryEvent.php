@@ -286,7 +286,7 @@ class InlineQueryEvent extends Special
 		bool $calculateDistance,
 	): Inline\Query\Result\Article {
 		$inlineQueryResult = new Inline\Query\Result\Article();
-		$inlineQueryResult->id = rand(100000, 999999);
+		$inlineQueryResult->id = random_int(100000, 999999);
 		$inlineTitle = $betterLocation->getInlinePrefixMessage() ?? $betterLocation->getPrefixMessage();
 		if ($calculateDistance) {
 			$inlineTitle .= $this->addDistanceText($betterLocation);
@@ -313,7 +313,7 @@ class InlineQueryEvent extends Special
 		bool $calculateDistance,
 	): Inline\Query\Result\Location {
 		$inlineQueryResult = new Inline\Query\Result\Location();
-		$inlineQueryResult->id = rand(100000, 999999);
+		$inlineQueryResult->id = random_int(100000, 999999);
 		$inlineTitle = $betterLocation->getInlinePrefixMessage() ?? $betterLocation->getPrefixMessage();
 		if ($calculateDistance) {
 			$inlineTitle .= $this->addDistanceText($betterLocation);
@@ -330,7 +330,7 @@ class InlineQueryEvent extends Special
 	private function getAllLocationsInlineQueryResultArticle(ProcessedMessageResult $processedCollection): Inline\Query\Result\Article
 	{
 		$inlineQueryResult = new Inline\Query\Result\Article();
-		$inlineQueryResult->id = rand(100000, 999999);
+		$inlineQueryResult->id = random_int(100000, 999999);
 		$inlineQueryResult->title = sprintf('%s Multiple locations', Icons::LOCATION);
 		$inlineQueryResult->description = sprintf('Send all %d locations listed below as one message', $processedCollection->validLocationsCount());
 		$inlineQueryResult->reply_markup = $processedCollection->getMarkup(1);

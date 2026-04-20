@@ -28,11 +28,8 @@ abstract class Repository
 
 	public const DATETIME_FORMAT = 'Y-m-d H:i:s';
 
-	public readonly Database $db;
-
-	public function __construct(Database $database)
+	public function __construct(public readonly Database $db)
 	{
-		$this->db = $database;
 	}
 
 	/**

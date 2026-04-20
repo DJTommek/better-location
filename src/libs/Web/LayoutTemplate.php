@@ -8,7 +8,7 @@ use App\Web\Login\LoginFacade;
 class LayoutTemplate
 {
 	public LoginFacade $login;
-	public ?User $user;
+	public ?User $user = null;
 
 	public int $cachebusterMainCss;
 	public int $cachebusterMainJs;

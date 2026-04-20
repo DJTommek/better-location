@@ -32,7 +32,7 @@ readonly class DiscordMessageGenerator implements MessageGeneratorInterface
 		//       objects, that can be formatted into both HTML or Markdown
 		$result = Utils::htmlToMarkdown(
 			html: $prefixMessage,
-			emojiReplacement: [self::class, 'emojiReplacement'],
+			emojiReplacement: self::emojiReplacement(...),
 			allowLinkPreview: false,
 		);
 

@@ -41,7 +41,7 @@ class Validator
 	{
 		$this->assertExecuted();
 		$errors = $this->validator->getErrors();
-		return array_map([self::class, 'mapJsonErrors'], $errors);
+		return array_map(self::mapJsonErrors(...), $errors);
 	}
 
 	private function assertExecuted(): void
