@@ -171,8 +171,12 @@ final class UniversalAddressProviderTest extends TestCase
 		return new NominatimWrapper(TestUtils::createDevNullCache(), $nominatim);
 	}
 
-	private function createGoogleClientReal(): StaticApi
+	private function createGoogleClientReal(): ?StaticApi
 	{
+        if (Config::isGooglePlaceApi() === false) {
+            return null;
+        }
+
 		return new StaticApi(
 			(new HttpTestClients())->realRequestor,
 			Config::GOOGLE_PLACE_API_KEY,
