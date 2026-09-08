@@ -16,55 +16,55 @@ use Psr\Log\LogLevel;
 final class CustomTelegramLogger implements LoggerInterface
 {
 	#[\Override]
- public function emergency($message, array $context = [])
+	public function emergency(string|\Stringable $message, array $context = []): void
 	{
 		$this->log(LogLevel::CRITICAL, $message, $context);
 	}
 
 	#[\Override]
- public function alert($message, array $context = [])
+	public function alert(string|\Stringable $message, array $context = []): void
 	{
 		$this->log(LogLevel::CRITICAL, $message, $context);
 	}
 
 	#[\Override]
- public function critical($message, array $context = [])
+	public function critical(string|\Stringable $message, array $context = []): void
 	{
 		$this->log(LogLevel::CRITICAL, $message, $context);
 	}
 
 	#[\Override]
- public function error($message, array $context = [])
+	public function error(string|\Stringable $message, array $context = []): void
 	{
 		$this->log(LogLevel::ERROR, $message, $context);
 	}
 
 	#[\Override]
- public function warning($message, array $context = [])
+	public function warning(string|\Stringable $message, array $context = []): void
 	{
 		$this->log(LogLevel::WARNING, $message, $context);
 	}
 
 	#[\Override]
- public function notice($message, array $context = [])
+	public function notice(string|\Stringable $message, array $context = []): void
 	{
 		$this->log(LogLevel::WARNING, $message, $context);
 	}
 
 	#[\Override]
- public function info($message, array $context = [])
+	public function info(string|\Stringable $message, array $context = []): void
 	{
 		// Do nothing
 	}
 
 	#[\Override]
- public function debug($message, array $context = [])
+	public function debug(string|\Stringable $message, array $context = []): void
 	{
 		// Do nothing
 	}
 
 	#[\Override]
- public function log($level, $message, array $context = [])
+	public function log($level, string|\Stringable $message, array $context = []): void
 	{
 		if ($context) {
 			$message = [
