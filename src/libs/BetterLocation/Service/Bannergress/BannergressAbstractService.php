@@ -6,6 +6,8 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\AbstractService;
 use App\Config;
 use App\Icons;
+use App\TelegramCustomWrapper\DatetimeFormat;
+use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\Ingress;
 use App\Utils\Requestor;
 
@@ -95,6 +97,16 @@ abstract class BannergressAbstractService extends AbstractService
 				Icons::WARNING,
 				htmlspecialchars($mosaic->warning),
 			));
+		}
+
+		if (isset($mosaic->plannedOfflineDate)) {
+			$plannedOfflineDate = new \DateTimeImmutable($mosaic->plannedOfflineDate, new \DateTimeZone('UTC'));
+			$offlineDateFormatted = TelegramHelper::datetimeFormat($plannedOfflineDate, [DatetimeFormat::DATE_LONG]);
+			if ($plannedOfflineDate <= new \DateTimeImmutable('now', new \DateTimeZone('UTC'))) {
+				$location->addDescription(sprintf('%s Offline since %s', Icons::WARNING, $offlineDateFormatted));
+			} else {
+				$location->addDescription(sprintf('%s Planned to go offline on %s', Icons::WARNING, $offlineDateFormatted));
+			}
 		}
 
 		if ($mosaic->numberOfDisabledMissions > 0) {

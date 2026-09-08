@@ -207,6 +207,19 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				],
 				'https://bannergress.com/banner/md-kiel-e3c9',
 			],
+			[ // Mosaic has plannedOfflineDate set and all missions are disabled (issue #156)
+				50.075258,
+				14.430491,
+				'<a href="https://bannergress.com/banner/unified-energy-prague-02a3">Bannergress Unified Energy Prague</a> <a href="https://api.bannergress.com/bnrs/pictures/1238123e633cc79c908940fde6ed454a">🖼</a>',
+				[
+					'24 missions, 6.5 km',
+					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F0d7005dfdc0e4cb19c47f529c4250459.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F0d7005dfdc0e4cb19c47f529c4250459.1c">Unified Energy Prague 1 📱</a> <a href="https://intel.ingress.com/mission/0d7005dfdc0e4cb19c47f529c4250459.1c">🖥</a> <a href="https://lh3.googleusercontent.com/27ItGnQOFLeibK-qXiDL9VRilH2qoOzTQn2phyyk08bd81zpwe7yJWAlELcC6lqsKkD0lJN5h7TBIX2TgceTw80fR7eKS1nt">🖼</a>',
+					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F75b554555a974001a51dcb36a57dc8a6.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.075258%2C14.430491">Mezzi Reperti 📱</a> <a href="https://intel.ingress.com/intel?pll=50.075258,14.430491">🖥</a>',
+					'⚠ Offline since <tg-time unix="1782000000" format="D">2026-06-21 00:00:00 UTC</tg-time>',
+					'⚠ 24 missions are disabled.',
+				],
+				'https://bannergress.com/banner/unified-energy-prague-02a3',
+			],
 		];
 	}
 
