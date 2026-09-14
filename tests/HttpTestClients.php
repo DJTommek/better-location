@@ -72,7 +72,7 @@ final readonly class HttpTestClients
 	private function createRealHttpClient(GuzzleClientFactory $guzzleClientFactory, CacheInterface $cache): void
 	{
 		$realHandlerStack = new HandlerStack();
-		$realHandlerStack->setHandler(new StreamHandler());
+		$realHandlerStack->setHandler(\GuzzleHttp\Utils::chooseHandler());
 		$realHandlerStack->push(Middleware::redirect(), 'allow_redirects');
 		$realHandlerStack->push(new AlwaysRedirectMiddleware(), AlwaysRedirectMiddleware::class);
 		$realHandlerStack->push(
