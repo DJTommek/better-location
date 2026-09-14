@@ -145,7 +145,11 @@ final readonly class HttpTestClients
 	public function loadResponseBodyFromFileMiddleware(callable $handler): \Closure
 	{
 		return function (RequestInterface $request, array $options) {
-			$filepath = $this->requestFileFingerprint($request);
+			$filepathOld = $this->requestFileFingerprint($request);
+			$filepath = $this->requestFileFingerprintV2($request);
+
+			$this->convert($filepathOld, $filepath);
+
 			$filepathBody = $filepath . '.response';
 			$filepathHeaders = $filepath . '.headers';
 			$filepathCode = $filepath . '.code';
@@ -163,8 +167,28 @@ final readonly class HttpTestClients
 		};
 	}
 
+	public function convert(string $filepathV1, string $filepathV2): void
+	{
+		$extensions = [
+			'.response',
+			'.headers',
+			'.code',
+		];
+
+		foreach ($extensions as $extension) {
+			$fileFrom = $filepathV1 . $extension;
+			$fileTo = $filepathV2 . $extension;
+
+			if (file_exists($fileFrom) && file_exists($fileTo) === false) {
+				FileSystem::rename($fileFrom, $fileTo);
+			}
+		}
+	}
+
 	/**
-	 * @return string Absolute path to file, which name is generated based on given request (ignoring HTTP header user-agent)
+	 * @return string Absolute prefix-path to file, which name is generated based on given request and it's metadata
+	 * such as URI, headers, request body and more.
+	 * For various reasons, some data might be removed before fingerprint is created.
 	 */
 	private function requestFileFingerprint(RequestInterface $request): string
 	{
@@ -173,7 +197,6 @@ final readonly class HttpTestClients
 		$queryClean = $this->removeSensitiveQueryParams($uri->getQuery());
 		$urlCleanString = $uri->getAuthority() . $uri->getPath() . $queryClean;
 
-		// User agents might be randomized, ignore them for fingerprint
 		$requestForFingerprint = $this->removeSensitiveHeaders($request)
 			->withUri($uri->withQuery($queryClean));
 
@@ -195,6 +218,55 @@ final readonly class HttpTestClients
 			$urlSafeShort,
 			$requestFingerprintShort,
 		);
+	}
+
+	/**
+	 * Same as {@see self::requestFileFingerprint()} but refactored to not rely on serialize() of the request object
+	 * itself.
+	 */
+	private function requestFileFingerprintV2(RequestInterface $request): string
+	{
+		// Cleanup URI for nicer filename and remove sensitive information
+		$uri = $request->getUri();
+		$queryClean = $this->removeSensitiveQueryParams($uri->getQuery());
+		$urlCleanString = $uri->getAuthority() . $uri->getPath() . $queryClean;
+
+		$requestForFingerprint = $this->removeSensitiveHeaders($request)
+			->withUri($uri->withQuery($queryClean));
+
+		$authoritySafe = preg_replace('/[^A-Za-z0-9_\-]/', '_', $uri->getAuthority());
+
+		$urlSafe = preg_replace('/[^A-Za-z0-9_\-]/', '_', $urlCleanString);
+		$urlSafeShort = substr($urlSafe, 0, 100);
+
+		var_dump($requestForFingerprint->getHeaders());
+
+		$requestForHash = $requestForFingerprint->getProtocolVersion() . '|'
+			. $requestForFingerprint->getMethod() . '|'
+			. $requestForFingerprint->getRequestTarget() . '|'
+			. $requestForFingerprint->getUri() . '|'
+			. $this->getHeadersFingerprint($requestForFingerprint) . '|'
+			. $requestForFingerprint->getBody();
+
+		$requestFingerprint = hash(self::REQUEST_FINGERPRINT_HASH_ALGORITHM, $requestForHash);
+		$requestFingerprintShort = substr($requestFingerprint, 0, 32);
+
+		return sprintf(
+			'%s/fixtures/httpTestClient/%s/%s_%s',
+			__DIR__,
+			$authoritySafe,
+			$urlSafeShort,
+			$requestFingerprintShort,
+		);
+	}
+
+	private function getHeadersFingerprint(RequestInterface $request): string
+	{
+		$headersLines = [];
+		foreach ($request->getHeaders() as $headerName => $headerValues) {
+			$headersLines[] = $headerName . ':' . implode(',', $headerValues);
+		}
+		return implode('|', $headersLines);
 	}
 
 	private function isRedirect(ResponseInterface $response): bool
