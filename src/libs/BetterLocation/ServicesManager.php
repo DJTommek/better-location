@@ -2,6 +2,7 @@
 
 namespace App\BetterLocation;
 
+use App\BetterLocation\Service\ABetterRoutePlannerService;
 use App\BetterLocation\Service\AbstractService;
 use App\BetterLocation\Service\AirbnbService;
 use App\BetterLocation\Service\AppleMapsService;
@@ -133,6 +134,7 @@ class ServicesManager
 		$services[] = GoogleMapsStreetViewGeneratorService::class;
 		$services[] = WazeService::class;
 		$services[] = SygicService::class;
+		$services[] = ABetterRoutePlannerService::class;
 		$services[] = HereWeGoService::class;
 		$services[] = OpenStreetMapService::class;
 		$services[] = NeshanOrgService::class;
