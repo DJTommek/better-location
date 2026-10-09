@@ -36,31 +36,30 @@ use App\TelegramCustomWrapper\Events\Special\MyChatMemberEvent;
 use App\TelegramCustomWrapper\Events\Special\PhotoEvent;
 use App\TelegramCustomWrapper\Exceptions\EventNotSupportedException;
 use App\TelegramCustomWrapper\Exceptions\TelegramCustomWrapperException;
-use React\EventLoop\LoopInterface;
+use GuzzleHttp\Psr7\HttpFactory;
+use Psr\Http\Client\ClientInterface;
 use Tracy\Debugger;
 use unreal4u\TelegramAPI\Abstracts\TelegramMethods;
 use unreal4u\TelegramAPI\Abstracts\TelegramTypes;
 use unreal4u\TelegramAPI\Exceptions\ClientException;
-use unreal4u\TelegramAPI\HttpClientRequestHandler;
+use unreal4u\TelegramAPI\PsrHttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\TgLog;
-
-use function Clue\React\Block\await;
 
 class TelegramCustomWrapper
 {
 	private readonly TgLog $tgLog;
-	private readonly LoopInterface $loop;
 
 	public function __construct(
 		private readonly EventFactory $eventFactory,
 		private readonly ChatLocationHistoryRepository $chatLocationHistory,
 		CustomTelegramLogger $customTelegramLogger,
+		ClientInterface $httpClient,
 	) {
-		$this->loop = \React\EventLoop\Factory::create();
+		$httpFactory = new HttpFactory();
 		$this->tgLog = new TgLog(
 			Config::TELEGRAM_BOT_TOKEN,
-			new HttpClientRequestHandler($this->loop),
+			new PsrHttpClientRequestHandler($httpClient, $httpFactory, $httpFactory),
 			$customTelegramLogger,
 		);
 	}
@@ -213,6 +212,6 @@ class TelegramCustomWrapper
 	 */
 	public function run(TelegramMethods $telegramMethod): ?TelegramTypes
 	{
-		return await($this->tgLog->performApiRequest($telegramMethod), $this->loop);
+		return $this->tgLog->performApiRequest($telegramMethod);
 	}
 }

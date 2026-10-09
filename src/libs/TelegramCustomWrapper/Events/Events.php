@@ -22,21 +22,19 @@ use App\Utils\DateImmutableUtils;
 use App\Utils\SimpleLogger;
 use DJTommek\Coordinates\CoordinatesInterface;
 use Nette\Http\UrlImmutable;
+use GuzzleHttp\Psr7\HttpFactory;
 use Psr\Http\Client\ClientInterface;
-use React\EventLoop\Factory;
 use Tracy\Debugger;
 use Tracy\ILogger;
 use unreal4u\TelegramAPI\Abstracts\TelegramMethods;
 use unreal4u\TelegramAPI\Abstracts\TelegramTypes;
 use unreal4u\TelegramAPI\Exceptions\ClientException;
-use unreal4u\TelegramAPI\HttpClientRequestHandler;
+use unreal4u\TelegramAPI\PsrHttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram;
 use unreal4u\TelegramAPI\Telegram\Methods\SendChatAction;
 use unreal4u\TelegramAPI\Telegram\Types\Inline\Keyboard\Markup;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
 use unreal4u\TelegramAPI\TgLog;
-
-use function Clue\React\Block\await;
 
 abstract class Events
 {
@@ -51,8 +49,6 @@ abstract class Events
 
 	protected readonly Update $update;
 	private readonly TgLog $tgLog;
-	/** @readonly */
-	protected $loop;
 	protected User $user;
 	protected ?User $userForwardFrom = null;
 	protected ?User $userViaBot = null;
@@ -92,10 +88,10 @@ abstract class Events
 		$this->userFactory = $userFactory;
 		$this->messageGenerator = $messageGenerator;
 
-		$this->loop = Factory::create();
+		$httpFactory = new HttpFactory();
 		$this->tgLog = new TgLog(
 			Config::TELEGRAM_BOT_TOKEN,
-			new HttpClientRequestHandler($this->loop),
+			new PsrHttpClientRequestHandler($httpClient, $httpFactory, $httpFactory),
 			$customTelegramLogger,
 		);
 		return $this;
@@ -431,7 +427,7 @@ abstract class Events
 	{
 		SimpleLogger::log(SimpleLogger::NAME_TELEGRAM_OUTPUT, $objectToSend);
 		try {
-			$response = await($this->tgLog->performApiRequest($objectToSend), $this->loop);
+			$response = $this->tgLog->performApiRequest($objectToSend);
 			SimpleLogger::log(SimpleLogger::NAME_TELEGRAM_OUTPUT_RESPONSE, $response);
 			return $response;
 		} catch (ClientException $exception) {
