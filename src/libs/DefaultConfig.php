@@ -116,6 +116,8 @@ class DefaultConfig
 	 *    Generated URL will look like this: `https://discord.com/oauth2/authorize?client_id=<your-application-id>&permissions=67584&integration_type=0&scope=bot`
 	 * 4. Open this URL to trigger Discord popup which helps you to add bot to your server (guild).
 	 * 5. Share this URL to anyone, who want's to add it to it's own server (guild).
+	 *
+	 * @var ?string
 	 */
 	const DISCORD_TOKEN = null;
 
@@ -247,6 +249,8 @@ class DefaultConfig
 	 * ];
 	 *
 	 * @see https://docs.guzzlephp.org/en/7.0/request-options.html#proxy
+	 *
+	 * @var string|array<string, string>|null
 	 */
 	const GUZZLE_OPTION_DEFAULT_PROXY = null;
 

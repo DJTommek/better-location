@@ -45,7 +45,6 @@ final class ClientTest extends TestCase
 		if (!Config::isFoursquare()) {
 			self::markTestSkipped('Missing Foursquare API credentials');
 		}
-		// @phpstan-ignore-next-line API credentials might be null, in that case tests are skipped
 		$api = new FoursquareClient($this->httpTestClients->realRequestor, Config::FOURSQUARE_CLIENT_ID, Config::FOURSQUARE_CLIENT_SECRET);
 		$this->testLoadVenue($api, $expectedName, $expectedLat, $expectedLon, $expectedAddress, $expectedCanonicalUrl, $venueId);
 	}

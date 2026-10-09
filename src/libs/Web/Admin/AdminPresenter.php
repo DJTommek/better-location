@@ -9,7 +9,6 @@ use App\Config;
 use App\Database;
 use App\Factory\ProcessedMessageResultFactory;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
-use App\TelegramCustomWrapper\Events\Command\Command;
 use App\TelegramCustomWrapper\TelegramCustomWrapper;
 use App\TelegramCustomWrapper\TelegramHelper;
 use App\Utils\SimpleLogger;
@@ -49,15 +48,17 @@ class AdminPresenter extends MainPresenter
 			die('Set ADMIN_PASSWORD in your local config file first');
 		}
 
-		if ($this->request->getPost('password') === Config::ADMIN_PASSWORD) {
+		$adminPassword = Config::ADMIN_PASSWORD;
+
+		if ($this->request->getPost('password') === $adminPassword) {
 			$response = new \Nette\Http\Response();
-			$response->setCookie(\App\Config::ADMIN_PASSWORD_COOKIE, Config::ADMIN_PASSWORD, '1 year');
+			$response->setCookie(\App\Config::ADMIN_PASSWORD_COOKIE, $adminPassword, '1 year');
 			$url = Config::getAppUrl('/admin');
 			$response->redirect((string)$url);
 			die();
 		}
 
-		if ($this->request->getCookie(\App\Config::ADMIN_PASSWORD_COOKIE) !== Config::ADMIN_PASSWORD) {
+		if ($this->request->getCookie(\App\Config::ADMIN_PASSWORD_COOKIE) !== $adminPassword) {
 			die('Missing or invalid password. <form method="POST">Password: <input type="password" name="password"><button type="submit">Sign in</button></form>');
 		}
 
@@ -106,7 +107,6 @@ class AdminPresenter extends MainPresenter
 			$setCommands->scope->type = $scope;
 
 			foreach ($classStrings as $classString) {
-				/** @var Command $classString */
 				$command = ltrim($classString::getTgCmd(), '/');
 
 				$result = new BotCommand();

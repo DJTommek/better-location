@@ -146,7 +146,6 @@ final class FoursquareServiceTest extends AbstractServiceTestCase
 	private function createFoursquareClientReal(): \App\Foursquare\Client
 	{
 		$this->skipIfFoursquareNotSetup();
-		// @phpstan-ignore-next-line API credentials might be null, in that case tests are skipped
 		return new \App\Foursquare\Client($this->httpTestClients->realRequestor, Config::FOURSQUARE_CLIENT_ID, Config::FOURSQUARE_CLIENT_SECRET);
 	}
 
