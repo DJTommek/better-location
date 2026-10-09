@@ -1,486 +1,1135 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method App\\\\BetterLocation\\\\FromExif\\:\\:run\\(\\) return type with generic class App\\\\BetterLocation\\\\FromExif does not specify its types\\: Input$#"
+			message: '#^Call to function is_null\(\) with null will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/bootstrap.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/libs/BetterLocation/BetterLocation.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between false and false will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: src/libs/BetterLocation/BetterLocation.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between 1 and 1 will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: src/libs/BetterLocation/BetterLocationCollection.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
 			count: 1
 			path: src/libs/BetterLocation/FromExif.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$input with type Input of resource\\|string is not subtype of native type string\\.$#"
+			message: '#^Method App\\BetterLocation\\FromExif\:\:run\(\) return type with generic class App\\BetterLocation\\FromExif does not specify its types\: Input$#'
+			identifier: missingType.generics
 			count: 1
 			path: src/libs/BetterLocation/FromExif.php
 
 		-
-			message: "#^Property App\\\\BetterLocation\\\\FromExif\\:\\:\\$exif with generic class App\\\\Exif\\\\Exif does not specify its types\\: ExifData$#"
+			message: '#^PHPDoc tag @param for parameter \$input with type Input of resource\|string is not subtype of native type string\.$#'
+			identifier: parameter.phpDocType
 			count: 1
 			path: src/libs/BetterLocation/FromExif.php
 
 		-
-			message: "#^Unable to resolve the template type V in call to method static method Nette\\\\Utils\\\\Arrays\\:\\:last\\(\\)$#"
+			message: '#^Property App\\BetterLocation\\FromExif\:\:\$exif with generic class App\\Exif\\Exif does not specify its types\: ExifData$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/libs/BetterLocation/FromExif.php
+
+		-
+			message: '#^Property App\\BetterLocation\\FromExif\:\:\$input \(Input of resource\|string\) is never assigned resource so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/libs/BetterLocation/FromExif.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\ABetterRoutePlannerService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/ABetterRoutePlannerService.php
+
+		-
+			message: '#^@readonly property App\\BetterLocation\\Service\\AbstractService\:\:\$input is assigned outside of the constructor\.$#'
+			identifier: property.readOnlyByPhpDocAssignNotInConstructor
+			count: 1
+			path: src/libs/BetterLocation/Service/AbstractService.php
+
+		-
+			message: '#^@readonly property App\\BetterLocation\\Service\\AbstractService\:\:\$inputUrl is assigned outside of the constructor\.$#'
+			identifier: property.readOnlyByPhpDocAssignNotInConstructor
+			count: 1
+			path: src/libs/BetterLocation/Service/AbstractService.php
+
+		-
+			message: '#^Class App\\BetterLocation\\Service\\AbstractService has an uninitialized @readonly property \$input\. Assign it in the constructor\.$#'
+			identifier: property.uninitializedReadonlyByPhpDoc
+			count: 1
+			path: src/libs/BetterLocation/Service/AbstractService.php
+
+		-
+			message: '#^Class App\\BetterLocation\\Service\\AbstractService has an uninitialized @readonly property \$inputUrl\. Assign it in the constructor\.$#'
+			identifier: property.uninitializedReadonlyByPhpDoc
+			count: 1
+			path: src/libs/BetterLocation/Service/AbstractService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\AppleMapsService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/AppleMapsService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\BaladIrService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/BaladIrService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\Bannergress\\BannergressService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/Bannergress/BannergressService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\BetterLocationService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/BetterLocationService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\BetterLocationService\:\:getShareCollectionLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/BetterLocationService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\Coordinates\\MaidenheadLocatorService\:\:getShareText\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/Coordinates/MaidenheadLocatorService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\Coordinates\\SJTSKService\:\:getShareText\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/Coordinates/SJTSKService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\Coordinates\\WGS84DegreesMinutesSecondsService\:\:getShareText\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/Coordinates/WGS84DegreesMinutesSecondsService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\Coordinates\\WGS84DegreesMinutesService\:\:getShareText\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/Coordinates/WGS84DegreesMinutesService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\Coordinates\\WGS84DegreesService\:\:getShareText\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/Coordinates/WGS84DegreesService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\CoordinatesRender\\WGS84DegreeCompactService\:\:getShareText\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/CoordinatesRender/WGS84DegreeCompactService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\CoordinatesRender\\WGS84DegreeMinutesCompactService\:\:getShareText\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/CoordinatesRender/WGS84DegreeMinutesCompactService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\CoordinatesRender\\WGS84DegreeMinutesSecondsCompactService\:\:getShareText\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/CoordinatesRender/WGS84DegreeMinutesSecondsCompactService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\DrobnePamatkyCzService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/DrobnePamatkyCzService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\DuckDuckGoService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/DuckDuckGoService.php
+
+		-
+			message: '#^Unable to resolve the template type V in call to static method Nette\\Utils\\Arrays\:\:last\(\)$#'
+			identifier: argument.templateType
 			count: 1
 			path: src/libs/BetterLocation/Service/FacebookService.php
 
 		-
-			message: "#^Method App\\\\DummyLogger\\:\\:log\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\BetterLocation\\Service\\FoursquareService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/FoursquareService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\GeocachingService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/GeocachingService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\GeohashService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/GeohashService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\GoogleEarthService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/GoogleEarthService.php
+
+		-
+			message: '#^Call to function is_null\(\) with null will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/libs/BetterLocation/Service/GoogleMapsService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\GoogleMapsService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/GoogleMapsService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\GoogleMapsService\:\:getScreenshotLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/GoogleMapsService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\HereWeGoService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/HereWeGoService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\IKatastrCzService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/IKatastrCzService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\IngressIntelService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/IngressIntelService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\MapyCzService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/MapyCzService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\MapyCzService\:\:getScreenshotLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/MapyCzService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\MapyCzService\:\:getShareCollectionLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/MapyCzService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>country_iso" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: src/libs/BetterLocation/Service/MapyCzService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>locationMain1" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: src/libs/BetterLocation/Service/MapyCzService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\NahlizeniCuzkCzService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/NahlizeniCuzkCzService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\NeshanOrgService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/NeshanOrgService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\NianticLightshipService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/NianticLightshipService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\OpenLocationCodeService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/OpenLocationCodeService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\OpenStreetMapService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/OpenStreetMapService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\OrganicMapsService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/OrganicMapsService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\OsmAndService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/OsmAndService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\SygicService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/SygicService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>latitude" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: src/libs/BetterLocation/Service/UniversalWebsiteService/LdJsonProcessor.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>longitude" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: src/libs/BetterLocation/Service/UniversalWebsiteService/LdJsonProcessor.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\VetsCzService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/VetsCzService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\WaymarkingService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/WaymarkingService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\WazeService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/WazeService.php
+
+		-
+			message: '#^Method App\\BetterLocation\\Service\\ZanikleObceCzService\:\:getLink\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/libs/BetterLocation/Service/ZanikleObceCzService.php
+
+		-
+			message: '#^@readonly property App\\Database\:\:\$link is assigned outside of the constructor\.$#'
+			identifier: property.readOnlyByPhpDocAssignNotInConstructor
+			count: 1
+			path: src/libs/Database.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/libs/Database.php
+
+		-
+			message: '#^Class App\\Database has an uninitialized @readonly property \$link\. Assign it in the constructor\.$#'
+			identifier: property.uninitializedReadonlyByPhpDoc
+			count: 1
+			path: src/libs/Database.php
+
+		-
+			message: '#^Variable \$exception in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: src/libs/Database.php
+
+		-
+			message: '#^Method App\\DummyLogger\:\:log\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: src/libs/DummyLogger.php
 
 		-
-			message: "#^Method App\\\\DummyLogger\\:\\:log\\(\\) has parameter \\$level with no type specified\\.$#"
+			message: '#^Method App\\DummyLogger\:\:log\(\) has parameter \$level with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/DummyLogger.php
 
 		-
-			message: "#^Method App\\\\DummyLogger\\:\\:log\\(\\) has parameter \\$value with no type specified\\.$#"
+			message: '#^Method App\\DummyLogger\:\:log\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/DummyLogger.php
 
 		-
-			message: "#^Method App\\\\Foursquare\\\\Types\\\\VenueLocationType\\:\\:getFormattedAddress\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\Foursquare\\Types\\VenueLocationType\:\:getFormattedAddress\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: src/libs/Foursquare/Types/VenueLocationType.php
 
 		-
-			message: "#^Property App\\\\Geocaching\\\\Types\\\\GeocachePreviewType\\:\\:\\$recentActivities type has no value type specified in iterable type array\\.$#"
+			message: '#^Property App\\Geocaching\\Types\\GeocachePreviewType\:\:\$recentActivities type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Geocaching/Types/GeocachePreviewType.php
 
 		-
-			message: "#^Method App\\\\OpenElevation\\\\OpenElevation\\:\\:request\\(\\) has parameter \\$coordinates with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\OpenElevation\\OpenElevation\:\:request\(\) has parameter \$coordinates with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/OpenElevation/OpenElevation.php
 
 		-
-			message: "#^Method App\\\\Pluginer\\\\Pluginer\\:\\:callApi\\(\\) has parameter \\$requestBody with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Pluginer\\Pluginer\:\:callApi\(\) has parameter \$requestBody with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Pluginer/Pluginer.php
 
 		-
-			message: "#^Method App\\\\Pluginer\\\\Pluginer\\:\\:collectionToData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Pluginer\\Pluginer\:\:collectionToData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Pluginer/Pluginer.php
 
 		-
-			message: "#^Method App\\\\Pluginer\\\\Validator\\:\\:mapJsonErrors\\(\\) has parameter \\$error with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Pluginer\\Validator\:\:mapJsonErrors\(\) has parameter \$error with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Pluginer/Validator.php
 
 		-
-			message: "#^Method App\\\\Repository\\\\ChatEntity\\:\\:fromRow\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Repository\\ChatEntity\:\:fromRow\(\) has parameter \$row with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Repository/ChatEntity.php
 
 		-
-			message: "#^Method App\\\\Repository\\\\Entity\\:\\:fromRow\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\Repository\\Entity\:\:fromRow\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: src/libs/Repository/Entity.php
 
 		-
-			message: "#^Method App\\\\Repository\\\\Entity\\:\\:fromRow\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Repository\\Entity\:\:fromRow\(\) has parameter \$row with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Repository/Entity.php
 
 		-
-			message: "#^Method App\\\\Repository\\\\Entity\\:\\:fromRows\\(\\) has parameter \\$rows with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Repository\\Entity\:\:fromRows\(\) has parameter \$rows with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Repository/Entity.php
 
 		-
-			message: "#^Method App\\\\Repository\\\\Entity\\:\\:fromRows\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Repository\\Entity\:\:fromRows\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Repository/Entity.php
 
 		-
-			message: "#^Method App\\\\Repository\\\\FavouritesEntity\\:\\:fromRow\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Repository\\FavouritesEntity\:\:fromRow\(\) has parameter \$row with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Repository/FavouritesEntity.php
 
 		-
-			message: "#^Method App\\\\Repository\\\\Repository\\:\\:inHelper\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Repository\\Repository\:\:inHelper\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Repository/Repository.php
 
 		-
-			message: "#^Method App\\\\Repository\\\\StaticMapCacheEntity\\:\\:fromRow\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Repository\\StaticMapCacheEntity\:\:fromRow\(\) has parameter \$row with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Repository/StaticMapCacheEntity.php
 
 		-
-			message: "#^Method App\\\\Repository\\\\UserEntity\\:\\:fromRow\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Repository\\UserEntity\:\:fromRow\(\) has parameter \$row with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Repository/UserEntity.php
 
 		-
-			message: "#^Method App\\\\Repository\\\\WebLoginEntity\\:\\:fromRow\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Repository\\WebLoginEntity\:\:fromRow\(\) has parameter \$row with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Repository/WebLoginEntity.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\BetterLocationMessageSettings\\:\\:processRows\\(\\) has parameter \\$rows with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\BetterLocationMessageSettings\:\:processRows\(\) has parameter \$rows with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/BetterLocationMessageSettings.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\Button\\:\\:flash\\(\\) has no return type specified\\.$#"
+			message: '#^Variable \$originalChatType might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/libs/TelegramCustomWrapper/ChatMemberRecalculator.php
+
+		-
+			message: '#^Variable \$originalTelegramId might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/libs/TelegramCustomWrapper/ChatMemberRecalculator.php
+
+		-
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Button\\Button\:\:flash\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Button/Button.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\Button\\:\\:replyButton\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Button\\Button\:\:replyButton\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Button/Button.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\FavouritesButton\\:\\:processFavouritesList\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Button\\FavouritesButton\:\:processFavouritesList\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Button/FavouritesButton.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\HelpButton\\:\\:processHelp\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Button\\HelpButton\:\:processHelp\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Button/HelpButton.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Button\\\\SettingsButton\\:\\:processSettings\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Button\\SettingsButton\:\:processSettings\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Button/SettingsButton.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\FavouritesCommand\\:\\:processFavouritesList\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Command\\FavouritesCommand\:\:processFavouritesList\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Command/FavouritesCommand.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\HelpCommand\\:\\:processHelp\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Command\\HelpCommand\:\:processHelp\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Command/HelpCommand.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\LoginCommand\\:\\:processLogin2\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Command\\LoginCommand\:\:processLogin2\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Command/LoginCommand.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\SettingsCommand\\:\\:processSettings\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Command\\SettingsCommand\:\:processSettings\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Command/SettingsCommand.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processFavourites\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Command\\StartCommand\:\:processFavourites\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processFavourites\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Command\\StartCommand\:\:processFavourites\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processFavouritesList\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Command\\StartCommand\:\:processFavouritesList\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processHelp\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Command\\StartCommand\:\:processHelp\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processLogin2\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Command\\StartCommand\:\:processLogin2\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processSettings\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Command\\StartCommand\:\:processSettings\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processStartCoordinates\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Command\\StartCommand\:\:processStartCoordinates\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\StartCommand\\:\\:processStartCoordinates\\(\\) has parameter \\$matches with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Command\\StartCommand\:\:processStartCoordinates\(\) has parameter \$matches with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Command/StartCommand.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Edit\\\\Edit\\:\\:editMessage\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Edit\\Edit\:\:editMessage\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Edit/Edit.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Events\\\\Events\\:\\:reply\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			message: '#^Instanceof between unreal4u\\TelegramAPI\\Telegram\\Types\\Chat and unreal4u\\TelegramAPI\\Telegram\\Types\\Chat will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Events/Events.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Login\\:\\:__construct\\(\\) has parameter \\$raw with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Events\\Events\:\:reply\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
+		-
+			message: '#^Property App\\TelegramCustomWrapper\\Events\\Events\:\:\$lanchedRuClient \(App\\IngressLanchedRu\\Client\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>migrate_to_chat_id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Events.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>vcard" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Special/ContactEvent.php
+
+		-
+			message: '#^Variable \$markup might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Special/FileEvent.php
+
+		-
+			message: '#^Variable \$markup might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Special/MessageEvent.php
+
+		-
+			message: '#^Variable \$markup might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/libs/TelegramCustomWrapper/Events/Special/PhotoEvent.php
+
+		-
+			message: '#^Method App\\TelegramCustomWrapper\\Login\:\:__construct\(\) has parameter \$raw with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Login.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Login\\:\\:getRawFiltered\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Login\:\:getRawFiltered\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Login.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\Login\\:\\:hasRequiredGetParams\\(\\) has parameter \\$getParams with no type specified\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\Login\:\:hasRequiredGetParams\(\) has parameter \$getParams with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/TelegramCustomWrapper/Login.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:__construct\\(\\) has parameter \\$messageId with no type specified\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\SendMessage\:\:__construct\(\) has parameter \$messageId with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/TelegramCustomWrapper/SendMessage.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:__construct\\(\\) has parameter \\$replyMarkup with no type specified\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\SendMessage\:\:__construct\(\) has parameter \$replyMarkup with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/TelegramCustomWrapper/SendMessage.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:__construct\\(\\) has parameter \\$replyMessageId with no type specified\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\SendMessage\:\:__construct\(\) has parameter \$replyMessageId with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/TelegramCustomWrapper/SendMessage.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:disableWebPagePreview\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\SendMessage\:\:disableWebPagePreview\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: src/libs/TelegramCustomWrapper/SendMessage.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:setParseMode\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\SendMessage\:\:setParseMode\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: src/libs/TelegramCustomWrapper/SendMessage.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:setParseMode\\(\\) has parameter \\$parseMode with no type specified\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\SendMessage\:\:setParseMode\(\) has parameter \$parseMode with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/TelegramCustomWrapper/SendMessage.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:setReplyMarkup\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\SendMessage\:\:setReplyMarkup\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: src/libs/TelegramCustomWrapper/SendMessage.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:setReplyMarkup\\(\\) has parameter \\$replyMarkup with no type specified\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\SendMessage\:\:setReplyMarkup\(\) has parameter \$replyMarkup with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/TelegramCustomWrapper/SendMessage.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:setReplyToMessageId\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\SendMessage\:\:setReplyToMessageId\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: src/libs/TelegramCustomWrapper/SendMessage.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:setReplyToMessageId\\(\\) has parameter \\$replyMessageId with no type specified\\.$#"
+			message: '#^Method App\\TelegramCustomWrapper\\SendMessage\:\:setReplyToMessageId\(\) has parameter \$replyMessageId with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/TelegramCustomWrapper/SendMessage.php
 
 		-
-			message: "#^Property App\\\\TelegramCustomWrapper\\\\SendMessage\\:\\:\\$msg has no type specified\\.$#"
+			message: '#^Property App\\TelegramCustomWrapper\\SendMessage\:\:\$msg has no type specified\.$#'
+			identifier: missingType.property
 			count: 1
 			path: src/libs/TelegramCustomWrapper/SendMessage.php
 
 		-
-			message: "#^Method App\\\\TelegramCustomWrapper\\\\TelegramHelper\\:\\:getParams\\(\\) has parameter \\$update with no type specified\\.$#"
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
 			count: 1
 			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Coordinates\\:\\:isInPolygon\\(\\) has parameter \\$polygon with no value type specified in iterable type array\\.$#"
+			message: '#^Instanceof between unreal4u\\TelegramAPI\\Telegram\\Types\\User and unreal4u\\TelegramAPI\\Telegram\\Types\\User will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
+
+		-
+			message: '#^Method App\\TelegramCustomWrapper\\TelegramHelper\:\:getParams\(\) has parameter \$update with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between mixed and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>entities" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>group_chat_created" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>migrate_from_chat_id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>migrate_to_chat_id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>new_chat_members" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>photo" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>text" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: src/libs/TelegramCustomWrapper/TelegramHelper.php
+
+		-
+			message: '#^Method App\\Utils\\Coordinates\:\:isInPolygon\(\) has parameter \$polygon with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Utils/Coordinates.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Coordinates\\:\\:safe\\(\\) has parameter \\$elevation with no type specified\\.$#"
+			message: '#^Method App\\Utils\\Coordinates\:\:safe\(\) has parameter \$elevation with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/Utils/Coordinates.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Coordinates\\:\\:safe\\(\\) has parameter \\$lat with no type specified\\.$#"
+			message: '#^Method App\\Utils\\Coordinates\:\:safe\(\) has parameter \$lat with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/Utils/Coordinates.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Coordinates\\:\\:safe\\(\\) has parameter \\$lon with no type specified\\.$#"
+			message: '#^Method App\\Utils\\Coordinates\:\:safe\(\) has parameter \$lon with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/Utils/Coordinates.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Coordinates\\:\\:wgs84DegreesToDegreesMinutes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Utils\\Coordinates\:\:wgs84DegreesToDegreesMinutes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Utils/Coordinates.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Coordinates\\:\\:wgs84DegreesToDegreesMinutesSeconds\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Utils\\Coordinates\:\:wgs84DegreesToDegreesMinutesSeconds\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Utils/Coordinates.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\DateImmutableUtils\\:\\:fromTimestampMs\\(\\) has parameter \\$timestampMs with no type specified\\.$#"
+			message: '#^Method App\\Utils\\DateImmutableUtils\:\:fromTimestampMs\(\) has parameter \$timestampMs with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/Utils/DateImmutableUtils.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Ge0Code\\:\\:base64reversed\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Utils\\Ge0Code\:\:base64reversed\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Utils/Ge0Code.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Ge0Code\\:\\:decodeLatLon\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Utils\\Ge0Code\:\:decodeLatLon\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Utils/Ge0Code.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Ge0Code\\:\\:maxPointBits\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\Utils\\Ge0Code\:\:maxPointBits\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: src/libs/Utils/Ge0Code.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\SimpleLogger\\:\\:getLogNames\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\Utils\\SimpleLogger\:\:getLogNames\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: src/libs/Utils/SimpleLogger.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\SimpleLogger\\:\\:log\\(\\) has parameter \\$content with no type specified\\.$#"
+			message: '#^Method App\\Utils\\SimpleLogger\:\:log\(\) has parameter \$content with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/Utils/SimpleLogger.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Strict\\:\\:boolval\\(\\) has parameter \\$input with no type specified\\.$#"
+			message: '#^Method App\\Utils\\Strict\:\:boolval\(\) has parameter \$input with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/Utils/Strict.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Strict\\:\\:floatval\\(\\) has parameter \\$input with no type specified\\.$#"
+			message: '#^Method App\\Utils\\Strict\:\:floatval\(\) has parameter \$input with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/Utils/Strict.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Strict\\:\\:intval\\(\\) has parameter \\$input with no type specified\\.$#"
+			message: '#^Method App\\Utils\\Strict\:\:intval\(\) has parameter \$input with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/Utils/Strict.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Strict\\:\\:isBool\\(\\) has parameter \\$input with no type specified\\.$#"
+			message: '#^Method App\\Utils\\Strict\:\:isBool\(\) has parameter \$input with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/Utils/Strict.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Strict\\:\\:isFloat\\(\\) has parameter \\$input with no type specified\\.$#"
+			message: '#^Method App\\Utils\\Strict\:\:isFloat\(\) has parameter \$input with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/Utils/Strict.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Strict\\:\\:isInt\\(\\) has parameter \\$input with no type specified\\.$#"
+			message: '#^Method App\\Utils\\Strict\:\:isInt\(\) has parameter \$input with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/Utils/Strict.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Strict\\:\\:isPositiveFloat\\(\\) has parameter \\$input with no type specified\\.$#"
+			message: '#^Method App\\Utils\\Strict\:\:isPositiveFloat\(\) has parameter \$input with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/Utils/Strict.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Strict\\:\\:isPositiveInt\\(\\) has parameter \\$input with no type specified\\.$#"
+			message: '#^Method App\\Utils\\Strict\:\:isPositiveInt\(\) has parameter \$input with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/libs/Utils/Strict.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Utils\\:\\:checkIfValueInHeaderMatchArray\\(\\) has parameter \\$haystack with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Utils\\Utils\:\:checkIfValueInHeaderMatchArray\(\) has parameter \$haystack with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Utils/Utils.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Utils\\:\\:getClassConstants\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Utils\\Utils\:\:getClassConstants\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Utils/Utils.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Utils\\:\\:getUrls\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Utils\\Utils\:\:getUrls\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Utils/Utils.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Utils\\:\\:parseUrl\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Utils\\Utils\:\:parseUrl\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Utils/Utils.php
 
 		-
-			message: "#^Access to undefined constant App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\Command\\:\\:DESCRIPTION\\.$#"
+			message: '#^Access to undefined constant App\\TelegramCustomWrapper\\Events\\Command\\Command\:\:DESCRIPTION\.$#'
+			identifier: classConstant.notFound
 			count: 1
 			path: src/libs/Web/Admin/AdminPresenter.php
 
 		-
-			message: "#^Access to undefined constant App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\Command\\:\\:ICON\\.$#"
+			message: '#^Access to undefined constant App\\TelegramCustomWrapper\\Events\\Command\\Command\:\:ICON\.$#'
+			identifier: classConstant.notFound
 			count: 1
 			path: src/libs/Web/Admin/AdminPresenter.php
 
 		-
-			message: "#^Access to an uninitialized readonly property App\\\\Web\\\\Admin\\\\AdminTemplate\\:\\:\\$dbError\\.$#"
+			message: '#^PHPDoc tag @var with type App\\TelegramCustomWrapper\\Events\\Command\\Command is not subtype of native type ''App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\DebugCommand''\|''App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\FavouritesCommand''\|''App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\FeedbackCommand''\|''App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\HelpCommand''\|''App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\IgnoreCommand''\|''App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\LoginCommand''\|''App\\\\TelegramCustomWrapper\\\\Events\\\\Command\\\\SettingsCommand''\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: src/libs/Web/Admin/AdminPresenter.php
+
+		-
+			message: '#^Access to an uninitialized readonly property App\\Web\\Admin\\AdminTemplate\:\:\$dbError\.$#'
+			identifier: property.uninitializedReadonly
 			count: 1
 			path: src/libs/Web/Admin/AdminTemplate.php
 
 		-
-			message: "#^Class App\\\\Web\\\\Admin\\\\AdminTemplate has an uninitialized readonly property \\$dbError\\. Assign it in the constructor\\.$#"
+			message: '#^Access to an uninitialized readonly property App\\Web\\Admin\\AdminTemplate\:\:\$tablesError\.$#'
+			identifier: property.uninitializedReadonly
 			count: 1
 			path: src/libs/Web/Admin/AdminTemplate.php
 
 		-
-			message: "#^Class App\\\\Web\\\\Admin\\\\AdminTemplate has an uninitialized readonly property \\$webhookOk\\. Assign it in the constructor\\.$#"
+			message: '#^Call to function is_null\(\) with null will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
 			count: 1
 			path: src/libs/Web/Admin/AdminTemplate.php
 
 		-
-			message: "#^Class App\\\\Web\\\\Admin\\\\AdminTemplate has an uninitialized readonly property \\$webhookResponse\\. Assign it in the constructor\\.$#"
+			message: '#^Class App\\Web\\Admin\\AdminTemplate has an uninitialized readonly property \$dbError\. Assign it in the constructor\.$#'
+			identifier: property.uninitializedReadonly
 			count: 1
 			path: src/libs/Web/Admin/AdminTemplate.php
 
 		-
-			message: "#^Method App\\\\Web\\\\Admin\\\\AdminTemplate\\:\\:getChatsStats\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Class App\\Web\\Admin\\AdminTemplate has an uninitialized readonly property \$webhookOk\. Assign it in the constructor\.$#'
+			identifier: property.uninitializedReadonly
 			count: 1
 			path: src/libs/Web/Admin/AdminTemplate.php
 
 		-
-			message: "#^Method App\\\\Web\\\\Admin\\\\AdminTemplate\\:\\:getLatestChangedUser\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Class App\\Web\\Admin\\AdminTemplate has an uninitialized readonly property \$webhookResponse\. Assign it in the constructor\.$#'
+			identifier: property.uninitializedReadonly
 			count: 1
 			path: src/libs/Web/Admin/AdminTemplate.php
 
 		-
-			message: "#^Method App\\\\Web\\\\Admin\\\\AdminTemplate\\:\\:getNewestUser\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Web\\Admin\\AdminTemplate\:\:getChatsStats\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/libs/Web/Admin/AdminTemplate.php
 
 		-
-			message: "#^Readonly property App\\\\Web\\\\Admin\\\\AdminTemplate\\:\\:\\$dbError is assigned outside of the constructor\\.$#"
+			message: '#^Method App\\Web\\Admin\\AdminTemplate\:\:getLatestChangedUser\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/libs/Web/Admin/AdminTemplate.php
+
+		-
+			message: '#^Method App\\Web\\Admin\\AdminTemplate\:\:getNewestUser\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/libs/Web/Admin/AdminTemplate.php
+
+		-
+			message: '#^Readonly property App\\Web\\Admin\\AdminTemplate\:\:\$dbError is assigned outside of the constructor\.$#'
+			identifier: property.readOnlyAssignNotInConstructor
 			count: 2
 			path: src/libs/Web/Admin/AdminTemplate.php
 
 		-
-			message: "#^Readonly property App\\\\Web\\\\Admin\\\\AdminTemplate\\:\\:\\$tablesError is assigned outside of the constructor\\.$#"
+			message: '#^Readonly property App\\Web\\Admin\\AdminTemplate\:\:\$tablesError is assigned outside of the constructor\.$#'
+			identifier: property.readOnlyAssignNotInConstructor
 			count: 2
 			path: src/libs/Web/Admin/AdminTemplate.php
 
 		-
-			message: "#^Readonly property App\\\\Web\\\\Admin\\\\AdminTemplate\\:\\:\\$webhookOk is assigned outside of the constructor\\.$#"
+			message: '#^Readonly property App\\Web\\Admin\\AdminTemplate\:\:\$webhookOk is assigned outside of the constructor\.$#'
+			identifier: property.readOnlyAssignNotInConstructor
 			count: 1
 			path: src/libs/Web/Admin/AdminTemplate.php
 
 		-
-			message: "#^Readonly property App\\\\Web\\\\Admin\\\\AdminTemplate\\:\\:\\$webhookResponse is assigned outside of the constructor\\.$#"
+			message: '#^Readonly property App\\Web\\Admin\\AdminTemplate\:\:\$webhookResponse is assigned outside of the constructor\.$#'
+			identifier: property.readOnlyAssignNotInConstructor
 			count: 1
 			path: src/libs/Web/Admin/AdminTemplate.php
 
 		-
-			message: "#^Method App\\\\Web\\\\Chat\\\\ChatTemplate\\:\\:prepareOk\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\Web\\Chat\\ChatTemplate\:\:prepareOk\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: src/libs/Web/Chat/ChatTemplate.php
 
 		-
-			message: "#^Parameter \\#2 \\$cookieToken of class App\\\\Geocaching\\\\Client constructor expects string, null given\\.$#"
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertIsArray\(\) with array will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/BetterLocation/BetterLocationTest.php
+
+		-
+			message: '#^Method Tests\\BetterLocation\\GooglePlaceApiTest\:\:addressComponentsProvider\(\) should return array\<array\{string, array\<mixed\>\}\> but returns array\{array\{''NZ'', array\<mixed\>\}, array\{null, array\<mixed\>\}, array\{''CZ'', array\<mixed\>\}\}\.$#'
+			identifier: return.type
+			count: 1
+			path: tests/BetterLocation/GooglePlaceApiTest.php
+
+		-
+			message: '#^Parameter \#1 \$expected of method PHPUnit\\Framework\\Assert\:\:assertSame\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 2
+			path: tests/BetterLocation/Service/AbstractServiceTestCase.php
+
+		-
+			message: '#^Parameter \#1 \$expected of method PHPUnit\\Framework\\Assert\:\:assertSame\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 2
+			path: tests/BetterLocation/Service/Coordinates/MaidenheadLocatorServiceTest.php
+
+		-
+			message: '#^Parameter \#1 \$expected of method PHPUnit\\Framework\\Assert\:\:assertSame\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 2
+			path: tests/BetterLocation/Service/Coordinates/UTMServiceTest.php
+
+		-
+			message: '#^Parameter \#2 \$cookieToken of class App\\Geocaching\\Client constructor expects string, null given\.$#'
+			identifier: argument.type
 			count: 1
 			path: tests/BetterLocation/Service/GeocachingServiceTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertIsFloat\(\) with float will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 2
+			path: tests/BetterLocation/Service/VodniMlynyCz/EstateTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertIsInt\(\) with int will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/BetterLocation/Service/VodniMlynyCz/EstateTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertIsString\(\) with string will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 2
+			path: tests/BetterLocation/Service/VodniMlynyCz/EstateTest.php
+
+		-
+			message: '#^Parameter \#1 \$expected of method PHPUnit\\Framework\\Assert\:\:assertSame\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 2
+			path: tests/BetterLocation/VcardLocationParserTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertSame\(\) with ''\-04\:00'' and ''\-04\:00'' will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/Geonames/Types/TimezoneTypeTest.php
+
+		-
+			message: '#^Parameter \#1 \$inputs of method App\\OpenElevation\\OpenElevation\:\:fillBatch\(\) expects array\<App\\Utils\\Coordinates\>, array\<int, string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/OpenElevation/OpenElevationTest.php

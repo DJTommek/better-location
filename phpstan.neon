@@ -53,7 +53,7 @@ parameters:
 			path: src/libs/BetterLocation/Service/AbstractService.php
 		-
 			# Intentionally wrong input type parameter to test method if it behaves as it should
-			message: "#^Parameter \\#1 \\$inputs of method App\\\\OpenElevation\\\\OpenElevation\\:\\:fillBatch\\(\\) expects array\\<App\\\\Utils\\\\Coordinates\\>, array\\<int, string\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$inputs of method App\\\\OpenElevation\\\\OpenElevation\\:\\:fillBatch\\(\\) expects array\\<App\\\\Utils\\\\Coordinates\\>, array\\<int, App\\\\Utils\\\\Coordinates\\|string\\> given\\.$#"
 			count: 1
 			path: tests/OpenElevation/OpenElevationTest.php
 		-
@@ -78,10 +78,10 @@ parameters:
 			path: src/libs/BetterLocation/Service/GoogleMapsService.php
 		-
 			# False-positive. Property is assigned within given class
-			message: "#^Class App\\\\Repository\\\\.+Entity has an uninitialized readonly property \\$.+\\. Assign it in the constructor\\.$#"
+			message: "#^Class App\\\\Repository\\\\.+Entity has an uninitialized @?readonly property \\$.+\\. Assign it in the constructor\\.$#"
 		-
 			# False-positive. Property is assigned within given class
-			message: "#^Readonly property App\\\\Repository\\\\.+Entity::\\$.+ is assigned outside of the constructor\\.$#"
+			message: "#^(Readonly|@readonly) property App\\\\Repository\\\\.+Entity::\\$.+ is assigned outside of the constructor\\.$#"
 		-
 			# Values are added using internal method 'cast()' and setters
 			message: "#^Class App\\\\.+Dto has an uninitialized readonly property \\$.+\\. Assign it in the constructor\\.$#"
@@ -101,7 +101,7 @@ parameters:
 		-
 			# There are multiple methods that are always called, but PHPStan is not able to handle multiple "additionalConstructors" for single class
 			message: "#^Readonly property Tests\\\\HttpTestClients\\:\\:\\$.+ is already assigned\\.$#"
-			count: 4
+			count: 7
 			path: tests\HttpTestClients.php
 
 includes:
