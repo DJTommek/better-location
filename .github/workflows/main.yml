@@ -1,9 +1,9 @@
+name: 🚀 Validate, test and deploy to production
+
 on:
   push:
     branches:
       - master
-
-name: 🚀 Test and deploy to production
 
 env:
   PHP_VERSION_REQUIRED: 8.4
@@ -29,24 +29,10 @@ jobs:
         run: composer install
 
       - name: 🚀 Run PHPStan analysis
-        uses: php-actions/phpstan@v3
-        with:
-          version: composer
-          php_version: ${{ env.PHP_VERSION_REQUIRED }}
-          autoload_file: src/bootstrap.php
-          configuration: phpstan.neon
-          memory_limit: 512m
-          php_extensions: mbstring exif
+        run: vendor/bin/phpstan analyse --configuration phpstan.neon --memory-limit 512M --no-progress
 
       - name: 🚀 Run PHPUnit tests (without requests)
-        uses: php-actions/phpunit@v3
-        with:
-          version: 9
-          php_version: ${{ env.PHP_VERSION_REQUIRED }}
-          bootstrap: src/bootstrap.php
-          configuration: phpunit.xml
-          exclude_group: request,no-github-action
-          php_extensions: mbstring exif
+        run: vendor/bin/phpunit --configuration phpunit.xml --exclude-group request,no-github-action
 
   web-deploy:
     name: 🎉 Deploy on production
@@ -56,7 +42,7 @@ jobs:
       COMPOSER_NO_DEV: 1
     steps:
       - name: 🚚 Download latest code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🚚 Prepare PHP
         uses: shivammathur/setup-php@v2
