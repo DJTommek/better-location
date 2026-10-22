@@ -1,0 +1,247 @@
+
+<html xmls="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dead Drops Database</title>
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Dead Drops Database" />
+<meta property="og:title" content="Julia" />
+<meta property="og:description" content="Wireless drop in aguaí, BR." />
+<meta property="og:url" content="https://deaddrops.com/db/?page=view&amp;id=1580" />
+<meta property="og:image" content="https://deaddrops.com/images/deaddrops/1580/234888.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Julia" />
+<meta name="twitter:description" content="Wireless drop in aguaí, BR." />
+<meta name="twitter:image" content="https://deaddrops.com/images/deaddrops/1580/234888.jpg" />
+<link rel="stylesheet" href="style.css?v=1790600209">
+<link rel="stylesheet" href="./lib/node_modules/leaflet/dist/leaflet.css">
+<link rel="stylesheet" href="./lib/node_modules/leaflet.markercluster/dist/MarkerCluster.css">
+<link rel="stylesheet" href="./lib/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css">
+
+<script src="./lib/node_modules/leaflet/dist/leaflet.js" type="text/javascript"></script>
+<script src="./lib/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js" type="text/javascript"></script>
+</head>
+
+<body>
+<noscript><b>JavaScript must be enabled in order for you to use Google Maps.</b></noscript>
+<br><br>
+<table class="table_menu mobile-table"><tr>
+	<td class="td_page_tab" onClick="document.location='?page=list';" onMouseOver="document.body.style.cursor='pointer';" onMouseOut="document.body.style.cursor='default';">Home</td>
+	<td class="td_page_tab" onClick="document.location='?page=submit';" onMouseOver="document.body.style.cursor='pointer';" onMouseOut="document.body.style.cursor='default';">Submit</td>
+	<td class="td_page_tab" onClick="document.location='?page=map';" onMouseOver="document.body.style.cursor='pointer';" onMouseOut="document.body.style.cursor='default';">World Map</td>
+		<td style="width: *;" class="td_page_blank">&nbsp;</td>
+</tr></table>
+<br>
+
+	<table style="border: 0; padding: 2px" class="mobile-table">
+		<tbody>
+			<tr>
+				<td width="90" align="left">
+					<a href="?page=view&id=1579" style="text-decoration: none;" class="paging">&lt; previous</a></td>
+				<td width="*">&nbsp;</td>
+				<td width="90" align="right">
+					<a href="?page=view&id=1581" style="text-decoration: none;" class="paging">next &gt;</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<table style="border-width: 0px; background-color: white;">
+	<tr>
+		<td valign="top" style="width: *; background-color: white;">
+			<table class="mobile-table">
+				<tr>
+					<td colspan="2" class="td_menu"><b>Information</b></td>
+				</tr>
+									<tr>
+						<td style="width: 200px;"><b>Id: </b></td>
+						<td>1580</td>
+					</tr>
+								<tr>
+					<td style="width: 200px;"><b>Name: </b></td>
+					<td>Julia</td>
+				</tr>
+				<tr>
+					<td style="width: 200px;"><b>Drop-Type: </b></td>
+					<td>Wireless drop</td>
+				</tr>
+				<tr>
+					<td style="width: 200px;"><b>Size: </b></td>
+					<td></td>
+				</tr>
+									<tr>
+						<td style="width: 200px;"><b>Date Created: </b></td>
+						<td>2015-01-30</td>
+					</tr>
+								<tr>
+					<td style="width: 200px;"><b>Address: </b></td>
+					<td id="address_display">, aguaí São Paulo, BR</td>
+				</tr>
+				<tr>
+					<td style="width: 200px;"><b>Coordinates: </b></td>
+					<td>
+						<a id="coord_link" href="https://www.openstreetmap.org/?mlat=36.6&mlon=89.4#map=17/36.6/89.4" target="_blank" rel="noopener">36.60000 N  89.40000 E</a>
+											</td>
+				</tr>
+									<tr class="hide-mobile">
+						<td style="width: 200px;"><b>Permalink: </b></td>
+						<td>www.deaddrops.com/db/?page=view&id=1580</td>
+					</tr>
+							</table>
+			<br>
+			<div class="mobile-table pictures-block">
+				<div class="td_menu"><b>Pictures</b></div>
+				<div class="pictures-grid">
+											<div class="picture-card">
+							<div class="picture-label">Overview</div>
+															<a href="images/fullsize/1580/234888.jpg" target="_blank" title="click to see fullsize picture">
+									<img src="images/deaddrops/1580/234888.jpg" border="0">
+								</a>
+													</div>
+									</div>
+			</div>
+
+			<table class="mobile-table map-status-table">
+				<tr>
+					<td valign="top" class="map-cell" style="width: 50%;">
+						<table class="map-inner-table">
+							<tr>
+								<td class="td_menu"><b>Map</b></td>
+							</tr>
+							<tr>
+								<td>
+									<div id="map" style="height: 280px;" class="div_map"></div>
+								</td>
+							</tr>
+													</table>
+					</td>
+					<td valign="top" class="status-cell" style="width: 50%;">
+													<table>
+							<tr>
+								<td class="td_menu" colspan="2"><b>Status</b></td>
+							</tr>
+							<tr>
+								<td>Status was set to <em>broken/dead/stolen/gone</em> on 2021-12-17 21:08:12 (UTC)</td>
+								<td><img src="images/icon/w3.png"></td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<form action="./?page=view&id=1580" method="POST">
+										Change Status to <select name="dd-status">
+																							<option value="0" selected>
+													broken/dead/stolen/gone												</option>
+																							<option value="1" >
+													unconfirmed, may be broken												</option>
+																							<option value="2" >
+													working												</option>
+																					</select> <button type="submit" name="submit-change-status">Submit</button>
+									</form>
+								</td>
+							</tr>
+						</table>
+													<table>
+							<tr>
+								<td class="td_menu"><b>About</b></td>
+							</tr>
+							<tr>
+								<td>do not let your fears take place of your dreams</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+	<table style="border: 0; padding: 2px">
+		<tbody>
+			<tr>
+				<td width="70" align="left">
+					<a href="?page=view&id=1579" style="text-decoration: none;"><span class="paging">&lt; previous</span></a></td>
+				<td width="*">&nbsp;</td>
+				<td width="70" align="right">
+					<a href="?page=view&id=1581" style="text-decoration: none;"><span class="paging">next &gt;</span></a></td>
+			</tr>
+		</tbody>
+	</table>
+
+<script>
+	var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+		osmAttribution = 'Map data &copy; 2011 OpenStreetMap contributors',
+		osm = new L.TileLayer(osmUrl, {
+			maxZoom: 18,
+			attribution: osmAttribution
+		});
+
+	var map = new L.Map('map');
+
+	var DeadDropIcon = L.Icon.extend({
+		iconUrl: './images/icon/d1.png',
+		iconSize: new L.Point(34, 55),
+		iconAnchor: new L.Point(20, 55),
+		popupAnchor: new L.Point(0, 0)
+	});
+
+	// var d1 = new DeadDropIcon();,
+	// d2 = new DeadDropIcon('./images/icon/d2.png'),
+	// d3 = new DeadDropIcon('./images/icon/d3.png'),
+	// l3 = new DeadDropIcon('./images/icon/l3.png'),
+	// l2 = new DeadDropIcon('./images/icon/l2.png'),
+	// l1 = new DeadDropIcon('./images/icon/l1.png'),
+	// o3 = new DeadDropIcon('./images/icon/o3.png'),
+	// o2 = new DeadDropIcon('./images/icon/o2.png'),
+	// o1 = new DeadDropIcon('./images/icon/o1.png'),
+	// w3 = new DeadDropIcon('./images/icon/w3.png'),
+	// w2 = new DeadDropIcon('./images/icon/w2.png'),
+	// w1 = new DeadDropIcon('./images/icon/w1.png');
+
+	map.setView(new L.LatLng(36.6, 89.4), 14).addLayer(osm);
+
+	var loc = new L.LatLng(36.6, 89.4);
+
+	var droptype = 2;
+
+	var ddIcon = new L.Icon({
+		iconUrl: './images/icon/w3.png',
+		iconSize: new L.Point(34, 55),
+		iconAnchor: new L.Point(20, 55),
+		popupAnchor: new L.Point(0, 0)
+	});
+
+	var marker = new L.Marker(loc, {
+		icon: ddIcon,
+		draggable: false	});
+
+	// if(droptype=='1'){
+	//  marker = new L.Marker(loc, {icon: d1});
+	//  }
+
+	// if(droptype=='2'){
+	//   marker = new L.Marker(loc, {icon: w1});
+	// }
+
+	// if(droptype=='3'){
+	//   marker = new L.Marker(loc, {icon: l1});
+	// }
+
+	// if(droptype=='9'){
+	//   marker = new L.Marker(loc, {icon: o1});
+	// }
+
+	map.addLayer(marker);
+
+	marker.bindPopup('<div style="width:240px"><b>Julia</b><br>, aguaí São Paulo, BR</b></div>');
+
+	</script>
+
+<div align="center"><p>full site at <a href="https://deaddrops.com" target="_top">deaddrops.com</a></p></div>
+
+</body>
+
+</html>
+

@@ -528,10 +528,14 @@ class TelegramHelper
 		return $result;
 	}
 
-	public static function datetimeFormatSmart(\DateTimeInterface $datetime): string
+	/**
+	 * @param bool $includeTime Set false if datetime holds only date (time is not known)
+	 */
+	public static function datetimeFormatSmart(\DateTimeInterface $datetime, bool $includeTime = true): string
 	{
+		$format = $includeTime ? [DatetimeFormat::DATE_LONG, DatetimeFormat::TIME_LONG] : [DatetimeFormat::DATE_LONG];
 		return sprintf('%s (%s)',
-			TelegramHelper::datetimeFormat($datetime, [DatetimeFormat::DATE_LONG, DatetimeFormat::TIME_LONG]),
+			TelegramHelper::datetimeFormat($datetime, $format),
 			TelegramHelper::datetimeFormat($datetime, [DatetimeFormat::RELATIVE]),
 		);
 	}

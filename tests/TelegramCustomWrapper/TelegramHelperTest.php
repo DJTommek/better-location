@@ -25,8 +25,10 @@ final class TelegramHelperTest extends TestCase
 	public static function datetimeFormatSmartProvider(): array
 	{
 		return [
-			['<tg-time unix="1647531900" format="DT">2022-03-17 15:45:00 UTC</tg-time> (<tg-time unix="1647531900" format="r">2022-03-17 15:45:00 UTC</tg-time>)', 1647531900],
-			['<tg-time unix="-25605885" format="DT">1969-03-10 15:15:15 UTC</tg-time> (<tg-time unix="-25605885" format="r">1969-03-10 15:15:15 UTC</tg-time>)', -25605885],
+			['<tg-time unix="1647531900" format="DT">2022-03-17 15:45:00 UTC</tg-time> (<tg-time unix="1647531900" format="r">2022-03-17 15:45:00 UTC</tg-time>)', 1647531900, true],
+			['<tg-time unix="-25605885" format="DT">1969-03-10 15:15:15 UTC</tg-time> (<tg-time unix="-25605885" format="r">1969-03-10 15:15:15 UTC</tg-time>)', -25605885, true],
+			['<tg-time unix="1647531900" format="D">2022-03-17 15:45:00 UTC</tg-time> (<tg-time unix="1647531900" format="r">2022-03-17 15:45:00 UTC</tg-time>)', 1647531900, false],
+			['<tg-time unix="1566950400" format="D">2019-08-28 00:00:00 UTC</tg-time> (<tg-time unix="1566950400" format="r">2019-08-28 00:00:00 UTC</tg-time>)', 1566950400, false],
 		];
 	}
 
@@ -146,9 +148,9 @@ final class TelegramHelperTest extends TestCase
 	/**
 	 * @dataProvider datetimeFormatSmartProvider
 	 */
-	public function testDatetimeFormatSmart(string $expected, int $datetimeUnix): void
+	public function testDatetimeFormatSmart(string $expected, int $datetimeUnix, bool $includeTime): void
 	{
 		$datetime = (new \DateTime())->setTimestamp($datetimeUnix);
-		$this->assertSame($expected, TelegramHelper::datetimeFormatSmart($datetime));
+		$this->assertSame($expected, TelegramHelper::datetimeFormatSmart($datetime, $includeTime));
 	}
 }

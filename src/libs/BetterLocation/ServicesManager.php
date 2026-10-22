@@ -23,6 +23,7 @@ use App\BetterLocation\Service\Coordinates\WGS84DegreesService;
 use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeCompactService;
 use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeMinutesCompactService;
 use App\BetterLocation\Service\CoordinatesRender\WGS84DegreeMinutesSecondsCompactService;
+use App\BetterLocation\Service\DeadDropsCom\DeadDropsComService;
 use App\BetterLocation\Service\DrobnePamatkyCzService;
 use App\BetterLocation\Service\DuckDuckGoService;
 use App\BetterLocation\Service\EitaaSnappMaps\EitaaMapsService;
@@ -150,6 +151,7 @@ class ServicesManager
 		$services[] = NianticLightshipService::class;
 		$services[] = OsmAndService::class;
 		$services[] = DrobnePamatkyCzService::class;
+		$services[] = DeadDropsComService::class;
 		$services[] = OpenLocationCodeService::class;
 		$services[] = GeohashService::class;
 		$services[] = OrganicMapsService::class;
