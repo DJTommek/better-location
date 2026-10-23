@@ -427,6 +427,21 @@ class TelegramHelper
 	}
 
 	/**
+	 * Return URL from entity, prefixed with scheme if missing. Telegram marks also texts without scheme as "url"
+	 * entity, eg. "www.example.com/path".
+	 *
+	 * @see self::getEntityContent()
+	 */
+	public static function getEntityUrl(string $message, MessageEntity $entity): string
+	{
+		$url = self::getEntityContent($message, $entity);
+		if (preg_match('/^[a-z][a-z0-9+.-]*:\/\//i', $url) === 0) {
+			$url = 'https://' . $url;
+		}
+		return $url;
+	}
+
+	/**
 	 * Simulate Telegram message by creating URL entities (currently only URLs)
 	 *
 	 * @return MessageEntity[]
@@ -463,7 +478,7 @@ class TelegramHelper
 		foreach (array_reverse($entities) as $entity) {
 			if ($entity->type === 'url') {
 				$entityContent = TelegramHelper::getEntityContent($text, $entity);
-				if (Strict::isUrl($entityContent, true)) {
+				if (Strict::isUrl(TelegramHelper::getEntityUrl($text, $entity), true)) {
 					$text = str_replace($entityContent, str_repeat('|', $entity->length), $text);
 				}
 			}

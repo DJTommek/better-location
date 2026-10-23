@@ -29,7 +29,7 @@ class FromTelegramMessage
 				continue;
 			}
 
-			$url = TelegramHelper::getEntityContent($message, $entity);
+			$url = TelegramHelper::getEntityUrl($message, $entity);
 
 			if (Strict::isUrl($url) === false) {
 				continue;

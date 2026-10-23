@@ -83,6 +83,8 @@ final class TelegramHelperTest extends TestCase
 			['Hello https://t.me/ here!', 'Hello https://t.me/ here!', []],
 			// Valid IP address
 			['||||||||||||||||||||||', 'http://123.123.222.111', [['offset' => 0, 'length' => 22, 'type' => 'url']]],
+			// URL without scheme
+			['Hello ||||||||||||||||||||||||||||||||||||||| here!', 'Hello www.deaddrops.com/db/?page=view&id=2772 here!', [['offset' => 6, 'length' => 39, 'type' => 'url']]],
 		];
 
 	}
@@ -129,6 +131,44 @@ final class TelegramHelperTest extends TestCase
 		$updateChatMigrateFrom = self::fromFile(__DIR__ . '/fixtures/chat_migrate_from.json');
 		$this->assertFalse(TelegramHelper::isViaBot($updateChatMigrateFrom));
 		$this->assertNull(TelegramHelper::getViaBot($updateChatMigrateFrom));
+	}
+
+	public static function entityUrlProvider(): array
+	{
+		return [
+			['https://t.me/', 'Hello https://t.me/ here!', ['offset' => 6, 'length' => 13, 'type' => 'url']],
+			['http://t.me/', 'Hello http://t.me/ here!', ['offset' => 6, 'length' => 12, 'type' => 'url']],
+			// URL without scheme
+			['https://www.deaddrops.com/db/?page=view&id=2772', 'Hello www.deaddrops.com/db/?page=view&id=2772 here!', ['offset' => 6, 'length' => 39, 'type' => 'url']],
+			['https://t.me/', 'Hello t.me/ here!', ['offset' => 6, 'length' => 5, 'type' => 'url']],
+			// URL is hidden under text
+			['https://t.me/', 'Hello there!', ['offset' => 6, 'length' => 5, 'type' => 'text_link', 'url' => 'https://t.me/']],
+		];
+	}
+
+	/**
+	 * @dataProvider entityUrlProvider
+	 */
+	public function testGetEntityUrl(string $expectedUrl, string $message, array $entityRaw): void
+	{
+		$this->assertSame($expectedUrl, TelegramHelper::getEntityUrl($message, new MessageEntity($entityRaw)));
+	}
+
+	/**
+	 * Real webhook update from Telegram with URL hidden under text (text_link entity)
+	 */
+	public function testGetEntityUrlTextLinkFromUpdate(): void
+	{
+		$update = self::fromFile(__DIR__ . '/fixtures/message_text_link.json');
+		$message = $update->message;
+		$entities = iterator_to_array($message->entities, false);
+		$this->assertCount(1, $entities);
+		$entity = $entities[0];
+		$this->assertSame('text_link', $entity->type);
+
+		$this->assertSame('https://www.deaddrops.com/db/?page=view&id=2772', TelegramHelper::getEntityUrl($message->text, $entity));
+		// Text of text_link entity is not URL, so it must stay untouched
+		$this->assertSame($message->text, TelegramHelper::getMessageWithoutUrls($message->text, $entities));
 	}
 
 	private static function fromFile(string $file): Update
