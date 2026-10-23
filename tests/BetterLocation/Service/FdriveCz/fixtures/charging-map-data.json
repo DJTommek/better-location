@@ -1,0 +1,643 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    14.402054786682,
+                    50.072902679443
+                ]
+            },
+            "properties": {
+                "id": 4,
+                "name": "ČEZ, Praha 5 - Smíchov, Kartouzská ul., OC Nový Smíchov",
+                "url": "cez-praha-5---smichov-kartouzska-ul-oc-novy-smichov",
+                "status": "open",
+                "fast_charging": true,
+                "date_changed": "2026-06-30 11:55:42",
+                "location": {
+                    "lat": 50.072902679443,
+                    "long": 14.402054786682,
+                    "address": "Plzeňská 8, 150 00 Praha 5 - Smíchov",
+                    "country": "cz"
+                },
+                "providers": [
+                    1
+                ],
+                "chargers": [
+                    {
+                        "id": "1",
+                        "count": "4",
+                        "is_fast": "0",
+                        "current_type": "AC",
+                        "max_output": "22.00",
+                        "max_current": "32.00"
+                    },
+                    {
+                        "id": "3",
+                        "count": "2",
+                        "is_fast": "1",
+                        "current_type": "DC",
+                        "max_output": "60.00",
+                        "max_current": "150.00"
+                    },
+                    {
+                        "id": "4",
+                        "count": "2",
+                        "is_fast": "1",
+                        "current_type": "DC",
+                        "max_output": "200.00",
+                        "max_current": "300.00"
+                    },
+                    {
+                        "id": "4",
+                        "count": "7",
+                        "is_fast": "1",
+                        "current_type": "DC",
+                        "max_output": "80.00",
+                        "max_current": "200.00"
+                    }
+                ],
+                "cables": [],
+                "payment_methods": [
+                    2,
+                    24,
+                    25
+                ],
+                "pics": []
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    14.433103561401,
+                    50.080963134766
+                ]
+            },
+            "properties": {
+                "id": 5,
+                "name": "PRE, Praha 2 - Vinohrady, ul. Wilsonova, Parking Centrum \"Garáže Slovan\"",
+                "url": "pre-praha-2---vinohrady-ul-wilsonova-parking-centrum-garaze-slovan",
+                "status": "tempClosed",
+                "fast_charging": false,
+                "date_changed": "2022-09-19 16:30:00",
+                "location": {
+                    "lat": 50.080963134766,
+                    "long": 14.433103561401,
+                    "address": "Wilsonova 372, 120 00 Praha 2 - Vinohrady\r\n",
+                    "country": "cz"
+                },
+                "providers": [
+                    2
+                ],
+                "chargers": [
+                    {
+                        "id": "1",
+                        "count": "1",
+                        "is_fast": "0",
+                        "current_type": "AC",
+                        "max_output": "22.00",
+                        "max_current": "32.00"
+                    },
+                    {
+                        "id": "5",
+                        "count": "1",
+                        "is_fast": "0",
+                        "current_type": "AC",
+                        "max_output": "3.60",
+                        "max_current": "16.00"
+                    }
+                ],
+                "cables": [],
+                "payment_methods": [
+                    2,
+                    24
+                ],
+                "pics": []
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    16.586472,
+                    49.4165
+                ]
+            },
+            "properties": {
+                "id": 10525,
+                "name": "e-station, Černá Hora, čerpací stanice UNICORN",
+                "url": "e-station-cerna-hora-cerpaci-stanice-unicorn",
+                "status": "inDev",
+                "fast_charging": true,
+                "date_changed": "2022-09-19 16:31:52",
+                "location": {
+                    "lat": 49.4165,
+                    "long": 16.586472,
+                    "address": "Černá Hora 53, 679 21 Černá Hora",
+                    "country": "cz"
+                },
+                "providers": [
+                    60
+                ],
+                "chargers": [
+                    {
+                        "id": "1",
+                        "count": "1",
+                        "is_fast": "0",
+                        "current_type": "AC",
+                        "max_output": "22.00",
+                        "max_current": "32.00"
+                    },
+                    {
+                        "id": "3",
+                        "count": "1",
+                        "is_fast": "1",
+                        "current_type": "DC",
+                        "max_output": "50.00",
+                        "max_current": "120.00"
+                    },
+                    {
+                        "id": "4",
+                        "count": "1",
+                        "is_fast": "1",
+                        "current_type": "DC",
+                        "max_output": "50.00",
+                        "max_current": "125.00"
+                    }
+                ],
+                "cables": [],
+                "payment_methods": [
+                    2,
+                    24
+                ],
+                "pics": []
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    12.315154260127,
+                    45.877485749576
+                ]
+            },
+            "properties": {
+                "id": 14953,
+                "name": "IONITY (I), Conegliano, Via S. Giuseppe, Centro Commerciale Cone",
+                "url": "ionity-i-conegliano-via-s-giuseppe-centro-commerciale-cone",
+                "status": "open",
+                "fast_charging": true,
+                "date_changed": "2022-12-30 12:11:19",
+                "location": {
+                    "lat": 45.877485749576,
+                    "long": 12.315154260127,
+                    "address": "Via S. Giuseppe, 25, Conegliano TV, I",
+                    "country": "it"
+                },
+                "providers": [
+                    55
+                ],
+                "chargers": [
+                    {
+                        "id": "4",
+                        "count": "6",
+                        "is_fast": "1",
+                        "current_type": "DC",
+                        "max_output": "350.00",
+                        "max_current": "500.00"
+                    }
+                ],
+                "cables": [],
+                "payment_methods": [
+                    2,
+                    24
+                ],
+                "pics": []
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    14.458689,
+                    50.064435
+                ]
+            },
+            "properties": {
+                "id": 34800,
+                "name": "Chargee, Praha 10 - Vršovice, ul. U Seřadiště, AutoDraft servis",
+                "url": "chargee-praha-10---vrsovice-ul-u-seradiste-autodraft-servis",
+                "status": "open",
+                "fast_charging": true,
+                "date_changed": "2026-09-11 13:47:27",
+                "location": {
+                    "lat": 50.064435,
+                    "long": 14.458689,
+                    "address": "U seřadiště 65, 101 00 Praha; CZE\r\n",
+                    "country": "cz"
+                },
+                "providers": [
+                    82
+                ],
+                "chargers": [
+                    {
+                        "id": "4",
+                        "count": "1",
+                        "is_fast": "1",
+                        "current_type": "DC",
+                        "max_output": "25.00",
+                        "max_current": "75.00"
+                    }
+                ],
+                "cables": [],
+                "payment_methods": [
+                    24
+                ],
+                "pics": []
+            }
+        }
+    ],
+    "providers": {
+        "1": {
+            "name": "ČEZ",
+            "url": "http://www.elektromobilita.cz",
+            "tel": "+420371100351",
+            "show": true
+        },
+        "2": {
+            "name": "PRE",
+            "url": "https://www.premobilita.cz",
+            "tel": "+420733143143",
+            "show": true
+        },
+        "4": {
+            "name": "E.ON",
+            "url": "https://www.eon.cz/drive",
+            "tel": "+420739533751",
+            "show": true
+        },
+        "6": {
+            "name": "Green24",
+            "url": "http://www.green24.cz",
+            "tel": "+420800313130 ",
+            "show": true
+        },
+        "9": {
+            "name": "NetDataComm",
+            "url": "https://www.netdatacomm.cz",
+            "tel": "+420516116216",
+            "show": true
+        },
+        "24": {
+            "name": "Innogy",
+            "url": "https://www.innogyemobilita.cz",
+            "tel": "+420800113355",
+            "show": true
+        },
+        "25": {
+            "name": "Polyfazer",
+            "url": "http://www.polyfazer.cz",
+            "tel": "+420270007900",
+            "show": true
+        },
+        "26": {
+            "name": "Tesla",
+            "url": "https://www.tesla.com",
+            "tel": "+31202583910",
+            "show": true
+        },
+        "27": {
+            "name": "Lidl",
+            "url": "https://www.lidl.cz",
+            "tel": "+420800023809",
+            "show": true
+        },
+        "28": {
+            "name": "evmapa.cz - EVSELECT s.r.o.",
+            "url": "https://www.evmapa.cz",
+            "tel": "+420530508424",
+            "show": true
+        },
+        "30": {
+            "name": "BILLA",
+            "url": "https://billa.cz",
+            "tel": "+420 323 625 11",
+            "show": false
+        },
+        "36": {
+            "name": "ŠKO-ENERGO, s.r.o.",
+            "url": "https://www.sko-energo.cz",
+            "tel": "+420326817477",
+            "show": true
+        },
+        "41": {
+            "name": "LUKY system",
+            "url": "https://www.lukysystem.cz",
+            "tel": "+420605530288",
+            "show": true
+        },
+        "51": {
+            "name": "ostatní",
+            "url": "",
+            "tel": "",
+            "show": true
+        },
+        "54": {
+            "name": "MOL Česká republika",
+            "url": "https://www.molcesko.cz",
+            "tel": "+420241080800",
+            "show": true
+        },
+        "55": {
+            "name": "IONITY",
+            "url": "https://ionity.eu",
+            "tel": "",
+            "show": true
+        },
+        "56": {
+            "name": "Olife Energy",
+            "url": "https://olife-energy.com/cz",
+            "tel": "602 615 953",
+            "show": true
+        },
+        "57": {
+            "name": "GreenWay ",
+            "url": "https://greenway.sk",
+            "tel": " +421233056236 ",
+            "show": true
+        },
+        "58": {
+            "name": "ZSE",
+            "url": "https://zsedrive.sk",
+            "tel": "",
+            "show": true
+        },
+        "59": {
+            "name": "Teplárny Brno, a.s.",
+            "url": "https://www.teplarny.cz",
+            "tel": "545 161 545",
+            "show": true
+        },
+        "60": {
+            "name": "e-station",
+            "url": "https://www.nabijajed.cz",
+            "tel": "",
+            "show": true
+        },
+        "61": {
+            "name": "GTIS charging SK s.r.o.",
+            "url": "https://www.gtischarging.sk/",
+            "tel": "",
+            "show": true
+        },
+        "62": {
+            "name": "Charge and ride",
+            "url": "https://www.chargeandride.cz",
+            "tel": "",
+            "show": true
+        },
+        "63": {
+            "name": "ejoin",
+            "url": "https://ejoin.eu/siet-nabijacich-stanic",
+            "tel": "+421424 111 111",
+            "show": true
+        },
+        "64": {
+            "name": "Transfer Energy a.s.",
+            "url": "https://www.tenergy.cz/",
+            "tel": "+420234313214",
+            "show": true
+        },
+        "65": {
+            "name": "ChargeUp",
+            "url": "https://chargeup.cz/",
+            "tel": "+42022140083",
+            "show": true
+        },
+        "66": {
+            "name": "Slovnaft",
+            "url": "https://slovnaft.sk/",
+            "tel": "",
+            "show": true
+        },
+        "67": {
+            "name": "ePerun",
+            "url": "https://www.eperun.sk/",
+            "tel": "+421 910251475",
+            "show": true
+        },
+        "68": {
+            "name": "VSE - Východoslovenská energetika a.s.",
+            "url": "https://www.vse.sk",
+            "tel": "+421850123333",
+            "show": true
+        },
+        "69": {
+            "name": "Shell Czech Republic a.s.",
+            "url": "https://www.shell.cz/",
+            "tel": "+420244025111",
+            "show": true
+        },
+        "70": {
+            "name": "Slovenské elektrárne, a.s.",
+            "url": "https://seas.sk",
+            "tel": "+421 258661111",
+            "show": true
+        },
+        "71": {
+            "name": "Stredoslovenská energetika, a.s.",
+            "url": "https://www.sse.sk/",
+            "tel": "+421850111468",
+            "show": true
+        },
+        "73": {
+            "name": "Kaufland",
+            "url": "https://www.kaufland.sk/",
+            "tel": "+421 080015 28",
+            "show": true
+        },
+        "74": {
+            "name": "SHELL Slovakia, s.r.o.",
+            "url": "https://shell.sk",
+            "tel": "+42125824511",
+            "show": true
+        },
+        "75": {
+            "name": "SEAK",
+            "url": "https://seak.com/sk",
+            "tel": "+421517715065",
+            "show": true
+        },
+        "76": {
+            "name": "AgeVolt",
+            "url": "https://www.agevolt.com/cs/",
+            "tel": "+421 2 221 222 ",
+            "show": true
+        },
+        "77": {
+            "name": "Orlen",
+            "url": "",
+            "tel": "",
+            "show": true
+        },
+        "78": {
+            "name": "OMV eMotion",
+            "url": "https://www.omv.sk/sk/mobilita/omv-emotion",
+            "tel": "+421268720744",
+            "show": true
+        },
+        "79": {
+            "name": "Louda Auto",
+            "url": "https://autolouda.cz/",
+            "tel": "325 400 400",
+            "show": true
+        },
+        "80": {
+            "name": "EURO CHARGE",
+            "url": "https://www.eurocharge.cz/",
+            "tel": "",
+            "show": true
+        },
+        "81": {
+            "name": "THMP",
+            "url": "https://www.thmp.cz/",
+            "tel": "+420 800 404 06",
+            "show": true
+        },
+        "82": {
+            "name": "Chargee",
+            "url": "https://www.chargee.eco/",
+            "tel": "",
+            "show": true
+        },
+        "83": {
+            "name": "Sminn",
+            "url": "https://sminn.sk",
+            "tel": "+421908202022",
+            "show": true
+        },
+        "84": {
+            "name": "ZAspot",
+            "url": "https://www.zaspot.cz/cs/contact",
+            "tel": "770 103 103",
+            "show": true
+        }
+    },
+    "charger_types": {
+        "1": {
+            "name": "Typ 2",
+            "is_fast": false,
+            "current_type": "AC",
+            "order": 1,
+            "show": true
+        },
+        "2": {
+            "name": "Tesla Supercharger",
+            "is_fast": true,
+            "current_type": "DC",
+            "order": 4,
+            "show": true
+        },
+        "3": {
+            "name": "CHAdeMO",
+            "is_fast": true,
+            "current_type": "DC",
+            "order": 3,
+            "show": true
+        },
+        "4": {
+            "name": "CCS",
+            "is_fast": true,
+            "current_type": "DC",
+            "order": 2,
+            "show": true
+        },
+        "5": {
+            "name": "230V zásuvka",
+            "is_fast": false,
+            "current_type": "AC",
+            "order": 6,
+            "show": false
+        },
+        "6": {
+            "name": "400V zásuvka",
+            "is_fast": false,
+            "current_type": "AC",
+            "order": 7,
+            "show": false
+        },
+        "7": {
+            "name": "Žádné",
+            "is_fast": false,
+            "current_type": "AC",
+            "order": 127,
+            "show": false
+        },
+        "8": {
+            "name": "Tesla Destination Charger",
+            "is_fast": false,
+            "current_type": "AC",
+            "order": 5,
+            "show": false
+        },
+        "9": {
+            "name": "SCHUKO",
+            "is_fast": false,
+            "current_type": "AC",
+            "order": 8,
+            "show": false
+        },
+        "10": {
+            "name": "Typ 1 (J1772 - YAZAKI)",
+            "is_fast": false,
+            "current_type": "AC",
+            "order": 9,
+            "show": true
+        }
+    },
+    "payment_methods": {
+        "1": {
+            "name": "Zdarma",
+            "is_free": true,
+            "order": 4
+        },
+        "2": {
+            "name": "QR kód",
+            "is_free": false,
+            "order": 2
+        },
+        "3": {
+            "name": "Hotovost",
+            "is_free": false,
+            "order": 3
+        },
+        "13": {
+            "name": "Ostatní",
+            "is_free": false,
+            "order": 127
+        },
+        "24": {
+            "name": "Tarif poskytovatele",
+            "is_free": false,
+            "order": 2
+        },
+        "25": {
+            "name": "Platební karta",
+            "is_free": false,
+            "order": 1
+        }
+    },
+    "manufacturers": {},
+    "output_range": {
+        "min": 0,
+        "max": 600
+    }
+}

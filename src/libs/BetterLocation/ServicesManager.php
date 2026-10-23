@@ -32,6 +32,7 @@ use App\BetterLocation\Service\EStudankyEuService;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\Service\FacebookService;
+use App\BetterLocation\Service\FdriveCz\FdriveCzService;
 use App\BetterLocation\Service\FevGamesService;
 use App\BetterLocation\Service\FirmyCzService;
 use App\BetterLocation\Service\FoursquareService;
@@ -152,6 +153,7 @@ class ServicesManager
 		$services[] = OsmAndService::class;
 		$services[] = DrobnePamatkyCzService::class;
 		$services[] = DeadDropsComService::class;
+		$services[] = FdriveCzService::class;
 		$services[] = OpenLocationCodeService::class;
 		$services[] = GeohashService::class;
 		$services[] = OrganicMapsService::class;
