@@ -291,6 +291,7 @@ class DefaultConfig
 	const CACHE_TTL_DEAD_DROPS_COM = 60 * 60 * 24;
 	const CACHE_TTL_FDRIVE_CZ = 60 * 60 * 24;
 	const CACHE_TTL_SOCHY_A_MESTA_CZ = 60 * 60 * 24;
+	const CACHE_TTL_SREALITY_CZ = 60 * 60 * 24;
 	const CACHE_TTL_ROPIKY_NET = 60 * 60 * 24;
 	const CACHE_TTL_ZNICENE_KOSTELY_CZ = 60 * 60 * 24;
 	const CACHE_TTL_ZANIKLE_OBCE_CZ = 60 * 60 * 24;
