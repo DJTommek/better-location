@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service\Coordinates;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\InvalidLocationException;
 use App\Factory;
+use App\Utils\StringUtils;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
@@ -37,6 +38,15 @@ abstract class WGS84AbstractService extends AbstractService
 
 	abstract protected static function getReCoords(): string;
 
+	/**
+	 * Unify characters, that are commonly used in coordinates but are not directly supported by regex
+	 */
+	private static function normalizeInput(string $input): string
+	{
+		$input = StringUtils::translit($input); // Replace prime (′) and double prime (″) as single-quote and doublequote
+		return str_replace('\'\'', '"', $input); // Replace two quotes as one doublequote
+	}
+
 	public static function getRegex(): string
 	{
 		return
@@ -60,7 +70,7 @@ abstract class WGS84AbstractService extends AbstractService
 	#[\Override]
  public function validate(): bool
 	{
-		$input = str_replace('\'\'', '"', $this->input); // Replace two quotes as one doublequote
+		$input = self::normalizeInput($this->input);
 		if (preg_match('/^' . static::getRegex() . '$/iu', $input, $matches)) {
 			$this->data->matches = $matches;
 			return true;
@@ -73,7 +83,7 @@ abstract class WGS84AbstractService extends AbstractService
  public static function findInText(string $text): BetterLocationCollection
 	{
 		$collection = new BetterLocationCollection();
-		$text = str_replace('\'\'', '"', $text); // Replace two quotes as one doublequote
+		$text = self::normalizeInput($text);
 		if (preg_match_all('/' . self::getRegex() . '/iu', $text, $matches)) {
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				$coordsRaw = $matches[0][$i];
