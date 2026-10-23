@@ -60,6 +60,7 @@ use App\BetterLocation\Service\OsmAndService;
 use App\BetterLocation\Service\Park4NightService;
 use App\BetterLocation\Service\PrazdneDomyCzService;
 use App\BetterLocation\Service\RopikyNetService;
+use App\BetterLocation\Service\SochyAMestaCzService;
 use App\BetterLocation\Service\SumavaCzService;
 use App\BetterLocation\Service\SygicService;
 use App\BetterLocation\Service\UniversalWebsiteService\UniversalWebsiteService;
@@ -154,6 +155,7 @@ class ServicesManager
 		$services[] = DrobnePamatkyCzService::class;
 		$services[] = DeadDropsComService::class;
 		$services[] = FdriveCzService::class;
+		$services[] = SochyAMestaCzService::class;
 		$services[] = OpenLocationCodeService::class;
 		$services[] = GeohashService::class;
 		$services[] = OrganicMapsService::class;
