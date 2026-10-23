@@ -44,6 +44,7 @@ final class DeadDropsComServiceTest extends AbstractServiceTestCase
 	public static function isValidProvider(): array
 	{
 		return [
+			[true, 'https://www.deaddrops.com/db/?page=view&id=2772'],
 			[true, 'https://deaddrops.com/db/?page=view&id=2413'],
 			[true, 'http://deaddrops.com/db/?page=view&id=2413'],
 			[true, 'https://www.deaddrops.com/db/?page=view&id=2413'],
@@ -68,6 +69,7 @@ final class DeadDropsComServiceTest extends AbstractServiceTestCase
 	public static function processProvider(): array
 	{
 		return [
+			[49.7583, 15.0961, 'Babka', 'https://www.deaddrops.com/db/?page=view&id=2772'],
 			[48.8105, 14.3183, 'USB v Myší díře', 'https://deaddrops.com/db/?page=view&id=2413'],
 			[38.6973, -77.4428, 'Lake Jackson BridgeDrop', 'https://deaddrops.com/db/?page=view&id=100'],
 			[51.4754, -0.037693, '&quot;Tripoli&quot;', 'https://deaddrops.com/db/?page=view&id=500'],
