@@ -134,7 +134,7 @@ final class FdriveCzService extends AbstractService
 			$text = sprintf('%d× %s', $charger->count, htmlspecialchars($typeName));
 			$maxOutput = (float)$charger->max_output;
 			if ($maxOutput > 0) {
-				$text .= sprintf(' %s kW', $maxOutput);
+				$text .= sprintf(' (%s kW)',$maxOutput);
 			}
 			$chargersTexts[] = $text;
 		}

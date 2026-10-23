@@ -119,7 +119,7 @@ final class FdriveCzServiceTest extends AbstractServiceTestCase
 		$descriptions = $this->processDescriptions('https://fdrive.cz/mapa-nabijecich-stanic/ionity-i-conegliano-via-s-giuseppe-centro-commerciale-cone-14953');
 
 		$this->assertSame([
-			'Chargers: 6× CCS 350 kW',
+			'Chargers: 6× CCS (350 kW)',
 		], $descriptions);
 	}
 
@@ -128,7 +128,7 @@ final class FdriveCzServiceTest extends AbstractServiceTestCase
 		$descriptions = $this->processDescriptions('https://fdrive.cz/mapa-nabijecich-stanic/4');
 
 		$this->assertSame([
-			'Chargers: 4× Typ 2 22 kW, 2× CHAdeMO 60 kW, 2× CCS 200 kW, 7× CCS 80 kW',
+			'Chargers: 4× Typ 2 (22 kW), 2× CHAdeMO (60 kW), 2× CCS (200 kW), 7× CCS (80 kW)',
 		], $descriptions);
 	}
 
@@ -138,7 +138,7 @@ final class FdriveCzServiceTest extends AbstractServiceTestCase
 
 		$this->assertSame([
 			Icons::WARNING . ' Status: <b>Temporarily closed</b>',
-			'Chargers: 1× Typ 2 22 kW, 1× 230V zásuvka 3.6 kW',
+			'Chargers: 1× Typ 2 (22 kW), 1× 230V zásuvka (3.6 kW)',
 		], $descriptions);
 	}
 
