@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  PHP_VERSION_REQUIRED: 8.4
+  PHP_VERSION_REQUIRED: 8.5
 
 jobs:
   validate:

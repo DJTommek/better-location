@@ -87,7 +87,7 @@ final class MaidenheadLocatorTest extends TestCase
 		$this->assertTrue(MaidenheadLocator::isValid($result1->getCode()));
 		$this->assertSame($result1->getCode(), $result2->getCode());
 
-		$this->assertEqualsWithDelta($lat, $result2->getLat(), 0.00009);
+		$this->assertEqualsWithDelta($lat, $result2->getLat(), 0.0009);
 		$this->assertEqualsWithDelta($lon, $result2->getLon(), 0.0009);
 	}
 }

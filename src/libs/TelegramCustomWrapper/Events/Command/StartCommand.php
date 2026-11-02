@@ -48,14 +48,14 @@ class StartCommand extends Command
 			$params = explode(' ', TelegramHelper::InlineTextDecode($encodedParams[0]));
 			$action = array_shift($params);
 			switch ($action) {
-				case self::FAVOURITE;
+				case self::FAVOURITE:
 					$this->processFavourites($params);
 					break;
-				case self::SETTINGS;
+				case self::SETTINGS:
 					[$text, $markup, $options] = $this->processSettings();
 					$this->reply($text, $markup, $options);
 					break;
-				case self::LOGIN;
+				case self::LOGIN:
 					[$text, $markup, $options] = $this->processLogin2();
 					$this->reply($text, $markup, $options);
 					break;
