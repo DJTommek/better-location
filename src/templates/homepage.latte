@@ -1,144 +1,447 @@
 {templateType App\Web\LayoutTemplate}
 {layout '@layout.latte'}
+{block description}BetterLocation turns coordinates, codes and links into your favorite map apps, such as Google Maps, Waze or Mapy.com. Works in Telegram, Discord and right on the web.{/block}
 {block content}
-	<h1 class="display-5">
-		<a href="{$basePath}">BetterLocation</a>
-	</h1>
-	<p>
-		BetterLocation is very cool helper for converting various inputs into your favorite services as Google, Waze, Sygic and much more.
-	</p>
-	<h4>Key features</h4>
-	<ul>
-		<li>
-			Parsing and eventually generating
-			<ul>
-				<li>Coordinates:
-					<a href="https://en.wikipedia.org/wiki/World_Geodetic_System" target="_blank">WGS84</a>,
-					<a href="https://en.wikipedia.org/wiki/United_States_National_Grid" target="_blank">USNG</a>,
-					<a href="https://en.wikipedia.org/wiki/Military_Grid_Reference_System" target="_blank">MGRS</a>,
-					<a href="https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system" target="_blank">UTM</a>,
-					<a href="https://en.wikipedia.org/wiki/Maidenhead_Locator_System" target="_blank">QTH (IARU)</a>,
-					...
-				</li>
-				<li>Codes:
-					<a href="https://geocaching.com/" target="_blank">Geocaching GCxxx</a>,
-					<a href="https://what3words.com/" target="_blank">What3Words</a>,
-					<a href="https://plus.codes/" target="_blank">Open Location Codes (Plus Codes)</a>,
-					<a href="https://en.wikipedia.org/wiki/Geohash" target="_blank">Geohash</a>,
-					...
-				</li>
-				<li>Various links:
-					<a href="https://maps.google.com" target="_blank">maps.google.com</a>,
-					<a href="https://glympse.com" target="_blank">Glympse.com</a>,
-					<a href="https://mapy.cz" target="_blank">Mapy.cz</a>,
-					<a href="https://intel.ingress.com" target="_blank">Intel.Ingress.com</a>,
-					<a href="https://foursquare.com/city-guide" target="_blank">Foursquare (city guide)</a>,
-					...
-				</li>
-				<li>Short links:
-					<a href="https://goo.gl" target="_blank">goo.gl</a>,
-					<a href="https://bit.ly" target="_blank">bit.ly</a>,
-					<a href="https://tinyurl.com" target="_blank">tinyurl.com</a>,
-					<a href="https://t.co" target="_blank">t.co</a>,
-					<a href="https://tiny.cc" target="_blank">tiny.cc</a>,
-					...
-				</li>
-				<li>Telegram (live) location and venues</li>
-				<li><a href="https://wikipedia.org/wiki/Exif" target="_blank">EXIF</a> from uncompressed images</li>
-			</ul>
-		</li>
-		<li>
-			Searching and sharing dynamically via
-			<a href="https://core.telegram.org/bots/inline" target="_blank" title="Telegram Inline">Telegram inline</a>
-			using Google
-		</li>
-		<li>
-			Displaying various location metadata: address, elevation, timezone, <abbr title="Daylight saving time">DST</abbr>, current time
-		</li>
-	</ul>
+	{var $telegramBotUrl = 'https://t.me/BetterLocationBot'}
+	{var $discordBotUrl = 'https://discord.com/oauth2/authorize?client_id=1391122758523551744&permissions=67584&integration_type=0&scope=bot'}
+	{var $discordServerUrl = 'https://discord.gg/jJa8AGV3sy'}
+	{var $exampleCoords = '50.087451,14.420671'}
 
-	<h2 class="display-6">
-		<a href="https://t.me/BetterLocationBot" target="_blank">Telegram bot</a>
-	</h2>
-	<p>
-		All these features are available as Telegram bot
-		<a href="https://t.me/BetterLocationBot" target="_blank" title="Telegram bot @BetterLocationBot">@BetterLocationBot</a>,
-		which can be used in private message or in even in chats.<br>
-		Bot is highly configurable in terms how result message should look like including coordinates format, share links and drive buttons. If you really want, you can enable
-		<a href="{$basePath}/img/better-location-bot-example-telegram-everything.png" target="_blank" title="Example screenshot from Telegram bot @BetterLocationBot with everything enabled">everything</a>!
-	</p>
-	<p>
-		If location is valid, then it will respond with nicely formatted message. To prevent spam in chats, it will remain silent if no location in message was found.
-	</p>
-	<figure class="figure">
-		<a href="{$basePath}/img/better-location-bot-example-telegram.png" target="_blank">
-			<img src="{$basePath}/img/better-location-bot-example-telegram.png" class="figure-img img-fluid" alt="Example screenshot from Telegram bot @BetterLocationBot">
-		</a>
-		<figcaption class="figure-caption text-center">
-			Example screenshot from Telegram bot
-			<a href="https://t.me/BetterLocationBot" target="_blank">@BetterLocationBot</a>
-		</figcaption>
-	</figure>
+	{* Pills with null URL are rendered as plain labels *}
+	{var $inputs = [
+		[
+			'icon' => 'bi-crosshair',
+			'title' => 'Coordinates',
+			'text' => 'Latitude and longitude in any common notation, with or without hemisphere letters and symbols, plus grid reference systems.',
+			'links' => [
+				'Decimal degrees' => 'https://en.wikipedia.org/wiki/Decimal_degrees',
+				'Degrees & minutes' => null,
+				'Degrees, minutes & seconds' => null,
+				'UTM' => 'https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system',
+				'MGRS' => 'https://en.wikipedia.org/wiki/Military_Grid_Reference_System',
+				'USNG' => 'https://en.wikipedia.org/wiki/United_States_National_Grid',
+				'QTH locator' => 'https://en.wikipedia.org/wiki/Maidenhead_Locator_System',
+			],
+		],
+		[
+			'icon' => 'bi-hash',
+			'title' => 'Codes',
+			'text' => 'Short location codes and identifiers are expanded into precise places.',
+			'links' => [
+				'What3Words' => 'https://what3words.com/',
+				'Plus Codes' => 'https://plus.codes/',
+				'Geocaching GC codes' => 'https://www.geocaching.com/',
+				'Geohash' => 'https://en.wikipedia.org/wiki/Geohash',
+			],
+		],
+		[
+			'icon' => 'bi-map',
+			'title' => 'Map apps',
+			'text' => 'Links shared from map and navigation apps, on phone or desktop.',
+			'links' => [
+				'Google Maps' => 'https://maps.google.com/',
+				'Mapy.com' => 'https://mapy.com/',
+				'Waze' => 'https://www.waze.com/',
+				'Apple Maps' => 'https://maps.apple.com/',
+				'OpenStreetMap' => 'https://www.openstreetmap.org/',
+				'HERE WeGo' => 'https://wego.here.com/',
+				'Organic Maps' => 'https://organicmaps.app/',
+				'OsmAnd' => 'https://osmand.net/',
+				'DuckDuckGo' => 'https://duckduckgo.com/?ia=maps',
+				'Glympse' => 'https://glympse.com/',
+			],
+		],
+		[
+			'icon' => 'bi-globe-americas',
+			'title' => 'Websites',
+			'text' => 'Place pages from travel, real estate and community websites, and any other website that publishes structured location data.',
+			'links' => [
+				'Wikipedia' => 'https://www.wikipedia.org/',
+				'Booking.com' => 'https://www.booking.com/',
+				'Airbnb' => 'https://www.airbnb.com/',
+				'Facebook' => 'https://www.facebook.com/',
+				'Foursquare' => 'https://foursquare.com/',
+				'Geocaching' => 'https://www.geocaching.com/',
+				'Ingress Intel' => 'https://intel.ingress.com/',
+				'park4night' => 'https://park4night.com/',
+				'Sreality.cz' => 'https://www.sreality.cz/',
+				'Firmy.cz' => 'https://www.firmy.cz/',
+				'Kudy z nudy' => 'https://www.kudyznudy.cz/',
+				'Hrady.cz' => 'https://www.hrady.cz/',
+			],
+		],
+		[
+			'icon' => 'bi-link-45deg',
+			'title' => 'Short links',
+			'text' => 'Shortened URLs are followed to their destination to find the location behind them.',
+			'links' => [
+				'maps.app.goo.gl' => null,
+				'mapy.cz/s' => null,
+				'bit.ly' => 'https://bitly.com/',
+				'tinyurl.com' => 'https://tinyurl.com/',
+				't.co' => 'https://help.x.com/en/using-x/url-shortener',
+				'1url.cz' => 'https://1url.cz/',
+				'cutt.ly' => 'https://cutt.ly/',
+				'rb.gy' => 'https://rebrandly.com/',
+				'ow.ly' => 'https://ow.ly/',
+				'buff.ly' => 'https://buffer.com/',
+				'tiny.cc' => 'https://tiny.cc/',
+				'4sq.com' => 'https://foursquare.com/',
+			],
+		],
+		[
+			'icon' => 'bi-broadcast-pin',
+			'title' => 'Telegram & photos',
+			'text' => 'Locations shared natively in Telegram, and photos sent uncompressed as a file, with GPS read from their metadata.',
+			'links' => [
+				'Shared location' => null,
+				'Live location' => null,
+				'Venues' => null,
+				'Photo EXIF' => 'https://en.wikipedia.org/wiki/Exif',
+			],
+		],
+	]}
 
-	<h2 class="display-6">Discord bot</h2>
-	<p>
-		Feel free to add
-		<a href="https://discord.com/oauth2/authorize?client_id=1391122758523551744&permissions=67584&integration_type=0&scope=bot" target="_blank" title="Integration link to add Discord bot BetterLocation#0881">BetterLocation#0881</a>
-		bot to your own server, join our alredy existing server
-		<a href="https://discord.gg/jJa8AGV3sy" target="_blank" title="Invite link to Discord server BetterLocation">BetterLocation</a>
-		or write him directly in private message.
-	</p>
-	<p>
-		If location is valid, then it will respond with nicely formatted message. To prevent spam in servers, it will remain silent if no location in message was found.
-	</p>
-	<div class="alert alert-info" role="alert">
-		<i class="bi bi-info-circle"></i>
-		Discord bot is currently in public beta and in comparison to Telegram bot, some features might not yet be available.<br>
-		Please test the bot and leave any feedback in our
-		<a href="https://discord.gg/jJa8AGV3sy" target="_blank" title="Invite link to Discord server BetterLocation" class="alert-link">BetterLocation</a>
-		server.
-	</div>
-	<figure class="figure">
-		<a href="{$basePath}/img/better-location-bot-example-discord.png" target="_blank">
-			<img src="{$basePath}/img/better-location-bot-example-discord.png" class="figure-img img-fluid rounded" alt="Example screenshot from Discord bot BetterLocation#0881">
-		</a>
-		<figcaption class="figure-caption text-center">
-			Example screenshot from Discord bot
-			<a href="https://discord.com/oauth2/authorize?client_id=1391122758523551744&permissions=67584&integration_type=0&scope=bot" target="_blank" title="Integration link to add Discord bot BetterLocation#0881">BetterLocation#0881</a>
-		</figcaption>
-	</figure>
+	{var $outputs = [
+		['icon' => 'bi-signpost-split', 'title' => 'Share & drive links', 'text' => 'One tap to open the location in Google Maps, Waze, Mapy.com, Apple Maps, Sygic, HERE WeGo or OpenStreetMap.'],
+		['icon' => 'bi-info-circle', 'title' => 'Location details', 'text' => 'Address, elevation, timezone, daylight saving time and current local time.'],
+		['icon' => 'bi-search', 'title' => 'Inline search', 'text' => 'Search and share places in any Telegram chat via inline mode, powered by Google.'],
+		['icon' => 'bi-sliders', 'title' => 'Highly configurable', 'text' => 'Pick coordinate format, share links and drive buttons, per chat.'],
+		['icon' => 'bi-volume-mute', 'title' => 'Silent when not needed', 'text' => 'No location in the message? No reply. Bots stay quiet to prevent spam in group chats.'],
+		['icon' => 'bi-geo', 'title' => 'Multiple locations', 'text' => 'Messages with multiple locations are handled at once, including distances between them.'],
+	]}
 
-	<h2 class="display-6">Website</h2>
-	<p>
-		Website has some features too!
-	</p>
-	<p>
-		Any location on Earth can be represented as coordinates in <abbr title="World Geodetic System">WGS 84</abbr>
-		(<a href="https://en.wikipedia.org/wiki/World_Geodetic_System" title="World Geodetic System on Wikipedia.org">wiki</a>).
-		For example center of Prague in Czechia is located at <code>50.087451,14.420671</code>, so URL is simply
-		<a href="{$baseUrl}/50.087451,14.420671" class="text-break">{$baseUrl}/50.087451,14.420671</a>
-		so to get some info about particular location, just open that link.
-	</p>
-	<h2 class="display-6">API</h2>
-	<p>
-		Very simple API is also available by adding <code>?format=json</code> to the url, eg:
-		<a href="{$baseUrl}/50.087451,14.420671?format=json" class="text-break">{$baseUrl}/50.087451,14.420671?format=json</a>
-	</p>
-	<h2 class="display-6">Disclaimer</h2>
-	<p>
-		Although this is hobby project, some parts (bots, website, API) are already helping people and organizations around the world.<br>
-		Anything can change at any time without warning, <b>but I'm doing my best I can</b> to not break anything and keep it running as smooth as possible.
-		But just in case, if you want rocks-steady support, new feature or just ask for something, <b>don't hesitate</b> and
-		<a href="https://t.me/DJTommek" target="_blank">contact me</a>.
-	</p>
-	<h4>More links to study:</h4>
-	<ul>
-		<li>Telegram bot <a href="https://t.me/BetterLocationBot" target="_blank" title="Telegram bot @BetterLocationBot">@BetterLocationBot</a></li>
-		<li>Telegram info channel <a href="https://t.me/BetterLocationInfo" target="_blank">@BetterLocationInfo</a></li>
-		<li>Telegram chat discussion <a href="https://t.me/BetterLocationChat" target="_blank">@BetterLocationChat</a></li>
-		<li>Telegram bot source code on Github <a href="https://github.com/DJTommek/better-location" target="_blank">DJTommek/better-location</a></li>
-		<li>Discord server <a href="https://discord.gg/jJa8AGV3sy" target="_blank" title="Invite link to Discord server BetterLocation">BetterLocation</a> invite link</li>
-		<li>Discord bot <a href="https://discord.com/oauth2/authorize?client_id=1391122758523551744&permissions=67584&integration_type=0&scope=bot" target="_blank" title="Integration link to add Discord bot BetterLocation#0881">BetterLocation#0881</a> intergration link</li>
-		<li>Contact author <a href="https://tomas.palider.cz/">Tomas Palider</a> directly via Telegram on <a href="https://t.me/DJTommek" target="_blank">@DJTommek</a></li>
-	</ul>
+	{* Hero *}
+	<section id="intro" class="text-center py-4 py-md-5">
+		<img src="{$basePath}/img/logo.png" alt="BetterLocation logo" width="128" height="128" class="rounded-circle shadow bg-white p-3 mb-4">
+		<h1 class="display-4 fw-bold text-body-emphasis">BetterLocation</h1>
+		<div class="col-lg-8 mx-auto">
+			<p class="lead mb-4">
+				Turn coordinates, codes and links into your favorite map apps, such as Google Maps, Waze or Mapy.com.
+				Works in Telegram, Discord and right here on the web.
+			</p>
+			<div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+				<a href="{$telegramBotUrl}" target="_blank" class="btn btn-primary btn-lg rounded-pill px-4">
+					<i class="bi bi-telegram"></i>
+					Open Telegram bot
+				</a>
+				<a href="{$discordBotUrl}" target="_blank" class="btn btn-outline-primary btn-lg rounded-pill px-4">
+					<i class="bi bi-discord"></i>
+					Add to Discord
+				</a>
+			</div>
+
+			<div class="card shadow-sm text-start">
+				<div class="card-body p-4">
+					<form id="try-location" data-base-url="{$baseUrl}" novalidate>
+						<label for="try-location-input" class="form-label fw-semibold">
+							<i class="bi bi-geo-alt-fill text-danger"></i>
+							Try it now
+						</label>
+						<div class="input-group input-group-lg has-validation">
+							<input type="text" id="try-location-input" class="form-control font-monospace" placeholder="{$exampleCoords}" autocomplete="off">
+							<button type="button" id="try-location-gps" class="btn btn-outline-secondary" title="Use my current location">
+								<i class="bi bi-crosshair2"></i>
+							</button>
+							<button type="submit" class="btn btn-primary">
+								Go <i class="bi bi-arrow-right"></i>
+							</button>
+							<div class="invalid-feedback">
+								Enter coordinates as <code>latitude,longitude</code>, eg. <code>{$exampleCoords}</code>. Multiple locations can be separated by <code>;</code>.
+							</div>
+						</div>
+						<div class="form-text">
+							Enter WGS84 coordinates, or just press <b>Go</b> to explore the example, to see address, elevation, timezone and links to dozens of map services.
+							For all other formats, use one of the bots.
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{* What it understands *}
+	<section id="inputs" class="pt-5">
+		<h2 class="text-center fw-bold mb-2">
+			<a href="#inputs" class="text-body-tertiary">#</a>
+			What it understands
+		</h2>
+		<p class="text-center text-body-secondary mb-4">Send almost anything containing a location&hellip;</p>
+		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+			<div n:foreach="$inputs as $input" class="col">
+				<div class="card h-100 shadow-sm">
+					<div class="card-header text-center fs-5 py-3">
+						<i class="bi {$input['icon']} text-primary"></i>
+						{$input['title']}
+					</div>
+					<div class="card-body">
+						<p class="card-text">{$input['text']}</p>
+						<div n:if="$input['links']" class="d-flex flex-wrap gap-1">
+							{foreach $input['links'] as $name => $url}
+								<a n:if="$url" href="{$url}" target="_blank" class="badge rounded-pill bg-body-secondary text-body-emphasis border fw-normal">{$name}</a>
+								<span n:if="!$url" class="badge rounded-pill bg-body-secondary text-body-emphasis border fw-normal">{$name}</span>
+							{/foreach}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{* What you get *}
+	<section id="features" class="pt-5">
+		<h2 class="text-center fw-bold mb-2">
+			<a href="#features" class="text-body-tertiary">#</a>
+			Features
+		</h2>
+		<p class="text-center text-body-secondary mb-4">&hellip;and get back a nicely formatted message.</p>
+		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+			<div n:foreach="$outputs as $output" class="col">
+				<div class="card h-100 shadow-sm">
+					<div class="card-header text-center fs-5 py-3">
+						<i class="bi {$output['icon']} text-primary"></i>
+						{$output['title']}
+					</div>
+					<div class="card-body">
+						<p class="card-text">{$output['text']}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{* How it works *}
+	<section id="how-it-works" class="pt-5">
+		<h2 class="text-center fw-bold mb-4">
+			<a href="#how-it-works" class="text-body-tertiary">#</a>
+			How it works
+		</h2>
+		<div class="row g-4 text-center">
+			<div class="col-md-4">
+				<span class="d-inline-block p-3 mb-3 rounded-circle bg-primary-subtle text-primary-emphasis lh-1"><i class="bi bi-chat-dots fs-2"></i></span>
+				<h3 class="h5 fw-bold">1. Send a message</h3>
+				<p class="text-body-secondary">Message the bot directly or add it to your group chat or Discord server.</p>
+			</div>
+			<div class="col-md-4">
+				<span class="d-inline-block p-3 mb-3 rounded-circle bg-primary-subtle text-primary-emphasis lh-1"><i class="bi bi-cpu fs-2"></i></span>
+				<h3 class="h5 fw-bold">2. Locations are found</h3>
+				<p class="text-body-secondary">Every coordinate, code and link in the message is parsed and validated.</p>
+			</div>
+			<div class="col-md-4">
+				<span class="d-inline-block p-3 mb-3 rounded-circle bg-primary-subtle text-primary-emphasis lh-1"><i class="bi bi-pin-map fs-2"></i></span>
+				<h3 class="h5 fw-bold">3. Get where you need</h3>
+				<p class="text-body-secondary">Bot replies with details and links to open the place in your favorite app.</p>
+			</div>
+		</div>
+	</section>
+
+	{* Platforms *}
+	<section id="platforms" class="pt-5">
+		<h2 class="text-center fw-bold mb-4">
+			<a href="#platforms" class="text-body-tertiary">#</a>
+			Where to use it
+		</h2>
+		<div class="row row-cols-1 row-cols-lg-2 g-4">
+			<div class="col" id="telegram-bot">
+				<div class="card h-100 shadow-sm">
+					<div class="card-header fs-5 py-3">
+						<i class="bi bi-telegram text-primary"></i>
+						Telegram bot
+						<span class="badge text-bg-success float-end fs-6">Stable</span>
+					</div>
+					<div class="card-body">
+						<p class="card-text">
+							All features are available in
+							<a href="{$telegramBotUrl}" target="_blank" title="Telegram bot @BetterLocationBot">@BetterLocationBot</a>,
+							which can be used in private messages or in group chats.
+							It is highly configurable in terms how the result message should look like, including coordinates format, share links and drive buttons.
+							If you really want, you can enable
+							<a href="{$basePath}/img/better-location-bot-example-telegram-everything.png" target="_blank" title="Example screenshot from Telegram bot @BetterLocationBot with everything enabled">everything</a>!
+						</p>
+						<a href="{$basePath}/img/better-location-bot-example-telegram.png" target="_blank">
+							<img src="{$basePath}/img/better-location-bot-example-telegram.png" class="img-fluid rounded border d-block mx-auto" alt="Example screenshot from Telegram bot @BetterLocationBot">
+						</a>
+					</div>
+					<div class="card-footer d-flex flex-wrap gap-2">
+						<a href="{$telegramBotUrl}" target="_blank" class="btn btn-primary btn-sm">
+							<i class="bi bi-chat"></i> Open bot
+						</a>
+						<a href="{$telegramBotUrl}?startgroup=hi" target="_blank" class="btn btn-outline-primary btn-sm">
+							<i class="bi bi-people"></i> Add to group
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col" id="discord-bot">
+				<div class="card h-100 shadow-sm">
+					<div class="card-header fs-5 py-3">
+						<i class="bi bi-discord text-primary"></i>
+						Discord bot
+						<span class="badge text-bg-warning float-end fs-6">Beta</span>
+					</div>
+					<div class="card-body">
+						<p class="card-text">
+							Add
+							<a href="{$discordBotUrl}" target="_blank" title="Integration link to add Discord bot BetterLocation#0881">BetterLocation#0881</a>
+							to your own server, join our existing server
+							<a href="{$discordServerUrl}" target="_blank" title="Invite link to Discord server BetterLocation">BetterLocation</a>
+							or write to it directly in a private message.
+							Some features of the Telegram bot might not yet be available, please leave any feedback on our server.
+						</p>
+						<a href="{$basePath}/img/better-location-bot-example-discord.png" target="_blank">
+							<img src="{$basePath}/img/better-location-bot-example-discord.png" class="img-fluid rounded border d-block mx-auto" alt="Example screenshot from Discord bot BetterLocation#0881">
+						</a>
+					</div>
+					<div class="card-footer d-flex flex-wrap gap-2">
+						<a href="{$discordBotUrl}" target="_blank" class="btn btn-primary btn-sm">
+							<i class="bi bi-plus-circle"></i> Add to server
+						</a>
+						<a href="{$discordServerUrl}" target="_blank" class="btn btn-outline-primary btn-sm">
+							<i class="bi bi-people"></i> Join community
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col" id="website">
+				<div class="card h-100 shadow-sm">
+					<div class="card-header fs-5 py-3">
+						<i class="bi bi-globe2 text-primary"></i>
+						Website
+					</div>
+					<div class="card-body">
+						<p class="card-text">
+							Any location on Earth can be represented as
+							<abbr title="World Geodetic System">WGS 84</abbr>
+							coordinates. Just put them into the URL to get info about that particular place.
+							For example, the center of Prague is located at:
+						</p>
+						<a href="{$baseUrl}/{$exampleCoords}" class="d-block p-3 rounded bg-body-tertiary border font-monospace text-break">{$baseUrl}/{$exampleCoords}</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col" id="api">
+				<div class="card h-100 shadow-sm">
+					<div class="card-header fs-5 py-3">
+						<i class="bi bi-code-slash text-primary"></i>
+						API
+					</div>
+					<div class="card-body">
+						<p class="card-text">
+							A very simple API is available too, just add <code>?format=json</code> to any location URL:
+						</p>
+						<a href="{$baseUrl}/{$exampleCoords}?format=json" class="d-block p-3 rounded bg-body-tertiary border font-monospace text-break">{$baseUrl}/{$exampleCoords}?format=json</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{* About *}
+	<section id="about" class="pt-5 pb-5">
+		<h2 class="text-center fw-bold mb-4">
+			<a href="#about" class="text-body-tertiary">#</a>
+			About
+		</h2>
+		<div class="row g-4">
+			<div class="col-lg-6">
+				<div class="card h-100 shadow-sm">
+					<div class="card-header fs-5 py-3">
+						<i class="bi bi-heart text-danger"></i>
+						Hobby project
+					</div>
+					<div class="card-body">
+						<p class="card-text">
+							Although this is a hobby project, some parts (bots, website, API) are already helping people and organizations around the world.
+						</p>
+						<p class="card-text">
+							Anything can change at any time without warning, <b>but I'm doing my best</b> to not break anything and keep it running as smooth as possible.
+							If you want rock-steady support, a new feature or just ask for something, <b>don't hesitate</b> to contact me.
+						</p>
+					</div>
+					<div class="card-footer d-flex flex-wrap gap-2">
+						<a href="https://t.me/DJTommek" target="_blank" class="btn btn-primary btn-sm">
+							<i class="bi bi-telegram"></i> Contact author
+						</a>
+						<a href="https://github.com/DJTommek/better-location" target="_blank" class="btn btn-outline-secondary btn-sm">
+							<i class="bi bi-github"></i> Source code
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="card h-100 shadow-sm">
+					<div class="card-header fs-5 py-3">
+						<i class="bi bi-link text-primary"></i>
+						Links
+					</div>
+					<div class="list-group list-group-flush">
+						<a href="{$telegramBotUrl}" target="_blank" class="list-group-item list-group-item-action">
+							<i class="bi bi-robot"></i> Telegram bot <span class="text-body-secondary">@BetterLocationBot</span>
+						</a>
+						<a href="https://t.me/BetterLocationInfo" target="_blank" class="list-group-item list-group-item-action">
+							<i class="bi bi-megaphone"></i> Telegram info channel <span class="text-body-secondary">@BetterLocationInfo</span>
+						</a>
+						<a href="https://t.me/BetterLocationChat" target="_blank" class="list-group-item list-group-item-action">
+							<i class="bi bi-chat-text"></i> Telegram discussion <span class="text-body-secondary">@BetterLocationChat</span>
+						</a>
+						<a href="{$discordServerUrl}" target="_blank" class="list-group-item list-group-item-action">
+							<i class="bi bi-discord"></i> Discord server <span class="text-body-secondary">BetterLocation</span>
+						</a>
+						<a href="https://github.com/DJTommek/better-location" target="_blank" class="list-group-item list-group-item-action">
+							<i class="bi bi-github"></i> Source code <span class="text-body-secondary">DJTommek/better-location</span>
+						</a>
+						<a href="https://tomas.palider.cz/" target="_blank" class="list-group-item list-group-item-action">
+							<i class="bi bi-person"></i> Author <span class="text-body-secondary">Tomas Palider</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{/block}
+
+{block js}
+	<script n:syntax="off">
+		(() => {
+			'use strict';
+			const form = document.getElementById('try-location');
+			const input = document.getElementById('try-location-input');
+			const gpsButton = document.getElementById('try-location-gps');
+			const coordsRegex = /^-?\d{1,2}(\.\d+)?,-?\d{1,3}(\.\d+)?(;-?\d{1,2}(\.\d+)?,-?\d{1,3}(\.\d+)?)*$/;
+
+			function go(value) {
+				window.location.href = form.dataset.baseUrl + '/' + value;
+			}
+
+			input.addEventListener('input', () => input.classList.remove('is-invalid'));
+
+			form.addEventListener('submit', (event) => {
+				event.preventDefault();
+				const value = (input.value.trim() || input.placeholder).replace(/\s+/g, '');
+				if (coordsRegex.test(value)) {
+					go(value);
+				} else {
+					input.classList.add('is-invalid');
+				}
+			});
+
+			if (!('geolocation' in navigator)) {
+				gpsButton.remove();
+				return;
+			}
+			gpsButton.addEventListener('click', () => {
+				gpsButton.disabled = true;
+				navigator.geolocation.getCurrentPosition(
+					(position) => go(position.coords.latitude.toFixed(6) + ',' + position.coords.longitude.toFixed(6)),
+					(error) => {
+						gpsButton.disabled = false;
+						alert('Unable to get your location: ' + error.message);
+					},
+				);
+			});
+		})();
+	</script>
 {/block}
