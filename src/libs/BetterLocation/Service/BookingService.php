@@ -98,7 +98,7 @@ final class BookingService extends AbstractService
 
 		$description = '';
 		if (isset($json->aggregateRating->ratingValue)) {
-			$description .= '★' . number_format($json->aggregateRating->ratingValue, 1, Formatter::DECIMAL_SEPARATOR, Formatter::THOUSANDS_SEPARATOR);
+			$description .= '★' . Formatter::number($json->aggregateRating->ratingValue, 1);
 		}
 		$description .= ' ' . htmlspecialchars($json->description);
 

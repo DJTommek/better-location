@@ -164,6 +164,18 @@ final class FormatterTest extends TestCase
 		// $this->assertSame('10 m', Formatter::distance(9.999));
 	}
 
+	public function testNumber(): void
+	{
+		$this->assertSame('0', Formatter::number(0));
+		$this->assertSame('1', Formatter::number(1.4));
+		$this->assertSame('2', Formatter::number(1.5));
+		$this->assertSame('-1 235', Formatter::number(-1234.5));
+		$this->assertSame('1 234 568', Formatter::number(1_234_567.89));
+		$this->assertSame('1 234 567.9', Formatter::number(1_234_567.89, 1));
+		$this->assertSame('1 234 567.890', Formatter::number(1_234_567.89, 3));
+		$this->assertSame('0.50', Formatter::number(0.5, 2));
+	}
+
 	public function testArea(): void
 	{
 		$this->assertSame('0.0 m²', Formatter::area(0));

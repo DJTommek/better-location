@@ -4,8 +4,8 @@ namespace App\Utils;
 
 class Formatter
 {
-	public const string DECIMAL_SEPARATOR = '.';
-	public const string THOUSANDS_SEPARATOR = ' ';
+	private const string DECIMAL_SEPARATOR = '.';
+	private const string THOUSANDS_SEPARATOR = ' ';
 
 	private const int MINUTES = 60;
 	private const int HOURS = 3600;
@@ -148,6 +148,16 @@ class Formatter
 	}
 
 	/**
+	 * Format number with application-wide decimal and thousands separators, eg. "1 234 567.89".
+	 *
+	 * @param int $decimals Number of decimal digits, same as in {@see number_format()}
+	 */
+	public static function number(float $num, int $decimals = 0): string
+	{
+		return number_format($num, $decimals, self::DECIMAL_SEPARATOR, self::THOUSANDS_SEPARATOR);
+	}
+
+	/**
 	 * Format area to be human readable, eg. "12 393 km²", "1.5 km²" or "250 m²".
 	 *
 	 * @param float $input Area in square meters
@@ -158,9 +168,9 @@ class Formatter
 			throw new \InvalidArgumentException('Area must be higher or equal zero.');
 		}
 		if ($input >= 1_000_000) { // 1+ square kilometers
-			return sprintf('%s km²', number_format($input / 1_000_000, $input >= 100_000_000 ? 0 : 1, self::DECIMAL_SEPARATOR, self::THOUSANDS_SEPARATOR));
+			return sprintf('%s km²', self::number($input / 1_000_000, $input >= 100_000_000 ? 0 : 1));
 		}
-		return sprintf('%s m²', number_format($input, $input >= 100 ? 0 : 1, self::DECIMAL_SEPARATOR, self::THOUSANDS_SEPARATOR));
+		return sprintf('%s m²', self::number($input, $input >= 100 ? 0 : 1));
 	}
 
 	/*
@@ -171,7 +181,7 @@ class Formatter
 	{
 		$units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 		$power = $bytes > 0 ? floor(log($bytes, 1024)) : 0;
-		return number_format($bytes / 1024 ** $power, 2, self::DECIMAL_SEPARATOR, self::THOUSANDS_SEPARATOR) . ' ' . $units[$power];
+		return self::number($bytes / 1024 ** $power, 2) . ' ' . $units[$power];
 	}
 
 	/**
