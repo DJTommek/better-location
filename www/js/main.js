@@ -19,7 +19,7 @@ class BlbUtils {
 	}
 }
 
-window.onload = function () {
+window.addEventListener('load', function () {
 	if (ClipboardJS.isSupported()) {
 		const clipboard = new ClipboardJS('.copy-to-clipboard');
 		clipboard.on('success', function (event) { // temporary change icon to checkmark if copied successfully
@@ -38,7 +38,7 @@ window.onload = function () {
 			window.prompt('Error while copying text, you have to copy it manually:', event.text);
 		});
 	}
-};
+});
 
 /**
  * Automatically enable table sort library on tables with .table-sort class.
@@ -46,12 +46,12 @@ window.onload = function () {
  * @link https://github.com/tristen/tablesort
  * @link https://tristen.ca/tablesort/demo/
  */
-window.onload = function () {
+window.addEventListener('load', function () {
 	const sortableTablesEl = document.querySelectorAll('table.table-sort');
 	for (const sortableTableEl of sortableTablesEl) {
 		new Tablesort(sortableTableEl);
 	}
-};
+});
 
 /**
  * Check, if value can be converted to number
