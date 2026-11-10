@@ -6,6 +6,7 @@ use App\Address\Address;
 use App\Address\Country;
 use App\BetterLocation\BetterLocation;
 use App\Config;
+use App\Utils\Formatter;
 use App\Utils\Requestor;
 use App\Utils\Utils;
 use DJTommek\Coordinates\Coordinates;
@@ -97,7 +98,7 @@ final class BookingService extends AbstractService
 
 		$description = '';
 		if (isset($json->aggregateRating->ratingValue)) {
-			$description .= '★' . number_format($json->aggregateRating->ratingValue, 1, '.');
+			$description .= '★' . number_format($json->aggregateRating->ratingValue, 1, Formatter::DECIMAL_SEPARATOR, Formatter::THOUSANDS_SEPARATOR);
 		}
 		$description .= ' ' . htmlspecialchars($json->description);
 

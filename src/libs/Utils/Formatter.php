@@ -4,6 +4,9 @@ namespace App\Utils;
 
 class Formatter
 {
+	public const string DECIMAL_SEPARATOR = '.';
+	public const string THOUSANDS_SEPARATOR = ' ';
+
 	private const int MINUTES = 60;
 	private const int HOURS = 3600;
 	private const int DAYS = 86400;
@@ -155,9 +158,9 @@ class Formatter
 			throw new \InvalidArgumentException('Area must be higher or equal zero.');
 		}
 		if ($input >= 1_000_000) { // 1+ square kilometers
-			return sprintf('%s km²', number_format($input / 1_000_000, $input >= 100_000_000 ? 0 : 1, '.', ' '));
+			return sprintf('%s km²', number_format($input / 1_000_000, $input >= 100_000_000 ? 0 : 1, self::DECIMAL_SEPARATOR, self::THOUSANDS_SEPARATOR));
 		}
-		return sprintf('%s m²', number_format($input, $input >= 100 ? 0 : 1, '.', ' '));
+		return sprintf('%s m²', number_format($input, $input >= 100 ? 0 : 1, self::DECIMAL_SEPARATOR, self::THOUSANDS_SEPARATOR));
 	}
 
 	/*
@@ -168,7 +171,7 @@ class Formatter
 	{
 		$units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 		$power = $bytes > 0 ? floor(log($bytes, 1024)) : 0;
-		return number_format($bytes / 1024 ** $power, 2, '.', ' ') . ' ' . $units[$power];
+		return number_format($bytes / 1024 ** $power, 2, self::DECIMAL_SEPARATOR, self::THOUSANDS_SEPARATOR) . ' ' . $units[$power];
 	}
 
 	/**
