@@ -56,7 +56,7 @@ Run [PHPUnit](https://phpunit.de/) tests via `composer test` which will run all 
 
 #### Notes
 
-- All tests, that are doing **ANY** request to external service must be labeled as `@group request` (more in [PHPUnit docs](https://phpunit.readthedocs.io/en/stable/annotations.html#group))
+- All tests, that are doing **ANY** request to external service must be labeled as `@group request` (more in [PHPUnit docs](https://phpunit.readthedocs.io/en/stable/annotations.html#group)). Do not run these routinely (eg. `composer test` or whole test directories) - they call real external services and may overwrite fixtures in `tests/fixtures/httpTestClient/`. Use `composer test-quick` instead and run request tests only on purpose.
 - Some tests may be skipped if missing configuration (Glympse, What3Words, ...)
 
 ## Telegram Deep linking
