@@ -47,6 +47,7 @@ use App\BetterLocation\Service\HradyCzService;
 use App\BetterLocation\Service\IKatastrCzService;
 use App\BetterLocation\Service\IngressIntelService;
 use App\BetterLocation\Service\IngressPrimeService;
+use App\BetterLocation\Service\IngressRegionService;
 use App\BetterLocation\Service\KudyZNudyCzService;
 use App\BetterLocation\Service\MapyCzPanoramaGeneratorService;
 use App\BetterLocation\Service\MapyCzService;
@@ -153,6 +154,7 @@ class ServicesManager
 		$services[] = FirmyCzService::class;
 		$services[] = IngressIntelService::class;
 		$services[] = IngressPrimeService::class;
+		$services[] = IngressRegionService::class;
 		$services[] = NianticLightshipService::class;
 		$services[] = OsmAndService::class;
 		$services[] = DrobnePamatkyCzService::class;
