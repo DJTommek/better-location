@@ -60,6 +60,7 @@ use App\BetterLocation\Service\OsmAndService;
 use App\BetterLocation\Service\Park4NightService;
 use App\BetterLocation\Service\PrazdneDomyCzService;
 use App\BetterLocation\Service\RopikyNetService;
+use App\BetterLocation\Service\S2CellService;
 use App\BetterLocation\Service\SochyAMestaCzService;
 use App\BetterLocation\Service\SrealityCzService;
 use App\BetterLocation\Service\SumavaCzService;
@@ -161,6 +162,7 @@ class ServicesManager
 		$services[] = SrealityCzService::class;
 		$services[] = OpenLocationCodeService::class;
 		$services[] = UberH3Service::class; // Must be before Geohash, because some H3 codes are also valid Geohash codes
+		$services[] = S2CellService::class;
 		$services[] = GeohashService::class;
 		$services[] = OrganicMapsService::class;
 		$services[] = WikipediaService::class;
