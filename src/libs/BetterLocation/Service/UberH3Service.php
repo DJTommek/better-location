@@ -6,6 +6,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
+use App\Utils\Formatter;
 use App\Utils\H3;
 
 /**
@@ -141,7 +142,7 @@ final class UberH3Service extends AbstractService
 		$location->addDescription(sprintf(
 			'Resolution %d, average cell area %s.',
 			$resolution,
-			self::formatArea(H3::getAverageAreaM2($resolution)),
+			Formatter::area(H3::getAverageAreaM2($resolution)),
 		));
 
 		return $location;
@@ -150,13 +151,5 @@ final class UberH3Service extends AbstractService
 	private static function codeToLink(string $code): string
 	{
 		return sprintf('%s/#hex=%s', self::LINK, $code);
-	}
-
-	private static function formatArea(float $areaM2): string
-	{
-		if ($areaM2 >= 1_000_000) {
-			return sprintf('%s km²', number_format($areaM2 / 1_000_000, $areaM2 >= 100_000_000 ? 0 : 1, '.', ' '));
-		}
-		return sprintf('%s m²', number_format($areaM2, $areaM2 >= 100 ? 0 : 1, '.', ' '));
 	}
 }

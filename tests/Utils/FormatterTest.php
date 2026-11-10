@@ -164,6 +164,28 @@ final class FormatterTest extends TestCase
 		// $this->assertSame('10 m', Formatter::distance(9.999));
 	}
 
+	public function testArea(): void
+	{
+		$this->assertSame('0.0 m²', Formatter::area(0));
+		$this->assertSame('0.9 m²', Formatter::area(0.895));
+		$this->assertSame('99.9 m²', Formatter::area(99.9));
+		$this->assertSame('100 m²', Formatter::area(100));
+		$this->assertSame('999 999 m²', Formatter::area(999_999));
+		$this->assertSame('1.0 km²', Formatter::area(1_000_000));
+		$this->assertSame('1.5 km²', Formatter::area(1_500_000));
+		$this->assertSame('99.9 km²', Formatter::area(99_900_000));
+		$this->assertSame('100 km²', Formatter::area(100_000_000));
+		$this->assertSame('18 520 km²', Formatter::area(18_520_123_456));
+		$this->assertSame('4 357 449 km²', Formatter::area(4_357_449_416_078));
+	}
+
+	public final function testAreaInvalid(): void
+	{
+		$this->expectException(\InvalidArgumentException::class);
+		$this->expectExceptionMessage('Area must be higher or equal zero.');
+		Formatter::area(-1);
+	}
+
 	public final function testDistanceInvalid1(): void
 	{
 		$this->expectException(\InvalidArgumentException::class);

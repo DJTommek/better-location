@@ -144,6 +144,22 @@ class Formatter
 		}
 	}
 
+	/**
+	 * Format area to be human readable, eg. "12 393 km²", "1.5 km²" or "250 m²".
+	 *
+	 * @param float $input Area in square meters
+	 */
+	public static function area(float $input): string
+	{
+		if ($input < 0) {
+			throw new \InvalidArgumentException('Area must be higher or equal zero.');
+		}
+		if ($input >= 1_000_000) { // 1+ square kilometers
+			return sprintf('%s km²', number_format($input / 1_000_000, $input >= 100_000_000 ? 0 : 1, '.', ' '));
+		}
+		return sprintf('%s m²', number_format($input, $input >= 100 ? 0 : 1, '.', ' '));
+	}
+
 	/*
 	 * Edit given size in bytes to human-read
 	 * @author http://stackoverflow.com/a/5502088/3334403
