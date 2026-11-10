@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\ServicesManager;
+use App\Utils\Formatter;
 use App\Utils\IngressRegion;
 use App\Utils\S2Cell;
 
@@ -91,44 +92,10 @@ final class IngressRegionService extends AbstractService
 	}
 
 	/**
-	 * Rough area covered by region as bounding box of its corners, eg.
-	 * "Center of region covering roughly 48.9°N–50.8°N, 12.4°E–15.2°E (~18 520 km²)."
+	 * Area covered by region, eg. "Area of ~18 520 km²."
 	 */
 	private static function areaDescription(S2Cell $cell): string
 	{
-		$center = $cell->getCenter();
-		$lats = [];
-		$lons = [];
-		foreach ($cell->getCorners() as $corner) {
-			$lats[] = $corner->getLat();
-			if (abs($corner->getLat()) > 89.999999) {
-				continue; // longitude of pole is undefined
-			}
-			// Unwrap longitude relative to center to correctly handle cells crossing antimeridian
-			$lons[] = $corner->getLon() + round(($center->getLon() - $corner->getLon()) / 360) * 360;
-		}
-
-		return sprintf(
-			'Center of region covering roughly %s–%s, %s–%s (~%s km²).',
-			self::formatLat(min($lats)),
-			self::formatLat(max($lats)),
-			self::formatLon(min($lons)),
-			self::formatLon(max($lons)),
-			number_format($cell->getAreaM2() / 1_000_000, 0, '.', ' '),
-		);
-	}
-
-	private static function formatLat(float $lat): string
-	{
-		return sprintf('%.1f°%s', abs($lat), $lat >= 0 ? 'N' : 'S');
-	}
-
-	private static function formatLon(float $lon): string
-	{
-		$lon = fmod($lon + 540, 360) - 180; // normalize to -180..180
-		if ($lon <= -180) {
-			$lon += 360; // antimeridian as "180.0°E" instead of "180.0°W"
-		}
-		return sprintf('%.1f°%s', abs($lon), $lon >= 0 ? 'E' : 'W');
+		return sprintf('Area of ~%s.', Formatter::area($cell->getAreaM2()));
 	}
 }

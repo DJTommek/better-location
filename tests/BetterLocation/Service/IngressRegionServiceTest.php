@@ -63,23 +63,23 @@ final class IngressRegionServiceTest extends AbstractServiceTestCase
 		return [
 			[
 				49.859109764, 13.761333119, 'NR02-FOXTROT-05',
-				'NR02-FOXTROT-05', 'Center of region covering roughly 49.1°N–50.6°N, 12.6°E–15.0°E (~18 520 km²).',
+				'NR02-FOXTROT-05', 'Area of ~18 520 km².',
 			],
 			[
 				49.859109764, 13.761333119, 'nr 2 foxtrot 5',
-				'NR02-FOXTROT-05', 'Center of region covering roughly 49.1°N–50.6°N, 12.6°E–15.0°E (~18 520 km²).',
+				'NR02-FOXTROT-05', 'Area of ~18 520 km².',
 			],
 			[
 				40.827706513, -74.217932561, 'AM01-LIMA-01',
-				'AM01-LIMA-01', 'Center of region covering roughly 40.1°N–41.6°N, 75.0°W–73.5°W (~17 768 km²).',
+				'AM01-LIMA-01', 'Area of ~17 768 km².',
 			],
 			[
 				-17.289387991, 179.398528316, 'PA08-MIKE-15',
-				'PA08-MIKE-15', 'Center of region covering roughly 18.0°S–16.5°S, 178.8°E–180.0°E (~21 651 km²).',
+				'PA08-MIKE-15', 'Area of ~21 651 km².',
 			],
 			[
 				89.149421831, 45.0, 'NR08-HOTEL-10',
-				'NR08-HOTEL-10', 'Center of region covering roughly 88.3°N–90.0°N, 0.0°E–90.0°E (~18 164 km²).',
+				'NR08-HOTEL-10', 'Area of ~18 164 km².',
 			],
 		];
 	}
