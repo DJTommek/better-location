@@ -53,6 +53,14 @@ final class IngressPrimeServiceTest extends AbstractServiceTestCase
 			[true, 'https://link.ingress.com/portal/0bd94fac5de84105b6eef6e7e1639ad9.12'],
 
 			[true, 'https://intel.ingress.com/mission/0a3f101657ac441286a56b391f969e15.1c'],
+			// Mission links, older format
+			[true, 'https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fb9d1285bdf184780a79f1a00b68e893e.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fb9d1285bdf184780a79f1a00b68e893e.1c'],
+			[true, 'https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fb9d1285bdf184780a79f1a00b68e893e.1c'],
+			// Mission links, newer format
+			[true, 'https://link.ingress.com/mission/b9d1285bdf184780a79f1a00b68e893e.1c'],
+			[false, 'https://link.ingress.com/mission/'],
+			[false, 'https://link.ingress.com/mission/b9d1285bdf184780a79f1a00b68e893e999.1c'],
+			[false, 'https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F'],
 
 			[false, 'non link'],
 			[false, 'https://intel.ingress.com/'],
@@ -175,6 +183,16 @@ final class IngressPrimeServiceTest extends AbstractServiceTestCase
 			'Simple mission link 1' => [ // Not supported, yet
 				[],
 				'https://intel.ingress.com/mission/0a3f101657ac441286a56b391f969e15.1c',
+			],
+
+			'Mission link older format' => [ // Not supported, yet
+				[],
+				'https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fb9d1285bdf184780a79f1a00b68e893e.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fb9d1285bdf184780a79f1a00b68e893e.1c',
+			],
+
+			'Mission link newer format' => [ // Not supported, yet
+				[],
+				'https://link.ingress.com/mission/b9d1285bdf184780a79f1a00b68e893e.1c',
 			],
 		];
 	}
