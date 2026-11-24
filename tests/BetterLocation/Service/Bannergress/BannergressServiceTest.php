@@ -89,7 +89,7 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				[
 					'36 missions, 11.2 km',
 					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F03c465c460b44ccfa5659f8ce20c2fe4.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F03c465c460b44ccfa5659f8ce20c2fe4.1c">Czech cubism  and its representative 1 📱</a> <a href="https://intel.ingress.com/mission/03c465c460b44ccfa5659f8ce20c2fe4.1c">🖥</a> <a href="https://lh3.googleusercontent.com/IAOb9xC7aSjvEjo_yG75bMwwz-RPuhWMVWFrjbyW0ZxQlVv8qg8l84XUBOjy-c7Z1DASJB0q1_l23AftLCA">🖼</a>',
-					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F48ca04bd653a43eea68b5df595227ac4.12&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.087213%2C14.425674">Dům u Černé matky Boží 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087213,14.425674">🖥</a>',
+					'First portal: <a href="https://link.ingress.com/portal/48ca04bd653a43eea68b5df595227ac4.12">Dům u Černé matky Boží 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087213,14.425674">🖥</a>',
 				],
 				'https://bannergress.com/banner/czech-cubism-and-its-representative-ce4b',
 			],
@@ -100,7 +100,7 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				[
 					'6 missions, 66.2 km',
 					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F9eed921e28ba4b0d9c0cbe33c7625949.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F9eed921e28ba4b0d9c0cbe33c7625949.1c">1/6 長良川鉄道 乗りつぶし 観光編 📱</a> <a href="https://intel.ingress.com/mission/9eed921e28ba4b0d9c0cbe33c7625949.1c">🖥</a> <a href="https://lh3.googleusercontent.com/I76TstcCXBSYQwPzIght5t9o6MUb4O-iNmJWgYoo39QPx5vcSEN1AwY_GfJc-sOtNsZRNx5CxCNeCCUe7C0">🖼</a>',
-					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F95ed7ea05c8643748d6e11e3d3e6634a.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D35.445393%2C137.019408">JR美濃太田駅 📱</a> <a href="https://intel.ingress.com/intel?pll=35.445393,137.019408">🖥</a>',
+					'First portal: <a href="https://link.ingress.com/portal/95ed7ea05c8643748d6e11e3d3e6634a.16">JR美濃太田駅 📱</a> <a href="https://intel.ingress.com/intel?pll=35.445393,137.019408">🖥</a>',
 				],
 				'https://bannergress.com/banner/長良川鉄道-乗りつぶし-観光編-adea',
 			],
@@ -111,7 +111,7 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				[
 					'6 missions, 66.2 km',
 					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F9eed921e28ba4b0d9c0cbe33c7625949.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F9eed921e28ba4b0d9c0cbe33c7625949.1c">1/6 長良川鉄道 乗りつぶし 観光編 📱</a> <a href="https://intel.ingress.com/mission/9eed921e28ba4b0d9c0cbe33c7625949.1c">🖥</a> <a href="https://lh3.googleusercontent.com/I76TstcCXBSYQwPzIght5t9o6MUb4O-iNmJWgYoo39QPx5vcSEN1AwY_GfJc-sOtNsZRNx5CxCNeCCUe7C0">🖼</a>',
-					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F95ed7ea05c8643748d6e11e3d3e6634a.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D35.445393%2C137.019408">JR美濃太田駅 📱</a> <a href="https://intel.ingress.com/intel?pll=35.445393,137.019408">🖥</a>',
+					'First portal: <a href="https://link.ingress.com/portal/95ed7ea05c8643748d6e11e3d3e6634a.16">JR美濃太田駅 📱</a> <a href="https://intel.ingress.com/intel?pll=35.445393,137.019408">🖥</a>',
 				],
 				'https://bannergress.com/banner/%E9%95%B7%E8%89%AF%E5%B7%9D%E9%89%84%E9%81%93-%E4%B9%97%E3%82%8A%E3%81%A4%E3%81%B6%E3%81%97-%E8%A6%B3%E5%85%89%E7%B7%A8-adea',
 			],
@@ -122,7 +122,7 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				[
 					'36 missions, 12.2 km',
 					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fbf5438fb646c4ff299433d00c8f52fec.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fbf5438fb646c4ff299433d00c8f52fec.1c">Histórica Catedral de San Lorenzo 1/36 📱</a> <a href="https://intel.ingress.com/mission/bf5438fb646c4ff299433d00c8f52fec.1c">🖥</a> <a href="https://lh3.googleusercontent.com/BX9e64w3Nw3x3Y04cG7HScYalx8Fc5jWOrmc_jxh7c4TO30dRYj1ouXu16bqi_2MEJ4mfSbQ7vPievMJb7DQ">🖼</a>',
-					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F7fd4e9a641354c2faabfa98d2ae5a21a.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D-25.341400%2C-57.508801">Homenaje Niños De San Lorenzo 📱</a> <a href="https://intel.ingress.com/intel?pll=-25.341400,-57.508801">🖥</a>',
+					'First portal: <a href="https://link.ingress.com/portal/7fd4e9a641354c2faabfa98d2ae5a21a.16">Homenaje Niños De San Lorenzo 📱</a> <a href="https://intel.ingress.com/intel?pll=-25.341400,-57.508801">🖥</a>',
 				],
 				'https://bannergress.com/banner/histórica-catedral-de-san-lorenzo-55dd',
 			],
@@ -133,7 +133,7 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				[
 					'36 missions, 12.2 km',
 					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fbf5438fb646c4ff299433d00c8f52fec.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fbf5438fb646c4ff299433d00c8f52fec.1c">Histórica Catedral de San Lorenzo 1/36 📱</a> <a href="https://intel.ingress.com/mission/bf5438fb646c4ff299433d00c8f52fec.1c">🖥</a> <a href="https://lh3.googleusercontent.com/BX9e64w3Nw3x3Y04cG7HScYalx8Fc5jWOrmc_jxh7c4TO30dRYj1ouXu16bqi_2MEJ4mfSbQ7vPievMJb7DQ">🖼</a>',
-					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F7fd4e9a641354c2faabfa98d2ae5a21a.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D-25.341400%2C-57.508801">Homenaje Niños De San Lorenzo 📱</a> <a href="https://intel.ingress.com/intel?pll=-25.341400,-57.508801">🖥</a>',
+					'First portal: <a href="https://link.ingress.com/portal/7fd4e9a641354c2faabfa98d2ae5a21a.16">Homenaje Niños De San Lorenzo 📱</a> <a href="https://intel.ingress.com/intel?pll=-25.341400,-57.508801">🖥</a>',
 				],
 				'https://bannergress.com/banner/hist%C3%B3rica-catedral-de-san-lorenzo-55dd',
 			],
@@ -144,7 +144,7 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				[
 					'3 missions, 1.1 km',
 					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F853b2312aae24d0986c1ab9e22a609bd.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F853b2312aae24d0986c1ab9e22a609bd.1c">A Visit to Te Papa 01 of 03 📱</a> <a href="https://intel.ingress.com/mission/853b2312aae24d0986c1ab9e22a609bd.1c">🖥</a> <a href="https://lh3.googleusercontent.com/Ib0teN1w4L5fHzODwtqnz8BPP9IOoHqV3bXvA_VseGCGtpTFgh_gJ3CNKNlMJN4gd8QQ6-9snIJDmoJ0yEQ1">🖼</a>',
-					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Ffd5d393d6117400d9cb7a40bfd1d68a5.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D-41.287008%2C174.778374">Frank Kitts Park 📱</a> <a href="https://intel.ingress.com/intel?pll=-41.287008,174.778374">🖥</a>',
+					'First portal: <a href="https://link.ingress.com/portal/fd5d393d6117400d9cb7a40bfd1d68a5.16">Frank Kitts Park 📱</a> <a href="https://intel.ingress.com/intel?pll=-41.287008,174.778374">🖥</a>',
 				],
 				'https://bannergress.com/banner/a-visit-to-te-papa-dffa',
 			],
@@ -155,7 +155,7 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				[
 					'18 missions, 191.9 km',
 					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F8ec5d5cb603947ea89dda655918c6337.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F8ec5d5cb603947ea89dda655918c6337.1c">&lt;MDSSS草1&gt;草加宿の歴史探訪 📱</a> <a href="https://intel.ingress.com/mission/8ec5d5cb603947ea89dda655918c6337.1c">🖥</a> <a href="https://lh3.googleusercontent.com/JvSw_chppp0lQgdplLz0HE2WW7ibc-u4yHOA8bCH3Slz2EnFi6hcvJYzmN63k7PD5RiYyY7AXjsWw0n49dZk">🖼</a>',
-					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Fde67af6909be49d6bab104e5486f64ed.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D35.828688%2C139.803912">おせんさんの像 📱</a> <a href="https://intel.ingress.com/intel?pll=35.828688,139.803912">🖥</a>',
+					'First portal: <a href="https://link.ingress.com/portal/de67af6909be49d6bab104e5486f64ed.16">おせんさんの像 📱</a> <a href="https://intel.ingress.com/intel?pll=35.828688,139.803912">🖥</a>',
 				],
 				'https://bannergress.com/banner/mdsss-mission-day-%E5%9F%BC%E7%8E%89%E5%85%AD%E5%AE%BF-f249',
 			],
@@ -166,7 +166,7 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				[
 					'24 missions, 7.6 km',
 					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fb7532be89bc44a9694bdb412e7d30725.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fb7532be89bc44a9694bdb412e7d30725.1c">Altes Rathaus Leipzig 1#24 📱</a> <a href="https://intel.ingress.com/mission/b7532be89bc44a9694bdb412e7d30725.1c">🖥</a> <a href="https://lh3.googleusercontent.com/Le0eMqMKmXaowSNA_Ko0Xm7UoC-pk9_IdVOrmlYqns2yEOftJc-qoVuBMipgDBs1qf41P8o4CcqvCni6d5Ss">🖼</a>',
-					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Fcc04a0b5111c42a9a8c82596891eeccb.11&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D51.340404%2C12.375222">Stadtgeschichtliches Museum 📱</a> <a href="https://intel.ingress.com/intel?pll=51.340404,12.375222">🖥</a>',
+					'First portal: <a href="https://link.ingress.com/portal/cc04a0b5111c42a9a8c82596891eeccb.11">Stadtgeschichtliches Museum 📱</a> <a href="https://intel.ingress.com/intel?pll=51.340404,12.375222">🖥</a>',
 					'⚠ Mission 19 only playable during opening hours (Monday to Friday between 7am and 8pm and Saturday between 7am and 3pm)',
 				],
 				'https://bannergress.com/banner/altes-rathaus-leipzig-e69b',
@@ -178,7 +178,7 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				[
 					'6 missions, 2.1 km',
 					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F4422e468d0654e9e8b2623c1d428ea45.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F4422e468d0654e9e8b2623c1d428ea45.1c">Second Sunday Christmas Charleroi 1/6 📱</a> <a href="https://intel.ingress.com/mission/4422e468d0654e9e8b2623c1d428ea45.1c">🖥</a> <a href="https://lh3.googleusercontent.com/tG6hFCgOgfIKVAgYaOmh7KKOnH0RoelS__pogjOWG7GRjOSAwfeAy1KyULOh7BSa4DsCLdHs73r4y6adHc4PUrRFO7FBcBhCNg4">🖼</a>',
-					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F7e7250fda2004a15a7f07d075462119b.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.405524%2C4.437925">Fontaine Gare de Charleroi-Sud 📱</a> <a href="https://intel.ingress.com/intel?pll=50.405524,4.437925">🖥</a>',
+					'First portal: <a href="https://link.ingress.com/portal/7e7250fda2004a15a7f07d075462119b.16">Fontaine Gare de Charleroi-Sud 📱</a> <a href="https://intel.ingress.com/intel?pll=50.405524,4.437925">🖥</a>',
 					'⚠ 6 missions are disabled.',
 				],
 				'https://bannergress.com/banner/second-sunday-christmas-charleroi-a326',
@@ -190,7 +190,7 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				[
 					'42 missions, 88.2 km',
 					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2Ffa06595dabcf4916bc4ca26ff7a5a436.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2Ffa06595dabcf4916bc4ca26ff7a5a436.1c">Ingress Resistance Subcarpathia 📱</a> <a href="https://intel.ingress.com/mission/fa06595dabcf4916bc4ca26ff7a5a436.1c">🖥</a> <a href="https://lh3.googleusercontent.com/Bbr2iBG4SpAblZTRcZjqpqFs8H4z4bSzvKSiXv6c0vjbzB5BdAg_0sZspw_ucTRRwOpH-hFRYtj9Q24Ac-sB">🖼</a>',
-					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F0223f932793945a596cb1514c93b3ade.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.282922%2C21.411533">Bulwary Gryfitów Mieleckich 📱</a> <a href="https://intel.ingress.com/intel?pll=50.282922,21.411533">🖥</a>',
+					'First portal: <a href="https://link.ingress.com/portal/0223f932793945a596cb1514c93b3ade.16">Bulwary Gryfitów Mieleckich 📱</a> <a href="https://intel.ingress.com/intel?pll=50.282922,21.411533">🖥</a>',
 					'⚠ 36 missions are disabled.',
 				],
 				'https://bannergress.com/banner/ingress-resistance-subcarpathia-206c',
@@ -202,7 +202,7 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				[
 					'24 missions, 24.4 km',
 					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2Ff672da8bb36843cabd44a19f6febb3e6.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2Ff672da8bb36843cabd44a19f6febb3e6.1c">MD: Kiel, Kiel Canal 📱</a> <a href="https://intel.ingress.com/mission/f672da8bb36843cabd44a19f6febb3e6.1c">🖥</a> <a href="https://lh3.googleusercontent.com/UWGRb6VGmyS5pORJ6iGQuJD2Y3E5dCjKmROeaGbJCRNPAzX-1ujioqgeeAhIjb0CUDmJojhYXFK1qBTwMDQ6">🖼</a>',
-					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F1926967ca358489392d62ccca1d35c5d.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D54.362788%2C10.139598">Schleusenpark Eingang Süd 📱</a> <a href="https://intel.ingress.com/intel?pll=54.362788,10.139598">🖥</a>',
+					'First portal: <a href="https://link.ingress.com/portal/1926967ca358489392d62ccca1d35c5d.16">Schleusenpark Eingang Süd 📱</a> <a href="https://intel.ingress.com/intel?pll=54.362788,10.139598">🖥</a>',
 					'⚠ 1 mission is disabled.',
 				],
 				'https://bannergress.com/banner/md-kiel-e3c9',
@@ -214,7 +214,7 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				[
 					'24 missions, 6.5 km',
 					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F0d7005dfdc0e4cb19c47f529c4250459.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F0d7005dfdc0e4cb19c47f529c4250459.1c">Unified Energy Prague 1 📱</a> <a href="https://intel.ingress.com/mission/0d7005dfdc0e4cb19c47f529c4250459.1c">🖥</a> <a href="https://lh3.googleusercontent.com/27ItGnQOFLeibK-qXiDL9VRilH2qoOzTQn2phyyk08bd81zpwe7yJWAlELcC6lqsKkD0lJN5h7TBIX2TgceTw80fR7eKS1nt">🖼</a>',
-					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F75b554555a974001a51dcb36a57dc8a6.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.075258%2C14.430491">Mezzi Reperti 📱</a> <a href="https://intel.ingress.com/intel?pll=50.075258,14.430491">🖥</a>',
+					'First portal: <a href="https://link.ingress.com/portal/75b554555a974001a51dcb36a57dc8a6.16">Mezzi Reperti 📱</a> <a href="https://intel.ingress.com/intel?pll=50.075258,14.430491">🖥</a>',
 					'⚠ Offline since <tg-time unix="1782000000" format="D">2026-06-21 00:00:00 UTC</tg-time>',
 					'⚠ 24 missions are disabled.',
 				],
@@ -295,7 +295,7 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				[ // descriptions
 					'60 missions, 13.9 km',
 					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2Ffb9808d04e0c4df4af24bfef06fb8c3a.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2Ffb9808d04e0c4df4af24bfef06fb8c3a.1c">Codex Gigas 01 📱</a> <a href="https://intel.ingress.com/mission/fb9808d04e0c4df4af24bfef06fb8c3a.1c">🖥</a> <a href="https://lh3.googleusercontent.com/ujIbgfnJaW8dY5WjWczYDOB0FIeeFP9IG1Mb9fUqy3507TY3166-9RXa4ZIyREDia1GHkfAL3K-_2Ff5KThw">🖼</a>',
-					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Fcc0e0fa76b704743802068c49a745a9b.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.084219%2C14.423319">Hotel Ruche 📱</a> <a href="https://intel.ingress.com/intel?pll=50.084219,14.423319">🖥</a>',
+					'First portal: <a href="https://link.ingress.com/portal/cc0e0fa76b704743802068c49a745a9b.16">Hotel Ruche 📱</a> <a href="https://intel.ingress.com/intel?pll=50.084219,14.423319">🖥</a>',
 				],
 				'https://bannergress.com/banner/codex-gigas-fb0f',
 				__DIR__ . '/fixtures/codex-gigas-fb0f.json',
@@ -306,7 +306,7 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				[ // descriptions
 					'6 missions, 2.8 km',
 					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F21da61232d1f4a49b51f72e8abc5ab60.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F21da61232d1f4a49b51f72e8abc5ab60.1c">Enlightened city 1/6 📱</a> <a href="https://intel.ingress.com/mission/21da61232d1f4a49b51f72e8abc5ab60.1c">🖥</a> <a href="https://lh3.googleusercontent.com/647uFaM0vvc4SZK9uUnw2H0nNThe3nZq60E-cWeOECqa0uJ30ePy_wtybjyzA_4eO18CEZipcoTnF0xsWVvNh55Alf0Y8DfT4A">🖼</a>',
-					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F3597fde938733236b23dfa72dc705584.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D37.206308%2C126.832195">남양아이파크아파트 노인회관 📱</a> <a href="https://intel.ingress.com/intel?pll=37.206308,126.832195">🖥</a>',
+					'First portal: <a href="https://link.ingress.com/portal/3597fde938733236b23dfa72dc705584.16">남양아이파크아파트 노인회관 📱</a> <a href="https://intel.ingress.com/intel?pll=37.206308,126.832195">🖥</a>',
 				],
 				'https://bannergress.com/banner/enlightened-city-e86b',
 				__DIR__ . '/fixtures/enlightened-city-e86b.json',
@@ -317,7 +317,7 @@ final class BannergressServiceTest extends AbstractServiceTestCase
 				[ // descriptions
 					'3 missions, 1.4 km',
 					'First mission: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F9e38310b13f64b908cb43bb42426441a.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F9e38310b13f64b908cb43bb42426441a.1c">A Trip to the City Gallery Wellington 01 of 03 📱</a> <a href="https://intel.ingress.com/mission/9e38310b13f64b908cb43bb42426441a.1c">🖥</a> <a href="https://lh3.googleusercontent.com/Yd4UhyDTi4O4bA1d58ETG_Dc_D7FMflniQ0djdhcL6qv6LBFSo7LoGpvP3DG__vczvh4BXM1lw9t1j-GqYVj">🖼</a>',
-					'First portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Fcbabba2423b44f8cb7a844ca7c4c4208.11&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D-41.279523%2C174.780023">Wellington Railway Station 📱</a> <a href="https://intel.ingress.com/intel?pll=-41.279523,174.780023">🖥</a>',
+					'First portal: <a href="https://link.ingress.com/portal/cbabba2423b44f8cb7a844ca7c4c4208.11">Wellington Railway Station 📱</a> <a href="https://intel.ingress.com/intel?pll=-41.279523,174.780023">🖥</a>',
 				],
 				'https://bannergress.com/banner/a-trip-to-the-city-gallery-wellington-d6c0',
 				__DIR__ . '/fixtures/a-trip-to-the-city-gallery-wellington-d6c0.json',

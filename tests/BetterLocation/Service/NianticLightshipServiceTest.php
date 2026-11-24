@@ -80,7 +80,7 @@ final class NianticLightshipServiceTest extends AbstractServiceTestCase
 						NianticLightshipService::TYPE_VENUE,
 						'<a href="https://lightship.dev/account/geospatial-browser/50.0830485642698,14.42820958675955,15.69,13102D0F2EDC41BAB400A4D3FD672CEF,6a01961a5fc54df8b7efe45fc1f983f9.16">Lightship venue</a>',
 						[
-							Ingress::BETTER_LOCATION_KEY_PORTAL => 'Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F6a01961a5fc54df8b7efe45fc1f983f9.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.083594%2C14.424841">Zlata Husa Statues 📱</a> <a href="https://intel.ingress.com/intel?pll=50.083594,14.424841">🖥</a> <a href="https://lh3.googleusercontent.com/k1D3QBhuIjx8D4-srruvtDXqfSJE1YE4JDoDlKaLksOwv6XPsTaHMVn5wb-YdEKHUszHvw3OaBoCo551-_e72EYluKE=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.083594,14.424841,12.66,,6a01961a5fc54df8b7efe45fc1f983f9.16">🎦</a>',
+							Ingress::BETTER_LOCATION_KEY_PORTAL => 'Ingress portal: <a href="https://link.ingress.com/portal/6a01961a5fc54df8b7efe45fc1f983f9.16">Zlata Husa Statues 📱</a> <a href="https://intel.ingress.com/intel?pll=50.083594,14.424841">🖥</a> <a href="https://lh3.googleusercontent.com/k1D3QBhuIjx8D4-srruvtDXqfSJE1YE4JDoDlKaLksOwv6XPsTaHMVn5wb-YdEKHUszHvw3OaBoCo551-_e72EYluKE=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.083594,14.424841,12.66,,6a01961a5fc54df8b7efe45fc1f983f9.16">🎦</a>',
 						],
 					],
 					[
@@ -100,7 +100,7 @@ final class NianticLightshipServiceTest extends AbstractServiceTestCase
 						NianticLightshipService::TYPE_VENUE,
 						'<a href="https://lightship.dev/account/geospatial-browser/,,,,6a01961a5fc54df8b7efe45fc1f983f9.16">Lightship venue</a>',
 						[
-							Ingress::BETTER_LOCATION_KEY_PORTAL => 'Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F6a01961a5fc54df8b7efe45fc1f983f9.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.083594%2C14.424841">Zlata Husa Statues 📱</a> <a href="https://intel.ingress.com/intel?pll=50.083594,14.424841">🖥</a> <a href="https://lh3.googleusercontent.com/k1D3QBhuIjx8D4-srruvtDXqfSJE1YE4JDoDlKaLksOwv6XPsTaHMVn5wb-YdEKHUszHvw3OaBoCo551-_e72EYluKE=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.083594,14.424841,12.66,,6a01961a5fc54df8b7efe45fc1f983f9.16">🎦</a>',
+							Ingress::BETTER_LOCATION_KEY_PORTAL => 'Ingress portal: <a href="https://link.ingress.com/portal/6a01961a5fc54df8b7efe45fc1f983f9.16">Zlata Husa Statues 📱</a> <a href="https://intel.ingress.com/intel?pll=50.083594,14.424841">🖥</a> <a href="https://lh3.googleusercontent.com/k1D3QBhuIjx8D4-srruvtDXqfSJE1YE4JDoDlKaLksOwv6XPsTaHMVn5wb-YdEKHUszHvw3OaBoCo551-_e72EYluKE=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.083594,14.424841,12.66,,6a01961a5fc54df8b7efe45fc1f983f9.16">🎦</a>',
 						],
 					],
 				],
@@ -125,7 +125,7 @@ final class NianticLightshipServiceTest extends AbstractServiceTestCase
 						NianticLightshipService::TYPE_VENUE,
 						'<a href="https://lightship.dev/account/geospatial-browser/50.08771687314254,14.421156827774865,16.55,,0bd94fac5de84105b6eef6e7e1639ad9.12">Lightship venue</a>',
 						[
-							Ingress::BETTER_LOCATION_KEY_PORTAL => 'Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F0bd94fac5de84105b6eef6e7e1639ad9.12&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.087451%2C14.420671">Staroměstské náměstí 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087451,14.420671">🖥</a> <a href="https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.087451,14.420671,12.66,,0bd94fac5de84105b6eef6e7e1639ad9.12">🎦</a>',
+							Ingress::BETTER_LOCATION_KEY_PORTAL => 'Ingress portal: <a href="https://link.ingress.com/portal/0bd94fac5de84105b6eef6e7e1639ad9.12">Staroměstské náměstí 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087451,14.420671">🖥</a> <a href="https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.087451,14.420671,12.66,,0bd94fac5de84105b6eef6e7e1639ad9.12">🎦</a>',
 						],
 					],
 					[
@@ -146,7 +146,7 @@ final class NianticLightshipServiceTest extends AbstractServiceTestCase
 						NianticLightshipService::TYPE_VENUE,
 						'<a href="https://lightship.dev/account/geospatial-browser/17.97103042151872,-76.79266115330043,17.56,,3315a6699a314ebfb06d24242b6eecbc.11">Lightship venue</a>',
 						[
-							Ingress::BETTER_LOCATION_KEY_PORTAL => 'Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F3315a6699a314ebfb06d24242b6eecbc.11&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D17.971243%2C-76.792813">Parade Square Fountain 📱</a> <a href="https://intel.ingress.com/intel?pll=17.971243,-76.792813">🖥</a> <a href="https://lh3.googleusercontent.com/chD5pZ3JmZqtGmKB1MNIasg20J-lcXb6oBePXKs4C3-xq1wFB5OWd6j0o2nF63uFoZc423_-8jLWjaikMz7dQMdnPeI=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/17.971243,-76.792813,12.66,,3315a6699a314ebfb06d24242b6eecbc.11">🎦</a>',
+							Ingress::BETTER_LOCATION_KEY_PORTAL => 'Ingress portal: <a href="https://link.ingress.com/portal/3315a6699a314ebfb06d24242b6eecbc.11">Parade Square Fountain 📱</a> <a href="https://intel.ingress.com/intel?pll=17.971243,-76.792813">🖥</a> <a href="https://lh3.googleusercontent.com/chD5pZ3JmZqtGmKB1MNIasg20J-lcXb6oBePXKs4C3-xq1wFB5OWd6j0o2nF63uFoZc423_-8jLWjaikMz7dQMdnPeI=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/17.971243,-76.792813,12.66,,3315a6699a314ebfb06d24242b6eecbc.11">🎦</a>',
 						],
 					],
 					[
@@ -167,7 +167,7 @@ final class NianticLightshipServiceTest extends AbstractServiceTestCase
 						NianticLightshipService::TYPE_VENUE,
 						'<a href="https://lightship.dev/account/geospatial-browser/-1.246368299787207,-78.62100019937833,16.28,,f5da8bbf6f3a3379929891c7e13648fa.16">Lightship venue</a>',
 						[
-							Ingress::BETTER_LOCATION_KEY_PORTAL => 'Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Ff5da8bbf6f3a3379929891c7e13648fa.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D-1.247257%2C-78.620714">El Futbolista 📱</a> <a href="https://intel.ingress.com/intel?pll=-1.247257,-78.620714">🖥</a> <a href="https://lh3.googleusercontent.com/F6iBz9gUWuRV-QCKdO-78KS9Ge32p32e2jBn9NnL9gZCQIrPEQhH795YwWGM_U1GpQVxD3tHAaWFwlUEmXpV0mhzBXbX2D-GE5Mxe9o=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/-1.247257,-78.620714,12.66,,f5da8bbf6f3a3379929891c7e13648fa.16">🎦</a>',
+							Ingress::BETTER_LOCATION_KEY_PORTAL => 'Ingress portal: <a href="https://link.ingress.com/portal/f5da8bbf6f3a3379929891c7e13648fa.16">El Futbolista 📱</a> <a href="https://intel.ingress.com/intel?pll=-1.247257,-78.620714">🖥</a> <a href="https://lh3.googleusercontent.com/F6iBz9gUWuRV-QCKdO-78KS9Ge32p32e2jBn9NnL9gZCQIrPEQhH795YwWGM_U1GpQVxD3tHAaWFwlUEmXpV0mhzBXbX2D-GE5Mxe9o=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/-1.247257,-78.620714,12.66,,f5da8bbf6f3a3379929891c7e13648fa.16">🎦</a>',
 						],
 					],
 					[

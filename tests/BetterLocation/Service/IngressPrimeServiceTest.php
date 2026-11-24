@@ -74,7 +74,7 @@ final class IngressPrimeServiceTest extends AbstractServiceTestCase
 						50.087451,
 						14.420671,
 						IngressPrimeService::TYPE_PORTAL,
-						'<a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F0bd94fac5de84105b6eef6e7e1639ad9.12&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.087451%2C14.420671">Staroměstské náměstí 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087451,14.420671">🖥</a> <a href="https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.087451,14.420671,12.66,,0bd94fac5de84105b6eef6e7e1639ad9.12">🎦</a>',
+						'<a href="https://link.ingress.com/portal/0bd94fac5de84105b6eef6e7e1639ad9.12">Staroměstské náměstí 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087451,14.420671">🖥</a> <a href="https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.087451,14.420671,12.66,,0bd94fac5de84105b6eef6e7e1639ad9.12">🎦</a>',
 						[
 							Ingress::BETTER_LOCATION_KEY_PORTAL => '',
 						],
@@ -89,7 +89,7 @@ final class IngressPrimeServiceTest extends AbstractServiceTestCase
 						50.087451,
 						14.420671,
 						IngressPrimeService::TYPE_PORTAL,
-						'<a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F0bd94fac5de84105b6eef6e7e1639ad9.12&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.087451%2C14.420671">Staroměstské náměstí 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087451,14.420671">🖥</a> <a href="https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.087451,14.420671,12.66,,0bd94fac5de84105b6eef6e7e1639ad9.12">🎦</a>',
+						'<a href="https://link.ingress.com/portal/0bd94fac5de84105b6eef6e7e1639ad9.12">Staroměstské náměstí 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087451,14.420671">🖥</a> <a href="https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.087451,14.420671,12.66,,0bd94fac5de84105b6eef6e7e1639ad9.12">🎦</a>',
 						[
 							Ingress::BETTER_LOCATION_KEY_PORTAL => '',
 						],
@@ -104,7 +104,7 @@ final class IngressPrimeServiceTest extends AbstractServiceTestCase
 						50.087451,
 						14.420671,
 						IngressPrimeService::TYPE_PORTAL,
-						'<a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F0bd94fac5de84105b6eef6e7e1639ad9.12&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.087451%2C14.420671">Staroměstské náměstí 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087451,14.420671">🖥</a> <a href="https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.087451,14.420671,12.66,,0bd94fac5de84105b6eef6e7e1639ad9.12">🎦</a>',
+						'<a href="https://link.ingress.com/portal/0bd94fac5de84105b6eef6e7e1639ad9.12">Staroměstské náměstí 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087451,14.420671">🖥</a> <a href="https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.087451,14.420671,12.66,,0bd94fac5de84105b6eef6e7e1639ad9.12">🎦</a>',
 						[
 							Ingress::BETTER_LOCATION_KEY_PORTAL => '',
 						],
@@ -119,7 +119,7 @@ final class IngressPrimeServiceTest extends AbstractServiceTestCase
 						50.087451,
 						14.420671,
 						IngressPrimeService::TYPE_PORTAL,
-						'<a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F0bd94fac5de84105b6eef6e7e1639ad9.12&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.087451%2C14.420671">Staroměstské náměstí 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087451,14.420671">🖥</a> <a href="https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.087451,14.420671,12.66,,0bd94fac5de84105b6eef6e7e1639ad9.12">🎦</a>',
+						'<a href="https://link.ingress.com/portal/0bd94fac5de84105b6eef6e7e1639ad9.12">Staroměstské náměstí 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087451,14.420671">🖥</a> <a href="https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.087451,14.420671,12.66,,0bd94fac5de84105b6eef6e7e1639ad9.12">🎦</a>',
 						[
 							Ingress::BETTER_LOCATION_KEY_PORTAL => '',
 						],
@@ -128,7 +128,7 @@ final class IngressPrimeServiceTest extends AbstractServiceTestCase
 						50.083698,
 						14.433817,
 						IngressPrimeService::TYPE_PORTAL,
-						'<a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Fea93169b8a824881b2807292f6ab088b.11&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.083698%2C14.433817">Praha hlavní nádraží 📱</a> <a href="https://intel.ingress.com/intel?pll=50.083698,14.433817">🖥</a> <a href="https://lh3.googleusercontent.com/cP86_718iH92b8kzEv_jkTt8hua-xx2L-fCEuL4G592hOxwsNG3KYevvTMW8W01Gqiqpzttc83x350NYvz9KUCz9Lw=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.083698,14.433817,12.66,,ea93169b8a824881b2807292f6ab088b.11">🎦</a>',
+						'<a href="https://link.ingress.com/portal/ea93169b8a824881b2807292f6ab088b.11">Praha hlavní nádraží 📱</a> <a href="https://intel.ingress.com/intel?pll=50.083698,14.433817">🖥</a> <a href="https://lh3.googleusercontent.com/cP86_718iH92b8kzEv_jkTt8hua-xx2L-fCEuL4G592hOxwsNG3KYevvTMW8W01Gqiqpzttc83x350NYvz9KUCz9Lw=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.083698,14.433817,12.66,,ea93169b8a824881b2807292f6ab088b.11">🎦</a>',
 						[
 							Ingress::BETTER_LOCATION_KEY_PORTAL => '',
 						],
@@ -143,7 +143,7 @@ final class IngressPrimeServiceTest extends AbstractServiceTestCase
 						50.087451,
 						14.420671,
 						IngressPrimeService::TYPE_PORTAL,
-						'<a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2F0bd94fac5de84105b6eef6e7e1639ad9.12&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.087451%2C14.420671">Staroměstské náměstí 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087451,14.420671">🖥</a> <a href="https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.087451,14.420671,12.66,,0bd94fac5de84105b6eef6e7e1639ad9.12">🎦</a>',
+						'<a href="https://link.ingress.com/portal/0bd94fac5de84105b6eef6e7e1639ad9.12">Staroměstské náměstí 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087451,14.420671">🖥</a> <a href="https://lh3.googleusercontent.com/8fh0CQtf1xyCw4hbv6-IGauvi3eOyHRmzammie2lG6s591lEesKEcVbkcnZk_fWWlCTuYIdxN7EKJyvq4Nmpi5yBSWmm=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.087451,14.420671,12.66,,0bd94fac5de84105b6eef6e7e1639ad9.12">🎦</a>',
 						[
 							Ingress::BETTER_LOCATION_KEY_PORTAL => '',
 						],
@@ -158,7 +158,7 @@ final class IngressPrimeServiceTest extends AbstractServiceTestCase
 						50.015707,
 						15.195986,
 						IngressPrimeService::TYPE_PORTAL,
-						'<a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fportal%2Fcf2e28687bfe34fca1c2fdbb966a484f.16&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fintel%3Fpll%3D50.015707%2C15.195986">Pingpongový stůl 📱</a> <a href="https://intel.ingress.com/intel?pll=50.015707,15.195986">🖥</a> <a href="https://lh3.googleusercontent.com/XuexkrbaCPAhaNJ4-9Bf6kuALkGHQlmxKysLKCzt1A-OpBHJFcFipT8Bi5sGICsi8zA3ahI76RewLh2YbAoDmUTaVbgPYEKvwEhU0TQ4dg=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.015707,15.195986,12.66,,cf2e28687bfe34fca1c2fdbb966a484f.16">🎦</a>',
+						'<a href="https://link.ingress.com/portal/cf2e28687bfe34fca1c2fdbb966a484f.16">Pingpongový stůl 📱</a> <a href="https://intel.ingress.com/intel?pll=50.015707,15.195986">🖥</a> <a href="https://lh3.googleusercontent.com/XuexkrbaCPAhaNJ4-9Bf6kuALkGHQlmxKysLKCzt1A-OpBHJFcFipT8Bi5sGICsi8zA3ahI76RewLh2YbAoDmUTaVbgPYEKvwEhU0TQ4dg=s10000">🖼</a> <a href="https://lightship.dev/account/geospatial-browser/50.015707,15.195986,12.66,,cf2e28687bfe34fca1c2fdbb966a484f.16">🎦</a>',
 						[
 							Ingress::BETTER_LOCATION_KEY_PORTAL => '',
 						],

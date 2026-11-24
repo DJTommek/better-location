@@ -76,7 +76,7 @@ class PortalType implements PortalInterface
 	public function getPrimeLink(): string
 	{
 		if ($this->primeLink === null) {
-			$this->primeLink = (string)Ingress::generatePrimePortalLink($this->guid, $this->lat, $this->lng);
+			$this->primeLink = (string)Ingress::generatePrimePortalLink($this->guid);
 		}
 		return $this->primeLink;
 	}

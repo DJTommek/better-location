@@ -78,7 +78,7 @@ final readonly class PortalType implements PortalInterface
 	#[\Override]
 	public function getPrimeLink(): string
 	{
-		return (string)Ingress::generatePrimePortalLink($this->guid, $this->lat, $this->lng);
+		return (string)Ingress::generatePrimePortalLink($this->guid);
 	}
 
 	#[\Override]

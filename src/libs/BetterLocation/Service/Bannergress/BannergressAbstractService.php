@@ -80,7 +80,7 @@ abstract class BannergressAbstractService extends AbstractService
 			$location->addDescription(
 				sprintf(
 					'First portal: <a href="%s">%s %s</a> <a href="%s">%s</a>',
-					Ingress::generatePrimePortalLink($firstPortal->id, $firstPortal->latitude, $firstPortal->longitude),
+					Ingress::generatePrimePortalLink($firstPortal->id),
 					htmlspecialchars($firstPortal->title),
 					Icons::INGRESS_PRIME,
 					Ingress::generateIntelPortalLink($firstPortal->latitude, $firstPortal->longitude),
