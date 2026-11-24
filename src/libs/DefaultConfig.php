@@ -411,11 +411,16 @@ class DefaultConfig
 		return static::PORTALNIK_API_URL;
 	}
 
+	public static function getPortalnikApiKey(): ?string
+	{
+		return static::PORTALNIK_API_KEY;
+	}
+
 	public static function isPortalnik(): bool
 	{
 		return (
-			is_null(static::PORTALNIK_API_URL) === false &&
-			is_null(static::PORTALNIK_API_KEY) === false
+			static::getPortalnikApiUrl() !== null &&
+			static::getPortalnikApiKey() !== null
 		);
 	}
 

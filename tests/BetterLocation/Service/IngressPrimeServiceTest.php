@@ -319,10 +319,12 @@ final class IngressPrimeServiceTest extends AbstractServiceTestCase
 
 	private function createRealPortalnikClient(): PortalnikClient
 	{
-		if (!Config::isPortalnik()) {
+		$apiUrl = Config::getPortalnikApiUrl();
+		$apiKey = Config::getPortalnikApiKey();
+		if ($apiUrl === null || $apiKey === null) {
 			self::markTestSkipped('Missing IvoPortalnik API URL and/or key');
 		}
-		return $this->createPortalnikClient($this->httpTestClients->realHttpClient, Config::PORTALNIK_API_URL, Config::PORTALNIK_API_KEY);
+		return $this->createPortalnikClient($this->httpTestClients->realHttpClient, $apiUrl, $apiKey);
 	}
 
 	/**

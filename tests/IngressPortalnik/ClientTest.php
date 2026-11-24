@@ -115,10 +115,12 @@ final class ClientTest extends TestCase
 
 	private function createRealClient(): Client
 	{
-		if (!Config::isPortalnik()) {
+		$apiUrl = Config::getPortalnikApiUrl();
+		$apiKey = Config::getPortalnikApiKey();
+		if ($apiUrl === null || $apiKey === null) {
 			self::markTestSkipped('Missing IvoPortalnik API URL and/or key');
 		}
-		return $this->createClient($this->httpTestClients->realHttpClient, Config::PORTALNIK_API_URL, Config::PORTALNIK_API_KEY);
+		return $this->createClient($this->httpTestClients->realHttpClient, $apiUrl, $apiKey);
 	}
 
 	/**
@@ -303,10 +305,11 @@ final class ClientTest extends TestCase
 	 */
 	public function testInvalidApiKeyReal(): void
 	{
-		if (!Config::isPortalnik()) {
+		$apiUrl = Config::getPortalnikApiUrl();
+		if ($apiUrl === null || !Config::isPortalnik()) {
 			self::markTestSkipped('Missing IvoPortalnik API URL and/or key');
 		}
-		$client = $this->createClient($this->httpTestClients->realHttpClient, Config::PORTALNIK_API_URL, 'invalid-api-key');
+		$client = $this->createClient($this->httpTestClients->realHttpClient, $apiUrl, 'invalid-api-key');
 
 		$this->expectException(PortalnikException::class);
 		$this->expectExceptionCode(401);
