@@ -186,6 +186,10 @@ return static function (ContainerConfigurator $container): void {
 			->arg('$apiKey', Config::PORTALNIK_API_KEY)
 			->arg('$cacheTtl', Config::CACHE_TTL_INGRESS_PORTALNIK_API);
 		$ingressPortalProvider = \App\IngressPortalnik\Client::class;
+
+		// Missions are supported only by IvoPortalnik. If not configured, services expecting MissionProvider get null.
+		$services->set(\App\Ingress\MissionProvider::class)
+			->alias(\App\Ingress\MissionProvider::class, \App\IngressPortalnik\Client::class);
 	}
 
 	$services->set(\App\Ingress\PortalProvider::class)

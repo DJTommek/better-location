@@ -4,11 +4,17 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\Icons;
+use App\Ingress\MissionInterface;
+use App\Ingress\MissionProvider;
 use App\Ingress\PortalProvider;
+use App\Ingress\WaypointKind;
 use App\Utils\Ingress;
 use App\Utils\Strict;
 use Nette\Http\Url;
 use Nette\Http\UrlImmutable;
+use Tracy\Debugger;
+use Tracy\ILogger;
 
 /**
  * Parsing Ingress links generated in Ingress Prime application
@@ -28,6 +34,7 @@ final class IngressPrimeService extends AbstractService
 	public function __construct(
 		private readonly PortalProvider $ingressClient,
 		private readonly IngressIntelService $ingressIntelService,
+		private readonly ?MissionProvider $missionProvider = null,
 	) {
 	}
 
@@ -132,8 +139,16 @@ final class IngressPrimeService extends AbstractService
 			$mainCoords = $location->getCoordinates();
 		}
 
-		if (isset($this->missionGuid)) {
-			// @TODO load mission info and probably generate BetterLocation for mission start (first portal)
+		if (isset($this->missionGuid) && $this->missionProvider !== null) {
+			try {
+				$location = $this->processMission($this->missionGuid);
+				if ($location !== null) {
+					$this->collection->add($location);
+					$mainCoords ??= $location->getCoordinates();
+				}
+			} catch (\Throwable $exception) {
+				Debugger::log($exception, ILogger::EXCEPTION);
+			}
 		}
 
 		if (isset($this->oflLink)) {
@@ -145,6 +160,87 @@ final class IngressPrimeService extends AbstractService
 				}
 			}
 		}
+	}
+
+	/**
+	 * Generate location of mission start (first waypoint with known location).
+	 * @TODO is possible to add mission length?
+	 * @TODO is possible to add average mission time?
+	 */
+	private function processMission(string $missionGuid): ?BetterLocation
+	{
+		assert($this->missionProvider !== null);
+		$mission = $this->missionProvider->getMissionByGUID($missionGuid);
+		$startWaypoint = $mission?->getStartWaypoint();
+		if ($startWaypoint === null) {
+			return null;
+		}
+		$startCoords = $startWaypoint->getCoordinates();
+		assert($startCoords !== null);
+
+		$location = new BetterLocation($this->input, $startCoords->getLat(), $startCoords->getLon(), self::class, self::TYPE_MISSION);
+
+		$missionTitle = htmlspecialchars($mission->getTitle() ?? 'Unknown mission');
+		$location->setInlinePrefixMessage(sprintf('Mission %s', $missionTitle));
+		$prefix = sprintf(
+			'Mission <a href="%s">%s %s</a> <a href="%s">%s</a>',
+			$mission->getPrimeLink(),
+			$missionTitle,
+			Icons::INGRESS_PRIME,
+			$mission->getIntelLink(),
+			Icons::INGRESS_INTEL,
+		);
+		$imageLink = $mission->getImageLink(10_000);
+		if ($imageLink !== null) {
+			$prefix .= sprintf(' <a href="%s">%s</a>', $imageLink, Icons::INGRESS_PORTAL_IMAGE);
+		}
+		$location->setPrefixMessage($prefix);
+
+		$location->addDescription(self::missionSummary($mission));
+
+		$startPortalGuid = $startWaypoint->getPortalGuid();
+		if ($startWaypoint->getKind() === WaypointKind::Portal && $startPortalGuid !== null) {
+			$location->addDescription(
+				sprintf(
+					'Start portal: <a href="%s">%s %s</a> <a href="%s">%s</a>',
+					Ingress::generatePrimePortalLink($startPortalGuid),
+					htmlspecialchars($startWaypoint->getTitle() ?? 'Unknown portal'),
+					Icons::INGRESS_PRIME,
+					Ingress::generateIntelPortalLink($startCoords->getLat(), $startCoords->getLon()),
+					Icons::INGRESS_INTEL,
+				),
+				Ingress::BETTER_LOCATION_KEY_PORTAL,
+			);
+		} else {
+			$location->addDescription('', Ingress::BETTER_LOCATION_KEY_PORTAL); // Prevent generating Ingress description
+		}
+
+		return $location;
+	}
+
+	/**
+	 * Eg. "6 waypoints, sequential, by DJTommek (Enlightened)"
+	 */
+	private static function missionSummary(MissionInterface $mission): string
+	{
+		$waypointsCount = count($mission->getWaypoints());
+		$parts = [
+			sprintf('%d %s', $waypointsCount, $waypointsCount === 1 ? 'waypoint' : 'waypoints'),
+		];
+		$kind = $mission->getKind();
+		if ($kind !== null) {
+			$parts[] = $kind->label();
+		}
+		$authorName = $mission->getAuthorName();
+		if ($authorName !== null) {
+			$author = 'by ' . htmlspecialchars($authorName);
+			$authorFaction = $mission->getAuthorFaction();
+			if ($authorFaction !== null) {
+				$author .= sprintf(' (%s)', $authorFaction->label());
+			}
+			$parts[] = $author;
+		}
+		return implode(', ', $parts);
 	}
 
 	#[\Override]

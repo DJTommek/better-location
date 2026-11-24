@@ -4,7 +4,13 @@ namespace Tests\IngressPortalnik;
 
 use App\Cache\NetteCachePsr16;
 use App\Config;
+use App\Ingress\MissionInterface;
+use App\Ingress\MissionKind;
+use App\Ingress\MissionProvider;
 use App\Ingress\PortalProvider;
+use App\Ingress\WaypointInterface;
+use App\Ingress\WaypointKind;
+use App\Ingress\WaypointObjective;
 use App\IngressPortalnik\Client;
 use App\IngressPortalnik\PortalnikException;
 use GuzzleHttp\Psr7\Response;
@@ -63,6 +69,43 @@ final class ClientTest extends TestCase
 		];
 	}
 
+	public static function missionProvider(): array
+	{
+		return [
+			['0a3f101657ac441286a56b391f969e15.1c', 'MD 2019: Prague, Old Town Square Execution', MissionKind::AnyOrder, 7, '50.087451,14.420671', '0bd94fac5de84105b6eef6e7e1639ad9.12'],
+			['b9d1285bdf184780a79f1a00b68e893e.1c', '1/6 Horseshoe Lake Second Sunday June ‘22', MissionKind::AnyOrder, 8, '40.857356,-74.636430', '0a4769e7089141c6993d27d1c9d266e6.16'],
+		];
+	}
+
+	public static function missionGuidNotExists(): array
+	{
+		return [
+			['aaaabbbbccccdddd1111222233339999.1c'],
+		];
+	}
+
+	public static function missionWaypointProvider(): array
+	{
+		return [
+			['0a3f101657ac441286a56b391f969e15.1c', 1, 'Here Albert Einstein Played the Violin', WaypointObjective::Hack, '50.087246,14.421810'],
+			['493a37be3e3b4991bc083a3b815c97bc.1c', 5, 'Sir Nicholas George Winton', WaypointObjective::EnterPassphrase, '50.082440,14.435059'],
+		];
+	}
+
+	public static function missionsByPortalProvider(): array
+	{
+		return [
+			['0a3f101657ac441286a56b391f969e15.1c', '0bd94fac5de84105b6eef6e7e1639ad9.12'],
+		];
+	}
+
+	public static function missionsNearbyProvider(): array
+	{
+		return [
+			['0a3f101657ac441286a56b391f969e15.1c', 50.087451, 14.420671],
+		];
+	}
+
 	public static function searchProvider(): array
 	{
 		return [
@@ -110,6 +153,11 @@ final class ClientTest extends TestCase
 	public function testImplementsPortalProvider(): void
 	{
 		$this->assertInstanceOf(PortalProvider::class, $this->createClient($this->httpTestClients->mockedHttpClient));
+	}
+
+	public function testImplementsMissionProvider(): void
+	{
+		$this->assertInstanceOf(MissionProvider::class, $this->createClient($this->httpTestClients->mockedHttpClient));
 	}
 
 	/**
@@ -311,6 +359,184 @@ final class ClientTest extends TestCase
 		$this->expectException(PortalnikException::class);
 		$this->expectExceptionMessage('failed with HTTP 503: Service Unavailable (Try again later)');
 		$client->getPortalByGUID('ed64a5b3c8fc3d61973a863b3667b116.16');
+	}
+
+	/**
+	 * @group request
+	 * @dataProvider missionProvider
+	 */
+	public function testGetMissionByGuidReal(string $guid, string $expectedTitle, MissionKind $expectedKind, int $expectedWaypointsCount, string $expectedStartLatLon, string $expectedStartPortalGuid): void
+	{
+		$this->testGetMissionByGuid($this->createRealClient(), $guid, $expectedTitle, $expectedKind, $expectedWaypointsCount, $expectedStartLatLon, $expectedStartPortalGuid);
+	}
+
+	/**
+	 * @dataProvider missionProvider
+	 */
+	public function testGetMissionByGuidOffline(string $guid, string $expectedTitle, MissionKind $expectedKind, int $expectedWaypointsCount, string $expectedStartLatLon, string $expectedStartPortalGuid): void
+	{
+		$this->testGetMissionByGuid($this->createOfflineClient(), $guid, $expectedTitle, $expectedKind, $expectedWaypointsCount, $expectedStartLatLon, $expectedStartPortalGuid);
+	}
+
+	private function testGetMissionByGuid(Client $client, string $guid, string $expectedTitle, MissionKind $expectedKind, int $expectedWaypointsCount, string $expectedStartLatLon, string $expectedStartPortalGuid): void
+	{
+		$mission = $client->getMissionByGUID($guid);
+		$this->assertSame($guid, $mission->getGuid());
+		$this->assertSame($expectedTitle, $mission->getTitle());
+		$this->assertSame($expectedKind, $mission->getKind());
+		$this->assertTrue($mission->hasDetails);
+		$this->assertStringStartsWith('https://lh3.googleusercontent.com/', $mission->getImageLink());
+		$this->assertSame('https://intel.ingress.com/mission/' . $guid, $mission->getIntelLink());
+
+		$waypoints = $mission->getWaypoints();
+		$this->assertCount($expectedWaypointsCount, $waypoints);
+		$this->assertSame(range(0, $expectedWaypointsCount - 1), array_map(fn(WaypointInterface $waypoint) => $waypoint->getPosition(), $waypoints));
+
+		$start = $mission->getStartWaypoint();
+		$this->assertSame(0, $start->getPosition());
+		$this->assertSame(WaypointKind::Portal, $start->getKind());
+		$this->assertSame($expectedStartLatLon, $start->getCoordinates()->getLatLon());
+		$this->assertSame($expectedStartPortalGuid, $start->getPortalGuid());
+	}
+
+	/**
+	 * @group request
+	 * @dataProvider missionGuidNotExists
+	 */
+	public function testGetMissionByGuidInvalidReal(string $guid): void
+	{
+		$this->assertNull($this->createRealClient()->getMissionByGUID($guid));
+	}
+
+	/**
+	 * @dataProvider missionGuidNotExists
+	 */
+	public function testGetMissionByGuidInvalidOffline(string $guid): void
+	{
+		$this->assertNull($this->createOfflineClient()->getMissionByGUID($guid));
+	}
+
+	/**
+	 * @group request
+	 * @dataProvider missionWaypointProvider
+	 */
+	public function testGetMissionWaypointReal(string $missionGuid, int $position, string $expectedTitle, WaypointObjective $expectedObjective, string $expectedLatLon): void
+	{
+		$this->testGetMissionWaypoint($this->createRealClient(), $missionGuid, $position, $expectedTitle, $expectedObjective, $expectedLatLon);
+	}
+
+	/**
+	 * @dataProvider missionWaypointProvider
+	 */
+	public function testGetMissionWaypointOffline(string $missionGuid, int $position, string $expectedTitle, WaypointObjective $expectedObjective, string $expectedLatLon): void
+	{
+		$this->testGetMissionWaypoint($this->createOfflineClient(), $missionGuid, $position, $expectedTitle, $expectedObjective, $expectedLatLon);
+	}
+
+	private function testGetMissionWaypoint(Client $client, string $missionGuid, int $position, string $expectedTitle, WaypointObjective $expectedObjective, string $expectedLatLon): void
+	{
+		$waypoint = $client->getMissionWaypoint($missionGuid, $position);
+		$this->assertSame($position, $waypoint->getPosition());
+		$this->assertSame($expectedTitle, $waypoint->getTitle());
+		$this->assertSame($expectedObjective, $waypoint->getObjective());
+		$this->assertFalse($waypoint->isHidden());
+		$this->assertSame($expectedLatLon, $waypoint->getCoordinates()->getLatLon());
+	}
+
+	/**
+	 * @group request
+	 */
+	public function testGetMissionWaypointInvalidReal(): void
+	{
+		$this->assertNull($this->createRealClient()->getMissionWaypoint('0a3f101657ac441286a56b391f969e15.1c', 999));
+	}
+
+	public function testGetMissionWaypointInvalidOffline(): void
+	{
+		$this->assertNull($this->createOfflineClient()->getMissionWaypoint('0a3f101657ac441286a56b391f969e15.1c', 999));
+	}
+
+	public function testGetMissionWaypointInvalidPosition(): void
+	{
+		$client = $this->createClient($this->httpTestClients->mockedHttpClient);
+
+		$this->expectException(\InvalidArgumentException::class);
+		$client->getMissionWaypoint('0a3f101657ac441286a56b391f969e15.1c', -1);
+	}
+
+	/**
+	 * @group request
+	 * @dataProvider missionsByPortalProvider
+	 */
+	public function testGetMissionsByPortalReal(string $expectedMissionGuid, string $portalGuid): void
+	{
+		$this->testGetMissionsByPortal($this->createRealClient(), $expectedMissionGuid, $portalGuid);
+	}
+
+	/**
+	 * @dataProvider missionsByPortalProvider
+	 */
+	public function testGetMissionsByPortalOffline(string $expectedMissionGuid, string $portalGuid): void
+	{
+		$this->testGetMissionsByPortal($this->createOfflineClient(), $expectedMissionGuid, $portalGuid);
+	}
+
+	private function testGetMissionsByPortal(Client $client, string $expectedMissionGuid, string $portalGuid): void
+	{
+		$missions = $client->getMissionsByPortal($portalGuid);
+		$guids = array_map(fn(MissionInterface $mission) => $mission->getGuid(), $missions);
+		$this->assertContains($expectedMissionGuid, $guids);
+		$this->assertSame([], $missions[0]->getWaypoints(), 'Missions from list endpoint are without waypoints.');
+	}
+
+	/**
+	 * @group request
+	 * @dataProvider guidNotExists
+	 */
+	public function testGetMissionsByPortalInvalidReal(string $portalGuid): void
+	{
+		$this->assertNull($this->createRealClient()->getMissionsByPortal($portalGuid));
+	}
+
+	/**
+	 * @dataProvider guidNotExists
+	 */
+	public function testGetMissionsByPortalInvalidOffline(string $portalGuid): void
+	{
+		$this->assertNull($this->createOfflineClient()->getMissionsByPortal($portalGuid));
+	}
+
+	/**
+	 * @group request
+	 * @dataProvider missionsNearbyProvider
+	 */
+	public function testGetMissionsNearbyReal(string $expectedMissionGuid, float $lat, float $lon): void
+	{
+		$this->testGetMissionsNearby($this->createRealClient(), $expectedMissionGuid, $lat, $lon);
+	}
+
+	/**
+	 * @dataProvider missionsNearbyProvider
+	 */
+	public function testGetMissionsNearbyOffline(string $expectedMissionGuid, float $lat, float $lon): void
+	{
+		$this->testGetMissionsNearby($this->createOfflineClient(), $expectedMissionGuid, $lat, $lon);
+	}
+
+	private function testGetMissionsNearby(Client $client, string $expectedMissionGuid, float $lat, float $lon): void
+	{
+		$missions = $client->getMissionsNearby($lat, $lon, radius: 50, limit: 50);
+		$this->assertLessThanOrEqual(50, count($missions));
+		$guids = array_map(fn(MissionInterface $mission) => $mission->getGuid(), $missions);
+		$this->assertContains($expectedMissionGuid, $guids);
+	}
+
+	public function testGetMissionsNearbyInvalidRadius(): void
+	{
+		$client = $this->createClient($this->httpTestClients->mockedHttpClient);
+
+		$this->expectException(\InvalidArgumentException::class);
+		$client->getMissionsNearby(50.087451, 14.420671, radius: 20001);
 	}
 
 	private function appendMockedJson(array $data, int $status = 200): void

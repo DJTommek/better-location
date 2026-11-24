@@ -2,8 +2,11 @@
 
 namespace App\IngressPortalnik;
 
+use App\Ingress\MissionProvider;
 use App\Ingress\PortalProvider;
+use App\IngressPortalnik\Types\MissionType;
 use App\IngressPortalnik\Types\PortalType;
+use App\IngressPortalnik\Types\WaypointType;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
 use Psr\Http\Client\ClientInterface;
@@ -13,16 +16,19 @@ use Psr\SimpleCache\CacheInterface;
  * IvoPortalnik API - database and caching proxy of Ingress portals and missions.
  *
  * Coordinates in responses are decimal degrees, all times are UTC.
- * Missions are not implemented yet.
  *
  * @see ivo-portalnik-api-0.2.1.json OpenAPI definition
  */
-class Client implements PortalProvider
+class Client implements PortalProvider, MissionProvider
 {
 	private const string PATH_PORTALS_IDENTIFY = '/api/v1/portals/identify';
 	private const string PATH_PORTALS_NEARBY = '/api/v1/portals/nearby';
 	private const string PATH_PORTALS_SEARCH = '/api/v1/portals/search';
 	private const string PATH_PORTAL = '/api/v1/portals/%s';
+	private const string PATH_PORTAL_MISSIONS = '/api/v1/portals/%s/missions';
+	private const string PATH_MISSIONS_NEARBY = '/api/v1/missions/nearby';
+	private const string PATH_MISSION = '/api/v1/missions/%s';
+	private const string PATH_MISSION_WAYPOINT = '/api/v1/missions/%s/waypoints/%d';
 
 	private readonly string $apiUrl;
 
@@ -146,6 +152,89 @@ class Client implements PortalProvider
 		$result = [];
 		foreach ($json->portals ?? [] as $portalData) {
 			$result[] = PortalType::createFromVariable($portalData);
+		}
+		return $result;
+	}
+
+	/**
+	 * Mission with its waypoints (if known, see MissionType::$hasDetails).
+	 *
+	 * @param string $guid Ingress mission GUID, eg. "b9d1285bdf184780a79f1a00b68e893e.1c"
+	 * @return ?MissionType Null if mission is not in local database of API.
+	 */
+	#[\Override]
+	public function getMissionByGUID(string $guid): ?MissionType
+	{
+		$json = $this->request(sprintf(self::PATH_MISSION, rawurlencode($guid)));
+		if ($json === null) {
+			return null;
+		}
+		return MissionType::createFromVariable($json->mission, $json->waypoints ?? []);
+	}
+
+	/**
+	 * Single waypoint of a mission.
+	 *
+	 * @param int $position 0-based (0 - 1000)
+	 * @return ?WaypointType Null if mission or waypoint is not found.
+	 */
+	public function getMissionWaypoint(string $missionGuid, int $position): ?WaypointType
+	{
+		if ($position < 0 || $position > 1000) {
+			throw new \InvalidArgumentException(sprintf('Parameter "position" (%d) must be between 0 and 1000.', $position));
+		}
+
+		$json = $this->request(sprintf(self::PATH_MISSION_WAYPOINT, rawurlencode($missionGuid), $position));
+		if ($json === null) {
+			return null;
+		}
+		return WaypointType::createFromVariable($json->waypoint);
+	}
+
+	/**
+	 * Missions with a waypoint at given portal. Missions are without waypoints.
+	 *
+	 * @return ?list<MissionType> Null if portal is not in local database of API.
+	 */
+	public function getMissionsByPortal(string $portalGuid): ?array
+	{
+		$json = $this->request(sprintf(self::PATH_PORTAL_MISSIONS, rawurlencode($portalGuid)));
+		if ($json === null) {
+			return null;
+		}
+		$result = [];
+		foreach ($json->missions as $missionData) {
+			$result[] = MissionType::createFromVariable($missionData);
+		}
+		return $result;
+	}
+
+	/**
+	 * Missions with a waypoint within a radius, sorted by the distance of the nearest waypoint. Only missions whose
+	 * detail (waypoints) is known, but returned missions are without waypoints.
+	 *
+	 * @param int $radius Meters (1 - 20000)
+	 * @param int $limit 1 - 200
+	 * @return list<MissionType>
+	 */
+	public function getMissionsNearby(float $lat, float $lng, int $radius = 1000, int $limit = 50): array
+	{
+		if ($radius < 1 || $radius > 20000) {
+			throw new \InvalidArgumentException(sprintf('Parameter "radius" (%d) must be between 1 and 20000.', $radius));
+		}
+		if ($limit < 1 || $limit > 200) {
+			throw new \InvalidArgumentException(sprintf('Parameter "limit" (%d) must be between 1 and 200.', $limit));
+		}
+
+		$json = $this->request(self::PATH_MISSIONS_NEARBY, [
+			'lat' => $lat,
+			'lng' => $lng,
+			'radius' => $radius,
+			'limit' => $limit,
+		]);
+		$result = [];
+		foreach ($json->missions ?? [] as $item) {
+			$result[] = MissionType::createFromVariable($item->mission);
 		}
 		return $result;
 	}
