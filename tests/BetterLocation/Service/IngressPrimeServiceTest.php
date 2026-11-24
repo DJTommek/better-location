@@ -242,14 +242,14 @@ final class IngressPrimeServiceTest extends AbstractServiceTestCase
 		$prague = [
 			'50.087451,14.420671',
 			'Mission MD 2019: Prague, Old Town Square Execution',
-			'Mission <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2F0a3f101657ac441286a56b391f969e15.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2F0a3f101657ac441286a56b391f969e15.1c">MD 2019: Prague, Old Town Square Execution 📱</a> <a href="https://intel.ingress.com/mission/0a3f101657ac441286a56b391f969e15.1c">🖥</a> <a href="https://lh3.googleusercontent.com/kIJMTATIQyDn5UTw9X7Y3-weF3lUDxygiEiW7YegZdyvJJ8fb-lRVd2EnjV_fxac3_U3LjhIaIqi6LDlsGw=s10000">🖼</a>',
+			'Mission <a href="https://link.ingress.com/mission/0a3f101657ac441286a56b391f969e15.1c">MD 2019: Prague, Old Town Square Execution 📱</a> <a href="https://intel.ingress.com/mission/0a3f101657ac441286a56b391f969e15.1c">🖥</a> <a href="https://lh3.googleusercontent.com/kIJMTATIQyDn5UTw9X7Y3-weF3lUDxygiEiW7YegZdyvJJ8fb-lRVd2EnjV_fxac3_U3LjhIaIqi6LDlsGw=s10000">🖼</a>',
 			'7 waypoints, any order',
 			'Start portal: <a href="https://link.ingress.com/portal/0bd94fac5de84105b6eef6e7e1639ad9.12">Staroměstské náměstí 📱</a> <a href="https://intel.ingress.com/intel?pll=50.087451,14.420671">🖥</a>',
 		];
 		$horseshoeLake = [
 			'40.857356,-74.636430',
 			'Mission 1/6 Horseshoe Lake Second Sunday June ‘22',
-			'Mission <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fb9d1285bdf184780a79f1a00b68e893e.1c&apn=com.nianticproject.ingress&isi=576505181&ibi=com.google.ingress&ifl=https%3A%2F%2Fapps.apple.com%2Fapp%2Fingress%2Fid576505181&ofl=https%3A%2F%2Fintel.ingress.com%2Fmission%2Fb9d1285bdf184780a79f1a00b68e893e.1c">1/6 Horseshoe Lake Second Sunday June ‘22 📱</a> <a href="https://intel.ingress.com/mission/b9d1285bdf184780a79f1a00b68e893e.1c">🖥</a> <a href="https://lh3.googleusercontent.com/aECVP5ae77QzpsnFkMVi3wgl7QsfiAowtNrtSvNqbKk5ZECXLq33vdDfP3qXJz6mpM_Xk_BmBk3uF2NlEQ0vYncsqJqRHlw68g=s10000">🖼</a>',
+			'Mission <a href="https://link.ingress.com/mission/b9d1285bdf184780a79f1a00b68e893e.1c">1/6 Horseshoe Lake Second Sunday June ‘22 📱</a> <a href="https://intel.ingress.com/mission/b9d1285bdf184780a79f1a00b68e893e.1c">🖥</a> <a href="https://lh3.googleusercontent.com/aECVP5ae77QzpsnFkMVi3wgl7QsfiAowtNrtSvNqbKk5ZECXLq33vdDfP3qXJz6mpM_Xk_BmBk3uF2NlEQ0vYncsqJqRHlw68g=s10000">🖼</a>',
 			'8 waypoints, any order',
 			'Start portal: <a href="https://link.ingress.com/portal/0a4769e7089141c6993d27d1c9d266e6.16">Alligator Play Structure 📱</a> <a href="https://intel.ingress.com/intel?pll=40.857356,-74.636430">🖥</a>',
 		];
