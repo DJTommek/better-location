@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\Config;
 use App\Icons;
+use App\Ingress\PortalProvider;
 use App\Utils\Ingress;
 use App\Utils\Requestor;
 use App\Utils\Strict;
@@ -20,7 +21,7 @@ final class FevGamesService extends AbstractService
 	const string LINK = 'https://fevgames.net';
 
 	public function __construct(
-		private readonly \App\IngressLanchedRu\Client $ingressClient,
+		private readonly PortalProvider $ingressClient,
 		private readonly IngressIntelService $ingressIntelService,
 		private readonly Requestor $requestor,
 	) {
@@ -154,9 +155,9 @@ final class FevGamesService extends AbstractService
 		if (
 			$usePortalAddress
 			&& $portal !== null
-			&& in_array($portal->address, ['', 'undefined', '[Unknown Location]'], true) === false // show portal address only if it makes sense
+			&& ($portalAddress = Ingress::getPortalAddress($portal)) !== null
 		) {
-			$eventLocation->setAddress(htmlspecialchars($portal->address));
+			$eventLocation->setAddress(htmlspecialchars($portalAddress));
 		}
 	}
 }

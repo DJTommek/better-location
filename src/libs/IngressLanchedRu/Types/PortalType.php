@@ -2,11 +2,11 @@
 
 namespace App\IngressLanchedRu\Types;
 
+use App\Ingress\PortalInterface;
 use App\Utils\Ingress;
-use DJTommek\Coordinates\CoordinatesInterface;
 use Tracy\Debugger;
 
-class PortalType implements CoordinatesInterface
+class PortalType implements PortalInterface
 {
 	/** @var string */
 	public $guid;
@@ -45,6 +45,25 @@ class PortalType implements CoordinatesInterface
 		Debugger::log(sprintf('Property "%s$%s" of type "%s" is not predefined.', static::class, $name, gettype($value)), Debugger::WARNING);
 	}
 
+	#[\Override]
+	public function getGuid(): string
+	{
+		return $this->guid;
+	}
+
+	#[\Override]
+	public function getName(): ?string
+	{
+		return $this->name;
+	}
+
+	#[\Override]
+	public function getAddress(): ?string
+	{
+		return $this->address;
+	}
+
+	#[\Override]
 	public function getIntelLink(): string
 	{
 		if ($this->intelLink === null) {
@@ -53,6 +72,7 @@ class PortalType implements CoordinatesInterface
 		return $this->intelLink;
 	}
 
+	#[\Override]
 	public function getPrimeLink(): string
 	{
 		if ($this->primeLink === null) {
@@ -61,6 +81,7 @@ class PortalType implements CoordinatesInterface
 		return $this->primeLink;
 	}
 
+	#[\Override]
 	public function getLightshipLink(): string
 	{
 		if ($this->lightshipLink === null) {
@@ -72,6 +93,7 @@ class PortalType implements CoordinatesInterface
 	/**
 	 * @param ?int $size Append size parameter to image URL. See https://developers.google.com/people/image-sizing
 	 */
+	#[\Override]
 	public function getImageLink(?int $size = null): ?string
 	{
 		$result = $this->image;

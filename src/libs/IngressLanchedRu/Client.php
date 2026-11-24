@@ -2,6 +2,7 @@
 
 namespace App\IngressLanchedRu;
 
+use App\Ingress\PortalProvider;
 use App\IngressLanchedRu\Types\PortalType;
 use App\Utils\Requestor;
 
@@ -17,7 +18,7 @@ use App\Utils\Requestor;
  * @see https://lanched.ru/PortalGet/
  * @author Tomas Palider (DJTommek) https://tomas.palider.cz/ Author of this PHP wrapper only, not related to API in any way.
  */
-class Client
+class Client implements PortalProvider
 {
 	const LINK = 'https://lanched.ru/PortalGet';
 	const LINK_INGRESS_INTEL = 'https://intel.ingress.com';
@@ -105,6 +106,7 @@ class Client
 	}
 
 	/** Shortcut to searchPortals() */
+	#[\Override]
 	public function getPortalByCoords(float $lat, float $lng): ?PortalType
 	{
 		$query = sprintf('%F,%F', $lat, $lng);
@@ -117,6 +119,7 @@ class Client
 	}
 
 	/** Shortcut to searchPortals() */
+	#[\Override]
 	public function getPortalByGUID(string $guid): ?PortalType
 	{
 		$portals = $this->searchPortals(null, null, $guid);

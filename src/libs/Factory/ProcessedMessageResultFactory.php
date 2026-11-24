@@ -5,7 +5,7 @@ namespace App\Factory;
 use App\Address\AddressProvider;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\MessageGeneratorInterface;
-use App\IngressLanchedRu\Client as LanchedRuClient;
+use App\Ingress\PortalProvider;
 use App\Pluginer\Pluginer;
 use App\TelegramCustomWrapper\BetterLocationMessageSettings;
 use App\TelegramCustomWrapper\ProcessedMessageResult;
@@ -13,7 +13,7 @@ use App\TelegramCustomWrapper\ProcessedMessageResult;
 final readonly class ProcessedMessageResultFactory
 {
 	public function __construct(
-		private ?LanchedRuClient $lanchedRuClient = null,
+		private ?PortalProvider $ingressPortalProvider = null,
 		private ?AddressProvider $addressProvider = null,
 	) {
 	}
@@ -30,7 +30,7 @@ final readonly class ProcessedMessageResultFactory
 			messageSettings: $messageSettings,
 			messageGenerator: $messageGenerator,
 			pluginer: $pluginer,
-			lanchedRuClient: $this->lanchedRuClient,
+			ingressPortalProvider: $this->ingressPortalProvider,
 			addressProvider: $this->addressProvider,
 			addressForce: $addressForce,
 		);

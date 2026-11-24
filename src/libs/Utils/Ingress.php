@@ -4,7 +4,7 @@ namespace App\Utils;
 
 use App\BetterLocation\BetterLocation;
 use App\Icons;
-use App\IngressLanchedRu\Types\PortalType;
+use App\Ingress\PortalInterface;
 use Nette\Http\Url;
 
 class Ingress
@@ -16,11 +16,11 @@ class Ingress
 		return preg_match('/^([0-9a-z]{32}\.[0-9a-f]{1,2})$/i', $input) === 1;
 	}
 
-	public static function generatePortalLinkMessage(PortalType $portal): string
+	public static function generatePortalLinkMessage(PortalInterface $portal): string
 	{
 		return sprintf('<a href="%s">%s %s</a> <a href="%s">%s</a> <a href="%s">%s</a> <a href="%s">%s</a>',
 			$portal->getPrimeLink(),
-			htmlspecialchars($portal->name),
+			htmlspecialchars(self::getPortalName($portal)),
 			Icons::INGRESS_PRIME,
 			$portal->getIntelLink(),
 			Icons::INGRESS_INTEL,
@@ -34,26 +34,44 @@ class Ingress
 	/**
 	 * Rewrite BetterLocation prefixes. Use only for Ingress-related services
 	 */
-	public static function rewritePrefixes(BetterLocation $location, PortalType $portal): void
+	public static function rewritePrefixes(BetterLocation $location, PortalInterface $portal): void
 	{
-		$portalName = htmlspecialchars($portal->name);
+		$portalName = htmlspecialchars(self::getPortalName($portal));
 		$location->setInlinePrefixMessage($portalName);
 		$location->setPrefixMessage(self::generatePortalLinkMessage($portal));
 	}
 
-	public static function appendPortalDataDescription(BetterLocation $location, PortalType $portal): void
+	public static function appendPortalDataDescription(BetterLocation $location, PortalInterface $portal): void
 	{
 		$location->addDescription(
 			'Ingress portal: ' . self::generatePortalLinkMessage($portal),
 			self::BETTER_LOCATION_KEY_PORTAL,
 		);
 
-		if (
-			$location->hasAddress() === false
-			&& in_array($portal->address, ['', 'undefined', '[Unknown Location]'], true) === false // show portal address only if it makes sense
-		) {
-			$location->setAddress(htmlspecialchars($portal->address));
+		$address = self::getPortalAddress($portal);
+		if ($location->hasAddress() === false && $address !== null) {
+			$location->setAddress(htmlspecialchars($address));
 		}
+	}
+
+	/**
+	 * Portal name or placeholder, if name is unknown.
+	 */
+	public static function getPortalName(PortalInterface $portal): string
+	{
+		return $portal->getName() ?? 'Unknown portal';
+	}
+
+	/**
+	 * Portal address, but only if it makes sense to show it.
+	 */
+	public static function getPortalAddress(PortalInterface $portal): ?string
+	{
+		$address = $portal->getAddress();
+		if (in_array($address, [null, '', 'undefined', '[Unknown Location]'], true)) {
+			return null;
+		}
+		return $address;
 	}
 
 	public static function generateIntelMissionLink(string $guid): string

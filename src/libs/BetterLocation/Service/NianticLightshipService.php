@@ -4,6 +4,7 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\Ingress\PortalProvider;
 use App\Utils\Ingress;
 use DJTommek\Coordinates\Coordinates;
 use DJTommek\Coordinates\CoordinatesImmutable;
@@ -21,7 +22,7 @@ final class NianticLightshipService extends AbstractService
 	private string|null $venueGuid = null;
 
 	public function __construct(
-		private readonly \App\IngressLanchedRu\Client $ingressClient,
+		private readonly PortalProvider $ingressClient,
 	) {
 	}
 
@@ -74,8 +75,8 @@ final class NianticLightshipService extends AbstractService
 			$portal = $this->ingressClient->getPortalByGUID($this->venueGuid);
 			$location = new BetterLocation(
 				$this->input,
-				$portal->lat,
-				$portal->lng,
+				$portal->getLat(),
+				$portal->getLon(),
 				self::class,
 				self::TYPE_VENUE,
 			);

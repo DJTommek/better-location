@@ -5,7 +5,7 @@ namespace App\TelegramCustomWrapper;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\MessageGeneratorInterface;
 use App\Chat;
-use App\IngressLanchedRu\Client as IngressLanchedRuClient;
+use App\Ingress\PortalProvider;
 use App\Pluginer\Pluginer;
 use App\Repository\ChatEntity;
 use App\TelegramUpdateDb;
@@ -25,7 +25,7 @@ trait UniversalHandleLocationTrait
 
 	abstract function getPluginer(): ?Pluginer;
 
-	abstract function getIngressLanchedRuClient(): IngressLanchedRuClient;
+	abstract function getIngressPortalProvider(): PortalProvider;
 
 	abstract function getMessageGenerator(): MessageGeneratorInterface;
 

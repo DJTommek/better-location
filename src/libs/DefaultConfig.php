@@ -167,6 +167,15 @@ class DefaultConfig
 	const INGRESS_TRY_PORTAL_LOAD = true;
 
 	/**
+	 * IvoPortalnik API for loading Ingress portals. If both URL and API key are set, it is used instead of lanched.ru API.
+	 *
+	 * @var ?string Base URL of API without "/api/v1" path, eg. 'https://portalnik.example.com', or null to disable
+	 */
+	const PORTALNIK_API_URL = null;
+	/** @var ?string API token (sent as "Authorization: Bearer <token>") or null to disable */
+	const PORTALNIK_API_KEY = null;
+
+	/**
 	 * If some input (URL) has multiple different locations, how far it has to be from main coordinate to add special line
 	 * to notify, that these locations are too far away. Anything lower than this number will be removed from collection
 	 *
@@ -287,6 +296,7 @@ class DefaultConfig
 	const CACHE_TTL_GEOCACHING_API = 60 * 60 * 24;
 	const CACHE_TTL_WAYMARKING = 60 * 60 * 24;
 	const CACHE_TTL_INGRESS_LANCHED_RU_API = 60 * 60 * 24;
+	const CACHE_TTL_INGRESS_PORTALNIK_API = 60 * 60 * 24;
 	const CACHE_TTL_DROBNE_PAMATKY_CZ = 60 * 60 * 24;
 	const CACHE_TTL_DEAD_DROPS_COM = 60 * 60 * 24;
 	const CACHE_TTL_FDRIVE_CZ = 60 * 60 * 24;
@@ -394,6 +404,19 @@ class DefaultConfig
 	public static function ingressTryPortalLoad(): bool
 	{
 		return static::INGRESS_TRY_PORTAL_LOAD;
+	}
+
+	public static function getPortalnikApiUrl(): ?string
+	{
+		return static::PORTALNIK_API_URL;
+	}
+
+	public static function isPortalnik(): bool
+	{
+		return (
+			is_null(static::PORTALNIK_API_URL) === false &&
+			is_null(static::PORTALNIK_API_KEY) === false
+		);
 	}
 
 	public static function isTelegram(): bool

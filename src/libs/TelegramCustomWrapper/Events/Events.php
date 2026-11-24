@@ -9,7 +9,7 @@ use App\Config;
 use App\Factory\ChatFactory;
 use App\Factory\ProcessedMessageResultFactory;
 use App\Factory\UserFactory;
-use App\IngressLanchedRu\Client as IngressLanchedRuClient;
+use App\Ingress\PortalProvider;
 use App\Logger\CustomTelegramLogger;
 use App\Pluginer\Pluginer;
 use App\Repository\ChatRepository;
@@ -40,7 +40,7 @@ abstract class Events
 {
 	private readonly ChatRepository $chatRepository;
 	private readonly ClientInterface $httpClient;
-	private readonly ?IngressLanchedRuClient $lanchedRuClient;
+	private readonly PortalProvider $ingressPortalProvider;
 	protected readonly ProcessedMessageResultFactory $processedMessageResultFactory;
 	private readonly ChatMemberRecalculator $chatMemberRecalculator;
 	private readonly ChatFactory $chatFactory;
@@ -72,7 +72,7 @@ abstract class Events
 		ChatRepository $chatRepository,
 		CustomTelegramLogger $customTelegramLogger,
 		ClientInterface $httpClient,
-		IngressLanchedRuClient $lanchedRuClient,
+		PortalProvider $ingressPortalProvider,
 		ProcessedMessageResultFactory $processedMessageResultFactory,
 		ChatMemberRecalculator $chatMemberRecalculator,
 		ChatFactory $chatFactory,
@@ -81,7 +81,7 @@ abstract class Events
 	): self {
 		$this->chatRepository = $chatRepository;
 		$this->httpClient = $httpClient;
-		$this->lanchedRuClient = $lanchedRuClient;
+		$this->ingressPortalProvider = $ingressPortalProvider;
 		$this->processedMessageResultFactory = $processedMessageResultFactory;
 		$this->chatMemberRecalculator = $chatMemberRecalculator;
 		$this->chatFactory = $chatFactory;
@@ -197,9 +197,9 @@ abstract class Events
 		);
 	}
 
-	protected function getIngressLanchedRuClient(): IngressLanchedRuClient
+	protected function getIngressPortalProvider(): PortalProvider
 	{
-		return $this->lanchedRuClient;
+		return $this->ingressPortalProvider;
 	}
 
 	public function getTgFrom(): Telegram\Types\User|Telegram\Types\Chat

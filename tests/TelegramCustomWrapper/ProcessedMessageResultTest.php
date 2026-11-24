@@ -570,7 +570,7 @@ Ingress portal: <a href="https://link.ingress.com/?link=https%3A%2F%2Fintel.ingr
 			collection: $collection,
 			messageSettings: $settings,
 			messageGenerator: $this->messageGenerator,
-			lanchedRuClient: $lanchedRuClient,
+			ingressPortalProvider: $lanchedRuClient,
 		);
 		$processedCollection->process();
 

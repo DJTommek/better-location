@@ -619,12 +619,6 @@ parameters:
 			path: src/libs/TelegramCustomWrapper/Events/Events.php
 
 		-
-			message: '#^Property App\\TelegramCustomWrapper\\Events\\Events\:\:\$lanchedRuClient \(App\\IngressLanchedRu\\Client\|null\) is never assigned null so it can be removed from the property type\.$#'
-			identifier: property.unusedType
-			count: 1
-			path: src/libs/TelegramCustomWrapper/Events/Events.php
-
-		-
 			message: '#^Using nullsafe property access "\?\-\>migrate_to_chat_id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
 			identifier: nullsafe.neverNull
 			count: 1

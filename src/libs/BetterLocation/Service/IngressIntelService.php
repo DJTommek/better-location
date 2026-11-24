@@ -5,6 +5,7 @@ namespace App\BetterLocation\Service;
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
 use App\BetterLocation\ServicesManager;
+use App\Ingress\PortalProvider;
 use App\Utils\Ingress;
 use DJTommek\Coordinates\Coordinates;
 use Tracy\Debugger;
@@ -29,7 +30,7 @@ final class IngressIntelService extends AbstractService
 	private ?Coordinates $mapCoords = null;
 
 	public function __construct(
-		private readonly \App\IngressLanchedRu\Client $ingressClient,
+		private readonly PortalProvider $ingressClient,
 	) {
 	}
 

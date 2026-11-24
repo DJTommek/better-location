@@ -7,7 +7,7 @@ use App\BetterLocation\BetterLocation;
 use App\BetterLocation\BetterLocationCollection;
 use App\BetterLocation\MessageGeneratorInterface;
 use App\Config;
-use App\IngressLanchedRu\Client as LanchedRuClient;
+use App\Ingress\PortalProvider;
 use App\Pluginer\Pluginer;
 use App\Pluginer\PluginerException;
 use App\Utils\Ingress;
@@ -34,7 +34,7 @@ class ProcessedMessageResult
 		private readonly BetterLocationMessageSettings $messageSettings,
 		private readonly MessageGeneratorInterface $messageGenerator,
 		private readonly ?Pluginer $pluginer = null,
-		private readonly ?LanchedRuClient $lanchedRuClient = null,
+		private readonly ?PortalProvider $ingressPortalProvider = null,
 		private readonly ?AddressProvider $addressProvider = null,
 		private readonly ?bool $addressForce = null,
 	) {
@@ -76,11 +76,11 @@ class ProcessedMessageResult
 			if (
 				Config::ingressTryPortalLoad()
 				&& $this->messageSettings->tryLoadIngressPortal()
-				&& $this->lanchedRuClient !== null
+				&& $this->ingressPortalProvider !== null
 				&& $betterLocation->hasDescription(Ingress::BETTER_LOCATION_KEY_PORTAL) === false
 			) {
 				try {
-					$portal = $this->lanchedRuClient->getPortalByCoords($betterLocation->getLat(), $betterLocation->getLon());
+					$portal = $this->ingressPortalProvider->getPortalByCoords($betterLocation->getLat(), $betterLocation->getLon());
 					if ($portal !== null) {
 						Ingress::appendPortalDataDescription($betterLocation, $portal);
 					}

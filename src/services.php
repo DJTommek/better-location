@@ -175,8 +175,21 @@ return static function (ContainerConfigurator $container): void {
 			->arg('$cacheTtl', Config::CACHE_TTL_FOURSQUARE_API);
 	}
 
+	// Ingress portal providers, IvoPortalnik is preferred if configured
 	$services->set(\App\IngressLanchedRu\Client::class)
 		->arg('$cacheTtl', Config::CACHE_TTL_INGRESS_LANCHED_RU_API);
+	$ingressPortalProvider = \App\IngressLanchedRu\Client::class;
+
+	if (Config::isPortalnik()) {
+		$services->set(\App\IngressPortalnik\Client::class)
+			->arg('$apiUrl', Config::PORTALNIK_API_URL)
+			->arg('$apiKey', Config::PORTALNIK_API_KEY)
+			->arg('$cacheTtl', Config::CACHE_TTL_INGRESS_PORTALNIK_API);
+		$ingressPortalProvider = \App\IngressPortalnik\Client::class;
+	}
+
+	$services->set(\App\Ingress\PortalProvider::class)
+		->alias(\App\Ingress\PortalProvider::class, $ingressPortalProvider);
 
 	$services->set(\App\Factory\NominatimFactory::class)
 		->arg('$nominatimUrl', Config::NOMINATIM_URL)

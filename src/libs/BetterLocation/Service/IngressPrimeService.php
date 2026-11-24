@@ -4,6 +4,7 @@ namespace App\BetterLocation\Service;
 
 use App\BetterLocation\BetterLocation;
 use App\BetterLocation\Service\Exceptions\NotSupportedException;
+use App\Ingress\PortalProvider;
 use App\Utils\Ingress;
 use App\Utils\Strict;
 use Nette\Http\Url;
@@ -25,7 +26,7 @@ final class IngressPrimeService extends AbstractService
 	private ?string $oflLink = null;
 
 	public function __construct(
-		private readonly \App\IngressLanchedRu\Client $ingressClient,
+		private readonly PortalProvider $ingressClient,
 		private readonly IngressIntelService $ingressIntelService,
 	) {
 	}
@@ -124,7 +125,7 @@ final class IngressPrimeService extends AbstractService
 			isset($this->portalGuid)
 			&& $portal = $this->ingressClient->getPortalByGUID($this->portalGuid)
 		) {
-			$location = new BetterLocation($this->input, $portal->lat, $portal->lng, self::class, self::TYPE_PORTAL);
+			$location = new BetterLocation($this->input, $portal->getLat(), $portal->getLon(), self::class, self::TYPE_PORTAL);
 			Ingress::rewritePrefixes($location, $portal);
 			$location->addDescription('', Ingress::BETTER_LOCATION_KEY_PORTAL); // Prevent generating Ingress description
 			$this->collection->add($location);
